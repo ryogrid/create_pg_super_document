@@ -8,7 +8,10 @@ A validation function that checks PostgreSQL query results and handles various r
 
 ## Definition
 
-
+```c
+bool
+ecpg_check_PQresult(PGresult *results, int lineno, PGconn *connection, enum COMPAT_MODE compat)
+```
 ## Detailed Description
 The  function serves as a central validation point for all PostgreSQL query results in the ECPG library. It examines the status of PGresult objects returned by libpq functions and determines the appropriate action based on the result status. The function handles both successful operations (returning true) and various error conditions (calling appropriate error handlers and returning false). It also manages resource cleanup by calling PQclear() when necessary and provides specialized handling for different operation types such as COPY operations.
 

@@ -8,7 +8,10 @@ Calculates join selectivity for equality ("=") operators, serving as the core Po
 
 ## Definition
 
-
+```c
+Datum
+eqjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function estimates the selectivity of equality joins by analyzing statistics from both sides of the join condition. The function handles different join types (INNER, LEFT, FULL, SEMI, ANTI) and uses sophisticated statistical analysis including Most Common Values (MCVs) when available.
 

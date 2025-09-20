@@ -8,7 +8,11 @@ Converts a jsonpath scalar or variable node to an actual JsonbValue, handling di
 
 ## Definition
 
-
+```c
+static void
+getJsonPathItem(JsonPathExecContext *cxt, JsonPathItem *item,
+				JsonbValue *value)
+```
 ## Detailed Description
 This function serves as a converter that transforms jsonpath items (nodes in the jsonpath expression tree) into concrete JsonbValue structures that can be used in JSON operations. It handles five main jsonpath item types: null literals, boolean literals, numeric literals, string literals, and variable references. For the first four types, it directly converts the values using appropriate accessor functions. For variables, it delegates to getJsonPathVariable to resolve the variable value from the execution context.
 

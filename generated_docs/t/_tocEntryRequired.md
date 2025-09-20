@@ -8,7 +8,10 @@ This function determines whether a table of contents entry should be restored du
 
 ## Definition
 
-
+```c
+static int
+_tocEntryRequired(TocEntry *te, teSection curSection, ArchiveHandle *AH)
+```
 ## Detailed Description
 The  function is the central decision-making component for selective restore operations in pg_restore. It evaluates a TOC entry against numerous criteria including restore options, object types, selective filters, and dependency relationships to determine what should be restored.
 

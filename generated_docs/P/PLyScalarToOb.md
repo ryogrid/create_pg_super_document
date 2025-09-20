@@ -8,7 +8,12 @@ PLyScalarToOb is a struct that contains conversion information for transforming 
 
 ## Definition
 
-
+```c
+typedef struct PLyScalarToOb
+{
+	FmgrInfo	typfunc;		/* lookup info for type's output function */
+} PLyScalarToOb;
+```
 ## Detailed Description
 PLyScalarToOb is a simple struct used within the PLyDatumToOb union to handle conversion of scalar PostgreSQL data types to Python objects. It stores the function manager information needed to call the PostgreSQL type's output function, which converts the internal representation to a string that can then be processed into a Python object.
 

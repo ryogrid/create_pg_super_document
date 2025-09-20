@@ -8,7 +8,10 @@ RelationMapInitialize initializes the relation mapper module at process startup,
 
 ## Definition
 
-
+```c
+void
+RelationMapInitialize(void)
+```
 ## Detailed Description
 This function performs the initial setup of the relation mapper system during PostgreSQL process startup. It explicitly initializes all static mapping variables to zero states, clearing any potential residual data. The function ensures that both shared and local relation maps start in a clean state, with no active mappings or pending updates. This initialization occurs before database access is available, making it a critical early-stage setup function.
 

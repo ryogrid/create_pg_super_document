@@ -8,7 +8,10 @@ Checks whether a specific user (identified by username) has the specified privil
 
 ## Definition
 
-
+```c
+Datum
+has_schema_privilege_name_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of the has_schema_privilege family of functions that check user privileges on database schemas. It takes three string/name arguments: a username, a schema name, and a privilege type string. The function converts the username to a role OID, the schema name to a schema OID, and the privilege string to an AclMode bitmask, then performs the actual privilege check using PostgreSQL's standard access control mechanisms. Unlike some variants, this function does not handle missing objects with NULL returns but relies on the underlying functions to throw errors for non-existent users or schemas.
 

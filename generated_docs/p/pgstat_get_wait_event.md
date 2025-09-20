@@ -8,7 +8,10 @@ Returns a string representation of the current wait event that a PostgreSQL back
 
 ## Definition
 
-
+```c
+const char *
+pgstat_get_wait_event(uint32 wait_event_info)
+```
 ## Detailed Description
 The  function is the main interface for converting PostgreSQL wait event information from its internal numeric representation to a human-readable string. This function is crucial for PostgreSQL's wait event monitoring and statistics system, allowing users and tools to understand what resources or conditions a backend process is waiting for.
 

@@ -8,7 +8,10 @@ The main routine for a worker process in pg_dump's parallel processing system th
 
 ## Definition
 
-
+```c
+static void
+WaitForCommands(ArchiveHandle *AH, int pipefd[2])
+```
 ## Detailed Description
 This function implements the core worker process loop in pg_dump's parallel architecture. It operates as a command interpreter that:
 

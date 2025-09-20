@@ -8,7 +8,10 @@ Resets the lookahead mechanism to begin scanning from just beyond the current in
 
 ## Definition
 
-
+```c
+void
+lookahead_reset(void)
+```
 ## Detailed Description
 The lookahead_reset function reinitializes the lookahead system to start scanning from the position immediately following the current main input buffer. This is essential for maintaining proper synchronization between the main parsing buffer and the lookahead buffer, especially when the parser needs to restart lookahead operations from a known position.
 

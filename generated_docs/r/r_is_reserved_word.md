@@ -8,7 +8,11 @@ Checks if the current word is a Turkish reserved word that should not be stemmed
 
 ## Definition
 
+```c
+}
 
+static int r_is_reserved_word(struct SN_env * z)
+```
 ## Detailed Description
 This function implements a reserved word check for the Turkish stemmer to prevent stemming of certain important words that should remain unchanged. The function specifically checks for:
 

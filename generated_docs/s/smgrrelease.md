@@ -8,7 +8,10 @@ Releases all resources used by an SMgrRelation object while keeping the object i
 
 ## Definition
 
-
+```c
+void
+smgrrelease(SMgrRelation reln)
+```
 ## Detailed Description
 The  function performs a controlled release of resources associated with an SMgrRelation object without destroying the object itself. It closes all fork files associated with the relation and resets cached block numbers to invalid values. Unlike , this function preserves the SMgrRelation object in the hash table and linked list, allowing it to be reused later. This is useful for freeing up file descriptors and memory while maintaining the relation's metadata structure.
 

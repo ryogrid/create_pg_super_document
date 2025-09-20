@@ -8,7 +8,12 @@ ExecScan is the core tuple processing function in PostgreSQL's scan execution fr
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+ExecScan(ScanState *node,
+		 ExecScanAccessMtd accessMtd,	/* function returning a tuple */
+		 ExecScanRecheckMtd recheckMtd)
+```
 ## Detailed Description
 ExecScan serves as the central orchestrator for scan operations in PostgreSQL's executor. It implements a standardized tuple processing loop that works across all scan types (sequential, index, bitmap, foreign, etc.). The function repeatedly fetches tuples using the provided access method, evaluates qualification conditions, and applies projections as needed.
 

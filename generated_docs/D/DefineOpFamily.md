@@ -8,7 +8,10 @@ Creates a new index operator family, which is a higher-level grouping that can c
 
 ## Definition
 
-
+```c
+ObjectAddress
+DefineOpFamily(CreateOpFamilyStmt *stmt)
+```
 ## Detailed Description
 DefineOpFamily implements the CREATE OPERATOR FAMILY SQL command. It creates a new operator family that can serve as a container for related operator classes. An operator family represents a collection of operators and support functions that are semantically compatible and can work together in index operations. This function performs basic validation and permission checks, then delegates the actual catalog insertion to CreateOpFamily.
 

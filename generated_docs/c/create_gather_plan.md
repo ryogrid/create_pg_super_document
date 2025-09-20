@@ -8,7 +8,10 @@ Creates a Gather plan node that coordinates parallel execution by collecting res
 
 ## Definition
 
-
+```c
+static Gather *
+create_gather_plan(PlannerInfo *root, GatherPath *best_path)
+```
 ## Detailed Description
 The  function creates a Gather plan node that serves as the coordination point for parallel query execution. This node runs in the leader process and collects results from multiple worker processes executing the subplan in parallel.
 

@@ -8,7 +8,10 @@ Checks whether the underlying file for a specific fork of a relation exists on d
 
 ## Definition
 
-
+```c
+bool
+smgrexists(SMgrRelation reln, ForkNumber forknum)
+```
 ## Detailed Description
 This function determines if the physical file corresponding to a specific fork of a relation exists in the storage system. It acts as a dispatcher that delegates the actual existence check to the appropriate storage manager implementation through the smgrsw function table. The function returns true if the file exists, false otherwise.
 

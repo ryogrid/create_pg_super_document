@@ -8,7 +8,10 @@ Allocates a parallel apply worker for a specific transaction ID and tracks it in
 
 ## Definition
 
-
+```c
+void
+pa_allocate_worker(TransactionId xid)
+```
 ## Detailed Description
 This function serves as the main entry point for allocating parallel apply workers to specific transactions in PostgreSQL logical replication. It performs safety checks, attempts to launch a worker, initializes the parallel apply worker hash table if needed, and establishes the mapping between transaction ID and worker. The function also updates shared memory state to communicate the transaction assignment to the worker process.
 

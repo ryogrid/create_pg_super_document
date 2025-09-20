@@ -8,7 +8,13 @@ The  function executes the core rewind operation by applying all file changes id
 
 ## Definition
 
-
+```c
+static void
+perform_rewind(filemap_t *filemap, rewind_source *source,
+			   XLogRecPtr chkptrec,
+			   TimeLineID chkpttli,
+			   XLogRecPtr chkptredo)
+```
 ## Detailed Description
 The  function is the core execution engine of the pg_rewind utility. After all analysis and planning is complete, this function carries out the actual file system modifications needed to rewind the target database to the specified point in time.
 

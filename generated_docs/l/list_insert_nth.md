@@ -8,7 +8,10 @@ Inserts a given datum (void pointer) at a specified position in a PostgreSQL Lis
 
 ## Definition
 
-
+```c
+List *
+list_insert_nth(List *list, int pos, void *datum)
+```
 ## Detailed Description
 The  function provides positional insertion capability for PostgreSQL's generic List data structure. It inserts a new element at the specified position (0-based indexing) and shifts all following elements to make room. The function handles both empty lists (NIL) and existing lists, ensuring proper list invariants are maintained after the insertion.
 

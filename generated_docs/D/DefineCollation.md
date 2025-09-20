@@ -8,7 +8,10 @@ DefineCollation implements the CREATE COLLATION SQL command, creating a new coll
 
 ## Definition
 
-
+```c
+ObjectAddress
+DefineCollation(ParseState *pstate, List *names, List *parameters, bool if_not_exists)
+```
 ## Detailed Description
 This function processes the CREATE COLLATION command by:
 1. Parsing and validating collation parameters (locale, provider, rules, etc.)

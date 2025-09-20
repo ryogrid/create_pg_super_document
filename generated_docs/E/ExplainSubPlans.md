@@ -8,7 +8,11 @@ ExplainSubPlans is a static function in PostgreSQL's explain module that handles
 
 ## Definition
 
-
+```c
+static void
+ExplainSubPlans(List *plans, List *ancestors,
+				const char *relationship, ExplainState *es)
+```
 ## Detailed Description
 This function iterates through a list of SubPlanState nodes and explains each unique subplan exactly once. It maintains a global tracking mechanism using a bitmapset () to prevent duplicate explanations of the same physical subplan, which can occur when multiple SubPlan nodes reference the same underlying plan (identified by ).
 

@@ -8,7 +8,11 @@ Determines whether a subquery is simple enough to be pulled up (flattened) into 
 
 ## Definition
 
-
+```c
+static bool
+is_simple_subquery(PlannerInfo *root, Query *subquery, RangeTblEntry *rte,
+				   JoinExpr *lowest_outer_join)
+```
 ## Detailed Description
 This function performs a comprehensive analysis to determine if a subquery can be safely pulled up into its parent query as part of PostgreSQL's query optimization process. Subquery pullup is a critical optimization that eliminates unnecessary subquery evaluation by flattening the query structure, but it must only be performed when semantically safe.
 

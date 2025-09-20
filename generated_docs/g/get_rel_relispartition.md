@@ -8,7 +8,10 @@ Returns the relispartition flag associated with a given relation, indicating whe
 
 ## Definition
 
-
+```c
+bool
+get_rel_relispartition(Oid relid)
+```
 ## Detailed Description
 This function retrieves the relispartition boolean flag for a specified relation from the system catalog. The relispartition field indicates whether a relation is a partition of a partitioned table in PostgreSQL's table partitioning feature. This information is crucial for determining partition relationships and handling partition-specific operations.
 

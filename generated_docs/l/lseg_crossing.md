@@ -8,7 +8,10 @@ Determines if a line segment crosses the positive X-axis from the origin, used a
 
 ## Definition
 
-
+```c
+static int
+lseg_crossing(float8 x, float8 y, float8 prev_x, float8 prev_y)
+```
 ## Detailed Description
 The `lseg_crossing` function is a specialized geometric utility that determines whether a line segment defined by two points crosses the positive X-axis when viewed from the origin (0,0). This function is specifically designed to support ray-casting algorithms for point-in-polygon testing.
 

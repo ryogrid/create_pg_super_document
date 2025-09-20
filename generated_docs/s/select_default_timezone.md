@@ -8,7 +8,10 @@ Identifies a suitable default timezone setting for PostgreSQL database initializ
 
 ## Definition
 
-
+```c
+const char *
+select_default_timezone(const char *share_path)
+```
 ## Detailed Description
 This function implements a hierarchical timezone selection strategy for PostgreSQL database initialization:
 

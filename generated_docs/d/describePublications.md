@@ -8,7 +8,10 @@ Provides detailed descriptions of PostgreSQL logical replication publications, i
 
 ## Definition
 
-
+```c
+bool
+describePublications(const char *pattern)
+```
 ## Detailed Description
 The  function implements the  psql meta-command to display comprehensive information about logical replication publications. Unlike  which shows a simple list, this function provides detailed descriptions for each publication including:
 

@@ -8,7 +8,11 @@ Resolves a table specification string to its fully qualified name and appends it
 
 ## Definition
 
-
+```c
+void
+appendQualifiedRelation(PQExpBuffer buf, const char *spec,
+						PGconn *conn, bool echo)
+```
 ## Detailed Description
 This function takes a table specification in the format TABLE[(COLUMNS)] and resolves the TABLE portion to its fully qualified schema.tablename format using the current search_path. It performs a database query to look up the table's actual schema and name, then appends the qualified result along with any column specification to the provided buffer.
 

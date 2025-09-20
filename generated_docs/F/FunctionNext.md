@@ -8,7 +8,13 @@ FunctionNext is the core workhorse function for ExecFunctionScan that retrieves 
 
 ## Definition
 
-
+```c
+structed the
+			 * tuplestore itself, didn't leave it pointing at the start. This
+			 * call is fast, so the overhead shouldn't be an issue.
+			 */
+			tuplestore_rescan(tstore);
+```
 ## Detailed Description
 FunctionNext implements the tuple retrieval logic for function scans in PostgreSQL's executor. It handles both simple and complex function scan scenarios:
 

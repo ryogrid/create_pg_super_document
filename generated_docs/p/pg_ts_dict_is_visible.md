@@ -8,7 +8,10 @@ A PostgreSQL system function that determines whether a text search dictionary is
 
 ## Definition
 
-
+```c
+Datum
+pg_ts_dict_is_visible(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL system function that checks the visibility of a text search dictionary within the current schema search path. It takes a dictionary OID as input and returns a boolean value indicating whether the dictionary is accessible from the current context. The function handles missing dictionaries gracefully by returning NULL instead of throwing an error, making it suitable for use in SQL queries where the existence of the dictionary is uncertain.
 

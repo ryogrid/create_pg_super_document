@@ -8,7 +8,10 @@ RehashCatCache enlarges a catalog cache by doubling the number of hash buckets t
 
 ## Definition
 
-
+```c
+static void
+RehashCatCache(CatCache *cp)
+```
 ## Detailed Description
 RehashCatCache is a static function that performs dynamic rehashing of a catalog cache when it becomes overcrowded. The function doubles the number of hash buckets in the cache and redistributes all existing cache entries across the new bucket array. This operation maintains cache performance by reducing hash collisions as the cache grows in size.
 

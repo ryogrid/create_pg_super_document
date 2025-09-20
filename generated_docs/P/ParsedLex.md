@@ -8,7 +8,15 @@ ParsedLex is a structure used in PostgreSQL's text search lexizer subsystem to r
 
 ## Definition
 
-
+```c
+typedef struct ParsedLex
+{
+	int			type;
+	char	   *lemm;
+	int			lenlemm;
+	struct ParsedLex *next;
+} ParsedLex;
+```
 ## Detailed Description
 ParsedLex is a fundamental data structure in PostgreSQL's text search parsing system, specifically used in the lexizer subsystem (src/backend/tsearch/ts_parse.c:27-33). It represents a single parsed lexeme (word or token) that has been processed by the text search parser. The structure forms nodes in a singly-linked list, allowing for efficient sequential processing of multiple lexemes during text search operations.
 

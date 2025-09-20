@@ -8,7 +8,9 @@ SelectConfigFiles is a critical initialization function that selects and validat
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 This function is responsible for the complex process of determining and validating PostgreSQL's configuration file locations during server startup. The function performs the following key operations:
 

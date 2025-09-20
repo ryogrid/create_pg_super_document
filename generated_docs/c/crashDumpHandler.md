@@ -8,7 +8,10 @@ A Windows-specific exception handler that generates crash dump files when Postgr
 
 ## Definition
 
-
+```c
+static LONG WINAPI
+crashDumpHandler(struct _EXCEPTION_POINTERS *pExceptionInfo)
+```
 ## Detailed Description
 This function serves as PostgreSQL's unhandled exception filter on Windows systems. When an unhandled exception occurs, this handler attempts to generate a minidump file containing process state information for debugging purposes. The function operates in a crash context, so it avoids using PostgreSQL functions and works directly with Windows APIs.
 

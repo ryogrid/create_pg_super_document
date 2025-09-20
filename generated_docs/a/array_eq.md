@@ -8,7 +8,10 @@ Compares two PostgreSQL arrays for complete equality, including dimensions, boun
 
 ## Definition
 
-
+```c
+Datum
+array_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements comprehensive array equality comparison for PostgreSQL arrays. It performs a multi-stage comparison process: first checking array metadata (element types, dimensions, dimension sizes, and lower bounds), then performing element-by-element comparison using the appropriate equality operator for the element type.
 

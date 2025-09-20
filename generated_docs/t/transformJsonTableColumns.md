@@ -8,7 +8,12 @@ Creates a JsonTablePlan and transforms JSON_TABLE column specifications into the
 
 ## Definition
 
-
+```c
+static JsonTablePlan *
+transformJsonTableColumns(JsonTableParseContext *cxt, List *columns,
+						  List *passingArgs,
+						  JsonTablePathSpec *pathspec)
+```
 ## Detailed Description
 This function is responsible for the core transformation of JSON_TABLE column specifications into executable expressions. It processes each column in the provided list and performs several critical operations:
 

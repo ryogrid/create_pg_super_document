@@ -8,7 +8,11 @@ A function that processes and cleans the operator stack by popping operators wit
 
 ## Definition
 
-
+```c
+static void
+cleanOpStack(TSQueryParserState state,
+			 OperatorElement *stack, int *lenstack, int8 op)
+```
 ## Detailed Description
 The cleanOpStack function implements operator precedence handling in tsquery parsing by processing the operator stack. It pops operators from the stack that have higher precedence than the current operator (or equal precedence for right-associative NOT operator) and converts them to postfix notation using pushOperator. This ensures proper operator precedence and associativity rules are maintained during query parsing. The function handles the special case of the NOT operator which is right-associative, unlike other operators which are left-associative.
 

@@ -8,7 +8,9 @@ Releases the RelCacheInitLock after relation cache initialization file invalidat
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This function is the cleanup counterpart to RelationCacheInitFilePreInvalidate. It simply releases the RelCacheInitLock that was acquired during the pre-invalidation phase. This lock is used to coordinate access to relation cache initialization files during invalidation operations, ensuring that only one process can modify or remove these files at a time.
 

@@ -8,7 +8,10 @@ A static comparison function used by qsort to order AclItem structures in a cano
 
 ## Definition
 
-
+```c
+struct */
+	PG_RETURN_UINT32((uint32) (a->ai_privs + a->ai_grantee + a->ai_grantor));
+```
 ## Detailed Description
 The aclitemComparator function implements a three-level hierarchical comparison for AclItem structures, used internally by the PostgreSQL ACL system to maintain a consistent ordering of access control entries. The function compares ACL items first by grantee (the entity receiving privileges), then by grantor (the entity granting privileges), and finally by the privilege bits themselves. This ordering ensures that ACL arrays are maintained in a canonical form, which is essential for efficient ACL operations like merging, searching, and deduplication.
 

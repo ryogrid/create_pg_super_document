@@ -8,7 +8,15 @@ The MetaCommand enumeration defines all supported meta-commands (backslash comma
 
 ## Definition
 
-
+```c
+typedef enum QueryMode
+{
+	QUERY_SIMPLE,				/* simple query */
+	QUERY_EXTENDED,				/* extended query */
+	QUERY_PREPARED,				/* extended query with prepared statements */
+	NUM_QUERYMODE
+} QueryMode;
+```
 ## Detailed Description
 The MetaCommand enumeration provides a comprehensive catalog of meta-commands that extend pgbench's scripting capabilities beyond basic SQL execution. These commands enable advanced benchmark scenarios including variable manipulation, conditional execution, shell integration, timing control, and database query pipelining.
 

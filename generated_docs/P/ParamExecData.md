@@ -8,7 +8,14 @@ ParamExecData is a struct used for executor internal parameters that represent v
 
 ## Definition
 
-
+```c
+typedef struct ParamExecData
+{
+	void	   *execPlan;		/* should be "SubPlanState *" */
+	Datum		value;
+	bool		isnull;
+} ParamExecData;
+```
 ## Detailed Description
 ParamExecData entries are used for executor internal parameters (PARAM_EXEC parameters) that facilitate communication between different levels of query execution, particularly for sub-queries. The paramid of a PARAM_EXEC Param serves as a zero-based index into an array of ParamExecData records, which is referenced through es_param_exec_vals or ecxt_param_exec_vals in execution contexts.
 

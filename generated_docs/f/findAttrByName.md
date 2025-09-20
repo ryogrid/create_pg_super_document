@@ -8,7 +8,10 @@ findAttrByName searches for an existing column entry with a specified name in a 
 
 ## Definition
 
-
+```c
+static int
+findAttrByName(const char *attributeName, const List *columns)
+```
 ## Detailed Description
 This is a utility function that performs a linear search through a list of ColumnDef structures to locate a column with a specific name. The function uses string comparison to match column names and returns the 1-based index position of the first matching column found.
 

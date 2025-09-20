@@ -8,7 +8,10 @@ Internal comparison function that performs three-way comparison between two doub
 
 ## Definition
 
-
+```c
+int
+float8_cmp_internal(float8 a, float8 b)
+```
 ## Detailed Description
 This function provides the core comparison logic for double-precision floating-point numbers in PostgreSQL. It implements a three-way comparison that returns -1 if the first argument is less than the second, 0 if they are equal, and 1 if the first argument is greater than the second. The function uses the existing  and  functions to determine the relationship between the two values, ensuring consistent handling of special floating-point cases like NaN values. This internal function serves as a building block for various comparison operations and is used by B-tree comparison functions, sorting operations, and other components that need to establish ordering relationships between float8 values.
 

@@ -8,7 +8,25 @@ BTVacState is a comprehensive state structure that manages all aspects of B-tree
 
 ## Definition
 
+```c
+typedef struct BTVacState
+{
+	IndexVacuumInfo *info;
+	IndexBulkDeleteResult *stats;
+	IndexBulkDeleteCallback callback;
+	void	   *callback_state;
+	BTCycleId	cycleid;
+	MemoryContext pagedelcontext;
 
+	/*
+	 * _bt_pendingfsm_finalize() state
+	 */
+	int			bufsize;		/* pendingpages space (in # elements) */
+	int			maxbufsize;		/* max bufsize that respects work_mem */
+	BTPendingFSM *pendingpages; /* One entry per newly deleted page */
+	int			npendingpages;	/* current # valid pendingpages */
+} BTVacState;
+```
 ## Detailed Description
 BTVacState serves as the central coordination structure for B-tree VACUUM operations in PostgreSQL. It encapsulates all the state information needed to manage the complex process of cleaning up a B-tree index, including identifying dead tuples, deleting pages, managing memory allocation, and coordinating with the Free Space Map (FSM).
 

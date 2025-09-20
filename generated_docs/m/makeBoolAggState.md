@@ -8,7 +8,10 @@ Creates and initializes a new BoolAggState structure for boolean aggregation fun
 
 ## Definition
 
-
+```c
+static BoolAggState *
+makeBoolAggState(FunctionCallInfo fcinfo)
+```
 ## Detailed Description
 The makeBoolAggState function is a static helper function that allocates and initializes a new BoolAggState structure used by PostgreSQL's boolean aggregation functions (EVERY/ALL and SOME/ANY). The function ensures that it's called within an aggregate context and allocates the state structure in the aggregate's memory context to ensure proper lifetime management. The state is initialized with zero counts for both total non-null values (aggcount) and true values (aggtrue).
 

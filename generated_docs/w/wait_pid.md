@@ -8,7 +8,10 @@ A PostgreSQL regression test function that waits for a specified process to term
 
 ## Definition
 
-
+```c
+Datum
+wait_pid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL C function designed for use in regression testing environments to synchronize test execution by waiting for external processes to complete. It takes a process ID (PID) as an argument and continuously monitors the process using the  system call with signal 0 (which checks process existence without sending any signal). The function polls the process every 50 milliseconds until it no longer exists, then returns. The function enforces strict security by requiring superuser privileges and includes interrupt handling to allow cancellation during the wait period.
 

@@ -8,7 +8,9 @@ Step is a struct that represents an individual test step in PostgreSQL's isolati
 
 ## Definition
 
-
+```c
+typedef struct Step Step;
+```
 ## Detailed Description
 The Step struct is a fundamental component of PostgreSQL's isolation testing system, which is used to test concurrent transaction behavior and isolation levels. Each Step represents a single SQL operation that can be executed as part of a test scenario. The isolation tester uses these steps to create various permutations of concurrent operations to verify that PostgreSQL maintains proper isolation guarantees.
 

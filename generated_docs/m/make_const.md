@@ -8,7 +8,10 @@ A function that converts raw constant values from the parser (A_Const nodes) int
 
 ## Definition
 
-
+```c
+Const *
+make_const(ParseState *pstate, A_Const *aconst)
+```
 ## Detailed Description
 This function serves as the primary converter for literal constants during the parsing phase. When the parser encounters a constant value without an explicit type cast, make_const determines the most appropriate PostgreSQL data type and creates the corresponding Const node.
 

@@ -8,7 +8,10 @@ Creates and initializes a NumericAggState structure in the current memory contex
 
 ## Definition
 
-
+```c
+static NumericAggState *
+makeNumericAggStateCurrentContext(bool calcSumX2)
+```
 ## Detailed Description
 This static function is a simpler variant of  that creates a NumericAggState structure without performing aggregate context validation or memory context switching. It directly allocates the state structure in the current memory context using  for zero-initialization. This function is typically used in scenarios where the caller has already ensured the appropriate memory context or where the state needs to be allocated in a specific context (such as during deserialization or combine operations). The function sets the sum-of-squares calculation flag and stores a reference to the current memory context.
 

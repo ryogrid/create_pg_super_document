@@ -8,7 +8,10 @@ Tests whether a JSONB value contains another JSONB value as a subset, performing
 
 ## Definition
 
-
+```c
+Datum
+jsonb_contains(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The jsonb_contains function implements the PostgreSQL '@>' operator for JSONB values. It performs deep containment checking to determine if the first JSONB value contains the second JSONB value as a subset. This is a recursive operation that checks nested structures.
 

@@ -8,7 +8,10 @@ This function locates and initializes the appropriate Snowball stemmer module fo
 
 ## Definition
 
-
+```c
+static void
+locate_stem_module(DictSnowball *d, const char *lang)
+```
 ## Detailed Description
 The function searches for a compatible Snowball stemmer module through a two-phase approach. First, it attempts to find an exact match for the specified language that works with the current database encoding (ASCII stemmers are considered compatible with any encoding). If no exact match is found, it falls back to searching for a UTF-8 version of the stemmer and sets up encoding conversion if necessary. The function throws an error if no suitable stemmer is available for the language-encoding combination.
 

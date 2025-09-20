@@ -8,7 +8,10 @@ Extracts collation OIDs from grouping column expressions in a SortGroupClause li
 
 ## Definition
 
-
+```c
+Oid *
+extract_grouping_collations(List *groupClause, List *tlist)
+```
 ## Detailed Description
 This utility function processes a list of SortGroupClause structures alongside a target list to extract the collation OIDs from the expressions of grouping columns. For each SortGroupClause, it locates the corresponding TargetEntry in the target list, then extracts the collation OID from that entry's expression using exprCollation(). The function creates and returns a dynamically allocated array containing these collation OIDs in the same order as they appear in the input list.
 

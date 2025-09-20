@@ -8,7 +8,11 @@ DllInstall is a Windows DLL entry point function that handles command-line insta
 
 ## Definition
 
-
+```c
+HRESULT
+DllInstall(BOOL bInstall,
+		   LPCWSTR pszCmdLine)
+```
 ## Detailed Description
 DllInstall is a standard Windows COM DLL export function that processes command-line arguments during DLL registration. This function is specifically designed for the PostgreSQL event logging system (pgevent.dll) and handles the installation of custom event sources in the Windows Event Log.
 

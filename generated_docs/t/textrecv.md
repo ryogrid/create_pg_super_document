@@ -8,7 +8,10 @@ The  function converts external binary format data to PostgreSQL's internal text
 
 ## Definition
 
-
+```c
+Datum
+textrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL data type binary receive function that handles the conversion from external binary protocol format to PostgreSQL's internal text format. It reads binary data from a StringInfo buffer using the PostgreSQL message protocol, extracts the string data, and converts it to a text datum. This function is part of PostgreSQL's binary protocol support and is used when text values are transmitted in binary format between client and server or in replication streams.
 

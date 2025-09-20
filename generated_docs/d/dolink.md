@@ -8,7 +8,9 @@ Creates a link (hard link, symbolic link, or file copy) from a target file to a 
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function implements a comprehensive linking strategy for timezone files. It attempts to create links in the following priority order:
 1. Hard link (via )

@@ -8,7 +8,10 @@ Determines whether a Unicode code point has the White_Space property, identifyin
 
 ## Definition
 
-
+```c
+bool
+pg_u_prop_white_space(pg_wchar code)
+```
 ## Detailed Description
 This function checks if a given Unicode code point has the White_Space property according to the Unicode Standard. The White_Space property identifies characters that are used for spacing, line breaks, and paragraph separation in text. This includes traditional ASCII whitespace characters as well as various Unicode spacing characters.
 

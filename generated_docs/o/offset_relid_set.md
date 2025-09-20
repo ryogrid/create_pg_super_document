@@ -8,7 +8,14 @@ A static utility function that applies a relation table offset to all members of
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			rt_index;
+	int			new_index;
+	int			sublevels_up;
+} ChangeVarNodes_context;
+```
 ## Detailed Description
 This function creates a new Relids set by applying a specified offset to each relation identifier in the input set. It efficiently handles the case where no offset is needed (rtoffset == 0) by returning the original set unchanged. For non-zero offsets, it iterates through all members of the input set using the bitmap set utilities, adds the offset to each relation ID, and builds a new set with the adjusted values. This function is essential for maintaining correct relation references when range tables are combined or when relation IDs need to be renumbered during query processing.
 

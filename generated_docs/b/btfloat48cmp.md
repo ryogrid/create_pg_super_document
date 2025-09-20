@@ -8,7 +8,10 @@ PostgreSQL function that compares a single-precision floating-point number (floa
 
 ## Definition
 
-
+```c
+Datum
+btfloat48cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs a three-way comparison between a float4 and a float8 value by widening the float4 to float8 precision and then using the standard float8_cmp_internal comparison function. This allows for mixed-precision comparisons in B-tree operations, enabling indexes and sorting operations that involve both single and double precision floating-point values. The function follows PostgreSQL's standard comparison convention of returning -1, 0, or 1 for less than, equal to, or greater than relationships.
 

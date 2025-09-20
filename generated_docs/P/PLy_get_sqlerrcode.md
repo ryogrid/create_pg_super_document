@@ -8,7 +8,10 @@ PLy_get_sqlerrcode extracts and validates SQL state error codes from Python SPIE
 
 ## Definition
 
-
+```c
+static void
+PLy_get_sqlerrcode(PyObject *exc, int *sqlerrcode)
+```
 ## Detailed Description
 PLy_get_sqlerrcode is a utility function that extracts the 'sqlstate' attribute from Python exception objects (typically SPIError exceptions) and converts it into PostgreSQL's internal SQLSTATE representation. The function validates that the sqlstate is exactly 5 characters long and contains only valid alphanumeric characters (0-9, A-Z) as required by the SQL standard.
 

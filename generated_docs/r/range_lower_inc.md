@@ -8,7 +8,10 @@ Checks whether the lower bound of a range type is inclusive, returning a boolean
 
 ## Definition
 
-
+```c
+Datum
+range_lower_inc(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function examines a PostgreSQL range type to determine if its lower bound is inclusive. It extracts the flags from the range structure using  and tests the  bit (0x02) to determine inclusivity. An inclusive lower bound means the boundary value itself is considered part of the range (e.g., [1,5) includes 1), while an exclusive lower bound does not include the boundary value (e.g., (1,5) excludes 1).
 

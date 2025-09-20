@@ -8,7 +8,11 @@ Transforms a DISTINCT ON clause in SQL queries by processing the specified expre
 
 ## Definition
 
-
+```c
+List *
+transformDistinctOnClause(ParseState *pstate, List *distinctlist,
+						  List **targetlist, List *sortClause)
+```
 ## Detailed Description
 This function processes DISTINCT ON clauses, which allow users to specify exactly which expressions should be used to determine row uniqueness. Unlike regular DISTINCT, DISTINCT ON gives fine-grained control over which columns are considered for uniqueness testing. The function ensures that DISTINCT ON expressions are properly integrated with ORDER BY clauses, maintaining the rule that DISTINCT ON expressions must match the initial ORDER BY expressions to produce deterministic results.
 

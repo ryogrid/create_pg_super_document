@@ -8,7 +8,10 @@ Input function for the brin_minmax_multi_summary data type that intentionally re
 
 ## Definition
 
-
+```c
+Datum
+brin_minmax_multi_summary_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the input routine for the brin_minmax_multi_summary data type, which is used internally by BRIN minmax-multi indexes to represent summary data. However, since this data type is purely internal and stores data in binary format, the function is designed to reject any attempt to parse text input.
 

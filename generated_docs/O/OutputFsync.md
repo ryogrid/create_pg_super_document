@@ -8,7 +8,10 @@ The OutputFsync function performs synchronized writes to disk for logical replic
 
 ## Definition
 
-
+```c
+static bool
+OutputFsync(TimestampTz now)
+```
 ## Detailed Description
 This function handles the fsync operation for logical replication output in pg_recvlogical. It updates the fsync timestamp and LSN tracking variables, then conditionally performs an actual fsync() system call to ensure that buffered data is written to persistent storage. The function implements several checks to determine when fsync is necessary:
 

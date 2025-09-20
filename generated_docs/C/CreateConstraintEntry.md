@@ -8,7 +8,9 @@ Creates a constraint table entry in the pg_constraint catalog and establishes ne
 
 ## Definition
 
-
+```c
+struct_array_builtin(conkey, constraintNKeys, INT2OID);
+```
 ## Detailed Description
 This function is the core mechanism for creating constraint entries in PostgreSQL's pg_constraint system catalog. It handles all types of constraints including CHECK, PRIMARY KEY, UNIQUE, FOREIGN KEY, EXCLUSION, and domain constraints. The function converts C arrays to PostgreSQL arrays, populates all catalog fields, and establishes both automatic and normal dependency relationships. It does not create subsidiary objects like indexes or triggers - those are handled separately by calling code.
 

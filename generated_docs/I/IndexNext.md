@@ -8,7 +8,10 @@ The IndexNext function retrieves a tuple from the IndexScan node's current relat
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+IndexNext(IndexScanState *node)
+```
 ## Detailed Description
 IndexNext is a core function in PostgreSQL's index scan execution that performs the actual tuple retrieval from an index. It handles the complete workflow of index scanning including:
 

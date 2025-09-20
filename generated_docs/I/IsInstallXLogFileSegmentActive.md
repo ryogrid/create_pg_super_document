@@ -8,7 +8,10 @@ Returns the current state of the InstallXLogFileSegmentActive flag, indicating w
 
 ## Definition
 
-
+```c
+bool
+IsInstallXLogFileSegmentActive(void)
+```
 ## Detailed Description
 This function provides a thread-safe way to check whether WAL file segment installation (recycling and preallocation) is currently active. It acquires a shared lock on the ControlFileLock to safely read the InstallXLogFileSegmentActive flag from the XLogCtl control structure. The shared lock allows multiple concurrent readers while ensuring consistency during flag updates.
 

@@ -8,7 +8,13 @@ Finds the OIDs of all schemas matching the given list of patterns and appends th
 
 ## Definition
 
-
+```c
+static void
+expand_schema_name_patterns(Archive *fout,
+							SimpleStringList *patterns,
+							SimpleOidList *oids,
+							bool strict_names)
+```
 ## Detailed Description
 This function processes a list of schema name patterns (which may include wildcards) and resolves them to actual schema OIDs by querying the PostgreSQL system catalog pg_namespace. It supports pattern matching through the processSQL    ePattern function and can handle both simple names and qualified names with database specifications.
 

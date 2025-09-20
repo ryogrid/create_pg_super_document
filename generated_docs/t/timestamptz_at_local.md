@@ -8,7 +8,10 @@ A wrapper function for converting timestamp with timezone to timestamp without t
 
 ## Definition
 
-
+```c
+Datum
+timestamptz_at_local(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a simple wrapper around timestamptz_timestamp to support PostgreSQL's AT LOCAL grammar syntax for timestamp conversion. It exists primarily to provide an overloaded function name that the SQL parser can use to distinguish between timestamp and timestamptz variants of the AT LOCAL operation.
 

@@ -8,7 +8,10 @@ Provides btree comparison functionality for multirange types by comparing multir
 
 ## Definition
 
-
+```c
+Datum
+multirange_cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the btree comparator for multirange types, enabling multiranges to be used in btree indexes and sorted operations. The function performs a lexicographic comparison by comparing corresponding ranges within the multiranges from left to right.
 

@@ -8,7 +8,10 @@ Converts a function reference obtained from pg_operator by stripping the argumen
 
 ## Definition
 
-
+```c
+static char *
+convertRegProcReference(const char *proc)
+```
 ## Detailed Description
 This function processes REGPROCEDURE display strings that include both function names and their argument types. It extracts just the function name portion by locating the first non-quoted left parenthesis and truncating the string at that point. The function handles quoted identifiers properly by tracking quote state to avoid splitting on parentheses that appear within quoted function names.
 

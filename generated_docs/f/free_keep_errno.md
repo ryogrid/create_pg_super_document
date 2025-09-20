@@ -8,7 +8,10 @@ This static utility function frees memory without modifying the global errno var
 
 ## Definition
 
-
+```c
+static void
+free_keep_errno(void *p)
+```
 ## Detailed Description
 The `free_keep_errno` function provides a wrapper around the standard C library's free() function that preserves the current value of errno. This is important in error handling scenarios where memory needs to be cleaned up but the original error condition (represented by errno) must be maintained for proper error reporting to the caller.
 

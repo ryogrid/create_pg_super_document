@@ -8,7 +8,10 @@ Opens a PostgreSQL large object and returns a file descriptor that can be used f
 
 ## Definition
 
-
+```c
+Datum
+be_lo_open(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL backend function that opens a large object (LO) for read/write operations. It takes an OID identifying the large object and an access mode, then returns a file descriptor that can be used for subsequent operations. The function handles transaction context management, snapshot registration, and access permission checks. It creates a LargeObjectDesc structure to track the opened large object and associates it with a file descriptor in the global cookies array.
 

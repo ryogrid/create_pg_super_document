@@ -8,7 +8,10 @@ Performs division of two single-precision floating-point numbers (float4) with c
 
 ## Definition
 
-
+```c
+static inline float4
+float4_div(const float4 val1, const float4 val2)
+```
 ## Detailed Description
 The  function divides two  (single-precision floating-point) values and returns the result with comprehensive error handling. This is an inline function defined in the header file for performance optimization. Unlike multiplication, division requires additional error checking for division by zero, which is a common source of mathematical errors in database operations.
 

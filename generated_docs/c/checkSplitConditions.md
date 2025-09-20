@@ -8,7 +8,11 @@ This function counts the number and total size of leaf tuples in a chain to help
 
 ## Definition
 
-
+```c
+static int
+checkSplitConditions(Relation index, SpGistState *state,
+					 SPPageDesc *current, int *nToSplit)
+```
 ## Detailed Description
 The function traverses a chain of leaf tuples starting at current->offnum to count live tuples and calculate their total storage size. It handles a special case for root pages where it returns artificially large values to force spgdoinsert() to use the doPickSplit code path instead of moveLeafs, since moveLeafs cannot handle root pages.
 

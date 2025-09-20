@@ -8,7 +8,10 @@ Returns the transaction ID of the latest committed transaction along with its co
 
 ## Definition
 
-
+```c
+TransactionId
+GetLatestCommitTsData(TimestampTz *ts, RepOriginId *nodeid)
+```
 ## Detailed Description
 This function retrieves information about the most recently committed transaction from the commit timestamp module. It acquires a shared lock on the commit timestamp data structure to safely read the latest commit information. The function is designed to provide transactional metadata that can be useful for replication, monitoring, and debugging purposes. The caller must ensure that the commit timestamp tracking feature is enabled before calling this function.
 

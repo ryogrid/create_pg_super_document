@@ -8,7 +8,10 @@ Resolves an unqualified operator family name to its OID by searching through the
 
 ## Definition
 
-
+```c
+Oid
+OpfamilynameGetOpfid(Oid amid, const char *opfname)
+```
 ## Detailed Description
 OpfamilynameGetOpfid performs name resolution for operator families in PostgreSQL's namespace system. It searches through the active search path to find an operator family with the specified name that belongs to the given access method (index AM). The function is similar in design to TypenameGetTypid but includes the additional requirement of matching the access method OID.
 

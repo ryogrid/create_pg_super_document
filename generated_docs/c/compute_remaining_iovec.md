@@ -8,7 +8,13 @@ A utility function that adjusts iovec arrays after partial vectored I/O operatio
 
 ## Definition
 
-
+```c
+int
+compute_remaining_iovec(struct iovec *destination,
+						const struct iovec *source,
+						int iovcnt,
+						size_t transferred)
+```
 ## Detailed Description
  is designed to handle the common scenario in vectored I/O where read/write operations may transfer only part of the requested data. When a  or  system call completes with fewer bytes transferred than requested, this function calculates what remains to be transferred by adjusting the iovec array. It skips over wholly transferred iovecs, adjusts the first partially transferred iovec by advancing its base pointer and reducing its length, and copies the remaining iovecs to the destination array. The function supports in-place adjustment when source and destination arrays are the same, making it efficient for retry scenarios in I/O operations.
 

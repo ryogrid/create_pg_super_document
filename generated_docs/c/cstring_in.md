@@ -8,7 +8,10 @@ The  function is an input conversion function for the  pseudo-type in PostgreSQL
 
 ## Definition
 
-
+```c
+Datum
+cstring_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the input conversion function for PostgreSQL's  pseudo-type. Although  is marked as a pseudo-type to prevent its use in table definitions, it provides a complete set of I/O functions for internal use and manual invocation of datatype I/O functions. This function takes a C-style null-terminated string as input and returns a PostgreSQL  by duplicating the input string using  to ensure proper memory management within PostgreSQL's memory context system.
 

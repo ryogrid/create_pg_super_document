@@ -8,7 +8,13 @@ The pg_re_flags structure encapsulates all the options of interest for PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct pg_re_flags
+{
+	int			cflags;			/* compile flags for Spencer's regex code */
+	bool		glob;			/* do it globally (for each occurrence) */
+} pg_re_flags;
+```
 ## Detailed Description
 The pg_re_flags structure is used throughout PostgreSQL's regular expression system to standardize the passing of compilation and execution options. It serves as a parameter container that combines Spencer's regex compilation flags with PostgreSQL-specific behavioral flags. This structure ensures consistent handling of regex options across all regex-related functions in the backend.
 

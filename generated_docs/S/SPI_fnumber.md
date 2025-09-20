@@ -8,7 +8,10 @@ Looks up the attribute number (column number) of a named attribute in a tuple de
 
 ## Definition
 
-
+```c
+int
+SPI_fnumber(TupleDesc tupdesc, const char *fname)
+```
 ## Detailed Description
 SPI_fnumber searches through a tuple descriptor to find the attribute number corresponding to a given attribute name. It first searches through regular user-defined attributes in the tuple descriptor, then falls back to checking system attributes if no match is found among regular attributes. The function returns a 1-based attribute number for regular attributes (1 to natts) or the actual attribute number for system attributes (which are negative values).
 

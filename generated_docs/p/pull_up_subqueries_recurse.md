@@ -8,7 +8,10 @@ The recursive workhorse function that traverses the jointree and performs actual
 
 ## Definition
 
-
+```c
+union_all(rte->subquery))
+			return pull_up_simple_union_all(root, jtnode, rte);
+```
 ## Detailed Description
 This function implements the core logic for subquery pull-up optimization by recursively traversing the query's jointree and transforming eligible subqueries. It handles multiple types of subquery transformations:
 

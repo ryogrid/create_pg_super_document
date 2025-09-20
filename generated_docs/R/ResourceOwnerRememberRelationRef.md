@@ -8,7 +8,10 @@ A convenience wrapper function that registers a relation reference with a resour
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerRememberRelationRef(ResourceOwner owner, Relation rel)
+```
 ## Detailed Description
 This inline function serves as a convenience wrapper around the generic ResourceOwnerRemember() function, specifically tailored for relation references. It registers a relation reference with the specified resource owner using the relation-specific resource descriptor (relref_resowner_desc).
 

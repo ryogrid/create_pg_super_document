@@ -8,7 +8,10 @@ Imports a file from the filesystem into the database as a large object and retur
 
 ## Definition
 
-
+```c
+Datum
+be_lo_import(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the backend functionality for the SQL  function, which allows importing external files into PostgreSQL as large objects. The function serves as a thin wrapper around the internal  function.
 

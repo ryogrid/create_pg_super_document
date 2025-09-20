@@ -8,7 +8,10 @@ CheckProcSignal is a static utility function that checks if a specific process s
 
 ## Definition
 
-
+```c
+static bool
+CheckProcSignal(ProcSignalReason reason)
+```
 ## Detailed Description
 CheckProcSignal is a core function in PostgreSQL's inter-process signaling mechanism that safely checks and clears signal flags stored in shared memory. The function is designed to be called after a process receives SIGUSR1 to determine which specific signal reason triggered the interrupt. It operates on the current process's signal slot (MyProcSignalSlot) and uses a careful approach to avoid race conditions by only clearing flags that have actually been observed as set.
 

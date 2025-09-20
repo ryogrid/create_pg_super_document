@@ -8,7 +8,9 @@ A static function that implements the core logic for extracting values from JSON
 
 ## Definition
 
-
+```c
+struct_array_builtin(path, TEXTOID, &pathtext, &pathnulls, &npath);
+```
 ## Detailed Description
 The  function is the core implementation for JSONB path extraction in PostgreSQL. It accepts a JSONB value and an array of text path elements, then navigates through the JSONB structure to extract the value at the specified path. The function includes null-safety checks and can optionally convert the result to text format based on the  parameter. This function serves as the backend implementation for both  and .
 

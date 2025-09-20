@@ -8,7 +8,9 @@ SQL function that constructs a JSONB object from two separate text arrays - one 
 
 ## Definition
 
-
+```c
+struct_array_builtin(key_array, TEXTOID, &key_datums, &key_nulls, &key_count);
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL function that takes two separate one-dimensional text arrays as arguments: one for keys and one for values. It constructs a JSONB object by pairing elements from the two arrays positionally (first key with first value, second key with second value, etc.). The function validates that both arrays have the same dimensions and element count, ensuring proper key-value pairing while handling null values appropriately.
 

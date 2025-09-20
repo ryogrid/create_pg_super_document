@@ -8,7 +8,16 @@ TidRangeScanState is a runtime state structure for PostgreSQL's TID range scan e
 
 ## Definition
 
-
+```c
+typedef struct TidRangeScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	List	   *trss_tidexprs;
+	ItemPointerData trss_mintid;
+	ItemPointerData trss_maxtid;
+	bool		trss_inScan;
+} TidRangeScanState;
+```
 ## Detailed Description
 TidRangeScanState maintains the execution state for TID range scans, which allow scanning a table between specified TID boundaries. This scan type is used when queries contain conditions that can be evaluated as TID ranges, providing an efficient way to access specific portions of a table based on physical tuple locations. The structure tracks the current scan progress, TID expressions that define the range boundaries, and the actual minimum and maximum TIDs for the current scan operation.
 

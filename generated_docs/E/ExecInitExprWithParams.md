@@ -8,7 +8,10 @@ ExecInitExprWithParams prepares a standalone expression tree for execution, simi
 
 ## Definition
 
-
+```c
+ExprState *
+ExecInitExprWithParams(Expr *node, ParamListInfo ext_params)
+```
 ## Detailed Description
 ExecInitExprWithParams is a variant of ExecInitExpr specifically designed for standalone expression compilation. The key difference is that it operates without a parent PlanState and instead accepts a ParamListInfo structure to handle PARAM_EXTERN parameters. This makes it suitable for evaluating expressions outside the context of a regular query plan execution.
 

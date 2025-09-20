@@ -8,7 +8,9 @@ Generates C code for setting header information in an SQL descriptor, specifical
 
 ## Definition
 
-
+```c
+struct assignment *results;
+```
 ## Detailed Description
 This function is part of the ECPG preprocessor that generates runtime C code for SQL descriptor header modification operations. It processes assignments to set header information in an SQL descriptor and outputs the corresponding ECPGset_desc_header function call. Like its counterpart output_get_descr_header, it specifically handles the ECPGd_count descriptor header item for setting the number of items in the descriptor.
 

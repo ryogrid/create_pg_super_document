@@ -8,7 +8,10 @@ Builds the contents for backup_label or backup history files, formatting backup 
 
 ## Definition
 
-
+```c
+char *
+build_backup_content(BackupState *state, bool ishistoryfile)
+```
 ## Detailed Description
 The  function creates formatted string content for two types of backup-related files in PostgreSQL:
 

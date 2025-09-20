@@ -8,7 +8,16 @@ The core mutator function that implements the recursive tree walking and variabl
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			target_varno;	/* RTE index to search for */
+	int			sublevels_up;	/* (current) nesting depth */
+	const AttrMap *attno_map;	/* map array for user attnos */
+	Oid			to_rowtype;		/* change whole-row Vars to this type */
+	bool	   *found_whole_row;	/* output flag */
+} map_variable_attnos_context;
+```
 ## Detailed Description
 This function serves as the recursive workhorse for replace_rte_variables, implementing the actual tree traversal and node replacement logic. It handles several specific node types with special processing:
 

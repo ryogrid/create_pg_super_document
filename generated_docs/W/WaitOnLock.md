@@ -8,7 +8,10 @@ WaitOnLock causes the current process to sleep until a requested lock can be acq
 
 ## Definition
 
-
+```c
+static void
+WaitOnLock(LOCALLOCK *locallock, ResourceOwner owner, bool dontWait)
+```
 ## Detailed Description
 WaitOnLock is a critical function in PostgreSQL's lock management system that handles the process of waiting for a lock to become available. The function sets up the necessary state for the current process to sleep until the requested lock can be granted, while properly handling potential deadlocks and maintaining process status information.
 

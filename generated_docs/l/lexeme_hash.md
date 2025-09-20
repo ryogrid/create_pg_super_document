@@ -8,7 +8,10 @@ A hash function for lexeme strings that handles non-null-terminated strings by u
 
 ## Definition
 
-
+```c
+static uint32
+lexeme_hash(const void *key, Size keysize)
+```
 ## Detailed Description
 This function computes hash values for lexemes stored in LexemeHashKey structures. Unlike standard string hashing functions that rely on null terminators, this function uses an explicit length field to handle lexeme strings that may not be null-terminated. It uses PostgreSQL's hash_any() function to compute the actual hash value from the lexeme bytes.
 

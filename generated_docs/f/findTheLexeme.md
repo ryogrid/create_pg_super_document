@@ -8,7 +8,10 @@ Searches for a lexeme in the thesaurus dictionary's compiled word list and retur
 
 ## Definition
 
-
+```c
+static LexemeInfo *
+findTheLexeme(DictThesaurus *d, char *lexeme)
+```
 ## Detailed Description
 The  function performs a binary search lookup on the thesaurus dictionary's sorted array of lexemes (). It searches for a specific lexeme string and returns a pointer to the corresponding  structure if the lexeme is found in the thesaurus. The function uses a temporary  structure as a search key and employs the  comparison function for the binary search operation.
 

@@ -8,7 +8,10 @@ Serializes a FullTransactionId (XID8) value to binary format for transmission ov
 
 ## Definition
 
-
+```c
+Datum
+xid8send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is PostgreSQL's binary output function for the XID8 data type. It serializes a FullTransactionId to binary format suitable for transmission over PostgreSQL's binary protocol or storage in binary format. This function is the counterpart to  and is automatically invoked by PostgreSQL's type system when binary serialization is required.
 

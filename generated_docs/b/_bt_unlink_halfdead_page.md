@@ -8,7 +8,11 @@ This function performs the second stage of B-tree page deletion by unlinking a s
 
 ## Definition
 
-
+```c
+static bool
+_bt_unlink_halfdead_page(Relation rel, Buffer leafbuf, BlockNumber scanblkno,
+						 bool *rightsib_empty, BTVacState *vstate)
+```
 ## Detailed Description
 _bt_unlink_halfdead_page implements the unlinking phase of B-tree page deletion, removing one page at a time from the half-dead subtree established by _bt_mark_page_halfdead. The function operates iteratively - each call removes the current top parent of the subtree, with the leaf page being deleted in the final call.
 

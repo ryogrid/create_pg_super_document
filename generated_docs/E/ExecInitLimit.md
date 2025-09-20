@@ -8,7 +8,11 @@ ExecInitLimit initializes a Limit node's state structure and subplan, setting up
 
 ## Definition
 
-
+```c
+structure
+	 */
+	limitstate = makeNode(LimitState);
+```
 ## Detailed Description
 ExecInitLimit is responsible for setting up all necessary state and data structures for a Limit execution node. The function creates a LimitState structure, initializes the child plan, sets up expression contexts for evaluating LIMIT/OFFSET parameters, and configures result type information.
 

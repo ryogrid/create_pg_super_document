@@ -8,7 +8,10 @@ SQL-callable entry point function that performs comprehensive testing of the Pos
 
 ## Definition
 
-
+```c
+Datum
+test_integerset(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the main test orchestrator for the IntegerSet module in PostgreSQL's test framework. It systematically executes a comprehensive test suite that covers various corner cases and usage patterns for the IntegerSet data structure. The function runs tests for empty sets, huge value distances, single values at boundary conditions, combinations of single values with filler data, and various predefined test patterns with large numbers of entries.
 

@@ -8,7 +8,10 @@ Provides tab completion functionality for PostgreSQL commands by selecting an ap
 
 ## Definition
 
-
+```c
+static char *
+complete_from_versioned_query(const char *text, int state)
+```
 ## Detailed Description
 This function implements version-aware tab completion in psql by selecting the appropriate query from a versioned query structure. It traverses through a VersionedQuery array (stored in completion_vquery) to find the first query that is compatible with the current PostgreSQL server version (pset.sversion). Once a suitable query is found, it delegates the actual completion work to _complete_from_query. This design allows psql to provide accurate completions that match the capabilities and syntax available in different PostgreSQL versions.
 

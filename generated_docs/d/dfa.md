@@ -8,7 +8,31 @@ The dfa struct represents the core Deterministic Finite Automaton structure in P
 
 ## Definition
 
-
+```c
+struct dfa
+{
+	int			nssets;			/* size of cache */
+	int			nssused;		/* how many entries occupied yet */
+	int			nstates;		/* number of states */
+	int			ncolors;		/* length of outarc and inchain vectors */
+	int			wordsper;		/* length of state-set bitvectors */
+	struct sset *ssets;			/* state-set cache */
+	unsigned   *statesarea;		/* bitvector storage */
+	unsigned   *work;			/* pointer to work area within statesarea */
+	struct sset **outsarea;		/* outarc-vector storage */
+	struct arcp *incarea;		/* inchain storage */
+	struct cnfa *cnfa;
+	struct colormap *cm;
+	chr		   *lastpost;		/* location of last cache-flushed success */
+	chr		   *lastnopr;		/* location of last cache-flushed NOPROGRESS */
+	struct sset *search;		/* replacement-search-pointer memory */
+	int			backno;			/* if DFA for a backref, subno it refers to */
+	short		backmin;		/* min repetitions for backref */
+	short		backmax;		/* max repetitions for backref */
+	bool		ismalloced;		/* should this struct dfa be freed? */
+	bool		arraysmalloced; /* should its subsidiary arrays be freed? */
+};
+```
 ## Detailed Description
 The dfa structure is the central data structure for PostgreSQL's regular expression DFA implementation. It maintains a complete execution context for pattern matching, including a cache of computed states (ssets), memory areas for bitvector operations, arc storage for state transitions, and references to the compiled NFA and color mapping. The structure supports both forward and backward matching, handles backref processing, and includes optimization features like state caching and memory management flags.
 

@@ -8,7 +8,13 @@ A variant of performDeletion that efficiently handles deletion of multiple datab
 
 ## Definition
 
-
+```c
+struct a list of objects to delete (ie, the given objects plus
+	 * everything directly or indirectly dependent on them).  Note that
+	 * because we pass the whole objects list as pendingObjects context, we
+	 * won't get a failure from trying to delete an object that is internally
+	 * dependent on another one in the list;
+```
 ## Detailed Description
 performMultipleDeletions extends the functionality of performDeletion to handle multiple objects in a single operation. The key advantage over multiple individual performDeletion calls is that it performs dependency analysis with the entire set of objects as context, which allows for more relaxed validation rules.
 

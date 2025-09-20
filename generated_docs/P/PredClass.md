@@ -8,7 +8,9 @@ PredClass is an enumeration type that classifies expression nodes based on their
 
 ## Definition
 
-
+```c
+typedef struct PredIterInfoData *PredIterInfo;
+```
 ## Detailed Description
 PredClass is used in PostgreSQL's predicate testing framework to categorize expressions according to their logical properties. This classification enables the optimizer to handle different types of logical expressions uniformly when performing operations such as predicate implication and refutation testing. The enum helps abstract away the specific node types and focuses on the logical semantics (atomic, conjunction, or disjunction) of expressions.
 

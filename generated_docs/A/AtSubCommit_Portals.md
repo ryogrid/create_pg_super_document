@@ -8,7 +8,13 @@ Pre-subcommit processing function that reassigns portals created or used in the 
 
 ## Definition
 
-
+```c
+void
+AtSubCommit_Portals(SubTransactionId mySubid,
+					SubTransactionId parentSubid,
+					int parentLevel,
+					ResourceOwner parentXactOwner)
+```
 ## Detailed Description
 AtSubCommit_Portals is called during subtransaction commit to properly transfer portal ownership from the committing subtransaction to its parent. This function iterates through all portals in the portal hash table and updates their subtransaction identifiers and resource ownership. The function ensures that portals created in a subtransaction remain accessible after the subtransaction commits by reassigning them to the parent transaction context.
 

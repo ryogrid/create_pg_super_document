@@ -8,7 +8,10 @@ FreeWaitEventSet properly cleans up and deallocates a WaitEventSet structure, re
 
 ## Definition
 
-
+```c
+void
+FreeWaitEventSet(WaitEventSet *set)
+```
 ## Detailed Description
 FreeWaitEventSet performs comprehensive cleanup of a WaitEventSet structure, ensuring that all platform-specific resources are properly released. The function handles resource owner tracking, closes file descriptors on Unix systems, and cleans up event objects on Windows.
 

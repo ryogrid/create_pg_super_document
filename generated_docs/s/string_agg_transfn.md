@@ -8,7 +8,10 @@ The transition function for PostgreSQL's string_agg() aggregate that concatenate
 
 ## Definition
 
-
+```c
+Datum
+string_agg_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The string_agg_transfn function serves as the transition function for the string_agg aggregate function in PostgreSQL. It accumulates text values by concatenating them with a specified delimiter. The function maintains a StringInfo state structure to efficiently build the concatenated string across multiple invocations.
 

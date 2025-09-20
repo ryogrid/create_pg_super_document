@@ -8,7 +8,10 @@ ShutdownPostgres is a backend shutdown callback function that performs critical 
 
 ## Definition
 
-
+```c
+static void
+ShutdownPostgres(int code, Datum arg)
+```
 ## Detailed Description
 ShutdownPostgres serves as a backend shutdown callback that executes during the backend termination process. It is registered via before_shmem_exit() in InitPostgres to ensure it runs before lower-level modules begin their shutdown procedures.
 

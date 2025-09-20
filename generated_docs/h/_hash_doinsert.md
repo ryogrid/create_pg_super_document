@@ -8,7 +8,10 @@ The  function handles the insertion of a single index tuple into a hash index, i
 
 ## Definition
 
-
+```c
+void
+_hash_doinsert(Relation rel, IndexTuple itup, Relation heapRel, bool sorted)
+```
 ## Detailed Description
 This is the core insertion function for PostgreSQL's hash index implementation. It performs a complete tuple insertion process including:
 

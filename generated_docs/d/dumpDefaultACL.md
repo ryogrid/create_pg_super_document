@@ -8,7 +8,10 @@ Generates ALTER DEFAULT PRIVILEGES statements to recreate default access control
 
 ## Definition
 
-
+```c
+static void
+dumpDefaultACL(Archive *fout, const DefaultACLInfo *daclinfo)
+```
 ## Detailed Description
 The  function handles the dumping of default privileges (default ACLs) for database objects. Default privileges allow database administrators to set up access permissions that will be automatically applied to newly created objects of specific types within a schema or database.
 

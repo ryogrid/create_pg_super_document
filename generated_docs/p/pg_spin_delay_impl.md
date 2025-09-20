@@ -8,7 +8,10 @@ Architecture-specific inline function that implements a CPU spin delay using the
 
 ## Definition
 
-
+```c
+static __forceinline void
+pg_spin_delay_impl(void)
+```
 ## Detailed Description
 The  function is the x86-specific implementation of PostgreSQL's spin delay mechanism. It uses inline assembly to execute the x86 PAUSE instruction (represented as "rep; nop" in AT&T syntax). This instruction provides a hint to the processor that the current code sequence is a spin-wait loop.
 

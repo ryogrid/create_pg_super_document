@@ -8,7 +8,10 @@ A static comparison function used for sorting and binary searching CompoundAffix
 
 ## Definition
 
-
+```c
+static int
+cmpcmdflag(const void *f1, const void *f2)
+```
 ## Detailed Description
 The  function is a comparison function designed for use with  and  to manage arrays of CompoundAffixFlag structures. This function handles the complexity of comparing flags that can be represented in different formats depending on the flag mode of the Hunspell dictionary being processed.
 

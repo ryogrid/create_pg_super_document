@@ -8,7 +8,10 @@ Increases the size of a dynamically allocated symbol buffer to accommodate at le
 
 ## Definition
 
-
+```c
+*/
+static symbol * increase_size(symbol * p, int n)
+```
 ## Detailed Description
 The  function is a memory management utility in PostgreSQL's Snowball stemming library that resizes a symbol buffer to ensure it can hold at least  symbols. The function adds a 20-symbol padding to the requested size for efficiency and uses  to resize the memory block. The buffer includes a header section (HEAD) that stores metadata such as the buffer's capacity. If memory reallocation fails, the function automatically frees the original buffer using  and returns NULL to indicate failure.
 

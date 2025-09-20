@@ -8,7 +8,10 @@ Collects one BRIN tuple while collecting input data for sorting operations, hand
 
 ## Definition
 
-
+```c
+void
+tuplesort_putbrintuple(Tuplesortstate *state, BrinTuple *tuple, Size size)
+```
 ## Detailed Description
 This function is a specialized variant of tuple insertion for BRIN (Block Range Index) tuples during the sorting process. It allocates memory for a BrinSortTuple structure, copies the provided BRIN tuple data, and sets up the sorting key (block number) for comparison purposes. The function handles memory management by switching to the appropriate memory context and calculating the correct tuple length based on whether bump contexts are being used.
 

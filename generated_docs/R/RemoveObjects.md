@@ -8,7 +8,10 @@ RemoveObjects is the main function that handles dropping multiple objects of var
 
 ## Definition
 
-
+```c
+void
+RemoveObjects(DropStmt *stmt)
+```
 ## Detailed Description
 RemoveObjects processes DROP statements by looking up all specified objects first, then deleting them in a single batch operation through performMultipleDeletions(). This approach avoids unnecessary DROP RESTRICT errors when dependencies exist between the objects being dropped. The function handles object address resolution, permission checking, special cases (like preventing DROP FUNCTION on aggregates), and manages temporary namespace access tracking.
 

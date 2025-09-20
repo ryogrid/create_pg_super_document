@@ -8,7 +8,10 @@ Tests whether a given point is contained within or on the boundary of a circle, 
 
 ## Definition
 
-
+```c
+Datum
+pt_contained_circle(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function determines if a point lies within a circle by calculating the distance from the point to the circle's center and comparing it to the circle's radius. It performs the same logic as circle_contain_pt but with reversed parameter order (point first, then circle). If the distance is less than or equal to the radius, the point is considered contained within the circle.
 

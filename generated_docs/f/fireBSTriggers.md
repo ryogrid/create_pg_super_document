@@ -8,7 +8,10 @@ Executes BEFORE EACH STATEMENT triggers for modify operations (INSERT, UPDATE, D
 
 ## Definition
 
-
+```c
+static void
+fireBSTriggers(ModifyTableState *node)
+```
 ## Detailed Description
 The fireBSTriggers function is responsible for firing BEFORE EACH STATEMENT triggers based on the type of modification operation being performed. It analyzes the operation type stored in the ModifyTableState node and calls the appropriate trigger execution function for each operation type. For MERGE operations, it handles multiple subcommands by checking which operations (INSERT, UPDATE, DELETE) are involved in the MERGE and fires the corresponding triggers. For INSERT operations with ON CONFLICT UPDATE clauses, it fires both INSERT and UPDATE triggers.
 

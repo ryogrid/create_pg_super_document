@@ -8,7 +8,10 @@ A static function that handles WAL (Write-Ahead Logging) replay for BRIN (Block 
 
 ## Definition
 
-
+```c
+static void
+brin_xlog_createidx(XLogReaderState *record)
+```
 ## Detailed Description
 This function is responsible for replaying BRIN index creation operations during PostgreSQL recovery. It extracts the necessary information from the WAL record to recreate the BRIN index's metapage, which contains critical metadata including the pages-per-range setting and version information. The function ensures that the recreated metapage matches the original state by setting the appropriate LSN and marking the buffer as dirty for future writes.
 

@@ -8,7 +8,10 @@ The dumpRoles function generates SQL CREATE ROLE and ALTER ROLE statements for a
 
 ## Definition
 
-
+```c
+static void
+dumpRoles(PGconn *conn)
+```
 ## Detailed Description
 The dumpRoles function is a core component of PostgreSQL's pg_dumpall utility that extracts role definitions from system catalogs and generates corresponding SQL statements for database cluster restoration. It handles version-specific differences in PostgreSQL's role system, particularly the introduction of the  (Row Level Security bypass) attribute in version 9.5.
 

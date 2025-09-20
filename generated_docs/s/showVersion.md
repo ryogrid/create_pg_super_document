@@ -8,7 +8,10 @@ A static utility function that displays the psql version information in a format
 
 ## Definition
 
-
+```c
+static void
+showVersion(void)
+```
 ## Detailed Description
 This function provides a simple, standardized way to display the psql version information. It outputs the program name along with the PostgreSQL version using the PG_VERSION macro. The output format is specifically designed to match GNU standards for version display, making it consistent with other GNU utilities and expected by automated tools that parse version information.
 

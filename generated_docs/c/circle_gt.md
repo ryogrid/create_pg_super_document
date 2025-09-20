@@ -8,7 +8,10 @@ Compares two circles and returns true if the first circle has a greater area tha
 
 ## Definition
 
-
+```c
+Datum
+circle_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "greater than" comparison operator for PostgreSQL's CIRCLE data type. It compares two circles based on their areas using floating-point comparison with epsilon tolerance. The function retrieves two CIRCLE arguments from the PostgreSQL function call interface, calculates their respective areas using the  helper function, and performs a floating-point "greater than" comparison using  which accounts for floating-point precision issues by using an epsilon tolerance.
 

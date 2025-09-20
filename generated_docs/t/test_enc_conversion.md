@@ -8,7 +8,11 @@ A PostgreSQL regression test function that performs character encoding conversio
 
 ## Definition
 
-
+```c
+structure.
+			 */
+			Assert(oklen < srclen);
+```
 ## Detailed Description
 The  function is a PostgreSQL test utility that converts a byte string from one character encoding to another. It accepts a bytea input string, source encoding name, destination encoding name, and a boolean flag indicating whether to suppress errors. The function returns a composite type containing the number of bytes successfully converted and the converted bytea result.
 

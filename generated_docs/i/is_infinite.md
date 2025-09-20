@@ -8,7 +8,10 @@ A utility function that determines whether a double-precision floating-point val
 
 ## Definition
 
-
+```c
+int
+is_infinite(double val)
+```
 ## Detailed Description
 This function provides a portable way to detect and distinguish between positive and negative infinity in double-precision floating-point values. While C99 provides the  macro, it does not guarantee that implementations will distinguish between positive and negative infinity. This function ensures consistent behavior across all platforms by explicitly checking the sign of infinite values.
 

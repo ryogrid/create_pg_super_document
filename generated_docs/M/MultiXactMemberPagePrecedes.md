@@ -8,7 +8,10 @@ MultiXactMemberPagePrecedes determines whether one MultiXact member page number 
 
 ## Definition
 
-
+```c
+static bool
+MultiXactMemberPagePrecedes(int64 page1, int64 page2)
+```
 ## Detailed Description
 This function compares two MultiXact member page numbers to determine their relative age for cleanup and truncation operations. It converts page numbers to their corresponding MultiXact offset ranges and uses MultiXactOffsetPrecedes to determine precedence. The function ensures that page1 precedes page2 by checking that the starting offset of page1 precedes both the starting offset of page2 and the ending offset of page2's range.
 

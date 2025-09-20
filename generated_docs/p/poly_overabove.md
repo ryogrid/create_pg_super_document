@@ -8,7 +8,10 @@ Tests whether polygon A is overlapping with or positioned above polygon B by com
 
 ## Definition
 
-
+```c
+Datum
+poly_overabove(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `poly_overabove` function determines if polygon A is either overlapping with or positioned above polygon B. This is accomplished by comparing the y-coordinates of their lower bounds (bounding boxes). The function returns true if the lowest y-coordinate of polygon A is greater than or equal to the lowest y-coordinate of polygon B.
 

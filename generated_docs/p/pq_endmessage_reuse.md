@@ -8,7 +8,10 @@ Sends a completed message to the frontend while preserving the data buffer for p
 
 ## Definition
 
-
+```c
+void
+pq_endmessage_reuse(StringInfo buf)
+```
 ## Detailed Description
 The  function completes and sends a message to the PostgreSQL frontend without freeing the underlying data buffer. This function is designed to work in tandem with  to enable efficient buffer reuse patterns, particularly useful when sending multiple similar messages where the buffer can be reused to avoid repeated memory allocation and deallocation.
 

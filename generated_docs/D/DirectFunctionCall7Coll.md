@@ -8,7 +8,12 @@ DirectFunctionCall7Coll is a utility function that directly calls a PostgreSQL f
 
 ## Definition
 
-
+```c
+Datum
+DirectFunctionCall7Coll(PGFunction func, Oid collation, Datum arg1, Datum arg2,
+						Datum arg3, Datum arg4, Datum arg5,
+						Datum arg6, Datum arg7)
+```
 ## Detailed Description
 This function provides a convenient way to directly invoke PostgreSQL functions that require exactly 7 arguments with collation support. It automatically sets up the function call information structure (FunctionCallInfoData), populates it with the provided arguments (marking all as non-null), executes the function, and validates that the result is not NULL. The function is part of PostgreSQL's function manager (fmgr) system that handles dynamic function calls.
 

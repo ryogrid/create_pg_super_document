@@ -8,7 +8,12 @@ Fetches all or part of a TOAST value from a TOAST table, providing access to lar
 
 ## Definition
 
-
+```c
+static inline void
+table_relation_fetch_toast_slice(Relation toastrel, Oid valueid,
+								 int32 attrsize, int32 sliceoffset,
+								 int32 slicelength, struct varlena *result)
+```
 ## Detailed Description
 This function provides a table access method interface for retrieving TOAST (The Oversized-Attribute Storage Technique) values or portions thereof from TOAST tables. It supports both full value retrieval and partial slice fetching, which is crucial for efficient handling of large attributes where only a portion of the data may be needed.
 

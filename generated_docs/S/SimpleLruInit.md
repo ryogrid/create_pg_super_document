@@ -8,7 +8,12 @@ SimpleLruInit initializes or attaches to a Simple LRU cache in shared memory, se
 
 ## Definition
 
-
+```c
+struct, including directory path. We
+	 * assume caller set PagePrecedes.
+	 */
+	ctl->shared = shared;
+```
 ## Detailed Description
 This function performs comprehensive initialization of an SLRU control structure, handling both the shared memory initialization (when running as postmaster) and attachment (for backend processes). The initialization process includes:
 

@@ -8,7 +8,10 @@ SQL-accessible version of the acldefault() function that provides default ACL (A
 
 ## Definition
 
-
+```c
+Datum
+acldefault_sql(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a SQL-callable wrapper around the internal acldefault() function. It takes a character abbreviation representing an object type and an owner OID, then returns the default ACL for that object type. The function uses a switch statement to map single-character abbreviations to PostgreSQL's internal ObjectType enumeration values, providing a bridge between SQL queries and the internal ACL system.
 

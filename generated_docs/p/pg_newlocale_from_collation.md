@@ -8,7 +8,9 @@ Creates and caches a PostgreSQL locale object from a collation OID, supporting m
 
 ## Definition
 
-
+```c
+struct pg_locale_struct result;
+```
 ## Detailed Description
 This function creates a pg_locale_t object from a collation OID, implementing a comprehensive caching mechanism for the lifetime of the backend session. It handles three different collation providers: builtin, libc, and ICU, each with specific initialization requirements. As a special optimization, the default/database collation returns 0 for libc providers. The function validates collation versions to detect mismatches between the database catalog and the operating system, issuing warnings when version conflicts are detected. For libc collations, it handles both simple cases (where collate and ctype are the same) and complex cases (where they differ), with platform-specific implementations for Windows and Unix-like systems.
 

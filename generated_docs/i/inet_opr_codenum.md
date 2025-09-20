@@ -8,7 +8,10 @@ Assigns useful code numbers for the subnet inclusion/overlap operators, providin
 
 ## Definition
 
-
+```c
+static int
+inet_opr_codenum(Oid operator)
+```
 ## Detailed Description
 This function maps PostgreSQL inet operator OIDs to standardized integer codes that are used throughout the network selectivity estimation system. The function implements a simple switch statement that converts operator OIDs into a symmetric code system where:
 

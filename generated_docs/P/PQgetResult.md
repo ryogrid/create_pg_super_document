@@ -8,7 +8,10 @@ Core libpq function that retrieves the next PGresult from a query, handling both
 
 ## Definition
 
-
+```c
+PGresult *
+PQgetResult(PGconn *conn)
+```
 ## Detailed Description
 PQgetResult is a fundamental function in libpq that retrieves query results from the server. It operates in multiple modes depending on the connection state and pipeline configuration. The function first attempts to parse any available buffered data, then enters a blocking loop if necessary to wait for complete results.
 

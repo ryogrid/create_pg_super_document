@@ -8,7 +8,10 @@ Deactivates the commit timestamp tracking module and cleans up all associated da
 
 ## Definition
 
-
+```c
+static void
+DeactivateCommitTs(void)
+```
 ## Detailed Description
 DeactivateCommitTs is responsible for safely shutting down the commit timestamp tracking functionality in PostgreSQL. This function is called when the track_commit_timestamp parameter is disabled, which can happen during postmaster startup, standalone-backend startup, or during WAL replay.
 

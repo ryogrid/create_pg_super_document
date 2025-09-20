@@ -8,7 +8,10 @@ The  function deallocates memory for a chromosome structure and its associated g
 
 ## Definition
 
-
+```c
+void
+free_chromo(PlannerInfo *root, Chromosome *chromo)
+```
 ## Detailed Description
 This function is the counterpart to , responsible for properly deallocating memory that was previously allocated for a chromosome structure. It performs the deallocation in the correct order: first freeing the gene string array, then freeing the chromosome structure itself. This ensures proper memory management and prevents memory leaks within the GEQO framework.
 

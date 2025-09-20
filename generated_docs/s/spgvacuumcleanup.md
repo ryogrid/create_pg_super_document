@@ -8,7 +8,10 @@ The  function performs post-VACUUM cleanup operations for SP-GiST indexes and re
 
 ## Definition
 
-
+```c
+IndexBulkDeleteResult *
+spgvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+```
 ## Detailed Description
 This function is responsible for post-VACUUM cleanup operations in SP-GiST (Space-Partitioned Generalized Search Tree) indexes. It handles the cleanup phase that occurs after the main vacuum operation, ensuring proper maintenance of the index structure and providing accurate statistics.
 

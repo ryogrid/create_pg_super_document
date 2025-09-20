@@ -8,7 +8,10 @@ A mandatory function that finalizes and closes the archive during pg_dump operat
 
 ## Definition
 
-
+```c
+static void
+_CloseArchive(ArchiveHandle *AH)
+```
 ## Detailed Description
 _CloseArchive is responsible for completing the archive creation process in PostgreSQL's custom dump format. When writing an archive, this function orchestrates the final steps of saving the complete dump file to disk. It follows a specific sequence: writing the archive header, writing the Table of Contents (TOC), and writing all data chunks and large objects.
 

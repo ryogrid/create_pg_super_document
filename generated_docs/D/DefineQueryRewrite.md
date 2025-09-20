@@ -8,7 +8,16 @@ DefineQueryRewrite is the core function that creates rewrite rules in PostgreSQL
 
 ## Definition
 
-
+```c
+ObjectAddress
+DefineQueryRewrite(const char *rulename,
+				   Oid event_relid,
+				   Node *event_qual,
+				   CmdType event_type,
+				   bool is_instead,
+				   bool replace,
+				   List *action)
+```
 ## Detailed Description
 DefineQueryRewrite implements the comprehensive logic for creating rewrite rules with extensive validation and constraint checking. It handles different rule types (SELECT vs non-SELECT) with specific restrictions for each, validates permissions and relation types, enforces PostgreSQL's rule system constraints, and manages rule installation. For SELECT rules, it enforces view-specific restrictions including single action requirements, target list matching, and proper naming conventions. For non-SELECT rules, it validates RETURNING list constraints and prevents misuse of reserved rule names. The function also manages locking, dependency tracking, and catalog updates to ensure rule integrity.
 

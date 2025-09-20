@@ -8,7 +8,9 @@ Receives all archives and backup manifest from the PostgreSQL server as a single
 
 ## Definition
 
-
+```c
+enum = -1;
+```
 ## Detailed Description
 ReceiveArchiveStream is the main coordinator function for receiving archive data during a base backup operation. It initializes the necessary state structure and delegates the actual data processing to ReceiveArchiveStreamChunk through the ReceiveCopyData mechanism. The function handles the complete lifecycle of archive stream processing including initialization, data reception, and cleanup.
 

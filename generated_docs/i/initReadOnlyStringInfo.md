@@ -8,7 +8,32 @@ initReadOnlyStringInfo initializes a StringInfoData struct from an existing stri
 
 ## Definition
 
+```c
+struct from an existing string without copying
+ * the string.  'data' must be a valid palloc'd chunk of memory that can have
+ * repalloc() called should more space be required during a call to any of the
+ * appendStringInfo functions.
+ *
+ * 'data' must be NUL terminated at 'len' bytes.
+ */
+static inline void
+initStringInfoFromString(StringInfo str, char *data, int len)
+{
+	Assert(data[len] == '\0');
 
+	str->data = data;
+	str->len = len;
+	str->maxlen = len + 1;
+	str->cursor = 0;
+}
+
+/*------------------------
+ * resetStringInfo
+ * Clears the current content of the StringInfo, if any. The
+ * StringInfo remains valid.
+ */
+extern void resetStringInfo(StringInfo str);
+```
 ## Detailed Description
 This function provides a lightweight initialization mechanism for StringInfoData structures when working with existing string buffers. It creates a read-only StringInfo that references external memory without taking ownership of the buffer. The function is designed for high-performance scenarios where the overhead of allocating new memory and copying data would be prohibitive.
 

@@ -8,7 +8,10 @@ Immediately syncs a relation to stable storage, ensuring all segments (both acti
 
 ## Definition
 
-
+```c
+void
+mdimmedsync(SMgrRelation reln, ForkNumber forknum)
+```
 ## Detailed Description
 The mdimmedsync function performs an immediate synchronization of a relation to stable storage. It operates by syncing all segments of a relation, including both active and inactive segments. This is crucial for maintaining data integrity, especially in scenarios where WAL is skipped or during recovery operations.
 

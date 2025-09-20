@@ -8,7 +8,10 @@ ClearPgTm initializes a time structure and fractional seconds field to zero valu
 
 ## Definition
 
-
+```c
+static inline void
+ClearPgTm(struct /* pg_ */ tm *tm, fsec_t *fsec)
+```
 ## Detailed Description
 This function is part of the ECPG (Embedded SQL in C for PostgreSQL) pgtypeslib and serves as an initialization utility for time structures. It systematically zeros out all fields of a standard C library tm structure along with an associated fractional seconds field. The function is copied and adapted from the PostgreSQL backend datetime utilities but modified to work with the standard C library's struct tm instead of PostgreSQL's internal struct pg_tm.
 

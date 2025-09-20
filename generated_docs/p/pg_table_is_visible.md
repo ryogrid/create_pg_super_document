@@ -8,7 +8,10 @@ SQL-callable function that determines whether a table, view, or other relation i
 
 ## Definition
 
-
+```c
+Datum
+pg_table_is_visible(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a SQL-callable wrapper around the internal  function. It takes an OID of a relation (table, view, sequence, etc.) and returns a boolean indicating whether that relation is visible in the current search path without explicit schema qualification.
 

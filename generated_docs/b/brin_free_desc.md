@@ -8,7 +8,10 @@ Deallocates a BrinDesc structure and all its associated memory by deleting the d
 
 ## Definition
 
-
+```c
+void
+brin_free_desc(BrinDesc *bdesc)
+```
 ## Detailed Description
 This function provides proper cleanup for BrinDesc structures created by . Rather than individually freeing each component, it leverages PostgreSQL's memory context system by deleting the entire context that was created during descriptor construction. This approach ensures all related allocations (the descriptor itself, opclass info, and any other associated data) are freed in a single operation. The function includes an assertion to verify the tuple descriptor is still valid before cleanup.
 

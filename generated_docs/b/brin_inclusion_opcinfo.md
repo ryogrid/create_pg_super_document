@@ -8,7 +8,11 @@ BRIN inclusion operator class information function that initializes and returns 
 
 ## Definition
 
-
+```c
+union */
+	result->oi_typcache[INCLUSION_UNION] =
+		lookup_type_cache(typoid, 0);
+```
 ## Detailed Description
 This function is the opcinfo handler for BRIN inclusion operator classes. It allocates and initializes a BrinOpcInfo structure containing all necessary metadata for managing inclusion-based BRIN indexes. The function sets up type cache entries for three key components: the union operation, unmergeable element tracking, and empty element detection. The opaque data structure (InclusionOpaque) is initialized with lazy loading semantics for procedure information arrays, optimizing memory usage and lookup performance.
 

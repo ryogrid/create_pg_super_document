@@ -8,7 +8,13 @@ Retrieves the name of a function's single named output parameter, used to determ
 
 ## Definition
 
-
+```c
+struct_array()
+		 * since the array data is just going to look like a C array of
+		 * values.
+		 */
+		arr = DatumGetArrayTypeP(proargmodes);
+```
 ## Detailed Description
 This function examines a PostgreSQL function's metadata to determine if it has exactly one output parameter that is named. If such a parameter exists, it returns the parameter's name as a palloc'd string, which can be used as the default output column name for functions returning scalar types. If the function has no output parameters, multiple output parameters, or the single output parameter is unnamed, the function returns NULL.
 

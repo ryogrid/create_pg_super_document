@@ -8,7 +8,12 @@ Implements the internal inequality comparison logic for multirange types by nega
 
 ## Definition
 
-
+```c
+bool
+multirange_ne_internal(TypeCacheEntry *rangetyp,
+					   const MultirangeType *mr1,
+					   const MultirangeType *mr2)
+```
 ## Detailed Description
 This function provides the core inequality comparison logic for multirange types. It takes a simple and efficient approach by delegating to the existing equality comparison function  and negating the result. This ensures consistent behavior between equality and inequality operations while avoiding code duplication. The function is designed as an internal utility that can be called by both SQL-facing functions and other internal PostgreSQL operations.
 

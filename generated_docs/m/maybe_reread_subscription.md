@@ -8,7 +8,10 @@ maybe_reread_subscription checks for changes in subscription configuration and t
 
 ## Definition
 
-
+```c
+struct the subxact filename */
+	subxact_filename(path, subid, xid);
+```
 ## Detailed Description
 This function validates and updates the current subscription configuration by comparing the cached subscription data with the current state in the system catalog. It handles various scenarios including subscription removal, disabling, and parameter changes that require worker restart. The function manages transaction state appropriately, ensuring proper memory context usage and configuration updates. When significant changes are detected (connection parameters, publications, owner privileges), it triggers worker exit to allow the launcher to restart with updated configuration. It also handles synchronous_commit setting changes and validates that critical parameters like database ID haven't changed unexpectedly.
 

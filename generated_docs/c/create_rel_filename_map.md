@@ -8,7 +8,10 @@ Creates a file mapping structure that associates relation files between old and 
 
 ## Definition
 
-
+```c
+enumbers are preserved between old and new cluster */
+	map->db_oid = old_db->db_oid;
+```
 ## Detailed Description
 This static helper function populates a FileNameMap structure with the necessary information to map a relation file from the old cluster to its corresponding location in the new cluster. The function handles both default tablespace relations (stored in the base directory) and custom tablespace relations, setting appropriate paths and suffixes for each case.
 

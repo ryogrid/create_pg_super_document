@@ -8,7 +8,12 @@ GetBlockerStatusData returns a summary of the lock manager's state concerning lo
 
 ## Definition
 
-
+```c
+structure.  See notes
+		 * in GetLockStatusData().
+		 */
+		for (i = 0;
+```
 ## Detailed Description
 This function analyzes the lock manager's state to identify and report on locks that are blocking a specific backend process or any member of its lock group. Unlike GetLockStatusData which provides a complete system-wide lock snapshot, this function focuses specifically on blocking relationships for a particular process.
 

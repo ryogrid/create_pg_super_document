@@ -8,7 +8,13 @@ Executes PostgreSQL server-side function calls using protocol 3, handling the co
 
 ## Definition
 
-
+```c
+PGresult *
+pqFunctionCall3(PGconn *conn, Oid fnid,
+				int *result_buf, int *actual_result_len,
+				int result_is_int,
+				const PQArgBlock *args, int nargs)
+```
 ## Detailed Description
 pqFunctionCall3 implements the protocol 3 function call mechanism for PostgreSQL, enabling clients to execute server-side functions directly. It constructs and sends a FunctionCall message with the function OID and serialized arguments, then processes the server response. The function handles both integer and binary data arguments, manages message framing, validates message integrity, and processes various response types including function results, errors, notices, and notifications.
 

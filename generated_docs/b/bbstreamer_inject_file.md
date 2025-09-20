@@ -8,7 +8,11 @@ Injects a complete file into the archive stream with specified contents, creatin
 
 ## Definition
 
-
+```c
+void
+bbstreamer_inject_file(bbstreamer *streamer, char *pathname, char *data,
+					   int len)
+```
 ## Detailed Description
 This utility function creates and injects a complete file into the bbstreamer pipeline by constructing a bbstreamer_member structure with appropriate metadata and sending the file through the standard three-phase archive member protocol (header, contents, trailer).
 

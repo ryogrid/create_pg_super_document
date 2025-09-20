@@ -8,7 +8,14 @@ Sets up the target list (output columns) for a child join relation by adapting t
 
 ## Definition
 
-
+```c
+static void
+build_child_join_reltarget(PlannerInfo *root,
+						   RelOptInfo *parentrel,
+						   RelOptInfo *childrel,
+						   int nappinfos,
+						   AppendRelInfo **appinfos)
+```
 ## Detailed Description
 This function constructs the reltarget (relation target list) for a child join relation in partitionwise join processing. It takes the parent join relation's target expressions and transforms them to reference the appropriate child relations using append relation information. The function performs three main operations:
 

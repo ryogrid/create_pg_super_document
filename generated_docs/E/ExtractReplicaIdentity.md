@@ -8,7 +8,13 @@ Builds a heap tuple representing the configured REPLICA IDENTITY for use in UPDA
 
 ## Definition
 
-
+```c
+struct a new tuple containing only the replica identity columns,
+	 * with nulls elsewhere.  While we're at it, assert that the replica
+	 * identity columns aren't null.
+	 */
+	heap_deform_tuple(tp, desc, values, nulls);
+```
 ## Detailed Description
 The  function constructs a tuple containing the replica identity information for a given tuple, which is essential for logical replication to identify the specific row being modified. The function handles different replica identity types (NOTHING, FULL, DEFAULT/INDEX) and optimizes by returning NULL when no identity logging is needed.
 

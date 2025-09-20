@@ -8,7 +8,10 @@ PostgreSQL function that determines whether two BOX structures overlap by delega
 
 ## Definition
 
-
+```c
+Datum
+box_overlap(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `box_overlap` function serves as the PostgreSQL SQL-callable interface for testing box overlap operations. It acts as a thin wrapper around the internal `box_ov` function, providing the standard PostgreSQL function calling convention while delegating the actual overlap computation logic. This function is used to implement the overlap operator (&&) for BOX data types in SQL queries.
 

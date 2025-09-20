@@ -8,7 +8,15 @@ JitContext is the main context structure that tracks the state and configuration
 
 ## Definition
 
+```c
+typedef struct JitContext
+{
+	/* see PGJIT_* above */
+	int			flags;
 
+	JitInstrumentation instr;
+} JitContext;
+```
 ## Detailed Description
 JitContext serves as the primary coordination structure for PostgreSQL's JIT compilation system. It maintains configuration flags that determine what types of JIT operations should be performed, and includes an embedded JitInstrumentation structure to track performance metrics for the JIT operations. This context is typically associated with query execution state and is used throughout the query lifecycle to guide JIT compilation decisions and collect performance data.
 

@@ -8,7 +8,10 @@ Performs an atomic read of a 64-bit unsigned integer with memory barrier semanti
 
 ## Definition
 
-
+```c
+static inline uint64
+pg_atomic_read_membarrier_u64(volatile pg_atomic_uint64 *ptr)
+```
 ## Detailed Description
 This function provides a thread-safe way to read a 64-bit atomic variable with memory barrier guarantees. The memory barrier ensures proper ordering of memory operations, preventing the CPU from reordering reads and writes across this operation. This is particularly important in multi-threaded environments where memory consistency is critical.
 

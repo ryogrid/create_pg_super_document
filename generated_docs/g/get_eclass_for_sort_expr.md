@@ -8,7 +8,11 @@ Finds an existing EquivalenceClass containing a given sort expression, or option
 
 ## Definition
 
-
+```c
+struct the EC in the right context.
+	 */
+	oldcontext = MemoryContextSwitchTo(root->planner_cxt);
+```
 ## Detailed Description
 This function is used to integrate sort expressions (from ORDER BY, GROUP BY, etc.) into the EquivalenceClass system. It first searches existing EquivalenceClasses for a match based on expression equality, operator families, and collation. If no match is found and create_it is true, it constructs a new EquivalenceClass.
 

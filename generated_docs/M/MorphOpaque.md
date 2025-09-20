@@ -8,7 +8,20 @@ MorphOpaque is an opaque data structure used as a communication mechanism betwee
 
 ## Definition
 
+```c
+typedef struct MorphOpaque
+{
+	Oid			cfg_id;
 
+	/*
+	 * Single tsquery morph could be parsed into multiple words.  When these
+	 * words reside in adjacent positions, they are connected using this
+	 * operator.  Usually, that is OP_PHRASE, which requires word positions of
+	 * a complex morph to exactly match the tsvector.
+	 */
+	int			qoperator;
+} MorphOpaque;
+```
 ## Detailed Description
 MorphOpaque serves as a container for configuration data that needs to be passed between the tsquery parsing functions. It encapsulates the text search configuration ID and the operator used to connect multiple words that result from parsing a single tsquery morph. The structure is designed to be opaque to the calling code, hiding implementation details while providing necessary context for morphological parsing operations.
 

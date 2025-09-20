@@ -8,7 +8,11 @@ ExplainOpenSetAsideGroup prepares the formatting state for a group without emitt
 
 ## Definition
 
-
+```c
+static void
+ExplainOpenSetAsideGroup(const char *objtype, const char *labelname,
+						 bool labeled, int depth, ExplainState *es)
+```
 ## Detailed Description
 ExplainOpenSetAsideGroup is a specialized function that prepares the formatting state as if beginning a group with the specified properties, but without actually emitting any output. This enables a deferred output pattern where:
 

@@ -8,7 +8,12 @@ Finds the least or greatest element in an array of values for a specific B-tree 
 
 ## Definition
 
-
+```c
+static Datum
+_bt_find_extreme_element(IndexScanDesc scan, ScanKey skey, Oid elemtype,
+						 StrategyNumber strat,
+						 Datum *elems, int nelems)
+```
 ## Detailed Description
 This function identifies either the minimum or maximum element from an array of values based on the comparison strategy specified. It uses the operator family (opfamily) associated with the index column to determine the appropriate comparison operator and procedure. The function dynamically looks up the comparison operator for the given element type and strategy, then iterates through all elements to find the extreme value.
 

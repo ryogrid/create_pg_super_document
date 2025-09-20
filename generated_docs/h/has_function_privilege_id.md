@@ -8,7 +8,10 @@ Checks whether the current user has specific privileges on a function identified
 
 ## Definition
 
-
+```c
+Datum
+has_function_privilege_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that verifies if the current user has the specified privilege on a given function. It takes a function OID and a privilege name as text, then checks the access control list (ACL) to determine if the current user has that privilege on the function. The function assumes the current user context and returns a boolean result or NULL if the function doesn't exist.
 

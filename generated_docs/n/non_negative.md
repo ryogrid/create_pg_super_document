@@ -8,7 +8,10 @@ A static inline utility function that ensures a floating-point value is non-nega
 
 ## Definition
 
-
+```c
+static inline float
+non_negative(float val)
+```
 ## Detailed Description
 The  function is a simple utility that sanitizes floating-point values to ensure they are non-negative. It performs a straightforward check: if the input value is greater than or equal to 0.0, it returns the value unchanged; otherwise, it returns 0.0. This function is particularly useful in geometric calculations where negative distances or dimensions would be meaningless, such as in GiST (Generalized Search Tree) operations for spatial data types.
 

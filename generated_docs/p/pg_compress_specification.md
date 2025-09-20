@@ -8,7 +8,17 @@ A structure that defines compression parameters and options for PostgreSQL's com
 
 ## Definition
 
-
+```c
+typedef struct pg_compress_specification
+{
+	pg_compress_algorithm algorithm;
+	unsigned	options;		/* OR of PG_COMPRESSION_OPTION constants */
+	int			level;
+	int			workers;
+	bool		long_distance;
+	char	   *parse_error;	/* NULL if parsing was OK, else message */
+} pg_compress_specification;
+```
 ## Detailed Description
 The pg_compress_specification structure serves as a comprehensive configuration container for compression operations throughout PostgreSQL. It encapsulates all necessary parameters for configuring compression algorithms including the specific algorithm to use, compression level settings, parallel worker configuration, and specialized options like long-distance matching for certain algorithms. The structure also includes error handling through a parse_error field that captures any issues encountered during specification parsing.
 

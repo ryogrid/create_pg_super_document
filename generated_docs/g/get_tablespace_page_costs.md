@@ -8,7 +8,12 @@ Retrieves the random and sequential page cost parameters for a specified tablesp
 
 ## Definition
 
-
+```c
+void
+get_tablespace_page_costs(Oid spcid,
+						  double *spc_random_page_cost,
+						  double *spc_seq_page_cost)
+```
 ## Detailed Description
 This function provides the query planner with tablespace-specific I/O cost parameters needed for accurate cost estimation. It fetches the cached tablespace entry and extracts the random_page_cost and seq_page_cost values from the tablespace options. If no tablespace-specific values are configured (options are NULL or values are negative), it falls back to the global configuration parameters random_page_cost and seq_page_cost.
 

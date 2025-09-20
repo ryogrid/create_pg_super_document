@@ -8,7 +8,22 @@ Identifies partitioned tables with "unsafe" partitioning schemes that require lo
 
 ## Definition
 
-
+```c
+enum_ops
+	 * appears among the partition opclasses.  We needn't check partstrat.
+	 *
+	 * Note that this query may well retrieve info about tables we aren't
+	 * going to dump and hence have no lock on.  That's okay since we need not
+	 * invoke any unsafe server-side functions.
+	 */
+	appendPQExpBufferStr(query,
+						 "SELECT partrelid FROM pg_partitioned_table WHERE\n"
+						 "(SELECT c.oid FROM pg_opclass c JOIN pg_am a "
+						 "ON c.opcmethod = a.oid\n"
+						 "WHERE opcname = 'enum_ops' "
+						 "AND opcnamespace = 'pg_catalog'::regnamespace "
+						 "AND amname = 'hash') = ANY(partclass)");
+```
 ## Detailed Description
 The getPartitioningInfo function analyzes all partitioned tables in the database to identify those with partitioning schemes that are considered "unsafe" for normal dump and restore operations. Currently, the primary concern is hash partitioning on enum columns, where hash codes depend on enum value OIDs that won't be preserved across dump-and-reload cycles. The function queries pg_partitioned_table and related catalogs to find tables using hash partitioning with enum_ops operator classes, then marks these tables as requiring special handling during data loading. This ensures data integrity during backup and restore operations by forcing the use of partition root tables for data insertion.
 

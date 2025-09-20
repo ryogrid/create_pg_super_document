@@ -8,7 +8,11 @@ ReadBufferBI is a static function that reads a buffer using bulk-insert optimiza
 
 ## Definition
 
-
+```c
+static Buffer
+ReadBufferBI(Relation relation, BlockNumber targetBlock,
+			 ReadBufferMode mode, BulkInsertState bistate)
+```
 ## Detailed Description
 This function optimizes buffer reading for bulk insert operations by implementing a caching strategy. When a BulkInsertState is provided, it maintains a cached current buffer to avoid repeated reads of the same block. Key behaviors include:
 

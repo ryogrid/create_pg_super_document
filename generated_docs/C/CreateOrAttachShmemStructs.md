@@ -8,7 +8,10 @@ Initializes or attaches to shared memory data structures for all PostgreSQL subs
 
 ## Definition
 
-
+```c
+static void
+CreateOrAttachShmemStructs(void)
+```
 ## Detailed Description
 CreateOrAttachShmemStructs is a comprehensive initialization function that sets up shared memory data structures for all major PostgreSQL subsystems. The function is designed to work in both scenarios: when the postmaster creates shared memory structures for the first time, and when child processes (particularly in EXEC_BACKEND mode) need to attach to existing structures.
 

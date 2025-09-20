@@ -8,7 +8,15 @@ A network protocol structure used to send cancellation requests from PostgreSQL 
 
 ## Definition
 
-
+```c
+typedef struct CancelRequestPacket
+{
+	/* Note that each field is stored in network byte order! */
+	MsgType		cancelRequestCode;	/* code to identify a cancel request */
+	uint32		backendPID;		/* PID of client's backend */
+	uint32		cancelAuthCode; /* secret key to authorize cancel */
+} CancelRequestPacket;
+```
 ## Detailed Description
 The CancelRequestPacket structure defines the format for cancel request messages sent over the network from PostgreSQL clients to the server. This packet allows clients to request cancellation of currently executing queries without requiring a full connection teardown. The structure includes authentication information to prevent unauthorized cancellation attempts from other processes.
 

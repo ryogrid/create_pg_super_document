@@ -8,7 +8,11 @@ This function follows a chain of tuple updates through t_ctid links to find the 
 
 ## Definition
 
-
+```c
+void
+heap_get_latest_tid(TableScanDesc sscan,
+					ItemPointer tid)
+```
 ## Detailed Description
 heap_get_latest_tid traverses the tuple update chain starting from a given TID by following t_ctid pointers until it reaches the end of the chain or encounters an invalid link. For each tuple in the chain, it validates the tuple's existence and checks its visibility against the provided snapshot. The function updates the input TID parameter to point to the latest visible version of the tuple.
 

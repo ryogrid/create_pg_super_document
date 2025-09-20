@@ -8,7 +8,13 @@ PLySubtransactionData is a data structure that stores the execution context stat
 
 ## Definition
 
-
+```c
+typedef struct PLySubtransactionData
+{
+	MemoryContext oldcontext;
+	ResourceOwner oldowner;
+} PLySubtransactionData;
+```
 ## Detailed Description
 PLySubtransactionData is a lightweight data structure used internally by PostgreSQL's PL/Python extension to preserve the execution context when entering an explicit subtransaction. When a subtransaction is started via the Python interface (plpy.subtransaction()), this structure captures the current memory context and resource owner so they can be properly restored when the subtransaction exits.
 

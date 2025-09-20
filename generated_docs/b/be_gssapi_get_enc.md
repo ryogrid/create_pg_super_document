@@ -8,7 +8,10 @@ Returns whether GSSAPI encryption is enabled and actively being used on the give
 
 ## Definition
 
-
+```c
+bool
+be_gssapi_get_enc(Port *port)
+```
 ## Detailed Description
 The  function is a simple query function that checks whether GSSAPI encryption is currently active for a specific connection. It performs null safety checks on the port and its GSSAPI state structure before returning the encryption status.
 

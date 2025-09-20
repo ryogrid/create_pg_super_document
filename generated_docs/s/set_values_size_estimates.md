@@ -8,7 +8,10 @@ Sets the size estimates for a base relation that represents a VALUES list, provi
 
 ## Definition
 
-
+```c
+void
+set_values_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function calculates size estimates for relations that represent VALUES clauses in SQL queries (e.g., VALUES (1,2), (3,4), (5,6)). Unlike other estimation functions that use heuristics or statistical approximations, this function can provide an exact row count since VALUES lists have a known, fixed number of rows determined at parse time.
 

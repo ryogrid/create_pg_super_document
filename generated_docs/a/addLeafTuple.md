@@ -8,7 +8,11 @@ This function adds a leaf tuple to a leaf page in an SPGiST (Space-Partitioned G
 
 ## Definition
 
-
+```c
+static void
+addLeafTuple(Relation index, SpGistState *state, SpGistLeafTuple leafTuple,
+			 SPPageDesc *current, SPPageDesc *parent, bool isNulls, bool isNew)
+```
 ## Detailed Description
 The function manages the insertion of leaf tuples into SPGiST index pages, handling two main scenarios:
 1. **New chain creation**: When the tuple is not part of an existing chain (current->offnum is invalid or the block is root)

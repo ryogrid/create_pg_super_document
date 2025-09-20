@@ -8,7 +8,18 @@ A structure used in PostgreSQL's psql tab completion system to define "things" t
 
 ## Definition
 
+```c
+const bits32 flags;			/* visibility flags, see below */
+} pgsql_thing_t;
 
+#define THING_NO_CREATE		(1 << 0)	/* should not show up after CREATE */
+#define THING_NO_DROP		(1 << 1)	/* should not show up after DROP */
+#define THING_NO_ALTER		(1 << 2)	/* should not show up after ALTER */
+#define THING_NO_SHOW		(THING_NO_CREATE | THING_NO_DROP | THING_NO_ALTER)
+
+/* When we have DROP USER etc, also offer MAPPING FOR */
+static const char *const Keywords_for_user_thing[] =
+```
 ## Detailed Description
 The  structure is a core component of psql's tab completion system, specifically designed to represent database objects that can be created, dropped, or altered. Each instance defines a PostgreSQL object type (like "TABLE", "INDEX", "USER", etc.) along with the appropriate query to retrieve existing instances of that object type for completion suggestions. The structure supports three mutually exclusive query types to accommodate different retrieval strategies, and includes visibility flags to control when the object type should be suggested.
 

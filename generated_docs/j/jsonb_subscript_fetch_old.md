@@ -8,7 +8,12 @@ Computes the old JSONB element value for SubscriptingRef assignment expressions 
 
 ## Definition
 
-
+```c
+static void
+jsonb_subscript_fetch_old(ExprState *state,
+						  ExprEvalStep *op,
+						  ExprContext *econtext)
+```
 ## Detailed Description
 This function is a specialized variant of the regular JSONB fetch operation, used specifically in assignment contexts where the new-value subexpression contains SubscriptingRef or FieldStore operations. It fetches the current value of a JSONB element before assignment, which may be needed for complex assignment expressions.
 

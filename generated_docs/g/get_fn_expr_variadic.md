@@ -8,7 +8,10 @@ Retrieves the VARIADIC flag from a function invocation to determine if the funct
 
 ## Definition
 
-
+```c
+bool
+get_fn_expr_variadic(FmgrInfo *flinfo)
+```
 ## Detailed Description
 This function examines the function expression within an FmgrInfo structure to determine whether the function was invoked using variadic syntax (with the VARIADIC keyword). This information is particularly important for functions declared as VARIADIC ANY, which need to distinguish between cases where they were called with individual arguments versus an array argument that should be expanded.
 

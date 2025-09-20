@@ -8,7 +8,10 @@ Optimized function for read-only access to SLRU pages that first attempts to fin
 
 ## Definition
 
-
+```c
+int
+SimpleLruReadPage_ReadOnly(SlruCtl ctl, int64 pageno, TransactionId xid)
+```
 ## Detailed Description
 SimpleLruReadPage_ReadOnly is an optimized variant of SimpleLruReadPage designed specifically for read-only access patterns. The function implements a two-phase approach: first attempting to locate the requested page while holding only a shared bank lock to minimize contention, and if that fails, falling back to the standard exclusive lock approach used by SimpleLruReadPage.
 

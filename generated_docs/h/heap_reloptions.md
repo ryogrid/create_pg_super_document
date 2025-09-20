@@ -8,7 +8,10 @@ Parses and validates relation options for heap tables, materialized views, and T
 
 ## Definition
 
-
+```c
+bytea *
+heap_reloptions(char relkind, Datum reloptions, bool validate)
+```
 ## Detailed Description
 The `heap_reloptions` function is a central option parser that handles relation options for different types of heap-based relations in PostgreSQL. It uses a switch statement based on the relation kind (relkind) to provide specialized option parsing. For TOAST tables (RELKIND_TOASTVALUE), it applies special defaults including setting fillfactor to 100% and disabling analyze operations by setting negative thresholds. For regular tables (RELKIND_RELATION) and materialized views (RELKIND_MATVIEW), it delegates to the standard `default_reloptions` function with RELOPT_KIND_HEAP. The function ensures that each relation type gets appropriate default values and validation rules for their specific use cases.
 

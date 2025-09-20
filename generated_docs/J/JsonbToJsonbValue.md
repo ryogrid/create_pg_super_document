@@ -8,7 +8,10 @@ Converts a Jsonb structure to a JsonbValue by wrapping the binary data for inter
 
 ## Definition
 
-
+```c
+void
+JsonbToJsonbValue(Jsonb *jsonb, JsonbValue *val)
+```
 ## Detailed Description
 This function is a utility that converts a Jsonb structure (the on-disk/wire format) into a JsonbValue structure (the in-memory format used for processing). It specifically creates a binary JsonbValue that references the raw data within the Jsonb structure. The function sets up the JsonbValue to point directly to the root data of the Jsonb, making it accessible for further processing by other JSONB functions.
 

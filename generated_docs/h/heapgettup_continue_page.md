@@ -8,7 +8,11 @@ A helper function for heapgettup() that determines the next page to scan and cal
 
 ## Definition
 
-
+```c
+static inline Page
+heapgettup_continue_page(HeapScanDesc scan, ScanDirection dir, int *linesleft,
+						 OffsetNumber *lineoff)
+```
 ## Detailed Description
 This function operates on the current buffer (rs_cbuf) of an active heap scan and prepares the scanning parameters for continuing within the same page. It handles both forward and backward scan directions, calculating the appropriate starting offset and remaining tuple count based on the scan direction and the current position (rs_coffset). For backward scans, it includes special handling to re-establish offset bounds when tuples may have been vacuumed between scans using non-MVCC snapshots.
 

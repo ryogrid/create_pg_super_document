@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) assign hook function that sets the backtrace
 
 ## Definition
 
-
+```c
+void
+assign_backtrace_functions(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as an assignment hook for the PostgreSQL GUC system, specifically for the  configuration parameter. When this parameter is modified through configuration changes, this function is called to update the internal  variable. The function takes the validated configuration value (passed via the  parameter after validation) and assigns it to the global  variable, which likely controls which functions should include backtrace information in error reporting.
 

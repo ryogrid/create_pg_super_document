@@ -8,7 +8,10 @@ BumpIsEmpty checks whether a BumpContext contains any allocated memory chunks by
 
 ## Definition
 
-
+```c
+bool
+BumpIsEmpty(MemoryContext context)
+```
 ## Detailed Description
 This function determines if a Bump memory context is empty of any allocated space. It works by iterating through all blocks in the context using a doubly-linked list iterator and checking each block to see if it contains any allocated chunks. The function returns true only if all blocks in the context are empty, meaning no memory has been allocated or all allocated memory has been conceptually freed (though the Bump allocator doesn't actually free individual chunks, only resets entire contexts).
 

@@ -8,7 +8,10 @@ Initializes a hash table that maps block numbers to parent information during Gi
 
 ## Definition
 
-
+```c
+static void
+gistInitParentMap(GISTBuildState *buildstate)
+```
 ## Detailed Description
 This function creates and configures a hash table within the GiST build state that serves as a parent map during index construction. The hash table maps block numbers (BlockNumber) to parent map entries (ParentMapEntry), allowing the build process to efficiently track parent-child relationships between index pages. The hash table is configured with specific parameters optimized for the GiST build process, including the use of blob-based hashing for block numbers and a custom memory context.
 

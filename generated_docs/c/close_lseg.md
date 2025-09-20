@@ -8,7 +8,9 @@ PostgreSQL SQL function that returns the closest point between two line segments
 
 ## Definition
 
-
+```c
+struct(&lseg, &box->low, &point);
+```
 ## Detailed Description
 This function serves as the PostgreSQL SQL interface for finding the closest point between two line segments. It first checks if the line segments have the same slope (are parallel), in which case it returns NULL since parallel lines either don't have a meaningful closest point or are the same line. For non-parallel segments, it uses the internal lseg_closept_lseg function to calculate the closest points and handles potential NaN results by returning NULL when the calculation is invalid.
 

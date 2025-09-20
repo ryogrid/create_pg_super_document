@@ -8,7 +8,9 @@ Implements the SQL CURRENT_TIMESTAMP and CURRENT_TIMESTAMP(n) functions by retur
 
 ## Definition
 
-
+```c
+struct timeval tp;
+```
 ## Detailed Description
 This function provides the implementation for PostgreSQL's CURRENT_TIMESTAMP SQL function. It returns the timestamp when the current transaction was started, ensuring that all calls to CURRENT_TIMESTAMP within a single transaction return the same value for consistency. The function can optionally adjust the precision of the returned timestamp based on the typmod parameter.
 

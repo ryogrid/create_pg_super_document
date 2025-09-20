@@ -8,7 +8,13 @@ Validates whether a system user is authorized to connect as a specified PostgreS
 
 ## Definition
 
-
+```c
+int
+check_usermap(const char *usermap_name,
+			  const char *pg_user,
+			  const char *system_user,
+			  bool case_insensitive)
+```
 ## Detailed Description
 The `check_usermap` function is a core authentication component that validates user mapping in PostgreSQL. It handles two distinct scenarios:
 

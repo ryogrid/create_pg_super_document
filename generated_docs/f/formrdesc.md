@@ -8,7 +8,13 @@ A special cut-down version of RelationBuildDesc() used during relcache initializ
 
 ## Definition
 
-
+```c
+enumber they currently
+	 * have.  In bootstrap mode, add them to the initial relation mapper data,
+	 * specifying that the initial filenumber is the same as the OID.
+	 */
+	relation->rd_rel->relfilenode = InvalidRelFileNumber;
+```
 ## Detailed Description
 This function creates relation descriptors for basic system catalogs during PostgreSQL's bootstrap phase and early initialization. It builds the relation descriptor purely from the provided parameters without performing any system table lookups, making it suitable for use when the system catalogs themselves are not yet fully available.
 

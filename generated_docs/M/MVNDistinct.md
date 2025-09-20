@@ -8,7 +8,15 @@ MVNDistinct is a structure that represents multivariate n-distinct statistics fo
 
 ## Definition
 
-
+```c
+typedef struct MVNDistinct
+{
+	uint32		magic;			/* magic constant marker */
+	uint32		type;			/* type of ndistinct (BASIC) */
+	uint32		nitems;			/* number of items in the statistic */
+	MVNDistinctItem items[FLEXIBLE_ARRAY_MEMBER];
+} MVNDistinct;
+```
 ## Detailed Description
 MVNDistinct is the core data structure for storing multivariate n-distinct statistics in PostgreSQL's extended statistics framework. It contains information about the number of distinct value combinations across multiple columns, which is crucial for query optimization when dealing with correlated columns. The structure uses a flexible array member to store a variable number of MVNDistinctItem entries, each representing statistics for a specific combination of attributes.
 

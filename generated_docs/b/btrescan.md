@@ -8,7 +8,31 @@ Resets and prepares a B-tree index scan with new scan keys, handling cleanup of 
 
 ## Definition
 
+```c
+structure also makes it safe to return data from a
+	 * "name" column, even though btree name_ops uses an underlying storage
+	 * datatype of cstring.  The risk there is that "name" is supposed to be
+	 * padded to NAMEDATALEN, but the actual index tuple is probably shorter.
+	 * However, since we only return data out of tuples sitting in the
+	 * currTuples array, a fetch of NAMEDATALEN bytes can at worst pull some
+	 * data out of the markTuples array --- running off the end of memory for
+	 * a SIGSEGV is not possible.  Yeah, this is ugly as sin, but it beats
+	 * adding special-case treatment for name_ops elsewhere.
+	 */
+	if (scan->xs_want_itup && so->currTuples == NULL)
+	{
+		so->currTuples = (char *) palloc(BLCKSZ * 2);
+		so->markTuples = so->currTuples + BLCKSZ;
+	}
 
+	/*
+	 * Reset the scan keys
+	 */
+	if (scankey && scan->numberOfKeys > 0)
+		memmove(scan->keyData,
+				scankey,
+				scan->numberOfKeys * sizeof(ScanKeyData));
+```
 ## Detailed Description
 The btrescan function reinitializes an existing B-tree index scan with new scan parameters. It performs cleanup operations including handling killed items from the previous scan, unpinning buffer pages, and invalidating scan positions. The function also allocates tuple workspace arrays for index-only scans if needed, using a single memory block for both current and mark tuple workspaces for efficiency. This function is called both for initial scan setup and when restarting a scan with different keys.
 

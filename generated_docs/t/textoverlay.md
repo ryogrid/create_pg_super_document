@@ -8,7 +8,10 @@ A PostgreSQL function that implements the SQL OVERLAY() operation, replacing a s
 
 ## Definition
 
-
+```c
+Datum
+textoverlay(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the PostgreSQL implementation of the SQL standard OVERLAY() function. It extracts arguments from the PostgreSQL function call interface and delegates the actual overlay operation to the internal  function. The function follows the SQL standard definition, which conceptually works by:
 

@@ -8,7 +8,10 @@ Validates whether a proposed function signature is valid according to PostgreSQL
 
 ## Definition
 
-
+```c
+enum, anyrange, or anymultirange."),
+						format_type_be(ret_type));
+```
 ## Detailed Description
 This function validates function signatures that involve polymorphic types by checking that the return type can be properly deduced from the input arguments. It ensures that functions with polymorphic return types have sufficient polymorphic input arguments to determine the concrete type.
 

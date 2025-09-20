@@ -8,7 +8,10 @@ Computes the square root of a numeric value with appropriate scale handling and 
 
 ## Definition
 
-
+```c
+Datum
+numeric_sqrt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function calculates the square root of a PostgreSQL numeric data type. It handles special numeric values (NaN, positive and negative infinity) according to mathematical conventions. For negative infinity, it raises an error since square roots of negative numbers are undefined in real arithmetic. For NaN and positive infinity, it returns the same special value.
 

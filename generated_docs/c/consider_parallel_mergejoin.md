@@ -8,7 +8,16 @@ Attempts to build partial paths for a join relation by combining partial paths f
 
 ## Definition
 
-
+```c
+static void
+consider_parallel_mergejoin(PlannerInfo *root,
+							RelOptInfo *joinrel,
+							RelOptInfo *outerrel,
+							RelOptInfo *innerrel,
+							JoinType jointype,
+							JoinPathExtraData *extra,
+							Path *inner_cheapest_total)
+```
 ## Detailed Description
 This function is a specialized path generation function that creates parallel-aware merge join paths. It iterates through all available partial paths from the outer relation and attempts to create merge join paths by pairing each partial outer path with the inner relation's complete path. The function leverages the parallel processing capabilities by using partial paths from the outer relation, which can be processed in parallel by multiple workers, while using a complete path for the inner relation that is replicated across all workers.
 

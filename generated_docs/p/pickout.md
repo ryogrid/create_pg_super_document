@@ -8,7 +8,10 @@ A static function that reads and displays a specified portion of data from a Pos
 
 ## Definition
 
-
+```c
+static void
+pickout(PGconn *conn, Oid lobjId, pg_int64 start, int len)
+```
 ## Detailed Description
 The  function provides functionality to extract and display a specific segment of data from a PostgreSQL large object. It opens the large object in read-only mode, seeks to the specified starting position, and reads the requested number of bytes. The function displays the read data to stderr and handles partial reads by continuing to read until the requested length is satisfied or no more data is available.
 

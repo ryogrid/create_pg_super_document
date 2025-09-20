@@ -8,7 +8,19 @@ A preprocessor macro that provides a convenient interface for logging error mess
 
 ## Definition
 
+```c
+#endif
 
+static void log_error(const char *fmt,...) pg_attribute_printf(1, 2);
+
+
+/*
+ * Utility wrapper for frontend and backend when reporting an error
+ * message.
+ */
+static void
+log_error(const char *fmt,...)
+```
 ## Detailed Description
 The  macro is a utility wrapper around PostgreSQL's  function, specifically designed for logging error messages at the LOG level. It simplifies the process of reporting internal errors by automatically handling the message formatting and error level specification. The macro uses variadic arguments to accept flexible message formatting, similar to printf-style functions, and internally calls  to format the message appropriately for internal system use.
 

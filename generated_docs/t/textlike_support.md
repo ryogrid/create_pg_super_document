@@ -8,7 +8,10 @@ Provides planner support for the LIKE operator by delegating to the common patte
 
 ## Definition
 
-
+```c
+Datum
+textlike_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as a planner support function for PostgreSQL's LIKE operator. It acts as a thin wrapper around the generic  function, specifically configured for case-sensitive LIKE pattern matching. This function is called by the PostgreSQL query planner to optimize queries involving LIKE operations, including selectivity estimation and index condition generation.
 

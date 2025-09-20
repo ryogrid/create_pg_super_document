@@ -8,7 +8,11 @@ Determines whether a join clause has the correct form to be used in a specific j
 
 ## Definition
 
-
+```c
+static inline bool
+clause_sides_match_join(RestrictInfo *rinfo, Relids outerrelids,
+						Relids innerrelids)
+```
 ## Detailed Description
 This function validates that a binary operation clause is suitable for a particular join configuration. It ensures that the clause has a proper "outer_expr op inner_expr" or "inner_expr op outer_expr" structure, where each side of the operator references variables from only one side of the join (either outer or inner relations), not a mixture of both.
 

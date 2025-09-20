@@ -8,7 +8,14 @@ BaseBackupTargetType is a structure that defines a type of backup target for Pos
 
 ## Definition
 
-
+```c
+typedef struct BaseBackupTargetType
+{
+	char	   *name;
+	void	   *(*check_detail) (char *, char *);
+	bbsink	   *(*get_sink) (bbsink *, void *);
+} BaseBackupTargetType;
+```
 ## Detailed Description
 The BaseBackupTargetType structure serves as a template or configuration object that defines how different types of backup targets should behave in PostgreSQL's base backup system. Each target type has a unique name and provides two key function pointers: one for validating target-specific details and another for creating the appropriate backup sink. This design allows the backup system to support multiple target types (like server destinations, blackhole targets, etc.) through a common interface while maintaining type-specific behavior.
 

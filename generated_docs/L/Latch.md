@@ -8,7 +8,18 @@ Latch is a lightweight synchronization primitive in PostgreSQL that provides eff
 
 ## Definition
 
-
+```c
+typedef struct Latch
+{
+	sig_atomic_t is_set;
+	sig_atomic_t maybe_sleeping;
+	bool		is_shared;
+	int			owner_pid;
+#ifdef WIN32
+	HANDLE		event;
+#endif
+} Latch;
+```
 ## Detailed Description
 The Latch structure serves as PostgreSQL's primary mechanism for efficient process synchronization and signaling. It is designed to be a lightweight alternative to more heavyweight synchronization primitives like semaphores or condition variables. Latches can be used both within a single process and across multiple processes, making them versatile for various PostgreSQL subsystems including WAL processing, background workers, and client-server communication.
 

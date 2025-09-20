@@ -8,7 +8,10 @@ The  function is a PostgreSQL input function for the jsonpath data type, respons
 
 ## Definition
 
-
+```c
+Datum
+jsonpath_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  serves as the standard input conversion function for PostgreSQL's jsonpath data type. When a JSON path expression is provided as a string literal in SQL queries, this function is automatically called to parse and convert the textual representation into PostgreSQL's internal jsonpath binary format. The function acts as a simple wrapper that extracts the input string and delegates the actual parsing work to .
 

@@ -8,7 +8,11 @@ HeapTupleSatisfiesMVCC determines if a heap tuple is visible according to MVCC (
 
 ## Definition
 
-
+```c
+static bool
+HeapTupleSatisfiesMVCC(HeapTuple htup, Snapshot snapshot,
+					   Buffer buffer)
+```
 ## Detailed Description
 This function is the core implementation of PostgreSQL's MVCC visibility checking. It determines whether a tuple should be visible to a query operating under a specific snapshot. The function implements the fundamental MVCC rule: a tuple is visible if it was inserted by a transaction that committed before the snapshot was taken and has not been deleted by a transaction that committed before the snapshot was taken.
 

@@ -8,7 +8,11 @@ Handles collation assignment for ordered-set aggregate functions, using a sophis
 
 ## Definition
 
-
+```c
+static void
+assign_ordered_set_collations(Aggref *aggref,
+							  assign_collations_context *loccontext)
+```
 ## Detailed Description
 This function implements collation assignment for ordered-set aggregates (AGGKIND_ORDERED_SET), which have both direct arguments and aggregated arguments that define sort ordering. The challenge is determining when aggregated sort arguments should contribute to the aggregate's result collation versus being treated independently.
 

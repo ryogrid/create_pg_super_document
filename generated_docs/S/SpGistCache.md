@@ -8,7 +8,19 @@ SpGistCache is a structure that represents the cached metadata and configuration
 
 ## Definition
 
+```c
+typedef struct SpGistCache
+{
+	spgConfigOut config;		/* filled in by opclass config method */
 
+	SpGistTypeDesc attType;		/* type of values to be indexed/restored */
+	SpGistTypeDesc attLeafType; /* type of leaf-tuple values */
+	SpGistTypeDesc attPrefixType;	/* type of inner-tuple prefix values */
+	SpGistTypeDesc attLabelType;	/* type of node label values */
+
+	SpGistLUPCache lastUsedPages;	/* local storage of last-used info */
+} SpGistCache;
+```
 ## Detailed Description
 SpGistCache serves as the primary cache structure for SP-GiST indexes, combining both static configuration data and dynamic page caching information. This structure is maintained per-index and provides efficient access to frequently used metadata without requiring repeated lookups. The cache includes operator class configuration details, type descriptors for different tuple components, and a last-used pages cache for performance optimization.
 

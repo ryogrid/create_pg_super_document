@@ -8,7 +8,22 @@ Serializes a BoolExpr node to its string representation, converting boolean oper
 
 ## Definition
 
-
+```c
+enum representation */
+	switch (node->boolop)
+	{
+		case AND_EXPR:
+			opstr = "and";
+			break;
+		case OR_EXPR:
+			opstr = "or";
+			break;
+		case NOT_EXPR:
+			opstr = "not";
+			break;
+	}
+	appendStringInfoString(str, " :boolop ");
+```
 ## Detailed Description
 The  function handles the serialization of BoolExpr nodes, which represent boolean expressions in PostgreSQL's expression tree system. These nodes correspond to AND, OR, and NOT operations in SQL queries.
 

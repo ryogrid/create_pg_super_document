@@ -8,7 +8,10 @@ Type modifier output function for the variable-length bit string (VARBIT) data t
 
 ## Definition
 
-
+```c
+Datum
+varbittypmodout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL type modifier output function specifically for the VARBIT (variable-length bit string) data type. It serves as a wrapper around the common  function to convert the internal numeric type modifier representation back into a human-readable string format. This function is called when PostgreSQL needs to display type information, such as in table definitions, function signatures, or error messages.
 

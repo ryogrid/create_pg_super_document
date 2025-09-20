@@ -8,7 +8,27 @@ ReplicationSlotOnDisk is a structure that defines the on-disk data format for re
 
 ## Definition
 
+```c
+typedef struct ReplicationSlotOnDisk
+{
+	/* first part of this struct needs to be version independent */
 
+	/* data not covered by checksum */
+	uint32		magic;
+	pg_crc32c	checksum;
+
+	/* data covered by checksum */
+	uint32		version;
+	uint32		length;
+
+	/*
+	 * The actual data in the slot that follows can differ based on the above
+	 * 'version'.
+	 */
+
+	ReplicationSlotPersistentData slotdata;
+} ReplicationSlotOnDisk;
+```
 ## Detailed Description
 ReplicationSlotOnDisk represents the binary format used to store replication slot information on disk. This structure is carefully designed with version independence in mind, allowing PostgreSQL to handle different versions of slot data formats. The structure includes integrity checking through a CRC32c checksum and magic number validation. The design separates non-checksummed metadata (magic and checksum) from checksummed data (version, length, and actual slot data) to ensure data integrity while allowing for format evolution.
 

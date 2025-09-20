@@ -8,7 +8,10 @@ Computes a 64-bit extended hash value for a PostgreSQL Name data type using a pr
 
 ## Definition
 
-
+```c
+Datum
+hashnameextended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the extended version of hashname that accepts an additional seed parameter for hash computation. It generates a seeded hash value for a PostgreSQL Name data type by extracting the string content and passing it to hash_any_extended with the provided seed. This allows for hash table implementations that require seeded hashing for better distribution or security purposes.
 

@@ -8,7 +8,10 @@ Performs relation-specific statistics cleanup and consolidation at the end of a 
 
 ## Definition
 
-
+```c
+void
+AtEOSubXact_PgStat_Relations(PgStat_SubXactStatus *xact_state, bool isCommit, int nestDepth)
+```
 ## Detailed Description
 This function is a helper for AtEOSubXact_PgStat that handles relation-specific end-of-subtransaction work. It processes table transaction status entries from the completed subtransaction and handles them based on whether the subtransaction is committing or aborting:
 

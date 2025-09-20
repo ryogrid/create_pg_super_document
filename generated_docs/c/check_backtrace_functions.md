@@ -8,7 +8,10 @@ check_backtrace_functions is a GUC check hook that validates and processes the b
 
 ## Definition
 
-
+```c
+bool
+check_backtrace_functions(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 check_backtrace_functions validates and processes the backtrace_functions PostgreSQL configuration parameter. It parses a comma-separated string of function names and converts it into a special format for efficient scanning during error processing.
 

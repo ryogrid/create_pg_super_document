@@ -8,7 +8,30 @@ A static test function used in ECPG (Embedded SQL in C) test cases that demonstr
 
 ## Definition
 
+```c
+enum e x)
+{
+	printf("in fe (%d)\n", (int) x);
+	return (int)x;
+}
 
+static void sqlnotice(const char *notice, short trans)
+{
+	if (!notice)
+		notice = "-empty-";
+	printf("in sqlnotice (%s, %d)\n", notice, trans);
+}
+
+
+
+#define YES 1
+
+#ifdef _cplusplus
+namespace N
+{
+	static const int i=2;
+};
+```
 ## Detailed Description
 The `fc` function is a test function that takes a constant string pointer parameter, prints it to stdout, and returns the first character of the string as an integer. This function is part of the ECPG test suite and is used to verify that string parameter passing and character operations work correctly in the ECPG preprocessor and runtime environment.
 

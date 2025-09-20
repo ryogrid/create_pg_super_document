@@ -8,7 +8,18 @@ Establishes a connection to PostgreSQL server using provided connection paramete
 
 ## Definition
 
+```c
+struct a umask
+	 * for creating directories and files.
+	 */
+	if (!RetrieveDataDirCreatePerm(tmpconn))
+	{
+		PQfinish(tmpconn);
+		exit(1);
+	}
 
+	return tmpconn;
+```
 ## Detailed Description
 The GetConnection function creates a PostgreSQL database connection with specialized handling for replication connections used by pg_basebackup utilities. It merges connection parameters from connection strings and individual options, handles password prompts when needed, and performs security validations including setting a secure search path and verifying integer_datetimes compatibility. The function automatically retries connection attempts when password authentication is required and performs essential security checks before returning a valid connection.
 

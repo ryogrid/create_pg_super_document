@@ -8,7 +8,10 @@ Transforms a VALUES clause used as a standalone SELECT statement into a Query tr
 
 ## Definition
 
-
+```c
+static Query *
+transformValuesClause(ParseState *pstate, SelectStmt *stmt)
+```
 ## Detailed Description
 transformValuesClause handles the transformation of VALUES clauses that appear as standalone SELECT statements (not within INSERT or other contexts). The function creates a virtual range table entry (RTE) containing the VALUES data and builds a Query structure that selects from this RTE.
 

@@ -8,7 +8,10 @@ A utility function that provides cross-platform consistent formatting when print
 
 ## Definition
 
-
+```c
+static void
+print_double(double x)
+```
 ## Detailed Description
 The  function serves as a cross-platform wrapper around  to ensure consistent formatting of double precision numbers across different platforms. The function specifically addresses formatting differences on Windows, where exponents are displayed with 3 digits instead of the standard 2-digit format used on other platforms.
 

@@ -8,7 +8,10 @@ A wrapper function that implements the 2-argument version of the generate_subscr
 
 ## Definition
 
-
+```c
+Datum
+generate_subscripts_nodir(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a simple wrapper around the main `generate_subscripts` function. It exists to provide compatibility for the 2-argument variant of `generate_subscripts(array, dim)` where the reverse parameter is not specified. The function directly delegates to `generate_subscripts`, which can handle both the 2-argument and 3-argument versions of the call.
 

@@ -8,7 +8,14 @@ Determines if two relations can be joined partitionwise by checking if every par
 
 ## Definition
 
-
+```c
+PartitionBoundInfo
+partition_bounds_merge(int partnatts,
+					   FmgrInfo *partsupfunc, Oid *partcollation,
+					   RelOptInfo *outer_rel, RelOptInfo *inner_rel,
+					   JoinType jointype,
+					   List **outer_parts, List **inner_parts)
+```
 ## Detailed Description
 This function analyzes the partition bounds of two relations to determine if they can be joined partitionwise. It checks whether every partition of the outer relation matches or overlaps at most one partition of the inner relation, and vice versa. If this condition is met, it builds the partition bounds for the join relation and generates lists of matching partition pairs.
 

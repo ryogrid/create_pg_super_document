@@ -8,7 +8,10 @@ Creates or retrieves a shared rendezvous variable that allows dynamically loaded
 
 ## Definition
 
-
+```c
+void	  **
+find_rendezvous_variable(const char *varName)
+```
 ## Detailed Description
 This function implements a mechanism for inter-library communication within a PostgreSQL process. It provides a way for different dynamically loaded libraries to establish shared variables for data exchange, coordination, or other communication needs.
 

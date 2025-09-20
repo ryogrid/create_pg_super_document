@@ -8,7 +8,10 @@ Main dispatcher function for BRIN (Block Range Index) WAL record replay operatio
 
 ## Definition
 
-
+```c
+void
+brin_redo(XLogReaderState *record)
+```
 ## Detailed Description
 This function serves as the central dispatcher for all BRIN-related WAL (Write-Ahead Log) replay operations during crash recovery. It examines the operation type encoded in the WAL record and delegates to the appropriate specialized replay function. The function handles six different BRIN operation types:
 

@@ -8,7 +8,11 @@ A static function that estimates the number of distinct values in a combination 
 
 ## Definition
 
-
+```c
+static double
+ndistinct_for_combination(double totalrows, StatsBuildData *data,
+						  int k, int *combination)
+```
 ## Detailed Description
 This function estimates the number of distinct values for a specific combination of columns using the same n-distinct estimator as PostgreSQL's ANALYZE command. It implements the formula: n*d / (n - f1 + f1*n/N), where n is the sample size, d is the number of distinct values in the sample, f1 is the number of values that appear exactly once, and N is the total number of rows.
 

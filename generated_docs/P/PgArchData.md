@@ -8,7 +8,17 @@ PgArchData is a shared memory structure that stores essential data for the Postg
 
 ## Definition
 
+```c
+typedef struct PgArchData
+{
+	int			pgprocno;		/* proc number of archiver process */
 
+	/*
+	 * Forces a directory scan in pgarch_readyXlog().
+	 */
+	pg_atomic_uint32 force_dir_scan;
+} PgArchData;
+```
 ## Detailed Description
 PgArchData is a shared memory structure located in src/backend/postmaster/pgarch.c that serves as the communication interface between the postmaster and the archiver process. This structure contains critical information needed to identify and coordinate with the archiver process across different PostgreSQL processes. The structure is designed to be lightweight yet essential for proper archiver functionality, particularly for tracking the archiver process and signaling when directory rescans are needed for WAL file archiving.
 

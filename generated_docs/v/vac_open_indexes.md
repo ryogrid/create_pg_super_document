@@ -8,7 +8,11 @@ Opens all vacuumable indexes of a given relation with the specified lock mode, f
 
 ## Definition
 
-
+```c
+void
+vac_open_indexes(Relation relation, LOCKMODE lockmode,
+				 int *nindexes, Relation **Irel)
+```
 ## Detailed Description
 This function provides a centralized mechanism for opening indexes during vacuum operations. It implements a two-phase approach:
 

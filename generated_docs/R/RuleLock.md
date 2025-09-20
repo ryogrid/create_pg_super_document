@@ -8,7 +8,13 @@ RuleLock is a structure that contains all rewrite rules that apply to a particul
 
 ## Definition
 
-
+```c
+typedef struct RuleLock
+{
+	int			numLocks;
+	RewriteRule **rules;
+} RuleLock;
+```
 ## Detailed Description
 RuleLock represents a collection of all rewrite rules associated with a specific relation (table or view). Despite its name containing "Lock", it is not actually a locking mechanism but rather a data structure that groups related rewrite rules together. The name is kept for historical reasons from earlier PostgreSQL versions when the rule system had different semantics.
 

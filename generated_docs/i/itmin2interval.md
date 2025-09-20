@@ -8,7 +8,10 @@ Converts a pg_itm_in input structure to a PostgreSQL Interval data type, with sp
 
 ## Definition
 
-
+```c
+int
+itmin2interval(struct pg_itm_in *itm_in, Interval *span)
+```
 ## Detailed Description
 The  function converts interval input data from a pg_itm_in structure to PostgreSQL's internal Interval format. This function has special characteristics:
 

@@ -8,7 +8,10 @@ ExecFunctionScan is the main execution function for function scan nodes that seq
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecFunctionScan(PlanState *pstate)
+```
 ## Detailed Description
 ExecFunctionScan serves as the primary execution interface for function scan operations in PostgreSQL's executor. It acts as a thin wrapper around the generic ExecScan framework, providing the specialized access methods needed for function scanning:
 

@@ -8,7 +8,10 @@ A debugging function that prints detailed information about all buffer descripto
 
 ## Definition
 
-
+```c
+void
+PrintBufferDescs(void)
+```
 ## Detailed Description
 This function provides a diagnostic view of the entire shared buffer pool by iterating through all buffer descriptors and logging their current state. For each buffer, it displays comprehensive information including the buffer index, free list linkage, relation file path, block number, flags, reference counts, and private reference counts. This function is primarily intended for debugging and diagnostic purposes, allowing developers and database administrators to inspect the current state of the buffer cache.
 

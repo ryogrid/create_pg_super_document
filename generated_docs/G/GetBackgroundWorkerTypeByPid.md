@@ -8,7 +8,10 @@ Retrieves the background worker type string for a given process ID, providing a 
 
 ## Definition
 
-
+```c
+const char *
+GetBackgroundWorkerTypeByPid(pid_t pid)
+```
 ## Detailed Description
 This function searches through the background worker slots to find a worker with the specified process ID and returns its background worker type string. The function uses shared locking on BackgroundWorkerLock to safely access the background worker data structures. It iterates through all allocated background worker slots, comparing the PID of each active slot with the requested PID.
 

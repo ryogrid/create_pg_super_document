@@ -8,7 +8,10 @@ Computes the oldest restart LSN across all active replication slots and informs 
 
 ## Definition
 
-
+```c
+void
+ReplicationSlotsComputeRequiredLSN(void)
+```
 ## Detailed Description
 This function iterates through all replication slots to find the oldest (minimum) restart LSN among all active, non-invalidated slots. The computed minimum LSN is then passed to the WAL module via XLogSetReplicationSlotMinimumLSN to ensure that WAL segments at or after this position are retained and not deleted prematurely.
 

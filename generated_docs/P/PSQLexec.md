@@ -8,7 +8,10 @@ PSQLexec is a core function in psql for executing "backdoor" queries - internal 
 
 ## Definition
 
-
+```c
+PGresult *
+PSQLexec(const char *query)
+```
 ## Detailed Description
 PSQLexec provides a standardized way to execute internal SQL queries within psql. It serves as a wrapper around libpq's PQexec() with additional psql-specific functionality:
 

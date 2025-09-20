@@ -8,7 +8,9 @@ Initializes the pthread key used for thread-local SQLCA storage and registers th
 
 ## Definition
 
-
+```c
+structor);
+```
 ## Detailed Description
 The  function initializes the pthread key infrastructure required for thread-local storage of SQLCA structures in multi-threaded ECPG applications. It creates a pthread key () using  and associates it with a destructor function () that will be automatically called when threads terminate.
 

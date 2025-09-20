@@ -8,7 +8,16 @@ BTPageOpaqueData is a structure stored at the end of every B-tree page in Postgr
 
 ## Definition
 
-
+```c
+typedef struct BTPageOpaqueData
+{
+	BlockNumber btpo_prev;		/* left sibling, or P_NONE if leftmost */
+	BlockNumber btpo_next;		/* right sibling, or P_NONE if rightmost */
+	uint32		btpo_level;		/* tree level --- zero for leaf pages */
+	uint16		btpo_flags;		/* flag bits, see below */
+	BTCycleId	btpo_cycleid;	/* vacuum cycle ID of latest split */
+} BTPageOpaqueData;
+```
 ## Detailed Description
 BTPageOpaqueData is a critical structure in PostgreSQL's B-tree implementation that provides essential metadata for each B-tree page. This structure is stored in the special area at the end of every B-tree page and serves multiple purposes:
 

@@ -8,7 +8,11 @@ A method function that flattens an expanded array into its standard serialized P
 
 ## Definition
 
-
+```c
+static void
+EA_flatten_into(ExpandedObjectHeader *eohptr,
+				void *result, Size allocated_size)
+```
 ## Detailed Description
 This function is part of the ExpandedObjectMethods interface for expanded arrays, responsible for converting an expanded array back into the standard PostgreSQL array format. It works in conjunction with EA_get_flat_size to provide a complete serialization mechanism.
 

@@ -8,7 +8,24 @@ MinMaxOp is an enumeration that specifies the operation type for MinMaxExpr node
 
 ## Definition
 
-
+```c
+typedef struct MinMaxExpr
+{
+	Expr		xpr;
+	/* common type of arguments and result */
+	Oid			minmaxtype pg_node_attr(query_jumble_ignore);
+	/* OID of collation of result */
+	Oid			minmaxcollid pg_node_attr(query_jumble_ignore);
+	/* OID of collation that function should use */
+	Oid			inputcollid pg_node_attr(query_jumble_ignore);
+	/* function to execute */
+	MinMaxOp	op;
+	/* the arguments */
+	List	   *args;
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} MinMaxExpr;
+```
 ## Detailed Description
 MinMaxOp defines the two types of min/max operations supported by PostgreSQL's MinMaxExpr expression nodes. This enumeration is used to specify whether a MinMaxExpr should compute the greatest (maximum) or least (minimum) value among its arguments.
 

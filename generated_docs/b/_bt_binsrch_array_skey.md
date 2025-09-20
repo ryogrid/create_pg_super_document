@@ -8,7 +8,14 @@ Performs binary search within SK_SEARCHARRAY arrays to find the first array elem
 
 ## Definition
 
-
+```c
+static int
+_bt_binsrch_array_skey(FmgrInfo *orderproc,
+					   bool cur_elem_trig, ScanDirection dir,
+					   Datum tupdatum, bool tupnull,
+					   BTArrayKeyInfo *array, ScanKey cur,
+					   int32 *set_elem_result)
+```
 ## Detailed Description
 This function implements an optimized binary search algorithm for finding the next matching array element in PostgreSQL's B-tree index array operations. It returns an index to the first array element that is greater than or equal to the caller's tupdatum argument, following a convention that favors forward scan operations.
 

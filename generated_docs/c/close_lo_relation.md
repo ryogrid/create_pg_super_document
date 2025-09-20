@@ -8,7 +8,10 @@ Cleans up the PostgreSQL large object relation and index references at the end o
 
 ## Definition
 
-
+```c
+void
+close_lo_relation(bool isCommit)
+```
 ## Detailed Description
 This function handles the cleanup of large object relation references at transaction end. It takes a commit/abort flag to determine the appropriate cleanup behavior. When committing, it explicitly closes both the large object heap relation and its index using the appropriate close functions, switching resource ownership temporarily to TopTransactionResourceOwner for proper cleanup. When aborting, it relies on the abort cleanup mechanism to handle the closing, only resetting the global pointers to NULL. This approach optimizes cleanup by avoiding unnecessary work during transaction aborts.
 

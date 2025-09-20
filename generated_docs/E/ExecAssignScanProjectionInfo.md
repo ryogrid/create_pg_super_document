@@ -8,7 +8,10 @@ ExecAssignScanProjectionInfo sets up projection information for scan nodes by de
 
 ## Definition
 
-
+```c
+void
+ExecAssignScanProjectionInfo(ScanState *node)
+```
 ## Detailed Description
 ExecAssignScanProjectionInfo is a specialized wrapper function that configures projection information for scan operations. It extracts the scan plan and tuple descriptor from the scan node, then delegates to ExecConditionalAssignProjectionInfo to determine if projection is necessary.
 

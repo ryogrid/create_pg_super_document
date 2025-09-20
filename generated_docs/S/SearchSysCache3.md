@@ -8,7 +8,11 @@ SearchSysCache3 is a high-level interface function that searches PostgreSQL's sy
 
 ## Definition
 
-
+```c
+HeapTuple
+SearchSysCache3(int cacheId,
+				Datum key1, Datum key2, Datum key3)
+```
 ## Detailed Description
 SearchSysCache3 provides a convenient wrapper around the lower-level SearchCatCache3 function for searching system caches with exactly three key values. It validates that the cache exists and has the expected number of keys (3) before delegating to the catalog cache search mechanism. The function is part of PostgreSQL's system cache infrastructure that provides fast access to frequently accessed system catalog information.
 

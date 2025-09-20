@@ -8,7 +8,13 @@ Generates CREATE SEQUENCE and ALTER SEQUENCE ... OWNED BY statements to create a
 
 ## Definition
 
-
+```c
+static void
+generateSerialExtraStmts(CreateStmtContext *cxt, ColumnDef *column,
+						 Oid seqtypid, List *seqoptions,
+						 bool for_identity, bool col_exists,
+						 char **snamespace_p, char **sname_p)
+```
 ## Detailed Description
 generateSerialExtraStmts is responsible for creating the sequence infrastructure needed for serial and identity columns in PostgreSQL. When a column is defined as SERIAL, BIGSERIAL, or has IDENTITY properties, this function generates the necessary SQL statements to:
 

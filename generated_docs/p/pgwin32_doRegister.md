@@ -8,7 +8,10 @@ Registers PostgreSQL as a Windows service in the Windows Service Control Manager
 
 ## Definition
 
-
+```c
+static void
+pgwin32_doRegister(void)
+```
 ## Detailed Description
 This function handles the registration of PostgreSQL as a Windows service. It opens a connection to the Windows Service Control Manager, checks if the service is already registered, and if not, creates a new service entry with the specified configuration parameters. The service is configured to run as a Win32 service with its own process, using the command line parameters appropriate for service execution.
 

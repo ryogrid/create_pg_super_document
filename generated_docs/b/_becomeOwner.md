@@ -8,7 +8,10 @@ Changes the session authorization to the owner of a given TOC (Table of Contents
 
 ## Definition
 
-
+```c
+static void
+_becomeOwner(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 The  function is a utility function in pg_dump's archiver that handles ownership changes during database restore operations. It conditionally switches the current session user to match the owner of a specific database object being restored. This ensures that objects are created with the correct ownership during the restore process.
 

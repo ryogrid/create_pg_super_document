@@ -8,7 +8,11 @@ SetupLockInTable creates or locates shared LOCK and PROCLOCK objects in PostgreS
 
 ## Definition
 
-
+```c
+static PROCLOCK *
+SetupLockInTable(LockMethod lockMethodTable, PGPROC *proc,
+				 const LOCKTAG *locktag, uint32 hashcode, LOCKMODE lockmode)
+```
 ## Detailed Description
 SetupLockInTable is a critical internal function that manages the shared memory structures necessary for lock tracking. It operates in two phases: first finding or creating a LOCK object that represents the lockable resource, then finding or creating a PROCLOCK object that represents the association between a process and that lock.
 

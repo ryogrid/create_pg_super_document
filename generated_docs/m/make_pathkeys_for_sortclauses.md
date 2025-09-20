@@ -8,7 +8,12 @@ Generates a pathkeys list that represents the sort order specified by a list of 
 
 ## Definition
 
-
+```c
+List *
+make_pathkeys_for_sortclauses(PlannerInfo *root,
+							  List *sortclauses,
+							  List *tlist)
+```
 ## Detailed Description
 The `make_pathkeys_for_sortclauses` function is a convenience wrapper around `make_pathkeys_for_sortclauses_extended` that converts a list of SortGroupClause nodes into a canonical pathkeys list. The resulting PathKeys represent the sort order specified by the input clauses and are always in canonical form. The function assumes that all provided sort clauses are sortable and will assert if this condition is not met.
 

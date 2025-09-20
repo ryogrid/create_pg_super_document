@@ -8,7 +8,10 @@ Attempts to pull up ANY and EXISTS SubLinks to be treated as semijoins or anti-s
 
 ## Definition
 
-
+```c
+void
+pull_up_sublinks(PlannerInfo *root)
+```
 ## Detailed Description
 This function performs an important query optimization by transforming SubLink expressions (ANY and EXISTS clauses) into semijoin or anti-semijoin operations. This transformation can significantly improve query execution performance by allowing the optimizer to consider additional join strategies and access paths.
 

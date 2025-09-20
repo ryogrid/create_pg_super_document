@@ -8,7 +8,10 @@ Converts a 32-bit integer value to its binary (base-2) string representation.
 
 ## Definition
 
-
+```c
+Datum
+to_bin32(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that takes a 32-bit signed integer and converts it to a text string containing the binary representation of that number. The function treats the input as an unsigned 32-bit value during conversion, ensuring consistent binary output regardless of the sign of the input.
 

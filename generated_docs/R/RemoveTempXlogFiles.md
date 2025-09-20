@@ -8,7 +8,9 @@ Removes all temporary WAL (Write-Ahead Log) files from the pg_wal directory duri
 
 ## Definition
 
-
+```c
+struct dirent *xlde;
+```
 ## Detailed Description
 This function is responsible for cleaning up temporary WAL files that may have been left behind after a PostgreSQL crash or abnormal shutdown. It scans the pg_wal directory for files with the "xlogtemp." prefix and removes them. This cleanup is performed at the beginning of recovery when no other processes are writing fresh WAL data, ensuring that stale temporary files don't interfere with the recovery process.
 

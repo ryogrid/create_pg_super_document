@@ -8,7 +8,10 @@ This function checks for the presence of statistics for a specific database obje
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_have_stats(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a way to verify whether PostgreSQL's statistics collector has data for a specific database object. It accepts three parameters: a statistics type string, a database OID, and an object OID. The function converts the statistics type string to an internal  enumeration value using , then queries the statistics system using  to determine if statistics exist for the specified object.
 

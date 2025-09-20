@@ -8,7 +8,10 @@ Returns the size of the free (allocatable) space on a page, without any consider
 
 ## Definition
 
-
+```c
+Size
+PageGetExactFreeSpace(Page page)
+```
 ## Detailed Description
 PageGetExactFreeSpace provides the raw calculation of free space available on a page by computing the difference between the upper and lower bounds of the page header (pd_upper and pd_lower). Unlike PageGetFreeSpace and PageGetFreeSpaceForMultipleTuples, this function does not account for line pointer overhead, making it useful for scenarios where the exact available space is needed without line pointer considerations.
 

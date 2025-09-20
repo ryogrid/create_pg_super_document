@@ -8,7 +8,10 @@ Implements the psql  command for displaying detailed information about the curre
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_conninfo(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 The  function handles the  command in psql, which displays comprehensive information about the current database connection including database name, username, host/address, and port. The function provides different output formats depending on the connection type (Unix socket vs network) and handles cases where host and hostaddr differ.
 

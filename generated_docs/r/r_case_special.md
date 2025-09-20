@@ -8,7 +8,11 @@ The r_case_special function handles special Hungarian case endings that require 
 
 ## Definition
 
+```c
+}
 
+static int r_case_special(struct SN_env * z)
+```
 ## Detailed Description
 This function processes special case endings in Hungarian that require vowel substitution instead of complete removal. It handles three specific patterns:
 

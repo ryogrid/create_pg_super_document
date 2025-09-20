@@ -8,7 +8,11 @@ Coordinates parallel execution of bulk delete operations across all indexes by s
 
 ## Definition
 
-
+```c
+void
+parallel_vacuum_bulkdel_all_indexes(ParallelVacuumState *pvs, long num_table_tuples,
+									int num_index_scans)
+```
 ## Detailed Description
 This function serves as the entry point for parallel bulk deletion operations on indexes. It:
 

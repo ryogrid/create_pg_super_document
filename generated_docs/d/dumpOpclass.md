@@ -8,7 +8,10 @@ Writes out a complete operator class definition including its operators and func
 
 ## Definition
 
-
+```c
+static void
+dumpOpclass(Archive *fout, const OpclassInfo *opcinfo)
+```
 ## Detailed Description
 This function generates a comprehensive CREATE OPERATOR CLASS statement by querying the PostgreSQL system catalogs to retrieve all associated operators and functions. It constructs the complete operator class definition including the data type, access method, optional operator family, storage type, operator entries with strategy numbers, and function entries with procedure numbers.
 

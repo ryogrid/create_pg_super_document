@@ -8,7 +8,14 @@ Compacts tuples within a hash bucket chain by moving tuples from later pages to 
 
 ## Definition
 
-
+```c
+void
+_hash_squeezebucket(Relation rel,
+					Bucket bucket,
+					BlockNumber bucket_blkno,
+					Buffer bucket_buf,
+					BufferAccessStrategy bstrategy)
+```
 ## Detailed Description
 This function implements bucket compaction for hash indexes during VACUUM operations. It uses a two-pointer approach: a "write" pointer starting from the primary bucket page moving forward, and a "read" pointer starting from the last overflow page moving backward. The algorithm moves tuples from the read pages to fill available space in write pages, thereby eliminating empty or underutilized overflow pages.
 

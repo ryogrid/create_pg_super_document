@@ -8,7 +8,9 @@ pg_local_to_utf_combined is a structure that defines a mapping entry for convert
 
 ## Definition
 
-
+```c
+typedef uint32 (*utf_local_conversion_func) (uint32 code);
+```
 ## Detailed Description
 The pg_local_to_utf_combined structure is used in PostgreSQL's character encoding conversion system to handle special cases where a single character in a local encoding corresponds to a combination of two UTF-8 characters. This structure is particularly important for handling combined characters, accented characters, or other complex character compositions where a one-to-many mapping is required during encoding conversion. The structure stores the original local encoding value and the two UTF-8 code points that represent the equivalent character combination in UTF-8.
 

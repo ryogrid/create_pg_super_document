@@ -8,7 +8,10 @@ Establishes or continues an SSL/TLS client connection handshake with a PostgreSQ
 
 ## Definition
 
-
+```c
+PostgresPollingStatusType
+pgtls_open_client(PGconn *conn)
+```
 ## Detailed Description
 This function manages the SSL/TLS client-side connection establishment process. It operates in two phases: first-time initialization where it creates the SSL object and loads certificates, and subsequent calls where it continues the SSL handshake process. The function is designed to work with PostgreSQL's non-blocking connection model, returning polling status to indicate whether the connection is complete, needs more data, or has failed.
 

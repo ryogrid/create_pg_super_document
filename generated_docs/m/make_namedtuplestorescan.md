@@ -8,7 +8,13 @@ Creates and initializes a NamedTuplestoreScan plan node for scanning Ephemeral N
 
 ## Definition
 
-
+```c
+static NamedTuplestoreScan *
+make_namedtuplestorescan(List *qptlist,
+						 List *qpqual,
+						 Index scanrelid,
+						 char *enrname)
+```
 ## Detailed Description
 This function constructs a NamedTuplestoreScan plan node, which is used to scan temporary named tuple stores (Ephemeral Named Relations). ENRs are typically used for WITH clause subqueries, transition tables in triggers, and other temporary data structures that need to be accessed like regular tables during query execution. The function allocates a new NamedTuplestoreScan node using makeNode() and initializes its fields with the provided parameters.
 

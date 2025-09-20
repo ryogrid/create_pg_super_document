@@ -8,7 +8,10 @@ GUC check_hook for the synchronized_standby_slots configuration parameter that v
 
 ## Definition
 
-
+```c
+struct */
+	size = offsetof(SyncStandbySlotsConfigData, slot_names);
+```
 ## Detailed Description
 This function serves as a GUC (Grand Unified Configuration) check hook for the synchronized_standby_slots parameter. It validates the provided slot names using validate_sync_standby_slots, then transforms the parsed slot names into a SyncStandbySlotsConfigData structure that can be efficiently used at runtime. The function handles empty configuration strings, allocates memory using guc_malloc (required for GUC extra values), and stores the slot names in a contiguous memory layout for optimal access. If validation fails or memory allocation fails, appropriate cleanup is performed.
 

@@ -8,7 +8,10 @@ A PostgreSQL built-in function that handles both NULL values and regular text by
 
 ## Definition
 
-
+```c
+Datum
+quote_nullable(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `quote_nullable` function extends the functionality of `quote_literal` by handling NULL values appropriately. When the input argument is NULL, it returns the text string 'NULL' (without quotes), which is the correct SQL representation for NULL values. For non-NULL inputs, it delegates to the `quote_literal` function to perform standard literal quoting and escaping. This function is particularly useful when constructing dynamic SQL queries where NULL values need to be represented correctly as the unquoted NULL keyword rather than as quoted string literals.
 

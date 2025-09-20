@@ -8,7 +8,10 @@ Test function that validates IntegerSet operations with a single integer value, 
 
 ## Definition
 
-
+```c
+static void
+test_single_value(uint64 value)
+```
 ## Detailed Description
 The  function performs focused testing of the PostgreSQL IntegerSet data structure when it contains exactly one integer value. This function is crucial for validating edge cases and ensuring that the IntegerSet implementation correctly handles single-element sets across the entire uint64 range. It systematically tests all core IntegerSet operations including creation, insertion, membership queries, entry counting, and iteration.
 

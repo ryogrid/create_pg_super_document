@@ -8,7 +8,10 @@ Creates, updates, or deletes comments for database objects by manipulating the p
 
 ## Definition
 
-
+```c
+void
+CreateComments(Oid oid, Oid classoid, int32 subid, const char *comment)
+```
 ## Detailed Description
 CreateComments manages object comments in the pg_description catalog table. It performs insert, update, or delete operations based on the comment parameter: inserts new comments, updates existing ones, or deletes entries when the comment is NULL or empty. The function uses a systematic scan with composite keys (object OID, class OID, subobject ID) to locate existing entries and handles all tuple operations through the catalog interface functions.
 

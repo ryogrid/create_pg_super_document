@@ -8,7 +8,10 @@ Creates a standardized 2-byte invalid character sequence for a given encoding th
 
 ## Definition
 
-
+```c
+void
+pg_encoding_set_invalid(int encoding, char *dst)
+```
 ## Detailed Description
 This function fills a provided buffer with a carefully chosen 2-byte sequence that satisfies two critical properties: the sequence will report a multibyte length of 2 when passed to pg_encoding_mblen(), but will fail validation when passed to pg_encoding_verifymbstr(). This creates a reliable way to generate invalid character sequences for testing, error handling, and security-related functionality.
 

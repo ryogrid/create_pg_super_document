@@ -8,7 +8,11 @@ The r_un_accent function removes specific French accent marks (é and è) that f
 
 ## Definition
 
+```c
+}
 
+static int r_un_accent(struct SN_env * z)
+```
 ## Detailed Description
 The r_un_accent function performs accent normalization as part of the French stemming process. It specifically targets the acute accent (é, 0xE9) and grave accent (è, 0xE8) characters that appear after consonants. The function first uses out_grouping_b to move backwards through the text until it finds a consonant (non-vowel character), then checks if the character immediately following that consonant is either é or è. If such an accented character is found, it replaces it with a plain 'e' using slice_from_s with string s_32.
 

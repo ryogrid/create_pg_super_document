@@ -8,7 +8,10 @@ Generates a Param node to replace the given Aggref which is expected to have agg
 
 ## Definition
 
-
+```c
+Param *
+replace_outer_agg(PlannerInfo *root, Aggref *agg)
+```
 ## Detailed Description
 This function handles the parameterization of aggregate function references (Aggref nodes) that belong to outer query levels. Unlike the deduplication strategies used for Vars and PlaceHolderVars, this function intentionally creates a new parameter slot every time, as indicated by the comment that it does not seem worthwhile to try to de-duplicate references to outer aggregates.
 

@@ -8,7 +8,10 @@ RelationCacheInitialize initializes the relation cache system, setting up the ha
 
 ## Definition
 
-
+```c
+void
+RelationCacheInitialize(void)
+```
 ## Detailed Description
 This function performs the fundamental initialization of PostgreSQL's relation cache (relcache) system during backend startup. The relcache is a critical component that maintains in-memory copies of relation metadata to avoid repeatedly reading from system catalogs.
 

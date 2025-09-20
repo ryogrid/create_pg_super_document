@@ -8,7 +8,12 @@ Tests whether an OpExpr can be used for hash-based subplan execution by checking
 
 ## Definition
 
-
+```c
+structure, so we have to check.
+	 * Such cases do not occur often enough to be worth trying to optimize, so
+	 * we don't worry about trying to commute the clause or anything like
+	 * that;
+```
 ## Detailed Description
 This function validates whether an OpExpr (operator expression) can be safely used in hash-based subplan execution strategies. It performs several critical checks:
 

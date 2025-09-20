@@ -8,7 +8,10 @@ Displays the readline command history either to the console (with optional pager
 
 ## Definition
 
-
+```c
+bool
+printHistory(const char *fname, unsigned short int pager)
+```
 ## Detailed Description
 The  function provides a way to view or export the current readline command history in a human-readable format. Unlike , this function does not perform any newline encoding transformations, making it suitable for direct viewing and the psql \s command implementation.
 

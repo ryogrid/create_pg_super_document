@@ -8,7 +8,10 @@ A static function in PostgreSQL's text search parser that attempts to parse a UR
 
 ## Definition
 
-
+```c
+static int
+p_isURLPath(TParser *prs)
+```
 ## Detailed Description
 p_isURLPath is a lookahead function that determines whether the current parsing position contains a valid URL path token. It works by creating a temporary copy of the parser state, setting up a new parser position with the state TPS_InURLPathFirst, and then attempting to parse the next token. If the parsed token is of type URLPATH, the function updates the original parser's position and length counters to include the URL path token and returns 1. Otherwise, it returns 0.
 

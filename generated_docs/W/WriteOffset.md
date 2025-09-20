@@ -8,7 +8,10 @@ WriteOffset serializes a PostgreSQL file offset (pgoff_t) to an archive stream i
 
 ## Definition
 
-
+```c
+size_t
+WriteOffset(ArchiveHandle *AH, pgoff_t o, int wasSet)
+```
 ## Detailed Description
 WriteOffset is a utility function in pg_dump's archiver module that writes a PostgreSQL file offset to an archive stream. The function ensures portability across different architectures by writing the offset in little-endian byte order (smallest byte first). It first writes a flag indicating whether the offset was set, then serializes the pgoff_t value byte by byte to prevent endian mismatch issues when the archive is read on different systems.
 

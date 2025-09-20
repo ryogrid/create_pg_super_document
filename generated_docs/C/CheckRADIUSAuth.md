@@ -8,7 +8,10 @@ Main entry point for RADIUS-based authentication that coordinates the entire RAD
 
 ## Definition
 
-
+```c
+struct alignment is correct */
+	Assert(offsetof(radius_packet, vector) == 4);
+```
 ## Detailed Description
 This static function orchestrates the complete RADIUS authentication workflow for a client connection. It validates configuration parameters, requests a password from the client, and iterates through configured RADIUS servers attempting authentication until one succeeds or all fail.
 

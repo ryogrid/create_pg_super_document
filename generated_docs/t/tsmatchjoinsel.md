@@ -8,7 +8,10 @@ Provides join selectivity estimation for the "@@" operator between tsvector and 
 
 ## Definition
 
-
+```c
+Datum
+tsmatchjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a join selectivity estimation function for the "@@" text search match operator when used in join conditions. Unlike restriction selectivity (handled by ), join selectivity estimates the fraction of row pairs that will satisfy the join condition between two relations.
 

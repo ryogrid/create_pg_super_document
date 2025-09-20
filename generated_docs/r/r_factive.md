@@ -8,7 +8,11 @@ The r_factive function handles Hungarian factive case endings by removing 'á' a
 
 ## Definition
 
+```c
+}
 
+static int r_factive(struct SN_env * z)
+```
 ## Detailed Description
 This function processes factive case endings in Hungarian, which express causation or reason ("because of" or "for the sake of"). The factive case in Hungarian is marked by the suffixes 'á' and 'é' that are added to word stems.
 

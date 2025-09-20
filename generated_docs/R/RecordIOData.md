@@ -8,7 +8,15 @@ RecordIOData is a structure that caches record metadata needed for populating re
 
 ## Definition
 
-
+```c
+struct RecordIOData
+{
+	Oid			record_type;
+	int32		record_typmod;
+	int			ncolumns;
+	ColumnIOData columns[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 RecordIOData serves as a comprehensive cache structure for record-level metadata in PostgreSQL's type system. It maintains essential information about record types including type identification, the number of columns, and a flexible array of ColumnIOData structures for each column. This structure is fundamental to both JSON processing operations and general record I/O functions, providing efficient access to column metadata without repeated system catalog lookups.
 

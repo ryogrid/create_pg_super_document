@@ -8,7 +8,9 @@ A utility function that converts and caches a single string from a specified enc
 
 ## Definition
 
-
+```c
+struct tm  *timeinfo;
+```
 ## Detailed Description
 The  function serves as a subroutine for  and handles the conversion and caching of locale-specific strings. It performs encoding conversion from the specified source encoding to PostgreSQL's database encoding, then stores the result in long-lived memory (TopMemoryContext) while properly managing memory cleanup.
 

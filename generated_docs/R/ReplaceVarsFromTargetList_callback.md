@@ -8,7 +8,11 @@ A callback function used with replace_rte_variables to substitute Var nodes with
 
 ## Definition
 
-
+```c
+static Node *
+ReplaceVarsFromTargetList_callback(Var *var,
+								   replace_rte_variables_context *context)
+```
 ## Detailed Description
 This callback function implements the core logic for replacing variables with expressions from a target list. It handles several complex scenarios:
 

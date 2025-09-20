@@ -8,7 +8,10 @@ NIStartBuild initializes the construction of an ISpell dictionary by setting up 
 
 ## Definition
 
-
+```c
+void
+NIStartBuild(IspellDict *Conf)
+```
 ## Detailed Description
 This function prepares for constructing an ISpell dictionary by creating a temporary memory context specifically for dictionary initialization. The function assumes that the IspellDict structure passed to it has been zeroed when allocated. The created context is a child of CurTransactionContext, ensuring automatic cleanup on transaction abort or error conditions.
 

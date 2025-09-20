@@ -8,7 +8,14 @@ Resizes a previously allocated memory chunk to a new size, preserving existing d
 
 ## Definition
 
-
+```c
+structions after this call allows the compiler to use
+	 * the sibling call optimization.  If you're considering adding code after
+	 * this call, consider making it the responsibility of the 'realloc'
+	 * function instead.
+	 */
+	ret = MCXT_METHOD(pointer, realloc) (pointer, size, 0);
+```
 ## Detailed Description
 The `repalloc` function provides memory reallocation functionality within PostgreSQL's memory context system. It adjusts the size of a previously allocated memory chunk, preserving the existing data up to the minimum of the old and new sizes. The function works with memory allocated through any memory context allocation method, including regular and aligned allocations.
 

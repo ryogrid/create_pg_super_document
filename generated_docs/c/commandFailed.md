@@ -8,7 +8,10 @@ Reports the abortion of a pgbench client when processing SQL commands, providing
 
 ## Definition
 
-
+```c
+static void
+commandFailed(CState *st, const char *cmd, const char *message)
+```
 ## Detailed Description
 The `commandFailed` function serves as a centralized error reporting mechanism for pgbench client failures during SQL command execution. It logs comprehensive failure information including the client ID, current command number, command type, script identifier, and the specific error message. This function provides essential debugging information for identifying why and where a pgbench client aborted during benchmark execution, making it easier to diagnose issues in complex benchmark scenarios with multiple clients and scripts.
 

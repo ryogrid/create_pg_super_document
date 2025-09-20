@@ -8,7 +8,10 @@ Returns the length in bytes (octets) of a bit string, effectively calculating th
 
 ## Definition
 
-
+```c
+Datum
+bitoctetlength(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that computes the number of bytes (octets) required to store a variable-length bit string (). This function provides the actual storage size of the bit data portion, which is useful for understanding memory usage and storage requirements. The function uses the  macro to extract the byte count from the bit string's header information.
 

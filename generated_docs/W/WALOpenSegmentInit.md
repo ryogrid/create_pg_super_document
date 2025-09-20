@@ -8,7 +8,11 @@ Initializes WAL (Write Ahead Log) segment structures for reading operations, set
 
 ## Definition
 
-
+```c
+static void
+WALOpenSegmentInit(WALOpenSegment *seg, WALSegmentContext *segcxt,
+				   int segsize, const char *waldir)
+```
 ## Detailed Description
 WALOpenSegmentInit is a static initialization function that prepares WALOpenSegment and WALSegmentContext structures for use in WAL reading operations. The function sets up the basic state of a WAL segment descriptor, initializing file handles, segment numbers, and timeline information to their default/invalid states. It also configures the segment context with the specified segment size and WAL directory path.
 

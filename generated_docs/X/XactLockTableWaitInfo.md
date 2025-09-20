@@ -8,7 +8,14 @@ XactLockTableWaitInfo is a struct that holds context information for transaction
 
 ## Definition
 
-
+```c
+typedef struct XactLockTableWaitInfo
+{
+	XLTW_Oper	oper;
+	Relation	rel;
+	ItemPointer ctid;
+} XactLockTableWaitInfo;
+```
 ## Detailed Description
 XactLockTableWaitInfo serves as a context structure for transaction lock waiting operations in PostgreSQL's lock manager. It encapsulates the necessary information to provide detailed error context when a transaction needs to wait for another transaction to complete. The struct is primarily used with the XactLockTableWait function to enable verbose error reporting during lock waits.
 

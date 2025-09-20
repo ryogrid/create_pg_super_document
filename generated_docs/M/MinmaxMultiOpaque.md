@@ -8,7 +8,14 @@ MinmaxMultiOpaque is a private data structure used by the BRIN (Block Range Inde
 
 ## Definition
 
-
+```c
+typedef struct MinmaxMultiOpaque
+{
+	FmgrInfo	extra_procinfos[MINMAX_MAX_PROCNUMS];
+	Oid			cached_subtype;
+	FmgrInfo	strategy_procinfos[BTMaxStrategyNumber];
+} MinmaxMultiOpaque;
+```
 ## Detailed Description
 MinmaxMultiOpaque serves as a cache structure for the BRIN minmax-multi operator class, which maintains minimum and maximum values for data blocks. This structure stores precomputed function manager information to avoid repeated lookups during index operations. The structure is designed to optimize performance by caching both extra support procedures and B-tree strategy procedures that are frequently used in range comparisons.
 

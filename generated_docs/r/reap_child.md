@@ -8,7 +8,14 @@ Collects status from completed worker child processes or threads, managing the l
 
 ## Definition
 
-
+```c
+struct into the now-dead slot, and the
+		 * now-dead slot to the end for reuse by the next thread. Though the
+		 * thread struct is in use by another thread, we can safely swap the
+		 * struct pointers within the array.
+		 */
+		tmp_args = cur_thread_args[thread_num];
+```
 ## Detailed Description
 This function is responsible for managing the lifecycle of parallel worker processes (Unix) or threads (Windows) in pg_upgrade. It collects exit status from completed workers, handles cleanup of system resources, and maintains the parallel job count. The function provides both blocking and non-blocking modes of operation.
 

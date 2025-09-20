@@ -8,7 +8,10 @@ Implements the width_bucket(anyelement, anyarray) function that assigns a bucket
 
 ## Definition
 
-
+```c
+Datum
+width_bucket_array(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL width_bucket function variant that takes an element and an array of thresholds. It determines which "bucket" the operand falls into based on the threshold values provided in the array. The thresholds array must be sorted from smallest to largest to produce correct results.
 

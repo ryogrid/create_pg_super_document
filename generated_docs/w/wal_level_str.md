@@ -8,7 +8,12 @@ The  function converts a  enumeration value into its corresponding string repres
 
 ## Definition
 
-
+```c
+struct option long_options[] = {
+		{"pgdata", required_argument, NULL, 'D'},
+		{NULL, 0, NULL, 0}
+	};
+```
 ## Detailed Description
 This function translates PostgreSQL WAL (Write-Ahead Log) level enumeration values into their string equivalents. It supports all standard WAL levels used in PostgreSQL configuration and provides a human-readable representation for each level. The function is used both for displaying current WAL settings and for WAL-related debugging output.
 

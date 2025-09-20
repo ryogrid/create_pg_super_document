@@ -8,7 +8,10 @@ Initializes a new SCRAM authentication exchange status tracker and prepares the 
 
 ## Definition
 
-
+```c
+static void *
+scram_init(Port *port, const char *selected_mech, const char *shadow_pass)
+```
 ## Detailed Description
 This function creates and initializes a scram_state structure to track the progress of a SCRAM authentication exchange. It validates the selected SASL mechanism, parses the stored password secret from pg_authid, and sets up the authentication context. If the user doesn't have a valid SCRAM secret or if a mock authentication is requested, the function still proceeds but marks the authentication as 'doomed' to fail later while maintaining timing-attack resistance.
 

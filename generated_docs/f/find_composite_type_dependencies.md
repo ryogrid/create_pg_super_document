@@ -8,7 +8,11 @@ Recursively checks if a given type is being used as a column in any table, inclu
 
 ## Definition
 
-
+```c
+void
+find_composite_type_dependencies(Oid typeOid, Relation origRelation,
+								 const char *origTypeName)
+```
 ## Detailed Description
 This function performs a comprehensive dependency analysis to determine if a specified type (identified by typeOid) is used as a column type anywhere in the database schema. It recursively follows dependencies through container types like arrays, domains, ranges, and composite types to find all potential uses. The function is primarily used during ALTER TYPE operations to prevent modifications that would break existing table columns.
 

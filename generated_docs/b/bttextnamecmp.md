@@ -8,7 +8,10 @@ The  function implements a three-way comparison between a text type and a name t
 
 ## Definition
 
-
+```c
+Datum
+bttextnamecmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs a collation-aware comparison between a text value and a name (fixed-length string), returning -1 if the text is less than the name, 0 if they are equal, or +1 if the text is greater than the name. It serves as the counterpart to  with reversed argument order and provides the foundation for text-to-name comparison operations. The function uses  to handle locale-specific sorting rules and character comparison.
 

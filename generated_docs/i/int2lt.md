@@ -8,7 +8,10 @@ Compares two 16-bit signed integers and returns true if the first is less than t
 
 ## Definition
 
-
+```c
+Datum
+int2lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the less-than comparison operator (<) for PostgreSQL's int2 (smallint) data type. It extracts two 16-bit signed integer arguments from the function call context and performs a simple arithmetic comparison, returning a boolean result. The function is part of PostgreSQL's built-in operator system and is typically invoked through SQL expressions using the < operator on smallint values.
 

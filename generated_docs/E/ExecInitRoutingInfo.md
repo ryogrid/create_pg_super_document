@@ -8,7 +8,16 @@ Sets up information needed for translating tuples between root partitioned table
 
 ## Definition
 
-
+```c
+static void
+ExecInitRoutingInfo(ModifyTableState *mtstate,
+					EState *estate,
+					PartitionTupleRouting *proute,
+					PartitionDispatch dispatch,
+					ResultRelInfo *partRelInfo,
+					int partidx,
+					bool is_borrowed_rel)
+```
 ## Detailed Description
 This function configures the tuple routing infrastructure for a specific partition by setting up tuple format conversion capabilities, initializing Foreign Data Wrapper (FDW) support for foreign table partitions, and managing the storage of ResultRelInfo structures in the partition routing system. It determines whether tuple conversion is needed between the root table and partition formats, creating dedicated tuple slots when necessary. The function also handles FDW-specific initialization for foreign table partitions, including batch insertion support configuration.
 

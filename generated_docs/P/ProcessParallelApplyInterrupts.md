@@ -8,7 +8,10 @@ ProcessParallelApplyInterrupts is an interrupt handler function that manages sys
 
 ## Definition
 
-
+```c
+static void
+ProcessParallelApplyInterrupts(void)
+```
 ## Detailed Description
 This function serves as the interrupt processing mechanism for parallel apply workers in PostgreSQL's logical replication system. It handles two primary types of interrupts: shutdown requests and configuration reload requests. The function first calls CHECK_FOR_INTERRUPTS() to handle any pending PostgreSQL interrupts, then specifically processes shutdown and configuration reload scenarios.
 

@@ -8,7 +8,11 @@ Adds the target relation of INSERT/UPDATE/DELETE/MERGE statements to the range t
 
 ## Definition
 
-
+```c
+int
+setTargetTable(ParseState *pstate, RangeVar *relation,
+			   bool inh, bool alsoSource, AclMode requiredPerms)
+```
 ## Detailed Description
 The `setTargetTable` function is essential for processing data modification statements (DML) in PostgreSQL. It performs several critical tasks:
 

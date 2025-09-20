@@ -8,7 +8,10 @@ Finds the next member in a bitmap set that is greater than a specified previous 
 
 ## Definition
 
-
+```c
+int
+bms_next_member(const Bitmapset *a, int prevbit)
+```
 ## Detailed Description
 The bms_next_member function is designed to support efficient iteration through the members of a bitmap set. It returns the smallest member that is greater than the specified prevbit value. The function is optimized for sequential access patterns and uses bit manipulation techniques to quickly locate the next set bit.
 

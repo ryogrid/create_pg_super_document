@@ -8,7 +8,10 @@ Internal OpenSSL callback function that supplies passwords to decrypt client SSL
 
 ## Definition
 
-
+```c
+static int
+PQssl_passwd_cb(char *buf, int size, int rwflag, void *userdata)
+```
 ## Detailed Description
 This function serves as the interface between OpenSSL's password callback mechanism and libpq's SSL key passphrase handling system. It matches the OpenSSL `pem_password_cb` function signature and is registered with OpenSSL to be called when a passphrase is needed to decrypt an encrypted private key file. The function implements a two-tier approach: if a custom hook has been registered via `PQsetSSLKeyPassHook_OpenSSL`, it delegates to that hook; otherwise, it falls back to the default behavior implemented by `PQdefaultSSLKeyPassHook_OpenSSL`.
 

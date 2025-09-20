@@ -8,7 +8,10 @@ A specialized search wrapper for B-tree insertions that implements fastpath opti
 
 ## Definition
 
-
+```c
+static BTStack
+_bt_search_insert(Relation rel, Relation heaprel, BTInsertState insertstate)
+```
 ## Detailed Description
 The  function is a wrapper around  specifically designed for insertion operations. It implements a critical fastpath optimization that significantly improves performance for sequential insertions by caching and reusing the rightmost leaf page of the index.
 

@@ -8,7 +8,13 @@ Locks a partitioned table and initializes PartitionDispatch structure for effici
 
 ## Definition
 
-
+```c
+static PartitionDispatch
+ExecInitPartitionDispatchInfo(EState *estate,
+							  PartitionTupleRouting *proute, Oid partoid,
+							  PartitionDispatch parent_pd, int partidx,
+							  ResultRelInfo *rootResultRelInfo)
+```
 ## Detailed Description
 This function creates and configures a PartitionDispatch structure for a partitioned table, which contains all the information needed to evaluate partition keys and route tuples to the correct child partitions. It handles both root-level partitioned tables and sub-partitioned tables within a partition hierarchy. For sub-partitioned tables, the function sets up tuple conversion infrastructure when the child table has a different column layout than its parent, ensuring correct partition key evaluation across different tuple formats.
 

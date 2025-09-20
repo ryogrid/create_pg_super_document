@@ -8,7 +8,12 @@ Transforms a shell-style object name pattern into SQL-style regular expressions,
 
 ## Definition
 
-
+```c
+void
+patternToSQLRegex(int encoding, PQExpBuffer dbnamebuf, PQExpBuffer schemabuf,
+				  PQExpBuffer namebuf, const char *pattern, bool force_escape,
+				  bool want_literal_dbname, int *dotcnt)
+```
 ## Detailed Description
 This complex function converts shell-style patterns (with wildcards like * and ?) into PostgreSQL-compatible regular expressions. It can parse qualified object names with up to three components (database.schema.name) and handles various formatting requirements:
 

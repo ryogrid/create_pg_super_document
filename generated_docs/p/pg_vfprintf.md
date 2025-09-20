@@ -8,7 +8,10 @@ pg_vfprintf is PostgreSQL's portable implementation of vfprintf that formats a s
 
 ## Definition
 
-
+```c
+int
+pg_vfprintf(FILE *stream, const char *fmt, va_list args)
+```
 ## Detailed Description
 pg_vfprintf provides a portable alternative to the standard vfprintf function. It formats the format string `fmt` with the variable arguments contained in `args` and writes the result directly to the specified FILE stream. The function uses an internal buffer (1024 bytes) to collect formatted output before writing to the stream. This buffering approach improves efficiency by reducing the number of system calls to write data to the stream. After formatting is complete, any remaining buffer contents are flushed to ensure all data reaches the stream.
 

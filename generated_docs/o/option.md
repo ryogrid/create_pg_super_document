@@ -8,7 +8,15 @@ The  struct defines the structure for command-line option specifications used by
 
 ## Definition
 
-
+```c
+struct option
+{
+	const char *name;
+	int			has_arg;
+	int		   *flag;
+	int			val;
+};
+```
 ## Detailed Description
 The  struct is part of PostgreSQL's implementation of the GNU-style long option parsing functionality. It is defined in  and is used extensively throughout PostgreSQL's command-line utilities for defining long command-line options (options that start with ). Each  struct represents a single long option that can be parsed by the  function.
 

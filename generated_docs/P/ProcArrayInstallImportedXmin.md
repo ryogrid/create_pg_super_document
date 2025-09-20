@@ -8,7 +8,11 @@ Installs an imported xmin from another transaction into the current backend's My
 
 ## Definition
 
-
+```c
+bool
+ProcArrayInstallImportedXmin(TransactionId xmin,
+							 VirtualTransactionId *sourcevxid)
+```
 ## Detailed Description
 ProcArrayInstallImportedXmin is used when importing a snapshot from another transaction, typically during snapshot sharing operations. The function ensures the integrity of the global transaction visibility horizon by verifying that the source transaction that created the snapshot is still active before installing its xmin value.
 

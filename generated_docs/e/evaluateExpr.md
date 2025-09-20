@@ -8,7 +8,10 @@ Performs recursive evaluation of an expression in a pgbench script using the cur
 
 ## Definition
 
-
+```c
+static bool
+evaluateExpr(CState *st, PgBenchExpr *expr, PgBenchValue *retval)
+```
 ## Detailed Description
 The  function is a core evaluation engine for pgbench expressions. It recursively processes different types of expression nodes (constants, variables, and functions) and computes their values based on the current execution state. The function uses a switch statement to handle different expression node types and returns a boolean indicating success or failure of the evaluation, with the actual computed value returned through the  pointer parameter.
 

@@ -8,7 +8,9 @@ A static utility function that converts a 64-bit integer value into its 8-byte b
 
 ## Definition
 
-
+```c
+struct attype *) avp)->at;
+```
 ## Detailed Description
 The  function takes a 64-bit integer value (of type ) and converts it into an 8-byte big-endian binary representation stored in the provided buffer. This function is part of PostgreSQL's timezone compilation utilities and is used specifically for encoding 64-bit values in timezone data files. The conversion uses bit shifting operations to extract each byte from the 64-bit value, starting from the most significant byte and working down to the least significant byte.
 

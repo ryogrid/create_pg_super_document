@@ -8,7 +8,10 @@ The primary function call manager for executing SQL-language functions, handling
 
 ## Definition
 
-
+```c
+Datum
+fmgr_sql(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 fmgr_sql serves as the central entry point for executing SQL functions in PostgreSQL. It manages the complete lifecycle of SQL function execution, including cache validation and initialization, parameter conversion, execution state management, snapshot handling for transaction consistency, and result processing for both scalar and set-returning functions. The function supports both lazy evaluation (returning one result at a time) and materialized evaluation (returning all results at once) for set-returning functions. It handles complex scenarios like multi-statement functions, proper cleanup through error context callbacks, and manages memory contexts to ensure proper resource cleanup.
 

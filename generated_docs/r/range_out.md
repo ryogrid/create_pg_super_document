@@ -8,7 +8,10 @@ The range_out function is the text output function for PostgreSQL range types, r
 
 ## Definition
 
-
+```c
+struct result string */
+	output_str = range_deparse(flags, lbound_str, ubound_str);
+```
 ## Detailed Description
 This function converts a RangeType value from its internal binary representation to a human-readable string format. It deserializes the range structure to extract boundary information and flags, then calls the element type's output function to format the boundary values. Finally, it constructs the complete string representation using appropriate delimiters and brackets to indicate inclusivity/exclusivity and infinite bounds.
 

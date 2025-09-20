@@ -8,7 +8,22 @@ LogicalSlotInfoArr is a container structure that holds an array of logical repli
 
 ## Definition
 
-
+```c
+structure represents a relation mapping.
+ */
+typedef struct
+{
+	const char *old_tablespace;
+	const char *new_tablespace;
+	const char *old_tablespace_suffix;
+	const char *new_tablespace_suffix;
+	Oid			db_oid;
+	RelFileNumber relfilenumber;
+	/* the rest are used only for logging and error reporting */
+	char	   *nspname;		/* namespaces */
+	char	   *relname;
+} FileNameMap;
+```
 ## Detailed Description
 LogicalSlotInfoArr serves as a collection wrapper for logical replication slot metadata during PostgreSQL cluster upgrades. It provides a structured way to manage multiple LogicalSlotInfo entries, enabling pg_upgrade to preserve logical replication configuration across cluster versions. This structure is essential for maintaining logical replication continuity during major version upgrades.
 

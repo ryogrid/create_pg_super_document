@@ -8,7 +8,10 @@ PostgreSQL function that compares two MAC addresses and returns an integer indic
 
 ## Definition
 
-
+```c
+Datum
+macaddr_cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The macaddr_cmp function is a PostgreSQL built-in function that implements three-way comparison for MAC address data types. It takes two MAC address arguments through the PostgreSQL function calling convention and returns an integer value: negative if the first MAC address is less than the second, zero if they are equal, and positive if the first is greater than the second. The function delegates the actual comparison logic to macaddr_cmp_internal, which compares MAC addresses by first comparing the high-order 24 bits (hibits) and then the low-order 24 bits (lobits) if the high-order bits are equal.
 

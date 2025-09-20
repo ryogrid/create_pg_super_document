@@ -8,7 +8,40 @@ PostgreSQL aggregate transition function that accumulates statistical data for f
 
 ## Definition
 
+```c
+struct a
+	 * new array with the updated transition data and return it.
+	 */
+	if (AggCheckCallContext(fcinfo, NULL))
+	{
+		transvalues[0] = N;
+		transvalues[1] = Sx;
+		transvalues[2] = Sxx;
 
+		PG_RETURN_ARRAYTYPE_P(transarray);
+	}
+	else
+	{
+		Datum		transdatums[3];
+		ArrayType  *result;
+
+		transdatums[0] = Float8GetDatumFast(N);
+		transdatums[1] = Float8GetDatumFast(Sx);
+		transdatums[2] = Float8GetDatumFast(Sxx);
+
+		result = construct_array(transdatums, 3,
+								 FLOAT8OID,
+								 sizeof(float8), FLOAT8PASSBYVAL, TYPALIGN_DOUBLE);
+
+		PG_RETURN_ARRAYTYPE_P(result);
+	}
+}
+
+Datum
+float4_accum(PG_FUNCTION_ARGS)
+{
+	ArrayType  *transarray = PG_GETARG_ARRAYTYPE_P(0);
+```
 ## Detailed Description
 The `float8_accum` function is the core transition function for PostgreSQL's floating-point statistical aggregates including AVG(), VAR_SAMP(), VAR_POP(), STDDEV_SAMP(), and STDDEV_POP(). It accumulates each new float8 value into a 3-element statistical state array [N, Sx, Sxx] using the Youngs-Cramer algorithm, which provides superior numerical stability compared to the naive sum(X) and sum(X²) approach.
 

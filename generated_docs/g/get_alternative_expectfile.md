@@ -8,7 +8,10 @@ Generates alternative expected output filenames by inserting a numeric suffix be
 
 ## Definition
 
-
+```c
+static char *
+get_alternative_expectfile(const char *expectfile, int i)
+```
 ## Detailed Description
 This function transforms a given expectfile path by inserting a numeric suffix before the file extension. It's used in PostgreSQL's regression testing framework to handle multiple expected output variants for the same test. For example, if a test might produce different valid outputs on different platforms or configurations, alternative expected files can be provided with numbered suffixes (e.g., , ).
 

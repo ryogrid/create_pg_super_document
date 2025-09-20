@@ -8,7 +8,10 @@ Searches for OR clauses where the inverse OR distributive law can be applied to 
 
 ## Definition
 
-
+```c
+static Expr *
+find_duplicate_ors(Expr *qual, bool is_check)
+```
 ## Detailed Description
 The  function applies the inverse OR distributive law to optimize boolean expressions by identifying and extracting common terms from OR clauses. It transforms expressions like  into , reducing redundancy and improving query execution efficiency.
 

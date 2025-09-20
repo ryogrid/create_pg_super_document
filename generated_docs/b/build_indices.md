@@ -8,7 +8,10 @@ Builds all the indexes that have been registered during the bootstrap process by
 
 ## Definition
 
-
+```c
+void
+build_indices(void)
+```
 ## Detailed Description
 The  function is a critical part of PostgreSQL's bootstrap initialization process. During bootstrap, system catalog indexes are first registered via  and then built in a separate phase by this function. This two-phase approach is necessary because the indexes themselves have catalog entries that need to be included in the indexes on those catalogs.
 

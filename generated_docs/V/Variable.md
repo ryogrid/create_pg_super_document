@@ -8,7 +8,24 @@ The Variable structure represents an individual variable in pgbench's variable m
 
 ## Definition
 
+```c
+structure for client variables.
+ */
+typedef struct
+{
+	Variable   *vars;			/* array of variable definitions */
+	int			nvars;			/* number of variables */
 
+	/*
+	 * The maximum number of variables that we can currently store in 'vars'
+	 * without having to reallocate more space. We must always have max_vars
+	 * >= nvars.
+	 */
+	int			max_vars;
+
+	bool		vars_sorted;	/* are variables sorted by name? */
+} Variables;
+```
 ## Detailed Description
 The Variable structure is a core data type in pgbench that represents individual variables used in benchmark scripts and expressions. Each variable maintains both a string representation (svalue) and a typed value (PgBenchValue) to support flexible variable usage throughout the benchmarking process. 
 

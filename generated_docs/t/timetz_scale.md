@@ -8,7 +8,10 @@ Adjusts a TIMETZ (time with time zone) value to conform to a specified precision
 
 ## Definition
 
-
+```c
+Datum
+timetz_scale(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `timetz_scale` function is responsible for adjusting the precision of TIMETZ values according to a specified type modifier (typmod). This function is commonly used by PostgreSQL's type system when performing explicit or implicit casts between TIMETZ types with different precision requirements, such as when inserting a high-precision TIMETZ value into a column with lower precision.
 

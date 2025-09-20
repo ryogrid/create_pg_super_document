@@ -8,7 +8,9 @@ Waits for a PostgreSQL standby server to complete promotion to become a primary 
 
 ## Definition
 
-
+```c
+struct rlimit lim;
+```
 ## Detailed Description
 The  function monitors the promotion process of a PostgreSQL standby server to primary status. It combines process liveness monitoring with database state checking to determine when promotion has completed successfully.
 

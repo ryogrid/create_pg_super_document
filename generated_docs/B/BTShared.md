@@ -8,7 +8,66 @@ BTShared is a structure that contains status information for B-tree index builds
 
 ## Definition
 
+```c
+typedef struct BTShared
+{
+	/*
+	 * These fields are not modified during the sort.  They primarily exist
+	 * for the benefit of worker processes that need to create BTSpool state
+	 * corresponding to that used by the leader.
+	 */
+	Oid			heaprelid;
+	Oid			indexrelid;
+	bool		isunique;
+	bool		nulls_not_distinct;
+	bool		isconcurrent;
+	int			scantuplesortstates;
 
+	/*
+	 * workersdonecv is used to monitor the progress of workers.  All parallel
+	 * participants must indicate that they are done before leader can use
+	 * mutable state that workers maintain during scan (and before leader can
+	 * proceed to tuplesort_performsort()).
+	 */
+	ConditionVariable workersdonecv;
+
+	/*
+	 * mutex protects all fields before heapdesc.
+	 *
+	 * These fields contain status information of interest to B-Tree index
+	 * builds that must work just the same when an index is built in parallel.
+	 */
+	slock_t		mutex;
+
+	/*
+	 * Mutable state that is maintained by workers, and reported back to
+	 * leader at end of parallel scan.
+	 *
+	 * nparticipantsdone is number of worker processes finished.
+	 *
+	 * reltuples is the total number of input heap tuples.
+	 *
+	 * havedead indicates if RECENTLY_DEAD tuples were encountered during
+	 * build.
+	 *
+	 * indtuples is the total number of tuples that made it into the index.
+	 *
+	 * brokenhotchain indicates if any worker detected a broken HOT chain
+	 * during build.
+	 */
+	int			nparticipantsdone;
+	double		reltuples;
+	bool		havedead;
+	double		indtuples;
+	bool		brokenhotchain;
+
+	/*
+	 * ParallelTableScanDescData data follows. Can't directly embed here, as
+	 * implementations of the parallel table scan desc interface might need
+	 * stronger alignment.
+	 */
+} BTShared;
+```
 ## Detailed Description
 BTShared serves as the central coordination structure for parallel B-tree index construction. It is allocated in dynamic shared memory and shared between the leader process and all worker processes participating in the parallel index build. The structure is divided into immutable fields that are set once during initialization and mutable fields that are updated by workers during the scan phase and aggregated by the leader.
 

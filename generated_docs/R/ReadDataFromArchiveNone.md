@@ -8,7 +8,10 @@ Reads data from an archive when no compression is used, implementing the compres
 
 ## Definition
 
-
+```c
+static void
+ReadDataFromArchiveNone(ArchiveHandle *AH, CompressorState *cs)
+```
 ## Detailed Description
 This function implements the data reading functionality for the "none" compression method in pg_dump. It reads data from the archive using the compressor state's read function and writes it directly to the archive handle without any decompression processing. The function operates in a simple loop, continuously reading chunks of data until no more data is available, then immediately writing each chunk to the archive output.
 

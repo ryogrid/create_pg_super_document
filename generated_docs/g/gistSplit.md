@@ -8,7 +8,14 @@ The recursive core function that splits a GiST page into multiple pages when tup
 
 ## Definition
 
-
+```c
+SplitPageLayout *
+gistSplit(Relation r,
+		  Page page,
+		  IndexTuple *itup,		/* contains compressed entry */
+		  int len,
+		  GISTSTATE *giststate)
+```
 ## Detailed Description
 gistSplit is the fundamental page-splitting function in the GiST access method that recursively divides pages until all resulting pages can accommodate their assigned tuples. The function implements a sophisticated splitting strategy that uses the GiST-specific gistSplitByKey algorithm to determine optimal tuple distribution across multiple pages.
 

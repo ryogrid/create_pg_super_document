@@ -8,7 +8,10 @@ Converts a text string representing schema privilege names to an AclMode bitmask
 
 ## Definition
 
-
+```c
+static AclMode
+convert_schema_priv_string(text *priv_type_text)
+```
 ## Detailed Description
 This function parses a privilege string specific to schema objects and converts it to the corresponding AclMode bitmask. It uses a static privilege mapping table that defines the valid schema privilege names (CREATE and USAGE) and their corresponding ACL constants, including grant option variants. The function delegates the actual conversion logic to the generic  function.
 

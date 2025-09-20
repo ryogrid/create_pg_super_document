@@ -8,7 +8,12 @@ Registers a new dynamic background worker from a regular backend process that ca
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	if (!IsUnderPostmaster)
+		return false;
+```
 ## Detailed Description
 This function allows regular backend processes to register background workers dynamically during runtime, unlike static workers which must be registered during server startup. The function searches for an available slot in the shared memory worker pool, validates the worker configuration, and if successful, registers the worker and optionally provides a handle for tracking its status. Dynamic workers are particularly useful for parallel operations and on-demand background tasks.
 

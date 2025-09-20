@@ -8,7 +8,10 @@ Fetches the default ACL (Access Control List) entry from pg_default_acl catalog 
 
 ## Definition
 
-
+```c
+static Acl *
+get_default_acl_internal(Oid roleId, Oid nsp_oid, char objtype)
+```
 ## Detailed Description
 This internal static function performs a direct lookup in the pg_default_acl system catalog to retrieve default permissions for objects created by a specific role within a specific namespace. It uses the system cache (DEFACLROLENSPOBJ) for efficient access to default ACL entries. The function is designed as a low-level utility that provides the core lookup mechanism for PostgreSQL's default privilege system.
 

@@ -8,7 +8,11 @@ A function that determines which relations to include in a publication based on 
 
 ## Definition
 
-
+```c
+List *
+GetPubPartitionOptionRelations(List *result, PublicationPartOpt pub_partopt,
+							   Oid relid)
+```
 ## Detailed Description
 This function implements the logic for handling different partition publication strategies in PostgreSQL logical replication. Based on the PublicationPartOpt setting, it determines which relations should be included when a partitioned table is added to a publication. For partitioned tables, it can include all partitions (PUBLICATION_PART_ALL), only leaf partitions (PUBLICATION_PART_LEAF), or just the root table (PUBLICATION_PART_ROOT). For non-partitioned tables, it simply adds the table itself to the result list. The function uses find_all_inheritors to discover all partitions and filters them according to the specified option.
 

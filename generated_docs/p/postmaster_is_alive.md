@@ -8,7 +8,10 @@ A utility function that checks whether a PostgreSQL postmaster process with the 
 
 ## Definition
 
-
+```c
+static bool
+postmaster_is_alive(pid_t pid)
+```
 ## Detailed Description
 This function performs a basic liveness check for a postmaster process by using the kill() system call with signal 0. The function implements several safety checks to avoid false positives:
 

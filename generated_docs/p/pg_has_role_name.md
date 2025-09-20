@@ -8,7 +8,10 @@ Checks if the current user has specific privileges on a role specified by name, 
 
 ## Definition
 
-
+```c
+Datum
+pg_has_role_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a variant of the pg_has_role privilege checking system that assumes the current user as the subject of the privilege check. It takes only the target role name and privilege type as parameters, automatically using the current session's user ID for the privilege verification. This is a convenience function that eliminates the need to explicitly specify the current user when checking role privileges.
 

@@ -8,7 +8,9 @@ SerialControl is a pointer type to SerialControlData that serves as the main han
 
 ## Definition
 
-
+```c
+typedef struct SerialControlData *SerialControl;
+```
 ## Detailed Description
 SerialControl is a typedef that creates a pointer type to SerialControlData structures. It serves as the primary interface for accessing and manipulating the control data for PostgreSQL's Serializable Snapshot Isolation (SSI) implementation. The static global variable serialControl holds the main instance used throughout the predicate locking subsystem.
 

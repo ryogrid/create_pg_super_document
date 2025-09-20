@@ -8,7 +8,10 @@ Converts a compression method identifier to its corresponding string name, provi
 
 ## Definition
 
-
+```c
+const char *
+GetCompressionMethodName(char method)
+```
 ## Detailed Description
 This function takes a numeric compression method identifier and returns the corresponding string name. It uses a switch statement to map compression method IDs to their string representations. Currently supports two compression methods: TOAST_PGLZ_COMPRESSION (returns "pglz") and TOAST_LZ4_COMPRESSION (returns "lz4"). If an invalid or unrecognized method ID is provided, the function generates an error using elog(ERROR) and includes the invalid method character in the error message.
 

@@ -8,7 +8,11 @@ Recursively scans a GIN posting tree to identify and delete empty pages while ma
 
 ## Definition
 
-
+```c
+static bool
+ginScanToDelete(GinVacuumState *gvs, BlockNumber blkno, bool isRoot,
+				DataPageDeleteStack *parent, OffsetNumber myoff)
+```
 ## Detailed Description
 This recursive static function traverses a GIN posting tree to locate and delete empty pages. It implements a sophisticated locking protocol that maintains exclusive locks on the path from root to current page and keeps the left sibling locked to avoid deadlocks with concurrent ginStepRight() operations. The function uses a DataPageDeleteStack structure to track the deletion context and parent-child relationships during traversal.
 

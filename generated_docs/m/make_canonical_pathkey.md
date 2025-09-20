@@ -8,7 +8,12 @@ Creates or retrieves a canonical PathKey from the planner's cache, ensuring that
 
 ## Definition
 
-
+```c
+PathKey *
+make_canonical_pathkey(PlannerInfo *root,
+					   EquivalenceClass *eclass, Oid opfamily,
+					   int strategy, bool nulls_first)
+```
 ## Detailed Description
 This function implements PathKey canonicalization in PostgreSQL's query optimizer. It searches the planner's list of canonical pathkeys () for an existing PathKey that matches the provided parameters. If found, it returns the existing PathKey; otherwise, it creates a new PathKey, adds it to the canonical list, and returns it.
 

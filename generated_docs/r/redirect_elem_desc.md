@@ -8,7 +8,10 @@ A callback function that formats redirect mappings between offset numbers, displ
 
 ## Definition
 
-
+```c
+void
+redirect_elem_desc(StringInfo buf, void *offset, void *data)
+```
 ## Detailed Description
 The  function is a specialized element description callback designed to work with the  utility function. It formats pairs of OffsetNumber values to show redirection mappings in the format "source->target". This function is specifically used for describing heap page redirections in WAL records, where tuples may be redirected from one offset to another during operations like HOT (Heap-Only Tuples) updates.
 

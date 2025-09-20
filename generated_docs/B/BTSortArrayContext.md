@@ -8,7 +8,14 @@ BTSortArrayContext is a context structure used during B-tree array element sorti
 
 ## Definition
 
-
+```c
+typedef struct BTSortArrayContext
+{
+	FmgrInfo   *sortproc;
+	Oid			collation;
+	bool		reverse;
+} BTSortArrayContext;
+```
 ## Detailed Description
 This structure serves as a context parameter for sorting and deduplicating array elements in B-tree index operations. It encapsulates the sorting procedure, collation information, and sort direction, allowing the comparison function to access these parameters during qsort operations. The context is passed to qsort_arg and qunique_arg functions to enable proper element comparison according to the index column's opfamily semantics.
 

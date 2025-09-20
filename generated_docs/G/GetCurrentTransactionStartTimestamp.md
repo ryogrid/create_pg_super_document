@@ -8,7 +8,10 @@ Returns the timestamp when the current transaction was started.
 
 ## Definition
 
-
+```c
+TimestampTz
+GetCurrentTransactionStartTimestamp(void)
+```
 ## Detailed Description
 GetCurrentTransactionStartTimestamp is a simple accessor function that returns the transaction start timestamp stored in the global variable xactStartTimestamp. This timestamp represents the exact moment when the current transaction began and is crucial for various PostgreSQL operations including MVCC (Multi-Version Concurrency Control), time-based SQL functions, and maintaining temporal consistency within transactions. The returned timestamp remains constant throughout the entire transaction, ensuring that all time-related operations within a single transaction see a consistent view of "now".
 

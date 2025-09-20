@@ -8,7 +8,10 @@ Produces a detailed debugging dump of the internal state of a free page manager 
 
 ## Definition
 
-
+```c
+char *
+FreePageManagerDump(FreePageManager *fpm)
+```
 ## Detailed Description
 This debugging function generates a comprehensive textual representation of the free page manager's internal state. The output includes all major data structures and their current contents, making it invaluable for troubleshooting memory management issues.
 

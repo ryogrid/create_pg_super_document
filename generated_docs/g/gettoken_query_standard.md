@@ -8,7 +8,12 @@ A static function that tokenizes and parses standard PostgreSQL tsquery expressi
 
 ## Definition
 
-
+```c
+static ts_tokentype
+gettoken_query_standard(TSQueryParserState state, int8 *operator,
+						int *lenval, char **strval,
+						int16 *weight, bool *prefix)
+```
 ## Detailed Description
 The gettoken_query_standard function implements the core parsing logic for PostgreSQL's standard tsquery syntax. It uses a finite state machine with two main states (WAITFIRSTOPERAND/WAITOPERAND and WAITOPERATOR) to process input character by character. The function recognizes various token types including logical operators (&, |, \!), phrase operators (<N>), parentheses for grouping, and operands (lexemes with optional modifiers).
 

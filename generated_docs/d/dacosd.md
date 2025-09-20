@@ -8,7 +8,10 @@ A PostgreSQL function that calculates the arccosine (inverse cosine) of a floati
 
 ## Definition
 
-
+```c
+Datum
+dacosd(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function computes the inverse cosine of a floating-point argument and returns the result in degrees rather than radians. It implements the principal branch of the arccosine function, mapping inputs in the range [-1, 1] to outputs in the range [0, 180] degrees. The function uses PostgreSQL's specialized degree-based trigonometric helper functions ( and ) to ensure accurate results, particularly for common angle values. It includes comprehensive error handling for invalid inputs and follows POSIX specifications for NaN handling.
 

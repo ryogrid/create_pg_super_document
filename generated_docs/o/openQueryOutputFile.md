@@ -8,7 +8,10 @@ Opens a query output file for psql, supporting standard output, regular files, a
 
 ## Definition
 
-
+```c
+bool
+openQueryOutputFile(const char *fname, FILE **fout, bool *is_pipe)
+```
 ## Detailed Description
 This function provides a unified interface for opening different types of output destinations in psql. It handles three distinct cases:
 1. **Standard output**: When fname is NULL or empty, directs output to stdout

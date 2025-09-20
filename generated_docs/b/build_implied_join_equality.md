@@ -8,7 +8,18 @@ Constructs a RestrictInfo representing a derived equality clause for join operat
 
 ## Definition
 
-
+```c
+structure with
+	 * original (this is necessary in case there are subselects in there...)
+	 */
+	clause = make_opclause(opno,
+						   BOOLOID, /* opresulttype */
+						   false,	/* opretset */
+						   copyObject(item1),
+						   copyObject(item2),
+						   InvalidOid,
+						   collation);
+```
 ## Detailed Description
 This function creates implied equality clauses specifically for join scenarios where the clause should not be automatically distributed to relation joininfo lists. It's a specialized version of process_implied_equality() that builds the RestrictInfo but skips the distribution phase, giving the caller more control over how and where the clause is used.
 

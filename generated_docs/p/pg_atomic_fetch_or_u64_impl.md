@@ -8,7 +8,10 @@ Performs an atomic fetch-and-OR operation on a 64-bit unsigned integer, returnin
 
 ## Definition
 
-
+```c
+static inline uint64
+pg_atomic_fetch_or_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 or_)
+```
 ## Detailed Description
 This function implements the low-level atomic fetch-and-OR operation for 64-bit unsigned integers using GCC's built-in  intrinsic. It atomically performs a bitwise OR operation between the value stored at the memory location pointed to by  and the value , returning the original value that was stored before the operation. This is a fundamental building block for PostgreSQL's atomic operations framework, providing lock-free synchronization primitives.
 

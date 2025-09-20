@@ -8,7 +8,10 @@ Checks whether a named user has specified privileges on a named foreign server i
 
 ## Definition
 
-
+```c
+Datum
+has_server_privilege_name_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is one of the SQL-callable variants of the has_server_privilege family. It takes three text/name arguments: username, server name, and privilege type, and returns a boolean indicating whether the specified user has the requested privilege on the foreign server. The function resolves the username and server name to their respective OIDs, converts the privilege string to an AclMode bitmask, and then performs the actual privilege check using the object access control system.
 

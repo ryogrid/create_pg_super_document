@@ -8,7 +8,28 @@ RT_NODE_48 is a macro that generates a type name for a 48-slot adaptive radix tr
 
 ## Definition
 
+```c
+typedef struct RT_NODE_48
+{
+	RT_NODE		base;
 
+	/* bitmap to track which slots are in use */
+	bitmapword	isset[RT_BM_IDX(RT_FANOUT_48_MAX)];
+
+	/*
+	 * Lookup table for indexes into the children[] array. We make this the
+	 * last fixed-size member so that it's convenient to memset separately
+	 * from the previous members.
+	 */
+	uint8		slot_idxs[RT_NODE_MAX_SLOTS];
+
+/* Invalid index */
+#define RT_INVALID_SLOT_IDX	0xFF
+
+	/* number of children depends on size class */
+	RT_PTR_ALLOC children[FLEXIBLE_ARRAY_MEMBER];
+}			RT_NODE_48;
+```
 ## Detailed Description
 RT_NODE_48 is part of PostgreSQL's adaptive radix tree (ART) implementation, which provides a memory-efficient and cache-friendly data structure for storing key-value pairs. This macro generates a prefixed type name for the 48-slot node variant, which is one of four node types in the adaptive radix tree hierarchy (4, 16, 48, and 256 slots).
 

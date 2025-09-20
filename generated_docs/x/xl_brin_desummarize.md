@@ -8,7 +8,16 @@ The  structure represents WAL (Write-Ahead Log) record data for BRIN index range
 
 ## Definition
 
-
+```c
+typedef struct xl_brin_desummarize
+{
+	BlockNumber pagesPerRange;
+	/* page number location to set to invalid */
+	BlockNumber heapBlk;
+	/* offset of item to delete in regular index page */
+	OffsetNumber regOffset;
+} xl_brin_desummarize;
+```
 ## Detailed Description
 This structure is used in PostgreSQL's BRIN (Block Range Index) access method for WAL logging when a range summary is removed (de-summarized). BRIN indexes maintain summaries for ranges of heap blocks, and when these summaries need to be invalidated or removed, this operation must be logged for crash recovery purposes.
 

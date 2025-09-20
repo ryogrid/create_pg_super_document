@@ -8,7 +8,16 @@ SubRelInfo is a structure used by pg_dump to represent the relationship between 
 
 ## Definition
 
-
+```c
+typedef struct _SubRelInfo
+{
+	DumpableObject dobj;
+	SubscriptionInfo *subinfo;
+	TableInfo  *tblinfo;
+	char		srsubstate;
+	char	   *srsublsn;
+} SubRelInfo;
+```
 ## Detailed Description
 SubRelInfo represents individual subscription-table relationships in PostgreSQL's logical replication system. Each instance captures the state of a single table within a specific subscription, including replication state and synchronization position. This structure is primarily used during binary upgrade operations in PostgreSQL 17 and later to preserve subscription table membership and state information across version upgrades. It extends the DumpableObject pattern to integrate with pg_dump's dependency tracking and selective dumping mechanisms.
 

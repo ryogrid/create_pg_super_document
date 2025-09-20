@@ -8,7 +8,10 @@ JsonTablePlanNextRow is a dispatcher function that fetches the next row from a J
 
 ## Definition
 
-
+```c
+static bool
+JsonTablePlanNextRow(JsonTablePlanState *planstate)
+```
 ## Detailed Description
 This function serves as a polymorphic dispatcher for different types of JSON table plans. It examines the plan type stored in the planstate and calls the appropriate specialized function to advance to the next row. The function supports two main plan types: JsonTablePathScan for scanning operations and JsonTableSiblingJoin for join operations. If an invalid plan type is encountered, the function raises an error.
 

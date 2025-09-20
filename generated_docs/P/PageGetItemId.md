@@ -8,7 +8,10 @@ PageGetItemId is an inline function that retrieves a pointer to a specific line 
 
 ## Definition
 
-
+```c
+static inline ItemId
+PageGetItemId(Page page, OffsetNumber offsetNumber)
+```
 ## Detailed Description
 This function accesses the line pointer array (pd_linp) in a page header to return a pointer to a specific ItemId. Line pointers are 1-based indexed structures that contain metadata about tuples stored on the page, including their offset, length, and flags. The function performs array indexing by subtracting 1 from the offsetNumber to convert from 1-based to 0-based indexing. This is a fundamental function in PostgreSQL's page management system, used extensively across all access methods to locate and manipulate tuples on pages.
 

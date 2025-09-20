@@ -8,7 +8,10 @@ A wrapper function for starting an autovacuum worker from the launcher that hand
 
 ## Definition
 
-
+```c
+static void
+launch_worker(TimestampTz now)
+```
 ## Detailed Description
 The  function serves as a high-level wrapper around  that manages the database scheduling list after a worker is successfully started. While  handles the actual worker creation and database selection logic,  focuses on maintaining the DatabaseList data structure that tracks when each database should next be considered for autovacuum.
 

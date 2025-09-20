@@ -8,7 +8,36 @@ ModifyTable is a plan node that applies data modification operations (INSERT, UP
 
 ## Definition
 
-
+```c
+typedef struct ModifyTable
+{
+	Plan		plan;
+	CmdType		operation;		/* INSERT, UPDATE, DELETE, or MERGE */
+	bool		canSetTag;		/* do we set the command tag/es_processed? */
+	Index		nominalRelation;	/* Parent RT index for use of EXPLAIN */
+	Index		rootRelation;	/* Root RT index, if partitioned/inherited */
+	bool		partColsUpdated;	/* some part key in hierarchy updated? */
+	List	   *resultRelations;	/* integer list of RT indexes */
+	List	   *updateColnosLists;	/* per-target-table update_colnos lists */
+	List	   *withCheckOptionLists;	/* per-target-table WCO lists */
+	List	   *returningLists; /* per-target-table RETURNING tlists */
+	List	   *fdwPrivLists;	/* per-target-table FDW private data lists */
+	Bitmapset  *fdwDirectModifyPlans;	/* indices of FDW DM plans */
+	List	   *rowMarks;		/* PlanRowMarks (non-locking only) */
+	int			epqParam;		/* ID of Param for EvalPlanQual re-eval */
+	OnConflictAction onConflictAction;	/* ON CONFLICT action */
+	List	   *arbiterIndexes; /* List of ON CONFLICT arbiter index OIDs  */
+	List	   *onConflictSet;	/* INSERT ON CONFLICT DO UPDATE targetlist */
+	List	   *onConflictCols; /* target column numbers for onConflictSet */
+	Node	   *onConflictWhere;	/* WHERE for ON CONFLICT UPDATE */
+	Index		exclRelRTI;		/* RTI of the EXCLUDED pseudo relation */
+	List	   *exclRelTlist;	/* tlist of the EXCLUDED pseudo relation */
+	List	   *mergeActionLists;	/* per-target-table lists of actions for
+									 * MERGE */
+	List	   *mergeJoinConditions;	/* per-target-table join conditions
+										 * for MERGE */
+} ModifyTable;
+```
 ## Detailed Description
 ModifyTable is the primary plan node for executing data modification operations in PostgreSQL. It handles the complex orchestration of INSERT, UPDATE, DELETE, and MERGE operations, including support for advanced features like table partitioning, inheritance hierarchies, foreign data wrappers, row-level security, triggers, and conflict resolution.
 

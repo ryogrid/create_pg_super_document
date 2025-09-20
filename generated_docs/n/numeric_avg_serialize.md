@@ -8,7 +8,12 @@ Serializes NumericAggState for numeric aggregates that don't require sumX2, conv
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate),
+						   VARSIZE_ANY_EXHDR(sstate));
+```
 ## Detailed Description
 This function is part of PostgreSQL's numeric aggregation framework, specifically designed to serialize the state of numeric averaging aggregates that do not require the sum of squares (sumX2). The function converts a NumericAggState structure into a binary format using PostgreSQL's type send/receive protocol.
 

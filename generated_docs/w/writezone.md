@@ -8,7 +8,9 @@ The writezone function is responsible for generating and writing timezone data f
 
 ## Definition
 
-
+```c
+struct tzhead tzh0;
+```
 ## Detailed Description
 The writezone function is the core output generator in PostgreSQL's timezone compiler. It takes timezone transition data that has been parsed and accumulated, optimizes it by removing redundant transitions, handles various compatibility requirements (including Qt bug workarounds), and writes the final timezone data file in the standard tzfile format.
 

@@ -8,7 +8,10 @@ Decodes percent-encoded URI strings by converting %xy hexadecimal sequences to t
 
 ## Definition
 
-
+```c
+static char *
+conninfo_uri_decode(const char *str, PQExpBuffer errorMessage)
+```
 ## Detailed Description
 This function implements URI percent-decoding according to RFC 3986 standards. It processes a string containing percent-encoded tokens and returns a newly allocated decoded string. The decoding process:
 

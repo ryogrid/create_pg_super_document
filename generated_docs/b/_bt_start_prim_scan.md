@@ -8,7 +8,36 @@ Determines whether to start another scheduled primitive index scan after the cur
 
 ## Definition
 
+```c
+structed to _not_ perform another primitive index scan.
+	 * It's up to code under the control of _bt_first to always set the flag
+	 * when another primitive index scan will be required.
+	 *
+	 * This works correctly, even with the tricky cases listed above, which
+	 * all involve access to leaf pages "near the boundaries of the key space"
+	 * (whether it's from a leftmost/rightmost page, or an imaginary empty
+	 * leaf root page).  If _bt_checkkeys cannot be reached by a primitive
+	 * index scan for one set of array keys, then it also won't be reached for
+	 * any later set ("later" in terms of the direction that we scan the index
+	 * and advance the arrays).  The array keys won't have advanced in these
+	 * cases, but that's the correct behavior (even _bt_advance_array_keys
+	 * won't always advance the arrays at the point they become "exhausted").
+	 */
+	if (so->needPrimScan)
+	{
+		Assert(_bt_verify_arrays_bt_first(scan, dir));
 
+		/*
+		 * Flag was set -- must call _bt_first again, which will reset the
+		 * scan's needPrimScan flag
+		 */
+		return true;
+	}
+
+	/* The top-level index scan ran out of tuples in this scan direction */
+	if (scan->parallel_scan != NULL)
+		_bt_parallel_done(scan);
+```
 ## Detailed Description
 This function is called after _bt_first or _bt_next return false to determine if another primitive index scan should be initiated. It is a key component of PostgreSQL's array key handling mechanism in B-tree indexes, allowing scans to continue across multiple primitive scans when dealing with equality array scan keys.
 

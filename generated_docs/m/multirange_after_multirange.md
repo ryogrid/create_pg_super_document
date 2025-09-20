@@ -8,7 +8,10 @@ Determines whether the first multirange is completely after the second multirang
 
 ## Definition
 
-
+```c
+Datum
+multirange_after_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the ">>" (after) operator for multirange types. It determines whether one multirange is entirely after another multirange. The function leverages the internal  function by swapping the order of the arguments, since "mr1 after mr2" is equivalent to "mr2 before mr1".
 

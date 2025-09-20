@@ -8,7 +8,14 @@ A structure that represents the WAL (Write-Ahead Log) record data for CLOG trunc
 
 ## Definition
 
-
+```c
+typedef struct xl_clog_truncate
+{
+	int64		pageno;
+	TransactionId oldestXact;
+	Oid			oldestXactDb;
+} xl_clog_truncate;
+```
 ## Detailed Description
 The  structure is part of PostgreSQL's CLOG (Commit Log) subsystem and is used to store information about CLOG truncation operations in the Write-Ahead Log. This structure contains the essential information needed to replay CLOG truncation during crash recovery or when processing WAL records on standby servers.
 

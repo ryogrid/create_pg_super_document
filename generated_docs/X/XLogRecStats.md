@@ -8,7 +8,14 @@ XLogRecStats is a structure used to collect and store statistical information ab
 
 ## Definition
 
-
+```c
+typedef struct XLogRecStats
+{
+	uint64		count;
+	uint64		rec_len;
+	uint64		fpi_len;
+} XLogRecStats;
+```
 ## Detailed Description
 XLogRecStats serves as a statistical data container for WAL record analysis and monitoring. This structure is fundamental to PostgreSQL's WAL statistics collection system, providing granular metrics about WAL records. The structure tracks three key metrics: the number of records processed, the total length of record data (excluding full page images), and the total length of full page image data.
 

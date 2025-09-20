@@ -8,7 +8,18 @@ DataPageDeleteStack is a doubly-linked list structure used during GIN index vacu
 
 ## Definition
 
+```c
+typedef struct DataPageDeleteStack
+{
+	struct DataPageDeleteStack *child;
+	struct DataPageDeleteStack *parent;
 
+	BlockNumber blkno;			/* current block number */
+	Buffer		leftBuffer;		/* pinned and locked rightest non-deleted page
+								 * on left */
+	bool		isRoot;
+} DataPageDeleteStack;
+```
 ## Detailed Description
 The DataPageDeleteStack structure implements a stack-like data structure that maintains parent-child relationships during GIN posting tree traversal for page deletion. It serves as a navigation aid when scanning through posting tree levels to identify pages that can be safely deleted during vacuum operations. Each stack entry represents a level in the posting tree hierarchy, with the structure maintaining both upward (parent) and downward (child) links to facilitate tree traversal. The structure also tracks buffer management information to ensure proper locking and pinning of pages during the deletion process.
 

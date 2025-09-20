@@ -8,7 +8,10 @@ Marks the current position in a sorted result set, allowing for later restoratio
 
 ## Definition
 
-
+```c
+void
+ExecSortMarkPos(SortState *node)
+```
 ## Detailed Description
 ExecSortMarkPos implements the mark/restore functionality for Sort plan nodes by saving the current position in the sorted tuple stream. This function:
 

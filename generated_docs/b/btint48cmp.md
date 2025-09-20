@@ -8,7 +8,10 @@ A PostgreSQL B-tree comparison function that compares a 32-bit integer (int4) wi
 
 ## Definition
 
-
+```c
+Datum
+btint48cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements cross-type comparison between 32-bit and 64-bit integers for PostgreSQL B-tree indexes. It takes a 32-bit integer as the first argument and a 64-bit integer as the second argument, performing the comparison with appropriate type promotion. The 32-bit value is implicitly promoted to 64-bit precision before comparison, ensuring accurate results when comparing values of different integer widths.
 

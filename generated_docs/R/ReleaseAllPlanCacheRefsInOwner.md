@@ -8,7 +8,10 @@ A resource management function that releases all cached plan references owned by
 
 ## Definition
 
-
+```c
+void
+ReleaseAllPlanCacheRefsInOwner(ResourceOwner owner)
+```
 ## Detailed Description
 ReleaseAllPlanCacheRefsInOwner is a resource management function that handles cleanup of cached plan references when a resource owner is being destroyed or reset. It leverages PostgreSQL's resource owner infrastructure to ensure that all CachedPlan objects referenced by the specified owner are properly released.
 

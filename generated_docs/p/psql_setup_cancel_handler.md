@@ -8,7 +8,10 @@ psql_setup_cancel_handler is a function that initializes the cancellation signal
 
 ## Definition
 
-
+```c
+void
+psql_setup_cancel_handler(void)
+```
 ## Detailed Description
 psql_setup_cancel_handler serves as a wrapper function that sets up the cancellation signal handling mechanism for psql. It delegates to the generic setup_cancel_handler() function, passing psql_cancel_callback as the specific callback to be invoked when a cancellation signal (such as SIGINT from Ctrl+C) is received. This function is part of psql's initialization process and ensures that the application can handle user interruption requests gracefully. The separation of concerns allows psql to use the common PostgreSQL signal handling infrastructure while providing its own custom cancellation behavior.
 

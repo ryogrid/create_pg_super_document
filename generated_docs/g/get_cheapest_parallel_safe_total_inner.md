@@ -8,7 +8,10 @@ Finds the unparameterized parallel-safe path with the least total cost from a li
 
 ## Definition
 
-
+```c
+Path *
+get_cheapest_parallel_safe_total_inner(List *paths)
+```
 ## Detailed Description
 This function is specifically designed for finding inner paths suitable for parallel join operations. It searches through a list of paths to find the first one that meets two critical criteria: it must be parallel-safe (can be executed safely in a parallel context) and unparameterized (does not depend on outer relation variables). The function assumes that the input paths are already sorted by cost, so it returns the first path that meets the criteria, which will inherently be the cheapest.
 

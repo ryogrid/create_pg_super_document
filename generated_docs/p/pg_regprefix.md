@@ -8,7 +8,9 @@ Extracts a common prefix from strings that would match a compiled regular expres
 
 ## Definition
 
-
+```c
+struct guts *g;
+```
 ## Detailed Description
 The pg_regprefix function analyzes a compiled regular expression to determine if there is a common prefix shared by all strings that would match the pattern. This is a crucial optimization function that enables PostgreSQL to perform index scans more efficiently when processing regex-based queries. The function returns one of several result codes indicating whether a common prefix exists, an exact match is required, or no optimization is possible.
 

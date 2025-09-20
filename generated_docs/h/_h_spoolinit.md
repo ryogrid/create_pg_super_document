@@ -8,7 +8,10 @@ Creates and initializes a hash index spool structure used during hash index cons
 
 ## Definition
 
-
+```c
+HSpool *
+_h_spoolinit(Relation heap, Relation index, uint32 num_buckets)
+```
 ## Detailed Description
 This function allocates and initializes an HSpool structure that serves as the central data structure for managing hash index construction. The function calculates appropriate hash masks based on the number of buckets, which must be synchronized with the hash mask calculation in . It creates a tuplesort state using  (rather than ) to optimize index creation performance, as only one backend can perform index creation at a time.
 

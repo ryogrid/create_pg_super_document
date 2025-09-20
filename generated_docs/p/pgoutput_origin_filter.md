@@ -8,7 +8,11 @@ Determines whether to filter out changes based on their replication origin, impl
 
 ## Definition
 
-
+```c
+static bool
+pgoutput_origin_filter(LogicalDecodingContext *ctx,
+					   RepOriginId origin_id)
+```
 ## Detailed Description
 The  function implements origin-based filtering in PostgreSQL's logical replication system. This function helps prevent replication loops and allows selective replication based on the origin of changes.
 

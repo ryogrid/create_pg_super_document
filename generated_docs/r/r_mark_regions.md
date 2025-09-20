@@ -8,7 +8,16 @@ This function identifies and marks vowel/consonant regions within a word to esta
 
 ## Definition
 
-
+```c
+struct among a_2[5] =
+{
+{ 2, s_2_0, -1, 1, 0},
+{ 3, s_2_1, 0, 1, 0},
+{ 4, s_2_2, 1, 1, 0},
+{ 3, s_2_3, -1, 1, 0},
+{ 4, s_2_4, -1, 2, 0}
+};
+```
 ## Detailed Description
 The r_mark_regions function is a critical component of the Snowball stemming algorithm that analyzes the morphological structure of words by identifying regions based on vowel-consonant patterns. It sets three region markers (I[0], I[1], I[2]) in the SN_env structure that define boundaries where different stemming rules can be applied.
 

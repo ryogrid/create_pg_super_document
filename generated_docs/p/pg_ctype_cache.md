@@ -8,7 +8,15 @@ A caching structure that stores character classification results for regular exp
 
 ## Definition
 
-
+```c
+typedef struct pg_ctype_cache
+{
+	pg_wc_probefunc probefunc;	/* pg_wc_isalpha or a sibling */
+	Oid			collation;		/* collation this entry is for */
+	struct cvec cv;				/* cache entry contents */
+	struct pg_ctype_cache *next;	/* chain link */
+} pg_ctype_cache;
+```
 ## Detailed Description
 The  structure is a critical component of PostgreSQL's regular expression engine that provides efficient caching of character classification results. It stores the results of character class queries (such as "is this character alphabetic?") for specific combinations of probe functions and collations, avoiding expensive repeated calculations during regex matching.
 

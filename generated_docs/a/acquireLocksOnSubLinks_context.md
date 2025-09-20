@@ -8,7 +8,12 @@ A context structure used to pass state information during the process of acquiri
 
 ## Definition
 
-
+```c
+typedef struct acquireLocksOnSubLinks_context
+{
+	bool		for_execute;	/* AcquireRewriteLocks' forExecute param */
+} acquireLocksOnSubLinks_context;
+```
 ## Detailed Description
 The  structure serves as a context container that carries state information during the traversal of query trees to acquire necessary locks on sublinks. It specifically maintains the  parameter from the  function, which indicates whether the locks are being acquired for actual query execution or just for planning purposes. This distinction is important because different types of locks may be required depending on the intended use of the query.
 

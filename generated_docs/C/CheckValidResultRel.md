@@ -8,7 +8,11 @@ Validates that a proposed result relation is a legal target for the specified da
 
 ## Definition
 
-
+```c
+void
+CheckValidResultRel(ResultRelInfo *resultRelInfo, CmdType operation,
+					List *mergeActions)
+```
 ## Detailed Description
 This function performs comprehensive validation to ensure that a relation can serve as a result relation for a given database operation. It examines the relation kind (table, view, foreign table, etc.) and verifies that the operation is supported for that type of relation.
 

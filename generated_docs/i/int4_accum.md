@@ -8,7 +8,10 @@ The int4_accum function is an accumulator function for integer (int4) values in 
 
 ## Definition
 
-
+```c
+Datum
+int4_accum(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as an accumulator for 32-bit integer values in PostgreSQL's aggregate framework. It maintains a PolyNumAggState structure that can handle both 128-bit integer arithmetic (when available) and numeric arithmetic for precise calculations. The function is typically used in aggregate operations like AVG, STDDEV, and VARIANCE for integer columns.
 

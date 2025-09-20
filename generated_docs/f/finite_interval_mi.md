@@ -8,7 +8,10 @@ A static helper function that performs safe subtraction between two finite inter
 
 ## Definition
 
-
+```c
+static void
+finite_interval_mi(const Interval *span1, const Interval *span2, Interval *result)
+```
 ## Detailed Description
 This function performs interval subtraction (span1 - span2) with comprehensive safety checks. It validates that both input intervals are finite and performs overflow-safe arithmetic on each component (month, day, time). The function ensures that the resulting interval remains within valid bounds and raises an error if any overflow occurs or if the result becomes infinite.
 

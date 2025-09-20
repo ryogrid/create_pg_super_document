@@ -8,7 +8,11 @@ Compares two SortItem structures on a specific dimension only, providing focused
 
 ## Definition
 
-
+```c
+int
+multi_sort_compare_dim(int dim, const SortItem *a, const SortItem *b,
+					   MultiSortSupport mss)
+```
 ## Detailed Description
 This function performs a comparison between two SortItem structures but only evaluates a single specified dimension rather than all dimensions. It directly applies the appropriate sort comparator for the given dimension, handling both the actual values and their null status. This focused comparison is useful when algorithms need to examine ordering relationships along specific dimensions independently, such as in dependency analysis for extended statistics.
 

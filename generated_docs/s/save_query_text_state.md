@@ -8,7 +8,11 @@ Saves the current state of the query buffer and lexer to enable potential restor
 
 ## Definition
 
-
+```c
+static void
+save_query_text_state(PsqlScanState scan_state, ConditionalStack cstack,
+					  PQExpBuffer query_buf)
+```
 ## Detailed Description
 This function captures the current state of the query buffer and scanner to allow for potential rollback during conditional command execution (\if, \elif, \else constructs). It saves two key pieces of state information: the current length of the query buffer and the parenthesis nesting depth from the lexer. This state can later be restored using  if needed during conditional processing.
 

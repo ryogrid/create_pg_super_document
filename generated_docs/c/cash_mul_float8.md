@@ -8,7 +8,10 @@ A private inline function that performs safe multiplication of a Cash value by a
 
 ## Definition
 
-
+```c
+static inline Cash
+cash_mul_float8(Cash c, float8 f)
+```
 ## Detailed Description
 The  function multiplies a Cash value (64-bit signed integer representing monetary amounts) by a float8 value (double precision floating point number). The function performs the multiplication in floating point arithmetic, applies proper rounding using , and then checks that the result is valid (not NaN and fits within the range of a 64-bit signed integer). If the result is out of range or invalid, it reports a "money out of range" error. This ensures that monetary multiplication operations maintain precision and stay within valid bounds.
 

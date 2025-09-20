@@ -8,7 +8,10 @@ The pg_rotate_left32 function performs a bitwise left rotation of a 32-bit unsig
 
 ## Definition
 
-
+```c
+static inline uint32
+pg_rotate_left32(uint32 word, int n)
+```
 ## Detailed Description
 pg_rotate_left32 implements a circular left bit shift operation on a 32-bit unsigned integer. Unlike a regular left shift that fills with zeros, rotation preserves all bits by moving the bits that would be shifted out from the left end to the right end. The operation combines a left shift of n positions with a right shift of (32-n) positions using bitwise OR, effectively wrapping the shifted-out bits around. This operation is fundamental to many hash functions used throughout PostgreSQL for distributing hash values more evenly.
 

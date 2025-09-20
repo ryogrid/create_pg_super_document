@@ -8,7 +8,19 @@ Creates a range table entry for one or more functions in a FROM clause, handling
 
 ## Definition
 
-
+```c
+struct a tupdesc and fill
+			 * in the RangeTblFunction's lists.  Limit number of columns to
+			 * MaxHeapAttributeNumber, because CheckAttributeNamesTypes will.
+			 */
+			if (list_length(coldeflist) > MaxHeapAttributeNumber)
+				ereport(ERROR,
+						(errcode(ERRCODE_TOO_MANY_COLUMNS),
+						 errmsg("column definition lists can have at most %d entries",
+								MaxHeapAttributeNumber),
+						 parser_errposition(pstate,
+											exprLocation((Node *) coldeflist))));
+```
 ## Detailed Description
 The  function handles the complex task of creating range table entries for functions used in FROM clauses. This includes:
 

@@ -8,7 +8,10 @@ Converts a complete ISO 8601 week date specification (ISO year, week number, and
 
 ## Definition
 
-
+```c
+void
+isoweekdate2date(int isoweek, int wday, int *year, int *mon, int *mday)
+```
 ## Detailed Description
 This function converts a full ISO 8601 week date specification into a Gregorian calendar date. Unlike isoweek2date which only returns the Monday of a given week, this function can convert any specific day within an ISO week by accepting a weekday parameter. The function first calculates the Julian day for the Monday of the specified ISO week using isoweek2j, then applies an offset based on the weekday to find the exact date. The weekday conversion handles the difference between Gregorian week numbering (Sunday=1) and ISO week numbering (Monday=1). This function is particularly useful in date formatting operations where complete ISO week date strings need to be converted to standard dates.
 

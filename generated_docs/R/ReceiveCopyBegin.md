@@ -8,7 +8,10 @@ Initiates the COPY FROM protocol by sending a CopyInResponse message to the fron
 
 ## Definition
 
-
+```c
+void
+ReceiveCopyBegin(CopyFromState cstate)
+```
 ## Detailed Description
 ReceiveCopyBegin sets up the COPY FROM operation by sending a CopyInResponse message to the frontend. This function prepares the communication channel for receiving copy data by specifying the format (text or binary) and the number of columns expected. It also initializes the frontend message buffer and sets the copy source to COPY_FRONTEND. The function ensures that the frontend receives this information by flushing the output buffer immediately.
 

@@ -8,7 +8,10 @@ Finds and returns the target list entry that matches a given SortGroupRef index.
 
 ## Definition
 
-
+```c
+TargetEntry *
+get_sortgroupref_tle(Index sortref, List *targetList)
+```
 ## Detailed Description
 This function searches through a target list to find the TargetEntry that has a matching ressortgroupref value. The ressortgroupref field is used to link target list entries with ORDER BY, GROUP BY, and DISTINCT clauses. When the parser processes these clauses, it assigns unique reference numbers to expressions that need to be sorted or grouped, and this function provides a way to locate the corresponding target list entry.
 

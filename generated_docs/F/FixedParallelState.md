@@ -8,7 +8,34 @@ FixedParallelState is a structure that holds fixed-size state information shared
 
 ## Definition
 
+```c
+typedef struct FixedParallelState
+{
+	/* Fixed-size state that workers must restore. */
+	Oid			database_id;
+	Oid			authenticated_user_id;
+	Oid			session_user_id;
+	Oid			outer_user_id;
+	Oid			current_user_id;
+	Oid			temp_namespace_id;
+	Oid			temp_toast_namespace_id;
+	int			sec_context;
+	bool		session_user_is_superuser;
+	bool		role_is_superuser;
+	PGPROC	   *parallel_leader_pgproc;
+	pid_t		parallel_leader_pid;
+	ProcNumber	parallel_leader_proc_number;
+	TimestampTz xact_ts;
+	TimestampTz stmt_ts;
+	SerializableXactHandle serializable_xact_handle;
 
+	/* Mutex protects remaining fields. */
+	slock_t		mutex;
+
+	/* Maximum XactLastRecEnd of any worker. */
+	XLogRecPtr	last_xlog_end;
+} FixedParallelState;
+```
 ## Detailed Description
 FixedParallelState stores essential session and transaction state that parallel workers need to restore to maintain consistency with the leader process. This structure is allocated in shared memory as part of the dynamic shared memory (DSM) segment created for parallel operations. The structure contains two main categories of information: session state that workers must restore to match the leader's context, and coordination data protected by a mutex for synchronization between the leader and workers.
 

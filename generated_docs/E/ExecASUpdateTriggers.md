@@ -8,7 +8,11 @@ ExecASUpdateTriggers schedules AFTER STATEMENT UPDATE triggers for execution aft
 
 ## Definition
 
-
+```c
+void
+ExecASUpdateTriggers(EState *estate, ResultRelInfo *relinfo,
+					 TransitionCaptureState *transition_capture)
+```
 ## Detailed Description
 This function handles the scheduling of AFTER STATEMENT UPDATE triggers, which fire once per UPDATE statement after all individual rows have been processed. Unlike BEFORE STATEMENT triggers that execute immediately, AFTER STATEMENT triggers are deferred and executed through the AfterTriggerSaveEvent mechanism to ensure proper timing and ordering.
 

@@ -8,7 +8,10 @@ RemovePublicationRelById removes a relation from a publication using its publica
 
 ## Definition
 
-
+```c
+void
+RemovePublicationRelById(Oid proid)
+```
 ## Detailed Description
 This function removes a specific publication-relation mapping from the pg_publication_rel catalog table using the mapping's OID. It performs comprehensive cache invalidation that extends beyond the explicitly referenced relation to include all partitions in the partition hierarchy, ensuring that logical replication remains consistent when partitioned tables are involved. The function is typically called during dependency-driven cascading deletions when publications or relations are dropped.
 

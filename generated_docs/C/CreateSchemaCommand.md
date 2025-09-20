@@ -8,7 +8,11 @@ CreateSchemaCommand implements the CREATE SCHEMA SQL command, creating a new dat
 
 ## Definition
 
-
+```c
+Oid
+CreateSchemaCommand(CreateSchemaStmt *stmt, const char *queryString,
+					int stmt_location, int stmt_len)
+```
 ## Detailed Description
 CreateSchemaCommand orchestrates the complete CREATE SCHEMA operation, handling authorization, namespace creation, and execution of embedded statements. The function performs comprehensive security checks, creates the schema namespace, temporarily modifies the search path to include the new schema, and processes any embedded SQL statements (like CREATE TABLE, CREATE VIEW) within the schema context.
 

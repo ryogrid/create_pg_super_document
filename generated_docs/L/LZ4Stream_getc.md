@@ -8,7 +8,10 @@ Provides a fgetc() equivalent interface for reading a single character from LZ4 
 
 ## Definition
 
-
+```c
+static int
+LZ4Stream_getc(CompressFileHandle *CFH)
+```
 ## Detailed Description
 LZ4Stream_getc implements the standard C library fgetc() interface for LZ4 compressed streams. It reads exactly one byte (character) from the compressed stream and returns it as an unsigned char cast to an int. The function uses LZ4Stream_read_internal() to perform the actual decompression work and handles both normal operation and end-of-file conditions with appropriate error reporting.
 

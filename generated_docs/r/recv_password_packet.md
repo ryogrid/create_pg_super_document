@@ -8,7 +8,10 @@ Receives and validates password response packets from the frontend client during
 
 ## Definition
 
-
+```c
+static char *
+recv_password_packet(Port *port)
+```
 ## Detailed Description
 The  function handles the reception and basic validation of password messages sent by clients during authentication. It implements PostgreSQL's password message protocol, which expects a specific message format containing the password data.
 

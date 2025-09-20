@@ -8,7 +8,10 @@ Handles extraction of time parts from infinite intervals, returning appropriate 
 
 ## Definition
 
-
+```c
+struct pg_itm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This static function is specifically designed to handle interval part extraction when dealing with infinite intervals. It categorizes time units into two groups: oscillating units (like seconds, minutes, months) that return zero (indicating NULL should be returned), and monotonically-increasing units (like hours, days, years) that return positive or negative infinity based on the interval's sign.
 

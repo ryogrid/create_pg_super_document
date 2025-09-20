@@ -8,7 +8,12 @@ Creates a new grouping relation and sets its basic properties for the GROUP BY/a
 
 ## Definition
 
-
+```c
+static RelOptInfo *
+make_grouping_rel(PlannerInfo *root, RelOptInfo *input_rel,
+				  PathTarget *target, bool target_parallel_safe,
+				  Node *havingQual)
+```
 ## Detailed Description
 This function creates and initializes a new RelOptInfo structure specifically for representing grouped/aggregated results. It handles the setup of a new upper relation that will contain paths for performing GROUP BY operations and aggregation functions.
 

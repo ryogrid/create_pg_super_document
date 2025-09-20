@@ -8,7 +8,10 @@ Compares at most n wide characters of two wide character strings, returning an i
 
 ## Definition
 
-
+```c
+int
+pg_wchar_strncmp(const pg_wchar *s1, const pg_wchar *s2, size_t n)
+```
 ## Detailed Description
 This function performs a lexicographic comparison of two wide character strings (pg_wchar), comparing at most n characters. It follows the standard strncmp semantics but operates on PostgreSQL's wide character type (pg_wchar) rather than regular char arrays. The function stops comparison when it encounters differing characters, reaches a null terminator, or has compared n characters.
 

@@ -8,7 +8,11 @@ Initializes the metadata page of a hash index with appropriate configuration bas
 
 ## Definition
 
-
+```c
+void
+_hash_init_metabuffer(Buffer buf, double num_tuples, RegProcedure procid,
+					  uint16 ffactor, bool initpage)
+```
 ## Detailed Description
 This function sets up the metadata page for a hash index, which is the control structure that manages the overall state of the hash index. It calculates the initial number of buckets based on the estimated tuple count and fill factor, initializes the page structure, and sets up the metadata fields including magic numbers, version information, bucket configuration, and bitmap management parameters. The function ensures proper page layout by setting pd_lower to prevent metadata loss during WAL compression.
 

@@ -8,7 +8,13 @@ Recursively traverses the query's join tree to extract join structure informatio
 
 ## Definition
 
-
+```c
+static List *
+deconstruct_recurse(PlannerInfo *root, Node *jtnode,
+					JoinDomain *parent_domain,
+					JoinTreeItem *parent_jtitem,
+					List **item_list)
+```
 ## Detailed Description
 This function performs the core recursive traversal of PostgreSQL's join tree structure, processing different node types and building the necessary data structures for join planning. It handles three main types of join tree nodes:
 

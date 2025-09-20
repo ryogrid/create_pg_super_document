@@ -8,7 +8,11 @@ ExecNestLoop executes a nested loop join operation between outer and inner relat
 
 ## Definition
 
-
+```c
+structure
+	 */
+	nlstate = makeNode(NestLoopState);
+```
 ## Detailed Description
 ExecNestLoop implements the core nested loop join algorithm in PostgreSQL's executor. It performs a nested iteration where for each tuple from the outer relation, it scans through all tuples in the inner relation to find matches based on join conditions.
 

@@ -8,7 +8,10 @@ A static function that sends a PostgreSQL protocol message without blocking, aut
 
 ## Definition
 
-
+```c
+static void
+socket_putmessage_noblock(char msgtype, const char *s, size_t len)
+```
 ## Detailed Description
 This function is a non-blocking variant of the standard message sending functionality. It guarantees that the message will be successfully placed in the output buffer by automatically expanding the buffer size if needed. The function calculates the total space required for the complete message (including header) and reallocates the send buffer if the current buffer is insufficient.
 

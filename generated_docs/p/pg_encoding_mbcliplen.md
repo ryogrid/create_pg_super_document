@@ -8,7 +8,11 @@ Clips a multi-byte string to a specified length limit with a given encoding, ens
 
 ## Definition
 
-
+```c
+int
+pg_encoding_mbcliplen(int encoding, const char *mbstr,
+					  int len, int limit)
+```
 ## Detailed Description
 This function calculates the maximum number of bytes that can be taken from a multi-byte string without exceeding the specified limit and without breaking multi-byte character boundaries. It handles different character encodings by using the appropriate mblen function for each encoding to determine character byte lengths. For single-byte encodings, it optimizes by calling the simpler cliplen function directly.
 

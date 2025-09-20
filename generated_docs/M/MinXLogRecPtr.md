@@ -8,7 +8,10 @@ MinXLogRecPtr is a utility function that finds the minimum WAL location from two
 
 ## Definition
 
-
+```c
+static XLogRecPtr
+MinXLogRecPtr(XLogRecPtr a, XLogRecPtr b)
+```
 ## Detailed Description
 This function implements a specialized comparison for WAL (Write-Ahead Log) locations that handles invalid pointers according to timeline semantics. Unlike a standard minimum function, it treats InvalidXLogRecPtr as representing infinity, which is consistent with the semantics defined in src/include/access/timeline.h. This behavior is specifically designed for comparing WAL locations related to history files during timeline operations.
 

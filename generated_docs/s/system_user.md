@@ -8,7 +8,10 @@ The system_user function is a PostgreSQL SQL function that returns the system us
 
 ## Definition
 
-
+```c
+Datum
+system_user(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The system_user function implements the SQL SYSTEM_USER function in PostgreSQL. It retrieves the system user name through the GetSystemUser() function and returns it as a PostgreSQL text datum. If no system user is available, the function returns NULL. This function is part of PostgreSQL's security and session management infrastructure, providing information about the authenticated system user for the current session.
 

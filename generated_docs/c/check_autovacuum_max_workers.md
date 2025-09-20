@@ -8,7 +8,10 @@ check_autovacuum_max_workers is a GUC check hook function that validates propose
 
 ## Definition
 
-
+```c
+bool
+check_autovacuum_max_workers(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for the autovacuum_max_workers GUC parameter. It verifies that the proposed new value, when combined with max_connections and other backend process types, does not exceed the maximum number of backends allowed by the system (MAX_BACKENDS). This prevents configuration errors that could lead to resource exhaustion or system instability.
 

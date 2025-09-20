@@ -8,7 +8,12 @@ Processes a single heap page during vacuum by converting specified LP_DEAD items
 
 ## Definition
 
-
+```c
+static void
+lazy_vacuum_heap_page(LVRelState *vacrel, BlockNumber blkno, Buffer buffer,
+					  OffsetNumber *deadoffsets, int num_offsets,
+					  Buffer vmbuffer)
+```
 ## Detailed Description
 This function performs the actual heap page cleanup during the vacuum process. It takes a list of dead item offsets on a specific page and converts those LP_DEAD line pointers to LP_UNUSED, making the space available for reuse. The function operates within a critical section to ensure atomicity of the page modifications.
 

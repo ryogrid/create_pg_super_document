@@ -8,7 +8,11 @@ Parses an integer from a string for array dimension specifications, handling ran
 
 ## Definition
 
-
+```c
+static bool
+ReadDimensionInt(char **srcptr, int *result,
+				 const char *origStr, Node *escontext)
+```
 ## Detailed Description
 ReadDimensionInt is a static utility function that parses integer values from strings specifically for array dimension processing. It extracts signed integers that represent array bounds (lower and upper limits) while performing careful range validation.
 

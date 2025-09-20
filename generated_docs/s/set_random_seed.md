@@ -8,7 +8,10 @@ Initializes the random number generator seed for pgbench based on the provided s
 
 ## Definition
 
-
+```c
+static bool
+set_random_seed(const char *seed)
+```
 ## Detailed Description
 This function sets up the random seed for pgbench's pseudo-random number generation system. It supports three types of seed inputs: time-based seeding (NULL or "time"), strong random seeding ("rand"), and explicit numeric seeding. The function parses the seed parameter, generates the appropriate seed value, logs the seed being used, stores it in the global  variable, and initializes the  using PostgreSQL's PRNG system. This base sequence is then used to initialize other random sequences throughout pgbench's execution.
 

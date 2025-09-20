@@ -8,7 +8,10 @@ A list_sort comparator function that sorts append child paths by startup_cost in
 
 ## Definition
 
-
+```c
+static int
+append_startup_cost_compare(const ListCell *a, const ListCell *b)
+```
 ## Detailed Description
 This static function serves as a comparison function for list_sort to order append child paths by their startup costs in descending order. This sorting is specifically used for partial subpaths in parallel append operations. The rationale is that some partial paths may require startup work to be done by a single worker, so it's better for workers to choose the expensive startup plans first, while the leader should choose the cheapest startup plan.
 

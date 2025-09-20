@@ -8,7 +8,15 @@ NestLoopState represents the execution state for nested loop join operations, ma
 
 ## Definition
 
-
+```c
+typedef struct NestLoopState
+{
+	JoinState	js;				/* its first field is NodeTag */
+	bool		nl_NeedNewOuter;
+	bool		nl_MatchedOuter;
+	TupleTableSlot *nl_NullInnerTupleSlot;
+} NestLoopState;
+```
 ## Detailed Description
 NestLoopState extends JoinState to provide specific state management for nested loop join execution. This structure tracks the progress of the nested loop algorithm, which iterates through each tuple in the outer relation and, for each outer tuple, scans the inner relation to find matching tuples. The state information helps coordinate this two-level iteration and handles special cases like outer joins where null values must be generated for unmatched outer tuples.
 

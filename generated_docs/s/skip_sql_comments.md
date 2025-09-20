@@ -8,7 +8,10 @@ Skips over leading whitespace and SQL-style line comments (--) to find the start
 
 ## Definition
 
-
+```c
+static char *
+skip_sql_comments(char *sql_command)
+```
 ## Detailed Description
 The skip_sql_comments function processes SQL command text to locate the beginning of executable SQL content by skipping over non-essential elements. It iteratively advances through the input string, ignoring whitespace characters and SQL line comments that begin with '--'. The function handles comments by finding the newline character that terminates them, then continues processing from the next line. This preprocessing is essential for pgbench's SQL command parsing pipeline, ensuring that only meaningful SQL content is processed.
 

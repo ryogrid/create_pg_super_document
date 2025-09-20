@@ -8,7 +8,10 @@ Returns the total memory usage of a TidStore, delegating to the appropriate impl
 
 ## Definition
 
-
+```c
+size_t
+TidStoreMemoryUsage(TidStore *ts)
+```
 ## Detailed Description
 This function provides a unified interface to query the memory consumption of a TidStore regardless of its implementation type. It determines whether the TidStore is shared (multi-process) or local (single-process) and calls the appropriate memory usage calculation function. This is essential for memory monitoring, debugging, and resource management in PostgreSQL operations.
 

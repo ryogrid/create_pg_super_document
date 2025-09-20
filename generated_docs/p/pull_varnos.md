@@ -8,7 +8,10 @@ Extracts all distinct variable range table numbers (varnos) present in a parse t
 
 ## Definition
 
-
+```c
+Relids
+pull_varnos(PlannerInfo *root, Node *node)
+```
 ## Detailed Description
 The  function creates a set of all the distinct varnos present in a parsetree, focusing specifically on varnos that reference level-zero rtable entries. It also includes outer-join relids mentioned in  and  fields within the parse tree.
 

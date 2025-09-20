@@ -8,7 +8,10 @@ Looks up and caches partition descriptors in a partition directory, ensuring con
 
 ## Definition
 
-
+```c
+PartitionDesc
+PartitionDirectoryLookup(PartitionDirectory pdir, Relation rel)
+```
 ## Detailed Description
 PartitionDirectoryLookup provides a cached lookup mechanism for partition descriptors within a partition directory. The primary purpose is to ensure consistency by returning the same PartitionDesc for a given relation OID throughout the lifetime of the partition directory, even in the face of concurrent DDL operations that might result in different catalog views.
 

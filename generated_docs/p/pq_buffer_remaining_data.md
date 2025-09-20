@@ -8,7 +8,10 @@ Returns the number of bytes remaining in the PostgreSQL communication receive bu
 
 ## Definition
 
-
+```c
+ssize_t
+pq_buffer_remaining_data(void)
+```
 ## Detailed Description
  is a utility function that calculates and returns the number of bytes currently available in the receive buffer that have not yet been consumed. This function is designed to be non-blocking and will not attempt to read additional data from the network connection.
 

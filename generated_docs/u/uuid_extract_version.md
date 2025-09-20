@@ -8,7 +8,10 @@ Extracts the version number from a UUID value, returning null for non-RFC 4122 v
 
 ## Definition
 
-
+```c
+Datum
+uuid_extract_version(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function extracts the version field from a UUID (Universally Unique Identifier) according to RFC 4122 specification. The function first validates that the input UUID follows the RFC 4122 variant by checking specific bits in the UUID structure. If the UUID is not RFC 4122 compliant, the function returns NULL. Otherwise, it extracts and returns the 4-bit version field from the UUID.
 

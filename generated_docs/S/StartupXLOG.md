@@ -8,7 +8,14 @@ StartupXLOG is the main recovery function that must be called ONCE during postma
 
 ## Definition
 
-
+```c
+struct a RunningTransactions snapshot representing a
+				 * shut down server, with only prepared transactions still
+				 * alive. We're never overflowed at this point because all
+				 * subxids are listed with their parent prepared transactions.
+				 */
+				running.xcnt = nxids;
+```
 ## Detailed Description
 StartupXLOG is a comprehensive function responsible for orchestrating the entire database recovery process during startup. It handles multiple recovery scenarios including clean shutdowns, crash recovery, and archive recovery (point-in-time recovery). The function performs the following major operations:
 

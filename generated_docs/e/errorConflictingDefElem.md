@@ -8,7 +8,10 @@ A utility function that raises a standardized error when conflicting or redundan
 
 ## Definition
 
-
+```c
+void
+errorConflictingDefElem(DefElem *defel, ParseState *pstate)
+```
 ## Detailed Description
 The `errorConflictingDefElem` function is a centralized error reporting mechanism used throughout PostgreSQL's command processing subsystem to handle cases where duplicate, conflicting, or redundant options are specified in SQL commands. It provides consistent error reporting with proper location information for parser diagnostics.
 

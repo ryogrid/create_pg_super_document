@@ -8,7 +8,13 @@ Finds the cheapest path for retrieving a specified fraction of all tuples that s
 
 ## Definition
 
-
+```c
+Path *
+get_cheapest_fractional_path_for_pathkeys(List *paths,
+										  List *pathkeys,
+										  Relids required_outer,
+										  double fraction)
+```
 ## Detailed Description
 This function is a specialized variant of path selection that optimizes for scenarios where only a fraction of the total result set will be retrieved. It is particularly useful for queries with LIMIT clauses or other operations that terminate early. The function uses fractional path cost comparison instead of total cost comparison, which takes into account that startup costs become more significant when only retrieving partial results.
 

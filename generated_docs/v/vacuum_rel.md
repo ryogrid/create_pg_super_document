@@ -8,7 +8,11 @@ Vacuums a single heap relation by handling transaction management, locking, priv
 
 ## Definition
 
-
+```c
+static bool
+vacuum_rel(Oid relid, RangeVar *relation, VacuumParams *params,
+		   BufferAccessStrategy bstrategy)
+```
 ## Detailed Description
 This function orchestrates the vacuuming of a single relation through a complex process that ensures safety, proper locking, and comprehensive cleanup. The key aspects include:
 

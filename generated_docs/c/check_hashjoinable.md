@@ -8,7 +8,10 @@ Determines if a restriction clause is suitable for hash join operations and sets
 
 ## Definition
 
-
+```c
+static void
+check_hashjoinable(RestrictInfo *restrictinfo)
+```
 ## Detailed Description
 This function evaluates whether a given restriction clause can be used in hash join operations, one of PostgreSQL's most important join algorithms. Hash joins work by building a hash table from the smaller relation (the "inner" relation) and then probing this hash table for each row in the larger relation (the "outer" relation). This makes hash joins particularly efficient for large datasets where one side is significantly smaller than the other, or when no useful indexes exist.
 

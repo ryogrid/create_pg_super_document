@@ -8,7 +8,13 @@ ProcessCopyOptions processes and validates the complete option list for COPY sta
 
 ## Definition
 
-
+```c
+void
+ProcessCopyOptions(ParseState *pstate,
+				   CopyFormatOptions *opts_out,
+				   bool is_from,
+				   List *options)
+```
 ## Detailed Description
 ProcessCopyOptions is the central option processing function for COPY statements, handling the parsing, validation, and normalization of all COPY options. It iterates through a list of DefElem options, extracting values and storing them in a CopyFormatOptions structure. The function performs extensive validation including: detecting conflicting option specifications, enforcing format-specific restrictions (e.g., CSV-only options), validating character constraints (single-byte requirements, forbidden characters), and ensuring directional compatibility (COPY FROM vs COPY TO restrictions). It also sets appropriate defaults for omitted options and performs cross-option validation to ensure the final configuration is internally consistent and operationally valid.
 

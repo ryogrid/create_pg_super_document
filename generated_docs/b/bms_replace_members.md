@@ -8,7 +8,10 @@ Completely replaces the contents of one bitmapset with the contents of another, 
 
 ## Definition
 
-
+```c
+Bitmapset *
+bms_replace_members(Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 The  function efficiently replaces all members of bitmapset  with the members from bitmapset . Unlike creating a new bitmapset, this function attempts to reuse the existing memory allocation of  when possible. If  has sufficient capacity to hold all members of , it simply copies the word data directly. If more space is needed, it expands  using  before copying.
 

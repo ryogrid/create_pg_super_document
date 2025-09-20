@@ -8,7 +8,10 @@ Implements the less-than comparison operator (<) for PostgreSQL's cash/money dat
 
 ## Definition
 
-
+```c
+Datum
+cash_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs less-than comparison between two cash values in PostgreSQL. It takes two cash arguments and returns a boolean result indicating whether the first value is less than the second value. This function is part of the comparison operator family for the money data type and is used when SQL queries contain less-than comparisons between cash/money values.
 

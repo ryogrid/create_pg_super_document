@@ -8,7 +8,15 @@ Checks whether an attempted attribute reference is to a dropped column within a 
 
 ## Definition
 
-
+```c
+structed,
+				 * but one in a stored rule might contain columns that were
+				 * dropped from the underlying tables, if said columns are
+				 * nowhere explicitly referenced in the rule.  This will be
+				 * signaled to us by a null pointer in the joinaliasvars list.
+				 */
+				Var		   *aliasvar;
+```
 ## Detailed Description
 This function determines if a specified attribute (column) in a range table entry has been dropped. It handles different types of RTEs with specific logic for each:
 

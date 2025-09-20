@@ -8,7 +8,10 @@ Outputs collected lightweight lock statistics to stderr, providing detailed usag
 
 ## Definition
 
-
+```c
+static void
+print_lwlock_stats(int code, Datum arg)
+```
 ## Detailed Description
 This function serves as an exit handler that prints accumulated lightweight lock statistics when a PostgreSQL process terminates. It iterates through the lwlock_stats hash table and outputs detailed statistics for each lock that was tracked during the process lifetime. The output includes acquisition counts (shared and exclusive), blocking events, spin delays, and self-dequeue operations.
 

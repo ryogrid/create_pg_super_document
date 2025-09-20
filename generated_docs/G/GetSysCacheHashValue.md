@@ -8,7 +8,14 @@ Computes the hash value that would be used for a tuple in a specified system cat
 
 ## Definition
 
-
+```c
+uint32
+GetSysCacheHashValue(int cacheId,
+					 Datum key1,
+					 Datum key2,
+					 Datum key3,
+					 Datum key4)
+```
 ## Detailed Description
 GetSysCacheHashValue calculates the hash value for a hypothetical tuple in a system catalog cache without actually performing a cache lookup. This function is primarily used for cache invalidation operations where external code needs to compute hash values to match against cached entries. The function validates the cache ID and delegates the actual hash computation to the underlying catalog cache system.
 

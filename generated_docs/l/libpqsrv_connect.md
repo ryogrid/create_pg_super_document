@@ -8,7 +8,10 @@ A convenience wrapper around PQconnectdb() that handles file descriptor reservat
 
 ## Definition
 
-
+```c
+static inline PGconn *
+libpqsrv_connect(const char *conninfo, uint32 wait_event_info)
+```
 ## Detailed Description
 libpqsrv_connect provides a server-side wrapper for PostgreSQL connection establishment that addresses resource management concerns specific to server processes. It reserves a file descriptor before attempting connection and ensures that interrupts are properly processed during the connection establishment phase. The function follows a prepare-connect-finalize pattern by first calling libpqsrv_connect_prepare(), then using PQconnectStart() for asynchronous connection initiation, and finally calling libpqsrv_connect_internal() to complete the connection process with interrupt handling.
 

@@ -8,7 +8,10 @@ Cleans up the relation sync cache by removing completed transaction IDs and upda
 
 ## Definition
 
-
+```c
+static void
+cleanup_rel_sync_cache(TransactionId xid, bool is_commit)
+```
 ## Detailed Description
 This function performs cleanup operations on the relation synchronization cache when streamed transactions complete. It iterates through all entries in the RelationSyncCache hash table and performs the following operations:
 

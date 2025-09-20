@@ -8,7 +8,11 @@ A comprehensive datetime format string processor that converts format specifiers
 
 ## Definition
 
-
+```c
+static int
+dttofmtasc_replace(timestamp * ts, date dDate, int dow, struct tm *tm,
+				   char *output, int *pstr_len, const char *fmtstr)
+```
 ## Detailed Description
 dttofmtasc_replace is a static internal function within the ECPG pgtypes library that implements a comprehensive strftime-compatible format string processor for PostgreSQL timestamps. This function parses a format string containing percent-escape sequences and replaces them with corresponding timestamp values formatted according to the specified pattern.
 

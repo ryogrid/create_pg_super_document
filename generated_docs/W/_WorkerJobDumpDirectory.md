@@ -8,7 +8,10 @@ A worker function executed in child processes during parallel backup operations 
 
 ## Definition
 
-
+```c
+static int
+_WorkerJobDumpDirectory(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function is specifically designed for parallel backup operations in the pg_dump utility when using directory-format archives. It runs in child processes spawned during parallel backup and is responsible for dumping the actual data content for one Table of Contents (TOC) entry. The function acts as a wrapper that delegates the core data writing functionality to . It's designed with a simple success/failure model where any failure results in the child process terminating, which is then detected by the parent process.
 

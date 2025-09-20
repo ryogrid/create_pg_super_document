@@ -8,7 +8,10 @@ Determines the unique indexes used to arbitrate speculative insertion for ON CON
 
 ## Definition
 
-
+```c
+List *
+infer_arbiter_indexes(PlannerInfo *root)
+```
 ## Detailed Description
 This function implements the core logic for PostgreSQL's ON CONFLICT clause by identifying which unique indexes should be used for conflict detection during speculative insertion. It takes the inference specification from an OnConflictExpr and matches it against the unique indexes defined on the target relation.
 

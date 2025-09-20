@@ -8,7 +8,15 @@ Creates a new upper relation for partial aggregation results and populates it wi
 
 ## Definition
 
-
+```c
+static RelOptInfo *
+create_partial_grouping_paths(PlannerInfo *root,
+							  RelOptInfo *grouped_rel,
+							  RelOptInfo *input_rel,
+							  grouping_sets_data *gd,
+							  GroupPathExtraData *extra,
+							  bool force_rel_creation)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's parallel aggregation strategy. It creates an intermediate relation (UPPERREL_PARTIAL_GROUP_AGG) that represents partially aggregated results requiring subsequent finalization. The function handles:
 

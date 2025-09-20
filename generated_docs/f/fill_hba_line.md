@@ -8,7 +8,12 @@ Builds one row of the pg_hba_file_rules system view and adds it to a tuplestore,
 
 ## Definition
 
-
+```c
+static void
+fill_hba_line(Tuplestorestate *tuple_store, TupleDesc tupdesc,
+			  int rule_number, char *filename, int lineno, HbaLine *hba,
+			  const char *err_msg)
+```
 ## Detailed Description
 The  function constructs a complete row for the pg_hba_file_rules system view, which exposes PostgreSQL's host-based authentication configuration to SQL queries. It processes a parsed HBA line structure and extracts all relevant information including connection type, database names, user roles, network addresses, authentication methods, and options. The function handles both successful parsing results and error conditions, formatting network addresses appropriately and converting internal data structures into SQL-compatible formats. Memory leaks are acceptable since this runs in a short-lived memory context.
 

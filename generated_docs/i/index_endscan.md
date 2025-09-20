@@ -8,7 +8,10 @@ The index_endscan function terminates an index scan operation and properly clean
 
 ## Definition
 
-
+```c
+structure itself */
+	IndexScanEnd(scan);
+```
 ## Detailed Description
 index_endscan is responsible for the proper termination of an index scan operation. It performs a series of cleanup operations in a specific order to ensure that all resources are properly released. The function first releases any table access resources (like buffer pins from heap fetches), then calls the access method-specific end scan routine, decrements the index relation reference count, unregisters any temporary snapshots, and finally deallocates the scan descriptor itself.
 

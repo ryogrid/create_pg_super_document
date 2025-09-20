@@ -8,7 +8,10 @@ Checks whether a currently pinned buffer contains the correct visibility map pag
 
 ## Definition
 
-
+```c
+bool
+visibilitymap_pin_ok(BlockNumber heapBlk, Buffer vmbuf)
+```
 ## Detailed Description
 The visibilitymap_pin_ok function provides a lightweight check to determine if a buffer that's already pinned contains the visibility map page needed for a specific heap block. This function is primarily used for optimization purposes to avoid unnecessary I/O operations when the correct page is already available in memory.
 

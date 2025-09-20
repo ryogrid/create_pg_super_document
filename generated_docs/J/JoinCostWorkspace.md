@@ -8,7 +8,32 @@ JoinCostWorkspace is a workspace structure used for efficient two-phase cost est
 
 ## Definition
 
+```c
+typedef struct JoinCostWorkspace
+{
+	/* Preliminary cost estimates --- must not be larger than final ones! */
+	Cost		startup_cost;	/* cost expended before fetching any tuples */
+	Cost		total_cost;		/* total cost (assuming all tuples fetched) */
 
+	/* Fields below here should be treated as private to costsize.c */
+	Cost		run_cost;		/* non-startup cost components */
+
+	/* private for cost_nestloop code */
+	Cost		inner_run_cost; /* also used by cost_mergejoin code */
+	Cost		inner_rescan_run_cost;
+
+	/* private for cost_mergejoin code */
+	Cardinality outer_rows;
+	Cardinality inner_rows;
+	Cardinality outer_skip_rows;
+	Cardinality inner_skip_rows;
+
+	/* private for cost_hashjoin code */
+	int			numbuckets;
+	int			numbatches;
+	Cardinality inner_rows_total;
+} JoinCostWorkspace;
+```
 ## Detailed Description
 JoinCostWorkspace implements a two-phase cost estimation strategy for join operations to improve performance. The first phase quickly derives a lower bound for join cost, which may be sufficient to reject obviously expensive paths. If the path remains viable, the second phase performs more refined cost calculations using the preliminary values as input. This approach avoids expensive computations for paths that can be eliminated early. The structure contains both public cost estimates and private intermediate values specific to different join algorithms (nested loop, merge join, hash join).
 

@@ -8,7 +8,10 @@ The describeDumpableObject function generates human-readable string descriptions
 
 ## Definition
 
-
+```c
+static void
+describeDumpableObject(DumpableObject *obj, char *buf, int bufsize)
+```
 ## Detailed Description
 This function takes a DumpableObject and produces a formatted string description that includes the object type, name, internal dump ID, and PostgreSQL catalog OID. It uses a large switch statement to handle all possible object types that can be encountered during a pg_dump operation.
 

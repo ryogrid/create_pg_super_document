@@ -8,7 +8,11 @@ Computes the bitmask of privileges held directly by a role ID, excluding privile
 
 ## Definition
 
-
+```c
+static AclMode
+aclmask_direct(const Acl *acl, Oid roleid, Oid ownerId,
+			   AclMode mask, AclMaskHow how)
+```
 ## Detailed Description
 The  function is a specialized version of  that only considers privileges granted directly to the specified role, not those inherited via role membership. This function is critical for scenarios where inheritance should be ignored, such as when determining who can serve as a grantor for privilege operations.
 

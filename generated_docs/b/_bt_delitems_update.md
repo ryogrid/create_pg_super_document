@@ -8,7 +8,12 @@ Prepares state needed to update posting list tuples by removing specific TIDs, p
 
 ## Definition
 
-
+```c
+static char *
+_bt_delitems_update(BTVacuumPosting *updatable, int nupdatable,
+					OffsetNumber *updatedoffsets, Size *updatedbuflen,
+					bool needswal)
+```
 ## Detailed Description
 This function sets up the necessary state to delete TIDs from posting list tuples via "updating" the tuple. It performs preparatory steps that are common to both  and  functions, and must be executed before each function's critical section begins.
 

@@ -8,7 +8,10 @@ Executes an ALTER OBJECT OWNER TO statement by dispatching to the appropriate ty
 
 ## Definition
 
-
+```c
+ObjectAddress
+ExecAlterOwnerStmt(AlterOwnerStmt *stmt)
+```
 ## Detailed Description
 ExecAlterOwnerStmt serves as the central dispatcher for ALTER OBJECT OWNER TO statements in PostgreSQL. It first resolves the new owner's role specification to an OID, then examines the object type in the statement to route the operation to the appropriate specialized function for handling ownership changes for that particular object type.
 

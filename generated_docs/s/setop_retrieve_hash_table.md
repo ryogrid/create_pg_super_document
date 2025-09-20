@@ -8,7 +8,10 @@ setop_retrieve_hash_table implements the second phase of the hashed strategy for
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+setop_retrieve_hash_table(SetOpState *setopstate)
+```
 ## Detailed Description
 This function implements phase 2 of the hashed set operation strategy, iterating through the hash table built by setop_fill_hash_table to produce result tuples. The process involves:
 

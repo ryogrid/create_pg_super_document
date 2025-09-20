@@ -8,7 +8,10 @@ Initializes a JsonbValue structure from a PostgreSQL Datum value of a specified 
 
 ## Definition
 
-
+```c
+static void
+JsonItemFromDatum(Datum val, Oid typid, int32 typmod, JsonbValue *res)
+```
 ## Detailed Description
 This function serves as a comprehensive type converter that transforms PostgreSQL Datum values into JsonbValue structures suitable for JSON operations. It handles a wide variety of PostgreSQL data types including booleans, numeric types (integers, floats, numeric), text types, datetime types, and JSON types (both JSON and JSONB). For numeric types, it converts them to PostgreSQL's numeric type for consistent JSON representation. For datetime types, it preserves the original type information. For JSON/JSONB types, it handles both scalar and complex values appropriately, including recursive conversion for JSON text.
 

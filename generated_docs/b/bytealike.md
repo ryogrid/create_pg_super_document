@@ -8,7 +8,10 @@ Implements the LIKE operator for PostgreSQL's bytea data type, returning true wh
 
 ## Definition
 
-
+```c
+Datum
+bytealike(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `bytealike` function provides the implementation for PostgreSQL's LIKE operator when applied to bytea (binary data) data types. It takes two bytea arguments - the binary data to be tested and the binary pattern to match against - and uses single-byte pattern matching functionality to determine if the binary data matches the pattern. This function returns true when the pattern matches the binary data, and false when it does not match.
 

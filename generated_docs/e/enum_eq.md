@@ -8,7 +8,10 @@ PostgreSQL built-in function that implements the equality comparison operator (=
 
 ## Definition
 
-
+```c
+Datum
+enum_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the equality comparison functionality for PostgreSQL enum types. Unlike other enum comparison functions, enum_eq implements a highly optimized approach by performing direct OID equality comparison without consulting enum metadata or using enum_cmp_internal().
 

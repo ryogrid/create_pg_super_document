@@ -8,7 +8,12 @@ Sets the relation OID (attrelid) for all attributes in an index tuple descriptor
 
 ## Definition
 
-
+```c
+static void
+InitializeAttributeOids(Relation indexRelation,
+						int numatts,
+						Oid indexoid)
+```
 ## Detailed Description
 This function performs a simple but essential task in index creation: it updates the attrelid field of each attribute in the index's tuple descriptor to reference the correct index relation OID. During tuple descriptor construction, the attrelid field is initially set to InvalidOid because the index relation hasn't been created yet. Once the index relation is established and has a valid OID, this function iterates through all attributes in the tuple descriptor and sets their attrelid field to the index's OID. This establishes the proper relationship between the attributes and their parent index relation in PostgreSQL's system catalogs.
 

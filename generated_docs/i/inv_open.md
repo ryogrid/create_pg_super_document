@@ -8,7 +8,10 @@ Opens an existing large object and returns a descriptor for subsequent operation
 
 ## Definition
 
-
+```c
+LargeObjectDesc *
+inv_open(Oid lobjId, int flags, MemoryContext mcxt)
+```
 ## Detailed Description
 The  function provides access to an existing large object in PostgreSQL. It creates and returns a  structure that serves as a handle for subsequent large object operations. The function performs comprehensive validation including existence checks, permission verification, and proper snapshot management for transaction isolation.
 

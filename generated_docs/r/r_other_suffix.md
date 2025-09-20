@@ -8,7 +8,11 @@ This function handles secondary suffix removal in Scandinavian stemming, process
 
 ## Definition
 
+```c
+}
 
+static int r_other_suffix(struct SN_env * z)
+```
 ## Detailed Description
 The r_other_suffix function implements a two-stage suffix processing algorithm for Scandinavian languages:
 

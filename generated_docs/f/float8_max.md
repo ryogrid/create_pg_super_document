@@ -8,7 +8,10 @@ Returns the larger of two double-precision floating-point numbers, with PostgreS
 
 ## Definition
 
-
+```c
+static inline float8
+float8_max(const float8 val1, const float8 val2)
+```
 ## Detailed Description
 This inline function implements the maximum operation for double-precision floating-point numbers (float8). It uses the float8_gt comparison function to determine which value is larger and returns that value. The function inherits PostgreSQL's NaN handling behavior from float8_gt, where NaN comparisons follow specific SQL standard semantics.
 

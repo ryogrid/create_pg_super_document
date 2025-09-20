@@ -8,7 +8,10 @@ A test function that validates PostgreSQL's shared memory message queue infrastr
 
 ## Definition
 
-
+```c
+Datum
+test_shm_mq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a comprehensive test of the shared memory message queue (shm_mq) infrastructure. It creates a ring topology where messages pass through one or more background worker processes before returning to the sender. The test validates that:
 

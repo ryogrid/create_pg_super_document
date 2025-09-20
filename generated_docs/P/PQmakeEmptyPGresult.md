@@ -8,7 +8,10 @@ Creates and initializes a new empty PGresult structure with a specified executio
 
 ## Definition
 
-
+```c
+PGresult *
+PQmakeEmptyPGresult(PGconn *conn, ExecStatusType status)
+```
 ## Detailed Description
 PQmakeEmptyPGresult allocates and initializes a new PGresult structure with all fields set to their default values. The function serves as the foundation for creating result objects throughout the libpq library. When a connection is provided, it copies relevant connection properties (notice hooks, client encoding) and may copy the connection's error message for error status types. Additionally, it duplicates any registered PGEvents from the connection to the new result.
 

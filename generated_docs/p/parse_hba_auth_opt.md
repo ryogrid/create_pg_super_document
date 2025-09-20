@@ -8,7 +8,9 @@ Parses individual authentication options from pg_hba.conf configuration lines in
 
 ## Definition
 
-
+```c
+enumber;
+```
 ## Detailed Description
 This function processes name-value pairs representing authentication options found in pg_hba.conf entries. It validates that each option is appropriate for the specified authentication method and stores the parsed values in the corresponding fields of the HbaLine structure. The function performs comprehensive validation including:
 

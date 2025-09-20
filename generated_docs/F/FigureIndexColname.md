@@ -8,7 +8,10 @@ Determines a suitable column name for expression-based index columns, similar to
 
 ## Definition
 
-
+```c
+char *
+FigureIndexColname(Node *node)
+```
 ## Detailed Description
 FigureIndexColname is a specialized variant of FigureColname designed specifically for naming columns in index definitions. While FigureColname always returns a name (defaulting to "?column?" if necessary), FigureIndexColname takes a more conservative approach and returns NULL when a suitable name cannot be determined.
 

@@ -8,7 +8,10 @@ Expands a dynamic library name to its full path by searching the dynamic library
 
 ## Definition
 
-
+```c
+static char *
+expand_dynamic_library_name(const char *name)
+```
 ## Detailed Description
 This function attempts to locate a dynamic library by expanding the given library name to its full path. It implements a sophisticated search strategy:
 

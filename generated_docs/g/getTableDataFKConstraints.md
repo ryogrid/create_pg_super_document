@@ -8,7 +8,10 @@ Adds dump-order dependencies reflecting foreign key constraints to ensure refere
 
 ## Definition
 
-
+```c
+static void
+getTableDataFKConstraints(void)
+```
 ## Detailed Description
 This function is specifically designed for data-only dump scenarios where foreign key constraints need to be handled differently than in schema+data dumps. It iterates through all dumpable objects, identifies foreign key constraints, and creates dependencies between table data objects such that referenced tables are dumped before tables that reference them. This ordering prevents foreign key constraint violations during data restoration. The function only processes constraints where both the referencing and referenced tables have data objects scheduled for dumping.
 

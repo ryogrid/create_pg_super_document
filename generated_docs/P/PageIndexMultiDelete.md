@@ -8,7 +8,10 @@ Efficiently deletes multiple tuples from an index page simultaneously, significa
 
 ## Definition
 
-
+```c
+void
+PageIndexMultiDelete(Page page, OffsetNumber *itemnos, int nitems)
+```
 ## Detailed Description
 PageIndexMultiDelete is an optimized function for removing multiple tuples from an index page at once. It performs bulk deletion by rebuilding the line pointer array without the deleted items and then compacting the remaining tuple data. The function includes extensive validation checks and uses different strategies based on the number of items to delete:
 

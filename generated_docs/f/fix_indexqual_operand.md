@@ -8,7 +8,10 @@ Converts an indexqual expression to a Var node referencing the index column, rep
 
 ## Definition
 
-
+```c
+structure is not
+ *	  touched;
+```
 ## Detailed Description
 The function transforms expressions used in index qualifications into standardized Var nodes that reference index columns. It handles two types of index columns:
 1. Simple index columns (directly reference table columns)  

@@ -8,7 +8,14 @@ GinPostingList is a compressed data structure in PostgreSQL's GIN index implemen
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	ItemPointerData first;		/* first item in this posting list (unpacked) */
+	uint16		nbytes;			/* number of bytes that follow */
+	unsigned char bytes[FLEXIBLE_ARRAY_MEMBER]; /* varbyte encoded items */
+} GinPostingList;
+```
 ## Detailed Description
 GinPostingList is a core data structure used in GIN indexes to store compressed lists of item pointers (TIDs) that point to heap tuples. The structure employs a hybrid approach where the first item pointer is stored uncompressed for quick access, while subsequent item pointers are stored using variable-byte encoding to minimize space usage. This compression is crucial for GIN indexes as posting lists can become very large, especially for common values. The variable-byte encoding takes advantage of the fact that item pointers in a posting list are typically stored in sorted order, allowing for efficient delta encoding. The structure requires 2-byte alignment and includes helper macros for size calculation and navigation between segments.
 

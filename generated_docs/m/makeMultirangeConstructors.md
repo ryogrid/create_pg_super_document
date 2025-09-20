@@ -8,7 +8,12 @@ makeMultirangeConstructors creates three constructor functions for a newly defin
 
 ## Definition
 
-
+```c
+static void
+makeMultirangeConstructors(const char *name, Oid namespace,
+						   Oid multirangeOid, Oid rangeOid, Oid rangeArrayOid,
+						   Oid *castFuncOid)
+```
 ## Detailed Description
 This function creates three distinct constructor functions for multirange types to support different usage patterns:
 

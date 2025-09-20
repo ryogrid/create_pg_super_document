@@ -8,7 +8,10 @@ IsCTIDVar is a macro that checks whether a given node represents a CTID (Current
 
 ## Definition
 
-
+```c
+static inline bool
+IsCTIDVar(Var *var, RelOptInfo *rel)
+```
 ## Detailed Description
 This macro provides a convenient way to identify CTID variables during query execution. It performs three checks: ensures the node is not NULL, verifies it's a Var node type, and confirms that the variable's attribute number matches SelfItemPointerAttributeNumber (which represents the CTID column). The macro is designed specifically for relation scan qualifiers where any Var must belong to the current table being scanned. Parameters from other tables would have been converted to Param nodes by the time this check is performed.
 

@@ -8,7 +8,14 @@ Adjusts row count and cost estimates for a LimitPath node according to OFFSET an
 
 ## Definition
 
-
+```c
+void
+adjust_limit_rows_costs(double *rows,	/* in/out parameter */
+						Cost *startup_cost, /* in/out parameter */
+						Cost *total_cost,	/* in/out parameter */
+						int64 offset_est,
+						int64 count_est)
+```
 ## Detailed Description
 This function modifies row count and cost estimates to reflect the impact of LIMIT and OFFSET clauses on query execution. It's crucial for providing accurate estimates when building subqueries, as the outer planner needs correct information about the expected output.
 

@@ -8,7 +8,10 @@ wait_on_slots is a static function that waits for any parallel slot connection t
 
 ## Definition
 
-
+```c
+struct the fd_set for each call to select_loop */
+	FD_ZERO(&slotset);
+```
 ## Detailed Description
 This function implements the core waiting and result processing logic for parallel slot operations. It uses select() to wait for input on any of the active connection sockets, then processes available results from those connections. The function reconstructs the file descriptor set for each call, waits for activity using select_loop(), and then processes all available results from connections that have data ready. When a connection completes its query and returns NULL from PQgetResult(), the slot is marked as idle and available for reuse.
 

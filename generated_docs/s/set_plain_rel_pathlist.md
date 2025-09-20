@@ -8,7 +8,10 @@ Generates all possible access paths for a plain base relation, including sequent
 
 ## Definition
 
-
+```c
+static void
+set_plain_rel_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function creates the complete set of access paths for plain base relations in PostgreSQL's query optimizer. It systematically generates different types of scan paths that can be used to access the relation's data. The function handles the core access methods available for regular tables: sequential scanning, parallel sequential scanning (when appropriate), index-based scanning, and tuple-ID (TID) scanning.
 

@@ -8,7 +8,11 @@ The printQuery function processes PostgreSQL query results and formats them for 
 
 ## Definition
 
-
+```c
+void
+printQuery(const PGresult *result, const printQueryOpt *opt,
+		   FILE *fout, bool is_pager, FILE *flog)
+```
 ## Detailed Description
 This function serves as the bridge between PostgreSQL query result data (PGresult) and the table printing infrastructure. It extracts data from a PGresult structure and constructs a printTableContent object that can be passed to printTable for formatted output. The function handles column headers by extracting field names from the result set, determines appropriate column alignment based on data types, processes cell values including NULL handling and numeric locale formatting, and manages optional translation of column content and headers.
 

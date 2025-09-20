@@ -8,7 +8,10 @@ AlterTableCreateToastTable is a function that creates a TOAST table for an exist
 
 ## Definition
 
-
+```c
+void
+AlterTableCreateToastTable(Oid relOid, Datum reloptions, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function is a high-level wrapper around CheckAndCreateToastTable that is specifically used during ALTER TABLE operations. It checks if the specified relation needs a TOAST table and creates one if necessary. The function is designed to be called when altering existing tables that might require TOAST storage due to changes in their structure (such as adding large columns). 
 

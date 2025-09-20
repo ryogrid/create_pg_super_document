@@ -8,7 +8,10 @@ Modifies an existing operator family by adding or removing operators and support
 
 ## Definition
 
-
+```c
+Oid
+AlterOpFamily(AlterOpFamilyStmt *stmt)
+```
 ## Detailed Description
 AlterOpFamily implements the ALTER OPERATOR FAMILY ... ADD/DROP SQL commands. It serves as a dispatcher that validates the access method and operator family, checks permissions, and then delegates the actual add or drop operations to specialized functions (AlterOpFamilyAdd or AlterOpFamilyDrop). 
 

@@ -8,7 +8,10 @@ pqSaveMessageField is a utility function that saves one field of an error or not
 
 ## Definition
 
-
+```c
+void
+pqSaveMessageField(PGresult *res, char code, const char *value)
+```
 ## Detailed Description
 This function creates and stores a message field in the PGresult's error/notice field linked list. It allocates memory for a PGMessageField structure that includes both the field metadata and the field content string in a single allocation. The function uses pqResultAlloc() to ensure the memory is properly tracked and will be freed when the PGresult is destroyed.
 

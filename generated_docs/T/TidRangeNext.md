@@ -8,7 +8,10 @@ TidRangeNext retrieves the next tuple from a TID range scan by managing the scan
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+TidRangeNext(TidRangeScanState *node)
+```
 ## Detailed Description
 This function implements the core tuple retrieval logic for TID range scans. On the first call, it evaluates the TID range using TidRangeEval and initializes or updates the table scan descriptor with the computed range bounds. For subsequent calls, it simply fetches the next tuple from the ongoing scan. The function handles both initial scan setup and scan continuation, managing the scan state appropriately. When no more tuples are available in the range, it marks the scan as complete and clears the tuple slot.
 

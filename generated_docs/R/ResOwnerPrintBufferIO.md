@@ -8,7 +8,10 @@ A ResourceOwner callback function that generates diagnostic messages for buffer 
 
 ## Definition
 
-
+```c
+static char *
+ResOwnerPrintBufferIO(Datum res)
+```
 ## Detailed Description
 ResOwnerPrintBufferIO is a static callback function used by PostgreSQL's ResourceOwner system to generate human-readable diagnostic messages when buffer IO resources are detected as unreleased during resource cleanup. The function converts the generic Datum parameter to a Buffer identifier and creates a formatted error message indicating that the system has lost track of buffer IO operations on the specified buffer.
 

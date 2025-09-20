@@ -8,7 +8,10 @@ Computes a 64-bit hash value for a multirange data type with an additional seed 
 
 ## Definition
 
-
+```c
+Datum
+hash_multirange_extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the extended version of hash_multirange that produces a 64-bit hash value instead of 32-bit, and accepts a seed parameter for hash randomization. It follows the same algorithmic approach as hash_multirange but uses extended hash functions for the element types and operates with 64-bit arithmetic throughout.
 

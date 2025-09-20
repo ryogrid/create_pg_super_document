@@ -8,7 +8,10 @@ The `int64_to_numericvar` function converts a 64-bit signed integer value into P
 
 ## Definition
 
-
+```c
+static void
+int64_to_numericvar(int64 val, NumericVar *var)
+```
 ## Detailed Description
 This function performs the conversion from a native 64-bit integer to PostgreSQL's arbitrary-precision numeric format:
 

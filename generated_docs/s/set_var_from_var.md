@@ -8,7 +8,10 @@ Copies one NumericVar variable into another, allocating new memory for the desti
 
 ## Definition
 
-
+```c
+static void
+set_var_from_var(const NumericVar *value, NumericVar *dest)
+```
 ## Detailed Description
 This static function performs a deep copy of a NumericVar variable, creating an independent copy with its own allocated memory buffer. The function allocates a new digit buffer that is one digit larger than the source to provide a spare digit for rounding operations. The spare digit is placed at the beginning of the buffer and initialized to zero, with the actual digits copied to positions starting from index 1.
 

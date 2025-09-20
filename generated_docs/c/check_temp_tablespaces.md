@@ -8,7 +8,11 @@ Validates new values for the temp_tablespaces GUC parameter, ensuring all specif
 
 ## Definition
 
-
+```c
+struct for assign_temp_tablespaces */
+		myextra = guc_malloc(LOG, offsetof(temp_tablespaces_extra, tblSpcs) +
+							 numSpcs * sizeof(Oid));
+```
 ## Detailed Description
 This function serves as a check hook for the temp_tablespaces GUC variable. It parses the comma-separated list of tablespace names and validates each one. The validation process includes:
 

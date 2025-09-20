@@ -8,7 +8,10 @@ This is a GUC show hook function that returns the current value of the log_timez
 
 ## Definition
 
-
+```c
+const char *
+show_log_timezone(void)
+```
 ## Detailed Description
 The  function serves as the display hook for PostgreSQL's  configuration parameter. It converts the internal  global variable (a pg_tz structure) into a human-readable string representation that can be shown to users when they query the current timezone setting.
 

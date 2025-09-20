@@ -8,7 +8,10 @@ The  function removes an entry from a dynamic shared hash table based on a provi
 
 ## Definition
 
-
+```c
+bool
+dshash_delete_key(dshash_table *hash_table, const void *key)
+```
 ## Detailed Description
 The  function performs a key-based deletion operation on a dynamic shared hash table. It first computes the hash value for the provided key and determines the appropriate partition. After acquiring an exclusive lock on the partition, it searches for and attempts to delete the entry matching the key. If the entry is found and successfully deleted, the function decrements the partition's entry count and returns true. If no matching entry is found, it returns false. The function ensures thread safety through exclusive locking and maintains accurate count tracking for load factor calculations.
 

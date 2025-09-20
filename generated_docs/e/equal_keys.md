@@ -8,7 +8,10 @@ A static inline helper function that compares two keys for equality in the dynam
 
 ## Definition
 
-
+```c
+static inline bool
+equal_keys(dshash_table *hash_table, const void *a, const void *b)
+```
 ## Detailed Description
 The  function is a utility function within PostgreSQL's dynamic shared hash table implementation that determines whether two keys are equal. It serves as a wrapper around the hash table's configured comparison function, providing a consistent interface for key equality checking throughout the dshash implementation.
 

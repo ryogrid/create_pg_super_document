@@ -8,7 +8,9 @@ Validates that all specified publications exist on the publisher server by query
 
 ## Definition
 
-
+```c
+struct_array_builtin(datums, list_length(publist), TEXTOID);
+```
 ## Detailed Description
 This function verifies the existence of publications on the publisher side during subscription creation or modification. It constructs and executes a SQL query against the publisher's pg_publication catalog to check if all specified publications are present. The function uses the WAL receiver connection to communicate with the publisher.
 

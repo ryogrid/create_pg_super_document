@@ -8,7 +8,10 @@ A simple inline function that computes the arithmetic difference between two que
 
 ## Definition
 
-
+```c
+static inline int64
+asyncQueuePageDiff(int64 p, int64 q)
+```
 ## Detailed Description
 The  function performs a straightforward subtraction to calculate the difference between two queue page numbers. According to the code comments, this function previously accounted for wraparound scenarios, but the current implementation has been simplified to a basic arithmetic operation (p - q). This suggests that the queue page numbering system may have been redesigned to avoid wraparound issues, possibly by using a sufficiently large integer type (int64) that makes wraparound practically impossible.
 

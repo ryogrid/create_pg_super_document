@@ -8,7 +8,10 @@ Removes a list of tables from an existing publication with validation to ensure 
 
 ## Definition
 
-
+```c
+static void
+PublicationDropTables(Oid pubid, List *rels, bool missing_ok)
+```
 ## Detailed Description
 PublicationDropTables is a static function that handles the removal of tables from a publication. The function performs several validation steps and cleanup operations:
 

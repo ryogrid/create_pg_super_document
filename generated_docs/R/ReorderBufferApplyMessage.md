@@ -8,7 +8,11 @@ Helper function for ReorderBufferProcessTXN that applies logical replication mes
 
 ## Definition
 
-
+```c
+static inline void
+ReorderBufferApplyMessage(ReorderBuffer *rb, ReorderBufferTXN *txn,
+						  ReorderBufferChange *change, bool streaming)
+```
 ## Detailed Description
 ReorderBufferApplyMessage is an internal helper function that processes message changes during logical replication. The function determines whether to use streaming or regular message processing based on the streaming parameter and delegates to the appropriate callback function (rb->stream_message or rb->message) configured in the ReorderBuffer. This abstraction allows the same message processing logic to work in both streaming and batch transaction replay scenarios.
 

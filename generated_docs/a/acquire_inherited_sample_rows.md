@@ -8,7 +8,12 @@ Acquires sample rows from an inheritance tree by collecting samples proportional
 
 ## Definition
 
-
+```c
+static int
+acquire_inherited_sample_rows(Relation onerel, int elevel,
+							  HeapTuple *rows, int targrows,
+							  double *totalrows, double *totaldeadrows)
+```
 ## Detailed Description
 The acquire_inherited_sample_rows function extends the sampling capability to inheritance hierarchies, collecting rows from all tables in an inheritance tree rather than just a single table. It discovers all inheritance children using find_all_inheritors, then samples from each child proportionally to its block count relative to the total blocks across all children.
 

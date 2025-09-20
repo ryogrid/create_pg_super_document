@@ -8,7 +8,10 @@ AssertArrayOrder is a static debugging function that validates the sorted order 
 
 ## Definition
 
-
+```c
+static void
+AssertArrayOrder(FmgrInfo *cmp, Oid colloid, Datum *values, int nvalues)
+```
 ## Detailed Description
 This function performs assertion-based validation of array element ordering in debug builds. It iterates through an array of Datum values and verifies that each consecutive pair is in the correct sorted order using the provided comparison function. The function is specifically designed for BRIN (Block Range Index) minmax-multi access method to ensure that value arrays maintain their sorted invariant, which is critical for the proper functioning of range-based indexing operations.
 

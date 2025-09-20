@@ -8,7 +8,10 @@ RelationAssumeNewRelfilelocator notifies the relation cache that a relation has 
 
 ## Definition
 
-
+```c
+void
+RelationAssumeNewRelfilelocator(Relation relation)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's relation file management system that must be called whenever code modifies pg_class.reltablespace or pg_class.relfilenode. Its primary purpose is to maintain proper WAL (Write-Ahead Log) ordering constraints and ensure transaction cleanup occurs correctly.
 

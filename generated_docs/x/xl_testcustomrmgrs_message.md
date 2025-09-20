@@ -8,7 +8,13 @@ A struct that defines the format of WAL records for the test custom resource man
 
 ## Definition
 
-
+```c
+typedef struct xl_testcustomrmgrs_message
+{
+	Size		message_size;	/* size of the message */
+	char		message[FLEXIBLE_ARRAY_MEMBER]; /* payload */
+} xl_testcustomrmgrs_message;
+```
 ## Detailed Description
 The `xl_testcustomrmgrs_message` structure serves as the WAL record format for PostgreSQL's test custom resource manager module. This structure is designed to store simple textual messages in Write-Ahead Log (WAL) records for testing purposes. It follows PostgreSQL's standard pattern for WAL record structures by using a flexible array member to accommodate variable-length payloads while maintaining efficient memory layout.
 

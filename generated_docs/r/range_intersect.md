@@ -8,7 +8,10 @@ Computes the intersection of two range values, returning a new range that contai
 
 ## Definition
 
-
+```c
+Datum
+range_intersect(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that performs set intersection on two range values. It serves as a wrapper around the internal  function, handling argument validation and type checking before delegating the actual intersection logic. The function ensures that both input ranges are of the same range type before proceeding with the intersection operation.
 

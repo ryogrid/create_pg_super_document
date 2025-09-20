@@ -8,7 +8,10 @@ Prepares the new cluster for data migration by analyzing and freezing all rows, 
 
 ## Definition
 
-
+```c
+static void
+prepare_new_cluster(void)
+```
 ## Detailed Description
 The prepare_new_cluster function performs critical post-schema-loading optimization of the new cluster. It executes two essential maintenance operations:
 

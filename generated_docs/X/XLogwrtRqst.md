@@ -8,7 +8,13 @@ XLogwrtRqst is a shared-memory data structure that tracks byte positions in the 
 
 ## Definition
 
-
+```c
+typedef struct XLogwrtRqst
+{
+	XLogRecPtr	Write;			/* last byte + 1 to write out */
+	XLogRecPtr	Flush;			/* last byte + 1 to flush */
+} XLogwrtRqst;
+```
 ## Detailed Description
 XLogwrtRqst represents write and flush requests for the WAL system. It indicates byte positions that PostgreSQL needs to write and/or fsync the log up to, ensuring that all records before those points are properly persisted to disk. This structure is part of PostgreSQL's WAL control mechanism that manages the durability guarantees of the database.
 

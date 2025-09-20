@@ -8,7 +8,10 @@ Frees memory allocated for a GISTSTATE structure by deleting its scan-lifespan m
 
 ## Definition
 
-
+```c
+void
+freeGISTstate(GISTSTATE *giststate)
+```
 ## Detailed Description
 The  function is responsible for cleaning up memory allocated for a GISTSTATE structure. It works by deleting the  memory context, which contains the GISTSTATE itself and any data that lives for the lifetime of the index operation. Since PostgreSQL's memory context system automatically frees all memory allocated within a context when the context is deleted, this single operation effectively frees all memory associated with the GISTSTATE.
 

@@ -8,7 +8,10 @@ This function converts a timestamp with time zone (timestamptz) value to a local
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function serves as a PostgreSQL function wrapper that converts a timestamptz (timestamp with time zone) value to a regular timestamp (without time zone) value. It performs this conversion by interpreting the timestamptz value in the session's current timezone setting and returning the corresponding local timestamp. This function is typically used when you need to strip timezone information from a timestamptz value while preserving the local time representation.
 

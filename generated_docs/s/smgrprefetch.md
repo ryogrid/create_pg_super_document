@@ -8,7 +8,11 @@ The smgrprefetch function initiates asynchronous read operations for specified b
 
 ## Definition
 
-
+```c
+bool
+smgrprefetch(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+			 int nblocks)
+```
 ## Detailed Description
 The smgrprefetch function is a storage manager interface for initiating asynchronous read operations on relation blocks. It is designed to improve I/O performance by prefetching blocks that are likely to be needed soon, allowing the storage system to start loading them in the background before they are actually requested. The function returns a boolean value indicating success or failure. During recovery operations, it can return false to indicate that a file doesn't exist, which may occur when a file has been dropped by a later WAL record.
 

@@ -8,7 +8,10 @@ Checks whether a read-write conflict exists between two serializable transaction
 
 ## Definition
 
-
+```c
+static bool
+RWConflictExists(const SERIALIZABLEXACT *reader, const SERIALIZABLEXACT *writer)
+```
 ## Detailed Description
 This function determines if there is already an existing read-write conflict between a reader transaction and a writer transaction. It performs this check by iterating through the reader's outgoing conflicts list to see if any conflict points to the specified writer transaction. The function includes optimizations to quickly return false in cases where conflicts are impossible (e.g., when either transaction is doomed or when the relevant conflict lists are empty).
 

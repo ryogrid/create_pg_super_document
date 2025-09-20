@@ -8,7 +8,10 @@ ShmemAddrIsValid tests whether a given address refers to a location within the s
 
 ## Definition
 
-
+```c
+bool
+ShmemAddrIsValid(const void *addr)
+```
 ## Detailed Description
 This function provides a simple boundary check to determine if a given memory address falls within the allocated shared memory segment. It performs a range check by comparing the provided address against the shared memory segment's start (ShmemBase) and end (ShmemEnd) boundaries. This is useful for validation and debugging purposes to ensure that pointers being used actually reference shared memory locations.
 

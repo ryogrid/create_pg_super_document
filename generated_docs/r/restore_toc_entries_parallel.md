@@ -8,7 +8,11 @@ Main engine for the second phase of parallel restore, dispatching TOC entries to
 
 ## Definition
 
-
+```c
+static void
+restore_toc_entries_parallel(ArchiveHandle *AH, ParallelState *pstate,
+							 TocEntry *pending_list)
+```
 ## Detailed Description
 This function implements the core parallel processing phase of PostgreSQL's restore operation. It manages a pool of worker processes (on Unix) or threads (on Windows), each with separate database connections, to restore database objects in parallel while maintaining dependency relationships. The function uses a binary heap to efficiently manage items ready for processing and coordinates with workers through a sophisticated job dispatch and completion system.
 

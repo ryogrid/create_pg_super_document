@@ -8,7 +8,9 @@ A structure that defines opclass options for the tsvector_ops GiST index opclass
 
 ## Definition
 
-
+```c
+typedef char *BITVECP;
+```
 ## Detailed Description
  is a configuration structure used to customize the behavior of GiST (Generalized Search Tree) indexes on tsvector data types. The primary purpose is to allow users to specify the signature length for the GiST index operations, which affects both storage requirements and search performance. The structure follows PostgreSQL's varlena format, making it suitable for storage as a variable-length data type.
 

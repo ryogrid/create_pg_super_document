@@ -8,7 +8,10 @@ Creates a JsonPathGinNode for scalar JSONB values by combining scalar key genera
 
 ## Definition
 
-
+```c
+static JsonPathGinNode *
+make_jsp_entry_node_scalar(JsonbValue *scalar, bool iskey)
+```
 ## Detailed Description
 This function serves as a convenience wrapper that combines two operations: converting a JsonbValue scalar into a searchable key format using make_scalar_key(), then wrapping that key in a JsonPathGinNode using make_jsp_entry_node(). The function handles both regular values and key values, with the iskey parameter controlling how the scalar is processed for indexing.
 

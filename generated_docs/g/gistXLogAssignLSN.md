@@ -8,7 +8,10 @@ Writes an empty WAL record solely to obtain a distinct LSN (Log Sequence Number)
 
 ## Definition
 
-
+```c
+XLogRecPtr
+gistXLogAssignLSN(void)
+```
 ## Detailed Description
 The  function creates a minimal WAL record with the primary purpose of obtaining a unique LSN value. This function is used in GiST operations where an LSN is needed for sequencing or synchronization purposes, but there is no substantial data that needs to be logged for recovery.
 

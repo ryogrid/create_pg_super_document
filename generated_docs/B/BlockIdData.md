@@ -8,7 +8,13 @@ BlockIdData is a storage-oriented data structure representing a block identifier
 
 ## Definition
 
-
+```c
+typedef struct BlockIdData
+{
+	uint16		bi_hi;
+	uint16		bi_lo;
+} BlockIdData;
+```
 ## Detailed Description
 BlockIdData serves as the on-disk storage representation of block numbers in PostgreSQL. Unlike BlockNumber (which is used for calculations in access method code), BlockIdData is specifically designed for storage in on-disk structures such as HeapTupleData and ItemPointerData. 
 

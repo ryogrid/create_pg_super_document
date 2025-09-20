@@ -8,7 +8,10 @@ Converts a class name (table, view, sequence, etc.) to its corresponding OID, se
 
 ## Definition
 
-
+```c
+Datum
+regclassin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is an input function for the  data type in PostgreSQL. It accepts either a class name (potentially schema-qualified) or a numeric OID and converts it to the appropriate relation OID. The function handles several input formats:
 

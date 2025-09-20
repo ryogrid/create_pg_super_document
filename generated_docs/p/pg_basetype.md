@@ -8,7 +8,10 @@ pg_basetype is a SQL-callable function that returns the base type of a given typ
 
 ## Definition
 
-
+```c
+Datum
+pg_basetype(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a SQL-accessible version of the internal  function. It takes a type OID as input and returns the base type OID. If the input type is a domain, the function iteratively traverses the domain hierarchy to find the ultimate base type. If the input type is not a domain, it simply returns the type's own OID.
 

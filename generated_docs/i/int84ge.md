@@ -8,7 +8,10 @@ This function compares an 8-byte (int64) integer with a 4-byte (int32) integer a
 
 ## Definition
 
-
+```c
+Datum
+int84ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int84ge function is a PostgreSQL built-in function that performs a "greater than or equal to" comparison between an 8-byte integer (int64/bigint) and a 4-byte integer (int32/integer). It follows PostgreSQL's function calling convention using the PG_FUNCTION_ARGS macro. The function extracts the two arguments from the function call context, performs the comparison, and returns a boolean result using PostgreSQL's Datum system.
 

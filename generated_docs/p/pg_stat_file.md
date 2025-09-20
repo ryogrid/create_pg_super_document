@@ -8,7 +8,9 @@ A PostgreSQL system function that returns detailed file statistics including siz
 
 ## Definition
 
-
+```c
+struct stat fst;
+```
 ## Detailed Description
 This function provides comprehensive file system information for a specified file path. It serves as a PostgreSQL interface to the system's  function, returning structured data about file attributes including size, access time, modification time, change/creation time, and directory status. The function supports an optional  parameter that allows graceful handling of non-existent files. The return value is a composite type (record) containing six fields with file metadata. The function handles platform differences between Unix-like systems and Windows regarding file timestamps, where Unix provides status change time while Windows provides creation time.
 

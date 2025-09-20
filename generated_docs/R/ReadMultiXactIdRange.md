@@ -8,7 +8,10 @@ Gets the range of MultiXact IDs that may still be referenced by a relation, prov
 
 ## Definition
 
-
+```c
+void
+ReadMultiXactIdRange(MultiXactId *oldest, MultiXactId *next)
+```
 ## Detailed Description
 ReadMultiXactIdRange is a function that safely retrieves the current range of MultiXact IDs from the global MultiXact state. It acquires a shared lock on MultiXactGenLock to ensure consistent reading of the oldest MultiXact ID and the next available MultiXact ID. The function also performs bounds checking to ensure that returned values are never less than FirstMultiXactId, which represents the minimum valid MultiXact ID value.
 

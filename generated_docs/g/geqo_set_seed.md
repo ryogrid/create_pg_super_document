@@ -8,7 +8,10 @@ Initializes the random number generator seed for the Genetic Query Optimizer (GE
 
 ## Definition
 
-
+```c
+void
+geqo_set_seed(PlannerInfo *root, double seed)
+```
 ## Detailed Description
 The  function initializes the pseudo-random number generator state used by the GEQO algorithm. It extracts the private GEQO data from the planner's join search context and uses PostgreSQL's  function to set the random seed. This ensures that GEQO can produce reproducible results when the same seed is used, which is crucial for testing and debugging query optimization behavior.
 

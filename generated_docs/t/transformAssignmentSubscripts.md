@@ -8,7 +8,21 @@ Helper function for transformAssignmentIndirection that specifically processes c
 
 ## Definition
 
-
+```c
+static Node *
+transformAssignmentSubscripts(ParseState *pstate,
+							  Node *basenode,
+							  const char *targetName,
+							  Oid targetTypeId,
+							  int32 targetTypMod,
+							  Oid targetCollation,
+							  List *subscripts,
+							  List *indirection,
+							  ListCell *next_indirection,
+							  Node *rhs,
+							  CoercionContext ccontext,
+							  int location)
+```
 ## Detailed Description
 This static function is a specialized helper that handles the complex process of transforming subscript-based assignments to containers (primarily arrays) in PostgreSQL. It works in coordination with transformAssignmentIndirection to process assignments like  or .
 

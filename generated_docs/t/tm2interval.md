@@ -8,7 +8,10 @@ tm2interval is a static utility function that converts a tm structure and fracti
 
 ## Definition
 
-
+```c
+static int
+tm2interval(struct tm *tm, fsec_t fsec, interval * span)
+```
 ## Detailed Description
 This function constructs an interval structure from decomposed time components stored in a tm structure plus fractional seconds. It first validates that the combined year and month values do not overflow integer limits, then computes the total months and total microseconds for the interval.
 

@@ -8,7 +8,10 @@ Allocates and initializes a new ReorderBufferChange structure from the reorder b
 
 ## Definition
 
-
+```c
+ReorderBufferChange *
+ReorderBufferGetChange(ReorderBuffer *rb)
+```
 ## Detailed Description
 ReorderBufferGetChange creates a fresh ReorderBufferChange instance by allocating memory from the reorder buffer's specialized change context (change_context). It allocates the exact size needed for a ReorderBufferChange structure and initializes all fields to zero, providing a clean state for representing database changes during logical decoding. This function is used extensively throughout the logical decoding process to create change records for various types of database operations.
 

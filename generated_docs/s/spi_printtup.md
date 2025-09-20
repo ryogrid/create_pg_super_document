@@ -8,7 +8,10 @@ spi_printtup is a callback function that stores tuple results retrieved by the E
 
 ## Definition
 
-
+```c
+bool
+spi_printtup(TupleTableSlot *slot, DestReceiver *self)
+```
 ## Detailed Description
 The spi_printtup function serves as a destination receiver callback used within the Server Programming Interface (SPI) framework. When executing SQL commands through SPI, the Executor calls this function to store each result tuple into the current SPI connection's tuple table. The function handles dynamic memory allocation for the tuple array, doubling its size when needed to accommodate growing result sets.
 

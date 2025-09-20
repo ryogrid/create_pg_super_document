@@ -8,7 +8,10 @@ Implements the DROP OWNED command by dropping all objects owned by specified rol
 
 ## Definition
 
-
+```c
+void
+DropOwnedObjects(DropOwnedStmt *stmt)
+```
 ## Detailed Description
 DropOwnedObjects is the high-level interface for PostgreSQL's DROP OWNED command, which removes all database objects owned by one or more specified roles. The function performs essential authorization checks to ensure the current user has the necessary privileges to drop objects owned by the target roles, then delegates the actual dropping operation to the lower-level shdepDropOwned function.
 

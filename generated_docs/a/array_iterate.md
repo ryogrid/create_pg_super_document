@@ -8,7 +8,17 @@ This function advances an ArrayIterator to the next element or slice, returning 
 
 ## Definition
 
-
+```c
+struct_md_array(values,
+									nulls,
+									iterator->slice_ndim,
+									iterator->slice_dims,
+									iterator->slice_lbound,
+									ARR_ELEMTYPE(iterator->arr),
+									iterator->typlen,
+									iterator->typbyval,
+									iterator->typalign);
+```
 ## Detailed Description
 The  function is the core iteration mechanism for traversing PostgreSQL arrays. It operates in two modes based on the iterator's configuration: scalar mode (returning individual elements) and slice mode (returning sub-arrays). In scalar mode, it extracts single elements, properly handling NULL values and advancing the data pointer. In slice mode, it constructs entire sub-arrays by collecting elements for the specified slice dimensions. The function returns true while elements remain and false when iteration is complete.
 

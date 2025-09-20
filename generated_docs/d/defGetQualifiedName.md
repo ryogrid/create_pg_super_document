@@ -8,7 +8,10 @@ Extracts a possibly-qualified name as a List of Strings from a DefElem structure
 
 ## Definition
 
-
+```c
+List *
+defGetQualifiedName(DefElem *def)
+```
 ## Detailed Description
 The  function is a utility function that extracts qualified names from DefElem structures in PostgreSQL's DDL command processing. A qualified name can be a simple name like "myfunction" or a schema-qualified name like "myschema.myfunction". The function handles three different node types:
 

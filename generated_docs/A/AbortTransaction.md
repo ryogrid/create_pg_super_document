@@ -8,7 +8,10 @@ AbortTransaction handles the complete rollback process for a PostgreSQL transact
 
 ## Definition
 
-
+```c
+struction state */
+	XLogResetInsertion();
+```
 ## Detailed Description
 AbortTransaction is responsible for safely aborting a transaction and cleaning up all associated resources. The function handles both regular transactions and parallel worker transactions, performing critical emergency cleanup before systematic resource deallocation.
 

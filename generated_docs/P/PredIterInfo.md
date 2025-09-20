@@ -8,7 +8,9 @@ PredIterInfo is a typedef for a pointer to PredIterInfoData structure, used in P
 
 ## Definition
 
-
+```c
+typedef struct PredIterInfoData *PredIterInfo;
+```
 ## Detailed Description
 PredIterInfo serves as an opaque handle for the predicate iteration framework in PostgreSQL's optimizer. This type is used throughout the predicate testing system (predtest.c) to abstract the iteration process over various expression node types such as AND/OR clauses, lists, and scalar array operations. The framework allows the predicate testing logic to uniformly handle different expression structures by providing node-type-specific iteration functions through function pointers stored in the underlying PredIterInfoData structure.
 

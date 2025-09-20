@@ -8,7 +8,10 @@ The regrolesend function converts regrole data type values to external binary fo
 
 ## Definition
 
-
+```c
+Datum
+regrolesend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL output function that handles the conversion of regrole data type values to binary format. The regrole type is a special object identifier (OID) type that specifically references database roles (users/groups). The function is implemented as a simple wrapper that delegates all processing to the oidsend function, since regrole values are internally stored as OIDs and their binary representation is identical to regular OID values.
 

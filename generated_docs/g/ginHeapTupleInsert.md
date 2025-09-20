@@ -8,7 +8,12 @@ The ginHeapTupleInsert function handles the insertion of index entries for a sin
 
 ## Definition
 
-
+```c
+static void
+ginHeapTupleInsert(GinState *ginstate, OffsetNumber attnum,
+				   Datum value, bool isNull,
+				   ItemPointer item)
+```
 ## Detailed Description
 The ginHeapTupleInsert function is a helper function that processes a single heap tuple value for insertion into a GIN index. It works by:
 

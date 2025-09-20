@@ -8,7 +8,10 @@ A generic internal function that lists files in the temporary directory (pgsql_t
 
 ## Definition
 
-
+```c
+static Datum
+pg_ls_tmpdir(FunctionCallInfo fcinfo, Oid tblspc)
+```
 ## Detailed Description
 This function provides the core functionality for listing files in PostgreSQL's temporary directory structure. It validates that the specified tablespace exists in the system catalog, constructs the path to the temporary directory for that tablespace, and delegates the actual file listing to the generic pg_ls_dir_files function. The function is designed to be called by wrapper functions that provide different parameter interfaces for SQL functions.
 

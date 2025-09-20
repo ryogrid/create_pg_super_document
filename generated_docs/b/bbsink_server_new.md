@@ -8,7 +8,10 @@ Creates a new server-side basebackup sink that stores backup archives directly o
 
 ## Definition
 
-
+```c
+bbsink *
+bbsink_server_new(bbsink *next, char *pathname)
+```
 ## Detailed Description
 This function creates and initializes a new 'server' bbsink instance for storing basebackup archives on the server filesystem. It performs comprehensive security and permission checks to ensure only authorized users can create server-side backups. The function validates the target directory, creates it if necessary, and enforces strict path requirements to prevent accidental backups to sensitive locations.
 

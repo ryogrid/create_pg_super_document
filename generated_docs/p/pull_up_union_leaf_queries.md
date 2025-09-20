@@ -8,7 +8,11 @@ A recursive function that builds AppendRelInfo structures for each leaf query in
 
 ## Definition
 
-
+```c
+static void
+pull_up_union_leaf_queries(Node *setOp, PlannerInfo *root, int parentRTindex,
+						   Query *setOpQuery, int childRToffset)
+```
 ## Detailed Description
 This function is the recursive core of the UNION ALL optimization process. It traverses a set operation tree structure, identifying leaf queries (represented by RangeTblRef nodes) and intermediate set operations (SetOperationStmt nodes). For each leaf query found, it:
 

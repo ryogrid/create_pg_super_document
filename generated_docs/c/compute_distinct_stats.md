@@ -8,7 +8,13 @@ A static function that computes column statistics for PostgreSQL's ANALYZE comma
 
 ## Definition
 
-
+```c
+typedef struct
+	{
+		Datum		value;
+		int			count;
+	} TrackItem;
+```
 ## Detailed Description
 compute_distinct_stats is a core statistical analysis function used by PostgreSQL's ANALYZE command for data types that only have an equality operator available. It implements a brute-force approach to determine the most common values by maintaining a list of previously seen values ordered by frequency. The function computes several key statistics including the null fraction, average column width, most common values (MCV), and an estimate of the total number of distinct values using the Haas-Stokes estimator.
 

@@ -8,7 +8,10 @@ A no-operation startup function for SQL function destination receivers that perf
 
 ## Definition
 
-
+```c
+static void
+sqlfunction_startup(DestReceiver *self, int operation, TupleDesc typeinfo)
+```
 ## Detailed Description
 This function serves as the startup callback for SQL function destination receivers. It is designed as a no-op function, meaning it performs no actual operations during the executor startup phase. This is appropriate for SQL function destination receivers which don't require any special initialization beyond what's already handled by their creation and setup routines.
 

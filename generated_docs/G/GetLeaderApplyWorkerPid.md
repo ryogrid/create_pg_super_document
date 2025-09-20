@@ -8,7 +8,10 @@ Retrieves the process ID of the leader apply worker when given the PID of a para
 
 ## Definition
 
-
+```c
+pid_t
+GetLeaderApplyWorkerPid(pid_t pid)
+```
 ## Detailed Description
 This function searches through the logical replication worker array to find a parallel apply worker with the specified process ID. If found, it returns the PID of that worker's leader apply worker. The function is designed to support parallel logical replication where multiple workers can be coordinated under a single leader worker. It acquires a shared lock on the LogicalRepWorkerLock to safely iterate through the worker array, checking each worker to see if it's a parallel apply worker and if its PID matches the provided parameter. If no matching parallel worker is found, it returns InvalidPid.
 

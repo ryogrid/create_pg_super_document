@@ -8,7 +8,11 @@ TwoPhaseGetXidByVirtualXID looks up a prepared transaction's XID by searching fo
 
 ## Definition
 
-
+```c
+TransactionId
+TwoPhaseGetXidByVirtualXID(VirtualTransactionId vxid,
+						   bool *have_more)
+```
 ## Detailed Description
 TwoPhaseGetXidByVirtualXID searches through prepared transactions to find one that matches the given virtual transaction ID. The function only finds transactions prepared since the last database startup (not recovered transactions from previous sessions). If multiple matches are found, it returns any one of them and sets the have_more flag to indicate additional matches exist. Multiple matches would require a single process number to consume 2^32 local XIDs without an intervening database restart, which is extremely unlikely in practice.
 

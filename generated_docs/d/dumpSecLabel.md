@@ -8,7 +8,12 @@ Generates SECURITY LABEL statements for database objects that have security labe
 
 ## Definition
 
-
+```c
+static void
+dumpSecLabel(Archive *fout, const char *type, const char *name,
+			 const char *namespace, const char *owner,
+			 CatalogId catalogId, int subid, DumpId dumpId)
+```
 ## Detailed Description
 The  function handles the dumping of security labels for database objects. Security labels are a PostgreSQL feature that allows external security modules (such as SELinux, AppArmor, or custom security providers) to attach additional security context information to database objects.
 

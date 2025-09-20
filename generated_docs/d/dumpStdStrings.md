@@ -8,7 +8,10 @@ The  function saves the database's standard_conforming_strings setting to the ar
 
 ## Definition
 
-
+```c
+static void
+dumpStdStrings(Archive *AH)
+```
 ## Detailed Description
 The  function creates an archive entry that contains a SQL command to set the standard_conforming_strings parameter to match the source database's setting. This parameter controls whether backslashes in string literals are treated as escape characters or literal backslashes. The function reads the std_strings boolean flag from the archive structure, converts it to the appropriate 'on' or 'off' string value, and creates a SET command that will be executed during restoration in the PRE_DATA section.
 

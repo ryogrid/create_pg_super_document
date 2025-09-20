@@ -8,7 +8,10 @@ Creates a palloc'd copy of an index tuple, providing memory allocation and dupli
 
 ## Definition
 
-
+```c
+IndexTuple
+CopyIndexTuple(IndexTuple source)
+```
 ## Detailed Description
 The  function creates a complete copy of an existing IndexTuple by allocating new memory and copying all data from the source tuple. This function is essential for scenarios where index tuples need to be duplicated, such as during index operations that require preserving original tuples while creating modified versions, or when tuples need to be moved between different memory contexts.
 

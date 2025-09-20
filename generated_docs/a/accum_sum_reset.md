@@ -8,7 +8,10 @@ Resets a NumericSumAccum accumulator to zero state while preserving allocated di
 
 ## Definition
 
-
+```c
+static void
+accum_sum_reset(NumericSumAccum *accum)
+```
 ## Detailed Description
 The  function initializes a NumericSumAccum structure to a zero state by setting the decimal scale to zero and clearing all positive and negative digit arrays. This function is part of PostgreSQL's fast sum accumulator infrastructure, which maintains separate arrays for positive and negative digit contributions to optimize summation performance. Unlike a full deallocation and reallocation, this function preserves the existing digit buffer allocations, making it efficient for reusing accumulators across multiple aggregation operations.
 

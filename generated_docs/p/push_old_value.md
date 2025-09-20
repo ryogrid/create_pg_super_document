@@ -8,7 +8,10 @@ The push_old_value function manages the stack of previous GUC (Grand Unified Con
 
 ## Definition
 
-
+```c
+static void
+push_old_value(struct config_generic *gconf, GucAction action)
+```
 ## Detailed Description
 This function handles the complex logic of maintaining a stack of GUC variable states during transactional operations. It ensures that configuration changes can be properly rolled back when transactions are aborted or when exiting nested transaction contexts. The function operates differently based on whether a stack entry already exists at the current nesting level and the type of action being performed.
 

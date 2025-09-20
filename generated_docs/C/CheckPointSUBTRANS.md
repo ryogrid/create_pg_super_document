@@ -8,7 +8,10 @@ Performs a checkpoint operation for the SUBTRANS system by writing all dirty sub
 
 ## Definition
 
-
+```c
+void
+CheckPointSUBTRANS(void)
+```
 ## Detailed Description
 CheckPointSUBTRANS is responsible for ensuring that all modified SUBTRANS pages are written to disk during checkpoint operations. While this is not strictly necessary for correctness (as subtransaction status can be reconstructed from WAL during recovery), it improves performance by having the checkpoint process handle the disk writes rather than leaving them for backend processes.
 

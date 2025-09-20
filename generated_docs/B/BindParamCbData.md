@@ -8,7 +8,14 @@ A callback data structure used for error reporting during parameter binding in t
 
 ## Definition
 
-
+```c
+typedef struct BindParamCbData
+{
+	const char *portalName;
+	int			paramno;		/* zero-based param number, or -1 initially */
+	const char *paramval;		/* textual input string, if available */
+} BindParamCbData;
+```
 ## Detailed Description
  is a specialized data structure designed to provide contextual information for error reporting during parameter binding operations. It serves as the argument to the  function, which is registered as an error context callback during the processing of Bind protocol messages. This structure enables PostgreSQL to provide meaningful error messages that include the portal name, parameter number, and parameter value when parameter binding fails.
 

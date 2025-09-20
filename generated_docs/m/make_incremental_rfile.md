@@ -8,7 +8,10 @@ Initializes and reads the header of an incremental backup file, creating an rfil
 
 ## Definition
 
-
+```c
+static rfile *
+make_incremental_rfile(char *filename)
+```
 ## Detailed Description
 This function creates an rfile structure for an incremental backup file by reading and parsing its header. The incremental file format includes a magic number for validation, the number of blocks contained in the file, the truncation block length (indicating the original file size), and an array of block numbers that specify which blocks are present in the incremental file.
 

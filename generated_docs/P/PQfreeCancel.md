@@ -8,7 +8,10 @@ Frees memory allocated for a PostgreSQL cancel structure, releasing resources as
 
 ## Definition
 
-
+```c
+void
+PQfreeCancel(PGcancel *cancel)
+```
 ## Detailed Description
 PQfreeCancel is a simple memory management function in the libpq library that deallocates a PGcancel structure. This function should be called when a cancel request object is no longer needed to prevent memory leaks. The function simply calls the standard library's free() function to release the memory pointed to by the cancel parameter.
 

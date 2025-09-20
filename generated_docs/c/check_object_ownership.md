@@ -8,7 +8,11 @@ Validates that a specified role has ownership privileges on a database object, i
 
 ## Definition
 
-
+```c
+void
+check_object_ownership(Oid roleid, ObjectType objtype, ObjectAddress address,
+					   Node *object, Relation relation)
+```
 ## Detailed Description
 The `check_object_ownership` function enforces PostgreSQL's ownership-based access control by verifying that a given role has the necessary ownership privileges for a specific database object. This function is central to PostgreSQL's security model, as many administrative operations require object ownership.
 

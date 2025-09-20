@@ -8,7 +8,10 @@ Validates consistent assignment of variable parameters after completion of parsi
 
 ## Definition
 
-
+```c
+void
+check_variable_parameters(ParseState *pstate, Query *query)
+```
 ## Detailed Description
 This function performs post-parsing validation of variable parameters that were processed during query parsing with parse_variable_parameters. It walks through the query tree to verify that parameter resolution was completed consistently. The function intentionally does not check whether all parameter positions were used or that all parameters received non-UNKNOWN types - such validation is left to the caller if needed.
 

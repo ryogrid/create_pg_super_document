@@ -8,7 +8,10 @@ Utility function that performs necessary cleanup operations when eliminating a p
 
 ## Definition
 
-
+```c
+static Plan *
+clean_up_removed_plan_level(Plan *parent, Plan *child)
+```
 ## Detailed Description
  handles the essential housekeeping tasks required when plan optimization eliminates intermediate plan nodes like SubqueryScan, Append, or MergeAppend nodes. When these wrapper nodes are determined to be unnecessary, the child plan is promoted to replace the parent, but certain attributes must be transferred to maintain correct execution semantics and query output formatting.
 

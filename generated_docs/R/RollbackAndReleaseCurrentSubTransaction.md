@@ -8,7 +8,10 @@ RollbackAndReleaseCurrentSubTransaction aborts and completely cleans up the inne
 
 ## Definition
 
-
+```c
+void
+RollbackAndReleaseCurrentSubTransaction(void)
+```
 ## Detailed Description
 RollbackAndReleaseCurrentSubTransaction combines the functionality of aborting and releasing the current subtransaction in a single operation. This function is designed for internal PostgreSQL operations that need to completely unwind the innermost subtransaction, regardless of its savepoint name.
 

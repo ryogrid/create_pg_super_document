@@ -8,7 +8,10 @@ cached_plan_cost calculates the estimated execution cost of a cached plan, optio
 
 ## Definition
 
-
+```c
+static double
+cached_plan_cost(CachedPlan *plan, bool include_planner)
+```
 ## Detailed Description
 cached_plan_cost provides cost estimation for cached plans in PostgreSQL's plan cache system. It sums the total execution costs of all non-utility statements in the plan and optionally adds an estimate for planning costs when evaluating custom plans. The planning cost estimation uses a simple heuristic based on the number of relations in the plan's range table, multiplied by a fixed factor to approximate the computational effort required for query planning.
 

@@ -8,7 +8,10 @@ CheckPWChallengeAuth implements challenge-response authentication mechanisms for
 
 ## Definition
 
-
+```c
+static int
+CheckPWChallengeAuth(Port *port, const char **logdetail)
+```
 ## Detailed Description
 CheckPWChallengeAuth is a sophisticated authentication function that handles both MD5 and SCRAM-SHA-256 authentication mechanisms. It intelligently selects the appropriate authentication method based on the type of password hash stored for the user and the authentication method configured in pg_hba.conf. The function implements security measures to prevent user enumeration attacks by proceeding through authentication motions even when the user doesn't exist, using the current password_encryption setting to determine which authentication method to simulate.
 

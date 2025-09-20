@@ -8,7 +8,12 @@ A subroutine for ExecUpdateAct that applies final modifications to a tuple slot 
 
 ## Definition
 
-
+```c
+static void
+ExecUpdatePrepareSlot(ResultRelInfo *resultRelInfo,
+					  TupleTableSlot *slot,
+					  EState *estate)
+```
 ## Detailed Description
 ExecUpdatePrepareSlot performs the final preparation steps on a tuple slot before the actual update operation is executed. This function ensures that the tuple slot contains all necessary metadata and computed values required for a successful update.
 

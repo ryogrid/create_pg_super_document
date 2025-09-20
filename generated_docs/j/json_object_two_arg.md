@@ -8,7 +8,9 @@ SQL function that constructs JSON objects from two separate PostgreSQL text arra
 
 ## Definition
 
-
+```c
+struct_array_builtin(key_array, TEXTOID, &key_datums, &key_nulls, &key_count);
+```
 ## Detailed Description
 The `json_object_two_arg` function is a PostgreSQL SQL function that creates JSON objects from two separate one-dimensional text arrays - one containing keys and another containing corresponding values. It validates that both arrays have the same dimensions and element counts, then constructs a JSON object by pairing elements at matching indices. The function ensures proper JSON formatting by escaping keys and values and handles null values appropriately.
 

@@ -8,7 +8,10 @@ A PostgreSQL function that performs a "less than or equal to" comparison between
 
 ## Definition
 
-
+```c
+Datum
+record_image_le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `record_image_le` function is a simple wrapper around `record_image_cmp` that returns true if the first record is "less than or equal to" the second record according to byte-oriented comparison. This function implements the "image" comparison semantics where different representations of values that are considered semantically equal are treated as distinct. For example, with citext type, 'A' and 'a' are equal semantically but not identical in byte representation.
 

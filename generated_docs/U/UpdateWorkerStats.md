@@ -8,7 +8,10 @@ UpdateWorkerStats is a static function that updates the statistics and timestamp
 
 ## Definition
 
-
+```c
+static void
+UpdateWorkerStats(XLogRecPtr last_lsn, TimestampTz send_time, bool reply)
+```
 ## Detailed Description
 This function maintains the operational statistics for a logical replication worker by updating key timestamps and LSN (Log Sequence Number) values in the MyLogicalRepWorker global structure. It records when messages were last received and processed, enabling monitoring of replication lag and worker activity. When the reply parameter is true, it additionally updates reply-specific statistics to track the last position that was acknowledged back to the publisher.
 

@@ -8,7 +8,10 @@ The nameregexeq function performs regular expression matching on PostgreSQL name
 
 ## Definition
 
-
+```c
+Datum
+nameregexeq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL interface routine called by the function manager to implement the ~= operator for name data types. It takes a PostgreSQL name (a fixed-length string type used for identifiers) and a text pattern containing a regular expression, then determines if the name matches the pattern. The function uses the RE_compile_and_execute utility with advanced regular expression features enabled and respects the current collation settings for locale-aware matching.
 

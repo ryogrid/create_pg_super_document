@@ -8,7 +8,10 @@ computeLeafRecompressWALData constructs WAL record data for GIN leaf page recomp
 
 ## Definition
 
-
+```c
+structed info via *leaf */
+	leaf->walinfo = walbufbegin;
+```
 ## Detailed Description
 This function prepares Write-Ahead Logging (WAL) data for GIN data leaf page recompression operations by analyzing a disassembledLeaf structure and encoding the changes into a ginxlogRecompressDataLeaf record format. The function must be called before entering the critical section that performs the actual page updates because it requires memory allocation.
 

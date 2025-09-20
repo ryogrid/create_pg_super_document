@@ -8,7 +8,17 @@ ForeignDataWrapper is a structure that represents a foreign data wrapper in Post
 
 ## Definition
 
-
+```c
+typedef struct ForeignDataWrapper
+{
+	Oid			fdwid;			/* FDW Oid */
+	Oid			owner;			/* FDW owner user Oid */
+	char	   *fdwname;		/* Name of the FDW */
+	Oid			fdwhandler;		/* Oid of handler function, or 0 */
+	Oid			fdwvalidator;	/* Oid of validator function, or 0 */
+	List	   *options;		/* fdwoptions as DefElem list */
+} ForeignDataWrapper;
+```
 ## Detailed Description
 The ForeignDataWrapper structure encapsulates all the metadata needed to define a foreign data wrapper in PostgreSQL. It serves as the foundational component of the FDW system, storing essential information about the wrapper including its identity, ownership, associated handler and validator functions, and configuration options. This structure is used throughout the PostgreSQL codebase when working with foreign data sources, enabling the system to properly route operations to the appropriate external data handlers.
 

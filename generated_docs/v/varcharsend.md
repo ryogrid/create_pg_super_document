@@ -8,7 +8,10 @@ Converts a VARCHAR value to binary format for transmission, delegating the actua
 
 ## Definition
 
-
+```c
+Datum
+varcharsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `varcharsend` function serves as the binary output function for the VARCHAR data type in PostgreSQL. It converts a VARCHAR value to PostgreSQL's external binary format for transmission over the wire protocol. Rather than implementing separate logic, this function leverages the fact that VARCHAR and text types have identical internal representations by directly calling `textsend` to perform the conversion.
 

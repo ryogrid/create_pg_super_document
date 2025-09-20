@@ -8,7 +8,10 @@ A PostgreSQL function that finds and returns the position of a specified substri
 
 ## Definition
 
-
+```c
+Datum
+byteapos(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `byteapos` function implements the SQL standard POSITION() function for bytea data types. It searches for the first occurrence of a substring (pattern) within a target bytea string and returns its 1-based position. The function performs a byte-by-byte comparison using `memcmp` for exact binary matching. If the pattern is found, it returns the position where the match starts (1-based indexing). If no match is found, it returns 0. The function is cloned from the text version (`textpos`) and modified to work with binary data. Special handling is provided for empty patterns, which always return position 1 according to SQL standards.
 

@@ -8,7 +8,12 @@ A subroutine for ExecUpdate that prepares the executor state for UPDATE operatio
 
 ## Definition
 
-
+```c
+static bool
+ExecUpdatePrologue(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+				   ItemPointer tupleid, HeapTuple oldtuple, TupleTableSlot *slot,
+				   TM_Result *result)
+```
 ## Detailed Description
 ExecUpdatePrologue performs the preparatory steps required before executing an UPDATE operation. Its primary responsibilities include:
 

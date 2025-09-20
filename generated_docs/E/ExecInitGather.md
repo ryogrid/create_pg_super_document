@@ -8,7 +8,11 @@ Initializes the execution state for a Gather plan node, which is responsible for
 
 ## Definition
 
-
+```c
+structure
+	 */
+	gatherstate = makeNode(GatherState);
+```
 ## Detailed Description
 ExecInitGather sets up the runtime state structure (GatherState) for a Gather plan node, which implements PostgreSQL's parallel query execution coordinator. The Gather node collects tuples from multiple parallel worker processes and optionally from the leader process itself. This function initializes all necessary data structures including the expression context, result tuple descriptor, projection information, and a special funnel slot used for tuple collection from workers.
 

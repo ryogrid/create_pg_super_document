@@ -8,7 +8,11 @@ Transforms the list of WITH clause "common table expressions" (CTEs) into Query 
 
 ## Definition
 
-
+```c
+structure needed by the tree walkers.
+		 */
+		CteState	cstate;
+```
 ## Detailed Description
 This function is the main entry point for processing WITH clauses in SQL queries. It takes a parsed WITH clause and transforms all contained CTEs into their internal Query representation. The function handles two distinct cases:
 

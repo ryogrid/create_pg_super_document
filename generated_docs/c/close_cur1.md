@@ -8,7 +8,10 @@ A static function that closes a database cursor in ECPG test code, properly rele
 
 ## Definition
 
-
+```c
+static void
+close_cur1(void)
+```
 ## Detailed Description
 The  function is part of the ECPG test infrastructure that demonstrates proper cursor lifecycle management. It uses the ECPGdo function to execute a CLOSE statement on the 'mycur' cursor that was previously opened with open_cur1. This function represents the final step in the cursor operation sequence, ensuring that database resources are properly released.
 

@@ -8,7 +8,10 @@ Main entry point function for PostgreSQL logical replication apply workers that 
 
 ## Definition
 
-
+```c
+void
+ApplyWorkerMain(Datum main_arg)
+```
 ## Detailed Description
 This function serves as the main entry point for logical replication apply worker background processes. It follows PostgreSQL's background worker pattern, accepting a Datum argument that contains the worker slot number. The function executes a straightforward sequence:
 

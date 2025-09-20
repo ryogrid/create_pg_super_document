@@ -8,7 +8,11 @@ Replaces a specified tuple on an index page in-place, efficiently managing space
 
 ## Definition
 
-
+```c
+bool
+PageIndexTupleOverwrite(Page page, OffsetNumber offnum,
+						Item newtup, Size newsize)
+```
 ## Detailed Description
 PageIndexTupleOverwrite provides an efficient mechanism for replacing an existing tuple with a new one at the exact same location on an index page. This function is superior to delete-and-reinsert operations because:
 

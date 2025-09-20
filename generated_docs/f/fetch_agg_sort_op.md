@@ -8,7 +8,10 @@ Retrieves the sort operator OID associated with an aggregate function from the s
 
 ## Definition
 
-
+```c
+static Oid
+fetch_agg_sort_op(Oid aggfnoid)
+```
 ## Detailed Description
 This function queries the PostgreSQL system catalog  to retrieve the sort operator (aggsortop) associated with a given aggregate function. The sort operator is a key indicator that distinguishes MIN/MAX aggregates from other aggregate functions:
 

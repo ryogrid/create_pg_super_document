@@ -8,7 +8,31 @@ This function attempts to find a list of mergeclauses that can be used with a sp
 
 ## Definition
 
+```c
+structs the inner pathkeys
+		 * list, and we also have to deal with such cases specially in
+		 * create_mergejoin_plan().
+		 *----------
+		 */
+		foreach(j, restrictinfos)
+		{
+			RestrictInfo *rinfo = (RestrictInfo *) lfirst(j);
+			EquivalenceClass *clause_ec;
 
+			clause_ec = rinfo->outer_is_left ?
+				rinfo->left_ec : rinfo->right_ec;
+			if (clause_ec == pathkey_ec)
+				matched_restrictinfos = lappend(matched_restrictinfos, rinfo);
+		}
+
+		/*
+		 * If we didn't find a mergeclause, we're done --- any additional
+		 * sort-key positions in the pathkeys are useless.  (But we can still
+		 * mergejoin if we found at least one mergeclause.)
+		 */
+		if (matched_restrictinfos == NIL)
+			break;
+```
 ## Detailed Description
 The function takes a pathkeys list showing the ordering of an outer-rel path and attempts to match mergejoinable restriction clauses to create a maximal list of usable mergeclauses. The algorithm iterates through each pathkey and finds all restriction clauses that have the same equivalence class as the pathkey. 
 

@@ -8,7 +8,12 @@ Converts a JsonbValue object structure into its binary JSONB representation by s
 
 ## Definition
 
-
+```c
+struct the header Jentry and store it in the beginning of the
+	 * variable-length payload.
+	 */
+	containerheader = nPairs | JB_FOBJECT;
+```
 ## Detailed Description
 The  function converts a JsonbValue object into the binary JSONB format. It creates a JSONB object container with a specific layout:
 

@@ -8,7 +8,11 @@ Fetches the BrinTuple for a given heap block from a BRIN (Block Range Index) rev
 
 ## Definition
 
-
+```c
+BrinTuple *
+brinGetTupleForHeapBlock(BrinRevmap *revmap, BlockNumber heapBlk,
+						 Buffer *buf, OffsetNumber *off, Size *size, int mode)
+```
 ## Detailed Description
 This function retrieves the BRIN summary tuple for a specified heap block by:
 1. Normalizing the heap block number to the first page in its range

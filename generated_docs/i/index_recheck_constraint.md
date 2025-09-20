@@ -8,7 +8,12 @@ A static function that validates whether an existing tuple's indexed values trul
 
 ## Definition
 
-
+```c
+static bool
+index_recheck_constraint(Relation index, const Oid *constr_procs,
+						 const Datum *existing_values, const bool *existing_isnull,
+						 const Datum *new_values)
+```
 ## Detailed Description
 This function performs a detailed comparison between an existing tuple's indexed values and new values to determine if they genuinely violate an exclusion constraint. It iterates through all key attributes of the index, applying the appropriate exclusion operators to compare corresponding values. The function assumes that exclusion operators are strict (return NULL when any operand is NULL), and treats NULL values as non-conflicting.
 

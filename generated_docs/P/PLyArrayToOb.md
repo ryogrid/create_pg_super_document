@@ -8,7 +8,12 @@ PLyArrayToOb is a struct that contains conversion information for transforming P
 
 ## Definition
 
-
+```c
+typedef struct PLyArrayToOb
+{
+	PLyDatumToOb *elm;			/* conversion info for array's element type */
+} PLyArrayToOb;
+```
 ## Detailed Description
 PLyArrayToOb handles the conversion of PostgreSQL arrays to Python lists. It uses a recursive approach where it stores a pointer to the conversion information for the array's element type, allowing for nested arrays and complex element types. The conversion process iterates through the PostgreSQL array structure and applies the element conversion function to each item.
 

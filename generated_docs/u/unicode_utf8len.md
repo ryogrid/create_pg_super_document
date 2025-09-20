@@ -8,7 +8,10 @@ A static inline utility function that calculates the number of bytes required to
 
 ## Definition
 
-
+```c
+static inline int
+unicode_utf8len(pg_wchar c)
+```
 ## Detailed Description
 The  function implements the UTF-8 encoding rules to determine how many bytes are needed to represent a Unicode character. UTF-8 is a variable-length encoding where characters can use 1 to 4 bytes depending on their Unicode code point value. The function uses a series of conditional checks against specific Unicode ranges to determine the appropriate byte length:
 

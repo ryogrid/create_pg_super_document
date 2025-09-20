@@ -8,7 +8,11 @@ The  function recreates all indexes of a relation and optionally its associated 
 
 ## Definition
 
-
+```c
+bool
+reindex_relation(const ReindexStmt *stmt, Oid relid, int flags,
+				 const ReindexParams *params)
+```
 ## Detailed Description
 This function orchestrates the complete reindexing of all indexes belonging to a specified relation. It supports various operational modes controlled by flags, including processing toast table indexes, suppressing index usage during rebuilds, constraint checking control, and persistence management. The function is designed to handle complex scenarios like system catalog reindexing and post-operation cleanup after VACUUM FULL or CLUSTER operations.
 

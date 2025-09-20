@@ -8,7 +8,19 @@ TParserPosition represents a snapshot of the parser's state and position within 
 
 ## Definition
 
-
+```c
+typedef struct TParserPosition
+{
+	int			posbyte;		/* position of parser in bytes */
+	int			poschar;		/* position of parser in characters */
+	int			charlen;		/* length of current char */
+	int			lenbytetoken;	/* length of token-so-far in bytes */
+	int			lenchartoken;	/* and in chars */
+	TParserState state;
+	struct TParserPosition *prev;
+	const TParserStateActionItem *pushedAtAction;
+} TParserPosition;
+```
 ## Detailed Description
 TParserPosition is a crucial data structure in PostgreSQL's text search parser that maintains positional and state information during text tokenization. It forms a linked list structure that enables the parser to maintain a stack of positions, allowing for backtracking when the parser needs to reconsider parsing decisions. This is particularly important for complex text patterns where the parser might need to try different parsing paths.
 

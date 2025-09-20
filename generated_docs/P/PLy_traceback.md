@@ -8,7 +8,11 @@ PLy_traceback extracts and formats Python exception information and traceback da
 
 ## Definition
 
-
+```c
+static void
+PLy_traceback(PyObject *e, PyObject *v, PyObject *tb,
+			  char *volatile *xmsg, char *volatile *tbmsg, int *tb_depth)
+```
 ## Detailed Description
 PLy_traceback is a static function that processes Python exception objects to create formatted error messages and traceback strings for PostgreSQL error reporting. The function operates in two phases:
 

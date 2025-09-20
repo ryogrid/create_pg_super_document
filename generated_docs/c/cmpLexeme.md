@@ -8,7 +8,10 @@ A static comparison function that compares two TheLexeme structures by their lex
 
 ## Definition
 
-
+```c
+static int
+cmpLexeme(const TheLexeme *a, const TheLexeme *b)
+```
 ## Detailed Description
 This function implements a comparison function for TheLexeme structures that can be used for sorting or searching operations. It performs a three-way comparison similar to strcmp, but with special handling for NULL lexemes. The function follows the standard comparison function convention where it returns negative, zero, or positive values to indicate the relative ordering of the two lexemes.
 

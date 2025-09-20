@@ -8,7 +8,11 @@ Initiates WAL (Write-Ahead Log) streaming from a PostgreSQL primary server using
 
 ## Definition
 
-
+```c
+static bool
+libpqrcv_startstreaming(WalReceiverConn *conn,
+						const WalRcvStreamOptions *options)
+```
 ## Detailed Description
 This function constructs and executes a START_REPLICATION command to begin streaming WAL data from a PostgreSQL primary server. It supports both physical and logical replication modes, with different parameter handling for each. For logical replication, it processes complex options like publication names, protocol version, streaming mode, two-phase commit support, and binary format. For physical replication, it specifies the timeline ID. 
 

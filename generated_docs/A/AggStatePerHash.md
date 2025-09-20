@@ -8,7 +8,9 @@ AggStatePerHash is a pointer type that represents per-hashtable state in Postgre
 
 ## Definition
 
-
+```c
+typedef struct AggStatePerHashData *AggStatePerHash;
+```
 ## Detailed Description
 AggStatePerHash is a pointer to AggStatePerHashData structure that maintains execution state for individual hash tables used in hash-based aggregation operations. When performing grouping sets with hashing, PostgreSQL creates one AggStatePerHash instance for each grouping set. For regular hashing without grouping sets, only one instance is used. This structure encapsulates all the necessary components for hash table operations including the hash table itself, iteration state, hash functions, and column mapping information.
 

@@ -8,7 +8,10 @@ Converts a VALUES clause from internal representation back to readable SQL text 
 
 ## Definition
 
-
+```c
+static void
+get_values_def(List *values_lists, deparse_context *context)
+```
 ## Detailed Description
 The  function is responsible for reconstructing VALUES clauses from PostgreSQL's internal parse tree representation back into standard SQL syntax. It handles the formatting of multiple value lists, where each list represents a row of values, and each value within a list represents a column value.
 

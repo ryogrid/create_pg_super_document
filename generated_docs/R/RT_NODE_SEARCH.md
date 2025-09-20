@@ -8,7 +8,10 @@ RT_NODE_SEARCH is a macro that expands to a function that searches for a specifi
 
 ## Definition
 
-
+```c
+static inline RT_PTR_ALLOC *
+RT_NODE_SEARCH(RT_NODE * node, uint8 chunk)
+```
 ## Detailed Description
 RT_NODE_SEARCH is a macro-generated function that implements the core search functionality within radix tree nodes. It takes a node and a byte chunk (8-bit key fragment) and searches for that chunk within the node's structure. The function uses a switch statement to handle different node types (4, 16, 48, and 256) with type-specific optimized search algorithms.
 

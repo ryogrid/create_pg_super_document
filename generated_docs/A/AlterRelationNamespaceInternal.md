@@ -8,7 +8,13 @@ A core internal function that relocates a relation (table, index, sequence, etc.
 
 ## Definition
 
-
+```c
+void
+AlterRelationNamespaceInternal(Relation classRel, Oid relOid,
+							   Oid oldNspOid, Oid newNspOid,
+							   bool hasDependEntry,
+							   ObjectAddresses *objsMoved)
+```
 ## Detailed Description
 This function implements the core logic for moving a relation between namespaces. It operates on the pg_class catalog directly, updating the relnamespace field and managing associated dependencies. The function includes safeguards against duplicate relation names in the target namespace and tracks moved objects to prevent duplicate operations. It requires the caller to have already opened and write-locked the pg_class relation for thread safety.
 

@@ -8,7 +8,10 @@ Assigns a unique typmod value to a RECORD type TupleDesc by finding or creating 
 
 ## Definition
 
-
+```c
+void
+assign_record_type_typmod(TupleDesc tupDesc)
+```
 ## Detailed Description
 This function is central to PostgreSQL's anonymous record type management system. It takes a TupleDesc for a RECORD type and ensures it has a unique typmod identifier that can be used for future lookups. The function manages a hash table (RecordCacheHash) that maps TupleDesc structures to typmod values, preventing duplicate cache entries for structurally identical record types.
 

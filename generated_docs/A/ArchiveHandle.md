@@ -8,7 +8,9 @@ ArchiveHandle is a typedef for the PostgreSQL dump/restore archive handle struct
 
 ## Definition
 
-
+```c
+typedef struct _archiveHandle ArchiveHandle;
+```
 ## Detailed Description
 ArchiveHandle serves as the primary handle type for PostgreSQL's pg_dump and pg_restore utilities. It is a typedef that points to the internal  structure, which contains all the state information, function pointers, and metadata needed to manage archive operations across different formats (custom, tar, plain text, etc.).
 

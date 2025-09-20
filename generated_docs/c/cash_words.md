@@ -8,7 +8,9 @@ A PostgreSQL function that converts a Cash value into its English textual repres
 
 ## Definition
 
-
+```c
+struct lconv *lconvert = PGLC_localeconv();
+```
 ## Detailed Description
 This function converts a Cash value into a human-readable English text representation, such as "One hundred twenty-three dollars and forty-five cents". The function handles negative values by prefixing "minus" and works with large amounts up to quadrillions. It breaks down the monetary value into different magnitude groups (cents, hundreds, thousands, millions, billions, trillions, quadrillions) and converts each group using the num_word helper function. The output follows North American currency conventions with proper singular/plural forms for "dollar"/"dollars" and "cent"/"cents". The final output is capitalized and returned as a PostgreSQL text datum.
 

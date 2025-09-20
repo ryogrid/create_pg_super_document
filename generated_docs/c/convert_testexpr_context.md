@@ -8,7 +8,13 @@ A context structure used during the conversion of test expressions in subquery p
 
 ## Definition
 
-
+```c
+typedef struct convert_testexpr_context
+{
+	PlannerInfo *root;
+	List	   *subst_nodes;	/* Nodes to substitute for Params */
+} convert_testexpr_context;
+```
 ## Detailed Description
 The  structure serves as a parameter context for the  function during the process of converting test expressions in subqueries. This structure is used in the PostgreSQL query optimizer when processing sublinks, specifically to replace PARAM_SUBLINK parameters with executable nodes (either Params or Vars) that represent the results of sub-selects. The context is passed through the expression tree mutation process to maintain state about the current planning context and the nodes available for substitution.
 

@@ -8,7 +8,11 @@ Performs the actual pushing operation for scalar or pseudo-scalar-array values d
 
 ## Definition
 
-
+```c
+static JsonbValue *
+pushJsonbValueScalar(JsonbParseState **pstate, JsonbIteratorToken seq,
+					 JsonbValue *scalarVal)
+```
 ## Detailed Description
 This function is the core workhorse of the JSONB construction process, handling the actual manipulation of the parse state stack based on sequential processing tokens. It manages the creation and population of JSONB containers (arrays and objects), handles scalar value insertion, and maintains the hierarchical structure during parsing. The function operates as a state machine, with different behaviors for each token type:
 

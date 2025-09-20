@@ -8,7 +8,11 @@ Stores a large varlena datum into the secondary toast relation by splitting it i
 
 ## Definition
 
-
+```c
+Datum
+toast_save_datum(Relation rel, Datum value,
+				 struct varlena *oldexternal, int options)
+```
 ## Detailed Description
 This function handles the storage of large data values (TOASTed values) into PostgreSQL's secondary toast table. It takes a varlena datum that exceeds inline storage limits and splits it into fixed-size chunks stored as separate tuples in the associated toast relation. The function creates a toast pointer structure that contains metadata about the stored value, including its original size, compression information, and location identifiers.
 

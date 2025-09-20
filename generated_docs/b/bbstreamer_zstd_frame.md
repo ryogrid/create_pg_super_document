@@ -8,7 +8,16 @@ A specialized bbstreamer structure that extends the base bbstreamer to provide Z
 
 ## Definition
 
+```c
+typedef struct bbstreamer_zstd_frame
+{
+	bbstreamer	base;
 
+	ZSTD_CCtx  *cctx;
+	ZSTD_DCtx  *dctx;
+	ZSTD_outBuffer zstd_outBuf;
+} bbstreamer_zstd_frame;
+```
 ## Detailed Description
 The bbstreamer_zstd_frame structure is a concrete implementation of the bbstreamer interface specifically designed for handling ZSTD compression and decompression of tar archive data during PostgreSQL base backup operations. It maintains both compression and decompression contexts to allow bidirectional ZSTD operations, along with an output buffer for managing compressed/decompressed data flow.
 

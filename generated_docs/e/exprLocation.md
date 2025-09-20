@@ -8,7 +8,18 @@ Returns the parse location of an expression tree node for error reporting purpos
 
 ## Definition
 
+```c
+struct-equivalent to OpExpr */
+		case T_NullIfExpr:		/* struct-equivalent to OpExpr */
+			{
+				const OpExpr *opexpr = (const OpExpr *) expr;
 
+				/* consider both operator name and leftmost arg */
+				loc = leftmostLoc(opexpr->location,
+								  exprLocation((Node *) opexpr->args));
+			}
+			break;
+```
 ## Detailed Description
 The  function determines and returns the parse location (character position in the original SQL text) of an expression tree node. This information is crucial for generating accurate error messages that point to the correct location in the user's SQL query.
 

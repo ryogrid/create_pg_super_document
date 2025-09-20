@@ -8,7 +8,70 @@ EPQState manages the execution state for EvalPlanQual (EPQ) operations, which re
 
 ## Definition
 
+```c
+typedef struct EPQState
+{
+	/* These are initialized by EvalPlanQualInit() and do not change later: */
+	EState	   *parentestate;	/* main query's EState */
+	int			epqParam;		/* ID of Param to force scan node re-eval */
+	List	   *resultRelations;	/* integer list of RT indexes, or NIL */
 
+	/*
+	 * relsubs_slot[scanrelid - 1] holds the EPQ test tuple to be returned by
+	 * the scan node for the scanrelid'th RT index, in place of performing an
+	 * actual table scan.  Callers should use EvalPlanQualSlot() to fetch
+	 * these slots.
+	 */
+	List	   *tuple_table;	/* tuple table for relsubs_slot */
+	TupleTableSlot **relsubs_slot;
+
+	/*
+	 * Initialized by EvalPlanQualInit(), may be changed later with
+	 * EvalPlanQualSetPlan():
+	 */
+
+	Plan	   *plan;			/* plan tree to be executed */
+	List	   *arowMarks;		/* ExecAuxRowMarks (non-locking only) */
+
+
+	/*
+	 * The original output tuple to be rechecked.  Set by
+	 * EvalPlanQualSetSlot(), before EvalPlanQualNext() or EvalPlanQual() may
+	 * be called.
+	 */
+	TupleTableSlot *origslot;
+
+
+	/* Initialized or reset by EvalPlanQualBegin(): */
+
+	EState	   *recheckestate;	/* EState for EPQ execution, see above */
+
+	/*
+	 * Rowmarks that can be fetched on-demand using
+	 * EvalPlanQualFetchRowMark(), indexed by scanrelid - 1. Only non-locking
+	 * rowmarks.
+	 */
+	ExecAuxRowMark **relsubs_rowmark;
+
+	/*
+	 * relsubs_done[scanrelid - 1] is true if there is no EPQ tuple for this
+	 * target relation or it has already been fetched in the current scan of
+	 * this target relation within the current EvalPlanQual test.
+	 */
+	bool	   *relsubs_done;
+
+	/*
+	 * relsubs_blocked[scanrelid - 1] is true if there is no EPQ tuple for
+	 * this target relation during the current EvalPlanQual test.  We keep
+	 * these flags set for all relids listed in resultRelations, but
+	 * transiently clear the one for the relation whose tuple is actually
+	 * passed to EvalPlanQual().
+	 */
+	bool	   *relsubs_blocked;
+
+	PlanState  *recheckplanstate;	/* EPQ specific exec nodes, for ->plan */
+} EPQState;
+```
 ## Detailed Description
 EPQState implements EvalPlanQual (EPQ) rechecking, a critical mechanism in PostgreSQL's Multi-Version Concurrency Control (MVCC) system. When a transaction attempts to update or delete a tuple that has been concurrently modified by another transaction, EPQ creates a separate execution environment to recheck the candidate tuple against the original query conditions. This ensures that the query's WHERE clause and join conditions are still satisfied after concurrent modifications, maintaining transaction isolation without unnecessary blocking.
 

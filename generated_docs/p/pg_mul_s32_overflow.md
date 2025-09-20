@@ -8,7 +8,10 @@ Performs multiplication of two 32-bit signed integers with overflow detection, r
 
 ## Definition
 
-
+```c
+static inline bool
+pg_mul_s32_overflow(int32 a, int32 b, int32 *result)
+```
 ## Detailed Description
 This function safely multiplies two 32-bit signed integers while detecting potential overflow conditions. It provides a portable overflow checking mechanism that works across different compiler environments. When available, it utilizes compiler built-in overflow detection functions for optimal performance. Otherwise, it implements overflow detection by performing the multiplication using 64-bit arithmetic and checking if the result exceeds the valid 32-bit signed integer range.
 

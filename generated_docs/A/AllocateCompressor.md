@@ -8,7 +8,11 @@ This function allocates and initializes a new CompressorState structure for hand
 
 ## Definition
 
-
+```c
+CompressorState *
+AllocateCompressor(const pg_compress_specification compression_spec,
+				   ReadFunc readF, WriteFunc writeF)
+```
 ## Detailed Description
 The `AllocateCompressor` function creates a new compressor instance by allocating memory for a CompressorState structure and initializing it with the appropriate compression algorithm. The function serves as a factory method that delegates the specific initialization to algorithm-specific functions based on the compression specification provided. It sets up the read and write function pointers that will be used for I/O operations during compression.
 

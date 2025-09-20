@@ -8,7 +8,10 @@ The  function provides human-readable descriptions of B-tree WAL (Write-Ahead Lo
 
 ## Definition
 
-
+```c
+void
+btree_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This function is part of PostgreSQL's WAL record description system, specifically handling B-tree related operations. It parses different types of B-tree WAL records and formats them into readable strings that describe the operation performed. The function uses a switch statement to handle various B-tree operation types including insertions, splits, deletions, vacuuming, page operations, and metadata changes. Each case extracts the relevant data from the WAL record and appends a formatted description to the output buffer.
 

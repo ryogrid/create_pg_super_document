@@ -8,7 +8,16 @@ BackgroundWorkerSlot is a shared memory structure that coordinates background wo
 
 ## Definition
 
-
+```c
+typedef struct BackgroundWorkerSlot
+{
+	bool		in_use;
+	bool		terminate;
+	pid_t		pid;			/* InvalidPid = not started yet; 0 = dead */
+	uint64		generation;		/* incremented when slot is recycled */
+	BackgroundWorker worker;
+} BackgroundWorkerSlot;
+```
 ## Detailed Description
 BackgroundWorkerSlot provides a thread-safe mechanism for managing background worker processes in PostgreSQL's shared memory architecture. The structure implements a sophisticated lockless protocol that allows the postmaster (which cannot take locks) to safely coordinate with regular backends that can take locks.
 

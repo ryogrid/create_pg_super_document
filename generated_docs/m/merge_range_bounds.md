@@ -8,7 +8,15 @@ Creates partition bounds for a join relation between range-partitioned tables by
 
 ## Definition
 
-
+```c
+struct to return. */
+		merged_bounds = build_merged_partition_bounds(outer_bi->strategy,
+													  merged_datums,
+													  merged_kinds,
+													  merged_indexes,
+													  -1,
+													  default_index);
+```
 ## Detailed Description
 This function merges the partition bounds of two range-partitioned relations for partitioned joins. It uses a merge-join-like algorithm to compare ranges from both sides and find overlapping partitions. The function handles several complex scenarios:
 

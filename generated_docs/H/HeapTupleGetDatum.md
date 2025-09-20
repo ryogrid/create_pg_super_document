@@ -8,7 +8,10 @@ Converts a HeapTupleData pointer to a Datum, providing a convenient wrapper arou
 
 ## Definition
 
-
+```c
+static inline Datum
+HeapTupleGetDatum(const HeapTupleData *tuple)
+```
 ## Detailed Description
 HeapTupleGetDatum is a static inline function that serves as a convenience wrapper for converting a complete HeapTupleData structure to a Datum. It extracts the tuple header (t_data) from the HeapTupleData and delegates to HeapTupleHeaderGetDatum to perform the actual conversion. This function ensures that any external TOAST references within the tuple are flattened into inline values, making the resulting Datum suitable for return from functions or storage in composite structures.
 

@@ -8,7 +8,10 @@ A common utility function used by PostgreSQL's psql tab completion system to gen
 
 ## Definition
 
-
+```c
+static char *
+create_or_drop_command_generator(const char *text, int state, bits32 excluded)
+```
 ## Detailed Description
 This is a core generator function in psql's tab completion system that provides autocompletion suggestions for SQL commands that can follow CREATE or DROP keywords. The function iterates through the  array to find matching command names that start with the given text prefix. It supports exclusion of certain commands based on flag bits, allowing different completion behaviors for CREATE vs DROP contexts.
 

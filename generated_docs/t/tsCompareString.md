@@ -8,7 +8,10 @@ Compares two strings according to tsvector rules with support for both exact mat
 
 ## Definition
 
-
+```c
+int32
+tsCompareString(char *a, int lena, char *b, int lenb, bool prefix)
+```
 ## Detailed Description
 The  function provides string comparison functionality specifically designed for PostgreSQL's text search (tsvector/tsquery) operations. It supports two comparison modes: exact string comparison and prefix matching. The function handles edge cases like empty strings and implements the comparison logic using memcmp for the overlapping portions.
 

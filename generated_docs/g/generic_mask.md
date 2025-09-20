@@ -8,7 +8,10 @@ Masks variable portions of a database page before consistency checks to ensure r
 
 ## Definition
 
-
+```c
+void
+generic_mask(char *page, BlockNumber blkno)
+```
 ## Detailed Description
 generic_mask prepares a database page for consistency checking by masking out fields that legitimately vary between the original page and a page reconstructed during WAL replay. This function is essential for PostgreSQL's WAL consistency checking mechanism, which verifies that replaying WAL records produces the same page state as the original operation.
 

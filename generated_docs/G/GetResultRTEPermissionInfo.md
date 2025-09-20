@@ -8,7 +8,10 @@ GetResultRTEPermissionInfo is a static utility function that looks up RTEPermiss
 
 ## Definition
 
-
+```c
+static RTEPermissionInfo *
+GetResultRTEPermissionInfo(ResultRelInfo *relinfo, EState *estate)
+```
 ## Detailed Description
 This function retrieves the appropriate RTEPermissionInfo structure for a given result relation. It handles three distinct cases:
 

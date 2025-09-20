@@ -8,7 +8,11 @@ Constructs a Param node for a given parameter number in SQL function parsing con
 
 ## Definition
 
-
+```c
+static Node *
+sql_fn_make_param(SQLFunctionParseInfoPtr pinfo,
+				  int paramno, int location)
+```
 ## Detailed Description
 This function creates a Param node representing a function parameter () with the appropriate type information and collation settings. It constructs an external parameter node with the correct parameter type derived from the function's argument types, handles collation inheritance from the function's input collation when applicable, and sets up all necessary fields for proper parameter handling during query execution.
 

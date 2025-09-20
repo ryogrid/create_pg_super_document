@@ -8,7 +8,10 @@ check_recovery_prefetch is a GUC (Grand Unified Configuration) validation hook f
 
 ## Definition
 
-
+```c
+bool
+check_recovery_prefetch(int *new_value, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for the  GUC parameter in PostgreSQL's configuration system. It performs platform-specific validation to ensure that recovery prefetching is only enabled on systems that have the necessary infrastructure support.
 

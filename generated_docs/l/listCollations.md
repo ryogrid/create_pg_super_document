@@ -8,7 +8,10 @@ The  function implements the  psql command for displaying collation information 
 
 ## Definition
 
-
+```c
+bool
+listCollations(const char *pattern, bool verbose, bool showSystem)
+```
 ## Detailed Description
 This function queries the  system catalog to retrieve and display information about collations defined in the database. Collations define the rules for sorting and comparing text data in different languages and locales. The function shows comprehensive collation information including schema, name, provider, locale settings, ICU rules, and deterministic properties.
 

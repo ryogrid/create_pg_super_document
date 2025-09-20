@@ -8,7 +8,10 @@ Opens a new output file on the server filesystem for storing a backup archive wi
 
 ## Definition
 
-
+```c
+static void
+bbsink_server_begin_archive(bbsink *sink, const char *archive_name)
+```
 ## Detailed Description
 This function initiates a new archive file for a basebackup operation on the server filesystem. It constructs the full file path by combining the sink's configured pathname with the provided archive name, then opens the file with exclusive creation flags to prevent overwrites. The function ensures the file is opened in binary mode for cross-platform compatibility and forwards the operation to the next sink in the chain.
 

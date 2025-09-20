@@ -8,7 +8,13 @@ SharedTypmodTableEntry is a structure used in PostgreSQL's SharedRecordTypmodReg
 
 ## Definition
 
-
+```c
+typedef struct SharedTypmodTableEntry
+{
+	uint32		typmod;
+	dsa_pointer shared_tupdesc;
+} SharedTypmodTableEntry;
+```
 ## Detailed Description
 SharedTypmodTableEntry serves as an entry in the SharedRecordTypmodRegistry's typmod table, providing a mapping mechanism from typmod values to their corresponding TupleDesc structures stored in shared memory. This structure is essential for the reverse lookup functionality in PostgreSQL's type cache system, allowing efficient retrieval of tuple descriptors when only the typmod identifier is known.
 

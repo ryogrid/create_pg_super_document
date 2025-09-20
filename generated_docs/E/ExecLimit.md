@@ -8,7 +8,10 @@ ExecLimit implements the execution logic for LIMIT/OFFSET filtering, managing a 
 
 ## Definition
 
-
+```c
+static TupleTableSlot *			/* return: a tuple or NULL */
+ExecLimit(PlanState *pstate)
+```
 ## Detailed Description
 ExecLimit is the main execution function for PostgreSQL's LIMIT node, implementing a sophisticated state machine to handle various LIMIT/OFFSET scenarios including support for WITH TIES semantics. The function processes tuples from its subplan and applies filtering based on computed offset and count values.
 

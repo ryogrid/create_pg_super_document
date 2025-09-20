@@ -8,7 +8,16 @@ PendingRelDelete is a structure that represents relations scheduled for deletion
 
 ## Definition
 
-
+```c
+typedef struct PendingRelDelete
+{
+	RelFileLocator rlocator;	/* relation that may need to be deleted */
+	ProcNumber	procNumber;		/* INVALID_PROC_NUMBER if not a temp rel */
+	bool		atCommit;		/* T=delete at commit; F=delete at abort */
+	int			nestLevel;		/* xact nesting level of request */
+	struct PendingRelDelete *next;	/* linked-list link */
+} PendingRelDelete;
+```
 ## Detailed Description
 PendingRelDelete is a crucial data structure in PostgreSQL's storage management system that tracks relations (tables, indexes, etc.) that require deferred deletion or preservation actions during transaction processing. The structure is part of a linked list system that allows PostgreSQL to postpone physical file operations until transaction boundaries are reached.
 

@@ -8,7 +8,11 @@ ExecSampleScan is the main execution function for sample scan operations that re
 
 ## Definition
 
-
+```c
+structure
+	 */
+	scanstate = makeNode(SampleScanState);
+```
 ## Detailed Description
 ExecSampleScan serves as the primary execution entry point for sample scan nodes in PostgreSQL's executor. It implements the standard scan node interface by delegating to the generic ExecScan function, providing it with sample-specific access method functions. The function first casts the generic PlanState to a SampleScanState to access sample-specific state information, then calls ExecScan with SampleNext as the tuple access method and SampleRecheck as the recheck method. This design follows PostgreSQL's executor pattern where each scan type provides specific access methods while sharing common scanning logic through ExecScan.
 

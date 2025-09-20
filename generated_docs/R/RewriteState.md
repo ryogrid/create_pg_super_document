@@ -8,7 +8,9 @@ RewriteState is an opaque pointer type that encapsulates the complete state asso
 
 ## Definition
 
-
+```c
+typedef struct RewriteStateData *RewriteState;
+```
 ## Detailed Description
 RewriteState serves as an opaque handle to the RewriteStateData structure, which maintains all the necessary state information during table rewrite operations. This design pattern allows the rewrite facility to hide implementation details from users while providing a clean interface for heap rewrite operations. The actual state data includes source and destination relations, bulk write operations, transaction IDs for visibility checks, memory contexts, and hash tables for tracking tuple mappings.
 

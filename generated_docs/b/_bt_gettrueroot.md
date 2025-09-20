@@ -8,7 +8,10 @@ _bt_gettrueroot retrieves the actual root page of a B-tree index by following th
 
 ## Definition
 
-
+```c
+Buffer
+_bt_gettrueroot(Relation rel)
+```
 ## Detailed Description
 This function is similar to _bt_getroot() in BT_READ mode but specifically follows the true-root (btm_root) link instead of the fast-root (btm_fastroot) link. Key characteristics:
 

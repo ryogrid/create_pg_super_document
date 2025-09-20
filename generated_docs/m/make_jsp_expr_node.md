@@ -8,7 +8,10 @@ Creates a JsonPathGinNode structure for expression nodes with a variable number 
 
 ## Definition
 
-
+```c
+static JsonPathGinNode *
+make_jsp_expr_node(JsonPathGinNodeType type, int nargs)
+```
 ## Detailed Description
 This function constructs a JsonPathGinNode designed to hold complex expressions with multiple arguments. Unlike simple entry nodes, expression nodes require additional space to store an array of argument pointers. The function dynamically calculates the required memory size using offsetof to account for the base structure plus space for nargs argument pointers.
 

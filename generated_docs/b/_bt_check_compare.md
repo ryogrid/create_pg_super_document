@@ -8,7 +8,13 @@ Tests whether an index tuple satisfies the current scan condition, determining i
 
 ## Definition
 
-
+```c
+static bool
+_bt_check_compare(IndexScanDesc scan, ScanDirection dir,
+				  IndexTuple tuple, int tupnatts, TupleDesc tupdesc,
+				  bool advancenonrequired, bool prechecked, bool firstmatch,
+				  bool *continuescan, int *ikey)
+```
 ## Detailed Description
 This function is a core subroutine of B-tree index scanning that evaluates whether an index tuple satisfies the scan conditions. It iterates through scan keys, checking each one against the corresponding tuple attributes. The function handles various key types including NULL tests, row-comparison keys, and array keys. It optimizes scan performance by setting the  flag to false when it determines that no future tuples can satisfy required conditions, allowing the scan to terminate early. For array keys, it can advance non-required arrays to find matching values. The function is designed to work with both forward and backward scans, handling direction-specific requirements appropriately.
 

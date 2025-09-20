@@ -8,7 +8,10 @@ Detects whether a relation has join-order restrictions due to outer joins, subqu
 
 ## Definition
 
-
+```c
+union */
+			joinrelids = bms_union(rel->relids, rel2->relids);
+```
 ## Detailed Description
 The  function is a lightweight screening function that determines whether a given relation is subject to any join-order constraints that would require careful handling during join enumeration. It serves as a quick check to identify relations that participate in complex join scenarios such as outer joins, IN subqueries, lateral references, or PlaceHolderVar computations that span multiple relations.
 

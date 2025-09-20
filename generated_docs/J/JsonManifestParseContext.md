@@ -8,7 +8,17 @@ A callback-based context structure used for parsing PostgreSQL backup manifest f
 
 ## Definition
 
-
+```c
+struct JsonManifestParseContext
+{
+	void	   *private_data;
+	json_manifest_version_callback version_cb;
+	json_manifest_system_identifier_callback system_identifier_cb;
+	json_manifest_per_file_callback per_file_cb;
+	json_manifest_per_wal_range_callback per_wal_range_cb;
+	json_manifest_error_callback error_cb;
+};
+```
 ## Detailed Description
 JsonManifestParseContext serves as a configuration and callback mechanism for parsing PostgreSQL backup manifest files. The structure implements a callback-driven architecture where different sections of a JSON backup manifest trigger specific callback functions. This design allows multiple tools (like pg_verifybackup and pg_combinebackup) to reuse the same parsing logic while implementing their own specific handling for each manifest component.
 

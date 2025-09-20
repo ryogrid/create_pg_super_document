@@ -8,7 +8,13 @@ Determines and returns the cost of performing a WindowAgg plan node, including t
 
 ## Definition
 
-
+```c
+void
+cost_windowagg(Path *path, PlannerInfo *root,
+			   List *windowFuncs, WindowClause *winclause,
+			   Cost input_startup_cost, Cost input_total_cost,
+			   double input_tuples)
+```
 ## Detailed Description
 This function calculates the execution cost for a WindowAgg operation in PostgreSQL's query planner. It estimates the cost by considering several factors:
 

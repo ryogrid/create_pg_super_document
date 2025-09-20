@@ -8,7 +8,10 @@ This function generates a compact range representation from data collected durin
 
 ## Definition
 
-
+```c
+static void
+compactify_ranges(BrinDesc *bdesc, Ranges *ranges, int max_values)
+```
 ## Detailed Description
 The function serves as a compaction mechanism for BRIN minmax-multi ranges during serialization phase. Unlike reduce_expanded_ranges, it cannot assume that values are pre-sorted and must handle potential duplicate values. 
 

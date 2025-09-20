@@ -8,7 +8,10 @@ Close and deallocate a cursor in PostgreSQL's Server Programming Interface (SPI)
 
 ## Definition
 
-
+```c
+void
+SPI_cursor_close(Portal portal)
+```
 ## Detailed Description
 SPI_cursor_close is used to properly close and deallocate a cursor (Portal) that was previously opened through the SPI interface. This function performs validation to ensure the portal is valid before calling PortalDrop to actually close and clean up the portal resources. Once a cursor is closed using this function, it cannot be used for further operations.
 

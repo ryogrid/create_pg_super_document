@@ -8,7 +8,10 @@ Determines the ndistinct value used to size bloom filter for BRIN (Block Range I
 
 ## Definition
 
-
+```c
+static int
+brin_bloom_get_ndistinct(BrinDesc *bdesc, BloomOptions *opts)
+```
 ## Detailed Description
 This function calculates the appropriate number of distinct values to use when sizing a bloom filter for BRIN indexes. It takes into account the pages per range value and applies several adjustments and safety constraints:
 

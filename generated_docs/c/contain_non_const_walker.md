@@ -8,7 +8,10 @@ A tree walker function that checks for the presence of non-constant nodes in exp
 
 ## Definition
 
-
+```c
+static bool
+contain_non_const_walker(Node *node, void *context)
+```
 ## Detailed Description
 This function serves as a subroutine for  to efficiently detect non-constant nodes within expression trees. Its primary purpose is performance optimization - by enabling immediate recursion abort upon finding any non-Const node, it prevents  from taking O(N^2) time on non-simplifiable trees.
 

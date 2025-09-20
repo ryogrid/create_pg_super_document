@@ -8,7 +8,10 @@ Cleans up resources and closes a file that was being read using the tsearch_read
 
 ## Definition
 
-
+```c
+void
+tsearch_readline_end(tsearch_readline_state *stp)
+```
 ## Detailed Description
 This function performs cleanup operations after reading a text search configuration file using tsearch_readline(). It releases all allocated memory, closes the file handle, and properly restores the error context stack. This function should always be called after finishing with a file that was opened using tsearch_readline_begin(), even if errors occurred during reading.
 

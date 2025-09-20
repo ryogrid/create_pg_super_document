@@ -8,7 +8,12 @@ PGEventRegister is a structure that contains event information passed to event c
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PGconn	   *conn;
+} PGEventConnReset;
+```
 ## Detailed Description
 PGEventRegister is used as the event information structure when the libpq event system fires a PGEVT_REGISTER event. This event occurs when an application registers an event callback function with a PostgreSQL connection using PQregisterEventProc(). The structure provides the event callback with access to the connection object that the event processor is being registered with, allowing the callback to perform any necessary initialization or setup operations.
 

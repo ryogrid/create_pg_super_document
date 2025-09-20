@@ -8,7 +8,9 @@ Creates and initializes a new variable space that serves as a container for mana
 
 ## Definition
 
-
+```c
+struct _variable *ptr;
+```
 ## Detailed Description
 This function allocates and initializes a new variable space, which is represented by a struct _variable that serves as a list header. The variable space acts as a container for storing and managing psql variables in an ordered linked list. The list entries are maintained in alphabetical name order (according to strcmp) primarily to make the output of PrintVariables() more visually pleasing and predictable.
 

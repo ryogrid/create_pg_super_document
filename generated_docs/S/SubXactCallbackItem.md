@@ -8,7 +8,14 @@ SubXactCallbackItem is a linked list node structure that manages subtransaction 
 
 ## Definition
 
-
+```c
+typedef struct SubXactCallbackItem
+{
+	struct SubXactCallbackItem *next;
+	SubXactCallback callback;
+	void	   *arg;
+} SubXactCallbackItem;
+```
 ## Detailed Description
 SubXactCallbackItem implements a linked list mechanism specifically designed for subtransaction lifecycle management. Similar to XactCallbackItem but focused on subtransaction events, this structure allows PostgreSQL subsystems and extensions to register callback functions that are invoked during subtransaction start, commit, and abort operations. This fine-grained callback system is essential for managing resources and state that must be coordinated with savepoint operations and nested transaction boundaries.
 

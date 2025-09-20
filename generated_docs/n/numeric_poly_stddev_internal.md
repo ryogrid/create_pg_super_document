@@ -8,7 +8,12 @@ A static internal function that converts Int128-based aggregate state to Numeric
 
 ## Definition
 
-
+```c
+static Numeric
+numeric_poly_stddev_internal(Int128AggState *state,
+							 bool variance, bool sample,
+							 bool *is_null)
+```
 ## Detailed Description
 The `numeric_poly_stddev_internal` function serves as an adapter between the 128-bit integer-based aggregate state (`Int128AggState`) used by polymorphic aggregate functions and the numeric-based aggregate state (`NumericAggState`) required by the core variance/standard deviation calculation function. It converts the accumulated 128-bit integer sums (sumX and sumX2) to numeric format, then delegates the actual statistical computation to `numeric_stddev_internal`. This function is part of PostgreSQL's polymorphic aggregate system that can handle different numeric types efficiently using 128-bit integer arithmetic during accumulation.
 

@@ -8,7 +8,10 @@ Converts a local timestamp to a timestamptz (timestamp with timezone) by interpr
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function converts a timestamp (without timezone) to a timestamptz (with timezone) by treating the input timestamp as if it were in the current session timezone and converting it to GMT/UTC. The function is a simple wrapper around the timestamp2timestamptz function, which performs the actual conversion logic. The conversion takes into account the current session's timezone setting to determine how to interpret the input timestamp value.
 

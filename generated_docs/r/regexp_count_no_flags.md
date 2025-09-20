@@ -8,7 +8,10 @@ A wrapper function for regexp_count that provides compatibility for function cal
 
 ## Definition
 
-
+```c
+Datum
+regexp_count_no_flags(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a simple wrapper around the main regexp_count function. It exists primarily for SQL function overload resolution and to maintain compatibility with PostgreSQL's function dispatch system. The function directly forwards all arguments to regexp_count without any modification or additional processing.
 

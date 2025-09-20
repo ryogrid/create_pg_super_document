@@ -8,7 +8,10 @@ A static function that searches backwards through the Perl context stack to find
 
 ## Definition
 
-
+```c
+static I32
+DPPP_dopoptosub_at(const PERL_CONTEXT *cxstk, I32 startingblock)
+```
 ## Detailed Description
 The  function implements a backward search through Perl's context stack to locate the most recent context of specific types. It examines each context starting from the given  index and moving toward the stack bottom (index 0). The function specifically looks for three types of contexts that represent callable or evaluable code blocks:
 

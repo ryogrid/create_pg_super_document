@@ -8,7 +8,10 @@ Tests whether two points are equal by comparing both their x and y coordinates u
 
 ## Definition
 
-
+```c
+Datum
+point_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operator that determines if two points are equal. It serves as a wrapper function that extracts two Point arguments from the PostgreSQL function call interface and delegates the actual comparison logic to the  function. This function is part of PostgreSQL's geometric data type system and supports equality operations in SQL queries.
 

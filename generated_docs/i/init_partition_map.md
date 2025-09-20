@@ -8,7 +8,10 @@ Initializes a PartitionMap structure for a given relation to track partition mer
 
 ## Definition
 
-
+```c
+static void
+init_partition_map(RelOptInfo *rel, PartitionMap *map)
+```
 ## Detailed Description
 This function initializes a PartitionMap structure which is used to track the state of partitions during the partition merging process for partitioned joins. The PartitionMap maintains arrays that track which partitions have been merged, their new indexes after merging, and original indexes for potential remapping operations.
 

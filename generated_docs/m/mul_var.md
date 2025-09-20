@@ -8,7 +8,11 @@ Performs multiplication of two NumericVar values using schoolbook multiplication
 
 ## Definition
 
-
+```c
+static void
+mul_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result,
+		int rscale)
+```
 ## Detailed Description
 The  function implements multiplication at the variable level for PostgreSQL's NUMERIC data type. It uses a schoolbook multiplication algorithm with several optimizations:
 

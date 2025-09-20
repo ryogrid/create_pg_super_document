@@ -8,7 +8,18 @@ ImportForeignSchemaType is an enumeration that defines the different filtering o
 
 ## Definition
 
-
+```c
+typedef struct ImportForeignSchemaStmt
+{
+	NodeTag		type;
+	char	   *server_name;	/* FDW server name */
+	char	   *remote_schema;	/* remote schema name to query */
+	char	   *local_schema;	/* local schema to create objects in */
+	ImportForeignSchemaType list_type;	/* type of table list */
+	List	   *table_list;		/* List of RangeVar */
+	List	   *options;		/* list of options to pass to FDW */
+} ImportForeignSchemaStmt;
+```
 ## Detailed Description
 This enumeration specifies how table filtering should be applied when importing foreign schema definitions through PostgreSQL's Foreign Data Wrapper (FDW) system. The IMPORT FOREIGN SCHEMA statement allows importing table definitions from a remote schema, and this enum controls whether to import all tables, only specific tables, or all tables except specific ones.
 

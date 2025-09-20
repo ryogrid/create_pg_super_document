@@ -8,7 +8,10 @@ Retrieves comprehensive trigger information for all dumpable tables from the Pos
 
 ## Definition
 
-
+```c
+void
+getTriggers(Archive *fout, TableInfo tblinfo[], int numTables)
+```
 ## Detailed Description
 This function performs a sophisticated query against the pg_trigger system catalog to collect information about triggers on tables that need to be dumped. It implements version-specific logic to handle differences in PostgreSQL's trigger system across major versions, particularly around partitioned tables and inherited triggers.
 

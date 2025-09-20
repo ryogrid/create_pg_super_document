@@ -8,7 +8,10 @@ Safely disconnects a PostgreSQL database connection, ensuring any active transac
 
 ## Definition
 
-
+```c
+void
+disconnectDatabase(PGconn *conn)
+```
 ## Detailed Description
 The `disconnectDatabase` function provides a clean and safe way to terminate PostgreSQL database connections. It implements proper connection cleanup by first checking for active transactions and canceling them if necessary before closing the connection. This prevents potential issues that could arise from abruptly terminating connections with ongoing database operations.
 

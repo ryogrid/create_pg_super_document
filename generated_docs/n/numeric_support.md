@@ -8,7 +8,10 @@ This function serves as a planner support function for numeric type coercion ope
 
 ## Definition
 
-
+```c
+Datum
+numeric_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL planner support function specifically designed to optimize numeric type coercion operations during query planning. It identifies and eliminates redundant numeric() function calls that only represent increases in allowable precision while keeping the scale unchanged. The function examines cast operations between numeric types with different typmod (type modifier) constraints and determines whether the cast can be simplified to a simple relabeling operation rather than an actual data transformation. This optimization is important because precision increases don't require any actual computation on the data - they simply allow more digits to be stored. However, scale changes (which affect decimal positions) and constraints that reduce precision cannot be optimized away as they require actual data manipulation.
 

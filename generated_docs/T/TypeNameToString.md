@@ -8,7 +8,10 @@ A public function that converts a TypeName structure into a human-readable strin
 
 ## Definition
 
-
+```c
+char *
+TypeNameToString(const TypeName *typeName)
+```
 ## Detailed Description
 This function provides a simple interface for converting TypeName structures to strings by creating a StringInfo buffer and delegating the actual formatting work to appendTypeNameToBuffer. It returns a newly allocated string containing the formatted type name, which includes schema qualification, type decorations, and array brackets as appropriate.
 

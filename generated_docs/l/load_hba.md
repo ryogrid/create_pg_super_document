@@ -8,7 +8,10 @@ Reads and parses the pg_hba.conf configuration file, creating a validated list o
 
 ## Definition
 
-
+```c
+bool
+load_hba(void)
+```
 ## Detailed Description
 This function orchestrates the complete loading and validation process for the pg_hba.conf configuration file. It implements a safe, atomic replacement strategy that ensures the system continues operating with valid configuration even if errors occur during reload:
 

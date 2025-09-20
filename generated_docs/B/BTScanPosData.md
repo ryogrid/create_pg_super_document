@@ -8,7 +8,53 @@ BTScanPosData represents the complete state information needed for a B-tree inde
 
 ## Definition
 
+```c
+typedef struct BTScanPosData
+{
+	Buffer		buf;			/* if valid, the buffer is pinned */
 
+	XLogRecPtr	lsn;			/* pos in the WAL stream when page was read */
+	BlockNumber currPage;		/* page referenced by items array */
+	BlockNumber nextPage;		/* page's right link when we scanned it */
+
+	/*
+	 * moreLeft and moreRight track whether we think there may be matching
+	 * index entries to the left and right of the current page, respectively.
+	 * We can clear the appropriate one of these flags when _bt_checkkeys()
+	 * sets BTReadPageState.continuescan = false.
+	 */
+	bool		moreLeft;
+	bool		moreRight;
+
+	/*
+	 * Direction of the scan at the time that _bt_readpage was called.
+	 *
+	 * Used by btrestrpos to "restore" the scan's array keys by resetting each
+	 * array to its first element's value (first in this scan direction). This
+	 * avoids the need to directly track the array keys in btmarkpos.
+	 */
+	ScanDirection dir;
+
+	/*
+	 * If we are doing an index-only scan, nextTupleOffset is the first free
+	 * location in the associated tuple storage workspace.
+	 */
+	int			nextTupleOffset;
+
+	/*
+	 * The items array is always ordered in index order (ie, increasing
+	 * indexoffset).  When scanning backwards it is convenient to fill the
+	 * array back-to-front, so we start at the last slot and fill downwards.
+	 * Hence we need both a first-valid-entry and a last-valid-entry counter.
+	 * itemIndex is a cursor showing which entry was last returned to caller.
+	 */
+	int			firstItem;		/* first valid index in items[] */
+	int			lastItem;		/* last valid index in items[] */
+	int			itemIndex;		/* current index in items[] */
+
+	BTScanPosItem items[MaxTIDsPerBTreePage];	/* MUST BE LAST */
+} BTScanPosData;
+```
 ## Detailed Description
 This structure encapsulates all the state information required to track a scan position within a B-tree index. It manages buffer pins, tracks page relationships, maintains scan direction context, and holds arrays of matching items found on the current page. The structure supports both forward and backward scanning, with the items array filled accordingly. For index-only scans, it also manages tuple workspace offsets.
 

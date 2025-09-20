@@ -8,7 +8,11 @@ Converts PostgreSQL SPI execution results into a structured Perl hash containing
 
 ## Definition
 
-
+```c
+static HV  *
+plperl_spi_execute_fetch_result(SPITupleTable *tuptable, uint64 processed,
+								int status)
+```
 ## Detailed Description
 This function transforms the raw results from PostgreSQL's SPI execution into a well-structured Perl hash that PL/Perl functions can easily work with. The returned hash contains:
 - "status": String representation of the SPI result code

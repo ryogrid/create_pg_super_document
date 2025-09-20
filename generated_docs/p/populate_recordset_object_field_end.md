@@ -8,7 +8,10 @@ This function handles the completion of JSON object field processing during JSON
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+populate_recordset_object_field_end(void *state, char *fname, bool isnull)
+```
 ## Detailed Description
 The `populate_recordset_object_field_end` function is a callback handler that processes the end of object fields during JSON parsing for recordset conversion. It serves as the counterpart to `populate_recordset_object_field_start` and is responsible for actually storing the parsed field data.
 

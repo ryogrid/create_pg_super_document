@@ -8,7 +8,11 @@ HeapTupleSatisfiesDirty determines if a heap tuple is visible including effects 
 
 ## Definition
 
-
+```c
+static bool
+HeapTupleSatisfiesDirty(HeapTuple htup, Snapshot snapshot,
+						Buffer buffer)
+```
 ## Detailed Description
 This function implements the "dirty read" visibility semantics for PostgreSQL's SNAPSHOT_DIRTY snapshots. Unlike other visibility functions that only consider committed transactions, HeapTupleSatisfiesDirty includes the effects of transactions still in progress. This is essential for certain internal operations that need to see uncommitted changes.
 

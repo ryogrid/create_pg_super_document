@@ -8,7 +8,10 @@ Returns a human-readable string representation of WAL receiver states for use in
 
 ## Definition
 
-
+```c
+static const char *
+WalRcvGetStateString(WalRcvState state)
+```
 ## Detailed Description
 This utility function converts WAL receiver state enumeration values into their corresponding string representations. It provides a centralized mapping between internal state constants and their human-readable equivalents, ensuring consistency across PostgreSQL's system functions and monitoring views.
 

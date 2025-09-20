@@ -8,7 +8,9 @@ Creates database-specific subdirectories within tablespaces to isolate each data
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 TablespaceCreateDbspace ensures that each database using a tablespace is isolated into its own namespace by creating a subdirectory named for the database OID. The function handles both normal operations and WAL replay scenarios, with special logic to cope with missing directories during recovery.
 

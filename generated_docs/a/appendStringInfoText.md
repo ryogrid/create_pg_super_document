@@ -8,7 +8,10 @@ Efficiently appends a PostgreSQL text value to a StringInfo buffer without conve
 
 ## Definition
 
-
+```c
+static void
+appendStringInfoText(StringInfo str, const text *t)
+```
 ## Detailed Description
 The appendStringInfoText function is an optimized utility for appending PostgreSQL text data types to StringInfo buffers. Unlike the more general appendStringInfoString function which requires converting text to a null-terminated C string first, this function directly extracts the binary data from the text value and appends it to the buffer.
 

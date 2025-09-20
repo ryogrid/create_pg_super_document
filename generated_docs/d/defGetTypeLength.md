@@ -8,7 +8,10 @@ Extracts a type length indicator from a DefElem, returning either absolute byte 
 
 ## Definition
 
-
+```c
+int
+defGetTypeLength(DefElem *def)
+```
 ## Detailed Description
 The  function is a specialized utility for extracting type length specifications in PostgreSQL's type definition system. It handles the parsing of length parameters for data types, supporting both fixed-length types (specified as integer byte counts) and variable-length types (specified using the keyword "variable").
 

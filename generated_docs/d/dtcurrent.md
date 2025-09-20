@@ -8,7 +8,10 @@ The dtcurrent function obtains the current timestamp and stores it in the provid
 
 ## Definition
 
-
+```c
+void
+dtcurrent(timestamp * ts)
+```
 ## Detailed Description
 This function is part of PostgreSQL's ECPG (Embedded SQL in C) compatibility library for Informix. It provides a simple interface to get the current date and time as a timestamp. The function acts as a thin wrapper around the PostgreSQL PGTYPES library's timestamp functionality, specifically calling PGTYPEStimestamp_current() to perform the actual timestamp retrieval.
 

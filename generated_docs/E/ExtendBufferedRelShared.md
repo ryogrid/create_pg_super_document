@@ -8,7 +8,17 @@ ExtendBufferedRelShared extends shared persistent relations by acquiring victim 
 
 ## Definition
 
-
+```c
+static BlockNumber
+ExtendBufferedRelShared(BufferManagerRelation bmr,
+						ForkNumber fork,
+						BufferAccessStrategy strategy,
+						uint32 flags,
+						uint32 extend_by,
+						BlockNumber extend_upto,
+						Buffer *buffers,
+						uint32 *extended_by)
+```
 ## Detailed Description
 ExtendBufferedRelShared implements the complex logic for extending shared (persistent) relations in PostgreSQL. It operates in several phases: first acquiring victim buffers and zeroing them outside the extension lock to minimize lock hold time; then taking the extension lock and determining the actual extension size based on concurrent changes; inserting buffers into the buffer mapping table; performing the actual storage extension via smgrzeroextend; and finally marking buffers as valid and waking waiting backends.
 

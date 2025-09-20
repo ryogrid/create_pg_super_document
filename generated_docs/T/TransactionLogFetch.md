@@ -8,7 +8,10 @@ TransactionLogFetch is a static function that retrieves the commit status of a s
 
 ## Definition
 
-
+```c
+static XidStatus
+TransactionLogFetch(TransactionId transactionId)
+```
 ## Detailed Description
 TransactionLogFetch serves as the core function for fetching transaction commit status in PostgreSQL's transaction management system. It implements a multi-layered approach to status retrieval:
 

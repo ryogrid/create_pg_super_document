@@ -8,7 +8,12 @@ The  function prepares the initial state set for DFA execution in PostgreSQL's r
 
 ## Definition
 
-
+```c
+static struct sset *
+initialize(struct vars *v,
+		   struct dfa *d,
+		   chr *start)
+```
 ## Detailed Description
 This function sets up the initial state set needed to begin DFA-based regular expression matching. It implements an optimization by checking if a previous starter state set is still available and valid for reuse. If not, it creates a new state set from scratch.
 

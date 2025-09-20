@@ -8,7 +8,12 @@ Generates and evaluates multiple execution paths for UNION and UNION ALL operati
 
 ## Definition
 
-
+```c
+static RelOptInfo *
+generate_union_paths(SetOperationStmt *op, PlannerInfo *root,
+					 List *refnames_tlist,
+					 List **pTargetList)
+```
 ## Detailed Description
 This function is the core path generation engine for UNION operations in PostgreSQL's query planner. It orchestrates the creation of multiple execution strategies for combining results from union children:
 

@@ -8,7 +8,74 @@ ComputeXidHorizonsResult is a structure that contains comprehensive transaction 
 
 ## Definition
 
+```c
+typedef struct ComputeXidHorizonsResult
+{
+	/*
+	 * The value of TransamVariables->latestCompletedXid when
+	 * ComputeXidHorizons() held ProcArrayLock.
+	 */
+	FullTransactionId latest_completed;
 
+	/*
+	 * The same for procArray->replication_slot_xmin and.
+	 * procArray->replication_slot_catalog_xmin.
+	 */
+	TransactionId slot_xmin;
+	TransactionId slot_catalog_xmin;
+
+	/*
+	 * Oldest xid that any backend might still consider running. This needs to
+	 * include processes running VACUUM, in contrast to the normal visibility
+	 * cutoffs, as vacuum needs to be able to perform pg_subtrans lookups when
+	 * determining visibility, but doesn't care about rows above its xmin to
+	 * be removed.
+	 *
+	 * This likely should only be needed to determine whether pg_subtrans can
+	 * be truncated. It currently includes the effects of replication slots,
+	 * for historical reasons. But that could likely be changed.
+	 */
+	TransactionId oldest_considered_running;
+
+	/*
+	 * Oldest xid for which deleted tuples need to be retained in shared
+	 * tables.
+	 *
+	 * This includes the effects of replication slots. If that's not desired,
+	 * look at shared_oldest_nonremovable_raw;
+	 */
+	TransactionId shared_oldest_nonremovable;
+
+	/*
+	 * Oldest xid that may be necessary to retain in shared tables. This is
+	 * the same as shared_oldest_nonremovable, except that is not affected by
+	 * replication slot's catalog_xmin.
+	 *
+	 * This is mainly useful to be able to send the catalog_xmin to upstream
+	 * streaming replication servers via hot_standby_feedback, so they can
+	 * apply the limit only when accessing catalog tables.
+	 */
+	TransactionId shared_oldest_nonremovable_raw;
+
+	/*
+	 * Oldest xid for which deleted tuples need to be retained in non-shared
+	 * catalog tables.
+	 */
+	TransactionId catalog_oldest_nonremovable;
+
+	/*
+	 * Oldest xid for which deleted tuples need to be retained in normal user
+	 * defined tables.
+	 */
+	TransactionId data_oldest_nonremovable;
+
+	/*
+	 * Oldest xid for which deleted tuples need to be retained in this
+	 * session's temporary tables.
+	 */
+	TransactionId temp_oldest_nonremovable;
+} ComputeXidHorizonsResult;
+```
 ## Detailed Description
 ComputeXidHorizonsResult encapsulates the comprehensive set of transaction visibility horizons computed by the ComputeXidHorizons() function. This structure is crucial for determining which deleted tuples can be safely removed during vacuum and other cleanup operations while respecting MVCC visibility rules for different classes of relations.
 

@@ -8,7 +8,10 @@ ExplainOpenWorker is a static function in PostgreSQL's explain module that begin
 
 ## Definition
 
-
+```c
+static void
+ExplainOpenWorker(int n, ExplainState *es)
+```
 ## Detailed Description
 This function manages the complex task of redirecting explain output to worker-specific buffers during parallel query plan explanation. It handles two scenarios: initializing output for a worker encountered for the first time, and resuming output for a worker that has already produced some data.
 

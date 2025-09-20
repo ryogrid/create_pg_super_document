@@ -8,7 +8,11 @@ Converts an SP-GiST leaf tuple into separate Datum/isnull arrays, extracting the
 
 ## Definition
 
-
+```c
+void
+spgDeformLeafTuple(SpGistLeafTuple tup, TupleDesc tupleDescriptor,
+				   Datum *datums, bool *isnulls, bool keyColumnIsNull)
+```
 ## Detailed Description
 The  function decomposes an SP-GiST leaf tuple back into individual column values, converting from the compact on-disk storage format to separate arrays of Datums and null indicators. This function handles the tuple's null bitmap and works correctly for both regular data trees and special null-value trees.
 

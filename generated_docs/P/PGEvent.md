@@ -8,7 +8,16 @@ A structure that represents a registered event handler in PostgreSQL's libpq eve
 
 ## Definition
 
-
+```c
+typedef struct PGEvent
+{
+	PGEventProc proc;			/* the function to call on events */
+	char	   *name;			/* used only for error messages */
+	void	   *passThrough;	/* pointer supplied at registration time */
+	void	   *data;			/* optional state (instance) data */
+	bool		resultInitialized;	/* T if RESULTCREATE/COPY succeeded */
+} PGEvent;
+```
 ## Detailed Description
 The `PGEvent` structure is a core component of libpq's event system, which allows applications to register callback functions that are notified when certain events occur during database operations. Events include connection establishment, connection destruction, result creation, and result destruction.
 

@@ -8,7 +8,10 @@ Traverses an affix tree (trie) to find matching affixes for a given word, using 
 
 ## Definition
 
-
+```c
+static AffixNodeData *
+FindAffixes(AffixNode *node, const char *word, int wrdlen, int *level, int type)
+```
 ## Detailed Description
 FindAffixes implements a depth-first traversal of an affix tree (trie) structure to locate affixes that match a given word. The function uses binary search within each node to efficiently find matching characters. It supports both prefix and suffix affix searching depending on the type parameter, using the GETWCHAR macro to extract characters in forward or reverse order.
 

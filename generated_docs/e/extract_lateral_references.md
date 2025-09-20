@@ -8,7 +8,10 @@ Extracts variable references from LATERAL relations and processes them for use i
 
 ## Definition
 
-
+```c
+static void
+extract_lateral_references(PlannerInfo *root, RelOptInfo *brel, Index rtindex)
+```
 ## Detailed Description
 This function is responsible for identifying and processing variable references within LATERAL relations during query planning. LATERAL relations can reference columns from relations that appear earlier in the FROM clause, creating dependencies that need to be tracked for proper join ordering. The function extracts these lateral references, adjusts their variable levels, and makes them available for subsequent join planning operations.
 

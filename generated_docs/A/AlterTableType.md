@@ -8,7 +8,14 @@ AlterTableType is an enumeration that defines the various types of operations th
 
 ## Definition
 
-
+```c
+typedef struct ReplicaIdentityStmt
+{
+	NodeTag		type;
+	char		identity_type;
+	char	   *name;
+} ReplicaIdentityStmt;
+```
 ## Detailed Description
 This enumeration serves as a comprehensive catalog of all possible ALTER TABLE operations in PostgreSQL. Each enum value corresponds to a specific type of table modification that can be requested through SQL DDL commands. The enum is used primarily by the ALTER TABLE command processing infrastructure to identify and route different types of table alterations to their appropriate handler functions.
 

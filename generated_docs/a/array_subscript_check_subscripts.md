@@ -8,7 +8,12 @@ Processes and validates subscript expressions during execution of a Subscripting
 
 ## Definition
 
-
+```c
+static bool
+array_subscript_check_subscripts(ExprState *state,
+								 ExprEvalStep *op,
+								 ExprContext *econtext)
+```
 ## Detailed Description
 This function is executed during runtime to validate and process array subscripts that have already been evaluated into Datum form. It operates as part of PostgreSQL's expression evaluation framework and is responsible for converting subscript Datums to plain integers while enforcing NULL-handling rules.
 

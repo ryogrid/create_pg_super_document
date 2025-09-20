@@ -8,7 +8,20 @@ PQsendQueryInternal is a static function that implements the core logic for send
 
 ## Definition
 
+```c
+struct the outgoing Query message */
+	if (pqPutMsgStart(PqMsg_Query, conn) < 0 ||
+		pqPuts(query, conn) < 0 ||
+		pqPutMsgEnd(conn) < 0)
+	{
+		/* error message should be set up already */
+		pqRecycleCmdQueueEntry(conn, entry);
+		return 0;
+	}
 
+	/* remember we are using simple query protocol */
+	entry->queryclass = PGQUERY_SIMPLE;
+```
 ## Detailed Description
 PQsendQueryInternal handles the internal mechanics of sending a SQL query string to a PostgreSQL server using the simple query protocol. This function performs validation checks, constructs the Query message according to the PostgreSQL wire protocol, and manages the command queue entry for tracking the query's lifecycle. The function operates asynchronously, meaning it sends the query without waiting for a response.
 

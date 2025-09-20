@@ -8,7 +8,9 @@ Parses a PostgreSQL backup manifest file and returns a data structure containing
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The parse_manifest_file function is responsible for reading and parsing a PostgreSQL backup manifest file. It opens the specified manifest file, determines its size, and creates a hash table to store the manifest data. The function supports both single-chunk reading for smaller files and incremental parsing for larger files to handle memory efficiently.
 

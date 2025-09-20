@@ -8,7 +8,11 @@ PrepareWrite function for logical decoding output that initializes the output bu
 
 ## Definition
 
-
+```c
+static void
+LogicalOutputPrepareWrite(LogicalDecodingContext *ctx, XLogRecPtr lsn, TransactionId xid,
+						  bool last_write)
+```
 ## Detailed Description
 This is a static helper function used in logical replication that prepares the output context for writing logical decoding data. The function's primary responsibility is to reset the output StringInfo buffer (ctx->out) to ensure a clean state before writing new logical replication output. Despite accepting parameters for LSN, transaction ID, and last write flag, the current implementation only performs buffer reset operations.
 

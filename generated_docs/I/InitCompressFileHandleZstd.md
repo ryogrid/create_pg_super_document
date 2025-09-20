@@ -8,7 +8,11 @@ Initializes a CompressFileHandle structure with zstd-specific function pointers 
 
 ## Definition
 
-
+```c
+void
+InitCompressFileHandleZstd(CompressFileHandle *CFH,
+						   const pg_compress_specification compression_spec)
+```
 ## Detailed Description
 This function serves as the initialization routine for the zstd compression backend in pg_dump. It configures a CompressFileHandle by assigning zstd-specific implementations to all the function pointers required for file I/O operations. The function sets up the complete interface for reading, writing, opening, closing, and error handling with zstd-compressed files. It also stores the compression specification and initializes the private data pointer to NULL, which will later hold the ZstdCompressorState when compression operations begin.
 

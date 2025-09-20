@@ -8,7 +8,10 @@ Generates human-readable descriptions of replication origin WAL records for debu
 
 ## Definition
 
-
+```c
+void
+replorigin_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL record description infrastructure, specifically handling replication origin-related WAL records. This function takes a WAL record and generates a human-readable string description of its contents, which is primarily used for debugging, logging, and WAL inspection tools like .
 

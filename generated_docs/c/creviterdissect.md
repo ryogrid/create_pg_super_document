@@ -8,7 +8,13 @@ Implements iteration node dissection in regular expression matching using a shor
 
 ## Definition
 
-
+```c
+static int						/* regexec return code */
+creviterdissect(struct vars *v,
+				struct subre *t,
+				chr *begin,		/* beginning of relevant substring */
+				chr *end)		/* end of same */
+```
 ## Detailed Description
 The  function is the counterpart to , designed specifically for iteration nodes where the child pattern has the SHORTER flag set. It implements a shortest-first strategy for dividing the target string into repeated sub-matches.
 

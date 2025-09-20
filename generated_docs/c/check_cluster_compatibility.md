@@ -8,7 +8,10 @@ Retrieves and validates pg_control data from both clusters and ensures port conf
 
 ## Definition
 
-
+```c
+void
+check_cluster_compatibility(bool live_check)
+```
 ## Detailed Description
 This function performs low-level compatibility checks between the old and new PostgreSQL clusters by examining their control data structures. The function executes several key validation steps:
 

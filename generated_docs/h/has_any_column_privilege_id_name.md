@@ -8,7 +8,10 @@ Checks if a specified user (by OID) has any given privilege on any column of a s
 
 ## Definition
 
-
+```c
+Datum
+has_any_column_privilege_id_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function represents the inverse approach of , taking a user OID and table name as parameters. This combination is useful when you have precise user identification (perhaps from a previous lookup or system context) but need to work with user-friendly table names.
 

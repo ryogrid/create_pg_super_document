@@ -8,7 +8,11 @@ A helper function for TransactionIdSetTreeStatus that efficiently sets status fo
 
 ## Definition
 
-
+```c
+static void
+set_status_by_pages(int nsubxids, TransactionId *subxids,
+					XidStatus status, XLogRecPtr lsn)
+```
 ## Detailed Description
 This static helper function is specifically designed to support TransactionIdSetTreeStatus by efficiently processing subtransactions that span multiple CLOG pages. It groups consecutive transactions that belong to the same CLOG page and processes them together in batches to minimize the number of page-level operations required.
 

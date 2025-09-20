@@ -8,7 +8,10 @@ This is the core implementation function that handles SET NULL and SET DEFAULT a
 
 ## Definition
 
-
+```c
+static Datum
+ri_set(TriggerData *trigdata, bool is_set_null, int tgkind)
+```
 ## Detailed Description
 ri_set is the central workhorse function that implements the actual logic for ON DELETE SET NULL, ON DELETE SET DEFAULT, ON UPDATE SET NULL, and ON UPDATE SET DEFAULT foreign key constraint actions. It dynamically builds and executes SQL UPDATE statements to modify foreign key values in the referencing table when the referenced primary key is deleted or updated. The function handles query plan caching, column-specific updates based on constraint configuration, and ensures referential integrity through validation checks.
 

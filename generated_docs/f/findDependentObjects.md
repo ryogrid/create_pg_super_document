@@ -8,7 +8,16 @@ Core recursive function that builds a complete dependency tree for object deleti
 
 ## Definition
 
-
+```c
+static void
+findDependentObjects(const ObjectAddress *object,
+					 int objflags,
+					 int flags,
+					 ObjectAddressStack *stack,
+					 ObjectAddresses *targetObjects,
+					 const ObjectAddresses *pendingObjects,
+					 Relation *depRel)
+```
 ## Detailed Description
 findDependentObjects is the heart of PostgreSQL's dependency analysis system. This complex recursive function performs comprehensive dependency traversal to determine all objects that must be deleted when dropping a given object. The function operates in several distinct phases:
 

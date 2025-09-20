@@ -8,7 +8,10 @@ Prints table data in LaTeX vertical format where each record is displayed as fie
 
 ## Definition
 
-
+```c
+static void
+print_latex_vertical(const printTableContent *cont, FILE *fout)
+```
 ## Detailed Description
 This function formats tabular data in a vertical LaTeX layout using a two-column table structure where the left column contains field names (headers) and the right column contains the corresponding values. Each record is preceded by a "Record N" header that spans both columns. The function uses a standard tabular environment with configurable borders and supports optional titles displayed in a centered environment above the table. Record numbering continues from previous tables using prior_records.
 

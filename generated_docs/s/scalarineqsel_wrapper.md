@@ -8,7 +8,10 @@ A common wrapper function for selectivity estimators that handles the preprocess
 
 ## Definition
 
-
+```c
+static Datum
+scalarineqsel_wrapper(PG_FUNCTION_ARGS, bool isgt, bool iseq)
+```
 ## Detailed Description
 The  function serves as a unified preprocessing layer for PostgreSQL's inequality selectivity estimation functions (, , , ). It handles the common validation, argument processing, and setup logic that all inequality estimators need before delegating the actual selectivity calculation to . The function extracts and validates the restriction clause components, ensures the variable is positioned on the left side of the comparison, and handles edge cases like NULL constants and missing commutators.
 

@@ -8,7 +8,10 @@ Retrieves the ObjectProperty structure for a given object class identifier, prov
 
 ## Definition
 
-
+```c
+static const ObjectPropertyType *
+get_object_property_data(Oid class_id)
+```
 ## Detailed Description
 This internal function locates and returns the ObjectPropertyType structure corresponding to a specific object class ID. It serves as the primary lookup mechanism for object metadata in PostgreSQL's object address subsystem. The function includes an optimization using a static cache (prop_last) to speed up consecutive lookups of the same object class, which is a common usage pattern.
 

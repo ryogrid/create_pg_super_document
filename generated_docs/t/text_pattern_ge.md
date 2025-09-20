@@ -8,7 +8,10 @@ A PostgreSQL function that performs pattern-based greater-than-or-equal comparis
 
 ## Definition
 
-
+```c
+Datum
+text_pattern_ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function compares two text arguments using a pattern-oriented comparison algorithm and returns true if the first argument is greater than or equal to the second argument. This function is specifically designed to support character-by-character comparison of text datums, enabling the construction of indexes that are suitable for LIKE clause operations.
 

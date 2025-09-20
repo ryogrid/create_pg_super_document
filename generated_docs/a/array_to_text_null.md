@@ -8,7 +8,10 @@ PostgreSQL built-in function that concatenates array elements into a single text
 
 ## Definition
 
-
+```c
+Datum
+array_to_text_null(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides an extended version of array_to_text that supports NULL element handling. It takes three arguments: an array, a field separator, and an optional null replacement string. When array elements are NULL, they are replaced with the provided null string before concatenation. The function is marked as 'not strict' in the PostgreSQL system, meaning it must explicitly handle NULL input arguments rather than automatically returning NULL when any argument is NULL. This allows for more flexible NULL handling - specifically, the third argument (null replacement string) can be NULL, in which case NULL array elements are treated the same as in the basic array_to_text function.
 

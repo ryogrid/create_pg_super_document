@@ -8,7 +8,10 @@ A simple accessor function that retrieves the parent resource owner of a given r
 
 ## Definition
 
-
+```c
+ResourceOwner
+ResourceOwnerGetParent(ResourceOwner owner)
+```
 ## Detailed Description
 ResourceOwnerGetParent is a straightforward accessor function that provides read-only access to the parent-child relationship within the resource owner hierarchy. Resource owners in PostgreSQL are organized in a tree structure where child owners inherit certain properties and behaviors from their parents.
 

@@ -8,7 +8,10 @@ The range_recv function is the binary receive function for PostgreSQL range type
 
 ## Definition
 
-
+```c
+structing RangeBound representation */
+	lower.infinite = (flags & RANGE_LB_INF) != 0;
+```
 ## Detailed Description
 This function processes binary data received over the wire (typically from client connections) and reconstructs RangeType values from their serialized format. The binary format consists of a flags byte followed by the binary representations of the lower and upper bounds (when present). Each bound includes a 4-byte length header followed by the binary representation as produced by the element type's send function. The function handles flag validation, bound deserialization, and proper reconstruction of the RangeBound structures before creating the final canonicalized range.
 

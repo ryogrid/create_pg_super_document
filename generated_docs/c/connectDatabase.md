@@ -8,7 +8,9 @@ Establishes a PostgreSQL database connection with comprehensive parameter handli
 
 ## Definition
 
-
+```c
+structConnStr(keywords, values);
+```
 ## Detailed Description
 This function provides a robust connection establishment mechanism for PostgreSQL client utilities, particularly pg_dumpall. It handles complex connection parameter merging from multiple sources (connection strings, individual parameters), implements interactive password prompting with retry logic, and performs comprehensive connection validation.
 

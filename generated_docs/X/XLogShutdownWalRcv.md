@@ -8,7 +8,10 @@ A thin wrapper function that shuts down the WAL receiver process and resets the 
 
 ## Definition
 
-
+```c
+void
+XLogShutdownWalRcv(void)
+```
 ## Detailed Description
 This function provides a coordinated shutdown of the WAL receiver subsystem. It first calls ShutdownWalRcv() to terminate the WAL receiver process, then safely resets the InstallXLogFileSegmentActive flag under the protection of the ControlFileLock. This ensures that any ongoing WAL file segment installation operations are properly marked as inactive during the shutdown process.
 

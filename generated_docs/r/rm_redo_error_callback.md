@@ -8,7 +8,10 @@ An error context callback function that provides detailed diagnostic information
 
 ## Definition
 
-
+```c
+static void
+rm_redo_error_callback(void *arg)
+```
 ## Detailed Description
 This function serves as an error context callback that is invoked when an error occurs during the execution of  functions in PostgreSQL's WAL recovery process. It takes an  pointer as its argument and constructs a detailed error message that includes:
 

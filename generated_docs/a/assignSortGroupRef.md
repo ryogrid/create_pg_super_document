@@ -8,7 +8,10 @@ Assigns an unused ressortgroupref number to a target entry if it doesn't already
 
 ## Definition
 
-
+```c
+Index
+assignSortGroupRef(TargetEntry *tle, List *tlist)
+```
 ## Detailed Description
 This function manages the assignment of unique reference numbers (ressortgroupref) to target entries in PostgreSQL's query processing. These reference numbers are essential for linking target list entries with their corresponding sort and group clauses during query execution planning.
 

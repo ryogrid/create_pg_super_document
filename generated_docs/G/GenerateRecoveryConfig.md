@@ -8,7 +8,11 @@ GenerateRecoveryConfig creates recovery configuration content for PostgreSQL sta
 
 ## Definition
 
-
+```c
+PQExpBuffer
+GenerateRecoveryConfig(PGconn *pgconn, const char *replication_slot,
+					   char *dbname)
+```
 ## Detailed Description
 This function generates recovery configuration content that can be written to postgresql.auto.conf or recovery.conf (for older versions). It extracts connection information from an active database connection and formats it for use by a standby server to connect to its primary. The function handles version-specific differences, such as the transition from standby_mode to standby.signal in PostgreSQL 12+.
 

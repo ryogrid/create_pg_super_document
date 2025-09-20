@@ -8,7 +8,78 @@ Determines if a clause returns NULL (or FALSE) when a specific subexpression yie
 
 ## Definition
 
+```c
+struct it into an
+	 * AND or OR tree, as for example if it has too many array elements.
+	 */
+	if (IsA(clause, ScalarArrayOpExpr))
+	{
+		ScalarArrayOpExpr *saop = (ScalarArrayOpExpr *) clause;
+		Node	   *scalarnode = (Node *) linitial(saop->args);
+		Node	   *arraynode = (Node *) lsecond(saop->args);
 
+		/*
+		 * If we can prove the scalar input to be null, and the operator is
+		 * strict, then the SAOP result has to be null --- unless the array is
+		 * empty.  For an empty array, we'd get either false (for ANY) or true
+		 * (for ALL).  So if allow_false = true then the proof succeeds anyway
+		 * for the ANY case; otherwise we can only make the proof if we can
+		 * prove the array non-empty.
+		 */
+		if (clause_is_strict_for(scalarnode, subexpr, false) &&
+			op_strict(saop->opno))
+		{
+			int			nelems = 0;
+
+			if (allow_false && saop->useOr)
+				return true;	/* can succeed even if array is empty */
+
+			if (arraynode && IsA(arraynode, Const))
+			{
+				Const	   *arrayconst = (Const *) arraynode;
+				ArrayType  *arrval;
+
+				/*
+				 * If array is constant NULL then we can succeed, as in the
+				 * case below.
+				 */
+				if (arrayconst->constisnull)
+					return true;
+
+				/* Otherwise, we can compute the number of elements. */
+				arrval = DatumGetArrayTypeP(arrayconst->constvalue);
+				nelems = ArrayGetNItems(ARR_NDIM(arrval), ARR_DIMS(arrval));
+			}
+			else if (arraynode && IsA(arraynode, ArrayExpr) &&
+					 !((ArrayExpr *) arraynode)->multidims)
+			{
+				/*
+				 * We can also reliably count the number of array elements if
+				 * the input is a non-multidim ARRAY[] expression.
+				 */
+				nelems = list_length(((ArrayExpr *) arraynode)->elements);
+			}
+
+			/* Proof succeeds if array is definitely non-empty */
+			if (nelems > 0)
+				return true;
+		}
+
+		/*
+		 * If we can prove the array input to be null, the proof succeeds in
+		 * all cases, since ScalarArrayOpExpr will always return NULL for a
+		 * NULL array.  Otherwise, we're done here.
+		 */
+		return clause_is_strict_for(arraynode, subexpr, false);
+	}
+
+	/*
+	 * When recursing into an expression, we might find a NULL constant.
+	 * That's certainly NULL, whether it matches subexpr or not.
+	 */
+	if (IsA(clause, Const))
+		return ((Const *) clause)->constisnull;
+```
 ## Detailed Description
 This function performs strictness analysis to prove whether a clause will definitely return NULL (or optionally FALSE) if a given subexpression evaluates to NULL. This is crucial for predicate testing logic where the optimizer needs to understand how NULL values propagate through expressions.
 

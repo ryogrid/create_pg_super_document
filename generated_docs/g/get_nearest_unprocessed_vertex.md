@@ -8,7 +8,10 @@ Locates the nearest unprocessed ExtensionVersionInfo vertex during extension ver
 
 ## Definition
 
-
+```c
+static ExtensionVersionInfo *
+get_nearest_unprocessed_vertex(List *evi_list)
+```
 ## Detailed Description
 This function implements part of Dijkstra's shortest path algorithm for finding extension upgrade paths. It searches through a list of ExtensionVersionInfo vertices to find the one with the smallest distance value among those that haven't been processed yet (distance_known = false). The algorithm is O(N^2) complexity as noted in the comments - a priority queue implementation would be more efficient but is not currently needed.
 

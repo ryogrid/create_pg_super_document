@@ -8,7 +8,13 @@ The core internal function that recursively releases resources owned by a resour
 
 ## Definition
 
-
+```c
+static void
+ResourceOwnerReleaseInternal(ResourceOwner owner,
+							 ResourceReleasePhase phase,
+							 bool isCommit,
+							 bool isTopLevel)
+```
 ## Detailed Description
 ResourceOwnerReleaseInternal is the workhorse function that handles the complex process of releasing resources in PostgreSQL transactions. It operates in a three-phase approach to ensure proper ordering of resource cleanup:
 

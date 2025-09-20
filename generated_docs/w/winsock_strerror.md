@@ -8,7 +8,10 @@ winsock_strerror is a function that provides human-readable error descriptions f
 
 ## Definition
 
-
+```c
+const char *
+winsock_strerror(int err, char *strerrbuf, size_t buflen)
+```
 ## Detailed Description
 This function implements a two-tier approach to resolving Windows socket error codes into descriptive text messages. It first attempts to find the error code in a static lookup table using LookupWSErrorMessage(). If that fails, it iteratively loads Windows system DLLs (netmsg.dll, winsock.dll, ws2_32.dll, etc.) and uses the Windows FormatMessage() API to retrieve the error description from the system.
 

@@ -8,7 +8,10 @@ Writes out a single text search parser definition to the PostgreSQL dump output,
 
 ## Definition
 
-
+```c
+static void
+dumpTSParser(Archive *fout, const TSParserInfo *prsinfo)
+```
 ## Detailed Description
 The  function is responsible for dumping text search parser objects during a pg_dump operation. It generates the CREATE TEXT SEARCH PARSER statement with all required function references (START, GETTOKEN, END, optional HEADLINE, and LEXTYPES) and handles proper formatting, binary upgrade compatibility, and comment dumping.
 

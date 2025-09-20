@@ -8,7 +8,12 @@ A macro that resolves to a static inline function used for copying arrays during
 
 ## Definition
 
-
+```c
+static inline void
+RT_COPY_ARRAYS_FOR_INSERT(uint8 *dst_chunks, RT_PTR_ALLOC * dst_children,
+						  uint8 *src_chunks, RT_PTR_ALLOC * src_children,
+						  int count, int insertpos)
+```
 ## Detailed Description
 This function copies arrays from source to destination while leaving a gap at the specified insertion position. It implements a branch-free algorithm to efficiently copy array elements, automatically skipping the index where a new element will be inserted. The function copies both the chunk array (uint8 values representing key fragments) and the corresponding children pointer array in parallel, maintaining the relationship between keys and their child nodes.
 

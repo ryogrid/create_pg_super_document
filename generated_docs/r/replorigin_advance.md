@@ -8,7 +8,12 @@ Advances the replication progress for a specific replication origin, recording t
 
 ## Definition
 
-
+```c
+void
+replorigin_advance(RepOriginId node,
+				   XLogRecPtr remote_commit, XLogRecPtr local_commit,
+				   bool go_backward, bool wal_log)
+```
 ## Detailed Description
 replorigin_advance is a core function that updates the replication progress tracking for a specific replication origin. It searches for or creates a replication state slot for the given origin, then updates the remote and local LSN positions to reflect successful replay of a transaction. The function handles concurrent access through lwlocks, supports both forward and backward LSN movement, and optionally logs the change to WAL for durability. It's essential for crash recovery and ensuring that replicated transactions aren't replayed multiple times.
 

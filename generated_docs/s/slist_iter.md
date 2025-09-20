@@ -8,7 +8,12 @@ An iterator structure for safely traversing singly linked lists, maintaining sta
 
 ## Definition
 
-
+```c
+typedef struct slist_iter
+{
+	slist_node *cur;
+} slist_iter;
+```
 ## Detailed Description
 The  structure provides a standardized way to iterate through singly linked lists in PostgreSQL. It serves as state storage for the  macro and related iteration operations. The iterator maintains a pointer to the current node being examined during traversal.
 

@@ -8,7 +8,10 @@ Initializes a table scan descriptor specifically designed for ANALYZE operations
 
 ## Definition
 
-
+```c
+static inline TableScanDesc
+table_beginscan_analyze(Relation rel)
+```
 ## Detailed Description
 The  function creates a specialized table scan descriptor for ANALYZE commands. Unlike regular table scans, ANALYZE scans require different behavior and optimizations since they're used for collecting statistical information about table data rather than retrieving specific rows for query processing. This function leverages the same TableScanDesc data structure used by other scan types but configures it with the SO_TYPE_ANALYZE flag to indicate its special purpose.
 

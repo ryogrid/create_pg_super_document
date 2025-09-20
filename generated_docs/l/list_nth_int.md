@@ -8,7 +8,10 @@ Returns the integer value contained in the n-th element of an IntList, providing
 
 ## Definition
 
-
+```c
+static inline int
+list_nth_int(const List *list, int n)
+```
 ## Detailed Description
 The `list_nth_int` function is a specialized variant of `list_nth` designed specifically for IntList structures that store integer values. It provides type-safe access to integer elements by first verifying that the provided list is actually an IntList using an assertion, then retrieving the integer value at the specified position using `lfirst_int`.
 

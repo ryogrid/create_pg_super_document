@@ -8,7 +8,10 @@ The  function searches for a unary left operator (prefix operator) given an oper
 
 ## Definition
 
-
+```c
+Operator
+left_oper(ParseState *pstate, List *op, Oid arg, bool noError, int location)
+```
 ## Detailed Description
 This function is responsible for finding unary prefix operators in PostgreSQL's parser. It implements a two-phase search strategy: first attempting an exact match, then falling back to finding the most suitable candidate operator through type compatibility analysis. The function utilizes a lookaside cache to optimize repeated lookups and supports both error-raising and error-suppressing modes of operation.
 

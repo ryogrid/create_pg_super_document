@@ -8,7 +8,15 @@ Deconstructs the list of mergejoinable expressions and builds an array of MergeJ
 
 ## Definition
 
-
+```c
+static MergeJoinClause
+MJExamineQuals(List *mergeclauses,
+			   Oid *mergefamilies,
+			   Oid *mergecollations,
+			   int *mergestrategies,
+			   bool *mergenullsfirst,
+			   PlanState *parent)
+```
 ## Detailed Description
 This function processes the mergejoinable expressions provided by the planner in the form of "leftexpr = rightexpr" expression trees. The expressions are ordered to match the sort columns of the input relations. For each merge clause, the function:
 

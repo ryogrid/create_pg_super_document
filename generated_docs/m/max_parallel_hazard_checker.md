@@ -8,7 +8,10 @@ A callback function that checks the parallel safety of individual functions duri
 
 ## Definition
 
-
+```c
+static bool
+max_parallel_hazard_checker(Oid func_id, void *context)
+```
 ## Detailed Description
 The  function serves as a callback interface for the  infrastructure. When the expression tree walker encounters function calls, it uses this callback to determine the parallel safety of each function.
 

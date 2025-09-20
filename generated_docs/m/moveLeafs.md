@@ -8,7 +8,12 @@ This function moves an entire chain of leaf tuples from one page to another when
 
 ## Definition
 
-
+```c
+static void
+moveLeafs(Relation index, SpGistState *state,
+		  SPPageDesc *current, SPPageDesc *parent,
+		  SpGistLeafTuple newLeafTuple, bool isNulls)
+```
 ## Detailed Description
 This function implements a space optimization strategy for SPGiST indexes. When a leaf tuple chain needs more space but contains very little data (making a split inefficient), it moves the entire chain to a new page along with the new tuple that couldn't fit. The function:
 

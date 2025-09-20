@@ -8,7 +8,10 @@ Validates that a specified index is suitable for clustering operations by verify
 
 ## Definition
 
-
+```c
+void
+check_index_is_clusterable(Relation OldHeap, Oid indexOid, LOCKMODE lockmode)
+```
 ## Detailed Description
 The check_index_is_clusterable function performs comprehensive validation to ensure that an index can be used for clustering operations on a given table. It acquires a lock on the index and performs several critical checks:
 

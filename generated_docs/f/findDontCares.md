@@ -8,7 +8,15 @@ Identifies tuples that are "don't cares" - tuples that could be moved to the oth
 
 ## Definition
 
-
+```c
+union key.
+	 *
+	 * attno column is known all-not-null (see gistSplitByKey), so we need not
+	 * check for nulls
+	 */
+	gistentryinit(entry, spl->splitVector.spl_rdatum, r, NULL,
+				  (OffsetNumber) 0, false);
+```
 ## Detailed Description
 This function analyzes tuples on both sides of a GiST split to find those that have zero penalty for being moved to the opposite side, specifically for the column identified by . It works by computing the penalty for each left-side tuple if added to the right-side union, and vice versa. Tuples with zero penalty are marked as "don't care" entries in the  array, meaning they can be freely reassigned to optimize the split. This is part of the GiST splitting optimization process that allows for better load balancing when some tuples are equally suitable for either side of the split.
 

@@ -8,7 +8,10 @@ Determines the sign of an interval value, returning -1 for negative intervals, 0
 
 ## Definition
 
-
+```c
+static int
+interval_sign(const Interval *interval)
+```
 ## Detailed Description
 The  function is a static helper function that evaluates the sign of an interval data type. It internally uses  to convert the interval to a comparable 128-bit integer representation, then compares this value with zero using . This function is essential for interval arithmetic operations that need to determine the direction or sign of time spans.
 

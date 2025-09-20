@@ -8,7 +8,10 @@ Validates preconditions for ALTER TABLE INHERIT operations by checking that the 
 
 ## Definition
 
-
+```c
+static void
+ATPrepAddInherit(Relation child_rel)
+```
 ## Detailed Description
 The  function performs preliminary validation checks for ALTER TABLE INHERIT operations. It ensures that the child relation is in a valid state to participate in table inheritance by verifying that it is not a typed table, partition, or partitioned table. This function is part of the preparation phase of ALTER TABLE command processing, which occurs before the actual inheritance relationship is established.
 

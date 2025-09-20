@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) assign hook function that sets the global ma
 
 ## Definition
 
-
+```c
+void
+assign_max_stack_depth(int newval, void *extra)
+```
 ## Detailed Description
 This function serves as an assignment hook for the PostgreSQL configuration parameter max_stack_depth. It is called by the GUC system whenever the max_stack_depth parameter is successfully validated and needs to be applied. The function converts the value from kilobytes to bytes and stores it in the global variable max_stack_depth_bytes, which is used throughout PostgreSQL for stack depth checking and management.
 

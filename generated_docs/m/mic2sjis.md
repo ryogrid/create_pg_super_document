@@ -8,7 +8,10 @@ Core conversion function that transforms PostgreSQL's Mule Internal Code (MIC) e
 
 ## Definition
 
-
+```c
+static int
+mic2sjis(const unsigned char *mic, unsigned char *p, int len, bool noError)
+```
 ## Detailed Description
 This function performs the reverse conversion of sjis2mic, transforming MIC encoded Japanese text back to Shift JIS format. It processes MIC language character codes to identify different Japanese character sets (JIS X0201 katakana, JIS X0208 kanji/kana, JIS X0212 supplementary kanji) and converts them to their corresponding SJIS byte sequences. The function handles user-defined character areas (UDC1 and UDC2) and uses lookup tables for IBM kanji mappings. It includes proper validation of MIC character sequences and error handling for untranslatable characters.
 

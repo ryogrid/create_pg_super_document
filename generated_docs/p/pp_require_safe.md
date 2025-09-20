@@ -8,7 +8,18 @@ A secure implementation of Perl's require opcode that prevents loading of extern
 
 ## Definition
 
-
+```c
+struction is performed: - just call END
+		 * blocks.
+		 *
+		 * We could call perl_destruct() but we'd need to audit its actions
+		 * very carefully and work-around any that impact us. (Calling
+		 * sv_clean_objs() isn't an option because it's not part of perl's
+		 * public API so isn't portably available.) Meanwhile END blocks can
+		 * be used to perform manual cleanup.
+		 */
+		dTHX;
+```
 ## Detailed Description
 The  function is a security-focused replacement for Perl's standard require opcode. It implements a "safe" require mechanism that completely prevents loading of new code from external files while still allowing access to modules that have already been loaded into the interpreter.
 

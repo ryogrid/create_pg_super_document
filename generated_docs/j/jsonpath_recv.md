@@ -8,7 +8,10 @@ The  function is a PostgreSQL binary receive function for the jsonpath data type
 
 ## Definition
 
-
+```c
+Datum
+jsonpath_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  handles the binary deserialization of jsonpath values transmitted over PostgreSQL's binary protocol. Unlike the text-based  function, this function processes binary-encoded data received from client applications or during replication. The function implements a versioned binary format to allow for future format changes while maintaining backward compatibility.
 

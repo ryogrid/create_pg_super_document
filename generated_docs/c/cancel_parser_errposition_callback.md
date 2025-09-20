@@ -8,7 +8,10 @@ Removes a previously established parser error position callback from the error c
 
 ## Definition
 
-
+```c
+void
+cancel_parser_errposition_callback(ParseCallbackState *pcbstate)
+```
 ## Detailed Description
 The  function safely removes an error context callback that was previously set up with . It restores the error context stack to its previous state by popping the current callback entry and restoring the previous stack pointer.
 

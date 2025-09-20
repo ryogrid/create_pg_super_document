@@ -8,7 +8,10 @@ Determines whether backup manifest generation is enabled for a given backup oper
 
 ## Definition
 
-
+```c
+static inline bool
+IsManifestEnabled(backup_manifest_info *manifest)
+```
 ## Detailed Description
 IsManifestEnabled is a utility function that provides a simple boolean check to determine if backup manifest functionality should be active. The function follows a design philosophy where the manifest_info object is always present to avoid excessive NULL pointer checks throughout the codebase, but the actual manifest generation is controlled by whether the buffile member is NULL or not. When manifest->buffile is NULL, it indicates that the user has disabled manifest generation; when it's non-NULL, manifest generation is enabled.
 

@@ -8,7 +8,10 @@ Converts a circle to a polygon with a specified number of vertices by approximat
 
 ## Definition
 
-
+```c
+Datum
+circle_poly(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function creates a polygon approximation of a circle by generating vertices at regular angular intervals around the circle's circumference. The function takes the number of desired vertices and a circle as input, then calculates vertex positions using trigonometric functions. Each vertex is positioned at equal angular steps around the circle, starting from angle 0 and incrementing by 2π/npts for each subsequent vertex.
 

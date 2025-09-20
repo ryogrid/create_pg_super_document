@@ -8,7 +8,9 @@ The  type implements PostgreSQL's SQL  data type, providing fixed-length, blank-
 
 ## Definition
 
-
+```c
+typedef struct varlena BpChar;
+```
 ## Detailed Description
 The  type ("Blank-Padded Character") is PostgreSQL's implementation of the SQL standard  data type. It stores fixed-length character strings that are automatically padded with trailing spaces to reach the specified length. Despite being "fixed-length" logically, it uses the  structure for storage efficiency, as trailing spaces are typically not stored physically.
 

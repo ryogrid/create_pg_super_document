@@ -8,7 +8,10 @@ Computes the minimum distance between two circles, returning 0 if the circles ov
 
 ## Definition
 
-
+```c
+Datum
+circle_distance(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function calculates the distance between the closest points of two circles. It first computes the distance between the circle centers using point_dt, then subtracts the sum of both radii. If the result is negative (indicating overlapping or touching circles), it returns 0.0 instead.
 

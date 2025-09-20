@@ -8,7 +8,10 @@ Creates an empty SP-GiST index structure in the initialization fork for use duri
 
 ## Definition
 
-
+```c
+struct metapage. */
+	buf = smgr_bulk_get_buf(bulkstate);
+```
 ## Detailed Description
 This function creates the minimal SP-GiST index structure required for an empty index using the bulk write API. It constructs the three essential pages: metapage, root page, and null-tuples page, writing them directly to the initialization fork. Unlike spgbuild(), this function does not scan any heap data and creates only the skeletal index structure. This is typically used during database initialization, template database creation, or when creating empty indexes that will be populated later.
 

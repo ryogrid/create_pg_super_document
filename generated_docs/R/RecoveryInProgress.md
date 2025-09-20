@@ -8,7 +8,10 @@ RecoveryInProgress checks whether the database system is still in recovery mode 
 
 ## Definition
 
-
+```c
+bool
+RecoveryInProgress(void)
+```
 ## Detailed Description
 RecoveryInProgress is a utility function that allows any process connected to shared memory to determine whether the PostgreSQL system is still in recovery mode. Unlike the InRecovery global variable (which is only valid in the startup process), this function can be safely called from any backend process.
 

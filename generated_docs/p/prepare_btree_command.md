@@ -8,7 +8,10 @@ This function constructs a SQL command for running amcheck verification on a btr
 
 ## Definition
 
-
+```c
+static void
+prepare_btree_command(PQExpBuffer sql, RelationInfo *rel, PGconn *conn)
+```
 ## Detailed Description
 The prepare_btree_command function creates a SQL query that invokes btree checking functions from the amcheck extension to validate the integrity of a btree index. The function:
 

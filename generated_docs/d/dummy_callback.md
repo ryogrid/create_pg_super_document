@@ -8,7 +8,10 @@ A no-op callback function that always returns false, used during SP-GiST vacuum 
 
 ## Definition
 
-
+```c
+static bool
+dummy_callback(ItemPointer itemptr, void *state)
+```
 ## Detailed Description
 The `dummy_callback` function is a minimal implementation of the `IndexBulkDeleteCallback` interface that serves as a placeholder during SP-GiST vacuum cleanup operations. It always returns false, indicating that no tuple should be deleted regardless of the input.
 

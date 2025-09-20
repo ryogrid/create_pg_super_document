@@ -8,7 +8,10 @@ Returns the current depth of a conditional stack, primarily used for debugging p
 
 ## Definition
 
-
+```c
+int
+conditional_stack_depth(ConditionalStack cstack)
+```
 ## Detailed Description
 This function traverses a conditional stack (implemented as a linked list) and counts the number of elements to determine the stack depth. It handles the case where the stack might be NULL by returning -1, and otherwise iterates through all stack elements starting from the head to count the total depth. This is particularly useful for debugging conditional processing in PostgreSQL frontend utilities where nested if/elif/else constructs need to be tracked.
 

@@ -8,7 +8,10 @@ Adjusts the scale and capacity of a NumericSumAccum structure to accommodate a n
 
 ## Definition
 
-
+```c
+static void
+accum_sum_rescale(NumericSumAccum *accum, const NumericVar *val)
+```
 ## Detailed Description
 This function dynamically resizes and rescales the accumulator's digit buffers when a new value needs to be added that doesn't fit within the current capacity or scale. It handles three main scenarios: enlarging buffers when the new value has a larger weight (more significant digits), ensuring carry space is available after previous carry propagations, and extending precision when the new value has more digits to the right of the decimal point. The function maintains the invariant that the accumulator always has one extra digit of weight beyond what's needed for the inputs, providing space for carry propagation.
 

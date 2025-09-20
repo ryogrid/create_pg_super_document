@@ -8,7 +8,91 @@ Internal static function that expands a tuple with fewer attributes to a target 
 
 ## Definition
 
+```c
+structure are allocated in one chunk.
+	 */
+	if (targetHeapTuple)
+	{
+		len += offsetof(HeapTupleHeaderData, t_bits);
+		hoff = len = MAXALIGN(len); /* align user data safely */
+		len += targetDataLen;
 
+		*targetHeapTuple = (HeapTuple) palloc0(HEAPTUPLESIZE + len);
+		(*targetHeapTuple)->t_data
+			= targetTHeader
+			= (HeapTupleHeader) ((char *) *targetHeapTuple + HEAPTUPLESIZE);
+		(*targetHeapTuple)->t_len = len;
+		(*targetHeapTuple)->t_tableOid = sourceTuple->t_tableOid;
+		(*targetHeapTuple)->t_self = sourceTuple->t_self;
+
+		targetTHeader->t_infomask = sourceTHeader->t_infomask;
+		targetTHeader->t_hoff = hoff;
+		HeapTupleHeaderSetNatts(targetTHeader, natts);
+		HeapTupleHeaderSetDatumLength(targetTHeader, len);
+		HeapTupleHeaderSetTypeId(targetTHeader, tupleDesc->tdtypeid);
+		HeapTupleHeaderSetTypMod(targetTHeader, tupleDesc->tdtypmod);
+		/* We also make sure that t_ctid is invalid unless explicitly set */
+		ItemPointerSetInvalid(&(targetTHeader->t_ctid));
+		if (targetNullLen > 0)
+			nullBits = (bits8 *) ((char *) (*targetHeapTuple)->t_data
+								  + offsetof(HeapTupleHeaderData, t_bits));
+		targetData = (char *) (*targetHeapTuple)->t_data + hoff;
+		infoMask = &(targetTHeader->t_infomask);
+	}
+	else
+	{
+		len += SizeofMinimalTupleHeader;
+		hoff = len = MAXALIGN(len); /* align user data safely */
+		len += targetDataLen;
+
+		*targetMinimalTuple = (MinimalTuple) palloc0(len);
+		(*targetMinimalTuple)->t_len = len;
+		(*targetMinimalTuple)->t_hoff = hoff + MINIMAL_TUPLE_OFFSET;
+		(*targetMinimalTuple)->t_infomask = sourceTHeader->t_infomask;
+		/* Same macro works for MinimalTuples */
+		HeapTupleHeaderSetNatts(*targetMinimalTuple, natts);
+		if (targetNullLen > 0)
+			nullBits = (bits8 *) ((char *) *targetMinimalTuple
+								  + offsetof(MinimalTupleData, t_bits));
+		targetData = (char *) *targetMinimalTuple + hoff;
+		infoMask = &((*targetMinimalTuple)->t_infomask);
+	}
+
+	if (targetNullLen > 0)
+	{
+		if (sourceNullLen > 0)
+		{
+			/* if bitmap pre-existed copy in - all is set */
+			memcpy(nullBits,
+				   ((char *) sourceTHeader)
+				   + offsetof(HeapTupleHeaderData, t_bits),
+				   sourceNullLen);
+			nullBits += sourceNullLen - 1;
+		}
+		else
+		{
+			sourceNullLen = BITMAPLEN(sourceNatts);
+			/* Set NOT NULL for all existing attributes */
+			memset(nullBits, 0xff, sourceNullLen);
+
+			nullBits += sourceNullLen - 1;
+
+			if (sourceNatts & 0x07)
+			{
+				/* build the mask (inverted!) */
+				bitMask = 0xff << (sourceNatts & 0x07);
+				/* Voila */
+				*nullBits = ~bitMask;
+			}
+		}
+
+		bitMask = (1 << ((sourceNatts - 1) & 0x07));
+	}							/* End if have null bitmap */
+
+	memcpy(targetData,
+		   ((char *) sourceTuple->t_data) + sourceTHeader->t_hoff,
+		   sourceDataLen);
+```
 ## Detailed Description
 The  function is a core internal function that handles tuple expansion when a source tuple has fewer attributes than required by a target tuple descriptor. This situation commonly occurs during schema evolution when new columns are added to tables and existing tuples need to be logically expanded to match the new schema.
 

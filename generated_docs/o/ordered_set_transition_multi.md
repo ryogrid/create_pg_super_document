@@ -8,7 +8,10 @@ Generic transition function for ordered-set aggregates with potentially multiple
 
 ## Definition
 
-
+```c
+Datum
+ordered_set_transition_multi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the state transition function for ordered-set aggregates that operate on multiple input columns or require tuple-based processing, such as multi-column aggregates and hypothetical-set aggregates like  and . It follows the PostgreSQL aggregate function protocol where the first argument is the aggregate state.
 

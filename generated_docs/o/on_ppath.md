@@ -8,7 +8,10 @@ This function determines whether a point lies on a path (polyline), using differ
 
 ## Definition
 
-
+```c
+Datum
+on_ppath(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function tests whether a point lies within (on) a polyline path. It implements two different algorithms based on the path type:
 

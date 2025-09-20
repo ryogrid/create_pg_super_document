@@ -8,7 +8,10 @@ Reads and parses the PostgreSQL ident configuration file to create a list of Ide
 
 ## Definition
 
-
+```c
+bool
+load_ident(void)
+```
 ## Detailed Description
 The `load_ident` function is responsible for loading and parsing PostgreSQL's ident mapping configuration file (typically pg_ident.conf). This function works similarly to `load_hba()` but specifically handles the user identity mapping configuration.
 

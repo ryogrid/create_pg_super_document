@@ -8,7 +8,10 @@ Returns the size of the free (allocatable) space on a page, reduced by the space
 
 ## Definition
 
-
+```c
+Size
+PageGetFreeSpaceForMultipleTuples(Page page, int ntups)
+```
 ## Detailed Description
 PageGetFreeSpaceForMultipleTuples is an extended version of PageGetFreeSpace that accounts for multiple tuple insertions in a single operation. It calculates the available free space on a page after reserving space for a specified number of line pointers (ItemIdData structures). This function is particularly useful when planning bulk insertions or when determining if a page can accommodate multiple tuples at once.
 

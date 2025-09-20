@@ -8,7 +8,10 @@ This static function is responsible for opening an LZ4-compressed file for write
 
 ## Definition
 
-
+```c
+static bool
+LZ4Stream_open_write(const char *path, const char *mode, CompressFileHandle *CFH)
+```
 ## Detailed Description
 LZ4Stream_open_write is an internal helper function used within the LZ4 compression module of pg_dump. It handles the file opening process for LZ4-compressed output files by:
 

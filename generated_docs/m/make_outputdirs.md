@@ -8,7 +8,9 @@ Creates and assigns proper permissions to the set of output directories used to 
 
 ## Definition
 
-
+```c
+struct timeval time;
+```
 ## Detailed Description
 The make_outputdirs function is responsible for creating a structured directory hierarchy for pg_upgrade output files and logs. It creates a timestamped directory structure under the PostgreSQL data directory to organize upgrade-related files. The function:
 

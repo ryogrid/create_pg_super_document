@@ -8,7 +8,11 @@ Executes a single PostgreSQL regression test and compares the results with expec
 
 ## Definition
 
-
+```c
+static void
+run_single_test(const char *test, test_start_function startfunc,
+				postprocess_result_function postfunc)
+```
 ## Detailed Description
 This function orchestrates the execution of a single test in the PostgreSQL regression test suite. It starts the test using the provided start function, waits for completion, and then compares the actual results with expected results. The function handles timing measurements, result file comparisons, and status reporting.
 

@@ -8,7 +8,12 @@ Creates and initializes an IndexInfo node structure that contains comprehensive 
 
 ## Definition
 
-
+```c
+IndexInfo *
+makeIndexInfo(int numattrs, int numkeyattrs, Oid amoid, List *expressions,
+			  List *predicates, bool unique, bool nulls_not_distinct,
+			  bool isready, bool concurrent, bool summarizing)
+```
 ## Detailed Description
 This function constructs a complete IndexInfo structure that serves as the primary metadata container for database indexes in PostgreSQL. The IndexInfo structure contains all essential information needed for index creation, maintenance, and utilization during query execution. It handles both regular indexes and specialized types like partial indexes (with predicates), expression indexes, and unique indexes.
 

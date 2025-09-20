@@ -8,7 +8,13 @@ AttrMap is a structure that maps attribute numbers between a pair of relations (
 
 ## Definition
 
-
+```c
+typedef struct AttrMap
+{
+	AttrNumber *attnums;
+	int			maplen;
+} AttrMap;
+```
 ## Detailed Description
 The AttrMap structure provides a mapping mechanism for attribute numbers when dealing with relations that share common columns but have different attribute numbering schemes. This situation commonly arises in PostgreSQL when:
 

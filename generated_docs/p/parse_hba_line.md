@@ -8,7 +8,9 @@ Parses a tokenized line from the PostgreSQL host-based authentication (HBA) conf
 
 ## Definition
 
-
+```c
+struct addrinfo *gai_result;
+```
 ## Detailed Description
 The  function is the core parser for PostgreSQL's host-based authentication system, responsible for converting tokenized pg_hba.conf entries into structured  objects. This is a complex function that handles all aspects of HBA line parsing including:
 

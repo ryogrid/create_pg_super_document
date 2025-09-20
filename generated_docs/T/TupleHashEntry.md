@@ -8,7 +8,9 @@ TupleHashEntry is a pointer typedef to TupleHashEntryData struct, representing e
 
 ## Definition
 
-
+```c
+typedef struct TupleHashEntryData *TupleHashEntry;
+```
 ## Detailed Description
 TupleHashEntry represents individual entries in PostgreSQL's all-in-memory tuple hash tables, which are fundamental data structures used for operations like GROUP BY, aggregation, hash joins, and duplicate elimination. Each entry stores a representative tuple from a group along with cached hash values for efficient lookups and user-defined additional data. The hash table system supports both same-type and cross-data-type hashing operations, making it versatile for various executor node implementations.
 

@@ -8,7 +8,10 @@ Compares two records (row types) to determine if the first record is less than o
 
 ## Definition
 
-
+```c
+Datum
+record_le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "less than or equal to" comparison operator for PostgreSQL record types. It is a simple wrapper around the  function that returns true if  returns a value less than or equal to zero, indicating that the first record is either ordered before the second record or is equal to it.
 

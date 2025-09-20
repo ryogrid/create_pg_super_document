@@ -8,7 +8,10 @@ Performs opportunistic WAL writing and flushing in the background, optimizing fo
 
 ## Definition
 
-
+```c
+bool
+XLogBackgroundFlush(void)
+```
 ## Detailed Description
 XLogBackgroundFlush is the core function used by PostgreSQL's WAL writer background process to perform periodic WAL flushing. It implements a sophisticated balancing act between durability guarantees and system performance:
 

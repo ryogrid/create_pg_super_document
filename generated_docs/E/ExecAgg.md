@@ -8,7 +8,10 @@ ExecAgg is the main execution function for PostgreSQL's aggregate node that rece
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecAgg(PlanState *pstate)
+```
 ## Detailed Description
 ExecAgg serves as the central dispatcher for aggregate processing in PostgreSQL's execution engine. It receives tuples from its outer subplan and aggregates over the appropriate attributes for each aggregate function (Aggref node) appearing in the targetlist or qual of the node. The function supports both grouped and plain aggregation:
 

@@ -8,7 +8,10 @@ The ginbuild function is the main entry point for building a GIN (Generalized In
 
 ## Definition
 
-
+```c
+IndexBuildResult *
+ginbuild(Relation heap, Relation index, IndexInfo *indexInfo)
+```
 ## Detailed Description
 The ginbuild function performs a complete build of a GIN index from an existing heap relation. It follows these key steps:
 

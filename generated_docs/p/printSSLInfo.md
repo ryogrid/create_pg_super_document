@@ -8,7 +8,10 @@ Displays detailed information about the current SSL/TLS connection if SSL encryp
 
 ## Definition
 
-
+```c
+static void
+printSSLInfo(void)
+```
 ## Detailed Description
 The  function provides users with comprehensive information about their SSL/TLS encrypted database connection. It queries various SSL attributes from the active connection and presents them in a user-friendly format, helping users verify their connection security.
 

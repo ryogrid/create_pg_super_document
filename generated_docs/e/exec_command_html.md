@@ -8,7 +8,10 @@ Implements the \H and \html commands in PostgreSQL's psql client to toggle betwe
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_html(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 This function handles the execution of the \H (short form) and \html (long form) backslash commands in psql. It toggles the output format between HTML and aligned formatting. When the current format is not HTML, it switches to HTML format. When already in HTML format, it switches back to aligned format. The function respects the active_branch parameter for conditional execution in psql scripts and uses the do_pset function to actually change the formatting setting.
 

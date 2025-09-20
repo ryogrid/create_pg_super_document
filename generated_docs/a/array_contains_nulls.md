@@ -8,7 +8,10 @@ Efficiently determines whether a PostgreSQL array contains any null elements by 
 
 ## Definition
 
-
+```c
+bool
+array_contains_nulls(ArrayType *array)
+```
 ## Detailed Description
 The  function performs an accurate scan of a PostgreSQL array to determine if it contains any null elements. Unlike the ARR_HASNULL macro which only indicates that the array *might* contain nulls (based on whether a null bitmap exists), this function actually examines the null bitmap bit-by-bit to provide a definitive answer.
 

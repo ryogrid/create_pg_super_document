@@ -8,7 +8,10 @@ A static function that restores the previous deparse context after temporarily f
 
 ## Definition
 
-
+```c
+static void
+pop_child_plan(deparse_namespace *dpns, deparse_namespace *save_dpns)
+```
 ## Detailed Description
 The  function undoes the effects of  by restoring the previous deparse namespace state. This is the complementary function that must be called after using  to ensure proper cleanup and restoration of the deparsing context. It removes the ancestors list cell that was added by  and restores all fields that were modified during the child plan focus operation.
 

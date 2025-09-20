@@ -8,7 +8,24 @@ The regexp_matches_ctx structure maintains cross-call state for PostgreSQL's reg
 
 ## Definition
 
-
+```c
+typedef struct regexp_matches_ctx
+{
+	text	   *orig_str;		/* data string in original TEXT form */
+	int			nmatches;		/* number of places where pattern matched */
+	int			npatterns;		/* number of capturing subpatterns */
+	/* We store start char index and end+1 char index for each match */
+	/* so the number of entries in match_locs is nmatches * npatterns * 2 */
+	int		   *match_locs;		/* 0-based character indexes */
+	int			next_match;		/* 0-based index of next match to process */
+	/* workspace for build_regexp_match_result() */
+	Datum	   *elems;			/* has npatterns elements */
+	bool	   *nulls;			/* has npatterns elements */
+	pg_wchar   *wide_str;		/* wide-char version of original string */
+	char	   *conv_buf;		/* conversion buffer, if needed */
+	int			conv_bufsiz;	/* size thereof */
+} regexp_matches_ctx;
+```
 ## Detailed Description
 This structure serves as a context container for set-returning functions that process regular expression matches. It maintains all necessary state information between function calls, including the original string, match locations, and workspace buffers. The structure is designed to handle multiple matches efficiently by pre-computing all match positions and then returning them one by one in subsequent function calls. It also handles character encoding conversions and provides workspace for constructing result arrays.
 

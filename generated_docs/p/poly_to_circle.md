@@ -8,7 +8,10 @@ Converts a polygon to its approximate equivalent circle by calculating the centr
 
 ## Definition
 
-
+```c
+static void
+poly_to_circle(CIRCLE *result, POLYGON *poly)
+```
 ## Detailed Description
 The `poly_to_circle` function performs a polygon-to-circle conversion using a simple averaging algorithm. It first calculates the polygon's centroid by averaging the coordinates of all vertices to determine the circle's center. Then it computes the average distance from all vertices to this center point to establish the circle's radius.
 

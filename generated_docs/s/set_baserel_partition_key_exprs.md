@@ -8,7 +8,11 @@ Builds partition key expressions for a base relation and populates the rel->part
 
 ## Definition
 
-
+```c
+static void
+set_baserel_partition_key_exprs(Relation relation,
+								RelOptInfo *rel)
+```
 ## Detailed Description
 This function constructs partition key expressions for a partitioned base relation by processing the partition key definition from the relation's metadata. For each partition key attribute, it creates either a Var node (for simple column references) or copies and re-stamps complex expressions with the correct relation number. The function ensures that partition key expressions are properly formatted for use in query planning and optimization, particularly for partition pruning and join optimization.
 

@@ -8,7 +8,10 @@ An exit handler function that performs clean shutdown of database connections an
 
 ## Definition
 
-
+```c
+static void
+archive_close_connection(int code, void *arg)
+```
 ## Detailed Description
 This static function serves as a cleanup handler registered with on_exit_nicely() to ensure proper resource cleanup when pg_dump or pg_restore processes terminate. The function handles three distinct operational contexts:
 

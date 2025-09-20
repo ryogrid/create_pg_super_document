@@ -8,7 +8,10 @@ Opens a zstd-compressed file for writing by appending the ".zst" extension to th
 
 ## Definition
 
-
+```c
+static bool
+Zstd_open_write(const char *path, const char *mode, CompressFileHandle *CFH)
+```
 ## Detailed Description
 This function is a wrapper for opening zstd-compressed files in write mode within PostgreSQL's pg_dump utility. It modifies the provided file path by appending a ".zst" extension to indicate zstd compression, then calls the underlying file opening function through the CompressFileHandle's open_func pointer. The function serves as part of the zstd compression backend implementation for pg_dump's file I/O operations.
 

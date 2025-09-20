@@ -8,7 +8,12 @@ Determines whether a PostgreSQL function can match a call that uses named or mix
 
 ## Definition
 
-
+```c
+static bool
+MatchNamedCall(HeapTuple proctup, int nargs, List *argnames,
+			   bool include_out_arguments, int pronargs,
+			   int **argnumbers)
+```
 ## Detailed Description
 MatchNamedCall is a specialized function matching algorithm that handles calls using named argument notation (func(arg1 := value1, arg2 := value2)) or mixed notation (positional followed by named arguments). It validates that all supplied argument names correspond to actual function parameter names, that named arguments don't conflict with positional arguments, and that all unspecified arguments have defaults available.
 

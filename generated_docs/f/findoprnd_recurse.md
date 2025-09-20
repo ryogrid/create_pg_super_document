@@ -8,7 +8,10 @@ A recursive function that traverses a tsquery in polish notation to fill in left
 
 ## Definition
 
-
+```c
+static void
+findoprnd_recurse(QueryItem *ptr, uint32 *pos, int nnodes, bool *needcleanup)
+```
 ## Detailed Description
 The findoprnd_recurse function performs a recursive traversal of a tsquery structure stored in polish (prefix) notation to compute and fill in the left-offset fields for operators. It processes the query tree by examining each node type: for value nodes (QI_VAL) it simply advances position, for stop word nodes (QI_VALSTOP) it marks that cleanup is needed, and for operator nodes (QI_OPR) it recursively processes operands. For binary operators (AND, OR, PHRASE), it processes the right operand first, then calculates the left offset, and finally processes the left operand. For unary operators (NOT), it sets a fixed offset and processes the single operand. The function also detects QI_VALSTOP nodes which indicate the presence of stop words that need to be removed in a subsequent cleanup phase.
 

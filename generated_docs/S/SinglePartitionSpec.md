@@ -8,7 +8,12 @@ SinglePartitionSpec is a legacy stub structure maintained for NodeTag ABI compat
 
 ## Definition
 
-
+```c
+typedef struct SinglePartitionSpec
+{
+	NodeTag		type;
+}			SinglePartitionSpec;
+```
 ## Detailed Description
 SinglePartitionSpec is essentially a deprecated structure that has been reduced to a minimal stub containing only the required NodeTag field. According to the source comments, it was originally used in ALTER TABLE SPLIT PARTITION functionality that was later reverted, but the structure definition is kept to maintain Application Binary Interface (ABI) compatibility with existing code that might reference this node type.
 

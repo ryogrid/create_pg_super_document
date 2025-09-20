@@ -8,7 +8,10 @@ Cleanly shuts down parallel backup/restore operations by terminating worker proc
 
 ## Definition
 
-
+```c
+void
+ParallelBackupEnd(ArchiveHandle *AH, ParallelState *pstate)
+```
 ## Detailed Description
 ParallelBackupEnd handles the orderly shutdown of parallel processing infrastructure created by ParallelBackupStart. The function ensures all workers have completed their tasks, closes communication channels to signal workers to exit, waits for worker termination, and performs cleanup of allocated resources. For single-worker scenarios, it returns immediately without performing any cleanup operations. The function also unlinks the parallel state from global shutdown and signal handling structures to prevent use-after-free issues.
 

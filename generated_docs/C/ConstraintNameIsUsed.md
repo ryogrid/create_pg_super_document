@@ -8,7 +8,11 @@ Tests whether a given constraint name is currently in use for a specific object 
 
 ## Definition
 
-
+```c
+bool
+ConstraintNameIsUsed(ConstraintCategory conCat, Oid objId,
+					 const char *conname)
+```
 ## Detailed Description
 This function checks if a constraint name is already being used on a specific object (table, index, or domain). Unlike ChooseConstraintName which avoids names used anywhere in the namespace, this function only prevents duplicate constraint names on the same object. It performs a catalog scan of pg_constraint using the appropriate index to efficiently locate any existing constraint with the same name on the specified object. The function is designed to validate user-provided constraint names during DDL operations.
 

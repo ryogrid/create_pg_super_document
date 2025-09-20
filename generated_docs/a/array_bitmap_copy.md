@@ -8,7 +8,12 @@ Copies null-bitmap bits from a source array's null bitmap to a destination array
 
 ## Definition
 
-
+```c
+void
+array_bitmap_copy(bits8 *destbitmap, int destoffset,
+				  const bits8 *srcbitmap, int srcoffset,
+				  int nitems)
+```
 ## Detailed Description
 This function performs bit-level copying of null bitmap information between arrays. It handles the intricate bit manipulation required to copy individual null/non-null flags from arbitrary positions in a source bitmap to arbitrary positions in a destination bitmap. The function operates on a bit-by-bit basis, properly handling byte boundaries and bit alignment. When the source bitmap is NULL, it assumes all source elements are non-NULL and sets corresponding destination bits to 1 (non-NULL). The implementation prioritizes simplicity and correctness over optimization, as noted in the comments that it could be optimized using standard bitblt methods.
 

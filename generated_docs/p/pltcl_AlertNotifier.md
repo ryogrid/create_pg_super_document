@@ -8,7 +8,10 @@ A stub implementation of Tcl's notifier alert function that intentionally does n
 
 ## Definition
 
-
+```c
+static void
+pltcl_AlertNotifier(ClientData clientData)
+```
 ## Detailed Description
 This function is part of PostgreSQL's PL/Tcl implementation strategy to override Tcl's builtin Notifier subsystem. The function is intentionally empty as a safety measure to prevent the PostgreSQL backend from becoming multithreaded, which would break PostgreSQL's single-threaded architecture.
 

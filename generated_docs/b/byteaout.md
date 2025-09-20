@@ -8,7 +8,10 @@ Converts bytea (binary data array) to its printable string representation for ou
 
 ## Definition
 
-
+```c
+Datum
+byteaout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The byteaout function is responsible for converting PostgreSQL's internal bytea representation to a human-readable string format. It operates in two distinct modes:
 

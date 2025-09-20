@@ -8,7 +8,10 @@ A deprecated function that performs in-place updates of heap tuples without crea
 
 ## Definition
 
-
+```c
+void
+heap_inplace_update(Relation relation, HeapTuple tuple)
+```
 ## Detailed Description
 The heap_inplace_update function modifies tuple data directly in place on the heap page without creating a new tuple version or updating indexes. This is a specialized operation that's primarily used for system catalog updates where MVCC semantics aren't required. The function is deprecated and modules should migrate to using systable_inplace_update_begin() instead.
 

@@ -8,7 +8,10 @@ A join selectivity function for geometric containment operators that estimates t
 
 ## Definition
 
-
+```c
+Datum
+contjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a PostgreSQL join selectivity estimator function specifically designed for geometric operators that involve containment relationships, such as "contains" (@>) and "contained by" (<@) operators for geometric data types (box, polygon, circle, point, etc.). This function is registered in the system catalog as the join selectivity estimator (oprjoin) for various geometric containment operators.
 

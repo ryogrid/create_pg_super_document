@@ -8,7 +8,10 @@ Initializes the OpenSSL TLS/SSL subsystem for PostgreSQL server connections, cre
 
 ## Definition
 
-
+```c
+int
+be_tls_init(bool isServerStart)
+```
 ## Detailed Description
 The  function performs comprehensive SSL/TLS initialization for PostgreSQL's backend server. It creates and configures an SSL context that will be used for secure client connections. The function handles:
 

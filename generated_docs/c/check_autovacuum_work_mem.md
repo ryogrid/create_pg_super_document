@@ -8,7 +8,10 @@ check_autovacuum_work_mem is a GUC (Grand Unified Configuration) validation func
 
 ## Definition
 
-
+```c
+bool
+check_autovacuum_work_mem(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a configuration validation hook for the autovacuum_work_mem PostgreSQL configuration parameter. It is automatically called by the GUC system whenever the autovacuum_work_mem parameter is being set or changed.
 

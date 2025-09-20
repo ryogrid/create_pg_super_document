@@ -8,7 +8,17 @@ The  structure represents individual RADIUS attributes within RADIUS authenticat
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	uint8		code;
+	uint8		id;
+	uint16		length;
+	uint8		vector[RADIUS_VECTOR_LENGTH];
+	/* this is a bit longer than strictly necessary: */
+	char		pad[RADIUS_BUFFER_SIZE - RADIUS_VECTOR_LENGTH];
+} radius_packet;
+```
 ## Detailed Description
 The  structure is a fundamental component of PostgreSQL's RADIUS authentication system, defined in . This structure represents the standard RADIUS attribute format as specified in RFC2865. Each attribute consists of a type identifier, length field, and variable-length data payload. The structure uses a flexible array member for the data field, allowing it to accommodate attributes of varying sizes while maintaining memory efficiency. This design follows the RADIUS protocol specification where attributes are variable-length and packed sequentially within RADIUS packets.
 

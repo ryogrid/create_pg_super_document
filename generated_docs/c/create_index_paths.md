@@ -8,7 +8,10 @@ Generates all interesting index paths for a given relation, including both plain
 
 ## Definition
 
-
+```c
+void
+create_index_paths(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's query optimizer that systematically examines all available indexes on a relation and generates appropriate access paths. It handles two fundamental types of index scans:
 

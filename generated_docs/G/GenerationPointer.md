@@ -8,7 +8,9 @@ GenerationPointer is a simple typedef that defines a generic pointer type used w
 
 ## Definition
 
-
+```c
+typedef void *GenerationPointer;
+```
 ## Detailed Description
 GenerationPointer is a basic type alias that represents a generic pointer (void *) used in the generation memory management system. It serves as an abstraction layer for pointer types within the generation memory context, providing type safety and clarity in function signatures that work with generation memory allocations. This typedef is part of PostgreSQL's generation memory allocator, which is designed for scenarios where memory chunks are not reused and blocks are freed once all chunks within them are freed.
 

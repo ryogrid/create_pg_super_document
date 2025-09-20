@@ -8,7 +8,10 @@ A simple wrapper around the standard C library free() function, providing a cons
 
 ## Definition
 
-
+```c
+void
+pg_free(void *ptr)
+```
 ## Detailed Description
 pg_free is a straightforward wrapper around the standard C library free() function. It serves as PostgreSQL's frontend counterpart to memory deallocation, providing a consistent API for freeing memory that was allocated using frontend memory utilities. The function simply passes the pointer directly to the standard free() function without any additional processing, validation, or error handling.
 

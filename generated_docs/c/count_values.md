@@ -8,7 +8,10 @@ Calculates the total number of boundary values required to store an array of exp
 
 ## Definition
 
-
+```c
+static int
+count_values(ExpandedRange *cranges, int ncranges)
+```
 ## Detailed Description
 This utility function determines how many individual values are needed to represent an array of expanded ranges in their stored form. The calculation depends on whether each range is collapsed (single-point) or represents an actual range. Collapsed ranges require only one boundary value to store, while regular ranges need two values (minimum and maximum). This count is essential for memory allocation and storage planning when persisting range data in BRIN index pages.
 

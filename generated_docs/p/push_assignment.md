@@ -8,7 +8,10 @@ Adds a new assignment entry to the global assignments linked list, storing a var
 
 ## Definition
 
-
+```c
+void
+push_assignment(char *var, enum ECPGdtype value)
+```
 ## Detailed Description
 This function creates a new assignment structure and adds it to the head of the global assignments linked list. It's part of the ECPG (Embedded SQL in C) preprocessor's descriptor handling mechanism. The function allocates memory for both the assignment structure and a copy of the variable name string, then links the new assignment to the existing chain.
 

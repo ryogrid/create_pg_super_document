@@ -8,7 +8,11 @@ Advances a position pointer backward by n UTF-8 characters within a symbol buffe
 
 ## Definition
 
+```c
+*/
 
+extern int skip_b_utf8(const symbol * p, int c, int limit, int n)
+```
 ## Detailed Description
 The  function is the backward counterpart to , providing UTF-8-aware backward character navigation in PostgreSQL's Snowball stemming library. It moves a character position backward by exactly n UTF-8 characters, correctly handling multi-byte character sequences when traversing in reverse. This function is essential for stemming algorithms that need to examine text patterns from right to left, ensuring that UTF-8 character boundaries are properly respected during backward traversal. It implements the backward navigation logic for 'hop' and 'next' operations in UTF-8 stemming algorithms.
 

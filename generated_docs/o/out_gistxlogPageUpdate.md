@@ -8,7 +8,10 @@ A static function that handles the output formatting of GiST page update WAL rec
 
 ## Definition
 
-
+```c
+static void
+out_gistxlogPageUpdate(StringInfo buf, gistxlogPageUpdate *xlrec)
+```
 ## Detailed Description
 This function is part of PostgreSQL's WAL (Write-Ahead Logging) record description infrastructure for GiST (Generalized Search Tree) indexes. It is responsible for formatting and outputting details about GiST page update operations when WAL records are being described or debugged. Currently, the function has an empty implementation, meaning it doesn't output any specific details about the page update operation.
 

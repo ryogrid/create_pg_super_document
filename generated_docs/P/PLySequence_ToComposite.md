@@ -8,7 +8,10 @@ Converts a Python sequence (list, tuple) to a PostgreSQL composite type by mappi
 
 ## Definition
 
-
+```c
+static Datum
+PLySequence_ToComposite(PLyObToDatum *arg, TupleDesc desc, PyObject *sequence)
+```
 ## Detailed Description
 This function constructs a PostgreSQL composite type from a Python sequence by mapping elements positionally to the tuple descriptor's attributes. It enforces strict length matching between the sequence and the number of non-dropped columns to prevent developer errors. The function creates heap tuple structures with proper exception safety and memory management.
 

@@ -8,7 +8,69 @@ ProcessUtilitySlow is the specialized utility command execution engine that hand
 
 ## Definition
 
+```c
+struction **************
+				 */
+			case T_DefineStmt:
+				{
+					DefineStmt *stmt = (DefineStmt *) parsetree;
 
+					switch (stmt->kind)
+					{
+						case OBJECT_AGGREGATE:
+							address =
+								DefineAggregate(pstate, stmt->defnames, stmt->args,
+												stmt->oldstyle,
+												stmt->definition,
+												stmt->replace);
+							break;
+						case OBJECT_OPERATOR:
+							Assert(stmt->args == NIL);
+							address = DefineOperator(stmt->defnames,
+													 stmt->definition);
+							break;
+						case OBJECT_TYPE:
+							Assert(stmt->args == NIL);
+							address = DefineType(pstate,
+												 stmt->defnames,
+												 stmt->definition);
+							break;
+						case OBJECT_TSPARSER:
+							Assert(stmt->args == NIL);
+							address = DefineTSParser(stmt->defnames,
+													 stmt->definition);
+							break;
+						case OBJECT_TSDICTIONARY:
+							Assert(stmt->args == NIL);
+							address = DefineTSDictionary(stmt->defnames,
+														 stmt->definition);
+							break;
+						case OBJECT_TSTEMPLATE:
+							Assert(stmt->args == NIL);
+							address = DefineTSTemplate(stmt->defnames,
+													   stmt->definition);
+							break;
+						case OBJECT_TSCONFIGURATION:
+							Assert(stmt->args == NIL);
+							address = DefineTSConfiguration(stmt->defnames,
+															stmt->definition,
+															&secondaryObject);
+							break;
+						case OBJECT_COLLATION:
+							Assert(stmt->args == NIL);
+							address = DefineCollation(pstate,
+													  stmt->defnames,
+													  stmt->definition,
+													  stmt->if_not_exists);
+							break;
+						default:
+							elog(ERROR, "unrecognized define stmt type: %d",
+								 (int) stmt->kind);
+							break;
+					}
+				}
+				break;
+```
 ## Detailed Description
 ProcessUtilitySlow serves as PostgreSQL's comprehensive DDL command processor with full event trigger integration. It handles all utility statements that support event triggers, providing sophisticated infrastructure for monitoring, logging, and extending database schema modification operations. The function operates through a complete event trigger lifecycle including command start events, object collection, SQL drop events, and command end events.
 

@@ -8,7 +8,10 @@ Displays the final success message and post-upgrade instructions to the user upo
 
 ## Definition
 
-
+```c
+void
+output_completion_banner(char *deletion_script_file_name)
+```
 ## Detailed Description
 This function generates and displays the completion banner that appears when pg_upgrade finishes successfully. It provides essential post-upgrade information to help users complete the upgrade process:
 

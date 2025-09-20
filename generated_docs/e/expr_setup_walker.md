@@ -8,7 +8,10 @@ A specialized expression tree walker that analyzes expressions to collect setup 
 
 ## Definition
 
-
+```c
+static bool
+expr_setup_walker(Node *node, ExprSetupInfo *info)
+```
 ## Detailed Description
 expr_setup_walker is a recursive tree traversal function that implements the analysis phase of PostgreSQL's expression setup system. It systematically examines an expression tree to identify components that require special setup steps before the main expression evaluation can occur.
 

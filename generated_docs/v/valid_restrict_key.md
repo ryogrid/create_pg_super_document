@@ -8,7 +8,10 @@ valid_restrict_key validates that a given restrict key contains only alphanumeri
 
 ## Definition
 
-
+```c
+bool
+valid_restrict_key(const char *restrict_key)
+```
 ## Detailed Description
 This function performs validation on a restrict key string to ensure it meets the requirements for use with PostgreSQL's psql restrict/unrestrict functionality. The validation checks three conditions: the key must not be NULL, must not be an empty string, and must contain only characters from the allowed alphanumeric character set.
 

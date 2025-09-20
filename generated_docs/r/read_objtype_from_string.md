@@ -8,7 +8,10 @@ Converts a string representation of an object type into PostgreSQL's internal Ob
 
 ## Definition
 
-
+```c
+int
+read_objtype_from_string(const char *objtype)
+```
 ## Detailed Description
 The `read_objtype_from_string` function serves as a string-to-enum converter for PostgreSQL's object type system. It takes a human-readable object type name (such as "table", "function", "index", etc.) and returns the corresponding ObjectType enumeration value used internally by PostgreSQL.
 

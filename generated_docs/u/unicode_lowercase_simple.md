@@ -8,7 +8,10 @@ Converts a Unicode codepoint to its lowercase equivalent using simple case mappi
 
 ## Definition
 
-
+```c
+pg_wchar
+unicode_lowercase_simple(pg_wchar code)
+```
 ## Detailed Description
 This function performs simple Unicode case conversion to lowercase for a given Unicode codepoint. It looks up the codepoint in PostgreSQL's internal case mapping table and returns the corresponding lowercase character. If no case mapping exists for the given codepoint, the original codepoint is returned unchanged.
 

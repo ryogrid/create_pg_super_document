@@ -8,7 +8,10 @@ A specialized function that reads exactly one PostgreSQL block (BLCKSZ bytes) fr
 
 ## Definition
 
-
+```c
+static void
+read_block(rfile *s, off_t off, uint8 *buffer)
+```
 ## Detailed Description
 The  function is designed for precise block-level reading operations within PostgreSQL's backup reconstruction system. It uses the  function to read exactly BLCKSZ bytes from a specified file offset, ensuring atomic read operations that don't affect the file's current position. The function provides robust error handling that distinguishes between complete read failures and partial read scenarios, reporting both the expected and actual number of bytes read.
 

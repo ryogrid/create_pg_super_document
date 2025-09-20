@@ -8,7 +8,10 @@ Extracts the argument from clauses that assert the definite falsity of a subclau
 
 ## Definition
 
-
+```c
+static Node *
+extract_strong_not_arg(Node *clause)
+```
 ## Detailed Description
 This utility function is similar to extract_not_arg but implements a more restrictive definition of negation. While extract_not_arg recognizes any form of non-truth (including NULL/UNKNOWN states), extract_strong_not_arg only recognizes definite falsity.
 

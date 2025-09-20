@@ -8,7 +8,10 @@ Compares two records (row types) to determine if the first record is greater tha
 
 ## Definition
 
-
+```c
+Datum
+record_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "greater than" comparison operator for PostgreSQL record types. It is a simple wrapper around the  function that performs a comprehensive lexicographic comparison of two records. The function returns true if  returns a positive value, indicating that the first record is ordered after the second record.
 

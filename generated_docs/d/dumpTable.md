@@ -8,7 +8,10 @@ Writes the schema declarations (not data) of a user-defined table, including tab
 
 ## Definition
 
-
+```c
+static void
+dumpTable(Archive *fout, const TableInfo *tbinfo)
+```
 ## Detailed Description
 This function handles the complete schema dumping process for tables and sequences, coordinating the output of table definitions, access control lists (ACLs), and column-level permissions. It serves as the main dispatcher that determines what components of a table need to be dumped based on the dump configuration and delegates to appropriate specialized functions.
 

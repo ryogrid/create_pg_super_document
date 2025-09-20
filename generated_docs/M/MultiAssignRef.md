@@ -8,7 +8,15 @@ MultiAssignRef is a parse tree node used in UPDATE statements to represent indiv
 
 ## Definition
 
-
+```c
+typedef struct MultiAssignRef
+{
+	NodeTag		type;
+	Node	   *source;			/* the row-valued expression */
+	int			colno;			/* column number for this target (1..n) */
+	int			ncolumns;		/* number of targets in the construct */
+} MultiAssignRef;
+```
 ## Detailed Description
 MultiAssignRef nodes are generated during parsing of UPDATE statements that use multi-column assignment syntax. When PostgreSQL encounters an UPDATE with SET (a,b,c) = row-valued-expression, it creates separate ResTarget items for each target column (a, b, c). Each ResTarget's "val" tree contains a MultiAssignRef node numbered 1 through n, all linking to a common copy of the row-valued expression. This design ensures that the row-valued expression is processed only once during parse analysis (when handling the MultiAssignRef with colno=1), improving efficiency and maintaining consistency.
 

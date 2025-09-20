@@ -8,7 +8,10 @@ Safely handles the return_next operation for PL/Perl set-returning functions, co
 
 ## Definition
 
-
+```c
+void
+plperl_return_next(SV *sv)
+```
 ## Detailed Description
 This function provides a safe wrapper around the internal return_next functionality for PL/Perl set-returning functions. It implements PostgreSQL's standard error handling pattern using PG_TRY/PG_CATCH blocks to intercept any PostgreSQL errors that occur during the return_next operation and convert them to Perl exceptions using croak_cstr().
 

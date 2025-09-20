@@ -8,7 +8,10 @@ A comparison function for Oid (Object Identifier) values designed for use with q
 
 ## Definition
 
-
+```c
+int
+oid_cmp(const void *p1, const void *p2)
+```
 ## Detailed Description
 The oid_cmp function provides a standardized comparison mechanism for Oid values, following the conventional comparison function signature required by qsort and similar sorting utilities. It takes two void pointers to Oid values, dereferences them, and delegates the actual comparison to pg_cmp_u32, which performs an unsigned 32-bit integer comparison. This function returns a negative value if the first Oid is less than the second, zero if they are equal, and a positive value if the first is greater than the second.
 

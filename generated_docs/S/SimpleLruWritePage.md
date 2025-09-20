@@ -8,7 +8,10 @@ Public wrapper function that provides external callers access to SLRU page writi
 
 ## Definition
 
-
+```c
+void
+SimpleLruWritePage(SlruCtl ctl, int slotno)
+```
 ## Detailed Description
 SimpleLruWritePage serves as a public interface to the internal SLRU page writing mechanism. It acts as a thin wrapper around SlruInternalWritePage, specifically designed for external callers who need to write individual pages but don't require the advanced flush operations available through the internal interface.
 

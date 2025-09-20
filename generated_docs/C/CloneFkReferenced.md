@@ -8,7 +8,14 @@ CloneFkReferenced handles cloning foreign key constraints where the parent relat
 
 ## Definition
 
-
+```c
+struct the list of constraints to clone,
+	 * then go over that list cloning those whose parents are not in the list.
+	 * (We must not rely on the parent being seen first, since the catalog
+	 * scan could return children first.)
+	 */
+	pg_constraint = table_open(ConstraintRelationId, RowShareLock);
+```
 ## Detailed Description
 This function is a subroutine for CloneForeignKeyConstraints that finds all foreign key constraints where the parent relation is on the referenced (target) side and clones those constraints to the given partition. The function is called when a partition is being created or attached to ensure that foreign key relationships are properly maintained across the partition hierarchy.
 

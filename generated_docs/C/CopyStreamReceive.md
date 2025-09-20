@@ -8,7 +8,11 @@ CopyStreamReceive receives CopyData messages from a PostgreSQL XLOG stream with 
 
 ## Definition
 
-
+```c
+static int
+CopyStreamReceive(PGconn *conn, long timeout, pgsocket stop_socket,
+				  char **buffer)
+```
 ## Detailed Description
 This function is responsible for receiving streaming replication data from a PostgreSQL server via the COPY protocol. It implements a non-blocking receive mechanism that attempts to get data immediately, and if none is available, waits for data up to the specified timeout using CopyStreamPoll. The function manages the message buffer lifecycle, automatically freeing previous buffers and setting up new ones. It distinguishes between different types of completion states: normal timeout, server-initiated end of stream, and actual errors. The function is designed to be called repeatedly in a loop to continuously receive streaming data.
 

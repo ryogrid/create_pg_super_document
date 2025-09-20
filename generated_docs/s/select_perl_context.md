@@ -8,7 +8,10 @@ Selects and activates an appropriate Perl interpreter for executing PL/Perl code
 
 ## Definition
 
-
+```c
+static void
+select_perl_context(bool trusted)
+```
 ## Detailed Description
 The  function is responsible for managing Perl interpreter instances in PostgreSQL's PL/Perl language extension. It implements a per-user interpreter strategy where each database user gets their own Perl interpreter instance for trusted code, while untrusted code uses a single shared interpreter (InvalidOid). 
 

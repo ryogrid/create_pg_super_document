@@ -8,7 +8,10 @@ Attempts to save heap TIDs from an index tuple into the current pending posting 
 
 ## Definition
 
-
+```c
+bool
+_bt_dedup_save_htid(BTDedupState state, IndexTuple itup)
+```
 ## Detailed Description
 This function is responsible for the core duplicate detection and merging logic during deduplication. It attempts to add heap TIDs from a given index tuple to the current pending posting list managed by the deduplication state.
 

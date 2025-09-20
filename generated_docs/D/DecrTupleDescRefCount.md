@@ -8,7 +8,10 @@ DecrTupleDescRefCount decrements the reference count of a TupleDesc and automati
 
 ## Definition
 
-
+```c
+void
+DecrTupleDescRefCount(TupleDesc tupdesc)
+```
 ## Detailed Description
 This function implements the decrement operation for TupleDesc reference counting, a critical component of PostgreSQL's memory management system for tuple descriptors. When called, it:
 

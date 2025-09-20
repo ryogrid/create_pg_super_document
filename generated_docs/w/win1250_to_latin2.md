@@ -8,7 +8,10 @@ A PostgreSQL encoding conversion function that converts text from Windows-1250 e
 
 ## Definition
 
-
+```c
+Datum
+win1250_to_latin2(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL conversion procedure that transforms character strings from Windows-1250 encoding to Latin-2 (ISO-8859-2) encoding. Both encodings support Central and Eastern European languages, but Windows-1250 is Microsoft's proprietary encoding while Latin-2 is an ISO standard.
 

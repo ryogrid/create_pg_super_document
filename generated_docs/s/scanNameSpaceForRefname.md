@@ -8,7 +8,10 @@ Searches the current parsing state's namespace for an item matching an unqualifi
 
 ## Definition
 
-
+```c
+static ParseNamespaceItem *
+scanNameSpaceForRefname(ParseState *pstate, const char *refname, int location)
+```
 ## Detailed Description
 This static function scans through the p_namespace list in the current parsing state to find a namespace item that matches the given unqualified reference name. It implements PostgreSQL's relaxed alias scoping rules, allowing certain cases of duplicate aliases that would be forbidden in strict SQL. The function checks for ambiguous references and reports errors when multiple visible items match the same name. It also handles lateral-only items and performs lateral reference validation.
 

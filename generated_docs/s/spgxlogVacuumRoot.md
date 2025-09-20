@@ -8,7 +8,18 @@ The spgxlogVacuumRoot struct is a PostgreSQL WAL record structure used to log va
 
 ## Definition
 
+```c
+typedef struct spgxlogVacuumRoot
+{
+	/* vacuum a root page when it is also a leaf */
+	uint16		nDelete;		/* number of tuples to delete */
 
+	spgxlogState stateSrc;
+
+	/* offsets of tuples to delete follow */
+	OffsetNumber offsets[FLEXIBLE_ARRAY_MEMBER];
+} spgxlogVacuumRoot;
+```
 ## Detailed Description
 This structure represents a WAL record for vacuuming SP-GiST root pages that simultaneously serve as leaf pages. This scenario occurs in small indexes where the entire index fits on a single page - the root page contains both the index structure and the actual data tuples. Unlike regular leaf page vacuuming, root page vacuuming has simpler requirements since there are no parent pages to maintain consistency with and no complex chaining operations. The operation primarily involves removing dead tuples from the root/leaf page.
 

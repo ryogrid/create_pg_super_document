@@ -8,7 +8,10 @@ PLy_elog_impl is the core implementation function for propagating Python errors 
 
 ## Definition
 
-
+```c
+void
+PLy_elog_impl(int elevel, const char *fmt,...)
+```
 ## Detailed Description
 PLy_elog_impl serves as the bridge between Python's exception system and PostgreSQL's error reporting mechanism. The function takes Python exceptions previously captured by PLy_exception_set() and converts them into PostgreSQL errors with appropriate error levels, messages, and context information.
 

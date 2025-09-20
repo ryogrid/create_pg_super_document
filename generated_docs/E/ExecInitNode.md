@@ -8,7 +8,10 @@ ExecInitNode recursively initializes all nodes in a PostgreSQL execution plan tr
 
 ## Definition
 
-
+```c
+PlanState *
+ExecInitNode(Plan *node, EState *estate, int eflags)
+```
 ## Detailed Description
 ExecInitNode serves as the central dispatcher for initializing PostgreSQL's execution plan tree. It performs a recursive depth-first initialization of all plan nodes, converting each Plan node into its corresponding PlanState execution structure. The function uses a large switch statement to handle over 30 different node types, including control nodes (Result, Append), scan nodes (SeqScan, IndexScan), join nodes (NestLoop, HashJoin), and materialization nodes (Sort, Agg).
 

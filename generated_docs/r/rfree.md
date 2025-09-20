@@ -8,7 +8,9 @@ Completely deallocates a compiled regular expression structure, freeing all asso
 
 ## Definition
 
-
+```c
+struct guts *g;
+```
 ## Detailed Description
 The rfree function serves as the comprehensive cleanup routine for compiled regular expressions in PostgreSQL's regex engine. It is the internal implementation behind the public regfree() function and ensures complete deallocation of all memory structures associated with a compiled regex.
 

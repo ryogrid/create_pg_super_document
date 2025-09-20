@@ -8,7 +8,9 @@ Cache and return minmax-multi operator class support procedure for efficient rep
 
 ## Definition
 
-
+```c
+enum = procnum - PROCNUM_BASE;
+```
 ## Detailed Description
 This static function provides cached access to support procedures for the minmax-multi operator class. It implements a caching mechanism to avoid repetitive system catalog lookups for support functions, storing the FmgrInfo structures in the operator class's opaque data structure.
 

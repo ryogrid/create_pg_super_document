@@ -8,7 +8,10 @@ Provides access to the shared dead items storage and metadata information used f
 
 ## Definition
 
-
+```c
+TidStore *
+parallel_vacuum_get_dead_items(ParallelVacuumState *pvs, VacDeadItemsInfo **dead_items_info_p)
+```
 ## Detailed Description
 This function serves as an accessor to retrieve both the shared TidStore containing dead tuple identifiers and the associated metadata about the dead items storage. It provides a simple interface for vacuum operations to access the centralized dead tuple tracking system that was set up during parallel vacuum initialization.
 

@@ -8,7 +8,10 @@ A static function that checks whether there is any pending data waiting to be se
 
 ## Definition
 
-
+```c
+static bool
+socket_is_send_pending(void)
+```
 ## Detailed Description
 This function provides a simple and efficient way to determine if there is any data currently buffered for transmission. It compares two buffer pointers to determine if data has been queued but not yet sent. This is commonly used in network I/O scenarios to decide whether a flush operation is necessary or to determine the current state of the output buffer.
 

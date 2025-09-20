@@ -8,7 +8,11 @@ The commitTable function commits database transactions on both con1 and con2 con
 
 ## Definition
 
+```c
+}
 
+void commitTable()
+```
 ## Detailed Description
 The commitTable function is a utility function in the ECPG test suite that performs transaction commits on two specific database connections (con1 and con2). It uses the ECPGtrans function to execute COMMIT commands on both connections sequentially, ensuring that any pending transactions are properly committed to the database. This function serves as part of the test cleanup or transaction management process in the ECPG declare statement testing framework.
 

@@ -8,7 +8,10 @@ Int64GetDatum converts a 64-bit integer value to a PostgreSQL Datum representati
 
 ## Definition
 
-
+```c
+Datum
+Int64GetDatum(int64 X)
+```
 ## Detailed Description
 Int64GetDatum is a utility function that converts a 64-bit integer (int64) into PostgreSQL's universal Datum type. This function is specifically used when PostgreSQL is compiled without USE_FLOAT8_BYVAL, meaning that 64-bit values (both integers and floats) are passed by reference rather than by value. The function allocates memory using palloc() to store the integer value and returns a pointer to this memory location wrapped as a Datum.
 

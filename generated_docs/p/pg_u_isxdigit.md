@@ -8,7 +8,10 @@ Tests whether a Unicode code point represents a hexadecimal digit character, wit
 
 ## Definition
 
-
+```c
+bool
+pg_u_isxdigit(pg_wchar code, bool posix)
+```
 ## Detailed Description
 This function determines if a given Unicode code point represents a valid hexadecimal digit. It provides two modes of operation: POSIX mode which strictly checks for ASCII hex digits (0-9, A-F, a-f), and Unicode mode which additionally considers Unicode decimal numbers and characters with the Hex_Digit property. The dual-mode design allows PostgreSQL to maintain compatibility with POSIX standards while supporting full Unicode hexadecimal digit recognition when needed.
 

@@ -8,7 +8,10 @@ A static utility function that tests whether a line of text starts with a specif
 
 ## Definition
 
-
+```c
+static bool
+line_starts_with(char *s, char *e, char *match, char **sout)
+```
 ## Detailed Description
 The  function performs a prefix match operation on a line of text bounded by start and end pointers. It compares the beginning of the line against a provided match string character by character. The function is designed to work with non-null-terminated strings by using explicit boundaries.
 

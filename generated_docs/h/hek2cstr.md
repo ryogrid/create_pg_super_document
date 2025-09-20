@@ -8,7 +8,10 @@ A static function that converts a Perl hash entry (HE) key to a C string in the 
 
 ## Definition
 
-
+```c
+static char *
+hek2cstr(HE *he)
+```
 ## Detailed Description
 This function converts a Perl hash entry key to a properly encoded C string that matches the current database encoding. It addresses the "Unicode Bug" in Perl where characters in the 128-255 range may not have the UTF8 flag set correctly, but Perl still treats them as Unicode code points. The function uses HeSVKEY_force to create a temporary mortal SV and then applies proper UTF8 handling before converting to a C string via sv2cstr. The function carefully manages memory with ENTER/SAVETMPS/FREETMPS/LEAVE to handle the temporary SV properly.
 

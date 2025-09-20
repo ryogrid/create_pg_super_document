@@ -8,7 +8,10 @@ read_nondefault_variables deserializes non-default GUC configuration variables f
 
 ## Definition
 
-
+```c
+void
+read_nondefault_variables(void)
+```
 ## Detailed Description
 read_nondefault_variables is the counterpart to write_nondefault_variables, responsible for reading and applying previously serialized GUC configuration variables. This function is called by newly spawned backend processes to inherit the configuration state from the postmaster.
 

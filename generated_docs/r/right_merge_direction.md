@@ -8,7 +8,10 @@ Determines whether a pathkey embodies the preferred sort direction for merging i
 
 ## Definition
 
-
+```c
+static bool
+right_merge_direction(PlannerInfo *root, PathKey *pathkey)
+```
 ## Detailed Description
 This function is used during merge join planning to determine the preferred sort direction for a given pathkey. It first searches through the query's ORDER BY pathkeys () to find a matching pathkey that has the same equivalence class and operator family. If a match is found, it returns true if the sort strategies match, indicating that this pathkey's direction aligns with the query's requirements. If no matching ORDER BY request is found, the function defaults to preferring the ascending direction (BTLessStrategyNumber).
 

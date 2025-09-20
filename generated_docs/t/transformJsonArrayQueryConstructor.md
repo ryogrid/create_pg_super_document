@@ -8,7 +8,11 @@ Transforms JSON_ARRAY(query) constructor expressions into equivalent JSON_ARRAYA
 
 ## Definition
 
-
+```c
+static Node *
+transformJsonArrayQueryConstructor(ParseState *pstate,
+								   JsonArrayQueryConstructor *ctor)
+```
 ## Detailed Description
 This function transforms JSON_ARRAY(query [FORMAT] [RETURNING] [ON NULL]) syntax into an equivalent subquery expression using JSON_ARRAYAGG. The transformation converts the original query-based JSON array constructor into:
 

@@ -8,7 +8,10 @@ PostgreSQL input function that parses string representations of line segments an
 
 ## Definition
 
-
+```c
+Datum
+lseg_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL type input function responsible for parsing various string formats representing 2D line segments and converting them into internal LSEG (line segment) data structures. This function is automatically called by PostgreSQL when converting string literals or text values to the lseg data type.
 

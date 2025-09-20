@@ -8,7 +8,11 @@ Removes dead index tuples from a single index by performing bulk deletion of ent
 
 ## Definition
 
-
+```c
+static IndexBulkDeleteResult *
+lazy_vacuum_one_index(Relation indrel, IndexBulkDeleteResult *istat,
+					  double reltuples, LVRelState *vacrel)
+```
 ## Detailed Description
 This function performs the actual index vacuuming work for a single index during the vacuum process. It prepares an IndexVacuumInfo structure with the necessary parameters and then calls the generic vac_bulkdel_one_index function to perform the bulk deletion operation. The function handles error tracking by updating the vacuum error callback information to include the index name being processed.
 

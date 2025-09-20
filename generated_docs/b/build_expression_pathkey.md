@@ -8,7 +8,9 @@ Builds a pathkeys list that describes an ordering by a single expression using a
 
 ## Definition
 
-
+```c
+struct a mergejoin using DESC order rather than ASC order;
+```
 ## Detailed Description
 This function creates a single-element pathkeys list for ordering by a specific expression and sort operator. It serves as a convenience wrapper around make_pathkey_from_sortinfo that automatically determines the operator family, input type, and sort direction from the provided sort operator.
 

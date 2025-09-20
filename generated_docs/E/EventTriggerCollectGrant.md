@@ -8,7 +8,10 @@ Saves data about a GRANT/REVOKE command being executed for event trigger process
 
 ## Definition
 
-
+```c
+void
+EventTriggerCollectGrant(InternalGrant *istmt)
+```
 ## Detailed Description
 This function is responsible for collecting information about GRANT and REVOKE commands during their execution. It's part of PostgreSQL's event trigger system that allows users to define triggers responding to DDL operations.
 

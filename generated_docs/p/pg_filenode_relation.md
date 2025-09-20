@@ -8,7 +8,9 @@ A PostgreSQL system function that maps a filesystem file back to its correspondi
 
 ## Definition
 
-
+```c
+enumber = PG_GETARG_OID(1);
+```
 ## Detailed Description
 The pg_filenode_relation function provides a mechanism to reverse-map filesystem files to their corresponding database relations. This is particularly useful when analyzing individual files on the filesystem and needing to identify which table or index they belong to. The function takes a tablespace OID and relfilenumber, then uses the internal RelidByRelfilenumber function to perform the lookup.
 

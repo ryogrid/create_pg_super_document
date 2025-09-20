@@ -8,7 +8,10 @@ Transfers all predicate locks from any granularity level on a given relation to 
 
 ## Definition
 
-
+```c
+void
+TransferPredicateLocksToHeapRelation(Relation relation)
+```
 ## Detailed Description
 TransferPredicateLocksToHeapRelation is a high-level wrapper function that provides a clean interface for transferring predicate locks during DDL operations. It serves as the public API for lock consolidation operations where fine-grained locks (tuple-level, page-level, or index locks) need to be replaced with a single relation-level lock on the heap.
 

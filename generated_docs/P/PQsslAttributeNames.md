@@ -8,7 +8,10 @@ Returns an array of supported SSL attribute names that can be queried for a Post
 
 ## Definition
 
-
+```c
+const char *const *
+PQsslAttributeNames(PGconn *conn)
+```
 ## Detailed Description
 PQsslAttributeNames is a public API function in PostgreSQL's libpq library that returns a NULL-terminated array of string constants representing the names of SSL attributes that can be queried using PQsslAttribute. This function provides introspection capabilities for applications that need to discover what SSL information is available.
 

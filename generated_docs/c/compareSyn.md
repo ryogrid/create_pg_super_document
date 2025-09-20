@@ -8,7 +8,10 @@ A comparison function used for sorting and searching synonym entries by their in
 
 ## Definition
 
-
+```c
+static int
+compareSyn(const void *a, const void *b)
+```
 ## Detailed Description
 This function implements a standard comparison function compatible with qsort() and bsearch(). It compares two Syn structures by their 'in' (input word) fields using string comparison. The function is essential for maintaining sorted synonym arrays and enabling efficient binary search operations during lexicalization.
 

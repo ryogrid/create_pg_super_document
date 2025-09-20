@@ -8,7 +8,10 @@ Generates aggregate function name and argument list in a standardized signature 
 
 ## Definition
 
-
+```c
+static char *
+format_aggregate_signature(const AggInfo *agginfo, Archive *fout, bool honor_quotes)
+```
 ## Detailed Description
 The  function creates a formatted string representation of an aggregate function signature, including the function name and its argument types. This is used primarily for generating proper DROP and CREATE statements for aggregate functions during database dumps.
 

@@ -8,7 +8,10 @@ Marks the end of WAL recovery by inserting a special end-of-recovery record with
 
 ## Definition
 
-
+```c
+static void
+CreateEndOfRecoveryRecord(void)
+```
 ## Detailed Description
 CreateEndOfRecoveryRecord creates a lightweight end-of-recovery marker in the WAL stream that signifies the completion of crash recovery or archive recovery. Unlike a full checkpoint, this function only writes a single WAL record (XLOG_END_OF_RECOVERY) containing essential timeline and timestamp information.
 

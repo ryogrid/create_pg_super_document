@@ -8,7 +8,15 @@ Creates an IndexClause by leveraging a function's planner support function to ge
 
 ## Definition
 
-
+```c
+static IndexClause *
+get_index_clause_from_support(PlannerInfo *root,
+							  RestrictInfo *rinfo,
+							  Oid funcid,
+							  int indexarg,
+							  int indexcol,
+							  IndexOptInfo *index)
+```
 ## Detailed Description
 This function serves as a bridge between PostgreSQL's query planner and custom planner support functions. When a function has an associated planner support function, this routine constructs a SupportRequestIndexCondition request and calls the support function to generate index-optimized query conditions. The support function can analyze the original function call and produce equivalent index scan conditions that are more efficient than a sequential scan with function evaluation.
 

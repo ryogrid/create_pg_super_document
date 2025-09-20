@@ -8,7 +8,10 @@ A SQL-level function that determines whether JIT (Just-In-Time) compilation is a
 
 ## Definition
 
-
+```c
+Datum
+pg_jit_available(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL SQL function that provides a way to check JIT availability from within SQL queries. It acts as a wrapper around the  function, which handles the actual JIT provider initialization and availability checking. When called, it will attempt to load the JIT provider if it hasn't been loaded already, then returns a boolean indicating whether JIT compilation is available for use.
 

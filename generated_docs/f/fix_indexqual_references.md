@@ -8,7 +8,11 @@ Adjusts indexqual clauses to the form required by PostgreSQL's executor's indexq
 
 ## Definition
 
-
+```c
+static void
+fix_indexqual_references(PlannerInfo *root, IndexPath *index_path,
+						 List **stripped_indexquals_p, List **fixed_indexquals_p)
+```
 ## Detailed Description
 This function performs three critical transformations on index qualification clauses to prepare them for execution:
 

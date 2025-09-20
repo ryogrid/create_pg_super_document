@@ -8,7 +8,18 @@ RT_NODE_256 is a macro that generates a type name for a 256-slot adaptive radix 
 
 ## Definition
 
+```c
+typedef struct RT_NODE_256
+{
+	RT_NODE		base;
 
+	/* bitmap to track which slots are in use */
+	bitmapword	isset[RT_BM_IDX(RT_FANOUT_256)];
+
+	/* slots for 256 children */
+	RT_PTR_ALLOC children[RT_FANOUT_256];
+}			RT_NODE_256;
+```
 ## Detailed Description
 RT_NODE_256 is part of PostgreSQL's adaptive radix tree (ART) implementation and represents the largest node variant in the four-tier node hierarchy (4, 16, 48, and 256 slots). This macro generates a prefixed type name for the 256-slot node structure, which is used when a node needs to store a large number of child pointers.
 

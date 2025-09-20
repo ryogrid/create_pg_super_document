@@ -8,7 +8,10 @@ Transfers incremental sort instrumentation statistics from shared memory to priv
 
 ## Definition
 
-
+```c
+void
+ExecIncrementalSortRetrieveInstrumentation(IncrementalSortState *node)
+```
 ## Detailed Description
 This function is responsible for collecting and preserving performance statistics from parallel incremental sort operations. It operates by:
 

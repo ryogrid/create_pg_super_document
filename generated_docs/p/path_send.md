@@ -8,7 +8,10 @@ Binary output function that converts PostgreSQL's internal PATH data type to ext
 
 ## Definition
 
-
+```c
+Datum
+path_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `path_send` function serializes a PATH structure into PostgreSQL's binary format. It writes the closed flag as a single byte (1 for closed, 0 for open), followed by the number of points as a 32-bit integer, and then the x and y coordinates of each point as 64-bit floating point values. This is the inverse operation of `path_recv`.
 

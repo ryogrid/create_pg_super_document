@@ -8,7 +8,14 @@ TransApplyAction is an enumeration that defines different actions for processing
 
 ## Definition
 
-
+```c
+typedef struct SubXactInfo
+{
+	TransactionId xid;			/* XID of the subxact */
+	int			fileno;			/* file number in the buffile */
+	off_t		offset;			/* offset in the file */
+} SubXactInfo;
+```
 ## Detailed Description
 The TransApplyAction enum specifies how transaction changes should be processed in PostgreSQL's logical replication worker system. This enum is crucial for coordinating between leader apply workers, parallel apply workers, and table sync workers, especially when handling streaming transactions that may be too large to apply directly.
 

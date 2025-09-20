@@ -8,7 +8,15 @@ ClosestMatchState is a data structure used for finding the closest matching stri
 
 ## Definition
 
-
+```c
+typedef struct ClosestMatchState
+{
+	const char *source;
+	int			min_d;
+	int			max_d;
+	const char *match;
+} ClosestMatchState;
+```
 ## Detailed Description
 The ClosestMatchState structure implements a stateful approach to finding the closest string match using the Levenshtein distance algorithm. It is designed to help PostgreSQL provide meaningful suggestions when users provide invalid or misspelled identifiers, such as column names, function names, or configuration options.
 

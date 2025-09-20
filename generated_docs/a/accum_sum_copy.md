@@ -8,7 +8,10 @@ Creates a deep copy of a NumericSumAccum structure, duplicating all digit arrays
 
 ## Definition
 
-
+```c
+static void
+accum_sum_copy(NumericSumAccum *dst, NumericSumAccum *src)
+```
 ## Detailed Description
 This function performs a complete deep copy of a NumericSumAccum structure from source to destination. It allocates new memory buffers for both the positive and negative digit arrays and copies all the digit data along with the accumulator's metadata (number of uncarried values, digit count, weight, and decimal scale). The destination accumulator is assumed to be uninitialized, and the function does not attempt to free any existing memory in the destination structure.
 

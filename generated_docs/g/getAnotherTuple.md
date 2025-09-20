@@ -8,7 +8,12 @@ getAnotherTuple processes PostgreSQL protocol 'D' (DataRow) messages to extract 
 
 ## Definition
 
-
+```c
+structed result with an error result. First
+	 * discard the old result to try to win back some memory.
+	 */
+	pqClearAsyncResult(conn);
+```
 ## Detailed Description
 This function parses DataRow messages from the PostgreSQL server, which contain the actual data values for a single row in a query result. It validates the field count against the expected number of columns, dynamically manages a row buffer to hold field values, and processes each field by reading its length and storing a pointer to its data in the input buffer. After collecting all field data for the row, it delegates to pqRowProcessor to actually add the row to the result set.
 

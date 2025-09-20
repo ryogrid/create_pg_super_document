@@ -8,7 +8,10 @@ A static helper function that attempts to remove an input value from the aggrega
 
 ## Definition
 
-
+```c
+static bool
+do_numeric_discard(NumericAggState *state, Numeric newval)
+```
 ## Detailed Description
 This function implements the core logic for removing a previously aggregated numeric value from an aggregate state, which is essential for sliding window aggregate operations. The function handles the complex task of maintaining aggregate state consistency when values are removed, including proper management of decimal scale tracking and special numeric values (NaN, positive/negative infinity).
 

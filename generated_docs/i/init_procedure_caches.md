@@ -8,7 +8,10 @@ Initializes the global procedure cache hash table used by the PL/Python procedur
 
 ## Definition
 
-
+```c
+void
+init_procedure_caches(void)
+```
 ## Detailed Description
 This function sets up a hash table that serves as a cache for compiled PL/Python procedures. The cache improves performance by avoiding recompilation of Python functions that have already been processed. The hash table is configured with specific parameters for key size (PLyProcedureKey) and entry size (PLyProcedureEntry), and uses PostgreSQL's hash table infrastructure with ELEM and BLOBS hash options for efficient storage and retrieval of procedure objects.
 

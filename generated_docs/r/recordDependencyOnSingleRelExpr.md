@@ -8,7 +8,14 @@ Records dependencies between a database object and all objects referenced within
 
 ## Definition
 
-
+```c
+void
+recordDependencyOnSingleRelExpr(const ObjectAddress *depender,
+								Node *expr, Oid relId,
+								DependencyType behavior,
+								DependencyType self_behavior,
+								bool reverse_self)
+```
 ## Detailed Description
 This function is a specialized version of recordDependencyOnExpr designed for expressions that reference only one relation (with varno = 1 and varlevelsup = 0). It provides enhanced control over how dependencies are recorded for the target relation versus other referenced objects, with options for different dependency types and directional control.
 

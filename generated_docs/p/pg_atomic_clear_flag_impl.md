@@ -8,7 +8,10 @@ Atomically clears (resets to false) an atomic flag using spinlock protection whe
 
 ## Definition
 
-
+```c
+void
+pg_atomic_clear_flag_impl(volatile pg_atomic_flag *ptr)
+```
 ## Detailed Description
 pg_atomic_clear_flag_impl is a fallback implementation for clearing atomic flags on platforms that lack native atomic flag support. It is compiled only when PG_HAVE_ATOMIC_FLAG_SIMULATION is defined. The function atomically clears the flag by acquiring the associated spinlock, setting the flag value to false, and releasing the spinlock. This provides the atomic clear operation that complements the test-and-set functionality, allowing flags to be safely released for use by other threads or processes.
 

@@ -8,7 +8,9 @@ ResetLatch clears a latch's signaled state, preparing it to block subsequent wai
 
 ## Definition
 
-
+```c
+struct epoll_event) * nevents);
+```
 ## Detailed Description
 ResetLatch resets a latch to its non-signaled state, enabling subsequent calls to WaitLatch and related functions to properly block until the latch is set again. The function includes important safety checks to ensure that only the owning process can reset the latch and that the latch is not being reset while a wait operation might be in progress.
 

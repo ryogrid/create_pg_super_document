@@ -8,7 +8,11 @@ Evaluates runtime key expressions and updates the scankeys with their computed v
 
 ## Definition
 
-
+```c
+void
+ExecIndexEvalRuntimeKeys(ExprContext *econtext,
+						 IndexRuntimeKeyInfo *runtimeKeys, int numRuntimeKeys)
+```
 ## Detailed Description
 The  function is responsible for evaluating runtime key expressions and updating the corresponding scan keys with their computed values. This function is crucial for index scans where key values cannot be determined at plan time but must be computed during execution based on the current execution context.
 

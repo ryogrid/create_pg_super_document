@@ -8,7 +8,16 @@ SpGistDeadTupleData represents the structure for examining non-live tuples in SP
 
 ## Definition
 
-
+```c
+typedef struct SpGistDeadTupleData
+{
+	unsigned int tupstate:2,	/* LIVE/REDIRECT/DEAD/PLACEHOLDER */
+				size:30;
+	uint16		t_info;			/* not used in dead tuples */
+	ItemPointerData pointer;	/* redirection inside index */
+	TransactionId xid;			/* ID of xact that inserted this tuple */
+} SpGistDeadTupleData;
+```
 ## Detailed Description
 SpGistDeadTupleData defines the structure for non-live tuples in SP-GiST indexes, serving as a specialized format for handling dead and redirect tuples. This structure maintains field compatibility with regular leaf tuples to support safe tuple replacement operations while providing additional metadata for transaction tracking and index redirection. The design ensures that dead tuples can be properly managed during index maintenance operations while preserving the ability to redirect references to new locations when needed.
 

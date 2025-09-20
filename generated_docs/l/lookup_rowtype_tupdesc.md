@@ -8,7 +8,10 @@ Public function to lookup a row type's tuple descriptor with reference counting 
 
 ## Definition
 
-
+```c
+TupleDesc
+lookup_rowtype_tupdesc(Oid type_id, int32 typmod)
+```
 ## Detailed Description
 This function serves as the primary public interface for retrieving tuple descriptors for composite types in PostgreSQL. It wraps the internal lookup_rowtype_tupdesc_internal() function while adding crucial memory management features:
 

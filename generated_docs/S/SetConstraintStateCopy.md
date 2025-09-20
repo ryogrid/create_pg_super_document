@@ -8,7 +8,10 @@ SetConstraintStateCopy creates a deep copy of an existing SetConstraintState str
 
 ## Definition
 
-
+```c
+static SetConstraintState
+SetConstraintStateCopy(SetConstraintState origstate)
+```
 ## Detailed Description
 This function performs a complete deep copy of a SetConstraintState structure. It creates a new SetConstraintState with the same capacity as the original, then copies all the state information including the global constraint flags and the entire array of individual trigger states. The function uses SetConstraintStateCreate for allocation and memcpy for efficient bulk copying of the trigger state array.
 

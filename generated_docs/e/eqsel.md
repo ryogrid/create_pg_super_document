@@ -8,7 +8,10 @@ The eqsel function provides selectivity estimation for equality operators ("=") 
 
 ## Definition
 
-
+```c
+Datum
+eqsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The eqsel function serves as the primary entry point for selectivity estimation of equality operations in PostgreSQL's query planner. It acts as a wrapper function that delegates the actual computation to eqsel_internal. This function is designed to handle equality selectivity estimation for any data types, including cases where the left and right operand data types may differ.
 

@@ -8,7 +8,13 @@ InjectionPointsCtl is the main control structure for managing an array of active
 
 ## Definition
 
-
+```c
+typedef struct InjectionPointsCtl
+{
+	pg_atomic_uint32 max_inuse;
+	InjectionPointEntry entries[MAX_INJECTION_POINTS];
+} InjectionPointsCtl;
+```
 ## Detailed Description
 InjectionPointsCtl serves as the central management structure for PostgreSQL's injection point system. It maintains a shared memory array of all active injection points and includes an optimization field to avoid unnecessary scanning of the entire array when few or no injection points are active.
 

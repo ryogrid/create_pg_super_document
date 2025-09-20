@@ -8,7 +8,10 @@ Makes the specified Perl interpreter the active one for executing PL/Perl code, 
 
 ## Definition
 
-
+```c
+static void
+activate_interpreter(plperl_interp_desc *interp_desc)
+```
 ## Detailed Description
 The  function switches the active Perl interpreter context to the specified interpreter descriptor. It performs the necessary low-level Perl context switching using the PERL_SET_CONTEXT macro and updates the global state to reflect the new active interpreter.
 

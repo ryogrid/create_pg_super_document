@@ -8,7 +8,10 @@ A utility function that finds the position of a node in a list of nodes, or adds
 
 ## Definition
 
-
+```c
+static int
+find_list_position(Node *node, List **nodelist)
+```
 ## Detailed Description
 This function searches through a list of Node pointers to find the position (0-based index) of a given node. It uses the equal() function to perform deep equality comparison between nodes. If the node is found, it returns the index position. If the node is not found in the list, it appends the node to the end of the list and returns the new position.
 

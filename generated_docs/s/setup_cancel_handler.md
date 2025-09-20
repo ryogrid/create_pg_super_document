@@ -8,7 +8,10 @@ setup_cancel_handler initializes the cancel handling infrastructure for PostgreS
 
 ## Definition
 
-
+```c
+void
+setup_cancel_handler(void (*callback) (void))
+```
 ## Detailed Description
 setup_cancel_handler is a Windows-specific initialization function that configures the query cancellation system for PostgreSQL frontend utilities. It sets up the necessary infrastructure including a user-defined callback function, localized status messages, critical section synchronization, and registers the console control handler for processing Ctrl+C and Ctrl+Break events.
 

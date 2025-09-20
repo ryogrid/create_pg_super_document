@@ -8,7 +8,10 @@ Returns the smaller of two timestamp values, implementing the PostgreSQL LEAST()
 
 ## Definition
 
-
+```c
+Datum
+timestamp_smaller(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares two timestamp values and returns the chronologically earlier (smaller) timestamp. It uses the internal timestamp comparison function to ensure consistency with other timestamp comparison operations. The function handles both finite timestamps and infinite values (TIMESTAMP_NOT_FINITE).
 

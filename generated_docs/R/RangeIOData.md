@@ -8,7 +8,14 @@ RangeIOData is a cache structure used by PostgreSQL's range type I/O functions t
 
 ## Definition
 
-
+```c
+typedef struct RangeIOData
+{
+	TypeCacheEntry *typcache;	/* range type's typcache entry */
+	FmgrInfo	typioproc;		/* element type's I/O function */
+	Oid			typioparam;		/* element type's I/O parameter */
+} RangeIOData;
+```
 ## Detailed Description
 RangeIOData serves as a function-local cache (fn_extra) for range type I/O operations in PostgreSQL. When processing range types, the system needs to repeatedly access information about both the range type itself and its element type's I/O functions. Rather than looking up this information on every call, RangeIOData caches the essential data to improve performance.
 

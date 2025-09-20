@@ -8,7 +8,10 @@ Allocates and initializes a new error stack entry for PostgreSQL's error handlin
 
 ## Definition
 
-
+```c
+static ErrorData *
+get_error_stack_entry(void)
+```
 ## Detailed Description
 This function manages the allocation of entries in PostgreSQL's error data stack, which is used to handle nested error conditions during error recovery. The function increments the global  counter and returns a pointer to the newly allocated  structure at that stack level.
 

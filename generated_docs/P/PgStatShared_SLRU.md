@@ -8,7 +8,14 @@ A shared memory structure that holds SLRU (Simple Least Recently Used) statistic
 
 ## Definition
 
-
+```c
+typedef struct PgStatShared_SLRU
+{
+	/* lock protects ->stats */
+	LWLock		lock;
+	PgStat_SLRUStats stats[SLRU_NUM_ELEMENTS];
+} PgStatShared_SLRU;
+```
 ## Detailed Description
 PgStatShared_SLRU is a shared memory structure that maintains statistics for all SLRU (Simple Least Recently Used) caches in PostgreSQL. SLRUs are used for various system components like transaction logs, multixact data, commit timestamps, and notifications. This structure provides a centralized location to collect and access performance statistics for these critical system components.
 

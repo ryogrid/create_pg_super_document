@@ -8,7 +8,10 @@ Determines if two multiranges are adjacent by checking if any boundary of one mu
 
 ## Definition
 
-
+```c
+Datum
+multirange_adjacent_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL adjacency operator () for checking if two multiranges are adjacent. Two multiranges are considered adjacent if they share a boundary point without overlapping. The function performs a comprehensive check by examining the boundaries between the ranges in both multiranges.
 

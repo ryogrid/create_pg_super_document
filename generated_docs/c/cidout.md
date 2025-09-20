@@ -8,7 +8,10 @@ A PostgreSQL internal function that converts a CommandId (cid) value to its exte
 
 ## Definition
 
-
+```c
+Datum
+cidout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's type system infrastructure, specifically handling the output conversion of CommandId values. CommandId is an internal PostgreSQL type used to track command sequences within transactions. This function takes a CommandId value and converts it to a human-readable string format using standard C library functions. The function allocates memory for a 16-character result buffer and formats the CommandId as an unsigned long integer.
 

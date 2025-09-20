@@ -8,7 +8,10 @@ Creates a copy of a network address with a specified mask length, properly handl
 
 ## Definition
 
-
+```c
+inet *
+cidr_set_masklen_internal(const inet *src, int bits)
+```
 ## Detailed Description
 This function creates a new  structure by copying the source network address and setting its mask length to the specified number of bits. It performs proper bit masking to ensure that only the significant bits (according to the new mask length) are preserved in the address portion, while clearing any trailing bits. The function handles both IPv4 and IPv6 addresses and ensures proper memory allocation and variable-length header setup.
 

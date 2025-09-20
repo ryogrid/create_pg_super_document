@@ -8,7 +8,10 @@ Reads from a logical decoding slot until it finds a consistent starting point fo
 
 ## Definition
 
-
+```c
+void
+DecodingContextFindStartpoint(LogicalDecodingContext *ctx)
+```
 ## Detailed Description
 This function performs the critical initialization phase of logical decoding by scanning the WAL from the slot's restart LSN until it finds a consistent point where logical decoding can begin. It continuously reads WAL records and processes them through LogicalDecodingProcessRecord until DecodingContextReady indicates that a consistent snapshot has been established. Once a consistent starting point is found, it updates the slot's confirmed_flush LSN to mark progress.
 

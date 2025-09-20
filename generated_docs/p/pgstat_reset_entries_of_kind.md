@@ -8,7 +8,10 @@ This function resets all statistics entries in the shared hashtable that match a
 
 ## Definition
 
-
+```c
+void
+pgstat_reset_entries_of_kind(PgStat_Kind kind, TimestampTz ts)
+```
 ## Detailed Description
 The function provides a convenient interface for resetting all statistics entries of a particular type or kind. It acts as a wrapper around , using the  callback function to identify and reset only the statistics entries whose kind matches the specified target kind.
 

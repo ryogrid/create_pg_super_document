@@ -8,7 +8,10 @@ The printtup function sends a tuple (row) to the client through the PostgreSQL c
 
 ## Definition
 
-
+```c
+structed */
+	slot_getallattrs(slot);
+```
 ## Detailed Description
 The printtup function is a core component of PostgreSQL's result delivery system. It takes a tuple stored in a TupleTableSlot and formats it for transmission to the client according to the PostgreSQL wire protocol. The function supports both text and binary output formats and handles NULL values appropriately.
 

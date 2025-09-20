@@ -8,7 +8,16 @@ Updates the whole-relation statistics stored in the pg_class system catalog row 
 
 ## Definition
 
-
+```c
+void
+vac_update_relstats(Relation relation,
+					BlockNumber num_pages, double num_tuples,
+					BlockNumber num_all_visible_pages,
+					bool hasindex, TransactionId frozenxid,
+					MultiXactId minmulti,
+					bool *frozenxid_updated, bool *minmulti_updated,
+					bool in_outer_xact)
+```
 ## Detailed Description
 This function updates the statistical information for a relation in its pg_class tuple. It deliberately violates transaction semantics by using in-place updates to overwrite the existing tuple data directly. This approach is necessary because:
 

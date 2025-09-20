@@ -8,7 +8,15 @@ AnlIndexData is a structure that holds per-index data used during the ANALYZE co
 
 ## Definition
 
-
+```c
+typedef struct AnlIndexData
+{
+	IndexInfo  *indexInfo;		/* BuildIndexInfo result */
+	double		tupleFract;		/* fraction of rows for partial index */
+	VacAttrStats **vacattrstats;	/* index attrs to analyze */
+	int			attr_cnt;
+} AnlIndexData;
+```
 ## Detailed Description
 AnlIndexData serves as a container for index-specific information during ANALYZE operations. This structure is used to collect and organize data necessary for computing statistics on indexes, including both complete and partial indexes. It maintains references to the index metadata, statistical analysis structures for individual attributes, and fraction information for partial indexes that only cover a subset of table rows.
 

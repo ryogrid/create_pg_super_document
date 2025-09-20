@@ -8,7 +8,11 @@ The german_ISO_8859_1_stem function is the main entry point for stemming German 
 
 ## Definition
 
+```c
+}
 
+extern int german_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function orchestrates the complete German word stemming process by executing four distinct phases:
 

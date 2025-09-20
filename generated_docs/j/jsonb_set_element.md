@@ -8,7 +8,11 @@ A function that sets or updates an element in a JSONB structure at a specified p
 
 ## Definition
 
-
+```c
+Datum
+jsonb_set_element(Jsonb *jb, Datum *path, int path_len,
+				  JsonbValue *newval)
+```
 ## Detailed Description
 The  function provides the capability to modify JSONB data structures by setting values at specific paths. It uses the  function internally to perform the actual path-based modification, with flags that enable creating missing intermediate objects/arrays and filling gaps in arrays. The function handles the special case of raw scalar arrays by extracting the first element. It initializes a JSONB iterator to traverse the existing structure and applies the modification using a parse state to build the result.
 

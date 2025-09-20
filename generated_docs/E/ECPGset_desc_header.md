@@ -8,7 +8,9 @@ ECPGset_desc_header sets the count field in a descriptor structure, typically us
 
 ## Definition
 
-
+```c
+struct descriptor *desc = ecpg_find_desc(lineno, desc_name);
+```
 ## Detailed Description
 ECPGset_desc_header is a simple utility function that updates the count field of a named descriptor. This function is typically used in ECPG applications to set the number of items or fields that the descriptor should contain. The function locates the descriptor by name and updates its count field with the provided value.
 

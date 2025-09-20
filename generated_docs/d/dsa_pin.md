@@ -8,7 +8,10 @@ Pins a dynamic shared memory area to prevent it from being destroyed when all ba
 
 ## Definition
 
-
+```c
+void
+dsa_pin(dsa_area *area)
+```
 ## Detailed Description
 This function pins a DSA area, ensuring that it will persist even when all backends have detached from it. When an area is pinned, it can still be reattached to later using a previously recorded handle. The pinning mechanism works by:
 

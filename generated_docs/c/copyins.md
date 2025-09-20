@@ -8,7 +8,12 @@ Copies all incoming arcs from one NFA state to another state, designed specifica
 
 ## Definition
 
-
+```c
+static void
+copyins(struct nfa *nfa,
+		struct state *oldState,
+		struct state *newState)
+```
 ## Detailed Description
 This function copies all incoming arcs from oldState to newState. Unlike moveins(), this function is specifically optimized for the common case where newState is brand-new and has no existing incoming arcs, eliminating the need for duplicate checking.
 

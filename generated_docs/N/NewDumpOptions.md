@@ -8,7 +8,10 @@ Creates and initializes a new DumpOptions structure with all default values for 
 
 ## Definition
 
-
+```c
+DumpOptions *
+NewDumpOptions(void)
+```
 ## Detailed Description
 NewDumpOptions is a constructor function that allocates memory for a new DumpOptions structure and initializes it with default values. This function serves as the primary entry point for creating DumpOptions instances used throughout the pg_dump utility. The function combines memory allocation with initialization by calling InitDumpOptions to set up all fields with appropriate default values.
 

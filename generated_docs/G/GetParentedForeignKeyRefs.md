@@ -8,7 +8,10 @@ Retrieves a list of foreign key constraint OIDs that reference the given partiti
 
 ## Definition
 
-
+```c
+static List *
+GetParentedForeignKeyRefs(Relation partition)
+```
 ## Detailed Description
 This function searches for foreign key constraints that reference the specified partition table and are part of a larger partitioned constraint system. It performs the following operations:
 

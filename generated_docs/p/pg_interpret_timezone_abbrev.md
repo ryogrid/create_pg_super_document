@@ -8,7 +8,9 @@ This function identifies a timezone abbreviation's meaning within a specific tim
 
 ## Definition
 
-
+```c
+struct state *sp;
+```
 ## Detailed Description
 pg_interpret_timezone_abbrev resolves the meaning of a timezone abbreviation within a given timezone, particularly when the abbreviation has changed meaning over time. The function takes a UTC cutoff time and returns the meaning in use at or most recently before that time, or the first meaning after that time if the abbreviation was never used before the cutoff.
 

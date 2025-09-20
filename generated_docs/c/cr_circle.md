@@ -8,7 +8,10 @@ Creates a CIRCLE geometric object from a center point and radius value.
 
 ## Definition
 
-
+```c
+Datum
+cr_circle(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a conversion operator that constructs a PostgreSQL CIRCLE geometric data type from two input parameters: a center point and a radius. It allocates memory for a new CIRCLE structure, copies the x and y coordinates from the input Point to the circle's center, and sets the radius. This function serves as a constructor for creating circle objects in PostgreSQL's geometric type system.
 

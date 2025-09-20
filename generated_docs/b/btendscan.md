@@ -8,7 +8,13 @@ Terminates a B-tree index scan by cleaning up resources, handling killed items, 
 
 ## Definition
 
-
+```c
+struct in markPos.  If (as often happens) the mark is moved
+	 * before we leave the page, we don't have to do that work.
+	 */
+	if (BTScanPosIsValid(so->currPos))
+		so->markItemIndex = so->currPos.itemIndex;
+```
 ## Detailed Description
 The btendscan function performs cleanup operations when ending a B-tree index scan. It handles any remaining killed items by calling _bt_killitems, unpins any pinned buffer pages to release locks, and systematically frees all dynamically allocated memory associated with the scan including scan keys, array contexts, killed items arrays, and tuple workspaces. The function ensures that no resources are leaked when a scan operation completes.
 

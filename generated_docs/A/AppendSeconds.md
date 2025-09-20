@@ -8,7 +8,10 @@ AppendSeconds is a static utility function that formats seconds and fractional s
 
 ## Definition
 
-
+```c
+static void
+AppendSeconds(char *cp, int sec, fsec_t fsec, int precision, bool fillzeros)
+```
 ## Detailed Description
 This function appends seconds and optional fractional seconds to a character buffer at the specified position. It handles the formatting of time components with configurable precision for fractional seconds and optional zero-padding for the seconds component. The function is designed to build time strings incrementally without null-termination, allowing callers to continue appending additional components.
 

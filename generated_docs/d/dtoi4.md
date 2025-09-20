@@ -8,7 +8,10 @@ A conversion function that converts a float8 (double precision) number to an int
 
 ## Definition
 
-
+```c
+Datum
+dtoi4(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs type conversion from PostgreSQL's float8 data type (double precision floating point) to int4 data type (32-bit signed integer). The conversion process includes several important steps: first, any fractional part is removed using rint() to avoid failing on values that would round into the valid range; second, comprehensive range checking ensures the resulting value fits within the 32-bit signed integer range; and finally, NaN values are explicitly rejected. The function is designed to be robust against edge cases while providing predictable conversion behavior.
 

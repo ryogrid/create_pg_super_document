@@ -8,7 +8,10 @@ Registers an object as being dropped by the current command, maintaining a list 
 
 ## Definition
 
-
+```c
+void
+EventTriggerSQLDropAddObject(const ObjectAddress *object, bool original, bool normal)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's event trigger system for tracking dropped objects. It maintains a list of objects that have been dropped during the current command execution, which can later be consumed by event trigger functions via pg_event_trigger_dropped_objects().
 

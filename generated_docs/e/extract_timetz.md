@@ -8,7 +8,10 @@ Extracts specified field from a time with time zone (TIMETZ) data type, returnin
 
 ## Definition
 
-
+```c
+Datum
+extract_timetz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `extract_timetz` is a PostgreSQL built-in function that extracts a specific field from a time with time zone value, similar to `timetz_part` but with a key difference in return type precision. It serves as a wrapper function that calls `timetz_part_common` with `retnumeric=true`, ensuring the result is returned as a PostgreSQL numeric type rather than a floating-point number. This provides exact decimal precision for extracted values, which is particularly important for fractional seconds and financial-grade applications.
 

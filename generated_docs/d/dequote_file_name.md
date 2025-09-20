@@ -8,7 +8,10 @@ Removes quotes from a filename string if it's quoted, handling proper unescaping
 
 ## Definition
 
-
+```c
+static char *
+dequote_file_name(char *fname, int quote_char)
+```
 ## Detailed Description
 This function is the counterpart to quote_file_name in psql's tab completion system. It takes a potentially quoted filename and removes the quotes while properly handling escape sequences. The function uses PostgreSQL's strtokx() tokenizer to parse the quoted string according to SQL quoting rules.
 

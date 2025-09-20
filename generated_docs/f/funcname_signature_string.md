@@ -8,7 +8,11 @@ Builds a human-readable string representing a function signature with its name a
 
 ## Definition
 
-
+```c
+const char *
+funcname_signature_string(const char *funcname, int nargs,
+						  List *argnames, const Oid *argtypes)
+```
 ## Detailed Description
 The  function constructs a formatted string representation of a function signature that includes the function name followed by its argument types in parentheses. The result follows the format "foo(integer, text)" or "foo(x => integer, y => text)" when named arguments are involved. This function is particularly valuable for generating informative error messages when function lookup fails, as it provides users with a clear representation of what function signature was being sought.
 

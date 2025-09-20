@@ -8,7 +8,18 @@ DummyIndexOptions is a struct that defines the reloption parameters for the dumm
 
 ## Definition
 
-
+```c
+typedef struct DummyIndexOptions
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	int			option_int;
+	double		option_real;
+	bool		option_bool;
+	DummyAmEnum option_enum;
+	int			option_string_val_offset;
+	int			option_string_null_offset;
+}			DummyIndexOptions;
+```
 ## Detailed Description
 DummyIndexOptions is a structure used in PostgreSQL's dummy index access method test module to demonstrate how custom index access methods can define and handle reloptions (relation options). This struct serves as a template showing how different data types (integer, real, boolean, enum, and string) can be incorporated as configurable options for an index access method. The structure follows PostgreSQL's varlena format with a header, making it suitable for storage and retrieval within the relation options system.
 

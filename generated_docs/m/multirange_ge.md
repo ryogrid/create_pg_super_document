@@ -8,7 +8,10 @@ A PostgreSQL function that implements the greater-than-or-equal-to operator (>=)
 
 ## Definition
 
-
+```c
+Datum
+multirange_ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a comparison operator that implements the ">="" (greater than or equal to) operation for multirange data types in PostgreSQL. Like its counterpart , it serves as part of the B-tree operator class for multiranges, enabling comprehensive indexing and sorting capabilities for multirange columns.
 

@@ -8,7 +8,9 @@ Core worker function that implements the transition logic for JSONB object aggre
 
 ## Definition
 
-
+```c
+structure for key");
+```
 ## Detailed Description
 This is the comprehensive worker function that powers all JSONB object aggregation variants. It accumulates key-value pairs into a JSONB object during aggregate processing. The function handles initialization of the aggregate state on first call, validates key types (must be strings), processes both keys and values through the JSONB conversion pipeline, and maintains the growing object structure. It supports configurable behavior for NULL value handling and key uniqueness validation through its boolean parameters.
 

@@ -8,7 +8,24 @@ Enumeration type that defines the available commands for the PostgreSQL control 
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	NO_COMMAND = 0,
+	INIT_COMMAND,
+	START_COMMAND,
+	STOP_COMMAND,
+	RESTART_COMMAND,
+	RELOAD_COMMAND,
+	STATUS_COMMAND,
+	PROMOTE_COMMAND,
+	LOGROTATE_COMMAND,
+	KILL_COMMAND,
+	REGISTER_COMMAND,
+	UNREGISTER_COMMAND,
+	RUN_AS_SERVICE_COMMAND,
+} CtlCommand;
+```
 ## Detailed Description
 The CtlCommand enum represents all possible operations that the pg_ctl utility can perform on a PostgreSQL server instance. This enumeration is used internally by pg_ctl to track which command the user has requested via command-line arguments. Each enum value corresponds to a specific administrative action that can be performed on a PostgreSQL database cluster, from basic lifecycle management (start, stop, restart) to more specialized operations (promote, logrotate, Windows service registration).
 

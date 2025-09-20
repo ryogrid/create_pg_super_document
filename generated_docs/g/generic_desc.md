@@ -8,7 +8,10 @@ Generates a human-readable description of generic WAL (Write-Ahead Log) records 
 
 ## Definition
 
-
+```c
+void
+generic_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL record description system, specifically designed to provide textual descriptions of generic xlog records. It parses the data portion of a WAL record to extract information about page regions that are being modified. The function iterates through the record data, extracting offset and length pairs that describe the locations and sizes of data being written to a page. Each offset/length pair is formatted into a human-readable string and appended to the output buffer.
 

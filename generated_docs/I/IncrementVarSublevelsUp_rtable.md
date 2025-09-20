@@ -8,7 +8,13 @@ Increments the varlevelsup fields of Var nodes within a range table by a specifi
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			rt_index;
+	int			sublevels_up;
+} rangeTableEntry_used_context;
+```
 ## Detailed Description
 This function is a specialized version of IncrementVarSublevelsUp that operates specifically on range tables. It traverses all range table entries and increments the varlevelsup field of Var nodes that meet the minimum sublevels threshold. This is commonly used during query rewriting operations when range tables need to be adjusted for different nesting contexts, such as when pulling up subqueries or restructuring query trees.
 

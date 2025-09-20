@@ -8,7 +8,10 @@ CheckerModeMain is a minimal function that validates shared memory and semaphore
 
 ## Definition
 
-
+```c
+static void
+CheckerModeMain(void)
+```
 ## Detailed Description
 CheckerModeMain serves as the main entry point for PostgreSQL's shared memory checker mode. This mode is designed to validate that shared memory and semaphores can be successfully created with the current GUC (Grand Unified Configuration) settings. The function itself performs no actual work beyond calling proc_exit(0), as the real validation occurs earlier during the CreateSharedMemoryAndSemaphores() call in the bootstrap process.
 

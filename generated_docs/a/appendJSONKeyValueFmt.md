@@ -8,7 +8,24 @@ A static helper function that formats a value using printf-style formatting and 
 
 ## Definition
 
+```c
+#include "utils/ps_status.h"
 
+static void appendJSONKeyValueFmt(StringInfo buf, const char *key,
+								  bool escape_key,
+								  const char *fmt,...) pg_attribute_printf(4, 5);
+
+/*
+ * appendJSONKeyValue
+ *
+ * Append to a StringInfo a comma followed by a JSON key and a value.
+ * The key is always escaped.  The value can be escaped optionally, that
+ * is dependent on the data type of the key.
+ */
+static void
+appendJSONKeyValue(StringInfo buf, const char *key, const char *value,
+				   bool escape_value)
+```
 ## Detailed Description
 This function serves as a wrapper around  that adds printf-style formatting capability. It takes a format string and variable arguments, formats them into a string using , and then calls  to append the result as a JSON key-value pair to the buffer. The function implements dynamic buffer allocation, starting with an initial size assumption of 128 bytes and expanding as needed if the formatted string doesn't fit.
 

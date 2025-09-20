@@ -8,7 +8,10 @@ Converts a JsonbValue scalar (leaf) value into its binary JSONB representation, 
 
 ## Definition
 
-
+```c
+static void
+convertJsonbScalar(StringInfo buffer, JEntry *header, JsonbValue *scalarVal)
+```
 ## Detailed Description
 The  function is responsible for converting leaf-level JSON values into their binary JSONB representation. It handles all primitive JSON data types by:
 

@@ -8,7 +8,10 @@ Calculates the offset to the actual data portion of an IndexTuple based on the t
 
 ## Definition
 
-
+```c
+static inline Size
+IndexInfoFindDataOffset(unsigned short t_info)
+```
 ## Detailed Description
 This inline function determines the byte offset from the beginning of an IndexTuple to where the actual attribute data begins. The offset calculation depends on whether the tuple contains null values, as indicated by the INDEX_NULL_MASK bit in the t_info parameter.
 

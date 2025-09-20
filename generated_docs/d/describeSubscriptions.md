@@ -8,7 +8,10 @@ Lists PostgreSQL logical replication subscriptions with their properties and con
 
 ## Definition
 
-
+```c
+bool
+describeSubscriptions(const char *pattern, bool verbose)
+```
 ## Detailed Description
 The  function implements the  psql meta-command to display information about logical replication subscriptions. It provides both basic and verbose output modes, with the verbose mode showing additional configuration details that vary by PostgreSQL server version.
 

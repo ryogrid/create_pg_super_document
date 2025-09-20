@@ -8,7 +8,10 @@ Sets the TCP keepalive idle timeout value for a given port connection using plat
 
 ## Definition
 
-
+```c
+int
+pq_setkeepalivesidle(int idle, Port *port)
+```
 ## Detailed Description
 This function configures the TCP keepalive idle time for a port connection. The idle time determines how long a connection must be inactive before the first keepalive probe is sent. On Unix/Linux systems, it uses setsockopt() with the appropriate TCP keepalive option. On Windows, it delegates to pq_setkeepaliveswin32(). The function handles value validation, retrieves system defaults when needed, and gracefully handles platforms that don't support keepalive configuration. A value of 0 uses the system default.
 

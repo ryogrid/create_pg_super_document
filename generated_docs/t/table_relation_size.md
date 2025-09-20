@@ -8,7 +8,10 @@ Returns the size of a table relation in bytes, either for a specific fork or the
 
 ## Definition
 
-
+```c
+static inline uint64
+table_relation_size(Relation rel, ForkNumber forkNumber)
+```
 ## Detailed Description
 This function provides a table access method (tableam) interface for determining the size of a relation. It serves as a wrapper that calls the appropriate relation_size function from the table access method's function pointer table (rd_tableam). The function can return either the size of a specific fork when a valid ForkNumber is provided, or the overall relation size when InvalidForkNumber is passed.
 

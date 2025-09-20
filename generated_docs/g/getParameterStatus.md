@@ -8,7 +8,13 @@ Reads and processes a ParameterStatus message from the PostgreSQL server, extrac
 
 ## Definition
 
-
+```c
+structure so it can all be
+	 * freed at once.  We don't use NAMEDATALEN because we don't want to tie
+	 * this interface to a specific server name length.
+	 */
+	nmlen = strlen(svname);
+```
 ## Detailed Description
 This static function handles ParameterStatus messages ('S') that the server sends to inform the client about runtime parameter values. These messages contain a parameter name followed by its current value. The function reads both the name and value as null-terminated strings and saves them using the pqSaveParameterStatus function, which maintains the parameter status in the connection's parameter status list.
 

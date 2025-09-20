@@ -8,7 +8,13 @@ Internal function that updates shared dependency records when the referenced obj
 
 ## Definition
 
-
+```c
+static void
+shdepChangeDep(Relation sdepRel,
+			   Oid classid, Oid objid, int32 objsubid,
+			   Oid refclassid, Oid refobjid,
+			   SharedDependencyType deptype)
+```
 ## Detailed Description
 This is a core internal function that handles updating pg_shdepend entries when a referenced shared object changes (such as during owner or tablespace changes). It performs intelligent dependency management by: 1) searching for existing dependency entries, 2) handling pinned objects appropriately (not creating dependencies for them), 3) updating existing entries or creating new ones as needed, and 4) cleaning up when dependencies are no longer required. The function ensures there is only one entry per dependent object and dependency type.
 

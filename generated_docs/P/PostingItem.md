@@ -8,7 +8,9 @@ PostingItem is a data structure used in PostgreSQL's GIN (Generalized Inverted I
 
 ## Definition
 
-
+```c
+typedef signed char GinNullCategory;
+```
 ## Detailed Description
 PostingItem is a fundamental structure in GIN index posting trees that serves as an entry in internal (non-leaf) pages. Each PostingItem contains two essential components: a reference to a child block in the posting tree and an associated key value. The structure is designed to minimize memory usage by using BlockIdData instead of BlockNumber to avoid padding space wastage. This structure enables the hierarchical navigation through GIN posting trees, allowing efficient traversal from root to leaf pages when searching for specific item pointers.
 

@@ -8,7 +8,37 @@ LLVMJitContext is a structure that extends the base JitContext to provide LLVM-s
 
 ## Definition
 
+```c
+typedef struct LLVMJitContext
+{
+	JitContext	base;
 
+	/* used to ensure cleanup of context */
+	ResourceOwner resowner;
+
+	/* number of modules created */
+	size_t		module_generation;
+
+	/*
+	 * The LLVM Context used by this JIT context. An LLVM context is reused
+	 * across many compilations, but occasionally reset to prevent it using
+	 * too much memory due to more and more types accumulating.
+	 */
+	LLVMContextRef llvm_context;
+
+	/* current, "open for write", module */
+	LLVMModuleRef module;
+
+	/* is there any pending code that needs to be emitted */
+	bool		compiled;
+
+	/* # of objects emitted, used to generate non-conflicting names */
+	int			counter;
+
+	/* list of handles for code emitted via Orc */
+	List	   *handles;
+} LLVMJitContext;
+```
 ## Detailed Description
 LLVMJitContext is the main structure that manages LLVM-based just-in-time compilation in PostgreSQL. It extends the base JitContext with LLVM-specific functionality and state management. This structure coordinates LLVM compilation processes, manages memory resources, tracks compilation state, and maintains references to compiled code objects.
 

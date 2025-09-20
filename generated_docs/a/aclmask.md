@@ -8,7 +8,11 @@ Computes the bitmask of all privileges held by a given role ID according to an A
 
 ## Definition
 
-
+```c
+AclMode
+aclmask(const Acl *acl, Oid roleid, Oid ownerId,
+		AclMode mask, AclMaskHow how)
+```
 ## Detailed Description
 The  function is the core privilege checking function in PostgreSQL's Access Control List system. It determines what privileges a given role has by examining both direct grants and indirect grants through role membership. The function supports two operational modes:  for checking if all specified privileges are held, and  for early exit when any privilege is found.
 

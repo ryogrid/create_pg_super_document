@@ -8,7 +8,10 @@ Sets only the offset number portion of a disk item pointer, leaving the block nu
 
 ## Definition
 
-
+```c
+static inline void
+ItemPointerSetOffsetNumber(ItemPointerData *pointer, OffsetNumber offsetNumber)
+```
 ## Detailed Description
 ItemPointerSetOffsetNumber is a specialized inline function that modifies only the offset number component of an existing ItemPointerData structure while preserving the current block number. This function is essential for operations that need to update the position of a tuple within a specific block without changing which block it references. It's commonly used during tuple compaction, line pointer reassignment, and various maintenance operations within individual pages.
 

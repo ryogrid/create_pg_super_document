@@ -8,7 +8,10 @@ ShmemAllocUnlocked allocates a max-aligned chunk from shared memory without acqu
 
 ## Definition
 
-
+```c
+void *
+ShmemAllocUnlocked(Size size)
+```
 ## Detailed Description
 This function provides a mechanism for allocating shared memory during the early stages of PostgreSQL initialization when the shared memory lock (ShmemLock) is not yet available. It operates directly on the shared memory segment header to track and allocate space. The function ensures proper alignment using MAXALIGN rather than CACHEALIGN, which is considered sufficient for early initialization purposes.
 

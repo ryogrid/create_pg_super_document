@@ -8,7 +8,11 @@ Main function for identifying and removing nominal verb suffixes in Turkish text
 
 ## Definition
 
+```c
+}
 
+static int r_stem_nominal_verb_suffixes(struct SN_env * z)
+```
 ## Detailed Description
 This function is the core component for processing nominal verb suffixes in Turkish morphological analysis. It implements a sophisticated algorithm that handles multiple layers of suffix combinations, including past participles (-ymUs̈), present tense markers (-yDU), conditional forms (-ysA), temporal forms (-yken), and various person/number agreement markers.
 

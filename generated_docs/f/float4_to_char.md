@@ -8,7 +8,10 @@ Converts a single-precision floating-point number (float4) to its formatted text
 
 ## Definition
 
-
+```c
+Datum
+float4_to_char(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `float4_to_char` function formats a single-precision floating-point value into a text string according to a format specification. It handles the unique characteristics of floating-point numbers including special values (NaN, infinity) and precision limitations. The function supports three main formatting categories:
 

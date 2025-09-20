@@ -8,7 +8,12 @@ ExecParallelReinitialize resets the parallel execution environment to prepare fo
 
 ## Definition
 
-
+```c
+void
+ExecParallelReinitialize(PlanState *planstate,
+						 ParallelExecutorInfo *pei,
+						 Bitmapset *sendParams)
+```
 ## Detailed Description
 This function enables reuse of parallel execution infrastructure by reinitializing shared memory state without complete teardown and reconstruction. It is particularly useful in scenarios where parallel execution needs to be restarted with updated parameters or when workers need to be relaunched after completion.
 

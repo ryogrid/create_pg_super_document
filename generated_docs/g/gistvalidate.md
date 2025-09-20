@@ -8,7 +8,10 @@ Validates the completeness and correctness of a GiST (Generalized Search Tree) o
 
 ## Definition
 
-
+```c
+bool
+gistvalidate(Oid opclassoid)
+```
 ## Detailed Description
 The  function performs comprehensive validation of a GiST operator class to ensure it conforms to the requirements of the GiST access method. It validates both the structure and signatures of support functions and operators within the operator class and its associated operator family.
 

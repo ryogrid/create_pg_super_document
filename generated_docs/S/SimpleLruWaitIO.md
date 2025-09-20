@@ -8,7 +8,10 @@ Waits for any active I/O operations on a specific SLRU page slot to complete and
 
 ## Definition
 
-
+```c
+static void
+SimpleLruWaitIO(SlruCtl ctl, int slotno)
+```
 ## Detailed Description
 SimpleLruWaitIO is a static synchronization function that ensures any ongoing I/O operations on a specified SLRU buffer slot are completed before proceeding. The function uses a sophisticated locking mechanism to wait for I/O completion and includes error recovery logic to handle cases where I/O operations may have failed abnormally.
 

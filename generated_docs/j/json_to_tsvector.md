@@ -8,7 +8,10 @@ A PostgreSQL function that converts JSON text data to a text search vector (TSVe
 
 ## Definition
 
-
+```c
+Datum
+json_to_tsvector(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL SQL-callable wrapper that converts JSON text to a TSVector for full-text search operations. It extracts the JSON text input and JSONB flags from function arguments, retrieves the current text search configuration, and delegates the actual conversion work to the  function. The function handles proper memory management by freeing copied arguments before returning the result.
 

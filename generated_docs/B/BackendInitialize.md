@@ -8,7 +8,14 @@ BackendInitialize initializes an interactive (postmaster-child) backend process 
 
 ## Definition
 
-
+```c
+structure and all data structures attached to it are allocated
+	 * in TopMemoryContext, so that they survive into PostgresMain execution.
+	 * We need not worry about leaking this storage on failure, since we
+	 * aren't in the postmaster process anymore.
+	 */
+	oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+```
 ## Detailed Description
 BackendInitialize performs comprehensive initialization for a new backend process, including setting up signal handlers, establishing libpq communication, collecting client connection information, processing SSL startup and startup packets, and validating database availability state. The function is designed to work without shared memory access and handles various failure scenarios with appropriate cleanup. It establishes timeout mechanisms to prevent buggy clients from hanging connections indefinitely.
 

@@ -8,7 +8,10 @@ A static function that converts text from various single-byte character encoding
 
 ## Definition
 
-
+```c
+static void
+pg_to_ascii(unsigned char *src, unsigned char *src_end, unsigned char *dest, int enc)
+```
 ## Detailed Description
 The `pg_to_ascii` function performs character encoding conversion from specific single-byte encodings to ASCII. It processes each byte in the input buffer and converts characters above ASCII range (128+) to their closest ASCII equivalents using predefined translation tables. The function supports ISO-8859-1 (Latin-1), ISO-8859-2 (Latin-2), ISO-8859-15 (Latin-9), and Windows-1250 encodings.
 

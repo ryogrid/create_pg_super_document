@@ -8,7 +8,9 @@ Final function for the  ordered-set aggregate that calculates discrete percentil
 
 ## Definition
 
-
+```c
+typedef Datum (*LerpFunc) (Datum lo, Datum hi, double pct);
+```
 ## Detailed Description
 The  function implements the final phase of the  aggregate. It calculates discrete percentiles, meaning it returns an actual value from the input set rather than interpolating between values (as  would).
 

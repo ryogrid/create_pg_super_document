@@ -8,7 +8,10 @@ pg_timezone_abbrev_initialize is a static helper function that sets the default 
 
 ## Definition
 
-
+```c
+struct config_generic *gconf = dlist_container(struct config_generic,
+													   nondef_link, iter.cur);
+```
 ## Detailed Description
 This function provides a lazy initialization mechanism for the timezone_abbreviations configuration parameter. It is designed to handle the bootstrap problem where the default timezone abbreviations cannot be safely set during initial GUC system initialization because the executable path (my_exec_path) may not yet be determined.
 

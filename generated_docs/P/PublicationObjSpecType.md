@@ -8,7 +8,16 @@ PublicationObjSpecType is an enumeration that specifies the type of database obj
 
 ## Definition
 
-
+```c
+typedef struct PublicationObjSpec
+{
+	NodeTag		type;
+	PublicationObjSpecType pubobjtype;	/* type of this publication object */
+	char	   *name;
+	PublicationTable *pubtable;
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} PublicationObjSpec;
+```
 ## Detailed Description
 This enumeration defines the different types of objects that can be specified when creating or altering a PostgreSQL publication for logical replication. Publications are used to define a set of tables whose data changes will be replicated to subscribers. The enum provides flexibility in specifying individual tables, all tables in a schema, or using continuation semantics for complex publication definitions.
 

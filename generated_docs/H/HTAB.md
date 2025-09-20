@@ -8,7 +8,29 @@ HTAB is the top-level control structure for PostgreSQL's hash tables, containing
 
 ## Definition
 
+```c
+struct HTAB
+{
+	HASHHDR    *hctl;			/* => shared control information */
+	HASHSEGMENT *dir;			/* directory of segment starts */
+	HashValueFunc hash;			/* hash function */
+	HashCompareFunc match;		/* key comparison function */
+	HashCopyFunc keycopy;		/* key copying function */
+	HashAllocFunc alloc;		/* memory allocator */
+	MemoryContext hcxt;			/* memory context if default allocator used */
+	char	   *tabname;		/* table name (for error messages) */
+	bool		isshared;		/* true if table is in shared memory */
+	bool		isfixed;		/* if true, don't enlarge */
 
+	/* freezing a shared table isn't allowed, so we can keep state here */
+	bool		frozen;			/* true = no more inserts allowed */
+
+	/* We keep local copies of these fixed values to reduce contention */
+	Size		keysize;		/* hash key length in bytes */
+	long		ssize;			/* segment size --- must be power of 2 */
+	int			sshift;			/* segment shift = log2(ssize) */
+};
+```
 ## Detailed Description
 HTAB serves as the primary interface structure for PostgreSQL's dynamic hash tables. In shared-memory hash tables, each backend maintains its own copy of the HTAB structure (which is safe since no fields change at runtime), while the actual shared control information resides in the HASHHDR structure pointed to by hctl.
 

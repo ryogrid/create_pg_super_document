@@ -8,7 +8,10 @@ The GiST PickSplit method for range types that implements node splitting logic i
 
 ## Definition
 
-
+```c
+Datum
+range_gist_picksplit(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the core splitting algorithm for GiST (Generalized Search Tree) indexes on range types. It receives a vector of range entries that need to be split into two groups and implements a sophisticated strategy:
 

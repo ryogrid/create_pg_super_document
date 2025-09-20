@@ -8,7 +8,11 @@ Determines the field name of a specified field within an expression of composite
 
 ## Definition
 
-
+```c
+static const char *
+get_name_for_var_field(Var *var, int fieldno,
+					   int levelsup, deparse_context *context)
+```
 ## Detailed Description
 This function handles the complex task of determining field names for composite type expressions during rule decompilation. It deals with several challenging scenarios:
 

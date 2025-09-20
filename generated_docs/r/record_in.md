@@ -8,7 +8,10 @@ Converts a string representation of a composite type (record) into its internal 
 
 ## Definition
 
-
+```c
+structure */
+	tuple.t_len = HeapTupleHeaderGetDatumLength(rec);
+```
 ## Detailed Description
 The  function serves as the input conversion function for any composite type in PostgreSQL. It parses string representations of records in the format  and converts them into the internal  format used by PostgreSQL for storage and manipulation. The function handles complex parsing requirements including quote handling, escape sequences, null values, and nested composite types through recursive calls.
 

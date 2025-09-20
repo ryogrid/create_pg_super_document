@@ -8,7 +8,10 @@ Retrieves a LocalPgBackendStatus entry by its 1-based index position in the loca
 
 ## Definition
 
-
+```c
+LocalPgBackendStatus *
+pgstat_get_local_beentry_by_index(int idx)
+```
 ## Detailed Description
 This function provides access to LocalPgBackendStatus entries using a 1-based array index rather than a process number. It's similar to pgstat_get_beentry_by_proc_number() but returns the full LocalPgBackendStatus structure with locally computed additions like transaction IDs (xid and xmin). The function performs bounds checking to ensure the index is within the valid range (1 to localNumBackends) and returns the corresponding entry from the localBackendStatusTable array.
 

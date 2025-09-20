@@ -8,7 +8,10 @@ _PrintExtraToc is a callback function that outputs diagnostic information about 
 
 ## Definition
 
-
+```c
+static void
+_PrintExtraToc(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function serves as an optional callback invoked by the PostgreSQL archiver during restoration operations to provide additional diagnostic information about Table of Contents (TOC) entries. When the verbose flag is enabled in the archive handle, this function outputs the data position offset for each TOC entry.
 

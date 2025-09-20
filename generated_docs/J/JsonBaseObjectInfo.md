@@ -8,7 +8,13 @@ Represents a "base object" and its "id" for .keyvalue() evaluation in PostgreSQL
 
 ## Definition
 
-
+```c
+typedef struct JsonBaseObjectInfo
+{
+	JsonbContainer *jbc;
+	int			id;
+} JsonBaseObjectInfo;
+```
 ## Detailed Description
 JsonBaseObjectInfo is a simple structure used in PostgreSQL's JSON path execution engine to track base objects during .keyvalue() method evaluation. This structure maintains a reference to a JSONB container along with an associated identifier, enabling the system to properly handle nested object traversal and key-value pair extraction in JSON path expressions.
 

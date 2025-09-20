@@ -8,7 +8,10 @@ Determines whether a pg_amop or pg_amproc catalog entry requires an explicit dep
 
 ## Definition
 
-
+```c
+static bool
+typeDepNeeded(Oid typid, OpFamilyMember *member)
+```
 ## Detailed Description
 This function implements an optimization strategy for dependency management in PostgreSQL's operator family system. It analyzes whether an explicit dependency between a catalog entry (operator or support function) and a data type is necessary. The function returns false (no dependency needed) when the entry already has an indirect dependency via its referenced operator or function, which is typically the case for operators but may not be true for support functions. This optimization reduces unnecessary dependency entries and improves system performance by avoiding redundant dependency tracking.
 

@@ -8,7 +8,13 @@ Determines whether a restriction clause matches a column of an index, and if so,
 
 ## Definition
 
-
+```c
+static IndexClause *
+match_clause_to_indexcol(PlannerInfo *root,
+						 RestrictInfo *rinfo,
+						 int indexcol,
+						 IndexOptInfo *index)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's index path selection mechanism. It analyzes whether a given restriction clause can be used with a specific index column to create an efficient index scan. The function supports multiple types of clauses and matching strategies:
 

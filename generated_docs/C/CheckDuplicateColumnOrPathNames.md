@@ -8,7 +8,11 @@ Recursively validates that column and path names within a JSON_TABLE specificati
 
 ## Definition
 
-
+```c
+static void
+CheckDuplicateColumnOrPathNames(JsonTableParseContext *cxt,
+								List *columns)
+```
 ## Detailed Description
 This function performs a comprehensive check for duplicate column and path names within a JSON_TABLE specification. It recursively traverses the column list, examining both regular columns and nested path specifications. For each column or path encountered, it:
 

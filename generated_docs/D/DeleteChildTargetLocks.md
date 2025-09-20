@@ -8,7 +8,10 @@ Deletes child target locks owned by the current process that are covered by a ne
 
 ## Definition
 
-
+```c
+static void
+DeleteChildTargetLocks(const PREDICATELOCKTARGETTAG *newtargettag)
+```
 ## Detailed Description
 DeleteChildTargetLocks is a static function in PostgreSQL's predicate locking system that removes child (more granular) predicate locks when a parent (less granular) lock is acquired. This implements lock promotion, where acquiring a coarser lock (like a page lock) makes finer locks (like tuple locks) redundant. The function iterates through all predicate locks held by the current serializable transaction and removes any locks whose targets are covered by the new target.
 

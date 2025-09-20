@@ -8,7 +8,10 @@ A specialized optimization function that simplifies boolean equality and inequal
 
 ## Definition
 
-
+```c
+static Node *
+simplify_boolean_equality(Oid opno, List *args)
+```
 ## Detailed Description
 This function serves as a subroutine for  to optimize boolean comparison operations when one operand is a constant boolean value. It implements logical simplification rules that are marginally useful in themselves but critical for ensuring expression equivalence recognition in contexts like partial index matching.
 

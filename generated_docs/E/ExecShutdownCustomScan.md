@@ -8,7 +8,10 @@ ExecShutdownCustomScan is a function that performs shutdown operations for custo
 
 ## Definition
 
-
+```c
+void
+ExecShutdownCustomScan(CustomScanState *node)
+```
 ## Detailed Description
 ExecShutdownCustomScan serves as a wrapper function that delegates shutdown operations to custom scan implementations through their method table. This function is part of PostgreSQL's extensibility framework that allows external modules to implement custom scan operators. The function checks if the custom scan implementation provides a ShutdownCustomScan method and calls it if available, ensuring proper cleanup during parallel query execution shutdown phases.
 

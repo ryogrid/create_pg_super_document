@@ -8,7 +8,10 @@ Determines whether the query parse tree contains PlaceHolderVars (PHVs) that dep
 
 ## Definition
 
-
+```c
+static bool
+find_dependent_phvs(PlannerInfo *root, int varno)
+```
 ## Detailed Description
 This function searches through the query parse tree to find PlaceHolderVars that have dependencies on a specific relation identified by . It performs an optimization check early on by examining if any PlaceHolderVars exist in the query at all (via ). If none exist, it immediately returns false to avoid unnecessary traversal.
 

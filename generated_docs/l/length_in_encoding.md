@@ -8,7 +8,10 @@ A PostgreSQL function that calculates the length of a string in characters when 
 
 ## Definition
 
-
+```c
+Datum
+length_in_encoding(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `length_in_encoding` function is a SQL-callable function that takes a BYTEA string and an encoding name as parameters, then returns the character length of the string when interpreted in the specified encoding. The function performs encoding validation to ensure the byte sequence is valid for the given encoding and raises an error if invalid data is encountered.
 

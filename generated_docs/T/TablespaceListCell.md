@@ -8,7 +8,14 @@ A linked list node structure used in pg_basebackup to store tablespace directory
 
 ## Definition
 
-
+```c
+typedef struct TablespaceListCell
+{
+	struct TablespaceListCell *next;
+	char		old_dir[MAXPGPATH];
+	char		new_dir[MAXPGPATH];
+} TablespaceListCell;
+```
 ## Detailed Description
 TablespaceListCell is a fundamental data structure in pg_basebackup that represents a single node in a linked list used to manage tablespace directory mappings. This structure is essential for handling tablespace relocation during base backup operations, allowing users to specify different destination directories for tablespaces compared to their original locations on the source server.
 

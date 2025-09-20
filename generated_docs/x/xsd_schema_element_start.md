@@ -8,7 +8,10 @@ Internal helper function that writes the opening element of an XML Schema (XSD) 
 
 ## Definition
 
-
+```c
+static void
+xsd_schema_element_start(StringInfo result, const char *targetns)
+```
 ## Detailed Description
 This static utility function generates the opening tag for an XML Schema Definition (XSD) document. It creates the root  element with the required XSD namespace declaration and optionally includes a target namespace if provided. The function handles the proper formatting of XML namespace attributes and ensures the schema element is correctly structured according to XSD standards.
 

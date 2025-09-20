@@ -8,7 +8,10 @@ Converts a network address from binary network format to presentation (string) f
 
 ## Definition
 
-
+```c
+char *
+pg_inet_net_ntop(int af, const void *src, int bits, char *dst, size_t size)
+```
 ## Detailed Description
 This function serves as a wrapper that delegates network-to-presentation conversion to appropriate address family-specific handlers. It handles both PostgreSQL-specific address family constants (PGSQL_AF_INET, PGSQL_AF_INET6) and system library constants (AF_INET, AF_INET6). The function can convert network addresses that include host parts, making it suitable for both network addresses and host addresses with netmasks.
 

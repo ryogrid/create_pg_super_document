@@ -8,7 +8,11 @@ A static helper function that extracts tuple identifiers (TIDs) from a Blocktabl
 
 ## Definition
 
-
+```c
+static void
+tidstore_iter_extract_tids(TidStoreIter *iter, BlockNumber blkno,
+						   BlocktableEntry *page)
+```
 ## Detailed Description
 This function processes a BlocktableEntry (which represents a page in the TidStore's radix tree) to extract all TID offset numbers for a given block. It handles two different storage formats:
 

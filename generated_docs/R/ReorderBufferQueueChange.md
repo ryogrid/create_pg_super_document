@@ -8,7 +8,11 @@ Queues a change into a transaction for later replay upon commit or streaming whe
 
 ## Definition
 
-
+```c
+void
+ReorderBufferQueueChange(ReorderBuffer *rb, TransactionId xid, XLogRecPtr lsn,
+						 ReorderBufferChange *change, bool toast_insert)
+```
 ## Detailed Description
 This function is the primary interface for adding changes to transactions during logical replication decoding. It creates or retrieves the transaction by XID, validates that the transaction hasn't been concurrently aborted, and adds the change to the transaction's change list. The function tracks streamable changes, updates memory accounting, processes partial changes for streaming considerations, and enforces memory limits. It serves as the central point where decoded WAL records are converted into transaction changes that can be replayed or streamed to subscribers.
 

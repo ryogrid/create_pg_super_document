@@ -8,7 +8,10 @@ Locates an EnumItem with a given OID within the enum type's cached data structur
 
 ## Definition
 
-
+```c
+static EnumItem *
+find_enumitem(TypeCacheEnumData *enumdata, Oid arg)
+```
 ## Detailed Description
 The  function performs a binary search to locate a specific enum value within the cached enum data structure. It searches through the  array in the  structure to find an  that matches the provided OID. The function uses the  comparison function to perform the binary search via the standard C library's  function. The implementation includes a safety check for empty arrays to prevent core dumps on certain Solaris versions.
 

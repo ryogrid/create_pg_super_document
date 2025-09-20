@@ -8,7 +8,11 @@ Steps right to the next non-dead leaf page during insertion while maintaining pr
 
 ## Definition
 
-
+```c
+static void
+_bt_stepright(Relation rel, Relation heaprel, BTInsertState insertstate,
+			  BTStack stack)
+```
 ## Detailed Description
 The  function moves the insertion context from the current leaf page to the next suitable leaf page to the right. This operation is more complex than a simple search movement because it must maintain strict locking protocols to ensure that concurrent uniqueness checking operations can see insertions correctly.
 

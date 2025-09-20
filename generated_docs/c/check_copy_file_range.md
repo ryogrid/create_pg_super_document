@@ -8,7 +8,10 @@ Tests the availability and functionality of copy_file_range system call on the p
 
 ## Definition
 
-
+```c
+void
+check_copy_file_range(void)
+```
 ## Detailed Description
 This function is part of pg_upgrade's compatibility checking system that verifies whether the copy_file_range() system call is available and working properly on the current platform. The copy_file_range() system call allows efficient copying of data between files within the kernel space without transferring data to user space, making it significantly faster for large file operations.
 

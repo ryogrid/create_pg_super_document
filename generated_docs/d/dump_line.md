@@ -8,7 +8,10 @@ Outputs a formatted line of source code including label, code, and comment secti
 
 ## Definition
 
-
+```c
+void
+dump_line(void)
+```
 ## Detailed Description
 The dump_line function is the core output routine for pg_bsd_indent that handles the actual printing of formatted source code lines. It processes three main sections: labels (like goto labels or preprocessor directives), code statements, and comments. The function applies proper indentation, handles blank line insertion/suppression, manages comment positioning, and maintains consistent formatting according to the configured style options.
 

@@ -8,7 +8,10 @@ Generates a random 32-bit signed integer uniformly distributed over the full ran
 
 ## Definition
 
-
+```c
+int32
+pg_prng_int32(pg_prng_state *state)
+```
 ## Detailed Description
 This function selects a random int32 uniformly from the full signed 32-bit integer range [PG_INT32_MIN, PG_INT32_MAX]. Like pg_prng_uint32, it uses the upper 32 bits of the 64-bit xoroshiro128** generator output, then casts the result to a signed integer. This provides uniform coverage of both positive and negative 32-bit integers.
 

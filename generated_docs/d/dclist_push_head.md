@@ -8,7 +8,10 @@ Inserts a node at the beginning of a doubly-linked circular list, automatically 
 
 ## Definition
 
-
+```c
+static inline void
+dclist_push_head(dclist_head *head, dlist_node *node)
+```
 ## Detailed Description
 The dclist_push_head function provides a convenient way to insert a new node at the head (beginning) of a doubly-linked circular list while maintaining both the circular structure and an accurate element count. The function handles the special case where the list might be in a NULL state (uninitialized) by automatically converting it to a proper circular list structure before performing the insertion.
 

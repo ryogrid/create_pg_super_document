@@ -8,7 +8,10 @@ Optimizes dependency collections by removing duplicate object references and app
 
 ## Definition
 
-
+```c
+static void
+eliminate_duplicate_dependencies(ObjectAddresses *addrs)
+```
 ## Detailed Description
 This utility function optimizes ObjectAddresses collections by removing redundant dependency references. It performs sophisticated deduplication that goes beyond simple duplicate removal, implementing intelligent merging logic for related object references.
 

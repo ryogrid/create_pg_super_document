@@ -8,7 +8,11 @@ IssueCommandPerBlob is a utility function in pg_dump that executes SQL commands 
 
 ## Definition
 
-
+```c
+void
+IssueCommandPerBlob(ArchiveHandle *AH, TocEntry *te,
+					const char *cmdBegin, const char *cmdEnd)
+```
 ## Detailed Description
 This function processes a TocEntry containing large object OIDs (one per line) and wraps each OID in the provided SQL command fragments to generate complete SQL commands. It supports PostgreSQL's --transaction-size mode by tracking the number of commands issued and automatically committing/starting new transactions when the specified transaction size limit is reached.
 

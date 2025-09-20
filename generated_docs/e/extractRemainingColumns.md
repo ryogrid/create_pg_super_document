@@ -8,7 +8,15 @@ Extracts all columns that are not already merged from JOIN USING clauses, effici
 
 ## Definition
 
-
+```c
+static int
+extractRemainingColumns(ParseState *pstate,
+						ParseNamespaceColumn *src_nscolumns,
+						List *src_colnames,
+						List **src_colnos,
+						List **res_colnames, List **res_colvars,
+						ParseNamespaceColumn *res_nscolumns)
+```
 ## Detailed Description
 The `extractRemainingColumns` function is a static helper function used during JOIN processing to efficiently identify and extract columns from a source table that have not already been merged through JOIN USING clauses. This is crucial for constructing the complete column list of a JOIN result.
 

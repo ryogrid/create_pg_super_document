@@ -8,7 +8,10 @@ Detaches all DSM segments including the control segment, typically used in child
 
 ## Definition
 
-
+```c
+void
+dsm_detach_all(void)
+```
 ## Detailed Description
 The  function provides a comprehensive cleanup mechanism that detaches all DSM segments from the current process, including the special control segment that manages the DSM subsystem itself. This function is primarily designed for use in child processes that may have inherited shared memory mappings from their parent but are not intended to participate in the dynamic shared memory system.
 

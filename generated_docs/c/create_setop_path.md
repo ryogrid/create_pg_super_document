@@ -8,7 +8,19 @@ Creates a pathnode that represents computation of INTERSECT or EXCEPT set operat
 
 ## Definition
 
-
+```c
+SetOpPath *
+create_setop_path(PlannerInfo *root,
+				  RelOptInfo *rel,
+				  Path *subpath,
+				  SetOpCmd cmd,
+				  SetOpStrategy strategy,
+				  List *distinctList,
+				  AttrNumber flagColIdx,
+				  int firstFlag,
+				  double numGroups,
+				  double outputRows)
+```
 ## Detailed Description
 This function creates a SetOpPath node that represents the execution of set operations like INTERSECT and EXCEPT (with or without ALL). The function supports two implementation strategies: sorted and hashed. In sorted mode, the input must already be sorted and the output preserves the sort order. In hashed mode, no particular input ordering is required. The cost calculation assumes one cpu_operator_cost per comparison per input tuple across all columns in the distinctList. SetOp operations don't project new columns, so they reuse the source path's pathtarget.
 

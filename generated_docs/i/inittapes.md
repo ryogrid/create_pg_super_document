@@ -8,7 +8,10 @@ Initializes the tape-based external sorting infrastructure when the sort cannot 
 
 ## Definition
 
-
+```c
+static void
+inittapes(Tuplesortstate *state, bool mergeruns)
+```
 ## Detailed Description
 This static function transitions a tuplesort operation from in-memory sorting to external tape-based sorting when available memory is insufficient. It performs several critical initialization steps:
 

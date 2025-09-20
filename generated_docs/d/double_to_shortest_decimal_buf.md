@@ -8,7 +8,10 @@ Converts a double-precision floating-point number to its shortest decimal repres
 
 ## Definition
 
-
+```c
+int
+double_to_shortest_decimal_buf(double f, char *result)
+```
 ## Detailed Description
 This function provides a null-terminated string version of double-to-decimal conversion. It acts as a thin wrapper around `double_to_shortest_decimal_bufn`, adding only the null termination step. The function ensures that the resulting string is properly terminated for standard C string operations while maintaining the efficiency of the underlying conversion algorithm.
 

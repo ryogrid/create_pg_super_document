@@ -8,7 +8,9 @@ A platform-specific wrapper for the standard C library pclose() function that pr
 
 ## Definition
 
-
+```c
+#define		fopen(a,b) pgwin32_fopen(a,b)
+```
 ## Detailed Description
 The pclose symbol in PostgreSQL is a preprocessor macro defined in src/include/port.h that provides a platform-specific abstraction for closing pipe streams opened by popen(). On Windows systems, it maps to the Microsoft-specific _pclose() function, while on Unix systems it uses the standard POSIX pclose() function directly.
 

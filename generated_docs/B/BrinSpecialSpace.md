@@ -8,7 +8,12 @@ BrinSpecialSpace is a structure that defines the special area of BRIN (Block Ran
 
 ## Definition
 
-
+```c
+typedef struct BrinSpecialSpace
+{
+	uint16		vector[MAXALIGN(1) / sizeof(uint16)];
+} BrinSpecialSpace;
+```
 ## Detailed Description
 BrinSpecialSpace represents the special area found on BRIN pages. This structure is deliberately designed with an unusual approach to ensure it always occupies exactly the last MAXALIGN-sized portion of each page. The vector array is sized to fill a MAXALIGN(1) byte boundary when divided by the size of uint16, ensuring proper alignment and consistent placement at the end of BRIN pages.
 

@@ -8,7 +8,13 @@ Forces a value to conform to a particular typmod (type modifier) constraint, han
 
 ## Definition
 
-
+```c
+static Node *
+coerce_type_typmod(Node *node, Oid targetTypeId, int32 targetTypMod,
+				   CoercionContext ccontext, CoercionForm cformat,
+				   int location,
+				   bool hideInputCoercion)
+```
 ## Detailed Description
 This function applies typmod constraints to expressions that already have the correct base type. It is commonly used for:
 

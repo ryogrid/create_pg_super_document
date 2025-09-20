@@ -8,7 +8,10 @@ Flushes the current write chunk buffer to the backing file and resets the buffer
 
 ## Definition
 
-
+```c
+static void
+sts_flush_chunk(SharedTuplestoreAccessor *accessor)
+```
 ## Detailed Description
 The  function writes the current write chunk buffer to the backing BufFile and prepares for the next chunk. It calculates the chunk size based on  and , writes the entire chunk to the file, clears the buffer with zeros, resets the write pointer to the beginning of the chunk's data area, and updates the participant's page count.
 

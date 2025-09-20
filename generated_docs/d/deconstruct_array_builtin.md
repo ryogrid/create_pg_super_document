@@ -8,7 +8,12 @@ A specialized version of deconstruct_array that automatically determines element
 
 ## Definition
 
-
+```c
+void
+deconstruct_array_builtin(ArrayType *array,
+						  Oid elmtype,
+						  Datum **elemsp, bool **nullsp, int *nelemsp)
+```
 ## Detailed Description
 The  function is a convenience wrapper around  that handles built-in PostgreSQL data types. Instead of requiring the caller to provide element length, pass-by-value status, and alignment information, this function uses hardcoded knowledge about common built-in types to automatically determine these properties.
 

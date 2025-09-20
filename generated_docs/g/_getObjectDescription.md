@@ -8,7 +8,10 @@ Extracts an object description for a TOC entry and appends it to a buffer, prima
 
 ## Definition
 
-
+```c
+static void
+_getObjectDescription(PQExpBuffer buf, const TocEntry *te)
+```
 ## Detailed Description
 This function builds appropriate object descriptions for different PostgreSQL database objects based on their type. It handles three main categories of objects:
 

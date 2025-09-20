@@ -8,7 +8,10 @@ PerformRecoveryXLogAction performs necessary WAL actions at the end of recovery 
 
 ## Definition
 
-
+```c
+static bool
+PerformRecoveryXLogAction(void)
+```
 ## Detailed Description
 PerformRecoveryXLogAction is called at the conclusion of WAL recovery to perform final actions that ensure the database will be recoverable if it crashes again immediately after recovery completes. The function handles two distinct scenarios based on whether the system is being promoted from standby to primary:
 

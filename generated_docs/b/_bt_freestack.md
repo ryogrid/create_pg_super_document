@@ -8,7 +8,10 @@ Frees a retracement stack that was created by _bt_search by traversing the linke
 
 ## Definition
 
-
+```c
+void
+_bt_freestack(BTStack stack)
+```
 ## Detailed Description
 This function is responsible for cleaning up memory allocated for a B-tree retracement stack. The retracement stack is a linked list of BTStack structures that tracks the path taken during a B-tree search operation, allowing the search to retrace its steps when necessary. The function traverses the linked list from the given starting point, freeing each BTStack node in sequence until the entire stack is deallocated.
 

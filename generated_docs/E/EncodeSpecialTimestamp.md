@@ -8,7 +8,10 @@ Converts reserved timestamp data type values (infinity and negative infinity) to
 
 ## Definition
 
-
+```c
+struct tm	tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 EncodeSpecialTimestamp is a utility function that handles the encoding of special timestamp values that represent infinity concepts in PostgreSQL. The function specifically deals with two special timestamp values: TIMESTAMP_IS_NOBEGIN (negative infinity) and TIMESTAMP_IS_NOEND (positive infinity). These special values are used internally by PostgreSQL to represent timestamps that are conceptually before all other timestamps or after all other timestamps, respectively.
 

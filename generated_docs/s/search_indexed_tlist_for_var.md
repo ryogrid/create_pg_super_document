@@ -8,7 +8,12 @@ Searches for a Var node in an indexed target list and returns a modified copy wi
 
 ## Definition
 
-
+```c
+static Var *
+search_indexed_tlist_for_var(Var *var, indexed_tlist *itlist,
+							 int newvarno, int rtoffset,
+							 NullingRelsMatch nrm_match)
+```
 ## Detailed Description
 This function searches through an indexed target list to find a variable (Var node) that matches the provided varno and varattno. When a match is found, it creates a copy of the original Var with modified varno (set to newvarno) and varattno (set to the resno of the matching target list entry). It also ensures that varnosyn is incremented by rtoffset if it's positive.
 

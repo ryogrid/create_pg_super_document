@@ -8,7 +8,11 @@ The french_UTF_8_stem function is the main entry point for French morphological 
 
 ## Definition
 
+```c
+}
 
+extern int french_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 The french_UTF_8_stem function implements the complete French Snowball stemming algorithm for UTF-8 encoded text. It orchestrates multiple phases of morphological analysis in a carefully ordered sequence:
 

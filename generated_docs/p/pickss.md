@@ -8,7 +8,13 @@ A static function that selects the next state set to be used in the DFA regex en
 
 ## Definition
 
-
+```c
+static struct sset *
+pickss(struct vars *v,
+	   struct dfa *d,
+	   chr *cp,
+	   chr *start)
+```
 ## Detailed Description
 The  function implements a sophisticated state set allocation strategy for PostgreSQL's regex DFA engine. It operates in two phases: first, it attempts to allocate a new state set if the cache isn't full (fast path). If the cache is full, it employs a replacement algorithm that targets state sets that are old enough to be considered expendable, specifically those that haven't been seen in the oldest 33% of the character processing window.
 

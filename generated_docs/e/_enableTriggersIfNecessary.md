@@ -8,7 +8,10 @@ _enableTriggersIfNecessary is a utility function that re-enables all triggers on
 
 ## Definition
 
-
+```c
+static void
+_enableTriggersIfNecessary(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function serves as the counterpart to _disableTriggersIfNecessary, re-enabling all triggers that were previously disabled during data loading operations. It only operates when both the data-only restore mode and the disable-triggers option are enabled, ensuring triggers are restored to their normal operational state.
 

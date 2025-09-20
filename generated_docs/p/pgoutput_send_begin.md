@@ -8,7 +8,10 @@ Sends a BEGIN message for a logical replication transaction, initiating the tran
 
 ## Definition
 
-
+```c
+static void
+pgoutput_send_begin(LogicalDecodingContext *ctx, ReorderBufferTXN *txn)
+```
 ## Detailed Description
 This function is responsible for sending the BEGIN message that marks the start of a transaction in the logical replication stream. It is called while processing the first change of a transaction and ensures that the BEGIN message is sent exactly once per transaction. The function handles replication origin information if the transaction originated from a different node in a replication topology, and marks the transaction as having sent its BEGIN message to prevent duplicate sends.
 

@@ -8,7 +8,34 @@ The plperl_proc_desc structure represents cached information about loaded Perl p
 
 ## Definition
 
-
+```c
+typedef struct plperl_proc_desc
+{
+	char	   *proname;		/* user name of procedure */
+	MemoryContext fn_cxt;		/* memory context for this procedure */
+	unsigned long fn_refcount;	/* number of active references */
+	TransactionId fn_xmin;		/* xmin/TID of procedure's pg_proc tuple */
+	ItemPointerData fn_tid;
+	SV		   *reference;		/* CODE reference for Perl sub */
+	plperl_interp_desc *interp; /* interpreter it's created in */
+	bool		fn_readonly;	/* is function readonly (not volatile)? */
+	Oid			lang_oid;
+	List	   *trftypes;
+	bool		lanpltrusted;	/* is it plperl, rather than plperlu? */
+	bool		fn_retistuple;	/* true, if function returns tuple */
+	bool		fn_retisset;	/* true, if function returns set */
+	bool		fn_retisarray;	/* true if function returns array */
+	/* Conversion info for function's result type: */
+	Oid			result_oid;		/* Oid of result type */
+	FmgrInfo	result_in_func; /* I/O function and arg for result type */
+	Oid			result_typioparam;
+	/* Per-argument info for function's argument types: */
+	int			nargs;
+	FmgrInfo   *arg_out_func;	/* output fns for arg types */
+	bool	   *arg_is_rowtype; /* is each arg composite? */
+	Oid		   *arg_arraytype;	/* InvalidOid if not an array */
+} plperl_proc_desc;
+```
 ## Detailed Description
 This structure caches comprehensive information about compiled Perl procedures to avoid recompilation on subsequent calls. It employs reference counting to manage the lifetime of the cached data - the structure and its associated Perl subroutine are released when fn_refcount reaches zero. Memory management is handled through the dedicated fn_cxt memory context, which automatically cleans up all subsidiary data when deleted.
 

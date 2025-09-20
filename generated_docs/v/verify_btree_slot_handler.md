@@ -8,7 +8,10 @@ A ParallelSlotHandler function that processes and displays results from btree in
 
 ## Definition
 
-
+```c
+static bool
+verify_btree_slot_handler(PGresult *res, PGconn *conn, void *context)
+```
 ## Detailed Description
 The  function is a callback handler designed to process results from btree index checking operations. Unlike heap verification, btree checking functions are expected to return empty results on success (one void row or zero rows if skipped). The function primarily handles error conditions and version compatibility issues.
 

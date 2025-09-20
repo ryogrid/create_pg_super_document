@@ -8,7 +8,10 @@ Internal function that reads a null-terminated string from the connection's inpu
 
 ## Definition
 
-
+```c
+static int
+pqGets_internal(PQExpBuffer buf, PGconn *conn, bool resetbuffer)
+```
 ## Detailed Description
 pqGets_internal is a low-level utility function used internally by libpq to extract null-terminated strings from the connection's input buffer. It efficiently searches for a null terminator (\0) in the buffered data and copies the string into a PQExpBuffer for further processing.
 

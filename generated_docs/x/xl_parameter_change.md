@@ -8,7 +8,19 @@ A data structure that logs changes in PostgreSQL configuration parameters that a
 
 ## Definition
 
-
+```c
+typedef struct xl_parameter_change
+{
+	int			MaxConnections;
+	int			max_worker_processes;
+	int			max_wal_senders;
+	int			max_prepared_xacts;
+	int			max_locks_per_xact;
+	int			wal_level;
+	bool		wal_log_hints;
+	bool		track_commit_timestamp;
+} xl_parameter_change;
+```
 ## Detailed Description
 xl_parameter_change is a WAL record structure used to log changes in critical PostgreSQL configuration parameters that affect Hot Standby operations. When these parameters are modified on the primary server, the changes must be communicated to standby servers to ensure they can properly maintain consistency and avoid conflicts.
 

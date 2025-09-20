@@ -8,7 +8,10 @@ A static function in pg_ctl that parses and sets the shutdown mode for PostgreSQ
 
 ## Definition
 
-
+```c
+static void
+set_mode(char *modeopt)
+```
 ## Detailed Description
 The  function processes shutdown mode options provided via command-line arguments (typically through the -m/--mode option). It accepts both short and long forms of shutdown mode specifications and configures the global  and  variables accordingly. The function validates the input and terminates the program with an error message if an invalid mode is provided.
 

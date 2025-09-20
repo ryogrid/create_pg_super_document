@@ -8,7 +8,10 @@ Restores PostgreSQL statistics from the on-disk statistics file into shared memo
 
 ## Definition
 
-
+```c
+void
+pgstat_restore_stats(void)
+```
 ## Detailed Description
 This function is responsible for reading and restoring PostgreSQL statistics from the persistent statistics file into memory when the server starts up. It acts as a simple wrapper around the more complex  function that performs the actual file reading and data restoration.
 

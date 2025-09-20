@@ -8,7 +8,10 @@ Selects an unused slot for a new postmaster child process and marks it as assign
 
 ## Definition
 
-
+```c
+int
+AssignPostmasterChildSlot(void)
+```
 ## Detailed Description
 This function manages the allocation of slots in the PMChildFlags array for new child processes spawned by the postmaster. It searches for a free slot starting from the last assigned position to avoid repeatedly scanning low-numbered slots, improving efficiency. When a free slot is found, it marks both the local PMChildInUse array and the shared memory PMChildFlags array to indicate the slot is assigned. The function is designed to be called only by the postmaster process, eliminating the need for special locking mechanisms. It uses a circular scanning approach to distribute slot usage evenly and returns a 1-based slot number for the allocated slot.
 

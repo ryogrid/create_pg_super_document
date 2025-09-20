@@ -8,7 +8,10 @@ Initializes a GinState structure with index-specific information, including tupl
 
 ## Definition
 
-
+```c
+void
+initGinState(GinState *state, Relation index)
+```
 ## Detailed Description
 The  function fills in an empty  structure with all the necessary information to work with a specific GIN index. This includes setting up tuple descriptors, loading operator class support functions, and configuring collation information for each indexed column. The function handles both single-column and multi-column indexes differently, creating appropriate tuple descriptors for internal GIN storage format.
 

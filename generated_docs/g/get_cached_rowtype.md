@@ -8,7 +8,12 @@ get_cached_rowtype is a utility function that efficiently looks up and caches ro
 
 ## Definition
 
-
+```c
+static TupleDesc
+get_cached_rowtype(Oid type_id, int32 typmod,
+				   ExprEvalRowtypeCache *rowcache,
+				   bool *changed)
+```
 ## Detailed Description
 This function provides an optimized way to retrieve TupleDesc information for composite types while maintaining a cache to avoid repeated lookups. It handles two distinct cases:
 

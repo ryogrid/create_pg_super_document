@@ -8,7 +8,10 @@ AfterTriggerEnlargeQueryState prepares the necessary state to record AFTER trigg
 
 ## Definition
 
-
+```c
+static void
+AfterTriggerEnlargeQueryState(void)
+```
 ## Detailed Description
 This function ensures that the afterTriggers query stack has sufficient capacity to handle the current query depth. PostgreSQL allows nested queries within a (sub)transaction, and each nesting level requires its own separate trigger state to properly manage AFTER trigger events. The function dynamically grows the query_stack array when needed, either by initial allocation or reallocation, and initializes new entries to empty state.
 

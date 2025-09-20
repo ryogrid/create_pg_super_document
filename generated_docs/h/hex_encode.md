@@ -8,7 +8,10 @@ Internal utility function that converts binary data to hexadecimal string repres
 
 ## Definition
 
-
+```c
+uint64
+hex_encode(const char *src, size_t len, char *dst)
+```
 ## Detailed Description
 The `hex_encode` function performs low-level hexadecimal encoding of binary data. It converts each input byte into two hexadecimal characters using a lookup table. Each byte is split into its high and low 4-bit nibbles, which are then converted to their corresponding hexadecimal characters using the `hextbl` lookup table ("0123456789abcdef").
 

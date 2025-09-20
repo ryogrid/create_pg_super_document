@@ -8,7 +8,10 @@ Serializes a block reference table to a file by writing its contents in a struct
 
 ## Definition
 
-
+```c
+structure. */
+	reader = palloc0(sizeof(BlockRefTableReader));
+```
 ## Detailed Description
 WriteBlockRefTable converts an in-memory BlockRefTable hash table into a serialized binary format suitable for persistent storage. The function extracts all entries from the hash table, sorts them for consistent ordering, and writes them to a file using the provided callback function. The serialization includes a magic number header, entry metadata, chunk usage arrays, actual block data chunks, and a CRC checksum for integrity verification. The function optimizes storage by trimming trailing zero entries from chunk usage arrays.
 

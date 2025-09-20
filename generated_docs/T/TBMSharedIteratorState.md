@@ -8,7 +8,22 @@ TBMSharedIteratorState is a shared memory structure that coordinates iteration s
 
 ## Definition
 
-
+```c
+typedef struct TBMSharedIteratorState
+{
+	int			nentries;		/* number of entries in pagetable */
+	int			maxentries;		/* limit on same to meet maxbytes */
+	int			npages;			/* number of exact entries in pagetable */
+	int			nchunks;		/* number of lossy entries in pagetable */
+	dsa_pointer pagetable;		/* dsa pointers to head of pagetable data */
+	dsa_pointer spages;			/* dsa pointer to page array */
+	dsa_pointer schunks;		/* dsa pointer to chunk array */
+	LWLock		lock;			/* lock to protect below members */
+	int			spageptr;		/* next spages index */
+	int			schunkptr;		/* next schunks index */
+	int			schunkbit;		/* next bit to check in current schunk */
+} TBMSharedIteratorState;
+```
 ## Detailed Description
 TBMSharedIteratorState serves as the coordination mechanism for parallel TIDBitmap iteration in PostgreSQL's shared memory environment. Unlike the single-process TBMIterator, this structure enables multiple worker processes to collaboratively iterate through bitmap contents without duplicating work or missing entries.
 

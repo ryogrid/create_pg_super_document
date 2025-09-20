@@ -8,7 +8,11 @@ ReadCheckpointRecord is a specialized function that safely fetches and validates
 
 ## Definition
 
-
+```c
+static XLogRecord *
+ReadCheckpointRecord(XLogPrefetcher *xlogprefetcher, XLogRecPtr RecPtr,
+					 TimeLineID replayTLI)
+```
 ## Detailed Description
 ReadCheckpointRecord serves as a critical validation layer for checkpoint record retrieval during WAL recovery initialization. It wraps the general-purpose ReadRecord function with checkpoint-specific validation logic to ensure that the retrieved record is a valid, properly formatted checkpoint record. The function performs multiple layers of validation including location validity, record availability, resource manager identification, record type verification, and structural integrity checks.
 

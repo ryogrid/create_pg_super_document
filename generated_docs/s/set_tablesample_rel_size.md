@@ -8,7 +8,10 @@ Sets size estimates for a sampled relation by calling the table sampling method'
 
 ## Definition
 
-
+```c
+static void
+set_tablesample_rel_size(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function estimates the size characteristics of a relation that will be accessed through table sampling. It coordinates with the table sampling method (TSM) to obtain realistic estimates of how many pages will be read and how many tuples will be returned. The function first checks any partial indexes for applicability since they can affect size estimates, then calls the sampling method's estimation function, and finally updates the relation's size estimates accordingly.
 

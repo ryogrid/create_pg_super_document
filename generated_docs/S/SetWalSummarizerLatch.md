@@ -8,7 +8,10 @@ Sets the latch for the WAL summarizer process to wake it up for processing, prov
 
 ## Definition
 
-
+```c
+void
+SetWalSummarizerLatch(void)
+```
 ## Detailed Description
 This function attempts to set the WAL summarizer's latch to wake up the summarizer process. The function provides no guarantee of success because the WAL summarizer process may not have been successfully started or may have terminated after starting. The function safely handles these cases by checking if the summarizer control structure exists and if a valid process number is available.
 

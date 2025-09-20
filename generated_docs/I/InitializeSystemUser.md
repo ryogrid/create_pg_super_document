@@ -8,7 +8,10 @@ Initializes the system user identifier by combining authentication method and au
 
 ## Definition
 
-
+```c
+void
+InitializeSystemUser(const char *authn_id, const char *auth_method)
+```
 ## Detailed Description
 This function creates and stores the system user identifier by formatting the authentication method and authentication ID into a single string using the pattern "auth_method:authn_id". The resulting string is stored in the TopMemoryContext for session-long persistence. This identifier is used for auditing and tracking purposes to maintain information about how a user was authenticated beyond just their role identity.
 

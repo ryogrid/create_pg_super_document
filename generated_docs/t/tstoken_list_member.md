@@ -8,7 +8,10 @@ A static utility function that checks whether a given token type name exists as 
 
 ## Definition
 
-
+```c
+static bool
+tstoken_list_member(char *token_name, List *tokens)
+```
 ## Detailed Description
 This function performs a linear search through a list of TSTokenTypeItem structures to determine if a specified token type name is present. It iterates through each list element, comparing the provided token name with the name field of each TSTokenTypeItem using string comparison. The function returns true immediately upon finding a match, providing an early exit optimization.
 

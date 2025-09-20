@@ -8,7 +8,10 @@ Resolves a column reference (either a numeric index or column name) to a zero-ba
 
 ## Definition
 
-
+```c
+static int
+indexOfColumn(char *arg, const PGresult *res)
+```
 ## Detailed Description
 This function provides flexible column reference resolution for PostgreSQL's psql \crosstabview feature. It accepts either numeric column references (1-based) or column names and converts them to zero-based indices. For numeric inputs, it validates the range against the result set's field count. For name-based inputs, it performs case-insensitive matching after dequoting and downcasing the identifier, ensuring compatibility with PostgreSQL's identifier handling rules.
 

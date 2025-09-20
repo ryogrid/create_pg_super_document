@@ -8,7 +8,23 @@ FuncCall represents a function or aggregate invocation in PostgreSQL's parse tre
 
 ## Definition
 
-
+```c
+typedef struct FuncCall
+{
+	NodeTag		type;
+	List	   *funcname;		/* qualified name of function */
+	List	   *args;			/* the arguments (list of exprs) */
+	List	   *agg_order;		/* ORDER BY (list of SortBy) */
+	Node	   *agg_filter;		/* FILTER clause, if any */
+	struct WindowDef *over;		/* OVER clause, if any */
+	bool		agg_within_group;	/* ORDER BY appeared in WITHIN GROUP */
+	bool		agg_star;		/* argument was really '*' */
+	bool		agg_distinct;	/* arguments were labeled DISTINCT */
+	bool		func_variadic;	/* last argument was labeled VARIADIC */
+	CoercionForm funcformat;	/* how to display this node */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} FuncCall;
+```
 ## Detailed Description
 FuncCall is a comprehensive parse tree node that represents function and aggregate invocations in SQL statements. It supports a wide range of SQL function call syntax including regular function calls, aggregate functions with ORDER BY clauses, window functions with OVER clauses, DISTINCT aggregates, star aggregates (COUNT(*)), FILTER clauses, and WITHIN GROUP constructs. The node captures all the syntactic elements that can appear in function calls, making it suitable for representing everything from simple scalar functions to complex analytical functions.
 

@@ -8,7 +8,10 @@ Returns a pointer to the pending statistics entry for a given SLRU index, provid
 
 ## Definition
 
-
+```c
+static inline PgStat_SLRUStats *
+get_slru_entry(int slru_idx)
+```
 ## Detailed Description
 This static inline function provides access to the pending SLRU statistics for a specific SLRU type identified by its index. It performs several safety checks including verifying that the statistics system is active, ensuring it's not running in the postmaster process (which should not accumulate statistics), and validating the index bounds. The function sets the global flag  to indicate that there are pending SLRU statistics and returns a pointer to the appropriate entry in the  array. This allows various SLRU operations to efficiently update their statistics counters.
 

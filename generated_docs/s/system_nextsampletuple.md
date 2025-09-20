@@ -8,7 +8,12 @@ This function selects the next sampled tuple in the current block for PostgreSQL
 
 ## Definition
 
-
+```c
+static OffsetNumber
+system_nextsampletuple(SampleScanState *node,
+					   BlockNumber blockno,
+					   OffsetNumber maxoffset)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's SYSTEM table sampling method. It implements a simple sequential iteration through all tuples within a selected block. The function advances through each offset number in the block, starting from  and continuing until  is reached.
 

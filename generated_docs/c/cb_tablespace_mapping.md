@@ -8,7 +8,14 @@ A structure that stores tablespace directory mappings provided via the -T/--tabl
 
 ## Definition
 
-
+```c
+typedef struct cb_tablespace_mapping
+{
+	char		old_dir[MAXPGPATH];
+	char		new_dir[MAXPGPATH];
+	struct cb_tablespace_mapping *next;
+} cb_tablespace_mapping;
+```
 ## Detailed Description
 The  structure is used by pg_combinebackup to handle tablespace directory remapping during backup combination operations. When users specify the -T or --tablespace-mapping option, each mapping is stored in this structure as part of a linked list. This allows the tool to relocate tablespaces from their original backup locations to new target directories during the combination process.
 

@@ -8,7 +8,13 @@ Recursively transforms a grouping set and its content, converting expression lis
 
 ## Definition
 
-
+```c
+static Node *
+transformGroupingSet(List **flatresult,
+					 ParseState *pstate, GroupingSet *gset,
+					 List **targetlist, List *sortClause,
+					 ParseExprKind exprKind, bool useSQL99, bool toplevel)
+```
 ## Detailed Description
 This function processes GroupingSet nodes, which can contain various types of content including simple expression lists, nested GroupingSets, or individual expressions. It handles three main cases: (1) List nodes are transformed via  and wrapped in GROUPING_SET_SIMPLE nodes, (2) nested GroupingSet nodes are recursively processed, and (3) individual expressions are transformed via  and wrapped in simple grouping sets. The function also enforces a limit of 12 elements for CUBE operations to prevent exponential growth. GROUPING SETS within GROUPING SETS are flattened before reaching this function.
 

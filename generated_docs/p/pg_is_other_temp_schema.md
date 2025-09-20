@@ -8,7 +8,10 @@ A PostgreSQL system function that determines whether a given namespace OID belon
 
 ## Definition
 
-
+```c
+Datum
+pg_is_other_temp_schema(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function checks whether the specified namespace OID represents a temporary schema that belongs to a different database session (backend process). PostgreSQL allows each backend to create its own temporary namespace for temporary tables and related objects. This function helps distinguish between the current session's temporary schema and temporary schemas created by other concurrent sessions.
 

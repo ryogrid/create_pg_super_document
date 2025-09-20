@@ -8,7 +8,11 @@ The internal mutator function that performs recursive tree walking to remap colu
 
 ## Definition
 
-
+```c
+static Node *
+map_variable_attnos_mutator(Node *node,
+							map_variable_attnos_context *context)
+```
 ## Detailed Description
 This function implements the core logic for attribute number remapping in PostgreSQL expression trees. It handles several specialized cases:
 

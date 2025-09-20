@@ -8,7 +8,10 @@ Creates a new base backup sink that performs LZ4 compression for PostgreSQL base
 
 ## Definition
 
-
+```c
+bbsink *
+bbsink_lz4_new(bbsink *next, pg_compress_specification *compress)
+```
 ## Detailed Description
 This function creates and initializes a new LZ4 compression sink for base backup operations. It allocates memory for a  structure, sets up the operation callbacks to the LZ4-specific operations table (), and configures the compression level based on the provided compression specification. The function implements a chain of responsibility pattern where this LZ4 sink can be linked to the next sink in the backup pipeline.
 

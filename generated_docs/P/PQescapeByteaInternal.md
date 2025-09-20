@@ -8,7 +8,12 @@ PQescapeByteaInternal converts binary data to a string representation suitable f
 
 ## Definition
 
-
+```c
+static unsigned char *
+PQescapeByteaInternal(PGconn *conn,
+					  const unsigned char *from, size_t from_length,
+					  size_t *to_length, bool std_strings, bool use_hex)
+```
 ## Detailed Description
 PQescapeByteaInternal is the core implementation function for bytea escaping in libpq. It supports two encoding formats: hexadecimal (\\x followed by hex digits) and traditional escape format (using octal sequences for non-printable characters). In escape mode, it applies these transformations: null bytes become \\000, single quotes are doubled, backslashes are escaped appropriately based on standard_conforming_strings setting, and non-printable characters (< 0x20 or > 0x7e) become octal escape sequences (\\ooo). The function calculates the required output buffer size, allocates memory, and performs the encoding while handling the differences between standard and non-standard string modes.
 

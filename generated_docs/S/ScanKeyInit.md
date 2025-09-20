@@ -8,7 +8,14 @@ A simplified version of ScanKeyEntryInitialize that provides default values for 
 
 ## Definition
 
-
+```c
+void
+ScanKeyInit(ScanKey entry,
+			AttrNumber attributeNumber,
+			StrategyNumber strategy,
+			RegProcedure procedure,
+			Datum argument)
+```
 ## Detailed Description
 ScanKeyInit is a streamlined function designed for common scan key initialization needs, especially for hardwired lookups in system catalogs. It assumes sensible defaults: flags are set to zero, subtype is InvalidOid, and collation is set to C_COLLATION_OID. This function cannot handle NULL arguments, unary operators, or non-default operators, but these features are rarely needed for most system catalog searches. The use of C_COLLATION_OID as the default collation is appropriate for all collation-aware columns in system catalogs and is safely ignored for non-collatable column types.
 

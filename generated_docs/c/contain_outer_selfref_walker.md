@@ -8,7 +8,9 @@ A recursive tree walker function that traverses query nodes to detect external r
 
 ## Definition
 
-
+```c
+struct inline_cte_walker_context context;
+```
 ## Detailed Description
 This function performs the actual tree traversal work for detecting external recursive self-references in PostgreSQL query trees. It implements a depth-first search through the query tree structure, maintaining a depth counter to track the current query nesting level. The core logic identifies problematic CTE self-references where a CTE references itself from a query level that is equal to or higher than the CTE's definition level (indicated by ).
 

@@ -8,7 +8,10 @@ A custom Tcl notifier initialization function that prevents PostgreSQL backends 
 
 ## Definition
 
-
+```c
+static ClientData
+pltcl_InitNotifier(void)
+```
 ## Detailed Description
 The `pltcl_InitNotifier` function is a crucial component of PostgreSQL's PL/Tcl implementation that overrides Tcl's built-in notifier subsystem. This override is necessary to prevent PostgreSQL backends from becoming multithreaded, which would break PostgreSQL's single-threaded architecture and cause various system failures.
 

@@ -8,7 +8,10 @@ Implements the psql  command for displaying the PostgreSQL copyright notice.
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_copyright(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 The  function handles the  command in psql, which displays the PostgreSQL copyright and license information to the user. This is a simple informational command that delegates the actual copyright display to the  function. The function is straightforward with minimal complexity, serving primarily as a command interface wrapper.
 

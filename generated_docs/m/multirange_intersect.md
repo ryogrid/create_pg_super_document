@@ -8,7 +8,10 @@ Computes the intersection of two multirange values, returning a new multirange c
 
 ## Definition
 
-
+```c
+Datum
+multirange_intersect(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the intersection operation for PostgreSQL multirange types. It takes two multirange arguments and returns their intersection as a new multirange. The function serves as a SQL-callable wrapper that handles PostgreSQL's function call interface and delegates the core intersection logic to .
 

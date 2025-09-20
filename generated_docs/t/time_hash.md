@@ -8,7 +8,10 @@ The time_hash function computes a hash value for PostgreSQL's TimeADT data type,
 
 ## Definition
 
-
+```c
+Datum
+time_hash(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the hash operation for PostgreSQL's time data type (TimeADT). It delegates the actual hashing computation to the hashint8 function, treating the time value as a 64-bit integer. This approach leverages the fact that TimeADT is internally represented as a 64-bit integer containing microseconds since midnight, making it suitable for direct hashing using the int8 hash algorithm.
 

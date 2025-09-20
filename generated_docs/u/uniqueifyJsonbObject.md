@@ -8,7 +8,10 @@ Sorts and removes duplicate key-value pairs from a JsonbValue object, with optio
 
 ## Definition
 
-
+```c
+static void
+uniqueifyJsonbObject(JsonbValue *object, bool unique_keys, bool skip_nulls)
+```
 ## Detailed Description
 This function performs sorting and deduplication on JSON object key-value pairs within a JsonbValue structure. It first sorts all pairs using lengthCompareJsonbPair as the comparator, which performs length-wise string comparison on the keys. After sorting, the function can optionally remove duplicate keys and null values based on the provided flags.
 

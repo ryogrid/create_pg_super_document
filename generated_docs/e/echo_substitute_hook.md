@@ -8,7 +8,10 @@ A substitute hook function for the ECHO psql variable that provides a default va
 
 ## Definition
 
-
+```c
+static char *
+echo_substitute_hook(char *newval)
+```
 ## Detailed Description
 The  function is a psql variable substitute hook that ensures the ECHO variable always has a valid string value. When the ECHO variable is set to NULL (unset), this hook automatically substitutes it with the default value "none". This prevents the variable from being in an undefined state and ensures consistent behavior.
 

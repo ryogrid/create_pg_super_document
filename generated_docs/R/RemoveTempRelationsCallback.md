@@ -8,7 +8,10 @@ RemoveTempRelationsCallback is a PostgreSQL exit callback function that ensures 
 
 ## Definition
 
-
+```c
+static void
+RemoveTempRelationsCallback(int code, Datum arg)
+```
 ## Detailed Description
 This function serves as an exit callback that is registered to run when a PostgreSQL backend process terminates. Its primary responsibility is to clean up temporary relations created during the session to prevent orphaned temporary objects from remaining in the database.
 

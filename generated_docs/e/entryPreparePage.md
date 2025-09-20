@@ -8,7 +8,11 @@ Prepares a GIN index page for tuple insertion by performing necessary cleanup op
 
 ## Definition
 
-
+```c
+static void
+entryPreparePage(GinBtree btree, Page page, OffsetNumber off,
+				 GinBtreeEntryInsertData *insertData, BlockNumber updateblkno)
+```
 ## Detailed Description
 entryPreparePage is a preparatory function that handles two critical operations before tuple insertion in GIN index entry pages:
 

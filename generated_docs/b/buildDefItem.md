@@ -8,7 +8,10 @@ buildDefItem is a static function that constructs a DefElem node from parsed key
 
 ## Definition
 
-
+```c
+static DefElem *
+buildDefItem(const char *name, const char *val, bool was_quoted)
+```
 ## Detailed Description
 This function creates a DefElem (Definition Element) structure from a name-value pair extracted during parameter parsing. It performs intelligent type detection by attempting to parse unquoted values as integers, floats, or booleans before falling back to string representation. Quoted values are always treated as strings to preserve their exact textual representation. This function is essential for reconstructing structured configuration data from serialized text formats.
 

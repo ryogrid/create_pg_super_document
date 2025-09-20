@@ -8,7 +8,10 @@ Creates a shallow clone of a JsonbParseState structure, primarily used in aggreg
 
 ## Definition
 
-
+```c
+static JsonbParseState *
+clone_parse_state(JsonbParseState *state)
+```
 ## Detailed Description
 The  function creates a shallow copy of a JsonbParseState linked list structure. This function is specifically designed for use in aggregate final functions where the parse state needs to be modified (typically by appending values) without affecting the original state. The cloning process traverses the entire linked list of parse states and copies each node's essential fields, creating an independent copy suitable for final processing.
 

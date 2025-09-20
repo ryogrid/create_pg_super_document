@@ -8,7 +8,10 @@ CteScanRecheck is an access method routine used during EvalPlanQual processing t
 
 ## Definition
 
-
+```c
+static bool
+CteScanRecheck(CteScanState *node, TupleTableSlot *slot)
+```
 ## Detailed Description
 CteScanRecheck is part of the scan access method interface required for EvalPlanQual (EPQ) processing in PostgreSQL's concurrency control system. EPQ is used to re-evaluate plan nodes when concurrent updates are detected during tuple-level locking operations.
 

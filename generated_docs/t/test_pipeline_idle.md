@@ -8,7 +8,10 @@ Tests PostgreSQL pipeline mode behavior in idle states, including restrictions o
 
 ## Definition
 
-
+```c
+static void
+test_pipeline_idle(PGconn *conn)
+```
 ## Detailed Description
 This function tests specific edge cases and state management aspects of PostgreSQL's pipeline mode, focusing on "idle" state behavior. The test performs several critical validations:
 

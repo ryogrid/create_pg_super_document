@@ -8,7 +8,10 @@ Removes all segments before the one holding the specified cutoff page number, sa
 
 ## Definition
 
-
+```c
+void
+SimpleLruTruncate(SlruCtl ctl, int64 cutoffPage)
+```
 ## Detailed Description
 SimpleLruTruncate is a maintenance function that performs safe truncation of SLRU segments containing obsolete data. It removes all segments that precede the segment containing the cutoff page, effectively reclaiming disk space from old transaction data. The function includes comprehensive safety checks to prevent wraparound bugs and ensures proper handling of concurrent I/O operations. It first cleans up the in-memory buffer pool by removing or flushing pages that precede the cutoff, then removes the corresponding disk segments. The function uses bank-based locking and includes restart logic to handle pages that are busy with I/O operations.
 

@@ -8,7 +8,10 @@ Returns a pointer to the content lock associated with a buffer descriptor, provi
 
 ## Definition
 
-
+```c
+static inline LWLock *
+BufferDescriptorGetContentLock(const BufferDesc *bdesc)
+```
 ## Detailed Description
 BufferDescriptorGetContentLock is a static inline function that provides access to the content lock embedded within a buffer descriptor. This function serves as a type-safe accessor to retrieve the LWLock that protects the actual data content of a buffer page. The content lock is used to coordinate access to the buffer's page data, ensuring that only one process can modify the page content at a time while allowing multiple readers when appropriate.
 

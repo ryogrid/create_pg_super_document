@@ -8,7 +8,10 @@ The bit_catenate function performs the actual concatenation of two bit strings (
 
 ## Definition
 
-
+```c
+static VarBit *
+bit_catenate(VarBit *arg1, VarBit *arg2)
+```
 ## Detailed Description
 This internal function concatenates two variable-length bit strings by allocating a new result buffer and copying the bits from both input strings. It handles the complex task of bit alignment when the first string doesn't end on a byte boundary, requiring bit shifting operations to properly merge the second string. The function also validates that the combined length doesn't exceed PostgreSQL's maximum bit string length (VARBITMAXLEN).
 

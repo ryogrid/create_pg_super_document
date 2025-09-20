@@ -8,7 +8,73 @@ Transforms SQL LIMIT and OFFSET clause expressions into internal expression tree
 
 ## Definition
 
+```c
+structName,
+					 LimitOption limitOption)
+{
+	Node	   *qual;
 
+	if (clause == NULL)
+		return NULL;
+
+	qual = transformExpr(pstate, clause, exprKind);
+
+	qual = coerce_to_specific_type(pstate, qual, INT8OID, constructName);
+
+	/* LIMIT can't refer to any variables of the current query */
+	checkExprIsVarFree(pstate, qual, constructName);
+
+	/*
+	 * Don't allow NULLs in FETCH FIRST .. WITH TIES.  This test is ugly and
+	 * extremely simplistic, in that you can pass a NULL anyway by hiding it
+	 * inside an expression -- but this protects ruleutils against emitting an
+	 * unadorned NULL that's not accepted back by the grammar.
+	 */
+	if (exprKind == EXPR_KIND_LIMIT && limitOption == LIMIT_OPTION_WITH_TIES &&
+		IsA(clause, A_Const) && castNode(A_Const, clause)->isnull)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_ROW_COUNT_IN_LIMIT_CLAUSE),
+				 errmsg("row count cannot be null in FETCH FIRST ... WITH TIES clause")));
+
+	return qual;
+}
+
+/*
+ * checkExprIsVarFree
+ *		Check that given expr has no Vars of the current query level
+ *		(aggregates and window functions should have been rejected already).
+ *
+ * This is used to check expressions that have to have a consistent value
+ * across all rows of the query, such as a LIMIT.  Arguably it should reject
+ * volatile functions, too, but we don't do that --- whatever value the
+ * function gives on first execution is what you get.
+ *
+ * constructName does not affect the semantics, but is used in error messages
+ */
+static void
+checkExprIsVarFree(ParseState *pstate, Node *n, const char *constructName)
+{
+	if (contain_vars_of_level(n, 0))
+	{
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+		/* translator: %s is name of a SQL construct, eg LIMIT */
+				 errmsg("argument of %s must not contain variables",
+						constructName),
+				 parser_errposition(pstate,
+									locate_var_of_level(n, 0))));
+	}
+}
+
+
+/*
+ * checkTargetlistEntrySQL92 -
+ *	  Validate a targetlist entry found by findTargetlistEntrySQL92
+ *
+ * When we select a pre-existing tlist entry as a result of syntax such
+ * as "GROUP BY 1", we have to make sure it is acceptable for use in the
+ * indicated clause type;
+```
 ## Detailed Description
 This function is responsible for processing LIMIT and OFFSET clauses in SQL SELECT statements and related constructs. It performs several critical transformations and validations: first, it calls transformExpr to convert the raw clause into a proper expression tree, then coerces the result to INT8 (bigint) type as required by PostgreSQL's LIMIT implementation since version 8.2. The function also enforces that LIMIT expressions cannot reference variables from the current query level by calling checkExprIsVarFree. Additionally, it includes special validation for FETCH FIRST ... WITH TIES constructs to prevent NULL values, which would cause issues in query rule generation.
 

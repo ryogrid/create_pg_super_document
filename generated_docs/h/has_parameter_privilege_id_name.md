@@ -8,7 +8,10 @@ A PostgreSQL function that checks if a user (identified by role OID) has specifi
 
 ## Definition
 
-
+```c
+Datum
+has_parameter_privilege_id_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is another variant of the has_parameter_privilege family that accepts a role OID directly rather than requiring username resolution. It takes a role OID, parameter name, and privilege name as arguments, then performs the privilege check. This variant is useful when the caller already has the role OID available, avoiding the overhead of username-to-OID conversion.
 

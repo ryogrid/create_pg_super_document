@@ -8,7 +8,10 @@ Searches for a replication slot by name in the shared memory array and returns a
 
 ## Definition
 
-
+```c
+ReplicationSlot *
+SearchNamedReplicationSlot(const char *name, bool need_lock)
+```
 ## Detailed Description
 SearchNamedReplicationSlot performs a linear search through the max_replication_slots array in shared memory to find a replication slot with the specified name. The function provides flexible locking behavior based on the need_lock parameter, allowing callers to control whether they need the function to acquire the ReplicationSlotControlLock or if they already hold appropriate locks. The search compares slot names using string comparison and only considers slots that are marked as in_use.
 

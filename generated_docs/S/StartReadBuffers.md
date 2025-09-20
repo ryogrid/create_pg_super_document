@@ -8,7 +8,14 @@ StartReadBuffers is the public API function for initiating asynchronous read ope
 
 ## Definition
 
-
+```c
+bool
+StartReadBuffers(ReadBuffersOperation *operation,
+				 Buffer *buffers,
+				 BlockNumber blockNum,
+				 int *nblocks,
+				 int flags)
+```
 ## Detailed Description
 StartReadBuffers is the primary public interface for PostgreSQL's asynchronous buffer reading system. It initiates read operations for a range of blocks starting at blockNum and extending for *nblocks blocks. The function pins buffers for the requested blocks and determines whether actual I/O operations are needed. It serves as a thin wrapper around StartReadBuffersImpl, providing the same functionality with extensive API documentation. The function supports batched I/O operations and can issue prefetch advice when requested. Currently, the actual I/O is performed synchronously in the subsequent WaitReadBuffers() call, but the design allows for future enhancement to true asynchronous I/O initiation.
 

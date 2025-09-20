@@ -8,7 +8,10 @@ BufferIsExclusiveLocked checks whether a buffer is currently exclusive-locked by
 
 ## Definition
 
-
+```c
+bool
+BufferIsExclusiveLocked(Buffer buffer)
+```
 ## Detailed Description
 BufferIsExclusiveLocked provides a utility function to determine if the current backend holds an exclusive lock on a buffer's content. It handles both shared buffers (managed by the shared buffer pool) and local buffers (used for temporary relations) by routing to the appropriate buffer descriptor retrieval function. The function requires that the buffer is already pinned by the caller and uses LWLockHeldByMeInMode to check the actual lock state.
 

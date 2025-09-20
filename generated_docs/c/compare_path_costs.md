@@ -8,7 +8,10 @@ Compares the costs of two paths and returns an integer indicating which path is 
 
 ## Definition
 
-
+```c
+int
+compare_path_costs(Path *path1, Path *path2, CostSelector criterion)
+```
 ## Detailed Description
 This function compares two execution paths by their costs and returns a standard comparison result (-1, 0, +1). The comparison criterion determines whether to prioritize startup cost or total cost. When the primary cost values are equal, the function uses the secondary cost as a tiebreaker to ensure a deterministic ordering.
 

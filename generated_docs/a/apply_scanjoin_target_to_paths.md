@@ -8,7 +8,15 @@ Recursively adjusts the final scan/join relation and all its children to generat
 
 ## Definition
 
-
+```c
+static void
+apply_scanjoin_target_to_paths(PlannerInfo *root,
+							   RelOptInfo *rel,
+							   List *scanjoin_targets,
+							   List *scanjoin_targets_contain_srfs,
+							   bool scanjoin_target_parallel_safe,
+							   bool tlist_same_exprs)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's query planning that transforms scan/join relations to produce the correct final output. It operates through several sophisticated mechanisms:
 

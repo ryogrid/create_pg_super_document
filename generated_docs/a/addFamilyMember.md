@@ -8,7 +8,10 @@ Adds a new operator or function member to an operator family list while checking
 
 ## Definition
 
-
+```c
+static void
+addFamilyMember(List **list, OpFamilyMember *member)
+```
 ## Detailed Description
 This function safely adds a new OpFamilyMember to a list while ensuring uniqueness constraints are maintained. It checks for duplicates by comparing the member number, lefttype, and righttype against existing members in the list. If a duplicate is found, it reports an appropriate error message indicating whether it's a function or operator conflict. The function prevents invalid operator family definitions by enforcing that each strategy/procedure number can only be defined once for a given type combination.
 

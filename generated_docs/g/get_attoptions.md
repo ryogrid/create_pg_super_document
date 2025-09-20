@@ -8,7 +8,10 @@ Retrieves the attribute options text[] datum for a specific column in a PostgreS
 
 ## Definition
 
-
+```c
+Datum
+get_attoptions(Oid relid, int16 attnum)
+```
 ## Detailed Description
 The `get_attoptions` function looks up and returns the attribute options (attoptions) for a specific column within a PostgreSQL relation. These options are stored as a text[] array in the pg_attribute system catalog and contain column-specific storage parameters and behavioral settings. The function performs a system cache lookup to efficiently retrieve this information, returning a copied datum to ensure safe memory management.
 

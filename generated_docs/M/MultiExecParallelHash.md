@@ -8,7 +8,11 @@ MultiExecParallelHash implements the parallel-aware hash table building algorith
 
 ## Definition
 
-
+```c
+structure
+	 */
+	hashstate = makeNode(HashState);
+```
 ## Detailed Description
 MultiExecParallelHash orchestrates the parallel construction of hash tables across multiple cooperating backend processes. It implements a sophisticated multi-phase algorithm using barriers to synchronize parallel workers through different stages of hash table construction.
 

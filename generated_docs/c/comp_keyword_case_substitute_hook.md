@@ -8,7 +8,10 @@ A substitute hook function for the COMP_KEYWORD_CASE psql variable that provides
 
 ## Definition
 
-
+```c
+static char *
+comp_keyword_case_substitute_hook(char *newval)
+```
 ## Detailed Description
 This function serves as a substitute hook for the COMP_KEYWORD_CASE psql variable. When the variable is set to NULL or unset, this hook provides a sensible default value of "preserve-upper". The function is registered with psql's variable system during startup to ensure consistent behavior for keyword case completion. This hook ensures that even when no explicit value is provided for COMP_KEYWORD_CASE, the tab completion system has a valid configuration to work with.
 

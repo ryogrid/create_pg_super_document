@@ -8,7 +8,10 @@ Removes internally generated log files and directories during pg_upgrade exit cl
 
 ## Definition
 
-
+```c
+void
+cleanup_output_dirs(void)
+```
 ## Detailed Description
 The  function performs cleanup operations when pg_upgrade exits, managing the removal of temporary logs and directories created during the upgrade process. The function implements a sophisticated cleanup strategy:
 

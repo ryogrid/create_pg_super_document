@@ -8,7 +8,12 @@ Generates the appropriate PathTarget for output of partial aggregate nodes by in
 
 ## Definition
 
-
+```c
+structure of the Aggref node,
+			 * but flat-copy the node itself to avoid damaging other trees.
+			 */
+			newaggref = makeNode(Aggref);
+```
 ## Detailed Description
 This function creates the target list for partial aggregation nodes in parallel query execution. Partial aggregation is a key optimization technique where aggregation is split into multiple phases - partial aggregation on each worker followed by final aggregation to combine results.
 

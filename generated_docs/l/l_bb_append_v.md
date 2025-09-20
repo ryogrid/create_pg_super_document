@@ -8,7 +8,17 @@ A utility function that creates a new LLVM basic block and appends it to the end
 
 ## Definition
 
+```c
+/* separate, because pg_attribute_printf(2, 3) can't appear in definition */
+static inline LLVMBasicBlockRef l_bb_append_v(LLVMValueRef f, const char *fmt,...) pg_attribute_printf(2, 3);
 
+/*
+ * Insert a new basic block after previous basic blocks, the name being
+ * determined by fmt and arguments.
+ */
+static inline LLVMBasicBlockRef
+l_bb_append_v(LLVMValueRef f, const char *fmt,...)
+```
 ## Detailed Description
 This function is a convenient wrapper around LLVM's `LLVMAppendBasicBlockInContext` that simplifies the creation of named basic blocks appended to functions. Unlike `l_bb_before_v` which inserts blocks at specific positions, this function always adds new blocks at the end of the function's basic block list. The function uses variable arguments to construct a descriptive name for the new basic block using printf-style formatting.
 

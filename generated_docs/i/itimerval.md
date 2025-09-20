@@ -8,7 +8,13 @@ The  structure is a Windows compatibility definition that provides timer interva
 
 ## Definition
 
-
+```c
+struct itimerval
+{
+	struct timeval it_interval;
+	struct timeval it_value;
+};
+```
 ## Detailed Description
 The  structure is defined in PostgreSQL's Windows port header file to provide compatibility with UNIX-style interval timers on Windows systems. This structure is essential for implementing timer functionality that works consistently across different operating systems. It contains two  structures that specify the timer's periodic interval and its current countdown value, enabling PostgreSQL to handle timeouts and periodic operations uniformly across platforms.
 

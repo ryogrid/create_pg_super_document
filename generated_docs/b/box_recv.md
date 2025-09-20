@@ -8,7 +8,10 @@ Converts external binary format data to the internal PostgreSQL BOX data type st
 
 ## Definition
 
-
+```c
+Datum
+box_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL binary input conversion function that deserializes a BOX structure from PostgreSQL's binary wire format. It reads four consecutive float8 values from a StringInfo buffer representing the coordinates of the box's high and low corners. Like , this function automatically reorders the coordinates to ensure canonical representation where the 'high' point contains maximum x and y values and the 'low' point contains minimum values. This function is used in PostgreSQL's binary protocol for efficient data transfer and storage.
 

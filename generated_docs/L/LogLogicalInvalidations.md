@@ -8,7 +8,10 @@ LogLogicalInvalidations emits WAL (Write-Ahead Log) records for cache invalidati
 
 ## Definition
 
-
+```c
+void
+LogLogicalInvalidations(void)
+```
 ## Detailed Description
 LogLogicalInvalidations is responsible for writing invalidation messages to the Write-Ahead Log for logical replication purposes. This function is called at command end or commit time when there are pending cache invalidation messages that need to be replicated to logical subscribers.
 

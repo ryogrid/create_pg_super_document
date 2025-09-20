@@ -8,7 +8,12 @@ Deserializes a bytea-encoded ArrayBuildState structure back into memory during p
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate),
+						   VARSIZE_ANY_EXHDR(sstate));
+```
 ## Detailed Description
 This function reconstructs an ArrayBuildState structure from its serialized bytea representation, which was created by array_agg_serialize(). It reads the binary data stream to extract metadata (element type, count, type properties) and rebuilds both the data values and null indicators arrays.
 

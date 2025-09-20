@@ -8,7 +8,11 @@ Checks INSERT or UPDATE access permissions for a single relation at the column l
 
 ## Definition
 
-
+```c
+static bool
+ExecCheckPermissionsModified(Oid relOid, Oid userid, Bitmapset *modifiedCols,
+							 AclMode requiredPerms)
+```
 ## Detailed Description
 This static function is a specialized permission checker for INSERT and UPDATE operations that require column-level permission verification. It iterates through the bitmap of modified columns and checks that the specified user has the required permissions on each individual column. The function handles special cases such as operations that don't explicitly specify columns (e.g., SELECT FOR UPDATE) by requiring permission on at least one column of the relation.
 

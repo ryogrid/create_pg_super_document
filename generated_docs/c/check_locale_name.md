@@ -8,7 +8,10 @@ Validates that a locale name is valid for a specific locale category and optiona
 
 ## Definition
 
-
+```c
+static void
+check_locale_name(int category, const char *locale, char **canonname)
+```
 ## Detailed Description
 This function verifies that a given locale name is valid for the specified locale category by attempting to set it using setlocale(). It serves as a validation mechanism during PostgreSQL database initialization to ensure that requested locales are supported by the system. The function also provides the ability to retrieve the canonical (normalized) form of the locale name, which is particularly useful for resolving environment-based locale specifications (empty string).
 

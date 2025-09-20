@@ -8,7 +8,13 @@ A static utility function that appends null-byte padding to a StringInfo buffer 
 
 ## Definition
 
+```c
+struct must contain enough information to tell what kind
+	 * of value it is.
+	 */
 
+	res = (Jsonb *) buffer.data;
+```
 ## Detailed Description
 The `padBufferToInt` function ensures proper memory alignment for JSONB data structures by padding the buffer to integer boundaries. It calculates the number of bytes needed to align the buffer's current length to the next integer boundary using the `INTALIGN` macro, reserves that space in the buffer, and fills it with null bytes. This alignment is crucial for JSONB format compatibility and efficient memory access patterns. The function uses a simple loop to set padding bytes rather than memset for performance reasons, as the padding length is typically small (0-3 bytes for 4-byte integer alignment).
 

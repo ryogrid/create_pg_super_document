@@ -8,7 +8,10 @@ This function serves as a GUC (Grand Unified Configuration) assign hook for the 
 
 ## Definition
 
-
+```c
+void
+assign_createrole_self_grant(const char *newval, void *extra)
+```
 ## Detailed Description
 The  function is a PostgreSQL configuration assignment hook that processes changes to the  GUC parameter. When this GUC parameter is modified, this function is called to update internal state variables that control role creation and granting behavior.
 

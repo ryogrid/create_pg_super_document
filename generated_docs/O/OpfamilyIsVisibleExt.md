@@ -8,7 +8,10 @@ Extended version of OpfamilyIsVisible that provides optional error handling for 
 
 ## Definition
 
-
+```c
+static bool
+OpfamilyIsVisibleExt(Oid opfid, bool *is_missing)
+```
 ## Detailed Description
 OpfamilyIsVisibleExt is the core implementation function for operator family visibility checking in PostgreSQL's namespace system. It determines whether an operator family is visible in the current search path by performing a comprehensive check that includes cache lookup, namespace path verification, and name resolution conflicts.
 

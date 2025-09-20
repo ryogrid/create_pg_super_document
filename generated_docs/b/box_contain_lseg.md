@@ -8,7 +8,10 @@ This static function tests whether a line segment is contained within a box or l
 
 ## Definition
 
-
+```c
+static bool
+box_contain_lseg(BOX *box, LSEG *lseg)
+```
 ## Detailed Description
 The  function determines whether a line segment is completely contained within a box or lies on its border. The algorithm is straightforward and efficient: it checks if both endpoints of the line segment are contained within the box using the  function. If both endpoints are inside the box (or on its boundary), then the entire line segment must also be contained within the box, since a line segment is the straight line between its two endpoints.
 

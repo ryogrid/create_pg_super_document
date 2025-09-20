@@ -8,7 +8,12 @@ A static utility function that prints a warning message to stderr indicating tha
 
 ## Definition
 
+```c
+#line 9 "char_array.pgc"
 
+
+static void warn(void)
+```
 ## Detailed Description
 The  function is a simple static utility function located in the ECPG (Embedded SQL in C for PostgreSQL) test files. It serves as a notification mechanism to inform users when column data truncation has occurred during SQL operations. The function outputs a standardized warning message to the standard error stream, providing immediate feedback about potential data loss or truncation issues.
 

@@ -8,7 +8,10 @@ Prints debugging statistics about hash table usage, including access counts, col
 
 ## Definition
 
-
+```c
+void
+hash_stats(const char *where, HTAB *hashp)
+```
 ## Detailed Description
 This function outputs detailed statistics about a hash table to stderr for debugging purposes. It is compiled conditionally based on the HASH_STATISTICS macro. The function reports both per-table statistics (stored in the table's control structure) and global statistics maintained across all hash operations. This is primarily used for performance analysis and debugging of hash table behavior.
 

@@ -8,7 +8,16 @@ GlobalVisState is a structure that maintains transaction visibility boundaries t
 
 ## Definition
 
+```c
+struct GlobalVisState
+{
+	/* XIDs >= are considered running by some backend */
+	FullTransactionId definitely_needed;
 
+	/* XIDs < are not considered to be running by any backend */
+	FullTransactionId maybe_needed;
+};
+```
 ## Detailed Description
 GlobalVisState implements an optimization for MVCC tuple visibility testing by maintaining two transaction ID boundaries instead of computing precise visibility information on every check. This approach significantly improves performance, particularly in vacuum and pruning operations, by avoiding the overhead of repeatedly checking the global transaction state.
 

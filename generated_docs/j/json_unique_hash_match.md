@@ -8,7 +8,10 @@ The  function compares two JSON hash table entries to determine their equality a
 
 ## Definition
 
-
+```c
+static int
+json_unique_hash_match(const void *key1, const void *key2, Size keysize)
+```
 ## Detailed Description
 This function implements a three-level comparison algorithm for  structures used in the JSON key uniqueness checking hash table. It first compares object IDs to distinguish keys from different JSON objects, then compares key lengths for efficiency, and finally performs a string comparison of the actual key content. The function returns standard comparison values (-1, 0, 1) indicating whether the first entry is less than, equal to, or greater than the second entry.
 

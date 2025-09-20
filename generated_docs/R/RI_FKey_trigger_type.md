@@ -8,7 +8,10 @@ Determines the type of referential integrity (RI) trigger based on a trigger fun
 
 ## Definition
 
-
+```c
+int
+RI_FKey_trigger_type(Oid tgfoid)
+```
 ## Detailed Description
 This function analyzes a given trigger function OID to classify it as one of three types of referential integrity triggers:
 

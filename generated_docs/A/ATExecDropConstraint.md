@@ -8,7 +8,13 @@ Executes ALTER TABLE DROP CONSTRAINT commands, handling constraint deletion with
 
 ## Definition
 
-
+```c
+static void
+ATExecDropConstraint(Relation rel, const char *constrName,
+					 DropBehavior behavior,
+					 bool recurse, bool recursing,
+					 bool missing_ok, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function implements constraint deletion for ALTER TABLE operations. Unlike normal ALTER TABLE recursion, it uses a custom recursion mechanism to properly handle inherited constraints. The function searches for the target constraint in pg_constraint, validates permissions, handles foreign key locking requirements, performs the actual deletion via the dependency system, and recursively processes child tables. It properly manages inheritance counts for CHECK constraints and handles both CASCADE and RESTRICT behaviors. For partitioned tables, it enforces that constraints cannot be dropped from only the parent when partitions exist.
 

@@ -8,7 +8,10 @@ Serializes a Float node to string format by outputting its string representation
 
 ## Definition
 
-
+```c
+static void
+_outFloat(StringInfo str, const Float *node)
+```
 ## Detailed Description
 The  function serializes Float nodes in PostgreSQL's node system by directly appending the string representation of the floating-point value to the output buffer. The function is designed with the assumption that the float value stored in the node is already in a valid numeric literal format that doesn't require additional quoting or escaping.
 

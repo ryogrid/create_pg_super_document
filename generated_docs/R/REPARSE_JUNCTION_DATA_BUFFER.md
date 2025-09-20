@@ -8,7 +8,22 @@ A Windows-specific structure used to handle reparse point data for junction poin
 
 ## Definition
 
+```c
+WCHAR		PathBuffer[FLEXIBLE_ARRAY_MEMBER];
+} REPARSE_JUNCTION_DATA_BUFFER;
 
+#define REPARSE_JUNCTION_DATA_BUFFER_HEADER_SIZE   \
+		FIELD_OFFSET(REPARSE_JUNCTION_DATA_BUFFER, SubstituteNameOffset)
+
+
+/*
+ *	pgsymlink - uses Win32 junction points
+ *
+ *	For reference:	http://www.codeproject.com/KB/winsdk/junctionpoints.aspx
+ */
+int
+pgsymlink(const char *oldpath, const char *newpath)
+```
 ## Detailed Description
 This structure is a PostgreSQL-specific replacement for the Windows API REPARSE_DATA_BUFFER structure, which was defined in VC6 winnt.h but omitted in later SDK versions. It is used exclusively on Windows (non-Cygwin) platforms to implement symbolic link functionality through Windows junction points. The structure contains the necessary fields from the SymbolicLinkReparseBuffer part of the original union structure, providing a portable way to handle Windows reparse points for PostgreSQL's symlink operations.
 

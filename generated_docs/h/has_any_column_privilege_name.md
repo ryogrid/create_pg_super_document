@@ -8,7 +8,10 @@ Checks if the current user has any given privilege on any column of a specified 
 
 ## Definition
 
-
+```c
+Datum
+has_any_column_privilege_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a variant of the column privilege checking functions that assumes the current user as the subject of the privilege check. It takes only two arguments: a table name and privilege type, automatically using the currently connected user's ID for the privilege check.
 

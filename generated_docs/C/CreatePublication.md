@@ -8,7 +8,10 @@ CreatePublication creates a new logical replication publication in PostgreSQL, w
 
 ## Definition
 
-
+```c
+ObjectAddress
+CreatePublication(ParseState *pstate, CreatePublicationStmt *stmt)
+```
 ## Detailed Description
 CreatePublication is the core function responsible for creating a new publication object in PostgreSQL's logical replication system. It performs comprehensive validation, creates the catalog entry, and associates the specified tables or schemas with the publication. The function handles both explicit table lists and schema-based publications, with special handling for "FOR ALL TABLES" publications that require superuser privileges.
 

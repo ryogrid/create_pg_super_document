@@ -8,7 +8,10 @@ A selectivity estimation function for geometric operators that depend on area ca
 
 ## Definition
 
-
+```c
+Datum
+areasel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides selectivity estimation for geometric operators that are based on area calculations. This function is part of PostgreSQL's query optimizer infrastructure, specifically designed to help estimate how many rows will be returned by geometric queries involving area-dependent operations like overlap detection.
 

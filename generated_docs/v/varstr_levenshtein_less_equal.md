@@ -8,7 +8,19 @@ Computes the Levenshtein distance between two strings with custom costs for inse
 
 ## Definition
 
-
+```c
+#ifdef LEVENSHTEIN_LESS_EQUAL
+varstr_levenshtein_less_equal(const char *source, int slen,
+							  const char *target, int tlen,
+							  int ins_c, int del_c, int sub_c,
+							  int max_d, bool trusted)
+#else
+varstr_levenshtein(const char *source, int slen,
+				   const char *target, int tlen,
+				   int ins_c, int del_c, int sub_c,
+				   bool trusted)
+#endif
+```
 ## Detailed Description
 This function is a specialized variant of the Levenshtein distance algorithm that includes an important optimization: it can terminate early when the computed distance exceeds a given maximum threshold (max_d). This makes it particularly useful for fuzzy matching scenarios where you only care whether strings are "close enough" rather than the exact distance.
 

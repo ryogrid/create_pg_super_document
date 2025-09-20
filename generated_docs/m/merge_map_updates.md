@@ -8,7 +8,10 @@ A static helper function that applies multiple relation mapping updates in bulk 
 
 ## Definition
 
-
+```c
+enumber,
+						 add_okay);
+```
 ## Detailed Description
 The  function serves as a bulk operation wrapper around . It iterates through all mappings in the  RelMapFile and applies each one to the target  using the  function. This provides an efficient way to process multiple mapping changes as a single atomic operation, which is essential for maintaining consistency in PostgreSQL's relation mapping system during transactions and command completion.
 

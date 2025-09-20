@@ -8,7 +8,10 @@ The btrim function removes characters from both the front and back of a text str
 
 ## Definition
 
-
+```c
+Datum
+btrim(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 btrim is a PostgreSQL built-in function that performs bidirectional trimming of text strings. It takes two arguments: a source string and a set of characters to remove. The function removes characters from both the beginning and end of the string, continuing until it encounters the first character that is not present in the removal set. This function provides Oracle-compatible string trimming functionality in PostgreSQL.
 

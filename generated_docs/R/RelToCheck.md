@@ -8,7 +8,28 @@ RelToCheck is a result structure used to represent relations (tables) that conta
 
 ## Definition
 
-
+```c
+structure for AlterTypeRecurse() */
+typedef struct
+{
+	/* Flags indicating which type attributes to update */
+	bool		updateStorage;
+	bool		updateReceive;
+	bool		updateSend;
+	bool		updateTypmodin;
+	bool		updateTypmodout;
+	bool		updateAnalyze;
+	bool		updateSubscript;
+	/* New values for relevant attributes */
+	char		storage;
+	Oid			receiveOid;
+	Oid			sendOid;
+	Oid			typmodinOid;
+	Oid			typmodoutOid;
+	Oid			analyzeOid;
+	Oid			subscriptOid;
+} AlterTypeRecurseParams;
+```
 ## Detailed Description
 RelToCheck is a supporting data structure used in PostgreSQL's type system management, specifically for domain type operations. It is primarily used by the  function to collect and organize information about relations that contain columns of a particular domain type. This structure facilitates efficient processing of domain-related operations such as validation, constraint checking, and type modifications by maintaining a list of relations and their relevant attributes that need to be examined.
 

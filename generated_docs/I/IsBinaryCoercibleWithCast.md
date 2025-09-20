@@ -8,7 +8,12 @@ Extended variant of IsBinaryCoercible that also returns the OID of the pg_cast e
 
 ## Definition
 
-
+```c
+enum type as coercible to ANYENUM */
+	if (targettype == ANYENUMOID)
+		if (type_is_enum(srctype))
+			return true;
+```
 ## Detailed Description
 IsBinaryCoercibleWithCast is the core implementation function that determines binary coercibility between PostgreSQL data types. It performs comprehensive checks including hardwired rules for built-in types and polymorphic type handling, followed by lookup in the pg_cast system catalog.
 

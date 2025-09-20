@@ -8,7 +8,10 @@ Initializes a doubly-linked list head structure to establish an empty list state
 
 ## Definition
 
-
+```c
+static inline void
+dlist_init(dlist_head *head)
+```
 ## Detailed Description
 The  function initializes a doubly-linked list by setting up the head node to point to itself in both forward and backward directions. This creates a circular reference pattern where an empty list has its head node's  and  pointers both pointing to the head node itself. This design simplifies list operations by eliminating special cases for empty lists, as the head always has valid next/previous pointers. The function discards any previous state without cleanup, making it suitable for fresh initialization but requiring careful use when reinitializing existing lists.
 

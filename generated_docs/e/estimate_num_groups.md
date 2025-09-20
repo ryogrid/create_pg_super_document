@@ -8,7 +8,11 @@ Estimates the number of distinct groups that will result from a GROUP BY clause 
 
 ## Definition
 
-
+```c
+double
+estimate_num_groups(PlannerInfo *root, List *groupExprs, double input_rows,
+					List **pgset, EstimationInfo *estinfo)
+```
 ## Detailed Description
 This function is central to PostgreSQL's GROUP BY and DISTINCT cardinality estimation. It analyzes grouping expressions to predict how many distinct groups will be produced, which is essential for cost estimation of grouping operations, hash tables, and sort operations.
 

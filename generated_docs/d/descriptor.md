@@ -8,7 +8,14 @@ A structure used in ECPG (Embedded C for PostgreSQL) to store SQL descriptor inf
 
 ## Definition
 
-
+```c
+struct descriptor
+{
+	char	   *name;
+	char	   *connection;
+	struct descriptor *next;
+};
+```
 ## Detailed Description
 The  struct is a core component of ECPG's descriptor management system, designed to handle SQL descriptors in embedded C programs. It forms a linked list of named descriptors, each containing a PostgreSQL result set and associated metadata. This structure is essential for managing dynamic SQL operations where the structure of result sets may not be known at compile time.
 

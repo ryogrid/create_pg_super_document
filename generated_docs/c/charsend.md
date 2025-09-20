@@ -8,7 +8,10 @@ Converts a character value to PostgreSQL's external binary format for transmissi
 
 ## Definition
 
-
+```c
+Datum
+charsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The charsend function is the binary output (send) function for PostgreSQL's "char" data type. It is part of the binary protocol support that allows efficient transmission of data between PostgreSQL servers and clients without text formatting overhead.
 

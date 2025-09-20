@@ -8,7 +8,9 @@ Returns the complete function signature including argument types array and retur
 
 ## Definition
 
-
+```c
+struct;
+```
 ## Detailed Description
 This function retrieves the complete signature information for a specified function by performing a system cache lookup on the pg_proc table. It extracts both the argument types array and the return type from the function's catalog entry. The function allocates memory for the argument types array and copies the type OIDs from the catalog. It returns the return type OID and sets the output parameters for argument types and count.
 

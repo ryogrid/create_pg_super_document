@@ -8,7 +8,10 @@ A comparison function used for sorting SingleBoundSortItem structures during GiS
 
 ## Definition
 
-
+```c
+static int
+single_bound_cmp(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 This function serves as a comparator for qsort operations when sorting range bounds during GiST index node splitting. It compares two SingleBoundSortItem structures by comparing their underlying range bounds using the appropriate type-specific comparison logic.
 

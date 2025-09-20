@@ -8,7 +8,9 @@ A callback function used during index attachment operations to validate and lock
 
 ## Definition
 
-
+```c
+struct AttachIndexCallbackState *state;
+```
 ## Detailed Description
 This function serves as a callback during the resolution of a RangeVar to an OID when attaching an index to a partitioned table. It performs several critical validation and locking operations:
 

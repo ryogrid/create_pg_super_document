@@ -8,7 +8,10 @@ Resets an incremental sort node to its initial state, clearing all cached tuples
 
 ## Definition
 
-
+```c
+void
+ExecReScanIncrementalSort(IncrementalSortState *node)
+```
 ## Detailed Description
 ExecReScanIncrementalSort resets an incremental sort node for re-execution, which is necessary when query parameters change or when a rescan is explicitly requested. Unlike regular sort nodes that can efficiently rewind through stored results, incremental sort must perform a complete reset because it processes data in batches rather than storing the complete result set.
 

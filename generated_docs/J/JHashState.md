@@ -8,7 +8,17 @@ JHashState is a structure that maintains state information for the get_json_obje
 
 ## Definition
 
-
+```c
+typedef struct JHashState
+{
+	JsonLexContext *lex;
+	const char *function_name;
+	HTAB	   *hash;
+	char	   *saved_scalar;
+	const char *save_json_start;
+	JsonTokenType saved_token_type;
+} JHashState;
+```
 ## Detailed Description
 JHashState serves as a context structure for PostgreSQL's JSON-to-hash conversion functionality. It encapsulates the necessary state information required to parse JSON objects and convert them into PostgreSQL's internal hash table format (HTAB). The structure coordinates JSON lexical parsing, hash table management, and token state preservation during the conversion process.
 

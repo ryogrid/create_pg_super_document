@@ -8,7 +8,10 @@ Performs a logical XOR (exclusive OR) operation on two bit strings of equal leng
 
 ## Definition
 
-
+```c
+Datum
+bitxor(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `bitxor` function implements bitwise logical XOR (exclusive OR) operation between two variable-length bit strings (`VarBit`). Like the other bitwise operations, this function requires both input bit strings to have exactly the same length. The XOR operation sets each bit in the result to 1 if exactly one of the corresponding bits in the input strings is 1 (but not both). If both bits are the same (both 0 or both 1), the result bit is 0.
 

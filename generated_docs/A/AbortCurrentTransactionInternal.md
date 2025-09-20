@@ -8,7 +8,10 @@ AbortCurrentTransactionInternal is a static function that performs one iteration
 
 ## Definition
 
-
+```c
+static bool
+AbortCurrentTransactionInternal(void)
+```
 ## Detailed Description
 This function serves as the core state machine for handling transaction aborts in PostgreSQL. It examines the current transaction's block state and performs appropriate abort actions based on that state. The function is designed to handle both regular transactions and subtransactions, with the ability to require multiple iterations for complex nested subtransaction scenarios.
 

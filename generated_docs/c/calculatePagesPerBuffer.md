@@ -8,7 +8,10 @@ Calculates the optimal buffer size (in pages) for the GiST index buffering algor
 
 ## Definition
 
-
+```c
+static int
+calculatePagesPerBuffer(GISTBuildState *buildstate, int levelStep)
+```
 ## Detailed Description
 This function determines the appropriate size for each buffer in the GiST buffering algorithm. The buffer size is calculated based on the principle that when half a buffer is emptied, it should fill on average one page in every buffer at the next lower level, assuming random tuple distribution.
 

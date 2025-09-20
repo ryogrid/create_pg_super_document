@@ -8,7 +8,10 @@ Implements the GiST consistency check operation for range types, determining whe
 
 ## Definition
 
-
+```c
+Datum
+range_gist_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the core consistency checking function for GiST indexes on range types. It determines whether a given query (which can be a range, multirange, or element) matches an index entry based on the specified search strategy. This function serves as the entry point that dispatches to specialized consistency checking functions based on whether the index entry is a leaf or internal node, and what type of query is being performed.
 

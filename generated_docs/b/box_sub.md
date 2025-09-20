@@ -8,7 +8,9 @@ Subtracts a point from a box by translating both the high and low corners of the
 
 ## Definition
 
-
+```c
+struct(result, &high, &low);
+```
 ## Detailed Description
 The  function implements geometric subtraction between a box and a point. It creates a new box by subtracting the point coordinates from both the high and low corner points of the input box. This operation effectively translates the entire box in the opposite direction of the point vector. The function allocates memory for the result box and uses the  helper function to perform the coordinate-wise subtraction on each corner.
 

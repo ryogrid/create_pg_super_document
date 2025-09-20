@@ -8,7 +8,10 @@ Constructs a TIME value from individual hour, minute, and second components with
 
 ## Definition
 
-
+```c
+Datum
+make_time(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL constructor function that creates a TIME value from separate hour, minute, and second components. It validates the input values for range and overflow conditions, then converts them into the internal TimeADT representation (microseconds since midnight). The function performs thorough validation to ensure the resulting time value is within acceptable bounds and raises appropriate errors for invalid inputs.
 

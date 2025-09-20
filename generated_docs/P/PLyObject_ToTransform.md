@@ -8,7 +8,11 @@ Converts a Python object to a PostgreSQL type using a registered transform funct
 
 ## Definition
 
-
+```c
+static Datum
+PLyObject_ToTransform(PLyObToDatum *arg, PyObject *plrv,
+					  bool *isnull, bool inarray)
+```
 ## Detailed Description
 This function implements conversion using PostgreSQL's transform mechanism, which allows custom extensions to define specialized conversion functions between Python objects and PostgreSQL types. Transform functions are typically used for complex types like JSON, XML, or custom data types that require specialized handling beyond standard scalar conversions.
 

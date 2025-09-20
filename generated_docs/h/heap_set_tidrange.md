@@ -8,7 +8,11 @@ Configures a heap table scan to limit scanning to tuples within a specified TID 
 
 ## Definition
 
-
+```c
+void
+heap_set_tidrange(TableScanDesc sscan, ItemPointer mintid,
+				  ItemPointer maxtid)
+```
 ## Detailed Description
 The  function restricts a heap table scan to only examine tuples within a specified range of tuple identifiers (TIDs). It calculates the actual block range that needs to be scanned based on the provided minimum and maximum TIDs, handles edge cases like empty relations and invalid ranges, and updates the scan descriptor with the computed limits. This is particularly useful for TID range scans where only specific portions of a table need to be examined, providing significant performance benefits by avoiding unnecessary block reads.
 

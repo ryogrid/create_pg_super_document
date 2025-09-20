@@ -8,7 +8,10 @@ Looks up the OID (Object Identifier) of a foreign data wrapper given its name, w
 
 ## Definition
 
-
+```c
+Oid
+get_foreign_data_wrapper_oid(const char *fdwname, bool missing_ok)
+```
 ## Detailed Description
 The `get_foreign_data_wrapper_oid` function performs a lookup operation to find the OID of a foreign data wrapper based on its name. It uses PostgreSQL's system cache mechanism to efficiently retrieve the OID from the `pg_foreign_data_wrapper` catalog table.
 

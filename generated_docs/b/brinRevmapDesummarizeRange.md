@@ -8,7 +8,9 @@ Deletes an index tuple from a BRIN index, marking a page range as unsummarized a
 
 ## Definition
 
-
+```c
+struct;
+```
 ## Detailed Description
 This function removes the summary tuple for a given heap block range by:
 1. Initializing the reverse map and locating the relevant revmap page

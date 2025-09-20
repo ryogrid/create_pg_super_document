@@ -8,7 +8,10 @@ ATPrepSetTableSpace is a preparation function for the ALTER TABLE SET TABLESPACE
 
 ## Definition
 
-
+```c
+static void
+ATPrepSetTableSpace(AlteredTableInfo *tab, Relation rel, const char *tablespacename, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function serves as the preparation phase for moving a table to a different tablespace as part of an ALTER TABLE operation. It performs validation checks on the target tablespace, including existence verification and permission checking, then stores the validated tablespace OID in the AlteredTableInfo structure for the actual move operation to be performed later in Phase 3 of the ALTER TABLE process.
 

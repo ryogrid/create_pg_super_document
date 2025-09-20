@@ -8,7 +8,11 @@ makeRangeConstructors creates constructor functions for a newly defined range ty
 
 ## Definition
 
-
+```c
+static void
+makeRangeConstructors(const char *name, Oid namespace,
+					  Oid rangeOid, Oid subtype)
+```
 ## Detailed Description
 This function creates constructor functions that allow users to create range values using the range type name as a function. Since PostgreSQL cannot determine range types uniquely from their subtype (multiple range types may share the same subtype), polymorphic constructors are not feasible, requiring explicit constructor generation for each range type.
 

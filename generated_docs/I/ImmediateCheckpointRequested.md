@@ -8,7 +8,10 @@ Checks whether an immediate checkpoint request is pending in the checkpointer's 
 
 ## Definition
 
-
+```c
+static bool
+ImmediateCheckpointRequested(void)
+```
 ## Detailed Description
 ImmediateCheckpointRequested is a utility function that examines the checkpointer shared memory structure to determine if there is a pending request for an immediate checkpoint. The function specifically checks for the CHECKPOINT_IMMEDIATE flag in the shared memory flags.
 

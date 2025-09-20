@@ -8,7 +8,10 @@ Performs division of two double-precision floating-point numbers (float8) with c
 
 ## Definition
 
-
+```c
+static inline float8
+float8_div(const float8 val1, const float8 val2)
+```
 ## Detailed Description
 The  function divides two  (double-precision floating-point) values and returns the result with comprehensive error handling. This is an inline function defined in the header file for performance optimization. Like , this function requires additional error checking for division by zero, which is a fundamental mathematical constraint in database operations.
 

@@ -8,7 +8,10 @@ Closes a secure SSL/TLS session and cleans up SSL-related resources for a client
 
 ## Definition
 
-
+```c
+void
+secure_close(Port *port)
+```
 ## Detailed Description
 The `secure_close` function handles the proper termination of SSL/TLS connections by checking if the connection is actually using SSL and then delegating to the underlying SSL implementation for cleanup. It serves as a safe wrapper that only performs SSL closure operations when SSL is both compiled in and actively being used for the connection.
 

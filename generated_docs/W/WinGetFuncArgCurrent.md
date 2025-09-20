@@ -8,7 +8,10 @@ Evaluates a window function's argument expression on the current row, providing 
 
 ## Definition
 
-
+```c
+Datum
+WinGetFuncArgCurrent(WindowObject winobj, int argno, bool *isnull)
+```
 ## Detailed Description
 This function provides the most straightforward way to evaluate window function arguments on the current row being processed. Unlike WinGetFuncArgInPartition and WinGetFuncArgInFrame, it doesn't need to fetch tuples from other positions or handle complex frame semantics.
 

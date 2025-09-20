@@ -8,7 +8,13 @@ RI_QueryKey is a structure that serves as the key for identifying prepared SPI p
 
 ## Definition
 
-
+```c
+typedef struct RI_QueryKey
+{
+	Oid			constr_id;		/* OID of pg_constraint entry */
+	int32		constr_queryno; /* query type ID, see RI_PLAN_XXX above */
+} RI_QueryKey;
+```
 ## Detailed Description
 RI_QueryKey provides a composite key mechanism for the query plan cache used in referential integrity operations. Each key uniquely identifies a specific type of query plan for a particular foreign key constraint. The structure combines the constraint identifier with a query type code to ensure that different types of operations on the same constraint (such as CASCADE DELETE vs RESTRICT operations) can be cached separately and retrieved efficiently.
 

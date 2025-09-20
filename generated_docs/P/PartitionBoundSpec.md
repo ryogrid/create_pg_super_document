@@ -8,7 +8,9 @@ A parse tree node that represents a partition bound specification, defining the 
 
 ## Definition
 
-
+```c
+typedef struct PartitionBoundSpec PartitionBoundSpec;
+```
 ## Detailed Description
 PartitionBoundSpec is a parse tree node structure that captures partition boundary specifications from SQL DDL statements (CREATE TABLE ... PARTITION OF). It represents the raw, parsed form of partition bounds before they are processed and stored in the system catalog (pg_class.relpartbound) or converted to runtime partition bound structures.
 

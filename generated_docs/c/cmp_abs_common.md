@@ -8,7 +8,11 @@ Core comparison function that compares the absolute values of two numeric values
 
 ## Definition
 
-
+```c
+static int
+cmp_abs_common(const NumericDigit *var1digits, int var1ndigits, int var1weight,
+			   const NumericDigit *var2digits, int var2ndigits, int var2weight)
+```
 ## Detailed Description
 This function implements the core algorithm for comparing absolute values of numeric data represented in PostgreSQL's internal format. It works directly with digit arrays and their associated metadata (number of digits and weight), making it usable by both NumericVar and Numeric types.
 

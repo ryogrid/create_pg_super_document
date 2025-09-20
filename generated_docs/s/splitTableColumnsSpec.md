@@ -8,7 +8,11 @@ Parses a table specification string in the format TABLE[(COLUMNS)] and splits it
 
 ## Definition
 
-
+```c
+void
+splitTableColumnsSpec(const char *spec, int encoding,
+					  char **table, const char **columns)
+```
 ## Detailed Description
 This function takes a string specification that may contain a table name followed by an optional column list in parentheses, and splits it into two parts: the table name portion and the columns portion. The function handles identifier quoting properly by tracking double-quoted sections and ignores parentheses that appear within quoted identifiers.
 

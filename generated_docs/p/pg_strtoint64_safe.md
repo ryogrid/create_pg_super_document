@@ -8,7 +8,10 @@ Converts a string representation of an integer to a signed 64-bit integer value 
 
 ## Definition
 
-
+```c
+int64
+pg_strtoint64_safe(const char *s, Node *escontext)
+```
 ## Detailed Description
 This function provides robust string-to-64-bit-integer conversion with comprehensive error handling and format support. Like its 32-bit counterpart, it implements a two-phase parsing strategy with a fast path for simple base-10 numbers and a comprehensive slow path for complex formats. It supports hexadecimal (0x/0X), octal (0o/0O), binary (0b/0B), and decimal number formats, along with underscore separators between digits for improved readability.
 

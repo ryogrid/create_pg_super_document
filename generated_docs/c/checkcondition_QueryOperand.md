@@ -8,7 +8,16 @@ A callback function used by TS_execute to check if a query operand matches again
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			pos;
+	int			p;
+	int			q;
+	DocRepresentation *begin;
+	DocRepresentation *end;
+} CoverExt;
+```
 ## Detailed Description
 The  function serves as a callback for the TS_execute function during text search query evaluation. It determines whether a specific query operand (word) exists in the document representation and optionally provides positional information for phrase matching. The function returns a ternary value indicating definite match (TS_YES) or definite no-match (TS_NO), and can populate positional data when phrase matching is required. This callback is essential for bridging the gap between abstract query execution and concrete document representation data used in ranking calculations.
 

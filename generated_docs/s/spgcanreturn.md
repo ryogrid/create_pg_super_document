@@ -8,7 +8,10 @@ Determines whether SPGiST index-only scans can return data for a specific attrib
 
 ## Definition
 
-
+```c
+bool
+spgcanreturn(Relation index, int attno)
+```
 ## Detailed Description
 This function implements the canreturn interface for SPGiST (Space-Partitioned Generalized Search Tree) indexes, determining whether index-only scans are possible for a given attribute. Index-only scans are an optimization where query results can be satisfied entirely from index data without accessing the underlying heap table.
 

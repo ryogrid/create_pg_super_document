@@ -8,7 +8,10 @@ Creates a deep copy of an array of PGEvent structures, duplicating event names b
 
 ## Definition
 
-
+```c
+static PGEvent *
+dupEvents(PGEvent *events, int count, size_t *memSize)
+```
 ## Detailed Description
 dupEvents performs a specialized duplication of PGEvent arrays used in libpq's event system. The function allocates memory for a new event array and copies the essential event properties (procedure pointer, passThrough data, and name) while deliberately resetting instance-specific data. The data field is set to NULL and resultInitialized is set to false, ensuring that copied events start in a clean state.
 

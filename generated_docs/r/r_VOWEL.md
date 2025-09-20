@@ -8,7 +8,11 @@ Tests whether the current character in the Indonesian stemmer is a vowel accordi
 
 ## Definition
 
+```c
+}
 
+static int r_VOWEL(struct SN_env * z)
+```
 ## Detailed Description
 This function checks if the character at the current position in the stemmer environment is a vowel. It uses the Snowball framework's  function to test against the  character grouping, which defines Indonesian vowels in the ASCII range 97-117 (covering 'a' through 'u'). The function is used as a validation condition in the Indonesian stemming algorithm to ensure morphological transformations are applied correctly based on vowel/consonant patterns.
 

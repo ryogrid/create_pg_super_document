@@ -8,7 +8,11 @@ Executes registered object access hooks for post-creation events, allowing exten
 
 ## Definition
 
-
+```c
+void
+RunObjectPostCreateHook(Oid classId, Oid objectId, int subId,
+						bool is_internal)
+```
 ## Detailed Description
 This function serves as the entry point for the OAT_POST_CREATE object access hook event. It is called after a database object (such as a table, index, function, etc.) has been successfully created in the PostgreSQL system catalogs. The function provides a standardized way for extensions to hook into the object creation process and perform additional processing or logging.
 

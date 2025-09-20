@@ -8,7 +8,10 @@ The  function checks whether a specific heap relation is currently undergoing re
 
 ## Definition
 
-
+```c
+bool
+ReindexIsProcessingHeap(Oid heapOid)
+```
 ## Detailed Description
 This function provides a simple boolean check to determine if a heap relation identified by its OID is currently being processed during a reindex operation. It compares the provided heap OID against the global variable  that tracks which heap relation is currently undergoing reindexing. This mechanism helps prevent recursive reindexing operations and ensures proper coordination during index rebuilding processes.
 

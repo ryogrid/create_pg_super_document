@@ -8,7 +8,13 @@ Determines whether a relation can be proven functionally dependent on a set of g
 
 ## Definition
 
-
+```c
+bool
+check_functional_grouping(Oid relid,
+						  Index varno, Index varlevelsup,
+						  List *grouping_columns,
+						  List **constraintDeps)
+```
 ## Detailed Description
 This function implements functional dependency checking for SQL GROUP BY clause validation. It verifies whether a relation can be considered functionally dependent on a set of grouping expressions, which is essential for determining if non-grouped columns can be legally selected in aggregate queries.
 

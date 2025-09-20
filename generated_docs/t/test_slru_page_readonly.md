@@ -8,7 +8,10 @@ A PostgreSQL function that reads data from a specific SLRU page in read-only mod
 
 ## Definition
 
-
+```c
+Datum
+test_slru_page_readonly(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a testing interface for reading SLRU (Simple Log-structured Record Update) pages in read-only mode. Unlike the regular read function, this variant uses  which specifically avoids granting write permissions on the page. The function acquires the appropriate bank lock, reads the page from disk if necessary, verifies that the lock is held, retrieves the data from the page buffer, and returns it as a PostgreSQL text value. This read-only approach is useful for testing scenarios where you want to ensure no accidental modifications occur during page access.
 

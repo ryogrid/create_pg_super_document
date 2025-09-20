@@ -8,7 +8,10 @@ Internal function that parses input data from the backend until input is exhaust
 
 ## Definition
 
-
+```c
+static void
+parseInput(PGconn *conn)
+```
 ## Detailed Description
 The parseInput function serves as a wrapper around the protocol-specific parsing function pqParseInput3. It processes incoming data that has already been read from the backend connection, parsing it according to PostgreSQL's frontend/backend protocol version 3. This function is designed to be called when there is data available to parse but does not perform any I/O operations to fetch additional data from the network.
 

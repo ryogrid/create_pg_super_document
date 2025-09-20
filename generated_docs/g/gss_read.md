@@ -8,7 +8,10 @@ A static wrapper function for pqsecure_raw_read that provides enhanced error han
 
 ## Definition
 
-
+```c
+static PostgresPollingStatusType
+gss_read(PGconn *conn, void *recv_buffer, size_t length, ssize_t *ret)
+```
 ## Detailed Description
 This internal function wraps pqsecure_raw_read to provide standardized error handling and status reporting during GSSAPI transport negotiation. It converts low-level socket read results into PostgresPollingStatusType values that indicate whether the operation completed successfully, needs to retry reading, or failed permanently. The function includes special handling for EOF conditions by attempting a second read after checking socket readiness.
 

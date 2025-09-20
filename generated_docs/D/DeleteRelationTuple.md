@@ -8,7 +8,10 @@ Removes the pg_class catalog entry for a specified relation during relation or i
 
 ## Definition
 
-
+```c
+void
+DeleteRelationTuple(Oid relid)
+```
 ## Detailed Description
 This function is a focused utility that handles the removal of a relation's entry from the pg_class system catalog. It serves as a shared component in PostgreSQL's relation and index deletion workflows, providing a clean interface for removing the fundamental catalog entry that defines a relation's existence in the database.
 

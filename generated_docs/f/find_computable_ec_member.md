@@ -8,7 +8,14 @@ Locates an EquivalenceClass member that can be computed from a given list of exp
 
 ## Definition
 
-
+```c
+EquivalenceMember *
+find_computable_ec_member(PlannerInfo *root,
+						  EquivalenceClass *ec,
+						  List *exprs,
+						  Relids relids,
+						  bool require_parallel_safe)
+```
 ## Detailed Description
 This function searches through an EquivalenceClass to find a member expression that can be computed using the variables and functions present in the provided expressions list. The function considers an EC member computable if all the Vars, PlaceHolderVars, Aggrefs, and WindowFuncs it needs are present in the input expressions.
 

@@ -8,7 +8,10 @@ A static test function that validates the functionality of PostgreSQL's atomic f
 
 ## Definition
 
-
+```c
+static void
+test_atomic_flag(void)
+```
 ## Detailed Description
 The  function is a comprehensive unit test for PostgreSQL's atomic flag implementation. It systematically tests all fundamental atomic flag operations in a controlled sequence to ensure proper behavior. The function creates a local atomic flag, initializes it, and then performs a series of operations while verifying expected outcomes using the EXPECT_TRUE macro. The test sequence validates that flags start unlocked, can be atomically set and tested, prevent double-setting, can be cleared, and maintain proper state throughout these operations. This function is part of PostgreSQL's atomic operations testing infrastructure.
 

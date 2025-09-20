@@ -8,7 +8,10 @@ Completes the processing of incremental backup manifest data by parsing the fina
 
 ## Definition
 
-
+```c
+void
+FinalizeIncrementalManifest(IncrementalBackupInfo *ib)
+```
 ## Detailed Description
 This function is called after all manifest data chunks have been processed via AppendIncrementalManifestData to complete the incremental backup manifest parsing. It performs the final JSON parsing of any remaining data in the buffer, then cleans up all associated memory structures including the buffer data and the incremental parser state.
 

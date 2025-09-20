@@ -8,7 +8,10 @@ Extracts and formats PostgreSQL version information into a specific format requi
 
 ## Definition
 
-
+```c
+static void
+set_info_version(void)
+```
 ## Detailed Description
 The set_info_version function parses the PostgreSQL version string (PG_VERSION) and converts it into a standardized format required by the information schema specification. The function transforms a standard PostgreSQL version string into the format "XX.YY.ZZZZABC" where:
 

@@ -8,7 +8,10 @@ Loads a single replication slot from disk into memory during startup, performing
 
 ## Definition
 
-
+```c
+static void
+RestoreSlotFromDisk(const char *name)
+```
 ## Detailed Description
 This function handles the complex process of restoring a replication slot from persistent storage into shared memory during PostgreSQL startup. The restoration process includes multiple validation stages:
 

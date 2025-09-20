@@ -8,7 +8,18 @@ TupleConstr is a comprehensive structure that contains all constraints associate
 
 ## Definition
 
-
+```c
+typedef struct TupleConstr
+{
+	AttrDefault *defval;		/* array */
+	ConstrCheck *check;			/* array */
+	struct AttrMissing *missing;	/* missing attributes values, NULL if none */
+	uint16		num_defval;
+	uint16		num_check;
+	bool		has_not_null;
+	bool		has_generated_stored;
+} TupleConstr;
+```
 ## Detailed Description
 TupleConstr serves as the central container for all constraint information associated with a tuple descriptor. It aggregates various types of constraints including default value constraints (AttrDefault), CHECK constraints (ConstrCheck), and missing attribute information (AttrMissing). This structure is essential for maintaining data integrity and managing table constraints in PostgreSQL.
 

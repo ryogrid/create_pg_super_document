@@ -8,7 +8,10 @@ StoreViewQuery stores the query definition for a view using the PostgreSQL rules
 
 ## Definition
 
-
+```c
+void
+StoreViewQuery(Oid viewOid, Query *viewParse, bool replace)
+```
 ## Detailed Description
 StoreViewQuery is a straightforward function that encapsulates the process of storing a view's query definition in the PostgreSQL rules system. It serves as an abstraction layer that could potentially be extended in the future to handle additional view-related storage operations beyond just rule creation.
 

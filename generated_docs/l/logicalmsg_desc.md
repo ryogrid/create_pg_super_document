@@ -8,7 +8,10 @@ A function that generates human-readable descriptions of logical message WAL (Wr
 
 ## Definition
 
-
+```c
+void
+logicalmsg_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The `logicalmsg_desc` function is part of PostgreSQL's WAL record description system, specifically designed to decode and format logical message records for human consumption. This function extracts information from a logical message WAL record and formats it into a readable string that includes whether the message is transactional, the message prefix, and the payload data as hexadecimal bytes. It's primarily used by debugging tools like `pg_waldump` to provide meaningful descriptions of WAL records.
 

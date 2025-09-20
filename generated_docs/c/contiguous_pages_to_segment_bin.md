@@ -8,7 +8,10 @@ Calculates the lowest segment bin that might contain segments with n contiguous 
 
 ## Definition
 
-
+```c
+static inline size_t
+contiguous_pages_to_segment_bin(size_t n)
+```
 ## Detailed Description
 This inline static function is a key optimization component in PostgreSQL's DSA memory management system. It determines which segment bin should be searched first when looking for n contiguous free pages. The function implements a logarithmic binning strategy where segments are organized into bins based on their largest contiguous free space. By returning the lowest bin that *might* contain the required pages, it allows the allocation algorithm to skip bins that definitely cannot satisfy the request, significantly improving allocation performance.
 

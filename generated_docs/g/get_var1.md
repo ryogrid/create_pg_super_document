@@ -8,7 +8,18 @@ A static function used in ECPG test code that initializes and allocates memory f
 
 ## Definition
 
-
+```c
+struct mytype ), 
+	ECPGt_int,&((*( MYNULLTYPE  *)(ECPGget_var( 1)) ).id),(long)1,(long)1,sizeof( struct mynulltype ), 
+	ECPGt_char,&((*( MYTYPE  *)(ECPGget_var( 0)) ).t),(long)64,(long)1,sizeof( struct mytype ), 
+	ECPGt_int,&((*( MYNULLTYPE  *)(ECPGget_var( 1)) ).t),(long)1,(long)1,sizeof( struct mynulltype ), 
+	ECPGt_double,&((*( MYTYPE  *)(ECPGget_var( 0)) ).d1),(long)1,(long)1,sizeof( struct mytype ), 
+	ECPGt_int,&((*( MYNULLTYPE  *)(ECPGget_var( 1)) ).d1),(long)1,(long)1,sizeof( struct mynulltype ), 
+	ECPGt_double,&((*( MYTYPE  *)(ECPGget_var( 0)) ).d2),(long)1,(long)1,sizeof( struct mytype ), 
+	ECPGt_int,&((*( MYNULLTYPE  *)(ECPGget_var( 1)) ).d2),(long)1,(long)1,sizeof( struct mynulltype ), 
+	ECPGt_char,&((*( MYTYPE  *)(ECPGget_var( 0)) ).c),(long)30,(long)1,sizeof( struct mytype ), 
+	ECPGt_int,&((*( MYNULLTYPE  *)(ECPGget_var( 1)) ).c),(long)1,(long)1,sizeof( struct mynulltype ), ECPGt_EORT);
+```
 ## Detailed Description
 The  function is part of ECPG (Embedded SQL in C) test infrastructure, specifically for testing out-of-scope variable handling. It allocates memory for two data structures ( and ) that are used to store database records and their null indicators. The function also sets up ECPG variables for a cursor declaration and performs basic error checking.
 

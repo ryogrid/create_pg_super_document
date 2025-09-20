@@ -8,7 +8,10 @@ Reads all namespaces (schemas) from the PostgreSQL system catalogs and returns t
 
 ## Definition
 
-
+```c
+NamespaceInfo *
+getNamespaces(Archive *fout, int *numNamespaces)
+```
 ## Detailed Description
 This function is a core part of pg_dump's metadata collection process. It queries the pg_namespace system catalog to retrieve information about all namespaces (schemas) in the database, including system schemas. Each namespace is converted into a NamespaceInfo structure containing the necessary metadata for dumping.
 

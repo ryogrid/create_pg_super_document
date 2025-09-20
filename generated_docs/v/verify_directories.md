@@ -8,7 +8,9 @@ This function performs comprehensive verification of directories and executables
 
 ## Definition
 
-
+```c
+struct stat statBuf;
+```
 ## Detailed Description
 The  function is a critical component of the pg_upgrade process that validates the accessibility and integrity of PostgreSQL installations. It first checks that the current working directory has proper read, write, and execute permissions (using platform-specific methods). Then it systematically verifies both the old and new cluster installations by checking their binary directories and data directories. The function uses different verification approaches for the old and new clusters - the old cluster is checked without creating new binaries (false parameter), while the new cluster may require additional binary verification (true parameter).
 

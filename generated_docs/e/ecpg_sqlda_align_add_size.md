@@ -8,7 +8,10 @@ A static helper function that computes memory alignment offsets for variables in
 
 ## Definition
 
-
+```c
+structure and field structures */
+	offset = sizeof(struct sqlda_compat) + sqld * sizeof(struct sqlvar_compat);
+```
 ## Detailed Description
 This function performs memory alignment calculations needed for proper data structure layout in ECPG's SQLDA implementation. It takes an initial offset and ensures proper alignment for a variable of given size and alignment requirements. The function calculates both the current variable's aligned offset and the next variable's starting offset after accounting for the current variable's size.
 

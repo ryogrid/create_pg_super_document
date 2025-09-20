@@ -8,7 +8,19 @@ tryAttachPartitionForeignKey attempts to attach an existing foreign key constrai
 
 ## Definition
 
-
+```c
+static bool
+tryAttachPartitionForeignKey(ForeignKeyCacheInfo *fk,
+							 Oid partRelid,
+							 Oid parentConstrOid,
+							 int numfks,
+							 AttrNumber *mapped_conkey,
+							 AttrNumber *confkey,
+							 Oid *conpfeqop,
+							 Oid parentInsTrigger,
+							 Oid parentUpdTrigger,
+							 Relation trigrel)
+```
 ## Detailed Description
 This function compares an existing foreign key constraint in a partition (represented by ForeignKeyCacheInfo) with a parent constraint to determine if they are equivalent and can be linked. If they match, it establishes the parent-child relationship between the constraints and performs necessary cleanup.
 

@@ -8,7 +8,10 @@ A comprehensive comparison function for TheLexeme structures that compares both 
 
 ## Definition
 
-
+```c
+static int
+cmpTheLexeme(const void *a, const void *b)
+```
 ## Detailed Description
 This function provides a two-level comparison for TheLexeme structures, suitable for sorting operations that require both lexeme string ordering and LexemeInfo ordering. It first compares the lexeme strings using cmpLexeme, and if they are equal, it performs a secondary comparison using the LexemeInfo entries.
 

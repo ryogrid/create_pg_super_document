@@ -8,7 +8,11 @@ Allocates and initializes a new boolean reloption structure with type-specific d
 
 ## Definition
 
-
+```c
+static relopt_bool *
+init_bool_reloption(bits32 kinds, const char *name, const char *desc,
+					bool default_val, LOCKMODE lockmode)
+```
 ## Detailed Description
 This static function creates a new boolean reloption by calling allocate_reloption with RELOPT_TYPE_BOOL and then setting the boolean-specific default value. It serves as a specialized constructor for boolean reloptions, handling both the general reloption initialization and the boolean-specific field setup.
 

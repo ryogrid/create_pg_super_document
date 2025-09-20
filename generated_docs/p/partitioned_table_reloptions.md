@@ -8,7 +8,10 @@ A specialized function that handles relation options for partitioned tables by r
 
 ## Definition
 
-
+```c
+bytea *
+partitioned_table_reloptions(Datum reloptions, bool validate)
+```
 ## Detailed Description
 This function serves as the relation options parser specifically for partitioned tables. Unlike other relation option parsers, it doesn't actually parse or process any options. Instead, it enforces PostgreSQL's design principle that partitioned tables (parent tables in a partitioning hierarchy) should not have their own storage parameters. When validation is enabled and options are provided, it raises an error directing users to specify storage parameters on the individual leaf partitions rather than the parent partitioned table. When validation is disabled or no options are provided, it simply returns NULL.
 

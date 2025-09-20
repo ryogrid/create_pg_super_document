@@ -8,7 +8,10 @@ Performs post-VACUUM cleanup operations for hash indexes, primarily updating sta
 
 ## Definition
 
-
+```c
+IndexBulkDeleteResult *
+hashvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+```
 ## Detailed Description
 The hashvacuumcleanup function is called after the bulk deletion phase of a VACUUM operation on a hash index. Its primary responsibility is to finalize the vacuum statistics by adding information that wasn't available during the bulk deletion phase, specifically the total number of pages in the index.
 

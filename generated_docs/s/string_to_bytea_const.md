@@ -8,7 +8,10 @@ A static utility function that creates a PostgreSQL Const node of bytea type fro
 
 ## Definition
 
-
+```c
+static Const *
+string_to_bytea_const(const char *str, size_t str_len)
+```
 ## Detailed Description
 This function converts a binary C string into a PostgreSQL Const node containing a bytea value. It allocates memory for a bytea structure, copies the input string data, sets the appropriate variable-length header size, and wraps it in a Const node. This is primarily used in LIKE pattern matching support to create bytea constants for pattern prefix operations.
 

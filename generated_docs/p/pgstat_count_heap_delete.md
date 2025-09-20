@@ -8,7 +8,10 @@ Updates PostgreSQL statistics to record a tuple deletion operation for heap tabl
 
 ## Definition
 
-
+```c
+void
+pgstat_count_heap_delete(Relation rel)
+```
 ## Detailed Description
 This function is responsible for tracking tuple deletion statistics in PostgreSQL's statistics collector system. When a tuple is deleted from a heap table, this function increments the deletion counter for the relation. The function first checks whether statistics should be collected for the given relation using , and if so, it ensures the transaction-level statistics structure is properly initialized and increments the  counter.
 

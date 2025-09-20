@@ -8,7 +8,10 @@ Transforms an EXPLAIN statement into a CMD_UTILITY Query node after transforming
 
 ## Definition
 
-
+```c
+static Query *
+transformExplainStmt(ParseState *pstate, ExplainStmt *stmt)
+```
 ## Detailed Description
 This function processes an EXPLAIN statement by first handling parameter setup for generic plans (if the GENERIC_PLAN option is specified), then transforming the contained query, and finally wrapping the result as a utility statement. Like other utility statement transformers, it performs transformation during parse analysis to ensure parser hooks execute at the expected time.
 

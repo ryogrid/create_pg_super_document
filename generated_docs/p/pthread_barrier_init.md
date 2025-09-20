@@ -8,7 +8,10 @@ Initializes a pthread barrier object that can be used to synchronize a specific 
 
 ## Definition
 
-
+```c
+int
+pthread_barrier_init(pthread_barrier_t *barrier, const void *attr, int count)
+```
 ## Detailed Description
 This function initializes a pthread barrier that implements a thread synchronization primitive. The barrier allows exactly `count` threads to wait at a synchronization point before all are released to continue execution. This is PostgreSQL's implementation of pthread barriers for systems that don't natively support them (notably macOS).
 

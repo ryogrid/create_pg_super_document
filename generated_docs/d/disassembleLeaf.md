@@ -8,7 +8,10 @@ disassembleLeaf disassembles a GIN data leaf page into a structured disassembled
 
 ## Definition
 
-
+```c
+static disassembledLeaf *
+disassembleLeaf(Page page)
+```
 ## Detailed Description
 This static function takes a GIN data leaf page and converts it into a disassembledLeaf structure that provides a more convenient representation for manipulation operations. The function handles both compressed (9.4+ format) and uncompressed (pre-9.4 format) page formats differently:
 

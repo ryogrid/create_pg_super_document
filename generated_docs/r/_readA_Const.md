@@ -8,7 +8,9 @@ A static function that deserializes an A_Const node from its string representati
 
 ## Definition
 
-
+```c
+union ValUnion *tmp = nodeRead(NULL, 0);
+```
 ## Detailed Description
 The  function is part of PostgreSQL's node deserialization system, responsible for reconstructing A_Const nodes from their serialized string format. A_Const represents constant values in the parse tree, such as literals (numbers, strings, booleans, etc.) that appear in SQL statements.
 

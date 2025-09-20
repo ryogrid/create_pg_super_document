@@ -8,7 +8,10 @@ Retrieves a snapshot of SLRU (Simple LRU) buffer cache statistics for SQL-callab
 
 ## Definition
 
-
+```c
+PgStat_SLRUStats *
+pgstat_fetch_slru(void)
+```
 ## Detailed Description
 This function serves as a support function for SQL-callable pgstat* functions that need to access SLRU statistics. It creates a snapshot of the current SLRU statistics and returns a pointer to the statistics structure. The function ensures that the statistics are up-to-date by taking a snapshot from the statistics collector before returning the data.
 

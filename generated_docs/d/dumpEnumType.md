@@ -8,7 +8,9 @@ Generates SQL commands to recreate a user-defined enum type during PostgreSQL da
 
 ## Definition
 
-
+```c
+enum_oid;
+```
 ## Detailed Description
 The  function is responsible for creating SQL statements that recreate user-defined enumerated types in PostgreSQL dumps. It handles both regular dumps and binary upgrade scenarios, ensuring that enum values are recreated with the correct order and, in binary upgrade mode, with preserved OIDs.
 

@@ -8,7 +8,10 @@ Legacy function for reading newline-terminated strings from PostgreSQL backend d
 
 ## Definition
 
-
+```c
+int
+PQgetline(PGconn *conn, char *buffer, int length)
+```
 ## Detailed Description
 PQgetline is a deprecated libpq function originally designed for reading text data from COPY TO STDOUT operations. It reads data line by line, similar to fgets(3), but strips the terminating newline character like gets(3). The function was designed for the older text-based COPY protocol and cannot handle binary data safely.
 

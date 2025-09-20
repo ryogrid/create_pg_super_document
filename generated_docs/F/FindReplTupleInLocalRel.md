@@ -8,7 +8,14 @@ Locates a tuple in the local relation that corresponds to a tuple received from 
 
 ## Definition
 
-
+```c
+static bool
+FindReplTupleInLocalRel(ApplyExecutionData *edata, Relation localrel,
+						LogicalRepRelation *remoterel,
+						Oid localidxoid,
+						TupleTableSlot *remoteslot,
+						TupleTableSlot **localslot)
+```
 ## Detailed Description
 This function is responsible for finding the local tuple that corresponds to a remote tuple during logical replication operations (UPDATE and DELETE). The function employs different search strategies based on the available replica identity configuration:
 

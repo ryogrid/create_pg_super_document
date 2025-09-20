@@ -8,7 +8,10 @@ A static function in pg_ctl that detects configuration-only directories and reso
 
 ## Definition
 
-
+```c
+static void
+adjust_data_dir(void)
+```
 ## Detailed Description
 The  function handles the scenario where the user has specified a configuration-only directory (containing postgresql.conf but not the actual database files) instead of the real data directory. This situation commonly occurs in PostgreSQL installations where configuration files are separated from data files for administrative or security reasons.
 

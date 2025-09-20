@@ -8,7 +8,10 @@ Determines whether a specific function argument is constant for the duration of 
 
 ## Definition
 
-
+```c
+bool
+get_call_expr_arg_stable(Node *expr, int argnum)
+```
 ## Detailed Description
 This function examines a calling expression tree to determine if a specific argument will have a constant value throughout query execution. It supports the same expression node types as get_call_expr_argtype and is crucial for query optimization, allowing the executor to identify arguments that can be pre-computed, cached, or used for other performance optimizations.
 

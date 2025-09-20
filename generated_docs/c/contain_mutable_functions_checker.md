@@ -8,7 +8,10 @@ A helper function that checks whether a specific function is mutable by examinin
 
 ## Definition
 
-
+```c
+static bool
+contain_mutable_functions_checker(Oid func_id, void *context)
+```
 ## Detailed Description
 This static helper function serves as a callback used by  to determine if a specific function is mutable (non-immutable). It works by querying the function's volatility classification from PostgreSQL's system catalogs.
 

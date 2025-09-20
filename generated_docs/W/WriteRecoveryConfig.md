@@ -8,7 +8,10 @@ WriteRecoveryConfig writes recovery configuration content to the appropriate con
 
 ## Definition
 
-
+```c
+void
+WriteRecoveryConfig(PGconn *pgconn, const char *target_dir, PQExpBuffer contents)
+```
 ## Detailed Description
 This function writes the recovery configuration to the filesystem, handling version-specific differences in PostgreSQL's recovery configuration mechanism. For PostgreSQL versions prior to 12, it writes to recovery.conf. For version 12 and later, it appends to postgresql.auto.conf and creates a standby.signal file to trigger standby mode.
 

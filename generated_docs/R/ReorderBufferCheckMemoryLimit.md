@@ -8,7 +8,10 @@ Monitors the logical decoding memory limit and triggers eviction of the largest 
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferCheckMemoryLimit(ReorderBuffer *rb)
+```
 ## Detailed Description
 ReorderBufferCheckMemoryLimit is the core memory management function for PostgreSQL's logical replication system. It monitors the reorder buffer's memory usage against the  limit and implements a two-tier eviction strategy when memory pressure is detected.
 

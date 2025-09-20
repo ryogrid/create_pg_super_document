@@ -8,7 +8,11 @@ Formats a PostgreSQL reloptions array and appends it to a buffer as properly for
 
 ## Definition
 
-
+```c
+bool
+appendReloptionsArray(PQExpBuffer buffer, const char *reloptions,
+					  const char *prefix, int encoding, bool std_strings)
+```
 ## Detailed Description
 This function processes PostgreSQL relation options (reloptions) arrays and formats them into readable SQL option syntax. It parses the array representation of options, splits each element into name-value pairs, and formats them with appropriate quoting and prefixes.
 

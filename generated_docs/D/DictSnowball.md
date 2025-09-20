@@ -8,7 +8,22 @@ A structure representing the runtime state and configuration of a Snowball stemm
 
 ## Definition
 
+```c
+typedef struct DictSnowball
+{
+	struct SN_env *z;
+	StopList	stoplist;
+	bool		needrecode;		/* needs recoding before/after call stem */
+	int			(*stem) (struct SN_env *z);
 
+	/*
+	 * snowball saves alloced memory between calls, so we should run it in our
+	 * private memory context. Note, init function is executed in long lived
+	 * context, so we just remember CurrentMemoryContext
+	 */
+	MemoryContext dictCtx;
+} DictSnowball;
+```
 ## Detailed Description
 The  structure represents an active instance of a Snowball stemmer dictionary in PostgreSQL's text search system. It encapsulates all the state needed to perform stemming operations, including the Snowball environment, stop word filtering, character encoding management, and memory context isolation. The structure is designed to handle the complexities of text processing across different character encodings while maintaining memory efficiency through proper context management.
 

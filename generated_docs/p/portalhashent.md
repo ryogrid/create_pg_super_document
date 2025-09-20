@@ -8,7 +8,13 @@ A hash table entry structure used to store portal name-to-portal mappings in Pos
 
 ## Definition
 
-
+```c
+typedef struct portalhashent
+{
+	char		portalname[MAX_PORTALNAME_LEN];
+	Portal		portal;
+} PortalHashEnt;
+```
 ## Detailed Description
 The  structure (aliased as ) serves as the entry type for PostgreSQL's global portal hash table (). This structure enables efficient lookup of portals by name within the portal memory management system. Each entry contains both the portal name as a key and a pointer to the corresponding portal object, facilitating fast portal retrieval operations during query execution and management.
 

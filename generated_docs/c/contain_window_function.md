@@ -8,7 +8,10 @@ Recursively searches for window function nodes (WindowFunc) within a clause and 
 
 ## Definition
 
-
+```c
+bool
+contain_window_function(Node *clause)
+```
 ## Detailed Description
 This function provides a wrapper to detect the presence of window functions within a given expression clause. Unlike aggregate functions that have level fields for handling nested scopes, window functions are hard-wired to be associated with the current query level, which simplifies the detection logic. The function delegates to  from rewriteManip.c, which performs the actual recursive traversal to identify WindowFunc nodes in the expression tree.
 

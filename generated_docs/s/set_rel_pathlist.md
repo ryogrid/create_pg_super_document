@@ -8,7 +8,11 @@ Sets up access paths for a base relation by determining the appropriate pathlist
 
 ## Definition
 
-
+```c
+static void
+set_rel_pathlist(PlannerInfo *root, RelOptInfo *rel,
+				 Index rti, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function is the central dispatcher for building access paths for base relations in PostgreSQL's query optimizer. It examines the relation type and characteristics to delegate path creation to specialized functions. The function handles various relation types including regular tables, foreign tables, subqueries, functions, CTEs, and more. It also manages plugin hooks and finalizes the pathlist by selecting the cheapest paths and optionally generating gather paths for parallel execution.
 

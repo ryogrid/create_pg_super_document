@@ -8,7 +8,13 @@ Estimates selectivity for array containment (@>) and overlap (&&) operators base
 
 ## Definition
 
-
+```c
+static Selectivity
+mcelem_array_contain_overlap_selec(Datum *mcelem, int nmcelem,
+								   float4 *numbers, int nnumbers,
+								   Datum *array_data, int nitems,
+								   Oid operator, TypeCacheEntry *typentry)
+```
 ## Detailed Description
 This function calculates selectivity estimates for array containment and overlap operations by analyzing the most common elements (MCELEM) statistics from the array column. It processes each element in the constant array and computes the probability that rows will satisfy the given operator condition.
 

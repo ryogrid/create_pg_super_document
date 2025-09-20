@@ -8,7 +8,10 @@ reserveFromBuffer reserves a specified number of bytes at the end of a StringInf
 
 ## Definition
 
-
+```c
+static int
+reserveFromBuffer(StringInfo buffer, int len)
+```
 ## Detailed Description
 This static function is part of the buffer manipulation utilities used by convertJsonb and related functions for JSONB serialization. It reserves space at the end of a StringInfo buffer by first ensuring sufficient capacity through enlargeStringInfo, then advancing the buffer length by the requested amount. The function maintains StringInfo invariants by preserving a trailing null terminator after the reserved space. This design allows callers to efficiently allocate space and fill it later using copyToBuffer(), supporting incremental construction of JSONB binary representations.
 

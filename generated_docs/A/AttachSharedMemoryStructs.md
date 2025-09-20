@@ -8,7 +8,10 @@ Initializes a child process's access to existing shared memory structures in EXE
 
 ## Definition
 
-
+```c
+void
+AttachSharedMemoryStructs(void)
+```
 ## Detailed Description
 AttachSharedMemoryStructs is responsible for enabling child processes to access and utilize shared memory structures that were previously created by the postmaster. This function is specifically designed for EXEC_BACKEND mode, where child processes are started via exec() rather than fork(), requiring explicit attachment to shared memory segments.
 

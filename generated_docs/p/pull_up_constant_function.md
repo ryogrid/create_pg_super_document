@@ -8,7 +8,12 @@ This function pulls up an RTE_FUNCTION expression that was simplified to a const
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	perform_pullup_replace_vars(root, &rvcontext,
+								containing_appendrel);
+```
 ## Detailed Description
 The pull_up_constant_function optimization is part of PostgreSQL's query preprocessing phase that simplifies function calls that have been reduced to constants. When a FUNCTION RTE contains only a Const expression, this function extracts that constant value and propagates it throughout the parent query, eliminating the need to scan the function RTE.
 

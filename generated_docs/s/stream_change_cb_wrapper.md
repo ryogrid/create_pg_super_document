@@ -8,7 +8,11 @@ A wrapper function that safely invokes the output plugin's stream_change_cb call
 
 ## Definition
 
-
+```c
+static void
+stream_change_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+						 Relation relation, ReorderBufferChange *change)
+```
 ## Detailed Description
 This function serves as a protective wrapper around the output plugin's stream_change_cb callback in PostgreSQL's logical replication streaming mechanism. It sets up proper error context handling, manages the logical decoding context state, and ensures that streaming-specific requirements are met before delegating to the actual plugin callback.
 

@@ -8,7 +8,10 @@ Updates the sizing parameters for a PostgreSQL simple hash table when creating o
 
 ## Definition
 
-
+```c
+static inline void
+SH_UPDATE_PARAMETERS(SH_TYPE * tb, uint64 newsize)
+```
 ## Detailed Description
 SH_UPDATE_PARAMETERS is a macro that generates a function name for updating hash table sizing parameters within PostgreSQL's simple hash table framework. The function computes the optimal hash table size using SH_COMPUTE_SIZE, then updates the hash table structure with the new size, calculates a bitmask for efficient modulo operations, and determines the next growth threshold based on fill factor constraints. This function is essential for maintaining hash table performance by ensuring proper load balancing and efficient bucket addressing.
 

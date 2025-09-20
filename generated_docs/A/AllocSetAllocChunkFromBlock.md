@@ -8,7 +8,11 @@ AllocSetAllocChunkFromBlock is a small helper function that allocates a new memo
 
 ## Definition
 
-
+```c
+static inline void *
+AllocSetAllocChunkFromBlock(MemoryContext context, AllocBlock block,
+							Size size, Size chunk_size, int fidx)
+```
 ## Detailed Description
 This static inline function performs the low-level work of carving out a memory chunk from an existing AllocBlock. It handles all the necessary bookkeeping including updating the block's free pointer, initializing the chunk header with appropriate metadata, and setting up debugging/profiling instrumentation when enabled. The function ensures proper memory alignment and provides integration with Valgrind for memory debugging.
 

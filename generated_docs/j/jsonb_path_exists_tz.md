@@ -8,7 +8,10 @@ Public PostgreSQL function that checks whether a JSONPath expression returns at 
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_exists_tz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the timezone-aware version of JSONPath existence checking in PostgreSQL. It is a wrapper around  that enables timezone-aware JSONPath execution. The function is designed to handle JSONPath expressions that involve datetime operations and timezone conversions.
 

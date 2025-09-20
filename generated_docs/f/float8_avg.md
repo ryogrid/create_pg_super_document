@@ -8,7 +8,10 @@ Final function for the AVG aggregate that computes the arithmetic mean from accu
 
 ## Definition
 
-
+```c
+Datum
+float8_avg(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the final function for PostgreSQL's AVG aggregate when operating on floating-point data. It takes the transition state array produced by accumulator functions (like  or ) and computes the final average by dividing the sum (Sx) by the count (N).
 

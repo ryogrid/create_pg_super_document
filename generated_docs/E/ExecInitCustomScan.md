@@ -8,7 +8,10 @@ Initializes the state for a Custom Scan node during executor startup, setting up
 
 ## Definition
 
-
+```c
+CustomScanState *
+ExecInitCustomScan(CustomScan *cscan, EState *estate, int eflags)
+```
 ## Detailed Description
 ExecInitCustomScan is the initialization function for custom scan nodes in PostgreSQL's executor. It performs the standard initialization tasks required for any scan node and then delegates to the custom scan provider for specialized initialization. The function allocates a CustomScanState object through the provider's CreateCustomScanState callback, sets up the scan relation if needed, initializes tuple slots with appropriate slot operations, and establishes result projection. The custom scan provider has full control over the CustomScanState allocation and can embed it in a larger structure for provider-specific state.
 

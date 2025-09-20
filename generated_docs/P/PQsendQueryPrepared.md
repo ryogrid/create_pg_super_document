@@ -8,7 +8,16 @@ PQsendQueryPrepared is a public API function that executes a previously prepared
 
 ## Definition
 
-
+```c
+int
+PQsendQueryPrepared(PGconn *conn,
+					const char *stmtName,
+					int nParams,
+					const char *const *paramValues,
+					const int *paramLengths,
+					const int *paramFormats,
+					int resultFormat)
+```
 ## Detailed Description
 PQsendQueryPrepared completes the prepare-bind-execute cycle by executing a statement that was previously prepared using PQsendPrepare or PQprepare. This function binds parameter values to the prepared statement and executes it using the extended query protocol. It provides optimal performance for repeatedly executed queries since the statement parsing and planning phases are skipped.
 

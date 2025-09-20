@@ -8,7 +8,10 @@ Multiplies a float8 (double precision) value by a float4 (single precision) valu
 
 ## Definition
 
-
+```c
+Datum
+float84mul(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the multiplication operator for mixed-precision floating-point arithmetic in PostgreSQL. It takes a float8 (double precision) value as the first argument and a float4 (single precision) value as the second argument. The function promotes the float4 argument to float8 precision and then performs the multiplication using the internal float8_mul function, ensuring the result maintains double precision accuracy.
 

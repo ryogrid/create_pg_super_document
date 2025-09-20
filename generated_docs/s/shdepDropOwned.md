@@ -8,7 +8,10 @@ Drops all objects owned by the specified role(s) and removes any access grants t
 
 ## Definition
 
-
+```c
+void
+shdepDropOwned(List *roleids, DropBehavior behavior)
+```
 ## Detailed Description
 The shdepDropOwned function scans the pg_shdepend catalog to find all objects that depend on the given roles and handles them according to their dependency type. It performs the following operations:
 

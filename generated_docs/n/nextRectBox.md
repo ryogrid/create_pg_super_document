@@ -8,7 +8,10 @@ Calculates the next traversal value by refining a RectBox's boundaries based on 
 
 ## Definition
 
-
+```c
+static RectBox *
+nextRectBox(RectBox *rect_box, RangeBox *centroid, uint8 quadrant)
+```
 ## Detailed Description
 This function is a core component of SP-GiST's tree traversal mechanism that progressively refines the 4D spatial boundaries as the algorithm descends through the index tree. Given a current RectBox (representing the current traversal constraints), a centroid RangeBox, and a quadrant identifier, it calculates the refined RectBox that represents the spatial constraints for the next level of traversal.
 

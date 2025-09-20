@@ -8,7 +8,13 @@ Retrieves comprehensive properties of an operator within a specified operator fa
 
 ## Definition
 
-
+```c
+void
+get_op_opfamily_properties(Oid opno, Oid opfamily, bool ordering_op,
+						   int *strategy,
+						   Oid *lefttype,
+						   Oid *righttype)
+```
 ## Detailed Description
 This function provides a comprehensive lookup of an operator's properties within an operator family. It retrieves the strategy number, left operand type, and right operand type from the pg_amop catalog. The function can handle both search operators and ordering operators based on the ordering_op parameter. Unlike other similar functions, this one assumes the operator is already known to be a member of the family and will raise an error if not found, making it suitable for cases where membership has been pre-verified.
 

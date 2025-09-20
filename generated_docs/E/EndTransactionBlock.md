@@ -8,7 +8,10 @@ EndTransactionBlock implements the SQL COMMIT command by managing transaction bl
 
 ## Definition
 
-
+```c
+bool
+EndTransactionBlock(bool chain)
+```
 ## Detailed Description
 This complex function handles the execution of COMMIT commands across all possible transaction block states. It implements a comprehensive state machine that manages normal transaction commits, subtransaction hierarchies, aborted transaction rollbacks, and implicit transaction warnings. The function supports both regular COMMIT and COMMIT AND CHAIN operations. For subtransactions, it walks up the transaction hierarchy setting appropriate commit or abort states. When transactions are aborted, COMMIT is treated as ROLLBACK. The function only changes block states, deferring actual transaction work to CommitTransactionCommand() to avoid Portal execution complications. It returns true for successful commits, false for rollbacks.
 

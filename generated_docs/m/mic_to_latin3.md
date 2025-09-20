@@ -8,7 +8,10 @@ A PostgreSQL encoding conversion function that converts text from the Multi-byte
 
 ## Definition
 
-
+```c
+Datum
+mic_to_latin3(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL conversion procedure that transforms character data from MIC (Multi-byte Internal Code) encoding back to Latin-3 encoding. It acts as a PostgreSQL function interface wrapper around the lower-level  conversion routine. The function follows PostgreSQL's standard conversion function protocol and specifically handles the conversion from PG_MULE_INTERNAL to PG_LATIN3 encoding types. This is the inverse operation of the latin3_to_mic function, converting back to Latin-3 encoding which supports South European languages including Turkish, Maltese, and Esperanto.
 

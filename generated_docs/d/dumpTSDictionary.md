@@ -8,7 +8,10 @@ Writes out a single text search dictionary definition to the PostgreSQL dump out
 
 ## Definition
 
-
+```c
+static void
+dumpTSDictionary(Archive *fout, const TSDictInfo *dictinfo)
+```
 ## Detailed Description
 The  function is responsible for dumping text search dictionary objects during a pg_dump operation. It generates the CREATE TEXT SEARCH DICTIONARY statement by fetching the dictionary's template information from the database and including any initialization options. The function constructs both creation and drop statements, handles binary upgrade scenarios, and dumps associated comments and ownership information.
 

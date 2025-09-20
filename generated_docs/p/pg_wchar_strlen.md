@@ -8,7 +8,10 @@ Calculates the length of a wide character string by counting characters until a 
 
 ## Definition
 
-
+```c
+size_t
+pg_wchar_strlen(const pg_wchar *str)
+```
 ## Detailed Description
 This function computes the length of a wide character string (pg_wchar*) by iterating through the characters until it encounters a null terminator (0). It follows the standard strlen semantics but operates on PostgreSQL's wide character type rather than regular char arrays. The function uses pointer arithmetic to efficiently calculate the length by subtracting the original pointer position from the final position after the loop.
 

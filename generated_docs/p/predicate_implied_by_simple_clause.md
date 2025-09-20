@@ -8,7 +8,11 @@ Tests whether a simple clause predicate is implied by another simple clause rest
 
 ## Definition
 
-
+```c
+static bool
+predicate_implied_by_simple_clause(Expr *predicate, Node *clause,
+								   bool weak)
+```
 ## Detailed Description
 This function performs implication testing between two "simple clause" expressions to determine if the truth of one clause logically implies the truth of another predicate. It's a core component of PostgreSQL's predicate testing infrastructure used by the query optimizer to prove relationships between query conditions and index conditions.
 

@@ -8,7 +8,10 @@ Handles individual backend shutdown by flushing remaining statistics and cleanin
 
 ## Definition
 
-
+```c
+static void
+pgstat_shutdown_hook(int code, Datum arg)
+```
 ## Detailed Description
 This function is called as a process exit hook to properly shut down a single backend's statistics reporting. It ensures that any final statistics operations that occur during backend termination (such as temporary table deletions) are properly recorded and reported before the process exits.
 

@@ -8,7 +8,10 @@ Determines whether two LINE objects are perpendicular to each other in PostgreSQ
 
 ## Definition
 
-
+```c
+Datum
+line_perp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function checks if two LINE objects are perpendicular by analyzing the relationship between their coefficients. In the standard line equation Ax + By + C = 0, two lines are perpendicular if the dot product of their direction vectors is zero. The function handles several special cases for vertical and horizontal lines, then performs the general perpendicularity test by checking if (A1*A2)/(B1*B2) equals -1, which indicates that the slopes are negative reciprocals of each other.
 

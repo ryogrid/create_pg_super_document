@@ -8,7 +8,9 @@ Returns the number of characters that belong to a specified color (character equ
 
 ## Definition
 
-
+```c
+struct colormap *cm;
+```
 ## Detailed Description
 This function determines how many individual characters are members of a given color in the regex engine's character classification system. Colors represent equivalence classes of characters that are treated identically by the regular expression.
 

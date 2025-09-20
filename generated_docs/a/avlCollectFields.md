@@ -8,7 +8,10 @@ Recursively extracts node values from an AVL tree into a fields array in sorted 
 
 ## Definition
 
-
+```c
+static int
+avlCollectFields(avl_tree *tree, avl_node *node, pivot_field *fields, int idx)
+```
 ## Detailed Description
 This function performs an in-order traversal of an AVL tree to collect all pivot field values in sorted order. It recursively visits the left subtree, processes the current node by copying its field value to the fields array, then visits the right subtree. The function maintains an index parameter that tracks the current position in the output array and returns the next available index for subsequent writes.
 

@@ -8,7 +8,10 @@ A wrapper function that delegates to textregexreplace_extended, created specific
 
 ## Definition
 
-
+```c
+Datum
+textregexreplace_extended_no_n(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a simple wrapper that directly calls  with the same function call information (). This function exists solely to satisfy PostgreSQL's opr_sanity regression test requirements, which expects distinct function implementations for different SQL function signatures.
 

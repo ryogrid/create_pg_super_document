@@ -8,7 +8,10 @@ JsonbHashScalarValue computes a hash value for a PostgreSQL JSONB scalar value a
 
 ## Definition
 
-
+```c
+void
+JsonbHashScalarValue(const JsonbValue *scalarVal, uint32 *hash)
+```
 ## Detailed Description
 This function generates hash values for JSONB scalar values (null, string, numeric, boolean) and combines them with an existing hash value using left rotation and XOR operations. The function is critical for JSONB GIN indexing and hash-based operations, ensuring that equivalent scalar values produce consistent hash codes. Each JSONB scalar type has a specific hash computation strategy: null values get a constant hash (0x01), strings use hash_any, numerics use hash_numeric to ensure mathematically equivalent values hash equally, and booleans get distinct constants (0x02 for true, 0x04 for false).
 

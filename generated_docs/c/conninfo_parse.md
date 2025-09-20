@@ -8,7 +8,11 @@ Parses a PostgreSQL connection string containing key=value pairs and returns a s
 
 ## Definition
 
-
+```c
+static PQconninfoOption *
+conninfo_parse(const char *conninfo, PQExpBuffer errorMessage,
+			   bool use_defaults)
+```
 ## Detailed Description
 This function is a core subroutine of  that specifically handles connection strings in key=value pair format. It performs comprehensive parsing of connection parameter strings, handling both quoted and unquoted values, escape sequences, and whitespace normalization.
 

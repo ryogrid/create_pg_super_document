@@ -8,7 +8,10 @@ The btgetbitmap function performs a bitmap index scan by collecting all matching
 
 ## Definition
 
-
+```c
+int64
+btgetbitmap(IndexScanDesc scan, TIDBitmap *tbm)
+```
 ## Detailed Description
 The btgetbitmap function implements bitmap index scanning for B-tree indexes, which is an efficient way to collect large numbers of matching tuples for later heap access. Instead of returning tuples one at a time like btgettuple, this function collects all heap tuple IDs (TIDs) that match the scan conditions and adds them to a bitmap data structure. This approach is particularly efficient for queries that need to access many tuples, as it allows for optimized heap access patterns and can be combined with bitmaps from other indexes.
 

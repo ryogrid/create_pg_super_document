@@ -8,7 +8,12 @@ nocachegetattr extracts attribute values from heap tuples when cached offsets ca
 
 ## Definition
 
-
+```c
+Datum
+nocachegetattr(HeapTuple tup,
+			   int attnum,
+			   TupleDesc tupleDesc)
+```
 ## Detailed Description
 nocachegetattr is a performance-critical function called from fastgetattr() when cached offsets are not available and the requested attribute is not null. It handles the complex task of locating attribute data within a tuple while dealing with variable-length attributes, null values, and alignment requirements.
 

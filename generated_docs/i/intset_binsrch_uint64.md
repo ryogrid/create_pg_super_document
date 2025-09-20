@@ -8,7 +8,10 @@ A binary search function for sorted arrays of 64-bit unsigned integers, providin
 
 ## Definition
 
-
+```c
+static int
+intset_binsrch_uint64(uint64 item, uint64 *arr, int arr_elems, bool nextkey)
+```
 ## Detailed Description
 This is a specialized binary search implementation designed for IntegerSet's internal operations. It searches through a sorted array of uint64 values and returns the position where a given key should be inserted to maintain sort order. The function supports two search modes controlled by the  parameter:
 

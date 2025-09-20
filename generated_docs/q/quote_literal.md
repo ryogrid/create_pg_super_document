@@ -8,7 +8,10 @@ A PostgreSQL built-in function that takes a text input and returns a properly qu
 
 ## Definition
 
-
+```c
+Datum
+quote_literal(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `quote_literal` function is a PostgreSQL SQL function that converts input text into a properly quoted and escaped SQL string literal. It handles PostgreSQL's text type by extracting the raw data, calculating the required buffer size (worst-case scenario of doubling all characters plus quotes and header), and then calling the internal `quote_literal_internal` function to perform the actual quoting and escaping. The function ensures that special characters like single quotes and backslashes are properly escaped, making the result safe for use in SQL queries.
 

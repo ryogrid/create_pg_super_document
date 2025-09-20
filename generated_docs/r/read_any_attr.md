@@ -8,7 +8,10 @@ A parser function that extracts the next attribute-value pair from a SCRAM authe
 
 ## Definition
 
-
+```c
+static char *
+read_any_attr(char **input, char *attr_p)
+```
 ## Detailed Description
 The `read_any_attr` function implements parsing logic for SCRAM (Salted Challenge Response Authentication Mechanism) messages, which follow the format "attribute=value,attribute=value,...". It advances through the input string to locate and extract the next attribute-value pair, performing strict validation according to the SCRAM protocol specification (RFC 5802).
 

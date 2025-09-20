@@ -8,7 +8,10 @@ A "safe" wrapper around the standard C library strdup() function that provides e
 
 ## Definition
 
-
+```c
+char *
+pg_strdup(const char *in)
+```
 ## Detailed Description
 pg_strdup serves as a robust alternative to the standard strdup() function with built-in error handling. It duplicates a given string by allocating memory and copying the contents, but unlike the standard strdup(), it performs explicit null pointer checking and memory allocation failure detection. If either condition occurs, the function prints an appropriate error message to stderr and terminates the program with EXIT_FAILURE, ensuring that calling code doesn't need to handle these error conditions.
 

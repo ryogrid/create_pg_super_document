@@ -8,7 +8,11 @@ Handles function calls with a single complex-type argument by checking if the ca
 
 ## Definition
 
-
+```c
+static Node *
+ParseComplexProjection(ParseState *pstate, const char *funcname, Node *first_arg,
+					   int location)
+```
 ## Detailed Description
 The  function is a crucial component of PostgreSQL's function call resolution mechanism that handles the special case where what appears to be a function call is actually a column projection from a complex type (composite type or record). When parsing expressions like , this function determines whether  is actually a field/column of the complex type represented by , rather than a function call.
 

@@ -8,7 +8,10 @@ Validates SSL protocol version strings used in PostgreSQL connection parameters 
 
 ## Definition
 
-
+```c
+static bool
+sslVerifyProtocolVersion(const char *version)
+```
 ## Detailed Description
 This function serves as a sanity check routine for the connection parameters  and . It validates that the input string represents a supported SSL/TLS protocol version. The function accepts standard TLS version identifiers and treats empty strings or NULL values as valid (equivalent to ignoring the parameter).
 

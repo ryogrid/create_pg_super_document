@@ -8,7 +8,11 @@ HeapDetermineColumnsInfo analyzes two heap tuples to determine which columns hav
 
 ## Definition
 
-
+```c
+struct varlena *) DatumGetPointer(value1)) &&
+			bms_is_member(attidx, external_cols))
+			*has_external = true;
+```
 ## Detailed Description
 This function compares old and new tuple versions to identify modified columns, which is crucial for HOT update decisions. It iterates through columns marked as interesting (typically indexed columns) and performs attribute-by-attribute comparison. The function handles special cases for whole-tuple references and system attributes, and tracks whether any unmodified attributes are stored externally.
 

@@ -8,7 +8,10 @@ Converts a decimal type to an integer, providing Informix compatibility function
 
 ## Definition
 
-
+```c
+int
+dectoint(decimal *np, int *ip)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's ECPG (Embedded SQL in C) compatibility library for Informix. It converts a decimal value to an integer by first converting the decimal to PostgreSQL's internal numeric representation, then extracting the integer value. The function handles memory allocation, error checking, and proper cleanup of resources. It provides comprehensive error handling for out-of-memory conditions and numeric overflow scenarios.
 

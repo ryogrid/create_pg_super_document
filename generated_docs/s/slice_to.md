@@ -8,7 +8,11 @@ A function in the Snowball stemming library that copies the current slice (betwe
 
 ## Definition
 
+```c
+}
 
+extern symbol * slice_to(struct SN_env * z, symbol * p)
+```
 ## Detailed Description
 The  function extracts the currently selected slice (the substring between  and  positions) from the working buffer and copies it to the provided destination buffer. The function handles memory management by expanding the destination buffer if necessary and properly setting its size. If the slice boundaries are invalid, it cleans up the destination buffer and returns NULL.
 

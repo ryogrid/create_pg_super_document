@@ -8,7 +8,10 @@ Internal worker function that converts JSONB data to a text search vector (TSVec
 
 ## Definition
 
-
+```c
+static TSVector
+jsonb_to_tsvector_worker(Oid cfgId, Jsonb *jb, uint32 flags)
+```
 ## Detailed Description
 The  function is a core internal worker function that handles the conversion of JSONB (binary JSON) data structures into text search vectors. It serves as the common implementation used by various public JSONB-to-TSVector conversion functions. The function iterates through JSONB values based on the provided flags, extracting text content and building a TSVector using the specified text search configuration.
 

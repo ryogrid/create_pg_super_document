@@ -8,7 +8,10 @@ PostgreSQL function that performs character-by-character "less than" comparison 
 
 ## Definition
 
-
+```c
+Datum
+text_pattern_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that compares two text values using character-by-character (byte-level) comparison and returns true if the first text value is lexicographically less than the second. This function is part of PostgreSQL's pattern matching infrastructure and is specifically designed to support efficient indexing for LIKE clause operations.
 

@@ -8,7 +8,10 @@ Equality comparison operator for bit string data types that returns true if two 
 
 ## Definition
 
-
+```c
+Datum
+biteq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the SQL equality operator (=) for bit string types (BIT and VARBIT). It performs a comprehensive equality check that considers both the bit content and the exact length of the strings. The function is optimized with a fast path that immediately returns false if the bit lengths differ, avoiding the more expensive bit-by-bit comparison in such cases.
 

@@ -8,7 +8,10 @@ This function attempts to acquire a shared advisory lock on a 64-bit integer key
 
 ## Definition
 
-
+```c
+Datum
+pg_try_advisory_lock_shared_int8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The pg_try_advisory_lock_shared_int8 function provides a non-blocking mechanism to acquire shared advisory locks in PostgreSQL. It takes a 64-bit integer as a lock key and attempts to acquire a shared lock on that key. Unlike regular advisory locks that block until available, this function returns immediately, indicating whether the lock was successfully acquired or not. Shared locks allow multiple sessions to hold the same lock simultaneously, but prevent exclusive locks from being acquired on the same key.
 

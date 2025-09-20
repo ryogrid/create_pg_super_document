@@ -8,7 +8,10 @@ A backward compatibility wrapper function that provides support for reloading pr
 
 ## Definition
 
-
+```c
+Datum
+gtsquery_consistent_oldsig(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The gtsquery_consistent_oldsig function serves as a compatibility shim for PostgreSQL's TSQuery GiST index operations. This function was introduced to maintain backward compatibility with pre-PostgreSQL 9.6 contrib/tsearch2 operator class declarations.
 

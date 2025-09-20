@@ -8,7 +8,10 @@ Tests whether an identifier character can be left unquoted in Access Control Lis
 
 ## Definition
 
-
+```c
+static inline bool
+is_safe_acl_char(unsigned char c, bool is_getid)
+```
 ## Detailed Description
 This function determines if a character in an identifier can appear without quotes in ACL strings. It implements a compatibility mechanism for handling non-ASCII characters that ensures dump compatibility with old PostgreSQL versions. The function treats high-bit-set characters differently depending on whether it's being called during parsing (getid) or formatting (putid) operations.
 

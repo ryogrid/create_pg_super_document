@@ -8,7 +8,11 @@ Creates a new PostgreSQL list with exactly three elements, serving as the core i
 
 ## Definition
 
-
+```c
+List *
+list_make3_impl(NodeTag t, ListCell datum1, ListCell datum2,
+				ListCell datum3)
+```
 ## Detailed Description
 The list_make3_impl function is the underlying implementation for creating lists with three elements in PostgreSQL's list system. It allocates a new list with a fixed capacity of 3 elements and directly assigns the provided ListCell values to the first three positions in the list's elements array. This function is part of PostgreSQL's type-safe list creation system and is typically called through convenience macros rather than directly.
 

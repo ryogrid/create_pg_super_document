@@ -8,7 +8,11 @@ Determines whether a relation can be sorted on a given EquivalenceClass before t
 
 ## Definition
 
-
+```c
+bool
+relation_can_be_sorted_early(PlannerInfo *root, RelOptInfo *rel,
+							 EquivalenceClass *ec, bool require_parallel_safe)
+```
 ## Detailed Description
 This function evaluates whether a relation can be sorted early on a specific EquivalenceClass during query execution, before reaching the final output stage. The function employs a two-phase approach: first attempting to find an EC member that directly matches a target expression in the relation's target list, and then trying to find an expression that can be computed from the available target expressions.
 

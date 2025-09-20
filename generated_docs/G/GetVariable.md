@@ -8,7 +8,9 @@ Retrieves the string value of a variable from a variable space, or returns NULL 
 
 ## Definition
 
-
+```c
+struct _variable *current;
+```
 ## Detailed Description
 This function searches for a variable by name within the specified variable space and returns its string value. The function performs a linear search through the linked list of variables, taking advantage of the fact that variables are stored in alphabetical order by name. This allows for early termination of the search when the comparison indicates the target variable cannot exist in the remaining list.
 

@@ -8,7 +8,12 @@ Recursively applies FOR UPDATE/SHARE locking clauses to all relations referenced
 
 ## Definition
 
-
+```c
+static void
+markQueryForLocking(Query *qry, Node *jtnode,
+					LockClauseStrength strength, LockWaitPolicy waitPolicy,
+					bool pushedDown)
+```
 ## Detailed Description
 This function traverses a query's join tree structure and applies FOR UPDATE or FOR SHARE locking clauses to all referenced relations. It implements recursive descent through different join tree node types and handles locking propagation with the following logic:
 

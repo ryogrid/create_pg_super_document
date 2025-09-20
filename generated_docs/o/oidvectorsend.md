@@ -8,7 +8,10 @@ Binary send function that converts PostgreSQL's internal oidvector format to ext
 
 ## Definition
 
-
+```c
+Datum
+oidvectorsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a type send function that handles the conversion from PostgreSQL's internal oidvector data structure to the external binary protocol format. This function is the counterpart to  and is part of the binary I/O infrastructure used for network communication and binary data exchange.
 

@@ -8,7 +8,11 @@ Extracts a fixed prefix from a regular expression pattern, returning the longest
 
 ## Definition
 
-
+```c
+char *
+regexp_fixed_prefix(text *text_re, bool case_insensitive, Oid collation,
+					bool *exact)
+```
 ## Detailed Description
 This function analyzes a regular expression to determine if it has a fixed prefix - a literal string that must appear at the beginning of any matching text. This optimization is crucial for PostgreSQL's query planner as it allows index scans to be used more efficiently when searching for patterns that start with literal text.
 

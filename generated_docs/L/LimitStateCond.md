@@ -8,7 +8,24 @@ An enumeration that tracks the execution state of LIMIT/OFFSET operations, manag
 
 ## Definition
 
-
+```c
+typedef struct LimitState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	ExprState  *limitOffset;	/* OFFSET parameter, or NULL if none */
+	ExprState  *limitCount;		/* COUNT parameter, or NULL if none */
+	LimitOption limitOption;	/* limit specification type */
+	int64		offset;			/* current OFFSET value */
+	int64		count;			/* current COUNT, if any */
+	bool		noCount;		/* if true, ignore count */
+	LimitStateCond lstate;		/* state machine status, as above */
+	int64		position;		/* 1-based index of last tuple returned */
+	TupleTableSlot *subSlot;	/* tuple last obtained from subplan */
+	ExprState  *eqfunction;		/* tuple equality qual in case of WITH TIES
+								 * option */
+	TupleTableSlot *last_slot;	/* slot for evaluation of ties */
+} LimitState;
+```
 ## Detailed Description
 LimitStateCond implements a state machine for PostgreSQL's LIMIT and OFFSET clause processing. The LIMIT node enforces row count restrictions by selecting the desired subrange from its subplan's output. The state machine handles complex scenarios including parameter recomputation during execution, empty result sets, proper window boundary management, and special handling for the WITH TIES option which requires comparing tuples for equality to return additional tied rows beyond the specified limit.
 

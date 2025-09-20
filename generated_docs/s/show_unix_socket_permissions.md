@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) show hook function that formats and returns 
 
 ## Definition
 
-
+```c
+const char *
+show_unix_socket_permissions(void)
+```
 ## Detailed Description
 This function serves as a show hook for the unix_socket_permissions GUC parameter in PostgreSQL. Show hooks are callback functions used by PostgreSQL's configuration system to format parameter values for display when queried by users (e.g., via SHOW commands or by examining pg_settings). The function converts the internal integer representation of Unix socket permissions into a human-readable 4-digit octal format (e.g., "0700", "0755").
 

@@ -8,7 +8,10 @@ Determines whether two RowSecurityPolicy structures are equivalent by comparing 
 
 ## Definition
 
-
+```c
+static bool
+equalPolicy(RowSecurityPolicy *policy1, RowSecurityPolicy *policy2)
+```
 ## Detailed Description
 This function performs a comprehensive comparison of two row security policy structures to determine equivalence. It compares all significant attributes of the policies including the command type they apply to, whether they contain sublinks, the policy names, the roles they apply to, and both the main qualification expression and the with-check qualification expression.
 

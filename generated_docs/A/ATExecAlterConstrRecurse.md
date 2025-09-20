@@ -8,7 +8,12 @@ ATExecAlterConstrRecurse is a recursive subroutine of ATExecAlterConstraint that
 
 ## Definition
 
-
+```c
+static bool
+ATExecAlterConstrRecurse(Constraint *cmdcon, Relation conrel, Relation tgrel,
+						 Relation rel, HeapTuple contuple, List **otherrelids,
+						 LOCKMODE lockmode)
+```
 ## Detailed Description
 This function handles the core logic of constraint alteration by updating both constraint and trigger catalog entries. It modifies the deferrability and initial deferred status of foreign key constraints in the pg_constraint catalog, then updates the corresponding triggers in pg_trigger that implement the constraint. The function also handles partitioned tables by recursively processing all child constraints to ensure consistency across the partition hierarchy.
 

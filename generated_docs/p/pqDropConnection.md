@@ -8,7 +8,10 @@ Closes any physical connection to the PostgreSQL server and resets associated st
 
 ## Definition
 
-
+```c
+void
+pqDropConnection(PGconn *conn, bool flushInput)
+```
 ## Detailed Description
 This function performs a controlled teardown of a PostgreSQL connection without fully destroying the connection object. It closes the physical socket connection, cleans up SSL/security state, and optionally discards buffered data. The function is designed to allow for potential reconnection by preserving connection parameters and other reusable state information.
 

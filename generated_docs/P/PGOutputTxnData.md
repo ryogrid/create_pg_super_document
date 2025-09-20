@@ -8,7 +8,12 @@ PGOutputTxnData is a struct used in PostgreSQL's pgoutput logical replication pl
 
 ## Definition
 
-
+```c
+typedef struct PGOutputTxnData
+{
+	bool		sent_begin_txn; /* flag indicating whether BEGIN has been sent */
+} PGOutputTxnData;
+```
 ## Detailed Description
 PGOutputTxnData implements a bandwidth optimization in logical replication by tracking whether a transaction has actually sent any changes to the subscriber. The structure maintains per-transaction state to determine if a BEGIN message needs to be sent. BEGIN is only sent when the first actual change in a transaction is processed, allowing the system to skip sending BEGIN/COMMIT message pairs for empty transactions.
 

@@ -8,7 +8,11 @@ A static utility function that adds a new ObjectAddress entry to an ObjectAddres
 
 ## Definition
 
-
+```c
+static void
+add_object_address(Oid classId, Oid objectId, int32 subId,
+				   ObjectAddresses *addrs)
+```
 ## Detailed Description
 This function provides the core mechanism for dynamically adding object references to an ObjectAddresses collection. It handles automatic array expansion using a doubling strategy when the current capacity is exceeded, ensuring efficient memory usage and amortized constant-time insertion.
 

@@ -8,7 +8,11 @@ Inserts a new publication/relation mapping into the pg_publication_rel catalog t
 
 ## Definition
 
-
+```c
+ObjectAddress
+publication_add_relation(Oid pubid, PublicationRelInfo *pri,
+						 bool if_not_exists)
+```
 ## Detailed Description
 This function creates a new entry in the pg_publication_rel system catalog to associate a relation (table) with a publication. It handles the complete process of validating the relation, translating column specifications, creating catalog entries, and establishing proper dependencies. The function supports conditional insertion (IF NOT EXISTS semantics) and can include row filtering through WHERE clauses and column filtering through explicit column lists.
 

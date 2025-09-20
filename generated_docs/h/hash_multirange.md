@@ -8,7 +8,10 @@ Computes a 32-bit hash value for a multirange data type, which is used for hash-
 
 ## Definition
 
-
+```c
+Datum
+hash_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements hash support for PostgreSQL's multirange data types by computing a hash value from all constituent ranges within the multirange. The algorithm iterates through each range in the multirange, hashes the lower and upper bounds of each range (if they exist), combines them with the range flags, and accumulates the results using a left-shift and XOR approach similar to hash_array.
 

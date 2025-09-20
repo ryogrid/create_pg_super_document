@@ -8,7 +8,10 @@ The int8mul function implements multiplication operation for two 64-bit signed i
 
 ## Definition
 
-
+```c
+Datum
+int8mul(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs multiplication of two 64-bit signed integer arguments. It extracts both input arguments using PostgreSQL's function argument macros, performs overflow-safe multiplication using the pg_mul_s64_overflow utility function, and returns the result. If overflow is detected during the multiplication operation, the function reports an error with an appropriate error code. This function is part of PostgreSQL's arithmetic operators for the bigint data type and ensures mathematical correctness by preventing silent overflow conditions that are particularly common in multiplication operations with large numbers.
 

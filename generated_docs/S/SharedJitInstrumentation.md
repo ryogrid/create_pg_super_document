@@ -8,7 +8,13 @@ SharedJitInstrumentation is a Dynamic Shared Memory (DSM) structure designed to 
 
 ## Definition
 
-
+```c
+typedef struct SharedJitInstrumentation
+{
+	int			num_workers;
+	JitInstrumentation jit_instr[FLEXIBLE_ARRAY_MEMBER];
+} SharedJitInstrumentation;
+```
 ## Detailed Description
 SharedJitInstrumentation serves as a coordination structure for collecting JIT compilation performance metrics from parallel worker processes in PostgreSQL's parallel execution framework. It uses Dynamic Shared Memory to allow multiple worker processes to report their JIT instrumentation data to a central location, which can then be aggregated and reported by the leader process. The structure employs a flexible array member to accommodate a variable number of worker processes.
 

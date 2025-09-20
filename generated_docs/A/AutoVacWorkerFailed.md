@@ -8,7 +8,10 @@ A signal function called by the postmaster to notify the autovacuum launcher whe
 
 ## Definition
 
-
+```c
+void
+AutoVacWorkerFailed(void)
+```
 ## Detailed Description
 The  function provides a communication mechanism between the postmaster and the autovacuum launcher when a worker process cannot be created. This function is called by the postmaster when  or other process creation mechanisms fail during autovacuum worker startup.
 

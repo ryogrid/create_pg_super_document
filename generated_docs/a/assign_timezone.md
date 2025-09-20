@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) assignment hook function that applies a vali
 
 ## Definition
 
-
+```c
+void
+assign_timezone(const char *newval, void *extra)
+```
 ## Detailed Description
 The  function serves as a GUC assign hook that applies timezone configuration changes that were previously validated by . It extracts the validated pg_tz timezone object from the extra data structure and assigns it to the global  variable, which controls the timezone context for the current database session.
 

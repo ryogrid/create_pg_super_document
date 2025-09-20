@@ -8,7 +8,20 @@ A placeholder node representing a DEFAULT marker in INSERT or UPDATE commands th
 
 ## Definition
 
-
+```c
+typedef struct SetToDefault
+{
+	Expr		xpr;
+	/* type for substituted value */
+	Oid			typeId;
+	/* typemod for substituted value */
+	int32		typeMod pg_node_attr(query_jumble_ignore);
+	/* collation for the substituted value */
+	Oid			collation pg_node_attr(query_jumble_ignore);
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} SetToDefault;
+```
 ## Detailed Description
 SetToDefault is a specialized expression node that serves as a placeholder for DEFAULT markers in INSERT and UPDATE statements. It is not an executable expression but rather a temporary construct used during parsing and rewriting phases. When PostgreSQL encounters a DEFAULT keyword in a query, it creates a SetToDefault node that contains metadata about the expected default value. During the rewriting phase, these placeholder nodes are replaced with the actual default expressions from the table definition.
 

@@ -8,7 +8,10 @@ Constructs a LINE object from two distinct Point objects in PostgreSQL's geometr
 
 ## Definition
 
-
+```c
+Datum
+line_construct_pp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function creates a LINE geometric object by taking two Point arguments and constructing a line that passes through both points. The function performs validation to ensure the two points are distinct (not equal), as a line cannot be constructed from identical points. It uses the internal  helper function along with  to calculate the slope between the points and construct the final LINE object.
 

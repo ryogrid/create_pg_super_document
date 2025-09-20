@@ -8,7 +8,9 @@ createBackupLabel creates a backup_label file that forces PostgreSQL recovery to
 
 ## Definition
 
-
+```c
+struct tm  *tmp;
+```
 ## Detailed Description
 This function generates a backup_label file in the target data directory, which is a critical component for PostgreSQL recovery. The backup_label file instructs PostgreSQL to start recovery from a specific WAL location rather than relying on the control file's checkpoint information.
 

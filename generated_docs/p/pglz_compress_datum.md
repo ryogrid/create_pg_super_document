@@ -8,7 +8,10 @@ Compresses a varlena data structure using the PGLZ compression algorithm, which 
 
 ## Definition
 
-
+```c
+struct varlena *
+pglz_compress_datum(const struct varlena *value)
+```
 ## Detailed Description
 This function implements PGLZ compression for PostgreSQL's TOAST system. It takes a varlena structure containing data and attempts to compress it using the PGLZ algorithm. The function performs size validation to ensure the input data falls within acceptable compression boundaries before attempting compression. If compression is successful and results in space savings, it returns a new compressed varlena structure; otherwise, it returns NULL to indicate compression failure or that compression would not be beneficial.
 

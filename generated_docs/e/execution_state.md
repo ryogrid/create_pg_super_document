@@ -8,7 +8,17 @@ The execution_state structure represents the execution state of individual SQL s
 
 ## Definition
 
-
+```c
+typedef struct execution_state
+{
+	struct execution_state *next;
+	ExecStatus	status;
+	bool		setsResult;		/* true if this query produces func's result */
+	bool		lazyEval;		/* true if should fetch one row at a time */
+	PlannedStmt *stmt;			/* plan for this query */
+	QueryDesc  *qd;				/* null unless status == RUN */
+} execution_state;
+```
 ## Detailed Description
 The execution_state structure is a fundamental component of PostgreSQL's SQL function execution system, defined in src/backend/executor/functions.c:65-73. It serves as a node in a linked list that tracks the execution state of each SQL statement within a SQL function body. This structure enables PostgreSQL to manage complex SQL functions that contain multiple statements, handling their sequential execution, result management, and lazy evaluation strategies.
 

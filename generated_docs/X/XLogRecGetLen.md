@@ -8,7 +8,11 @@ Calculates the size of a WAL record, splitting it into record data size (without
 
 ## Definition
 
-
+```c
+void
+XLogRecGetLen(XLogReaderState *record, uint32 *rec_len,
+			  uint32 *fpi_len)
+```
 ## Detailed Description
 This function analyzes a WAL (Write-Ahead Logging) record to determine its size breakdown. It separates the total record size into two components: the actual record data size (excluding full-page images) and the size of full-page image data. This distinction is important for WAL statistics and analysis since FPI data can constitute a significant portion of WAL volume.
 

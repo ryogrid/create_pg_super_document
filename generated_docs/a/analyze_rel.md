@@ -8,7 +8,12 @@ The main entry point function for analyzing a single relation (table, materializ
 
 ## Definition
 
-
+```c
+void
+analyze_rel(Oid relid, RangeVar *relation,
+			VacuumParams *params, List *va_cols, bool in_outer_xact,
+			BufferAccessStrategy bstrategy)
+```
 ## Detailed Description
 This function orchestrates the analysis of a single relation by performing several validation checks and then delegating to  for the actual statistics gathering. It handles different relation types (regular tables, materialized views, foreign tables, and partitioned tables) and implements proper locking mechanisms to prevent concurrent ANALYZE operations. For partitioned tables, it performs both non-recursive analysis (skipped for partitioned tables as they contain no data) and recursive analysis of child partitions when applicable.
 

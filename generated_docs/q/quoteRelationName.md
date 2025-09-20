@@ -8,7 +8,10 @@ A utility function that safely quotes a fully qualified relation name (schema.ta
 
 ## Definition
 
-
+```c
+static void
+quoteRelationName(char *buffer, Relation rel)
+```
 ## Detailed Description
 This function constructs a properly quoted, fully qualified relation name by combining the namespace (schema) name and relation (table) name with appropriate quoting. It formats the output as "schema"."table" where both the schema and table names are individually quoted using the  function. The function is designed to handle relation names that may contain special characters or reserved keywords that require quoting in SQL contexts.
 

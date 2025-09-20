@@ -8,7 +8,13 @@ PipeProtoHeader is a structure that defines the header format for pipe protocol 
 
 ## Definition
 
-
+```c
+typedef union
+{
+	PipeProtoHeader proto;
+	char		filler[PIPE_CHUNK_SIZE];
+} PipeProtoChunk;
+```
 ## Detailed Description
 PipeProtoHeader serves as the header structure for the pipe protocol used by PostgreSQL's system logger (syslogger) to communicate log data between processes. This structure is designed to facilitate reliable transmission of log messages through pipes by providing essential metadata about each data chunk. The header includes synchronization markers, size information, process identification, and control flags to ensure proper parsing and handling of log data streams.
 

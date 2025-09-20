@@ -8,7 +8,11 @@ Sets commit/abort hint bits on a tuple header when it is safe to do so, optimizi
 
 ## Definition
 
-
+```c
+static inline void
+SetHintBits(HeapTupleHeader tuple, Buffer buffer,
+			uint16 infomask, TransactionId xid)
+```
 ## Detailed Description
 SetHintBits is a critical optimization function that sets hint bits in tuple headers to cache the commit/abort status of transactions. The function ensures that hint bits are only set when it is safe to do so, considering durability constraints and WAL flushing requirements.
 

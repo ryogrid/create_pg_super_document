@@ -8,7 +8,11 @@ A subroutine for ExecDelete that handles the closing steps of tuple deletion, in
 
 ## Definition
 
-
+```c
+static void
+ExecDeleteEpilogue(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+				   ItemPointer tupleid, HeapTuple oldtuple, bool changingPart)
+```
 ## Detailed Description
 ExecDeleteEpilogue performs the final steps after a tuple has been successfully deleted from the table. Its primary responsibilities include:
 

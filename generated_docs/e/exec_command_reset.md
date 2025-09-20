@@ -8,7 +8,11 @@ Implements the psql \r backslash command that clears and resets the query buffer
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_reset(PsqlScanState scan_state, bool active_branch,
+				   PQExpBuffer query_buf)
+```
 ## Detailed Description
 The  function handles the execution of the \r backslash command in psql. This command provides users with a way to clear the current query buffer completely, effectively starting fresh with an empty buffer. The function operates only when the current branch is active (controlled by conditional execution logic in psql), ensuring that reset operations are only performed when appropriate in the command flow.
 

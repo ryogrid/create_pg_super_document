@@ -8,7 +8,11 @@ Retrieves the OID of the operator that implements a specified strategy with spec
 
 ## Definition
 
-
+```c
+Oid
+get_opfamily_member(Oid opfamily, Oid lefttype, Oid righttype,
+					int16 strategy)
+```
 ## Detailed Description
 This function performs a reverse lookup in the pg_amop catalog to find the specific operator that implements a given strategy number for particular data types within an operator family. Unlike the previous functions that start with a known operator, this function starts with the desired strategy and data types to find the appropriate operator. It uses the AMOPSTRATEGY cache which indexes by operator family, left type, right type, and strategy number. This is essential for query planning when the system needs to find operators that can handle specific data type combinations with desired semantics.
 

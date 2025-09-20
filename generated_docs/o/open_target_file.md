@@ -8,7 +8,10 @@ Opens a target file for writing in pg_rewind's file operations, with optional tr
 
 ## Definition
 
-
+```c
+void
+open_target_file(const char *path, bool trunc)
+```
 ## Detailed Description
 This function opens a target file for writing as part of pg_rewind's file synchronization process. It manages a single global file descriptor (dstfd) and ensures only one target file is open at a time. The function respects the dry_run mode, performing no actual file operations when dry_run is enabled. It constructs the full target path by combining the datadir_target with the relative path provided. If the same file is already open and truncation is not requested, the function returns early without reopening. Otherwise, it closes any currently open file before opening the new one.
 

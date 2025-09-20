@@ -8,7 +8,10 @@ Writes out a single access method definition to the pg_dump output, generating b
 
 ## Definition
 
-
+```c
+static void
+dumpAccessMethod(Archive *fout, const AccessMethodInfo *aminfo)
+```
 ## Detailed Description
 This function generates SQL statements to recreate an access method during database restoration. It constructs a CREATE ACCESS METHOD statement with the appropriate type (INDEX or TABLE) and handler function, along with a corresponding DROP statement for cleanup. The function handles binary upgrade scenarios and includes support for dumping associated comments.
 

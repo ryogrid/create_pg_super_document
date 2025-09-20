@@ -8,7 +8,12 @@ This function executes the next JSONPath item if it exists, or adds the current 
 
 ## Definition
 
-
+```c
+static JsonPathExecResult
+executeNextItem(JsonPathExecContext *cxt,
+				JsonPathItem *cur, JsonPathItem *next,
+				JsonbValue *v, JsonValueList *found, bool copy)
+```
 ## Detailed Description
 The  function serves as a control flow manager in JSONPath execution. It determines whether there are more JSONPath items to process in the current expression chain. If a next item exists, it delegates execution to . If no next item exists and a results collection list is provided, it appends the current value to that list. This function implements the sequential processing logic that allows complex JSONPath expressions to be evaluated step by step.
 

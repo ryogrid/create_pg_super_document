@@ -8,7 +8,12 @@ Reads and processes a single binary attribute from binary-format COPY data, hand
 
 ## Definition
 
-
+```c
+static Datum
+CopyReadBinaryAttribute(CopyFromState cstate, FmgrInfo *flinfo,
+						Oid typioparam, int32 typmod,
+						bool *isnull)
+```
 ## Detailed Description
 This function implements the binary COPY protocol for individual field processing in PostgreSQL. Binary COPY format uses a length-prefixed protocol where each field is preceded by a 4-byte signed integer indicating the field's byte length. The function handles the complete binary attribute reading pipeline from length parsing to type conversion.
 

@@ -8,7 +8,10 @@ Initializes the readline library for PostgreSQL's psql command-line client, conf
 
 ## Definition
 
-
+```c
+void
+initialize_readline(void)
+```
 ## Detailed Description
 This function sets up the GNU readline library (or compatible libraries like libedit) for use in psql. It configures various readline variables to provide appropriate tab completion behavior for SQL commands and database object names. The function establishes the completion function, sets word break characters for proper parsing, configures filename quoting behavior, and sets limits on completion records.
 

@@ -8,7 +8,10 @@ Safely retrieves the name of a replication slot at a given index, returning whet
 
 ## Definition
 
-
+```c
+bool
+ReplicationSlotName(int index, Name name)
+```
 ## Detailed Description
 ReplicationSlotName provides a thread-safe way to retrieve the name of a replication slot at a specific index in the replication slots array. The function uses shared locking to ensure the slot cannot be dropped while copying the name, though it notes that the name of an existing slot cannot change so a spinlock is not needed. The function returns a boolean indicating whether the slot at the specified index is actually in use, making it safe to call with any valid index.
 

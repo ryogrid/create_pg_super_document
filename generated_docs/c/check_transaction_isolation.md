@@ -8,7 +8,10 @@ This function validates changes to the transaction isolation level setting, ensu
 
 ## Definition
 
-
+```c
+bool
+check_transaction_isolation(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
  is a GUC check hook function that validates attempts to change the transaction isolation level via  commands. The function enforces PostgreSQL's transaction isolation semantics by allowing idempotent changes (setting the same isolation level) at any time, but restricting non-idempotent changes to top-level transactions that have not yet taken a snapshot.
 

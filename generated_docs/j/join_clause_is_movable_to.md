@@ -8,7 +8,13 @@ Tests whether a join clause is a safe candidate for parameterization of a scan o
 
 ## Definition
 
-
+```c
+union of currentrelids and the required_outer
+ *		relids (parameterization's outer relations)
+ *
+ * The API would be a bit clearer if we passed the current relids and the
+ * outer relids separately and did bms_union internally;
+```
 ## Detailed Description
 This function determines whether a join clause can safely be evaluated at a relation below its normal semantic level (i.e., its required_relids), provided that values of variables from other relations are supplied as parameters. The function implements several safety checks to ensure that moving the clause will not change query semantics or produce incorrect results.
 

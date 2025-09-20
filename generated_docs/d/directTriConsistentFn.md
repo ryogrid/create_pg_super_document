@@ -8,7 +8,10 @@ A helper function that calls a native ternary logic consistent function for GIN 
 
 ## Definition
 
-
+```c
+static GinTernaryValue
+directTriConsistentFn(GinScanKey key)
+```
 ## Detailed Description
 This function serves as a wrapper for calling user-defined ternary consistent functions in GIN (Generalized Inverted Index) operations. Unlike the binary logic version (directBoolConsistentFn), this function calls the ternary version of the consistent function which can return three states: GIN_FALSE, GIN_MAYBE, or GIN_TRUE. It uses FunctionCall7Coll to invoke the user's ternary consistent function with the appropriate parameters and returns the result as a GinTernaryValue.
 

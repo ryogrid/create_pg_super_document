@@ -8,7 +8,10 @@ Formats human-readable descriptions of GIN index leaf page recompression operati
 
 ## Definition
 
-
+```c
+static void
+desc_recompress_leaf(StringInfo buf, ginxlogRecompressDataLeaf *insertData)
+```
 ## Detailed Description
 This function parses and formats WAL data related to GIN (Generalized Inverted Index) leaf page recompression operations. It decodes the recompression actions stored in the WAL record and appends a human-readable description to the provided StringInfo buffer. The function handles multiple segment operations including item addition, deletion, insertion, and replacement operations.
 

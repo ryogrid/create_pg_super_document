@@ -8,7 +8,11 @@ Establishes a connection to an appropriate maintenance database, with automatic 
 
 ## Definition
 
-
+```c
+PGconn *
+connectMaintenanceDatabase(ConnParams *cparams,
+						   const char *progname, bool echo)
+```
 ## Detailed Description
 The `connectMaintenanceDatabase` function is a specialized wrapper around `connectDatabase` that implements intelligent database selection for maintenance operations. It provides a fallback mechanism when no specific database name is provided, attempting to connect to standard PostgreSQL maintenance databases in order of preference. This function is essential for PostgreSQL client utilities that need to perform administrative operations but don't have a specific target database.
 

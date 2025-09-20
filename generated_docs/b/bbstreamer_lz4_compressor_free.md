@@ -8,7 +8,10 @@ Frees memory and resources associated with the LZ4 compressor streamer.
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_lz4_compressor_free(bbstreamer *streamer)
+```
 ## Detailed Description
 This function performs cleanup and resource deallocation for the LZ4 compressor streamer. It recursively frees the next streamer in the chain, releases the LZ4 compression context, deallocates the internal buffer, and frees the streamer structure itself.
 

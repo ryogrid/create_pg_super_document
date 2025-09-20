@@ -8,7 +8,10 @@ EndLO signals the completion of archival for a PostgreSQL Large Object (LO), mar
 
 ## Definition
 
-
+```c
+int
+EndLO(Archive *AHX, Oid oid)
+```
 ## Detailed Description
 EndLO completes the large object archival process initiated by StartLO, serving as the closing bracket for large object dumping operations. This function provides a format-agnostic interface for signaling that all data for a specific large object has been written to the archive. It works in conjunction with StartLO to properly encapsulate large object data within the archive format.
 

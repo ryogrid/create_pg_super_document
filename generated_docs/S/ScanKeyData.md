@@ -8,7 +8,18 @@ ScanKeyData is a fundamental data structure in PostgreSQL that represents the ap
 
 ## Definition
 
-
+```c
+typedef struct ScanKeyData
+{
+	int			sk_flags;		/* flags, see below */
+	AttrNumber	sk_attno;		/* table or index column number */
+	StrategyNumber sk_strategy; /* operator strategy number */
+	Oid			sk_subtype;		/* strategy subtype */
+	Oid			sk_collation;	/* collation to use, if needed */
+	FmgrInfo	sk_func;		/* lookup info for function to call */
+	Datum		sk_argument;	/* data to compare */
+} ScanKeyData;
+```
 ## Detailed Description
 ScanKeyData is a versatile structure that serves multiple purposes in PostgreSQL's scanning operations:
 

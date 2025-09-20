@@ -8,7 +8,12 @@ The cclasscvec function creates character vectors (cvecs) for POSIX character cl
 
 ## Definition
 
-
+```c
+static struct cvec *
+cclasscvec(struct vars *v,		/* context */
+		   enum char_classes cclasscode,	/* class to build a cvec for */
+		   int cases)			/* case-independent? */
+```
 ## Detailed Description
 The cclasscvec function is the central implementation for POSIX character class support in PostgreSQL's regex engine. It translates character class identifiers into concrete character sets, handling both locale-dependent and hard-wired character class definitions.
 

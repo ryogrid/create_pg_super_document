@@ -8,7 +8,21 @@ MergeAppendState is the runtime state structure for the MergeAppend executor nod
 
 ## Definition
 
-
+```c
+typedef struct MergeAppendState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	PlanState **mergeplans;		/* array of PlanStates for my inputs */
+	int			ms_nplans;
+	int			ms_nkeys;
+	SortSupport ms_sortkeys;	/* array of length ms_nkeys */
+	TupleTableSlot **ms_slots;	/* array of length ms_nplans */
+	struct binaryheap *ms_heap; /* binary heap of slot indices */
+	bool		ms_initialized; /* are subplans started? */
+	struct PartitionPruneState *ms_prune_state;
+	Bitmapset  *ms_valid_subplans;
+} MergeAppendState;
+```
 ## Detailed Description
 MergeAppendState maintains the execution state for a MergeAppend plan node, which combines sorted output from multiple child plans while preserving the sort order. It uses a binary heap to efficiently determine which subplan produces the next tuple in the merged result. The structure supports runtime partition pruning to eliminate unnecessary subplans during execution.
 

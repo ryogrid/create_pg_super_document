@@ -8,7 +8,10 @@ A PostgreSQL function that performs text search matching between a tsquery and t
 
 ## Definition
 
-
+```c
+Datum
+ts_match_qv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a wrapper for the @@ operator when used with argument order tsquery @@ tsvector. It simply swaps the arguments and delegates the actual matching logic to ts_match_vq, which expects the arguments in tsvector @@ tsquery order. This design pattern allows PostgreSQL to support both syntactic forms of the text search match operator while maintaining a single implementation.
 

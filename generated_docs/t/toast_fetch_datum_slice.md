@@ -8,7 +8,11 @@ Reconstructs a specific segment (slice) of a Datum from chunks stored in a TOAST
 
 ## Definition
 
-
+```c
+static struct varlena *
+toast_fetch_datum_slice(struct varlena *attr, int32 sliceoffset,
+						int32 slicelength)
+```
 ## Detailed Description
 This function provides the capability to retrieve only a portion of a large TOAST-ed datum, which is crucial for performance when working with very large values where only a subset of the data is needed. The function supports both compressed and uncompressed external datums, though with restrictions on compressed data - for compressed datums, only prefix slices (starting from offset 0) are supported since compressed data cannot be meaningfully sliced in the middle.
 

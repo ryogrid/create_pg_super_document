@@ -8,7 +8,18 @@ The  struct represents metadata about a single column (attribute) in a PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct pgresAttDesc
+{
+	char	   *name;			/* column name */
+	Oid			tableid;		/* source table, if known */
+	int			columnid;		/* source column, if known */
+	int			format;			/* format code for value (text/binary) */
+	Oid			typid;			/* type id */
+	int			typlen;			/* type size */
+	int			atttypmod;		/* type-specific modifier info */
+} PGresAttDesc;
+```
 ## Detailed Description
 The  structure contains comprehensive metadata about a column in a PostgreSQL query result set. It serves as a descriptor that provides both logical information (column name, source table/column) and physical characteristics (data type, size, format). This structure is fundamental to libpq's result handling, allowing client applications to understand the structure and data types of query results. The format field distinguishes between text and binary data representation, while the type information enables proper data interpretation and conversion.
 

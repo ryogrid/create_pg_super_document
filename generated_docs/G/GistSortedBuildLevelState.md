@@ -8,7 +8,15 @@ GistSortedBuildLevelState is a structure used in PostgreSQL's GiST (Generalized 
 
 ## Definition
 
-
+```c
+typedef struct GistSortedBuildLevelState
+{
+	int			current_page;
+	BlockNumber last_blkno;
+	struct GistSortedBuildLevelState *parent;	/* Upper level, if any */
+	Page		pages[GIST_SORTED_BUILD_PAGE_NUM];
+} GistSortedBuildLevelState;
+```
 ## Detailed Description
 This structure is a core component of the GiST sorted build algorithm, designed to handle the complexities of building multidimensional indexes efficiently. The sorted build approach uses a stack of these structures, one for each level of the index tree, to maintain an in-memory buffer of the most recent pages at that level.
 

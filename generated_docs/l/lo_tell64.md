@@ -8,7 +8,10 @@ Returns the current seek location within a PostgreSQL large object using 64-bit 
 
 ## Definition
 
-
+```c
+pg_int64
+lo_tell64(PGconn *conn, int fd)
+```
 ## Detailed Description
 The  function retrieves the current position within an open large object using 64-bit arithmetic, extending beyond the 2GB limitation of the 32-bit  function. This function is essential for handling very large objects in PostgreSQL. It communicates with the PostgreSQL server using the internal large object function  to get the current seek position as a 64-bit integer.
 

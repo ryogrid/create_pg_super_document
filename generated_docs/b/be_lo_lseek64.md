@@ -8,7 +8,10 @@ A PostgreSQL backend function that provides 64-bit seek functionality for large 
 
 ## Definition
 
-
+```c
+Datum
+be_lo_lseek64(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the backend support for PostgreSQL's lo_lseek64 large object function, which allows seeking to a specific position within a large object using 64-bit offsets. The function validates the provided file descriptor, performs the seek operation using the internal inv_seek function, and returns the new position as a 64-bit integer. This extends the capabilities beyond the 32-bit lo_lseek function by supporting larger file offsets.
 

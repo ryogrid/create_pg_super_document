@@ -8,7 +8,10 @@ Performs a checkpoint operation for the commit timestamp SLRU by writing all dir
 
 ## Definition
 
-
+```c
+void
+CheckPointCommitTs(void)
+```
 ## Detailed Description
 CheckPointCommitTs is responsible for ensuring data durability during PostgreSQL checkpoint operations by writing all dirty commit timestamp SLRU pages to disk. This function is called as part of the broader checkpoint process to guarantee that commit timestamp data is persisted before the checkpoint completes.
 

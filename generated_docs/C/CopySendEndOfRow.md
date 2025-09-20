@@ -8,7 +8,10 @@ Finalizes and sends a complete row of data in PostgreSQL's COPY operation, handl
 
 ## Definition
 
-
+```c
+static void
+CopySendEndOfRow(CopyToState cstate)
+```
 ## Detailed Description
 CopySendEndOfRow is a critical function in PostgreSQL's COPY TO implementation that handles the completion of a row's data transmission. It manages three different copy destinations: files, frontend connections, and callback functions. For each destination type, it applies appropriate line termination (platform-specific for files, universal newline for frontend), writes the accumulated row data, and handles any I/O errors that may occur. The function also updates progress statistics and resets the message buffer for the next row.
 

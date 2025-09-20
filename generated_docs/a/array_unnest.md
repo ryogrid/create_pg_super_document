@@ -8,7 +8,17 @@ Implements the PostgreSQL UNNEST function for arrays, converting a single array 
 
 ## Definition
 
-
+```c
+typedef struct
+	{
+		array_iter	iter;
+		int			nextelem;
+		int			numelems;
+		int16		elmlen;
+		bool		elmbyval;
+		char		elmalign;
+	} array_unnest_fctx;
+```
 ## Detailed Description
 The `array_unnest` function is a Set Returning Function (SRF) that takes an array as input and returns each element of the array as a separate row. This function is the backend implementation of PostgreSQL's UNNEST SQL function, which transforms an array into a table-like structure.
 

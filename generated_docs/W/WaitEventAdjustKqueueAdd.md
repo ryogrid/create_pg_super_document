@@ -8,7 +8,11 @@ A static inline utility function that configures a kevent structure for kqueue-b
 
 ## Definition
 
-
+```c
+static inline void
+WaitEventAdjustKqueueAdd(struct kevent *k_ev, int filter, int action,
+						 WaitEvent *event)
+```
 ## Detailed Description
 This function serves as a helper routine for the kqueue-based event waiting mechanism in PostgreSQL. It initializes a kevent structure with the necessary parameters to add or modify event monitoring for a specific file descriptor. The function sets up the kevent with the file descriptor from the WaitEvent, applies the specified filter and action flags, clears additional flags and data fields, and establishes the association between the kevent and the WaitEvent structure through the AccessWaitEvent macro.
 

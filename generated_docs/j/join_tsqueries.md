@@ -8,7 +8,10 @@ A static helper function that combines two TSQuery objects with a specified logi
 
 ## Definition
 
-
+```c
+static QTNode *
+join_tsqueries(TSQuery a, TSQuery b, int8 operator, uint16 distance)
+```
 ## Detailed Description
 The `join_tsqueries` function is an internal utility that creates a new query tree node (`QTNode`) representing the combination of two TSQuery objects with a logical operator. It constructs a binary tree structure where the operator becomes the parent node and the two input queries become its children. The function handles special cases like phrase operators that require distance information. This is a fundamental building block for implementing TSQuery operations like AND, OR, and phrase searches.
 

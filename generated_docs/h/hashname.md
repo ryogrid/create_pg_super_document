@@ -8,7 +8,10 @@ Computes a hash value for a PostgreSQL Name data type by hashing its string cont
 
 ## Definition
 
-
+```c
+Datum
+hashname(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function generates a hash value for a PostgreSQL Name data type. The Name type is a fixed-length string type used internally by PostgreSQL for storing identifiers like table names, column names, and other database object names. The function extracts the string content using NameStr macro and computes a hash based on the actual string length (excluding any null padding).
 

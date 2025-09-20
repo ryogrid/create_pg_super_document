@@ -8,7 +8,10 @@ A static validation function that checks if a relation (table) can be added to a
 
 ## Definition
 
-
+```c
+static void
+check_publication_add_relation(Relation targetrel)
+```
 ## Detailed Description
 This function performs validation checks to ensure that a given relation can be safely added to a logical replication publication. It enforces several restrictions:
 

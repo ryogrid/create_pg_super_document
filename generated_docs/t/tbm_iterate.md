@@ -8,7 +8,10 @@ Scans through the next page of a TIDBitmap during iteration, returning pages in 
 
 ## Definition
 
-
+```c
+TBMIterateResult *
+tbm_iterate(TBMIterator *iterator)
+```
 ## Detailed Description
 The  function is the core iteration mechanism for TIDBitmap structures in PostgreSQL. It processes bitmap data to return the next page that contains tuples matching query conditions. The function handles both lossy chunk pages (where exact tuple positions are not remembered) and exact pages with specific tuple offsets.
 

@@ -8,7 +8,12 @@ Advances a window aggregate function by processing one input tuple, updating the
 
 ## Definition
 
-
+```c
+static void
+advance_windowaggregate(WindowAggState *winstate,
+						WindowStatePerFunc perfuncstate,
+						WindowStatePerAgg peraggstate)
+```
 ## Detailed Description
 This function is parallel to  in nodeAgg.c and handles the core logic for advancing window aggregate computations. It evaluates the aggregate's arguments from the current tuple, handles filtering conditions, manages strict transition functions, and carefully manages memory contexts and data copying. The function includes special handling for moving aggregates by tracking transition value counts and ensuring moving-aggregate transition functions don't return NULL. It also optimizes memory management by detecting when transition functions return pointers to their inputs or expanded objects already in the correct context.
 

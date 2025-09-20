@@ -8,7 +8,10 @@ Sets the restrict_nonsystem_relation_kind configuration parameter in PostgreSQL 
 
 ## Definition
 
-
+```c
+static void
+set_restrict_relation_kind(Archive *AH, const char *value)
+```
 ## Detailed Description
 This function sets the  configuration parameter using PostgreSQL's  function. The parameter was introduced in minor version releases, so the function uses a conditional query that only applies the setting if the parameter exists in . This ensures backward compatibility across different PostgreSQL versions where this parameter may not be available.
 

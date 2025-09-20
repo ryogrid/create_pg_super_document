@@ -8,7 +8,50 @@ LogicalTape represents a single logical tape within PostgreSQL's external sortin
 
 ## Definition
 
+```c
+struct LogicalTape
+{
+	LogicalTapeSet *tapeSet;	/* tape set this tape is part of */
 
+	bool		writing;		/* T while in write phase */
+	bool		frozen;			/* T if blocks should not be freed when read */
+	bool		dirty;			/* does buffer need to be written? */
+
+	/*
+	 * Block numbers of the first, current, and next block of the tape.
+	 *
+	 * The "current" block number is only valid when writing, or reading from
+	 * a frozen tape.  (When reading from an unfrozen tape, we use a larger
+	 * read buffer that holds multiple blocks, so the "current" block is
+	 * ambiguous.)
+	 *
+	 * When concatenation of worker tape BufFiles is performed, an offset to
+	 * the first block in the unified BufFile space is applied during reads.
+	 */
+	int64		firstBlockNumber;
+	int64		curBlockNumber;
+	int64		nextBlockNumber;
+	int64		offsetBlockNumber;
+
+	/*
+	 * Buffer for current data block(s).
+	 */
+	char	   *buffer;			/* physical buffer (separately palloc'd) */
+	int			buffer_size;	/* allocated size of the buffer */
+	int			max_size;		/* highest useful, safe buffer_size */
+	int			pos;			/* next read/write position in buffer */
+	int			nbytes;			/* total # of valid bytes in buffer */
+
+	/*
+	 * Preallocated block numbers are held in an array sorted in descending
+	 * order; blocks are consumed from the end of the array (lowest block
+	 * numbers first).
+	 */
+	int64	   *prealloc;
+	int			nprealloc;		/* number of elements in list */
+	int			prealloc_size;	/* number of elements list can hold */
+};
+```
 ## Detailed Description
 LogicalTape is the core data structure for PostgreSQL's external sorting implementation, enabling efficient disk-based operations when sorting datasets larger than available memory. Each tape operates in either write or read mode, using a sophisticated buffering system to optimize I/O performance.
 

@@ -8,7 +8,10 @@ ExecGrant_Type_check validates that GRANT and REVOKE operations are performed on
 
 ## Definition
 
-
+```c
+static void
+ExecGrant_Type_check(InternalGrant *istmt, HeapTuple tuple)
+```
 ## Detailed Description
 ExecGrant_Type_check serves as an object-specific validation callback for data types in the GRANT/REVOKE system. It enforces several important restrictions: preventing privilege operations on array types (since privileges should be set on the element type), multirange types (privileges should be set on the underlying range type), and ensuring that GRANT DOMAIN is only used on actual domain types.
 

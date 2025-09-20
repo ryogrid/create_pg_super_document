@@ -8,7 +8,14 @@ Creates a path node corresponding to a MergeAppend plan, which merges multiple p
 
 ## Definition
 
-
+```c
+MergeAppendPath *
+create_merge_append_path(PlannerInfo *root,
+						 RelOptInfo *rel,
+						 List *subpaths,
+						 List *pathkeys,
+						 Relids required_outer)
+```
 ## Detailed Description
 This function constructs a MergeAppendPath node that represents a MergeAppend operation in PostgreSQL's query execution plan. Unlike a regular Append which simply concatenates results, MergeAppend merges multiple already-sorted input streams to maintain the sort order in the output. The function calculates costs by considering whether each subpath is already adequately sorted or requires an additional Sort node.
 

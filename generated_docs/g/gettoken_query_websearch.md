@@ -8,7 +8,12 @@ A static function that tokenizes and parses websearch-style tsquery expressions,
 
 ## Definition
 
-
+```c
+static ts_tokentype
+gettoken_query_websearch(TSQueryParserState state, int8 *operator,
+						 int *lenval, char **strval,
+						 int16 *weight, bool *prefix)
+```
 ## Detailed Description
 The gettoken_query_websearch function implements parsing logic for PostgreSQL's websearch_to_tsquery() functionality, which provides a simpler, more intuitive query syntax similar to web search engines. Unlike the standard tsquery parser, this function supports quoted phrases, uses hyphen (-) for negation instead of exclamation mark (!), automatically inserts AND operators between adjacent terms, and uses the parse_or_operator function to intelligently distinguish between "OR" as a literal word versus a logical operator.
 

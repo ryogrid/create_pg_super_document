@@ -8,7 +8,9 @@ A static helper function that returns a copy of an array containing n randomly c
 
 ## Definition
 
-
+```c
+struct_empty_array(elmtyp);
+```
 ## Detailed Description
  implements a partial Fisher-Yates shuffle algorithm to randomly select n items from the first dimension of a multi-dimensional PostgreSQL array. The function preserves the structure of lower-order dimensions while shuffling only along the first dimension. It performs in-place shuffling by swapping elements and stops after n iterations, making the first n items the randomly selected result.
 

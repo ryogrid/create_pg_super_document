@@ -8,7 +8,10 @@ PLy_fatal is a Python C extension function that provides Python code within PL/P
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_fatal(PyObject *self, PyObject *args, PyObject *kw)
+```
 ## Detailed Description
 PLy_fatal serves as a thin wrapper around the more general PLy_output function, specifically configured to emit FATAL-level messages. This function is exposed to Python code as `plpy.fatal()` within PL/Python stored procedures and functions. When called, it generates a PostgreSQL FATAL error, which is more severe than ERROR and will terminate the entire database backend session, disconnecting the client.
 

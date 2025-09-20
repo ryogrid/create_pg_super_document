@@ -8,7 +8,11 @@ The swedish_ISO_8859_1_stem function is the main entry point for Swedish word st
 
 ## Definition
 
+```c
+}
 
+extern int swedish_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete Swedish stemming pipeline according to the Snowball stemming algorithm. It processes Swedish words by systematically applying multiple stemming stages to reduce words to their linguistic root forms. The function is designed to work with ISO-8859-1 encoded text, which includes Swedish-specific characters like å, ä, and ö.
 

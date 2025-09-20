@@ -8,7 +8,9 @@ A utility function for debugging binary data by printing its contents in hexadec
 
 ## Definition
 
-
+```c
+struct bytea_1  { int len; char arr[ 512 ]; }  send_buf [ 2 ] ;
+```
 ## Detailed Description
 The  function is a debugging utility that outputs binary data in a human-readable hexadecimal format. It is specifically used in the ECPG test suite for bytea (binary data) operations to verify and display the contents of binary buffers. The function prints the buffer length, indicator value, and the actual binary data as a sequence of hexadecimal bytes.
 

@@ -8,7 +8,9 @@ This function evaluates a timestamp with time zone at a specified time zone and 
 
 ## Definition
 
-
+```c
+struct pg_tm tm;
+```
 ## Detailed Description
 The  function converts a timestamp with time zone to a plain timestamp by interpreting the timestamptz value in a specified target timezone rather than the session's current timezone. This function accepts two arguments: a timezone specification (as text) and a timestamptz value.
 

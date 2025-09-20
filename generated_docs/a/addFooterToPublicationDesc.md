@@ -8,7 +8,11 @@ A static helper function that adds footer information to publication description
 
 ## Definition
 
-
+```c
+static bool
+addFooterToPublicationDesc(PQExpBuffer buf, const char *footermsg,
+						   bool as_schema, printTableContent *const cont)
+```
 ## Detailed Description
 The  function is a utility function used to add detailed footer information to publication descriptions in psql. It executes a SQL query contained in the provided buffer and formats the results as footer lines in the publication description output. The function handles two different formatting modes: schema-only mode and full table mode with optional column lists and WHERE clauses.
 

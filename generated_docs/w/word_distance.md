@@ -8,7 +8,10 @@ Calculates a weight factor for word collocation based on the distance between wo
 
 ## Definition
 
-
+```c
+static float4
+word_distance(int32 w)
+```
 ## Detailed Description
 The  function computes a weight coefficient used in PostgreSQL's text search ranking algorithm. It takes the distance between words as input and returns a normalized weight factor that decreases as the distance increases. The function implements an exponential decay formula to give higher weights to words that appear closer together, which is a fundamental principle in text search relevance scoring.
 

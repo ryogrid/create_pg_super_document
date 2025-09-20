@@ -8,7 +8,9 @@ DefineEnum creates a new enumeration type in PostgreSQL, establishing both the e
 
 ## Definition
 
-
+```c
+enumName;
+```
 ## Detailed Description
 DefineEnum implements PostgreSQL's CREATE TYPE AS ENUM command by creating a complete enumeration type system. Enum types in PostgreSQL are stored as OID values internally, but present human-readable labels to users. The function performs several key operations:
 

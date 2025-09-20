@@ -8,7 +8,10 @@ A static comparison function that determines if two Bitmapset nodes are equal by
 
 ## Definition
 
-
+```c
+static bool
+_equalBitmapset(const Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 The  function provides equality comparison for Bitmapset nodes within PostgreSQL's node equality framework. Bitmapsets are specialized data structures used throughout PostgreSQL to efficiently represent sets of integers, commonly used for tracking column references, join relationships, and other set-based operations in query planning and optimization.
 

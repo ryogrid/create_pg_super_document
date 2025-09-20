@@ -8,7 +8,10 @@ Advances a QueuePosition to the next entry location after accounting for the cur
 
 ## Definition
 
-
+```c
+static bool
+asyncQueueAdvance(volatile QueuePosition *position, int entryLength)
+```
 ## Detailed Description
 This function is responsible for calculating the next position in the notification queue after consuming or writing an entry of a given length. It performs two main operations:
 

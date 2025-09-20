@@ -8,7 +8,10 @@ Recursively processes the query's join tree to extract and organize WHERE and JO
 
 ## Definition
 
-
+```c
+List *
+deconstruct_jointree(PlannerInfo *root)
+```
 ## Detailed Description
 This function serves as the main entry point for analyzing and deconstructing a query's join tree structure. It performs a comprehensive scan of the jointree to extract qualification clauses and organize them appropriately for the query planner. The function operates in multiple phases:
 

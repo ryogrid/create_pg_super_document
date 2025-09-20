@@ -8,7 +8,9 @@ Retrieves a list of WAL summary files from the filesystem that match specified f
 
 ## Definition
 
-
+```c
+struct dirent *dent;
+```
 ## Detailed Description
 GetWalSummaries scans the WAL summaries directory (`XLOGDIR/summaries`) and returns a list of WalSummaryFile structures that match the specified filtering criteria. The function parses WAL summary filenames to extract timeline ID and LSN range information, then applies filters to return only relevant summaries. This is primarily used to find WAL summaries that overlap with a specified LSN range on a particular timeline, which is essential for incremental backup operations and WAL summarization processes.
 

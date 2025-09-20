@@ -8,7 +8,18 @@ PartClauseInfo is a structure that holds information about a clause that has bee
 
 ## Definition
 
-
+```c
+typedef struct PartClauseInfo
+{
+	int			keyno;			/* Partition key number (0 to partnatts - 1) */
+	Oid			opno;			/* operator used to compare partkey to expr */
+	bool		op_is_ne;		/* is clause's original operator <> ? */
+	Expr	   *expr;			/* expr the partition key is compared to */
+	Oid			cmpfn;			/* Oid of function to compare 'expr' to the
+								 * partition key */
+	int			op_strategy;	/* btree strategy identifying the operator */
+} PartClauseInfo;
+```
 ## Detailed Description
 PartClauseInfo is a crucial data structure in PostgreSQL's partition pruning mechanism, defined in src/backend/partitioning/partprune.c:62-71. This structure encapsulates all the necessary information about a WHERE clause condition that can be used to eliminate partitions during query planning. When the query planner encounters conditions that reference partition keys, it creates PartClauseInfo structures to represent these conditions in a form suitable for partition elimination logic.
 

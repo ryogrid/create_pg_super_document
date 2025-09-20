@@ -8,7 +8,10 @@ Outputs special PostgreSQL protocol messages that contain no type byte to the tr
 
 ## Definition
 
-
+```c
+void
+pqTraceOutputNoTypeByteMessage(PGconn *conn, const char *message)
+```
 ## Detailed Description
 This function is responsible for tracing and outputting special PostgreSQL frontend-backend protocol messages that do not contain a type byte. These are typically administrative messages like CancelRequest that have a fixed format and are identified by their length rather than a type byte. The function parses the message length from the first 4 bytes, formats it with optional timestamps, and outputs human-readable information about the message type and contents to the trace stream.
 

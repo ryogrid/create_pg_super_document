@@ -8,7 +8,10 @@ An error context callback function that provides enhanced error reporting for SQ
 
 ## Definition
 
-
+```c
+static void
+sql_exec_error_callback(void *arg)
+```
 ## Detailed Description
 sql_exec_error_callback serves as PostgreSQL's error context callback specifically for SQL function execution. When an error occurs during SQL function execution, this callback enhances the error report by identifying the specific query statement within the function where the error occurred, handling syntax error position mapping from external to internal coordinates, and providing contextual information about the function name and execution phase. It traverses the function's execution states to pinpoint which statement was being executed when the error occurred, making debugging SQL functions significantly easier for developers.
 

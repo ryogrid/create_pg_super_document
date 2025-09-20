@@ -8,7 +8,18 @@ SPIExecuteOptions is a structure that provides optional configuration parameters
 
 ## Definition
 
-
+```c
+typedef struct SPIExecuteOptions
+{
+	ParamListInfo params;
+	bool		read_only;
+	bool		allow_nonatomic;
+	bool		must_return_tuples;
+	uint64		tcount;
+	DestReceiver *dest;
+	ResourceOwner owner;
+} SPIExecuteOptions;
+```
 ## Detailed Description
 SPIExecuteOptions serves as a comprehensive configuration structure for SPI statement execution operations. It provides fine-grained control over various aspects of statement execution including parameter binding, transaction behavior, result expectations, tuple counting limits, result destination handling, and resource ownership. This structure enables advanced SPI usage scenarios while maintaining backward compatibility through optional parameter patterns.
 

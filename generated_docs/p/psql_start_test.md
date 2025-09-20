@@ -8,7 +8,13 @@ Starts a psql test process for a specified test file, handling input/output redi
 
 ## Definition
 
-
+```c
+static PID_TYPE
+psql_start_test(const char *testname,
+				_stringlist **resultfiles,
+				_stringlist **expectfiles,
+				_stringlist **tags)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's regression testing framework. It creates and launches a psql subprocess to execute a specific test case. The function handles file path resolution for input SQL files and expected output files, constructs the appropriate psql command with necessary flags, and manages process spawning. It implements a vpath-like search strategy, looking first in the output directory for local test overrides, then falling back to the input directory. The function sets up environment variables for test identification and ensures proper cleanup of resources.
 

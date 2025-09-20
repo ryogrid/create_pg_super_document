@@ -8,7 +8,10 @@ Validates and normalizes recovery configuration parameters for PostgreSQL WAL re
 
 ## Definition
 
-
+```c
+static void
+validateRecoveryParameters(void)
+```
 ## Detailed Description
 This function performs comprehensive validation of recovery parameters during WAL recovery initialization. It checks that all required recovery parameters are properly configured based on the recovery mode (standby vs archive recovery), resolves parameter conflicts, and computes final values for recovery targets.
 

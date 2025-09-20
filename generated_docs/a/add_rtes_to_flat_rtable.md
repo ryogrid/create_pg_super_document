@@ -8,7 +8,10 @@ Extracts RangeTblEntries from the plan's rangetable and adds them to the flat ra
 
 ## Definition
 
-
+```c
+static void
+add_rtes_to_flat_rtable(PlannerInfo *root, bool recursing)
+```
 ## Detailed Description
 The  function is responsible for consolidating range table entries from various query levels into a single flattened rangetable. It operates in two distinct phases:
 

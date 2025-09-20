@@ -8,7 +8,10 @@ A PostgreSQL SQL function that extracts all elements from a JSONB array and retu
 
 ## Definition
 
-
+```c
+Datum
+jsonb_array_elements_text(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL function  which decomposes a JSONB array into its constituent elements and converts each element to text representation. Unlike  which returns elements as JSONB values, this function converts each element to PostgreSQL's text data type. This is particularly useful when you need the array elements as strings for further text processing or when the consuming code expects text rather than JSONB.
 

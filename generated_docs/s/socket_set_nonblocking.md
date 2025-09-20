@@ -8,7 +8,10 @@ Sets the socket blocking/non-blocking mode for the current client connection by 
 
 ## Definition
 
-
+```c
+static void
+socket_set_nonblocking(bool nonblocking)
+```
 ## Detailed Description
 This function controls the blocking behavior of the current client connection socket by setting or clearing the noblock flag in the MyProcPort structure. Unlike typical socket configuration functions that directly manipulate socket options using system calls, this function works at the PostgreSQL protocol level by updating an internal flag that governs how I/O operations are performed.
 

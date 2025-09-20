@@ -8,7 +8,13 @@ The  structure is a counted doubly-linked list that extends  functionality by au
 
 ## Definition
 
-
+```c
+typedef struct dclist_head
+{
+	dlist_head	dlist;			/* the actual list header */
+	uint32		count;			/* the number of items in the list */
+} dclist_head;
+```
 ## Detailed Description
 The  structure provides an enhanced version of the standard doubly-linked list by automatically tracking the number of elements in the list. This counted list implementation internally uses a  for the actual list management while maintaining an additional  field that is automatically updated whenever items are added to or removed from the list.
 

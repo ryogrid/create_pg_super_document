@@ -8,7 +8,10 @@ Returns the number of free bytes available in a given BumpBlock, calculating the
 
 ## Definition
 
-
+```c
+static inline Size
+BumpBlockFreeBytes(BumpBlock *block)
+```
 ## Detailed Description
 BumpBlockFreeBytes is a static inline utility function within PostgreSQL's bump memory allocator that calculates and returns the amount of free space remaining in a specific memory block. The function performs a simple pointer arithmetic operation to determine available space by subtracting the current free pointer from the end pointer of the block. This is a critical function for memory management decisions within the bump allocator, helping determine if a block has sufficient space for new allocations.
 

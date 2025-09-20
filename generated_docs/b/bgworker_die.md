@@ -8,7 +8,10 @@ A standard SIGTERM signal handler for background worker processes that terminate
 
 ## Definition
 
-
+```c
+static void
+bgworker_die(SIGNAL_ARGS)
+```
 ## Detailed Description
 This function serves as the default signal handler for SIGTERM in background worker processes. When invoked, it performs proper signal handling by masking signals and then terminates the worker process with a FATAL error report that includes the worker type name. This ensures graceful shutdown of background workers when they receive termination signals from the system or administrator commands.
 

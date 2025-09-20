@@ -8,7 +8,10 @@ Invalidates all system catalog caches, relation descriptors, and storage manager
 
 ## Definition
 
-
+```c
+void
+InvalidateSystemCaches(void)
+```
 ## Detailed Description
 InvalidateSystemCaches is a comprehensive cache invalidation function that performs a complete flush of all PostgreSQL caches when the system detects that shared invalidation messages have been lost due to queue overflow. This is a drastic but necessary measure to ensure cache consistency across the system.
 

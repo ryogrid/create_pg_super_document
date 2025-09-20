@@ -8,7 +8,10 @@ The  function converts PostgreSQL's internal text representation to a C-style st
 
 ## Definition
 
-
+```c
+Datum
+textout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL data type output function that handles the conversion from PostgreSQL's internal text format to external string representations. It takes a text datum as input and converts it to a null-terminated C string using the  utility function. This function is part of PostgreSQL's type system infrastructure and is automatically called when text values need to be converted to external formats for display, client output, or other purposes.
 

@@ -8,7 +8,12 @@ Records multiple dependencies from an ObjectAddresses array into the system depe
 
 ## Definition
 
-
+```c
+void
+record_object_address_dependencies(const ObjectAddress *depender,
+								   ObjectAddresses *referenced,
+								   DependencyType behavior)
+```
 ## Detailed Description
 The  function serves as a high-level interface for recording multiple database object dependencies efficiently. It acts as a wrapper around the lower-level dependency recording mechanisms, adding an important preprocessing step to eliminate duplicate dependencies before recording.
 

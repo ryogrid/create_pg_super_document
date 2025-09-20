@@ -8,7 +8,11 @@ A utility function that allocates a chunk from an existing block with sufficient
 
 ## Definition
 
-
+```c
+static inline void *
+BumpAllocChunkFromBlock(MemoryContext context, BumpBlock *block, Size size,
+						Size chunk_size)
+```
 ## Detailed Description
 BumpAllocChunkFromBlock is a low-level allocation helper that performs the actual work of carving out a chunk from a block that is known to have sufficient free space. The function advances the block's freeptr by the required amount (chunk header plus aligned chunk size), initializes the chunk header in memory context checking builds, and returns a pointer to the usable memory area.
 

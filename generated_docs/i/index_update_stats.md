@@ -8,7 +8,12 @@ index_update_stats updates the pg_class catalog entry for a relation after CREAT
 
 ## Definition
 
-
+```c
+static void
+index_update_stats(Relation rel,
+				   bool hasindex,
+				   double reltuples)
+```
 ## Detailed Description
 index_update_stats is a critical internal function that updates statistical information in the pg_class catalog table following index creation or reindexing operations. The function uses non-transactional, in-place updates to safely modify relation metadata even during bootstrap mode or when reindexing system catalogs. It updates multiple statistics including relhasindex, reltuples, relpages, and relallvisible. The function includes special handling for empty tables to avoid premature vacuum appearance during CREATE TABLE operations. A key aspect of this function is ensuring that shared invalidation messages are sent to all backends, which triggers relcache updates across the system, notifying other processes about new indexes or updated statistics.
 

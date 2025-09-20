@@ -8,7 +8,10 @@ A static utility function in ECPG that escapes and quotes strings for safe inclu
 
 ## Definition
 
-
+```c
+static char *
+quote_postgres(char *arg, bool quote, int lineno)
+```
 ## Detailed Description
 The  function handles string escaping and quoting for ECPG (Embedded SQL in C for PostgreSQL). When  is true, it creates a properly escaped and quoted string literal that can be safely inserted into SQL statements. The function uses PostgreSQL's  to handle special characters like single quotes and backslashes, and automatically determines whether to use standard string literals or escape string syntax (E'...' format) based on the escaping results.
 

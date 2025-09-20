@@ -8,7 +8,10 @@ CatCacheInvalidate is a public function that invalidates cache entries in a spec
 
 ## Definition
 
-
+```c
+void
+CatCacheInvalidate(CatCache *cache, uint32 hashValue)
+```
 ## Detailed Description
 This function performs selective invalidation of catalog cache entries based on hash values rather than tuple identifiers (TIDs). The design choice to use hash values instead of TIDs addresses a critical safety issue: after VACUUM FULL operations on system catalogs, the same logical tuple may have a different TID, making TID-based invalidation unreliable.
 

@@ -8,7 +8,10 @@ Converts a Python mapping object (dictionary) to a PostgreSQL composite type by 
 
 ## Definition
 
-
+```c
+static Datum
+PLyMapping_ToComposite(PLyObToDatum *arg, TupleDesc desc, PyObject *mapping)
+```
 ## Detailed Description
 This function constructs a PostgreSQL composite type from a Python mapping object by iterating through the tuple descriptor's attributes and extracting corresponding values from the mapping using column names as keys. It creates heap tuple structures and handles proper memory management with exception safety. The function validates that all required columns are present in the mapping and provides helpful error messages for missing keys.
 

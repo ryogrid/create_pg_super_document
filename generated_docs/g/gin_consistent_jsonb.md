@@ -8,7 +8,15 @@ The consistency check function for the JSONB GIN index implementation that deter
 
 ## Definition
 
-
+```c
+structure of the query
+		 * object.  (Even if we could, we'd also have to worry about hashed
+		 * keys and the index's failure to distinguish keys from string array
+		 * elements.)  However, the tuple certainly doesn't match unless it
+		 * contains all the query keys.
+		 */
+		*recheck = true;
+```
 ## Detailed Description
 This function implements the GIN consistency interface for JSONB data types. It evaluates whether a tuple from the index could potentially satisfy a query by examining which query keys are present in the tuple's index entries. The function handles multiple JSONB query strategies including containment (@>), existence (?), exists-any (?|), exists-all (?&), and JSONPath queries.
 

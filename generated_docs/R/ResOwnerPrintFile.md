@@ -8,7 +8,10 @@ A ResourceOwner callback function that provides debug print information for virt
 
 ## Definition
 
-
+```c
+static char *
+ResOwnerPrintFile(Datum res)
+```
 ## Detailed Description
 This function serves as a debug print callback for PostgreSQL's ResourceOwner system, specifically for virtual file descriptors (VFDs). When the ResourceOwner system needs to report information about unreleased file resources (typically during debugging or leak detection), this function is called to generate a human-readable string representation of the file resource. It extracts the file descriptor number from the Datum parameter and formats it as a descriptive string using psprintf. This is particularly useful when diagnosing resource leaks or understanding what file resources are still held by a ResourceOwner.
 

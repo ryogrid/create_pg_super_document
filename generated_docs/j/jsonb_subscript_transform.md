@@ -8,7 +8,14 @@ Finishes parse analysis of a SubscriptingRef expression for JSONB by transformin
 
 ## Definition
 
-
+```c
+static void
+jsonb_subscript_transform(SubscriptingRef *sbsref,
+						  List *indirection,
+						  ParseState *pstate,
+						  bool isSlice,
+						  bool isAssignment)
+```
 ## Detailed Description
 This function handles the transformation phase of JSONB subscripting operations during SQL parsing. It processes each subscript expression in the indirection list, validates that slicing is not used (which is unsupported for JSONB), and coerces subscript expressions to either integer or text types. The function implements type disambiguation logic to ensure that subscripts can only be coerced to one target type, preventing ambiguous subscript operations similar to overloaded function resolution.
 

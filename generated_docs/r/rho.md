@@ -8,7 +8,10 @@ Calculates the position of the first set bit in the first b bits of a 32-bit int
 
 ## Definition
 
-
+```c
+static inline uint8
+rho(uint32 x, uint8 b)
+```
 ## Detailed Description
 The  function is a worker function for  that determines the position of the first set bit within the first  bits of the input value . It reads bits from most significant to least significant order. This function is fundamental to the HyperLogLog probabilistic cardinality estimation algorithm, where the position of the first set bit in a hash value is used to estimate the number of distinct elements in a dataset.
 

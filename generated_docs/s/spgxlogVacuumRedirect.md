@@ -8,7 +8,19 @@ The spgxlogVacuumRedirect struct is a PostgreSQL WAL record structure used to lo
 
 ## Definition
 
+```c
+typedef struct spgxlogVacuumRedirect
+{
+	uint16		nToPlaceholder; /* number of redirects to make placeholders */
+	OffsetNumber firstPlaceholder;	/* first placeholder tuple to remove */
+	TransactionId snapshotConflictHorizon;	/* newest XID of removed redirects */
+	bool		isCatalogRel;	/* to handle recovery conflict during logical
+								 * decoding on standby */
 
+	/* offsets of redirect tuples to make placeholders follow */
+	OffsetNumber offsets[FLEXIBLE_ARRAY_MEMBER];
+} spgxlogVacuumRedirect;
+```
 ## Detailed Description
 This structure represents a WAL record for cleaning up redirect and placeholder tuples in SP-GiST indexes. Redirect tuples are created when a tuple is moved from one location to another (typically during page splits or reorganization), pointing from the old location to the new location. Over time, these redirect tuples can be safely converted to placeholder tuples, and eventually, placeholder tuples can be removed entirely. This vacuum operation handles the transition of redirect tuples to placeholders and the removal of old placeholder tuples, which is essential for maintaining index efficiency and preventing excessive space usage.
 

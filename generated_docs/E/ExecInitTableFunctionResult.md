@@ -8,7 +8,11 @@ Prepares a table function call in FROM clause (ROWS FROM syntax) for execution b
 
 ## Definition
 
-
+```c
+SetExprState *
+ExecInitTableFunctionResult(Expr *expr,
+							ExprContext *econtext, PlanState *parent)
+```
 ## Detailed Description
 ExecInitTableFunctionResult is responsible for setting up the execution state for table functions used in FROM clauses. The function creates a SetExprState node and configures it based on the type of expression provided. It handles two main execution paths:
 

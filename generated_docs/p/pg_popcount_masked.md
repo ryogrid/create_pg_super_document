@@ -8,7 +8,12 @@ The pg_popcount_masked function counts the number of 1-bits in a buffer after ap
 
 ## Definition
 
-
+```c
+structions in the optimized version.
+	 */
+#if SIZEOF_VOID_P >= 8
+	int			threshold = 8;
+```
 ## Detailed Description
 pg_popcount_masked extends the functionality of pg_popcount by applying a bitwise AND mask to each byte before counting the 1-bits. This is particularly useful for operations like visibility map processing where only certain bits in each byte are relevant. Similar to pg_popcount, it uses a threshold-based approach to decide between a simple lookup table method for small buffers and an optimized implementation for larger buffers. The mask is applied to each byte individually before the bit count lookup.
 

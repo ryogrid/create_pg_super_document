@@ -8,7 +8,11 @@ Appends a hidden scan entry of a specified category to a GIN scan key, used for 
 
 ## Definition
 
-
+```c
+static void
+ginScanKeyAddHiddenEntry(GinScanOpaque so, GinScanKey key,
+						 GinNullCategory queryCategory)
+```
 ## Detailed Description
 The  function adds a special "hidden" scan entry to an existing scan key. These hidden entries are used to handle special search conditions, particularly for NULL value searches and other categorical queries that don't correspond to regular data values.
 

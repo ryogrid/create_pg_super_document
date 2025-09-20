@@ -8,7 +8,10 @@ Checks if a user has specific privileges on a role, where both the user and role
 
 ## Definition
 
-
+```c
+Datum
+pg_has_role_name_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of the PostgreSQL privilege checking system for roles. It takes three parameters via the PostgreSQL function call interface: a username, a rolename, and a privilege type string. The function resolves the names to their corresponding OIDs and then delegates the actual privilege checking to the core ACL (Access Control List) checking mechanism. This function is exposed at the SQL level as one of the variants of the  function.
 

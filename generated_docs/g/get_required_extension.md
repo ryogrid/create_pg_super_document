@@ -8,7 +8,15 @@ get_required_extension retrieves the OID of a required extension, optionally ins
 
 ## Definition
 
-
+```c
+static Oid
+get_required_extension(char *reqExtensionName,
+					   char *extensionName,
+					   char *origSchemaName,
+					   bool cascade,
+					   List *parents,
+					   bool is_create)
+```
 ## Detailed Description
 This function handles the resolution of extension dependencies during extension installation. It first attempts to find the required extension by name using get_extension_oid(). If the extension doesn't exist and CASCADE mode is enabled, it automatically installs the required extension by calling CreateExtensionInternal() recursively. The function implements important safety measures including cyclic dependency detection by checking the parents list, and provides helpful error messages with hints when required extensions are missing. It propagates the SCHEMA and CASCADE options to dependent extensions while maintaining proper parent tracking for cycle detection.
 

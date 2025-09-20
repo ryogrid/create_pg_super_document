@@ -8,7 +8,11 @@ Creates a deep copy of a PartitionBoundInfo structure, duplicating all data elem
 
 ## Definition
 
-
+```c
+PartitionBoundInfo
+partition_bounds_copy(PartitionBoundInfo src,
+					  PartitionKey key)
+```
 ## Detailed Description
 This function creates a complete deep copy of a PartitionBoundInfo structure, carefully copying all data elements including datums, indexes, and metadata. It handles different partitioning strategies (hash, range, list) appropriately, using the partition key specification to determine data types and copying behavior. The function is designed to avoid catalog access and unwanted memory leaks in long-lived contexts.
 

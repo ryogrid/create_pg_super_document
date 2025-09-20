@@ -8,7 +8,10 @@ Retrieves and processes constraint information for PostgreSQL domains, including
 
 ## Definition
 
-
+```c
+static void
+getDomainConstraints(Archive *fout, TypeInfo *tyinfo)
+```
 ## Detailed Description
 This function queries the PostgreSQL system catalog to obtain constraint information for a specific domain type. It handles both CHECK constraints and NOT NULL constraints (for PostgreSQL 17+), preparing them for inclusion in database dumps. The function uses prepared statements for efficient querying and creates ConstraintInfo structures to represent each constraint.
 

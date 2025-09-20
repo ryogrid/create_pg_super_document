@@ -8,7 +8,10 @@ Provides a default selectivity estimate for ">" (greater than) join operations o
 
 ## Definition
 
-
+```c
+Datum
+scalargtjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `scalargtjoinsel` function is a simple selectivity estimator for scalar greater-than join operations. Following the same pattern as other scalar inequality join estimators in PostgreSQL, it returns the constant default selectivity value `DEFAULT_INEQ_SEL` without analyzing the actual data distribution or statistics.
 

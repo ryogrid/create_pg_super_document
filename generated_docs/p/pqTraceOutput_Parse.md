@@ -8,7 +8,10 @@ Outputs formatted trace information for PostgreSQL Parse messages, displaying th
 
 ## Definition
 
-
+```c
+static void
+pqTraceOutput_Parse(FILE *f, const char *message, int *cursor, bool regress)
+```
 ## Detailed Description
 This function parses and outputs trace information for Parse messages in the PostgreSQL frontend protocol. Parse messages are sent by the client to prepare a SQL statement for later execution. The function extracts and displays the statement name, SQL query text, and the data types (OIDs) of any parameters in the query.
 

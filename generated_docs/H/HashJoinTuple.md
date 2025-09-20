@@ -8,7 +8,9 @@ HashJoinTuple is a typedef for a pointer to HashJoinTupleData structure, represe
 
 ## Definition
 
-
+```c
+typedef struct HashJoinTupleData *HashJoinTuple;
+```
 ## Detailed Description
 HashJoinTuple represents individual tuples stored in PostgreSQL's hash join hash table. Each tuple is part of a linked list within a hash bucket, allowing for collision resolution through chaining. The structure contains the computed hash value for efficient comparison and a pointer to the next tuple in the same bucket. The actual tuple data follows the header in MinimalTuple format. The union for the next pointer supports both regular (unshared) hash joins and parallel hash joins using shared memory through dynamic shared area (DSA) pointers.
 

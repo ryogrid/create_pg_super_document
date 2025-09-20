@@ -8,7 +8,10 @@ A public API function that converts string representations of PostgreSQL Node tr
 
 ## Definition
 
-
+```c
+void *
+stringToNodeWithLocations(const char *str)
+```
 ## Detailed Description
 This function serves as an externally visible entry point for PostgreSQL's string-to-node deserialization with location field preservation. Unlike the standard stringToNode function, this variant restores location information from the string representation rather than setting location fields to -1.
 

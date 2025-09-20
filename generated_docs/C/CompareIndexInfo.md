@@ -8,7 +8,13 @@ CompareIndexInfo determines whether two index definitions are equivalent by comp
 
 ## Definition
 
-
+```c
+bool
+CompareIndexInfo(const IndexInfo *info1, const IndexInfo *info2,
+				 const Oid *collations1, const Oid *collations2,
+				 const Oid *opfamilies1, const Oid *opfamilies2,
+				 const AttrMap *attmap)
+```
 ## Detailed Description
 CompareIndexInfo performs a comprehensive comparison of two IndexInfo structures to determine if they represent functionally equivalent indexes that could exist on different tables. The function systematically checks all relevant index properties including uniqueness constraints, access methods, attribute mappings, expressions, and partial index predicates. This is particularly useful during operations like table partitioning where indexes need to be matched across related tables. The function uses an attribute map to handle cases where column numbers differ between tables but the logical structure remains the same.
 

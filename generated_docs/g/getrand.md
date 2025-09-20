@@ -8,7 +8,10 @@ Generates a uniformly distributed random integer within a specified inclusive ra
 
 ## Definition
 
-
+```c
+static int64
+getrand(pg_prng_state *state, int64 min, int64 max)
+```
 ## Detailed Description
 The  function provides uniform random number generation within a specified inclusive range [min, max] for pgbench operations. It leverages PostgreSQL's  function to generate random values and performs the necessary arithmetic to map them to the desired range. The function is designed to handle 64-bit integer ranges while ensuring uniform distribution across the entire specified interval.
 

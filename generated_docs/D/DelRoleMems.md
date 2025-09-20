@@ -8,7 +8,12 @@ DelRoleMems removes specified member roles from a target role, handling cascade/
 
 ## Definition
 
-
+```c
+static void
+DelRoleMems(Oid currentUserId, const char *rolename, Oid roleid,
+			List *memberSpecs, List *memberIds,
+			Oid grantorId, GrantRoleOptions *popt, DropBehavior behavior)
+```
 ## Detailed Description
 DelRoleMems implements the REVOKE ROLE functionality in PostgreSQL's role management system. It removes role memberships while respecting dependency chains and cascade/restrict semantics. The function works by first planning all necessary revoke actions using initialize_revoke_actions and plan_single_revoke, then executing those actions on the pg_auth_members catalog.
 

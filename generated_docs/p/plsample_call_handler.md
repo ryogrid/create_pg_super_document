@@ -8,7 +8,11 @@ The main entry point for the plsample procedural language that routes function, 
 
 ## Definition
 
-
+```c
+struct can be omitted.
+	 */
+	PG_TRY();
+```
 ## Detailed Description
  serves as the central dispatcher for the plsample procedural language module, which is a test/example procedural language implementation in PostgreSQL. This function examines the calling context to determine whether it was invoked as a regular function, trigger function, or event trigger, then delegates execution to the appropriate specialized handler. The function implements proper exception handling using PostgreSQL's PG_TRY/PG_FINALLY/PG_END_TRY macros to ensure cleanup occurs even when errors are encountered.
 

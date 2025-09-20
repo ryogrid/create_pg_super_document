@@ -8,7 +8,11 @@ Transforms SQL qualification expressions (WHERE clauses and similar constructs) 
 
 ## Definition
 
-
+```c
+Node *
+transformWhereClause(ParseState *pstate, Node *clause,
+					 ParseExprKind exprKind, const char *constructName)
+```
 ## Detailed Description
 This function is a core component of the PostgreSQL parser responsible for processing WHERE clauses and other qualification expressions in SQL statements. It transforms raw parse tree nodes representing conditional expressions into fully-analyzed internal expression trees. The function performs two critical operations: first, it calls transformExpr to convert the raw clause into a proper expression tree with type information and semantic analysis, and second, it ensures the resulting expression evaluates to a boolean value by calling coerce_to_boolean. This is essential because WHERE clauses must produce true/false results to determine row filtering.
 

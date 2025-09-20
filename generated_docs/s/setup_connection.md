@@ -8,7 +8,11 @@ Establishes and configures a database connection for pg_dump operations, setting
 
 ## Definition
 
-
+```c
+static void
+setup_connection(Archive *AH, const char *dumpencoding,
+				 const char *dumpsnapshot, char *use_role)
+```
 ## Detailed Description
 The setup_connection function performs comprehensive initialization of a database connection specifically for pg_dump operations. It configures various PostgreSQL settings to ensure consistent, portable, and secure data dumping. The function sets client encoding, establishes proper transaction isolation levels, configures timeouts, and handles snapshot synchronization for parallel dumps. It also applies security measures by restricting access to certain relation types and setting up role-based access if specified.
 

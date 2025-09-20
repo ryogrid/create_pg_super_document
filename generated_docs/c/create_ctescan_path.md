@@ -8,7 +8,11 @@ Creates a path node for scanning a non-self-reference Common Table Expression (C
 
 ## Definition
 
-
+```c
+Path *
+create_ctescan_path(PlannerInfo *root, RelOptInfo *rel,
+					List *pathkeys, Relids required_outer)
+```
 ## Detailed Description
 This function constructs a Path node specifically for CTE scan operations. It initializes all the necessary fields of the Path structure with CTE-specific values, including setting the path type to T_CteScan and computing the associated costs. The function handles non-self-reference CTEs, which are CTEs that don't recursively reference themselves. The created path represents one possible execution strategy that the query planner can choose from when determining the optimal query execution plan.
 

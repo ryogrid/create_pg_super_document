@@ -8,7 +8,10 @@ Performs final cleanup and initialization of MultiXact data structures that must
 
 ## Definition
 
-
+```c
+void
+TrimMultiXact(void)
+```
 ## Detailed Description
 TrimMultiXact is responsible for finalizing the MultiXact subsystem after database startup or recovery. It performs critical cleanup operations to ensure the MultiXact system is in a consistent state for normal operation. The function operates in several phases:
 

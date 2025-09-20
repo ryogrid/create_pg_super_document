@@ -8,7 +8,10 @@ This function looks up the name of a tablespace given its OID (Object IDentifier
 
 ## Definition
 
-
+```c
+char *
+get_tablespace_name(Oid spc_oid)
+```
 ## Detailed Description
 The  function performs a lookup in the  system catalog to retrieve the name associated with a given tablespace OID. The function uses a heap scan rather than an indexed lookup based on the assumption that  typically contains only a few entries, making a sequential scan more efficient than index access overhead.
 

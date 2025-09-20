@@ -8,7 +8,9 @@ The setDecimalLocale function initializes locale-specific numeric formatting set
 
 ## Definition
 
-
+```c
+struct lconv *extlconv;
+```
 ## Detailed Description
 This function configures the global numeric formatting settings used by PostgreSQL client utilities to display numbers according to the current system locale. It calls localeconv() to retrieve locale-specific numeric formatting information and extracts three key components: the decimal point character, the thousands separator character, and the number of digits per group.
 

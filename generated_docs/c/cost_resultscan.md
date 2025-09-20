@@ -8,7 +8,11 @@ Determines and returns the cost of scanning an RTE_RESULT relation, which repres
 
 ## Definition
 
-
+```c
+void
+cost_resultscan(Path *path, PlannerInfo *root,
+				RelOptInfo *baserel, ParamPathInfo *param_info)
+```
 ## Detailed Description
 This function calculates the execution cost for scanning an RTE_RESULT relation. RTE_RESULT relations are special range table entries that represent result sets generated through computation rather than table scans, such as:
 

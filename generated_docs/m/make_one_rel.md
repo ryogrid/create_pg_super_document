@@ -8,7 +8,10 @@ The main entry point for finding all possible access paths for executing a query
 
 ## Definition
 
-
+```c
+RelOptInfo *
+make_one_rel(PlannerInfo *root, List *joinlist)
+```
 ## Detailed Description
 This function orchestrates the core path generation process in PostgreSQL's query optimizer. It coordinates several phases of optimization:
 1. Marks base relations for startup cost consideration

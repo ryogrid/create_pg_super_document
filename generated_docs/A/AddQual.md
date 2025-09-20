@@ -8,7 +8,10 @@ Adds a qualifier condition to a query's WHERE clause, with special handling for 
 
 ## Definition
 
-
+```c
+void
+AddQual(Query *parsetree, Node *qual)
+```
 ## Detailed Description
 This function safely adds a qualification condition to the WHERE clause of a query. It handles various edge cases and query types:
 

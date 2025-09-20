@@ -8,7 +8,52 @@ GISTBuildBuffers is a comprehensive data structure that manages the buffering sy
 
 ## Definition
 
+```c
+typedef struct GISTBuildBuffers
+{
+	/* Persistent memory context for the buffers and metadata. */
+	MemoryContext context;
 
+	BufFile    *pfile;			/* Temporary file to store buffers in */
+	long		nFileBlocks;	/* Current size of the temporary file */
+
+	/*
+	 * resizable array of free blocks.
+	 */
+	long	   *freeBlocks;
+	int			nFreeBlocks;	/* # of currently free blocks in the array */
+	int			freeBlocksLen;	/* current allocated length of the array */
+
+	/* Hash for buffers by block number */
+	HTAB	   *nodeBuffersTab;
+
+	/* List of buffers scheduled for emptying */
+	List	   *bufferEmptyingQueue;
+
+	/*
+	 * Parameters to the buffering build algorithm. levelStep determines which
+	 * levels in the tree have buffers, and pagesPerBuffer determines how
+	 * large each buffer is.
+	 */
+	int			levelStep;
+	int			pagesPerBuffer;
+
+	/* Array of lists of buffers on each level, for final emptying */
+	List	  **buffersOnLevels;
+	int			buffersOnLevelsLen;
+
+	/*
+	 * Dynamically-sized array of buffers that currently have their last page
+	 * loaded in main memory.
+	 */
+	GISTNodeBuffer **loadedBuffers;
+	int			loadedBuffersCount; /* # of entries in loadedBuffers */
+	int			loadedBuffersLen;	/* allocated size of loadedBuffers */
+
+	/* Level of the current root node (= height of the index tree - 1) */
+	int			rootlevel;
+} GISTBuildBuffers;
+```
 ## Detailed Description
 GISTBuildBuffers implements a sophisticated buffering system for efficient GiST index construction. This structure manages memory-resident buffers and temporary file storage to handle index builds that exceed available memory. It uses a multi-level buffering strategy where certain tree levels have associated buffers, allowing tuples to be collected and batch-processed for better I/O efficiency. The system includes free block management, buffer scheduling, and dynamic memory allocation to optimize performance during large index builds.
 

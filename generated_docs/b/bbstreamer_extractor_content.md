@@ -8,7 +8,12 @@ This function handles the extraction of archive contents to the filesystem, proc
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_extractor_content(bbstreamer *streamer, bbstreamer_member *member,
+							 const char *data, int len,
+							 bbstreamer_archive_context context)
+```
 ## Detailed Description
 The  function is the core content processing function for the bbstreamer extractor. It operates as a state machine that handles different phases of archive extraction based on the provided context. The function constructs full file paths by prepending the base path, handles different member types (directories, symbolic links, regular files), and manages file I/O operations during extraction.
 

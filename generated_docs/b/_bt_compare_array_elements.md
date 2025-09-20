@@ -8,7 +8,10 @@ A qsort_arg-compatible comparison function for sorting array elements using Post
 
 ## Definition
 
-
+```c
+static int
+_bt_compare_array_elements(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 This function serves as a comparison callback for PostgreSQL's qsort_arg and qunique_arg functions during array element sorting and deduplication operations. It extracts Datum values from the void pointers, calls the appropriate comparison procedure specified in the BTSortArrayContext, and returns a standard comparison result (-1, 0, or 1).
 

@@ -8,7 +8,10 @@ Binary input function that converts external binary format to PostgreSQL's inter
 
 ## Definition
 
-
+```c
+Datum
+path_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for deserializing path data from PostgreSQL's binary format into the internal PATH structure. It reads a closed flag (boolean), the number of points (int32), and then the coordinate data for each point. The function performs validation to ensure the number of points is within valid bounds and allocates memory for the PATH structure with the appropriate size based on the number of points.
 

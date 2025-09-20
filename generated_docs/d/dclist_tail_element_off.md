@@ -8,7 +8,10 @@ Internal support function that returns the address of the tail element's contain
 
 ## Definition
 
-
+```c
+static inline void *
+dclist_tail_element_off(dclist_head *head, size_t off)
+```
 ## Detailed Description
 This function is an internal utility that calculates the memory address of the structure containing the tail node of a doubly-linked circular list. It works by taking the address of the tail node (accessed through head->dlist.head.prev) and subtracting the specified offset to get back to the beginning of the containing structure. This is part of PostgreSQL's intrusive list implementation where list nodes are embedded within larger data structures.
 

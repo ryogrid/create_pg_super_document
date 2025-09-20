@@ -8,7 +8,14 @@ Serializes and writes a TRUNCATE message to the logical replication output strea
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_truncate(StringInfo out,
+						  TransactionId xid,
+						  int nrelids,
+						  Oid relids[],
+						  bool cascade, bool restart_seqs)
+```
 ## Detailed Description
 This function encodes a TRUNCATE operation into the logical replication protocol format. It writes the message type identifier followed by the transaction ID (if valid), the number of relations being truncated, truncation flags (cascade and restart sequences options), and the OIDs of all relations to be truncated. The function is part of PostgreSQL's logical replication protocol implementation that allows streaming of database changes to subscribers.
 

@@ -8,7 +8,10 @@ Sets up application-specific locale and service directory paths for PostgreSQL p
 
 ## Definition
 
-
+```c
+void
+set_pglocale_pgservice(const char *argv0, const char *app)
+```
 ## Detailed Description
 This function initializes locale settings and service directories for PostgreSQL applications. It performs several key tasks: sets the application locale using  (except for backend processes), determines the executable path, configures NLS (Native Language Support) paths for internationalization, and sets up environment variables for libpq configuration. The function handles both locale configuration for message translation and system configuration directory setup, ensuring that PostgreSQL utilities can find their resource files regardless of installation location.
 

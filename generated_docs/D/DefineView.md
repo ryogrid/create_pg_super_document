@@ -8,7 +8,11 @@ DefineView executes a CREATE VIEW command, performing parsing, validation, and v
 
 ## Definition
 
-
+```c
+ObjectAddress
+DefineView(ViewStmt *stmt, const char *queryString,
+		   int stmt_location, int stmt_len)
+```
 ## Detailed Description
 DefineView is the main entry point for CREATE VIEW and CREATE OR REPLACE VIEW commands. It orchestrates the complete process of view creation through several key phases:
 

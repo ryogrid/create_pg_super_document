@@ -8,7 +8,17 @@ MemoizeEntry is the main data structure stored in PostgreSQL's memoization hash 
 
 ## Definition
 
-
+```c
+typedef struct MemoizeEntry
+{
+	MemoizeKey *key;			/* Hash key for hash table lookups */
+	MemoizeTuple *tuplehead;	/* Pointer to the first tuple or NULL if no
+								 * tuples are cached for this entry */
+	uint32		hash;			/* Hash value (cached) */
+	char		status;			/* Hash status */
+	bool		complete;		/* Did we read the outer plan to completion? */
+} MemoizeEntry;
+```
 ## Detailed Description
 MemoizeEntry represents a complete cache entry in PostgreSQL's memoization system. It serves as the value type in the hash table, containing all necessary information about a cached result set for a specific combination of input parameters. The structure maintains a pointer to the hash key, a linked list of result tuples, cached hash value for performance, hash table status information, and a completion flag indicating whether the outer plan was fully processed.
 

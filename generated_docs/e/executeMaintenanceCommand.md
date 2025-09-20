@@ -8,7 +8,10 @@ A utility function in PostgreSQL frontend utilities that executes maintenance SQ
 
 ## Definition
 
-
+```c
+bool
+executeMaintenanceCommand(PGconn *conn, const char *query, bool echo)
+```
 ## Detailed Description
 The `executeMaintenanceCommand` function is designed specifically for executing long-running maintenance operations such as CLUSTER, REINDEX, VACUUM, and ANALYZE commands. Unlike the simpler `executeCommand` function, this function provides enhanced user experience features including the ability to echo commands to stdout and most importantly, the ability to handle Ctrl-C interruptions gracefully through PostgreSQL's cancellation mechanism. The function returns a boolean indicating success or failure rather than terminating the program on error, allowing calling code to handle failures appropriately.
 

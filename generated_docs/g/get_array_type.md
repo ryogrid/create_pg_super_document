@@ -8,7 +8,10 @@ Retrieves the OID of the corresponding "true" array type for a given base type O
 
 ## Definition
 
-
+```c
+Oid
+get_array_type(Oid typid)
+```
 ## Detailed Description
 This function performs a system catalog lookup to find the array type that corresponds to a given base type. It searches the  system catalog using the provided type OID and extracts the  field, which contains the OID of the corresponding array type. The function is essential for PostgreSQL's type system, enabling operations that need to work with arrays of specific element types. If no array type exists for the given base type, the function returns .
 

@@ -8,7 +8,12 @@ Scans a given event list for trigger events that haven't been invoked yet and ma
 
 ## Definition
 
-
+```c
+static bool
+afterTriggerMarkEvents(AfterTriggerEventList *events,
+					   AfterTriggerEventList *move_list,
+					   bool immediate_only)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's deferred trigger execution mechanism. It processes an event list to determine which triggers are ready to be fired based on their current state and configuration. The function iterates through all events in the provided list, checking each event's flags to determine if it has already been processed or is currently in progress.
 

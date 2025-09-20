@@ -8,7 +8,14 @@ A PostgreSQL function that returns the smaller of two tuple identifiers (TIDs) b
 
 ## Definition
 
-
+```c
+struct ItemPointerData, we can at
+	 * least make this code work, by not using sizeof(ItemPointerData).
+	 * Instead rely on knowing the sizes of the component fields.
+	 */
+	return hash_any((unsigned char *) key,
+					sizeof(BlockIdData) + sizeof(OffsetNumber));
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that compares two ItemPointer values (TIDs) and returns the one that is considered "smaller" based on their positional ordering. It uses the  function to determine the ordering relationship between the two TIDs. If the first argument is less than or equal to the second argument, it returns the first; otherwise, it returns the second. This function is useful for operations that need to find the minimum TID value among a set of TIDs, such as certain database maintenance, optimization, or range operations.
 

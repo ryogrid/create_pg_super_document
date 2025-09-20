@@ -8,7 +8,10 @@ A specialized tokenizer function that parses string representations of PostgreSQ
 
 ## Definition
 
-
+```c
+const char *
+pg_strtok(int *length)
+```
 ## Detailed Description
 This function serves as the core tokenizer for PostgreSQL's string-to-node deserialization system. It operates similar to the standard C strtok function but with several important differences: it never modifies the source string, returns token length through a parameter, and implements PostgreSQL-specific tokenization rules.
 

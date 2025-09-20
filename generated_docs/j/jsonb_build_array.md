@@ -8,7 +8,10 @@ A PostgreSQL SQL function that constructs a JSONB array from a variadic list of 
 
 ## Definition
 
-
+```c
+Datum
+jsonb_build_array(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the entry point for the SQL function . It accepts a variable number of arguments and constructs a JSONB array containing those values in the order they were provided. The function extracts the variadic arguments and delegates the actual array construction to . Unlike object construction, array construction accepts any number of arguments (including zero) and doesn't require pairing.
 

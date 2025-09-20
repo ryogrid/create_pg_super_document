@@ -8,7 +8,10 @@ Reallocates and doubles the size of a hash table's directory when more segments 
 
 ## Definition
 
-
+```c
+static bool
+dir_realloc(HTAB *hashp)
+```
 ## Detailed Description
 The dir_realloc function is responsible for expanding the hash table's directory structure when the current directory is full and more segments are needed. It doubles the directory size by allocating a new directory array, copying the existing segment pointers, and initializing the new entries to zero. The function includes safety checks to prevent reallocation when a maximum directory size limit is set. It uses the hash table's configured memory allocator and properly frees the old directory after successful reallocation. This is a critical function for dynamic hash table growth, enabling the table to accommodate more buckets as needed.
 

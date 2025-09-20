@@ -8,7 +8,14 @@ This function serves as a JSON parser callback that handles the end of array ele
 
 ## Definition
 
-
+```c
+structure check */
+	if (_state->lex->lex_level == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				 errmsg("cannot call %s on a non-array",
+						_state->function_name)));
+```
 ## Detailed Description
 The  function is a callback function used during JSON parsing to handle the completion of array element processing. It operates as part of PostgreSQL's JSON element extraction functionality, specifically designed to convert JSON array elements into table rows. 
 

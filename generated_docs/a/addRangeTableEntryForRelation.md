@@ -8,7 +8,15 @@ Creates a range table entry for an already-open relation and adds it to the pars
 
 ## Definition
 
-
+```c
+ParseNamespaceItem *
+addRangeTableEntryForRelation(ParseState *pstate,
+							  Relation rel,
+							  int lockmode,
+							  Alias *alias,
+							  bool inh,
+							  bool inFromCl)
+```
 ## Detailed Description
 The  function is a specialized version of  that works with an already-open relation instead of a RangeVar reference. This function is particularly useful when the caller has already opened the relation with appropriate locks and wants to create a range table entry without going through the relation lookup process again.
 

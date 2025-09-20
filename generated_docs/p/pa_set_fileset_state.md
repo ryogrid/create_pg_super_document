@@ -8,7 +8,11 @@ pa_set_fileset_state sets the fileset state for a parallel apply worker, managin
 
 ## Definition
 
-
+```c
+void
+pa_set_fileset_state(ParallelApplyWorkerShared *wshared,
+					 PartialFileSetState fileset_state)
+```
 ## Detailed Description
 This function manages the fileset state transitions in PostgreSQL's logical replication parallel worker architecture. It provides thread-safe updates to the shared worker state, specifically controlling when and how serialized transaction data becomes available to parallel workers.
 

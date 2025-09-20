@@ -8,7 +8,10 @@ Determines if a clause is compatible with functional dependencies by analyzing w
 
 ## Definition
 
-
+```c
+static bool
+dependency_is_compatible_clause(Node *clause, Index relid, AttrNumber *attnum)
+```
 ## Detailed Description
 This function examines a WHERE clause to determine if it's suitable for use with functional dependencies in selectivity estimation. The function accepts clauses that have the form of equality to a pseudoconstant, or can be interpreted that way. The variable part of the clause must be a simple Var belonging to the specified relation.
 

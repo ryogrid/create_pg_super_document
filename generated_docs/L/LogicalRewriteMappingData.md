@@ -8,7 +8,15 @@ LogicalRewriteMappingData is a structure that represents the on-disk data format
 
 ## Definition
 
-
+```c
+typedef struct LogicalRewriteMappingData
+{
+	RelFileLocator old_locator;
+	RelFileLocator new_locator;
+	ItemPointerData old_tid;
+	ItemPointerData new_tid;
+} LogicalRewriteMappingData;
+```
 ## Detailed Description
 LogicalRewriteMappingData defines the on-disk format for storing logical rewrite mappings that track how tuples are relocated during table rewrite operations. This structure is essential for logical replication and logical decoding, as it maintains the mapping between old and new tuple identifiers (TIDs) when tables are rewritten.
 

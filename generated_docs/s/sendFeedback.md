@@ -8,7 +8,10 @@ Sends a Standby Status Update message to the PostgreSQL server during logical re
 
 ## Definition
 
-
+```c
+static bool
+sendFeedback(PGconn *conn, XLogRecPtr blockpos, TimestampTz now, bool replyRequested)
+```
 ## Detailed Description
 The  function constructs and sends a standby status update message to inform the WAL sender about the current state of logical replication. It tracks the last written and fsynced LSN positions to avoid sending superfluous feedback messages, unless forced by a timeout condition. The function builds a binary message containing LSN positions and timing information, then transmits it through the replication connection using the PostgreSQL copy protocol.
 

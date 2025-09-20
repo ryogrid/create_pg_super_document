@@ -8,7 +8,10 @@ Replaces correlation variables (uplevel variables) with Params in expressions, e
 
 ## Definition
 
-
+```c
+Node *
+SS_replace_correlation_vars(PlannerInfo *root, Node *expr)
+```
 ## Detailed Description
 This function serves as the main entry point for replacing uplevel variables with execution parameters. It handles the critical task of converting variables that reference parent query levels into Params that can be passed as arguments to subplans during execution.
 

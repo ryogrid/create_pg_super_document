@@ -8,7 +8,10 @@ The  function implements the  psql command for displaying type cast information 
 
 ## Definition
 
-
+```c
+bool
+listCasts(const char *pattern, bool verbose)
+```
 ## Detailed Description
 This function queries the  system catalog to retrieve and display information about type casts defined in the database. Type casts define how PostgreSQL can convert values from one data type to another. The function shows the source type, target type, conversion function (if any), and whether the cast is implicit.
 

@@ -8,7 +8,13 @@ This function provides error-suppressed execution of JSONPath items with optiona
 
 ## Definition
 
-
+```c
+static JsonPathExecResult
+executeItemOptUnwrapResultNoThrow(JsonPathExecContext *cxt,
+								  JsonPathItem *jsp,
+								  JsonbValue *jb, bool unwrap,
+								  JsonValueList *found)
+```
 ## Detailed Description
 The  function serves as a wrapper around  that provides error suppression capabilities. It temporarily modifies the execution context to disable error throwing, executes the JSONPath item with optional unwrapping, and then restores the original error handling state. This pattern allows for safe execution of JSONPath expressions in contexts where errors should be handled gracefully rather than propagated as exceptions.
 

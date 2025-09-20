@@ -8,7 +8,15 @@ Creates and initializes a new empty Red-Black Tree data structure with customiza
 
 ## Definition
 
-
+```c
+RBTree *
+rbt_create(Size node_size,
+		   rbt_comparator comparator,
+		   rbt_combiner combiner,
+		   rbt_allocfunc allocfunc,
+		   rbt_freefunc freefunc,
+		   void *arg)
+```
 ## Detailed Description
 This function creates a new Red-Black Tree instance by allocating memory for the RBTree structure and initializing it with user-provided manipulation functions. The tree starts empty with its root set to RBTNIL. The function allows for complete customization of how nodes are compared, combined, allocated, and freed, making it suitable for different data types and memory management strategies. The tree itself is allocated using palloc() in the caller's memory context, while actual tree contents are managed by the caller through the provided function pointers.
 

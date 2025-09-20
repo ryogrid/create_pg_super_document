@@ -8,7 +8,10 @@ Escapes special HTML characters in a string for safe output to HTML format, hand
 
 ## Definition
 
-
+```c
+void
+html_escaped_print(const char *in, FILE *fout)
+```
 ## Detailed Description
 This function converts special characters in an input string to their corresponding HTML entities to prevent HTML injection and ensure proper display in HTML contexts. It processes each character in the input string and outputs either the escaped HTML entity or the original character. The function also handles leading spaces specially by converting them to non-breaking spaces (&nbsp;) to preserve formatting, particularly useful for EXPLAIN output where indentation is significant.
 

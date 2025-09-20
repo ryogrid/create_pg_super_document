@@ -8,7 +8,10 @@ Prepares evaluation of a SubscriptingRef expression for both array/container acc
 
 ## Definition
 
-
+```c
+struct with function pointers for us to possibly use in
+	 * execution steps below;
+```
 ## Detailed Description
 ExecInitSubscriptingRef initializes the execution framework for subscripting operations on container types (arrays, JSON, etc.). It handles both fetch operations (reading elements) and assignment operations (modifying elements). The function sets up a SubscriptingRefState structure containing all necessary subscript information and configures the appropriate execution steps based on the container type's supported operations.
 

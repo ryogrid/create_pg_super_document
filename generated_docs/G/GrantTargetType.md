@@ -8,7 +8,23 @@ GrantTargetType is an enumeration that defines the different types of targets th
 
 ## Definition
 
-
+```c
+typedef struct GrantStmt
+{
+	NodeTag		type;
+	bool		is_grant;		/* true = GRANT, false = REVOKE */
+	GrantTargetType targtype;	/* type of the grant target */
+	ObjectType	objtype;		/* kind of object being operated on */
+	List	   *objects;		/* list of RangeVar nodes, ObjectWithArgs
+								 * nodes, or plain names (as String values) */
+	List	   *privileges;		/* list of AccessPriv nodes */
+	/* privileges == NIL denotes ALL PRIVILEGES */
+	List	   *grantees;		/* list of RoleSpec nodes */
+	bool		grant_option;	/* grant or revoke grant option */
+	RoleSpec   *grantor;
+	DropBehavior behavior;		/* drop behavior (for REVOKE) */
+} GrantStmt;
+```
 ## Detailed Description
 This enumeration specifies the scope of GRANT and REVOKE operations in PostgreSQL's access control system. It determines whether the privilege operation applies to specific named objects, all objects within schemas, or default privileges for future objects. The enum is used within the GrantStmt structure to distinguish between different forms of privilege management statements.
 

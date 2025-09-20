@@ -8,7 +8,10 @@ Replaces the targetlist of an upper-level plan node with a simple list of OUTER_
 
 ## Definition
 
-
+```c
+static void
+set_dummy_tlist_references(Plan *plan, int rtoffset)
+```
 ## Detailed Description
 This function is used for plan node types like Sort, Append, and other operations that don't actually evaluate their targetlists during execution. While the executor ignores the targetlist content for these nodes, EXPLAIN and other introspection tools need the targetlist to be realistic and properly reference the underlying data sources.
 

@@ -8,7 +8,10 @@ Creates a list of column names for PostgreSQL's COPY command based on the attrib
 
 ## Definition
 
-
+```c
+static List *
+make_copy_attnamelist(LogicalRepRelMapEntry *rel)
+```
 ## Detailed Description
 The  function constructs a list of column names that will be used in PostgreSQL's COPY command during logical replication table synchronization. It iterates through all attributes of the remote relation stored in the  and creates string nodes for each column name.
 

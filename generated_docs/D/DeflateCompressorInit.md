@@ -8,7 +8,10 @@ Initializes the deflate compression state for gzip compression in PostgreSQL's p
 
 ## Definition
 
-
+```c
+static void
+DeflateCompressorInit(CompressorState *cs)
+```
 ## Detailed Description
 This function sets up the zlib deflate compression infrastructure for pg_dump's gzip compression functionality. It allocates and initializes the necessary data structures including the z_stream for zlib operations and output buffers. The function configures the compression level as specified in the compression specification and prepares the compressor for subsequent write operations.
 

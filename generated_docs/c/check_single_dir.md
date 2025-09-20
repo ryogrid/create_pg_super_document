@@ -8,7 +8,9 @@ This function validates the presence and accessibility of a specific subdirector
 
 ## Definition
 
-
+```c
+struct stat statBuf;
+```
 ## Detailed Description
 The  function performs essential validation of PostgreSQL data directory structure by checking for the existence and accessibility of specific subdirectories. It constructs the full path by concatenating the base data directory path with the subdirectory name, carefully handling path separators (including Windows-specific considerations where trailing slashes can cause stat() to fail). The function uses stat() to verify both the existence and the directory nature of the path. If the path doesn't exist, isn't accessible, or isn't actually a directory, the function reports a fatal error using report_status(PG_FATAL), which will terminate the pg_upgrade process.
 

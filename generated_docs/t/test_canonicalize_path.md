@@ -8,7 +8,10 @@ A PostgreSQL test function that exposes the internal  function for testing purpo
 
 ## Definition
 
-
+```c
+structure */
+	tuple.t_len = HeapTupleHeaderGetDatumLength(rec);
+```
 ## Detailed Description
 The  function is a wrapper function designed for PostgreSQL's regression test suite that provides access to the internal  utility function. It takes a text input representing a file path, converts it to a C-string, applies PostgreSQL's path canonicalization logic to normalize the path (removing redundant components like "./" and "../", resolving symbolic links where appropriate), and returns the canonicalized path as a PostgreSQL text value. This function enables comprehensive testing of path handling logic within the PostgreSQL test framework.
 

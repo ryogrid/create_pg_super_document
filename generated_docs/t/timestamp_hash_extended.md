@@ -8,7 +8,10 @@ The timestamp_hash_extended function computes an extended hash value for timesta
 
 ## Definition
 
-
+```c
+Datum
+timestamp_hash_extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides extended hash support for timestamp values in PostgreSQL's advanced hashing operations. Similar to timestamp_hash, it leverages the internal 64-bit integer representation of timestamps but uses the extended hashing algorithm provided by hashint8extended. Extended hash functions are used in scenarios requiring higher hash quality or when additional entropy is needed, such as in advanced hash-based algorithms or when hash collision resistance is critical.
 

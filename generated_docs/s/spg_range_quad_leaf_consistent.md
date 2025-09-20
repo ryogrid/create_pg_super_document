@@ -8,7 +8,10 @@ SP-GiST leaf node consistent function that performs final range comparisons betw
 
 ## Definition
 
-
+```c
+Datum
+spg_range_quad_leaf_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the leaf node consistent logic for SP-GiST indexing of PostgreSQL range types. It represents the final step in index traversal where actual range values stored in leaf nodes are compared against query conditions to determine if they satisfy the search criteria.
 

@@ -8,7 +8,10 @@ Converts external binary format data to the regnamespace PostgreSQL data type, w
 
 ## Definition
 
-
+```c
+Datum
+regnamespacerecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a binary input function for the regnamespace data type in PostgreSQL. It handles the conversion of binary format data (as received from external sources like client applications) into PostgreSQL's internal regnamespace representation. This function is part of PostgreSQL's type system infrastructure and is used internally when binary protocol communication occurs.
 

@@ -8,7 +8,12 @@ Validates manifest data and prepares the WAL summary infrastructure required to 
 
 ## Definition
 
-
+```c
+struct IncrementalBackupInfo for some thoughts on
+	 * memory usage.
+	 */
+	ib->brtab = CreateEmptyBlockRefTable();
+```
 ## Detailed Description
 This function is the core preparation step for incremental backups, called after the backup manifest has been parsed via AppendIncrementalManifestData and FinalizeIncrementalManifest. It performs comprehensive validation and preparation:
 

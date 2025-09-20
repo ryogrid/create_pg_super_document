@@ -8,7 +8,17 @@ XmlSerialize represents the raw parse tree node for the XMLSERIALIZE SQL functio
 
 ## Definition
 
-
+```c
+typedef struct XmlSerialize
+{
+	NodeTag		type;
+	XmlOptionType xmloption;	/* DOCUMENT or CONTENT */
+	Node	   *expr;
+	TypeName   *typeName;
+	bool		indent;			/* [NO] INDENT */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} XmlSerialize;
+```
 ## Detailed Description
 XmlSerialize represents the parsed form of the XMLSERIALIZE function call in SQL statements. This function is part of PostgreSQL's XML support and is used to convert XML values into textual representations. The structure captures the XML option type (DOCUMENT or CONTENT), the source expression to be serialized, the target data type for the result, and formatting preferences such as indentation. This node exists only in the raw parse tree and is transformed into other node types during parse analysis.
 

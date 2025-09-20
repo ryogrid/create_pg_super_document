@@ -8,7 +8,15 @@ ReindexMultipleInternal reindexes a list of relations, with each relation being 
 
 ## Definition
 
-
+```c
+typedef struct ReindexIndexInfo
+	{
+		Oid			indexId;
+		Oid			tableId;
+		Oid			amId;
+		bool		safe;		/* for set_indexsafe_procflags */
+	} ReindexIndexInfo;
+```
 ## Detailed Description
 This internal function handles the bulk reindexing of multiple database relations by processing each relation in its own transaction context. The function commits the current transaction at the beginning and starts fresh transactions for each relation to be reindexed. This approach ensures that if one relation fails to reindex, it doesn't affect the processing of other relations.
 

@@ -8,7 +8,10 @@ StartTransactionCommand manages the initiation of command processing within Post
 
 ## Definition
 
-
+```c
+void
+StartTransactionCommand(void)
+```
 ## Detailed Description
 StartTransactionCommand is the entry point for beginning command execution within PostgreSQL's transaction system. Unlike StartTransaction() which creates a new transaction, this function manages the transition into command processing based on the current transaction block state.
 

@@ -8,7 +8,11 @@ The smgrextend function adds a new block to a PostgreSQL relation file, extendin
 
 ## Definition
 
-
+```c
+void
+smgrextend(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+		   const void *buffer, bool skipFsync)
+```
 ## Detailed Description
 The smgrextend function is a storage manager interface for extending relation files by adding new blocks. It is specifically designed for cases where the block number is at or beyond the current EOF of the file. The function delegates the actual extension operation to the appropriate storage manager implementation through the smgrsw function pointer table. After extending the file, it updates the cached block count to maintain consistency, assuming that writing beyond EOF fills intervening space with zeroes.
 

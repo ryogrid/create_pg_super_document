@@ -8,7 +8,10 @@ A backward string comparison function used for suffix tree operations in Postgre
 
 ## Definition
 
-
+```c
+static int
+strbcmp(const unsigned char *s1, const unsigned char *s2)
+```
 ## Detailed Description
 The  function performs a reverse (backward) string comparison, starting from the end of both strings and moving towards the beginning. This specialized comparison is essential for suffix processing in text search operations, where the ending patterns of words are more significant than their beginnings.
 

@@ -8,7 +8,10 @@ Compares two line segments to determine if the length of the first segment is le
 
 ## Definition
 
-
+```c
+Datum
+lseg_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "less than" comparison operator for PostgreSQL's line segment (LSEG) data type. It calculates the lengths of both input line segments using the distance between their endpoints and compares them using floating-point comparison. The function returns true if the first line segment is shorter than the second line segment.
 

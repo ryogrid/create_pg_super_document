@@ -8,7 +8,10 @@ Converts an int4range (32-bit integer range) to its canonical form by normalizin
 
 ## Definition
 
-
+```c
+Datum
+int4range_canonical(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function standardizes int4range values to a canonical representation where lower bounds are inclusive and upper bounds are exclusive. For discrete types like integers, this canonical form provides a unique representation for equivalent ranges. The function converts exclusive lower bounds to inclusive by incrementing the value, and converts inclusive upper bounds to exclusive by incrementing the value. It includes overflow checking to prevent integer overflow when incrementing boundary values.
 

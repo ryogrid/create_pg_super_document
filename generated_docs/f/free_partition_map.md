@@ -8,7 +8,10 @@ Frees the memory allocated for arrays within a PartitionMap structure used durin
 
 ## Definition
 
-
+```c
+static void
+free_partition_map(PartitionMap *map)
+```
 ## Detailed Description
 This function deallocates the memory that was previously allocated by init_partition_map for the internal arrays of a PartitionMap structure. It frees the three arrays that track partition merging state: merged_indexes, merged, and old_indexes.
 

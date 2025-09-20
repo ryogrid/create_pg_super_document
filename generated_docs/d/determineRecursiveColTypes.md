@@ -8,7 +8,10 @@ Sets up column types for the parent CTE by processing the outputs of the non-rec
 
 ## Definition
 
-
+```c
+static void
+determineRecursiveColTypes(ParseState *pstate, Node *larg, List *nrtargetlist)
+```
 ## Detailed Description
 This function is a critical component in the processing of recursive Common Table Expressions (CTEs). When PostgreSQL encounters a recursive CTE, it needs to determine the column structure based on the non-recursive term. The function finds the leftmost leaf SELECT statement in the set operation tree and uses its column names combined with the data types from the non-recursive term's target list to establish the CTE's output columns.
 

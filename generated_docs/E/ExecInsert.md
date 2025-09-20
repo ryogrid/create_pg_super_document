@@ -8,7 +8,15 @@ Handles the insertion of a single tuple into a table (or partition thereof) and 
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecInsert(ModifyTableContext *context,
+		   ResultRelInfo *resultRelInfo,
+		   TupleTableSlot *slot,
+		   bool canSetTag,
+		   TupleTableSlot **inserted_tuple,
+		   ResultRelInfo **insert_destrel)
+```
 ## Detailed Description
 ExecInsert is the core function responsible for inserting tuples in PostgreSQL's executor. It handles multiple insertion scenarios:
 

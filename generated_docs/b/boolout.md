@@ -8,7 +8,10 @@ PostgreSQL output function for the boolean data type that converts internal bool
 
 ## Definition
 
-
+```c
+Datum
+boolout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `boolout` function serves as the output conversion function for PostgreSQL's boolean data type. It is automatically called by the PostgreSQL type system when converting internal boolean values to string representations for display or transmission. The function implements a simple and efficient conversion: true values become "t" and false values become "f". It allocates a minimal 2-character string (including null terminator) using PostgreSQL's memory management system and returns it as a C string.
 

@@ -8,7 +8,12 @@ Performs preparatory actions for DELETE operations, primarily executing BEFORE R
 
 ## Definition
 
-
+```c
+static bool
+ExecDeletePrologue(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+				   ItemPointer tupleid, HeapTuple oldtuple,
+				   TupleTableSlot **epqreturnslot, TM_Result *result)
+```
 ## Detailed Description
 ExecDeletePrologue is a preparatory function called before the actual deletion of a tuple. Its primary responsibilities include:
 

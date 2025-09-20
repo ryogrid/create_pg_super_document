@@ -8,7 +8,10 @@ Enables the leader process to participate as a worker during parallel B-tree ind
 
 ## Definition
 
-
+```c
+static void
+_bt_leader_participate_as_worker(BTBuildState *buildstate)
+```
 ## Detailed Description
 This function transforms the leader process into an active participant in the parallel B-tree index build operation. Rather than just coordinating workers, the leader performs actual index construction work by setting up its own private spool structures and participating in the parallel heap scan and tuple sorting process.
 

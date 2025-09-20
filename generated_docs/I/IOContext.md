@@ -8,7 +8,19 @@ IOContext is an enumeration that defines different operational contexts for I/O 
 
 ## Definition
 
-
+```c
+typedef enum IOOp
+{
+	IOOP_EVICT,
+	IOOP_EXTEND,
+	IOOP_FSYNC,
+	IOOP_HIT,
+	IOOP_READ,
+	IOOP_REUSE,
+	IOOP_WRITE,
+	IOOP_WRITEBACK,
+} IOOp;
+```
 ## Detailed Description
 IOContext categorizes I/O operations based on the database activity context in which they occur. This enumeration enables PostgreSQL to track and analyze I/O patterns for different types of operations, allowing for better understanding of performance characteristics and optimization opportunities. Different contexts may have distinct I/O patterns and resource requirements, making this categorization valuable for performance monitoring and tuning.
 

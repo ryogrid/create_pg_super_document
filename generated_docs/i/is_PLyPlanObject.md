@@ -8,7 +8,10 @@ A type-checking function that determines whether a given Python object is an ins
 
 ## Definition
 
-
+```c
+bool
+is_PLyPlanObject(PyObject *ob)
+```
 ## Detailed Description
 This utility function performs a type check to determine if the provided Python object is a PLyPlan instance. It works by comparing the object's type pointer (ob_type) against the address of the PLy_PlanType type object. This is a fast and reliable way to perform type checking in the Python C API, as it directly compares type pointers rather than performing string-based comparisons.
 

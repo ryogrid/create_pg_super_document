@@ -8,7 +8,10 @@ Performs final cleanup of WAL recovery infrastructure by freeing resources, clos
 
 ## Definition
 
-
+```c
+void
+ShutdownWalRecovery(void)
+```
 ## Detailed Description
 This function handles the complete teardown of WAL recovery infrastructure after recovery has finished. It performs comprehensive cleanup to ensure no recovery-related resources or temporary files remain:
 

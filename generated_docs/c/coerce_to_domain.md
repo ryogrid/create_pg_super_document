@@ -8,7 +8,16 @@ Creates an expression tree to represent coercion to a domain type, handling doma
 
 ## Definition
 
-
+```c
+structure,
+	 * ALTER DOMAIN cannot alter the typtypmod.  But it's unclear that that
+	 * would be safe to do anyway, without lots of knowledge about what the
+	 * base type thinks the typmod means.
+	 */
+	arg = coerce_type_typmod(arg, baseTypeId, baseTypeMod,
+							 ccontext, COERCE_IMPLICIT_CAST, location,
+							 false);
+```
 ## Detailed Description
 This function specializes in converting expressions to domain types, which are user-defined types based on existing base types with additional constraints. The function performs a two-phase conversion process:
 

@@ -8,7 +8,32 @@ A specialized base backup sink structure that handles streaming backup data to c
 
 ## Definition
 
+```c
+typedef struct bbsink_copystream
+{
+	/* Common information for all types of sink. */
+	bbsink		base;
 
+	/* Are we sending the archives to the client, or somewhere else? */
+	bool		send_to_client;
+
+	/*
+	 * Protocol message buffer. We assemble CopyData protocol messages by
+	 * setting the first character of this buffer to 'd' (archive or manifest
+	 * data) and then making base.bbs_buffer point to the second character so
+	 * that the rest of the data gets copied into the message just where we
+	 * want it.
+	 */
+	char	   *msgbuffer;
+
+	/*
+	 * When did we last report progress to the client, and how much progress
+	 * did we report?
+	 */
+	TimestampTz last_progress_report_time;
+	uint64		bytes_done_at_last_time_check;
+} bbsink_copystream;
+```
 ## Detailed Description
 The  structure is a concrete implementation of the  base backup sink interface, specifically designed for streaming backup archives and manifests through PostgreSQL's COPY protocol. It extends the base  structure with additional fields needed for protocol message handling and progress tracking.
 

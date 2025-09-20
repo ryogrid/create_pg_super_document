@@ -8,7 +8,10 @@ A utility function that creates a directory with full permissions for all users 
 
 ## Definition
 
-
+```c
+static void
+make_directory(const char *dir)
+```
 ## Detailed Description
 The  function creates a new directory using the POSIX  system call with comprehensive permissions. The directory is created with read, write, and execute permissions for the owner, group, and others (mode 0777). If the directory creation fails for any reason (such as the directory already existing, insufficient permissions, or invalid path), the function calls  to terminate the program with an error message.
 

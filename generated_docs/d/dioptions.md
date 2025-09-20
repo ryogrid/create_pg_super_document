@@ -8,7 +8,10 @@ A function that parses and validates relation options for the dummy index access
 
 ## Definition
 
-
+```c
+static bytea *
+dioptions(Datum reloptions, bool validate)
+```
 ## Detailed Description
 The  function implements the relation options parsing interface for the dummy index access method. It takes raw relation options data and converts it into a structured DummyIndexOptions format using PostgreSQL's standard  infrastructure.
 

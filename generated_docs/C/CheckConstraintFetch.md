@@ -8,7 +8,10 @@ CheckConstraintFetch loads check constraints for a relation from the pg_constrai
 
 ## Definition
 
-
+```c
+static void
+CheckConstraintFetch(Relation relation)
+```
 ## Detailed Description
 CheckConstraintFetch is a static function within the relation cache subsystem that retrieves and processes check constraints for a given relation. The function performs a systematic scan of the pg_constraint catalog to find all check constraints associated with the relation, validates and processes the constraint data, and stores it in the relation's cached tuple descriptor.
 

@@ -8,7 +8,11 @@ Adds a new boolean local reloption to a specific local reloption structure, allo
 
 ## Definition
 
-
+```c
+void
+add_local_bool_reloption(local_relopts *relopts, const char *name,
+						 const char *desc, bool default_val, int offset)
+```
 ## Detailed Description
 This public function creates and adds a boolean reloption to a local reloption structure rather than the global registry. Local reloptions are used for relation-specific options that are not globally available but instead defined for specific access methods or relation types. The function initializes a boolean reloption with RELOPT_KIND_LOCAL and adds it to the provided local_relopts structure at the specified offset.
 

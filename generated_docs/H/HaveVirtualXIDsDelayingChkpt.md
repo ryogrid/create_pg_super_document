@@ -8,7 +8,10 @@ HaveVirtualXIDsDelayingChkpt checks whether any of the specified virtual transac
 
 ## Definition
 
-
+```c
+bool
+HaveVirtualXIDsDelayingChkpt(VirtualTransactionId *vxids, int nvxids, int type)
+```
 ## Detailed Description
 This function is typically used in conjunction with GetVirtualXIDsDelayingChkpt to monitor whether transactions that were previously delaying a checkpoint are still in their critical sections. It provides a way to poll and wait for blocking transactions to complete their critical operations before proceeding with checkpoint completion.
 

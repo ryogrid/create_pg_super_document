@@ -8,7 +8,11 @@ Creates a sequential scan plan node for scanning a base relation with specified 
 
 ## Definition
 
-
+```c
+static SeqScan *
+create_seqscan_plan(PlannerInfo *root, Path *best_path,
+					List *tlist, List *scan_clauses)
+```
 ## Detailed Description
 The  function is responsible for creating a  plan node that represents a sequential scan operation on a base relation. This function is part of PostgreSQL's query planner infrastructure and converts a path representation into an executable plan node. The function performs several important steps:
 

@@ -8,7 +8,10 @@ Implements the DEALLOCATE SQL utility statement by removing specified prepared s
 
 ## Definition
 
-
+```c
+void
+DeallocateQuery(DeallocateStmt *stmt)
+```
 ## Detailed Description
 DeallocateQuery is the main entry point for executing DEALLOCATE statements in PostgreSQL. This function handles both specific prepared statement deallocation (when a name is provided) and the special case of deallocating all prepared statements (DEALLOCATE ALL). The function acts as a simple dispatcher that examines the DeallocateStmt structure and calls the appropriate underlying deallocation function based on whether a specific statement name was provided.
 

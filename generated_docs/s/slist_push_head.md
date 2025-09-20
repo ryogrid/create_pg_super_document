@@ -8,7 +8,10 @@ Inserts a node at the beginning of a singly linked list in PostgreSQL's intrusiv
 
 ## Definition
 
-
+```c
+static inline void
+slist_push_head(slist_head *head, slist_node *node)
+```
 ## Detailed Description
 This function implements the standard "push to head" operation for PostgreSQL's singly linked list data structure. It efficiently adds a new node to the front of the list by updating the node's next pointer to point to the current first element, then updating the head's next pointer to point to the new node. The operation runs in O(1) constant time and is implemented as an inline function for optimal performance.
 

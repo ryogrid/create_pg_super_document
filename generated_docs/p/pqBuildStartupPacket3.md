@@ -8,7 +8,11 @@ Constructs a PostgreSQL protocol 3 startup packet by allocating memory and deleg
 
 ## Definition
 
-
+```c
+char *
+pqBuildStartupPacket3(PGconn *conn, int *packetlen,
+					  const PQEnvironmentOption *options)
+```
 ## Detailed Description
 pqBuildStartupPacket3 serves as a memory-allocating wrapper around the build_startup_packet function. It first calls build_startup_packet with a NULL buffer to determine the required packet length, then allocates the necessary memory, and finally calls build_startup_packet again with the allocated buffer to construct the actual startup packet. This two-phase approach ensures efficient memory allocation by determining the exact size needed before allocation.
 

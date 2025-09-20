@@ -8,7 +8,12 @@ A static function that implements the ALTER TEXT SEARCH CONFIGURATION DROP MAPPI
 
 ## Definition
 
-
+```c
+struction of the node type as well as the value.
+		 */
+		if (IsA(defel->arg, Integer) || IsA(defel->arg, Float))
+			appendStringInfoString(&buf, val);
+```
 ## Detailed Description
 This function removes token-to-dictionary mappings from the pg_ts_config_map catalog table for a specified text search configuration. It first validates the token types using getTokenTypes to ensure they exist in the parser's lexical type list. For each valid token type, it performs a systematic scan of the mapping table using the configuration ID and token type as search keys. All matching mapping entries are deleted using CatalogTupleDelete. The function provides flexible error handling based on the missing_ok flag: when set to false, it raises an error if a mapping doesn't exist; when true, it issues a notice and continues processing remaining tokens.
 

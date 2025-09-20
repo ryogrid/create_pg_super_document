@@ -8,7 +8,11 @@ Executes tuple sorting operations, either sorting all tuples from the outer subt
 
 ## Definition
 
-
+```c
+structure
+	 */
+	sortstate = makeNode(SortState);
+```
 ## Detailed Description
 ExecSort is the main execution function for Sort plan nodes in PostgreSQL's executor. It operates in two phases:
 

@@ -8,7 +8,10 @@ A static helper function that accumulates Write-Ahead Log (WAL) usage statistics
 
 ## Definition
 
-
+```c
+static void
+WalUsageAdd(WalUsage *dst, WalUsage *add)
+```
 ## Detailed Description
 WalUsageAdd is a utility function used to aggregate WAL usage statistics in PostgreSQL's instrumentation system. It performs element-wise addition of all WAL usage counters from the  parameter to the  parameter. This function is essential for accumulating WAL statistics across multiple operations or parallel workers.
 

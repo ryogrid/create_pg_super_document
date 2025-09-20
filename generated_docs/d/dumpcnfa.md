@@ -8,7 +8,11 @@ A debugging function that prints a human-readable representation of a compiled N
 
 ## Definition
 
-
+```c
+static void
+dumpcnfa(struct cnfa *cnfa,
+		 FILE *f)
+```
 ## Detailed Description
 The  function outputs comprehensive debugging information about a compiled NFA structure. It first prints header information including pre and post states, beginning/end of string and line anchors, and various flags. Then it iterates through all states in the NFA, calling  to print detailed information about each individual state. This function is only available when compiled with REG_DEBUG enabled and serves as a crucial debugging tool for regular expression compilation and optimization.
 

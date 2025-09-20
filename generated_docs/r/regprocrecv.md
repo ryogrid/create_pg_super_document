@@ -8,7 +8,10 @@ Converts external binary format data to a regproc value, serving as the binary i
 
 ## Definition
 
-
+```c
+Datum
+regprocrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The regprocrecv function is the binary input conversion function for PostgreSQL's regproc data type. It handles the conversion of binary data received from external sources (such as network protocols, file formats, or client libraries) into the internal regproc representation.
 

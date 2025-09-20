@@ -8,7 +8,12 @@ pgoutput_stream_abort handles the abortion of streamed transactions in PostgreSQ
 
 ## Definition
 
-
+```c
+static void
+pgoutput_stream_abort(struct LogicalDecodingContext *ctx,
+					  ReorderBufferTXN *txn,
+					  XLogRecPtr abort_lsn)
+```
 ## Detailed Description
 pgoutput_stream_abort is a callback function in the pgoutput logical replication output plugin that handles the STREAM ABORT event for transactions that were being streamed but need to be aborted. When a streamed transaction needs to be rolled back, this function notifies downstream subscribers to discard all changes from the transaction and its subtransactions. The function determines the top-level transaction, writes a stream abort message containing transaction IDs and abort timing information, and performs cleanup of relation synchronization cache entries. It ensures the abort occurs outside of any streaming block and includes assertions to validate the transaction state.
 

@@ -8,7 +8,10 @@ Advances to the next block in a heap sample scan, supporting both custom samplin
 
 ## Definition
 
-
+```c
+static bool
+heapam_scan_sample_next_block(TableScanDesc scan, SampleScanState *scanstate)
+```
 ## Detailed Description
 This function manages block selection and positioning during sample scans of heap relations. It supports two modes of operation: custom sampling methods through the Table Sampling Method (TSM) API, and default sequential scanning with wraparound. The function handles buffer management, scan synchronization for parallel operations, interrupt checking, and prepares pages for tuple extraction. It maintains scan state consistency and ensures proper initialization of the scanning process.
 

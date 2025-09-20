@@ -8,7 +8,10 @@ A static comparison function that determines if two A_Const nodes (parse-time li
 
 ## Definition
 
-
+```c
+static bool
+_equalA_Const(const A_Const *a, const A_Const *b)
+```
 ## Detailed Description
 The  function compares two A_Const nodes for equality during the parsing phase of SQL processing. A_Const represents literal constants as they appear in the original SQL text, before type resolution and conversion to the runtime Const nodes.
 

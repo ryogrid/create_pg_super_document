@@ -8,7 +8,10 @@ The  function parses a sequence of consecutive decimal digits from a string poin
 
 ## Definition
 
-
+```c
+static bool
+text_format_parse_digits(const char **ptr, const char *end_ptr, int *value)
+```
 ## Detailed Description
 This static helper function is used by the PostgreSQL format string parser to extract numeric values from format specifiers. It implements safe integer parsing with the following characteristics:
 

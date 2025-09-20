@@ -8,7 +8,10 @@ SP-GiST inner node consistent function for range types that determines which chi
 
 ## Definition
 
-
+```c
+Datum
+spg_range_quad_inner_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the inner node consistent logic for SP-GiST (Space-Partitioned Generalized Search Tree) indexing of PostgreSQL range types. It analyzes query conditions against the current inner node's centroid to determine which child quadrants need to be visited during index traversal.
 

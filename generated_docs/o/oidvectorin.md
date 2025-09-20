@@ -8,7 +8,10 @@ Input function that converts a string representation of space-separated OIDs ("n
 
 ## Definition
 
-
+```c
+Datum
+oidvectorin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a type input function that parses a string containing whitespace-separated OID values and converts them into PostgreSQL's internal oidvector data structure. This function is part of PostgreSQL's type system infrastructure, specifically handling the conversion from external string representation to internal binary format for oidvector types.
 

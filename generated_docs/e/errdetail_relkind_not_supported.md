@@ -8,7 +8,10 @@ A utility function that generates appropriate error detail messages for operatio
 
 ## Definition
 
-
+```c
+int
+errdetail_relkind_not_supported(char relkind)
+```
 ## Detailed Description
 This function provides standardized error detail messages for operations that cannot be performed on certain types of database relations. It takes a relation kind character constant and returns an appropriate errdetail() message explaining why the operation is not supported for that specific type of relation. The function serves as a centralized way to provide consistent, user-friendly error messages across PostgreSQL's codebase when operations are attempted on incompatible relation types.
 

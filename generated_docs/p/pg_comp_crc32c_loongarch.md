@@ -8,7 +8,10 @@ A hardware-accelerated CRC32C computation function specifically optimized for Lo
 
 ## Definition
 
-
+```c
+pg_crc32c
+pg_comp_crc32c_loongarch(pg_crc32c crc, const void *data, size_t len)
+```
 ## Detailed Description
 This function implements CRC32C (Castagnoli) checksum computation using LoongArch architecture's native CRCC (Cyclic Redundancy Check Castagnoli) instructions. The implementation is highly optimized for performance through strategic memory alignment and bulk processing strategies.
 

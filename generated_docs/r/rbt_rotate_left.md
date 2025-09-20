@@ -8,7 +8,10 @@ Performs a left rotation operation on a Red-Black Tree node, restructuring the t
 
 ## Definition
 
-
+```c
+static void
+rbt_rotate_left(RBTree *rbt, RBTNode *x)
+```
 ## Detailed Description
 This function performs a fundamental tree rotation operation that is essential for maintaining Red-Black Tree balance properties. In a left rotation, node x's right child (y) takes x's place in the tree, and x becomes the left child of y.
 

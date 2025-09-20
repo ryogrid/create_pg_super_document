@@ -8,7 +8,12 @@ Determines if an index column is constrained to have a constant value by boolean
 
 ## Definition
 
-
+```c
+bool
+indexcol_is_bool_constant_for_query(PlannerInfo *root,
+									IndexOptInfo *index,
+									int indexcol)
+```
 ## Detailed Description
 This function addresses a specific optimization scenario for boolean index columns. When a boolean column is constrained by WHERE conditions like "WHERE boolcol" or "WHERE NOT boolcol", expression preprocessing simplifies these to boolean expressions rather than explicit equality comparisons like "WHERE boolcol = true". This means no EquivalenceClass is created for the constant value, which would normally signal that the column is irrelevant for sort-order considerations.
 

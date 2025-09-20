@@ -8,7 +8,10 @@ A utility function that writes a data chunk to a binary file, preceded by its le
 
 ## Definition
 
-
+```c
+static void
+write_item(const void *data, Size len, FILE *fp)
+```
 ## Detailed Description
 This is a helper function used by write_relcache_init_file() to write individual data structures to the binary initialization file. It implements a simple serialization format where each data item is preceded by its size, enabling the corresponding read operation to know how much data to read.
 

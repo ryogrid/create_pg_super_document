@@ -8,7 +8,12 @@ Validates and warns when a subscription might copy data with different origins d
 
 ## Definition
 
-
+```c
+static void
+check_publications_origin(WalReceiverConn *wrconn, List *publications,
+						  bool copydata, char *origin, Oid *subrel_local_oids,
+						  int subrel_count, char *subname)
+```
 ## Detailed Description
 This function performs a critical validation check for logical replication subscriptions to detect potential data origin conflicts. When creating or refreshing a subscription with copy_data=true and origin=none, it queries the publisher to determine if any of the subscribed tables are also being written to by other subscriptions (indicating potential origin conflicts). The function constructs a complex SQL query that examines publication tables, their partition hierarchies, and existing subscription relationships to identify overlapping publications. If conflicts are detected, it logs a warning to alert administrators about potential data origin issues during initial synchronization.
 

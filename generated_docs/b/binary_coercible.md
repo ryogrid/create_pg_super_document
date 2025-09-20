@@ -8,7 +8,10 @@ A PostgreSQL regression test function that checks whether one data type can be b
 
 ## Definition
 
-
+```c
+Datum
+binary_coercible(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a simple PostgreSQL test utility that determines if a source data type can be implicitly converted (binary coerced) to a target data type. Binary coercion is a form of implicit type conversion where the internal representation of the data remains the same, but PostgreSQL treats it as a different type. This is the most efficient form of type conversion since no data transformation is required.
 

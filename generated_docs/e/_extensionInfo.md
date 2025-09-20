@@ -8,7 +8,17 @@ The  structure represents PostgreSQL extensions in pg_dump, containing extension
 
 ## Definition
 
-
+```c
+typedef struct _extensionInfo
+{
+	DumpableObject dobj;
+	char	   *namespace;		/* schema containing extension's objects */
+	bool		relocatable;
+	char	   *extversion;
+	char	   *extconfig;		/* info about configuration tables */
+	char	   *extcondition;
+} ExtensionInfo;
+```
 ## Detailed Description
 The  structure represents PostgreSQL extensions within the pg_dump framework. Extensions are packaged collections of database objects (functions, types, operators, etc.) that can be easily installed and managed as units. This structure captures all the essential metadata needed to properly dump and restore extensions, including their version, configuration data, and schema placement.
 

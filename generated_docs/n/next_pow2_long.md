@@ -8,7 +8,10 @@ Calculates the smallest power of 2 that is greater than or equal to the given nu
 
 ## Definition
 
-
+```c
+static long
+next_pow2_long(long num)
+```
 ## Detailed Description
 This function computes the next power of 2 for a given input by leveraging the my_log2 function to determine the appropriate exponent and then using bit shifting to calculate the result. The implementation is both efficient and safe, as it relies on my_log2's built-in range checking to prevent overflow conditions.
 

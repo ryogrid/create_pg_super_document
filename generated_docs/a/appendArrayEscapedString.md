@@ -8,7 +8,10 @@ Escapes a string to be safely used as an element in a PostgreSQL text array cons
 
 ## Definition
 
-
+```c
+static void
+appendArrayEscapedString(StringInfo buf, const char *str)
+```
 ## Detailed Description
 This function takes a C string and appends it to a StringInfo buffer with proper escaping for use as an element in a PostgreSQL text array constant. It wraps the string in double quotes and escapes any internal double quotes or backslashes by prefixing them with backslashes. This ensures that the resulting string can be safely included in SQL array literals without causing parsing errors.
 

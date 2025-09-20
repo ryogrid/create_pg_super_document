@@ -8,7 +8,10 @@ Stores the result of a query execution into psql variables as part of the \gset 
 
 ## Definition
 
-
+```c
+static bool
+StoreQueryTuple(const PGresult *result)
+```
 ## Detailed Description
 This function implements the core logic for the \gset psql meta-command, which allows users to store query results as psql variables. It validates that the result contains exactly one row, then iterates through all columns in that row, creating variables with names formed by concatenating the gset_prefix with each column name. NULL values result in unsetting the corresponding variable rather than setting it to an empty string.
 

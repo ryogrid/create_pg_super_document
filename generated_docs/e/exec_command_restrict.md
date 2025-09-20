@@ -8,7 +8,11 @@ Implements the psql \restrict backslash command that enables restricted mode wit
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_restrict(PsqlScanState scan_state, bool active_branch,
+					  const char *cmd)
+```
 ## Detailed Description
 The  function handles the execution of the \restrict backslash command in psql. This command enables a security feature called "restricted mode" where psql operations are limited until the mode is disabled with the correct key. The function requires a security key argument that will be used later to exit restricted mode.
 

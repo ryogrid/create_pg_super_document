@@ -8,7 +8,13 @@ A context structure used by the pull_varnos functionality to collect relation ID
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	Bitmapset  *varattnos;
+	Index		varno;
+} pull_varattnos_context;
+```
 ## Detailed Description
 The pull_varnos_context structure serves as a walker context for the pull_varnos_walker function, which traverses expression trees to identify all relation IDs referenced by Var nodes. This is a critical part of PostgreSQL's query optimization process, where the planner needs to understand which relations are being accessed by a particular expression or subquery. The context accumulates relation IDs while maintaining awareness of the current subquery level being processed.
 

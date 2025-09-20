@@ -8,7 +8,10 @@ Processes the \crosstabview psql command which executes a query and displays the
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_crosstabview(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 This function handles the \crosstabview command in psql, which allows users to pivot query results into a crosstab format. When the command is active, it parses up to 4 arguments that specify how to organize the crosstab display: vertical column, horizontal column, data column, and sort column. The function sets up the necessary state in the global pset structure to enable crosstab formatting for the next query execution. If the branch is not active (e.g., within a false conditional), it simply ignores the slash options without processing them.
 

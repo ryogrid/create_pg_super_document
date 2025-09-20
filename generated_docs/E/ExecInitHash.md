@@ -8,7 +8,11 @@ ExecInitHash is the initialization function for Hash plan nodes that sets up the
 
 ## Definition
 
-
+```c
+structure
+	 */
+	hashstate = makeNode(HashState);
+```
 ## Detailed Description
 ExecInitHash performs comprehensive initialization of Hash plan nodes within PostgreSQL's execution framework. It creates and configures a HashState structure that will manage hash table construction during query execution. The function handles all necessary setup including expression context creation, child node initialization, and hash key expression preparation.
 

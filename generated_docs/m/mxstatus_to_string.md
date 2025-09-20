@@ -8,7 +8,10 @@ A utility function that converts MultiXactStatus enumeration values to human-rea
 
 ## Definition
 
-
+```c
+static char *
+mxstatus_to_string(MultiXactStatus status)
+```
 ## Detailed Description
 This function provides a mapping from MultiXactStatus enumeration values to their corresponding string representations. It is primarily used for debugging output and diagnostic messages to make MultiXact status values more readable in logs and error messages.
 

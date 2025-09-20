@@ -8,7 +8,10 @@ Main entry point function for formatting standby-related WAL record descriptions
 
 ## Definition
 
-
+```c
+void
+standby_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This function serves as the primary dispatcher for describing different types of standby-related WAL records. It examines the WAL record type and delegates to appropriate specialized description functions. The function handles three main types of standby WAL records:
 

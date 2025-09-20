@@ -8,7 +8,11 @@ The r_un_double function removes doubled consonants from word endings in the Fre
 
 ## Definition
 
+```c
+}
 
+static int r_un_double(struct SN_env * z)
+```
 ## Detailed Description
 The r_un_double function implements a critical step in French morphological analysis by removing doubled consonants that appear at the end of words. The function operates by first testing for specific doubled consonant patterns using a lookup table (a_8), then removing one instance of the doubled consonant if found. This operation is essential for proper French word stemming as many French words naturally contain doubled consonants that need to be normalized during the stemming process.
 

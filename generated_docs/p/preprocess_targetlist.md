@@ -8,7 +8,11 @@ Driver function for preprocessing the parse tree targetlist, handling different 
 
 ## Definition
 
-
+```c
+enumber the processed_tlist entries to be consecutive.
+	 */
+	tlist = parse->targetList;
+```
 ## Detailed Description
 The  function is the main entry point for targetlist preprocessing in PostgreSQL's query planner. It takes a parsed query and transforms its targetlist to prepare it for execution, handling the specific requirements of different SQL command types.
 

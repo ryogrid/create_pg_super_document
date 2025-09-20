@@ -8,7 +8,10 @@ Returns the center point of a geometric box as a Point data type in PostgreSQL.
 
 ## Definition
 
-
+```c
+Datum
+box_center(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `box_center` function calculates and returns the center point of a BOX geometric data type. It extracts the BOX argument from the function call, allocates memory for a new Point structure, and uses the `box_cn` helper function to compute the center coordinates. The resulting Point is returned to the caller.
 

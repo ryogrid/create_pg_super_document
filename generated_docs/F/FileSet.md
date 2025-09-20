@@ -8,7 +8,17 @@ FileSet is a structure that represents a set of temporary files that can be dist
 
 ## Definition
 
-
+```c
+typedef struct FileSet
+{
+	pid_t		creator_pid;	/* PID of the creating process */
+	uint32		number;			/* per-PID identifier */
+	int			ntablespaces;	/* number of tablespaces to use */
+	Oid			tablespaces[8]; /* OIDs of tablespaces to use. Assumes that
+								 * it's rare that there more than temp
+								 * tablespaces. */
+} FileSet;
+```
 ## Detailed Description
 FileSet provides a mechanism for managing temporary files that need to persist across transactions or be shared between multiple processes. Unlike regular temporary files that are automatically cleaned up, FileSet files require explicit cleanup using FileSetDelete or FileSetDeleteAll functions.
 

@@ -8,7 +8,10 @@ Finds and returns a copy of an existing PgStat_TableStatus entry for a given rel
 
 ## Definition
 
-
+```c
+PgStat_TableStatus *
+find_tabstat_entry(Oid rel_id)
+```
 ## Detailed Description
 This function searches for an existing PgStat_TableStatus entry for the specified relation ID in the current database's statistics tracking system. If found in the current database, it uses that entry; otherwise, it searches in shared tables. The function creates a copy of the found entry and accumulates any pending subtransaction statistics into the main counters (tuples_inserted, tuples_updated, tuples_deleted).
 

@@ -8,7 +8,10 @@ PostgreSQL function implementing text equality comparison with optimizations for
 
 ## Definition
 
-
+```c
+Datum
+texteq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `texteq` implements the PostgreSQL `=` operator for text data types. It employs sophisticated optimization strategies to avoid expensive collation operations when possible. For C locale or deterministic collations, it uses fast bitwise comparison after checking string lengths for early inequality detection. For non-deterministic collations, it falls back to `text_cmp` for proper collation-aware comparison. The function includes memory management for toasted (compressed/out-of-line) values and implements the PostgreSQL function call convention.
 

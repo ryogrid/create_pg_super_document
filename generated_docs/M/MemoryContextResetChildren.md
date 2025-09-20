@@ -8,7 +8,10 @@ Releases all space allocated within a context's descendants, but doesn't delete 
 
 ## Definition
 
-
+```c
+void
+MemoryContextResetChildren(MemoryContext context)
+```
 ## Detailed Description
 MemoryContextResetChildren is a memory management function that performs a selective reset operation on a memory context hierarchy. It traverses all descendant contexts of the specified context and resets each one, freeing all memory allocated within them while preserving the context structures themselves. This operation is useful when you want to clear memory from child contexts but maintain the context hierarchy for future use.
 

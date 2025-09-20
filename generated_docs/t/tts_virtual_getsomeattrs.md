@@ -8,7 +8,10 @@ A placeholder function that should never be called for virtual tuple table slots
 
 ## Definition
 
-
+```c
+static void
+tts_virtual_getsomeattrs(TupleTableSlot *slot, int natts)
+```
 ## Detailed Description
 The  function is the getsomeattrs callback for virtual tuple table slots in PostgreSQL. However, unlike other slot implementations, this function is designed to never actually be called during normal operation.
 

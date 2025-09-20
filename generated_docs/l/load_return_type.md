@@ -8,7 +8,10 @@ Helper function that extracts and returns the return type of a named function fr
 
 ## Definition
 
-
+```c
+static LLVMTypeRef
+load_return_type(LLVMModuleRef mod, const char *name)
+```
 ## Detailed Description
 This utility function serves as a helper for , providing a convenient way to extract the return type of functions that are already defined in an LLVM module. The function:
 

@@ -8,7 +8,14 @@ MemoizeTuple is a data structure that stores an individually cached tuple in Pos
 
 ## Definition
 
-
+```c
+typedef struct MemoizeTuple
+{
+	MinimalTuple mintuple;		/* Cached tuple */
+	struct MemoizeTuple *next;	/* The next tuple with the same parameter
+								 * values or NULL if it's the last one */
+} MemoizeTuple;
+```
 ## Detailed Description
 MemoizeTuple is a fundamental component of PostgreSQL's memoization (caching) mechanism in the execution engine. It represents a single cached tuple result and is designed to form a linked list structure when multiple tuples share the same parameter values. This allows the memoization system to efficiently store and retrieve multiple result tuples for a given set of input parameters, which is essential for optimizing repeated queries with identical conditions.
 

@@ -8,7 +8,11 @@ Tests whether the current position follows the pattern of a consonant followed b
 
 ## Definition
 
+```c
+}
 
+static int r_KER(struct SN_env * z)
+```
 ## Detailed Description
 This function validates a specific morphological pattern in Indonesian words where a consonant is followed by 'er'. It first uses  to check that the current character is NOT a vowel (i.e., it's a consonant), then uses  to verify that the next 2 characters match the string 'er' (stored in s_0). This pattern recognition is essential for correct morphological analysis during Indonesian stemming, particularly when processing prefixes that should only be removed under specific phonological conditions.
 

@@ -8,7 +8,10 @@ Creates or resets a short-lived memory context for temporary operations within e
 
 ## Definition
 
-
+```c
+static MemoryContext
+get_short_term_cxt(ExpandedRecordHeader *erh)
+```
 ## Detailed Description
 This static function manages a dedicated memory context for short-term operations within expanded records. It follows a lazy initialization pattern - creating the context only when first needed, and subsequently resetting it to clear any accumulated memory allocations from previous operations. The context uses small allocation sizes since it's intended for brief, lightweight operations rather than large data structures.
 

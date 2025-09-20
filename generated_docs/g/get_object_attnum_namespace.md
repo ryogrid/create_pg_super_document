@@ -8,7 +8,10 @@ Returns the attribute number for the namespace field of a given PostgreSQL objec
 
 ## Definition
 
-
+```c
+AttrNumber
+get_object_attnum_namespace(Oid class_id)
+```
 ## Detailed Description
 This function serves as an accessor to retrieve the namespace attribute number for a specific PostgreSQL object class. It acts as a wrapper around the object property data system, providing a clean interface to obtain the column number that stores the namespace OID in the corresponding system catalog table. This information is crucial for operations that need to identify or manipulate the namespace (schema) to which an object belongs.
 

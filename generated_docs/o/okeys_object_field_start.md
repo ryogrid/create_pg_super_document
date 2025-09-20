@@ -8,7 +8,10 @@ A semantic action callback function used during JSON parsing to collect object f
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+okeys_object_field_start(void *state, char *fname, bool isnull)
+```
 ## Detailed Description
 This function serves as a semantic action callback in PostgreSQL's JSON parser framework. It is specifically designed to capture object field names during JSON parsing for the json_object_keys function. The function operates only on the top-level object (lex_level == 1) and dynamically grows its storage array as needed to accommodate all discovered keys.
 

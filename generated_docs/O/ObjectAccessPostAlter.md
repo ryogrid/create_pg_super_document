@@ -8,7 +8,25 @@ ObjectAccessPostAlter is a struct that holds arguments for the OAT_POST_ALTER ob
 
 ## Definition
 
+```c
+typedef struct
+{
+	/*
+	 * If true, hook should report an error when permission to search this
+	 * schema is denied.
+	 */
+	bool		ereport_on_violation;
 
+	/*
+	 * This is, in essence, an out parameter.  Core code should initialize
+	 * this to true, and any extension that wants to deny access should reset
+	 * it to false.  But an extension should be careful never to store a true
+	 * value here, so that in case there are multiple extensions access is
+	 * only allowed if all extensions agree.
+	 */
+	bool		result;
+} ObjectAccessNamespaceSearch;
+```
 ## Detailed Description
 The ObjectAccessPostAlter struct serves as a parameter container for object access hooks that are triggered after object alteration (OAT_POST_ALTER events). It provides essential context information to extensions about the nature and circumstances of the object modification operation.
 

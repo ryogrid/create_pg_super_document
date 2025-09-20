@@ -8,7 +8,11 @@ A comprehensive command-line argument parser for PostgreSQL backend processes th
 
 ## Definition
 
-
+```c
+void
+process_postgres_switches(int argc, char *argv[], GucContext ctx,
+						  const char **dbname)
+```
 ## Detailed Description
 This function is PostgreSQL's primary command-line argument processor for backend processes. It is called twice during server startup: once for "secure" options that come from the postmaster or command line (with PGC_POSTMASTER context), and once for "insecure" options that come from the client's startup packet (with PGC_BACKEND or PGC_SU_BACKEND context).
 

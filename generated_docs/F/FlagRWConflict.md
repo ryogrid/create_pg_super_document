@@ -8,7 +8,10 @@ FlagRWConflict creates a read-write dependency between two serializable transact
 
 ## Definition
 
-
+```c
+static void
+FlagRWConflict(SERIALIZABLEXACT *reader, SERIALIZABLEXACT *writer)
+```
 ## Detailed Description
 This static function is responsible for flagging read-write conflicts between serializable transactions in PostgreSQL's SSI implementation. It performs two critical operations in sequence:
 

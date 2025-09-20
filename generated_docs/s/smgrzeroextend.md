@@ -8,7 +8,11 @@ The smgrzeroextend function extends a PostgreSQL relation file by adding multipl
 
 ## Definition
 
-
+```c
+void
+smgrzeroextend(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+			   int nblocks, bool skipFsync)
+```
 ## Detailed Description
 The smgrzeroextend function is a storage manager interface for efficiently extending relation files by multiple blocks at once, with all added blocks being zero-filled. This function is similar to smgrextend but optimized for bulk extension operations. It delegates the actual zero-extension operation to the appropriate storage manager implementation through the smgrsw function pointer table. After extending the file, it updates the cached block count by the number of blocks added, maintaining consistency with the file system state.
 

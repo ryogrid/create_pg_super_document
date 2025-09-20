@@ -8,7 +8,10 @@ interval2tm is a static utility function that converts an interval data type int
 
 ## Definition
 
-
+```c
+static int
+interval2tm(interval span, struct tm *tm, fsec_t *fsec)
+```
 ## Detailed Description
 This function decomposes an interval structure into its constituent time components and stores them in a standard tm structure along with fractional seconds. It handles the conversion of the interval's month and time fields by extracting years and months from the month field, and breaking down the microsecond-based time field into days, hours, minutes, seconds, and fractional seconds.
 

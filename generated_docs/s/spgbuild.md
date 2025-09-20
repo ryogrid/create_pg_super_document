@@ -8,7 +8,10 @@ The main function responsible for building a complete SP-GiST index from scratch
 
 ## Definition
 
-
+```c
+struct metapage. */
+	buf = smgr_bulk_get_buf(bulkstate);
+```
 ## Detailed Description
 This function implements the complete SP-GiST index building process. It first validates that the index is empty, then initializes the fundamental index pages (metapage, root page, and null-tuples page). After setting up the basic structure, it scans all heap tuples using table_index_build_scan() with spgistBuildCallback() to insert each tuple into the index. The function handles WAL logging requirements and returns statistics about the build process. It uses a temporary memory context during the build to manage memory efficiently.
 

@@ -8,7 +8,14 @@ A structure defining the communication area for inter-thread communication betwe
 
 ## Definition
 
-
+```c
+typedef struct timerCA
+{
+	struct itimerval value;
+	HANDLE		event;
+	CRITICAL_SECTION crit_sec;
+} timerCA;
+```
 ## Detailed Description
 The `timerCA` structure serves as the communication interface between PostgreSQL's main thread and the Windows timer management thread. It encapsulates the current timer configuration, synchronization primitives, and event signaling mechanism needed for thread-safe timer operations. The structure enables the main thread to safely update timer settings while the timer thread monitors for changes and timeout events. This design pattern provides clean separation of concerns in the Windows timer emulation system.
 

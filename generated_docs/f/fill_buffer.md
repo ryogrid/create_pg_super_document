@@ -8,7 +8,10 @@ Reads one line of input into the input buffer and sets up buffer pointers to man
 
 ## Definition
 
-
+```c
+void
+fill_buffer(void)
+```
 ## Detailed Description
 The  function is a core input handling routine in the PostgreSQL BSD indent tool that manages reading input from files or standard input. It reads one line of input into the , setting up  and  to point to the line's start and end+1 respectively. The buffer does not get null-terminated.
 

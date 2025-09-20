@@ -8,7 +8,12 @@ Generates a list of all tuples matching a partial key in the catalog cache, supp
 
 ## Definition
 
-
+```c
+structing the CatCList.  ctlist must be valid throughout
+	 * the PG_TRY block.
+	 */
+	ctlist = NIL;
+```
 ## Detailed Description
 SearchCatCacheList is a core catalog cache function that performs partial key searches to find multiple matching tuples. Unlike SearchCatCache which finds a single tuple using a complete key, this function takes fewer key values and returns all tuples that match the specified prefix of keys.
 

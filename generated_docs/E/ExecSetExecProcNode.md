@@ -8,7 +8,10 @@ ExecSetExecProcNode sets or changes the execution procedure function for a plan 
 
 ## Definition
 
-
+```c
+void
+ExecSetExecProcNode(PlanState *node, ExecProcNodeMtd function)
+```
 ## Detailed Description
 ExecSetExecProcNode provides a mechanism for plan nodes to change their execution function after initialization is complete. This is particularly important for nodes that may need to switch execution strategies based on runtime conditions or for nodes that require different execution procedures during their lifecycle.
 

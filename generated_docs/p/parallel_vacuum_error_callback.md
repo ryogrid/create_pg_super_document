@@ -8,7 +8,10 @@ Error context callback function that provides meaningful error messages during p
 
 ## Definition
 
-
+```c
+static void
+parallel_vacuum_error_callback(void *arg)
+```
 ## Detailed Description
 This function is registered as an error context callback to enhance error reporting during parallel vacuum operations. When an error occurs during index processing, this callback provides contextual information about which specific index and relation were being processed, making debugging and error diagnosis much easier.
 

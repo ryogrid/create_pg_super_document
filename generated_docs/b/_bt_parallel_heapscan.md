@@ -8,7 +8,10 @@ Coordinates the completion of parallel heap scanning by waiting for all worker p
 
 ## Definition
 
-
+```c
+static double
+_bt_parallel_heapscan(BTBuildState *buildstate, bool *brokenhotchain)
+```
 ## Detailed Description
 This function serves as the synchronization point for the leader process during parallel B-tree index construction. It waits for all participating worker processes (including the leader if it participates as a worker) to complete their portion of the heap scan and tuple processing.
 

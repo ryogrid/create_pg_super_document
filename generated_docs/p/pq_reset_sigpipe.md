@@ -8,7 +8,10 @@ This function handles the cleanup of SIGPIPE signals and restores the original s
 
 ## Definition
 
-
+```c
+void
+pq_reset_sigpipe(sigset_t *osigset, bool sigpipe_pending, bool got_epipe)
+```
 ## Detailed Description
 The  function is responsible for cleaning up SIGPIPE signal handling after socket operations that may have generated such signals. It performs two main operations:
 

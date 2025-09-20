@@ -8,7 +8,13 @@ Int8TransTypeData is a simple two-element structure used as the transition datat
 
 ## Definition
 
-
+```c
+typedef struct Int8TransTypeData
+{
+	int64		count;
+	int64		sum;
+} Int8TransTypeData;
+```
 ## Detailed Description
 Int8TransTypeData serves as the transition datatype for avg(int2), avg(int4), sum(int2), and sum(int4) aggregate functions in PostgreSQL. This structure is particularly important for moving-aggregate mode operations where inverse transitions are required - by maintaining both count and sum, the system can properly handle the removal of values from the aggregate state. The structure uses 64-bit integers to prevent overflow issues that could occur with smaller integer types when accumulating many values.
 

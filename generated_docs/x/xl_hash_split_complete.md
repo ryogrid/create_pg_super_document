@@ -8,7 +8,13 @@ A PostgreSQL WAL record structure that captures the information needed to replay
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_split_complete
+{
+	uint16		old_bucket_flag;
+	uint16		new_bucket_flag;
+} xl_hash_split_complete;
+```
 ## Detailed Description
 The  structure is used for  WAL records, which log the final completion phase of hash index bucket splitting. This represents the second phase of the bucket split process, which occurs after the initial page allocation handled by .
 

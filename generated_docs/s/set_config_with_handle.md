@@ -8,7 +8,9 @@ Sets a configuration option to a given value with optional handle optimization f
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function is the core implementation for setting PostgreSQL configuration options (GUCs). It provides an optimized interface that accepts a handle parameter to avoid repeated hash table lookups when setting the same configuration option multiple times. The function performs comprehensive validation of the setting request including context checks, privilege verification, and parallel operation safety.
 

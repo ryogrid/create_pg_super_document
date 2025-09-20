@@ -8,7 +8,10 @@ Sends the result of a function call back to the client in the PostgreSQL fast-pa
 
 ## Definition
 
-
+```c
+static void
+SendFunctionResult(Datum retval, bool isnull, Oid rettype, int16 format)
+```
 ## Detailed Description
 SendFunctionResult is responsible for formatting and transmitting function call results to the client through the PostgreSQL message protocol. It handles three distinct cases: NULL values, text format output (format=0), and binary format output (format=1). The function uses the appropriate type output functions to convert the Datum value into the requested format and sends it as a FunctionCallResponse message. For text format, it uses the type's output function, while for binary format it uses the type's send function. The function ensures proper message framing and handles memory management for the converted output strings.
 

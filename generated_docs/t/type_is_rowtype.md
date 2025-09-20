@@ -8,7 +8,10 @@ Determines whether a PostgreSQL type represents a row/composite type, including 
 
 ## Definition
 
-
+```c
+bool
+type_is_rowtype(Oid typid)
+```
 ## Detailed Description
 This convenience function provides a unified way to identify types that represent structured data with multiple fields (row types). It recognizes three categories of row types:
 

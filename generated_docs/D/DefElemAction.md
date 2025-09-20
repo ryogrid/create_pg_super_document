@@ -8,7 +8,18 @@ DefElemAction is an enumeration that specifies the action type for definition el
 
 ## Definition
 
-
+```c
+typedef struct DefElem
+{
+	NodeTag		type;
+	char	   *defnamespace;	/* NULL if unqualified name */
+	char	   *defname;
+	Node	   *arg;			/* typically Integer, Float, String, or
+								 * TypeName */
+	DefElemAction defaction;	/* unspecified action, or SET/ADD/DROP */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} DefElem;
+```
 ## Detailed Description
 DefElemAction provides action semantics for DefElem nodes, which represent generic "name = value" option definitions in PostgreSQL SQL statements. This enum allows the parser to distinguish between different modification operations that can be performed on configuration parameters, table options, and other named settings. The actions correspond to SQL syntax patterns where options can be set to new values, added to existing lists, or removed entirely. This is particularly useful in commands like ALTER TABLE, CREATE INDEX, and other DDL statements that allow incremental modification of object properties.
 

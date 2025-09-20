@@ -8,7 +8,11 @@ The main stemming function for Romanian text encoded in ISO-8859-2, implementing
 
 ## Definition
 
+```c
+}
 
+extern int romanian_ISO_8859_2_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function orchestrates the complete Romanian stemming process in a carefully sequenced pipeline:
 

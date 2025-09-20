@@ -8,7 +8,10 @@ reserveAllocatedDesc is an internal static function that manages memory allocati
 
 ## Definition
 
-
+```c
+static bool
+reserveAllocatedDesc(void)
+```
 ## Detailed Description
 reserveAllocatedDesc manages the dynamic allocation and expansion of the allocatedDescs array, which tracks all allocated file descriptors outside of PostgreSQL's Virtual File Descriptor (VFD) system. The function implements a three-tier allocation strategy:
 

@@ -8,7 +8,10 @@ Processes incoming replication messages from the XLOG stream, handling WAL recor
 
 ## Definition
 
-
+```c
+static void
+XLogWalRcvProcessMsg(unsigned char type, char *buf, Size len, TimeLineID tli)
+```
 ## Detailed Description
 This function is the core message processor for the WAL receiver process in PostgreSQL streaming replication. It handles two types of messages from the primary server:
 

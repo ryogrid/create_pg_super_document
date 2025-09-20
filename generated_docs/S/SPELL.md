@@ -8,7 +8,30 @@ SPELL is a structure that represents an entry in a words list for the ISpell dic
 
 ## Definition
 
-
+```c
+typedef struct aff_struct
+{
+	char	   *flag;
+	/* FF_SUFFIX or FF_PREFIX */
+	uint32		type:1,
+				flagflags:7,
+				issimple:1,
+				isregis:1,
+				replen:14;
+	char	   *find;
+	char	   *repl;
+	union
+	{
+		/*
+		 * Arrays of AFFIX are moved and sorted.  We'll use a pointer to
+		 * regex_t to keep this struct small, and avoid assuming that regex_t
+		 * is movable.
+		 */
+		regex_t    *pregex;
+		Regis		regis;
+	}			reg;
+} AFFIX;
+```
 ## Detailed Description
 The SPELL structure represents a single word entry in an ISpell dictionary. It uses a union to optimize memory usage during different phases of dictionary processing. During dictionary import, the  field contains affix information as a string. After sorting via NISortDictionary(), the structure switches to using the  substructure which contains numeric references to affix data and the word length for more efficient processing.
 

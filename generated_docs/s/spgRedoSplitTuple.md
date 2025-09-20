@@ -8,7 +8,10 @@ Replays a split tuple operation from the WAL (Write-Ahead Log) for SP-GiST index
 
 ## Definition
 
-
+```c
+static void
+spgRedoSplitTuple(XLogReaderState *record)
+```
 ## Detailed Description
 This function is part of the SP-GiST WAL recovery mechanism that replays split tuple operations. When an SP-GiST inner tuple is split during normal operation, this operation is logged to WAL. During recovery, this function reconstructs the split by:
 

@@ -8,7 +8,9 @@ Sorts a PostgreSQL list in-place using a user-provided comparator function, base
 
 ## Definition
 
-
+```c
+typedef int (*qsort_comparator) (const void *a, const void *b);
+```
 ## Detailed Description
 The  function sorts a PostgreSQL List structure in-place using a user-provided comparison function. It's a wrapper around the standard library's  function, providing the same O(N log N) time complexity and similar behavior regarding sort stability (no guarantees for equal keys).
 

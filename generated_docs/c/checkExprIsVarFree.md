@@ -8,7 +8,30 @@ Validates that a given expression contains no variable references from the curre
 
 ## Definition
 
+```c
+structName)
+{
+	if (contain_vars_of_level(n, 0))
+	{
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+		/* translator: %s is name of a SQL construct, eg LIMIT */
+				 errmsg("argument of %s must not contain variables",
+						constructName),
+				 parser_errposition(pstate,
+									locate_var_of_level(n, 0))));
+	}
+}
 
+
+/*
+ * checkTargetlistEntrySQL92 -
+ *	  Validate a targetlist entry found by findTargetlistEntrySQL92
+ *
+ * When we select a pre-existing tlist entry as a result of syntax such
+ * as "GROUP BY 1", we have to make sure it is acceptable for use in the
+ * indicated clause type;
+```
 ## Detailed Description
 This function is a validation utility used within the PostgreSQL parser to enforce that certain expressions must be variable-free and have consistent values across all rows of a query. It checks whether the provided expression tree contains any Var nodes that reference columns from the current query level (level 0). If such variables are found, the function reports an error with appropriate positioning information. This validation is crucial for constructs like LIMIT clauses and window function frame offsets, where the value must be constant and not depend on individual row values. The function assumes that aggregates and window functions have already been rejected by earlier validation steps.
 

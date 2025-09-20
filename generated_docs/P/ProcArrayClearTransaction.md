@@ -8,7 +8,10 @@ ProcArrayClearTransaction clears transaction fields from a PGPROC entry after su
 
 ## Definition
 
-
+```c
+void
+ProcArrayClearTransaction(PGPROC *proc)
+```
 ## Detailed Description
 This function is specifically designed for 2-phase commit (2PC) transactions. After a transaction is successfully prepared, this function clears the transaction fields from the process's PGPROC entry without actually removing the transaction from the running transaction list. The transaction remains visible as running through its associated global transaction (gxact) entry in the ProcArray.
 

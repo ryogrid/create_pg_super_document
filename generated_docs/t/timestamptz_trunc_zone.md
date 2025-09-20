@@ -8,7 +8,10 @@ Truncates a timestamptz (timestamp with timezone) value to specified units in a 
 
 ## Definition
 
-
+```c
+struct pg_itm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function provides timezone-aware truncation of timestamp with timezone values. It takes three arguments: the units to truncate to, the timestamp value, and the timezone specification. The function first looks up the specified timezone and then delegates to `timestamptz_trunc_internal` to perform the actual truncation operation. The function handles infinite timestamp values by returning them unchanged, following the same pattern as `timestamptz_zone()`.
 

@@ -8,7 +8,10 @@ Compares a DATE value with a TIMESTAMPTZ value for equality, returning true if t
 
 ## Definition
 
-
+```c
+Datum
+date_eq_timestamptz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the equality comparison operator between a DATE and a TIMESTAMPTZ value. It extracts the date arguments using PostgreSQL's function argument macros and delegates the actual comparison logic to the internal helper function . The function returns true (as a PostgreSQL boolean Datum) if the comparison result equals 0, indicating the dates are equal.
 

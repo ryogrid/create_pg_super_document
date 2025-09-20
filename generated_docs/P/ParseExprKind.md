@@ -8,7 +8,9 @@ ParseExprKind is an enumeration that identifies different contexts in which expr
 
 ## Definition
 
-
+```c
+typedef Node *(*PreParseColumnRefHook) (ParseState *pstate, ColumnRef *cref);
+```
 ## Detailed Description
 ParseExprKind is a fundamental enumeration used throughout PostgreSQL's parser to distinguish different contexts where expressions are being transformed. While many of these contexts are not semantically distinct for expression transformation purposes, they are distinguished to enable the parser to generate context-specific error messages that are more meaningful to users.
 

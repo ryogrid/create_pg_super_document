@@ -8,7 +8,14 @@ A context structure used during parameter substitution in PostgreSQL to track ar
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			nargs;
+	List	   *args;
+	int			sublevels_up;
+} substitute_actual_srf_parameters_context;
+```
 ## Detailed Description
 The substitute_actual_parameters_context structure provides the necessary context information for the parameter substitution process in PostgreSQL's query optimization. This structure is used when transforming expression trees by replacing Param nodes with their corresponding actual parameter values. The context tracks both the available arguments and maintains usage statistics for each parameter, which is essential for optimization decisions and parameter validation during the substitution process.
 

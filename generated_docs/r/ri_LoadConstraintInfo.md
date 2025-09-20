@@ -8,7 +8,17 @@ Fetches or creates the RI_ConstraintInfo struct for a foreign key constraint by 
 
 ## Definition
 
-
+```c
+structFkConstraintRow(tup,
+							   &riinfo->nkeys,
+							   riinfo->fk_attnums,
+							   riinfo->pk_attnums,
+							   riinfo->pf_eq_oprs,
+							   riinfo->pp_eq_oprs,
+							   riinfo->ff_eq_oprs,
+							   &riinfo->ndelsetcols,
+							   riinfo->confdelsetcols);
+```
 ## Detailed Description
 This function implements a caching mechanism for foreign key constraint information. It first checks if the constraint info is already cached in ri_constraint_cache hash table. If not found or invalid, it:
 

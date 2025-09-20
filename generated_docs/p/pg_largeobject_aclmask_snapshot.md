@@ -8,7 +8,12 @@ A specialized function that examines a user's privileges for PostgreSQL large ob
 
 ## Definition
 
-
+```c
+static AclMode
+pg_largeobject_aclmask_snapshot(Oid lobj_oid, Oid roleid,
+								AclMode mask, AclMaskHow how,
+								Snapshot snapshot)
+```
 ## Detailed Description
 This function provides privilege checking for PostgreSQL large objects (LOBs) with special consideration for MVCC (Multi-Version Concurrency Control) consistency. The key distinguishing feature is the snapshot parameter, which ensures that permission checks are performed relative to the same snapshot that will be used to access the underlying large object data.
 

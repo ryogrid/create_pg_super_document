@@ -8,7 +8,10 @@ Helper function that estimates the size of memory needed for parallel scan descr
 
 ## Definition
 
-
+```c
+Size
+table_block_parallelscan_estimate(Relation rel)
+```
 ## Detailed Description
 This function provides a memory size estimate for parallel scan operations on block-oriented access methods (AMs). It's part of the helper functions designed to implement parallel scans for block-oriented storage engines like heap tables. The function simply returns the size of the  structure, which contains the shared state needed to coordinate parallel scanning across multiple worker processes.
 

@@ -8,7 +8,14 @@ A structure definition used in PostgreSQL's pg_dump utility to represent operato
 
 ## Definition
 
-
+```c
+typedef struct _opfamilyInfo
+{
+	DumpableObject dobj;
+	Oid			opfmethod;
+	const char *rolname;
+} OpfamilyInfo;
+```
 ## Detailed Description
 The  structure is part of PostgreSQL's pg_dump utility framework, designed to store metadata about operator families during database backup operations. Operator families in PostgreSQL are collections of related operator classes that support the same kinds of operations for an access method. They provide a higher-level organization structure above operator classes, allowing related operator classes to share operators and support functions. This structure extends the base  to include operator family-specific information, enabling pg_dump to properly serialize and restore operator family definitions.
 

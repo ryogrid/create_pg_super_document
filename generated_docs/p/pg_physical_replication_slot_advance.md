@@ -8,7 +8,10 @@ A helper function that advances a physical replication slot's restart LSN forwar
 
 ## Definition
 
-
+```c
+static XLogRecPtr
+pg_physical_replication_slot_advance(XLogRecPtr moveto)
+```
 ## Detailed Description
 This function advances a physical replication slot's restart_lsn to the specified target LSN position. It performs a simple comparison against the current restart_lsn, ensuring that only forward movement is allowed. The function is designed to be called within the context of an acquired replication slot (MyReplicationSlot must be valid).
 

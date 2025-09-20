@@ -8,7 +8,10 @@ A utility function that formats numeric values into tar header fields, supportin
 
 ## Definition
 
-
+```c
+void
+print_tar_number(char *s, int len, uint64 val)
+```
 ## Detailed Description
 This function writes a numeric value into a tar header field using the appropriate format based on the value size. It implements the POSIX standard for tar headers, which specifies that numeric fields should be written in octal format with leading zeroes and a trailing space. However, when the value is too large to fit in the available space using octal representation, it falls back to the GNU extension that uses base-256 binary format with a leading \200 byte indicator.
 

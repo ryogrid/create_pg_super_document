@@ -8,7 +8,17 @@ The  struct manages the creation and writing of PostgreSQL backup manifest files
 
 ## Definition
 
-
+```c
+struct manifest_writer
+{
+	char		pathname[MAXPGPATH];
+	int			fd;
+	StringInfoData buf;
+	bool		first_file;
+	bool		still_checksumming;
+	pg_checksum_context manifest_ctx;
+};
+```
 ## Detailed Description
 The  struct is used by PostgreSQL's  utility to incrementally build backup manifest files in JSON format. It maintains both the file I/O state and the in-memory buffer for constructing the manifest content. The struct supports efficient streaming output by buffering manifest entries and flushing them when the buffer reaches a threshold (128KB). It also maintains a checksum context for computing the manifest's integrity hash.
 

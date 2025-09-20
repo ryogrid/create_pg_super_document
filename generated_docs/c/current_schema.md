@@ -8,7 +8,9 @@ The current_schema function is a SQL function that returns the name of the first
 
 ## Definition
 
-
+```c
+struct_array_builtin(names, i, NAMEOID);
+```
 ## Detailed Description
 This function implements the SQL standard CURRENT_SCHEMA function. It retrieves the current search path and returns the name of the first schema in that path. The search path determines the order in which schemas are searched for unqualified object names.
 

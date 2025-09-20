@@ -8,7 +8,10 @@ The  function performs a bitwise NOT operation on a MAC address, returning a new
 
 ## Definition
 
-
+```c
+Datum
+macaddr_not(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the bitwise NOT arithmetic operator (~) for the  data type in PostgreSQL. It takes a MAC address as input and creates a new MAC address where each byte has been bitwise inverted (all 1s become 0s and all 0s become 1s). The function allocates memory for the result and performs the bitwise NOT operation on each of the six bytes (a, b, c, d, e, f) that make up a MAC address.
 

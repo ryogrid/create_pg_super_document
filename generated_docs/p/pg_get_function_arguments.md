@@ -8,7 +8,10 @@ Returns a nicely-formatted list of arguments for a function, representing everyt
 
 ## Definition
 
-
+```c
+Datum
+pg_get_function_arguments(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This SQL-callable function takes a function OID as input and returns a formatted text representation of the function's argument list. It retrieves the function's metadata from the system catalog (pg_proc) and formats the arguments in a human-readable form suitable for display in CREATE FUNCTION statements or documentation. The function handles the complete argument specification including parameter names, types, and modes.
 

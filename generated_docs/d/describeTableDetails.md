@@ -8,7 +8,10 @@ Orchestrates the \d command in psql by finding matching tables and calling descr
 
 ## Definition
 
-
+```c
+bool
+describeTableDetails(const char *pattern, bool verbose, bool showSystem)
+```
 ## Detailed Description
 The  function serves as the main coordinator for the psql \d command. It performs a two-phase operation: first, it queries the PostgreSQL system catalogs to find all tables/relations that match the given pattern and filtering criteria, then it iterates through the results and calls  for each individual table to display its detailed information.
 

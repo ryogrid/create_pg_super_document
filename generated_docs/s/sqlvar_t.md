@@ -8,7 +8,9 @@ sqlvar_t is a typedef representing a variable structure used in PostgreSQL's Emb
 
 ## Definition
 
-
+```c
+typedef struct sqlvar_struct sqlvar_t;
+```
 ## Detailed Description
 sqlvar_t is a type alias that maps to different underlying structures depending on the compilation context. When ECPG is compiled with Informix compatibility mode (_ECPG_INFORMIX_H defined), it maps to , providing enhanced compatibility with Informix-style SQLDA (SQL Descriptor Area) handling. In standard PostgreSQL native mode, it maps to .
 

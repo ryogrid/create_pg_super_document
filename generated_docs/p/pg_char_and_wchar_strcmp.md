@@ -8,7 +8,10 @@ Compares a null-terminated char string with a null-terminated wide character (pg
 
 ## Definition
 
-
+```c
+int
+pg_char_and_wchar_strcmp(const char *s1, const pg_wchar *s2)
+```
 ## Detailed Description
 This function performs a lexicographic comparison between a regular C string (char array) and a PostgreSQL wide character string (pg_wchar array). The function iterates through both strings simultaneously, comparing each character after casting the char to pg_wchar for proper comparison. The comparison stops when either a mismatch is found or both strings reach their null terminators.
 

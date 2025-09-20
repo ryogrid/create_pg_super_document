@@ -8,7 +8,10 @@ Chooses the next subplan for a parallel-aware Append node to execute, coordinati
 
 ## Definition
 
-
+```c
+static bool
+choose_next_subplan_for_worker(AppendState *node)
+```
 ## Detailed Description
 This function implements the core work distribution logic for parallel-aware Append nodes in PostgreSQL's executor. It operates under exclusive locking to ensure thread-safe coordination among multiple parallel workers. The function follows a specific strategy for subplan assignment:
 

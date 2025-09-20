@@ -8,7 +8,10 @@ Configures OpenSSL password callback handlers for SSL/TLS contexts based on serv
 
 ## Definition
 
-
+```c
+static void
+default_openssl_tls_init(SSL_CTX *context, bool isServerStart)
+```
 ## Detailed Description
 The `default_openssl_tls_init` function is responsible for setting up appropriate password callback functions in the OpenSSL SSL context based on whether the server is starting up or reloading configuration. It handles two primary scenarios:
 

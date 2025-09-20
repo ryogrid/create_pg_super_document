@@ -8,7 +8,10 @@ Converts a 64-bit integer (int8) to a 16-bit integer (int2) with overflow checki
 
 ## Definition
 
-
+```c
+Datum
+int82(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int82 function implements type conversion from PostgreSQL's 8-byte integer type (int8/bigint) to 2-byte integer type (int2/smallint). This is a narrowing conversion that requires range checking since not all int8 values can be represented as int2. The function validates that the input value falls within the valid range for 16-bit signed integers (PG_INT16_MIN to PG_INT16_MAX) and throws an error if the value is out of range.
 

@@ -8,7 +8,10 @@ Removes tuples marked as "don't care" from a tuple index array, compacting the a
 
 ## Definition
 
-
+```c
+static void
+removeDontCares(OffsetNumber *a, int *len, const bool *dontcare)
+```
 ## Detailed Description
 This utility function processes an array of tuple indices (typically  or  from a GistSplitVector) and removes entries that correspond to tuples marked as "don't care" in the provided boolean array. The function compacts the array in-place by copying non-don't-care entries to the beginning of the array and updating the length accordingly. This is used during GiST index splitting to exclude certain tuples from split calculations while maintaining the original array structure.
 

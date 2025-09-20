@@ -8,7 +8,40 @@ BrinBuildState is the primary state structure used during initial construction o
 
 ## Definition
 
+```c
+typedef struct BrinBuildState
+{
+	Relation	bs_irel;
+	double		bs_numtuples;
+	double		bs_reltuples;
+	Buffer		bs_currentInsertBuf;
+	BlockNumber bs_pagesPerRange;
+	BlockNumber bs_currRangeStart;
+	BlockNumber bs_maxRangeStart;
+	BrinRevmap *bs_rmAccess;
+	BrinDesc   *bs_bdesc;
+	BrinMemTuple *bs_dtuple;
 
+	BrinTuple  *bs_emptyTuple;
+	Size		bs_emptyTupleLen;
+	MemoryContext bs_context;
+
+	/*
+	 * bs_leader is only present when a parallel index build is performed, and
+	 * only in the leader process. (Actually, only the leader process has a
+	 * BrinBuildState.)
+	 */
+	BrinLeader *bs_leader;
+	int			bs_worker_id;
+
+	/*
+	 * The sortstate is used by workers (including the leader). It has to be
+	 * part of the build state, because that's the only thing passed to the
+	 * build callback etc.
+	 */
+	Tuplesortstate *bs_sortstate;
+} BrinBuildState;
+```
 ## Detailed Description
 BrinBuildState serves as the comprehensive state container for BRIN index construction operations. It maintains both the current index building context and progress tracking information. The structure supports both sequential and parallel index builds, with specific fields dedicated to parallel coordination.
 

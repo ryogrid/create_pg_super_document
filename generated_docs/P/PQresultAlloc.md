@@ -8,7 +8,10 @@ PQresultAlloc is an exported routine that allocates local storage within a PGres
 
 ## Definition
 
-
+```c
+void *
+PQresultAlloc(PGresult *res, size_t nBytes)
+```
 ## Detailed Description
 PQresultAlloc is a public API function that provides a safe interface for allocating memory within a PGresult structure. It serves as a wrapper around the internal pqResultAlloc function, forcing all allocations to be maxaligned since the function cannot determine whether the allocated memory will store binary data. The function includes safety checks to prevent allocation on NULL or out-of-memory PGresult objects.
 

@@ -8,7 +8,10 @@ Finishes the iteration on a TidStore by cleaning up the TidStoreIter structure a
 
 ## Definition
 
-
+```c
+void
+TidStoreEndIterate(TidStoreIter *iter)
+```
 ## Detailed Description
 This function completes the TidStore iteration process by properly terminating the underlying tree iterator and freeing all memory allocated for the TidStoreIter structure. It handles both shared and local TidStore variants by calling the appropriate cleanup function. The function releases the output buffer memory and the iterator structure itself.
 

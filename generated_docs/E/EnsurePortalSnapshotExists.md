@@ -8,7 +8,10 @@ EnsurePortalSnapshotExists recreates a portal-level snapshot when none exists, t
 
 ## Definition
 
-
+```c
+void
+EnsurePortalSnapshotExists(void)
+```
 ## Detailed Description
 EnsurePortalSnapshotExists handles the restoration of MVCC snapshots for portal execution when the current snapshot has been destroyed by transaction control operations. This situation commonly occurs in stored procedures and DO blocks that can commit or abort transactions, thereby invalidating all existing snapshots.
 

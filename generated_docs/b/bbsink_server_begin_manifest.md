@@ -8,7 +8,10 @@ Opens a temporary backup manifest file on the server filesystem, preparing to wr
 
 ## Definition
 
-
+```c
+static void
+bbsink_server_begin_manifest(bbsink *sink)
+```
 ## Detailed Description
 This function initiates the backup manifest writing process by creating a temporary manifest file. It follows the same atomic file creation pattern as pg_basebackup, where the manifest is first written to a temporary file (backup_manifest.tmp) and only renamed to its final name (backup_manifest) after successful completion and fsync. This approach ensures that the presence of a properly named manifest file guarantees the backup completed successfully.
 

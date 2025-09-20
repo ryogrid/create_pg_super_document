@@ -8,7 +8,13 @@ A structure used to track exclusive locks owned by original transactions during 
 
 ## Definition
 
-
+```c
+typedef struct RecoveryLockEntry
+{
+	xl_standby_lock key;		/* hash key: xid, dbOid, relOid */
+	struct RecoveryLockEntry *next; /* chain link */
+} RecoveryLockEntry;
+```
 ## Detailed Description
  is a data structure used in PostgreSQL's standby recovery system to keep track of all exclusive locks owned by original transactions. Each entry represents a single exclusive lock and is stored in the  hash table. The structure is designed to efficiently manage lock information during recovery by using both hash table lookup (via the key) and linked list chaining (via the next pointer) to group all locks belonging to the same transaction together.
 

@@ -8,7 +8,9 @@ Returns the raw (detoasted) size of a varlena datum including the VARHDRSZ heade
 
 ## Definition
 
-
+```c
+struct varlena *attr = (struct varlena *) DatumGetPointer(value);
+```
 ## Detailed Description
 This function provides a unified interface for determining the actual size of a varlena datum regardless of how it is currently stored. PostgreSQL uses various storage optimizations for variable-length data including external storage (TOAST), compression, short headers for small values, and expanded in-memory representations. This function abstracts away these implementation details and returns the size that the datum would occupy if it were in its fully materialized, uncompressed form.
 

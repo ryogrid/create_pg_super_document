@@ -8,7 +8,10 @@ Fetches the string value of a parameter from the execution context, specifically
 
 ## Definition
 
-
+```c
+static char *
+fetch_cursor_param_value(ExprContext *econtext, int paramId)
+```
 ## Detailed Description
 This static helper function retrieves parameter values when cursor names are specified as parameters rather than literal strings in CURRENT OF expressions. It performs several critical validations to ensure type safety and parameter validity:
 

@@ -8,7 +8,11 @@ Constructs a unified array of expanded ranges from separate collections of range
 
 ## Definition
 
-
+```c
+static ExpandedRange *
+build_expanded_ranges(FmgrInfo *cmp, Oid colloid, Ranges *ranges,
+					  int *nranges)
+```
 ## Detailed Description
 This function takes a Ranges structure containing both multi-value ranges and single-point values and converts them into a unified array of ExpandedRange structures. This normalization allows the system to process ranges and individual points uniformly, simplifying subsequent operations like merging and compacting. The function allocates memory for an expanded representation where each range and each individual value becomes a separate ExpandedRange element. After creation, the expanded ranges are sorted and deduplicated to ensure consistent ordering and remove any overlapping entries.
 

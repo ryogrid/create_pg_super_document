@@ -8,7 +8,10 @@ Registers a session exit handler that will warn about unterminated backups when 
 
 ## Definition
 
-
+```c
+void
+register_persistent_abort_backup_handler(void)
+```
 ## Detailed Description
 This function sets up a persistent cleanup mechanism for backup operations by registering do_pg_abort_backup as a before_shmem_exit handler. The handler ensures that if a backend process terminates while a backup is running (without proper cleanup via pg_backup_stop), the backup state will be properly cleaned up and a warning will be issued.
 

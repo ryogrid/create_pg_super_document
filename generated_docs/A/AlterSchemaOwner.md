@@ -8,7 +8,10 @@ AlterSchemaOwner implements the ALTER SCHEMA OWNER operation for schemas identif
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterSchemaOwner(const char *name, Oid newOwnerId)
+```
 ## Detailed Description
 AlterSchemaOwner provides the primary interface for changing schema ownership when the schema is identified by name rather than OID. This function handles the catalog lookup, locking, and delegates the actual ownership change to AlterSchemaOwner_internal. It serves as the main entry point for SQL ALTER SCHEMA ... OWNER TO commands, performing necessary validation and setup before invoking the internal ownership change logic.
 

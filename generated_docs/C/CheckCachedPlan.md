@@ -8,7 +8,17 @@ CheckCachedPlan verifies whether a CachedPlanSource's generic plan is still vali
 
 ## Definition
 
-
+```c
+struct a new CachedPlan from a CachedPlanSource.
+ *
+ * qlist should be the result value from a previous RevalidateCachedQuery,
+ * or it can be set to NIL if we need to re-copy the plansource's query_list.
+ *
+ * To build a generic, parameter-value-independent plan, pass NULL for
+ * boundParams.  To build a custom plan, pass the actual parameter values via
+ * boundParams.  For best effect, the PARAM_FLAG_CONST flag should be set on
+ * each parameter value;
+```
 ## Detailed Description
 CheckCachedPlan is a critical function in PostgreSQL's plan cache system that validates whether a cached generic plan can be reused for execution. The function performs several validation checks including role dependency verification, transaction isolation validation, and lock acquisition. It ensures race-condition-free validation by acquiring executor locks when the plan is deemed valid. If validation fails at any point, the function releases the generic plan and returns false, forcing the caller to create a new plan.
 

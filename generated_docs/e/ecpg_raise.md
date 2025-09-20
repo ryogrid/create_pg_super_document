@@ -8,7 +8,9 @@ The primary error handling function in PostgreSQL's ECPG (Embedded SQL in C) lib
 
 ## Definition
 
-
+```c
+struct sqlca_t *sqlca = ECPGget_sqlca();
+```
 ## Detailed Description
 The  function is the central error reporting mechanism for the ECPG library. It populates the SQL Communication Area (sqlca) structure with error information and provides localized error messages for various ECPG error conditions. The function handles a comprehensive set of error codes ranging from data type conversion errors to connection failures, formatting appropriate error messages for each case. After setting the error information, it automatically frees any allocated memory to prevent memory leaks during error conditions.
 

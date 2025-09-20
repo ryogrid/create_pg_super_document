@@ -8,7 +8,9 @@ Retrieves a configuration handle for a given parameter name to optimize repeated
 
 ## Definition
 
-
+```c
+struct config_generic *gen = find_option(name, false, false, 0);
+```
 ## Detailed Description
 This function provides a way to obtain a handle (pointer) to a configuration option's internal structure for performance optimization. The returned handle can be passed to set_config_with_handle() to avoid the overhead of repeated hash table lookups when setting the same configuration parameter multiple times. The function only returns handles for permanent (non-placeholder) GUC parameters to ensure stability.
 

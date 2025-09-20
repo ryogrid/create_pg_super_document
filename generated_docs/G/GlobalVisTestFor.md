@@ -8,7 +8,10 @@ Returns the appropriate global visibility test state for a given relation, used 
 
 ## Definition
 
-
+```c
+GlobalVisState *
+GlobalVisTestFor(Relation rel)
+```
 ## Detailed Description
 This function returns a GlobalVisState pointer that contains visibility horizon information appropriate for the given relation. If rel is NULL, it returns state usable for all relations, which may be more conservative (considering XIDs as not-yet-visible-to-everyone that a relation-specific state would consider visible-to-everyone).
 

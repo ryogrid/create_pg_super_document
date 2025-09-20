@@ -8,7 +8,18 @@ WAL record structure for the first stage of B-tree page deletion, marking an emp
 
 ## Definition
 
+```c
+typedef struct xl_btree_mark_page_halfdead
+{
+	OffsetNumber poffset;		/* deleted tuple id in parent page */
 
+	/* information needed to recreate the leaf page: */
+	BlockNumber leafblk;		/* leaf block ultimately being deleted */
+	BlockNumber leftblk;		/* leaf block's left sibling, if any */
+	BlockNumber rightblk;		/* leaf block's right sibling */
+	BlockNumber topparent;		/* topmost internal page in the subtree */
+} xl_btree_mark_page_halfdead;
+```
 ## Detailed Description
 The xl_btree_mark_page_halfdead structure represents the first phase of B-tree page deletion, which involves marking empty leaf pages as half-dead before actual deletion. This two-phase deletion protocol ensures transaction safety and index consistency during page removal operations. The structure contains information needed to identify the deletion target in the parent page and reconstruct the half-dead leaf page during recovery.
 

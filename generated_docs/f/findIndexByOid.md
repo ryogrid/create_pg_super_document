@@ -8,7 +8,10 @@ Finds and returns the DumpableObject for an index with the specified OID, return
 
 ## Definition
 
-
+```c
+static IndxInfo *
+findIndexByOid(Oid oid)
+```
 ## Detailed Description
 This function serves as a specialized lookup utility for finding IndxInfo objects by their database OID. It follows the same pattern as findTableByOid, constructing a CatalogId structure using the provided OID and RelationRelationId, then using the generic findObjectByCatalogId function to locate the corresponding DumpableObject. The function includes an assertion to verify that any found object is indeed an index (DO_INDEX type) before casting and returning it as an IndxInfo pointer.
 

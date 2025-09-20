@@ -8,7 +8,10 @@ The  function computes the absolute value of a NUMERIC data type, removing the s
 
 ## Definition
 
-
+```c
+Datum
+numeric_abs(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the absolute value operation for PostgreSQL's NUMERIC type. It efficiently computes the absolute value by directly manipulating the sign bits in the packed numeric format, avoiding the overhead of unpacking and repacking the numeric value. The function handles all numeric representations including short form, long form, and special values (NaN and infinity). For negative infinity, it converts it to positive infinity, while NaN remains unchanged.
 

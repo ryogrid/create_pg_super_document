@@ -8,7 +8,10 @@ Converts a stored pg_node_tree expression back into human-readable SQL text form
 
 ## Definition
 
-
+```c
+Datum
+pg_get_expr_ext(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 pg_get_expr_ext is a PostgreSQL system function that takes a pg_node_tree expression (stored as TEXT in system catalogs), a relation OID, and a pretty-printing flag, then returns the expression as human-readable SQL text. This function serves as the extended version of pg_get_expr, providing additional control over output formatting through the pretty-printing parameter. It acts as a thin wrapper around pg_get_expr_worker, which performs the actual expression deparsing work.
 

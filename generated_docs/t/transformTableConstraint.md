@@ -8,7 +8,10 @@ Transforms table-level constraint nodes within CREATE TABLE or ALTER TABLE state
 
 ## Definition
 
-
+```c
+static void
+transformTableConstraint(CreateStmtContext *cxt, Constraint *constraint)
+```
 ## Detailed Description
 transformTableConstraint processes table-level constraints during DDL operations. Unlike column-level constraints handled by transformColumnDefinition, this function deals with constraints that apply to the table as a whole or involve multiple columns. The function performs two main tasks:
 

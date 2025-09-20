@@ -8,7 +8,10 @@ Efficiently adds all members from one bitmapset to another, similar to  but opti
 
 ## Definition
 
-
+```c
+union the shorter input into the result */
+	otherlen = other->nwords;
+```
 ## Detailed Description
 The  function performs a union operation between two bitmapsets, adding all members from set  to set . Unlike , this function is optimized for the common case where the left input can be recycled, avoiding unnecessary memory allocations. The function intelligently chooses to copy the longer set and union the shorter one into it for efficiency.
 

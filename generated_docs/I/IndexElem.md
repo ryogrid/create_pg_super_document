@@ -8,7 +8,20 @@ IndexElem represents an index parameter used in CREATE INDEX statements and ON C
 
 ## Definition
 
-
+```c
+typedef struct IndexElem
+{
+	NodeTag		type;
+	char	   *name;			/* name of attribute to index, or NULL */
+	Node	   *expr;			/* expression to index, or NULL */
+	char	   *indexcolname;	/* name for index column; NULL = default */
+	List	   *collation;		/* name of collation; NIL = default */
+	List	   *opclass;		/* name of desired opclass; NIL = default */
+	List	   *opclassopts;	/* opclass-specific options, or NIL */
+	SortByDir	ordering;		/* ASC/DESC/default */
+	SortByNulls nulls_ordering; /* FIRST/LAST/default */
+} IndexElem;
+```
 ## Detailed Description
 IndexElem is a fundamental structure in PostgreSQL's parser nodes that represents individual elements (columns or expressions) to be indexed. It can represent either a simple column index (where name is specified and expr is NULL) or an expression index (where expr is specified and name is NULL). The structure encapsulates all the necessary information for creating an index on a particular element, including collation rules, operator classes, sorting preferences, and null handling behavior.
 

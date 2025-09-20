@@ -8,7 +8,10 @@ Creates a 1-dimensional array object from Datum elements for built-in PostgreSQL
 
 ## Definition
 
-
+```c
+ArrayType *
+construct_array_builtin(Datum *elems, int nelems, Oid elmtype)
+```
 ## Detailed Description
 The construct_array_builtin function provides a specialized version of construct_array that works specifically with PostgreSQL's built-in data types. It eliminates the need for callers to provide explicit elmlen, elmbyval, and elmalign parameters by looking up these values from hardcoded data based on the element type OID. This function is particularly useful when working with system catalog data where the element types are known built-in types.
 

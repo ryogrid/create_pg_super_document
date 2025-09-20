@@ -8,7 +8,10 @@ Finalizes compression or decompression operations and properly closes an LZ4 str
 
 ## Definition
 
-
+```c
+static bool
+LZ4Stream_close(CompressFileHandle *CFH)
+```
 ## Detailed Description
 LZ4Stream_close handles the proper termination and cleanup of both LZ4 compression and decompression operations. For compression operations, it finalizes the stream by calling LZ4F_compressEnd() to flush any remaining compressed data and write the LZ4 footer, then frees the compression context. For decompression operations, it frees the decompression context and overflow buffer. In both cases, it closes the underlying file handle and deallocates all associated memory.
 

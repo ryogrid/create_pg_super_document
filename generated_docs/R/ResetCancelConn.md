@@ -8,7 +8,10 @@ ResetCancelConn safely clears and frees the global cancel connection object, rem
 
 ## Definition
 
-
+```c
+void
+ResetCancelConn(void)
+```
 ## Detailed Description
 ResetCancelConn is a thread-safe function that cleans up the global cancelConn variable by freeing any existing PGcancel object and setting the pointer to NULL. This function is typically called when a database connection is closed or when cancellation capability is no longer needed.
 

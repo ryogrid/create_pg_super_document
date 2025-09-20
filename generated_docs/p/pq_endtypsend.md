@@ -8,7 +8,10 @@ Finalizes the construction of a bytea result by setting the correct length heade
 
 ## Definition
 
-
+```c
+bytea *
+pq_endtypsend(StringInfo buf)
+```
 ## Detailed Description
 The  function completes the construction of a bytea value that was initiated with . It takes the StringInfo buffer that has been populated with binary data and converts it into a proper bytea structure by setting the PostgreSQL variable-length header (VARHDRSZ) with the correct total length.
 

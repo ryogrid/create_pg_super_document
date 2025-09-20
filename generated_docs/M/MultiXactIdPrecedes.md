@@ -8,7 +8,10 @@ MultiXactIdPrecedes determines which of two MultiXactId values is earlier, accou
 
 ## Definition
 
-
+```c
+bool
+MultiXactIdPrecedes(MultiXactId multi1, MultiXactId multi2)
+```
 ## Detailed Description
 This function implements a precedence comparison for MultiXact IDs using modular arithmetic to handle wrap-around. It computes the difference between the two MultiXact IDs as a signed 32-bit integer and returns true if multi1 precedes multi2. The comparison assumes that MultiXact IDs are close enough in value that the difference fits within the range of a 32-bit signed integer, which is a standard technique for handling wrap-around in cyclic number spaces.
 

@@ -8,7 +8,10 @@ Performs query rewriting on a Query structure produced by parse analysis, transf
 
 ## Definition
 
-
+```c
+List *
+pg_rewrite_query(Query *query)
+```
 ## Detailed Description
 This function is responsible for the query rewriting phase of PostgreSQL's query processing pipeline. It takes a Query structure from the parser and applies PostgreSQL's rule system to expand views, apply rules, and perform other query transformations.
 

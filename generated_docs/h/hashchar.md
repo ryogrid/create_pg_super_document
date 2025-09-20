@@ -8,7 +8,10 @@ hashchar is a hash function for the "char" and boolean data types in PostgreSQL,
 
 ## Definition
 
-
+```c
+Datum
+hashchar(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The hashchar function provides a hash implementation for single character ('char') and boolean data types in PostgreSQL. It serves as a datatype-specific hash function that supports both hash indexes and hash joins. The function extracts a single character argument using the PostgreSQL function call interface and delegates the actual hashing to the generic hash_uint32 function by casting the character to a 32-bit integer.
 

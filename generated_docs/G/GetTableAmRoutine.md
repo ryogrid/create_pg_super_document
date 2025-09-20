@@ -8,7 +8,10 @@ GetTableAmRoutine is a PostgreSQL function that retrieves and validates the Tabl
 
 ## Definition
 
-
+```c
+struct",
+			 amhandler);
+```
 ## Detailed Description
 This function serves as the central mechanism for obtaining and validating table access method routines in PostgreSQL. It calls the specified access method handler function using the provided OID to retrieve a TableAmRoutine struct. The function performs comprehensive validation by asserting that all required callback functions are present, which helps maintain consistency across different access methods and makes it easier to keep access methods up to date when porting to new PostgreSQL versions.
 

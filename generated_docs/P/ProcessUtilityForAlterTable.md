@@ -8,7 +8,10 @@ ProcessUtilityForAlterTable is a specialized recursive entry point for executing
 
 ## Definition
 
-
+```c
+void
+ProcessUtilityForAlterTable(Node *stmt, AlterTableUtilityContext *context)
+```
 ## Detailed Description
 ProcessUtilityForAlterTable serves as a specialized gateway for executing utility commands that are dynamically generated as part of ALTER TABLE processing. When ALTER TABLE operations need to create subsidiary objects like indexes, constraints, or triggers, they use this function rather than the main ProcessUtility entry point to ensure proper integration with PostgreSQL's event trigger system and maintain correct command ordering.
 

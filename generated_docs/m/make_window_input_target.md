@@ -8,7 +8,12 @@ Generates the appropriate PathTarget for initial input to WindowAgg nodes, conta
 
 ## Definition
 
-
+```c
+struct a target containing all the non-flattenable targetlist items,
+	 * and save aside the others for a moment.
+	 */
+	input_target = create_empty_pathtarget();
+```
 ## Detailed Description
 This function computes the target to be computed by the node just below the first WindowAgg when the query has window functions. The resulting tlist must contain all values needed to evaluate the window functions, compute the final target list, and perform any required final sort step. If multiple WindowAggs are needed, each intermediate one adds its window function results onto this base tlist; only the topmost WindowAgg computes the actual desired target list.
 

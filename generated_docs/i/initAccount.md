@@ -8,7 +8,10 @@ The  function generates account initialization data for pgbench's test database 
 
 ## Definition
 
-
+```c
+static void
+initAccount(PQExpBufferData *sql, int64 curr)
+```
 ## Detailed Description
 This function is part of pgbench's database initialization process. It formats account data for the pgbench_accounts table by creating tab-separated values representing an account record. The function generates account data with an account ID (curr + 1), a branch ID (calculated as curr / naccounts + 1), an initial balance of 0, and leaves the filler column as blank-padded empty string (handled by default).
 

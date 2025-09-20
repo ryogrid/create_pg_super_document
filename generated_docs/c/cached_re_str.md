@@ -8,7 +8,17 @@ The cached_re_str structure describes one cached regular expression in PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct cached_re_str
+{
+	MemoryContext cre_context;	/* memory context for this regexp */
+	char	   *cre_pat;		/* original RE (not null terminated!) */
+	int			cre_pat_len;	/* length of original RE, in bytes */
+	int			cre_flags;		/* compile flags: extended,icase etc */
+	Oid			cre_collation;	/* collation to use */
+	regex_t		cre_re;			/* the compiled regular expression */
+} cached_re_str;
+```
 ## Detailed Description
 This structure implements PostgreSQL's regular expression caching mechanism, which stores compiled regular expressions to avoid repeated compilation overhead. Each cached entry contains the original pattern, compilation parameters, and the compiled regex object from Spencer's regex library. The cache uses memory contexts for proper memory management and tracks collation information to ensure cached patterns are reused only when appropriate. This caching significantly improves performance for repeated regex operations with the same patterns.
 

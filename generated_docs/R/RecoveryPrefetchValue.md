@@ -8,7 +8,9 @@ An enumeration type that defines the possible configuration values for the Postg
 
 ## Definition
 
-
+```c
+struct XLogPrefetcher;
+```
 ## Detailed Description
  is an enumeration type that specifies the behavior of the recovery prefetching mechanism in PostgreSQL. This enum is used to control the  GUC (Grand Unified Configuration) parameter, which determines whether PostgreSQL should prefetch data pages that are referenced in the Write-Ahead Log (WAL) during recovery operations.
 

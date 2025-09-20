@@ -8,7 +8,10 @@ A SQL function that returns a set of channel names that the current backend proc
 
 ## Definition
 
-
+```c
+Datum
+pg_listening_channels(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL SQL function  that allows users to query which notification channels the current database session is listening to. It returns a set-returning function (SRF) that iterates through the global  list and returns each channel name as a text datum.
 

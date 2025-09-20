@@ -8,7 +8,11 @@ A function that adds a detail_log error message with pluralization support to th
 
 ## Definition
 
-
+```c
+int
+errdetail_log_plural(const char *fmt_singular, const char *fmt_plural,
+					 unsigned long n,...)
+```
 ## Detailed Description
 This function is part of PostgreSQL's error reporting system and specifically handles the addition of detailed log messages with pluralization support. It operates on the current error context, allowing the system to provide different message formats based on whether a count (n) represents singular or plural quantities. The function uses the EVALUATE_MESSAGE_PLURAL macro to handle the pluralization logic and stores the resulting message in the current error's detail_log field.
 

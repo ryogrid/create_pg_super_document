@@ -8,7 +8,13 @@ This utility function converts an integer encoding ID to its string representati
 
 ## Definition
 
-
+```c
+struct tsearch_config_match
+{
+	const char *tsconfname;
+	const char *langname;
+};
+```
 ## Detailed Description
 The  function is a simple utility that converts an integer encoding identifier to its string representation. It uses  to format the integer as a decimal string into a local buffer, then creates and returns a dynamically allocated copy using . This function is primarily used during database initialization when encoding IDs need to be converted to strings for SQL commands or configuration files.
 

@@ -8,7 +8,14 @@ The xl_hash_init_meta_page struct represents the WAL record data for hash index 
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_init_meta_page
+{
+	double		num_tuples;
+	RegProcedure procid;
+	uint16		ffactor;
+} xl_hash_init_meta_page;
+```
 ## Detailed Description
 This structure contains the necessary information to perform or replay hash index metapage initialization operations during WAL recovery. The metapage initialization occurs when a new hash index is created, setting up the fundamental metadata that controls the hash index's behavior and structure. This includes the hash function to use, the fill factor, and the initial tuple count estimate.
 

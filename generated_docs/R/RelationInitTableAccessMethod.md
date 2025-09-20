@@ -8,7 +8,11 @@ Initializes table access method support for a table-like relation by setting up 
 
 ## Definition
 
-
+```c
+struct
+	 */
+	InitTableAmRoutine(relation);
+```
 ## Detailed Description
 This function initializes the table access method for a given relation by determining and setting the appropriate access method handler. It handles three distinct cases:
 

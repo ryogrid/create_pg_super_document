@@ -8,7 +8,10 @@ Returns the ISO week number of the year for a given date, following the ISO 8601
 
 ## Definition
 
-
+```c
+int
+date2isoweek(int year, int mon, int mday)
+```
 ## Detailed Description
 The  function calculates the ISO week number for a given date according to the ISO 8601 standard. In this system, weeks start on Monday, and the first week of the year is the one that contains the first Thursday of the year. This means that some days in early January may belong to the last week of the previous year, and some days in late December may belong to the first week of the next year.
 

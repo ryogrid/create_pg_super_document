@@ -8,7 +8,9 @@ An internal static function that calculates the shortest distance between a poin
 
 ## Definition
 
-
+```c
+struct(&tmp, &lseg->p[0], lseg_sl(lseg));
+```
 ## Detailed Description
 This function implements the core algorithm for calculating the minimum distance between a point and a polygon. It first checks if the point is inside the polygon using  - if so, it returns 0.0 since the distance is zero. If the point is outside, it calculates the distance from the point to each edge (line segment) of the polygon and returns the minimum distance found. The function iterates through all polygon edges, including the edge connecting the last vertex back to the first vertex to close the polygon.
 

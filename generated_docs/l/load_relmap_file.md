@@ -8,7 +8,10 @@ load_relmap_file loads either the shared or local relation mapping file into mem
 
 ## Definition
 
-
+```c
+static void
+load_relmap_file(bool shared, bool lock_held)
+```
 ## Detailed Description
 load_relmap_file is an internal function that loads relation mapping files from disk into memory. It handles both shared mappings (stored in the global directory) and local mappings (stored in the database-specific directory). These files are critical for PostgreSQL operation as they contain mappings between relation OIDs and their physical file locations for core system catalogs.
 

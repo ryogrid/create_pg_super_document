@@ -8,7 +8,10 @@ Tests whether a regular expression string conforms to the limited subset of rege
 
 ## Definition
 
-
+```c
+bool
+RS_isRegis(const char *str)
+```
 ## Detailed Description
 RS_isRegis validates that a regular expression string uses only the simplified regex syntax supported by PostgreSQL's text search functionality. It implements a finite state machine to parse the input string and ensure it contains only:
 - Alphabetic characters (via t_isalpha)

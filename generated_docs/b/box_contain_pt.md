@@ -8,7 +8,10 @@ This function tests whether a box contains a given point, serving as a PostgreSQ
 
 ## Definition
 
-
+```c
+Datum
+box_contain_pt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operator that determines if a box contains a specified point. It's implemented as a PostgreSQL function that takes two arguments (a box and a point) and returns a boolean result. The function acts as a wrapper around the  function, providing the geometric containment test with the box as the first argument and point as the second.
 

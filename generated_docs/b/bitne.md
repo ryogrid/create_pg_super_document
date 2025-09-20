@@ -8,7 +8,10 @@ Inequality comparison operator for bit string data types that returns true if tw
 
 ## Definition
 
-
+```c
+Datum
+bitne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the SQL inequality operator (<> or !=) for bit string types (BIT and VARBIT). It performs a comprehensive inequality check that considers both the bit content and the exact length of the strings. The function is optimized with a fast path that immediately returns true if the bit lengths differ, avoiding the more expensive bit-by-bit comparison in such cases.
 

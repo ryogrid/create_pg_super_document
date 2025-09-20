@@ -8,7 +8,10 @@ Windows-specific implementation of the fstat() system call that retrieves file s
 
 ## Definition
 
-
+```c
+int
+_pgfstat64(int fileno, struct stat *buf)
+```
 ## Detailed Description
 The  function provides a Windows-compatible implementation of the POSIX fstat() system call. It takes a file descriptor number and fills a stat structure with file information. The function uses Windows API calls to determine the file type and populate the stat structure accordingly.
 

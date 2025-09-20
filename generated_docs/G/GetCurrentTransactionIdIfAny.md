@@ -8,7 +8,10 @@ Returns the transaction ID (XID) of the current sub-transaction if one is assign
 
 ## Definition
 
-
+```c
+TransactionId
+GetCurrentTransactionIdIfAny(void)
+```
 ## Detailed Description
 This function provides a safe way to retrieve the current transaction ID without forcing the assignment of a new XID if one doesn't exist. Unlike functions that guarantee XID assignment, this function returns InvalidTransactionId when:
 - Not currently inside a transaction

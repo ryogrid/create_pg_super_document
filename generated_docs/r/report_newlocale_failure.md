@@ -8,7 +8,10 @@ A static utility function that provides standardized error reporting when newloc
 
 ## Definition
 
-
+```c
+static void
+report_newlocale_failure(const char *localename)
+```
 ## Detailed Description
 This function handles error reporting for failed newlocale() system calls in a platform-independent manner. It addresses inconsistent errno behavior across different operating systems - Windows doesn't provide useful error indication from _create_locale(), and BSD-derived platforms often don't set errno despite POSIX requirements. The function normalizes these behaviors by defaulting to ENOENT when errno is not set, and provides clear, user-friendly error messages that distinguish between "no such locale" and "no such file" scenarios.
 

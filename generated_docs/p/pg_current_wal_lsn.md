@@ -8,7 +8,10 @@ Returns the current WAL write location, indicating how much WAL data has been wr
 
 ## Definition
 
-
+```c
+Datum
+pg_current_wal_lsn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides the current Write-Ahead Log write location, which represents the position up to which WAL data has been written out to the operating system kernel. This function is particularly useful for external processes that need to understand WAL visibility for archiving, replication monitoring, or backup coordination purposes.
 

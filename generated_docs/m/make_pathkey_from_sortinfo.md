@@ -8,7 +8,19 @@ Creates a canonical PathKey from an expression and detailed sorting information,
 
 ## Definition
 
-
+```c
+static PathKey *
+make_pathkey_from_sortinfo(PlannerInfo *root,
+						   Expr *expr,
+						   Oid opfamily,
+						   Oid opcintype,
+						   Oid collation,
+						   bool reverse_sort,
+						   bool nulls_first,
+						   Index sortref,
+						   Relids rel,
+						   bool create_it)
+```
 ## Detailed Description
 This function is a comprehensive PathKey constructor that bridges the gap between raw sorting requirements and canonical PathKey representation. It performs several critical operations:
 

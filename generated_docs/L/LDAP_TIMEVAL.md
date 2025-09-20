@@ -8,7 +8,9 @@ A typedef that aliases the standard POSIX  to  for use in LDAP operations within
 
 ## Definition
 
-
+```c
+typedef struct timeval LDAP_TIMEVAL;
+```
 ## Detailed Description
 LDAP_TIMEVAL is a simple type alias that maps the standard POSIX  to a name that clearly indicates its use in LDAP contexts. This typedef is defined in the libpq connection module () and is specifically used for setting timeout values when performing LDAP service lookups. The typedef exists to provide semantic clarity when dealing with time-related parameters in LDAP operations, making the code more readable and self-documenting.
 

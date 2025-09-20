@@ -8,7 +8,10 @@ Relcache invalidation callback function that cleans up cached tuple descriptors 
 
 ## Definition
 
-
+```c
+static void
+TypeCacheRelCallback(Datum arg, Oid relid)
+```
 ## Detailed Description
 This function serves as an invalidation callback that responds to relcache invalidation events. When a relation is modified (such as through ALTER TABLE commands), this callback ensures that any cached information about composite types based on that relation is properly invalidated and cleaned up.
 

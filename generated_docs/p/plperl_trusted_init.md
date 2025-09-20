@@ -8,7 +8,10 @@ Initializes the current Perl interpreter as a trusted interpreter by setting up 
 
 ## Definition
 
-
+```c
+static void
+plperl_trusted_init(void)
+```
 ## Detailed Description
 This function configures a Perl interpreter to run in trusted mode by implementing several security measures:
 

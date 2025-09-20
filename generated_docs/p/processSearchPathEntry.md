@@ -8,7 +8,10 @@ This function processes a search_path configuration entry from a PostgreSQL arch
 
 ## Definition
 
-
+```c
+static void
+processSearchPathEntry(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 The  function handles search_path configuration entries found in a PostgreSQL archive's table of contents. Unlike other configuration processors that parse and validate their input, this function simply copies the entire definition verbatim from the TOC entry to the archive handle's searchpath field.
 

@@ -8,7 +8,10 @@ Tests whether a toast value with a given ID exists in a toast relation specified
 
 ## Definition
 
-
+```c
+static bool
+toastid_valueid_exists(Oid toastrelid, Oid valueid)
+```
 ## Detailed Description
 This internal convenience function provides a simpler interface for checking toast value existence when only the toast relation's OID is available rather than an open Relation structure. It opens the specified toast relation with AccessShareLock, delegates the actual existence check to toastrel_valueid_exists(), and then properly closes the relation before returning the result.
 

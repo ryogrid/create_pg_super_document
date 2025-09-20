@@ -8,7 +8,10 @@ Sets the consider_param_startup flags for each base-relation entry to optimize f
 
 ## Definition
 
-
+```c
+static void
+set_base_rel_consider_startup(PlannerInfo *root)
+```
 ## Detailed Description
 This function analyzes the join structure to identify base relations that would benefit from fast-start planning for parameterized paths. It specifically targets relations on the right-hand side (RHS) of SEMI or ANTI joins, where fast-start plans are valuable because only one tuple needs to be fetched. The function optimizes planning time by restricting this analysis to single base relations rather than complex joins.
 

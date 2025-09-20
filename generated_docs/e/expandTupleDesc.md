@@ -8,7 +8,13 @@ A specialized subroutine that generates column names and Var nodes for a specifi
 
 ## Definition
 
-
+```c
+static void
+expandTupleDesc(TupleDesc tupdesc, Alias *eref, int count, int offset,
+				int rtindex, int sublevels_up,
+				int location, bool include_dropped,
+				List **colnames, List **colvars)
+```
 ## Detailed Description
 This function serves as the core column expansion engine for PostgreSQL's parser, working directly with tuple descriptors to extract column information. It processes a specified range of attributes from a tuple descriptor and generates corresponding output lists based on the requested parameters.
 

@@ -8,7 +8,9 @@ Tests whether an infinite line intersects with a box by checking intersection wi
 
 ## Definition
 
-
+```c
+struct(&bseg, &p1, &p2);
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operator that determines if an infinite line (LINE) intersects with a rectangular box (BOX). This function implements a systematic approach by constructing line segments for each of the four edges of the box and testing whether the infinite line intersects with any of these edges. The function is part of the intersection testing family (inter_*) and provides a comprehensive intersection test that covers all possible ways an infinite line can intersect with a box boundary. If any edge intersection is found, the function immediately returns true; otherwise, it returns false after testing all edges.
 

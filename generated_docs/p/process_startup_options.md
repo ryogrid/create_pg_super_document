@@ -8,7 +8,10 @@ process_startup_options processes command-line switches and GUC variable setting
 
 ## Definition
 
-
+```c
+static void
+process_startup_options(Port *port, bool am_superuser)
+```
 ## Detailed Description
 process_startup_options is a static function responsible for processing configuration options sent by the client during connection startup. It handles two types of configuration: command-line switches embedded in the startup packet and explicit GUC variable settings.
 

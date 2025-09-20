@@ -8,7 +8,10 @@ Checks that the primary server's system identifier matches the local system, and
 
 ## Definition
 
-
+```c
+static char *
+libpqrcv_identify_system(WalReceiverConn *conn, TimeLineID *primary_tli)
+```
 ## Detailed Description
 This function establishes communication with a PostgreSQL primary server to verify system compatibility and retrieve essential replication information. It executes the  replication command, which returns the system identifier, timeline ID, and other metadata from the primary server. The function validates the response format and extracts the system identifier string and timeline ID, which are critical for ensuring that the standby server is connecting to the correct primary and can properly initialize WAL streaming replication.
 

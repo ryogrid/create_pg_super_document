@@ -8,7 +8,24 @@ The  structure serves as the base data structure for all database objects that c
 
 ## Definition
 
-
+```c
+typedef struct _dumpableObject
+{
+	DumpableObjectType objType;
+	CatalogId	catId;			/* zero if not a cataloged object */
+	DumpId		dumpId;			/* assigned by AssignDumpId() */
+	char	   *name;			/* object name (should never be NULL) */
+	struct _namespaceInfo *namespace;	/* containing namespace, or NULL */
+	DumpComponents dump;		/* bitmask of components requested to dump */
+	DumpComponents dump_contains;	/* as above, but for contained objects */
+	DumpComponents components;	/* bitmask of components available to dump */
+	bool		ext_member;		/* true if object is member of extension */
+	bool		depends_on_ext; /* true if object depends on an extension */
+	DumpId	   *dependencies;	/* dumpIds of objects this one depends on */
+	int			nDeps;			/* number of valid dependencies */
+	int			allocDeps;		/* allocated size of dependencies[] */
+} DumpableObject;
+```
 ## Detailed Description
 The  structure is the fundamental base structure used by pg_dump to represent any database object that can be extracted from a PostgreSQL database. It contains essential metadata for object identification, dependency management, and selective dumping capabilities. Every specific object type (tables, functions, types, etc.) in pg_dump extends this base structure, making it the cornerstone of the dump architecture.
 

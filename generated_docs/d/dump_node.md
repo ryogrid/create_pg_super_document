@@ -8,7 +8,10 @@ A debugging utility function that dumps the structure and contents of a FormatNo
 
 ## Definition
 
-
+```c
+static void
+dump_node(FormatNode *node, int max)
+```
 ## Detailed Description
 The  function is a static debugging helper used within PostgreSQL's formatting system (src/backend/utils/adt/formatting.c). It iterates through an array of FormatNode structures and outputs detailed information about each node to the debug log using . This function is primarily used for troubleshooting and understanding the internal structure of format parsing trees during development and debugging of the to_char/to_date functions.
 

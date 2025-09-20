@@ -8,7 +8,10 @@ Generates execution statistics report for triggers associated with a single rela
 
 ## Definition
 
-
+```c
+static void
+report_triggers(ResultRelInfo *rInfo, bool show_relname, ExplainState *es)
+```
 ## Detailed Description
 The  function is responsible for reporting execution statistics for all triggers associated with a specific relation during query execution. It iterates through all triggers defined on the relation and outputs performance metrics including execution time and number of calls. The function only reports triggers that were actually invoked during the query execution, ignoring those that were never triggered as they are likely not relevant to the current query type.
 

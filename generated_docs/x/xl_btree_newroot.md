@@ -8,7 +8,13 @@ WAL record structure for creating a new root page in a B-tree, either establishi
 
 ## Definition
 
-
+```c
+typedef struct xl_btree_newroot
+{
+	BlockNumber rootblk;		/* location of new root (redundant with blk 0) */
+	uint32		level;			/* its tree level */
+} xl_btree_newroot;
+```
 ## Detailed Description
 The xl_btree_newroot structure represents the creation of a new root page in a B-tree index. This operation occurs in two scenarios: creating the very first root page for an empty index, or creating a new root level when the existing root page is split. The structure is minimal because most information is embedded in the backup blocks and can be derived from the level field.
 

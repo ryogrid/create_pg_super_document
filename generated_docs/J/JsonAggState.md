@@ -8,7 +8,17 @@ JsonAggState is a state structure used during JSON aggregation operations in Pos
 
 ## Definition
 
-
+```c
+typedef struct JsonAggState
+{
+	StringInfo	str;
+	JsonTypeCategory key_category;
+	Oid			key_output_func;
+	JsonTypeCategory val_category;
+	Oid			val_output_func;
+	JsonUniqueBuilderState unique_check;
+} JsonAggState;
+```
 ## Detailed Description
 JsonAggState serves as the accumulator state for PostgreSQL's JSON aggregation functions. It maintains a string buffer that builds up the JSON output incrementally as the aggregation progresses. The structure stores type categorization information and output function OIDs for both keys and values, enabling proper conversion of different PostgreSQL data types to their JSON representations. Additionally, it includes a unique checking mechanism to handle duplicate key detection in json_object_agg operations.
 

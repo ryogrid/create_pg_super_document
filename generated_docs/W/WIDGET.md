@@ -8,7 +8,18 @@ WIDGET is a custom PostgreSQL data type used for regression testing, representin
 
 ## Definition
 
+```c
+double		radius;
+} WIDGET;
 
+PG_FUNCTION_INFO_V1(widget_in);
+PG_FUNCTION_INFO_V1(widget_out);
+
+#define NARGS	3
+
+Datum
+widget_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 WIDGET is a test data type defined in the PostgreSQL regression test suite. It was originally called "circle" but was renamed to avoid collision with the built-in circle type (as noted in the comment by Tom Lane from 1997). The structure represents a circular geometric object with a center point and radius, providing a simple custom type for testing PostgreSQL's type system extensibility.
 

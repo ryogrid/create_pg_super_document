@@ -8,7 +8,10 @@ Pins a visibility map page in memory to prepare for setting bits, handling I/O o
 
 ## Definition
 
-
+```c
+void
+visibilitymap_pin(Relation rel, BlockNumber heapBlk, Buffer *vmbuf)
+```
 ## Detailed Description
 The visibilitymap_pin function implements the first phase of a two-phase operation for setting visibility map bits. It pins the visibility map page that contains the bit corresponding to a given heap block number. This separation allows I/O operations to occur without holding locks on heap pages, improving concurrency.
 

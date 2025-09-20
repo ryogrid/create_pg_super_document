@@ -8,7 +8,10 @@ Generates a random 32-bit signed integer uniformly distributed over the positive
 
 ## Definition
 
-
+```c
+int32
+pg_prng_int32p(pg_prng_state *state)
+```
 ## Detailed Description
 This function selects a random int32 uniformly from the range [0, PG_INT32_MAX], providing only non-negative values. The key difference from pg_prng_int32 is the use of a right shift by 33 bits (v >> 33) instead of 32 bits, which effectively removes the sign bit and ensures the result is always non-negative. This gives a uniform distribution over 31 bits of positive values.
 

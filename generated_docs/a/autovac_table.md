@@ -8,7 +8,20 @@ The  structure represents a table that has been determined to need vacuuming or 
 
 ## Definition
 
-
+```c
+typedef struct autovac_table
+{
+	Oid			at_relid;
+	VacuumParams at_params;
+	double		at_storage_param_vac_cost_delay;
+	int			at_storage_param_vac_cost_limit;
+	bool		at_dobalance;
+	bool		at_sharedrel;
+	char	   *at_relname;
+	char	   *at_nspname;
+	char	   *at_datname;
+} autovac_table;
+```
 ## Detailed Description
 The  structure serves as a comprehensive descriptor for tables that have passed the autovacuum recheck phase and are ready for actual vacuum or analyze operations. Unlike the earlier  structure used for initial table discovery, this structure contains fully resolved vacuum parameters, cost settings, and complete naming information needed to execute the autovacuum operation. It represents the final form of table information after all configuration options, thresholds, and policies have been evaluated and applied.
 

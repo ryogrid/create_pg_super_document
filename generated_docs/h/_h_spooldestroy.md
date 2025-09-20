@@ -8,7 +8,10 @@ Cleans up and deallocates a hash index spool structure and all its associated su
 
 ## Definition
 
-
+```c
+void
+_h_spooldestroy(HSpool *hspool)
+```
 ## Detailed Description
 This function performs cleanup operations for an HSpool structure that was previously created by . It properly terminates the tuplesort state by calling  to release any resources held by the sorting subsystem, then deallocates the HSpool structure itself using . This ensures proper resource management during hash index construction cleanup.
 

@@ -8,7 +8,10 @@ Determines whether the first range is strictly positioned after (to the right of
 
 ## Definition
 
-
+```c
+Datum
+range_after(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL range ">>" (strictly after) operator. It checks if the first range is completely positioned after the second range with no overlap or adjacency. The function is a PostgreSQL SQL function wrapper that extracts range arguments and delegates the actual comparison logic to .
 

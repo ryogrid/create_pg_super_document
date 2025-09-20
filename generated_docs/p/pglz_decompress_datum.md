@@ -8,7 +8,10 @@ Decompresses a varlena data structure that was previously compressed using the P
 
 ## Definition
 
-
+```c
+struct varlena *
+pglz_decompress_datum(const struct varlena *value)
+```
 ## Detailed Description
 This function performs PGLZ decompression for PostgreSQL's TOAST system. It takes a compressed varlena structure and decompresses it back to its original form. The function first allocates memory for the decompressed data based on the stored original size, then calls the core PGLZ decompression routine. If decompression fails (indicating corrupted data), it raises an error. Upon successful decompression, it properly sets the varlena size header and returns the decompressed data.
 

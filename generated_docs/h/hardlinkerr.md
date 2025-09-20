@@ -8,7 +8,10 @@ Creates a hard link from target to linkname, following any symbolic links in the
 
 ## Definition
 
-
+```c
+static int
+hardlinkerr(char const *target, char const *linkname)
+```
 ## Detailed Description
 The  function creates a hard link using the POSIX  system call with the  flag. This means that if the target is a symbolic link, the hard link will be created to the file that the symbolic link points to, rather than to the symbolic link itself. The function provides a simple wrapper around  that converts the return value to a more convenient error reporting format.
 

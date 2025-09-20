@@ -8,7 +8,10 @@ Returns the current WAL insert location, which represents the position where new
 
 ## Definition
 
-
+```c
+Datum
+pg_current_wal_insert_lsn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function reports the current WAL (Write-Ahead Log) insert location in the same format as functions like . The insert location indicates where new WAL records are currently being written. This function is primarily intended for debugging purposes and provides insight into the current state of WAL record insertion.
 

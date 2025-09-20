@@ -8,7 +8,11 @@ Internal implementation function that creates and initializes an ExprContext nod
 
 ## Definition
 
-
+```c
+static ExprContext *
+CreateExprContextInternal(EState *estate, Size minContextSize,
+						  Size initBlockSize, Size maxBlockSize)
+```
 ## Detailed Description
 CreateExprContextInternal is a static helper function that provides the core implementation for creating ExprContext nodes. It serves as the common backend for both CreateExprContext() and CreateWorkExprContext(), allowing fine-grained control over the memory allocation parameters of the per-tuple memory context.
 

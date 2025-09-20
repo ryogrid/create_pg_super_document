@@ -8,7 +8,10 @@ The dumpProcLang function generates SQL statements to recreate a user-defined pr
 
 ## Definition
 
-
+```c
+static void
+dumpProcLang(Archive *fout, const ProcLangInfo *plang)
+```
 ## Detailed Description
 This function processes a procedural language definition and generates the appropriate CREATE PROCEDURAL LANGUAGE statement. It handles two different scenarios: when the language's support functions are available for dumping (creating a complete definition with parameters), and when they are not (creating a parameterless definition that relies on extension templates).
 

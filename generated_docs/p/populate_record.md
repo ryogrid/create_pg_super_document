@@ -8,7 +8,10 @@ A static function that converts JSON/JSONB values into PostgreSQL record (compos
 
 ## Definition
 
-
+```c
+structure */
+		tuple.t_len = HeapTupleHeaderGetDatumLength(defaultval);
+```
 ## Detailed Description
 This function takes a JSON object and populates a PostgreSQL record tuple based on the structure defined by the tuple descriptor. It handles field mapping, type conversion, and maintains metadata caching for performance optimization. The function supports default values and proper handling of dropped columns and domain types.
 

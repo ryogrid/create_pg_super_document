@@ -8,7 +8,10 @@ A PostgreSQL SQL function that retrieves recovery-related information from the c
 
 ## Definition
 
-
+```c
+Datum
+pg_control_recovery(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function extracts and returns recovery-specific information stored in PostgreSQL's control file. This function is essential for monitoring backup and recovery operations, providing visibility into minimum recovery points, backup boundaries, and recovery requirements. It safely reads the control file under lock protection and returns recovery state information that is critical for understanding the database's backup status and recovery capabilities.
 

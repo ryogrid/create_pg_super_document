@@ -8,7 +8,10 @@ Mathematical operation function for the  data type that performs addition of two
 
 ## Definition
 
-
+```c
+Datum
+complex_add(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements complex number addition by taking two  structures as input and returning their sum. It performs component-wise addition where the real parts are added together and the imaginary parts are added together separately. This function demonstrates how to implement mathematical operations for custom PostgreSQL data types and can be used in SQL expressions and queries.
 

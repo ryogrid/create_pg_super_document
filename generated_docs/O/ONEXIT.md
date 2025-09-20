@@ -8,7 +8,13 @@ ONEXIT is a structure that represents a single callback entry in PostgreSQL's pr
 
 ## Definition
 
-
+```c
+struct ONEXIT
+{
+	pg_on_exit_callback function;
+	Datum		arg;
+};
+```
 ## Detailed Description
 The ONEXIT struct is a fundamental component of PostgreSQL's Inter-Process Communication (IPC) exit handling mechanism. It serves as a container for callback functions that need to be executed during various stages of process termination. This structure enables PostgreSQL to maintain ordered lists of cleanup functions that are called at specific points during the shutdown sequence.
 

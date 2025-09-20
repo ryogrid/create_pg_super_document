@@ -8,7 +8,10 @@ GetDecimalFromHex converts a single hexadecimal character ('0'-'9', 'a'-'f', 'A'
 
 ## Definition
 
-
+```c
+static int
+GetDecimalFromHex(char hex)
+```
 ## Detailed Description
 This simple utility function performs hexadecimal to decimal character conversion for use in parsing escape sequences during COPY FROM text processing. It handles both numeric digits ('0'-'9') and alphabetic hex digits ('a'-'f', 'A'-'F'), converting them to their decimal equivalents in the range 0-15. The function uses a case-insensitive approach by converting alphabetic characters to lowercase before performing the conversion calculation.
 

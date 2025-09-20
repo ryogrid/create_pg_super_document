@@ -8,7 +8,14 @@ Recursively flattens nested OR clauses into a single flat list of OR arguments, 
 
 ## Definition
 
-
+```c
+structure is searched.
+ *
+ * While at it, we remove any NULL constants within the top-level AND/OR
+ * structure, eg in a WHERE clause, "x OR NULL::boolean" is reduced to "x".
+ * In general that would change the result, so eval_const_expressions can't
+ * do it;
+```
 ## Detailed Description
 The  function takes the argument list of an OR clause and recursively flattens any nested OR clauses within it. This transformation converts deeply nested OR structures like  into a flat list  that can be processed more efficiently.
 

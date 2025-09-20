@@ -8,7 +8,11 @@ Determines the appropriate write and flush LSN positions to report back to the w
 
 ## Definition
 
-
+```c
+static void
+get_flush_position(XLogRecPtr *write, XLogRecPtr *flush,
+				   bool *have_pending_txes)
+```
 ## Detailed Description
 This function implements a critical component of PostgreSQL's logical replication feedback mechanism. It solves the fundamental challenge that the subscriber cannot simply report the last LSN received from the publisher because local transactions might not yet be flushed to disk locally.
 

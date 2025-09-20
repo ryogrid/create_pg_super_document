@@ -8,7 +8,14 @@ The  function processes one row of the high colormap during regular expression c
 
 ## Definition
 
-
+```c
+static void
+subcoloronerow(struct vars *v,
+			   int rownum,
+			   struct state *lp,
+			   struct state *rp,
+			   color *lastsubcolor)
+```
 ## Detailed Description
 This function is a helper for  that handles the processing of a single row in the high colormap. It iterates through each entry in the specified row, applies the  function to determine the appropriate subcolor, and creates NFA arcs when the subcolor changes. This optimization avoids creating redundant arcs for consecutive entries that map to the same subcolor.
 

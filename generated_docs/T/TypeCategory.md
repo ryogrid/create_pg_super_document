@@ -8,7 +8,10 @@ Assigns a type category to the specified type OID, used for type resolution and 
 
 ## Definition
 
-
+```c
+TYPCATEGORY
+TypeCategory(Oid type)
+```
 ## Detailed Description
 This function retrieves the type category for a given type OID. Type categories are used throughout PostgreSQL's type system for making decisions about implicit type coercion, operator resolution, and function overloading. Each data type in PostgreSQL belongs to exactly one category, which groups related types together for coercion purposes.
 

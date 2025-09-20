@@ -8,7 +8,11 @@ Generates random integers following an exponential distribution within a specifi
 
 ## Definition
 
-
+```c
+static int64
+getExponentialRand(pg_prng_state *state, int64 min, int64 max,
+				   double parameter)
+```
 ## Detailed Description
 The  function implements an exponential probability distribution for generating random integers within the range [min, max]. The exponential distribution is characterized by a parameter that controls the rate of decay - the probability density for the cut-off value at max is exp(-parameter). This type of distribution is commonly used in performance testing to simulate real-world scenarios where certain values are more likely than others.
 

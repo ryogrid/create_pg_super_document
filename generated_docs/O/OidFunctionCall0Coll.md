@@ -8,7 +8,10 @@ A convenience function that calls a PostgreSQL function identified by its OID wi
 
 ## Definition
 
-
+```c
+Datum
+OidFunctionCall0Coll(Oid functionId, Oid collation)
+```
 ## Detailed Description
 OidFunctionCall0Coll is a wrapper function that simplifies calling PostgreSQL functions when you have the function's OID but don't want to manually manage the FmgrInfo structure. It internally calls fmgr_info() to initialize the function manager information, then immediately invokes FunctionCall0Coll() to execute the function with the specified collation. This function is part of a family of OidFunctionCall*Coll functions that handle different numbers of arguments (0-4) while supporting collation-aware operations.
 

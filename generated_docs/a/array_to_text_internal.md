@@ -8,7 +8,11 @@ Core internal function that implements the array-to-text conversion logic shared
 
 ## Definition
 
-
+```c
+static text *
+array_to_text_internal(FunctionCallInfo fcinfo, ArrayType *v,
+					   const char *fldsep, const char *null_string)
+```
 ## Detailed Description
 This function performs the actual work of converting a PostgreSQL array to a concatenated text string. It handles multi-dimensional arrays by flattening them and processes each element through the appropriate output function for the element type. The function implements sophisticated caching of type metadata to avoid repeated lookups when processing multiple arrays of the same element type. It correctly handles NULL elements based on whether a null replacement string is provided, and manages proper memory alignment when traversing variable-length array elements. The function uses PostgreSQL's StringInfo buffer for efficient string concatenation and properly handles the null bitmap for sparse arrays.
 

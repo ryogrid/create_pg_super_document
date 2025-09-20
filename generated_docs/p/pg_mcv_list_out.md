@@ -8,7 +8,10 @@ Output routine for the pg_mcv_list data type that converts MCV list data to text
 
 ## Definition
 
-
+```c
+Datum
+pg_mcv_list_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the output routine for PostgreSQL's pg_mcv_list data type, handling the conversion from internal binary representation to text format for display purposes. Currently, it provides a simple implementation that delegates to the  function, which produces a hexadecimal text representation of the underlying binary data.
 

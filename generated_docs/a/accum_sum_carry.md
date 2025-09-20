@@ -8,7 +8,10 @@ Propagates carries in both positive and negative digit arrays of a NumericSumAcc
 
 ## Definition
 
-
+```c
+static void
+accum_sum_carry(NumericSumAccum *accum)
+```
 ## Detailed Description
 This function performs carry propagation on the accumulated digits in both the positive and negative digit arrays within a NumericSumAccum structure. When digits exceed the base value (NBASE), the excess is carried to the next higher-order digit position. The function processes digits from least significant to most significant, ensuring that each digit remains within the valid range [0, NBASE-1]. It also tracks whether the reserved carry space has been used, which is important for managing buffer overflow in subsequent operations.
 

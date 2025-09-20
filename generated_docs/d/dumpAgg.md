@@ -8,7 +8,10 @@ Writes out a single aggregate function definition, generating CREATE AGGREGATE S
 
 ## Definition
 
-
+```c
+static void
+dumpAgg(Archive *fout, const AggInfo *agginfo)
+```
 ## Detailed Description
 The  function generates SQL commands to recreate aggregate functions during database dumps. It handles the complexity of PostgreSQL's aggregate definition syntax by constructing comprehensive CREATE AGGREGATE statements with all supported options:
 

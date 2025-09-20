@@ -8,7 +8,9 @@ Validates a PostgreSQL cluster data directory by verifying the presence of essen
 
 ## Definition
 
-
+```c
+struct stat statBuf;
+```
 ## Detailed Description
 This function performs comprehensive validation of a PostgreSQL cluster's data directory structure. It ensures that all required subdirectories exist and are accessible, which is critical for the pg_upgrade process to function correctly. The function also retrieves the cluster's major version and handles version-specific directory names that changed between PostgreSQL versions.
 

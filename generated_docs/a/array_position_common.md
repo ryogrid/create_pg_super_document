@@ -8,7 +8,10 @@ Common implementation function that searches for an element within a one-dimensi
 
 ## Definition
 
-
+```c
+static Datum
+array_position_common(FunctionCallInfo fcinfo)
+```
 ## Detailed Description
  is the core implementation for both  and  PostgreSQL functions. It searches for a specified element within a one-dimensional array and returns the 1-based index of the first occurrence found at or after a specified starting position. The function handles both null and non-null search elements, uses cached type information for efficiency across multiple calls, and employs PostgreSQL's array iteration infrastructure.
 

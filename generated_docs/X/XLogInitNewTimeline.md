@@ -8,7 +8,10 @@ Initializes the first WAL segment on a new timeline after recovery, handling the
 
 ## Definition
 
-
+```c
+static void
+XLogInitNewTimeline(TimeLineID endTLI, XLogRecPtr endOfLog, TimeLineID newTLI)
+```
 ## Detailed Description
 XLogInitNewTimeline manages the critical transition from one timeline to another during PostgreSQL recovery operations. This function is called when the system needs to create a new timeline, typically after completing archive recovery and before normal operations resume.
 

@@ -8,7 +8,11 @@ Calculates and sets the  field for all OpExpr nodes in an expression tree by der
 
 ## Definition
 
-
+```c
+struct equivalence */
+	else if (IsA(node, NullIfExpr))
+		set_opfuncid((OpExpr *) node);
+```
 ## Detailed Description
 The  function is responsible for populating the  field in operator expression nodes throughout an expression tree. This field stores the OID of the actual function that implements the operator, which is derived from the operator's OID ( field).
 

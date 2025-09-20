@@ -8,7 +8,14 @@ SlruWriteAllData is a structure used to track open file descriptors and their co
 
 ## Definition
 
-
+```c
+typedef struct SlruWriteAllData
+{
+	int			num_files;		/* # files actually open */
+	int			fd[MAX_WRITEALL_BUFFERS];	/* their FD's */
+	int64		segno[MAX_WRITEALL_BUFFERS];	/* their log seg#s */
+} SlruWriteAllData;
+```
 ## Detailed Description
 This structure is designed to optimize I/O operations during SimpleLruWriteAll() by consolidating write requests and keeping files open until the entire write operation is complete. Instead of opening and closing files repeatedly, this structure maintains a cache of up to MAX_WRITEALL_BUFFERS (16) open file descriptors along with their corresponding segment numbers. This approach reduces system call overhead and improves performance when writing multiple pages that may belong to the same physical files.
 

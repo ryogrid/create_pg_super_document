@@ -8,7 +8,12 @@ ConditionalStackData is a struct that serves as the main container for managing 
 
 ## Definition
 
-
+```c
+typedef struct ConditionalStackData
+{
+	IfStackElem *head;
+}			ConditionalStackData;
+```
 ## Detailed Description
 ConditionalStackData acts as the primary data structure for managing nested conditional blocks (\if...\endif) in PostgreSQL command-line tools like psql and pgbench. It maintains a simple linked list stack where each node represents a level of conditional nesting. The structure provides a clean interface for conditional stack operations while encapsulating the underlying IfStackElem linked list implementation.
 

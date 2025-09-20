@@ -8,7 +8,38 @@ BTLeader is a structure that contains status and convenience pointers for the le
 
 ## Definition
 
+```c
+typedef struct BTLeader
+{
+	/* parallel context itself */
+	ParallelContext *pcxt;
 
+	/*
+	 * nparticipanttuplesorts is the exact number of worker processes
+	 * successfully launched, plus one leader process if it participates as a
+	 * worker (only DISABLE_LEADER_PARTICIPATION builds avoid leader
+	 * participating as a worker).
+	 */
+	int			nparticipanttuplesorts;
+
+	/*
+	 * Leader process convenience pointers to shared state (leader avoids TOC
+	 * lookups).
+	 *
+	 * btshared is the shared state for entire build.  sharedsort is the
+	 * shared, tuplesort-managed state passed to each process tuplesort.
+	 * sharedsort2 is the corresponding btspool2 shared state, used only when
+	 * building unique indexes.  snapshot is the snapshot used by the scan iff
+	 * an MVCC snapshot is required.
+	 */
+	BTShared   *btshared;
+	Sharedsort *sharedsort;
+	Sharedsort *sharedsort2;
+	Snapshot	snapshot;
+	WalUsage   *walusage;
+	BufferUsage *bufferusage;
+} BTLeader;
+```
 ## Detailed Description
 BTLeader serves as the coordinator structure for the leader process in parallel B-tree index construction. It maintains references to the parallel execution context and provides convenient access to shared state that would otherwise require TOC (Table of Contents) lookups. The leader process uses this structure to manage worker coordination and track resource usage during the parallel build process.
 

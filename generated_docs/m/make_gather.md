@@ -8,7 +8,15 @@ Creates a Gather plan node that coordinates parallel execution by collecting res
 
 ## Definition
 
-
+```c
+static Gather *
+make_gather(List *qptlist,
+			List *qpqual,
+			int nworkers,
+			int rescan_param,
+			bool single_copy,
+			Plan *subplan)
+```
 ## Detailed Description
 The  function constructs a Gather plan node, which is a crucial component in PostgreSQL's parallel query execution framework. This node acts as a coordinator that spawns worker processes to execute a subplan in parallel and then gathers the results from all workers. The Gather node sits at the boundary between parallel and non-parallel execution, collecting tuples produced by parallel workers and presenting them as a single result stream to the upper levels of the plan tree.
 

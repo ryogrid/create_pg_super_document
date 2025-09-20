@@ -8,7 +8,10 @@ A cached lookup function that decodes special date/time keywords and tokens usin
 
 ## Definition
 
-
+```c
+static int
+DecodeSpecial(int field, char *lowtoken, int *val)
+```
 ## Detailed Description
 DecodeSpecial recognizes special keywords listed in the datetktbl (date token table) through an optimized lookup mechanism. The function was historically used for both special date keywords and timezone abbreviations, but timezone abbreviation recognition has been moved to DecodeTimezoneAbbrev(). 
 

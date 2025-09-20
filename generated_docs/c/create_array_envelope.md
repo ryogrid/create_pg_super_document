@@ -8,7 +8,11 @@ A static utility function that creates the structural envelope (header) of a Pos
 
 ## Definition
 
-
+```c
+static ArrayType *
+create_array_envelope(int ndims, int *dimv, int *lbsv, int nbytes,
+					  Oid elmtype, int dataoffset)
+```
 ## Detailed Description
 This internal utility function constructs the basic structure of a PostgreSQL ArrayType without initializing the actual element data. It allocates memory for the complete array structure and sets up all the metadata fields including dimensions, lower bounds, element type, and data offset information.
 

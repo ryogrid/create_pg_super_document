@@ -8,7 +8,9 @@ Internal function that computes the intersection point of two lines using mathem
 
 ## Definition
 
-
+```c
+struct(result, x, y);
+```
 ## Detailed Description
 This is the core implementation function for line intersection calculations in PostgreSQL's geometric operations. It uses the mathematical formulas for line intersection based on the standard line equation Ax + By + C = 0. The function handles various edge cases including parallel lines, identical lines, and lines with NaN constants. It returns true if the lines intersect and false if they are parallel. When lines intersect, it calculates the intersection coordinates and stores them in the result Point if provided.
 

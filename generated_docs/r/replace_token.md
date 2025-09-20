@@ -8,7 +8,10 @@ Modifies an array of strings by replacing the first occurrence of a specified to
 
 ## Definition
 
-
+```c
+static char **
+replace_token(char **lines, const char *token, const char *replacement)
+```
 ## Detailed Description
 This function performs string replacement operations on an array of malloc'd strings, similar to basic sed functionality but without requiring regular expressions. It searches for the first occurrence of a token string in each line of the array and replaces it with the specified replacement string. The function handles memory management by freeing old strings and allocating new ones when replacements change the string length. This is primarily used during PostgreSQL database initialization to customize configuration templates.
 

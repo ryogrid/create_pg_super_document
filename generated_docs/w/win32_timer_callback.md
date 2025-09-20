@@ -8,7 +8,10 @@ A Windows-specific timer callback function used in pgbench to signal when the sp
 
 ## Definition
 
-
+```c
+static VOID CALLBACK
+win32_timer_callback(PVOID lpParameter, BOOLEAN TimerOrWaitFired)
+```
 ## Detailed Description
 This function serves as a Windows timer callback that is executed by the Windows Timer Queue API when a timer expires. It is the Windows equivalent of the Unix signal handler  used for implementing pgbench's duration-based testing functionality. When called, it sets the global  flag to , which causes the benchmark execution loop to terminate gracefully.
 

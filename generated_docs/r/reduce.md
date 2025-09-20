@@ -8,7 +8,10 @@ The reduce function implements the reduction phase of the parsing algorithm in P
 
 ## Definition
 
-
+```c
+static void
+reduce(void)
+```
 ## Detailed Description
 The reduce function is a core component of the pg_bsd_indent tool's parsing algorithm that implements a bottom-up parser reduction phase. It repeatedly applies grammar reduction rules to the parse stack until no more reductions are possible. The function operates on a stack-based parsing system where different C language constructs are recognized and reduced according to specific patterns.
 

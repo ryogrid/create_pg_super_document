@@ -8,7 +8,16 @@ BTWriteState is the overall status record that manages the index writing phase d
 
 ## Definition
 
-
+```c
+typedef struct BTWriteState
+{
+	Relation	heap;
+	Relation	index;
+	BulkWriteState *bulkstate;
+	BTScanInsert inskey;		/* generic insertion scankey */
+	BlockNumber btws_pages_alloced; /* # pages allocated */
+} BTWriteState;
+```
 ## Detailed Description
 BTWriteState serves as the central coordination structure for the index writing phase of B-tree construction. It manages the relationship between the source heap relation and target index relation, coordinates bulk write operations through the bulk write state, and tracks resource allocation during the build process.
 

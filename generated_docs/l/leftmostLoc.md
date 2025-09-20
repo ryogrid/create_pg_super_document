@@ -8,7 +8,10 @@ A utility function that determines the leftmost (minimum) parse location between
 
 ## Definition
 
-
+```c
+static int
+leftmostLoc(int loc1, int loc2)
+```
 ## Detailed Description
 The  function is a simple but essential helper function used by  to determine the leftmost position among multiple parse location candidates. It implements logic to handle unknown locations gracefully while finding the true start position of complex expressions.
 

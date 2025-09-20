@@ -8,7 +8,10 @@ pqInternalNotice is a utility function that produces internally-generated notice
 
 ## Definition
 
-
+```c
+void
+pqInternalNotice(const PGNoticeHooks *hooks, const char *fmt,...)
+```
 ## Detailed Description
 This function creates and sends notice messages that are generated internally by libpq, as opposed to notices received from the PostgreSQL server. It handles the complete process of message formatting, PGresult creation, field setup, and delivery to the registered notice receiver. The function automatically applies internationalization through libpq_gettext() and ensures proper message structure according to PostgreSQL's notice format.
 

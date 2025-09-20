@@ -8,7 +8,10 @@ Implements the NOT LIKE operator for PostgreSQL's Name data type, returning true
 
 ## Definition
 
-
+```c
+Datum
+namenlike(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides the implementation for PostgreSQL's NOT LIKE operator when applied to Name data types. It takes a Name value and a text pattern as arguments, then uses the generic pattern matching functionality to determine if the name does NOT match the pattern. This is the inverse of the LIKE operation - it returns true when the pattern does not match the name, and false when it does match.
 

@@ -8,7 +8,17 @@ CreateQueryDesc constructs and initializes a QueryDesc structure that encapsulat
 
 ## Definition
 
-
+```c
+QueryDesc *
+CreateQueryDesc(PlannedStmt *plannedstmt,
+				const char *sourceText,
+				Snapshot snapshot,
+				Snapshot crosscheck_snapshot,
+				DestReceiver *dest,
+				ParamListInfo params,
+				QueryEnvironment *queryEnv,
+				int instrument_options)
+```
 ## Detailed Description
 CreateQueryDesc allocates and populates a QueryDesc structure with all the essential components required for query execution. It serves as a constructor function that packages the planned statement, execution context, parameters, and output destination into a single descriptor object. The function registers the provided snapshots to ensure proper transaction isolation and sets up initial state for query execution. Fields related to execution state (tupDesc, estate, planstate, totaltime) are deliberately left null until ExecutorStart is called.
 

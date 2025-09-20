@@ -8,7 +8,10 @@ Reports a parse-analysis-time cursor position for error reporting by converting 
 
 ## Definition
 
-
+```c
+int
+parser_errposition(ParseState *pstate, int location)
+```
 ## Detailed Description
 The  function converts raw byte offsets from the parser into 1-based character indexes suitable for error reporting to clients. This function is designed to be used within  calls to provide precise error location information.
 

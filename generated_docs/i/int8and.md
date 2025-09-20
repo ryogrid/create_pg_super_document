@@ -8,7 +8,10 @@ The int8and function performs bitwise AND operation on two 64-bit integers, retu
 
 ## Definition
 
-
+```c
+Datum
+int8and(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL bitwise AND operator (&) for the BIGINT data type (int8). It extracts two 64-bit integer arguments from the function call context, performs a bitwise AND operation on them, and returns the result. The function is part of PostgreSQL's binary arithmetic operations for 64-bit integers and follows the standard PostgreSQL function interface pattern using the Datum return type and PG_FUNCTION_ARGS parameter convention.
 

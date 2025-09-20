@@ -8,7 +8,11 @@ Writes all PostgreSQL statistics data to a persistent file on disk, typically ca
 
 ## Definition
 
-
+```c
+struct
+	 */
+	pgstat_build_snapshot_fixed(PGSTAT_KIND_ARCHIVER);
+```
 ## Detailed Description
 This function is responsible for persisting the entire PostgreSQL statistics subsystem state to disk. It writes statistics data to a temporary file first, then atomically renames it to the permanent location to ensure data integrity. The function handles both fixed-format statistics (like archiver, bgwriter, checkpointer stats) and variable entries (databases, tables, functions, etc.) from the shared hash table.
 

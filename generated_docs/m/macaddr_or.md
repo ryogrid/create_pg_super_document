@@ -8,7 +8,10 @@ Performs bitwise OR operation between two MAC addresses, returning a new MAC add
 
 ## Definition
 
-
+```c
+Datum
+macaddr_or(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements bitwise OR operation for PostgreSQL's  data type. It takes two MAC addresses as input arguments and computes the bitwise OR of each corresponding byte pair (a through f) to produce a new MAC address. This function is typically used in network address operations where you need to combine or set specific bits in MAC addresses. The function allocates memory for the result using PostgreSQL's memory management system () and returns the result using PostgreSQL's function call convention.
 

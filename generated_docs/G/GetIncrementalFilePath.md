@@ -8,7 +8,11 @@ Generates the destination pathname for a file when it needs to be sent as part o
 
 ## Definition
 
-
+```c
+char *
+GetIncrementalFilePath(Oid dboid, Oid spcoid, RelFileNumber relfilenumber,
+					   ForkNumber forknum, unsigned segno)
+```
 ## Detailed Description
 This function constructs the pathname that should be used when a database file is being sent incrementally during a backup. It takes the normal relation file path and transforms it into an incremental backup path by:
 

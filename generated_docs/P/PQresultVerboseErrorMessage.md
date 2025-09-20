@@ -8,7 +8,12 @@ PQresultVerboseErrorMessage retrieves a formatted error message from a PGresult 
 
 ## Definition
 
-
+```c
+char *
+PQresultVerboseErrorMessage(const PGresult *res,
+							PGVerbosity verbosity,
+							PGContextVisibility show_context)
+```
 ## Detailed Description
 This function extracts and formats error information from a PGresult object with customizable levels of detail. It provides more control over error message formatting compared to basic error retrieval functions. The function validates that the result contains an error (either fatal or non-fatal), formats the error message using the specified verbosity and context settings, and returns a dynamically allocated string that the caller must free.
 

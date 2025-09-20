@@ -8,7 +8,15 @@ RoleSpecType is an enumeration that defines the different types of role specific
 
 ## Definition
 
-
+```c
+typedef struct RoleSpec
+{
+	NodeTag		type;
+	RoleSpecType roletype;		/* Type of this rolespec */
+	char	   *rolename;		/* filled only for ROLESPEC_CSTRING */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} RoleSpec;
+```
 ## Detailed Description
 RoleSpecType provides a classification system for different ways roles can be specified in PostgreSQL SQL statements. It distinguishes between explicit role names and special role identifiers that are resolved at runtime. This enum is used by the parser to handle role specifications in commands like GRANT, REVOKE, ALTER DEFAULT PRIVILEGES, and other role-related SQL statements. The different types allow the system to handle both static role names and dynamic role resolution based on the current session context.
 

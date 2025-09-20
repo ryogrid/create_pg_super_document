@@ -8,7 +8,10 @@ This function is a stub input function for the gtsvector data type that explicit
 
 ## Definition
 
-
+```c
+Datum
+gtsvectorin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The gtsvectorin function serves as the input function for the gtsvector data type in PostgreSQL's GiST indexing system. However, it is implemented as an intentional stub that prevents any input operations. When called, it immediately raises a feature not supported error, indicating that gtsvector values cannot be directly input by users. This is by design, as gtsvector is an internal data type used within GiST indexes for tsvector operations and is not intended for direct user manipulation.
 

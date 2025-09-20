@@ -8,7 +8,17 @@ The  is the main SQL Descriptor Area structure in PostgreSQL's ECPG native inter
 
 ## Definition
 
-
+```c
+struct sqlda_struct
+{
+	char		sqldaid[8];
+	long		sqldabc;
+	short		sqln;
+	short		sqld;
+	struct sqlda_struct *desc_next;
+	struct sqlvar_struct sqlvar[1];
+};
+```
 ## Detailed Description
 The  is the central data structure in PostgreSQL's ECPG native SQLDA (SQL Descriptor Area) implementation. It serves as a comprehensive descriptor that contains metadata about a complete set of SQL variables, whether they represent columns in a result set or parameters for a prepared statement. The structure follows the traditional SQLDA design pattern used in embedded SQL programming, providing both structural information (number of variables, total size) and actual variable descriptors.
 

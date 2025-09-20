@@ -8,7 +8,10 @@ pa_lock_stream is a helper function that acquires a lock for stream blocks in Po
 
 ## Definition
 
-
+```c
+void
+pa_lock_stream(TransactionId xid, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function provides a specialized locking mechanism for streaming transaction blocks in PostgreSQL's logical replication parallel worker architecture. It acts as a wrapper around LockApplyTransactionForSession, specifically setting the lock tag field to PARALLEL_APPLY_LOCK_STREAM to distinguish stream locks from other types of transaction locks.
 

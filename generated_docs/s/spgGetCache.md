@@ -8,7 +8,10 @@ spgGetCache fetches and initializes the local cache of SP-GiST access method-spe
 
 ## Definition
 
-
+```c
+SpGistCache *
+spgGetCache(Relation index)
+```
 ## Detailed Description
 This function manages the SP-GiST cache (stored in rd_amcache) for an index relation. If the cache doesn't exist, it creates a new SpGistCache structure and populates it with configuration information obtained from the opclass config function, type descriptions for various data types used by the index, and metadata from the index's metapage.
 

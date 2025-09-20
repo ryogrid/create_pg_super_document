@@ -8,7 +8,19 @@ XLogRecordBlockImageHeader contains additional header information for full-page 
 
 ## Definition
 
+```c
+typedef struct XLogRecordBlockImageHeader
+{
+	uint16		length;			/* number of page image bytes */
+	uint16		hole_offset;	/* number of bytes before "hole" */
+	uint8		bimg_info;		/* flag bits, see below */
 
+	/*
+	 * If BKPIMAGE_HAS_HOLE and BKPIMAGE_COMPRESSED(), an
+	 * XLogRecordBlockCompressHeader struct follows.
+	 */
+} XLogRecordBlockImageHeader;
+```
 ## Detailed Description
 XLogRecordBlockImageHeader provides metadata for full-page images stored in WAL records when BKPBLOCK_HAS_IMAGE is set. It implements two key optimizations: hole removal and optional compression. The hole removal optimization takes advantage of the fact that PostgreSQL data pages typically contain an unused "hole" in the middle filled with zeros, which can be omitted from WAL storage. When WAL compression is enabled, the structure supports additional compression of page images after hole removal, further reducing WAL volume at the cost of CPU overhead during logging.
 

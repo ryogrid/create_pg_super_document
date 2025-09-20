@@ -8,7 +8,10 @@ ExecBSUpdateTriggers executes BEFORE STATEMENT UPDATE triggers, which fire once 
 
 ## Definition
 
-
+```c
+void
+ExecBSUpdateTriggers(EState *estate, ResultRelInfo *relinfo)
+```
 ## Detailed Description
 This function executes BEFORE STATEMENT UPDATE triggers, which are fired once per UPDATE statement before any individual rows are processed. These triggers operate at the statement level rather than the row level, making them suitable for operations that need to occur once per statement regardless of how many rows will be affected.
 

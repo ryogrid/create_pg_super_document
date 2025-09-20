@@ -8,7 +8,10 @@ AlterDatabaseSet implements the ALTER DATABASE name SET configuration_parameter 
 
 ## Definition
 
-
+```c
+Oid
+AlterDatabaseSet(AlterDatabaseSetStmt *stmt)
+```
 ## Detailed Description
 This function handles the SQL command `ALTER DATABASE name SET parameter TO value` which allows setting database-specific configuration parameters. The function:
 

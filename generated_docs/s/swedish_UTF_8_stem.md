@@ -8,7 +8,11 @@ This is the main entry point function for the Swedish UTF-8 Snowball stemming al
 
 ## Definition
 
+```c
+}
 
+extern int swedish_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 The swedish_UTF_8_stem function implements the complete Swedish stemming algorithm for UTF-8 encoded text. It orchestrates a multi-phase stemming process that systematically analyzes and transforms Swedish words according to Swedish morphological rules.
 

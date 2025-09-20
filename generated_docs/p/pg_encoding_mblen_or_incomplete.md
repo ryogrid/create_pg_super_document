@@ -8,7 +8,11 @@ Safely returns the byte length of a multibyte character with buffer boundary che
 
 ## Definition
 
-
+```c
+int
+pg_encoding_mblen_or_incomplete(int encoding, const char *mbstr,
+								size_t remaining)
+```
 ## Detailed Description
 This function provides a safer alternative to pg_encoding_mblen() by incorporating buffer boundary validation before attempting to determine character length. It specifically addresses scenarios where the input buffer may not contain sufficient bytes to safely determine a multibyte character's length, which is crucial when processing untrusted or incomplete input streams.
 

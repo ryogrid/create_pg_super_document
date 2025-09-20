@@ -8,7 +8,10 @@ A wrapper function that performs filesystem synchronization on a file or directo
 
 ## Definition
 
-
+```c
+int
+fsync_fname(const char *fname, bool isdir)
+```
 ## Detailed Description
  is a high-level wrapper around  that provides a simplified interface for synchronizing files or directories to persistent storage. The function delegates to  with default parameters, specifically using  for the ignore_nonexistent parameter and  log level via . When synchronizing directories, it gracefully handles errors that indicate the operating system doesn't allow or require directory synchronization, which is common on some filesystems.
 

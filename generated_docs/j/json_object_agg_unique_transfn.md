@@ -8,7 +8,10 @@ A PostgreSQL aggregate transition function that builds JSON objects from key-val
 
 ## Definition
 
-
+```c
+Datum
+json_object_agg_unique_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for the json_object_agg_unique aggregate. It is a thin wrapper around the core worker function , specifically configured to enforce unique keys in the resulting JSON object. The function processes each key-value pair input during aggregation and ensures that duplicate keys are not allowed, throwing an error if a duplicate key is encountered.
 

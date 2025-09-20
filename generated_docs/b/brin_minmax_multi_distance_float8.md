@@ -8,7 +8,10 @@ Computes the distance between two float8 values used as range boundaries in BRIN
 
 ## Definition
 
-
+```c
+Datum
+brin_minmax_multi_distance_float8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function calculates the distance between two double-precision floating-point values for BRIN (Block Range Index) minmax-multi operator class. It performs plain subtraction to determine the range size, with special handling for NaN (Not-a-Number) values. The function is designed specifically for range boundaries where the first argument should be less than or equal to the second argument.
 

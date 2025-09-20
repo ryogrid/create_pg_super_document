@@ -8,7 +8,9 @@ IndexTuple is a typedef that represents a pointer to an IndexTupleData structure
 
 ## Definition
 
-
+```c
+typedef IndexTupleData *IndexTuple;
+```
 ## Detailed Description
 IndexTuple is a pointer type that references IndexTupleData structures. The IndexTupleData structure serves as the header for all index tuples in PostgreSQL. It contains essential metadata about the index entry including a reference to the corresponding heap tuple and various flags indicating the tuple's characteristics. The actual index attribute values follow this header structure in memory, beginning at a MAXALIGN boundary. If the tuple has null values, an IndexAttributeBitMapData structure is placed between the header and the attribute values.
 

@@ -8,7 +8,10 @@ The  function implements server-side data generation for pgbench tables using Po
 
 ## Definition
 
-
+```c
+static void
+initGenerateDataServerSide(PGconn *con)
+```
 ## Detailed Description
 This function provides an alternative approach to initializing pgbench test data by leveraging PostgreSQL's built-in generate_series function to create data directly on the server. Instead of generating data on the client and transferring it via COPY, this method constructs SQL INSERT statements that generate the required test data entirely within the database server. The approach can be more efficient for large datasets as it eliminates network transfer overhead and allows the server to optimize data generation internally. It maintains the same logical structure and relationships as client-side generation while using server-native SQL constructs.
 

@@ -8,7 +8,10 @@ Converts PostgreSQL's internal JSON text representation back to a C-style string
 
 ## Definition
 
-
+```c
+Datum
+json_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the output conversion function for PostgreSQL's JSON data type. It takes PostgreSQL's internal JSON representation (which is stored as text) and converts it to a C-style string that can be returned to the client or used in other contexts where string output is required. This function is the counterpart to  and is typically called when JSON data needs to be displayed or exported from the database.
 

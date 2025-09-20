@@ -8,7 +8,14 @@ A static validation wrapper function that processes and validates SQL name patte
 
 ## Definition
 
-
+```c
+static bool
+validateSQLNamePattern(PQExpBuffer buf, const char *pattern, bool have_where,
+					   bool force_escape, const char *schemavar,
+					   const char *namevar, const char *altnamevar,
+					   const char *visibilityrule, bool *added_clause,
+					   int maxparts)
+```
 ## Detailed Description
 This function serves as a validation wrapper around the processSQLNamePattern function from string_utils. It processes SQL name patterns (which may contain wildcards and qualified names) and adds appropriate WHERE clauses to SQL queries while enforcing several important validations:
 

@@ -8,7 +8,10 @@ Returns a bitmap representing the columns being inserted for a given result rela
 
 ## Definition
 
-
+```c
+Bitmapset *
+ExecGetInsertedCols(ResultRelInfo *relinfo, EState *estate)
+```
 ## Detailed Description
 This function retrieves the bitmap of columns that are being inserted into a relation during an INSERT operation. For regular tables, it simply returns the inserted columns bitmap from the permission info. For child relations in partitioned table hierarchies, it performs attribute mapping to convert the root table's column bitmap to match the child table's column layout.
 

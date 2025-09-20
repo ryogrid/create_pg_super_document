@@ -8,7 +8,10 @@ Retrieves the latest WAL write pointer, indicating the position up to which WAL 
 
 ## Definition
 
-
+```c
+XLogRecPtr
+GetXLogWriteRecPtr(void)
+```
 ## Detailed Description
 This function returns the current WAL write position by refreshing and reading the LogwrtResult.Write value. The write pointer represents the position up to which WAL data has been written to the WAL files on disk, though it may not yet be durably stored (flushed to disk). This is distinct from the insert pointer (which shows where records can be inserted) and the flush pointer (which shows where data is durably stored).
 

@@ -8,7 +8,11 @@ A comparison function for the pairing heap used in SP-GiST KNN search operations
 
 ## Definition
 
-
+```c
+static int
+pairingheap_SpGistSearchItem_cmp(const pairingheap_node *a,
+								 const pairingheap_node *b, void *arg)
+```
 ## Detailed Description
 This function serves as the comparison callback for the pairing heap data structure used in SP-GiST (Space-Partitioned Generalized Search Tree) nearest neighbor searches. The function implements a complex ordering logic that prioritizes search items based on several criteria:
 

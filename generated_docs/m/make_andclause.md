@@ -8,7 +8,10 @@ Creates an AND boolean expression node from a list of subclauses, used in Postgr
 
 ## Definition
 
-
+```c
+Expr *
+make_andclause(List *andclauses)
+```
 ## Detailed Description
 The  function constructs a BoolExpr node representing an AND operation in PostgreSQL's expression tree. It takes a list of clause expressions and creates a single boolean expression that evaluates to true only when all subclauses are true. This function is fundamental to query optimization and execution, allowing the system to represent complex boolean logic in a structured tree format.
 

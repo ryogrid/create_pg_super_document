@@ -8,7 +8,10 @@ Retrieves the correct name for a table attribute by attribute number, handling b
 
 ## Definition
 
-
+```c
+static const char *
+getAttrName(int attrnum, const TableInfo *tblInfo)
+```
 ## Detailed Description
 This utility function provides a unified interface for obtaining attribute names from both user-defined and system-defined columns. Since the TableInfo structure only stores user attribute names in the attnames array, the function must handle system attributes (which have negative or zero attribute numbers) by mapping them to their well-known names.
 

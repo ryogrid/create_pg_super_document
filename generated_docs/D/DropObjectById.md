@@ -8,7 +8,10 @@ DropObjectById is a static utility function that removes an object from its cata
 
 ## Definition
 
-
+```c
+static void
+DropObjectById(const ObjectAddress *object)
+```
 ## Detailed Description
 DropObjectById provides a generic mechanism for deleting catalog entries by their object identifier. The function handles the low-level details of catalog tuple deletion, supporting both cached and non-cached lookup strategies. It first attempts to use the system cache if available for the object's catalog, falling back to a sequential scan approach when no cache exists. The function ensures proper locking by opening the target relation with RowExclusiveLock and maintains data consistency by using CatalogTupleDelete for the actual removal operation.
 

@@ -8,7 +8,16 @@ A hash table entry structure that provides a mapping from a TransactionId to the
 
 ## Definition
 
+```c
+typedef struct SERIALIZABLEXID
+{
+	/* hash key */
+	SERIALIZABLEXIDTAG tag;
 
+	/* data */
+	SERIALIZABLEXACT *myXact;	/* pointer to the top level transaction data */
+} SERIALIZABLEXID;
+```
 ## Detailed Description
 SERIALIZABLEXID serves as a bridge structure in PostgreSQL's serializable snapshot isolation system, linking transaction IDs to their corresponding serializable transaction records. This structure is essential for quickly locating SERIALIZABLEXACT data structures when given just a transaction ID. The entries are created when top-level transaction IDs are first assigned to transactions participating in predicate locking, though this may never happen for read-only transactions. The structure persists even after a transaction completes and its connection closes, ensuring that serialization conflict detection can continue to function properly. The SubTransGetTopmostTransaction method is used when necessary to map subtransaction XIDs to their top-level transaction XIDs.
 

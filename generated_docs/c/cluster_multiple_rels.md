@@ -8,7 +8,10 @@ Processes a list of relations to be clustered, with each relation being clustere
 
 ## Definition
 
-
+```c
+static void
+cluster_multiple_rels(List *rtcs, ClusterParams *params)
+```
 ## Detailed Description
 The cluster_multiple_rels function implements the core logic for clustering multiple tables in separate transactions. This approach prevents deadlocks that could occur if exclusive locks were held on multiple tables simultaneously within a single transaction.
 

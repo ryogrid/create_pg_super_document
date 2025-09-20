@@ -8,7 +8,10 @@ Properly cleans up and frees all memory associated with an incremental JSON mani
 
 ## Definition
 
-
+```c
+void
+json_parse_manifest_incremental_shutdown(JsonManifestParseIncrementalState *incstate)
+```
 ## Detailed Description
 This function performs cleanup operations for an incremental manifest parser that was previously initialized with json_parse_manifest_incremental_init. It systematically frees all allocated memory including the semantic state, JSON lexical context, and the incremental state structure itself. The manifest hash context is expected to be already freed by the caller before this function is invoked.
 

@@ -8,7 +8,10 @@ Converts backslash ('\') characters to forward slash ('/') characters within a f
 
 ## Definition
 
-
+```c
+static void
+debackslash_path(char *path, int encoding)
+```
 ## Detailed Description
 This function performs in-place conversion of backslash characters to forward slashes in a path string. The conversion is encoding-aware to handle multi-byte character sets properly. For Shift-JIS encoding (PG_SJIS), it uses special logic to avoid incorrectly converting bytes that are part of multi-byte characters but happen to have the same value as a backslash (0x5C). For all other encodings, it performs a simple character-by-character replacement.
 

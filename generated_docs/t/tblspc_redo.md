@@ -8,7 +8,10 @@ This function handles Write-Ahead Logging (WAL) redo operations for tablespace-r
 
 ## Definition
 
-
+```c
+void
+tblspc_redo(XLogReaderState *record)
+```
 ## Detailed Description
 The  function is the WAL redo handler for the tablespace resource manager (RM_TBLSPC_ID). It processes WAL records related to tablespace operations during crash recovery, point-in-time recovery, or standby server replay. The function handles two main operation types:
 

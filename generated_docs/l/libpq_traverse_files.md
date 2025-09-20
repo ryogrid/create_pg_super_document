@@ -8,7 +8,10 @@ Recursively traverses the PostgreSQL data directory via a libpq connection to re
 
 ## Definition
 
-
+```c
+static void
+libpq_traverse_files(rewind_source *source, process_file_callback_t callback)
+```
 ## Detailed Description
 This function implements the file traversal functionality for the libpq-based rewind source in pg_rewind. It uses a complex recursive SQL query to enumerate all files and directories in the PostgreSQL data directory remotely through a database connection. The query leverages PostgreSQL's built-in functions  and  to build a complete directory tree.
 

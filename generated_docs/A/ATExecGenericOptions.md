@@ -8,7 +8,10 @@ ATExecGenericOptions modifies the options of a foreign table by updating the pg_
 
 ## Definition
 
-
+```c
+static void
+ATExecGenericOptions(Relation rel, List *options)
+```
 ## Detailed Description
 This function handles the ALTER FOREIGN TABLE OPTIONS command by updating the options stored in the pg_foreign_table system catalog. It validates the new options against the foreign data wrapper's validator function, updates the catalog tuple with the transformed options, and invalidates relevant caches to ensure all sessions refresh their cached plans that depend on the old options.
 

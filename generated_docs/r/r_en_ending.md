@@ -8,7 +8,11 @@ r_en_ending is a specialized function in the Dutch Snowball stemming algorithm t
 
 ## Definition
 
+```c
+}
 
+static int r_en_ending(struct SN_env * z)
+```
 ## Detailed Description
 The r_en_ending function implements a complex rule for Dutch stemming that removes 'en' suffixes when specific morphological conditions are met. The function performs a multi-step validation process:
 

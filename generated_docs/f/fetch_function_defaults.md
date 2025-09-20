@@ -8,7 +8,10 @@ Retrieves and parses a function's default argument expressions from its pg_proc 
 
 ## Definition
 
-
+```c
+static List *
+fetch_function_defaults(HeapTuple func_tuple)
+```
 ## Detailed Description
 This function extracts default argument expressions from a function's pg_proc system catalog entry. The default arguments are stored in the proargdefaults field as a serialized string representation of an expression tree.
 

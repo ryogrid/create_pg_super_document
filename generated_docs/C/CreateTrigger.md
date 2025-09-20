@@ -8,7 +8,13 @@ CreateTrigger is a PostgreSQL function that creates a new trigger on a specified
 
 ## Definition
 
-
+```c
+ObjectAddress
+CreateTrigger(CreateTrigStmt *stmt, const char *queryString,
+			  Oid relOid, Oid refRelOid, Oid constraintOid, Oid indexOid,
+			  Oid funcoid, Oid parentTriggerOid, Node *whenClause,
+			  bool isInternal, bool in_partition)
+```
 ## Detailed Description
 CreateTrigger is a simplified interface for creating triggers that delegates to CreateTriggerFiringOn with the default TRIGGER_FIRES_ON_ORIGIN firing behavior. This function handles the creation of database triggers with support for constraint triggers, partitioned tables, and various internal trigger scenarios. It provides extensive parameter flexibility to support different trigger creation contexts including user-initiated CREATE TRIGGER commands and internally generated triggers for constraints and foreign keys.
 

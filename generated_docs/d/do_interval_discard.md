@@ -8,7 +8,10 @@ Removes a given interval value from the aggregated state used in interval averag
 
 ## Definition
 
-
+```c
+static void
+do_interval_discard(IntervalAggState *state, Interval *newval)
+```
 ## Detailed Description
 This static function is responsible for removing an interval value from the accumulated state during inverse aggregation operations. It handles three types of interval values: negative infinite intervals (NOBEGIN), positive infinite intervals (NOEND), and finite intervals. For infinite intervals, it decrements the respective infinity counters without affecting the finite value count. For finite intervals, it decrements the count N and subtracts the value from the running sum using finite_interval_mi. When all values are discarded (N reaches 0), it resets the sum to zero to maintain numerical stability.
 

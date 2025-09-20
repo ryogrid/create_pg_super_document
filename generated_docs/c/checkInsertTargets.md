@@ -8,7 +8,10 @@ Generates a list of INSERT column targets when not supplied or validates supplie
 
 ## Definition
 
-
+```c
+List *
+checkInsertTargets(ParseState *pstate, List *cols, List **attrnos)
+```
 ## Detailed Description
 This function handles the column target list processing for INSERT statements in PostgreSQL's parser. It serves two primary purposes:
 

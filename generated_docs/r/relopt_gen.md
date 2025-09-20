@@ -8,7 +8,18 @@ relopt_gen is the base structure that holds shared data common to all relation o
 
 ## Definition
 
-
+```c
+typedef struct relopt_gen
+{
+	const char *name;			/* must be first (used as list termination
+								 * marker) */
+	const char *desc;
+	bits32		kinds;
+	LOCKMODE	lockmode;
+	int			namelen;
+	relopt_type type;
+} relopt_gen;
+```
 ## Detailed Description
 The relopt_gen structure serves as the generic base for all relation option definitions in PostgreSQL. It contains the common metadata that every relation option must have, regardless of its specific data type (bool, int, real, enum, or string). This structure is embedded as the first member in all type-specific relation option structures (relopt_bool, relopt_int, relopt_real, etc.), allowing them to be treated polymorphically through the common relopt_gen interface.
 

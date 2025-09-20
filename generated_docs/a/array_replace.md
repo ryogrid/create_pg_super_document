@@ -8,7 +8,10 @@ A SQL function that replaces all occurrences of a specified search element with 
 
 ## Definition
 
-
+```c
+Datum
+array_replace(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The array_replace function provides the SQL-callable interface for element substitution in PostgreSQL arrays. It serves as a wrapper around the array_replace_internal function, configuring it to operate in replacement mode. The function takes an array, a search value, and a replacement value as arguments, and returns a new array where all elements matching the search value (using the element type's equality operator) have been replaced with the replacement value.
 

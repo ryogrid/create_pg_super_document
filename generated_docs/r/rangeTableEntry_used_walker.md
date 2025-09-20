@@ -8,7 +8,11 @@ A tree walker function that determines whether a specific range table entry is r
 
 ## Definition
 
-
+```c
+static bool
+rangeTableEntry_used_walker(Node *node,
+							rangeTableEntry_used_context *context)
+```
 ## Detailed Description
 This walker function recursively traverses a query tree or expression tree to detect references to a specific range table entry. It checks various node types that can reference range table entries:
 

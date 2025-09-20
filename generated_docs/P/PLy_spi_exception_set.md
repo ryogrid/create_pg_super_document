@@ -8,7 +8,10 @@ A static function within PostgreSQL's PL/Python extension that creates and raise
 
 ## Definition
 
-
+```c
+static void
+PLy_spi_exception_set(PyObject *excclass, ErrorData *edata)
+```
 ## Detailed Description
 PLy_spi_exception_set is responsible for converting PostgreSQL internal error data (ErrorData) into Python exceptions that can be handled by PL/Python code. This function serves as a bridge between PostgreSQL's internal error handling system and Python's exception mechanism.
 

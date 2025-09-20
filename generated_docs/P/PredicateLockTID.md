@@ -8,7 +8,11 @@ Acquires a predicate lock at the tuple level for serializable transaction isolat
 
 ## Definition
 
-
+```c
+void
+PredicateLockTID(Relation relation, ItemPointer tid, Snapshot snapshot,
+				 TransactionId tuple_xid)
+```
 ## Detailed Description
 PredicateLockTID is a core component of PostgreSQL's serializable snapshot isolation (SSI) implementation. It establishes a predicate lock on a specific tuple (identified by its TID - tuple identifier) to detect potential serialization conflicts. The function performs several optimizations:
 

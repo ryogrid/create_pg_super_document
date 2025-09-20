@@ -8,7 +8,11 @@ ATExecSetNotNull is the execution phase function for the ALTER TABLE ALTER COLUM
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecSetNotNull(AlteredTableInfo *tab, Relation rel,
+				 const char *colName, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function performs the actual catalog modification to set a column's NOT NULL constraint during ALTER TABLE operations. The function operates in several phases:
 

@@ -8,7 +8,10 @@ Processes GRANT ROLE and REVOKE ROLE statements by managing role membership gran
 
 ## Definition
 
-
+```c
+void
+GrantRole(ParseState *pstate, GrantRoleStmt *stmt)
+```
 ## Detailed Description
 GrantRole implements the core logic for PostgreSQL's GRANT ROLE and REVOKE ROLE commands, which manage role membership relationships. The function parses role grant options (admin, inherit, set), validates permissions, and delegates to AddRoleMems or DelRoleMems to perform the actual catalog modifications in pg_auth_members.
 

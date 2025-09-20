@@ -8,7 +8,9 @@ A cross-platform file rename function that handles platform-specific file lockin
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function provides a robust file renaming operation that addresses platform-specific challenges with file access. On Windows, it uses  with  flag, while on Unix-like systems it uses the standard  system call. The function implements a retry mechanism to handle cases where other processes might have the target file open without appropriate sharing flags.
 

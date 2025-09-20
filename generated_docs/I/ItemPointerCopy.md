@@ -8,7 +8,10 @@ Copies the complete contents of one disk item pointer to another, providing a sa
 
 ## Definition
 
-
+```c
+static inline void
+ItemPointerCopy(const ItemPointerData *fromPointer, ItemPointerData *toPointer)
+```
 ## Detailed Description
 ItemPointerCopy performs a complete bitwise copy of an ItemPointerData structure from a source to a destination location. This function is crucial for operations that need to duplicate tuple references, such as maintaining backup copies during updates, creating multiple references to the same tuple, or transferring item pointer information between different data structures.
 

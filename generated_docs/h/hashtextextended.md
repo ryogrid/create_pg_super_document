@@ -8,7 +8,9 @@ An extended version of the hashtext function that supports seed-based hashing fo
 
 ## Definition
 
-
+```c
+struct varlena *key = PG_GETARG_VARLENA_PP(0);
+```
 ## Detailed Description
 The hashtextextended function is the extended variant of hashtext that accepts an additional seed parameter for hash computation. Like hashtext, it handles collation-aware hashing by determining the appropriate locale and choosing between direct hashing for deterministic locales and transformation-based hashing for non-deterministic locales. The seed parameter allows for creating different hash values from the same input, which is useful for hash table resizing and hash-based algorithms that require multiple hash functions.
 

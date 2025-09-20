@@ -8,7 +8,9 @@ Sets the OID to be assigned to the next multirange array type created during bin
 
 ## Definition
 
-
+```c
+enumber = PG_GETARG_OID(0);
+```
 ## Detailed Description
 This function is part of PostgreSQL's binary upgrade support system that allows pg_upgrade to control OID assignment during database upgrades to preserve object identities. The function accepts a multirange array type OID as input and stores it in the global variable , which will be used by the system when creating the next multirange array type.
 

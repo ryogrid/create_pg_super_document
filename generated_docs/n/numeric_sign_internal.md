@@ -8,7 +8,10 @@ The numeric_sign_internal function determines the sign of a PostgreSQL NUMERIC v
 
 ## Definition
 
-
+```c
+static int
+numeric_sign_internal(Numeric num)
+```
 ## Detailed Description
 This internal utility function provides sign determination for NUMERIC values with comprehensive handling of PostgreSQL's special numeric cases. The function efficiently determines the sign by first checking for special values (infinities), then leveraging the packed numeric format's properties to identify zero values, and finally examining the sign bit for regular numbers.
 

@@ -8,7 +8,10 @@ Transition function for a range intersection aggregate that progressively comput
 
 ## Definition
 
-
+```c
+Datum
+range_intersect_agg_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the transition function for a PostgreSQL aggregate operation that computes the intersection of multiple range values. This function is called repeatedly during aggregate processing, once for each input range value, progressively narrowing down the intersection result.
 

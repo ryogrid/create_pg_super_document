@@ -8,7 +8,10 @@ Creates a new base backup streamer that performs LZ4 compression of tar blocks f
 
 ## Definition
 
-
+```c
+bbstreamer *
+bbstreamer_lz4_compressor_new(bbstreamer *next, pg_compress_specification *compress)
+```
 ## Detailed Description
 This function initializes a new LZ4 compression streamer as part of PostgreSQL's backup streaming system. It sets up the LZ4 compression context, configures compression preferences including block size and compression level, and prepares the streamer for processing backup data. The function only compiles when USE_LZ4 is defined, falling back to a fatal error for builds without LZ4 support.
 

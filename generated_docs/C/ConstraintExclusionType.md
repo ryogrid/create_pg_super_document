@@ -8,7 +8,9 @@ An enumeration that defines the modes for constraint exclusion optimization, whi
 
 ## Definition
 
-
+```c
+union(Path *runion, Path *nrterm, Path *rterm);
+```
 ## Detailed Description
 ConstraintExclusionType controls the behavior of constraint exclusion, a query optimization technique that allows the planner to skip scanning certain tables or partitions when their constraints guarantee that no rows could possibly match the query conditions. This is particularly useful in partitioned table scenarios where partition constraints can eliminate entire partitions from consideration.
 

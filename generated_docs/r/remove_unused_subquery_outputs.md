@@ -8,7 +8,11 @@ Optimizes subquery performance by removing targetlist items that are not needed 
 
 ## Definition
 
-
+```c
+static void
+remove_unused_subquery_outputs(Query *subquery, RelOptInfo *rel,
+							   Bitmapset *extra_used_attrs)
+```
 ## Detailed Description
 This function analyzes a subquery's targetlist and removes output columns that are not referenced by the upper query or required for the subquery's own operation. Rather than physically removing entries (which would affect column numbering), it replaces unused expressions with NULL constants while preserving the original data types.
 

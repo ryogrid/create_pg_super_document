@@ -8,7 +8,10 @@ Allocates and performs basic initialization of an rfile structure for reading ba
 
 ## Definition
 
-
+```c
+static rfile *
+make_rfile(char *filename, bool missing_ok)
+```
 ## Detailed Description
 This function creates and initializes a basic rfile structure for reading backup files. It allocates memory for the rfile, duplicates the filename string, and opens the file in read-only binary mode. The function provides flexible error handling through the missing_ok parameter: when set to true, it gracefully returns NULL if the file doesn't exist rather than terminating with a fatal error.
 

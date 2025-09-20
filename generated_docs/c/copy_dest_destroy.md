@@ -8,7 +8,10 @@ Releases memory allocated for the COPY destination receiver when it's no longer 
 
 ## Definition
 
-
+```c
+static void
+copy_dest_destroy(DestReceiver *self)
+```
 ## Detailed Description
 This function serves as the cleanup callback for the COPY destination receiver in PostgreSQL's executor framework. It implements the DestReceiver interface requirement for resource cleanup by freeing the memory allocated for the destination receiver structure. This function is called when the COPY operation is complete and the destination receiver is no longer needed. The function performs a simple memory deallocation using pfree, PostgreSQL's memory management function. Note that the actual COPY state (CopyToState) cleanup is handled separately in the main COPY processing flow, so this function only needs to clean up the destination receiver wrapper structure itself.
 

@@ -8,7 +8,11 @@ Adds a new item to an SP-GiST page, with optimization to replace placeholder ite
 
 ## Definition
 
-
+```c
+OffsetNumber
+SpGistPageAddNewItem(SpGistState *state, Page page, Item item, Size size,
+					 OffsetNumber *startOffset, bool errorOK)
+```
 ## Detailed Description
 The  function intelligently adds new items to SP-GiST index pages by first attempting to replace placeholder tuples before adding items to free space. This optimization helps reduce page fragmentation and improves space utilization. When placeholders exist and there's sufficient space (accounting for the placeholder's dead tuple size), the function searches for and replaces a placeholder. If no suitable placeholder is found or replacement fails, it falls back to adding the item to available free space.
 

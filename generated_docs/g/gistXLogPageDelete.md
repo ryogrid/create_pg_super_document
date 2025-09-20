@@ -8,7 +8,11 @@ Writes a WAL record describing a GiST page deletion operation, including the rem
 
 ## Definition
 
-
+```c
+XLogRecPtr
+gistXLogPageDelete(Buffer buffer, FullTransactionId xid,
+				   Buffer parentBuffer, OffsetNumber downlinkOffset)
+```
 ## Detailed Description
 The  function creates a WAL record for a GiST page deletion operation. This function is called during VACUUM operations when a GiST page becomes empty and needs to be deleted from the index structure. The WAL record captures both the deletion of the page itself and the removal of the corresponding downlink from its parent page.
 

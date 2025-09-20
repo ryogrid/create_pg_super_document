@@ -8,7 +8,13 @@ This function validates an encoding name and returns its corresponding numeric e
 
 ## Definition
 
-
+```c
+struct tsearch_config_match
+{
+	const char *tsconfname;
+	const char *langname;
+};
+```
 ## Detailed Description
 The  function validates a server encoding name and returns its corresponding integer ID. It first checks if the encoding name is non-null and non-empty, then uses  to validate the encoding and retrieve its ID. If the encoding name is invalid, null, or empty, the function calls  to terminate the program with an error message. This function is critical for ensuring that only valid encodings are used during database initialization.
 

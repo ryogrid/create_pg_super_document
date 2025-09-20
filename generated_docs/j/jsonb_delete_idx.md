@@ -8,7 +8,10 @@ Deletes an element from a JSONB array by its index, supporting both positive and
 
 ## Definition
 
-
+```c
+Datum
+jsonb_delete_idx(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a SQL-callable function that removes an element at a specified index from a JSONB array. It accepts positive indices (counting from the beginning) and negative indices (counting backward from the end). The function validates that the input is an array (not a scalar or object), handles edge cases like out-of-bounds indices gracefully, and returns a new JSONB array with the specified element removed.
 

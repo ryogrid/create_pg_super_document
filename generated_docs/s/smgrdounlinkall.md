@@ -8,7 +8,10 @@ Immediately unlinks (deletes) all forks of multiple relations from storage, prov
 
 ## Definition
 
-
+```c
+void
+smgrdounlinkall(SMgrRelation *rels, int nrels, bool isRedo)
+```
 ## Detailed Description
 This function performs immediate and irreversible deletion of all forks for multiple relations from the storage system. It is designed as a bulk operation for efficiency and should not be used during transactional operations since it cannot be undone. The function operates in several carefully ordered phases to ensure consistency and proper cleanup.
 

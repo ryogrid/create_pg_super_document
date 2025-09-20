@@ -8,7 +8,14 @@ Builds a new upperrel containing paths for ORDER BY evaluation, ensuring all pat
 
 ## Definition
 
-
+```c
+static RelOptInfo *
+create_ordered_paths(PlannerInfo *root,
+					 RelOptInfo *input_rel,
+					 PathTarget *target,
+					 bool target_parallel_safe,
+					 double limit_tuples)
+```
 ## Detailed Description
 This function creates execution paths for ORDER BY operations by building an UPPERREL_ORDERED relation containing paths that satisfy the sort requirements. The function implements intelligent sorting strategies by first checking if input paths are already sorted according to the required sort_pathkeys, and only creating new sorted paths when necessary.
 

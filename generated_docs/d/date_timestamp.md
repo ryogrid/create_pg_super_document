@@ -8,7 +8,10 @@ Converts a PostgreSQL date value to a timestamp data type, adding time component
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that converts a date value (DateADT) to a timestamp value (Timestamp). This conversion effectively adds a time component of 00:00:00 to the date, creating a timestamp that represents the beginning of that date. The function is implemented as a PostgreSQL V1 calling convention function, taking arguments through the  macro and returning a .
 

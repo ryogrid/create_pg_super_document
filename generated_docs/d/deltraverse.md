@@ -8,7 +8,12 @@ Recursively destroys all outgoing arcs of a state and unreachable states in a de
 
 ## Definition
 
-
+```c
+static void
+deltraverse(struct nfa *nfa,
+			struct state *leftend,
+			struct state *s)
+```
 ## Detailed Description
 The `deltraverse` function is the recursive core of the `delsub` operation, responsible for systematically destroying all outgoing arcs from a given state and cleaning up any states that become unreachable as a result. It employs a depth-first traversal strategy, recursively processing each destination state before freeing the arc that leads to it. The function includes protection against stack overflow through depth checking and uses a temporary marking system to track states currently being processed to avoid infinite loops.
 

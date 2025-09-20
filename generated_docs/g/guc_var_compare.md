@@ -8,7 +8,10 @@ A comparison function used for sorting GUC (Grand Unified Configuration) variabl
 
 ## Definition
 
-
+```c
+static int
+guc_var_compare(const void *a, const void *b)
+```
 ## Detailed Description
 This function serves as a comparator for qsort operations on arrays of GUC variable pointers. It extracts the variable names from two GUC structure pointers and delegates the actual comparison to the  function. The function follows the standard qsort comparator interface, taking two void pointers that represent GUC variables and returning an integer indicating their relative order.
 

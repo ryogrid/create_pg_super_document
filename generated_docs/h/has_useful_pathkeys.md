@@ -8,7 +8,10 @@ Detects whether the specified relation could have any pathkeys that are useful f
 
 ## Definition
 
-
+```c
+bool
+has_useful_pathkeys(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function performs a lightweight heuristic check to determine if building pathkeys for a given relation would be worthwhile for query optimization. Pathkeys are used in PostgreSQL to represent sort orderings that can benefit various operations like merge joins, grouping, and final result ordering.
 

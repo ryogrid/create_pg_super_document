@@ -8,7 +8,10 @@ The to_regnamespace function converts namespace (schema) names to regnamespace O
 
 ## Definition
 
-
+```c
+Datum
+to_regnamespace(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL conversion function that provides a safe way to convert text namespace names to regnamespace OID values. Unlike regnamespacein, which raises errors for non-existent namespaces, to_regnamespace returns NULL when the specified namespace cannot be found. This makes it suitable for use in contexts where a gentle failure mode is preferred over throwing exceptions.
 

@@ -8,7 +8,10 @@ Returns the DSA handle for a shared TidStore, enabling shared access to the TID 
 
 ## Definition
 
-
+```c
+dsa_pointer
+TidStoreGetHandle(TidStore *ts)
+```
 ## Detailed Description
 This function retrieves the Dynamic Shared Area (DSA) pointer handle for a shared TidStore. The DSA handle allows multiple processes to access the same TidStore data structure in shared memory. The function includes an assertion to ensure the TidStore is actually shared before attempting to retrieve the handle, preventing misuse with local TidStores.
 

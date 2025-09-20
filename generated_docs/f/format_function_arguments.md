@@ -8,7 +8,10 @@ The format_function_arguments function generates a properly formatted function n
 
 ## Definition
 
-
+```c
+static char *
+format_function_arguments(const FuncInfo *finfo, const char *funcargs, bool is_agg)
+```
 ## Detailed Description
 This utility function creates a formatted string containing a function name followed by its argument list in parentheses. It relies on pg_get_function_arguments to provide the argument formatting, but handles a special case for zero-argument aggregates where pg_get_function_arguments does not provide the expected format.
 

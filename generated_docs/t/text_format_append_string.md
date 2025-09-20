@@ -8,7 +8,11 @@ Appends a string to a StringInfo buffer with optional padding and alignment base
 
 ## Definition
 
-
+```c
+static void
+text_format_append_string(StringInfo buf, const char *str,
+						  int flags, int width)
+```
 ## Detailed Description
 This function handles string appending with formatting capabilities including field width control and alignment. It supports both left and right justification through flags or negative width values. When a field width is specified, the function pads the string with spaces to meet the required width. The function uses multibyte-aware string length calculation to properly handle Unicode characters.
 

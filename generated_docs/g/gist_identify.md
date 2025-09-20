@@ -8,7 +8,10 @@ The gist_identify function returns human-readable string identifiers for differe
 
 ## Definition
 
-
+```c
+const char *
+gist_identify(uint8 info)
+```
 ## Detailed Description
 This function is part of PostgreSQL's WAL record identification infrastructure for GiST indexes. It takes a WAL record info field as input and returns a corresponding string identifier that describes the type of GiST operation. This is primarily used for debugging, logging, and monitoring purposes to provide readable names for different GiST WAL operations.
 

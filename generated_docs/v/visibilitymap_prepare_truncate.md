@@ -8,7 +8,10 @@ Prepares the visibility map for truncation by calculating the new size and clear
 
 ## Definition
 
-
+```c
+BlockNumber
+visibilitymap_prepare_truncate(Relation rel, BlockNumber nheapblocks)
+```
 ## Detailed Description
 This function prepares the visibility map for truncation to match a new heap size. It calculates which visibility map blocks will remain after truncation and ensures that unused bits in the last remaining map page are properly cleared. The function handles the case where the truncation doesn't fall exactly on a map page boundary by clearing tail bits that represent truncated heap blocks. If the visibility map doesn't exist or is already smaller than the requested size, it returns InvalidBlockNumber. The function also handles WAL logging requirements when checksums are enabled.
 

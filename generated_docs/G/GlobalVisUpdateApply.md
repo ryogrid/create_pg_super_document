@@ -8,7 +8,10 @@ Applies computed transaction horizon results to update global visibility state b
 
 ## Definition
 
-
+```c
+static void
+GlobalVisUpdateApply(ComputeXidHorizonsResult *horizons)
+```
 ## Detailed Description
 This function updates the global visibility states for all relation types (shared, catalog, data, temp) with new horizon information computed by the transaction horizon calculation. It sets the maybe_needed boundaries based on the oldest non-removable transactions for each relation type, and ensures that definitely_needed boundaries are not earlier than maybe_needed boundaries.
 

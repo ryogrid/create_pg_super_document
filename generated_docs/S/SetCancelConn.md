@@ -8,7 +8,10 @@ SetCancelConn sets the global cancel connection object to point to the current d
 
 ## Definition
 
-
+```c
+void
+SetCancelConn(PGconn *conn)
+```
 ## Detailed Description
 SetCancelConn is a thread-safe function that manages the global cancelConn variable, which holds a PGcancel object used for canceling database queries. The function safely replaces any existing cancel connection with a new one derived from the provided database connection.
 

@@ -8,7 +8,10 @@ Determines whether a LINE object is vertical in PostgreSQL's geometric data type
 
 ## Definition
 
-
+```c
+Datum
+line_vertical(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function checks if a LINE object is vertical by testing if the B coefficient in the standard line equation Ax + By + C = 0 is zero. A line is vertical when it has an undefined slope (infinite slope), which occurs when the B coefficient is zero. In this case, the line equation reduces to Ax + C = 0, or x = -C/A, representing a vertical line.
 

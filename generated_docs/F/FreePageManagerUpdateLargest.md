@@ -8,7 +8,10 @@ Updates the cached size of the largest contiguous run of free pages when the cac
 
 ## Definition
 
-
+```c
+static void
+FreePageManagerUpdateLargest(FreePageManager *fpm)
+```
 ## Detailed Description
 This function is a lazy cache update mechanism for tracking the largest contiguous block of free pages available in a FreePageManager. The function only performs work when the  flag is set, indicating that the cached value may be stale due to recent page allocations or deallocations.
 

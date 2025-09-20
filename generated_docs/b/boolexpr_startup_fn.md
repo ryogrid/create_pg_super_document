@@ -8,7 +8,17 @@ A specialized startup function for iterating over BoolExpr nodes (boolean expres
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	OpExpr		opexpr;
+	Const		const_expr;
+	int			next_elem;
+	int			num_elems;
+	Datum	   *elem_values;
+	bool	   *elem_nulls;
+} ArrayConstIterState;
+```
 ## Detailed Description
 This function serves as the initialization routine for the predicate iterator framework when dealing with BoolExpr nodes (boolean expressions like AND, OR, NOT). Unlike regular Lists, BoolExpr nodes contain their arguments in a specific 'args' field, so this function extracts that List and sets up the iteration state accordingly. The function works with the standard list_next_fn and list_cleanup_fn to provide complete iteration over the arguments of boolean expressions during predicate analysis in the query optimizer.
 

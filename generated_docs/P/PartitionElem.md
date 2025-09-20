@@ -8,7 +8,17 @@ PartitionElem represents a single partition key element in the parse tree, speci
 
 ## Definition
 
-
+```c
+typedef struct PartitionElem
+{
+	NodeTag		type;
+	char	   *name;			/* name of column to partition on, or NULL */
+	Node	   *expr;			/* expression to partition on, or NULL */
+	List	   *collation;		/* name of collation; NIL = default */
+	List	   *opclass;		/* name of desired opclass; NIL = default */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} PartitionElem;
+```
 ## Detailed Description
 PartitionElem is a parse-time representation used in PostgreSQL's table partitioning system to define individual partition key components. It can represent either simple column-based partitioning (where name is specified and expr is NULL) or expression-based partitioning (where expr is specified and name is NULL). The structure encapsulates the partitioning element along with its collation and operator class specifications, providing the necessary information for the partitioning subsystem to properly distribute data across partitions.
 

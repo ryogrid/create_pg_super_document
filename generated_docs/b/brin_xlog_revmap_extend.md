@@ -8,7 +8,10 @@ Replays a BRIN revmap page extension operation during WAL recovery, updating the
 
 ## Definition
 
-
+```c
+static void
+brin_xlog_revmap_extend(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the replay of a BRIN revmap page extension during crash recovery. When a BRIN index needs to extend its revmap (reverse mapping from heap block numbers to summary pages), this operation is logged in WAL. During recovery, this function:
 

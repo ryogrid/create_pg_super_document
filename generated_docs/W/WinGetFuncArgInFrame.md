@@ -8,7 +8,12 @@ Evaluates a window function's argument expression on a specified row within the 
 
 ## Definition
 
-
+```c
+Datum
+WinGetFuncArgInFrame(WindowObject winobj, int argno,
+					 int relpos, int seektype, bool set_mark,
+					 bool *isnull, bool *isout)
+```
 ## Detailed Description
 This function provides frame-aware row positioning and argument evaluation for window functions. Unlike WinGetFuncArgInPartition, it operates strictly within the defined window frame and handles complex exclusion clauses that can create non-consecutive in-frame rows within the partition.
 

@@ -8,7 +8,10 @@ A static qsort comparator function that compares two integer values for sorting 
 
 ## Definition
 
-
+```c
+static int
+compare_int(const void *va, const void *vb)
+```
 ## Detailed Description
 The  function serves as a comparator function for the standard C library  function. It takes two void pointers (as required by qsort's interface), dereferences them as integers, and returns a comparison result. This function enables sorting of integer arrays in ascending order.
 

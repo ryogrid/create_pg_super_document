@@ -8,7 +8,13 @@ Creates and initializes a TidRangeScan plan node that scans a range of tuples in
 
 ## Definition
 
-
+```c
+static TidRangeScan *
+make_tidrangescan(List *qptlist,
+				  List *qpqual,
+				  Index scanrelid,
+				  List *tidrangequals)
+```
 ## Detailed Description
 This function constructs a TidRangeScan plan node, which implements a specialized scan operation that accesses tuples within specified TID ranges from a heap table. Unlike the single TID access provided by TidScan, TidRangeScan can efficiently process range conditions on TIDs, such as "WHERE ctid >= '(0,1)' AND ctid <= '(0,100)'". This allows for efficient scanning of contiguous blocks of tuples without requiring a full sequential scan, making it particularly useful for operations that need to process specific ranges of a table's physical storage.
 

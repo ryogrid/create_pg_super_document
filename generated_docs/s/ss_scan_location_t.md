@@ -8,7 +8,13 @@ A structure that stores the synchronous scan location information for a specific
 
 ## Definition
 
-
+```c
+typedef struct ss_scan_location_t
+{
+	RelFileLocator relfilelocator;	/* identity of a relation */
+	BlockNumber location;		/* last-reported location in the relation */
+} ss_scan_location_t;
+```
 ## Detailed Description
 The  structure is a core component of PostgreSQL's synchronized scan mechanism. It stores the location information for a relation being scanned, allowing multiple concurrent sequential scans to coordinate and potentially start from the same position to improve buffer cache efficiency. This structure is designed to work within a fixed-size shared memory allocation as part of a doubly-linked LRU (Least Recently Used) cache system.
 

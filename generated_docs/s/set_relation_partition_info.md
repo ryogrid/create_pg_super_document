@@ -8,7 +8,18 @@ Sets up partitioning scheme and related metadata for a partitioned table in the 
 
 ## Definition
 
+```c
+structure if we didn't already.
+	 */
+	if (root->glob->partition_directory == NULL)
+	{
+		root->glob->partition_directory =
+			CreatePartitionDirectory(CurrentMemoryContext, true);
+	}
 
+	partdesc = PartitionDirectoryLookup(root->glob->partition_directory,
+										relation);
+```
 ## Detailed Description
 This static function initializes partition-related information for a partitioned table during query planning. It establishes the partition directory infrastructure if not already created, looks up the partition descriptor for the relation, and populates the RelOptInfo structure with essential partitioning metadata.
 

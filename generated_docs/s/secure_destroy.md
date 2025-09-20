@@ -8,7 +8,10 @@ Destroys the global security context and cleans up resources used by PostgreSQL'
 
 ## Definition
 
-
+```c
+void
+secure_destroy(void)
+```
 ## Detailed Description
 The `secure_destroy` function provides cleanup functionality for the security subsystem, specifically handling the destruction of SSL/TLS resources when PostgreSQL is compiled with SSL support. It acts as a simple wrapper around `be_tls_destroy` when SSL is available, ensuring proper cleanup of OpenSSL contexts, certificates, and other SSL-related resources. When SSL support is not compiled in, the function becomes a no-op.
 

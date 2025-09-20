@@ -8,7 +8,11 @@ This static function performs string transformation using libc's strxfrm() or st
 
 ## Definition
 
-
+```c
+static size_t
+pg_strxfrm_libc(char *dest, const char *src, size_t destsize,
+				pg_locale_t locale)
+```
 ## Detailed Description
 pg_strxfrm_libc is a platform-specific implementation that transforms strings into sort keys using the system's libc collation facilities. It acts as a wrapper around the standard C library strxfrm() and strxfrm_l() functions, providing a consistent interface for PostgreSQL's collation system.
 

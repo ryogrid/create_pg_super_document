@@ -8,7 +8,10 @@ SQL-callable function that determines whether a function is visible in the curre
 
 ## Definition
 
-
+```c
+Datum
+pg_function_is_visible(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `pg_function_is_visible` function is a SQL-callable wrapper around the internal `FunctionIsVisibleExt` function. It takes an OID of a function and returns a boolean indicating whether that function is visible in the current search path without requiring explicit schema qualification.
 

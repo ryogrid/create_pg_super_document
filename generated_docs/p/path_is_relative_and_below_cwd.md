@@ -8,7 +8,10 @@ Determines whether a canonicalized path is relative and guaranteed to remain wit
 
 ## Definition
 
-
+```c
+bool
+path_is_relative_and_below_cwd(const char *path)
+```
 ## Detailed Description
 The  function performs a security-focused validation to determine if a path is both relative and safe (i.e., cannot escape the current working directory). This function is critical for preventing directory traversal attacks.
 

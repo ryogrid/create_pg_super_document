@@ -8,7 +8,10 @@ Sorts pivot field columns based on their sort_value ranks and updates the rank f
 
 ## Definition
 
-
+```c
+static void
+rankSort(int num_columns, pivot_field *piv_columns)
+```
 ## Detailed Description
 This function implements a custom sorting mechanism for pivot table columns in PostgreSQL's psql \crosstabview feature. It examines the sort_value field of each pivot_field to extract numeric ranking information, then sorts the columns according to these ranks. Valid rank values must be integers (positive, negative, or zero) matching the regular expression /^-?\d+$/. Invalid or missing rank values are treated as rank 0.
 

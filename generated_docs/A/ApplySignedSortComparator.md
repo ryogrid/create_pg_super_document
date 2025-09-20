@@ -8,7 +8,12 @@ ApplySignedSortComparator is an inline function that performs signed comparison 
 
 ## Definition
 
-
+```c
+static inline int
+ApplySignedSortComparator(Datum datum1, bool isNull1,
+						  Datum datum2, bool isNull2,
+						  SortSupport ssup)
+```
 ## Detailed Description
 This function provides a specialized comparison for signed integer values stored as Datum. It converts Datum values to signed 64-bit integers using DatumGetInt64() and compares them directly. Like other comparator functions, it implements proper NULL handling logic and supports sort direction reversal.
 

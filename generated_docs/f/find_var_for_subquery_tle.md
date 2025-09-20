@@ -8,7 +8,10 @@ Determines if a subquery target list entry is visible to the outer query and ret
 
 ## Definition
 
-
+```c
+static Var *
+find_var_for_subquery_tle(RelOptInfo *rel, TargetEntry *tle)
+```
 ## Detailed Description
 This function serves as a bridge between subquery internal representations and outer query visibility. It checks whether a specific target list entry from a subquery will be accessible to the outer query by searching the relation's target expressions.
 

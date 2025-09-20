@@ -8,7 +8,12 @@ The  function parses the components of a printf-style format specifier, extracti
 
 ## Definition
 
-
+```c
+static const char *
+text_format_parse_format(const char *start_ptr, const char *end_ptr,
+						 int *argpos, int *widthpos,
+						 int *flags, int *width)
+```
 ## Detailed Description
 This static helper function implements the core parsing logic for PostgreSQL's FORMAT() function format specifiers. It parses format specifiers following the SUS (Single UNIX Specification) printf format, handling the syntax: 
 

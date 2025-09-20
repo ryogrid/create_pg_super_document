@@ -8,7 +8,10 @@ Returns the LLVM function type of a variable defined in llvmjit_types.c, ensurin
 
 ## Definition
 
-
+```c
+LLVMTypeRef
+llvm_pg_var_func_type(const char *varname)
+```
 ## Detailed Description
 This function retrieves the LLVM function type for a named function variable from the llvmjit_types.c module. It serves as a bridge between PostgreSQL's C code and LLVM JIT compilation by providing type information needed for generating compatible JIT code. The function looks up a named function in the global llvm_types_module and extracts its type information.
 

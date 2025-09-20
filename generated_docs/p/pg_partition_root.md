@@ -8,7 +8,10 @@ A PostgreSQL system function that finds and returns the top-most parent (root) r
 
 ## Definition
 
-
+```c
+Datum
+pg_partition_root(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the  SQL function that traverses a partition hierarchy upward to locate the root partitioned table. It serves as a key utility in PostgreSQL's declarative partitioning system, allowing users and internal operations to identify the ultimate parent table in a partition tree.
 

@@ -8,7 +8,17 @@ A utility function that creates a new LLVM basic block and inserts it just befor
 
 ## Definition
 
+```c
+/* separate, because pg_attribute_printf(2, 3) can't appear in definition */
+static inline LLVMBasicBlockRef l_bb_before_v(LLVMBasicBlockRef r, const char *fmt,...) pg_attribute_printf(2, 3);
 
+/*
+ * Insert a new basic block, just before r, the name being determined by fmt
+ * and arguments.
+ */
+static inline LLVMBasicBlockRef
+l_bb_before_v(LLVMBasicBlockRef r, const char *fmt,...)
+```
 ## Detailed Description
 This function is a convenient wrapper around LLVM's  that simplifies the creation of named basic blocks. It takes a reference basic block and inserts a new basic block immediately before it in the control flow. The function uses variable arguments to construct a descriptive name for the new basic block using printf-style formatting. This is particularly useful in PostgreSQL's JIT compilation infrastructure where basic blocks need meaningful names for debugging and code generation purposes.
 

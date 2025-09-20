@@ -8,7 +8,10 @@ Converts a PostgreSQL "char" (single byte character) data type to a 32-bit signe
 
 ## Definition
 
-
+```c
+Datum
+chartoi4(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in conversion function that takes a "char" data type (which is a single byte character stored as an 8-bit signed integer) and converts it to a 32-bit signed integer. The conversion is performed by casting the char value first to an 8-bit signed integer (int8) and then extending it to a 32-bit signed integer (int32). This preserves the sign of the original character value during the conversion.
 

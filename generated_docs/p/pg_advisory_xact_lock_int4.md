@@ -8,7 +8,10 @@ Acquires a transaction-scoped exclusive advisory lock using two 32-bit integer k
 
 ## Definition
 
-
+```c
+Datum
+pg_advisory_xact_lock_int4(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function acquires an exclusive advisory lock that is automatically scoped to the current transaction. The lock is identified by a combination of two 32-bit integer keys (key1, key2). Unlike session-scoped advisory locks, transaction-scoped locks are automatically released when the transaction ends (either by commit or rollback), eliminating the need for explicit unlocking. The function blocks indefinitely until the lock can be acquired.
 

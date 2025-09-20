@@ -8,7 +8,10 @@ Generates unique object names for PostgreSQL logical replication objects (public
 
 ## Definition
 
-
+```c
+static char *
+generate_object_name(PGconn *conn)
+```
 ## Detailed Description
 The  function creates unique names for PostgreSQL logical replication objects by combining a fixed prefix with the database OID and a random hexadecimal number. This naming scheme ensures uniqueness across different databases and multiple invocations of pg_createsubscriber. The function queries the current database's OID from the system catalog and combines it with a pseudo-random number generated using PostgreSQL's internal PRNG to create names like "pg_createsubscriber_16384_a1b2c3d4".
 

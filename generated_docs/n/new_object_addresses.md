@@ -8,7 +8,10 @@ Creates and initializes a new ObjectAddresses array structure used for managing 
 
 ## Definition
 
-
+```c
+ObjectAddresses *
+new_object_addresses(void)
+```
 ## Detailed Description
 This function serves as a constructor for the ObjectAddresses data structure, which is used throughout PostgreSQL to maintain dynamic arrays of object references for dependency tracking and management. The function allocates memory for the main structure and initializes it with sensible defaults.
 

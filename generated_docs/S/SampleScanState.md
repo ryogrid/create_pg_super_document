@@ -8,7 +8,24 @@ SampleScanState represents the execution state for TABLESAMPLE operations in Pos
 
 ## Definition
 
-
+```c
+typedef struct SampleScanState
+{
+	ScanState	ss;
+	List	   *args;			/* expr states for TABLESAMPLE params */
+	ExprState  *repeatable;		/* expr state for REPEATABLE expr */
+	/* use struct pointer to avoid including tsmapi.h here */
+	struct TsmRoutine *tsmroutine;	/* descriptor for tablesample method */
+	void	   *tsm_state;		/* tablesample method can keep state here */
+	bool		use_bulkread;	/* use bulkread buffer access strategy? */
+	bool		use_pagemode;	/* use page-at-a-time visibility checking? */
+	bool		begun;			/* false means need to call BeginSampleScan */
+	uint32		seed;			/* random seed */
+	int64		donetuples;		/* number of tuples already returned */
+	bool		haveblock;		/* has a block for sampling been determined */
+	bool		done;			/* exhausted all tuples? */
+} SampleScanState;
+```
 ## Detailed Description
 SampleScanState extends ScanState to provide comprehensive state management for PostgreSQL's TABLESAMPLE functionality. This structure coordinates the execution of sampling operations that allow users to retrieve a random subset of rows from a table using various sampling methods like SYSTEM or BERNOULLI.
 

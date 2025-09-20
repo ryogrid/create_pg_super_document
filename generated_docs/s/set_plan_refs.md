@@ -8,7 +8,10 @@ The core recursive function that adjusts variable references and expression node
 
 ## Definition
 
-
+```c
+static Plan *
+set_plan_refs(PlannerInfo *root, Plan *plan, int rtoffset)
+```
 ## Detailed Description
  is the main workhorse function in PostgreSQL's plan reference adjustment system. It recursively traverses a Plan node tree and updates variable references to account for rangetable index offsets that occur when subqueries are integrated into larger query plans. Each plan node type requires different handling based on its structure and the expressions it contains.
 

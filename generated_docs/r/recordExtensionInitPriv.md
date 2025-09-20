@@ -8,7 +8,10 @@ A static function that records initial ACL (Access Control List) for an extensio
 
 ## Definition
 
-
+```c
+static void
+recordExtensionInitPriv(Oid objoid, Oid classoid, int objsubid, Acl *new_acl)
+```
 ## Detailed Description
 This function serves as a wrapper that conditionally records initial privileges for extension objects. It only operates when either an extension is being created ( is set) or during binary upgrades when  is enabled. The function provides a mechanism to store the initial ACL state of objects that belong to extensions, which is essential for proper privilege management and restoration during database operations.
 

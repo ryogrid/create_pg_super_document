@@ -8,7 +8,12 @@ DoCopy executes the SQL COPY statement, handling both copying data from files/pr
 
 ## Definition
 
-
+```c
+void
+DoCopy(ParseState *pstate, const CopyStmt *stmt,
+	   int stmt_location, int stmt_len,
+	   uint64 *processed)
+```
 ## Detailed Description
 DoCopy is the main entry point for executing COPY statements in PostgreSQL. It performs comprehensive permission checking, handles both table-based and query-based COPY operations, and manages row-level security (RLS) requirements. For COPY FROM operations, it transfers data from external sources into database tables. For COPY TO operations, it exports table data or query results to external destinations. The function handles various security restrictions including role-based permissions for file and program access, and automatically converts table-based COPY TO operations to query-based operations when row-level security is enabled.
 

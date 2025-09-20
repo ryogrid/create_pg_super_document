@@ -8,7 +8,13 @@ InsertExtensionTuple creates a new pg_extension catalog tuple and establishes al
 
 ## Definition
 
-
+```c
+ObjectAddress
+InsertExtensionTuple(const char *extName, Oid extOwner,
+					 Oid schemaOid, bool relocatable, const char *extVersion,
+					 Datum extConfig, Datum extCondition,
+					 List *requiredExtensions)
+```
 ## Detailed Description
 This function performs the core catalog operations for extension registration. It creates a new tuple in the pg_extension system catalog with all the extension metadata, generates a unique OID for the extension, and establishes dependency relationships. The function handles both required and optional extension configuration arrays (extConfig and extCondition), records dependencies on the extension owner, target schema, and all prerequisite extensions, and invokes post-creation hooks. It's specifically designed to be usable by pg_upgrade, which needs to create extension entries without running installation scripts.
 

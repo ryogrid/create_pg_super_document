@@ -8,7 +8,10 @@ Builds and caches publication information for a relation, including publication 
 
 ## Definition
 
-
+```c
+void
+RelationBuildPublicationDesc(Relation relation, PublicationDesc *pubdesc)
+```
 ## Detailed Description
 This function constructs a comprehensive publication descriptor for a given relation by traversing all publications that include the relation. It consolidates publication actions and validates row filter expressions and column lists for logical replication.
 

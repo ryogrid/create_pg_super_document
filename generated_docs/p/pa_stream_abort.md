@@ -8,7 +8,10 @@ pa_stream_abort handles STREAM ABORT messages for transactions that were applied
 
 ## Definition
 
-
+```c
+void
+pa_stream_abort(LogicalRepStreamAbortData *abort_data)
+```
 ## Detailed Description
 This function processes stream abort operations in PostgreSQL's logical replication parallel worker environment. It handles two distinct scenarios based on whether the abort involves a toplevel transaction or a subtransaction:
 

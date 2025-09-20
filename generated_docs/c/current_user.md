@@ -8,7 +8,10 @@ The current_user function is a SQL function that returns the name of the current
 
 ## Definition
 
-
+```c
+Datum
+current_user(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL standard CURRENT_USER function. It retrieves the user ID of the currently executing session and converts it to the corresponding username string. The function uses PostgreSQL's internal user identification system to return the authenticated user's name as a SQL datum.
 

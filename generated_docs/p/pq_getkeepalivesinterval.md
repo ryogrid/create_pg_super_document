@@ -8,7 +8,10 @@ Retrieves the current TCP keepalive interval value (time between keepalive probe
 
 ## Definition
 
-
+```c
+int
+pq_getkeepalivesinterval(Port *port)
+```
 ## Detailed Description
 This function returns the TCP keepalive interval setting for a port connection. The interval determines the time between successive keepalive probes after the first probe is sent. It first checks if a custom keepalive interval has been set on the port. If not, it attempts to retrieve the system default value using getsockopt() with TCP_KEEPINTVL on non-Windows systems. On Windows platforms, the default values cannot be retrieved, so the function returns -1 to indicate "don't know". The function handles both Unix domain sockets (returns 0) and TCP sockets with appropriate platform-specific logic.
 

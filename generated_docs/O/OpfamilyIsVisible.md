@@ -8,7 +8,10 @@ Determines whether an operator family (identified by OID) is visible in the curr
 
 ## Definition
 
-
+```c
+bool
+OpfamilyIsVisible(Oid opfid)
+```
 ## Detailed Description
 OpfamilyIsVisible is a convenience function that checks if a given operator family is visible in the current PostgreSQL search path. It serves as a simple wrapper around OpfamilyIsVisibleExt, providing the standard visibility check without error handling for missing operator families. The function is part of PostgreSQL's namespace resolution system, which determines which objects are accessible when referenced by unqualified names.
 

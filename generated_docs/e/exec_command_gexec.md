@@ -8,7 +8,10 @@ Implements the \gexec command in psql, which enables execution mode where each f
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_gexec(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 This function handles the \gexec backslash command in psql. When executed, it sets a flag that causes the next query's results to be interpreted as SQL commands. Each field (column value) in each row of the result set will be executed as a separate SQL statement. This is useful for dynamically generating and executing SQL commands based on query results. The function is simple, only setting the gexec_flag when in an active branch.
 

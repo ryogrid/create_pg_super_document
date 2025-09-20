@@ -8,7 +8,80 @@ Prepares an expression for assignment to a column in INSERT and UPDATE statement
 
 ## Definition
 
+```c
+structed by INSERT or UPDATE.
+	 */
+	if (indirection)
+	{
+		Node	   *colVar;
 
+		if (pstate->p_is_insert)
+		{
+			/*
+			 * The command is INSERT INTO table (col.something) ... so there
+			 * is not really a source value to work with. Insert a NULL
+			 * constant as the source value.
+			 */
+			colVar = (Node *) makeNullConst(attrtype, attrtypmod,
+											attrcollation);
+		}
+		else
+		{
+			/*
+			 * Build a Var for the column to be updated.
+			 */
+			Var		   *var;
+
+			var = makeVar(pstate->p_target_nsitem->p_rtindex, attrno,
+						  attrtype, attrtypmod, attrcollation, 0);
+			var->location = location;
+
+			colVar = (Node *) var;
+		}
+
+		expr = (Expr *)
+			transformAssignmentIndirection(pstate,
+										   colVar,
+										   colname,
+										   false,
+										   attrtype,
+										   attrtypmod,
+										   attrcollation,
+										   indirection,
+										   list_head(indirection),
+										   (Node *) expr,
+										   COERCION_ASSIGNMENT,
+										   location);
+	}
+	else
+	{
+		/*
+		 * For normal non-qualified target column, do type checking and
+		 * coercion.
+		 */
+		Node	   *orig_expr = (Node *) expr;
+
+		expr = (Expr *)
+			coerce_to_target_type(pstate,
+								  orig_expr, type_id,
+								  attrtype, attrtypmod,
+								  COERCION_ASSIGNMENT,
+								  COERCE_IMPLICIT_CAST,
+								  -1);
+		if (expr == NULL)
+			ereport(ERROR,
+					(errcode(ERRCODE_DATATYPE_MISMATCH),
+					 errmsg("column \"%s\" is of type %s"
+							" but expression is of type %s",
+							colname,
+							format_type_be(attrtype),
+							format_type_be(type_id)),
+					 errhint("You will need to rewrite or cast the expression."),
+					 parser_errposition(pstate, exprLocation(orig_expr))));
+	}
+
+	pstate->p_expr_kind = sv_expr_kind;
+```
 ## Detailed Description
 This function is specifically used in INSERT and UPDATE statements to transform expressions before assignment to table columns. It performs several critical operations:
 

@@ -8,7 +8,9 @@ Determines whether a special join (specifically a left join) can be eliminated f
 
 ## Definition
 
-
+```c
+union(sjinfo->min_lefthand, sjinfo->min_righthand);
+```
 ## Detailed Description
 This function implements a critical optimization in PostgreSQL's query planner by analyzing whether a left join can be safely removed without changing the query semantics. The optimization is based on the principle that a left join can be eliminated if:
 

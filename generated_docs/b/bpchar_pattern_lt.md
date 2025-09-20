@@ -8,7 +8,10 @@ Implements the "less than" operator for pattern-based comparison of BPCHAR (blan
 
 ## Definition
 
-
+```c
+Datum
+bpchar_pattern_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs a pattern-based "less than" comparison between two BPCHAR values. Unlike standard BPCHAR comparison which follows locale-specific collation rules, this function performs byte-by-byte comparison that is suitable for building indexes to support LIKE clauses and pattern matching operations.
 

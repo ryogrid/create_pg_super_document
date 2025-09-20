@@ -8,7 +8,10 @@ StartupProcExit is a signal handler function that performs cleanup operations wh
 
 ## Definition
 
-
+```c
+static void
+StartupProcExit(int code, Datum arg)
+```
 ## Detailed Description
 StartupProcExit serves as an exit callback function for the startup process in PostgreSQL. It is registered as a signal handler to ensure proper cleanup when the startup process terminates. The function's primary responsibility is to cleanly shut down the recovery transaction environment if the server is running in standby mode. This ensures that recovery-related resources are properly released and the system maintains consistency during process termination.
 

@@ -8,7 +8,12 @@ A wrapper function that safely invokes the optional output plugin's stream_trunc
 
 ## Definition
 
-
+```c
+static void
+stream_truncate_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+						   int nrelations, Relation relations[],
+						   ReorderBufferChange *change)
+```
 ## Detailed Description
 This function serves as a protective wrapper around the output plugin's optional stream_truncate_cb callback in PostgreSQL's logical replication streaming mechanism. It handles TRUNCATE operations that can affect multiple relations simultaneously within a streaming transaction context.
 

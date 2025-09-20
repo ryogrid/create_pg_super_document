@@ -8,7 +8,10 @@ A utility function that creates a copy of the input string with all lines indent
 
 ## Definition
 
-
+```c
+static char *
+indent_lines(const char *str)
+```
 ## Detailed Description
 The  function takes a string as input and returns a newly allocated copy where every line is prefixed with four spaces for indentation. It uses PostgreSQL's PQExpBuffer functionality to efficiently build the indented string. The function iterates through each character of the input string, copying it to the buffer and adding four-space indentation after every newline character (except at the very end of the string).
 

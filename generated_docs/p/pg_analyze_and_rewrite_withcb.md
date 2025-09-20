@@ -8,7 +8,14 @@ Performs parse analysis and query rewriting with a custom parser callback hook, 
 
 ## Definition
 
-
+```c
+List *
+pg_analyze_and_rewrite_withcb(RawStmt *parsetree,
+							  const char *query_string,
+							  ParserSetupHook parserSetup,
+							  void *parserSetupArg,
+							  QueryEnvironment *queryEnv)
+```
 ## Detailed Description
 This function is the core entry point for SQL query processing that transforms a raw parse tree into a list of rewritten query trees. It performs two main phases:
 

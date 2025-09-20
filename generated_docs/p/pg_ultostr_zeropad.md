@@ -8,7 +8,10 @@ Converts an unsigned 32-bit integer to its decimal string representation with ze
 
 ## Definition
 
-
+```c
+char *
+pg_ultostr_zeropad(char *str, uint32 value, int32 minwidth)
+```
 ## Detailed Description
 This function converts a uint32 value into a decimal string representation and stores it at the provided memory location, ensuring the result has at least the specified minimum width by prefixing with zeros if necessary. The function is specifically designed for building composite strings containing multiple numbers, such as time formatting (HH:MM:SS). It includes an optimization for the common case of 2-digit formatting with values under 100, using a pre-computed DIGIT_TABLE for faster conversion. Unlike standard string functions, it does not write a NUL terminator, allowing for efficient concatenation of multiple numeric components.
 

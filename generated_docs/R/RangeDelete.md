@@ -8,7 +8,10 @@ Removes the pg_range catalog entry for a specified range type when the range typ
 
 ## Definition
 
-
+```c
+void
+RangeDelete(Oid rangeTypeOid)
+```
 ## Detailed Description
 RangeDelete is responsible for removing range type metadata from the pg_range system catalog when a range type is being deleted. The function performs a systematic scan of the pg_range table to locate entries matching the specified range type OID and deletes them from the catalog.
 

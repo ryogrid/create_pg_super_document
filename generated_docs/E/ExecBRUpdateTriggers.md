@@ -8,7 +8,16 @@ An ABI-compatible wrapper function that provides backward compatibility for the 
 
 ## Definition
 
-
+```c
+bool
+ExecBRUpdateTriggers(EState *estate, EPQState *epqstate,
+					 ResultRelInfo *relinfo,
+					 ItemPointer tupleid,
+					 HeapTuple fdw_trigtuple,
+					 TupleTableSlot *newslot,
+					 TM_Result *tmresult,
+					 TM_FailureData *tmfd)
+```
 ## Detailed Description
 This function serves as a backward-compatibility wrapper for the older interface to BEFORE ROW UPDATE trigger execution. It simply forwards all parameters to ExecBRUpdateTriggersNew with is_merge_update set to false, maintaining ABI compatibility for existing code while ensuring that new functionality is centralized in the newer function.
 

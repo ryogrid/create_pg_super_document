@@ -8,7 +8,10 @@ SimpleLruShmemSize calculates the total shared memory size required for a Simple
 
 ## Definition
 
-
+```c
+Size
+SimpleLruShmemSize(int nslots, int nlsns)
+```
 ## Detailed Description
 This function computes the total amount of shared memory needed to initialize an SLRU (Simple LRU) control structure with the specified number of buffer slots and LSN groups. The calculation includes space for:
 

@@ -8,7 +8,10 @@ A compression function for SP-GiST quadtree indexes that extracts the bounding b
 
 ## Definition
 
-
+```c
+Datum
+spg_poly_quad_compress(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the compression step for SP-GiST quadtree indexes on polygon data types. It takes a polygon geometry as input and extracts its pre-computed bounding box (stored in the boundbox field) to create a compressed representation suitable for spatial indexing. This lossy compression allows the index to efficiently handle complex polygon shapes by representing them with simpler rectangular bounding boxes, trading some precision for improved query performance and reduced storage requirements.
 

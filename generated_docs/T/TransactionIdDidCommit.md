@@ -8,7 +8,10 @@ TransactionIdDidCommit determines whether a specified transaction has committed,
 
 ## Definition
 
-
+```c
+bool							/* true if given transaction committed */
+TransactionIdDidCommit(TransactionId transactionId)
+```
 ## Detailed Description
 TransactionIdDidCommit is a core function in PostgreSQL's transaction visibility system that determines if a transaction has successfully committed. The function implements a sophisticated logic to handle different transaction states:
 

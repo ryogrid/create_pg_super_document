@@ -8,7 +8,10 @@ Creates a unique temporary directory with mode 0700 (read/write/execute for owne
 
 ## Definition
 
-
+```c
+char *
+mkdtemp(char *path)
+```
 ## Detailed Description
 The  function is a portable implementation for creating temporary directories on platforms that lack the standard POSIX  function. This implementation is derived from NetBSD's code and provides compatibility for PostgreSQL across different operating systems.
 

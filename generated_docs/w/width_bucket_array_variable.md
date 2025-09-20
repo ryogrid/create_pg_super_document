@@ -8,7 +8,13 @@ Implements width_bucket functionality for generic variable-width data types usin
 
 ## Definition
 
-
+```c
+static int
+width_bucket_array_variable(Datum operand,
+							ArrayType *thresholds,
+							Oid collation,
+							TypeCacheEntry *typentry)
+```
 ## Detailed Description
 This function provides width bucketing for variable-width data types (where typlen <= 0, such as text, varchar, bytea). Unlike fixed-width types, variable-width types cannot be accessed through simple pointer arithmetic, requiring sequential traversal to locate specific array elements.
 

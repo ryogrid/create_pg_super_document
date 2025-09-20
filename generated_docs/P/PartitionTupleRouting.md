@@ -8,7 +8,21 @@ PartitionTupleRouting encapsulates all information required to route a tuple ins
 
 ## Definition
 
-
+```c
+struct PartitionTupleRouting
+{
+	Relation	partition_root;
+	PartitionDispatch *partition_dispatch_info;
+	ResultRelInfo **nonleaf_partitions;
+	int			num_dispatch;
+	int			max_dispatch;
+	ResultRelInfo **partitions;
+	bool	   *is_borrowed_rel;
+	int			num_partitions;
+	int			max_partitions;
+	MemoryContext memcxt;
+};
+```
 ## Detailed Description
 PartitionTupleRouting is a central structure in PostgreSQL's partition tuple routing system that manages the complete state needed to route tuples from a partitioned table to their appropriate leaf partitions. It maintains arrays of partition dispatch information for intermediate partitioned tables and result relation information for leaf partitions, handling both borrowed and purpose-built relation info objects. The structure supports dynamic growth as new partitions are encountered during tuple routing operations.
 

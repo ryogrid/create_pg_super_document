@@ -8,7 +8,10 @@ Finalizes and cleans up a heap index fetch scan by resetting the scan state and 
 
 ## Definition
 
-
+```c
+static void
+heapam_index_fetch_end(IndexFetchTableData *scan)
+```
 ## Detailed Description
 This function serves as the cleanup and termination callback for index fetch operations on heap tables within PostgreSQL's table access method framework. It performs the final cleanup steps required when ending an index scan, including calling heapam_index_fetch_reset() to release any held buffers and then freeing the memory allocated for the IndexFetchHeapData structure. This function completes the lifecycle of index fetch operations that began with heapam_index_fetch_begin(), ensuring proper resource deallocation and preventing memory leaks.
 

@@ -8,7 +8,10 @@ Processes the FROM clause of SQL queries by transforming each FROM clause item a
 
 ## Definition
 
-
+```c
+void
+transformFromClause(ParseState *pstate, List *frmList)
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's query parsing infrastructure that processes the FROM clause of SQL statements. It iterates through a list of FROM clause items (which can be RangeVars, RangeSubselects, RangeFunctions, and/or JoinExprs) and transforms each one while maintaining proper namespace management and lateral reference handling.
 

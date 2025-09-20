@@ -8,7 +8,11 @@ Internal function that converts a PostgreSQL schema (namespace) to XML format, i
 
 ## Definition
 
-
+```c
+static StringInfo
+schema_to_xml_internal(Oid nspid, const char *xmlschema, bool nulls,
+					   bool tableforest, const char *targetns, bool top_level)
+```
 ## Detailed Description
 This internal function implements the core logic for mapping a SQL schema to XML format as specified in SQL/XML:2008 sections 9.13 and 9.14. It processes a PostgreSQL namespace (schema) by:
 

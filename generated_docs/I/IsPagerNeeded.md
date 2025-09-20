@@ -8,7 +8,11 @@ Determines whether a pager is needed for output and configures paging based on t
 
 ## Definition
 
-
+```c
+static void
+IsPagerNeeded(const printTableContent *cont, int extra_lines, bool expanded,
+			  FILE **fout, bool *is_pager)
+```
 ## Detailed Description
 This static function calculates whether the output will require a pager based on the table content dimensions, format (expanded vs normal), and additional lines. It counts the total number of lines that will be displayed, including header, data rows, and footers, then calls PageOutput() to determine if paging is necessary based on terminal size and user preferences.
 

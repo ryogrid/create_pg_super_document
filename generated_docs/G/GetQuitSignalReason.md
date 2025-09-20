@@ -8,7 +8,10 @@ Retrieves the reason for a system shutdown from shared memory, typically called 
 
 ## Definition
 
-
+```c
+QuitSignalReason
+GetQuitSignalReason(void)
+```
 ## Detailed Description
 This function allows child processes to determine why they are being terminated when they receive a SIGQUIT signal from the postmaster. It reads the shutdown reason from the PMSignalState shared memory structure that was previously set by SetQuitSignalReason. The function includes extra safety checks since it is called from signal handlers, verifying that the process is running under a postmaster and that the shared memory state is valid. If these conditions are not met, it returns PMQUIT_NOT_SENT to indicate that no legitimate shutdown signal was sent.
 

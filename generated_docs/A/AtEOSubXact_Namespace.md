@@ -8,7 +8,11 @@ AtEOSubXact_Namespace manages temporary namespace state during subtransaction en
 
 ## Definition
 
-
+```c
+void
+AtEOSubXact_Namespace(bool isCommit, SubTransactionId mySubid,
+					  SubTransactionId parentSubid)
+```
 ## Detailed Description
 This function is called at the end of a subtransaction to handle temporary namespace management. It operates based on whether the subtransaction is committing or aborting:
 

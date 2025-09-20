@@ -8,7 +8,12 @@ This function deconstructos a multirange value into an array of individual Range
 
 ## Definition
 
-
+```c
+void
+multirange_deserialize(TypeCacheEntry *rangetyp,
+					   const MultirangeType *multirange, int32 *range_count,
+					   RangeType ***ranges)
+```
 ## Detailed Description
 The function performs a complete deserialization of a multirange by extracting each constituent range and creating independent RangeType objects. It allocates an array to hold pointers to all the extracted ranges and uses multirange_get_range() to reconstruct each individual range from the compressed multirange format.
 

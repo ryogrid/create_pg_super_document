@@ -8,7 +8,12 @@ Computes stored generated columns for a tuple by evaluating their generation exp
 
 ## Definition
 
-
+```c
+void
+ExecComputeStoredGenerated(ResultRelInfo *resultRelInfo,
+						   EState *estate, TupleTableSlot *slot,
+						   CmdType cmdtype)
+```
 ## Detailed Description
 This function handles the computation of stored generated columns during INSERT and UPDATE operations. Generated columns are virtual columns whose values are computed based on expressions that reference other columns in the same table. The function evaluates these expressions and materializes the computed values in the tuple slot.
 

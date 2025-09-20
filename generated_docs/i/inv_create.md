@@ -8,7 +8,10 @@ Creates a new large object in PostgreSQL with optional OID specification, establ
 
 ## Definition
 
-
+```c
+Oid
+inv_create(Oid lobjId)
+```
 ## Detailed Description
 This function creates a new large object in the PostgreSQL system with initially empty data pages. It can either accept a specific OID to use for the new object or automatically generate one if InvalidOid is provided. The function handles the complete lifecycle of large object creation including: calling the low-level LargeObjectCreate function, establishing ownership dependencies using the current user ID, invoking post-creation hooks for extensibility, and advancing the command counter to ensure the new object is visible to subsequent operations within the same transaction. The dependency tracking uses LargeObjectRelationId for backward compatibility with existing tools like pg_dump.
 

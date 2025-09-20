@@ -8,7 +8,10 @@ Validates and potentially marks as valid a partitioned index by checking if all 
 
 ## Definition
 
-
+```c
+static void
+validatePartitionedIndex(Relation partedIdx, Relation partedTbl)
+```
 ## Detailed Description
 This function performs comprehensive validation of a partitioned index to determine if it should be marked as valid. The validation process involves:
 

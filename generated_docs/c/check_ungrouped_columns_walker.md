@@ -8,7 +8,11 @@ Core recursive tree walker that implements PostgreSQL's GROUP BY validation logi
 
 ## Definition
 
-
+```c
+static bool
+check_ungrouped_columns_walker(Node *node,
+							   check_ungrouped_columns_context *context)
+```
 ## Detailed Description
 This function implements the sophisticated logic for validating GROUP BY compliance:
 

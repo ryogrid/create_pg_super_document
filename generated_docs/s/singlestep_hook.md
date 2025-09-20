@@ -8,7 +8,10 @@ A hook function used in PostgreSQL's psql client to validate and set the SINGLES
 
 ## Definition
 
-
+```c
+static bool
+singlestep_hook(const char *newval)
+```
 ## Detailed Description
 The  function serves as a validation and assignment hook for the SINGLESTEP psql variable. It is called whenever the user attempts to set the SINGLESTEP variable through psql commands like . The function uses the  utility to parse the string value and convert it to a boolean, storing the result in the global  field. This hook ensures that only valid boolean values are accepted for the SINGLESTEP setting. When SINGLESTEP mode is enabled, psql will prompt the user before executing each SQL statement, providing an interactive debugging and review capability useful for carefully stepping through scripts or complex command sequences.
 

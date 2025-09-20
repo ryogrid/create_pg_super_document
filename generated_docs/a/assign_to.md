@@ -8,7 +8,11 @@ A function in the Snowball stemming library that copies the entire working buffe
 
 ## Definition
 
+```c
+}
 
+extern symbol * assign_to(struct SN_env * z, symbol * p)
+```
 ## Detailed Description
 The  function performs a complete assignment of the working buffer contents to the destination buffer. Unlike  which copies only a selected slice, this function copies the entire string from position 0 to the current length (). The function handles memory management automatically, expanding the destination buffer if necessary to accommodate the entire working string.
 

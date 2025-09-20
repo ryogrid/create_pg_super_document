@@ -8,7 +8,10 @@ Encodes a sequence of integers into a compressed 64-bit codeword using the Simpl
 
 ## Definition
 
-
+```c
+static uint64
+simple8b_encode(const uint64 *ints, int *num_encoded, uint64 base)
+```
 ## Detailed Description
 This function implements the Simple8b compression algorithm, which packs multiple integers into a single 64-bit codeword by encoding the deltas (differences) between consecutive values rather than the values themselves. The algorithm is particularly effective for sorted sequences where consecutive integers have small differences.
 

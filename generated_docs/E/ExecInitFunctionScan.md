@@ -8,7 +8,10 @@ ExecInitFunctionScan initializes a FunctionScanState node for executing function
 
 ## Definition
 
-
+```c
+FunctionScanState *
+ExecInitFunctionScan(FunctionScan *node, EState *estate, int eflags)
+```
 ## Detailed Description
 ExecInitFunctionScan performs comprehensive initialization for function scan operations:
 

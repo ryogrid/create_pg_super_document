@@ -8,7 +8,10 @@ Removes all commit timestamp SLRU segments before the segment containing a speci
 
 ## Definition
 
-
+```c
+void
+TruncateCommitTs(TransactionId oldestXact)
+```
 ## Detailed Description
 TruncateCommitTs is responsible for cleaning up old commit timestamp data by removing SLRU segments that are no longer needed. This function is typically called as part of vacuum operations to reclaim disk space used by commit timestamp data for transactions that are no longer of interest.
 

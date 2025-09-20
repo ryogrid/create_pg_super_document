@@ -8,7 +8,10 @@ ExecJustInnerVar is a fast-path function for evaluating simple expressions that 
 
 ## Definition
 
-
+```c
+static Datum
+ExecJustInnerVar(ExprState *state, ExprContext *econtext, bool *isnull)
+```
 ## Detailed Description
 This function provides optimized evaluation for expressions consisting solely of a reference to an attribute from the inner relation in a join operation. It serves as a specialized wrapper around ExecJustVarImpl, specifically targeting the inner tuple slot from the expression context.
 

@@ -8,7 +8,10 @@ Transforms a parameter reference (, , etc.) from parse tree representation into 
 
 ## Definition
 
-
+```c
+static Node *
+transformParamRef(ParseState *pstate, ParamRef *pref)
+```
 ## Detailed Description
 The  function is responsible for transforming parameter references (like , , etc.) encountered during SQL parsing. The core parser itself doesn't have built-in knowledge about parameter handling, so it delegates this responsibility to a configurable hook mechanism.
 

@@ -8,7 +8,12 @@ AddRoleMems adds specified member roles to a target role with various grant opti
 
 ## Definition
 
-
+```c
+static void
+AddRoleMems(Oid currentUserId, const char *rolename, Oid roleid,
+			List *memberSpecs, List *memberIds,
+			Oid grantorId, GrantRoleOptions *popt)
+```
 ## Detailed Description
 AddRoleMems is a core function in PostgreSQL's role management system that implements the GRANT ROLE functionality. It performs comprehensive validation to prevent membership loops and circular admin option grants, then updates the pg_auth_members catalog table. The function validates that pg_database_owner cannot be a member of any role and ensures that granting admin options doesn't create circular dependencies where a grantor could lose their ability to perform the grant.
 

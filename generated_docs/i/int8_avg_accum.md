@@ -8,7 +8,10 @@ Transition function for int8 input aggregation when computing averages that don'
 
 ## Definition
 
-
+```c
+Datum
+int8_avg_accum(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as an accumulator for PostgreSQL's average aggregate functions when processing 64-bit integer (int8/bigint) inputs. It's specifically designed for cases where only the sum and count are needed, not the sum of squares. The function maintains state using a PolyNumAggState structure and handles both 128-bit integer arithmetic (when available) and numeric arithmetic as fallback.
 

@@ -8,7 +8,10 @@ Post-subtransaction abort cleanup function that drops all portals created in the
 
 ## Definition
 
-
+```c
+void
+AtSubCleanup_Portals(SubTransactionId mySubid)
+```
 ## Detailed Description
 AtSubCleanup_Portals performs the final cleanup phase for portals after a subtransaction abort. This function completes the portal cleanup process that was initiated by AtSubAbort_Portals by actually dropping (destroying) all portals that were created within the failed subtransaction. This function only targets portals that were originally created in the specified subtransaction and have not been reassigned to a parent transaction.
 

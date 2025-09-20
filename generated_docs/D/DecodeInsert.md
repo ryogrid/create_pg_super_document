@@ -8,7 +8,10 @@ DecodeInsert processes HEAP_INSERT WAL records in PostgreSQL's logical replicati
 
 ## Definition
 
-
+```c
+static void
+DecodeInsert(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+```
 ## Detailed Description
 DecodeInsert handles the decoding of heap insert operations from WAL records for logical replication. It parses XLOG_HEAP_INSERT records (excluding MULTI_INSERT records) and converts them into ReorderBufferChange structures that can be processed by output plugins.
 

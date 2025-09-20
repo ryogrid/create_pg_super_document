@@ -8,7 +8,10 @@ SQL-callable function that generates both XML data and its corresponding XML Sch
 
 ## Definition
 
-
+```c
+Datum
+table_to_xml_and_xmlschema(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a convenient combination of table_to_xml and table_to_xmlschema functionality, generating both the XML representation of table data and its corresponding XML Schema Definition in one call. It first generates the XML schema for the table structure, then uses that schema to produce a complete XML document that includes both the schema definition and the actual table data. This is particularly useful for applications that need both the structure and data information together.
 

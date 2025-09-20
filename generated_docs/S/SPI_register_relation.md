@@ -8,7 +8,10 @@ Registers an ephemeral named relation for use by the planner and executor on sub
 
 ## Definition
 
-
+```c
+int
+SPI_register_relation(EphemeralNamedRelation enr)
+```
 ## Detailed Description
 This function is part of the SPI (Server Programming Interface) API that allows registration of ephemeral named relations (ENRs) within the current SPI execution context. The function validates the input parameter, checks for duplicate registrations using the relation's name, and if no duplicate exists, registers the ENR in the query environment. If no query environment exists yet, it creates one. The function uses SPI's begin/end call mechanism to manage the execution context properly.
 

@@ -8,7 +8,10 @@ Logs a hash table bucket split operation to the Write-Ahead Log (WAL) when a new
 
 ## Definition
 
-
+```c
+static void
+log_split_page(Relation rel, Buffer buf)
+```
 ## Detailed Description
 This function creates a WAL record for a hash table split operation. It is called when a new bucket page becomes full during a split operation, requiring the entire page to be logged for crash recovery purposes. The function only performs logging if the relation requires WAL (Write-Ahead Logging).
 

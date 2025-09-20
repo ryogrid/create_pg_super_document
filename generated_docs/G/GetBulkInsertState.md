@@ -8,7 +8,10 @@ GetBulkInsertState creates and initializes a BulkInsertState object that manages
 
 ## Definition
 
-
+```c
+BulkInsertState
+GetBulkInsertState(void)
+```
 ## Detailed Description
 GetBulkInsertState allocates and initializes a new BulkInsertState structure used to optimize bulk insertion operations in PostgreSQL. The function sets up a bulk write access strategy and initializes tracking variables for buffer management during large-scale insert operations. This state object helps minimize buffer pool churn and improves performance by coordinating buffer allocation and reuse patterns during bulk inserts.
 

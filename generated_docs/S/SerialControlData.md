@@ -8,7 +8,14 @@ SerialControlData is a control structure that manages the serializable isolation
 
 ## Definition
 
-
+```c
+typedef struct SerialControlData
+{
+	int64		headPage;		/* newest initialized page */
+	TransactionId headXid;		/* newest valid Xid in the SLRU */
+	TransactionId tailXid;		/* oldest xmin we might be interested in */
+}			SerialControlData;
+```
 ## Detailed Description
 SerialControlData serves as the control block for PostgreSQL's serializable snapshot isolation implementation. It maintains critical metadata about the SLRU (Simple LRU) buffer system used to track information about serializable transactions. This structure helps PostgreSQL determine which transaction IDs are still relevant for conflict detection and which pages in the SLRU contain valid data.
 

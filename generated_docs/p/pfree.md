@@ -8,7 +8,14 @@ Releases (deallocates) a previously allocated memory chunk, handling both regula
 
 ## Definition
 
-
+```c
+structions after this call allows the compiler to use
+	 * the sibling call optimization.  If you're considering adding code after
+	 * this call, consider making it the responsibility of the 'realloc'
+	 * function instead.
+	 */
+	ret = MCXT_METHOD(pointer, realloc) (pointer, size, 0);
+```
 ## Detailed Description
 The `pfree` function is PostgreSQL's primary interface for deallocating memory that was previously allocated through the memory context system. It provides a unified interface for freeing memory regardless of which memory context or allocation method was used, including regular allocations and aligned allocations.
 

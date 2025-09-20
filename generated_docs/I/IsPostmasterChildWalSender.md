@@ -8,7 +8,10 @@ Checks if a given slot is currently in use by a WAL sender process, returning tr
 
 ## Definition
 
-
+```c
+bool
+IsPostmasterChildWalSender(int slot)
+```
 ## Detailed Description
 This function determines whether a specific child process slot is occupied by a WAL sender process. WAL senders are specialized PostgreSQL processes responsible for streaming write-ahead log data to standby servers for replication purposes. The function checks the PMChildFlags array in shared memory to see if the specified slot is marked with the PM_CHILD_WALSENDER state. This information is used by the postmaster for process management decisions, such as when signaling specific types of child processes or counting different process types during shutdown or restart procedures.
 

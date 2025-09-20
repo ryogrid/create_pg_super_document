@@ -8,7 +8,10 @@ Retrieves a human-readable string description for a PostgreSQL system catalog cl
 
 ## Definition
 
-
+```c
+const char *
+get_object_class_descr(Oid class_id)
+```
 ## Detailed Description
 The `get_object_class_descr` function serves as a simple interface to retrieve descriptive string names for PostgreSQL's system catalog classes. Given a class OID (which corresponds to a system catalog table like pg_class, pg_proc, pg_type, etc.), it returns a human-readable string description of that catalog.
 

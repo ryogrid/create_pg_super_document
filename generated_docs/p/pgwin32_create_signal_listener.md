@@ -8,7 +8,10 @@ Creates a named pipe for signal communication between PostgreSQL processes on Wi
 
 ## Definition
 
-
+```c
+HANDLE
+pgwin32_create_signal_listener(pid_t pid)
+```
 ## Detailed Description
 This function implements the Windows-specific signal handling mechanism for PostgreSQL by creating a named pipe that acts as a signal listener for a given process. On Windows, traditional Unix signals are not available, so PostgreSQL uses named pipes to simulate signal delivery between processes. The function creates a uniquely named pipe based on the process ID, allowing other processes to send "signals" by writing to this pipe.
 

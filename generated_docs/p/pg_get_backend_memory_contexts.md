@@ -8,7 +8,10 @@ SQL-callable function that returns memory context information for the current ba
 
 ## Definition
 
-
+```c
+Datum
+pg_get_backend_memory_contexts(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the backend logic for the  system view. It traverses the memory context hierarchy starting from  and collects statistics about memory usage, including total bytes, free bytes, number of blocks, and hierarchical relationships between contexts. The function uses PostgreSQL's SRF (Set Returning Function) mechanism to return multiple rows of memory context data.
 

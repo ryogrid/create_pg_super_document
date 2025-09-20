@@ -8,7 +8,10 @@ Provides human-readable descriptions of storage manager (SMGR) WAL record operat
 
 ## Definition
 
-
+```c
+void
+smgr_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL (Write-Ahead Log) record description system. It parses SMGR-related WAL records and generates human-readable text descriptions that are appended to a StringInfo buffer. This function is primarily used for debugging, logging, and WAL analysis tools like .
 

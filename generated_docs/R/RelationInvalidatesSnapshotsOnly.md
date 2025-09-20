@@ -8,7 +8,10 @@ Determines whether a given relation sends snapshot invalidation messages instead
 
 ## Definition
 
-
+```c
+bool
+RelationInvalidatesSnapshotsOnly(Oid relid)
+```
 ## Detailed Description
 RelationInvalidatesSnapshotsOnly identifies relations that do not have system caches but need to send snapshot invalidation messages for consistency. This mechanism benefits GetCatalogSnapshot() by allowing it to reuse existing MVCC snapshots when scanning these catalogs, provided no invalidation has occurred. The function returns true for specific system relations that use snapshot invalidation rather than catalog cache invalidation. Relations with syscaches should not be included in this list as their catcache invalidation messages also flush snapshots.
 

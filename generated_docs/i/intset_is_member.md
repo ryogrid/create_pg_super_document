@@ -8,7 +8,10 @@ A membership test function that efficiently determines whether a given 64-bit in
 
 ## Definition
 
-
+```c
+bool
+intset_is_member(IntegerSet *intset, uint64 x)
+```
 ## Detailed Description
 The  function provides fast membership testing for the IntegerSet data structure. It implements a two-phase search strategy to handle the hybrid nature of the IntegerSet, which maintains both buffered uncompressed values and compressed values in a B-tree structure.
 

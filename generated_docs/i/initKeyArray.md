@@ -8,7 +8,10 @@ Initializes an empty KeyArray structure for storing GIN index keys and their ass
 
 ## Definition
 
-
+```c
+static void
+initKeyArray(KeyArray *keys, int32 maxvalues)
+```
 ## Detailed Description
 This function initializes a KeyArray structure by allocating memory for storing Datum values and their corresponding GinNullCategory classifications. It sets up the initial state of the KeyArray with zero values and establishes the maximum capacity. This is typically used in GIN index operations to prepare a container for collecting and processing index keys before insertion or cleanup operations.
 

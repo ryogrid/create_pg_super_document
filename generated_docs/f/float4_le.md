@@ -8,7 +8,10 @@ Compares two single-precision floating-point values to determine if the first va
 
 ## Definition
 
-
+```c
+static inline bool
+float4_le(const float4 val1, const float4 val2)
+```
 ## Detailed Description
 This inline function implements the "less than or equal to" comparison for single-precision floating-point numbers (float4). The function follows IEEE 754 semantics where any comparison involving NaN returns false, except for this specific case where NaN is considered "greater than" any other value. This means if val2 is NaN, the function returns true (since anything is ≤ NaN), and if val1 is NaN but val2 is not, it returns false.
 

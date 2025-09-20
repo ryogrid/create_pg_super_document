@@ -8,7 +8,9 @@ PostgreSQL built-in function wrapper that extracts specified time components fro
 
 ## Definition
 
-
+```c
+struct pg_tm tm;
+```
 ## Detailed Description
 This function serves as the public interface for the SQL EXTRACT() function when applied to interval data types. It is a simple wrapper around interval_part_common() that specifies numeric return type (retnumeric=true). The function takes two arguments through PG_FUNCTION_ARGS: a text unit specification and an interval value, then delegates all processing to the common implementation.
 

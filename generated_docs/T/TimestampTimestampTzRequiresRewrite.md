@@ -8,7 +8,10 @@ Determines whether conversions between timestamp and timestamptz types require r
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function checks if the current TimeZone GUC setting would cause timestamp_timestamptz and timestamptz_timestamp conversion functions to be no-ops (where the return value has the same bits as the argument). The function returns false only when the session timezone has a zero offset from UTC, meaning conversions between timestamp and timestamptz would not change the actual stored value. This information is used to optimize table alterations and comparisons by avoiding unnecessary data rewrites when the timezone offset is zero.
 

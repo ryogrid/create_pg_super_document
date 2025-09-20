@@ -8,7 +8,9 @@ Compares two datums for equality using byte-wise comparison, handling both pass-
 
 ## Definition
 
-
+```c
+struct varlena *arg1val;
+```
 ## Detailed Description
 The  function performs equality comparison between two datums using a straightforward byte-by-byte comparison approach. The function's behavior depends on the datum storage type:
 

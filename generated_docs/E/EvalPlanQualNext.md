@@ -8,7 +8,10 @@ EvalPlanQualNext fetches the next row from an ongoing EPQ (Eval Plan Qual) testi
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+EvalPlanQualNext(EPQState *epqstate)
+```
 ## Detailed Description
 This function advances EPQ testing by executing one iteration of the recheck plan state and returning the resulting tuple slot. It operates within the appropriate memory context (the recheck estate's query context) to ensure proper memory management during plan execution. The function is designed to be called repeatedly to iterate through potential matching rows during EPQ processing, though in practice there should rarely be more than one row to process. It serves as the core execution driver for EPQ operations after the EPQ state has been properly initialized and begun.
 

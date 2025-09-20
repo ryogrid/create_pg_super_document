@@ -8,7 +8,10 @@ AppendJumble is a low-level utility function that appends substantive data to th
 
 ## Definition
 
-
+```c
+static void
+AppendJumble(JumbleState *jstate, const unsigned char *item, Size size)
+```
 ## Detailed Description
 AppendJumble is responsible for adding meaningful query data to the jumble buffer used in query fingerprinting. When the buffer becomes full (reaches JUMBLE_SIZE), it employs a sophisticated compression strategy: it hashes the current buffer contents and replaces the entire buffer with just the hash value, then continues appending new data. This approach ensures that even very large or complex queries can be processed while maintaining a bounded buffer size and preserving the essential characteristics needed for query identification.
 

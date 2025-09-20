@@ -8,7 +8,10 @@ This function converts a PostgreSQL Numeric value to a normalized string represe
 
 ## Definition
 
-
+```c
+char *
+numeric_normalize(Numeric num)
+```
 ## Detailed Description
 The  function produces a canonical string representation of PostgreSQL's Numeric data type. Its primary purpose is to ensure that numerically equal values result in identical string representations by suppressing insignificant trailing zeros and removing trailing decimal points when they become unnecessary. This normalization is crucial for operations that require string-based comparisons of numeric values to be consistent with numeric equality comparisons. The function handles special values (NaN, ±Infinity) by returning standard string literals, and for regular numeric values, it converts to string form and then performs trailing zero removal.
 

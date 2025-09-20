@@ -8,7 +8,10 @@ Extracts and formats field values for a configuration parameter to display in th
 
 ## Definition
 
-
+```c
+static void
+GetConfigOptionValues(struct config_generic *conf, const char **values)
+```
 ## Detailed Description
 This function takes a configuration parameter structure and populates an array of string values representing all the attributes of that parameter as they should appear in the pg_settings system view. It handles the extraction of both generic attributes (name, setting, unit, group, description, etc.) and type-specific attributes (min_val, max_val, enumvals, boot_val, reset_val) for all supported PostgreSQL configuration parameter types (boolean, integer, real, string, and enum).
 

@@ -8,7 +8,14 @@ The public interface routine for tuple insertion in GiST indexes, serving as a w
 
 ## Definition
 
-
+```c
+bool
+gistinsert(Relation r, Datum *values, bool *isnull,
+		   ItemPointer ht_ctid, Relation heapRel,
+		   IndexUniqueCheck checkUnique,
+		   bool indexUnchanged,
+		   IndexInfo *indexInfo)
+```
 ## Detailed Description
 This function serves as the main entry point for inserting tuples into GiST indexes. It acts as a wrapper that handles state management and memory context switching before delegating the actual insertion work to . The function initializes the GISTSTATE cache on the first call within a statement, creates a temporary memory context for safe operation, forms an index tuple from the provided values, and manages memory cleanup after the insertion.
 

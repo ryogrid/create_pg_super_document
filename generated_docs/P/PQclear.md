@@ -8,7 +8,10 @@ PQclear is a PostgreSQL libpq library function that frees the memory associated 
 
 ## Definition
 
-
+```c
+structure itself */
+	free(res);
+```
 ## Detailed Description
 PQclear performs comprehensive cleanup of a PGresult structure and all its associated memory. The function handles several key cleanup tasks:
 

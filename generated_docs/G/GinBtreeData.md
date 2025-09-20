@@ -8,7 +8,39 @@ GinBtreeData is a comprehensive structure that provides the operational interfac
 
 ## Definition
 
+```c
+typedef struct GinBtreeData
+{
+	/* search methods */
+	BlockNumber (*findChildPage) (GinBtree, GinBtreeStack *);
+	BlockNumber (*getLeftMostChild) (GinBtree, Page);
+	bool		(*isMoveRight) (GinBtree, Page);
+	bool		(*findItem) (GinBtree, GinBtreeStack *);
 
+	/* insert methods */
+	OffsetNumber (*findChildPtr) (GinBtree, Page, BlockNumber, OffsetNumber);
+	GinPlaceToPageRC (*beginPlaceToPage) (GinBtree, Buffer, GinBtreeStack *, void *, BlockNumber, void **, Page *, Page *);
+	void		(*execPlaceToPage) (GinBtree, Buffer, GinBtreeStack *, void *, BlockNumber, void *);
+	void	   *(*prepareDownlink) (GinBtree, Buffer);
+	void		(*fillRoot) (GinBtree, Page, BlockNumber, Page, BlockNumber, Page);
+
+	bool		isData;
+
+	Relation	index;
+	BlockNumber rootBlkno;
+	GinState   *ginstate;		/* not valid in a data scan */
+	bool		fullScan;
+	bool		isBuild;
+
+	/* Search key for Entry tree */
+	OffsetNumber entryAttnum;
+	Datum		entryKey;
+	GinNullCategory entryCategory;
+
+	/* Search key for data tree (posting tree) */
+	ItemPointerData itemptr;
+} GinBtreeData;
+```
 ## Detailed Description
 GinBtreeData implements a polymorphic interface for GIN B-tree operations through function pointers, allowing both entry trees and data trees to share common navigation and modification algorithms while providing type-specific implementations. The structure combines operational methods with context information, supporting both search operations and tree modifications. It distinguishes between entry trees (which store keys) and data trees (posting trees, which store item pointers) through the isData flag and provides appropriate search keys for each type.
 

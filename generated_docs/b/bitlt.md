@@ -8,7 +8,10 @@ Implements the "less than" comparison operator for PostgreSQL bit string data ty
 
 ## Definition
 
-
+```c
+Datum
+bitlt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL function that implements the "<" operator for bit string comparisons. It takes two VarBit (variable-length bit string) arguments and returns a boolean result indicating whether the first argument is lexicographically less than the second. The function uses the internal  helper function to perform the actual comparison and returns true if the comparison result is negative (< 0).
 

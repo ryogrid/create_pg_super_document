@@ -8,7 +8,10 @@ Calculates and sets the checksum directly on a page in private memory, used when
 
 ## Definition
 
-
+```c
+void
+PageSetChecksumInplace(Page page, BlockNumber blkno)
+```
 ## Detailed Description
 PageSetChecksumInplace provides an efficient checksum calculation mechanism for pages that reside in private memory where concurrent modifications are impossible. Unlike PageSetChecksumCopy, this function modifies the page directly without creating a copy, making it suitable for scenarios where:
 

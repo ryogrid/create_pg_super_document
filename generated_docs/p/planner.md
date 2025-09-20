@@ -8,7 +8,12 @@ The planner function serves as the main entry point to PostgreSQL's query optimi
 
 ## Definition
 
-
+```c
+struct that's linked to by each per-Query
+	 * PlannerInfo.
+	 */
+	glob = makeNode(PlannerGlobal);
+```
 ## Detailed Description
 The planner function acts as a gateway to PostgreSQL's query optimization system. It implements a plugin architecture through the planner_hook mechanism, allowing external modules to intercept and potentially modify the planning process. If no hook is installed, it delegates directly to standard_planner(). This design enables extensibility while maintaining the core planning functionality intact.
 

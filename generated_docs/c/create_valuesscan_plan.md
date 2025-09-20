@@ -8,7 +8,11 @@ Creates a ValuesScan plan node for scanning a VALUES clause base relation with t
 
 ## Definition
 
-
+```c
+static ValuesScan *
+create_valuesscan_plan(PlannerInfo *root, Path *best_path,
+					   List *tlist, List *scan_clauses)
+```
 ## Detailed Description
 This function creates a ValuesScan plan node for executing a VALUES clause scan. It processes the VALUES lists from the range table entry, handles restriction clauses by sorting them for optimal execution order, and manages nestloop parameter substitution when the path has parameter information. The function extracts the VALUES lists from the corresponding range table entry and ensures proper integration with the rest of the query plan through generic path information copying.
 

@@ -8,7 +8,17 @@ FunctionScanPerFuncState is a structure that holds runtime data for each functio
 
 ## Definition
 
-
+```c
+typedef struct FunctionScanPerFuncState
+{
+	SetExprState *setexpr;		/* state of the expression being evaluated */
+	TupleDesc	tupdesc;		/* desc of the function result type */
+	int			colcount;		/* expected number of result columns */
+	Tuplestorestate *tstore;	/* holds the function result set */
+	int64		rowcount;		/* # of rows in result set, -1 if not known */
+	TupleTableSlot *func_slot;	/* function result slot (or NULL) */
+} FunctionScanPerFuncState;
+```
 ## Detailed Description
 FunctionScanPerFuncState is a per-function state structure used within PostgreSQL's function scan execution framework. It encapsulates all the necessary runtime information needed to execute and manage the results of a single function call during query processing. This structure is particularly important for handling set-returning functions (SRFs) and managing their result sets efficiently.
 

@@ -8,7 +8,10 @@ Converts ECPG descriptor type enumeration values to their corresponding SQL stan
 
 ## Definition
 
-
+```c
+static const char *
+descriptor_item_name(enum ECPGdtype itemcode)
+```
 ## Detailed Description
 This is a static utility function that maps ECPG descriptor type enumeration constants to their standardized SQL string representations. It provides a centralized translation mechanism between internal ECPG type codes and the human-readable names used in SQL descriptor operations. The function covers all supported descriptor item types including data characteristics, length information, type metadata, and special indicators.
 

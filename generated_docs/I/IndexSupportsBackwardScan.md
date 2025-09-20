@@ -8,7 +8,10 @@ IndexSupportsBackwardScan is a static function that determines whether a specifi
 
 ## Definition
 
-
+```c
+struct */
+	amroutine = GetIndexAmRoutineByAmId(idxrelrec->relam, false);
+```
 ## Detailed Description
 This function queries the system catalog to determine if an index supports backward scanning. It looks up the index relation in pg_class, retrieves the access method information, and checks the  flag in the IndexAmRoutine structure. The function is used internally by the executor to determine scan capabilities for IndexScan and IndexOnlyScan operations.
 

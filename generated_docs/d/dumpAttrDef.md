@@ -8,7 +8,10 @@ Generates SQL commands to create column default value declarations using ALTER T
 
 ## Definition
 
-
+```c
+static void
+dumpAttrDef(Archive *fout, const AttrDefInfo *adinfo)
+```
 ## Detailed Description
 This function creates ALTER TABLE ALTER COLUMN SET DEFAULT commands for column default values that need to be processed separately from the main table definition. It's specifically designed for default values that couldn't be included in the original CREATE TABLE statement, typically due to dependency ordering requirements.
 

@@ -8,7 +8,10 @@ A static cleanup callback function that removes all locally attached injection p
 
 ## Definition
 
-
+```c
+static void
+injection_points_cleanup(int code, Datum arg)
+```
 ## Detailed Description
 This function serves as a  callback that performs cleanup of injection points that are locally attached to the current process. It iterates through the list of locally attached injection points and detaches each one using . This ensures that injection points are properly cleaned up when a process exits, preventing resource leaks and ensuring proper state management in the injection points testing framework.
 

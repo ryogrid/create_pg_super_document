@@ -8,7 +8,10 @@ OidInputFunctionCall is a convenience function that calls a datatype input funct
 
 ## Definition
 
-
+```c
+Datum
+OidInputFunctionCall(Oid functionId, char *str, Oid typioparam, int32 typmod)
+```
 ## Detailed Description
 OidInputFunctionCall provides a simple interface for calling datatype input functions when you only have the function's OID rather than a pre-cached FmgrInfo structure. The function internally sets up the function manager info using fmgr_info() and then calls InputFunctionCall() to perform the actual conversion.
 

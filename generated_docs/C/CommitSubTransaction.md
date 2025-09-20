@@ -8,7 +8,10 @@ CommitSubTransaction commits a subtransaction by performing cleanup operations a
 
 ## Definition
 
-
+```c
+struction state */
+	XLogResetInsertion();
+```
 ## Detailed Description
 CommitSubTransaction is a static function responsible for committing a subtransaction in PostgreSQL's transaction management system. The function performs a comprehensive cleanup and resource transfer process:
 

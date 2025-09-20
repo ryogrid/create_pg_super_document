@@ -8,7 +8,10 @@ The  function serves as the final function for the  aggregate, responsible for c
 
 ## Definition
 
-
+```c
+Datum
+json_agg_finalfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the finalization step of the  aggregate operation in PostgreSQL. It processes the accumulated state from the aggregate's transition function and produces the final JSON array result. The function validates that it's being called in the proper aggregate context, handles NULL states (which occur when no rows were processed), and completes the JSON array by appending a closing bracket to the accumulated string.
 

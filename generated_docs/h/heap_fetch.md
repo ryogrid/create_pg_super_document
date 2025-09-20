@@ -8,7 +8,14 @@ This function retrieves a specific tuple from a heap relation using its TID (tup
 
 ## Definition
 
-
+```c
+bool
+heap_fetch(Relation relation,
+		   Snapshot snapshot,
+		   HeapTuple tuple,
+		   Buffer *userbuf,
+		   bool keep_buf)
+```
 ## Detailed Description
 heap_fetch is a low-level tuple retrieval function that fetches a tuple directly by its TID without following HOT (Heap-Only Tuples) chains. The function reads the appropriate page, validates the tuple's existence and visibility according to the provided snapshot, and returns the tuple data along with a pinned buffer reference.
 

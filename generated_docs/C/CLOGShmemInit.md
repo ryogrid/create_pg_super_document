@@ -8,7 +8,10 @@ Initializes the shared memory structures for the Commit Log (CLOG) subsystem, in
 
 ## Definition
 
-
+```c
+void
+CLOGShmemInit(void)
+```
 ## Detailed Description
 CLOGShmemInit is responsible for initializing the CLOG (Commit Log) shared memory subsystem during PostgreSQL server startup. The function performs several critical tasks:
 

@@ -8,7 +8,17 @@ MCVList is a container structure that holds a collection of multivariate most-co
 
 ## Definition
 
-
+```c
+typedef struct MCVList
+{
+	uint32		magic;			/* magic constant marker */
+	uint32		type;			/* type of MCV list (BASIC) */
+	uint32		nitems;			/* number of MCV items in the array */
+	AttrNumber	ndimensions;	/* number of dimensions */
+	Oid			types[STATS_MAX_DIMENSIONS];	/* OIDs of data types */
+	MCVItem		items[FLEXIBLE_ARRAY_MEMBER];	/* array of MCV items */
+} MCVList;
+```
 ## Detailed Description
 MCVList is the primary data structure for storing multivariate most-common values statistics in PostgreSQL's extended statistics system. It contains an array of MCVItem structures, each representing a frequently occurring combination of values across multiple columns. This structure is essential for query optimization when dealing with correlated columns that have common value patterns.
 

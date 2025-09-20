@@ -8,7 +8,14 @@ exec_command is a comprehensive command dispatcher that executes individual Post
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command(const char *cmd,
+			 PsqlScanState scan_state,
+			 ConditionalStack cstack,
+			 PQExpBuffer query_buf,
+			 PQExpBuffer previous_buf)
+```
 ## Detailed Description
 exec_command serves as the central routing function for all psql backslash commands. It uses a large if-else chain to match the incoming command string against known command names and dispatches to the appropriate exec_command_* handler function. The function handles conditional branch logic - when commands are executed within a false \if-branch, it warns users in interactive mode but continues parsing to consume the correct amount of parameter text.
 

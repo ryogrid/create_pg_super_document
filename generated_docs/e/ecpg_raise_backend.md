@@ -8,7 +8,9 @@ Handles PostgreSQL backend error reporting in ECPG by extracting error informati
 
 ## Definition
 
-
+```c
+struct sqlca_t *sqlca = ECPGget_sqlca();
+```
 ## Detailed Description
 The  function processes errors that originate from the PostgreSQL backend server. It extracts error information from libpq structures (PGresult and PGconn), maps PostgreSQL error codes to ECPG-specific codes, and handles backward compatibility concerns. The function intelligently handles cases where error information might be incomplete or connection-related, providing appropriate fallback error messages. It also includes special handling for connection failures and maps specific SQL states to corresponding ECPG error codes based on compatibility mode settings.
 

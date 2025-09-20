@@ -8,7 +8,10 @@ Outputs script data to the TAR archive format by writing buffer contents to the 
 
 ## Definition
 
-
+```c
+static size_t
+_scriptOut(ArchiveHandle *AH, const void *buf, size_t len)
+```
 ## Detailed Description
 The  function is a specialized output handler for the TAR format archiver in pg_dump that writes script data to the TAR archive. It serves as a wrapper around the  function, specifically handling output to the script TAR handle (scriptTH) which is used for storing SQL scripts and commands within the TAR archive format.
 

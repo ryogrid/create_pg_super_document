@@ -8,7 +8,11 @@ A helper function that allocates a new chunk from an existing GenerationBlock, h
 
 ## Definition
 
-
+```c
+static inline void *
+GenerationAllocChunkFromBlock(MemoryContext context, GenerationBlock *block,
+							  Size size, Size chunk_size)
+```
 ## Detailed Description
 GenerationAllocChunkFromBlock is an inline helper function that performs the actual chunk allocation within a GenerationBlock. It updates the block's metadata (chunk count and free pointer), initializes the chunk header, and applies various debugging and memory safety features. The function is designed to avoid code duplication between GenerationAlloc() and GenerationAllocFromNewBlock().
 

@@ -8,7 +8,25 @@ Creates a downlink index tuple that represents all entries on a given page, used
 
 ## Definition
 
+```c
+struct that. So we just use the downlink of
+	 * the original page that was split - that's as far from optimal as it can
+	 * get but will do..
+	 */
+	if (!downlink)
+	{
+		ItemId		iid;
 
+		LockBuffer(stack->parent->buffer, GIST_EXCLUSIVE);
+		gistFindCorrectParent(rel, stack, is_build);
+		iid = PageGetItemId(stack->parent->page, stack->downlinkoffnum);
+		downlink = (IndexTuple) PageGetItem(stack->parent->page, iid);
+		downlink = CopyIndexTuple(downlink);
+		LockBuffer(stack->parent->buffer, GIST_UNLOCK);
+	}
+
+	ItemPointerSetBlockNumber(&(downlink->t_tid), BufferGetBlockNumber(buf));
+```
 ## Detailed Description
  constructs a downlink tuple that will be inserted into a parent page to reference a child page. The function works by:
 

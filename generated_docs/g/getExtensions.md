@@ -8,7 +8,10 @@ Reads all extensions from the PostgreSQL system catalogs and returns them as an 
 
 ## Definition
 
-
+```c
+ExtensionInfo *
+getExtensions(Archive *fout, int *numExtensions)
+```
 ## Detailed Description
 This function is part of pg_dump's metadata collection process that queries the pg_extension and pg_namespace system catalogs to retrieve information about all installed extensions. Each extension is converted into an ExtensionInfo structure containing the necessary metadata for dumping, including configuration tables and their filter conditions.
 

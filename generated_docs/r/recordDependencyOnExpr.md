@@ -8,7 +8,12 @@ Records dependencies between a database object and all objects referenced within
 
 ## Definition
 
-
+```c
+void
+recordDependencyOnExpr(const ObjectAddress *depender,
+					   Node *expr, List *rtable,
+					   DependencyType behavior)
+```
 ## Detailed Description
 This function analyzes an expression or query in node-tree form to identify all database objects it references (tables, columns, operators, functions, etc.) and records dependencies from a specified dependent object to each referenced object. It serves as a high-level interface for dependency recording in expression contexts, commonly used for rules, constraint expressions, triggers, and policies.
 

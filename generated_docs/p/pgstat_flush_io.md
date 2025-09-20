@@ -8,7 +8,10 @@ Flushes locally pending I/O statistics from the current backend to the shared st
 
 ## Definition
 
-
+```c
+bool
+pgstat_flush_io(bool nowait)
+```
 ## Detailed Description
 This function transfers accumulated I/O statistics from the local backend's pending statistics to the shared statistics memory where they can be accessed by other processes. The function operates on three-dimensional arrays of statistics data organized by I/O object, I/O context, and I/O operation types. It uses lightweight locks to ensure thread-safe access to the shared statistics. The function supports both blocking and non-blocking modes based on the nowait parameter. After successfully flushing the statistics, it clears the local pending statistics and resets the have_iostats flag.
 

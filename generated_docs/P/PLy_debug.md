@@ -8,7 +8,10 @@ PLy_debug is a Python-callable function that provides debug-level logging capabi
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_debug(PyObject *self, PyObject *args, PyObject *kw)
+```
 ## Detailed Description
 PLy_debug is a wrapper function that facilitates debug-level logging from within Python code executing in PostgreSQL's PL/Python environment. It serves as a Python interface to PostgreSQL's internal logging system, specifically targeting DEBUG2 level messages. This function is part of the plpy module that provides Python stored procedures with access to PostgreSQL's database functionality and logging infrastructure.
 

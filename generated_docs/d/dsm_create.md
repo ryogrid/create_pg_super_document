@@ -8,7 +8,10 @@ Creates a new dynamic shared memory segment with specified size and flags, manag
 
 ## Definition
 
-
+```c
+struction, so start at 2 */
+			dsm_control->item[i].refcnt = 2;
+```
 ## Detailed Description
 The  function is the primary interface for creating new dynamic shared memory (DSM) segments in PostgreSQL. It handles the complete lifecycle of segment creation, including memory allocation, control structure management, and reference counting setup.
 

@@ -8,7 +8,16 @@ Estimates the number of rows for a parameterized scan of a base relation by appl
 
 ## Definition
 
-
+```c
+structed already, and a
+ * restriction clause list that matches the given component rels must
+ * be provided.
+ *
+ * Since there is more than one way to make a joinrel for more than two
+ * base relations, the results we get here could depend on which component
+ * rel pair is provided.  In theory we should get the same answers no matter
+ * which pair is provided;
+```
 ## Detailed Description
 This function calculates the expected row count for a parameterized base relation scan, which occurs when a relation is accessed with additional constraints from outer relations in a join. The function:
 

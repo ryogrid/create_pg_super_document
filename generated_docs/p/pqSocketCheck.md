@@ -8,7 +8,9 @@ pqSocketCheck is a static PostgreSQL libpq function that performs the core socke
 
 ## Definition
 
-
+```c
+struct pollfd input_fd;
+```
 ## Detailed Description
 pqSocketCheck is the foundational socket monitoring function used by other libpq waiting functions. It uses the system's PQsocketPoll function (which abstracts poll/select) to check if a socket is ready for reading, writing, or both operations. The function includes special handling for SSL connections by checking SSL library buffers before polling the socket directly. It also implements retry logic for interrupted system calls (EINTR) and provides comprehensive error handling with detailed error messages.
 

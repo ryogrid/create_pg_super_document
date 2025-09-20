@@ -8,7 +8,9 @@ The  type is PostgreSQL's primary variable-length character string type, impleme
 
 ## Definition
 
-
+```c
+typedef struct varlena text;
+```
 ## Detailed Description
 The  type is PostgreSQL's fundamental character string data type, built on the  structure. It stores variable-length character strings in UTF-8 encoding without requiring null-termination. This design makes it highly efficient for string operations while supporting full Unicode character sets.
 

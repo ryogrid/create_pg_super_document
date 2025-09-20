@@ -8,7 +8,10 @@ ExecEndCteScan performs cleanup for a CteScanState node, specifically freeing th
 
 ## Definition
 
-
+```c
+void
+ExecEndCteScan(CteScanState *node)
+```
 ## Detailed Description
 ExecEndCteScan handles the cleanup phase of CTE scan execution by implementing a leader-only cleanup strategy. Since multiple CTE scan nodes can share the same underlying tuplestore (created during the leader election process in ExecInitCteScan), only the leader node is responsible for freeing the shared tuplestore resource.
 

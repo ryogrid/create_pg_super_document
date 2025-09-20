@@ -8,7 +8,11 @@ Core internal function that formats and outputs simple properties in EXPLAIN out
 
 ## Definition
 
-
+```c
+static void
+ExplainProperty(const char *qlabel, const char *unit, const char *value,
+				bool numeric, ExplainState *es)
+```
 ## Detailed Description
 This is the foundational function for displaying simple key-value properties in PostgreSQL EXPLAIN output. It provides format-specific rendering for all supported output modes:
 

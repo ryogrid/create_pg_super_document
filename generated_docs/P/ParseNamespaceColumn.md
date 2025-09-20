@@ -8,7 +8,19 @@ ParseNamespaceColumn represents metadata about a single column in a ParseNamespa
 
 ## Definition
 
-
+```c
+struct ParseNamespaceColumn
+{
+	Index		p_varno;		/* rangetable index */
+	AttrNumber	p_varattno;		/* attribute number of the column */
+	Oid			p_vartype;		/* pg_type OID */
+	int32		p_vartypmod;	/* type modifier value */
+	Oid			p_varcollid;	/* OID of collation, or InvalidOid */
+	Index		p_varnosyn;		/* rangetable index of syntactic referent */
+	AttrNumber	p_varattnosyn;	/* attribute number of syntactic referent */
+	bool		p_dontexpand;	/* not included in star expansion */
+};
+```
 ## Detailed Description
 ParseNamespaceColumn stores per-column metadata within a ParseNamespaceItem to enable proper variable construction during query parsing. This structure handles the complexity of JOIN columns where the semantic referent (the actual source column) may differ from the syntactic referent (how the column appears in the query).
 

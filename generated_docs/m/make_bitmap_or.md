@@ -8,7 +8,10 @@ Creates a BitmapOr plan node that represents the logical OR operation between mu
 
 ## Definition
 
-
+```c
+static BitmapOr *
+make_bitmap_or(List *bitmapplans)
+```
 ## Detailed Description
 The  function constructs a BitmapOr plan node, which is used in PostgreSQL's query planner to combine multiple bitmap index scans using a logical OR operation. This node type is essential for executing queries that can benefit from multiple indexes on the same table, where rows satisfying any of the index conditions should be included in the result set.
 

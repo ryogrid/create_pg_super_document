@@ -8,7 +8,10 @@ Computes the population standard deviation of numeric values from an aggregate s
 
 ## Definition
 
-
+```c
+Datum
+numeric_stddev_pop(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `numeric_stddev_pop` function is a PostgreSQL aggregate function finalizer that calculates the population standard deviation from accumulated numeric values. It takes a `NumericAggState` pointer as input (which contains the accumulated sum, sum of squares, and count) and delegates to `numeric_stddev_internal` to perform the actual standard deviation calculation. The function returns the population standard deviation, which differs from sample standard deviation by using N (total count) rather than N-1 in the denominator of the variance calculation before taking the square root.
 

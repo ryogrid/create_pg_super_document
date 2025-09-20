@@ -8,7 +8,15 @@ Creates grouping paths for ordinary (non-degenerate) GROUP BY cases, handling bo
 
 ## Definition
 
-
+```c
+static void
+create_ordinary_grouping_paths(PlannerInfo *root, RelOptInfo *input_rel,
+							   RelOptInfo *grouped_rel,
+							   const AggClauseCosts *agg_costs,
+							   grouping_sets_data *gd,
+							   GroupPathExtraData *extra,
+							   RelOptInfo **partially_grouped_rel_p)
+```
 ## Detailed Description
 This function is responsible for creating execution paths for ordinary GROUP BY operations in PostgreSQL's query planner. It considers both sorted and hashed aggregation strategies simultaneously to ensure at least one viable approach is found, and provides appropriate error messages when neither works.
 

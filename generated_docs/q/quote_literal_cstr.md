@@ -8,7 +8,10 @@ A C-level utility function that takes a null-terminated C string and returns a p
 
 ## Definition
 
-
+```c
+char *
+quote_literal_cstr(const char *rawstr)
+```
 ## Detailed Description
 The `quote_literal_cstr` function provides a C-level interface for quoting string literals, working directly with null-terminated C strings rather than PostgreSQL's text type. It calculates the length of the input string, allocates sufficient memory for the worst-case scenario (where all characters might need to be doubled plus quotes and null terminator), and delegates the actual quoting work to `quote_literal_internal`. After the quoting is complete, it null-terminates the result string to ensure it's a proper C string. This function is essential for internal PostgreSQL code that needs to safely incorporate string values into SQL queries.
 

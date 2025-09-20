@@ -8,7 +8,10 @@ The  function configures the PostgreSQL dependency system by stopping the creati
 
 ## Definition
 
-
+```c
+static void
+setup_depend(FILE *cmdfd)
+```
 ## Detailed Description
 This function is responsible for finalizing the setup of PostgreSQL's dependency tracking system () during database cluster initialization. Its primary purpose is to advance the OID (Object Identifier) counter to ensure that subsequently-created objects are not automatically pinned.
 

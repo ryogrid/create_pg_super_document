@@ -8,7 +8,10 @@ A wrapper around the standard  function that provides enhanced error reporting a
 
 ## Definition
 
-
+```c
+int
+pclose_check(FILE *stream)
+```
 ## Detailed Description
 This function extends the standard  system call by adding comprehensive error reporting and logging capabilities. It closes a pipe stream created by  and examines the exit status of the child process. When errors occur, it provides detailed error messages using PostgreSQL's logging system, including human-readable descriptions of process termination reasons. The function helps distinguish between  failures and child process failures, making debugging easier.
 

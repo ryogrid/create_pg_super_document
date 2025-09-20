@@ -8,7 +8,10 @@ Converts a JSON object into a PostgreSQL record/row type, extracting fields that
 
 ## Definition
 
-
+```c
+Datum
+json_to_record(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that transforms a JSON object into a record (row) type. This function is a thin wrapper around the  function, specifically configured for JSON input without requiring a record argument template. It extracts field values from the JSON object that correspond to the columns of the target record type, performing automatic type conversion as needed.
 

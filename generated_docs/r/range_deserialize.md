@@ -8,7 +8,11 @@ Deconstructs a serialized range value into its component bounds, flags, and empt
 
 ## Definition
 
-
+```c
+void
+range_deserialize(TypeCacheEntry *typcache, const RangeType *range,
+				  RangeBound *lower, RangeBound *upper, bool *empty)
+```
 ## Detailed Description
 This function extracts the internal components of a serialized RangeType object, parsing the binary format to reconstruct the lower bound, upper bound, and empty flag. It reads the flags byte from the end of the range object, then uses type information to properly deserialize the bound values based on their storage characteristics. The function handles both fixed-length and variable-length element types, properly aligning data according to the element type's requirements. For pass-by-reference element types, the returned datums point directly into the original range object's memory.
 

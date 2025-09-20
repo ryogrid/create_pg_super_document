@@ -8,7 +8,10 @@ JSON semantic action handler that processes the start of objects in backup manif
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+json_manifest_object_start(void *state)
+```
 ## Detailed Description
 This function serves as a semantic action callback for the JSON parser, invoked whenever an opening brace '{' is encountered in the manifest JSON. It manages the parser's finite state machine by transitioning between different parsing states based on the current context.
 

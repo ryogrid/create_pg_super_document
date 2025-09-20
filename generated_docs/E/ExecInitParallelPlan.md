@@ -8,7 +8,12 @@ ExecInitParallelPlan is the comprehensive initialization function that sets up a
 
 ## Definition
 
-
+```c
+ParallelExecutorInfo *
+ExecInitParallelPlan(PlanState *planstate, EState *estate,
+					 Bitmapset *sendParams, int nworkers,
+					 int64 tuples_needed)
+```
 ## Detailed Description
 This function orchestrates the complete setup process for parallel query execution in PostgreSQL. It handles the complex task of creating and configuring the shared memory environment that enables coordination between the main backend process and multiple parallel worker processes.
 

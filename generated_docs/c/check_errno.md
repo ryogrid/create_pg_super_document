@@ -8,7 +8,10 @@ A diagnostic utility function that examines and reports the current value of the
 
 ## Definition
 
-
+```c
+static void
+check_errno(void)
+```
 ## Detailed Description
 The  function serves as a diagnostic tool that examines the current state of the global  variable and prints a human-readable description of the error condition. It is specifically designed to handle error codes related to PostgreSQL's ECPG (Embedded SQL in C) and pgtypes numeric operations.
 

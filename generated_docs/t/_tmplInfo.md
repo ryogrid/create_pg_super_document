@@ -8,7 +8,14 @@ The  structure represents text search template information in the PostgreSQL dum
 
 ## Definition
 
-
+```c
+typedef struct _tmplInfo
+{
+	DumpableObject dobj;
+	Oid			tmplinit;
+	Oid			tmpllexize;
+} TSTemplateInfo;
+```
 ## Detailed Description
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about text search dictionary templates, which define the behavior and functionality that text search dictionaries inherit. Dictionary templates provide the foundation for creating dictionaries used in PostgreSQL's full-text search system.
 

@@ -8,7 +8,10 @@ A tree walker function that recursively traverses expression nodes to identify c
 
 ## Definition
 
-
+```c
+static bool
+find_cols_walker(Node *node, FindColsContext *context)
+```
 ## Detailed Description
 The  function is a recursive tree walker that implements the core logic for column reference discovery used by . It traverses expression trees following PostgreSQL's expression_tree_walker pattern and categorizes variable references based on whether they appear within aggregate function expressions or not.
 

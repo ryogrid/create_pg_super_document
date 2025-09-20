@@ -8,7 +8,13 @@ Appends a null-terminated text string to a StringInfo buffer without encoding co
 
 ## Definition
 
-
+```c
+union
+	{
+		float4		f;
+		uint32		i;
+	}			swap;
+```
 ## Detailed Description
 The pq_send_ascii_string function is designed as a fallback mechanism for sending strings to clients when normal encoding conversion is problematic or unavailable. Unlike pq_sendstring, this function intentionally bypasses character set conversion entirely. Instead, it ensures safety by scanning each character in the input string and replacing any non-7-bit-ASCII characters (characters with the high bit set) with question marks ('?').
 

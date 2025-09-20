@@ -8,7 +8,10 @@ A sophisticated abbreviation key conversion function that transforms string data
 
 ## Definition
 
-
+```c
+static Datum
+varstr_abbrev_convert(Datum original, SortSupport ssup)
+```
 ## Detailed Description
  is a critical optimization function in PostgreSQL's sort support infrastructure that converts full string values into abbreviated keys (compact representations) that can be compared much more efficiently than full strings. The function employs several strategies based on the collation:
 

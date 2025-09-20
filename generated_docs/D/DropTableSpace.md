@@ -8,7 +8,72 @@ Removes a tablespace by validating ownership and emptiness, deleting catalog ent
 
 ## Definition
 
+```c
+structure.
+	 */
+	if (!destroy_tablespace_directories(tablespaceoid, false))
+	{
+		/*
+		 * Not all files deleted?  However, there can be lingering empty files
+		 * in the directories, left behind by for example DROP TABLE, that
+		 * have been scheduled for deletion at next checkpoint (see comments
+		 * in mdunlink() for details).  We could just delete them immediately,
+		 * but we can't tell them apart from important data files that we
+		 * mustn't delete.  So instead, we force a checkpoint which will clean
+		 * out any lingering files, and try again.
+		 */
+		RequestCheckpoint(CHECKPOINT_IMMEDIATE | CHECKPOINT_FORCE | CHECKPOINT_WAIT);
 
+		/*
+		 * On Windows, an unlinked file persists in the directory listing
+		 * until no process retains an open handle for the file.  The DDL
+		 * commands that schedule files for unlink send invalidation messages
+		 * directing other PostgreSQL processes to close the files, but
+		 * nothing guarantees they'll be processed in time.  So, we'll also
+		 * use a global barrier to ask all backends to close all files, and
+		 * wait until they're finished.
+		 */
+		LWLockRelease(TablespaceCreateLock);
+		WaitForProcSignalBarrier(EmitProcSignalBarrier(PROCSIGNAL_BARRIER_SMGRRELEASE));
+		LWLockAcquire(TablespaceCreateLock, LW_EXCLUSIVE);
+
+		/* And now try again. */
+		if (!destroy_tablespace_directories(tablespaceoid, false))
+		{
+			/* Still not empty, the files must be important then */
+			ereport(ERROR,
+					(errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+					 errmsg("tablespace \"%s\" is not empty",
+							tablespacename)));
+		}
+	}
+
+	/* Record the filesystem change in XLOG */
+	{
+		xl_tblspc_drop_rec xlrec;
+
+		xlrec.ts_id = tablespaceoid;
+
+		XLogBeginInsert();
+		XLogRegisterData((char *) &xlrec, sizeof(xl_tblspc_drop_rec));
+
+		(void) XLogInsert(RM_TBLSPC_ID, XLOG_TBLSPC_DROP);
+	}
+
+	/*
+	 * Note: because we checked that the tablespace was empty, there should be
+	 * no need to worry about flushing shared buffers or free space map
+	 * entries for relations in the tablespace.
+	 */
+
+	/*
+	 * Force synchronous commit, to minimize the window between removing the
+	 * files on-disk and marking the transaction committed.  It's not great
+	 * that there is any window at all, but definitely we don't want to make
+	 * it larger than necessary.
+	 */
+	ForceSyncCommit();
+```
 ## Detailed Description
 DropTableSpace implements the DROP TABLESPACE SQL command, performing a complete and safe removal of a tablespace. The function enforces strict preconditions including ownership verification, dependency checking, and emptiness validation before proceeding with removal.
 

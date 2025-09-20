@@ -8,7 +8,10 @@ Retrieves the proretset flag for a given function, indicating whether the functi
 
 ## Definition
 
-
+```c
+bool
+get_func_retset(Oid funcid)
+```
 ## Detailed Description
 This function performs a system cache lookup to retrieve the proretset attribute of a PostgreSQL function. The proretset flag is a boolean value stored in the pg_proc system catalog that indicates whether a function returns a set of rows (true) or a single row/value (false). This information is crucial for query planning and execution, as set-returning functions require different handling than scalar functions.
 

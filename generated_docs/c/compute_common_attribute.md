@@ -8,7 +8,21 @@ Recognizes and processes common function attributes that can be specified in bot
 
 ## Definition
 
-
+```c
+static bool
+compute_common_attribute(ParseState *pstate,
+						 bool is_procedure,
+						 DefElem *defel,
+						 DefElem **volatility_item,
+						 DefElem **strict_item,
+						 DefElem **security_item,
+						 DefElem **leakproof_item,
+						 List **set_items,
+						 DefElem **cost_item,
+						 DefElem **rows_item,
+						 DefElem **support_item,
+						 DefElem **parallel_item)
+```
 ## Detailed Description
 This function parses individual function attribute definition elements and categorizes them into the appropriate output parameters. It enforces important restrictions by preventing procedures from using function-specific attributes like volatility, strict, leakproof, cost, rows, support, and parallel. The function also prevents duplicate attribute specifications by checking if an output parameter already points to a non-NULL value and reporting conflicts when detected. The 'set' attribute is handled specially by allowing multiple values to be accumulated in a list rather than being treated as a duplicate.
 

@@ -8,7 +8,17 @@ A recursive function that executes text search query evaluation while tracking p
 
 ## Definition
 
-
+```c
+struct from each
+				 * combination of sub-matches, following the disjunctive law
+				 * (A & B) | (C & D) = (A | C) & (A | D) & (B | C) & (B | D).
+				 *
+				 * However, if either input didn't produce locations (i.e., it
+				 * failed or was a NOT), we must just return the other list.
+				 */
+				if (llocations == NIL)
+					*locations = rlocations;
+```
 ## Detailed Description
 This function implements the core recursive logic for evaluating text search queries while maintaining location information for matching terms. It traverses the query tree structure, handling different query operators (NOT, AND, OR, PHRASE) and collecting position data for matches. The function is specifically designed to work with operators above phrase operators, delegating phrase-specific operations to TS_phrase_execute.
 

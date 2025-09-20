@@ -8,7 +8,10 @@ Finalizes the accumulator computation by performing final carry propagation and 
 
 ## Definition
 
-
+```c
+static void
+accum_sum_final(NumericSumAccum *accum, NumericVar *result)
+```
 ## Detailed Description
 This function completes the accumulation process by first performing any pending carry propagation, then creating separate NumericVar structures for the positive and negative accumulated values, and finally combining them through subtraction to produce the final result. The function handles the conversion from the internal int32 digit representation used in the accumulator to the int16 NumericDigit representation used in NumericVar structures. It also strips leading and trailing zeros from the final result to maintain canonical numeric representation.
 

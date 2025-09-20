@@ -8,7 +8,10 @@ Adds a Material node on top of a completed plan, handling cost calculations and 
 
 ## Definition
 
-
+```c
+Plan *
+materialize_finished_plan(Plan *subplan)
+```
 ## Detailed Description
 This function wraps a completed plan with a Material node when materialization is needed after the main create_plan() phase. It handles several important post-planning tasks: moving any initPlans from the subplan to the new Material node (to prevent failures in SS_finalize_plan()), adjusting costs to account for initPlan cost transfers, and computing accurate cost estimates for the materialization operation.
 

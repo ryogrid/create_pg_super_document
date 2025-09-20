@@ -8,7 +8,10 @@ The  function is responsible for freeing memory allocated for a DFA (Determinist
 
 ## Definition
 
-
+```c
+static void
+freedfa(struct dfa *d)
+```
 ## Detailed Description
 The  function performs cleanup of a DFA structure by deallocating all dynamically allocated memory associated with it. It checks two flags to determine what memory needs to be freed:
 

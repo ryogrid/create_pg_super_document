@@ -8,7 +8,12 @@ This function executes a JSONPath item with optional automatic array unwrapping 
 
 ## Definition
 
-
+```c
+static JsonPathExecResult
+executeItemOptUnwrapResult(JsonPathExecContext *cxt, JsonPathItem *jsp,
+						   JsonbValue *jb, bool unwrap,
+						   JsonValueList *found)
+```
 ## Detailed Description
 The  function extends the basic  functionality by providing conditional array unwrapping in lax mode. When unwrapping is enabled and auto-unwrap conditions are met, it first executes the JSONPath item to collect results into a temporary sequence, then processes each result individually. If a result is an array, it calls  to handle the array elements; otherwise, it directly appends the result to the found list. This enables automatic flattening of nested arrays in lax mode operations.
 

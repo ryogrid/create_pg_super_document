@@ -8,7 +8,10 @@ The addtype function creates or retrieves timezone type entries, managing the gl
 
 ## Definition
 
-
+```c
+static int
+addtype(zic_t utoff, char const *abbr, bool isdst, bool ttisstd, bool ttisut)
+```
 ## Detailed Description
 The addtype function is a core component of PostgreSQL's timezone compiler that manages timezone type definitions. It handles timezone abbreviations, UTC offsets, daylight saving time flags, and standard/universal time indicators. The function first validates the UTC offset range, then searches for existing identical entries to avoid duplication. If no matching entry exists and the maximum type limit hasn't been reached, it creates a new timezone type entry. The function ensures timezone data integrity by deduplicating identical timezone configurations and enforcing system limits.
 

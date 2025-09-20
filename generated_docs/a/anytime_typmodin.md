@@ -8,7 +8,10 @@ Common code for processing type modifiers for TIME and TIMETZ data types, valida
 
 ## Definition
 
-
+```c
+static int32
+anytime_typmodin(bool istz, ArrayType *ta)
+```
 ## Detailed Description
 This static function serves as a common implementation for both  and  functions. It processes type modifier input for TIME data types (with or without time zone), extracting and validating the precision specification. The function parses an array of type modifiers, ensures exactly one modifier is provided (the precision), and delegates the actual validation to .
 

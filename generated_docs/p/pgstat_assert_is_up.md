@@ -8,7 +8,10 @@ A debugging assertion function that verifies the PostgreSQL statistics subsystem
 
 ## Definition
 
-
+```c
+void
+pgstat_assert_is_up(void)
+```
 ## Detailed Description
 This function serves as a runtime verification mechanism to ensure the statistics subsystem is in a valid operational state. It uses an assertion to check that the statistics system has been initialized ( is true) and has not been shut down ( is false). The function is primarily used for debugging and development purposes to catch programming errors where statistics functions are called at inappropriate times.
 

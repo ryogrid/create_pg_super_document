@@ -8,7 +8,10 @@ This function provides human-readable descriptions of heap2 WAL (Write-Ahead Log
 
 ## Definition
 
-
+```c
+void
+heap2_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
  is a WAL record description function that parses and formats heap2-related WAL records into readable text. It handles various heap2 operation types including:
 

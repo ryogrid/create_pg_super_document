@@ -8,7 +8,13 @@ A cost estimation function for hash index access paths that leverages generic co
 
 ## Definition
 
-
+```c
+void
+hashcostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+				 Cost *indexStartupCost, Cost *indexTotalCost,
+				 Selectivity *indexSelectivity, double *indexCorrelation,
+				 double *indexPages)
+```
 ## Detailed Description
 The  function provides cost estimation for hash index scans by primarily delegating to the generic cost estimation framework while acknowledging the unique properties of hash indexes.
 

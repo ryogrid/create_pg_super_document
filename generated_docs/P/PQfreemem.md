@@ -8,7 +8,10 @@ PQfreemem is a libpq function that safely frees memory allocated by certain Post
 
 ## Definition
 
-
+```c
+void
+PQfreemem(void *ptr)
+```
 ## Detailed Description
 PQfreemem provides a safe way to free memory that was allocated by libpq functions. This function is primarily needed on Win32 platforms, especially when using multithreaded DLLs (/MD in VC6). The function is specifically designed for freeing memory returned by functions like PQescapeBytea() and PQunescapeBytea().
 

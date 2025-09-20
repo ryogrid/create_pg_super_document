@@ -8,7 +8,10 @@ Creates an independent copy of the HeapTuple contained in a BufferHeapTupleTable
 
 ## Definition
 
-
+```c
+static HeapTuple
+tts_buffer_heap_copy_heap_tuple(TupleTableSlot *slot)
+```
 ## Detailed Description
 This function extracts a HeapTuple from a BufferHeapTupleTableSlot and creates a complete, independent copy of it. The function implements a two-step process:
 

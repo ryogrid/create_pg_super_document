@@ -8,7 +8,9 @@ A PostgreSQL system function that reads an entire binary file from the beginning
 
 ## Definition
 
-
+```c
+struct stat fst;
+```
 ## Detailed Description
 This function provides a simple interface for reading complete binary files in PostgreSQL. It serves as a wrapper around the common binary file reading functionality () with parameters configured to read the entire file from the beginning (offset 0) with no size limit (-1 for bytes_to_read). The function is designed for scenarios where the entire contents of a binary file need to be loaded into memory as bytea data. It does not handle missing files gracefully and will raise an error if the file doesn't exist.
 

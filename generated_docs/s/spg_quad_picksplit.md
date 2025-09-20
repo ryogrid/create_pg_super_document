@@ -8,7 +8,10 @@ An SP-GiST operator function that implements the picksplit operation for quadtre
 
 ## Definition
 
-
+```c
+Datum
+spg_quad_picksplit(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's SP-GiST quadtree implementation for spatial data indexing. When an internal node in the quadtree becomes full and needs to be split, this function:
 

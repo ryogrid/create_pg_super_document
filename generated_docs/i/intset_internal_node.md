@@ -8,7 +8,21 @@ An internal node structure in PostgreSQL's IntegerSet B-tree implementation that
 
 ## Definition
 
+```c
+struct intset_internal_node
+{
+	/* common header, must match intset_node */
+	uint16		level;			/* >= 1 on internal nodes */
+	uint16		num_items;
 
+	/*
+	 * 'values' is an array of key values, and 'downlinks' are pointers to
+	 * lower-level nodes, corresponding to the key values.
+	 */
+	uint64		values[MAX_INTERNAL_ITEMS];
+	intset_node *downlinks[MAX_INTERNAL_ITEMS];
+};
+```
 ## Detailed Description
 The intset_internal_node structure represents internal (non-leaf) nodes in PostgreSQL's IntegerSet B-tree, serving as index nodes that guide searches down to the appropriate leaf nodes. This structure extends the common intset_node header with arrays for storing key values and child pointers.
 

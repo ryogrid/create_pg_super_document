@@ -8,7 +8,11 @@ Inserts one or more heap TIDs associated with a given key value into a GIN index
 
 ## Definition
 
-
+```c
+struct a new leaf entry */
+		itup = buildFreshLeafTuple(ginstate, attnum, key, category,
+								   items, nitem, buildStats, stack->buffer);
+```
 ## Detailed Description
 This function is the main entry point for inserting item pointers into a GIN index for a specific key. It handles three different scenarios based on what it finds in the index:
 

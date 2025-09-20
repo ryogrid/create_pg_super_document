@@ -8,7 +8,13 @@ A thin wrapper function around ICU's u_strToTitle that provides title case conve
 
 ## Definition
 
-
+```c
+static int32_t
+u_strToTitle_default_BI(UChar *dest, int32_t destCapacity,
+						const UChar *src, int32_t srcLength,
+						const char *locale,
+						UErrorCode *pErrorCode)
+```
 ## Detailed Description
 The  function serves as a simplified interface to ICU's  function for title case conversion. It wraps the underlying ICU function by providing a NULL break iterator parameter, which causes ICU to use the default word break iterator for the specified locale. This default behavior is suitable for most title case conversions where words should be capitalized at natural word boundaries.
 

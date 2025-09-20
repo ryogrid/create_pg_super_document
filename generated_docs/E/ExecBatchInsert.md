@@ -8,7 +8,16 @@ Efficiently inserts multiple tuples into a foreign table in a single batch opera
 
 ## Definition
 
-
+```c
+static void
+ExecBatchInsert(ModifyTableState *mtstate,
+				ResultRelInfo *resultRelInfo,
+				TupleTableSlot **slots,
+				TupleTableSlot **planSlots,
+				int numSlots,
+				EState *estate,
+				bool canSetTag)
+```
 ## Detailed Description
 ExecBatchInsert is specifically designed for foreign table batch insertion operations. It provides an efficient alternative to single-tuple insertion by allowing FDWs to process multiple tuples simultaneously. The function:
 

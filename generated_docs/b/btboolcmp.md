@@ -8,7 +8,10 @@ This function provides a comparison function for boolean values in PostgreSQL's 
 
 ## Definition
 
-
+```c
+Datum
+btboolcmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 btboolcmp is a PostgreSQL built-in function that implements comparison logic for boolean data types within B-tree indexes. The function follows PostgreSQL's standard comparison function interface, taking two boolean arguments and returning an integer that indicates their relative ordering. The comparison is implemented by casting the boolean values to integers and subtracting them, which naturally produces the correct comparison result since false (0) < true (1) in PostgreSQL's boolean ordering.
 

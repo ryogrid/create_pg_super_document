@@ -8,7 +8,13 @@ RecordCacheArrayEntry is a structure used in PostgreSQL's type cache system to s
 
 ## Definition
 
-
+```c
+typedef struct RecordCacheArrayEntry
+{
+	uint64		id;
+	TupleDesc	tupdesc;
+} RecordCacheArrayEntry;
+```
 ## Detailed Description
 RecordCacheArrayEntry serves as the fundamental building block for PostgreSQL's local record cache array (RecordCacheArray). This structure provides a local backend-specific cache for record type information, storing mappings between unique 64-bit identifiers and their corresponding TupleDesc structures. Unlike the shared memory structures, this cache is specific to each backend process and provides fast access to frequently used record type descriptors.
 

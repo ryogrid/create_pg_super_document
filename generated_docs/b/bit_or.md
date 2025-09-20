@@ -8,7 +8,10 @@ Performs a logical OR operation on two bit strings of equal length, returning a 
 
 ## Definition
 
-
+```c
+Datum
+bit_or(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `bit_or` function implements bitwise logical OR operation between two variable-length bit strings (`VarBit`). Similar to `bit_and`, this function requires both input bit strings to have exactly the same length. The operation is performed byte-by-byte on the underlying bit data, where each bit in the result is set to 1 if either or both of the corresponding bits in the input strings are 1. The result maintains the same bit length as the input strings.
 

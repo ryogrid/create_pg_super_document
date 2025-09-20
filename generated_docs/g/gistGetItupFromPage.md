@@ -8,7 +8,10 @@ Retrieves the last index tuple from a buffer page and removes it from the page, 
 
 ## Definition
 
-
+```c
+static void
+gistGetItupFromPage(GISTNodeBufferPage *pageBuffer, IndexTuple *itup)
+```
 ## Detailed Description
 This function extracts the most recently added index tuple from a buffer page using a LIFO (Last In, First Out) approach. It locates the tuple at the end of the free space area, creates a copy of it using palloc, and then marks the space previously occupied by the tuple as free again. The function assumes the page is not empty and includes an assertion to verify this precondition.
 

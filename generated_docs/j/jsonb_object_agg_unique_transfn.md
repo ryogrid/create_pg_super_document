@@ -8,7 +8,10 @@ Transition function for the jsonb_object_agg_unique aggregate that builds JSONB 
 
 ## Definition
 
-
+```c
+Datum
+jsonb_object_agg_unique_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for the jsonb_object_agg_unique aggregate operation in PostgreSQL. It acts as a thin wrapper around the core jsonb_object_agg_transfn_worker function, specifically configured to handle unique key aggregation. The function delegates all the actual work to jsonb_object_agg_transfn_worker with parameters that enforce both null handling (false for nulls) and unique key constraints (true for unique).
 

@@ -8,7 +8,9 @@ Reads and validates the file header from a PostgreSQL custom-format archive, ext
 
 ## Definition
 
-
+```c
+struct tm	crtm;
+```
 ## Detailed Description
 This function is the counterpart to WriteHead, responsible for parsing and validating archive headers during restore operations. It performs comprehensive validation and extraction:
 

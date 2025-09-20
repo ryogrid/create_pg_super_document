@@ -8,7 +8,10 @@ A convenience function that determines if the current logical replication worker
 
 ## Definition
 
-
+```c
+static inline bool
+am_parallel_apply_worker(void)
+```
 ## Detailed Description
 The  function checks whether the current logical replication worker is configured as a parallel apply worker. This function provides a safe interface for determining if the current worker is one of the parallel workers that assist the leader apply worker in processing replication changes.
 

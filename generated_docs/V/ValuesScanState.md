@@ -8,7 +8,17 @@ ValuesScanState is a runtime state structure for PostgreSQL's VALUES scan execut
 
 ## Definition
 
-
+```c
+typedef struct ValuesScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	ExprContext *rowcontext;
+	List	  **exprlists;
+	List	  **exprstatelists;
+	int			array_len;
+	int			curr_idx;
+} ValuesScanState;
+```
 ## Detailed Description
 ValuesScanState manages the execution of VALUES clauses, which provide explicit sets of row data that can be queried like regular tables. The structure handles expression evaluation for each row in the VALUES list, managing memory efficiently by resetting expression contexts between rows to avoid memory leakage over large VALUES lists. For sublists containing SubPlans, special handling is required where expression state is constructed at executor start and stored in exprstatelists, while simple expressions are evaluated in the resettable rowcontext.
 

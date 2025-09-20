@@ -8,7 +8,10 @@ The hash_record function computes a hash value for a composite type (record) by 
 
 ## Definition
 
-
+```c
+structure */
+	tuple.t_len = HeapTupleHeaderGetDatumLength(record);
+```
 ## Detailed Description
 This function implements hash computation for PostgreSQL record (composite) types. It extracts the tuple structure from the input record, decomposes it into individual column values, and computes a combined hash by calling the appropriate hash function for each column's data type. The function uses caching mechanisms to avoid repeated lookups of type information and hash function details across multiple calls on the same record type.
 

@@ -8,7 +8,10 @@ Tests whether a file pointer supports seek operations (ftello/fseeko) to determi
 
 ## Definition
 
-
+```c
+bool
+checkSeek(FILE *fp)
+```
 ## Detailed Description
 This utility function determines whether a file stream supports seeking operations, which is essential for PostgreSQL archive formats that require random access capabilities. The function performs two critical tests:
 

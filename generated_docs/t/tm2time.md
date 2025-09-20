@@ -8,7 +8,10 @@ Converts a tm structure to a PostgreSQL time data type, combining hours, minutes
 
 ## Definition
 
-
+```c
+int
+tm2time(struct pg_tm *tm, fsec_t fsec, TimeADT *result)
+```
 ## Detailed Description
 The tm2time function performs a conversion from a broken-down time representation (struct pg_tm) to PostgreSQL's internal time representation (TimeADT). It calculates the total number of microseconds since midnight by combining the hour, minute, second components from the tm structure with additional fractional seconds. The conversion follows the formula: ((hours * 60 + minutes) * 60 + seconds) * 1,000,000 + fractional_seconds.
 

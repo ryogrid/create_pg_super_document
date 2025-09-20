@@ -8,7 +8,10 @@ Implements the \ddp psql command to display default access control lists (ACLs) 
 
 ## Definition
 
-
+```c
+bool
+listDefaultACLs(const char *pattern)
+```
 ## Detailed Description
 This function queries the pg_default_acl system catalog to retrieve and display default access privileges that are automatically applied to newly created objects. Default ACLs allow database administrators to specify privileges that should be automatically granted when objects of certain types (tables, sequences, functions, types, schemas) are created within specific schemas by specific roles.
 

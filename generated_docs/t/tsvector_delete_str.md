@@ -8,7 +8,9 @@ Deletes a specified lexeme from a TSVector, implementing the user-level ts_delet
 
 ## Definition
 
-
+```c
+struct_array_builtin(lexemes, TEXTOID, &dlexemes, &nulls, &nlex);
+```
 ## Detailed Description
 This function removes a single lexeme (specified as a text string) from a TSVector. It performs a binary search to locate the lexeme within the TSVector's sorted lexeme array. If the lexeme is found, it creates a new TSVector with the lexeme removed using the  helper function. If the lexeme is not present in the TSVector, the original TSVector is returned unchanged.
 

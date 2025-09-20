@@ -8,7 +8,10 @@ Converts a PostgreSQL composite (row) type value from its internal storage forma
 
 ## Definition
 
-
+```c
+structure */
+	tmptup.t_len = HeapTupleHeaderGetDatumLength(td);
+```
 ## Detailed Description
 This function takes a PostgreSQL composite type value stored as a Datum and converts it to a Python dictionary. It first extracts the HeapTupleHeader from the datum, retrieves the row type information (OID and type modifier), and looks up the corresponding tuple descriptor. The function ensures that input/output conversion functions are properly set up for the tuple's attributes, then constructs a temporary HeapTuple structure and delegates the actual conversion work to PLyDict_FromTuple. The tuple descriptor is properly released after use to prevent memory leaks.
 

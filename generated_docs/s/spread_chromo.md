@@ -8,7 +8,10 @@ The  function inserts a new chromosome into the gene pool by displacing the wors
 
 ## Definition
 
-
+```c
+void
+spread_chromo(PlannerInfo *root, Chromosome *chromo, Pool *pool)
+```
 ## Detailed Description
 This function implements a crucial operation in the GEQO genetic algorithm by inserting a new chromosome into the population pool while maintaining the sorted order based on fitness (worth). The function uses a binary search algorithm to find the appropriate insertion position for the new chromosome, then shifts existing chromosomes to make room for the insertion.
 

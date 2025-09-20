@@ -8,7 +8,10 @@ Installs a restored snapshot as the current transaction snapshot, typically used
 
 ## Definition
 
-
+```c
+void
+RestoreTransactionSnapshot(Snapshot snapshot, void *source_pgproc)
+```
 ## Detailed Description
 RestoreTransactionSnapshot is a convenience wrapper function that installs a previously restored snapshot as the active transaction snapshot. This function is primarily used in parallel query execution when a worker process needs to adopt the same MVCC visibility rules that were active in the main process. The function delegates to SetTransactionSnapshot with appropriate parameters for restored snapshots.
 

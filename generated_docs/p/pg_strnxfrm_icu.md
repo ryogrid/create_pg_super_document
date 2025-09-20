@@ -8,7 +8,11 @@ This static function transforms strings into ICU-based sort keys by converting t
 
 ## Definition
 
-
+```c
+static size_t
+pg_strnxfrm_icu(char *dest, const char *src, int32_t srclen, int32_t destsize,
+				pg_locale_t locale)
+```
 ## Detailed Description
 pg_strnxfrm_icu provides ICU-based string transformation for generating sort keys that can be used for fast locale-aware string comparison. The function handles the complete pipeline from database encoding to ICU Unicode representation and finally to binary sort keys.
 

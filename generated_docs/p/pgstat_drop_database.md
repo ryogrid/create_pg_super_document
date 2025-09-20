@@ -8,7 +8,10 @@ Removes the statistics entry for a database when it is being dropped from the Po
 
 ## Definition
 
-
+```c
+void
+pgstat_drop_database(Oid databaseid)
+```
 ## Detailed Description
 This function is responsible for cleaning up statistics tracking data when a database is dropped. It acts as a wrapper around the more general  function, specifically targeting database-level statistics. The function ensures that statistics information for the dropped database is properly removed from the system's statistics collection framework, preventing memory leaks and stale data from persisting after database removal.
 

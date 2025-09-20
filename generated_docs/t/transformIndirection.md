@@ -8,7 +8,15 @@
 
 ## Definition
 
-
+```c
+enum
+	{
+		CRERR_NO_COLUMN,
+		CRERR_NO_RTE,
+		CRERR_WRONG_DB,
+		CRERR_TOO_MANY
+	}			crerr = CRERR_NO_COLUMN;
+```
 ## Detailed Description
  handles the complex process of transforming indirection operations in PostgreSQL, which can involve field selection (accessing columns/fields) and array/container subscripting. The function carefully separates and processes these two types of operations, ensuring that adjacent array indices are treated as a single multidimensional subscript operation while field selections are handled individually. It first transforms the base expression, then processes the indirection chain by distinguishing between A_Indices (array subscripts), A_Star (row expansion - which is not supported in this context), and String nodes (field names). For field selections, it attempts to resolve them via ParseFuncOrColumn and falls back to unknown_attribute for error reporting if resolution fails.
 

@@ -8,7 +8,11 @@ Finds an ObjectAddress for database objects that are identified by a simple unqu
 
 ## Definition
 
-
+```c
+static ObjectAddress
+get_object_address_unqualified(ObjectType objtype,
+							   String *strval, bool missing_ok)
+```
 ## Detailed Description
 The  function is a static helper function that handles object address resolution for PostgreSQL objects that are identified by simple, unqualified names. These are typically system-level objects that exist in a global namespace rather than being schema-qualified. The function serves as a centralized dispatcher that maps object types to their corresponding catalog lookup functions.
 

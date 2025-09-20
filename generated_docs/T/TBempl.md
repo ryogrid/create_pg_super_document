@@ -8,7 +8,21 @@ TBempl is a test structure used in the ECPG (Embedded SQL in C for PostgreSQL) p
 
 ## Definition
 
-
+```c
+struct TBempl { 
+#line 9 "binary.pgc"
+ long idnum ;
+ 
+#line 10 "binary.pgc"
+ char name [ 21 ] ;
+ 
+#line 11 "binary.pgc"
+ short accs ;
+ 
+#line 12 "binary.pgc"
+ char byte [ 20 ] ;
+ } ;
+```
 ## Detailed Description
 TBempl is a structure definition found in the ECPG preprocessor test files, specifically designed to test the handling of custom type definitions in embedded SQL contexts. This structure represents employee data with three fields using custom typedef'd types rather than standard C types. It is part of the test suite that validates the ECPG preprocessor's ability to correctly handle user-defined types in SQL declare sections.
 

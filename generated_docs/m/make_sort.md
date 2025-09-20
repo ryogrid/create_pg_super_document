@@ -8,7 +8,12 @@ The make_sort function is a basic utility routine that creates a Sort plan node 
 
 ## Definition
 
-
+```c
+static Sort *
+make_sort(Plan *lefttree, int numCols,
+		  AttrNumber *sortColIdx, Oid *sortOperators,
+		  Oid *collations, bool *nullsFirst)
+```
 ## Detailed Description
 The make_sort function constructs a Sort plan node that represents a sorting operation in PostgreSQL's execution plan tree. It initializes the Sort node with the provided sorting specifications and connects it to its child plan (lefttree). The function assumes that the caller has already prepared all the sorting-related arrays (sortColIdx, sortOperators, collations, and nullsFirst) with the appropriate values.
 

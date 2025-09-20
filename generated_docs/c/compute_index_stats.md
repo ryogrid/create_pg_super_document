@@ -8,7 +8,13 @@ Computes statistics for index expressions and partial index predicates by evalua
 
 ## Definition
 
-
+```c
+static void
+compute_index_stats(Relation onerel, double totalrows,
+					AnlIndexData *indexdata, int nindexes,
+					HeapTuple *rows, int numrows,
+					MemoryContext col_context)
+```
 ## Detailed Description
 This function processes index expressions and partial index predicates to generate statistics for the query planner. For each index, it sets up an execution environment to evaluate expressions and predicates against the sampled rows. It handles partial indexes by checking predicate conditions to determine which rows would actually be included in the index. For expression indexes, it evaluates the expressions to extract values for statistical analysis.
 

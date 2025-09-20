@@ -8,7 +8,9 @@ CheckTablespaceDirectory verifies that the pg_tblspc directory contains only sym
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 CheckTablespaceDirectory performs a crucial validation during WAL recovery to ensure that the pg_tblspc directory structure is correct. This function addresses a specific issue where replay of database creation XLOG records for databases that were later dropped can create fake directories in pg_tblspc.
 

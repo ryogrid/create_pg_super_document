@@ -8,7 +8,10 @@ SPI_rollback_and_chain aborts the current transaction and starts a new one while
 
 ## Definition
 
-
+```c
+void
+SPI_rollback_and_chain(void)
+```
 ## Detailed Description
 SPI_rollback_and_chain provides transaction chaining functionality for rollback operations within the SPI (Server Programming Interface) context. This function is a wrapper around the internal _SPI_rollback function, called with the 'chain' parameter set to true, which means transaction characteristics (such as isolation level, read-only status, and deferrable status) are preserved across the transaction boundary.
 

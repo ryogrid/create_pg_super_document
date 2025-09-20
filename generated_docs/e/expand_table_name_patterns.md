@@ -8,7 +8,12 @@ Finds the OIDs of all tables (including relations, sequences, views, materialize
 
 ## Definition
 
-
+```c
+static void
+expand_table_name_patterns(Archive *fout,
+						   SimpleStringList *patterns, SimpleOidList *oids,
+						   bool strict_names, bool with_child_tables)
+```
 ## Detailed Description
 This function is the most complex of the pattern expansion functions, processing table name patterns that can include schema qualification and optionally following inheritance relationships to include child tables. It queries the PostgreSQL system catalog pg_class along with pg_namespace to resolve patterns to table OIDs.
 

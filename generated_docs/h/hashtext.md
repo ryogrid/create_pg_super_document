@@ -8,7 +8,10 @@ A PostgreSQL hash function that computes hash values for text data types with pr
 
 ## Definition
 
-
+```c
+Datum
+hashtext(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The hashtext function generates hash values for text data types in PostgreSQL, with careful consideration for collation rules. It first determines the collation to use, then chooses between two hashing strategies: for deterministic locales, it directly hashes the text data; for non-deterministic locales, it transforms the text using pg_strnxfrm() to ensure collation-equivalent strings produce the same hash value. This function is essential for hash-based operations like hash joins and hash indexes on text columns.
 

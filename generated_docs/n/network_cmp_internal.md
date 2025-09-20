@@ -8,7 +8,10 @@ Core comparison function that implements hierarchical network address comparison
 
 ## Definition
 
-
+```c
+static int32
+network_cmp_internal(inet *a1, inet *a2)
+```
 ## Detailed Description
 This function provides the fundamental comparison logic for network addresses in PostgreSQL. It implements a three-tier comparison algorithm designed specifically for network operations:
 

@@ -8,7 +8,10 @@ A PostgreSQL trigger function that automatically updates a tsvector column based
 
 ## Definition
 
-
+```c
+Datum
+tsvector_update_trigger_byid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a database trigger function designed to automatically maintain tsvector columns when related text columns are modified. This function is a wrapper that calls the main  implementation with the  parameter, indicating that the text search configuration should be identified by a regconfig column ID rather than by name.
 

@@ -8,7 +8,10 @@ IsXLogFileName validates whether a given filename follows the standard PostgreSQ
 
 ## Definition
 
-
+```c
+static inline bool
+IsXLogFileName(const char *fname)
+```
 ## Detailed Description
 IsXLogFileName checks if a filename conforms to the PostgreSQL WAL segment naming standard by verifying two criteria: the filename length matches XLOG_FNAME_LEN (24 characters) and all characters are valid hexadecimal digits (0-9, A-F). This function is essential for identifying valid WAL files when scanning directories or processing file lists, ensuring that only properly formatted WAL segment files are processed by the system.
 

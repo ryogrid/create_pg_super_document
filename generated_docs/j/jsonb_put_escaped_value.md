@@ -8,7 +8,10 @@ A static utility function that converts a JSONB scalar value to its properly esc
 
 ## Definition
 
-
+```c
+static void
+jsonb_put_escaped_value(StringInfo out, JsonbValue *scalarVal)
+```
 ## Detailed Description
 This function takes a JSONB scalar value and converts it to its JSON string representation with proper escaping, appending the result to the provided StringInfo buffer. It handles all JSONB scalar types including null, string, numeric, and boolean values. The function ensures that the output conforms to JSON standards by applying appropriate escaping for strings and using standard JSON literals for other types.
 

@@ -8,7 +8,12 @@ The  function searches for an entry in a dynamic shared hash table and either re
 
 ## Definition
 
-
+```c
+void *
+dshash_find_or_insert(dshash_table *hash_table,
+					  const void *key,
+					  bool *found)
+```
 ## Detailed Description
 The  function performs an atomic find-or-insert operation on a dynamic shared hash table. It first attempts to locate an existing entry with the provided key. If found, it returns a pointer to the existing entry and sets the  parameter to true. If not found, it creates a new entry, inserts it into the hash table, and returns a pointer to the newly created entry while setting  to false. The function maintains an exclusive lock throughout the operation and includes automatic hash table resizing when the load factor exceeds 0.75. The resize operation requires releasing and reacquiring locks in the proper order to prevent deadlocks.
 

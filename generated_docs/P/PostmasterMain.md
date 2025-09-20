@@ -8,7 +8,14 @@ PostmasterMain is the main entry point for the PostgreSQL postmaster process, re
 
 ## Definition
 
-
+```c
+structions.
+	 * The postmaster will do the test once at startup, and then its child
+	 * processes will inherit the correct function pointer and not need to
+	 * repeat the test.
+	 */
+	LocalProcessControlFile(false);
+```
 ## Detailed Description
 PostmasterMain orchestrates the complete initialization and startup sequence of a PostgreSQL database server. It performs critical system-level initialization including:
 

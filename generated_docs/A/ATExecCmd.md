@@ -8,7 +8,12 @@ ATExecCmd is the central dispatcher function that executes individual ALTER TABL
 
 ## Definition
 
-
+```c
+static void
+ATExecCmd(List **wqueue, AlteredTableInfo *tab,
+		  AlterTableCmd *cmd, LOCKMODE lockmode, AlterTablePass cur_pass,
+		  AlterTableUtilityContext *context)
+```
 ## Detailed Description
 ATExecCmd serves as the main execution dispatcher for ALTER TABLE operations in PostgreSQL. It uses a large switch statement to route different ALTER TABLE subcommands (identified by cmd->subtype) to their specific execution functions. The function handles over 60 different ALTER TABLE subcommand types, including column operations (ADD, DROP, ALTER), constraint operations, index operations, trigger/rule management, inheritance, partitioning, and table properties.
 

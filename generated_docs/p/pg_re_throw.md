@@ -8,7 +8,10 @@ pg_re_throw is the out-of-line implementation of the PG_RE_THROW() macro, respon
 
 ## Definition
 
-
+```c
+void
+pg_re_throw(void)
+```
 ## Detailed Description
 pg_re_throw implements the core logic for re-throwing errors in PostgreSQL's exception handling system. When called, it attempts to propagate the current error to the next outer setjmp handler using siglongjmp. If no outer handler exists (meaning an ERROR was thrown inside a PG_TRY block but there's no outer catch block), it promotes the error to FATAL level and processes it accordingly.
 

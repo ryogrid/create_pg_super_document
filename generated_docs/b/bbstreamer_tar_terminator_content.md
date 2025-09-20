@@ -8,7 +8,13 @@ A static function that passes TAR archive content through to the next bbstreamer
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_tar_terminator_content(bbstreamer *streamer,
+								  bbstreamer_member *member,
+								  const char *data, int len,
+								  bbstreamer_archive_context context)
+```
 ## Detailed Description
 This function implements the content handling callback for the TAR terminator bbstreamer. It serves as a pass-through mechanism that forwards all received data directly to the next bbstreamer in the chain without any processing or modification. The function expects unparsed input (member should be NULL and context should be BBSTREAMER_UNKNOWN) and simply forwards the data using bbstreamer_content() to the next bbstreamer in the pipeline.
 

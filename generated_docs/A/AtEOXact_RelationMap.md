@@ -8,7 +8,10 @@ Handles relation mapping cleanup and persistence at the end of transaction (comm
 
 ## Definition
 
-
+```c
+void
+AtEOXact_RelationMap(bool isCommit, bool isParallelWorker)
+```
 ## Detailed Description
 The AtEOXact_RelationMap function is called at the end of every transaction to handle relation mapping state changes. It behaves differently depending on whether the transaction is committing or aborting, and whether it's running in a parallel worker process.
 

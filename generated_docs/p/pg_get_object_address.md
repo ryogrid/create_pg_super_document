@@ -8,7 +8,9 @@ SQL-callable function that converts text-based object identifiers into PostgreSQ
 
 ## Definition
 
-
+```c
+struct_array_builtin(namearr, TEXTOID, &elems, &nulls, &nelems);
+```
 ## Detailed Description
 The  function serves as the SQL interface to PostgreSQL's internal object identification system. It takes three parameters: an object type string, an array of names, and an array of arguments, then converts these into an ObjectAddress structure that PostgreSQL uses internally to uniquely identify database objects.
 

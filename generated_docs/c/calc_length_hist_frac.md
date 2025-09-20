@@ -8,7 +8,11 @@ Calculates the average fraction of tuples with length < x (or <= x) in a given l
 
 ## Definition
 
-
+```c
+static double
+calc_length_hist_frac(Datum *length_hist_values, int length_hist_nvalues,
+					  double length1, double length2, bool equal)
+```
 ## Detailed Description
 This function computes the average of function P(x) over the interval [length1, length2], where P(x) represents the cumulative fraction of tuples with length < x (or <= x when equal=true). The calculation uses a piecewise integration approach through the length histogram bins, treating each bin as a trapezoid and computing the area under the curve.
 

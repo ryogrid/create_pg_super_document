@@ -8,7 +8,10 @@ Validates that a user-specified encoding is supported by the ICU (International 
 
 ## Definition
 
-
+```c
+static bool
+check_icu_locale_encoding(int user_enc)
+```
 ## Detailed Description
 This function ensures that the character encoding specified by the user is compatible with the ICU internationalization library. ICU has specific encoding requirements and limitations, so this validation prevents configuration errors that would cause failures in ICU-based locale operations. The function matches the equivalent validation logic in the backend createdb() function to maintain consistency across PostgreSQL components.
 

@@ -8,7 +8,14 @@ Expr is the generic superclass for all executable expression nodes in PostgreSQL
 
 ## Definition
 
+```c
+typedef struct Expr
+{
+	pg_node_attr(abstract)
 
+	NodeTag		type;
+} Expr;
+```
 ## Detailed Description
 Expr represents the abstract base class for PostgreSQL's executable expression node hierarchy. It serves as a documentation and type safety mechanism, establishing that all executable expression nodes should derive from Expr by having it as their first field. This creates a consistent inheritance pattern throughout the expression system.
 

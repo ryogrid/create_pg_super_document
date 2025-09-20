@@ -8,7 +8,11 @@ Processes complex suffix chains that appear before the Turkish relativizer suffi
 
 ## Definition
 
+```c
+}
 
+static int r_stem_suffix_chain_before_ki(struct SN_env * z)
+```
 ## Detailed Description
 This function handles the intricate morphological patterns that precede the Turkish suffix "-ki" (meaning 'that which' or used as a relativizer). Turkish grammar allows multiple suffixes to be stacked before "-ki", creating complex chains that need to be systematically identified and processed.
 

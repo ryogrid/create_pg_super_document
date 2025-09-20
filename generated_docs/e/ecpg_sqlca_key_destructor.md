@@ -8,7 +8,10 @@ A pthread cleanup function that frees the memory allocated for thread-local SQLC
 
 ## Definition
 
-
+```c
+static void
+ecpg_sqlca_key_destructor(void *arg)
+```
 ## Detailed Description
 The  function serves as a destructor callback for pthread-specific data associated with SQLCA structures. This function is automatically called by the pthread library when a thread terminates, ensuring that any dynamically allocated SQLCA structure associated with that thread is properly freed to prevent memory leaks.
 

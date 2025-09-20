@@ -8,7 +8,15 @@ Executes the SQL NOTIFY command by adding notification messages to the list of p
 
 ## Definition
 
-
+```c
+struct the Notification entry, even if we end up not using
+	 * it, in order to compare it cheaply to existing list entries.
+	 *
+	 * The notification list needs to live until end of transaction, so store
+	 * it in the transaction context.
+	 */
+	oldcontext = MemoryContextSwitchTo(CurTransactionContext);
+```
 ## Detailed Description
 Async_Notify is the core function that implements PostgreSQL's asynchronous notification system. When a SQL NOTIFY command is executed, this function validates the input parameters, creates a Notification structure, and adds it to the pending notifications list. The function manages notifications hierarchically across transaction nesting levels, ensuring proper cleanup and delivery semantics. It enforces length limits on channel names and payload data, prevents duplicate notifications, and handles memory context switching to ensure notifications persist until transaction end.
 

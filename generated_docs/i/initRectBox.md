@@ -8,7 +8,10 @@ Initializes a RectBox structure to represent the entire 4D space with no restric
 
 ## Definition
 
-
+```c
+static RectBox *
+initRectBox(void)
+```
 ## Detailed Description
 This function creates and initializes a RectBox structure that represents the entire 4-dimensional space by setting all range boundaries to infinity. It serves as the starting point for SP-GiST index traversal operations where no spatial restrictions have been applied yet.
 

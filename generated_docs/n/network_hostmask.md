@@ -8,7 +8,10 @@ Generates the hostmask for a given network address, returning an address where h
 
 ## Definition
 
-
+```c
+Datum
+network_hostmask(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function creates the hostmask corresponding to a given inet or cidr network address. It generates the inverse of a netmask by setting the host bits (bits beyond the network prefix length) to 1 and leaving network bits as 0. The function calculates the number of host bits by subtracting the prefix length from the maximum possible bits for the address family, then processes the address from the least significant byte backwards to set the appropriate host bits. This is useful for determining the host portion of an address and for certain network calculations that require the inverse of the traditional subnet mask.
 

@@ -8,7 +8,10 @@ The main tab completion function for PostgreSQL's psql command-line client that 
 
 ## Definition
 
-
+```c
+static char **
+psql_completion(const char *text, int start, int end)
+```
 ## Detailed Description
 The `psql_completion` function is the central completion handler for psql's readline-based tab completion system. It parses the current command line input to understand the context and provides appropriate completions for SQL commands, database objects, psql backslash commands, and variable interpolations. The function implements a comprehensive state machine that analyzes previous words to determine what type of completion should be offered. It supports complex SQL syntax awareness, including multi-word commands, nested structures, and schema-qualified names. The function integrates with PostgreSQL's system catalogs to provide dynamic completions for database objects like tables, columns, functions, and users.
 

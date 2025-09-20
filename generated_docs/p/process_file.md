@@ -8,7 +8,10 @@ A utility function in pgbench that reads a file containing SQL script content an
 
 ## Definition
 
-
+```c
+int
+process_file(char *filename, bool use_relative_path)
+```
 ## Detailed Description
 The  function is responsible for reading script files in pgbench, PostgreSQL's built-in benchmarking tool. It handles file I/O operations to read SQL script content from either a specified file or stdin (when filename is "-"), then parses the content and adds it to the script collection with the specified weight. The function includes proper error handling for file operations and memory management for the file contents.
 

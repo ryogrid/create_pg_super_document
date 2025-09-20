@@ -8,7 +8,10 @@ Implements slice assignment operations on PostgreSQL arrays, allowing assignment
 
 ## Definition
 
-
+```c
+struct_array(srcArray, elmtype, elmlen, elmbyval, elmalign,
+						  &dvalues, &dnulls, &nelems);
+```
 ## Detailed Description
 This function performs slice assignment operations on PostgreSQL arrays, replacing a range of elements (defined by upper and lower subscript boundaries) with values from a source array. Key features include:
 

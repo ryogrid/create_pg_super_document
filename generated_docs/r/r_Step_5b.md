@@ -8,7 +8,11 @@ The r_Step_5b function implements Step 5b of the Porter stemming algorithm, whic
 
 ## Definition
 
+```c
+}
 
+static int r_Step_5b(struct SN_env * z)
+```
 ## Detailed Description
 This function performs the final step (5b) of the Porter stemming algorithm. It specifically handles the removal of double 'l' characters at the end of words, but only when the second 'l' falls within the R2 region (the advanced morphological boundary). The function follows the Porter algorithm specification by:
 

@@ -8,7 +8,10 @@ A cleanup function that properly destroys the TidStore and frees all associated 
 
 ## Definition
 
-
+```c
+Datum
+test_destroy(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs comprehensive cleanup of the TidStore testing environment by destroying the main TidStore instance and releasing all allocated memory for verification arrays. It ensures proper resource management by freeing both the TidStore itself and the auxiliary data structures used for testing validation.
 

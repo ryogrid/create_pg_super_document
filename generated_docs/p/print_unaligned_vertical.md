@@ -8,7 +8,10 @@ Prints table data in unaligned vertical format where each field appears on its o
 
 ## Definition
 
-
+```c
+static void
+print_unaligned_vertical(const printTableContent *cont, FILE *fout)
+```
 ## Detailed Description
 This function renders tabular data in a vertical (record-oriented) format where each row is displayed as a series of "header: value" pairs, with each field on its own line. This format is particularly useful for displaying wide tables or when you want to see each record's complete information in a readable vertical layout. The function uses double record separators to distinguish between different table records and includes support for titles and footers when not in tuples-only mode.
 

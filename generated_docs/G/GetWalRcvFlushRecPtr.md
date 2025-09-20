@@ -8,7 +8,10 @@ Returns the last+1 byte position that the WAL receiver has successfully flushed 
 
 ## Definition
 
-
+```c
+XLogRecPtr
+GetWalRcvFlushRecPtr(XLogRecPtr *latestChunkStart, TimeLineID *receiveTLI)
+```
 ## Detailed Description
 This function provides a thread-safe way to query the current flush position of the WAL receiver process. It accesses the shared WalRcvData structure to retrieve the flushed position (flushedUpto), which represents the last byte that has been safely written to persistent storage. The function also optionally returns the start position of the most recent chunk that was flushed and the timeline ID being received. This information is crucial for recovery processes and replication monitoring.
 

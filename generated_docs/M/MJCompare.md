@@ -8,7 +8,10 @@ Compares the mergejoinable values of the current outer and inner tuples, returni
 
 ## Definition
 
-
+```c
+static int
+MJCompare(MergeJoinState *mergestate)
+```
 ## Detailed Description
 This function performs the core comparison logic for merge joins by comparing the evaluated expressions from the current outer and inner tuples. The function:
 

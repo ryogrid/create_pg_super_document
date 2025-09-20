@@ -8,7 +8,11 @@ A debugging function that outputs detailed information about a single NFA state 
 
 ## Definition
 
-
+```c
+static void
+dumpstate(struct state *s,
+		  FILE *f)
+```
 ## Detailed Description
 The  function provides a detailed textual representation of an individual NFA state for debugging purposes. It displays the state number, temporary marker status, and state flag, along with validation of the state's chain integrity. The function also outputs information about outgoing arcs by calling , and performs sanity checks on incoming arc chains to ensure data structure consistency.
 

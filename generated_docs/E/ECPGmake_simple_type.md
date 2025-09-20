@@ -8,7 +8,10 @@ Creates and initializes a new ECPGtype structure for simple (non-composite) data
 
 ## Definition
 
-
+```c
+struct ECPGtype *
+ECPGmake_simple_type(enum ECPGttype type, char *size, int counter)
+```
 ## Detailed Description
 This function allocates and initializes a new ECPGtype structure to represent simple data types in the ECPG type system. It sets up the basic type information and initializes composite-type specific fields to NULL since this function handles only simple types. The function uses memory allocation through mm_alloc to create the new type structure.
 

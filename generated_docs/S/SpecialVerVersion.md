@@ -8,7 +8,10 @@ A static helper function in PostgreSQL's text search parser that handles version
 
 ## Definition
 
-
+```c
+static void
+SpecialVerVersion(TParser *prs)
+```
 ## Detailed Description
 SpecialVerVersion is a specialized function used in the text search word parser (wparser_def.c) to handle version number tokens. When called, it effectively "backs up" the parser by resetting the position and length counters, causing the current token to be ignored. This is typically used when a version number pattern is detected but should not be treated as a regular token in the text search processing.
 

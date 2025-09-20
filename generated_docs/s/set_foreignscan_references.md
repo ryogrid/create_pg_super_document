@@ -8,7 +8,12 @@ Adjusts variable references in a ForeignScan plan node during the plan finalizat
 
 ## Definition
 
-
+```c
+static void
+set_foreignscan_references(PlannerInfo *root,
+						   ForeignScan *fscan,
+						   int rtoffset)
+```
 ## Detailed Description
 This function is part of the plan reference adjustment phase in PostgreSQL's query planner. It processes ForeignScan nodes to ensure that all variable references, expressions, and relation IDs are properly adjusted for execution. The function handles two distinct cases:
 

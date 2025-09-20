@@ -8,7 +8,9 @@ ParallelIndexScanDesc is a pointer type to ParallelIndexScanDescData structure t
 
 ## Definition
 
-
+```c
+typedef struct ParallelIndexScanDescData *ParallelIndexScanDesc;
+```
 ## Detailed Description
 ParallelIndexScanDesc is a generic structure used for coordinating parallel index scans across multiple worker processes. It serves as a shared memory structure that contains essential information needed by all participating workers in a parallel index scan operation. The structure includes relation and index identifiers, an offset to access method-specific data, and a flexible array member to hold snapshot data that ensures consistent visibility across all parallel workers.
 

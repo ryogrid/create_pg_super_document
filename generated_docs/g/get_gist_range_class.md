@@ -8,7 +8,10 @@ Determines the class number for a range type to categorize its properties for Gi
 
 ## Definition
 
-
+```c
+static int
+get_gist_range_class(RangeType *range)
+```
 ## Detailed Description
 This function analyzes a PostgreSQL range type and returns a numeric class identifier that represents a valid combination of the range's properties. The class number is used internally by the GiST (Generalized Search Tree) indexing system to efficiently organize and search range data.
 

@@ -8,7 +8,10 @@ createPostingTree creates a new GIN posting tree containing the given item point
 
 ## Definition
 
-
+```c
+struct the new root page in memory first. */
+	tmppage = (Page) palloc(BLCKSZ);
+```
 ## Detailed Description
 createPostingTree constructs a new posting tree for GIN indexes when the posting list becomes too large to fit in a single entry tree leaf page. The function:
 

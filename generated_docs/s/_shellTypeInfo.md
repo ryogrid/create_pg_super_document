@@ -8,7 +8,14 @@ The _shellTypeInfo structure represents a "shell type" in PostgreSQL's pg_dump u
 
 ## Definition
 
+```c
+typedef struct _shellTypeInfo
+{
+	DumpableObject dobj;
 
+	TypeInfo   *baseType;		/* back link to associated base type */
+} ShellTypeInfo;
+```
 ## Detailed Description
 The _shellTypeInfo structure is a lightweight wrapper used by pg_dump to manage shell types. Shell types are placeholder type definitions that allow PostgreSQL to handle circular dependencies between types and functions. When a type needs to be referenced before it's fully defined (such as in function signatures), a shell type is created first. This structure maintains the basic dumpable object information and a back-reference to the full type definition that will be created later in the dump process.
 

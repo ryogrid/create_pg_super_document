@@ -8,7 +8,10 @@ PLy_error is a Python C extension function that provides Python code within PL/P
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_error(PyObject *self, PyObject *args, PyObject *kw)
+```
 ## Detailed Description
 PLy_error serves as a thin wrapper around the more general PLy_output function, specifically configured to emit ERROR-level messages. This function is exposed to Python code as `plpy.error()` within PL/Python stored procedures and functions. When called, it generates a PostgreSQL ERROR, which will typically abort the current transaction and return the error to the client.
 

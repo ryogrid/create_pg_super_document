@@ -8,7 +8,12 @@ CopyMultiInsertInfoInit initializes a pre-allocated CopyMultiInsertInfo structur
 
 ## Definition
 
-
+```c
+static void
+CopyMultiInsertInfoInit(CopyMultiInsertInfo *miinfo, ResultRelInfo *rri,
+						CopyFromState cstate, EState *estate, CommandId mycid,
+						int ti_options)
+```
 ## Detailed Description
 This function initializes the CopyMultiInsertInfo structure that coordinates multi-insert operations during COPY FROM. The initialization process includes:
 

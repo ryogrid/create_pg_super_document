@@ -8,7 +8,10 @@ Finds a collation by its possibly qualified name and returns its OID, ensuring t
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(collname, &schemaname, &collation_name);
+```
 ## Detailed Description
 This function searches for a collation by name, which can be either a simple name or a schema-qualified name. It ensures that only collations compatible with the current database's encoding are considered. If a schema is explicitly provided, the function searches only in that schema. Otherwise, it searches through the active search path, skipping the temporary namespace. The function can either raise an error or return InvalidOid when the collation is not found, depending on the missing_ok parameter.
 

@@ -8,7 +8,11 @@ PrintQueryTuples is a static helper function that formats and prints query resul
 
 ## Definition
 
-
+```c
+static bool
+PrintQueryTuples(const PGresult *result, const printQueryOpt *opt,
+				 FILE *printQueryFout)
+```
 ## Detailed Description
 PrintQueryTuples handles the formatting and output of query result data, assuming the PGresult contains valid tuple data. The function provides flexible configuration through its parameters:
 

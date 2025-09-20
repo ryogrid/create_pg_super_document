@@ -8,7 +8,10 @@ Concatenates two tsvectors by merging their lexemes in sorted order, combining d
 
 ## Definition
 
-
+```c
+Datum
+tsvector_concat(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the concatenation operation for PostgreSQL tsvectors (typically used via the  operator). It performs a sorted merge of two input tsvectors, creating a new tsvector that contains all unique lexemes from both inputs. When duplicate lexemes are found, their positional information is merged. 
 

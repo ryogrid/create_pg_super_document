@@ -8,7 +8,12 @@ ApplySortComparator is an inline function that applies a sort comparator functio
 
 ## Definition
 
-
+```c
+static inline int
+ApplySortComparator(Datum datum1, bool isNull1,
+					Datum datum2, bool isNull2,
+					SortSupport ssup)
+```
 ## Detailed Description
 This function provides a standardized way to compare two PostgreSQL Datum values while handling NULL values and sort direction according to the sort support configuration. It implements the complete comparison logic including:
 

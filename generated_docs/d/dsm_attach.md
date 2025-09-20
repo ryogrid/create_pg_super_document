@@ -8,7 +8,10 @@ Attaches to an existing dynamic shared memory segment using its handle, incremen
 
 ## Definition
 
-
+```c
+dsm_segment *
+dsm_attach(dsm_handle h)
+```
 ## Detailed Description
 The  function provides the mechanism for attaching to an existing DSM segment that was previously created by another process. It performs several critical operations to ensure safe and correct attachment:
 

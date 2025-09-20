@@ -8,7 +8,18 @@ A structure that holds information necessary for converting PostgreSQL arrays to
 
 ## Definition
 
-
+```c
+typedef struct plperl_array_info
+{
+	int			ndims;
+	bool		elem_is_rowtype;	/* 't' if element type is a rowtype */
+	Datum	   *elements;
+	bool	   *nulls;
+	int		   *nelems;
+	FmgrInfo	proc;
+	FmgrInfo	transform_proc;
+} plperl_array_info;
+```
 ## Detailed Description
 The  structure contains all the metadata and data required for bidirectional conversion between PostgreSQL arrays and Perl array references. This structure is crucial for the data type mapping functionality in PL/Perl, handling complex scenarios including multi-dimensional arrays, null values, and different element types including row types. It encapsulates both the array data and the function information needed to properly transform elements between PostgreSQL and Perl representations.
 

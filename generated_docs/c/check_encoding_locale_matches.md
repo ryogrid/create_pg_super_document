@@ -8,7 +8,10 @@ check_encoding_locale_matches validates that the chosen character encoding is co
 
 ## Definition
 
-
+```c
+void
+check_encoding_locale_matches(int encoding, const char *collate, const char *ctype)
+```
 ## Detailed Description
 This function enforces encoding-locale compatibility requirements by checking that the selected character encoding matches what the specified LC_COLLATE and LC_CTYPE locale settings expect. Since libc's locale-specific code typically fails when presented with data in an unexpected encoding, this validation prevents runtime errors and data corruption.
 

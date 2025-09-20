@@ -8,7 +8,11 @@ Converts a boolean execution status to a JSON boolean item and continues jsonpat
 
 ## Definition
 
-
+```c
+static JsonPathExecResult
+appendBoolResult(JsonPathExecContext *cxt, JsonPathItem *jsp,
+				 JsonValueList *found, JsonPathBool res)
+```
 ## Detailed Description
 This function is responsible for converting a boolean execution result from jsonpath operations into a proper JSON boolean value and continuing the execution chain. It handles the conversion of JsonPathBool values (jpbTrue, jpbFalse, jpbUnknown) to appropriate JsonbValue representations. When the result is jpbUnknown, it converts to a JSON null value, otherwise it creates a JSON boolean. The function then delegates to executeNextItem to continue processing the jsonpath expression.
 

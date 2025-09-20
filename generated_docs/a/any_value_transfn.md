@@ -8,7 +8,10 @@ The transition function for PostgreSQL's ANY_VALUE aggregate that simply returns
 
 ## Definition
 
-
+```c
+Datum
+any_value_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for the ANY_VALUE aggregate in PostgreSQL. The ANY_VALUE aggregate is a non-deterministic aggregate function that returns an arbitrary (but not random) value from the set of input values. The transition function implements the core logic by simply returning the current state value, which effectively means it keeps the first non-null value it encounters during aggregation.
 

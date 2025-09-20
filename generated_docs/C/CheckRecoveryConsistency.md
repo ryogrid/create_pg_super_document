@@ -8,7 +8,10 @@ CheckRecoveryConsistency determines if WAL recovery has reached a consistent sta
 
 ## Definition
 
-
+```c
+static void
+CheckRecoveryConsistency(void)
+```
 ## Detailed Description
 CheckRecoveryConsistency is a critical function that manages the transition from WAL recovery to a consistent database state. It performs several key checks and actions:
 

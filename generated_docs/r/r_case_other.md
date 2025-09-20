@@ -8,7 +8,11 @@ The r_case_other function handles Hungarian sublative case endings ending in 'l'
 
 ## Definition
 
+```c
+}
 
+static int r_case_other(struct SN_env * z)
+```
 ## Detailed Description
 This function processes sublative case endings in Hungarian that express motion onto or attachment to something ("from/off of"). The function handles six specific patterns ending in 'l':
 

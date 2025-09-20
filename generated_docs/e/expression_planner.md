@@ -8,7 +8,10 @@ Performs planner transformations on standalone expressions that are not part of 
 
 ## Definition
 
-
+```c
+Expr *
+expression_planner(Expr *expr)
+```
 ## Detailed Description
 The  function transforms parser output expressions into executable form for utility commands that need to evaluate expressions outside of regular query planning. The function performs two main transformations:
 

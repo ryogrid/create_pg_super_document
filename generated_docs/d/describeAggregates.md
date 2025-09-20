@@ -8,7 +8,10 @@ Implements the \da psql command to display a list of aggregate functions in the 
 
 ## Definition
 
-
+```c
+bool
+describeAggregates(const char *pattern, bool verbose, bool showSystem)
+```
 ## Detailed Description
 This function generates and executes a SQL query to list aggregate functions from the PostgreSQL system catalogs. It constructs a SELECT query that retrieves aggregate function information from pg_proc and pg_namespace catalogs, formatting the output as a table showing schema name, function name, return type, and argument types. The function handles version-specific differences in PostgreSQL (using prokind='a' for version 11+ and proisagg for older versions) and supports pattern-based filtering and system object visibility control.
 

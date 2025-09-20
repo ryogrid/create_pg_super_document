@@ -8,7 +8,12 @@ Finds a list of database names that match the given patterns by querying the Pos
 
 ## Definition
 
-
+```c
+static void
+expand_dbname_patterns(PGconn *conn,
+					   SimpleStringList *patterns,
+					   SimpleStringList *names)
+```
 ## Detailed Description
 This function processes a list of database name patterns and expands them into actual database names by querying the  system catalog. It's designed for use in pg_dumpall to allow users to specify database selection patterns rather than explicit database names. The function is similar in concept to  in pg_dump.c.
 

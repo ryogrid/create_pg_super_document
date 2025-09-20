@@ -8,7 +8,12 @@ Evaluates a SubscriptingRef assignment operation to set an element within a JSON
 
 ## Definition
 
-
+```c
+static void
+jsonb_subscript_assign(ExprState *state,
+					   ExprEvalStep *op,
+					   ExprContext *econtext)
+```
 ## Detailed Description
 This function performs JSONB element assignment operations during expression evaluation. It handles setting values within existing JSONB containers or creating new containers when the source is NULL. The function implements smart container creation logic based on the subscript types - creating arrays when the first subscript is an integer, and objects otherwise.
 

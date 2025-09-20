@@ -8,7 +8,11 @@ A helper function that loads and caches comprehensive information about range ty
 
 ## Definition
 
-
+```c
+structs */
+	fmgr_info_cxt(cmpFnOid, &typentry->rng_cmp_proc_finfo,
+				  CacheMemoryContext);
+```
 ## Detailed Description
 This function populates a TypeCacheEntry with detailed information about a range type by consulting the pg_range system catalog. It extracts essential range type properties including the subtype, collation, operator class, and specialized functions (canonical and subdiff), then sets up cached function manager information structures for efficient repeated access.
 

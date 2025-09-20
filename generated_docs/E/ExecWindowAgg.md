@@ -8,7 +8,11 @@ The main execution function for window aggregation nodes, processing tuples from
 
 ## Definition
 
-
+```c
+structure
+	 */
+	winstate = makeNode(WindowAggState);
+```
 ## Detailed Description
 ExecWindowAgg is the core execution engine for window function processing in PostgreSQL. It implements a sophisticated stateful processing model that handles multiple window functions simultaneously while maintaining proper frame boundaries and partition management.
 

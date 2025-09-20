@@ -8,7 +8,10 @@ Performs end-of-stream processing for the recovery injector bbstreamer by forwar
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_recovery_injector_finalize(bbstreamer *streamer)
+```
 ## Detailed Description
 This function implements the finalize operation for the bbstreamer_recovery_injector. It serves as a simple pass-through function that forwards the finalization call to the next bbstreamer in the processing chain. The function follows the standard bbstreamer pattern of delegating finalization responsibilities to subsequent streamers, ensuring proper cleanup and termination of the entire streaming pipeline.
 

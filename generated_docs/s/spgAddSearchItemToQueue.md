@@ -8,7 +8,10 @@ A simple wrapper function that adds a SpGistSearchItem to the priority queue use
 
 ## Definition
 
-
+```c
+static void
+spgAddSearchItemToQueue(SpGistScanOpaque so, SpGistSearchItem *item)
+```
 ## Detailed Description
 This function serves as a straightforward interface for adding search items to the pairing heap-based priority queue used in SP-GiST (Space-Partitioned Generalized Search Tree) scans. It encapsulates the pairing heap insertion operation and maintains the abstraction between the search algorithm and the underlying queue data structure.
 

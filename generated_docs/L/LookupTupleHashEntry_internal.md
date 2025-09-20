@@ -8,7 +8,11 @@ Internal helper function that performs the core work of tuple hash table lookup 
 
 ## Definition
 
-
+```c
+static inline TupleHashEntry
+LookupTupleHashEntry_internal(TupleHashTable hashtable, TupleTableSlot *slot,
+							  bool *isnew, uint32 hash)
+```
 ## Detailed Description
 This function serves as the internal implementation for both  and  functions. It handles the core logic of looking up or inserting tuples in a hash table while avoiding redundant memory context switches. The function can operate in two modes: when  is provided, it performs insertion (creating new entries if needed); when  is NULL, it performs lookup only. For new entries, it copies the tuple into the hash table's memory context and initializes the entry's additional data to NULL.
 

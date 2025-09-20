@@ -8,7 +8,10 @@ Parses command-line compression options (typically from -Z/--compress) into sepa
 
 ## Definition
 
-
+```c
+void
+parse_compress_options(const char *option, char **algorithm, char **detail)
+```
 ## Detailed Description
 This function performs basic parsing of compression options specified through command-line arguments. It handles two main formats:
 

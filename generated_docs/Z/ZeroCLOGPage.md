@@ -8,7 +8,10 @@ Initializes or reinitializes a CLOG page to contain all zero values, optionally 
 
 ## Definition
 
-
+```c
+static int
+ZeroCLOGPage(int64 pageno, bool writeXlog)
+```
 ## Detailed Description
 ZeroCLOGPage is a static internal function that creates a new CLOG page filled with zeros in shared memory. This function is essential for CLOG page management, as it provides a clean, initialized page that can be used to track transaction status for a new range of transaction IDs.
 

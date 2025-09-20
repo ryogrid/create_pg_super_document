@@ -8,7 +8,13 @@ Processes a list of WHERE clauses to generate partition pruning steps that can b
 
 ## Definition
 
-
+```c
+struct a dummy PartitionPruneStepCombine whose
+						 * source_stepids is set to an empty List.
+						 */
+						orstep = gen_prune_step_combine(context, NIL,
+														PARTPRUNE_COMBINE_UNION);
+```
 ## Detailed Description
 This is the core function for generating partition pruning steps from SQL WHERE clauses. It recursively processes various clause types (BoolExpr, OpExpr, IS NULL/NOT NULL) and creates two types of pruning steps:
 

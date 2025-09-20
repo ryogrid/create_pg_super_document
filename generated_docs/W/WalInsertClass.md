@@ -8,7 +8,14 @@ WalInsertClass is an enumeration that classifies different types of XLog (Write-
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	WALINSERT_NORMAL,
+	WALINSERT_SPECIAL_SWITCH,
+	WALINSERT_SPECIAL_CHECKPOINT
+} WalInsertClass;
+```
 ## Detailed Description
 The WalInsertClass enumeration is used within PostgreSQL's WAL insertion mechanism to categorize XLog records based on their operational requirements. Each classification triggers different locking strategies, validation procedures, and insertion behaviors in the XLogInsertRecord function.
 

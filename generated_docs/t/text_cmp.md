@@ -8,7 +8,10 @@ Internal comparison function that extracts variable-length string data from Post
 
 ## Definition
 
-
+```c
+static int
+text_cmp(text *arg1, text *arg2, Oid collid)
+```
 ## Detailed Description
 `text_cmp` serves as a wrapper function that handles PostgreSQL's text data type comparison by extracting the raw string data and lengths from text objects, then calling `varstr_cmp` to perform the actual comparison. This function abstracts the variable-length data extraction process, using VARDATA_ANY and VARSIZE_ANY_EXHDR macros to handle both short-header and long-header varlena formats transparently.
 

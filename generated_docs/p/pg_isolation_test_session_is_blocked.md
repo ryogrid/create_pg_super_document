@@ -8,7 +8,10 @@ A support function for the PostgreSQL isolation tester that determines if a spec
 
 ## Definition
 
-
+```c
+Datum
+pg_isolation_test_session_is_blocked(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This is an undocumented internal function specifically designed for use by PostgreSQL's isolation testing framework. The function checks whether a given session (identified by its PID) is blocked by any of the processes that are under the isolation tester's control.
 

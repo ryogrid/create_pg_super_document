@@ -8,7 +8,10 @@ Calculates the total length (number of positions) of all lexemes in a TSVector, 
 
 ## Definition
 
-
+```c
+static int
+cnt_length(TSVector t)
+```
 ## Detailed Description
 The  function computes the total number of word positions contained within a TSVector structure. It iterates through all WordEntry elements in the TSVector and sums up their position data lengths. For lexemes without position data (clen == 0), it counts each as having length 1. This total length is typically used in ranking algorithms to normalize scores based on document length.
 

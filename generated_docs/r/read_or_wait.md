@@ -8,7 +8,10 @@ Reads a specified number of bytes from a GSSAPI connection, blocking and waiting
 
 ## Definition
 
-
+```c
+static ssize_t
+read_or_wait(Port *port, ssize_t len)
+```
 ## Detailed Description
 The  function is a blocking read helper used during GSSAPI transport setup. It ensures that exactly the requested number of bytes are read from the network connection, handling partial reads and temporary blocking conditions transparently.
 

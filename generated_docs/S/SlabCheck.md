@@ -8,7 +8,10 @@ SlabCheck performs comprehensive integrity validation of a Slab memory context b
 
 ## Definition
 
-
+```c
+void
+SlabCheck(MemoryContext context)
+```
 ## Detailed Description
 SlabCheck is a diagnostic function that thoroughly validates the internal consistency of a Slab memory context. It performs multiple levels of validation including block list integrity, chunk accounting accuracy, free list consistency, and memory boundary checks. The function is designed to detect various forms of memory corruption including incorrect block placement, invalid free list links, chunk header corruption, and buffer overruns.
 

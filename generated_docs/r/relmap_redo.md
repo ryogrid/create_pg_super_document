@@ -8,7 +8,10 @@ Handles replay of write-ahead log (WAL) records for relation mapping changes dur
 
 ## Definition
 
-
+```c
+struct the pathname for this database */
+		dbpath = GetDatabasePath(xlrec->dbid, xlrec->tsid);
+```
 ## Detailed Description
 The  function is the resource manager routine responsible for replaying WAL records that contain relation mapping updates during database recovery. PostgreSQL maintains mapping files that associate logical relation OIDs with physical filenode numbers, and when these mappings change, they are logged to WAL for crash recovery purposes.
 

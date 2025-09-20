@@ -8,7 +8,10 @@ Generates SQL commands to recreate a user-defined range type during PostgreSQL d
 
 ## Definition
 
-
+```c
+static void
+dumpRangeType(Archive *fout, const TypeInfo *tyinfo)
+```
 ## Detailed Description
 The  function creates SQL statements to recreate user-defined range types in PostgreSQL dumps. Range types are composite types that represent a range of values of some element type (the subtype). The function handles complex range type properties including subtype, operator class, collation, canonical function, and subtype difference function.
 

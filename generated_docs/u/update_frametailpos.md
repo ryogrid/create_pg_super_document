@@ -8,7 +8,10 @@ A static function that computes and sets the frame tail position for the current
 
 ## Definition
 
-
+```c
+static void
+update_frametailpos(WindowAggState *winstate)
+```
 ## Detailed Description
 This function is the counterpart to update_frameheadpos and is responsible for determining where the window frame ends relative to the current row being processed in window aggregation operations. The frame tail position represents the first row *after* the last row that should be included in the frame.
 

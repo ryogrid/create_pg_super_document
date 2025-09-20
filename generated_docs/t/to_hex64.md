@@ -8,7 +8,10 @@ Converts a 64-bit integer value to its hexadecimal string representation.
 
 ## Definition
 
-
+```c
+Datum
+to_hex64(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that takes a 64-bit integer (bigint) as input and converts it to a hexadecimal string representation. It uses the internal  utility function with base 16 to perform the conversion. The function follows PostgreSQL's standard function calling convention using the  macro.
 

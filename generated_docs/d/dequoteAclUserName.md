@@ -8,7 +8,10 @@ Transfers a user or group name from an input string into an output buffer, dequo
 
 ## Definition
 
-
+```c
+static char *
+dequoteAclUserName(PQExpBuffer output, char *input)
+```
 ## Detailed Description
 This function processes ACL (Access Control List) user names by extracting them from an input string and placing them into an output buffer with proper dequoting. The function handles both quoted and unquoted user names. For quoted names, it properly processes the PostgreSQL quoting convention where double quotes are escaped as "". The function reads characters until it encounters an unquoted '=' character or reaches the end of the string, which marks the end of the user name portion in ACL entries.
 

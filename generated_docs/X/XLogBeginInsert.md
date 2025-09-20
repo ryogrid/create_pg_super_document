@@ -8,7 +8,10 @@ XLogBeginInsert initializes the WAL record construction process and must be call
 
 ## Definition
 
-
+```c
+void
+XLogBeginInsert(void)
+```
 ## Detailed Description
 XLogBeginInsert is the first function that must be called when constructing a new WAL (Write-Ahead Log) record. It performs essential initialization and validation:
 

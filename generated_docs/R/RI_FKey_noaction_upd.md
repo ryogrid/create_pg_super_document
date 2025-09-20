@@ -8,7 +8,10 @@ A trigger function that implements the NO ACTION referential integrity constrain
 
 ## Definition
 
-
+```c
+Datum
+RI_FKey_noaction_upd(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL trigger function that enforces the NO ACTION referential integrity constraint when rows in a referenced (parent) table are updated. The NO ACTION constraint type means that if the update would result in orphaned foreign key references, the operation should be rejected and the current transaction rolled back.
 

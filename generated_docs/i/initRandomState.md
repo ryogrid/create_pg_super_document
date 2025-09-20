@@ -8,7 +8,10 @@ Initializes a pseudo-random number generator (PRNG) state structure by seeding i
 
 ## Definition
 
-
+```c
+static void
+initRandomState(pg_prng_state *state)
+```
 ## Detailed Description
 The  function provides a standardized way to initialize PostgreSQL's pseudo-random number generator state structures within pgbench. It seeds the provided PRNG state using a 64-bit random value obtained from the global . This approach ensures that each initialized PRNG state gets a unique, unpredictable seed while maintaining deterministic behavior when the base sequence is seeded consistently.
 

@@ -8,7 +8,14 @@ Initializes a Tuplesortstate for sorting heap tuples with support for multiple s
 
 ## Definition
 
-
+```c
+Tuplesortstate *
+tuplesort_begin_heap(TupleDesc tupDesc,
+					 int nkeys, AttrNumber *attNums,
+					 Oid *sortOperators, Oid *sortCollations,
+					 bool *nullsFirstFlags,
+					 int workMem, SortCoordinate coordinate, int sortopt)
+```
 ## Detailed Description
 This function creates and configures a new tuplesort state specifically for heap tuple sorting. It sets up the sorting infrastructure including comparison functions, I/O functions, and sort support data for each sort key. The function supports advanced features like abbreviation optimization for improved performance, parallel sorting coordination, and configurable memory usage limits. It establishes the foundation for efficient tuple sorting operations by preparing all necessary comparison and data handling mechanisms.
 

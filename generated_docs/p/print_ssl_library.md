@@ -8,7 +8,10 @@ A utility function that prints the SSL library name used by libpq, serving as a 
 
 ## Definition
 
-
+```c
+static void
+print_ssl_library()
+```
 ## Detailed Description
 The  function is a simple diagnostic utility that queries and displays the SSL library being used by the PostgreSQL libpq client library. It uses the  function with a NULL connection parameter and "library" attribute name to retrieve the SSL library information. If SSL is not enabled or available, it outputs an error message to stderr; otherwise, it prints the library name to stdout.
 

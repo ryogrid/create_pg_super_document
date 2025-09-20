@@ -8,7 +8,10 @@ A binary search function that searches an array of int16 datums for a specific c
 
 ## Definition
 
-
+```c
+static bool
+searchChar(Datum *nodeLabels, int nNodes, int16 c, int *i)
+```
 ## Detailed Description
 This function performs a binary search on a sorted array of PostgreSQL Datum values containing int16 characters. It efficiently locates a target character or determines where it should be inserted to maintain sorted order. The function is optimized for SP-GiST operations where node labels are stored as sorted arrays of characters, enabling fast traversal decisions during index operations.
 

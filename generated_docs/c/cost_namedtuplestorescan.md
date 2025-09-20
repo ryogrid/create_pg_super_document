@@ -8,7 +8,11 @@ Determines and returns the cost of scanning a named tuplestore, which represents
 
 ## Definition
 
-
+```c
+void
+cost_namedtuplestorescan(Path *path, PlannerInfo *root,
+						 RelOptInfo *baserel, ParamPathInfo *param_info)
+```
 ## Detailed Description
 This function calculates the execution cost for scanning a named tuplestore. Named tuplestores are used in PostgreSQL to store materialized results that can be referenced by name, commonly used in features like:
 

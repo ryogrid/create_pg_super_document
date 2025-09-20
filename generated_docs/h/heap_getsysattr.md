@@ -8,7 +8,10 @@ heap_getsysattr fetches the value of a system attribute for a heap tuple, provid
 
 ## Definition
 
-
+```c
+Datum
+heap_getsysattr(HeapTuple tup, int attnum, TupleDesc tupleDesc, bool *isnull)
+```
 ## Detailed Description
 heap_getsysattr is a specialized function that extracts system attribute values from heap tuples. System attributes are PostgreSQL's built-in columns that provide metadata about each tuple, including transaction visibility information and tuple location data. Unlike regular user-defined attributes, system attributes are never stored explicitly in the tuple data but are derived from the tuple header and structure.
 

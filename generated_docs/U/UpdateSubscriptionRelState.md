@@ -8,7 +8,11 @@ A simplified wrapper function that updates the replication state of a subscripti
 
 ## Definition
 
-
+```c
+void
+UpdateSubscriptionRelState(Oid subid, Oid relid, char state,
+						   XLogRecPtr sublsn)
+```
 ## Detailed Description
 This function serves as a convenience wrapper around UpdateSubscriptionRelStateEx, providing a simpler interface for the most common use case of updating subscription relation state. It automatically handles lock acquisition by passing false for the already_locked parameter, making it suitable for contexts where the caller hasn't pre-acquired the necessary locks.
 

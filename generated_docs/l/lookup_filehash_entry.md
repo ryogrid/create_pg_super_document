@@ -8,7 +8,10 @@ Performs a hash table lookup to find an existing file entry for a given file pat
 
 ## Definition
 
-
+```c
+static file_entry_t *
+lookup_filehash_entry(const char *path)
+```
 ## Detailed Description
 The  function provides a simple wrapper around the hash table lookup functionality. Unlike , this function only searches for existing entries and does not create new ones if the path is not found. It returns a pointer to the existing file entry if found, or NULL if the path doesn't exist in the hash table.
 

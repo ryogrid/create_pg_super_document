@@ -8,7 +8,10 @@ Frees memory associated with the recovery injector bbstreamer, ensuring proper c
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_recovery_injector_free(bbstreamer *streamer)
+```
 ## Detailed Description
 This function implements the memory deallocation operation for the bbstreamer_recovery_injector. It follows the standard bbstreamer cleanup pattern by first freeing the next bbstreamer in the chain, then freeing the current streamer instance. This ensures that the entire streaming pipeline is properly deallocated in reverse order, preventing memory leaks and maintaining proper resource management.
 

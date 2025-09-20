@@ -8,7 +8,10 @@ XLogPageReadResult is an enumeration that defines the return values for XLogPage
 
 ## Definition
 
-
+```c
+struct XLogRecord *XLogReadRecord(XLogReaderState *state,
+										 char **errormsg);
+```
 ## Detailed Description
 XLogPageReadResult serves as a standardized return type for XLogPageReadCB functions that handle reading WAL pages. This enum provides three distinct outcomes for page read operations, supporting both blocking and non-blocking read modes. The enum values use negative numbers for error conditions (following Unix convention) while success is represented by zero.
 

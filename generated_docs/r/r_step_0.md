@@ -8,7 +8,11 @@ A specialized suffix processing function in the Romanian Snowball stemming algor
 
 ## Definition
 
+```c
+}
 
+static int r_step_0(struct SN_env * z)
+```
 ## Detailed Description
 The r_step_0 function implements the initial step of the Romanian stemming process, focusing on the removal and transformation of specific Romanian suffixes. This function operates by scanning backwards from the current cursor position to identify suffix patterns using a predefined automaton (a_1 with 16 entries).
 

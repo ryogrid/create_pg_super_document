@@ -8,7 +8,14 @@ BitmapOrState is the runtime state structure for the BitmapOr executor node, whi
 
 ## Definition
 
-
+```c
+typedef struct BitmapOrState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	PlanState **bitmapplans;	/* array of PlanStates for my inputs */
+	int			nplans;			/* number of input plans */
+} BitmapOrState;
+```
 ## Detailed Description
 BitmapOrState manages the execution of bitmap OR operations in PostgreSQL's bitmap index scan optimization. It combines multiple bitmap indexes by performing logical OR operations, resulting in a bitmap that represents the union of all input bitmaps. This is used to efficiently identify rows when any of multiple index conditions need to be satisfied.
 

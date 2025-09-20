@@ -8,7 +8,11 @@ A wrapper function that examines a user's privileges for a specific table/relati
 
 ## Definition
 
-
+```c
+AclMode
+pg_class_aclmask(Oid table_oid, Oid roleid,
+				 AclMode mask, AclMaskHow how)
+```
 ## Detailed Description
 This function serves as a simplified interface to , providing privilege checking for table/relation objects without the need for missing object detection. It directly delegates to the extended version with a NULL  parameter, making it suitable for cases where the caller expects the relation to exist and wants an error if it doesn't.
 

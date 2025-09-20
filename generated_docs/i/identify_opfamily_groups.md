@@ -8,7 +8,10 @@ Groups operators and support functions by datatype combinations within an operat
 
 ## Definition
 
-
+```c
+List *
+identify_opfamily_groups(CatCList *oprlist, CatCList *proclist)
+```
 ## Detailed Description
 This function analyzes an operator family's operators and support functions to create OpFamilyOpFuncGroup structures. Each group represents a unique lefttype/righttype datatype combination and tracks which operator strategies and support function numbers are present using bitmasks. The function processes ordered catalog lists concurrently, ensuring all operators and functions for each datatype pair are grouped together. Strategy numbers and function numbers are stored as bits in uint64 fields, supporting up to 63 different strategies/functions per group.
 

@@ -8,7 +8,10 @@ A utility function that reports floating-point underflow errors using PostgreSQL
 
 ## Definition
 
-
+```c
+pg_noinline void
+float_underflow_error(void)
+```
 ## Detailed Description
 This function serves as a centralized error reporting mechanism for floating-point underflow conditions. Similar to its overflow counterpart, it uses the  attribute to prevent compiler inlining, which helps reduce code bloat across the codebase. The function reports an ERROR level message with the error code  and the descriptive message "value out of range: underflow".
 

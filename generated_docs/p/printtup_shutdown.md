@@ -8,7 +8,10 @@ The printtup_shutdown function performs cleanup operations for a printtup DestRe
 
 ## Definition
 
-
+```c
+static void
+printtup_shutdown(DestReceiver *self)
+```
 ## Detailed Description
 The printtup_shutdown function is responsible for cleaning up resources associated with a DR_printtup structure when it's no longer needed. This function is typically called when a query execution completes or when the DestReceiver is being destroyed.
 

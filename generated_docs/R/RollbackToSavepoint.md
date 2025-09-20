@@ -8,7 +8,10 @@ RollbackToSavepoint executes a ROLLBACK TO <savepoint> command by marking subtra
 
 ## Definition
 
-
+```c
+void
+RollbackToSavepoint(const char *name)
+```
 ## Detailed Description
 RollbackToSavepoint implements the PostgreSQL ROLLBACK TO SAVEPOINT SQL command functionality. Rather than immediately performing transaction rollback operations, it manages the transaction state machine by marking subtransactions between the current state and the target savepoint as "abort pending" and the target savepoint as "restart pending". The actual rollback work is deferred to CommitTransactionCommand.
 

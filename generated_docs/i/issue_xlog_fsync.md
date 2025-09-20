@@ -8,7 +8,10 @@ Issues the appropriate type of fsync operation for a WAL file based on the confi
 
 ## Definition
 
-
+```c
+void
+issue_xlog_fsync(int fd, XLogSegNo segno, TimeLineID tli)
+```
 ## Detailed Description
 This function performs file synchronization for WAL (Write-Ahead Log) files using the method specified by the  GUC parameter. It provides multiple synchronization strategies including standard fsync, write-through fsync, and fdatasync, while collecting timing statistics and handling errors with PANIC-level severity.
 

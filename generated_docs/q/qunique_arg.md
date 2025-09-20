@@ -8,7 +8,12 @@ A variant of qunique that removes duplicates from a pre-sorted array using a use
 
 ## Definition
 
-
+```c
+static inline size_t
+qunique_arg(void *array, size_t elements, size_t width,
+			int (*compare) (const void *, const void *, void *),
+			void *arg)
+```
 ## Detailed Description
 The qunique_arg function extends the functionality of qunique by supporting comparator functions that require additional user data. This function removes duplicate elements from a pre-sorted array while passing a user-defined argument to the comparator function. Like qunique, it uses an in-place algorithm with a two-pointer technique to efficiently remove duplicates while maintaining the sorted order.
 

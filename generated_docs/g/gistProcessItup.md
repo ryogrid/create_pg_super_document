@@ -8,7 +8,11 @@ Core function that processes an index tuple during buffered GiST index construct
 
 ## Definition
 
-
+```c
+static bool
+gistProcessItup(GISTBuildState *buildstate, IndexTuple itup,
+				BlockNumber startblkno, int startlevel)
+```
 ## Detailed Description
 This function implements the core tuple processing logic for the GiST buffering algorithm. It takes an index tuple and navigates down the index tree starting from a specified block and level, making intelligent decisions about where and how to insert the tuple.
 

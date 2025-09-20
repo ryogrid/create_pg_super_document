@@ -8,7 +8,13 @@ A callback function used during JSON parsing that handles the end of each object
 
 ## Definition
 
-
+```c
+structure check */
+	if (_state->lex->lex_level == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				 errmsg("cannot deconstruct an array as an object")));
+```
 ## Detailed Description
 This function is a callback used by PostgreSQL's JSON parser to process the completion of each object field during JSON object expansion operations. It operates at the top level of JSON objects (lex_level == 1) and creates tuples containing field names and their corresponding values, storing them in a tuple store for later retrieval. The function handles both scalar values and complex JSON structures, with special processing for normalized results and null values.
 

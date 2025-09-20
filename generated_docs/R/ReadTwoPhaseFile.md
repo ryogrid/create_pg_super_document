@@ -8,7 +8,9 @@ ReadTwoPhaseFile reads and validates a two-phase commit state file from disk, pe
 
 ## Definition
 
-
+```c
+struct stat stat;
+```
 ## Detailed Description
 ReadTwoPhaseFile is responsible for securely reading two-phase commit state files from the filesystem and validating their integrity. It constructs the file path using the transaction ID, opens the file with proper error handling, validates file size constraints, reads the entire file contents into memory, and performs comprehensive validation including magic number verification and CRC checksum validation. The function supports a missing_ok parameter to handle recovery scenarios where files may legitimately not exist.
 

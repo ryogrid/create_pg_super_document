@@ -8,7 +8,10 @@ Calculates the distance between a hash bucket's actual position and its optimal 
 
 ## Definition
 
-
+```c
+static inline uint32
+SH_DISTANCE_FROM_OPTIMAL(SH_TYPE * tb, uint32 optimal, uint32 bucket)
+```
 ## Detailed Description
 This function is a core component of the Robin Hood hashing algorithm used in PostgreSQL's simplehash implementation. It calculates how far an element is from its ideal position in the hash table, which is crucial for the Robin Hood hashing strategy that optimizes average lookup performance by minimizing variance in probe distances.
 

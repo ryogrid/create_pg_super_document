@@ -8,7 +8,11 @@ Creates a modified copy of a tuple by replacing specified attribute values, used
 
 ## Definition
 
-
+```c
+HeapTuple
+SPI_modifytuple(Relation rel, HeapTuple tuple, int natts, int *attnum,
+				Datum *Values, const char *Nulls)
+```
 ## Detailed Description
 SPI_modifytuple creates a new HeapTuple that is a copy of the input tuple with specified attributes modified to new values. This function is commonly used in trigger functions and stored procedures where you need to modify some fields of a tuple while preserving others. The function decomposes the original tuple, replaces the specified attribute values, and then reconstructs a new tuple with the modified data.
 

@@ -8,7 +8,10 @@ Multiplies a 32-bit value by the inverse of 5^q and divides by 2^j, using precom
 
 ## Definition
 
-
+```c
+static inline uint32
+mulPow5InvDivPow2(const uint32 m, const uint32 q, const int32 j)
+```
 ## Detailed Description
 This function performs the mathematical operation  efficiently by utilizing the  function with precomputed inverse powers of 5 stored in the  lookup table. The function is a specialized wrapper that provides a convenient interface for float-to-decimal conversion algorithms where division by powers of 5 and 2 is frequently required.
 

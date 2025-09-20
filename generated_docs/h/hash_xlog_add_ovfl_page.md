@@ -8,7 +8,10 @@ Replays the addition of an overflow page to a hash index during WAL recovery, ma
 
 ## Definition
 
-
+```c
+static void
+hash_xlog_add_ovfl_page(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles WAL replay for adding overflow pages to hash indexes when bucket pages become full. Hash indexes use overflow pages to store additional tuples when the primary bucket page cannot accommodate more data. This operation involves multiple components: creating the new overflow page, linking it to the existing page chain, updating bitmap pages to mark the page as allocated, potentially creating new bitmap pages if needed, and updating metapage statistics.
 

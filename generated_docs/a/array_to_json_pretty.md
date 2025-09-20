@@ -8,7 +8,10 @@ SQL function that converts a PostgreSQL array into its JSON representation with 
 
 ## Definition
 
-
+```c
+Datum
+array_to_json_pretty(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL function that takes an array and a boolean flag as input, converting the array to a JSON array representation. Unlike , this function accepts a second parameter that controls whether the output should include line feeds for pretty-printing. When the boolean parameter is true, the JSON output will include line breaks and proper indentation for better readability.
 

@@ -8,7 +8,9 @@ XLogReaderState is the central state management structure for PostgreSQL's WAL (
 
 ## Definition
 
-
+```c
+typedef struct XLogReaderState XLogReaderState;
+```
 ## Detailed Description
 XLogReaderState serves as the comprehensive state machine for WAL reading operations in PostgreSQL. It manages the complex process of reading WAL records sequentially from disk, handling page boundaries, timeline switches, and decoding binary WAL data into usable structures. The structure maintains multiple levels of state: positioning information for tracking where we are in the WAL stream, buffering for efficient I/O operations, decoded record queues for managing parsed data, and error handling for robust operation. It supports both blocking and non-blocking operation modes and handles complex scenarios like timeline switches during point-in-time recovery.
 

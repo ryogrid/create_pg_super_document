@@ -8,7 +8,14 @@ This function coerces a RECORD type to a specific composite type, handling both 
 
 ## Definition
 
-
+```c
+static Node *
+coerce_record_to_complex(ParseState *pstate, Node *node,
+						 Oid targetTypeId,
+						 CoercionContext ccontext,
+						 CoercionForm cformat,
+						 int location)
+```
 ## Detailed Description
 The coerce_record_to_complex function converts a generic RECORD type to a specific composite type (struct). It supports two main input types: RowExpr nodes that explicitly contain field expressions, and whole-row Var nodes that represent entire table rows.
 

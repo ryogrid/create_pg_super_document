@@ -8,7 +8,10 @@ Calculates text search ranking for AND operations between query terms, consideri
 
 ## Definition
 
-
+```c
+static float
+calc_rank_and(const float *w, TSVector t, TSQuery q)
+```
 ## Detailed Description
 This function implements the AND-based ranking algorithm for PostgreSQL's text search functionality. It calculates a relevance score by analyzing the positional proximity of multiple query terms within a document. The algorithm considers the distance between matching terms, with closer terms receiving higher relevance scores. When fewer than 2 unique terms are found, it falls back to OR-based ranking via calc_rank_or.
 

@@ -8,7 +8,12 @@ Queues a request to fetch a specific byte range from a file on the remote Postgr
 
 ## Definition
 
-
+```c
+struct
+	 * the string representations of them.
+	 */
+	resetStringInfo(&src->paths);
+```
 ## Detailed Description
 This function implements the core logic for queuing byte-range file fetch requests from remote PostgreSQL servers during pg_rewind operations. It provides sophisticated request optimization through merging consecutive requests and automatic chunking of large requests.
 

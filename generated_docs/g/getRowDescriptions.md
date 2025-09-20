@@ -8,7 +8,12 @@ getRowDescriptions processes PostgreSQL protocol 'T' (RowDescription) messages t
 
 ## Definition
 
-
+```c
+structed result with an error result. First
+	 * discard the old result to try to win back some memory.
+	 */
+	pqClearAsyncResult(conn);
+```
 ## Detailed Description
 This function parses RowDescription messages from the PostgreSQL server, which contain metadata about the columns that will be returned in subsequent DataRow messages. It creates or updates a PGresult structure with attribute descriptors for each column, including column names, table/column IDs, data types, type lengths, type modifiers, and format codes. The function handles both regular query results and DESCRIBE command results differently.
 

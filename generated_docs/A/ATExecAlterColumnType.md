@@ -8,7 +8,14 @@ ATExecAlterColumnType executes the ALTER COLUMN .. SET DATA TYPE command, handli
 
 ## Definition
 
-
+```c
+struct_array(&missingval,
+														 1,
+														 targettype,
+														 tform->typlen,
+														 tform->typbyval,
+														 tform->typalign));
+```
 ## Detailed Description
 This function implements the core logic for changing a column's data type in PostgreSQL tables. It performs comprehensive validation and dependency management:
 

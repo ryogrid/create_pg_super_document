@@ -8,7 +8,16 @@ A static comparison function used for sorting DocRepresentation structures in as
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	bool		operandexists;
+	bool		reverseinsert;	/* indicates insert order, true means
+								 * descending order */
+	uint32		npos;
+	WordEntryPos pos[MAXQROPOS];
+} QueryRepresentationOperand;
+```
 ## Detailed Description
 The  function is a qsort-compatible comparison function that establishes a total ordering for DocRepresentation structures used in PostgreSQL's text search ranking system. It implements a three-level sorting hierarchy: first by word position within the document, then by weight class when positions are equal, and finally by word entry when both position and weight are identical. This ordering is essential for efficiently processing document representations during cover distance calculations and other ranking algorithms.
 

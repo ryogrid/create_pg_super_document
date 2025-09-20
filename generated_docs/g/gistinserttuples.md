@@ -8,7 +8,14 @@ The core workhorse function for inserting multiple tuples or replacing a single 
 
 ## Definition
 
-
+```c
+static bool
+gistinserttuples(GISTInsertState *state, GISTInsertStack *stack,
+				 GISTSTATE *giststate,
+				 IndexTuple *tuples, int ntup, OffsetNumber oldoffnum,
+				 Buffer leftchild, Buffer rightchild,
+				 bool unlockbuf, bool unlockleftchild)
+```
 ## Detailed Description
 gistinserttuples is the extended workhorse version of gistinserttuple that handles complex insertion scenarios including multiple tuple insertions and sophisticated lock management. This function is primarily used for recursively updating downlinks in parent pages when child pages are split.
 

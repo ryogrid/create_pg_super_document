@@ -8,7 +8,11 @@ The french_UTF_8_create_env function creates and initializes a Snowball environm
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * french_UTF_8_create_env(void)
+```
 ## Detailed Description
 The french_UTF_8_create_env function is a factory function that creates a new Snowball environment (SN_env) configured for French morphological stemming operations on UTF-8 encoded text. It calls the generic SN_create_env function with parameters (0, 3), where the first parameter (0) typically indicates the initial string buffer size or encoding mode, and the second parameter (3) likely specifies the number of integer variables or the workspace size needed for French stemming operations.
 

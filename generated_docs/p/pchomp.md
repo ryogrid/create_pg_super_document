@@ -8,7 +8,10 @@ A utility function that creates a copy of a string with all trailing newline cha
 
 ## Definition
 
-
+```c
+char *
+pchomp(const char *in)
+```
 ## Detailed Description
 pchomp removes trailing newline characters from a string and returns a newly allocated copy without those characters. The function works by first determining the length of the input string, then scanning backwards from the end to find all trailing newline characters ('\n'). It then uses pnstrdup to create a copy of the string up to (but not including) the trailing newlines.
 

@@ -8,7 +8,10 @@ A static utility function that disables the currently active statement timeout t
 
 ## Definition
 
-
+```c
+static void
+disable_statement_timeout(void)
+```
 ## Detailed Description
 The  function is a simple but crucial utility function in PostgreSQL's query execution system that conditionally disables the statement timeout mechanism. It first checks if a statement timeout is currently active using , and if so, calls  to deactivate it.
 

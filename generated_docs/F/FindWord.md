@@ -8,7 +8,10 @@ Searches for a basic word form in the prefix tree dictionary to validate whether
 
 ## Definition
 
-
+```c
+static int
+FindWord(IspellDict *Conf, const char *word, const char *affixflag, int flag)
+```
 ## Detailed Description
 FindWord performs a binary search through the dictionary's prefix tree to locate a specific word and validate its affix associations. The function is designed to handle compound word validation and affix rule verification. It traverses the prefix tree character by character, using binary search at each node to efficiently locate the path corresponding to the input word.
 

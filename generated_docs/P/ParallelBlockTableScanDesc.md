@@ -8,7 +8,9 @@ A typedef for a pointer to ParallelBlockTableScanDescData, representing shared s
 
 ## Definition
 
-
+```c
+typedef struct ParallelBlockTableScanDescData *ParallelBlockTableScanDesc;
+```
 ## Detailed Description
 ParallelBlockTableScanDesc is a typedef that defines a pointer type to ParallelBlockTableScanDescData structure. This type is used throughout PostgreSQL's parallel table scanning infrastructure to manage shared state between multiple worker processes when scanning block-oriented storage (primarily heap tables). The typedef provides a clean interface for passing around references to the shared parallel scan state without exposing the internal structure details at the interface level.
 

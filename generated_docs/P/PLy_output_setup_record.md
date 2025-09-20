@@ -8,7 +8,10 @@ PLy_output_setup_record sets up output conversion information for PL/Python func
 
 ## Definition
 
-
+```c
+void
+PLy_output_setup_record(PLyObToDatum *arg, TupleDesc desc, PLyProcedure *proc)
+```
 ## Detailed Description
 This function is responsible for configuring the output conversion infrastructure when a PL/Python function returns a RECORD type. It performs several critical tasks:
 

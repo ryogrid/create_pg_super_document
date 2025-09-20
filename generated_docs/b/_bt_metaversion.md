@@ -8,7 +8,10 @@ _bt_metaversion extracts version and capability information from the B-tree meta
 
 ## Definition
 
-
+```c
+void
+_bt_metaversion(Relation rel, bool *heapkeyspace, bool *allequalimage)
+```
 ## Detailed Description
 This function retrieves critical version and feature information from the B-tree metapage to determine how the index should behave during operations. Key aspects:
 

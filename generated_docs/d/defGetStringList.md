@@ -8,7 +8,10 @@ Extracts and validates a list of string values from a DefElem, ensuring all elem
 
 ## Definition
 
-
+```c
+List *
+defGetStringList(DefElem *def)
+```
 ## Detailed Description
 The  function is a utility that extracts and validates lists of string values from DefElem structures. Unlike other defGet functions that handle multiple input types, this function specifically requires the argument to be a T_List node and validates that every element in the list is a String node.
 

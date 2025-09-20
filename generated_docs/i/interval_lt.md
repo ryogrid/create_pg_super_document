@@ -8,7 +8,10 @@ Compares two interval values to determine if the first is less than the second, 
 
 ## Definition
 
-
+```c
+Datum
+interval_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `interval_lt` function is a PostgreSQL function that implements the less-than operator (<) for interval data types. It extracts two interval arguments from the function call arguments using PostgreSQL's argument handling macros, then uses `interval_cmp_internal()` to perform the actual comparison. The function returns a boolean result indicating whether the first interval is less than (shorter than) the second interval.
 

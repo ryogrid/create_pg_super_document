@@ -8,7 +8,11 @@ ExecInitSampleScan initializes a sample scan executor node, setting up all neces
 
 ## Definition
 
-
+```c
+structure
+	 */
+	scanstate = makeNode(SampleScanState);
+```
 ## Detailed Description
 ExecInitSampleScan is the initialization function for sample scan executor nodes in PostgreSQL. It performs comprehensive setup including creating the SampleScanState structure, opening the scan relation, initializing expression contexts and projections, setting up table sampling parameters, and configuring the specific table sampling method handler. The function handles both cases where a REPEATABLE clause is specified and where a random seed needs to be generated. It defers the actual BeginSampleScan call until later when parameters can be properly evaluated. The initialization follows PostgreSQL's standard executor node pattern while adding sample-specific setup like TSM routine initialization.
 

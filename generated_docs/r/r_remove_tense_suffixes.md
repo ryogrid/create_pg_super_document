@@ -8,7 +8,11 @@ Iteratively removes Tamil tense suffixes from words by repeatedly calling the te
 
 ## Definition
 
+```c
+}
 
+static int r_remove_tense_suffixes(struct SN_env * z)
+```
 ## Detailed Description
 This function serves as a controller for iterative tense suffix removal in Tamil stemming. It implements a loop-based approach that:
 

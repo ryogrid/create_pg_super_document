@@ -8,7 +8,10 @@ Inserts a tuple into the new heap relation during a rewrite operation, handling 
 
 ## Definition
 
-
+```c
+static void
+raw_heap_insert(RewriteState state, HeapTuple tup)
+```
 ## Detailed Description
 The `raw_heap_insert` function performs low-level tuple insertion during heap rewrite operations, bypassing normal heap insertion mechanisms like WAL logging, visibility checks, and FSM (Free Space Map) updates. It handles TOAST processing for oversized tuples, manages page allocation and writing through the bulk write interface, and maintains proper tuple positioning and cross-references.
 

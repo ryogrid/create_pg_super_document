@@ -8,7 +8,22 @@ RecursiveUnionState is the runtime state structure for executing recursive UNION
 
 ## Definition
 
-
+```c
+typedef struct RecursiveUnionState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	bool		recursing;
+	bool		intermediate_empty;
+	Tuplestorestate *working_table;
+	Tuplestorestate *intermediate_table;
+	/* Remaining fields are unused in UNION ALL case */
+	Oid		   *eqfuncoids;		/* per-grouping-field equality fns */
+	FmgrInfo   *hashfunctions;	/* per-grouping-field hash fns */
+	MemoryContext tempContext;	/* short-term context for comparisons */
+	TupleHashTable hashtable;	/* hash table for tuples already seen */
+	MemoryContext tableContext; /* memory context containing hash table */
+} RecursiveUnionState;
+```
 ## Detailed Description
 RecursiveUnionState manages the execution of recursive UNION operations, which are used to implement recursive CTEs. It maintains working tables for the iterative computation process, where each iteration processes the results from the previous iteration. The structure supports both UNION ALL (which allows duplicates) and UNION (which eliminates duplicates using hash tables).
 

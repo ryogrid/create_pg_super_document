@@ -8,7 +8,17 @@ BoolExprType is an enumeration that defines the types of basic Boolean operation
 
 ## Definition
 
+```c
+typedef struct BoolExpr
+{
+	pg_node_attr(custom_read_write)
 
+	Expr		xpr;
+	BoolExprType boolop;
+	List	   *args;			/* arguments to this expression */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} BoolExpr;
+```
 ## Detailed Description
 BoolExprType specifies the three fundamental Boolean operations available in PostgreSQL's expression evaluation system. This enumeration is used within the BoolExpr node structure to indicate which Boolean operation should be performed on the provided arguments.
 

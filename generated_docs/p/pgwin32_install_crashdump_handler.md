@@ -8,7 +8,10 @@ A Windows-specific initialization function that installs PostgreSQL's crash dump
 
 ## Definition
 
-
+```c
+void
+pgwin32_install_crashdump_handler(void)
+```
 ## Detailed Description
 This function serves as the entry point for enabling PostgreSQL's crash dump functionality on Windows systems. It registers the crashDumpHandler function as the system's unhandled exception filter using the Windows API SetUnhandledExceptionFilter. Once installed, any unhandled exception that would normally terminate the process will first be processed by PostgreSQL's custom crash dump handler.
 

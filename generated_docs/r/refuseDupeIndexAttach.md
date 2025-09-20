@@ -8,7 +8,10 @@ A validation function that prevents duplicate index attachments by checking if a
 
 ## Definition
 
-
+```c
+static void
+refuseDupeIndexAttach(Relation parentIdx, Relation partIdx, Relation partitionTbl)
+```
 ## Detailed Description
 This function serves as a guard against duplicate index attachments in partition hierarchies. It checks whether the given partition table already contains an index that is attached to the specified parent partitioned index. If such an index is found, the function raises an error to prevent the duplicate attachment.
 

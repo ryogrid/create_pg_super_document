@@ -8,7 +8,11 @@ A static function that builds a pending-list page from an array of index tuples 
 
 ## Definition
 
-
+```c
+static int32
+writeListPage(Relation index, Buffer buffer,
+			  IndexTuple *tuples, int32 ntuples, BlockNumber rightlink)
+```
 ## Detailed Description
 This function is responsible for constructing GIN pending-list pages during fast insertion operations. It takes an array of index tuples and organizes them into a properly formatted page structure. The function operates within a critical section to ensure atomicity and handles WAL logging when necessary. It initializes the buffer as a GIN_LIST page type, adds each tuple to the page sequentially, sets up the page's opaque data including rightlink information, and marks the buffer as dirty. For tail pages (rightlink == InvalidBlockNumber), it sets special flags indicating the page contains complete rows.
 

@@ -8,7 +8,10 @@ Writes the SQL declaration (not data) of one user-defined sequence to the dump o
 
 ## Definition
 
-
+```c
+static void
+dumpSequence(Archive *fout, const TableInfo *tbinfo)
+```
 ## Detailed Description
 The  function generates SQL CREATE SEQUENCE statements for PostgreSQL sequences. It extracts sequence metadata from either  (PostgreSQL 10+) or the sequence relation itself (older versions) and constructs appropriate DDL statements. The function handles various sequence types (smallint, integer, bigint), calculates default min/max values based on sequence type and increment direction, and supports both standalone sequences and identity sequences. For identity sequences, it generates ALTER TABLE...ADD GENERATED statements instead of CREATE SEQUENCE. The function also handles sequence ownership relationships, comments, and security labels.
 

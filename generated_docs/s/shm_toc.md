@@ -8,7 +8,17 @@ The shm_toc structure is PostgreSQL's shared memory table of contents (TOC), pro
 
 ## Definition
 
-
+```c
+struct shm_toc
+{
+	uint64		toc_magic;		/* Magic number identifying this TOC */
+	slock_t		toc_mutex;		/* Spinlock for mutual exclusion */
+	Size		toc_total_bytes;	/* Bytes managed by this TOC */
+	Size		toc_allocated_bytes;	/* Bytes allocated of those managed */
+	uint32		toc_nentry;		/* Number of entries in TOC */
+	shm_toc_entry toc_entry[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 The shm_toc structure serves as the central management structure for PostgreSQL's shared memory TOC system. It maintains metadata about a shared memory segment and provides a registry of data structures within that segment through key-value mappings stored in toc_entry array.
 

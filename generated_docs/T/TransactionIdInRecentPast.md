@@ -8,7 +8,10 @@ Validates that a given transaction ID and epoch are within reasonable bounds, ch
 
 ## Definition
 
-
+```c
+static bool
+TransactionIdInRecentPast(FullTransactionId fxid, TransactionId *extracted_xid)
+```
 ## Detailed Description
 This function performs sanity checks on transaction ID (xid) and epoch pairs to ensure they represent valid, recent transaction identifiers. It validates that the provided xid/epoch combination is not in the future relative to the current system state and not so far in the past that the transaction ID counter has wrapped around multiple times.
 

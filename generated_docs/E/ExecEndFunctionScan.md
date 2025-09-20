@@ -8,7 +8,10 @@ ExecEndFunctionScan performs cleanup for function scan nodes by releasing tuples
 
 ## Definition
 
-
+```c
+void
+ExecEndFunctionScan(FunctionScanState *node)
+```
 ## Detailed Description
 ExecEndFunctionScan handles the cleanup phase of function scan execution by systematically releasing resources allocated during the scan operation:
 

@@ -8,7 +8,17 @@ ObjectAccessType is an enumeration that defines different types of object access
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	/*
+	 * This flag informs extensions whether the context of this creation is
+	 * invoked by user's operations, or not. E.g, it shall be dealt as
+	 * internal stuff on toast tables or indexes due to type changes.
+	 */
+	bool		is_internal;
+} ObjectAccessPostCreate;
+```
 ## Detailed Description
 The ObjectAccessType enum serves as the foundation for PostgreSQL's object access hook mechanism, which provides infrastructure for security plugins and logging extensions. Each enum value represents a specific database operation lifecycle event where hooks can be invoked to perform additional security checks, logging, or other custom processing.
 

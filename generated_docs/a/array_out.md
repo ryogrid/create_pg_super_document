@@ -8,7 +8,10 @@ Converts the internal representation of a PostgreSQL array to its external strin
 
 ## Definition
 
-
+```c
+struct the output string */
+	retval = (char *) palloc(overall_length);
+```
 ## Detailed Description
 array_out is the primary output function for PostgreSQL arrays, responsible for converting internal ArrayType structures into their textual representation. The function handles multi-dimensional arrays, properly formats null values, manages element quoting requirements, and includes explicit dimension bounds when necessary. It uses a caching mechanism (ArrayMetaState) to avoid repeated lookups of element type information across function calls.
 

@@ -8,7 +8,14 @@ ScalarArrayOpExprHashEntry is a hash table entry structure used to optimize scal
 
 ## Definition
 
-
+```c
+typedef struct ScalarArrayOpExprHashEntry
+{
+	Datum		key;
+	uint32		status;			/* hash status */
+	uint32		hash;			/* hash value (cached) */
+} ScalarArrayOpExprHashEntry;
+```
 ## Detailed Description
 This structure represents individual entries in a hash table designed to accelerate scalar-array operations, particularly when the same array is accessed repeatedly with different scalar values. Instead of performing linear searches through arrays on each evaluation, PostgreSQL builds a hash table using ScalarArrayOpExprHashEntry elements to store array values with their precomputed hash values.
 

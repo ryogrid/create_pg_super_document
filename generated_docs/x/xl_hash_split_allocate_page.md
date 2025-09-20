@@ -8,7 +8,15 @@ A PostgreSQL WAL record structure that captures the information needed to replay
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_split_allocate_page
+{
+	uint32		new_bucket;
+	uint16		old_bucket_flag;
+	uint16		new_bucket_flag;
+	uint8		flags;
+} xl_hash_split_allocate_page;
+```
 ## Detailed Description
 The  structure is used for  WAL records, which log the page allocation phase of hash index bucket splitting. When a hash index grows and needs to split a bucket, this is the first phase where pages are allocated for both the old and new buckets before the actual tuple redistribution occurs.
 

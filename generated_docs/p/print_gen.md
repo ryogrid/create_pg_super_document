@@ -8,7 +8,10 @@ The print_gen function outputs a summary of generation statistics for a genetic 
 
 ## Definition
 
-
+```c
+void
+print_gen(FILE *fp, Pool *pool, int generation)
+```
 ## Detailed Description
 This function provides a concise statistical summary of a GEQO population at a specific generation. It prints the generation number along with four key fitness metrics: the best chromosome (highest fitness), worst chromosome (lowest fitness), median chromosome (middle position), and the calculated average fitness across all chromosomes. The function assumes the pool is sorted by fitness with the best chromosome at index 0. It handles edge cases for small pool sizes and uses the second-to-last element as the worst since the last position is typically reserved as a buffer.
 

@@ -8,7 +8,10 @@ Marks the current position in an index scan, allowing the scan to be restored to
 
 ## Definition
 
-
+```c
+void
+ExecIndexMarkPos(IndexScanState *node)
+```
 ## Detailed Description
 The `ExecIndexMarkPos` function implements position marking functionality for index scans, which is essential for EvalPlanQual (EPQ) recheck operations in PostgreSQL's MVCC implementation. When concurrent transactions modify data that affects query results, PostgreSQL may need to recheck query conditions against updated tuple versions.
 

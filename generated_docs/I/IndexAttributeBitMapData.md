@@ -8,7 +8,12 @@ IndexAttributeBitMapData is a structure that provides a bitmap to track null val
 
 ## Definition
 
-
+```c
+typedef struct IndexAttributeBitMapData
+{
+	bits8		bits[(INDEX_MAX_KEYS + 8 - 1) / 8];
+}			IndexAttributeBitMapData;
+```
 ## Detailed Description
 IndexAttributeBitMapData serves as a null bitmap for index tuples in PostgreSQL. This structure is only present in an index tuple when the HasNulls bit (bit 15) is set in the IndexTupleData.t_info field, indicating that the tuple contains one or more null attribute values.
 

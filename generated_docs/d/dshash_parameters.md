@@ -8,7 +8,17 @@ The dshash_parameters struct defines the configuration parameters needed to crea
 
 ## Definition
 
-
+```c
+typedef struct dshash_parameters
+{
+	size_t		key_size;		/* Size of the key (initial bytes of entry) */
+	size_t		entry_size;		/* Total size of entry */
+	dshash_compare_function compare_function;	/* Compare function */
+	dshash_hash_function hash_function; /* Hash function */
+	dshash_copy_function copy_function; /* Copy function */
+	int			tranche_id;		/* The tranche ID to use for locks */
+} dshash_parameters;
+```
 ## Detailed Description
 The dshash_parameters structure encapsulates all the configuration information required to create or attach to a dynamic shared hash table. This structure defines the memory layout, callback functions for key operations, and locking behavior. The compare, hash, and copy functions must be supplied even when attaching to an existing hash table because function pointers cannot be safely shared between backends. The user data pointer supplied to create and attach functions will be passed to these callback functions. When attaching to an existing hash table, the tranche_id member does not need to be initialized.
 

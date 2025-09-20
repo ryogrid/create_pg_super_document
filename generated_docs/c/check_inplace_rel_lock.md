@@ -8,7 +8,10 @@ check_inplace_rel_lock is a static validation function that confirms adequate re
 
 ## Definition
 
-
+```c
+static void
+check_inplace_rel_lock(HeapTuple oldtup)
+```
 ## Detailed Description
 This function validates that proper relation-level locks are held when performing inplace operations on catalog tuples, implementing the locking rules documented in README.tuplock section "Locking to write inplace-updated tables". Unlike check_lock_if_inplace_updateable_rel which handles multiple catalog types, this function focuses specifically on validating relation-level locks for pg_class entries.
 

@@ -8,7 +8,12 @@ ApplyUnsignedSortComparator is an inline function that performs unsigned compari
 
 ## Definition
 
-
+```c
+static inline int
+ApplyUnsignedSortComparator(Datum datum1, bool isNull1,
+							Datum datum2, bool isNull2,
+							SortSupport ssup)
+```
 ## Detailed Description
 This function provides a specialized comparison for unsigned integer values stored as Datum. Unlike ApplySortComparator which uses a function pointer, this function performs direct unsigned comparison of the Datum values. It implements the same NULL handling logic as the general comparator but uses direct comparison operators for better performance with unsigned data types.
 

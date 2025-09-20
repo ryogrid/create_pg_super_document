@@ -8,7 +8,10 @@ Calculates the node number within a 4-node, single-family inner index tuple for 
 
 ## Definition
 
-
+```c
+static int
+inet_spg_node_number(const inet *val, int commonbits)
+```
 ## Detailed Description
 This static function determines which of the 4 possible child nodes a given network address value should be routed to within an SP-GiST inner index tuple. The function uses a 2-bit encoding scheme where:
 - The least significant bit (bit 0) indicates whether the next address bit after commonbits is set (even/odd selection)

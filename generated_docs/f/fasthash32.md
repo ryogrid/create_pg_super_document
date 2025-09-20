@@ -8,7 +8,10 @@ A 32-bit variant of the fasthash64 function that provides the same high-performa
 
 ## Definition
 
-
+```c
+static inline uint32
+fasthash32(const char *k, size_t len, uint64 seed)
+```
 ## Detailed Description
 The fasthash32 function is a wrapper around fasthash64 that provides a 32-bit hash output while maintaining the same underlying algorithm and performance characteristics. It leverages the full 64-bit fasthash64 computation and then reduces the result to 32 bits using the fasthash_reduce32 function, ensuring good distribution properties are preserved in the smaller output space.
 

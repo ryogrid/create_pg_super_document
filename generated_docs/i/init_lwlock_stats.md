@@ -8,7 +8,10 @@ Initializes the lightweight lock statistics tracking system, setting up a hash t
 
 ## Definition
 
-
+```c
+static void
+init_lwlock_stats(void)
+```
 ## Detailed Description
 This function sets up the infrastructure for collecting lightweight lock statistics in PostgreSQL's debugging system. It creates a dedicated memory context for lock statistics, allocates a hash table to track individual lock usage patterns, and registers a cleanup function to print statistics at process exit. The function is designed to handle reinitialization by cleaning up any existing statistics context before creating a new one.
 

@@ -8,7 +8,14 @@ LogicalRepTyp is a structure that stores type mapping information for custom dat
 
 ## Definition
 
-
+```c
+typedef struct LogicalRepTyp
+{
+	Oid			remoteid;		/* unique id of the remote type */
+	char	   *nspname;		/* schema name of remote type */
+	char	   *typname;		/* name of the remote type */
+} LogicalRepTyp;
+```
 ## Detailed Description
 This structure provides essential type mapping information for logical replication when custom or user-defined data types are involved. It allows the subscriber to understand and properly handle data types that originate from the publisher, which is particularly important when the publisher and subscriber may have different type definitions or when custom types are used.
 

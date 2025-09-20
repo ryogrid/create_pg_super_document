@@ -8,7 +8,13 @@ The socket_set structure is used in pgbench to manage a collection of file descr
 
 ## Definition
 
-
+```c
+typedef struct socket_set
+{
+	int			maxfd;			/* largest FD currently set in fds */
+	fd_set		fds;
+} socket_set;
+```
 ## Detailed Description
 This structure wraps around the standard Unix fd_set mechanism to provide organized socket management for pgbench's concurrent connection handling. It maintains both the fd_set structure for use with select() system calls and tracks the maximum file descriptor number for optimization purposes. This design allows pgbench to efficiently monitor multiple database connections simultaneously during benchmark execution.
 

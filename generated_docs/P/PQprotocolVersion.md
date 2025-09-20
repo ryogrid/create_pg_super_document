@@ -8,7 +8,10 @@ Returns the protocol version number of the connection to the PostgreSQL server, 
 
 ## Definition
 
-
+```c
+int
+PQprotocolVersion(const PGconn *conn)
+```
 ## Detailed Description
 This function extracts and returns the major protocol version number from an active PostgreSQL connection. The protocol version determines the format and capabilities of communication between the client (frontend) and the PostgreSQL server (backend). It returns 0 if the connection is invalid or in a bad state, making it useful for validating connection status and protocol compatibility.
 

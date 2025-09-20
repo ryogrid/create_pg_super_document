@@ -8,7 +8,10 @@ A static helper function that formats type modifier information for TIMESTAMP an
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function serves as common code for both timestamptypmodout and timestamptztypmodout functions. It generates a string representation of the timestamp type with its precision modifier, following SQL standard syntax. The function formats the output to show the precision value (if specified) and the appropriate timezone qualifier.
 

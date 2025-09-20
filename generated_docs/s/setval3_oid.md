@@ -8,7 +8,10 @@ Implements the 3-argument form of setval(), allowing explicit control over both 
 
 ## Definition
 
-
+```c
+Datum
+setval3_oid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description  
 The setval3_oid function provides the PostgreSQL function interface for the 3-argument form of setval(sequence_oid, value, iscalled). This is a thin wrapper around the internal do_setval function that allows explicit control over the iscalled parameter. When iscalled=true, the sequence is marked as having been called, and nextval() will return the set value plus increment. When iscalled=false, nextval() will return the set value itself.
 

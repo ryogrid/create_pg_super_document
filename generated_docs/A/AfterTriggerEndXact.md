@@ -8,7 +8,10 @@ Cleans up the after-trigger subsystem when a transaction is finishing, canceling
 
 ## Definition
 
-
+```c
+void
+AfterTriggerEndXact(bool isCommit)
+```
 ## Detailed Description
 AfterTriggerEndXact performs cleanup of the after-trigger subsystem when a transaction is ending, whether through commit or abort. The function discards all pending trigger events since unfired triggers are canceled when a transaction finishes. It safely handles repeated calls during error conditions (such as transaction abort scenarios) and performs memory cleanup by deleting the event context and resetting various trigger-related data structures.
 

@@ -8,7 +8,10 @@ Atomically saves a replication slot's persistent data to disk with checksumming,
 
 ## Definition
 
-
+```c
+static void
+SaveSlotToPath(ReplicationSlot *slot, const char *dir, int elevel)
+```
 ## Detailed Description
 This function implements the core persistence mechanism for replication slots, handling the atomic write of slot data to disk. The operation follows a carefully designed sequence to ensure crash safety and data integrity:
 

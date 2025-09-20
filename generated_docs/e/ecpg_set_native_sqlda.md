@@ -8,7 +8,10 @@ Sets up and populates a native SQLDA structure with data values from a specific 
 
 ## Definition
 
-
+```c
+void
+ecpg_set_native_sqlda(int lineno, struct sqlda_struct **_sqlda, const PGresult *res, int row, enum COMPAT_MODE compat)
+```
 ## Detailed Description
 This function populates a pre-allocated native SQLDA structure with actual data values from a specified row in a PostgreSQL query result. Similar to ecpg_set_compat_sqlda, it handles the complex task of setting up data pointers within the SQLDA structure, performing proper memory alignment, and converting PostgreSQL result data into appropriate C data types based on the SQLDA field types.
 

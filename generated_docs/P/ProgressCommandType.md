@@ -8,7 +8,18 @@ An enumeration that defines the types of long-running database commands that can
 
 ## Definition
 
-
+```c
+typedef enum ProgressCommandType
+{
+	PROGRESS_COMMAND_INVALID,
+	PROGRESS_COMMAND_VACUUM,
+	PROGRESS_COMMAND_ANALYZE,
+	PROGRESS_COMMAND_CLUSTER,
+	PROGRESS_COMMAND_CREATE_INDEX,
+	PROGRESS_COMMAND_BASEBACKUP,
+	PROGRESS_COMMAND_COPY,
+} ProgressCommandType;
+```
 ## Detailed Description
 The ProgressCommandType enum is part of PostgreSQL's progress reporting infrastructure, which allows administrators to monitor the progress of long-running database operations. This enum categorizes different types of commands that can provide real-time progress information through the PostgreSQL statistics system. Each command type corresponds to a specific view in pg_stat_progress_* system views that administrators can query to monitor operation status.
 

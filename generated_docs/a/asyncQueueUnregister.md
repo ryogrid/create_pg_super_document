@@ -8,7 +8,10 @@ Removes the current backend's entry from the notification listeners array when i
 
 ## Definition
 
-
+```c
+static void
+asyncQueueUnregister(void)
+```
 ## Detailed Description
 This function safely removes the current backend from the global notification listeners array maintained in shared memory. It is called when a backend no longer has any active LISTEN channels. The function performs the following operations:
 

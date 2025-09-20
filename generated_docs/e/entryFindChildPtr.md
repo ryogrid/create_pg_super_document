@@ -8,7 +8,10 @@ Finds the offset of a child pointer (downlink) to a specific block number within
 
 ## Definition
 
-
+```c
+static OffsetNumber
+entryFindChildPtr(GinBtree btree, Page page, BlockNumber blkno, OffsetNumber storedOff)
+```
 ## Detailed Description
 This function searches for a child pointer (downlink) to a specific block number within a non-leaf page of a GIN index. It employs a multi-stage search strategy for efficiency:
 

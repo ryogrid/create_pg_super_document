@@ -8,7 +8,9 @@ Enumerates all network interface addresses on the system and calls a callback fu
 
 ## Definition
 
-
+```c
+struct ifconf ifc;
+```
 ## Detailed Description
 This function provides a platform-specific interface to enumerate network interface addresses using the  system call. It dynamically allocates a buffer to retrieve all network interface configurations from the system, then iterates through each interface to extract its address and netmask information.
 

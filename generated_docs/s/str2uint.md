@@ -8,7 +8,10 @@ Converts a string representation of a number to an unsigned integer, specificall
 
 ## Definition
 
-
+```c
+unsigned int
+str2uint(const char *str)
+```
 ## Detailed Description
 The  function is a utility function in the pg_upgrade tool that converts a null-terminated string containing a decimal number into an unsigned integer. It serves as a wrapper around the standard C library function , configured for base-10 conversion. The function is primarily used for parsing numeric values from PostgreSQL control data files during the database upgrade process.
 

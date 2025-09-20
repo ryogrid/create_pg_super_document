@@ -8,7 +8,11 @@ Reconstructs a possibly schema-qualified SQL identifier with proper quoting appl
 
 ## Definition
 
-
+```c
+static char *
+requote_identifier(const char *schemaname, const char *objectname,
+				   bool quote_schema, bool quote_object)
+```
 ## Detailed Description
 The  function builds a malloc'd string containing a SQL identifier, with quoting applied as necessary. It handles both schema-qualified and simple identifiers, properly escaping double quotes within identifier names by doubling them. The function can handle cases where only a schema name is provided (producing "schema."), or where both schema and object names are provided. Unlike , if an input component was originally quoted, this function will quote the output even when not strictly required, maintaining the original quoting intention.
 

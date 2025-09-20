@@ -8,7 +8,10 @@ Returns the client-side character encoding identifier for a PostgreSQL connectio
 
 ## Definition
 
-
+```c
+int
+PQclientEncoding(const PGconn *conn)
+```
 ## Detailed Description
 The PQclientEncoding function retrieves the current client-side character encoding setting for a PostgreSQL connection. Character encoding determines how text data is represented and interpreted between the client application and the PostgreSQL server. This function returns an integer identifier that corresponds to a specific character encoding (such as UTF-8, Latin-1, etc.).
 

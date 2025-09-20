@@ -8,7 +8,10 @@ Initializes a synonym dictionary by parsing a configuration file and building an
 
 ## Definition
 
-
+```c
+Datum
+dsynonym_init(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the initialization entry point for PostgreSQL's synonym dictionary. It processes configuration parameters, reads a synonym file, and constructs a sorted array of synonym mappings for efficient lookup during text search operations.
 

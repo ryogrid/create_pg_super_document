@@ -8,7 +8,10 @@ Checks whether the current user has specified privileges on a foreign server ide
 
 ## Definition
 
-
+```c
+Datum
+has_server_privilege_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a variant of the has_server_privilege family that checks foreign server privileges for the current user using a server OID. It takes two arguments: the server OID and the privilege type, and automatically uses the current user's identity (obtained via GetUserId()). The function uses the extended access control check function (object_aclcheck_ext) which can detect when the target foreign server object is missing or has been dropped. If the server doesn't exist, the function returns NULL instead of raising an error.
 

@@ -8,7 +8,13 @@ PostgreSQL function that computes a hash value for an entire array by combining 
 
 ## Definition
 
-
+```c
+structure.  Note that we can't just
+			 * modify typentry, since that points directly into the type
+			 * cache.
+			 */
+			record_typentry = palloc0(sizeof(*record_typentry));
+```
 ## Detailed Description
 The  function calculates a hash value for an array by iterating through all elements and combining their individual hash values using a multiplicative hash algorithm. It uses a rolling hash technique where each element's hash is combined using the formula: , which is equivalent to .
 

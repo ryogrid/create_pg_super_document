@@ -8,7 +8,10 @@ Computes derived fields of a CTE including column names, types, type modifiers, 
 
 ## Definition
 
-
+```c
+void
+analyzeCTETargetList(ParseState *pstate, CommonTableExpr *cte, List *tlist)
+```
 ## Detailed Description
 This function determines the final column specifications for a CTE based on its transformed target list. It handles several critical aspects:
 

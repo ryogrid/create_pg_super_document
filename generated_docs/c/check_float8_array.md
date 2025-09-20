@@ -8,7 +8,16 @@ Internal helper function that validates and extracts data from a PostgreSQL arra
 
 ## Definition
 
-
+```c
+struct_array() since the array data is just
+	 * going to look like a C array of N float8 values.
+	 */
+	if (ARR_NDIM(transarray) != 1 ||
+		ARR_DIMS(transarray)[0] != n ||
+		ARR_HASNULL(transarray) ||
+		ARR_ELEMTYPE(transarray) != FLOAT8OID)
+		elog(ERROR, "%s: expected %d-element float8 array", caller, n);
+```
 ## Detailed Description
 The `check_float8_array` function is a utility function used extensively throughout PostgreSQL's floating-point aggregate operators. It validates that an input ArrayType pointer represents a properly formatted N-element array of float8 values and returns a direct pointer to the array data. This function is critical for the implementation of statistical aggregates like AVG(), VAR_SAMP(), VAR_POP(), STDDEV_SAMP(), STDDEV_POP(), and various regression functions.
 

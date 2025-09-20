@@ -8,7 +8,9 @@ Transforms each element of an array through an arbitrary expression, returning a
 
 ## Definition
 
-
+```c
+struct_empty_array(retType));
+```
 ## Detailed Description
 This function implements a higher-order array transformation operation, similar to the map function in functional programming languages. It applies a given expression to each element of the source array and constructs a new array with the results.
 

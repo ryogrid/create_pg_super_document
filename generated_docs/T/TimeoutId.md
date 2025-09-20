@@ -8,7 +8,9 @@ TimeoutId is an enumeration that defines identifiers for different timeout reaso
 
 ## Definition
 
-
+```c
+typedef void (*timeout_handler_proc) (void);
+```
 ## Detailed Description
 TimeoutId provides a comprehensive enumeration system for managing various timeout scenarios in PostgreSQL. The enum defines both built-in system timeouts and allows for user-defined timeout extensions. When multiple timeouts trigger simultaneously, they are serviced in the order defined by this enumeration, establishing a clear priority system. The timeout system multiplexes SIGALRM interrupts to handle multiple concurrent timeout conditions efficiently.
 

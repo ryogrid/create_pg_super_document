@@ -8,7 +8,10 @@ Analyzes and organizes the elements of a CREATE SCHEMA statement into individual
 
 ## Definition
 
-
+```c
+List *
+transformCreateSchemaStmtElements(List *schemaElts, const char *schemaName)
+```
 ## Detailed Description
 This function processes the schema element list from a CREATE SCHEMA statement and splits it into individual commands. It organizes these commands in a specific order to ensure there are no forward references (e.g., GRANT statements referencing tables created later in the list). The function categorizes different types of schema elements (sequences, tables, views, indexes, triggers, grants) and arranges them in dependency order.
 

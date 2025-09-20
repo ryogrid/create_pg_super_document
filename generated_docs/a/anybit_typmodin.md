@@ -8,7 +8,10 @@ A common utility function that processes type modifier input for PostgreSQL's bi
 
 ## Definition
 
-
+```c
+static int32
+anybit_typmodin(ArrayType *ta, const char *typename)
+```
 ## Detailed Description
 The anybit_typmodin function serves as a shared implementation for processing type modifier input for both BIT and VARBIT data types in PostgreSQL. When a user declares a column with a bit type and specifies a length (e.g., BIT(8) or VARBIT(16)), this function validates the provided length parameter and converts it into an internal type modifier representation.
 

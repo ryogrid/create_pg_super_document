@@ -8,7 +8,10 @@ Removes and deallocates the topmost conditional branch from the conditional stac
 
 ## Definition
 
-
+```c
+bool
+conditional_stack_pop(ConditionalStack cstack)
+```
 ## Detailed Description
 This function implements a typical stack pop operation by removing the head element from the conditional stack's linked list structure. It safely handles the case of an empty stack by checking if the head pointer is NULL before attempting to remove an element. When an element is successfully removed, the function updates the stack's head pointer to point to the next element and deallocates the memory of the removed element using free(). The function returns a boolean value indicating whether a pop operation actually occurred, which is useful for error handling and loop termination conditions.
 

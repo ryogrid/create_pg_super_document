@@ -8,7 +8,10 @@ Determines how aggressively vacuum needs to run to prevent member wraparound by 
 
 ## Definition
 
-
+```c
+static bool
+SetOffsetVacuumLimit(bool is_startup)
+```
 ## Detailed Description
 This function determines the oldest MultiXact member offset and installs limit information in MultiXactState to prevent overrun of old data in the members SLRU area. It calculates whether emergency autovacuum is required based on the distance between the next offset and oldest offset. The function handles special cases where no multixacts exist and accounts for bugs in early PostgreSQL 9.3.X and 9.4.X releases where the oldest multixact might not actually exist on disk.
 

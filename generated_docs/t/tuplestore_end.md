@@ -8,7 +8,10 @@ Releases resources and cleans up a tuplestore state structure, freeing all alloc
 
 ## Definition
 
-
+```c
+void
+tuplestore_end(Tuplestorestate *state)
+```
 ## Detailed Description
 The  function performs cleanup operations for a tuplestore by:
 1. Closing the temporary file (if any) using 

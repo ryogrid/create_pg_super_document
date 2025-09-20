@@ -8,7 +8,10 @@ PostgreSQL sort support strategy function that optimizes sorting operations for 
 
 ## Definition
 
-
+```c
+Datum
+network_sortsupport(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's SortSupport strategy for network address types (inet/cidr). It configures optimized sorting mechanisms that can significantly improve performance for operations involving large-scale sorting of network addresses, such as ORDER BY clauses, index builds, and merge operations.
 

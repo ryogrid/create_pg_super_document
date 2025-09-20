@@ -8,7 +8,10 @@ Internal implementation of numeric addition with optional error handling, provid
 
 ## Definition
 
-
+```c
+Numeric
+numeric_add_opt_error(Numeric num1, Numeric num2, bool *have_error)
+```
 ## Detailed Description
 This function performs the actual addition of two PostgreSQL numeric values, handling all the complexity of arbitrary precision decimal arithmetic. Unlike numeric_add, this function provides optional error handling through the have_error parameter, allowing callers to handle arithmetic errors programmatically rather than through PostgreSQL's standard exception mechanism.
 

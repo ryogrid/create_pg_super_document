@@ -8,7 +8,10 @@ Removes references to specific relation IDs from a RestrictInfo structure's reli
 
 ## Definition
 
-
+```c
+static void
+remove_rel_from_restrictinfo(RestrictInfo *rinfo, int relid, int ojrelid)
+```
 ## Detailed Description
 This function performs cleanup of RestrictInfo structures by removing references to eliminated relations from the clause_relids and required_relids bitmap sets. It's designed to handle the complexity of shared relid sets and nested OR/AND clause structures that can exist within RestrictInfo objects.
 

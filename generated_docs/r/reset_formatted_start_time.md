@@ -8,7 +8,10 @@ Resets the formatted start time buffer by clearing its contents, used in Postgre
 
 ## Definition
 
-
+```c
+void
+reset_formatted_start_time(void)
+```
 ## Detailed Description
 This function performs a simple but critical operation in PostgreSQL's logging infrastructure. It resets the  static buffer by setting its first character to the null terminator ('\0'), effectively clearing the string. This ensures that subsequent calls to get the formatted start time will regenerate the timestamp string rather than using a cached value. The function is typically called when the logging system needs to refresh the start time formatting, particularly when switching between different log formats or when the logging configuration changes.
 

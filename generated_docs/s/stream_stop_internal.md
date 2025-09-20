@@ -8,7 +8,10 @@ Finalizes the processing of a streaming transaction by serializing subtransactio
 
 ## Definition
 
-
+```c
+void
+stream_stop_internal(TransactionId xid)
+```
 ## Detailed Description
 This function performs the cleanup and finalization tasks required when a streaming transaction ends. It must be called after stream_start_internal has been invoked to properly clean up the streaming transaction state. The function handles four critical tasks:
 

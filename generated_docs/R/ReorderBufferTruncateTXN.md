@@ -8,7 +8,10 @@ Discards changes from a transaction while preserving essential metadata (transac
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferTruncateTXN(ReorderBuffer *rb, ReorderBufferTXN *txn, bool txn_prepared)
+```
 ## Detailed Description
 This function performs selective cleanup of transaction data, removing changes while preserving the transaction structure and metadata needed for later processing. The operation differs from full cleanup by maintaining transaction state for future operations like commit or rollback.
 

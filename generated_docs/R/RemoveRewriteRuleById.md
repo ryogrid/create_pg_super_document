@@ -8,7 +8,10 @@ Removes a rewrite rule from the PostgreSQL system catalogs by its OID, handling 
 
 ## Definition
 
-
+```c
+void
+RemoveRewriteRuleById(Oid ruleOid)
+```
 ## Detailed Description
 This function implements the core logic for deleting a rewrite rule from the PostgreSQL system. It performs several critical operations:
 

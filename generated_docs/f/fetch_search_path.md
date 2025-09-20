@@ -8,7 +8,10 @@ Retrieves the active search path as a palloc'ed list of namespace OIDs, with opt
 
 ## Definition
 
-
+```c
+List *
+fetch_search_path(bool includeImplicit)
+```
 ## Detailed Description
 This function returns the current active search path as a dynamically allocated list of namespace OIDs. It first ensures the namespace path is up-to-date by calling recomputeNamespacePath(), then handles temporary namespace creation if needed. The function provides flexibility in returning either the complete search path (including implicit namespaces like pg_catalog) or just the explicitly configured portion.
 

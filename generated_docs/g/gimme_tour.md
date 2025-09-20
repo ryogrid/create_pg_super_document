@@ -8,7 +8,10 @@ Creates a new tour using edges from the edge table, prioritizing shared edges be
 
 ## Definition
 
-
+```c
+int
+gimme_tour(PlannerInfo *root, Edge *edge_table, Gene *new_gene, int num_gene)
+```
 ## Detailed Description
 This function creates a new tour (offspring) by constructing a path through all cities using the edge information stored in the edge table. The algorithm starts with a randomly selected city and iteratively builds the tour by following available edges. Priority is given to shared edges (marked as negative values) that exist in both parent tours. For each city added to the tour, the function removes that city from all edge lists to prevent revisiting. When no valid edges are available from the current city, it handles the fault condition using edge_failure(). The function returns the total number of edge failures encountered during tour construction.
 

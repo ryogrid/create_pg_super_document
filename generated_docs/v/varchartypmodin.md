@@ -8,7 +8,10 @@ Processes type modifiers for VARCHAR data types by parsing the input array and v
 
 ## Definition
 
-
+```c
+Datum
+varchartypmodin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the type modifier input handler for the VARCHAR data type. It accepts an array of type modifiers (typically containing a length specification) and validates them according to VARCHAR constraints. The function delegates the actual validation logic to , which is shared between VARCHAR and CHAR types. The function ensures that the specified length is within valid bounds (at least 1 and not exceeding MaxAttrSize) and returns the processed type modifier value.
 

@@ -8,7 +8,11 @@ Performs MERGE operations by handling both MATCHED and NOT MATCHED cases, includ
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecMerge(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+		  ItemPointer tupleid, HeapTuple oldtuple, bool canSetTag)
+```
 ## Detailed Description
 ExecMerge is the core function that orchestrates MERGE statement execution in PostgreSQL. It handles three main scenarios:
 

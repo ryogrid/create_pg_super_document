@@ -8,7 +8,10 @@ pg_log is a wrapper function for logging messages in PostgreSQL's pg_upgrade uti
 
 ## Definition
 
-
+```c
+void
+pg_log(eLogType type, const char *fmt,...)
+```
 ## Detailed Description
 pg_log serves as a convenient variadic wrapper around pg_log_v, the core logging function in pg_upgrade. It accepts a log message type, a printf-style format string, and variable arguments, then forwards these to pg_log_v for actual processing and output. This function is the primary entry point for most logging operations throughout the pg_upgrade codebase, providing different levels of message output including verbose messages, status updates, reports, warnings, and fatal errors.
 

@@ -8,7 +8,12 @@ Creates a new Dynamic Shared Area (DSA) within existing shared memory space (eit
 
 ## Definition
 
-
+```c
+dsa_area *
+dsa_create_in_place_ext(void *place, size_t size,
+						int tranche_id, dsm_segment *segment,
+						size_t init_segment_size, size_t max_segment_size)
+```
 ## Detailed Description
 This function creates a DSA within pre-allocated shared memory space rather than creating a new DSM segment. It's designed for scenarios where the shared memory location is already established, whether in existing DSM segments or Postmaster-initialized memory. The function provides flexibility in memory management by allowing DSA expansion through additional DSM segments, though this can be constrained using dsa_set_size_limit().
 

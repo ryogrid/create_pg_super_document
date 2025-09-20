@@ -8,7 +8,10 @@ Deallocates a ReorderBuffer instance by deleting its memory context and cleaning
 
 ## Definition
 
-
+```c
+void
+ReorderBufferFree(ReorderBuffer *rb)
+```
 ## Detailed Description
 ReorderBufferFree performs complete cleanup of a ReorderBuffer instance. It deallocates all memory associated with the buffer by deleting its entire memory context, which automatically frees all child contexts (change_context, txn_context, tup_context) and associated data structures. Additionally, it cleans up any unconsumed serialized transaction data that may have been written to disk during the buffer's lifetime.
 

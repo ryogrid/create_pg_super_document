@@ -8,7 +8,27 @@ CheckpointerShmemStruct is the main shared memory structure that coordinates che
 
 ## Definition
 
+```c
+typedef struct
+{
+	pid_t		checkpointer_pid;	/* PID (0 if not started) */
 
+	slock_t		ckpt_lck;		/* protects all the ckpt_* fields */
+
+	int			ckpt_started;	/* advances when checkpoint starts */
+	int			ckpt_done;		/* advances when checkpoint done */
+	int			ckpt_failed;	/* advances when checkpoint fails */
+
+	int			ckpt_flags;		/* checkpoint flags, as defined in xlog.h */
+
+	ConditionVariable start_cv; /* signaled when ckpt_started advances */
+	ConditionVariable done_cv;	/* signaled when ckpt_done advances */
+
+	int			num_requests;	/* current # of requests */
+	int			max_requests;	/* allocated array size */
+	CheckpointerRequest requests[FLEXIBLE_ARRAY_MEMBER];
+} CheckpointerShmemStruct;
+```
 ## Detailed Description
 CheckpointerShmemStruct serves as the central coordination point between PostgreSQL backend processes and the checkpointer background worker. It maintains the process ID of the checkpointer, tracks checkpoint operation state, and manages a queue of synchronization requests that need to be processed during checkpoints.
 

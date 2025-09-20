@@ -8,7 +8,20 @@ Maps column attribute numbers in Var nodes throughout an expression tree from on
 
 ## Definition
 
+```c
+structs.
+ *
+ * outer_hasSubLinks works the same as for replace_rte_variables().
+ */
 
+typedef struct
+{
+	RangeTblEntry *target_rte;
+	List	   *targetlist;
+	ReplaceVarsNoMatchOption nomatch_option;
+	int			nomatch_varno;
+} ReplaceVarsFromTargetList_context;
+```
 ## Detailed Description
 This function provides a high-level interface for remapping column attribute numbers in PostgreSQL expression trees. It's commonly used during schema changes, table inheritance operations, partitioning, and other transformations where column positions need to be adjusted between different table definitions.
 

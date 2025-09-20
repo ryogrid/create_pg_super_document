@@ -8,7 +8,14 @@ Completes parse analysis of a SubscriptingRef expression for an array by transfo
 
 ## Definition
 
-
+```c
+static void
+array_subscript_transform(SubscriptingRef *sbsref,
+						  List *indirection,
+						  ParseState *pstate,
+						  bool isSlice,
+						  bool isAssignment)
+```
 ## Detailed Description
 This function is a critical part of PostgreSQL's array subscripting infrastructure during parse analysis. It processes the raw subscript expressions from the parser and transforms them into a form suitable for execution. The function handles both single-element access and array slicing operations.
 

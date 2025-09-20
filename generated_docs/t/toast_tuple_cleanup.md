@@ -8,7 +8,10 @@ Performs cleanup operations after TOAST processing is complete, including freein
 
 ## Definition
 
-
+```c
+void
+toast_tuple_cleanup(ToastTupleContext *ttc)
+```
 ## Detailed Description
 This function performs the final cleanup phase of TOAST processing after all compression and externalization operations have been completed. It handles two main cleanup tasks:
 

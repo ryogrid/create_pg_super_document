@@ -8,7 +8,10 @@ A wrapper function that delegates to  while providing an alternative SQL functio
 
 ## Definition
 
-
+```c
+Datum
+regexp_substr_no_n(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a wrapper function that directly calls the main  function without any parameter modification. Like other regexp_substr wrapper functions, it exists to support PostgreSQL's function overloading system by providing different function signatures for the same underlying functionality. The function name suggests it's intended for cases where the occurrence number ('n') parameter is not specified by the SQL caller.
 

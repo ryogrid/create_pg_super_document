@@ -8,7 +8,11 @@ Finds the strongest functional dependency from a collection of dependencies that
 
 ## Definition
 
-
+```c
+static MVDependency *
+find_strongest_dependency(MVDependencies **dependencies, int ndependencies,
+						  Bitmapset *attnums)
+```
 ## Detailed Description
 This function implements the selection logic for applying functional dependencies during selectivity estimation. It searches through all available dependencies to find the "strongest" one that can be applied to the current set of equality clauses. The strength of a dependency is determined by a hierarchical criteria:
 

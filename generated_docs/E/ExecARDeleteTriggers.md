@@ -8,7 +8,15 @@ ExecARDeleteTriggers executes AFTER ROW DELETE triggers and handles transition t
 
 ## Definition
 
-
+```c
+void
+ExecARDeleteTriggers(EState *estate,
+					 ResultRelInfo *relinfo,
+					 ItemPointer tupleid,
+					 HeapTuple fdw_trigtuple,
+					 TransitionCaptureState *transition_capture,
+					 bool is_crosspart_update)
+```
 ## Detailed Description
 This function is responsible for executing AFTER ROW DELETE triggers and managing transition table capture after a row has been successfully deleted. Unlike BEFORE triggers, AFTER triggers cannot prevent the delete operation but can perform side effects based on the deleted data.
 

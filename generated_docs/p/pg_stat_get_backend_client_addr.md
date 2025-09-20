@@ -8,7 +8,10 @@ Returns the client IP address of a backend process identified by its process num
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_get_backend_client_addr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function retrieves the client IP address for a specific backend process in PostgreSQL. It takes a backend process number as input and returns the IP address of the client connected to that backend. The function performs several validation checks:
 

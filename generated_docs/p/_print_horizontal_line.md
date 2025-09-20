@@ -8,7 +8,13 @@ Draws horizontal lines (borders) for aligned text table formatting with support 
 
 ## Definition
 
-
+```c
+static void
+_print_horizontal_line(const unsigned int ncolumns, const unsigned int *widths,
+					   unsigned short border, printTextRule pos,
+					   const printTextFormat *format,
+					   FILE *fout)
+```
 ## Detailed Description
 This utility function generates horizontal lines used to create borders and separators in aligned text table output. It supports different border styles (no border, single border, double border) and various horizontal line positions (top, middle, bottom) as defined by the printTextRule. The function constructs lines using formatting characters from the printTextFormat structure, properly handling column widths and junction points where horizontal and vertical rules meet.
 

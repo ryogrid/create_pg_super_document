@@ -8,7 +8,18 @@ Creates a pathnode that represents computation of window functions, where the in
 
 ## Definition
 
-
+```c
+WindowAggPath *
+create_windowagg_path(PlannerInfo *root,
+					  RelOptInfo *rel,
+					  Path *subpath,
+					  PathTarget *target,
+					  List *windowFuncs,
+					  List *runCondition,
+					  WindowClause *winclause,
+					  List *qual,
+					  bool topwindow)
+```
 ## Detailed Description
 This function creates a WindowAggPath node that represents the execution of window functions. Window functions are computed over a set of rows related to the current row within a partition, and they require the input to be properly sorted by partition and order keys. The function preserves the input sort order and can handle both top-level and intermediate WindowAgg operations. For costing purposes, it assumes no redundant partitioning or ordering columns and delegates to cost_windowagg for detailed cost calculation. The path can include run conditions for short-circuiting execution and qualification conditions for top-level windows.
 

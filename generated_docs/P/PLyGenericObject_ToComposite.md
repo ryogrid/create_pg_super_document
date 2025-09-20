@@ -8,7 +8,10 @@ Converts a Python generic object to a PostgreSQL composite type (tuple) by extra
 
 ## Definition
 
-
+```c
+static Datum
+PLyGenericObject_ToComposite(PLyObToDatum *arg, TupleDesc desc, PyObject *object, bool inarray)
+```
 ## Detailed Description
 This function is part of PostgreSQL's PL/Python extension and handles the conversion of Python objects to PostgreSQL composite types. It iterates through all attributes of the target PostgreSQL tuple descriptor, extracts corresponding attributes from the Python object using PyObject_GetAttrString(), and converts each attribute value to the appropriate PostgreSQL Datum using the conversion functions stored in the PLyObToDatum structure.
 

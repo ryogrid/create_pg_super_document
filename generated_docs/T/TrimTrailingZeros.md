@@ -8,7 +8,10 @@ Removes trailing zeros from a numeric string while preserving at least 2 fractio
 
 ## Definition
 
-
+```c
+void
+TrimTrailingZeros(char *str)
+```
 ## Detailed Description
 TrimTrailingZeros is a utility function that removes unnecessary trailing zeros from the end of a numeric string representation. The function is designed to clean up decimal numbers by removing trailing zeros while ensuring that at least 2 fractional digits remain after the decimal point. This preserves the visual consistency of decimal formatting while removing unnecessary precision.
 

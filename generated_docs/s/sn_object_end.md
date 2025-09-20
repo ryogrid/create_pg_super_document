@@ -8,7 +8,10 @@ This function handles the end of JSON objects during null-stripping operations, 
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+sn_object_end(void *state)
+```
 ## Detailed Description
 The `sn_object_end` function is a callback handler used by the JSON null-stripping functionality (`json_strip_nulls`). It serves as the counterpart to `sn_object_start` and processes the end of JSON objects during parsing.
 

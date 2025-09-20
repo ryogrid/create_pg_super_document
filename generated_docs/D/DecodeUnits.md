@@ -8,7 +8,10 @@ A cached lookup function that decodes text strings representing time interval un
 
 ## Definition
 
-
+```c
+int
+DecodeUnits(int field, char *lowtoken, int *val)
+```
 ## Detailed Description
 DecodeUnits recognizes keywords associated with time interval units by performing lookups in a pre-built token table. The function implements a cache mechanism (deltacache) to optimize performance based on the assumption that dates will often be related in format, making cache hits likely. 
 

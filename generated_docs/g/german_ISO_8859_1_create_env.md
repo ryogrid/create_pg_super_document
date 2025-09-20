@@ -8,7 +8,11 @@ The german_ISO_8859_1_create_env function creates and initializes a new Snowball
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * german_ISO_8859_1_create_env(void)
+```
 ## Detailed Description
 This function serves as a factory method for creating German stemmer instances. It allocates and initializes a SN_env (Snowball environment) structure with parameters specifically tailored for German morphological processing:
 

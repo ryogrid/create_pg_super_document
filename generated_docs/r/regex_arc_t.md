@@ -8,7 +8,13 @@ Represents a single arc (transition) in a regular expression's Non-deterministic
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			co;				/* label (character-set color) of arc */
+	int			to;				/* next state number */
+} regex_arc_t;
+```
 ## Detailed Description
 The  structure is a fundamental component of PostgreSQL's regex NFA export functionality. It represents a directed transition between states in the NFA, where each arc is labeled with a "color" that represents one or more concrete character codes. The NFA uses colors to group characters that are treated equivalently by the regex pattern, allowing for efficient representation and processing.
 

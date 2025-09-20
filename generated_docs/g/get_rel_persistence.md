@@ -8,7 +8,10 @@ Returns the persistence attribute (relpersistence) of a given relation, indicati
 
 ## Definition
 
-
+```c
+char
+get_rel_persistence(Oid relid)
+```
 ## Detailed Description
 This function retrieves the persistence attribute of a relation from the PostgreSQL system catalog (pg_class). The persistence attribute determines the storage characteristics and durability properties of the relation:
 - 'p' for permanent relations (normal tables)

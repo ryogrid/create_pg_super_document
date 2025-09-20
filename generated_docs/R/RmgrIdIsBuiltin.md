@@ -8,7 +8,10 @@ Determines whether a resource manager ID corresponds to a built-in PostgreSQL re
 
 ## Definition
 
-
+```c
+static inline bool
+RmgrIdIsBuiltin(int rmid)
+```
 ## Detailed Description
 This inline function checks if a given resource manager ID (rmid) is a built-in PostgreSQL resource manager. Built-in resource managers are those that are part of the core PostgreSQL system, as opposed to custom resource managers that can be added by extensions. The function performs a simple comparison against RM_MAX_BUILTIN_ID, which represents the highest ID assigned to built-in resource managers.
 

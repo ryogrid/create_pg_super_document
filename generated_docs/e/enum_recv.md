@@ -8,7 +8,10 @@ Converts binary protocol representation of enum values to internal OID format fo
 
 ## Definition
 
-
+```c
+Datum
+enum_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the binary input conversion for PostgreSQL enum types, handling enum values received through the binary protocol (such as in COPY BINARY operations or prepared statement parameters). It extracts the enum label from the binary message buffer and converts it to the corresponding internal OID representation.
 

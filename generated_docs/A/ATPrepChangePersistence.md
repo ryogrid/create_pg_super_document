@@ -8,7 +8,10 @@ ATPrepChangePersistence validates and prepares for changing a table's persistenc
 
 ## Definition
 
-
+```c
+static bool
+ATPrepChangePersistence(Relation rel, bool toLogged)
+```
 ## Detailed Description
 This function serves as the preparation phase for SET LOGGED/UNLOGGED operations in ALTER TABLE commands. It performs several critical validation checks to ensure the persistence change is valid and safe:
 

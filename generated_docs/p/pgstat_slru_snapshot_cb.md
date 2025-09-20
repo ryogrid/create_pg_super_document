@@ -8,7 +8,10 @@ A callback function that creates a snapshot of current SLRU statistics by copyin
 
 ## Definition
 
-
+```c
+void
+pgstat_slru_snapshot_cb(void)
+```
 ## Detailed Description
 This function serves as a callback for taking a consistent snapshot of SLRU statistics. It acquires a shared lock on the SLRU statistics in shared memory, copies the entire statistics structure to the local snapshot area, and then releases the lock. This ensures that the snapshot represents a consistent point-in-time view of all SLRU statistics across all types. The shared lock allows multiple processes to take snapshots simultaneously without blocking each other, while preventing inconsistent reads during updates.
 

@@ -8,7 +8,10 @@ Initializes the restoration process for a group of Large Objects (LOs) by establ
 
 ## Definition
 
-
+```c
+void
+StartRestoreLOs(ArchiveHandle *AH)
+```
 ## Detailed Description
 This function is called by format handlers before beginning to restore a group of Large Objects. It ensures that LO restoration occurs within a proper transaction context, which is essential because LO handles must remain open during the restoration process. The function conditionally starts a transaction if one is not already active globally (through single_txn or txn_size options), and initializes the LO counter to track the number of LOs being restored.
 

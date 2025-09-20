@@ -8,7 +8,10 @@ Performs vacuum cleanup operations on BRIN indexes by scanning for and summarizi
 
 ## Definition
 
-
+```c
+IndexBulkDeleteResult *
+brinvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+```
 ## Detailed Description
  is responsible for the cleanup phase of VACUUM operations on BRIN indexes. Unlike bulk delete operations which have limited applicability to BRIN's summarized structure, the vacuum cleanup phase performs meaningful work by ensuring all block ranges are properly summarized.
 

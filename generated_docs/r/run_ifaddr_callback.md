@@ -8,7 +8,11 @@ Validates network interface address and mask parameters before executing a callb
 
 ## Definition
 
-
+```c
+static void
+run_ifaddr_callback(PgIfAddrCallback callback, void *cb_data,
+					struct sockaddr *addr, struct sockaddr *mask)
+```
 ## Detailed Description
 This static function serves as a wrapper that validates and sanitizes network interface address and mask data before invoking a user-provided callback function. It performs several validation checks: ensures the address is not NULL, verifies that the mask matches the address family, and checks that the mask is not an unspecified address (INADDR_ANY for IPv4 or unspecified for IPv6). If the provided mask is invalid or missing, the function generates a fully-set mask using pg_sockaddr_cidr_mask. This ensures that the callback always receives valid address and mask parameters.
 

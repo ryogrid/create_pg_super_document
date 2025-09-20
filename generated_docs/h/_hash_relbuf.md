@@ -8,7 +8,10 @@ This function releases a locked buffer by dropping both its lock and pin (refere
 
 ## Definition
 
-
+```c
+void
+_hash_relbuf(Relation rel, Buffer buf)
+```
 ## Detailed Description
  is a wrapper function that releases a hash index buffer by calling . This function serves as the standard way to release buffers in hash index code, ensuring both the lock and the pin (reference count) are properly dropped. The function maintains consistency in buffer management across the hash index access method by providing a uniform interface for buffer release operations.
 

@@ -8,7 +8,10 @@ A static utility function that copies a specified number of bytes from a source 
 
 ## Definition
 
-
+```c
+static void
+copyToBuffer(StringInfo buffer, int offset, const char *data, int len)
+```
 ## Detailed Description
 The  function is a low-level memory copy utility specifically designed for JSONB processing. It performs a direct memory copy operation using the standard C library  function to efficiently transfer data to a predetermined location within a StringInfo buffer. This function is used internally within the JSONB utilities to place data at specific offsets within the buffer structure, particularly during JSONB value conversion and serialization processes.
 

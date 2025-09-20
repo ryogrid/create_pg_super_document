@@ -8,7 +8,11 @@ A convenience wrapper function in the Snowball stemming library that inserts a v
 
 ## Definition
 
+```c
+}
 
+extern int insert_v(struct SN_env * z, int bra, int ket, const symbol * p)
+```
 ## Detailed Description
 The  function is a simplified interface to  that automatically determines the length of the string to be inserted using the SIZE macro. It provides a more convenient way to insert variable-length strings where the length is stored as metadata with the string buffer. The 'v' in the name stands for 'variable', indicating that it works with variable-length strings that carry their own size information.
 

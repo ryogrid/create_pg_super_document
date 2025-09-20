@@ -8,7 +8,11 @@ Serializes an array of ranges into a pre-allocated MultirangeType structure, wri
 
 ## Definition
 
-
+```c
+static void
+write_multirange_data(MultirangeType *multirange, TypeCacheEntry *rangetyp,
+					  int32 range_count, RangeType **ranges)
+```
 ## Detailed Description
 This function performs the actual serialization of ranges into a multirange structure. It populates three main components of the multirange:
 

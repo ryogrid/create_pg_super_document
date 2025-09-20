@@ -8,7 +8,11 @@ Creates a path node for scanning an RTE_RESULT relation, which represents a rela
 
 ## Definition
 
-
+```c
+Path *
+create_resultscan_path(PlannerInfo *root, RelOptInfo *rel,
+					   Relids required_outer)
+```
 ## Detailed Description
 This function constructs a Path node specifically for result scan operations on RTE_RESULT relations. RTE_RESULT relations are special relation types that generate computed results, such as VALUES clauses, function calls that return sets, or other expressions that produce tabular data without accessing stored tables. The function sets the pathtype to T_Result and initializes all necessary Path structure fields. Like named tuplestore scans, result scans always produce unordered output since the results are computed rather than retrieved from an ordered source.
 

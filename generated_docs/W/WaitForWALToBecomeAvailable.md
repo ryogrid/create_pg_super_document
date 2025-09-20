@@ -8,7 +8,13 @@ WaitForWALToBecomeAvailable implements a sophisticated state machine that manage
 
 ## Definition
 
-
+```c
+static XLogPageReadResult
+WaitForWALToBecomeAvailable(XLogRecPtr RecPtr, bool randAccess,
+							bool fetching_ckpt, XLogRecPtr tliRecPtr,
+							TimeLineID replayTLI, XLogRecPtr replayLSN,
+							bool nonblocking)
+```
 ## Detailed Description
 WaitForWALToBecomeAvailable is the central orchestrator for WAL availability management during recovery operations. It implements a state machine with multiple sources: XLOG_FROM_ARCHIVE, XLOG_FROM_PG_WAL, and XLOG_FROM_STREAM. The function manages source transitions based on availability and failure conditions, handles timeline validation, and coordinates with the WAL receiver for streaming scenarios.
 

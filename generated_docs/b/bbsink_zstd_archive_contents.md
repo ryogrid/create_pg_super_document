@@ -8,7 +8,10 @@ Compresses input data using zstd streaming compression, managing output buffer s
 
 ## Definition
 
-
+```c
+static void
+bbsink_zstd_archive_contents(bbsink *sink, size_t len)
+```
 ## Detailed Description
 This function performs the core zstd compression work by processing input data through streaming compression. It sets up zstd input buffer structures, calculates compression bounds to manage output buffer space, and compresses data in chunks. When the output buffer doesn't have sufficient space for the next compression operation, it flushes the current compressed data to the next sink and resets the output buffer. The function handles compression errors and ensures all input data is processed, though compressed output may be buffered and not immediately sent downstream.
 

@@ -8,7 +8,12 @@ The main entry point function for background worker processes that handles initi
 
 ## Definition
 
-
+```c
+struct in shared memory.  We must do this
+	 * before we can use LWLocks or access any shared memory.
+	 */
+	InitProcess();
+```
 ## Detailed Description
 This function serves as the primary entry point for all background worker processes in PostgreSQL. It performs comprehensive initialization including memory management, signal handling, error recovery setup, and database infrastructure initialization. The function copies the worker configuration from startup data, sets up appropriate signal handlers based on whether the worker needs database access, establishes error handling with setjmp/longjmp, initializes PostgreSQL's process infrastructure, and finally invokes the user-defined worker function.
 

@@ -8,7 +8,10 @@ Provides a default selectivity estimate for ">=" (greater than or equal) join op
 
 ## Definition
 
-
+```c
+Datum
+scalargejoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `scalargejoinsel` function is a simple selectivity estimator for scalar greater-than-or-equal join operations. It completes the set of basic inequality join selectivity estimators by returning the same constant default selectivity value `DEFAULT_INEQ_SEL` used by its companion functions for other inequality operators.
 

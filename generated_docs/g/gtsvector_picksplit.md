@@ -8,7 +8,10 @@ Implements the picksplit algorithm for GiST (Generalized Search Tree) indexes on
 
 ## Definition
 
-
+```c
+union_l,
+				union_r;
+```
 ## Detailed Description
 This function is the core of GiST page splitting for text search vector indexes. It analyzes a collection of tsvector signatures and determines the optimal way to partition them into two groups (left and right pages) to maintain balanced tree structure and efficient search operations.
 

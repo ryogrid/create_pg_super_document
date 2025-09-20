@@ -8,7 +8,10 @@ PostgreSQL built-in function that implements the inequality comparison operator 
 
 ## Definition
 
-
+```c
+Datum
+enum_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the inequality (not equal) comparison functionality for PostgreSQL enum types. Like enum_eq, enum_ne implements a highly optimized approach by performing direct OID inequality comparison without consulting enum metadata or using enum_cmp_internal().
 

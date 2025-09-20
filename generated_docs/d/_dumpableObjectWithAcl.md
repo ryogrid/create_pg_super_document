@@ -8,7 +8,13 @@ The  structure is a generic composite structure that combines the base  with  fo
 
 ## Definition
 
-
+```c
+typedef struct _dumpableObjectWithAcl
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
+} DumpableObjectWithAcl;
+```
 ## Detailed Description
 The  structure serves as a generic container that allows pg_dump to uniformly handle any database object that supports ACLs. By combining the base  structure with the  extension, it provides a standardized layout that can be cast to and from specific object types that follow the ACL-enabled object pattern.
 

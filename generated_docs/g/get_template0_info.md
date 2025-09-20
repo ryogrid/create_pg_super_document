@@ -8,7 +8,10 @@ Retrieves locale and encoding information from the template0 database, which ser
 
 ## Definition
 
-
+```c
+static void
+get_template0_info(ClusterInfo *cluster)
+```
 ## Detailed Description
 This static function connects to the template1 database to query information about template0, which is crucial for maintaining locale and encoding consistency during PostgreSQL upgrades. The function handles version-specific differences in how locale information is stored and accessed across different PostgreSQL major versions.
 

@@ -8,7 +8,11 @@ AllocSetAllocFromNewBlock is a helper function for AllocSetAlloc() that allocate
 
 ## Definition
 
-
+```c
+static void *
+AllocSetAllocFromNewBlock(MemoryContext context, Size size, int flags,
+						  int fidx)
+```
 ## Detailed Description
 This function is called when AllocSetAlloc() determines that the current active block doesn't have enough space for the requested allocation. It performs several important operations to maximize memory utilization and maintain the AllocSet data structure:
 

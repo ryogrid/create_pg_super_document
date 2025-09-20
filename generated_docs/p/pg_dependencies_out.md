@@ -8,7 +8,10 @@ This function serves as the output routine for the pg_dependencies data type, co
 
 ## Definition
 
-
+```c
+Datum
+pg_dependencies_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The function takes binary pg_dependencies data and produces a formatted string representation showing functional dependencies between columns. It deserializes the binary data into an MVDependencies structure, then iterates through each dependency to build a JSON-like string format.
 

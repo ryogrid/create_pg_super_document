@@ -8,7 +8,10 @@ ReleaseGenericPlan safely releases a CachedPlanSource's generic plan by clearing
 
 ## Definition
 
-
+```c
+static void
+ReleaseGenericPlan(CachedPlanSource *plansource)
+```
 ## Detailed Description
 ReleaseGenericPlan is a static utility function that safely releases the generic plan associated with a CachedPlanSource. The function checks if a generic plan exists, clears the CachedPlanSource's reference to it, and then calls ReleaseCachedPlan to properly decrement the plan's reference count. This ensures that the generic plan will be destroyed when no other references to it exist. The function is designed to be paranoid about potential failures in ReleaseCachedPlan by clearing the reference before calling it.
 

@@ -8,7 +8,10 @@ Adjusts a timestamptz value for a specified scale factor (precision), used by Po
 
 ## Definition
 
-
+```c
+struct pg_itm_in tt,
+			   *itm_in = &tt;
+```
 ## Detailed Description
 The  function is a PostgreSQL type system function that adjusts the precision of a timestamptz (timestamp with time zone) value according to the specified typmod (type modifier). It takes a timestamptz value and a precision specification, then returns the timestamp adjusted to the appropriate number of fractional seconds. This function is automatically called by PostgreSQL when storing values in timestamptz columns that have explicit precision declarations (e.g.,  for millisecond precision).
 

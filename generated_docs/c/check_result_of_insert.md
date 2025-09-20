@@ -8,7 +8,10 @@ A static utility function in the ECPG test suite that verifies the result of dat
 
 ## Definition
 
-
+```c
+static void
+check_result_of_insert(void)
+```
 ## Detailed Description
 This function is part of the ECPG (Embedded SQL in C) test suite, specifically designed to validate that insert operations have been executed correctly. It performs a SELECT query on a test table to retrieve two integer columns (c1 and c2) and displays their values to stdout. The function uses ECPG's embedded SQL functionality with proper error handling through the sqlca (SQL Communication Area) structure.
 

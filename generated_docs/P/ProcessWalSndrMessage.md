@@ -8,7 +8,10 @@ Updates shared memory status information when receiving a message from the prima
 
 ## Definition
 
-
+```c
+static void
+ProcessWalSndrMessage(XLogRecPtr walEnd, TimestampTz sendTime)
+```
 ## Detailed Description
 This function is responsible for updating the WAL receiver's shared memory state whenever a message is received from the primary server (WAL sender). It maintains critical replication status information including the latest WAL position received, message timing data, and computes replication latency metrics.
 

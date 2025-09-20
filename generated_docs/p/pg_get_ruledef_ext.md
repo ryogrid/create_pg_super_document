@@ -8,7 +8,10 @@ Extended version of pg_get_ruledef that allows control over pretty-printing form
 
 ## Definition
 
-
+```c
+Datum
+pg_get_ruledef_ext(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides an extended interface for retrieving PostgreSQL rewrite rule definitions with customizable formatting. Unlike the basic pg_get_ruledef function, this version accepts a boolean parameter to control whether the output should be pretty-printed or returned in a more compact format. It delegates the actual work to pg_get_ruledef_worker with appropriate formatting flags.
 

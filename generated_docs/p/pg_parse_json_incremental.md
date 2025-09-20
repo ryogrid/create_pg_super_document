@@ -8,7 +8,9 @@ A non-recursive top-down parser for incremental JSON processing that uses the Dr
 
 ## Definition
 
-
+```c
+struct_action ostart = sem->object_start;
+```
 ## Detailed Description
 pg_parse_json_incremental implements a table-driven, non-recursive parser specifically designed for incremental JSON processing. Unlike the recursive descent parser used in pg_parse_json, this parser uses a prediction stack to manage parsing state, allowing it to handle JSON input that arrives in chunks. The parser uses semantic action markers placed strategically in the prediction stack to trigger appropriate callbacks at the correct parsing moments. It supports the complete JSON grammar including nested objects and arrays while maintaining parsing context across multiple function calls.
 

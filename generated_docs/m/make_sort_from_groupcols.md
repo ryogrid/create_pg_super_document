@@ -8,7 +8,12 @@ Creates a Sort plan node to sort input tuples based on grouping columns, using p
 
 ## Definition
 
-
+```c
+static Sort *
+make_sort_from_groupcols(List *groupcls,
+						 AttrNumber *grpColIdx,
+						 Plan *lefttree)
+```
 ## Detailed Description
 This function constructs a Sort plan node specifically for grouping operations where the target columns are already identified by their column indices. Unlike make_sort_from_sortclauses, this function must use the provided grpColIdx array to locate sort columns because the child plan's target list is not marked with ressortgroupref info appropriate to the grouping node. It extracts only the sort ordering information from the SortGroupClause entries, relying on the grpColIdx array for column identification.
 

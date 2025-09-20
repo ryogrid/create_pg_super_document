@@ -8,7 +8,23 @@ Analyzes and transforms expressions and column references appearing in ON CONFLI
 
 ## Definition
 
-
+```c
+structure for unique index
+		 * inference clause, and so will accept opclasses by name and so on.
+		 *
+		 * Make no attempt to match ASC or DESC ordering or NULLS FIRST/NULLS
+		 * LAST ordering, since those are not significant for inference
+		 * purposes (any unique index matching the inference specification in
+		 * other regards is accepted indifferently).  Actively reject this as
+		 * wrong-headed.
+		 */
+		if (ielem->ordering != SORTBY_DEFAULT)
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_COLUMN_REFERENCE),
+					 errmsg("ASC/DESC is not allowed in ON CONFLICT clause"),
+					 parser_errposition(pstate,
+										exprLocation((Node *) infer))));
+```
 ## Detailed Description
 This static function is a critical component of PostgreSQL's ON CONFLICT (UPSERT) functionality. It processes the index elements specified in an ON CONFLICT clause, transforming them from their raw parsed form into InferenceElem structures that the planner can use to match against actual unique indexes on the target table.
 

@@ -8,7 +8,13 @@ SimpleOidListCell is a fundamental building block for singly-linked lists that s
 
 ## Definition
 
-
+```c
+typedef struct SimpleOidListCell
+{
+	struct SimpleOidListCell *next;
+	Oid			val;
+} SimpleOidListCell;
+```
 ## Detailed Description
 SimpleOidListCell represents a single node in a singly-linked list specifically designed to hold Oid values. This structure is part of PostgreSQL's frontend utility framework and provides an efficient way to create and manipulate lists of object identifiers. The structure follows a standard linked list node pattern with a pointer to the next cell and a data field containing the Oid value. This design allows for dynamic list construction and traversal while maintaining minimal memory overhead.
 

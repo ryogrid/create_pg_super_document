@@ -8,7 +8,11 @@ Calculates the total storage space required for an SP-GiST leaf tuple that will 
 
 ## Definition
 
-
+```c
+Size
+SpGistGetLeafTupleSize(TupleDesc tupleDescriptor,
+					   const Datum *datums, const bool *isnulls)
+```
 ## Detailed Description
 This function computes the total space needed for a leaf tuple in an SP-GiST index. It must match the size calculation logic used in spgFormLeafTuple to ensure consistency. The calculation includes:
 

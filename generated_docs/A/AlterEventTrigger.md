@@ -8,7 +8,10 @@ Implements the ALTER EVENT TRIGGER command to enable, disable, or modify the fir
 
 ## Definition
 
-
+```c
+Oid
+AlterEventTrigger(AlterEventTrigStmt *stmt)
+```
 ## Detailed Description
 This function handles the SQL command "ALTER EVENT TRIGGER foo ENABLE|DISABLE|ENABLE ALWAYS|REPLICA" by modifying the evtenabled field in the pg_event_trigger system catalog. It provides a way to change the firing behavior of event triggers without dropping and recreating them.
 

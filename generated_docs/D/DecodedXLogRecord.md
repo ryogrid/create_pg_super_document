@@ -8,7 +8,26 @@ DecodedXLogRecord represents the parsed and decoded contents of a WAL record, pr
 
 ## Definition
 
+```c
+typedef struct DecodedXLogRecord
+{
+	/* Private member used for resource management. */
+	size_t		size;			/* total size of decoded record */
+	bool		oversized;		/* outside the regular decode buffer? */
+	struct DecodedXLogRecord *next; /* decoded record queue link */
 
+	/* Public members. */
+	XLogRecPtr	lsn;			/* location */
+	XLogRecPtr	next_lsn;		/* location of next record */
+	XLogRecord	header;			/* header */
+	RepOriginId record_origin;
+	TransactionId toplevel_xid; /* XID of top-level transaction */
+	char	   *main_data;		/* record's main data portion */
+	uint32		main_data_len;	/* main data portion's length */
+	int			max_block_id;	/* highest block_id in use (-1 if none) */
+	DecodedBkpBlock blocks[FLEXIBLE_ARRAY_MEMBER];
+} DecodedXLogRecord;
+```
 ## Detailed Description
 DecodedXLogRecord is the fundamental structure representing a fully parsed WAL record in PostgreSQL. It transforms the binary WAL format into an accessible structure that separates metadata, transaction context, main data payload, and backup block information. The structure uses a flexible design where the main_data and block data are stored in contiguous memory after the structure itself, with pointers providing access to these variable-length sections. This design enables efficient memory usage and simplifies record management while providing structured access to all components of a WAL record for replay, logical replication, and analysis purposes.
 

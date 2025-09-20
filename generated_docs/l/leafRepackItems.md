@@ -8,7 +8,12 @@ leafRepackItems recompresses all modified segments in a disassembled GIN data le
 
 ## Definition
 
-
+```c
+structed did not
+				 * fit.
+				 */
+				*remaining = seginfo->seg->first;
+```
 ## Detailed Description
 This complex static function is responsible for the final stage of leaf page modification in GIN indexes. It processes all segments in a disassembledLeaf structure and performs several critical operations:
 

@@ -8,7 +8,10 @@ Core string comparison function for text strings with given lengths that provide
 
 ## Definition
 
-
+```c
+int
+varstr_cmp(const char *arg1, int len1, const char *arg2, int len2, Oid collid)
+```
 ## Detailed Description
  is the fundamental comparison function for variable-length strings in PostgreSQL. It performs locale-aware string comparison while optimizing for the common case where LC_COLLATE is C. The function handles both binary (memcmp) and collation-aware (strcoll) comparisons depending on the specified collation. For non-C locales, it uses a two-phase approach: first performing a quick memcmp for equality detection, then falling back to full collation-aware comparison using pg_strncoll when necessary. For deterministic locales, it provides tie-breaking using binary comparison when collation comparison yields equality.
 

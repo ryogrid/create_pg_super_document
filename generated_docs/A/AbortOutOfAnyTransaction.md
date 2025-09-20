@@ -8,7 +8,10 @@ AbortOutOfAnyTransaction is a comprehensive error recovery function that forcibl
 
 ## Definition
 
-
+```c
+void
+AbortOutOfAnyTransaction(void)
+```
 ## Detailed Description
 AbortOutOfAnyTransaction serves as PostgreSQL's ultimate transaction recovery mechanism, designed to handle emergency situations where the system must be returned to a clean state regardless of the current transaction context. This function is capable of unwinding complex nested transaction hierarchies and handles all possible transaction states.
 

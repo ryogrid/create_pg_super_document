@@ -8,7 +8,13 @@ IndexBuildResult is a structure that holds statistics returned by the ambuild fu
 
 ## Definition
 
-
+```c
+typedef struct IndexBuildResult
+{
+	double		heap_tuples;	/* # of tuples seen in parent table */
+	double		index_tuples;	/* # of tuples inserted into index */
+} IndexBuildResult;
+```
 ## Detailed Description
 IndexBuildResult serves as a return structure for index access method build functions (ambuild). It encapsulates key statistics generated during the index building process, allowing the system to track how many tuples were processed from the source table versus how many were actually inserted into the index. This information is crucial for understanding index build efficiency and for maintenance operations that depend on accurate tuple counts.
 

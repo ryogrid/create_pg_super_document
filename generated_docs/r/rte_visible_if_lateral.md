@@ -8,7 +8,10 @@ Determines whether a RangeTblEntry would become visible if the user had specifie
 
 ## Definition
 
-
+```c
+static bool
+rte_visible_if_lateral(ParseState *pstate, RangeTblEntry *rte)
+```
 ## Detailed Description
 This helper function analyzes whether a given RangeTblEntry would be accessible in the current parsing context if the LATERAL keyword were added to the query. It's specifically designed to support PostgreSQL's error reporting system by determining when to suggest LATERAL as a potential solution.
 

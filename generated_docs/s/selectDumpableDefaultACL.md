@@ -8,7 +8,10 @@ This function determines whether a default ACL (Access Control List) should be i
 
 ## Definition
 
-
+```c
+static void
+selectDumpableDefaultACL(DefaultACLInfo *dinfo, DumpOptions *dopt)
+```
 ## Detailed Description
 The selectDumpableDefaultACL function implements the policy logic for deciding whether to include default ACLs in database dumps. Default ACLs define the privileges that are automatically granted on newly created objects within a schema or database. The function evaluates two main scenarios:
 

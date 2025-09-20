@@ -8,7 +8,10 @@ Returns the total number of failed transactions by summing serialization failure
 
 ## Definition
 
-
+```c
+static int64
+getFailures(const StatsData *stats)
+```
 ## Detailed Description
 This function calculates the total number of transaction failures in pgbench by aggregating two specific types of failures: serialization failures and deadlock failures. It provides a consolidated count of all transaction failures for reporting purposes. The function is used internally within pgbench for progress reporting and final results display.
 

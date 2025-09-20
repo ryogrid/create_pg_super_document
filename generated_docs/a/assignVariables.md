@@ -8,7 +8,10 @@ Processes SQL strings in pgbench by replacing variable placeholders () with thei
 
 ## Definition
 
-
+```c
+static char *
+assignVariables(Variables *variables, char *sql)
+```
 ## Detailed Description
 The  function is responsible for variable substitution in pgbench SQL commands. It scans through a SQL string looking for variable placeholders that start with ':' and replaces them with their corresponding values from the Variables store. The function handles parsing of variable names, retrieval of variable values, and text replacement in the original SQL string. If a variable is not found in the store, the placeholder is left unchanged and processing continues.
 

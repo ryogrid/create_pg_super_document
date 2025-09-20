@@ -8,7 +8,12 @@ A convenience wrapper function that performs a single-buffer read operation from
 
 ## Definition
 
-
+```c
+struct iovec iov = {
+		.iov_base = buffer,
+		.iov_len = amount
+	};
+```
 ## Detailed Description
 FileRead is an inline function that provides a simplified interface for reading data from a PostgreSQL virtual file. It wraps the more general FileReadV function by converting a single buffer read request into a vectored I/O operation with a single iovec structure. This function is part of PostgreSQL's virtual file descriptor (VFD) system, which manages file handles efficiently by automatically closing and reopening files as needed to stay within system limits.
 

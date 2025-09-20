@@ -8,7 +8,14 @@ The SN_env struct is a core data structure in PostgreSQL's Snowball stemming lib
 
 ## Definition
 
-
+```c
+struct SN_env {
+    symbol * p;
+    int c; int l; int lb; int bra; int ket;
+    symbol * * S;
+    int * I;
+};
+```
 ## Detailed Description
 The SN_env structure serves as the execution environment for Snowball stemming algorithms. It encapsulates all the necessary state and working memory needed to perform stemming operations on text. The Snowball project is a framework for developing stemming algorithms that reduce words to their stem forms, which is essential for text processing and search functionality in PostgreSQL.
 

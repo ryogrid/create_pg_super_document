@@ -8,7 +8,10 @@ A recursive function that traverses and outputs the code generation for all vari
 
 ## Definition
 
-
+```c
+void
+dump_variables(struct arguments *list, int mode)
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's ECPG preprocessor code generation phase. It recursively traverses an arguments list from end to beginning, generating the appropriate C code for each variable and its associated indicator variable. The function uses tail recursion to process the list in reverse order, ensuring that variables are output in the correct sequence for the generated code.
 

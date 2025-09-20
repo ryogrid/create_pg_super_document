@@ -8,7 +8,10 @@ Core implementation function for extracting specified fields from PostgreSQL int
 
 ## Definition
 
-
+```c
+struct pg_itm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This static function serves as the common implementation for both interval_part() and extract_interval() functions. It parses the requested time unit from a text input, handles special cases for infinite intervals by delegating to NonFiniteIntervalPart(), and performs field extraction for finite intervals.
 

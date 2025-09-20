@@ -8,7 +8,10 @@ Implements the  command in psql to display a brief list of installed PostgreSQL 
 
 ## Definition
 
-
+```c
+bool
+listExtensions(const char *pattern)
+```
 ## Detailed Description
 This function queries the PostgreSQL system catalogs to retrieve information about installed extensions. It constructs a SQL query that joins the pg_extension catalog with pg_namespace and pg_description to provide comprehensive extension information. The function supports pattern matching for selective display of extensions and presents the results in a formatted table showing extension name, version, schema, and description.
 

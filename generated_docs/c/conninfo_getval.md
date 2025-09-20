@@ -8,7 +8,11 @@ Retrieves the value of a connection option by keyword from a PQconninfoOption ar
 
 ## Definition
 
-
+```c
+static const char *
+conninfo_getval(PQconninfoOption *connOptions,
+				const char *keyword)
+```
 ## Detailed Description
 This utility function provides a simple interface for looking up connection option values by their keyword names. It acts as a wrapper around the conninfo_find function, extracting the value field from the found option structure.
 

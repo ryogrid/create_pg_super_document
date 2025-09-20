@@ -8,7 +8,12 @@ Expands the columns of a Range Table Entry (RTE) by creating lists of column nam
 
 ## Definition
 
-
+```c
+void
+expandRTE(RangeTblEntry *rte, int rtindex, int sublevels_up,
+		  int location, bool include_dropped,
+		  List **colnames, List **colvars)
+```
 ## Detailed Description
 This function is a central component of PostgreSQL's query processing system that expands RTE columns into usable column name lists and Var node lists. It handles multiple types of RTEs with type-specific expansion logic:
 

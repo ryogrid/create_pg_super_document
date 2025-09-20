@@ -8,7 +8,10 @@ tts_heap_init is an initialization callback function for HeapTupleTableSlot oper
 
 ## Definition
 
-
+```c
+static void
+tts_heap_init(TupleTableSlot *slot)
+```
 ## Detailed Description
 This function is part of the TupleTableSlotOps interface for heap tuple table slots. It implements the init callback but has an empty function body, indicating that no special initialization is required for heap tuple slots beyond what is done during slot allocation. The function follows the PostgreSQL pattern where some callback implementations may be no-ops when the default initialization is sufficient.
 

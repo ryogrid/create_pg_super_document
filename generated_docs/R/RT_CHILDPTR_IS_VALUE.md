@@ -8,7 +8,10 @@ A macro that expands to a function name for determining whether a child pointer 
 
 ## Definition
 
-
+```c
+static inline bool
+RT_CHILDPTR_IS_VALUE(RT_PTR_ALLOC child)
+```
 ## Detailed Description
 RT_CHILDPTR_IS_VALUE is a macro that generates a function name for checking whether a child pointer in the radix tree contains an embedded value or points to a separate leaf node. This function complements RT_VALUE_IS_EMBEDDABLE by checking the runtime state of already-stored pointers.
 

@@ -8,7 +8,22 @@ Accumulates one Datum element into an ArrayBuildState structure, handling automa
 
 ## Definition
 
+```c
+struct_md_array can detoast the array elements later.
+	 * However, we must not let construct_md_array modify the ArrayBuildState
+	 * because that would mean array_agg_finalfn damages its input, which is
+	 * verboten.  Also, this way frequently saves one copying step.)
+	 */
+	if (!disnull && !astate->typbyval)
+	{
+		if (astate->typlen == -1)
+			dvalue = PointerGetDatum(PG_DETOAST_DATUM_COPY(dvalue));
+		else
+			dvalue = datumCopy(dvalue, astate->typbyval, astate->typlen);
+	}
 
+	astate->dvalues[astate->nelems] = dvalue;
+```
 ## Detailed Description
 This function adds a single element to an ArrayBuildState structure, growing the internal arrays as needed. It supports both the older NULL-pointer scheme and the newer initialized-state scheme for array building. When called with a NULL astate (first call in older scheme), it automatically initializes a new ArrayBuildState.
 

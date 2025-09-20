@@ -8,7 +8,10 @@ Computes which freelist index a memory allocation of a given size belongs to in 
 
 ## Definition
 
-
+```c
+static inline int
+AllocSetFreeIndex(Size size)
+```
 ## Detailed Description
 AllocSetFreeIndex is a performance-critical inline function that determines the appropriate freelist index for a memory chunk based on its size. The function implements a logarithmic mapping where larger sizes map to higher indices, enabling efficient segregation of free chunks by size classes.
 

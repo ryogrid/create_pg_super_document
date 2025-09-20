@@ -8,7 +8,10 @@ Returns the object identifier (OID) for the current text search configuration, w
 
 ## Definition
 
-
+```c
+Oid
+getTSCurrentConfig(bool emitError)
+```
 ## Detailed Description
 This function retrieves the OID of the currently configured text search configuration. It first checks a cache (TSCurrentConfigCache) for a previously resolved value to avoid repeated lookups. If no cached value exists, it parses the TSCurrentConfig GUC variable to resolve the configuration name to its corresponding OID. The function supports both error-throwing and error-suppressing modes based on the emitError parameter. When emitError is false, it uses an ErrorSaveContext to handle parsing errors gracefully.
 

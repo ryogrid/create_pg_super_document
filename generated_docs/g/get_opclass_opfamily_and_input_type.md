@@ -8,7 +8,10 @@ Retrieves the operator family OID and input data type OID for a given operator c
 
 ## Definition
 
-
+```c
+bool
+get_opclass_opfamily_and_input_type(Oid opclass, Oid *opfamily, Oid *opcintype)
+```
 ## Detailed Description
 This function performs a system catalog lookup to extract key information about an operator class from the pg_opclass system catalog. It retrieves two critical pieces of metadata: the operator family that contains the operator class, and the data type that the operator class is designed to index. The function uses the system cache (CLAOID) for efficient access to operator class information and returns a boolean value indicating whether the lookup was successful.
 

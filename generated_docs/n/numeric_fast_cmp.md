@@ -8,7 +8,10 @@ Provides an optimized non-fmgr comparison interface for numeric values, designed
 
 ## Definition
 
-
+```c
+static int
+numeric_fast_cmp(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 The `numeric_fast_cmp` function serves as a direct comparison interface that bypasses PostgreSQL's function manager (fmgr) system to provide faster numeric comparisons during sorting operations. While the performance gain is relatively small compared to the inherent cost of numeric comparisons, it is a required component of the sort support API when abbreviation strategies are employed.
 

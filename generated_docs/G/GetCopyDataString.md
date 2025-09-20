@@ -8,7 +8,10 @@ Extracts a NUL-terminated string from a COPY data message buffer and advances th
 
 ## Definition
 
-
+```c
+static char *
+GetCopyDataString(size_t r, char *copybuf, size_t *cursor)
+```
 ## Detailed Description
 GetCopyDataString is a utility function that safely reads a NUL-terminated string from a COPY protocol message buffer. It scans the buffer starting from the current cursor position to find the terminating NUL byte (\0), ensuring that the search does not exceed the buffer boundaries. Upon finding the NUL terminator, the function updates the cursor to point to the position immediately after the string and returns a pointer to the beginning of the string within the buffer.
 

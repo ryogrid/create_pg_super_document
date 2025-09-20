@@ -8,7 +8,10 @@ Serializes the in-memory representation of BRIN range data into a compact varlen
 
 ## Definition
 
-
+```c
+static SerializedRanges *
+brin_range_serialize(Ranges *range)
+```
 ## Detailed Description
 This function takes an in-memory Ranges structure and converts it into a serialized format (SerializedRanges) that can be stored efficiently. The serialization process involves copying the header information and then serializing the individual values according to their data type characteristics. The function handles different data types appropriately:
 

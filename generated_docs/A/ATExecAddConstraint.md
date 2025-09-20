@@ -8,7 +8,12 @@ ATExecAddConstraint is the main dispatcher function for ALTER TABLE ADD CONSTRAI
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecAddConstraint(List **wqueue, AlteredTableInfo *tab, Relation rel,
+					Constraint *newConstraint, bool recurse, bool is_readd,
+					LOCKMODE lockmode)
+```
 ## Detailed Description
 This function serves as the central dispatch point for adding constraints to tables during ALTER TABLE operations. It examines the constraint type and delegates to the appropriate specialized function. Currently handles CHECK and FOREIGN KEY constraints, with the framework designed to easily accommodate additional constraint types in the future.
 

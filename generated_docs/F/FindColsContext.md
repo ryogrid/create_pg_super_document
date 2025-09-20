@@ -8,7 +8,14 @@ FindColsContext is a helper structure used during column reference analysis to t
 
 ## Definition
 
-
+```c
+typedef struct FindColsContext
+{
+	bool		is_aggref;		/* is under an aggref */
+	Bitmapset  *aggregated;		/* column references under an aggref */
+	Bitmapset  *unaggregated;	/* other column references */
+} FindColsContext;
+```
 ## Detailed Description
 FindColsContext serves as a context structure for traversing expression trees to identify column references and categorize them based on their relationship to aggregate functions. The structure is used during the analysis phase of query planning to determine which columns are referenced within aggregate function calls (aggregated) versus those referenced in other contexts (unaggregated). This distinction is crucial for determining grouping requirements and optimizing aggregate execution. The is_aggref flag tracks the current traversal state, indicating whether the walker is currently inside an aggregate function reference.
 

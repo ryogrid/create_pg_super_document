@@ -8,7 +8,10 @@ DefineRange is the comprehensive function that creates a new range type in Postg
 
 ## Definition
 
-
+```c
+structor functions for this range type */
+	makeRangeConstructors(typeName, typeNamespace, typoid, rangeSubtype);
+```
 ## Detailed Description
 This function implements the CREATE TYPE ... AS RANGE command by performing a complex sequence of operations:
 

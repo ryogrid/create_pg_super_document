@@ -8,7 +8,11 @@ Implements PostgreSQL's sort support strategy for numeric data types, providing 
 
 ## Definition
 
-
+```c
+struct
+		 */
+		nss->buf = palloc(VARATT_SHORT_MAX + VARHDRSZ + 1);
+```
 ## Detailed Description
 The `numeric_sortsupport` function is PostgreSQL's sort support strategy routine for the numeric data type. It optimizes sorting operations by implementing an abbreviation strategy that can significantly improve performance, especially for large datasets.
 

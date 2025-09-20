@@ -8,7 +8,10 @@ ResetDecoder is a private function that resets the XLogReaderState's internal de
 
 ## Definition
 
-
+```c
+struct. */
+	size += offsetof(DecodedXLogRecord, blocks[0]);
+```
 ## Detailed Description
 ResetDecoder provides a clean slate for XLog reading operations by completely resetting the decoder's internal state. The function clears the decoded record queue, freeing any oversized records that were dynamically allocated, resets decode buffers to their initial empty state, and clears any pending error conditions. This ensures that when the XLogReader moves to a new position, there are no stale decoded records or error states that could interfere with subsequent operations.
 

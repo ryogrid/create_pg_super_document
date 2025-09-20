@@ -8,7 +8,11 @@ ExecGrant_common is the core implementation function for processing GRANT and RE
 
 ## Definition
 
-
+```c
+static void
+ExecGrant_common(InternalGrant *istmt, Oid classid, AclMode default_privs,
+				 void (*object_check) (InternalGrant *istmt, HeapTuple tuple))
+```
 ## Detailed Description
 ExecGrant_common performs the core work of granting or revoking privileges on database objects. It iterates through each object specified in the GRANT/REVOKE statement, retrieves the current ACL, applies the privilege changes using merge_acl_with_grant, and updates the system catalogs. The function handles privilege validation, grantor selection, and maintains dependency tracking for proper cleanup when roles are dropped.
 

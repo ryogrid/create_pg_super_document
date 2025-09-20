@@ -8,7 +8,19 @@ BTPageState is a status record structure that represents a B-tree page being bui
 
 ## Definition
 
-
+```c
+typedef struct BTPageState
+{
+	BulkWriteBuffer btps_buf;	/* workspace for page building */
+	BlockNumber btps_blkno;		/* block # to write this page at */
+	IndexTuple	btps_lowkey;	/* page's strict lower bound pivot tuple */
+	OffsetNumber btps_lastoff;	/* last item offset loaded */
+	Size		btps_lastextra; /* last item's extra posting list space */
+	uint32		btps_level;		/* tree level (0 = leaf) */
+	Size		btps_full;		/* "full" if less than this much free space */
+	struct BTPageState *btps_next;	/* link to parent level, if any */
+} BTPageState;
+```
 ## Detailed Description
 BTPageState manages the construction state of individual B-tree pages during index building operations. Each active tree level maintains its own BTPageState instance, forming a linked list structure through the btps_next pointer. The structure tracks the page's position in the tree, its content boundaries, and workspace for building the page before writing it to storage.
 

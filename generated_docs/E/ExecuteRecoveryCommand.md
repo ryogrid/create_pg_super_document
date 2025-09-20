@@ -8,7 +8,11 @@ Executes external shell commands during PostgreSQL recovery operations, providin
 
 ## Definition
 
-
+```c
+struct the command to be executed
+	 */
+	xlogRecoveryCmd = replace_percent_placeholders(command, commandName, "r", lastRestartPointFname);
+```
 ## Detailed Description
 ExecuteRecoveryCommand is a utility function that safely executes external shell commands during various phases of PostgreSQL recovery. It handles command execution with proper error reporting and signal handling, while providing context about the current recovery state through placeholder substitution.
 

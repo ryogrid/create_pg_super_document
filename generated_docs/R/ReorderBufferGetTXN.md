@@ -8,7 +8,10 @@ Allocates and initializes a new ReorderBufferTXN structure from the reorder buff
 
 ## Definition
 
-
+```c
+static ReorderBufferTXN *
+ReorderBufferGetTXN(ReorderBuffer *rb)
+```
 ## Detailed Description
 ReorderBufferGetTXN creates a fresh ReorderBufferTXN instance by allocating memory from the reorder buffer's specialized transaction context (txn_context). It initializes the transaction structure with default values, setting up empty doubly-linked lists for changes, tuple command IDs, and subtransactions. The function ensures proper initialization of all fields, particularly setting the command_id to InvalidCommandId since zero is not the invalid value for command IDs.
 

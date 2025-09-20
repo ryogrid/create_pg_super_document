@@ -8,7 +8,15 @@ IndexAttachInfo represents the relationship between a partitioned index and its 
 
 ## Definition
 
-
+```c
+typedef struct _statsExtInfo
+{
+	DumpableObject dobj;
+	const char *rolname;		/* owner */
+	TableInfo  *stattable;		/* link to table the stats are for */
+	int			stattarget;		/* statistics target */
+} StatsExtInfo;
+```
 ## Detailed Description
 IndexAttachInfo is a specialized data structure in pg_dump that manages the relationship between partitioned indexes and their corresponding partition indexes. This structure is essential for PostgreSQL's table partitioning feature, where indexes on partitioned tables need to be properly associated with indexes on individual partitions.
 

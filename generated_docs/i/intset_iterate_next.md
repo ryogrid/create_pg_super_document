@@ -8,7 +8,10 @@ Returns the next integer when iterating through an IntegerSet, providing sequent
 
 ## Definition
 
-
+```c
+bool
+intset_iterate_next(IntegerSet *intset, uint64 *next)
+```
 ## Detailed Description
 This function is part of PostgreSQL's IntegerSet iteration mechanism. It retrieves the next value during sequential iteration through the set, which must be initiated with . The function handles the complex internal structure of IntegerSet, which stores integers in both B-tree leaf nodes (compressed using Simple8b encoding) and a buffer for newly-added values.
 

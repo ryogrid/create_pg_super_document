@@ -8,7 +8,14 @@ PLyExecutionContext is a structure that represents a stack-based execution conte
 
 ## Definition
 
-
+```c
+typedef struct PLyExecutionContext
+{
+	PLyProcedure *curr_proc;	/* the currently executing procedure */
+	MemoryContext scratch_ctx;	/* a context for things like type I/O */
+	struct PLyExecutionContext *next;	/* previous stack level */
+} PLyExecutionContext;
+```
 ## Detailed Description
 PLyExecutionContext implements a stack-based execution model for PL/Python functions within PostgreSQL. Each time user-defined Python code is invoked, a new execution context is created and pushed onto the stack. When the Python code returns, the context is destroyed and popped from the stack. This design allows for proper handling of nested function calls, recursive calls, and ensures proper memory management and cleanup of resources associated with each execution level.
 

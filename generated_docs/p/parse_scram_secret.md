@@ -8,7 +8,12 @@ Parses and validates the format of a given SCRAM secret string, extracting authe
 
 ## Definition
 
-
+```c
+bool
+parse_scram_secret(const char *secret, int *iterations,
+				   pg_cryptohash_type *hash_type, int *key_length,
+				   char **salt, uint8 *stored_key, uint8 *server_key)
+```
 ## Detailed Description
 This function parses a SCRAM (Salted Challenge Response Authentication Mechanism) secret string formatted as:
 

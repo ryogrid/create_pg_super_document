@@ -8,7 +8,25 @@ BTMetaPageData is the structure that defines the metadata page of a B-tree index
 
 ## Definition
 
+```c
+typedef struct BTMetaPageData
+{
+	uint32		btm_magic;		/* should contain BTREE_MAGIC */
+	uint32		btm_version;	/* nbtree version (always <= BTREE_VERSION) */
+	BlockNumber btm_root;		/* current root location */
+	uint32		btm_level;		/* tree level of the root page */
+	BlockNumber btm_fastroot;	/* current "fast" root location */
+	uint32		btm_fastlevel;	/* tree level of the "fast" root page */
+	/* remaining fields only valid when btm_version >= BTREE_NOVAC_VERSION */
 
+	/* number of deleted, non-recyclable pages during last cleanup */
+	uint32		btm_last_cleanup_num_delpages;
+	/* number of heap tuples during last cleanup (deprecated) */
+	float8		btm_last_cleanup_num_heap_tuples;
+
+	bool		btm_allequalimage;	/* are all columns "equalimage"? */
+} BTMetaPageData;
+```
 ## Detailed Description
 BTMetaPageData defines the structure of the metadata page that is always stored as the first page (page 0) in every B-tree index. This page serves as the entry point for all B-tree operations and contains crucial information about the tree's structure and state.
 

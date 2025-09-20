@@ -8,7 +8,10 @@ Returns a formatted string representation of a specific psql print setting param
 
 ## Definition
 
-
+```c
+static char *
+pset_value_string(const char *param, printQueryOpt *popt)
+```
 ## Detailed Description
 The pset_value_string function serves as a comprehensive formatter for all psql print settings parameters. It takes a parameter name and a printQueryOpt structure, then returns an appropriately formatted string representation of that parameter's current value. The function handles various data types including integers, booleans, strings, and enums, ensuring that each value is formatted in a way that can be fed back into the \pset command to recreate the same setting.
 

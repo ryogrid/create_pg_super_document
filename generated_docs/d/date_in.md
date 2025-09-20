@@ -8,7 +8,10 @@ Converts a date text string into PostgreSQL's internal date format, performing c
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function serves as the input conversion routine for PostgreSQL's DATE data type. It parses a string representation of a date and converts it to the internal DateADT format. The function handles various date formats including regular dates, epoch references, and special values like 'infinity' and '-infinity'. It performs extensive validation including range checking and Julian date validity verification. The function supports soft error handling through the error context mechanism, allowing callers to handle parse errors gracefully.
 

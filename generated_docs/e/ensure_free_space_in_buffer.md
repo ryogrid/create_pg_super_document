@@ -8,7 +8,12 @@ This function manages buffer space in BRIN (Block Range Index) minmax-multi inde
 
 ## Definition
 
-
+```c
+static bool
+ensure_free_space_in_buffer(BrinDesc *bdesc, Oid colloid,
+							AttrNumber attno, Form_pg_attribute attr,
+							Ranges *range)
+```
 ## Detailed Description
 The function implements a sophisticated buffer management strategy for BRIN minmax-multi indexes. It first checks if there's already sufficient free space (less than maxvalues capacity used by 2*nranges + nvalues). If space is tight, it performs deduplication of values and checks if that freed enough space using a load factor threshold.
 

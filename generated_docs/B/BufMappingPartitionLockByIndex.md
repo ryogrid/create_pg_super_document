@@ -8,7 +8,34 @@ Returns a pointer to the lightweight lock (LWLock) for a specific buffer mapping
 
 ## Definition
 
+```c
+struct for local buffer headers, but the locks are not
+ * used and not all of the flag bits are useful either. To avoid unnecessary
+ * overhead, manipulations of the state field should be done without actual
+ * atomic operations (i.e. only pg_atomic_read_u32() and
+ * pg_atomic_unlocked_write_u32()).
+ *
+ * Be careful to avoid increasing the size of the struct when adding or
+ * reordering members.  Keeping it below 64 bytes (the most common CPU
+ * cache line size) is fairly important for performance.
+ *
+ * Per-buffer I/O condition variables are currently kept outside this struct in
+ * a separate array.  They could be moved in here and still fit within that
+ * limit on common systems, but for now that is not done.
+ */
+typedef struct BufferDesc
+{
+	BufferTag	tag;			/* ID of page contained in buffer */
+	int			buf_id;			/* buffer's index number (from 0) */
 
+	/* state of the tag, containing flags, refcount and usagecount */
+	pg_atomic_uint32 state;
+
+	int			wait_backend_pgprocno;	/* backend of pin-count waiter */
+	int			freeNext;		/* link in freelist chain */
+	LWLock		content_lock;	/* to lock access to buffer contents */
+} BufferDesc;
+```
 ## Detailed Description
 This inline function provides efficient access to buffer mapping partition locks by index. It calculates the memory address of a specific LWLock within the MainLWLockArray by adding the provided index to the BUFFER_MAPPING_LWLOCK_OFFSET base offset. Buffer mapping partitions are used to reduce contention when multiple processes need to access the buffer mapping hash table simultaneously, with each partition having its own dedicated lock.
 

@@ -8,7 +8,10 @@ GetLastSegSwitchData retrieves the timestamp and LSN (Log Sequence Number) of th
 
 ## Definition
 
-
+```c
+pg_time_t
+GetLastSegSwitchData(XLogRecPtr *lastSwitchLSN)
+```
 ## Detailed Description
 This function returns the time when the last WAL (Write-Ahead Log) segment switch occurred and outputs the corresponding LSN through a pointer parameter. It accesses the shared XLogCtl control structure under WALWriteLock protection to ensure consistent reads of the segment switch timing data. The function uses only a shared lock since it performs read-only operations, allowing concurrent access from multiple processes while maintaining data consistency.
 

@@ -8,7 +8,11 @@ Determines whether adding a distance to a start offset would move past a boundar
 
 ## Definition
 
-
+```c
+static bool
+MultiXactOffsetWouldWrap(MultiXactOffset boundary, MultiXactOffset start,
+						 uint32 distance)
+```
 ## Detailed Description
 This function determines whether adding a specified distance to a starting offset would cross a boundary point, taking into account wraparound behavior in the full 2^32-1 space. Unlike regular 2^31-modulo arithmetic, this function is designed to utilize the entire 32-bit unsigned integer space for multixact offsets. It handles the special case where offset 0 is not used (as noted in GetMultiXactIdMembers) by incrementing the finish value when it wraps around UINT_MAX.
 

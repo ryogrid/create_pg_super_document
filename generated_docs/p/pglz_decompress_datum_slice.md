@@ -8,7 +8,11 @@ Decompresses a partial portion (slice) of a varlena data structure that was comp
 
 ## Definition
 
-
+```c
+struct varlena *
+pglz_decompress_datum_slice(const struct varlena *value,
+							int32 slicelength)
+```
 ## Detailed Description
 This function performs partial PGLZ decompression for PostgreSQL's TOAST system, allowing extraction of only a portion of the original uncompressed data without decompressing the entire datum. This is particularly useful for large TOAST values where only a small portion of the data is needed, providing significant performance benefits. The function allocates memory only for the requested slice size and calls the core PGLZ decompression routine with partial decompression enabled (false flag). If decompression fails, it reports data corruption errors.
 

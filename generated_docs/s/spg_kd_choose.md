@@ -8,7 +8,13 @@ SP-GiST choose function for k-dimensional trees that determines which child node
 
 ## Definition
 
-
+```c
+typedef struct SortedPoint
+{
+	Point	   *p;
+	int			i;
+} SortedPoint;
+```
 ## Detailed Description
 This function implements the choose logic for SP-GiST k-d tree operations. When traversing the tree during insertion or search, it determines which of the two child nodes to follow based on the spatial relationship between the input point and the splitting coordinate. The function uses alternating dimensions (X and Y coordinates) at different tree levels to create a balanced spatial partitioning. It extracts the splitting coordinate from the prefix datum and compares it against the appropriate coordinate of the input point using the  helper function.
 

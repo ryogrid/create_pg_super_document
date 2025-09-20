@@ -6,9 +6,12 @@
 ## Overview
 Updates RT-index fields in AppendRelInfo nodes and their translated variables when a subquery is pulled up and relation IDs need to be remapped.
 
-## Definition  
+## Definition
 
-
+```c
+static void
+fix_append_rel_relids(PlannerInfo *root, int varno, Relids subrelids)
+```
 ## Detailed Description
 This function handles the updating of AppendRelInfo nodes when a subquery pullup operation requires remapping relation identifiers. It performs two main tasks:
 

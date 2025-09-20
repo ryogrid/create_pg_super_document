@@ -8,7 +8,10 @@ RelationInitLockInfo initializes the lock information in a relation descriptor, 
 
 ## Definition
 
-
+```c
+void
+RelationInitLockInfo(Relation relation)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's relation caching system that initializes the locking metadata for a relation descriptor. It sets up the  structure within the relation's  field, which is essential for all subsequent locking operations on the relation.
 

@@ -8,7 +8,11 @@ Deallocates the memory used by a lookaround-constraint sub-regular expression ve
 
 ## Definition
 
-
+```c
+static void
+freelacons(struct subre *subs,
+		   int n)
+```
 ## Detailed Description
 The freelacons function is responsible for properly cleaning up memory allocated for lookaround constraint structures (lacons) in PostgreSQL's regex engine. It serves as the cleanup counterpart to newlacon, ensuring that all dynamically allocated memory associated with lookaround assertions is properly freed.
 

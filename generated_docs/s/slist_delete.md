@@ -8,7 +8,10 @@ Removes a specified node from a singly-linked list by traversing the list to fin
 
 ## Definition
 
-
+```c
+void
+slist_delete(slist_head *head, const slist_node *node)
+```
 ## Detailed Description
 The  function removes a node from a singly-linked list by performing a linear search to locate the specified node and then unlinking it. The function traverses the list starting from the head, maintaining a pointer to the previous node to enable proper relinking when the target node is found. This operation has O(n) time complexity as it may need to traverse the entire list to find the node.
 

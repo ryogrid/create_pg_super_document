@@ -8,7 +8,10 @@ The  function calculates and returns the area of a PostgreSQL BOX geometry as a 
 
 ## Definition
 
-
+```c
+Datum
+box_area(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a public interface to calculate the area of a BOX geometry in PostgreSQL. It serves as a wrapper around the internal  function, returning the calculated area as a PostgreSQL FLOAT8 datum that can be used in SQL queries. The function is part of the arithmetic operators section for boxes and provides direct access to area computation for users.
 

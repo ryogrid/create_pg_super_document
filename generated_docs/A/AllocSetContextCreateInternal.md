@@ -8,7 +8,14 @@ Creates a new AllocSet memory context with specified size parameters, implementi
 
 ## Definition
 
-
+```c
+MemoryContext
+AllocSetContextCreateInternal(MemoryContext parent,
+							  const char *name,
+							  Size minContextSize,
+							  Size initBlockSize,
+							  Size maxBlockSize)
+```
 ## Detailed Description
 AllocSetContextCreateInternal is the core function for creating PostgreSQL's AllocSet memory contexts. It implements sophisticated memory management by establishing freelists for different allocation sizes, managing memory blocks efficiently, and providing context recycling for improved performance.
 

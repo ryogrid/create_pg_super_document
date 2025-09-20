@@ -8,7 +8,12 @@ The  struct is PostgreSQL's portable high-precision timing data type used for me
 
 ## Definition
 
-
+```c
+typedef struct instr_time
+{
+	int64		ticks;			/* in platforms specific unit */
+} instr_time;
+```
 ## Detailed Description
 The  struct provides a platform-independent abstraction for high-precision interval timing in PostgreSQL. It encapsulates timing functionality that works consistently across Unix-like systems (using ) and Windows (using ).
 

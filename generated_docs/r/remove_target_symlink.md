@@ -8,7 +8,9 @@ Removes a symbolic link file from the target data directory during PostgreSQL re
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function is part of the pg_rewind utility's file operation system. It safely removes symbolic links from the target PostgreSQL data directory by constructing the full target path and performing an unlink operation. The function includes dry-run support and proper error handling with fatal error reporting if the unlink operation fails.
 

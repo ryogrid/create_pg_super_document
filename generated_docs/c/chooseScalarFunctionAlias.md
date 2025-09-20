@@ -8,7 +8,11 @@ Selects the appropriate column alias for a function in a function RTE when the f
 
 ## Definition
 
-
+```c
+static char *
+chooseScalarFunctionAlias(Node *funcexpr, char *funcname,
+						  Alias *alias, int nfuncs)
+```
 ## Detailed Description
 This function implements a priority-based algorithm to determine the best column name for scalar functions in FROM clauses. It first attempts to use the function's named OUT parameter if available, then falls back to using the RTE alias name if there's only one function and an alias is provided, and finally defaults to the function name itself. This ensures meaningful and predictable column naming for scalar function results.
 

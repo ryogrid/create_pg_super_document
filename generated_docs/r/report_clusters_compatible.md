@@ -8,7 +8,12 @@ Reports that clusters are compatible for upgrade and handles appropriate action 
 
 ## Definition
 
-
+```c
+structions, they will need pg_upgrade to write its final
+	 * WAL record showing wal_level as 'replica'.
+	 */
+	start_postmaster(&new_cluster, true);
+```
 ## Detailed Description
 This function serves as a checkpoint in the pg_upgrade process, indicating that the old and new PostgreSQL clusters have been verified as compatible for upgrade. The function's behavior depends on the operation mode:
 

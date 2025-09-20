@@ -8,7 +8,11 @@ AlterTableNamespaceInternal performs the core work of moving a table or material
 
 ## Definition
 
-
+```c
+void
+AlterTableNamespaceInternal(Relation rel, Oid oldNspOid, Oid nspOid,
+							ObjectAddresses *objsMoved)
+```
 ## Detailed Description
 This function implements the low-level mechanics of namespace relocation for tables and materialized views. It systematically moves all components and dependencies of a relation to the target schema:
 

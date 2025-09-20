@@ -8,7 +8,13 @@ GetRunningTransactionLocks returns a list of currently held AccessExclusiveLocks
 
 ## Definition
 
-
+```c
+structure.
+	 *
+	 * Must grab LWLocks in partition-number order to avoid LWLock deadlock.
+	 */
+	for (i = 0;
+```
 ## Detailed Description
 This function scans the lock manager's shared lock table to identify all currently granted AccessExclusiveLocks on relations. It's specifically designed for use by the standby snapshot logging mechanism in PostgreSQL's streaming replication system.
 

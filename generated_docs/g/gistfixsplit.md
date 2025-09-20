@@ -8,7 +8,12 @@ Completes an incomplete page split that was left unfinished by a previous backen
 
 ## Definition
 
-
+```c
+struct a
+	 * downlink tuple for each page.
+	 */
+	for (;
+```
 ## Detailed Description
  handles the recovery of incomplete page splits in GiST indexes. When a backend crashes during a page split operation, it may leave split pages connected by right-links but without proper downlinks in the parent page. This function:
 

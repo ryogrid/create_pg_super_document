@@ -8,7 +8,16 @@ LocalToUtf is a comprehensive character encoding conversion function that transf
 
 ## Definition
 
-
+```c
+int
+LocalToUtf(const unsigned char *iso, int len,
+		   unsigned char *utf,
+		   const pg_mb_radix_tree *map,
+		   const pg_local_to_utf_combined *cmap, int cmapsize,
+		   utf_local_conversion_func conv_func,
+		   int encoding,
+		   bool noError)
+```
 ## Detailed Description
 LocalToUtf serves as the core conversion engine for transforming text from PostgreSQL's supported local encodings to UTF-8. The function implements a multi-tiered approach to character conversion:
 

@@ -8,7 +8,10 @@ Creates a tuple conversion map by matching input and output columns by their phy
 
 ## Definition
 
-
+```c
+structure */
+	map = (TupleConversionMap *) palloc(sizeof(TupleConversionMap));
+```
 ## Detailed Description
 This function sets up tuple conversion infrastructure when tuples need to be converted between different tuple descriptors where the correspondence is based on column position rather than column names. It first verifies logical compatibility between input and output descriptors using , then creates and initializes a  structure with preallocated workspace arrays for efficient tuple conversion operations.
 

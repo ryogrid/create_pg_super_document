@@ -8,7 +8,11 @@ SetSecurityLabel sets or deletes a security label for a specified database objec
 
 ## Definition
 
-
+```c
+void
+SetSecurityLabel(const ObjectAddress *object,
+				 const char *provider, const char *label)
+```
 ## Detailed Description
 SetSecurityLabel attempts to set the security label for the specified provider on the specified object to the given value. If the label parameter is NULL, any existing label is deleted. The function handles both regular objects (stored in pg_seclabel) and shared objects (which have their own security label catalog and are handled via SetSharedSecurityLabel).
 

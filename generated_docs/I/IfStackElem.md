@@ -8,7 +8,15 @@ IfStackElem is a struct that represents a single element in the conditional stac
 
 ## Definition
 
-
+```c
+typedef struct IfStackElem
+{
+	ifState		if_state;		/* current state, see enum above */
+	int			query_len;		/* length of query_buf at last branch start */
+	int			paren_depth;	/* parenthesis depth at last branch start */
+	struct IfStackElem *next;	/* next surrounding \if, if any */
+} IfStackElem;
+```
 ## Detailed Description
 IfStackElem serves as a node in a linked list stack that tracks the state of nested conditional blocks. Each element stores the execution state of a single \if block level along with metadata needed to properly handle query buffer management and lexer state restoration when transitioning between active and inactive branches. This structure is essential for implementing proper conditional logic in PostgreSQL's command-line tools.
 

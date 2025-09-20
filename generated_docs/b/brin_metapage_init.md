@@ -8,7 +8,10 @@ Initializes the metapage for a new BRIN index, setting up essential metadata inc
 
 ## Definition
 
-
+```c
+void
+brin_metapage_init(Page page, BlockNumber pagesPerRange, uint16 version)
+```
 ## Detailed Description
 The  function creates and initializes the metapage for a BRIN index, which is always stored as block 0 of the index relation. The metapage contains critical information needed for proper BRIN index operation and maintenance.
 

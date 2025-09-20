@@ -8,7 +8,17 @@ JsObject is a structure that represents JSON objects in PostgreSQL, providing ef
 
 ## Definition
 
-
+```c
+typedef struct JsObject
+{
+	bool		is_json;		/* json/jsonb */
+	union
+	{
+		HTAB	   *json_hash;
+		JsonbContainer *jsonb_cont;
+	}			val;
+} JsObject;
+```
 ## Detailed Description
 JsObject provides a unified interface for working with JSON objects regardless of their underlying storage format (text JSON or binary JSONB). It uses a discriminated union pattern similar to JsValue, where the  flag determines the representation type.
 

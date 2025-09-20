@@ -8,7 +8,10 @@ Configures the postmaster's wait event set to control whether the server accepts
 
 ## Definition
 
-
+```c
+static void
+ConfigurePostmasterWaitSet(bool accept_connections)
+```
 ## Detailed Description
 ConfigurePostmasterWaitSet manages the postmaster's event monitoring system by creating and configuring a WaitEventSet. This function is crucial for controlling the server's connection acceptance behavior during different operational phases:
 

@@ -8,7 +8,10 @@ Performs XLogInsert of an XLOG_HEAP2_NEW_CID record for tracking command IDs (CI
 
 ## Definition
 
-
+```c
+static XLogRecPtr
+log_heap_new_cid(Relation relation, HeapTuple tup)
+```
 ## Detailed Description
 The  function creates WAL records specifically for tracking command IDs of catalog tuples when wal_level is set to logical or higher. This is essential for logical decoding to properly reconstruct the sequence of operations within a transaction. The function extracts and logs the creation command ID (cmin) and/or maximum command ID (cmax) from tuple headers, handling both combo CID scenarios (where a tuple is inserted and deleted within the same transaction) and regular cases.
 

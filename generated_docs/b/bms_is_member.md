@@ -8,7 +8,10 @@ Tests whether a specific integer value is a member of a bitmap set by checking i
 
 ## Definition
 
-
+```c
+bool
+bms_is_member(int x, const Bitmapset *a)
+```
 ## Detailed Description
 This function determines if the integer value `x` is present in the bitmap set `a` by calculating which word and bit position the value corresponds to, then checking if that bit is set. The function uses the WORDNUM and BITNUM macros to efficiently compute the word index and bit position within that word. It handles edge cases by returning an error for negative values (which are not allowed in bitmap sets) and returning false for NULL sets or when the value would be beyond the allocated words in the set.
 

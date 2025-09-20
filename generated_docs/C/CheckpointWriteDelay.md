@@ -8,7 +8,9 @@ Controls the rate of checkpoint writes to achieve the target checkpoint completi
 
 ## Definition
 
-
+```c
+struct timeval now;
+```
 ## Detailed Description
 CheckpointWriteDelay is called after each page write during BufferSync() operations to throttle the checkpoint write rate. Its primary purpose is to spread checkpoint I/O over time to hit the checkpoint_completion_target, reducing the impact on normal database operations.
 

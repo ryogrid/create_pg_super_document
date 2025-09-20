@@ -8,7 +8,11 @@ This function searches the B-tree for a particular scankey or more precisely the
 
 ## Definition
 
-
+```c
+BTStack
+_bt_search(Relation rel, Relation heaprel, BTScanInsert key, Buffer *bufP,
+		   int access)
+```
 ## Detailed Description
 _bt_search implements the core B-tree search algorithm that traverses from the root to a leaf page. It uses an insertion-type scankey to find the appropriate leaf page where a key could be located. The function handles both read and write access modes, with write mode allowing for completion of incomplete splits encountered during traversal and creation of empty root pages.
 

@@ -8,7 +8,10 @@ Allocates an empty shared memory hash table for a specific batch in a parallel h
 
 ## Definition
 
-
+```c
+void
+ExecParallelHashTableAlloc(HashJoinTable hashtable, int batchno)
+```
 ## Detailed Description
 This function creates an empty hash table in shared memory for a designated batch during parallel hash join execution. It allocates space for the bucket array and initializes each bucket pointer to an invalid state. The function operates within PostgreSQL's dynamic shared area (DSA) memory management system to enable multiple worker processes to access the same hash table structure concurrently.
 

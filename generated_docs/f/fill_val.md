@@ -8,7 +8,11 @@ The fill_val function is a per-attribute helper function used by heap_fill_tuple
 
 ## Definition
 
-
+```c
+structed tuple doesn't depend on it
+				 */
+				ExpandedObjectHeader *eoh = DatumGetEOHP(datum);
+```
 ## Detailed Description
 fill_val is a core utility function that handles the serialization of individual column values into the PostgreSQL heap tuple format. The function manages both the null bitmap construction and the actual data storage, handling different data types including pass-by-value types, variable-length (varlena) types, C-strings, and fixed-length pass-by-reference types.
 

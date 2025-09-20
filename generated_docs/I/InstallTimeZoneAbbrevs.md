@@ -8,7 +8,10 @@ InstallTimeZoneAbbrevs atomically installs a new TimeZoneAbbrevTable as the acti
 
 ## Definition
 
-
+```c
+void
+InstallTimeZoneAbbrevs(TimeZoneAbbrevTable *tbl)
+```
 ## Detailed Description
 This function serves as the final step in timezone abbreviation table installation, making a newly constructed TimeZoneAbbrevTable active for use by all timestamp parsing operations. The function performs two critical operations:
 

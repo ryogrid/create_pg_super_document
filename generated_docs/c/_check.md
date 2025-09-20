@@ -8,7 +8,10 @@ A private static utility function that checks if all bytes in a given memory buf
 
 ## Definition
 
-
+```c
+static bool
+_check(const unsigned char *ptr, int length)
+```
 ## Detailed Description
 The  function performs a byte-by-byte inspection of a memory buffer to determine if all bytes contain the value 0xff. This function is part of PostgreSQL's ECPG library's null indicator detection mechanism. It iterates through the buffer from the end to the beginning, checking each byte for the 0xff pattern. If any byte is not 0xff, the function immediately returns false; otherwise, it returns true when all bytes match the expected pattern.
 

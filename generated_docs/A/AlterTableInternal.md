@@ -8,7 +8,10 @@ AlterTableInternal is an internal function that performs ALTER TABLE operations 
 
 ## Definition
 
-
+```c
+void
+AlterTableInternal(Oid relid, List *cmds, bool recurse)
+```
 ## Detailed Description
 AlterTableInternal provides a streamlined entry point for ALTER TABLE operations when the target relation is already identified by its OID rather than by name. This function is designed for internal use cases where the relation may already be open by calling layers, making it unsafe for alterations that could break existing query plans. The function operates without an AlterTableUtilityContext, which means it cannot handle subcommand types that require parse transformation or could generate subcommands needing ProcessUtility.
 

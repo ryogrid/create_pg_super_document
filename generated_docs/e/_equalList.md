@@ -8,7 +8,10 @@ A static comparison function that determines if two List nodes are equal by comp
 
 ## Definition
 
-
+```c
+static bool
+_equalList(const List *a, const List *b)
+```
 ## Detailed Description
 The  function provides comprehensive equality comparison for PostgreSQL's List data structure, which is a fundamental building block used throughout the system for representing ordered collections. The function supports multiple list types (T_List, T_IntList, T_OidList, T_XidList) and employs type-specific comparison strategies for optimal performance.
 

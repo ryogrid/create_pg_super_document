@@ -8,7 +8,10 @@ The  function computes the two-argument inverse tangent (atan2) of two floating-
 
 ## Definition
 
-
+```c
+Datum
+datan2d(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL SQL function  with degree output. It takes two floating-point arguments (y and x coordinates) and computes , returning the result in degrees within the range [-180, 180]. The two-argument arctangent function is superior to the single-argument version because it:
 

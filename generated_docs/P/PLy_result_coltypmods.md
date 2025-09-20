@@ -8,7 +8,10 @@ Returns a list of type modifier values for all columns in a PLython result objec
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_result_coltypmods(PyObject *self, PyObject *unused)
+```
 ## Detailed Description
 This function is a Python method implementation that extracts type modifier information from all columns in a PostgreSQL result set accessed through PLython. Type modifiers provide additional information about data types, such as precision for numeric types, maximum length for varchar types, etc. The function creates a Python list containing the atttypmod values for each column in the result set's tuple descriptor.
 

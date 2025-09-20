@@ -8,7 +8,10 @@ This function serves as the prosupport function for the window_cume_dist() funct
 
 ## Definition
 
-
+```c
+Datum
+window_cume_dist_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The window_cume_dist_support function is a support function that handles two types of optimization requests for the cume_dist() window function:
 

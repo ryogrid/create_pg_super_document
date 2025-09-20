@@ -8,7 +8,13 @@ Structure that holds locally accumulated IO statistics before they are flushed t
 
 ## Definition
 
-
+```c
+typedef struct PgStat_PendingIO
+{
+	PgStat_Counter counts[IOOBJECT_NUM_TYPES][IOCONTEXT_NUM_TYPES][IOOP_NUM_TYPES];
+	instr_time	pending_times[IOOBJECT_NUM_TYPES][IOCONTEXT_NUM_TYPES][IOOP_NUM_TYPES];
+} PgStat_PendingIO;
+```
 ## Detailed Description
 PgStat_PendingIO is a local buffer structure that accumulates IO statistics before they are periodically flushed to shared memory. This structure tracks both operation counts and timing information for different combinations of IO objects, contexts, and operations.
 

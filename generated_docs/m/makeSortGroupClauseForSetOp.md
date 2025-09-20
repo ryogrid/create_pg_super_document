@@ -8,7 +8,10 @@ Creates a SortGroupClause node for SetOperationStmt's groupClauses, determining 
 
 ## Definition
 
-
+```c
+SortGroupClause *
+makeSortGroupClauseForSetOp(Oid rescoltype, bool require_hash)
+```
 ## Detailed Description
 makeSortGroupClauseForSetOp is a utility function that constructs SortGroupClause nodes specifically for use in set operations (UNION, INTERSECT, EXCEPT). These clauses define how to compare rows for duplicate elimination and sorting purposes in set operations.
 

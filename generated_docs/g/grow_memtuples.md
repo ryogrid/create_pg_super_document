@@ -8,7 +8,10 @@ Attempts to grow the memory tuple array in a tuplesort state within memory const
 
 ## Definition
 
-
+```c
+static bool
+grow_memtuples(Tuplestorestate *state)
+```
 ## Detailed Description
 This function implements a sophisticated memory management strategy for growing the  array in tuplesort operations. It uses two growth strategies:
 

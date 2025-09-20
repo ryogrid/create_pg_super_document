@@ -8,7 +8,10 @@ This static function updates tuple hint bits in the heap after an xmax transacti
 
 ## Definition
 
-
+```c
+static void
+UpdateXmaxHintBits(HeapTupleHeader tuple, Buffer buffer, TransactionId xid)
+```
 ## Detailed Description
 UpdateXmaxHintBits is called after waiting for an XMAX transaction to terminate to set appropriate hint bits that cache the transaction's final status. The function examines the transaction outcome and sets either HEAP_XMAX_COMMITTED or HEAP_XMAX_INVALID hint bits based on whether the transaction committed or aborted.
 

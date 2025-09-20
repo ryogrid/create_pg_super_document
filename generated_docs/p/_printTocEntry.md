@@ -8,7 +8,9 @@ Emits the SQL commands to create the object represented by a TOC entry, includin
 
 ## Definition
 
-
+```c
+struct tm	crtm;
+```
 ## Detailed Description
 This function is the core output generator for pg_dump's restore process. It handles the complete restoration workflow for database objects by:
 

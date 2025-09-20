@@ -8,7 +8,10 @@ Creates a zero-dimensional empty array object of a specified element type, provi
 
 ## Definition
 
-
+```c
+ArrayType *
+construct_empty_array(Oid elmtype)
+```
 ## Detailed Description
 The construct_empty_array function creates the most basic form of array in PostgreSQL - a zero-dimensional array with no elements. This function is used as a building block for other array operations and as a return value when array operations result in empty collections. Unlike multi-dimensional arrays, this function creates a minimal ArrayType structure with just the basic header information and no dimension arrays, lower bound arrays, or element data.
 

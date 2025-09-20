@@ -8,7 +8,13 @@ A context structure used to track the target query level when searching for aggr
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			agg_location;
+	int			sublevels_up;
+} locate_agg_of_level_context;
+```
 ## Detailed Description
 This structure serves as a context parameter for the tree walker functions that detect aggregate functions at a specific query level. The structure maintains the current sublevel depth during recursive traversal of expression trees, allowing the walker to identify aggregates that belong to a particular nesting level in queries with subqueries.
 

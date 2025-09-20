@@ -8,7 +8,10 @@ SQL function that converts a PostgreSQL composite type (record/row) into its JSO
 
 ## Definition
 
-
+```c
+Datum
+row_to_json_pretty(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL function that takes a composite type (record/row) and a boolean flag as input, converting the composite type to a JSON object representation. Unlike , this function accepts a second parameter that controls whether the output should include line feeds for pretty-printing. When the boolean parameter is true, the JSON output will include line breaks and proper indentation for better readability.
 

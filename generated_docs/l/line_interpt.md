@@ -8,7 +8,10 @@ Computes the intersection point of two lines and returns it as a Point, or NULL 
 
 ## Definition
 
-
+```c
+Datum
+line_interpt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function calculates the intersection point of two LINE objects. It serves as a PostgreSQL function wrapper that handles the SQL function interface for line intersection operations. The function allocates memory for a result Point and delegates the actual intersection calculation to the  helper function. If the lines are parallel or do not intersect, the function returns NULL.
 

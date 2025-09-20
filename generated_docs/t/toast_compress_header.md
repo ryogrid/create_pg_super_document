@@ -8,7 +8,14 @@ A structure that contains the header information at the start of compressed TOAS
 
 ## Definition
 
-
+```c
+typedef struct toast_compress_header
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	uint32		tcinfo;			/* 2 bits for compression method and 30 bits
+								 * external size; see va_extinfo */
+} toast_compress_header;
+```
 ## Detailed Description
 The  structure is a critical component of PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) compression system. This structure serves as the header for all compressed TOAST data, providing essential metadata needed for decompression and data management.
 

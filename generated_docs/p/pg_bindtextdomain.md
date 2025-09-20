@@ -8,7 +8,10 @@ Initializes the gettext message catalog binding for internationalization (i18n) 
 
 ## Definition
 
-
+```c
+void
+pg_bindtextdomain(const char *domain)
+```
 ## Detailed Description
 The `pg_bindtextdomain` function is responsible for setting up internationalization support by binding a gettext message domain to the appropriate locale directory and codeset. This function is essential for PostgreSQL's localization framework, enabling the system to display error messages and other text in the user's preferred language.
 

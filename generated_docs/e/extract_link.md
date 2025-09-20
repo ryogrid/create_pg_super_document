@@ -8,7 +8,10 @@ This function creates symbolic links during archive extraction, primarily for ta
 
 ## Definition
 
-
+```c
+static void
+extract_link(const char *filename, const char *linktarget)
+```
 ## Detailed Description
 The  function handles the creation of symbolic links during backup restoration. While it can create any symbolic link, its primary purpose is to restore tablespace symbolic links found in the pg_tblspc directory, which point to the actual locations of PostgreSQL tablespaces.
 

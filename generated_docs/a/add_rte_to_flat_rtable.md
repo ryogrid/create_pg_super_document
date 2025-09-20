@@ -8,7 +8,10 @@ Adds a copy of a given RangeTblEntry and its corresponding RTEPermissionInfo to 
 
 ## Definition
 
-
+```c
+structure */
+	newrte->tablesample = NULL;
+```
 ## Detailed Description
 The  function creates an optimized copy of a RangeTblEntry for inclusion in the flattened rangetable that will be used by the executor. The function performs several key operations:
 

@@ -8,7 +8,10 @@ OpclassnameGetOpcid resolves an unqualified index operator class name to its OID
 
 ## Definition
 
-
+```c
+Oid
+OpclassnameGetOpcid(Oid amid, const char *opcname)
+```
 ## Detailed Description
 This function performs operator class resolution by searching through the current namespace search path for an operator class with the specified name that belongs to the given access method. It is conceptually similar to TypenameGetTypid but specialized for operator classes and requiring an additional access method OID parameter. The function searches each namespace in the active search path sequentially and returns the OID of the first matching operator class found, or InvalidOid if no match is found. The temporary namespace is excluded from the search.
 

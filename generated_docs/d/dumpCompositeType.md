@@ -8,7 +8,10 @@ The dumpCompositeType function generates SQL statements to recreate a user-defin
 
 ## Definition
 
-
+```c
+static void
+dumpCompositeType(Archive *fout, const TypeInfo *tyinfo)
+```
 ## Detailed Description
 This function processes a composite type (user-defined type with multiple attributes) and generates the appropriate CREATE TYPE statement along with any necessary metadata. It handles both regular dumps and binary upgrades, with special consideration for dropped columns in binary upgrade mode.
 

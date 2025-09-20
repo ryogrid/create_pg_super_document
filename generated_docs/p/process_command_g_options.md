@@ -8,7 +8,11 @@ Processes parenthesized pset options for the \g command in psql, parsing and app
 
 ## Definition
 
-
+```c
+static backslashResult
+process_command_g_options(char *first_option, PsqlScanState scan_state,
+						  bool active_branch, const char *cmd)
+```
 ## Detailed Description
 This function handles the parsing and application of pset (print settings) options enclosed in parentheses that follow \g commands in psql. It iterates through options separated by spaces or commas, supporting both "name" and "name=value" formats. The function temporarily modifies print settings and can restore them if parsing fails. Options are applied only when active_branch is true, allowing for conditional execution in psql scripts.
 

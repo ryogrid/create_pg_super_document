@@ -8,7 +8,11 @@ Recursively traverses TSQuery trees to compute selectivity estimates using stati
 
 ## Definition
 
-
+```c
+static Selectivity
+tsquery_opr_selec(QueryItem *item, char *operand,
+				  TextFreq *lookup, int length, float4 minfreq)
+```
 ## Detailed Description
  is the core recursive function that analyzes TSQuery expression trees to estimate selectivity. It implements a sophisticated algorithm that handles different types of query nodes:
 

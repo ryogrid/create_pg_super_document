@@ -8,7 +8,9 @@ Extracts and returns the string value to be assigned for a VariableSetStmt, hand
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function is a utility that extracts the appropriate value from a VariableSetStmt based on its kind. It serves as a central point for converting SET statement arguments into string values that can be used by the GUC (Grand Unified Configuration) system. The function handles two main cases:
 

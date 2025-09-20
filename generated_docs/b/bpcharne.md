@@ -8,7 +8,10 @@ Implements inequality (not-equal) comparison between two BPCHAR (blank-padded ch
 
 ## Definition
 
-
+```c
+Datum
+bpcharne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares two BPCHAR values for inequality (not-equal). It follows the same optimization strategy as bpchareq but returns the opposite result. For C locale or deterministic collations, it performs a fast bitwise comparison using memcmp() and returns true if lengths differ or if the memory comparison shows differences. For other collations, it uses varstr_cmp() to handle locale-specific comparison rules and returns true if the comparison result is not zero. The function properly manages memory for toasted values and ensures cleanup to prevent memory leaks in btree operations.
 

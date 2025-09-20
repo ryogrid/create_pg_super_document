@@ -8,7 +8,10 @@ string_compare is a hash table comparison function that compares string keys for
 
 ## Definition
 
-
+```c
+struct) that
+	 * we allocate in TopMemoryContext;
+```
 ## Detailed Description
 string_compare serves as a HashCompareFunc for string keys in PostgreSQL's hash table infrastructure. This function implements a specialized string comparison that accounts for the fact that keys are copied using strlcpy(), which truncates strings at keysize-1 bytes. The function uses strncmp to compare only the meaningful portion of the keys, avoiding comparison of potentially uninitialized or garbage data beyond the truncation point.
 

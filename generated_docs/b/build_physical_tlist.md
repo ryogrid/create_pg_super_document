@@ -8,7 +8,10 @@ Constructs a target list consisting of exactly the relation's user attributes in
 
 ## Definition
 
-
+```c
+List *
+build_physical_tlist(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function builds a "physical" target list that matches the actual physical layout of a relation's columns. The executor can special-case such target lists to avoid projection operations, providing significant performance benefits for scan nodes. The function handles multiple types of range table entries including base relations, subqueries, functions, values lists, CTEs, and other table expressions.
 

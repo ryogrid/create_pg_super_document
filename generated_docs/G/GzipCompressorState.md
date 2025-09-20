@@ -8,7 +8,15 @@ GzipCompressorState is a structure that maintains the state for gzip compression
 
 ## Definition
 
+```c
+typedef struct GzipCompressorState
+{
+	z_streamp	zp;
 
+	void	   *outbuf;
+	size_t		outsize;
+} GzipCompressorState;
+```
 ## Detailed Description
 GzipCompressorState serves as the private state container for gzip compression functionality within PostgreSQL's backup and restore system. It is part of the compressor API abstraction layer that allows pg_dump to support multiple compression formats. This structure maintains the zlib compression stream and manages the output buffer used during compression operations.
 

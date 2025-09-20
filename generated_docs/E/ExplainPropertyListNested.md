@@ -8,7 +8,10 @@ Formats and outputs a property that represents a nested list (a list of unlabele
 
 ## Definition
 
-
+```c
+void
+ExplainPropertyListNested(const char *qlabel, List *data, ExplainState *es)
+```
 ## Detailed Description
 This function provides specialized formatting for nested list structures in EXPLAIN output. It handles the unique requirements of different output formats for nested data:
 

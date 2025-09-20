@@ -8,7 +8,10 @@ Reads and parses a BEGIN message from the logical replication input stream to ex
 
 ## Definition
 
-
+```c
+void
+logicalrep_read_begin(StringInfo in, LogicalRepBeginData *begin_data)
+```
 ## Detailed Description
 This function deserializes a BEGIN message from the logical replication protocol stream. It extracts transaction metadata including the final LSN, commit timestamp, and transaction ID from the input buffer and populates a LogicalRepBeginData structure. The function includes validation to ensure the final_lsn is valid, throwing an error if it's set to InvalidXLogRecPtr.
 

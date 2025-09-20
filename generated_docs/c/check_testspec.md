@@ -8,7 +8,10 @@ Validates the test specification and establishes cross-links between nodes in th
 
 ## Definition
 
-
+```c
+static void
+check_testspec(TestSpec *testspec)
+```
 ## Detailed Description
 The  function performs comprehensive validation and setup of a test specification in PostgreSQL's isolation testing framework. This function is responsible for:
 

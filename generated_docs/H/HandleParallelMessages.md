@@ -8,7 +8,10 @@ Processes all queued protocol messages received from parallel workers, handling 
 
 ## Definition
 
-
+```c
+void
+HandleParallelMessages(void)
+```
 ## Detailed Description
 This function is the main message processing routine for parallel worker communication. It is called from ProcessInterrupts() when the ParallelMessagePending flag is set (typically by HandleParallelMessageInterrupt()). The function iterates through all active parallel contexts and processes messages from each worker's error queue.
 

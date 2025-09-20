@@ -8,7 +8,13 @@ Loads a timezone definition into memory for use during database initialization, 
 
 ## Definition
 
-
+```c
+struct tztry
+{
+	int			n_test_times;
+	time_t		test_times[MAX_TEST_TIMES];
+};
+```
 ## Detailed Description
 The pg_load_tz function is responsible for loading timezone definitions during the initdb process. It serves as a simplified version of the backend's pg_tzset() function, with the key limitation that it only supports one loaded timezone at a time using a static pg_tz structure.
 

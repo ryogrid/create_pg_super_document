@@ -8,7 +8,18 @@ CopyMultiInsertBuffer is a structure that stores multi-insert data related to a 
 
 ## Definition
 
-
+```c
+typedef struct CopyMultiInsertBuffer
+{
+	TupleTableSlot *slots[MAX_BUFFERED_TUPLES]; /* Array to store tuples */
+	ResultRelInfo *resultRelInfo;	/* ResultRelInfo for 'relid' */
+	BulkInsertState bistate;	/* BulkInsertState for this rel if plain
+								 * table; NULL if foreign table */
+	int			nused;			/* number of 'slots' containing tuples */
+	uint64		linenos[MAX_BUFFERED_TUPLES];	/* Line # of tuple in copy
+												 * stream */
+} CopyMultiInsertBuffer;
+```
 ## Detailed Description
 CopyMultiInsertBuffer serves as a buffering mechanism for COPY FROM operations in PostgreSQL. It maintains an array of tuple slots that can hold up to MAX_BUFFERED_TUPLES (1000) tuples before requiring a flush operation. This buffering approach significantly improves performance during bulk data loading by reducing the number of individual insert operations and allowing the system to process multiple tuples in batches.
 

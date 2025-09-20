@@ -8,7 +8,12 @@ Determines and sets the starting block for parallel sequential scans, computing 
 
 ## Definition
 
-
+```c
+void
+table_block_parallelscan_startblock_init(Relation rel,
+										 ParallelBlockTableScanWorker pbscanwork,
+										 ParallelBlockTableScanDesc pbscan)
+```
 ## Detailed Description
 This function initializes the starting block and chunk size for parallel sequential scans. It may be called by multiple parallel workers, but ensures the startblock is set only once through careful synchronization. The function performs several key tasks:
 

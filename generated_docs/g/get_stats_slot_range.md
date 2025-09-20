@@ -8,7 +8,12 @@ Scans a statistics slot to find minimum and maximum values among the stored valu
 
 ## Definition
 
-
+```c
+static void
+get_stats_slot_range(AttStatsSlot *sslot, Oid opfuncoid, FmgrInfo *opproc,
+					 Oid collation, int16 typLen, bool typByVal,
+					 Datum *min, Datum *max, bool *p_have_data)
+```
 ## Detailed Description
 This function examines all values in a statistics slot (AttStatsSlot) to determine the minimum and maximum values using a specified comparison operator. It iterates through the slot's values array, comparing each value against the current min/max using the provided comparison function. The function handles the initial case when no data has been processed yet by setting both min and max to the first encountered value. When new extreme values are found, they are copied using datumCopy to ensure proper memory management.
 

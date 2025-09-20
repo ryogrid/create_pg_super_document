@@ -8,7 +8,10 @@ Calculates the distance from a Point to a line segment (LSEG) in PostgreSQL's ge
 
 ## Definition
 
-
+```c
+Datum
+dist_ps(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function computes the shortest distance from a given point to a line segment. It serves as a PostgreSQL SQL function that can be called to perform geometric distance calculations. The implementation delegates the actual distance computation to the  function, which finds the closest point on the line segment to the given point and returns the distance.
 

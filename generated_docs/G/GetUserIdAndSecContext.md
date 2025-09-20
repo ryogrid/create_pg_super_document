@@ -8,7 +8,10 @@ Retrieves both the current effective user ID and the security restriction contex
 
 ## Definition
 
-
+```c
+void
+GetUserIdAndSecContext(Oid *userid, int *sec_context)
+```
 ## Detailed Description
 GetUserIdAndSecContext is a critical function in PostgreSQL's security and transaction management system that atomically retrieves both the current effective user ID (CurrentUserId) and the security restriction context flags. Unlike other user ID functions, this function is designed to never fail or assert, making it safe for use during transaction startup, abort, and other critical error handling paths.
 

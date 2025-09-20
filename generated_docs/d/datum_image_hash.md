@@ -8,7 +8,9 @@ Generates a hash value based on the binary representation of a PostgreSQL Datum,
 
 ## Definition
 
-
+```c
+struct varlena *val;
+```
 ## Detailed Description
 The  function provides binary-level hashing for PostgreSQL Datums, which is essential for operations that need to distinguish between different binary representations of logically equivalent values. Unlike type-specific hash functions that operate on logical values, this function operates directly on the memory representation of the data.
 

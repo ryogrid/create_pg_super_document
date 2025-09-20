@@ -8,7 +8,10 @@ Function that determines whether an index tuple satisfies the scan conditions du
 
 ## Definition
 
-
+```c
+bool
+_hash_checkqual(IndexScanDesc scan, IndexTuple itup)
+```
 ## Detailed Description
 This function is designed to evaluate whether a given index tuple meets the scan conditions specified in an index scan descriptor. However, the current implementation always returns  and does not perform actual qualification checking. The function contains commented-out code (under ) that shows the intended implementation for checking scan conditions.
 

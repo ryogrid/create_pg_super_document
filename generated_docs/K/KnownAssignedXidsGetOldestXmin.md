@@ -8,7 +8,10 @@ KnownAssignedXidsGetOldestXmin retrieves the oldest (minimum) transaction ID fro
 
 ## Definition
 
-
+```c
+static TransactionId
+KnownAssignedXidsGetOldestXmin(void)
+```
 ## Detailed Description
 This function efficiently finds the oldest transaction ID in the KnownAssignedXids array by taking advantage of the array's sorted nature. Since the KnownAssignedXids array maintains transaction IDs in sorted order, the function only needs to find the first valid entry to determine the minimum value. The function:
 

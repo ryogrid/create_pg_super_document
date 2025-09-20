@@ -8,7 +8,16 @@ FetchDirection is an enumeration type that specifies the direction and positioni
 
 ## Definition
 
-
+```c
+typedef struct FetchStmt
+{
+	NodeTag		type;
+	FetchDirection direction;	/* see above */
+	long		howMany;		/* number of rows, or position argument */
+	char	   *portalname;		/* name of portal (cursor) */
+	bool		ismove;			/* true if MOVE */
+} FetchStmt;
+```
 ## Detailed Description
 FetchDirection defines the four possible movement patterns for cursor operations in PostgreSQL:
 

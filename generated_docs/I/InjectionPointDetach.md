@@ -8,7 +8,10 @@ Removes an existing injection point from the shared memory hash table by name, m
 
 ## Definition
 
-
+```c
+bool
+InjectionPointDetach(const char *name)
+```
 ## Detailed Description
 This function searches for and removes an injection point with the specified name from the shared memory array. It uses the same generation counter mechanism as InjectionPointAttach to ensure thread-safe operations. The function performs the following steps:
 

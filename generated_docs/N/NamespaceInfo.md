@@ -8,7 +8,17 @@ NamespaceInfo represents a PostgreSQL schema (namespace) object in pg_dump, stor
 
 ## Definition
 
-
+```c
+typedef struct _extensionInfo
+{
+	DumpableObject dobj;
+	char	   *namespace;		/* schema containing extension's objects */
+	bool		relocatable;
+	char	   *extversion;
+	char	   *extconfig;		/* info about configuration tables */
+	char	   *extcondition;
+} ExtensionInfo;
+```
 ## Detailed Description
 NamespaceInfo extends DumpableObjectWithAcl to represent PostgreSQL schemas (namespaces) during the dump process. It contains all the necessary information to dump and restore a schema, including its ownership, access control lists, and whether a full CREATE SCHEMA statement is needed or just ownership modification.
 

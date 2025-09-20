@@ -8,7 +8,10 @@ Returns the promotion limit for a given predicate lock target, specifying the ma
 
 ## Definition
 
-
+```c
+static int
+MaxPredicateChildLocks(const PREDICATELOCKTARGETTAG *tag)
+```
 ## Detailed Description
 MaxPredicateChildLocks is a static function in PostgreSQL's predicate locking system that determines the threshold for lock promotion. It returns the maximum number of child (descendant) locks that can exist before the system should promote them to a coarser-grained lock represented by the given tag. This mechanism prevents lock proliferation and ensures efficient memory usage in the serializable snapshot isolation system.
 

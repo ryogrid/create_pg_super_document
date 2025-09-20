@@ -8,7 +8,9 @@ ExecReindex is the primary entry point for manual REINDEX commands, serving as a
 
 ## Definition
 
-
+```c
+struct ReindexIndexCallbackState state;
+```
 ## Detailed Description
 ExecReindex processes REINDEX statements by parsing command options (verbose, concurrently, tablespace), validating permissions, and dispatching to the appropriate reindex function based on the target object type. It handles five types of reindex operations:
 - REINDEX_OBJECT_INDEX: Single index reindexing via ReindexIndex

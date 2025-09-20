@@ -8,7 +8,10 @@ The bitsubstr_no_len function provides substring extraction functionality for bi
 
 ## Definition
 
-
+```c
+Datum
+bitsubstr_no_len(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a variant of bit string substring extraction where no explicit length is provided. It extracts a substring from a bit string starting at a specified 1-based position and continuing to the end of the string. The function delegates to the bitsubstring function with a length parameter of -1 and a true flag to indicate this is the no-length variant, which tells the underlying function to extract from the start position to the end of the string.
 

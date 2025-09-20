@@ -8,7 +8,10 @@ Entry point function that substitutes relation IDs in PlaceHolderVars throughout
 
 ## Definition
 
-
+```c
+static void
+substitute_phv_relids(Node *node, int varno, Relids subrelids)
+```
 ## Detailed Description
 This function serves as the main entry point for substituting relation IDs in PlaceHolderVar nodes. It initializes a context structure with the substitution parameters and then invokes a tree walker to perform the actual substitution work throughout the entire tree structure.
 

@@ -8,7 +8,34 @@ AggInfo is a structure representing aggregate function metadata in pg_dump, serv
 
 ## Definition
 
+```c
+typedef struct AggInfo
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+
+	/*
+	 * List of Aggref exprs that this state value is for.
+	 *
+	 * There will always be at least one, but there can be multiple identical
+	 * Aggref's sharing the same per-agg.
+	 */
+	List	   *aggrefs;
+
+	/* Transition state number for this aggregate */
+	int			transno;
+
+	/*
+	 * "shareable" is false if this agg cannot share state values with other
+	 * aggregates because the final function is read-write.
+	 */
+	bool		shareable;
+
+	/* Oid of the final function, or InvalidOid if none */
+	Oid			finalfn_oid;
+} AggInfo;
+```
 ## Detailed Description
 AggInfo is used by pg_dump to store metadata about aggregate functions during the database dump process. It extends FuncInfo by inheritance, meaning it contains all the fields of a FuncInfo structure plus potentially additional aggregate-specific fields. Currently, no additional fields beyond those in FuncInfo are required, but the structure is designed to allow for future expansion if aggregate-specific metadata needs to be stored. This structure is part of pg_dump's internal representation of database objects that need to be dumped and restored.
 

@@ -8,7 +8,10 @@ Determines if a multirange is strictly positioned before (to the left of) a rang
 
 ## Definition
 
-
+```c
+Datum
+multirange_before_range(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function implements the "strictly left of" operator (<<) between a multirange and a range. Interestingly, it achieves this by calling  with swapped argument semantics - if a multirange is before a range, then equivalently the range is after the multirange. This demonstrates an elegant implementation technique where the symmetric "after" relationship is used to implement the "before" relationship.
 

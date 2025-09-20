@@ -8,7 +8,10 @@ Serializes a TSQuery structure into binary format for network transmission or st
 
 ## Definition
 
-
+```c
+Datum
+tsquerysend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL binary output function that converts a TSQuery data structure into its binary representation. This function is part of PostgreSQL's full-text search functionality and is used for efficiently transmitting TSQuery objects over the network or storing them in binary format.
 

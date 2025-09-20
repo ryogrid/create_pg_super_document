@@ -8,7 +8,13 @@ A PostgreSQL built-in function that returns the reason code for a table rewrite 
 
 ## Definition
 
-
+```c
+struct CollectedCommand representation of itself to the command list,
+ * using the routines below.
+ *
+ * 2) Some time after that, ddl_command_end fires and the command list is made
+ * available to the event trigger function via pg_event_trigger_ddl_commands();
+```
 ## Detailed Description
 This function provides access to the reason code that indicates why a table rewrite operation was triggered. It can only be called from within table_rewrite event trigger functions and serves as a diagnostic tool for event trigger functions to understand the specific cause of the table rewrite.
 

@@ -8,7 +8,9 @@ Configures Unix domain socket permissions including group ownership and file per
 
 ## Definition
 
-
+```c
+struct group *gr;
+```
 ## Detailed Description
 This function sets up the appropriate file system permissions for Unix domain sockets used by PostgreSQL. It handles both regular Unix sockets and abstract sockets (those beginning with '@'). The function must be called before listen() to ensure that the socket has the correct permissions when connections start being accepted.
 

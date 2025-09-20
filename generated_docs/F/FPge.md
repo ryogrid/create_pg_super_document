@@ -8,7 +8,13 @@ FPge is an inline utility function that performs floating-point greater-than-or-
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	float8		x,
+				y;
+} Point;
+```
 ## Detailed Description
 The FPge function implements a floating-point comparison that accounts for numerical precision issues inherent in floating-point arithmetic. Instead of performing a direct comparison (A >= B), it adds a small epsilon value (EPSILON) to the first operand before comparison. This approach helps handle cases where floating-point rounding errors might cause mathematically equivalent values to be considered unequal. The function is widely used throughout PostgreSQL's geometric operations to ensure reliable comparisons for spatial data types.
 

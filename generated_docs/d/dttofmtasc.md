@@ -8,7 +8,17 @@ A compatibility wrapper function that formats a timestamp into an ASCII string u
 
 ## Definition
 
-
+```c
+struct
+{
+	long		val;
+	int			maxdigits;
+	int			digits;
+	int			remaining;
+	char		sign;
+	char	   *val_string;
+}			value;
+```
 ## Detailed Description
 The `dttofmtasc` function is a compatibility wrapper that provides Informix-style datetime formatting functionality in PostgreSQL's ECPG (Embedded SQL in C) interface. It takes a timestamp and formats it into an ASCII string according to the provided format string. This function is part of the Informix compatibility layer, allowing existing Informix applications to work with PostgreSQL with minimal code changes.
 

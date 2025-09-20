@@ -8,7 +8,10 @@ Simple internal helper function that writes the closing tag for an XML Schema (X
 
 ## Definition
 
-
+```c
+static void
+xsd_schema_element_end(StringInfo result)
+```
 ## Detailed Description
 This static utility function generates the closing tag for an XML Schema Definition (XSD) document. It provides the counterpart to xsd_schema_element_start by appending the closing  tag to complete an XML Schema document. This function is the final step in XML Schema generation, ensuring proper document structure and well-formed XML.
 

@@ -8,7 +8,11 @@ Performs setup necessary for the evaluation of function-like expressions by appe
 
 ## Definition
 
-
+```c
+structure too */
+	InitFunctionCallInfoData(*fcinfo, flinfo,
+							 nargs, inputcollid, NULL, NULL);
+```
 ## Detailed Description
 ExecInitFunc is a critical internal function in PostgreSQL's expression evaluation system that initializes function call expressions during query plan setup. It handles all the preparatory work needed to execute function calls efficiently at runtime, including permission checks, argument setup, and opcode selection based on function characteristics.
 

@@ -8,7 +8,20 @@ The  struct is a local data structure used within pg_bsd_indent's main function 
 
 ## Definition
 
-
+```c
+struct directives {
+		    int size;
+		    const char *string;
+		}
+		recognized[] = {
+		    {7, "include"},
+		    {6, "define"},
+		    {5, "undef"},
+		    {4, "line"},
+		    {5, "error"},
+		    {6, "pragma"}
+		};
+```
 ## Detailed Description
 The  struct is a simple data structure that pairs each recognized C preprocessor directive with its string length for efficient string comparison. It is defined locally within the main parsing loop of pg_bsd_indent (PostgreSQL's BSD-style code indenter) and is used to create a lookup table of valid preprocessor directives.
 

@@ -8,7 +8,21 @@ ParallelAppendState is a shared state structure used for coordinating parallel e
 
 ## Definition
 
+```c
+struct ParallelAppendState
+{
+	LWLock		pa_lock;		/* mutual exclusion to choose next subplan */
+	int			pa_next_plan;	/* next plan to choose by any worker */
 
+	/*
+	 * pa_finished[i] should be true if no more workers should select subplan
+	 * i.  for a non-partial plan, this should be set to true as soon as a
+	 * worker selects the plan; for a partial plan, it remains false until
+	 * some worker executes the plan to completion.
+	 */
+	bool		pa_finished[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 ParallelAppendState serves as the coordination mechanism for parallel Append node execution in PostgreSQL's query processing system. This structure is shared across multiple worker processes to ensure proper distribution and synchronization of subplan execution.
 

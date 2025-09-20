@@ -8,7 +8,10 @@ Reports subscription-related errors to PostgreSQL's statistics collection system
 
 ## Definition
 
-
+```c
+void
+pgstat_report_subscription_error(Oid subid, bool is_apply_error)
+```
 ## Detailed Description
 This function is part of PostgreSQL's statistics collection system, specifically handling error reporting for logical replication subscriptions. It increments error counters in the pending statistics entry for a given subscription. The function distinguishes between two types of subscription errors: apply errors (when applying changes fails) and sync errors (when initial table synchronization fails).
 

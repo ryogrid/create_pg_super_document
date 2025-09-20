@@ -8,7 +8,13 @@ standard_ExplainOneQuery implements the core PostgreSQL logic for explaining a s
 
 ## Definition
 
-
+```c
+void
+standard_ExplainOneQuery(Query *query, int cursorOptions,
+						 IntoClause *into, ExplainState *es,
+						 const char *queryString, ParamListInfo params,
+						 QueryEnvironment *queryEnv)
+```
 ## Detailed Description
 standard_ExplainOneQuery performs the standard PostgreSQL EXPLAIN processing for plannable queries (SELECT, INSERT, UPDATE, DELETE). It handles the complete workflow from query planning through resource measurement to output generation. The function measures planning time, buffer usage during planning, and memory consumption when the respective options are enabled.
 

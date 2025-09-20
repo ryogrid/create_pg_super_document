@@ -8,7 +8,13 @@ Estimates the selectivity of a list of clauses using the best available multi-co
 
 ## Definition
 
-
+```c
+Selectivity
+statext_clauselist_selectivity(PlannerInfo *root, List *clauses, int varRelid,
+							   JoinType jointype, SpecialJoinInfo *sjinfo,
+							   RelOptInfo *rel, Bitmapset **estimatedclauses,
+							   bool is_or)
+```
 ## Detailed Description
 This function provides sophisticated selectivity estimation by leveraging PostgreSQL's extended statistics infrastructure. It follows a two-phase approach: first attempting to estimate clauses using multivariate MCV lists for exact selectivity values, then applying functional dependencies to remaining clauses for additional correlation information. The function prioritizes more complex statistics (MCV lists) over simpler ones (functional dependencies) because complex stats can track more detailed correlations between attributes and are considered more reliable. For OR clauses, only MCV estimation is performed since functional dependencies only work with AND-connected clauses.
 

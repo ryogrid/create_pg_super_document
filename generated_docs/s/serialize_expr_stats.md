@@ -8,7 +8,11 @@ Serializes expression statistics into an array of pg_statistic rows, converting 
 
 ## Definition
 
-
+```c
+struct a new pg_statistic tuple
+		 */
+		for (i = 0;
+```
 ## Detailed Description
 This function takes expression analysis data and creates an array of pg_statistic tuples that represent the statistical information gathered about expressions during ANALYZE operations. For each expression in the input array, it constructs a complete pg_statistic row with all the standard statistical fields (null fraction, width, distinct values, most common values, histograms, etc.). The function handles both valid statistics (where stats_valid is true) and invalid ones by either creating a proper tuple or adding a null entry to maintain array consistency.
 

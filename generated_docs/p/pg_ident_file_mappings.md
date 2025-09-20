@@ -8,7 +8,10 @@ A SQL-accessible set-returning function (SRF) that returns all entries from the 
 
 ## Definition
 
-
+```c
+Datum
+pg_ident_file_mappings(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the pg_ident_file_mappings system view, which provides SQL access to PostgreSQL's identity mapping configuration stored in pg_ident.conf. The function is designed as a set-returning function that materializes all identity mapping entries into a tuplestore for safe and efficient access.
 

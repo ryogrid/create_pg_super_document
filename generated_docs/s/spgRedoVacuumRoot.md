@@ -8,7 +8,10 @@ Replays a vacuum root operation from the WAL for SP-GiST indexes, reconstructing
 
 ## Definition
 
-
+```c
+static void
+spgRedoVacuumRoot(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the replay of SP-GiST root page vacuum operations, which is a simpler vacuum operation compared to leaf page vacuuming. The root vacuum specifically deals with removing dead tuples from the root page of an SP-GiST index. The operation:
 

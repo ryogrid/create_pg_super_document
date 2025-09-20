@@ -8,7 +8,10 @@ Copies transaction commit logs and multixact data from the old cluster to the ne
 
 ## Definition
 
-
+```c
+static void
+copy_xact_xlog_xid(void)
+```
 ## Detailed Description
 This function is responsible for preserving transaction state and continuity between the old and new PostgreSQL clusters during an upgrade. It performs several critical operations:
 

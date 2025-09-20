@@ -8,7 +8,10 @@ Generates SQL commands to attach a child partition to its parent partitioned tab
 
 ## Definition
 
-
+```c
+static void
+dumpTableAttach(Archive *fout, const TableAttachInfo *attachinfo)
+```
 ## Detailed Description
 This function creates ALTER TABLE ATTACH PARTITION commands for PostgreSQL table partitioning. It's specifically designed to handle partitioned tables that are restored separately from their parents. The function uses a prepared statement to efficiently retrieve partition boundary expressions and then generates the appropriate ATTACH PARTITION command.
 

@@ -8,7 +8,10 @@ A static qsort comparator function that compares two text lexemes (represented a
 
 ## Definition
 
-
+```c
+static int
+compare_text_lexemes(const void *va, const void *vb)
+```
 ## Detailed Description
 The  function serves as a comparator function for sorting arrays of text lexemes during TSVector construction. It takes two void pointers (following qsort interface requirements), dereferences them as Datum values representing PostgreSQL text objects, extracts the actual string data from these text objects, and compares them using TSVector's specialized string comparison function.
 

@@ -8,7 +8,13 @@ LOCALLOCKTAG serves as a unique identifier for entries in a backend's local lock
 
 ## Definition
 
-
+```c
+typedef struct LOCALLOCKTAG
+{
+	LOCKTAG		lock;			/* identifies the lockable object */
+	LOCKMODE	mode;			/* lock mode for this table entry */
+} LOCALLOCKTAG;
+```
 ## Detailed Description
 LOCALLOCKTAG is a key structure used in PostgreSQL's local lock management system. Each backend process maintains a local hash table that tracks locks it has acquired or is interested in, and LOCALLOCKTAG serves as the unique key for entries in this table. The combination of a specific lockable object (identified by LOCKTAG) and a particular lock mode creates a unique identifier, allowing the same object to have multiple entries if held in different lock modes.
 

@@ -8,7 +8,12 @@ A structure that holds metadata about a single parameter of a prepared statement
 
 ## Definition
 
-
+```c
+typedef struct pgresParamDesc
+{
+	Oid			typid;			/* type id */
+} PGresParamDesc;
+```
 ## Detailed Description
 The  structure is used internally by libpq to store information about parameters in prepared statements. It contains the PostgreSQL Object Identifier (OID) of the parameter's data type, which allows the client library to understand what type of data is expected for each parameter when executing a prepared statement.
 

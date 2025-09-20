@@ -8,7 +8,10 @@ Parses a JSON string representing an array and populates a PostgreSQL array stru
 
 ## Definition
 
-
+```c
+static bool
+populate_array_json(PopulateArrayContext *ctx, const char *json, int len)
+```
 ## Detailed Description
 This function orchestrates the parsing of JSON array data by setting up a JSON lexical context and configuring semantic action callbacks for different JSON parsing events. It creates a PopulateArrayState to track parsing progress and configures callbacks for object starts, array ends, array element starts/ends, and scalar values. The function uses PostgreSQL's JSON parser infrastructure to systematically process the JSON string and populate the target array structure. After parsing completion, it validates that the array dimensions have been properly determined and cleans up the lexical context.
 

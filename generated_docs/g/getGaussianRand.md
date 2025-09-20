@@ -8,7 +8,11 @@ Generates random integers following a Gaussian (normal) distribution within a sp
 
 ## Definition
 
-
+```c
+static int64
+getGaussianRand(pg_prng_state *state, int64 min, int64 max,
+				double parameter)
+```
 ## Detailed Description
 The  function implements a Gaussian (normal) probability distribution for generating random integers within the range [min, max]. The function uses a rejection sampling approach to ensure that the generated normal random values fall within the specified parameter bounds before mapping them to the target integer range.
 

@@ -8,7 +8,10 @@ XLogSendLogical streams logically decoded WAL data to replication clients by rea
 
 ## Definition
 
-
+```c
+static void
+XLogSendLogical(void)
+```
 ## Detailed Description
 XLogSendLogical is responsible for streaming logically decoded WAL data to logical replication clients. Unlike physical replication which streams raw WAL bytes, logical replication processes WAL records through a decoding context that transforms them into logical change events (INSERT, UPDATE, DELETE operations on tables).
 

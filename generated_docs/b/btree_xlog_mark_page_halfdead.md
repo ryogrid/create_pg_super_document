@@ -8,7 +8,12 @@ Replays WAL records that mark a B-tree page as half-dead during page deletion, u
 
 ## Definition
 
-
+```c
+struct a dummy high key item that points to top parent page (value
+	 * is InvalidBlockNumber when the top parent page is the leaf page itself)
+	 */
+	MemSet(&trunctuple, 0, sizeof(IndexTupleData));
+```
 ## Detailed Description
 This function handles the recovery/replay of B-tree page half-dead marking operations from WAL records. The half-dead state is an intermediate step in B-tree page deletion where a page is marked for deletion but not yet physically removed from the tree structure.
 

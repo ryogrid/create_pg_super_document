@@ -8,7 +8,10 @@ Determines the appropriate authentication method for a client connection by sear
 
 ## Definition
 
-
+```c
+void
+hba_getauthmethod(hbaPort *port)
+```
 ## Detailed Description
 The `hba_getauthmethod` function serves as a simple wrapper around the `check_hba()` function, providing the main entry point for determining authentication requirements for client connections. This function is called during the authentication process to match the client's connection parameters (database, user, source address, connection type) against the rules defined in the HBA configuration file (typically pg_hba.conf).
 

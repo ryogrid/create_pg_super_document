@@ -8,7 +8,10 @@ A static function that deserializes ExtensibleNode instances from their string r
 
 ## Definition
 
-
+```c
+static ExtensibleNode *
+_readExtensibleNode(void)
+```
 ## Detailed Description
 The  function handles the deserialization of ExtensibleNode objects, which represent a framework for extending PostgreSQL's node system with custom node types. ExtensibleNodes allow extensions and plugins to define their own node types that can participate in PostgreSQL's serialization/deserialization infrastructure.
 

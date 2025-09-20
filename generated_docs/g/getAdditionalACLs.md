@@ -8,7 +8,10 @@ Collects additional ACL-related information for database objects that was not ca
 
 ## Definition
 
-
+```c
+static void
+getAdditionalACLs(Archive *fout)
+```
 ## Detailed Description
 This function performs post-processing to gather ACL information that requires all DumpableObjects to be created first. It operates in two main phases:
 

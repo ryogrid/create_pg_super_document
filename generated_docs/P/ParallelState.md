@@ -8,7 +8,15 @@ ParallelState is a struct that manages the overall state for parallel backup and
 
 ## Definition
 
-
+```c
+typedef struct ParallelState
+{
+	int			numWorkers;		/* allowed number of workers */
+	/* these arrays have numWorkers entries, one per worker: */
+	TocEntry  **te;				/* item being worked on, or NULL */
+	ParallelSlot *parallelSlot; /* private info about each worker */
+} ParallelState;
+```
 ## Detailed Description
 ParallelState serves as the central coordination structure for pg_dump's parallel processing capabilities. It maintains state information for all worker processes or threads that are executing backup or restore operations concurrently. The struct is designed to track what each worker is currently processing and provides access to the communication infrastructure needed to coordinate work distribution among the workers.
 

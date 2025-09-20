@@ -8,7 +8,10 @@ Constructs the full path to PostgreSQL's locale directory by calculating a relat
 
 ## Definition
 
-
+```c
+void
+get_locale_path(const char *my_exec_path, char *ret_path)
+```
 ## Detailed Description
 This function determines the absolute path to PostgreSQL's locale directory based on the location of the current executable. It uses the  function to compute the path by using the compile-time constants LOCALEDIR and PGBINDIR to establish the relative relationship between the binary directory and the locale directory.
 

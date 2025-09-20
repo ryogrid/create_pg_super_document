@@ -8,7 +8,11 @@ Creates a Snowball environment structure specifically configured for Hungarian t
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * hungarian_UTF_8_create_env(void)
+```
 ## Detailed Description
 This function serves as a language-specific wrapper for the Snowball stemming library's environment creation functionality. It initializes a Snowball environment () with parameters tailored for Hungarian language processing using UTF-8 encoding. The function calls the generic  with specific parameters (0 string arrays, 1 integer array) that are appropriate for the Hungarian stemming algorithm's requirements.
 

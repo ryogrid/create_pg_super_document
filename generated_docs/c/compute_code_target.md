@@ -8,7 +8,10 @@ Calculates the target column position for code indentation based on nesting leve
 
 ## Definition
 
-
+```c
+int
+compute_code_target(void)
+```
 ## Detailed Description
 The compute_code_target function determines the proper column position where code should be indented. It considers multiple factors including the current indentation level, parentheses nesting, continuation indentation preferences, and line length constraints. The function implements different indentation strategies based on configuration options like lineup_to_parens and lineup_to_parens_always.
 

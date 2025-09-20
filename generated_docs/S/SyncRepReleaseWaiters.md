@@ -8,7 +8,10 @@ Updates synchronous replication LSN positions and releases waiting backend proce
 
 ## Definition
 
-
+```c
+void
+SyncRepReleaseWaiters(void)
+```
 ## Detailed Description
 This function implements PostgreSQL's synchronous replication policy by updating LSN positions on replication queues and releasing waiting backend processes. It follows a "first-valid-sync-standby-releases-waiter" policy where the first synchronous standby that confirms receipt allows waiting transactions to proceed.
 

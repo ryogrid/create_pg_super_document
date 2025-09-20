@@ -8,7 +8,16 @@ NoticeProcessor is a callback function used in psql to handle backend notice mes
 
 ## Definition
 
-
+```c
+structing the signal
+ * catcher to longjmp through sigint_interrupt_jmp.  We assume readline and
+ * fgets are coded to handle possible interruption.
+ *
+ * On Windows, currently this does not work, so control-C is less useful
+ * there.
+ */
+volatile sig_atomic_t sigint_interrupt_enabled = false;
+```
 ## Detailed Description
 NoticeProcessor serves as a notice message handler for PostgreSQL client connections in psql. When the PostgreSQL backend sends notice messages such as INFO, WARNING, or other informational messages, this function is called to process and display them. The function takes the raw message from the backend and outputs it using the standard psql logging mechanism via pg_log_info(). This ensures that notice messages are properly formatted and displayed to the user in a consistent manner with other psql output.
 

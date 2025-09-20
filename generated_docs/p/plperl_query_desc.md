@@ -8,7 +8,18 @@ A structure that caches information about prepared and saved SQL plans in the PL
 
 ## Definition
 
-
+```c
+typedef struct plperl_query_desc
+{
+	char		qname[24];
+	MemoryContext plan_cxt;		/* context holding this struct */
+	SPIPlanPtr	plan;
+	int			nargs;
+	Oid		   *argtypes;
+	FmgrInfo   *arginfuncs;
+	Oid		   *argtypioparams;
+} plperl_query_desc;
+```
 ## Detailed Description
 The  structure serves as a cache for prepared SQL plans within PL/Perl functions. This structure is essential for the Server Programming Interface (SPI) functionality in PL/Perl, allowing for efficient reuse of prepared statements. The structure maintains all necessary metadata about a prepared query, including its execution plan, parameter information, and memory context management details.
 

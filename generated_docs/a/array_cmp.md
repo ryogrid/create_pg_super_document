@@ -8,7 +8,10 @@ Internal comparison function for arrays that provides lexicographic ordering by 
 
 ## Definition
 
-
+```c
+static int
+array_cmp(FunctionCallInfo fcinfo)
+```
 ## Detailed Description
 The  function implements a comprehensive comparison algorithm for PostgreSQL arrays. It performs element-by-element comparison using the appropriate comparison function for the array's element type, following lexicographic ordering principles. When arrays have identical elements up to the length of the shorter array, it applies additional rules based on array dimensionality, bounds, and lower bounds to establish a total ordering.
 

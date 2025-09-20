@@ -8,7 +8,10 @@ Determines whether a given wide character is an uppercase letter, handling multi
 
 ## Definition
 
-
+```c
+static int
+pg_wc_isupper(pg_wchar c)
+```
 ## Detailed Description
 This function provides a unified interface for checking if a wide character is uppercase across different locale and encoding strategies used by PostgreSQL's regex subsystem. It implements a strategy pattern, dispatching to appropriate locale-specific uppercase checking functions based on the current  setting.
 

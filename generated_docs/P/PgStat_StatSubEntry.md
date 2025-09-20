@@ -8,7 +8,14 @@ PgStat_StatSubEntry is a structure that holds error statistics for PostgreSQL lo
 
 ## Definition
 
-
+```c
+typedef struct PgStat_StatSubEntry
+{
+	PgStat_Counter apply_error_count;
+	PgStat_Counter sync_error_count;
+	TimestampTz stat_reset_timestamp;
+} PgStat_StatSubEntry;
+```
 ## Detailed Description
 This structure is part of PostgreSQL's statistics collection system, specifically designed for tracking error statistics related to logical replication subscriptions. It maintains counters for different types of errors that can occur during the replication process and provides a timestamp indicating when the statistics were last reset. This information is crucial for monitoring the health and performance of logical replication subscriptions.
 

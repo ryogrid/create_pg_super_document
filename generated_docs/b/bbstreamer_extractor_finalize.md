@@ -8,7 +8,10 @@ Performs end-of-stream processing for the bbstreamer extractor, conducting sanit
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_extractor_finalize(bbstreamer *streamer)
+```
 ## Detailed Description
 This function serves as the finalization callback for the bbstreamer_extractor type. It is called once at the end of stream processing to perform final validation and cleanup operations. The primary purpose is to ensure that the extractor is in a consistent state where no file is currently open for writing. The function performs assertion-based validation to verify that the internal file handle is NULL, indicating that all files have been properly closed during the extraction process.
 

@@ -8,7 +8,10 @@ Compares hash partition bounds by comparing modulus first, then remainder if mod
 
 ## Definition
 
-
+```c
+static int32
+partition_hbound_cmp(int modulus1, int remainder1, int modulus2, int remainder2)
+```
 ## Detailed Description
 This is a comparison function specifically designed for hash partition bounds. Hash partitioning in PostgreSQL uses a modulus-remainder approach where data is distributed across partitions based on hash(key) % modulus = remainder. The function implements a lexicographic comparison: it first compares the modulus values, and only if they are equal does it compare the remainder values. This ordering ensures consistent sorting of hash partition bounds during partition pruning and other operations.
 

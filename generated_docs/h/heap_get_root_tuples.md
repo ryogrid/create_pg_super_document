@@ -8,7 +8,10 @@ Maps each tuple on a heap page to its root line pointer in HOT (Heap Only Tuples
 
 ## Definition
 
-
+```c
+void
+heap_get_root_tuples(Page page, OffsetNumber *root_offsets)
+```
 ## Detailed Description
 This function analyzes a heap page and constructs a mapping that identifies the root tuple for each item in HOT chains. For each line pointer offset k on the page, if that item is part of a HOT chain with root at offset j, then root_offsets[k-1] is set to j. Non-HOT tuples point to themselves as roots.
 

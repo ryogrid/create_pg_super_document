@@ -8,7 +8,10 @@ The  function capitalizes the first letter of each word in a text string while c
 
 ## Definition
 
-
+```c
+Datum
+initcap(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that performs title case conversion on text input. It capitalizes the first letter of each word while converting all other letters to lowercase. Words are defined as sequences of alphanumeric characters delimited by non-alphanumeric characters. The function utilizes the database's collation settings to ensure proper case conversion for different locales and character sets. It is implemented as part of the Oracle compatibility module.
 

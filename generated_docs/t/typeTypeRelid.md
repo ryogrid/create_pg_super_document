@@ -8,7 +8,10 @@ Returns the relation OID (typrelid) associated with a PostgreSQL composite data 
 
 ## Definition
 
-
+```c
+Oid
+typeTypeRelid(Type typ)
+```
 ## Detailed Description
 The  function extracts the  attribute from a PostgreSQL type structure. The  field contains the OID of the relation (table) that corresponds to this type. This is primarily used for composite types, where the type is defined by a table structure, and row types, where each table automatically gets a corresponding row type.
 

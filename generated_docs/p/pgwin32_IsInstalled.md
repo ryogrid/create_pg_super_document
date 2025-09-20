@@ -8,7 +8,10 @@ Checks whether a PostgreSQL service is installed in the Windows Service Control 
 
 ## Definition
 
-
+```c
+static bool
+pgwin32_IsInstalled(SC_HANDLE hSCM)
+```
 ## Detailed Description
 This function determines if a PostgreSQL service is already registered with the Windows Service Control Manager (SCM). It performs a lightweight check by attempting to open the service using  with  access rights, which only requires permission to read the service configuration.
 

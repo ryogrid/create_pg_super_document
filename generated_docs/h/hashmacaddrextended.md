@@ -8,7 +8,10 @@ The  function computes an extended hash value for a MAC address using a seed val
 
 ## Definition
 
-
+```c
+Datum
+hashmacaddrextended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements an extended hash function for the  data type in PostgreSQL. It takes a MAC address and a seed value as inputs and computes a hash value using PostgreSQL's  function. The extended hash function provides better hash distribution and is used in advanced hash-based operations such as parallel hash joins and hash partitioning.
 

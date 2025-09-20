@@ -8,7 +8,10 @@ Determines whether a VALUES RTE (Range Table Entry) is simple enough to be pulle
 
 ## Definition
 
-
+```c
+static bool
+is_simple_values(PlannerInfo *root, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function analyzes a VALUES clause to determine if it qualifies for optimization through the  function. It applies several strict criteria to ensure that the VALUES clause can be safely replaced with a RESULT RTE without changing query semantics or introducing performance issues.
 

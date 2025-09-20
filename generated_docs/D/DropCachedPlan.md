@@ -8,7 +8,10 @@ DropCachedPlan destroys a cached plan by cleaning up the CachedPlanSource and re
 
 ## Definition
 
-
+```c
+void
+DropCachedPlan(CachedPlanSource *plansource)
+```
 ## Detailed Description
 DropCachedPlan safely destroys a CachedPlanSource by removing it from the global saved plan list (if saved), releasing any associated generic plans, and freeing the memory context containing all subsidiary data. The function uses reference counting to ensure that any CachedPlan objects still in use are not immediately destroyed but are marked for cleanup when their reference count reaches zero. This design handles the case where DropCachedPlan is called while plans derived from this source are still actively being executed.
 

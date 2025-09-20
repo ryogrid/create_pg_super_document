@@ -8,7 +8,26 @@ ObjectAccessDrop is a struct that holds arguments for the OAT_DROP object access
 
 ## Definition
 
+```c
+typedef struct
+{
+	/*
+	 * This identifier is used when system catalog takes two IDs to identify a
+	 * particular tuple of the catalog. It is only used when the caller want
+	 * to identify an entry of pg_inherits, pg_db_role_setting or
+	 * pg_user_mapping. Elsewhere, InvalidOid should be set.
+	 */
+	Oid			auxiliary_id;
 
+	/*
+	 * If this flag is set, the user hasn't requested that the object be
+	 * altered, but we're doing it anyway for some internal reason.
+	 * Permissions-checking hooks may want to skip checks if, say, we're alter
+	 * the constraints of a temporary heap during CLUSTER.
+	 */
+	bool		is_internal;
+} ObjectAccessPostAlter;
+```
 ## Detailed Description
 The ObjectAccessDrop struct serves as a parameter container for object access hooks that are triggered before object deletion (OAT_DROP events). It provides essential context information to extensions about the nature and circumstances of the object deletion operation.
 

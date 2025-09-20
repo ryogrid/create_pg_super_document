@@ -8,7 +8,10 @@ ECPGdump_a_struct is a static function that recursively processes struct types a
 
 ## Definition
 
-
+```c
+static void
+ECPGdump_a_struct(FILE *o, const char *name, const char *ind_name, char *arrsize, struct ECPGtype *type, struct ECPGtype *ind_type, const char *prefix, const char *ind_prefix)
+```
 ## Detailed Description
 This function penetrates a struct definition and recursively dumps the contents of each member by calling ECPGdump_a_type for each struct member. It determines the appropriate member access syntax (dot notation for value access, arrow notation for pointer access) based on array size. The function also handles indicator structs which are used for NULL value detection in PostgreSQL, ensuring proper alignment between main struct members and their corresponding indicator members. It performs validation to ensure indicator structs have the correct number of members.
 

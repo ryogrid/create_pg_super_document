@@ -8,7 +8,10 @@ Resolves symbol names to memory addresses for LLVM JIT compilation, handling bot
 
 ## Definition
 
-
+```c
+static uint64_t
+llvm_resolve_symbol(const char *symname, void *ctx)
+```
 ## Detailed Description
 This function serves as a callback for LLVM's symbol resolution mechanism during JIT compilation. When LLVM encounters an unresolved symbol reference in the code being compiled, it calls this function to obtain the actual memory address of that symbol.
 

@@ -8,7 +8,10 @@ Allocates memory from the current memory context with extended options, providin
 
 ## Definition
 
-
+```c
+void *
+palloc_extended(Size size, int flags)
+```
 ## Detailed Description
 The `palloc_extended` function is the extended version of the basic `palloc` function that provides additional control over memory allocation behavior through flags. It allocates memory from the current memory context (`CurrentMemoryContext`) and allows the caller to specify various allocation options.
 

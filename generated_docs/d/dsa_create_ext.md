@@ -8,7 +8,10 @@ Creates a new Dynamic Shared Area (DSA) in a new Dynamic Shared Memory (DSM) seg
 
 ## Definition
 
-
+```c
+dsa_area *
+dsa_create_ext(int tranche_id, size_t init_segment_size, size_t max_segment_size)
+```
 ## Detailed Description
 This function is the extended version of DSA creation that provides fine-grained control over memory allocation parameters. It creates a new DSA by first allocating a DSM segment to hold the shared control object and the initial usable space. The function implements explicit lifetime management by pinning all segments, ensuring that DSA can control when segments are freed rather than relying on backend-specific cleanup.
 

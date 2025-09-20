@@ -8,7 +8,10 @@ Removes inheritance relationships for a relation by deleting all pg_inherits cat
 
 ## Definition
 
-
+```c
+static void
+RelationRemoveInheritance(Oid relid)
+```
 ## Detailed Description
 This function is responsible for cleaning up inheritance metadata when a relation is being dropped. It operates on the pg_inherits system catalog, which stores parent-child relationships between tables in PostgreSQL's table inheritance hierarchy.
 

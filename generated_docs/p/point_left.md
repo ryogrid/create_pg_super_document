@@ -8,7 +8,10 @@ A PostgreSQL function that determines if one point is to the left of another poi
 
 ## Definition
 
-
+```c
+Datum
+point_left(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of PostgreSQL's geometric data type operations for 2D points. It implements a relational operator that compares two Point structures to determine if the first point is positioned to the left of the second point in a 2D coordinate system. The comparison is based solely on the x-coordinates of the points, using floating-point comparison with appropriate epsilon handling for accuracy.
 

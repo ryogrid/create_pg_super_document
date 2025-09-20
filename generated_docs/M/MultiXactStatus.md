@@ -8,7 +8,13 @@ MultiXactStatus is an enum that defines the possible lock modes for multi-transa
 
 ## Definition
 
-
+```c
+typedef struct MultiXactMember
+{
+	TransactionId xid;
+	MultiXactStatus status;
+} MultiXactMember;
+```
 ## Detailed Description
 MultiXactStatus represents the different lock modes that can be held by transactions participating in a multi-transaction (multixact). These status values correspond to PostgreSQL's various locking modes used for tuple locks and updates. The first four modes (0x00-0x03) are for explicit tuple locks acquired through SELECT FOR statements, while the last two modes (0x04-0x05) are for actual update and delete operations.
 

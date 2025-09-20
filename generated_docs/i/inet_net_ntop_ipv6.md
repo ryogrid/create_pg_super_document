@@ -8,7 +8,13 @@ Converts IPv6 network addresses from binary network format to presentation forma
 
 ## Definition
 
-
+```c
+struct
+	{
+		int			base,
+					len;
+	}			best, cur;
+```
 ## Detailed Description
 This static function handles IPv6-specific conversion from 16-byte binary format to standard IPv6 text representation. It implements several key IPv6 formatting features: zero compression (:: notation) for the longest run of consecutive zero 16-bit groups, detection and formatting of embedded IPv4 addresses (IPv4-mapped, IPv4-compatible, and 6to4 addresses), and optional CIDR prefix notation. The function uses a two-pass algorithm: first preprocessing to find optimal zero compression opportunities, then formatting the final output string.
 

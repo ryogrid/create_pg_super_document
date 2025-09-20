@@ -8,7 +8,10 @@ Reads all data types from the PostgreSQL system catalogs and returns them as an 
 
 ## Definition
 
-
+```c
+TypeInfo *
+getTypes(Archive *fout, int *numTypes)
+```
 ## Detailed Description
 This function is a comprehensive data type collection component of pg_dump that queries the pg_type system catalog to retrieve information about all data types in the database. It handles various type categories including built-in types, user-defined types, domains, composite types, enums, ranges, multiranges, and arrays.
 

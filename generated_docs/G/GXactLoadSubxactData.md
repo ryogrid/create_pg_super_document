@@ -8,7 +8,11 @@ Loads subtransaction data into a GlobalTransaction's associated PGPROC structure
 
 ## Definition
 
-
+```c
+static void
+GXactLoadSubxactData(GlobalTransaction gxact, int nsubxacts,
+					 TransactionId *children)
+```
 ## Detailed Description
 GXactLoadSubxactData is responsible for populating the subtransaction information in a prepared transaction's PGPROC entry. This function handles the case where a transaction being prepared for two-phase commit contains subtransactions (nested transactions). It copies the subtransaction IDs into the PGPROC's cached subxid array, handling overflow situations where there are more subtransactions than can be cached. The function sets appropriate flags to indicate whether the subtransaction list has overflowed the cache limit.
 

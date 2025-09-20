@@ -8,7 +8,10 @@ The oidin function converts a string representation of an object identifier (OID
 
 ## Definition
 
-
+```c
+Datum
+oidin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The oidin function is responsible for parsing string input and converting it to PostgreSQL's internal OID representation. It uses the uint32in_subr helper function to perform the actual string-to-number conversion, ensuring proper error handling and validation. This function is part of PostgreSQL's type input/output system and is automatically called when converting text to OID values in SQL operations.
 

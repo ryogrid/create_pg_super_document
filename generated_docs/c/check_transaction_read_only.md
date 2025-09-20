@@ -8,7 +8,10 @@ This function validates changes to the transaction read-only mode setting, enfor
 
 ## Definition
 
-
+```c
+bool
+check_transaction_read_only(bool *newval, void **extra, GucSource source)
+```
 ## Detailed Description
  is a GUC (Grand Unified Configuration) check hook function that validates attempts to change the transaction read-only mode via  or  commands. The function implements PostgreSQL's transaction isolation semantics by allowing idempotent changes and read-write to read-only transitions at any time, while strictly controlling when read-only transactions can be changed to read-write mode.
 

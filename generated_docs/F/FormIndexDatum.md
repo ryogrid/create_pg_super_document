@@ -8,7 +8,14 @@ FormIndexDatum constructs the values and isnull arrays needed for creating an in
 
 ## Definition
 
-
+```c
+void
+FormIndexDatum(IndexInfo *indexInfo,
+			   TupleTableSlot *slot,
+			   EState *estate,
+			   Datum *values,
+			   bool *isnull)
+```
 ## Detailed Description
 FormIndexDatum is a core function responsible for extracting and preparing data values from a heap tuple that will be used to construct an index tuple. The function processes each index column, handling three distinct cases: system attributes (negative column numbers), regular table columns, and computed expressions. For regular columns, it directly extracts values from the heap tuple. For index expressions, it evaluates them using the provided execution state. The function manages expression state initialization on first use for performance optimization and ensures proper context setup for expression evaluation. This function prepares the input arrays for index_form_tuple() but doesn't call it directly, allowing index access methods to potentially modify the data before storage.
 

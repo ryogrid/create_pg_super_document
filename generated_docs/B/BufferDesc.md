@@ -8,7 +8,20 @@ The  structure is the core descriptor that contains metadata and state informati
 
 ## Definition
 
+```c
+typedef struct BufferDesc
+{
+	BufferTag	tag;			/* ID of page contained in buffer */
+	int			buf_id;			/* buffer's index number (from 0) */
 
+	/* state of the tag, containing flags, refcount and usagecount */
+	pg_atomic_uint32 state;
+
+	int			wait_backend_pgprocno;	/* backend of pin-count waiter */
+	int			freeNext;		/* link in freelist chain */
+	LWLock		content_lock;	/* to lock access to buffer contents */
+} BufferDesc;
+```
 ## Detailed Description
 The  structure serves as the shared descriptor and state data for each buffer in PostgreSQL's buffer management system. It contains all the necessary information to manage a single shared buffer, including its identity, state flags, reference counting, and synchronization mechanisms.
 

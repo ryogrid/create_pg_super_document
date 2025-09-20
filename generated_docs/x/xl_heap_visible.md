@@ -8,7 +8,13 @@ A WAL (Write-Ahead Logging) record structure that contains information needed fo
 
 ## Definition
 
-
+```c
+typedef struct xl_heap_visible
+{
+	TransactionId snapshotConflictHorizon;
+	uint8		flags;
+} xl_heap_visible;
+```
 ## Detailed Description
 The xl_heap_visible structure is used in PostgreSQL's Write-Ahead Logging system to record information about visibility map bit operations. This structure is logged when the visibility map is updated to mark pages as all-visible or all-frozen. The visibility map is a critical component of PostgreSQL's MVCC (Multi-Version Concurrency Control) system and vacuum optimization.
 

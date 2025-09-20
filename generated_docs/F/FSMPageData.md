@@ -8,7 +8,9 @@ FSMPageData is a structure representing the layout of a Free Space Map (FSM) pag
 
 ## Definition
 
-
+```c
+typedef FSMPageData *FSMPage;
+```
 ## Detailed Description
 FSMPageData defines the internal structure of a Free Space Map page, which is part of PostgreSQL's free space management system. The FSM is used to quickly locate pages with enough free space to store new tuples, or to determine if relation extension is needed.
 

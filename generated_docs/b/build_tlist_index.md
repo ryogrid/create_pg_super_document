@@ -8,7 +8,12 @@ Builds an index data structure for a child targetlist to optimize variable looku
 
 ## Definition
 
-
+```c
+structure with enough slots for all tlist entries */
+	itlist = (indexed_tlist *)
+		palloc(offsetof(indexed_tlist, vars) +
+			   list_length(tlist) * sizeof(tlist_vinfo));
+```
 ## Detailed Description
 This function creates an optimized index structure for targetlist matching operations. Since subplan targetlists are typically "flat" containing mostly Vars, the function pre-extracts variable information into an array for faster lookups. While targetlist matching is still an O(N^2) operation when matching parent to child tlists, this indexing provides a much smaller constant factor compared to plain tlist_member() searches.
 

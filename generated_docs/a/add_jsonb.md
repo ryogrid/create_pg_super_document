@@ -8,7 +8,11 @@ A static helper function that appends JSON text for a given value to a JsonbInSt
 
 ## Definition
 
-
+```c
+static void
+add_jsonb(Datum val, bool is_null, JsonbInState *result,
+		  Oid val_type, bool key_scalar)
+```
 ## Detailed Description
 The add_jsonb function is a utility function that converts a PostgreSQL Datum value into JSONB format and appends it to an existing JsonbInState structure. It acts as a convenient wrapper around the more complex datum_to_jsonb_internal function by handling the type categorization step automatically. The function first validates the input type, then categorizes the PostgreSQL type into its corresponding JSON type category, and finally delegates the actual conversion work to datum_to_jsonb_internal.
 

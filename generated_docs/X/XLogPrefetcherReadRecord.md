@@ -8,7 +8,10 @@ XLogPrefetcherReadRecord is a wrapper function for XLogReadRecord() that provide
 
 ## Definition
 
-
+```c
+XLogRecord *
+XLogPrefetcherReadRecord(XLogPrefetcher *prefetcher, char **errmsg)
+```
 ## Detailed Description
 This function serves as the main entry point for reading WAL records with prefetching optimization during recovery. It manages the prefetching machinery by:
 

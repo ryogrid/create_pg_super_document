@@ -8,7 +8,13 @@ BTDedupInterval is a structure used to represent an individual pending tuple dur
 
 ## Definition
 
-
+```c
+typedef struct BTDedupInterval
+{
+	OffsetNumber baseoff;
+	uint16		nitems;
+} BTDedupInterval;
+```
 ## Detailed Description
 BTDedupInterval serves as a compact representation of a range of tuples that are candidates for deduplication within a B-tree page. During deduplication operations, the algorithm identifies intervals of duplicate tuples that can be consolidated into posting list tuples. Each BTDedupInterval represents one such interval by storing the starting offset and the number of consecutive items that share the same key values.
 

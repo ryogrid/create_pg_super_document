@@ -8,7 +8,10 @@ PerformWalRecovery performs WAL (Write-Ahead Log) recovery by replaying WAL reco
 
 ## Definition
 
-
+```c
+void
+PerformWalRecovery(void)
+```
 ## Detailed Description
 PerformWalRecovery is the main function responsible for WAL recovery in PostgreSQL. It is called during server startup when the system was not shut down cleanly. The function performs the following key operations:
 

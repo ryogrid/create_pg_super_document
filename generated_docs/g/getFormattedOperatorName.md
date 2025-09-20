@@ -8,7 +8,10 @@ Retrieves and formats an operator name for the given operator OID, producing a f
 
 ## Definition
 
-
+```c
+static char *
+getFormattedOperatorName(const char *oproid)
+```
 ## Detailed Description
 This function takes an operator OID in string form and returns a formatted operator name with the pattern "OPERATOR(schema.oprname)". The function always schema-qualifies the operator name to avoid ambiguity issues that could arise in corner cases, such as when an operator and its negator exist in different schemas.
 

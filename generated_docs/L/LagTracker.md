@@ -8,7 +8,9 @@ LagTracker is a data structure used to track replication lag in PostgreSQL's WAL
 
 ## Definition
 
-
+```c
+typedef void (*WalSndSendDataCallback) (void);
+```
 ## Detailed Description
 LagTracker implements a mechanism for measuring replication lag between the primary server and standby servers in PostgreSQL streaming replication. It uses a circular buffer to store samples that associate WAL locations (LSNs) with the time they were written locally. The structure supports multiple read heads corresponding to different synchronization modes (write, flush, apply), allowing independent tracking of lag for each replication stage.
 

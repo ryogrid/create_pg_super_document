@@ -8,7 +8,22 @@ Retrieves the current database state from the PostgreSQL control file, which tra
 
 ## Definition
 
-
+```c
+struct option long_options[] = {
+		{"help", no_argument, NULL, '?'},
+		{"version", no_argument, NULL, 'V'},
+		{"log", required_argument, NULL, 'l'},
+		{"mode", required_argument, NULL, 'm'},
+		{"pgdata", required_argument, NULL, 'D'},
+		{"options", required_argument, NULL, 'o'},
+		{"silent", no_argument, NULL, 's'},
+		{"timeout", required_argument, NULL, 't'},
+		{"core-files", no_argument, NULL, 'c'},
+		{"wait", no_argument, NULL, 'w'},
+		{"no-wait", no_argument, NULL, 'W'},
+		{NULL, 0, NULL, 0}
+	};
+```
 ## Detailed Description
 This function reads and parses the PostgreSQL control file to extract the current database state. The control file is a critical system file that contains metadata about the database cluster's status, including whether it's running, shut down cleanly, or in recovery mode. The function performs integrity checking on the control file using CRC validation to ensure the data is not corrupted.
 

@@ -8,7 +8,10 @@ The btgettuple function retrieves the next tuple in a B-tree index scan, handlin
 
 ## Definition
 
-
+```c
+bool
+btgettuple(IndexScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 The btgettuple function is the main interface for sequential tuple retrieval during B-tree index scans. It manages the scan state and coordinates with lower-level B-tree scanning functions to return tuples in the requested order. The function handles both initial scan setup (by calling _bt_first for the first tuple) and subsequent tuple retrieval (by calling _bt_next for following tuples).
 

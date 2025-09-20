@@ -8,7 +8,10 @@ Replays WAL records for B-tree vacuum operations, handling both posting list upd
 
 ## Definition
 
-
+```c
+static void
+btree_xlog_vacuum(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the recovery/replay of B-tree vacuum operations from WAL records. B-tree vacuum removes dead tuples and updates posting list tuples to remove dead heap TIDs, helping to reclaim space and maintain index efficiency.
 

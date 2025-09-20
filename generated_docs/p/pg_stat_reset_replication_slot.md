@@ -8,7 +8,10 @@ A PostgreSQL system function that resets replication slot statistics, allowing s
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_reset_replication_slot(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a mechanism to reset statistics for PostgreSQL replication slots. Replication slots are a critical component of PostgreSQL's logical and physical replication system, ensuring that the WAL (Write-Ahead Log) segments needed by replication consumers are retained until they have been processed.
 

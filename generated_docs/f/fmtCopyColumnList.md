@@ -8,7 +8,10 @@ Generates a parenthesized column list clause for COPY commands, excluding droppe
 
 ## Definition
 
-
+```c
+static const char *
+fmtCopyColumnList(const TableInfo *ti, PQExpBuffer buffer)
+```
 ## Detailed Description
 This function constructs a properly formatted column list for use in COPY statements by iterating through a table's attributes and including only regular (non-dropped, non-generated) columns. The function formats the output as a parenthesized, comma-separated list of properly quoted column names. It includes special handling for the edge case where no valid columns exist, returning an empty string instead of invalid empty parentheses.
 

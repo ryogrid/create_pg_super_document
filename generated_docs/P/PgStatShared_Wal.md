@@ -8,7 +8,14 @@ A shared memory structure that holds WAL (Write-Ahead Logging) statistics for Po
 
 ## Definition
 
-
+```c
+typedef struct PgStatShared_Wal
+{
+	/* lock protects ->stats */
+	LWLock		lock;
+	PgStat_WalStats stats;
+} PgStatShared_Wal;
+```
 ## Detailed Description
 PgStatShared_Wal is a shared memory structure that maintains comprehensive statistics about PostgreSQL's Write-Ahead Logging (WAL) system. WAL is a critical component of PostgreSQL's ACID compliance and crash recovery mechanism, logging all changes before they are written to the main data files.
 

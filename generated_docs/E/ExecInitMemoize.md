@@ -8,7 +8,10 @@ ExecInitMemoize initializes a MemoizeState node for the Memoize executor, settin
 
 ## Definition
 
-
+```c
+MemoizeState *
+ExecInitMemoize(Memoize *node, EState *estate, int eflags)
+```
 ## Detailed Description
 ExecInitMemoize performs comprehensive initialization of a Memoize node's runtime state. It sets up the hash table infrastructure for caching, initializes expression evaluation for cache key parameters, configures memory management with appropriate limits, and establishes the LRU (Least Recently Used) eviction mechanism. The function creates specialized tuple slots for both hash key storage and result caching, builds hash and equality functions for parameter comparison, and initializes all statistics counters. It defers the actual hash table allocation until execution time to avoid unnecessary memory consumption during planning.
 

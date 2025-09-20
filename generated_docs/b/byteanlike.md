@@ -8,7 +8,10 @@ Implements the NOT LIKE operator for PostgreSQL's bytea data type, returning tru
 
 ## Definition
 
-
+```c
+Datum
+byteanlike(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `byteanlike` function provides the implementation for PostgreSQL's NOT LIKE operator when applied to bytea (binary data) data types. It takes two bytea arguments - the binary data to be tested and the binary pattern to match against - and uses single-byte pattern matching functionality to determine if the binary data does NOT match the pattern. This is the inverse of the LIKE operation for binary data - it returns true when the pattern does not match the binary data, and false when it does match.
 

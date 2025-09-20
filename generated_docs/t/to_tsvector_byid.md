@@ -8,7 +8,10 @@ A PostgreSQL built-in function that converts text to a tsvector using a specifie
 
 ## Definition
 
-
+```c
+Datum
+to_tsvector_byid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is the main entry point for converting plain text into a tsvector data structure using a specific text search configuration. The function orchestrates the complete text-to-tsvector pipeline:
 

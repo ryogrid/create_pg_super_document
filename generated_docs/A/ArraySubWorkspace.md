@@ -8,7 +8,25 @@ ArraySubWorkspace is a workspace structure used during array subscripting operat
 
 ## Definition
 
+```c
+typedef struct ArraySubWorkspace
+{
+	/* Values determined during expression compilation */
+	Oid			refelemtype;	/* OID of the array element type */
+	int16		refattrlength;	/* typlen of array type */
+	int16		refelemlength;	/* typlen of the array element type */
+	bool		refelembyval;	/* is the element type pass-by-value? */
+	char		refelemalign;	/* typalign of the element type */
 
+	/*
+	 * Subscript values converted to integers.  Note that these arrays must be
+	 * of length MAXDIM even when dealing with fewer subscripts, because
+	 * array_get/set_slice may scribble on the extra entries.
+	 */
+	int			upperindex[MAXDIM];
+	int			lowerindex[MAXDIM];
+} ArraySubWorkspace;
+```
 ## Detailed Description
 ArraySubWorkspace serves as a specialized workspace structure for PostgreSQL's array subscripting execution framework. It is allocated and populated during the setup phase of array subscript operations and contains both cached type system information and pre-converted subscript indices. The structure is designed to optimize array access operations by pre-computing and storing frequently needed metadata about the array and element types, avoiding repeated lookups during execution.
 

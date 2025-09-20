@@ -8,7 +8,10 @@ Creates a Group plan node for performing grouping operations, extracting groupin
 
 ## Definition
 
-
+```c
+static Group *
+create_group_plan(PlannerInfo *root, GroupPath *best_path)
+```
 ## Detailed Description
 The  function generates a Group plan node from a GroupPath, which is used to implement GROUP BY operations in PostgreSQL queries. Unlike Sort nodes, Group nodes can perform projection, so they are less restrictive about the child's target list but still need access to the grouping columns.
 

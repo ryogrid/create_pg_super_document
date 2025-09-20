@@ -8,7 +8,10 @@ FileGetRawDesc returns the raw operating system file descriptor associated with 
 
 ## Definition
 
-
+```c
+int
+FileGetRawDesc(File file)
+```
 ## Detailed Description
 FileGetRawDesc provides access to the underlying operating system file descriptor for a PostgreSQL File. This function bypasses PostgreSQL's virtual file descriptor abstraction layer to return the actual system file descriptor stored in the VfdCache. The function is used when direct system-level file operations are needed, such as for direct I/O operations or system calls that require a raw file descriptor.
 

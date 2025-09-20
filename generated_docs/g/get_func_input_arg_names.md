@@ -8,7 +8,12 @@ Extracts the names of only input arguments from a function's proargnames and pro
 
 ## Definition
 
-
+```c
+struct_array() since the
+	 * array data is just going to look like a C array of values.
+	 */
+	arr = DatumGetArrayTypeP(proargnames);
+```
 ## Detailed Description
 This function processes the proargnames and proargmodes arrays from a function's pg_proc entry to extract only the names of input arguments (IN, INOUT, and VARIADIC modes). It filters out output arguments (OUT and TABLE modes) to provide a focused view of the function's input interface.
 

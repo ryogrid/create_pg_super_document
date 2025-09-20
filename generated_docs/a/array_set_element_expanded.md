@@ -8,7 +8,14 @@ Implements element assignment for expanded arrays, providing optimized performan
 
 ## Definition
 
-
+```c
+struct array if we didn't already.  (Someday maybe add a special
+	 * case path for fixed-length, no-nulls cases, where we can overwrite an
+	 * element in place without ever deconstructing.  But today is not that
+	 * day.)
+	 */
+	deconstruct_expanded_array(eah);
+```
 ## Detailed Description
 This function is the specialized implementation of  for expanded arrays. Expanded arrays are PostgreSQL's internal representation that allows efficient in-place modifications without the overhead of complete array reconstruction. The function handles:
 

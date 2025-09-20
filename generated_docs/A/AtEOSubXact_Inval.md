@@ -8,7 +8,10 @@ Processes queued invalidation messages at the end of a subtransaction, handling 
 
 ## Definition
 
-
+```c
+void
+AtEOSubXact_Inval(bool isCommit)
+```
 ## Detailed Description
 This function manages invalidation messages when a subtransaction completes, implementing different strategies based on whether the subtransaction commits or aborts.
 

@@ -8,7 +8,10 @@ Ensures a snapshot exists for the current transaction by either returning an exi
 
 ## Definition
 
-
+```c
+Snapshot
+SnapBuildGetOrBuildSnapshot(SnapBuild *builder)
+```
 ## Detailed Description
 This function provides lazy initialization of snapshots for logical decoding operations. It implements a caching mechanism to avoid repeatedly building expensive snapshots when they haven't changed. The function:
 

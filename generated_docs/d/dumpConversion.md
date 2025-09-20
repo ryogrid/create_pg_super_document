@@ -8,7 +8,10 @@ Writes out a single conversion definition, generating CREATE CONVERSION SQL stat
 
 ## Definition
 
-
+```c
+static void
+dumpConversion(Archive *fout, const ConvInfo *convinfo)
+```
 ## Detailed Description
 The  function generates SQL commands to recreate encoding conversion objects during database dumps. It queries the pg_conversion catalog to retrieve conversion properties including source encoding, target encoding, conversion function, and default status. The function constructs CREATE CONVERSION statements with proper encoding names obtained via  system function.
 

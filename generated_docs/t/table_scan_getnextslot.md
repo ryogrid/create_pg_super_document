@@ -8,7 +8,10 @@ Retrieves the next tuple from a table scan and stores it in the specified tuple 
 
 ## Definition
 
-
+```c
+static inline bool
+table_scan_getnextslot(TableScanDesc sscan, ScanDirection direction, TupleTableSlot *slot)
+```
 ## Detailed Description
 The  function is the primary interface for retrieving tuples during a table scan operation. It fetches the next tuple from the scan in the specified direction and stores it in the provided tuple slot. The function includes important safety checks, including validation that it's not being called inappropriately during logical decoding operations.
 

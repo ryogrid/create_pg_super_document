@@ -8,7 +8,10 @@ Initializes and returns a heap-specific index fetch data structure for beginning
 
 ## Definition
 
-
+```c
+static IndexFetchTableData *
+heapam_index_fetch_begin(Relation rel)
+```
 ## Detailed Description
 This function serves as the initialization callback for index fetch operations on heap tables within PostgreSQL's table access method framework. It allocates and initializes an IndexFetchHeapData structure, which extends the base IndexFetchTableData structure with heap-specific fields. The function sets up the necessary state for subsequent index fetch operations, including initializing the relation reference and setting the current buffer to invalid. This is part of the pluggable storage architecture that allows different table access methods to provide their own index fetch implementations.
 

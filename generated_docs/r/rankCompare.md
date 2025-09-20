@@ -8,7 +8,10 @@ A comparison function for 32-bit signed integers used to sort rank values in asc
 
 ## Definition
 
-
+```c
+static int
+rankCompare(const void *a, const void *b)
+```
 ## Detailed Description
 This function provides a simple integer comparison for use with sorting algorithms in PostgreSQL's psql \crosstabview feature. It compares two 32-bit signed integers pointed to by the void pointers and returns the standard three-way comparison result. The function is specifically designed to work with qsort() and other comparison-based sorting algorithms to order rank values numerically.
 

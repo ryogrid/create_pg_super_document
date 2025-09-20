@@ -8,7 +8,10 @@ Creates a PartitionRangeBound structure from a list of PartitionRangeDatum eleme
 
 ## Definition
 
-
+```c
+static PartitionRangeBound *
+make_one_partition_rbound(PartitionKey key, int index, List *datums, bool lower)
+```
 ## Detailed Description
 The  function is a utility factory function that constructs a PartitionRangeBound structure from raw partition range data. This function centralizes the logic for creating range bounds, which is needed in multiple places throughout the partitioning system.
 

@@ -8,7 +8,9 @@ This function tests whether a given extension exists by checking for the presenc
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The extension_file_exists function provides a lightweight way to check if an extension is available on the system (not whether it's installed in the current database). It works by scanning the extension control directory for a primary control file matching the given extension name.
 

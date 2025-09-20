@@ -8,7 +8,10 @@ A static function that attempts to flush pending output data through the socket 
 
 ## Definition
 
-
+```c
+static int
+socket_flush_if_writable(void)
+```
 ## Detailed Description
 This function provides a non-blocking way to flush pending output data from PostgreSQL's send buffer. It temporarily switches the socket to non-blocking mode, attempts to flush the data, and then returns immediately. The function includes safety checks to prevent reentrant calls and avoids unnecessary work when no data is pending.
 

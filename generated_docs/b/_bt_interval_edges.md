@@ -8,7 +8,11 @@ Locates the leftmost and rightmost split points within the current split interva
 
 ## Definition
 
-
+```c
+static void
+_bt_interval_edges(FindSplitData *state, SplitPoint **leftinterval,
+				   SplitPoint **rightinterval)
+```
 ## Detailed Description
 This function identifies the extreme split points (leftmost and rightmost) within the current split interval. The split interval represents the acceptable range of split candidates, and this function finds the boundary splits that will be used for further analysis in strategy selection. The function iterates backwards through the splits array (since delta distance makes extreme splits appear at the end) and identifies splits based on their firstrightoff values relative to the delta-optimal split.
 

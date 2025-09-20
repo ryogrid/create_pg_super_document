@@ -8,7 +8,10 @@ A Windows console control handler that converts console events (Ctrl+C, Ctrl+Bre
 
 ## Definition
 
-
+```c
+static BOOL WINAPI
+pg_console_handler(DWORD dwCtrlType)
+```
 ## Detailed Description
 This function serves as a Windows console control handler that intercepts console control events and translates them into PostgreSQL's internal signal system. It handles various console events including Ctrl+C, Ctrl+Break, console window close, and system shutdown events by converting them all to SIGINT signals.
 

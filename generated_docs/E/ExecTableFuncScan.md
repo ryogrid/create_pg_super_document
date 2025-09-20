@@ -8,7 +8,10 @@ ExecTableFuncScan is the main execution function for table function scans, provi
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecTableFuncScan(PlanState *pstate)
+```
 ## Detailed Description
 ExecTableFuncScan implements the execution interface for table function scan nodes by delegating to PostgreSQL's generic ExecScan() framework. It follows the standard pattern used by all scan node types, providing specific access method functions (TableFuncNext for tuple retrieval and TableFuncRecheck for EvalPlanQual support) while leveraging the common scan infrastructure.
 

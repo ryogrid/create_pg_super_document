@@ -8,7 +8,12 @@ dataPlaceToPageLeafSplit reconstructs a disassembled GIN data leaf page into two
 
 ## Definition
 
-
+```c
+static void
+dataPlaceToPageLeafSplit(disassembledLeaf *leaf,
+						 ItemPointerData lbound, ItemPointerData rbound,
+						 Page lpage, Page rpage)
+```
 ## Detailed Description
 This function handles the physical reconstruction of a GIN data leaf page that needs to be split into two pages due to space constraints. Unlike the single-page recompression functions, this operates on temporary in-memory copies of the new left and right pages rather than modifying the original page directly.
 

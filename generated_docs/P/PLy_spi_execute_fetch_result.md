@@ -8,7 +8,10 @@ PLy_spi_execute_fetch_result processes SPI execution results and converts them i
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_spi_execute_fetch_result(SPITupleTable *tuptable, uint64 rows, int status)
+```
 ## Detailed Description
 This static function is responsible for converting PostgreSQL SPI execution results into Python objects that can be returned to PL/Python code. It creates a PLyResultObject that encapsulates the execution status, number of affected/returned rows, and the actual result data converted to Python objects.
 

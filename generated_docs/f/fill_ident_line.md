@@ -8,7 +8,12 @@ Builds one row of the pg_ident_file_mappings system view and adds it to a tuples
 
 ## Definition
 
-
+```c
+static void
+fill_ident_line(Tuplestorestate *tuple_store, TupleDesc tupdesc,
+				int map_number, char *filename, int lineno, IdentLine *ident,
+				const char *err_msg)
+```
 ## Detailed Description
 The  function constructs a complete row for the pg_ident_file_mappings system view, which exposes PostgreSQL's user name mapping configuration to SQL queries. It processes a parsed identity mapping line structure and extracts the mapping name, system user pattern, and PostgreSQL user name. The function handles both successful parsing results and error conditions, formatting the data into SQL-compatible types. Like its HBA counterpart, it accepts memory leaks since execution occurs in a short-lived memory context. The function provides visibility into how external authentication systems map their user identities to PostgreSQL roles.
 

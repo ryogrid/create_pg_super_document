@@ -8,7 +8,13 @@ Calculates the Hamming distance between two text search vector signatures, which
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	OffsetNumber pos;
+	int32		cost;
+} SPLITCOST;
+```
 ## Detailed Description
 The hemdist function computes the Hamming distance between two SignTSVector signatures, which is a measure of how different two bit signatures are. This function is essential for GiST (Generalized Search Tree) index operations on text search vectors, particularly for penalty calculation and node splitting decisions.
 

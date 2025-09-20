@@ -8,7 +8,10 @@ Allocates and initializes a new ParamListInfo structure for managing query param
 
 ## Definition
 
-
+```c
+ParamListInfo
+makeParamList(int numParams)
+```
 ## Detailed Description
 The makeParamList function creates and initializes a new ParamListInfo structure with space for a specified number of parameters. It handles memory allocation for both the ParamListInfoData header and the array of ParamExternData entries. The function sets up default values for all fields, including a default parser setup function (paramlist_parser_setup). This function is designed to support both static parameter lists (with a fixed number of parameters) and dynamic parameter lists (by passing 0 for numParams and setting numParams manually later).
 

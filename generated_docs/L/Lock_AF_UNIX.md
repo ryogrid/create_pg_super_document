@@ -8,7 +8,9 @@ Secures exclusive access to Unix domain socket paths by creating an interlock fi
 
 ## Definition
 
-
+```c
+struct group *gr;
+```
 ## Detailed Description
 The  function implements a file-based locking mechanism to ensure exclusive access to Unix domain socket paths. This prevents multiple PostgreSQL postmaster processes from attempting to bind to the same Unix socket path simultaneously.
 

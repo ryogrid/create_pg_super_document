@@ -8,7 +8,11 @@ Routes ACL (Access Control List) mask operations to appropriate object-specific 
 
 ## Definition
 
-
+```c
+static AclMode
+pg_aclmask(ObjectType objtype, Oid object_oid, AttrNumber attnum, Oid roleid,
+		   AclMode mask, AclMaskHow how)
+```
 ## Detailed Description
 The `pg_aclmask` function serves as a central relay mechanism for PostgreSQL's access control system. It dispatches permission checking requests to the appropriate specialized ACL functions based on the object type being accessed. This design provides a unified interface for checking permissions across different types of database objects while delegating the actual permission logic to type-specific implementations.
 

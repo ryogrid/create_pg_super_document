@@ -8,7 +8,10 @@ A private utility function that converts a Cash value (integer) to its English w
 
 ## Definition
 
-
+```c
+static const char *
+num_word(Cash value)
+```
 ## Detailed Description
 The  function converts integer values from 0 to 999 into their corresponding English word representations. It handles various cases including single digits, teens, tens, and hundreds with appropriate grammatical formatting. The function uses static arrays for efficient word lookup and a static buffer for constructing compound number words. It's specifically designed to support the cash_words function for converting monetary amounts to textual format.
 

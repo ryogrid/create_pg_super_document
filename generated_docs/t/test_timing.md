@@ -8,7 +8,10 @@ The test_timing function performs a timing measurement loop to assess the resolu
 
 ## Definition
 
-
+```c
+static uint64
+test_timing(unsigned int duration)
+```
 ## Detailed Description
 This function implements the core timing measurement logic for the pg_test_timing utility. It runs a continuous loop for the specified duration, repeatedly sampling the system clock to measure timing resolution and detect timing anomalies. The function maintains a histogram of timing differences between consecutive clock readings, categorized by the highest bit position of the time difference.
 

@@ -8,7 +8,10 @@ A PostgreSQL function that compares a timestamp with timezone to a date value to
 
 ## Definition
 
-
+```c
+Datum
+timestamptz_ge_date(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the greater-than-or-equal-to comparison operator (>=) between a timestamptz (timestamp with timezone) and a date value. It extracts the timestamptz and date arguments from the function call context, then uses the internal comparison function  to perform the comparison. The function returns true if the timestamp is greater than or equal to the date (i.e., the comparison function returns <= 0), false otherwise.
 

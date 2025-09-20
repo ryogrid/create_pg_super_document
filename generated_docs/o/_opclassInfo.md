@@ -8,7 +8,14 @@ A structure definition used in PostgreSQL's pg_dump utility to represent operato
 
 ## Definition
 
-
+```c
+typedef struct _opclassInfo
+{
+	DumpableObject dobj;
+	Oid			opcmethod;
+	const char *rolname;
+} OpclassInfo;
+```
 ## Detailed Description
 The  structure is part of PostgreSQL's pg_dump utility framework, designed to store metadata about operator classes during database backup operations. Operator classes in PostgreSQL define sets of operators and support functions for specific data types that can be used with particular index access methods. This structure extends the base  to include operator class-specific information, enabling pg_dump to properly serialize and restore operator class definitions along with their associated access methods and ownership information.
 

@@ -8,7 +8,10 @@ Creates the entire hash index by processing sorted tuples from the spool and ins
 
 ## Definition
 
-
+```c
+void
+_h_indexbuild(HSpool *hspool, Relation heapRel)
+```
 ## Detailed Description
 This function completes the hash index construction process by first performing the sort operation on all spooled tuples, then retrieving them in sorted order and inserting each tuple into the hash index. The sorting is primarily a performance optimization to improve locality of access during insertion. The function includes assertion checking to verify that tuples are indeed returned in hash key order, ensuring the tuplesort subsystem correctly handles hash index tuple sorting. Progress is tracked and reported during the insertion phase, and the operation can be interrupted.
 

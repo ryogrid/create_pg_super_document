@@ -8,7 +8,10 @@ Converts a PostgreSQL time with time zone (TIMETZ) value to its binary wire form
 
 ## Definition
 
-
+```c
+Datum
+timetz_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for serializing a PostgreSQL TIMETZ (time with time zone) value into binary format for transmission over the PostgreSQL wire protocol. This function is part of PostgreSQL's type input/output system and is used when data needs to be sent from the server to the client in binary format rather than text format. 
 

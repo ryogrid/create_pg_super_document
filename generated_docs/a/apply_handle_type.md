@@ -8,7 +8,20 @@ Handles TYPE messages in PostgreSQL logical replication by reading and discardin
 
 ## Definition
 
-
+```c
+structure to honor RLS policies.  It might be possible
+	 * to add such infrastructure here, but tablesync workers lack it, too, so
+	 * we don't bother.  RLS does not ordinarily apply to TRUNCATE commands,
+	 * but it seems dangerous to replicate a TRUNCATE and then refuse to
+	 * replicate subsequent INSERTs, so we forbid all commands the same.
+	 */
+	if (check_enable_rls(relid, InvalidOid, false) == RLS_ENABLED)
+		ereport(ERROR,
+				(errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+				 errmsg("user \"%s\" cannot replicate into relation with row-level security enabled: \"%s\"",
+						GetUserNameFromId(GetUserId(), true),
+						RelationGetRelationName(rel))));
+```
 ## Detailed Description
 This function is a message handler in the logical replication worker process that processes TYPE messages from the publisher. The implementation deliberately ignores the type information contained in these messages, operating under the assumption that the user has properly configured the subscriber's table schemas to be compatible with the incoming data types. The function simply reads the type data from the message buffer and discards it, relying on the input functions of locally subscribed tables to handle any necessary type conversions.
 

@@ -8,7 +8,10 @@ Initializes a generic GIN (Generalized Inverted Index) page with the specified f
 
 ## Definition
 
-
+```c
+void
+GinInitPage(Page page, uint32 f, Size pageSize)
+```
 ## Detailed Description
 GinInitPage is a fundamental utility function in the GIN access method that initializes a page for use in GIN indexes. It performs the basic page initialization by calling PostgreSQL's standard PageInit function, then sets up GIN-specific opaque data. The function establishes the page's flags and initializes the rightlink to InvalidBlockNumber, which is typical for newly created pages that don't yet have a right sibling.
 

@@ -8,7 +8,10 @@ Retrieves the database name from connection options including connection strings
 
 ## Definition
 
-
+```c
+char *
+GetDbnameFromConnectionOptions(void)
+```
 ## Detailed Description
 GetDbnameFromConnectionOptions is a special-purpose function that extracts the database name from various connection sources following the same logic as GetConnection(). It first attempts to parse the connection string (if provided) to find a dbname parameter, and if not found, falls back to checking the default connection parameters available from environment variables. The function provides a way to determine the target database name without actually establishing a connection.
 

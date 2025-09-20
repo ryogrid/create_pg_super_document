@@ -8,7 +8,12 @@ Converts SQL values to XML-compliant string representations according to SQL/XML
 
 ## Definition
 
-
+```c
+struct_array(array, elmtype,
+						  elmlen, elmbyval, elmalign,
+						  &elem_values, &elem_nulls,
+						  &num_elems);
+```
 ## Detailed Description
 This function converts PostgreSQL Datum values to their XML string representations, implementing the SQL/XML standard specifications. It handles various data types with specialized formatting requirements and provides optional character escaping for string values.
 

@@ -8,7 +8,10 @@ Optimized comparison function specifically designed for PostgreSQL's SortSupport
 
 ## Definition
 
-
+```c
+static int
+network_fast_cmp(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 This function serves as the fast comparison routine for PostgreSQL's SortSupport optimization framework when sorting network address data types. It acts as a specialized wrapper around , but operates directly on Datum values rather than through the standard PostgreSQL function call interface.
 

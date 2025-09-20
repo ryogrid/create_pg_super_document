@@ -8,7 +8,13 @@ A context structure used during plan finalization to track and accumulate PARAM_
 
 ## Definition
 
-
+```c
+typedef struct finalize_primnode_context
+{
+	PlannerInfo *root;
+	Bitmapset  *paramids;		/* Non-local PARAM_EXEC paramids found */
+} finalize_primnode_context;
+```
 ## Detailed Description
 The  structure serves as a parameter context for the  function during the final phase of query plan preparation. This structure is used in PostgreSQL's query planner to identify and collect all PARAM_EXEC parameter IDs that appear in expression trees throughout the plan. The context maintains a running set of parameter IDs that represent cross-plan-node parameter dependencies, which is crucial for proper plan execution and parameter passing. This information is used to populate the  and  fields of plan nodes, enabling the executor to properly handle parameter-dependent operations like subqueries and joins.
 

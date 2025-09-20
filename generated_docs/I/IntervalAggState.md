@@ -8,7 +8,16 @@ IntervalAggState is a PostgreSQL data structure used as the transition state for
 
 ## Definition
 
-
+```c
+typedef struct IntervalAggState
+{
+	int64		N;				/* count of finite intervals processed */
+	Interval	sumX;			/* sum of finite intervals processed */
+	/* These counts are *not* included in N!  Use IA_TOTAL_COUNT() as needed */
+	int64		pInfcount;		/* count of +infinity intervals */
+	int64		nInfcount;		/* count of -infinity intervals */
+} IntervalAggState;
+```
 ## Detailed Description
 The IntervalAggState structure serves as the transition datatype for PostgreSQL's interval aggregate functions such as AVG() and SUM() when applied to interval data types. This structure is declared as internal and represents a pointer to memory allocated in the aggregate context.
 

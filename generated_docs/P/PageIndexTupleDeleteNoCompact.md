@@ -8,7 +8,10 @@ Removes a specified tuple from an index page by marking its line pointer as unus
 
 ## Definition
 
-
+```c
+void
+PageIndexTupleDeleteNoCompact(Page page, OffsetNumber offnum)
+```
 ## Detailed Description
 PageIndexTupleDeleteNoCompact provides a specialized deletion mechanism for index access methods that require existing TIDs of live tuples to remain unchanged. Instead of compacting out the deleted tuple and shifting line pointers (which would change TIDs), this function:
 

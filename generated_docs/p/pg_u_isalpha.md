@@ -8,7 +8,10 @@ Tests whether a Unicode character is an alphabetic character according to Unicod
 
 ## Definition
 
-
+```c
+bool
+pg_u_isalpha(pg_wchar code)
+```
 ## Detailed Description
 The  function determines if a given Unicode character has the alphabetic property as defined by the Unicode standard. This function is a wrapper around , which performs the actual Unicode property lookup. The function handles both ASCII characters (optimized lookup) and non-ASCII Unicode characters (range search through Unicode property tables).
 

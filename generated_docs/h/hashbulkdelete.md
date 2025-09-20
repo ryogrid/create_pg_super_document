@@ -8,7 +8,11 @@ Performs bulk deletion of all index entries pointing to a set of heap tuples in 
 
 ## Definition
 
-
+```c
+IndexBulkDeleteResult *
+hashbulkdelete(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+			   IndexBulkDeleteCallback callback, void *callback_state)
+```
 ## Detailed Description
 The hashbulkdelete function is the main entry point for bulk deletion operations in PostgreSQL hash indexes. It systematically scans all existing buckets in the hash index and removes tuples that match the deletion criteria provided by the callback function. The function also handles cleanup of tuples that were moved by bucket split operations but are no longer needed.
 

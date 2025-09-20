@@ -8,7 +8,9 @@ AfterTriggerEvent is a pointer type that references AfterTriggerEventData struct
 
 ## Definition
 
-
+```c
+typedef struct AfterTriggerEventData *AfterTriggerEvent;
+```
 ## Detailed Description
 AfterTriggerEvent serves as a handle to trigger event data structures in PostgreSQL's deferred trigger execution system. It is essentially a pointer to AfterTriggerEventData, which contains the actual event information including status flags, tuple identifiers (CTIDs), and partition OIDs for cross-partition operations.
 

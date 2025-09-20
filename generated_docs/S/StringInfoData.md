@@ -8,7 +8,15 @@ StringInfoData is a fundamental data structure in PostgreSQL that holds informat
 
 ## Definition
 
-
+```c
+typedef struct StringInfoData
+{
+	char	   *data;
+	int			len;
+	int			maxlen;
+	int			cursor;
+} StringInfoData;
+```
 ## Detailed Description
 StringInfoData serves as PostgreSQL's primary dynamic string buffer implementation. It supports both mutable strings that can be extended through various append operations and read-only strings for performance-critical scenarios where copying would be too costly. The structure maintains metadata about the buffer's current state, allocated size, and provides a cursor for scanning operations.
 

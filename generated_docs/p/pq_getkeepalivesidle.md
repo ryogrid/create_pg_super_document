@@ -8,7 +8,10 @@ Retrieves the current TCP keepalive idle timeout value for a given port connecti
 
 ## Definition
 
-
+```c
+int
+pq_getkeepalivesidle(Port *port)
+```
 ## Detailed Description
 This function returns the TCP keepalive idle time setting for a port connection. It first checks if a custom keepalive idle time has been set on the port. If not, it attempts to retrieve the system default value using getsockopt() on non-Windows systems. On Windows platforms, the default values cannot be retrieved, so the function returns -1 to indicate "don't know". The function handles both Unix domain sockets (returns 0) and TCP sockets with appropriate platform-specific logic.
 

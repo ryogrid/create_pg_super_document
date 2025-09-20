@@ -8,7 +8,10 @@ Tests whether a leaf tuple satisfies all scan keys and handles the result approp
 
 ## Definition
 
-
+```c
+structedValue would be wrong type */
+		in.reconstructedValue = item->value;
+```
 ## Detailed Description
 This function is the core leaf tuple evaluation mechanism in SP-GiST scanning. It determines whether a leaf tuple matches the scan conditions by calling the opclass-specific leaf_consistent function. The function handles both NULL and non-NULL leaf values, manages memory contexts properly, and processes results differently depending on whether the scan is ordered or not.
 

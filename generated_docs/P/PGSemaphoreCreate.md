@@ -8,7 +8,10 @@ Allocates and initializes a new PostgreSQL semaphore structure with an initial c
 
 ## Definition
 
-
+```c
+PGSemaphore
+PGSemaphoreCreate(void)
+```
 ## Detailed Description
 PGSemaphoreCreate is responsible for creating a new counting semaphore within PostgreSQL's semaphore management system. The function allocates a PGSemaphore structure and initializes it with a count of 1, making it immediately available for use. The implementation varies depending on the platform's semaphore support - it can use either named POSIX semaphores or unnamed POSIX semaphores stored in shared memory.
 

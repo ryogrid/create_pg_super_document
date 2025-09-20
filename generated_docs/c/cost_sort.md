@@ -8,7 +8,13 @@ Determines and returns the cost of sorting a relation, including the cost of rea
 
 ## Definition
 
-
+```c
+void
+cost_sort(Path *path, PlannerInfo *root,
+		  List *pathkeys, Cost input_cost, double tuples, int width,
+		  Cost comparison_cost, int sort_mem,
+		  double limit_tuples)
+```
 ## Detailed Description
 This is a high-level wrapper function for sorting cost estimation that combines the pure sorting cost (calculated by cost_tuplesort) with the cost of reading input data. It provides the complete cost estimation for a Sort plan node.
 

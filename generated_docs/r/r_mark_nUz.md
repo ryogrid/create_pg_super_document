@@ -8,7 +8,11 @@ This function marks or identifies the Turkish suffix 'nUz' in the Snowball stemm
 
 ## Definition
 
+```c
+}
 
+static int r_mark_nUz(struct SN_env * z)
+```
 ## Detailed Description
 The  function is part of the Turkish stemming algorithm implementation in PostgreSQL's Snowball stemmer. It specifically handles the recognition and validation of the Turkish suffix 'nUz' which appears in various forms due to vowel harmony rules in Turkish. The function performs vowel harmony checking and uses backward pattern matching to identify the suffix at the end of a word.
 

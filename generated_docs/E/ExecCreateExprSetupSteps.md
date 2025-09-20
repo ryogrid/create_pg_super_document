@@ -8,7 +8,10 @@ Orchestrates the creation of expression setup steps by analyzing an expression t
 
 ## Definition
 
-
+```c
+static void
+ExecCreateExprSetupSteps(ExprState *state, Node *node)
+```
 ## Detailed Description
 ExecCreateExprSetupSteps is a coordination function in PostgreSQL's expression evaluation system that handles the two-phase process of expression setup step generation. It serves as the main entry point for analyzing complex expressions and creating the necessary setup steps that must be executed before the main expression evaluation can begin.
 

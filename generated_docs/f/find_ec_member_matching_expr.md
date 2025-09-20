@@ -8,7 +8,12 @@ Locates an EquivalenceMember within an EquivalenceClass that matches a given exp
 
 ## Definition
 
-
+```c
+EquivalenceMember *
+find_ec_member_matching_expr(EquivalenceClass *ec,
+							 Expr *expr,
+							 Relids relids)
+```
 ## Detailed Description
 This function searches through the members of an EquivalenceClass to find one that matches the given expression. The matching logic is designed to be flexible for sort expression identification by ignoring binary-compatible relabeling operations (RelabelType nodes).
 

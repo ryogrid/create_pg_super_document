@@ -8,7 +8,10 @@ Converts a PostgreSQL numeric value to a 32-bit floating-point (float4) value, h
 
 ## Definition
 
-
+```c
+Datum
+numeric_float4(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs type conversion from PostgreSQL's arbitrary precision numeric type to a 32-bit floating-point value. It first checks for special numeric values (positive infinity, negative infinity, and NaN) and handles them by returning the corresponding float4 special values. For regular numeric values, it uses an intermediate string conversion approach: first converting the numeric to its string representation using , then parsing that string as a float4 using . This two-step conversion ensures proper handling of precision and rounding according to PostgreSQL's established conversion rules.
 

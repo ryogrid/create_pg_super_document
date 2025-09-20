@@ -8,7 +8,14 @@ The btinsert function inserts an index tuple into a B-tree index by forming the 
 
 ## Definition
 
-
+```c
+bool
+btinsert(Relation rel, Datum *values, bool *isnull,
+		 ItemPointer ht_ctid, Relation heapRel,
+		 IndexUniqueCheck checkUnique,
+		 bool indexUnchanged,
+		 IndexInfo *indexInfo)
+```
 ## Detailed Description
 The btinsert function serves as the main entry point for inserting tuples into B-tree indexes. It acts as a wrapper that handles the conversion of raw column values into a properly formatted index tuple, then delegates the complex insertion logic to the internal _bt_doinsert function. The function forms an index tuple from the provided column values and null flags, sets the tuple's heap pointer to reference the corresponding heap tuple, and then performs the actual insertion while handling uniqueness constraints and other insertion policies.
 

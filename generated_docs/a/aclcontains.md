@@ -8,7 +8,10 @@ Checks whether an Access Control List (ACL) contains a specific ACL item with ma
 
 ## Definition
 
-
+```c
+Datum
+aclcontains(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function determines if a given ACL contains an ACL item that matches the specified criteria. It performs an exact match on the grantee and grantor, and checks that all the privileges specified in the target ACL item are present in at least one item within the ACL. The function implements a contains operation where it verifies that the target item's privileges are a subset of an existing ACL entry's privileges.
 

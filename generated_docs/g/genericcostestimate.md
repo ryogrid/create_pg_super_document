@@ -8,7 +8,13 @@ A general-purpose cost estimation function for index access paths that provides 
 
 ## Definition
 
-
+```c
+void
+genericcostestimate(PlannerInfo *root,
+					IndexPath *path,
+					double loop_count,
+					GenericCosts *costs)
+```
 ## Detailed Description
 The  function provides a comprehensive cost model for index operations that serves as a foundation for more specialized index access method cost estimators. It calculates various cost components including disk I/O costs, CPU costs, and selectivity estimates.
 

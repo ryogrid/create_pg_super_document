@@ -8,7 +8,10 @@ Reads data from a GSSAPI-encrypted connection, handling decryption of incoming p
 
 ## Definition
 
-
+```c
+ssize_t
+be_gssapi_read(Port *port, void *ptr, size_t len)
+```
 ## Detailed Description
 The  function reads up to  bytes of data from a GSSAPI-encrypted connection into the provided buffer. It operates by:
 

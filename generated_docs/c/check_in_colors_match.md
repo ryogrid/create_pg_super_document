@@ -8,7 +8,10 @@ A static helper function that compares whether two colors leading into a given s
 
 ## Definition
 
-
+```c
+static bool
+check_in_colors_match(struct state *s, color co1, color co2)
+```
 ## Detailed Description
 This function is a subroutine for  that determines if two colors (co1 and co2) leading into a given state come from equivalent sets of source states. It performs the inverse operation of , examining incoming arcs instead of outgoing arcs.
 

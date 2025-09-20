@@ -8,7 +8,14 @@ HistControl is an enumeration type that defines command history filtering behavi
 
 ## Definition
 
-
+```c
+enum trivalue
+{
+	TRI_DEFAULT,
+	TRI_NO,
+	TRI_YES,
+};
+```
 ## Detailed Description
 The HistControl enumeration provides a set of flags that determine how psql manages its command history storage. It implements a bitmask-based system where individual flags can be combined to achieve different history filtering behaviors. This enumeration is designed to mirror similar functionality found in bash and other shell environments, giving users familiar control over which commands are preserved in their interactive session history.
 

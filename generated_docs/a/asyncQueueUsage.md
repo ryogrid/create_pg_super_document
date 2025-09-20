@@ -8,7 +8,10 @@ Internal function that calculates and returns the fraction of the notification q
 
 ## Definition
 
-
+```c
+static double
+asyncQueueUsage(void)
+```
 ## Detailed Description
 This function computes the current utilization of the asynchronous notification queue by measuring the distance between the head and tail page positions. It calculates the number of occupied pages and returns this as a fraction of the maximum allowed queue pages. The function uses logical tail page position rather than physical tail page position to avoid instability caused by SLRU (Simple Least Recently Used) segment boundaries and other implementation details.
 

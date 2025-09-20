@@ -8,7 +8,11 @@ Searches for a value within a JSONB container (object or array) based on equalit
 
 ## Definition
 
-
+```c
+JsonbValue *
+findJsonbValueFromContainer(JsonbContainer *container, uint32 flags,
+							JsonbValue *key)
+```
 ## Detailed Description
 This utility function facilitates "containment" operations by searching through JSONB containers to find matching values. For objects, it searches for values associated with keys that match the provided key (which must be a string). For arrays, it searches for elements that equal the provided value. The function supports both object and array container types through flag specification, but only processes one type per call based on the actual container type and requested flags.
 

@@ -8,7 +8,25 @@ A WAL record structure that logs new command ID (CID) assignments for tuple visi
 
 ## Definition
 
+```c
+typedef struct xl_heap_new_cid
+{
+	/*
+	 * store toplevel xid so we don't have to merge cids from different
+	 * transactions
+	 */
+	TransactionId top_xid;
+	CommandId	cmin;
+	CommandId	cmax;
+	CommandId	combocid;		/* just for debugging */
 
+	/*
+	 * Store the relfilelocator/ctid pair to facilitate lookups.
+	 */
+	RelFileLocator target_locator;
+	ItemPointerData target_tid;
+} xl_heap_new_cid;
+```
 ## Detailed Description
 The xl_heap_new_cid structure is used in PostgreSQL's Write-Ahead Logging system to record command ID assignments for tuple visibility. Command IDs are essential for PostgreSQL's MVCC system, allowing multiple commands within a single transaction to see consistent snapshots of data while maintaining isolation from other transactions.
 

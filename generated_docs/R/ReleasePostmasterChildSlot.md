@@ -8,7 +8,10 @@ Releases a previously assigned slot after the death of a postmaster child proces
 
 ## Definition
 
-
+```c
+bool
+ReleasePostmasterChildSlot(int slot)
+```
 ## Detailed Description
 This function deallocates a slot in the PMChildFlags array when a child process terminates, making it available for future child processes. It updates both the shared memory PMChildFlags array and the local PMChildInUse tracking array to reflect that the slot is no longer in use. The function is designed to be idempotent and handles cases where it might be called multiple times for the same slot (as can happen when a child crashes). It returns a boolean indicating whether the slot was previously in the expected ASSIGNED state, which helps the postmaster determine if the child process cleaned up properly before termination.
 

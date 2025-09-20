@@ -8,7 +8,19 @@ SplitPageLayout is a structure that represents the result of the gistSplit funct
 
 ## Definition
 
+```c
+typedef struct SplitPageLayout
+{
+	gistxlogPage block;
+	IndexTupleData *list;
+	int			lenlist;
+	IndexTuple	itup;			/* union key for page */
+	Page		page;			/* to operate */
+	Buffer		buffer;			/* to write after all proceed */
 
+	struct SplitPageLayout *next;
+} SplitPageLayout;
+```
 ## Detailed Description
 SplitPageLayout serves as a container for all data needed during GiST index page split operations. When a page becomes full and needs to be split, this structure holds the reorganized data, including the new page layout, tuples to be placed, and metadata required for WAL (Write-Ahead Logging) operations. The structure forms a linked list through the 'next' pointer, allowing multiple split pages to be processed together during complex split scenarios.
 

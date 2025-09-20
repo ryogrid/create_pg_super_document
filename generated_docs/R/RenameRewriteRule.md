@@ -8,7 +8,11 @@ Renames an existing rewrite rule by updating the rule name in the system catalog
 
 ## Definition
 
-
+```c
+ObjectAddress
+RenameRewriteRule(RangeVar *relation, const char *oldName,
+				  const char *newName)
+```
 ## Detailed Description
 This function implements PostgreSQL's ALTER RULE RENAME functionality by updating the rule name in the pg_rewrite system catalog. It performs extensive validation including relation existence, permission checks, rule existence verification, name conflict detection, and special restrictions on ON SELECT rules. The operation maintains an AccessExclusiveLock on the target relation throughout the transaction to ensure consistency. The function follows PostgreSQL's standard pattern for DDL operations: validation, catalog updates, hook invocation, and cache invalidation to ensure all backends see the changes.
 

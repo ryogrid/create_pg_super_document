@@ -8,7 +8,10 @@ A static function that exports a PostgreSQL large object to a file on the Unix f
 
 ## Definition
 
-
+```c
+static void
+exportFile(PGconn *conn, Oid lobjId, char *filename)
+```
 ## Detailed Description
 The  function provides functionality to export a PostgreSQL large object to an external Unix file. It opens the specified large object in read-only mode, creates or truncates the target file, and copies the large object's contents to the file using a buffered read/write approach. The function handles the complete export process including proper file creation, data transfer in chunks, and cleanup of both database and file descriptors.
 

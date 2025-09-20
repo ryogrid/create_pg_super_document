@@ -8,7 +8,10 @@ A utility function that marks an LLVM function call site with the "readonly" att
 
 ## Definition
 
-
+```c
+static inline void
+l_callsite_ro(LLVMValueRef f)
+```
 ## Detailed Description
 This function applies the "readonly" attribute to an LLVM function call site, which is an important optimization hint for the LLVM compiler. The "readonly" attribute tells LLVM that the function being called does not write to memory that is visible to the caller, allowing for more aggressive optimizations such as:
 

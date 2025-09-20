@@ -8,7 +8,21 @@
 
 ## Definition
 
-
+```c
+struct all matching IndexPaths for the relation.
+ *
+ * Here we must scan all indexes of the relation, since a bitmap OR tree
+ * can use multiple indexes.
+ *
+ * The caller actually supplies two lists of restriction clauses: some
+ * "current" ones and some "other" ones.  Both lists can be used freely
+ * to match keys of the index, but an index must use at least one of the
+ * "current" clauses to be considered usable.  The motivation for this is
+ * examples like
+ *		WHERE (x = 42) AND (... OR (y = 52 AND z = 77) OR ....)
+ * While we are considering the y/z subclause of the OR, we can use "x = 42"
+ * as one of the available index conditions;
+```
 ## Detailed Description
 This comprehensive function builds IndexPaths through a systematic 5-step process:
 

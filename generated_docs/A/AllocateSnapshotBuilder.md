@@ -8,7 +8,11 @@ AllocateSnapshotBuilder allocates and initializes a new snapshot builder for log
 
 ## Definition
 
+```c
+struct members initialized by zeroing via palloc0 above */
 
+	builder->committed.xcnt = 0;
+```
 ## Detailed Description
 This function creates a new SnapBuild structure which is the core component for building consistent snapshots during logical replication. It allocates the structure in its own memory context for better memory management and accountability. The function initializes the snapshot builder with starting parameters that define the point from which catalog consistency can be guaranteed and transaction replay should begin. The builder starts in the SNAPBUILD_START state and sets up initial arrays for tracking committed transactions and catalog changes.
 

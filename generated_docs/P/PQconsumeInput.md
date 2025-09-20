@@ -8,7 +8,10 @@ PQconsumeInput is a public libpq function that consumes any available input data
 
 ## Definition
 
-
+```c
+int
+PQconsumeInput(PGconn *conn)
+```
 ## Detailed Description
 PQconsumeInput is a fundamental libpq function used to read available data from the PostgreSQL server connection without blocking. It performs essential input/output management by first flushing any pending output for non-blocking connections, then reading any available input data from the network socket.
 

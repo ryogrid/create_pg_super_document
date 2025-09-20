@@ -8,7 +8,10 @@ A public function that converts a JSONB container to its C-string representation
 
 ## Definition
 
-
+```c
+char *
+JsonbToCString(StringInfo out, JsonbContainer *in, int estimated_len)
+```
 ## Detailed Description
 This function provides a simple interface for converting JSONB data to its string representation. It serves as a wrapper around JsonbToCStringWorker with indentation disabled (false). The function can either allocate a new string or append to an existing StringInfo buffer, making it flexible for different use cases. It is commonly used for JSONB output functions and when converting JSONB values to text format. The function ensures efficient memory usage by accepting an estimated length parameter for buffer pre-allocation.
 

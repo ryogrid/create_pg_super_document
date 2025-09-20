@@ -8,7 +8,10 @@ Determines if one multirange is strictly positioned before (to the left of) anot
 
 ## Definition
 
-
+```c
+Datum
+multirange_before_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function implements the "strictly left of" operator (<<) between two multiranges. It checks whether the first multirange is entirely positioned before the second multirange with no overlap or adjacency. The function serves as a SQL-callable wrapper around the internal  function.
 

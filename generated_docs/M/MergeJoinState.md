@@ -8,7 +8,29 @@ MergeJoinState represents the execution state for merge join operations, maintai
 
 ## Definition
 
-
+```c
+typedef struct MergeJoinState
+{
+	JoinState	js;				/* its first field is NodeTag */
+	int			mj_NumClauses;
+	MergeJoinClause mj_Clauses; /* array of length mj_NumClauses */
+	int			mj_JoinState;
+	bool		mj_SkipMarkRestore;
+	bool		mj_ExtraMarks;
+	bool		mj_ConstFalseJoin;
+	bool		mj_FillOuter;
+	bool		mj_FillInner;
+	bool		mj_MatchedOuter;
+	bool		mj_MatchedInner;
+	TupleTableSlot *mj_OuterTupleSlot;
+	TupleTableSlot *mj_InnerTupleSlot;
+	TupleTableSlot *mj_MarkedTupleSlot;
+	TupleTableSlot *mj_NullOuterTupleSlot;
+	TupleTableSlot *mj_NullInnerTupleSlot;
+	ExprContext *mj_OuterEContext;
+	ExprContext *mj_InnerEContext;
+} MergeJoinState;
+```
 ## Detailed Description
 MergeJoinState extends JoinState to provide comprehensive state management for merge join execution. Merge joins are efficient for joining two relations that are already sorted on the join keys, using a parallel scan algorithm similar to merging sorted arrays. The state maintains join clauses for multi-column joins, tracks the current position in the merge algorithm state machine, manages tuple slots for current and marked positions, and handles optimization flags for performance improvements.
 

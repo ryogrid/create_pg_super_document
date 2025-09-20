@@ -8,7 +8,10 @@ Converts an operator OID to its textual representation in the format "opr_name(a
 
 ## Definition
 
-
+```c
+Datum
+regoperatorout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is an output function for the  data type in PostgreSQL. It takes an operator OID (Object Identifier) as input and converts it to a human-readable string representation. The function handles the special case of invalid OIDs by returning "0", and for valid OIDs, it delegates the actual formatting to the  helper function which generates the operator name with its argument types in parentheses.
 

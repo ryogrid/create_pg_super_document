@@ -8,7 +8,10 @@ A PostgreSQL function that performs prefix comparison of text search lexemes for
 
 ## Definition
 
-
+```c
+Datum
+gin_cmp_prefix(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements prefix-based comparison logic for GIN indexes in PostgreSQL's text search system. Unlike  which performs exact comparisons, this function is designed for prefix matching operations where one lexeme may be a prefix of another. 
 

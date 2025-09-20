@@ -8,7 +8,10 @@ A subroutine of MemoryContextDelete that deletes a context with no children, han
 
 ## Definition
 
-
+```c
+static void
+MemoryContextDeleteOnly(MemoryContext context)
+```
 ## Detailed Description
 MemoryContextDeleteOnly is a specialized static function designed to safely delete a single memory context that has no children. As a subroutine of MemoryContextDelete, it handles the intricate details of context destruction while maintaining system stability and preventing memory corruption.
 

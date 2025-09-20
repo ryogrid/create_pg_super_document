@@ -8,7 +8,10 @@ Copies the contents of a subdirectory from the old PostgreSQL cluster to the cor
 
 ## Definition
 
-
+```c
+static void
+copy_subdir_files(const char *old_subdir, const char *new_subdir)
+```
 ## Detailed Description
 This function performs a complete directory copy operation from the old cluster to the new cluster during pg_upgrade. It first removes the existing subdirectory in the new cluster (including the directory itself), then copies the entire contents of the corresponding subdirectory from the old cluster.
 

@@ -8,7 +8,10 @@ Determines the oldest LSN that has not yet been summarized and updates shared me
 
 ## Definition
 
-
+```c
+XLogRecPtr
+GetOldestUnsummarizedLSN(TimeLineID *tli, bool *lsn_is_exact)
+```
 ## Detailed Description
 This function calculates the oldest Log Sequence Number (LSN) that still needs to be summarized by examining existing WAL files and summary files. It serves two main purposes: for the WAL summarizer process, it provides the starting point for summarization work; for other processes, it provides information for WAL retention decisions. The function examines the timeline history, finds the oldest available WAL segments, and accounts for existing summary files to determine where summarization should begin or resume.
 

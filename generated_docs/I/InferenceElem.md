@@ -8,7 +8,15 @@ A node representing an element of a unique index inference specification, used i
 
 ## Definition
 
-
+```c
+typedef struct InferenceElem
+{
+	Expr		xpr;
+	Node	   *expr;			/* expression to infer from, or NULL */
+	Oid			infercollid;	/* OID of collation, or InvalidOid */
+	Oid			inferopclass;	/* OID of att opclass, or InvalidOid */
+} InferenceElem;
+```
 ## Detailed Description
 InferenceElem represents individual elements within a unique index inference specification, primarily used in PostgreSQL's INSERT ... ON CONFLICT functionality. When PostgreSQL needs to determine which unique index to use for conflict detection, it analyzes InferenceElem nodes that describe the expressions, collations, and operator classes that should match a particular unique index.
 

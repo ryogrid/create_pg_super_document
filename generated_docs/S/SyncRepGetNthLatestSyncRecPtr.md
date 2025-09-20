@@ -8,7 +8,11 @@ Calculates the Nth latest Write, Flush, and Apply LSN positions among synchronou
 
 ## Definition
 
-
+```c
+structs of per-walsender data,
+ * and the number of valid entries (candidate sync senders) is returned.
+ * (This might be more or fewer than num_sync;
+```
 ## Detailed Description
 This function implements the position calculation logic for quorum-based synchronous replication in PostgreSQL. It determines the Nth latest LSN position for each operation type by sorting all standby positions in descending order and selecting the appropriate position.
 

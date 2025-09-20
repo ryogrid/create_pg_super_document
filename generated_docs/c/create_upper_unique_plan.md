@@ -8,7 +8,10 @@ Creates a Unique plan node for eliminating duplicate rows from upper-level query
 
 ## Definition
 
-
+```c
+static Unique *
+create_upper_unique_plan(PlannerInfo *root, UpperUniquePath *best_path, int flags)
+```
 ## Detailed Description
 The  function generates a Unique plan node from an UpperUniquePath, which is used to eliminate duplicate rows in upper-level query processing contexts (as opposed to base relation uniqueness). This function is part of PostgreSQL's plan creation infrastructure for handling DISTINCT operations and other uniqueness requirements.
 

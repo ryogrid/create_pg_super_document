@@ -8,7 +8,12 @@ Generates and appends a SQL REINDEX command to a buffer based on specified reind
 
 ## Definition
 
-
+```c
+static void
+gen_reindex_command(PGconn *conn, ReindexType type, const char *name,
+					bool echo, bool verbose, bool concurrently,
+					const char *tablespace, PQExpBufferData *sql)
+```
 ## Detailed Description
 This function constructs a properly formatted SQL REINDEX command by appending to an existing PQExpBuffer. It handles the complex syntax variations of the REINDEX command across different PostgreSQL versions and object types.
 

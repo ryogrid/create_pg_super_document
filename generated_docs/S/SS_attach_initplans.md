@@ -8,7 +8,10 @@ Attaches initialization plans (initplans) created during the current query level
 
 ## Definition
 
-
+```c
+void
+SS_attach_initplans(PlannerInfo *root, Plan *plan)
+```
 ## Detailed Description
 SS_attach_initplans is a utility function in PostgreSQL's query planner that handles the attachment of initialization plans to a plan node. InitPlans are subqueries that need to be executed before the main query execution begins, typically for correlated subqueries or expressions that need to be evaluated once per query execution.
 

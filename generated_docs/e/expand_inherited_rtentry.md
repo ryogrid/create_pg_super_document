@@ -8,7 +8,11 @@ Expands a range table entry (RTE) that has inheritance enabled, adding child rel
 
 ## Definition
 
-
+```c
+void
+expand_inherited_rtentry(PlannerInfo *root, RelOptInfo *rel,
+						 RangeTblEntry *rte, Index rti)
+```
 ## Detailed Description
 This function handles the expansion of range table entries marked with the "inh" (inheritance) flag. It supports two main scenarios:
 

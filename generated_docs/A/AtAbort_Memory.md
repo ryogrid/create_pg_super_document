@@ -8,7 +8,10 @@ AtAbort_Memory switches the current memory context to TransactionAbortContext to
 
 ## Definition
 
-
+```c
+static void
+AtAbort_Memory(void)
+```
 ## Detailed Description
 This function performs a critical memory management operation during transaction abort by switching the active memory context to TransactionAbortContext. The TransactionAbortContext is specifically designed to have reserved free space that remains available even when other memory contexts are exhausted or corrupted.
 

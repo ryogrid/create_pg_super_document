@@ -8,7 +8,11 @@ Deallocates memory for a symbol structure, safely handling NULL pointers in the 
 
 ## Definition
 
+```c
+}
 
+extern void lose_s(symbol * p)
+```
 ## Detailed Description
 The  function is responsible for properly deallocating memory that was allocated for a symbol structure. It's the counterpart to  and handles the cleanup of symbol objects in PostgreSQL's Snowball stemming library. The function accounts for the header offset when freeing memory, ensuring that the original malloc'd pointer is passed to free().
 

@@ -8,7 +8,10 @@ findTypeInputFunction locates and validates an appropriate input function for a 
 
 ## Definition
 
-
+```c
+static Oid
+findTypeInputFunction(List *procname, Oid typeOid)
+```
 ## Detailed Description
 This function performs comprehensive validation of type input functions by:
 

@@ -8,7 +8,13 @@ RI_CompareKey is a structure that serves as a key for identifying cached compari
 
 ## Definition
 
-
+```c
+typedef struct RI_CompareKey
+{
+	Oid			eq_opr;			/* the equality operator to apply */
+	Oid			typeid;			/* the data type to apply it to */
+} RI_CompareKey;
+```
 ## Detailed Description
 RI_CompareKey provides a composite key mechanism for caching equality comparison information in referential integrity operations. The structure combines an equality operator OID with a data type OID to uniquely identify how two values of a specific type should be compared for equality. This caching mechanism optimizes foreign key constraint checking by avoiding repeated lookups of appropriate comparison operators for the same data types.
 

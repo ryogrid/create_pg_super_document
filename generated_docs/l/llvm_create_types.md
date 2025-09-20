@@ -8,7 +8,10 @@ Loads and initializes PostgreSQL data structure type definitions and function te
 
 ## Definition
 
-
+```c
+static void
+llvm_create_types(void)
+```
 ## Detailed Description
 This function is responsible for loading the essential LLVM type definitions and function templates that the PostgreSQL JIT compilation system needs. It reads from the precompiled bitcode file  located in the PostgreSQL library directory and extracts LLVM type representations for various PostgreSQL data structures and function signatures.
 

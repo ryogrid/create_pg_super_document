@@ -8,7 +8,9 @@ Checks for the presence of a log rotation signal file to determine if a manual l
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 The  function provides a mechanism for detecting external requests for log file rotation by checking for the existence of a specific signal file (). This function is typically called by the postmaster process after receiving a SIGUSR1 signal to determine if the signal was sent to request log rotation. The function uses the standard  system call to check for file existence, returning  if the signal file exists and  otherwise. This approach allows external scripts and administrators to trigger log rotation by creating the signal file.
 

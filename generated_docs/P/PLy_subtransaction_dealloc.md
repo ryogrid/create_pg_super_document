@@ -8,7 +8,10 @@ A required but empty deallocation function for PLy subtransaction objects to sat
 
 ## Definition
 
-
+```c
+static void
+PLy_subtransaction_dealloc(PyObject *subxact)
+```
 ## Detailed Description
 This function serves as the deallocation handler for PLySubtransactionObject instances. While Python's type system requires a dealloc function to be defined for custom types, this implementation is intentionally empty. The function exists purely to satisfy Python's API requirements and does not perform any cleanup operations. This suggests that subtransaction objects either don't require explicit cleanup or that cleanup is handled elsewhere in the system.
 

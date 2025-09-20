@@ -8,7 +8,10 @@ Estimates the CPU costs of evaluating a single qualification expression or Restr
 
 ## Definition
 
-
+```c
+void
+cost_qual_eval_node(QualCost *cost, Node *qual, PlannerInfo *root)
+```
 ## Detailed Description
 The  function is a specialized version of  that estimates evaluation costs for a single qualification expression rather than a list of expressions. It provides the same startup and per-tuple cost estimation but operates on individual nodes, making it suitable for fine-grained cost analysis of specific expressions.
 

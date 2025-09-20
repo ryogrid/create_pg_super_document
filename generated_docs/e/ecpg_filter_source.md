@@ -8,7 +8,10 @@ Filters source files by normalizing #line directives, removing path components t
 
 ## Definition
 
-
+```c
+static void
+ecpg_filter_source(const char *sourcefile, const char *outfile)
+```
 ## Detailed Description
 This function creates a filtered copy of a source file, specifically designed to normalize #line preprocessor directives. It removes path components from file references in #line directives to ensure consistent output regardless of compiler, platform, or build configuration differences. For example, it transforms  into  by stripping the relative path portion.
 

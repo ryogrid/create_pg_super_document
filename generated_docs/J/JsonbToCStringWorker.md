@@ -8,7 +8,10 @@ The core static function that performs the actual conversion of JSONB containers
 
 ## Definition
 
-
+```c
+static char *
+JsonbToCStringWorker(StringInfo out, JsonbContainer *in, int estimated_len, bool indent)
+```
 ## Detailed Description
 This function is the heart of JSONB to string conversion in PostgreSQL. It uses a JsonbIterator to traverse the JSONB structure and builds the string representation token by token. The function handles all JSONB types including objects, arrays, and scalar values, with support for both compact and indented output formats. It manages proper JSON syntax including commas, brackets, braces, colons, and indentation. The function includes special handling for raw scalar values (top-level scalars wrapped in arrays) and maintains proper nesting levels for indentation. It uses an iterator-based approach that allows for efficient memory usage and streaming output generation.
 

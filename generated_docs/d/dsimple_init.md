@@ -8,7 +8,10 @@ Initializes a simple dictionary for PostgreSQL's text search system by parsing c
 
 ## Definition
 
-
+```c
+Datum
+dsimple_init(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the initialization routine for PostgreSQL's simple dictionary text search feature. It processes a list of dictionary options provided during dictionary creation and configures a DictSimple structure accordingly. The function supports two main configuration parameters: "stopwords" for specifying a list of words to ignore during text search, and "accept" for controlling whether unrecognized words should be accepted or rejected. The function implements proper error handling to prevent duplicate parameter specifications and validates parameter names to ensure only recognized options are accepted.
 

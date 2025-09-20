@@ -8,7 +8,16 @@ A structure that maps PostgreSQL encoding numbers to their official encoding nam
 
 ## Definition
 
-
+```c
+typedef struct pg_enc2name
+{
+	const char *name;
+	pg_enc		encoding;
+#ifdef WIN32
+	unsigned	codepage;		/* codepage for WIN32 */
+#endif
+} pg_enc2name;
+```
 ## Detailed Description
 The  structure is the core data structure used in PostgreSQL's encoding management system. It provides a mapping between PostgreSQL's internal encoding identifiers ( enum values) and their corresponding official encoding names as strings. This structure is primarily used to populate the  array, which serves as the authoritative lookup table for encoding information throughout the PostgreSQL system.
 

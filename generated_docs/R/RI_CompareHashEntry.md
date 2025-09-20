@@ -8,7 +8,15 @@ RI_CompareHashEntry is a hash table entry structure that caches equality compari
 
 ## Definition
 
-
+```c
+typedef struct RI_CompareHashEntry
+{
+	RI_CompareKey key;
+	bool		valid;			/* successfully initialized? */
+	FmgrInfo	eq_opr_finfo;	/* call info for equality fn */
+	FmgrInfo	cast_func_finfo;	/* in case we must coerce input */
+} RI_CompareHashEntry;
+```
 ## Detailed Description
 RI_CompareHashEntry represents an entry in the comparison operator cache hash table used by PostgreSQL's referential integrity system. Each entry stores precomputed function call information for equality operations on specific data types, along with optional type coercion information. This structure eliminates the need to repeatedly look up function information during foreign key constraint checking, significantly improving performance for applications with frequent constraint validations.
 

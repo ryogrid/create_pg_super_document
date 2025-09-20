@@ -8,7 +8,10 @@ Converts an int8range (64-bit integer range) to its canonical form by normalizin
 
 ## Definition
 
-
+```c
+Datum
+int8range_canonical(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function standardizes int8range values to a canonical representation where lower bounds are inclusive and upper bounds are exclusive. Similar to int4range_canonical but operating on 64-bit integers, this function converts exclusive lower bounds to inclusive by incrementing the value, and converts inclusive upper bounds to exclusive by incrementing the value. It includes overflow checking to prevent integer overflow when incrementing boundary values near PG_INT64_MAX.
 

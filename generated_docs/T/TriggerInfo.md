@@ -8,7 +8,18 @@ TriggerInfo is a structure used by pg_dump to store metadata about database trig
 
 ## Definition
 
-
+```c
+typedef struct _evttriggerInfo
+{
+	DumpableObject dobj;
+	char	   *evtname;
+	char	   *evtevent;
+	const char *evtowner;
+	char	   *evttags;
+	char	   *evtfname;
+	char		evtenabled;
+} EventTriggerInfo;
+```
 ## Detailed Description
 TriggerInfo represents trigger metadata in PostgreSQL's pg_dump utility. It extends the base DumpableObject structure to include trigger-specific information necessary for dumping and restoring triggers. The structure maintains references to the associated table and stores the trigger's definition along with its enabled state and partition information.
 

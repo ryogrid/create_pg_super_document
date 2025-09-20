@@ -8,7 +8,13 @@ The core function for fetching the next heap tuple during sequential table scann
 
 ## Definition
 
-
+```c
+static void
+heapgettup(HeapScanDesc scan,
+		   ScanDirection dir,
+		   int nkeys,
+		   ScanKey key)
+```
 ## Detailed Description
 This function implements the main logic for heap table scanning. If the scan is already initialized, it continues from the previously returned page/tuple using heapgettup_continue_page(). For new scans, it fetches pages using heap_fetch_next_buffer() and processes each tuple on the page. For each tuple, it checks visibility using HeapTupleSatisfiesVisibility(), handles serializable isolation conflicts, and applies scan key filters. When a qualifying tuple is found, it sets scan->rs_ctup and rs_coffset and returns. The scan state is reset when no more tuples are found.
 

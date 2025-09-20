@@ -8,7 +8,23 @@ Detects whether two relations should be joined to satisfy join-order restriction
 
 ## Definition
 
+```c
+struct a plan at all.)
+	 */
+	foreach(l, root->placeholder_list)
+	{
+		PlaceHolderInfo *phinfo = (PlaceHolderInfo *) lfirst(l);
 
+		if (bms_is_subset(rel1->relids, phinfo->ph_eval_at) &&
+			bms_is_subset(rel2->relids, phinfo->ph_eval_at))
+			return true;
+	}
+
+	/*
+	 * It's possible that the rels correspond to the left and right sides of a
+	 * degenerate outer join, that is, one with no joinclause mentioning the
+	 * non-nullable side;
+```
 ## Detailed Description
 The  function determines whether a join between two relations is required to satisfy various ordering constraints in query execution. It handles several types of mandatory join situations: lateral references between relations, PlaceHolderVar computation requirements, and degenerate outer joins that lack explicit join clauses but must still be executed due to semantic requirements.
 

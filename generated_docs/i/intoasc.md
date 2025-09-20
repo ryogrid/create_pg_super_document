@@ -8,7 +8,17 @@ A compatibility wrapper function that converts an interval data structure to its
 
 ## Definition
 
-
+```c
+struct
+{
+	long		val;
+	int			maxdigits;
+	int			digits;
+	int			remaining;
+	char		sign;
+	char	   *val_string;
+}			value;
+```
 ## Detailed Description
 The `intoasc` function is part of PostgreSQL's ECPG Informix compatibility layer that converts an interval data structure into its ASCII string representation. It wraps the PostgreSQL native `PGTYPESinterval_to_asc` function, handling memory management and error reporting in an Informix-compatible manner.
 

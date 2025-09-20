@@ -8,7 +8,13 @@ The add_reloption_kind function creates a new relopt_kind value for use in custo
 
 ## Definition
 
-
+```c
+enum's behavior is portable */
+	if (last_assigned_kind >= RELOPT_KIND_MAX)
+		ereport(ERROR,
+				(errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+				 errmsg("user-defined relation parameter types limit exceeded")));
+```
 ## Detailed Description
 This function generates unique relation option kind identifiers for custom access methods that need to define their own relation options. It implements a simple bit-shifting allocation scheme to ensure each custom AM gets a unique identifier. The function tracks the last assigned kind using a static variable and shifts it left by one bit for each new allocation, effectively creating powers-of-2 identifiers.
 

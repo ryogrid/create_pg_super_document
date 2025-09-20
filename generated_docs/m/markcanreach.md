@@ -8,7 +8,13 @@ The markcanreach function is a recursive utility function in PostgreSQL's regex 
 
 ## Definition
 
-
+```c
+static void
+markcanreach(struct nfa *nfa,
+			 struct state *s,
+			 struct state *okay,	/* consider only states with this mark */
+			 struct state *mark)	/* the value to mark with */
+```
 ## Detailed Description
 This function performs a reverse depth-first traversal of an NFA, starting from a given state and working backwards through incoming arcs to mark all states that can reach the starting state. It only considers states that currently have the 'okay' mark and changes them to the new 'mark' value. The function follows all incoming arcs (ins) from each state, tracing backwards through the NFA structure.
 

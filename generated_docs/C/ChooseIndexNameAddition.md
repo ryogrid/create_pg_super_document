@@ -8,7 +8,10 @@ ChooseIndexNameAddition generates a column-based name component for PostgreSQL i
 
 ## Definition
 
-
+```c
+static char *
+ChooseIndexNameAddition(const List *colnames)
+```
 ## Detailed Description
 ChooseIndexNameAddition creates a "name2" component that will be used by ChooseRelationName when generating index names. It concatenates column names from the provided list, separating them with underscores, and ensures the result fits within PostgreSQL's NAMEDATALEN limit. The function builds the name incrementally, checking length constraints to avoid buffer overflow.
 

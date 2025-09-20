@@ -8,7 +8,10 @@ Retrieve the number of parameters (arguments) that a prepared SPI plan expects.
 
 ## Definition
 
-
+```c
+int
+SPI_getargcount(SPIPlanPtr plan)
+```
 ## Detailed Description
 SPI_getargcount returns the number of parameters that a prepared SPI plan expects when executed. This function is essential for determining how many arguments need to be provided when calling SPI_execute_plan or related execution functions. It performs validation to ensure the plan is valid by checking the magic number.
 

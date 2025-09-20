@@ -8,7 +8,10 @@ Determines if one TOC entry has exclusive lock requirements that conflict with a
 
 ## Definition
 
-
+```c
+static bool
+has_lock_conflicts(TocEntry *te1, TocEntry *te2)
+```
 ## Detailed Description
 This function checks for potential lock conflicts between two TOC (Table of Contents) entries during parallel restore operations. It examines whether te1 has any exclusive lock dependencies (lockDeps) that overlap with te2's general dependencies. This is crucial for preventing deadlocks in parallel restore by ensuring that items requiring exclusive locks on the same database objects are not processed simultaneously by different workers.
 

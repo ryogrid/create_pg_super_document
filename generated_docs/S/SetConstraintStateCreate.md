@@ -8,7 +8,10 @@ SetConstraintStateCreate creates an empty SetConstraintState structure with allo
 
 ## Definition
 
-
+```c
+static SetConstraintState
+SetConstraintStateCreate(int numalloc)
+```
 ## Detailed Description
 This function allocates and initializes a new SetConstraintState structure in TopTransactionContext. It creates space for the base structure plus an array of SetConstraintTriggerData elements. The function ensures a minimum allocation of 1 element even when 0 is requested for safety. Memory is zero-initialized, which correctly sets up the initial state values for the constraint state management system.
 

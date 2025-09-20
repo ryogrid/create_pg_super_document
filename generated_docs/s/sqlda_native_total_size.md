@@ -8,7 +8,10 @@ Calculates the total memory size required for a native SQLDA structure including
 
 ## Definition
 
-
+```c
+static long
+sqlda_native_total_size(const PGresult *res, int row, enum COMPAT_MODE compat)
+```
 ## Detailed Description
 This function computes the complete memory footprint needed to allocate a native SQLDA (SQL Descriptor Area) structure that can hold both the metadata and actual data values from a specific row of a PostgreSQL query result. It first calculates the base size for the empty SQLDA structure and then adds the space required for the actual field values. If a negative row number is provided, it returns only the empty structure size without data space.
 

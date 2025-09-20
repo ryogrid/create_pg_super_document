@@ -8,7 +8,18 @@ A data structure that extends TuplesortIndexArg with additional fields specific 
 
 ## Definition
 
+```c
+structure pointed by "TuplesortPublic.arg" for the index_hash subcase.
+ */
+typedef struct
+{
+	TuplesortIndexArg index;
 
+	uint32		high_mask;		/* masks for sortable part of hash code */
+	uint32		low_mask;
+	uint32		max_buckets;
+} TuplesortIndexHashArg;
+```
 ## Detailed Description
 TuplesortIndexBTreeArg is a specialized data structure used by PostgreSQL's tuple sorting mechanism for B-tree index creation. It inherits the basic index sorting functionality from TuplesortIndexArg and adds specific fields to handle unique constraints. This structure is pointed to by TuplesortPublic.arg in the index_btree subcase and is used exclusively by IndexTuple routines during B-tree index construction.
 

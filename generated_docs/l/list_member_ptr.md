@@ -8,7 +8,10 @@ Tests whether a given pointer value is a member of a pointer list using simple p
 
 ## Definition
 
-
+```c
+bool
+list_member_ptr(const List *list, const void *datum)
+```
 ## Detailed Description
 The  function performs membership testing on PostgreSQL's List data structure specifically for pointer lists. It iterates through the list cells using the  macro and compares each cell's data pointer with the target datum using direct pointer comparison ( operator). The function includes assertions to ensure the input list is actually a pointer list type and validates list invariants for debugging purposes.
 

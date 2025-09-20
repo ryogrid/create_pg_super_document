@@ -8,7 +8,36 @@ The  structure represents a compatibility layer for SQL variable descriptors in 
 
 ## Definition
 
+```c
+struct sqlvar_compat
+{
+	short		sqltype;		/* variable type				*/
+	int			sqllen;			/* length in bytes				*/
+	char	   *sqldata;		/* pointer to data				*/
+	short	   *sqlind;			/* pointer to indicator			*/
+	char	   *sqlname;		/* variable name				*/
+	char	   *sqlformat;		/* reserved for future use		*/
+	short		sqlitype;		/* ind variable type			*/
+	short		sqlilen;		/* ind length in bytes			*/
+	char	   *sqlidata;		/* ind data pointer				*/
+	int			sqlxid;			/* extended id type				*/
+	char	   *sqltypename;	/* extended type name			*/
+	short		sqltypelen;		/* length of extended type name */
+	short		sqlownerlen;	/* length of owner name			*/
+	short		sqlsourcetype;	/* source type for distinct of built-ins */
+	char	   *sqlownername;	/* owner name					*/
+	int			sqlsourceid;	/* extended id of source type	*/
 
+	/*
+	 * sqlilongdata is new.  It supports data that exceeds the 32k limit.
+	 * sqlilen and sqlidata are for backward compatibility and they have
+	 * maximum value of <32K.
+	 */
+	char	   *sqlilongdata;	/* for data field beyond 32K	*/
+	int			sqlflags;		/* for internal use only		*/
+	void	   *sqlreserved;	/* reserved for future use		*/
+};
+```
 ## Detailed Description
 The  structure serves as a comprehensive descriptor for SQL variables within the ECPG compatibility layer. This structure extends basic variable information with advanced features like support for large data fields (beyond 32K), extended type information, and ownership details. It maintains backward compatibility while providing enhanced functionality for modern PostgreSQL applications.
 

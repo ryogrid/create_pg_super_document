@@ -8,7 +8,11 @@ Entry point function for SP-GiST bulk delete operations, setting up the bulk del
 
 ## Definition
 
-
+```c
+struct */
+	if (stats == NULL)
+		stats = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+```
 ## Detailed Description
 The `spgbulkdelete` function serves as the main entry point for SP-GiST bulk deletion operations during VACUUM commands. It follows the standard PostgreSQL index AM interface for bulk delete operations.
 

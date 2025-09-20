@@ -8,7 +8,10 @@ Performs addition of two NumericVar values, handling signs and delegating to app
 
 ## Definition
 
-
+```c
+static void
+add_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result)
+```
 ## Detailed Description
 The  function is the full version of addition functionality at the variable level for PostgreSQL's NUMERIC data type. It handles signed addition by analyzing the signs of both operands and determining the appropriate operation (addition or subtraction of absolute values). The function safely handles cases where the result might point to one of the operands without causing memory issues.
 

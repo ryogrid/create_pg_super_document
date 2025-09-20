@@ -8,7 +8,10 @@ A SQL-callable function that checks whether Row Level Security is active for a t
 
 ## Definition
 
-
+```c
+Datum
+row_security_active_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the same functionality as  but accepts a table name (as text) instead of a table OID. It takes a qualified table name, resolves it to its corresponding OID, and then calls  to determine if RLS is active. Like , it returns a boolean value indicating whether RLS is definitively enabled for the specified table.
 

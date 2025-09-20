@@ -8,7 +8,11 @@ Initializes the tuple slots in a ResultRelInfo structure specifically for MERGE 
 
 ## Definition
 
-
+```c
+void
+ExecInitMergeTupleSlots(ModifyTableState *mtstate,
+						ResultRelInfo *resultRelInfo)
+```
 ## Detailed Description
 ExecInitMergeTupleSlots is a utility function that sets up the essential tuple storage slots required for MERGE operations on a specific result relation. The function performs the following operations:
 

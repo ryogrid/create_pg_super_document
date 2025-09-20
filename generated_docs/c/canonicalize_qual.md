@@ -8,7 +8,9 @@ Converts a qualification expression (WHERE clause, JOIN/ON clause, or CHECK cons
 
 ## Definition
 
-
+```c
+structure;
+```
 ## Detailed Description
 The  function takes a qualification expression and transforms it into a more optimized form. Despite its name suggesting conversion to canonical form, the function actually performs practical optimizations rather than enforcing a specific canonical structure like AND-of-ORs or OR-of-ANDs.
 

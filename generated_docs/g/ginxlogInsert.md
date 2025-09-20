@@ -8,7 +8,14 @@ ginxlogInsert is a WAL (Write-Ahead Logging) record structure used to log insert
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	OffsetNumber offset;
+	bool		isDelete;
+	IndexTupleData tuple;		/* variable length */
+} ginxlogInsertEntry;
+```
 ## Detailed Description
 The ginxlogInsert structure serves as the header for XLOG_GIN_INSERT WAL records in PostgreSQL's GIN index implementation. This structure provides a common format for logging various types of insertion operations in GIN indexes, including both entry tree and posting tree insertions. The structure is designed to be followed by additional data that varies depending on the type of page and operation being logged.
 

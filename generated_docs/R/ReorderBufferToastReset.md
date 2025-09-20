@@ -8,7 +8,10 @@ Frees all resources allocated for TOAST reconstruction within a PostgreSQL logic
 
 ## Definition
 
-
+```c
+structed != NULL)
+			pfree(ent->reconstructed);
+```
 ## Detailed Description
 This static function performs comprehensive cleanup of TOAST (The Oversized-Attribute Storage Technique) reconstruction resources for a given transaction in PostgreSQL's logical replication system. TOAST is used to handle large column values that exceed the page size limit by breaking them into smaller chunks stored separately.
 

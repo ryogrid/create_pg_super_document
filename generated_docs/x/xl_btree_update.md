@@ -8,7 +8,14 @@ WAL record metadata structure describing partial updates to B-tree posting list 
 
 ## Definition
 
+```c
+typedef struct xl_btree_update
+{
+	uint16		ndeletedtids;
 
+	/* POSTING LIST uint16 OFFSETS TO A DELETED TID FOLLOW */
+} xl_btree_update;
+```
 ## Detailed Description
 The xl_btree_update structure is a metadata descriptor used within WAL records to represent partial updates to B-tree posting list tuples. When some (but not all) heap TIDs need to be removed from an existing posting list tuple, this structure describes which specific TIDs should be deleted. The structure header contains only the count of TIDs to delete, followed immediately by an array of uint16 offsets identifying the positions within the original posting list.
 

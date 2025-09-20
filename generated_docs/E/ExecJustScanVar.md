@@ -8,7 +8,10 @@ ExecJustScanVar is a fast-path function for executing simple variable references
 
 ## Definition
 
-
+```c
+static Datum
+ExecJustScanVar(ExprState *state, ExprContext *econtext, bool *isnull)
+```
 ## Detailed Description
 ExecJustScanVar is a specialized, optimized function designed to handle the simplest case of variable evaluation where the variable refers to a column in the scan tuple. This function is part of PostgreSQL's expression evaluation fast-path optimization system, which avoids the overhead of the general-purpose expression interpreter for trivial expressions.
 

@@ -8,7 +8,10 @@ XLogFromFileName parses a WAL segment filename to extract the timeline ID and lo
 
 ## Definition
 
-
+```c
+static inline void
+XLogFromFileName(const char *fname, TimeLineID *tli, XLogSegNo *logSegNo, int wal_segsz_bytes)
+```
 ## Detailed Description
 XLogFromFileName performs the reverse operation of XLogFileName by parsing a WAL segment filename and extracting its constituent parts. It uses sscanf to parse the hexadecimal timeline ID, log file number, and segment number from the filename, then calculates the logical segment number by combining the log and segment components using the WAL segment size. This function is essential for converting WAL filenames back into their logical representation for processing and comparison operations.
 

@@ -8,7 +8,11 @@ Prepares evaluation of a CoerceToDomain expression by setting up domain constrai
 
 ## Definition
 
-
+```c
+static void
+ExecInitCoerceToDomain(ExprEvalStep *scratch, CoerceToDomain *ctest,
+					   ExprState *state, Datum *resv, bool *resnull)
+```
 ## Detailed Description
 ExecInitCoerceToDomain initializes the execution framework for domain type coercion, which involves validating that a value meets all constraints defined for a domain type. It first evaluates the argument expression, then sets up constraint checking steps for each constraint associated with the domain.
 

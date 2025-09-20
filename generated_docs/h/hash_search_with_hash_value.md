@@ -8,7 +8,12 @@ Core implementation of hash table operations that performs lookup, insertion, or
 
 ## Definition
 
+```c
+structure.
+			 */
 
+			return (void *) ELEMENTKEY(currBucket);
+```
 ## Detailed Description
 This function provides the core implementation for all hash table operations in PostgreSQL's dynamic hash table system. It accepts a pre-computed hash value (typically from get_hash_value) and performs the requested operation efficiently. The function handles table expansion during insertion, manages collision chains through linear probing, and provides thread-safe operations for partitioned tables. It supports four primary operations: finding entries, inserting new entries (with two error-handling variants), and removing entries. The implementation includes optimizations for partitioned tables and maintains comprehensive statistics when compiled with HASH_STATISTICS.
 

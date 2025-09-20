@@ -8,7 +8,10 @@ This function initializes and returns operator class information structure for t
 
 ## Definition
 
-
+```c
+Datum
+brin_minmax_multi_opcinfo(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This is a PostgreSQL function that serves as the opcinfo support function for the BRIN minmax-multi operator class. It creates and initializes a BrinOpcInfo structure that contains essential metadata about how the BRIN minmax-multi index should operate.
 

@@ -8,7 +8,17 @@ A specialized iteration function that retrieves the next element from a PostgreS
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	OpExpr		opexpr;
+	Const		const_expr;
+	int			next_elem;
+	int			num_elems;
+	Datum	   *elem_values;
+	bool	   *elem_nulls;
+} ArrayConstIterState;
+```
 ## Detailed Description
 This function implements the "next" operation for iterating over regular PostgreSQL Lists within the predicate iteration framework. It retrieves the current node from the iteration state, advances the iterator to the next ListCell, and returns the current node. When the end of the list is reached, it returns NULL to signal completion. This function works in conjunction with list_startup_fn and list_cleanup_fn to provide a complete iteration interface.
 

@@ -8,7 +8,10 @@ connect_slot is a static function that establishes a new database connection for
 
 ## Definition
 
-
+```c
+static void
+connect_slot(ParallelSlotArray *sa, int slotno, const char *dbname)
+```
 ## Detailed Description
 This function creates a new database connection for a parallel slot using stored connection parameters. It can optionally override the default database name if a specific dbname is provided. After establishing the connection, it validates that the connection's file descriptor is within acceptable limits for select() operations, with platform-specific handling for Windows vs. POSIX systems. Finally, it executes any initialization command that was configured for the slot array. The function includes critical error handling for file descriptor limits to prevent issues with select() operations.
 

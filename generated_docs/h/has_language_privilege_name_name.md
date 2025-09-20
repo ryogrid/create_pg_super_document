@@ -8,7 +8,10 @@ This function checks whether a specified user has a particular privilege on a la
 
 ## Definition
 
-
+```c
+Datum
+has_language_privilege_name_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is one of the PostgreSQL SQL-callable privilege checking functions for procedural languages. It takes three arguments: a username (Name type), a language name (text), and a privilege type (text), then returns a boolean indicating whether the specified user has the requested privilege on the specified language. The function performs OID resolution for both the user and language, then delegates the actual privilege checking to the object_aclcheck system.
 

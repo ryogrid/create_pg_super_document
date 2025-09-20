@@ -8,7 +8,10 @@ Dumps the data contents of large objects (LOBs) in PostgreSQL, reading them from
 
 ## Definition
 
-
+```c
+static int
+dumpLOs(Archive *fout, const void *arg)
+```
 ## Detailed Description
 The  function handles the dumping of large object data during a pg_dump operation. It takes a  structure containing an array of large object OIDs and iterates through each one, opening the large object, reading its contents in chunks, and writing the data to the archive. The function uses the PostgreSQL large object API (, , ) to access the binary data and outputs it through the archive's  interface.
 

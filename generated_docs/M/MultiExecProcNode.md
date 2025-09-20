@@ -8,7 +8,10 @@ MultiExecProcNode executes plan nodes that return complex data structures (like 
 
 ## Definition
 
-
+```c
+Node *
+MultiExecProcNode(PlanState *node)
+```
 ## Detailed Description
 MultiExecProcNode serves as the execution dispatcher for plan nodes that produce bulk data structures rather than streaming individual tuples. Unlike the regular ExecProcNode which returns TupleTableSlot pointers for tuple-at-a-time processing, MultiExecProcNode returns Node pointers representing complex data structures such as hash tables, bitmaps, or other specialized formats.
 

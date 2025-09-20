@@ -8,7 +8,14 @@ Calculates where the character position will be after printing text from a buffe
 
 ## Definition
 
-
+```c
+int
+count_spaces_until(int cur, char *buffer, char *end)
+/*
+ * this routine figures out where the character position will be after
+ * printing the text in buffer starting at column "current"
+ */
+```
 ## Detailed Description
 The  function is a utility in the PostgreSQL BSD indent tool that determines the final column position that would result from printing a specific portion of text starting from a given current position. This function is similar to  but includes boundary checking by accepting an  pointer, allowing it to process only a substring of the buffer.
 

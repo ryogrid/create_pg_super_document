@@ -8,7 +8,10 @@ Retrieves a list of function candidates that match a given function name and arg
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &funcname);
+```
 ## Detailed Description
 FuncnameGetCandidates is a comprehensive function lookup mechanism that finds all PostgreSQL functions matching specified criteria. It supports both qualified and unqualified function names, handles positional and named argument calls, and can expand variadic functions and default arguments. The function performs namespace-aware searches, returning candidates from either a specific schema or all schemas in the search path.
 

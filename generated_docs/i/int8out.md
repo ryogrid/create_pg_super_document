@@ -8,7 +8,10 @@ Converts PostgreSQL's internal int8 (bigint) value to its string representation 
 
 ## Definition
 
-
+```c
+Datum
+int8out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the output conversion routine for PostgreSQL's int8 data type (bigint). It takes a 64-bit integer from PostgreSQL's internal Datum representation and converts it to a C-string format suitable for display or transmission. This function is part of the PostgreSQL type system's input/output infrastructure and is automatically called when converting int8 values to text during query result formatting.
 

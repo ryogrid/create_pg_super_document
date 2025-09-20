@@ -8,7 +8,10 @@ A ParallelSlotHandler function that processes and displays results from heap tab
 
 ## Definition
 
-
+```c
+static bool
+verify_heap_slot_handler(PGresult *res, PGconn *conn, void *context)
+```
 ## Detailed Description
 The  function is a callback handler that processes query results from heap table checking operations. It formats and displays verification results, including any corruption issues found in heap tables. The function handles different levels of detail in error reporting, from table-level issues down to specific block, offset, and attribute-level problems.
 

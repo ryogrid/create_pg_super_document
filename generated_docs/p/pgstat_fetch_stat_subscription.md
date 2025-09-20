@@ -8,7 +8,10 @@ Retrieves the collected statistics for a specific logical replication subscripti
 
 ## Definition
 
-
+```c
+PgStat_StatSubEntry *
+pgstat_fetch_stat_subscription(Oid subid)
+```
 ## Detailed Description
 This function provides access to the accumulated statistics for a logical replication subscription. It serves as a bridge between the internal statistics collection system and the SQL-accessible statistics functions that users can query. The function retrieves the statistics entry for the specified subscription from the statistics collector's shared memory or cache.
 

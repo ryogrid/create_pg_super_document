@@ -8,7 +8,10 @@ Compares two pathkey lists to determine if they are equivalent, and if not, whic
 
 ## Definition
 
-
+```c
+PathKeysComparison
+compare_pathkeys(List *keys1, List *keys2)
+```
 ## Detailed Description
 The compare_pathkeys function performs a comparison between two lists of pathkeys to determine their relationship. It assumes that both pathkey lists are canonical, which allows for equality checking through simple pointer comparison. The function returns one of four possible comparison results: PATHKEYS_EQUAL (identical lists), PATHKEYS_DIFFERENT (incompatible orderings), PATHKEYS_BETTER1 (keys1 is a prefix extension of keys2), or PATHKEYS_BETTER2 (keys2 is a prefix extension of keys1).
 

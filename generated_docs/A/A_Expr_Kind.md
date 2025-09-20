@@ -8,7 +8,19 @@ A_Expr_Kind is an enumeration that defines the various types of expressions that
 
 ## Definition
 
+```c
+typedef struct A_Expr
+{
+	pg_node_attr(custom_read_write)
 
+	NodeTag		type;
+	A_Expr_Kind kind;			/* see above */
+	List	   *name;			/* possibly-qualified name of operator */
+	Node	   *lexpr;			/* left argument, or NULL if none */
+	Node	   *rexpr;			/* right argument, or NULL if none */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} A_Expr;
+```
 ## Detailed Description
 A_Expr_Kind categorizes different types of expressions in PostgreSQL's abstract syntax tree. It provides a comprehensive classification system for infix, prefix, and postfix expressions that can appear in SQL queries. Each kind corresponds to specific SQL syntax patterns and has constraints on the operator names that can be used. The enum is used by the parser to differentiate between various expression types during query analysis and transformation.
 

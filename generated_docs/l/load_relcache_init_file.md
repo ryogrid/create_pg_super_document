@@ -8,7 +8,11 @@ Attempts to load relation cache entries from the shared or local cache initializ
 
 ## Definition
 
-
+```c
+structure */
+		if (fread(rel, 1, len, fp) != len)
+			goto read_failed;
+```
 ## Detailed Description
 This function is part of PostgreSQL's relation cache initialization optimization system. During normal backend startup, instead of building critical relation descriptors through expensive sequential scans of system catalogs, this function attempts to load pre-built relation cache entries from a binary initialization file.
 

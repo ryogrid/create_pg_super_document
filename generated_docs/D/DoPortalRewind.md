@@ -8,7 +8,10 @@ DoPortalRewind resets a portal to its starting position, allowing re-execution o
 
 ## Definition
 
-
+```c
+static void
+DoPortalRewind(Portal portal)
+```
 ## Detailed Description
 DoPortalRewind implements the functionality to rewind a portal back to its initial state. This operation is essential for cursor operations that need to restart from the beginning of the result set. The function handles both held (materialized) portals that use tuple stores and active portals that require executor rewinding.
 

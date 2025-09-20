@@ -8,7 +8,10 @@ Removes existing pgbench tables from the database before initializing new ones, 
 
 ## Definition
 
-
+```c
+static void
+initDropTables(PGconn *con)
+```
 ## Detailed Description
 The initDropTables function is a cleanup utility in pgbench that removes all standard pgbench tables (pgbench_accounts, pgbench_branches, pgbench_history, and pgbench_tellers) from the database. It uses a single DROP TABLE statement with the IF EXISTS clause to safely remove tables regardless of whether they exist or not. The function drops all tables in one command to handle potential foreign key dependencies gracefully, avoiding dependency-related errors that could occur if tables were dropped individually.
 

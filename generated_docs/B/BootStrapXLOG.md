@@ -8,7 +8,9 @@ Initializes the PostgreSQL Write-Ahead Logging (WAL) system during database inst
 
 ## Definition
 
-
+```c
+struct timeval tv;
+```
 ## Detailed Description
 BootStrapXLOG is a critical function that must be called exactly once during PostgreSQL system installation. It performs the fundamental initialization of the WAL system by:
 

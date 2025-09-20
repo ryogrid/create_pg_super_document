@@ -8,7 +8,10 @@ A static error handling function in PostgreSQL's ECPG (Embedded SQL in C) test f
 
 ## Definition
 
-
+```c
+/* Check SQLCODE, and produce a "standard error" if it's wrong! */
+static void sql_check(const char *fn, const char *caller, int ignore)
+```
 ## Detailed Description
 The  function serves as a centralized error handling mechanism for ECPG test cases. It examines the global SQLCODE variable to determine if an SQL operation has failed, and if so, provides detailed error reporting including the function name, caller context, and error message from sqlca. When an error is detected (SQLCODE != 0 and SQLCODE != ignore), the function attempts automatic rollback recovery and terminates the program if the error is not ignorable.
 

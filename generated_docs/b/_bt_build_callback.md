@@ -8,7 +8,15 @@ A per-tuple callback function used during B-tree index building that processes e
 
 ## Definition
 
-
+```c
+static void
+_bt_build_callback(Relation index,
+				   ItemPointer tid,
+				   Datum *values,
+				   bool *isnull,
+				   bool tupleIsAlive,
+				   void *state)
+```
 ## Detailed Description
 This function serves as the callback mechanism for table_index_build_scan during B-tree index construction. It receives each tuple from the heap scan and determines how to handle it based on its visibility status. Live tuples are directed to the primary spool, while dead tuples (when MVCC snapshot isolation is used) are directed to a secondary spool for separate handling. This separation allows the index build process to handle different tuple visibility states appropriately during concurrent operations.
 

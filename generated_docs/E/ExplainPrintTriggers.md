@@ -8,7 +8,10 @@ ExplainPrintTriggers converts trigger execution statistics from a QueryDesc into
 
 ## Definition
 
-
+```c
+void
+ExplainPrintTriggers(ExplainState *es, QueryDesc *queryDesc)
+```
 ## Detailed Description
 ExplainPrintTriggers generates a summary of trigger execution statistics collected during query execution when EXPLAIN ANALYZE is used. The function examines three different types of result relations that may have had triggers executed:
 

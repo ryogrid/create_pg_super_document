@@ -8,7 +8,10 @@ Determines whether an extended statistics object should be dumped based on the d
 
 ## Definition
 
-
+```c
+static void
+selectDumpableStatisticsObject(StatsExtInfo *sobj, Archive *fout)
+```
 ## Detailed Description
 This function implements the policy-setting logic for extended statistics objects in pg_dump. An extended statistics object is marked for dumping only if both its containing schema and the table it operates on are being dumped. The function first checks for extension membership (which overrides all other policies), then evaluates the namespace (schema) dump status, and finally verifies that the associated table is being dumped with its definition.
 

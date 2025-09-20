@@ -8,7 +8,11 @@ Determines and returns the cost of scanning a relation using TIDs (tuple identif
 
 ## Definition
 
-
+```c
+void
+cost_tidscan(Path *path, PlannerInfo *root,
+			 RelOptInfo *baserel, List *tidquals, ParamPathInfo *param_info)
+```
 ## Detailed Description
 The  function calculates the cost of performing a TID scan on a relation, which is a direct access method that uses tuple identifiers to locate specific rows. This function handles several scenarios including regular TID equality comparisons, TID array operations (ScalarArrayOpExpr), and CURRENT OF expressions used in cursors. The costing model accounts for the fact that each TID typically corresponds to a different page, so random page access costs are applied. Special handling is provided for CURRENT OF expressions, which are forced to use TID scans and have their disable costs subtracted to prevent other scan types from being chosen.
 

@@ -8,7 +8,14 @@ Retrieves the current MultiXact data that needs to be saved in a checkpoint reco
 
 ## Definition
 
-
+```c
+void
+MultiXactGetCheckptMulti(bool is_shutdown,
+						 MultiXactId *nextMulti,
+						 MultiXactOffset *nextMultiOffset,
+						 MultiXactId *oldestMulti,
+						 Oid *oldestMultiDB)
+```
 ## Detailed Description
 MultiXactGetCheckptMulti captures the current state of the MultiXact subsystem that must be preserved in checkpoint records. This information is essential for recovery operations, as it allows PostgreSQL to restore the MultiXact state to a consistent point after a crash or restart.
 

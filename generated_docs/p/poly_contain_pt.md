@@ -8,7 +8,10 @@ PostgreSQL function that determines whether a polygon contains a specific point 
 
 ## Definition
 
-
+```c
+Datum
+poly_contain_pt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function tests whether a given point lies inside a polygon. It extracts a polygon and a point from the function arguments, then delegates to the point_inside function to perform the actual geometric computation. The point_inside function implements a point-in-polygon algorithm that works with the polygon's vertex array (poly->p) and vertex count (poly->npts). The result is a boolean value indicating whether the point is contained within the polygon boundaries.
 

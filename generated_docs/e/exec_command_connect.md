@@ -8,7 +8,9 @@ Implements the psql  or  command for establishing a new database connection with
 
 ## Definition
 
-
+```c
+enum trivalue reuse_previous = TRI_DEFAULT;
+```
 ## Detailed Description
 The  function handles the  (connect) command in psql, which allows users to connect to a PostgreSQL database using specified connection parameters. The function supports an optional  flag and accepts up to four connection parameters: database name, username, host, and port. Parameters can be specified as '-' to use current values or omitted entirely.
 

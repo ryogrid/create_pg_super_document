@@ -8,7 +8,13 @@ Compresses input data using Zstandard compression and manages the output buffer,
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_zstd_compressor_content(bbstreamer *streamer,
+								   bbstreamer_member *member,
+								   const char *data, int len,
+								   bbstreamer_archive_context context)
+```
 ## Detailed Description
 This function is the core compression routine for the zstd compressor streamer. It takes input data and compresses it using the ZSTD_compressStream2 function in streaming mode. The function implements a buffer management strategy where it calculates the maximum space needed for compression using ZSTD_compressBound, and if the current output buffer doesn't have sufficient space, it forwards the existing compressed data to the next streamer and resets the buffer.
 

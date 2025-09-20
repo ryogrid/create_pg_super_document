@@ -8,7 +8,10 @@ A PostgreSQL function that forces the statistics system to flush pending statist
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_force_next_flush(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a SQL-callable interface to force the flushing of accumulated statistics data to the statistics collector. PostgreSQL normally batches statistics updates and flushes them periodically to reduce overhead, but this function allows administrators to force an immediate flush on the next statistics reporting cycle. This ensures that any pending statistics changes from the current backend are sent to the statistics collector promptly, making them available for queries against the pg_stat_* system views.
 

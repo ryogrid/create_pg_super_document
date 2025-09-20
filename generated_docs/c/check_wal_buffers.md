@@ -8,7 +8,10 @@ A GUC check hook function that validates and adjusts the wal_buffers parameter v
 
 ## Definition
 
-
+```c
+bool
+check_wal_buffers(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as the check hook for the wal_buffers GUC parameter in PostgreSQL's configuration system. It handles validation and adjustment of WAL buffer values, with special support for auto-tuning functionality. The function ensures that manually-set values meet minimum requirements (at least 4 blocks) and handles the special case of -1, which requests automatic tuning based on system resources.
 

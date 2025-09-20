@@ -8,7 +8,10 @@ Completely removes an extended statistics object by deleting its metadata from p
 
 ## Definition
 
-
+```c
+void
+RemoveStatisticsById(Oid statsOid)
+```
 ## Detailed Description
 This function implements the core deletion logic for extended statistics objects, typically called as part of DROP STATISTICS commands or cascading deletions through the dependency system. It performs a complete cleanup by removing both the statistics object metadata and all computed statistical data.
 

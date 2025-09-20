@@ -8,7 +8,10 @@ ExecCteScan is the main execution function for CTE (Common Table Expression) sca
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecCteScan(PlanState *pstate)
+```
 ## Detailed Description
 ExecCteScan serves as the primary entry point for executing CTE scan operations within PostgreSQL's executor framework. Rather than implementing scan logic directly, it follows the standard executor pattern by calling the generic ExecScan() function and providing CTE-specific access method functions.
 

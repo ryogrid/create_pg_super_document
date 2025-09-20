@@ -8,7 +8,17 @@ JoinPathExtraData is a structure used to pass additional information to subrouti
 
 ## Definition
 
-
+```c
+typedef struct JoinPathExtraData
+{
+	List	   *restrictlist;
+	List	   *mergeclause_list;
+	bool		inner_unique;
+	SpecialJoinInfo *sjinfo;
+	SemiAntiJoinFactors semifactors;
+	Relids		param_source_rels;
+} JoinPathExtraData;
+```
 ## Detailed Description
 JoinPathExtraData serves as a container for essential information needed during join path creation and evaluation. This structure centralizes join-related metadata that multiple functions need access to, avoiding the need to pass numerous individual parameters. It supports various join algorithms (nested loop, merge join, hash join) and special join types (semi, anti joins) by providing context about restrictions, merge conditions, uniqueness properties, and parameterization options.
 

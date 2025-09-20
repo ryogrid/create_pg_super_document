@@ -8,7 +8,10 @@ Writes an array of strings to a text file, freeing all allocated memory in the p
 
 ## Definition
 
-
+```c
+static void
+writefile(char *path, char **lines)
+```
 ## Detailed Description
 This function takes an array of malloc'd strings and writes them to a specified file path as text. It opens the file in text mode (not binary) to ensure proper line ending handling on Windows systems, making the resulting configuration files easily editable across platforms. The function performs comprehensive error checking for file operations and automatically frees all input memory including both the individual strings and the array itself. This design makes it a convenient cleanup function that both writes data and deallocates resources.
 

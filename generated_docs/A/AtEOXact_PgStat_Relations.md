@@ -8,7 +8,10 @@ Performs relation-specific statistics cleanup and consolidation at the end of a 
 
 ## Definition
 
-
+```c
+void
+AtEOXact_PgStat_Relations(PgStat_SubXactStatus *xact_state, bool isCommit)
+```
 ## Detailed Description
 This function is a helper for AtEOXact_PgStat that handles relation-specific end-of-transaction work. It processes all table transaction status entries from the completed transaction and transfers their insert/update/delete counts into the corresponding base table statistics entries. The function handles both commit and abort scenarios differently:
 

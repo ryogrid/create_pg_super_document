@@ -8,7 +8,10 @@ Parses the server result set returned when streaming replication reaches an end-
 
 ## Definition
 
-
+```c
+static bool
+ReadEndOfStreamingResult(PGresult *res, XLogRecPtr *startpos, uint32 *timeline)
+```
 ## Detailed Description
  is a helper function that processes the result set returned by the PostgreSQL server when streaming replication encounters an end-of-timeline condition. When a timeline ends (typically due to server promotion), the server provides information about the next timeline and where streaming should continue. This function parses a two-column result set containing the next timeline ID and its starting WAL position, validating the format and converting the WAL position from string format (X/X) to internal XLogRecPtr representation.
 

@@ -8,7 +8,11 @@ Manages the heap scanning phase of B-tree index construction, creating spool str
 
 ## Definition
 
-
+```c
+static double
+_bt_spools_heapscan(Relation heap, Relation index, BTBuildState *buildstate,
+					IndexInfo *indexInfo)
+```
 ## Detailed Description
  is a critical function in B-tree index construction that handles the heap scanning phase. It performs several key operations:
 

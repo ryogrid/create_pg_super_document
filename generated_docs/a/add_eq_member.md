@@ -8,7 +8,11 @@ Creates a new EquivalenceMember node and adds it to an existing EquivalenceClass
 
 ## Definition
 
-
+```c
+static EquivalenceMember *
+add_eq_member(EquivalenceClass *ec, Expr *expr, Relids relids,
+			  JoinDomain *jdomain, EquivalenceMember *parent, Oid datatype)
+```
 ## Detailed Description
 This internal function constructs a new EquivalenceMember node and integrates it into an existing EquivalenceClass. It performs several important classifications and updates:
 

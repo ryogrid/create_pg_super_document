@@ -8,7 +8,10 @@ Converts a procedure name (or numeric OID) string representation to a RegProcedu
 
 ## Definition
 
-
+```c
+Datum
+regprocin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The regprocin function is the input conversion function for PostgreSQL's regproc data type. It takes a C-string representation of a procedure and converts it to the corresponding procedure's OID (Object Identifier). The function supports multiple input formats:
 

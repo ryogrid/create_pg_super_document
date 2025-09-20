@@ -8,7 +8,10 @@ Implements the SQL percentile rank function for hypothetical rows in ordered-set
 
 ## Definition
 
-
+```c
+Datum
+hypothetical_percent_rank_final(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the final phase of the percent_rank() ordered-set aggregate function for hypothetical rows. It calculates the percentile rank of a hypothetical row within an ordered set of data. The percentile rank is computed as (rank - 1) / total_rows, where rank is the 1-based position the hypothetical row would occupy if inserted into the sorted dataset. This gives a value between 0.0 and 1.0, representing the percentage of rows that would be less than the hypothetical row.
 

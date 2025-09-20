@@ -8,7 +8,10 @@ Creates a RowExpr node from specified column names for use in PostgreSQL's CTE (
 
 ## Definition
 
-
+```c
+static RowExpr *
+make_path_rowexpr(const CommonTableExpr *cte, const List *col_list)
+```
 ## Detailed Description
 This static function constructs a RowExpr node that represents a row expression containing variables corresponding to the specified column names from a CTE. It's used internally by the CTE rewriting mechanism to create row expressions for SEARCH and CYCLE clauses. The function iterates through the provided column list, matches each column name against the CTE's column names, and creates corresponding Var nodes that reference the appropriate columns by position and type information.
 

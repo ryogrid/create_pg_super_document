@@ -8,7 +8,10 @@ This function tests whether a line segment lies on a line, by checking if both e
 
 ## Definition
 
-
+```c
+Datum
+on_sl(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function determines whether a line segment is positioned on a line (or close enough to be considered on the line). The algorithm is straightforward: it checks if both endpoints of the line segment lie on the specified line using the  function. If both endpoints are on the line, then the entire segment must also be on the line, assuming the line is infinite and straight.
 

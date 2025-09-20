@@ -8,7 +8,11 @@ Calculates the optimal number of parallel workers for scanning a relation based 
 
 ## Definition
 
-
+```c
+int
+compute_parallel_worker(RelOptInfo *rel, double heap_pages, double index_pages,
+						int max_workers)
+```
 ## Detailed Description
 This function determines the appropriate level of parallelism for scanning operations by analyzing the expected workload size. It uses a logarithmic scaling algorithm where the number of workers increases as the scan size grows, with each tripling of pages potentially adding one more worker.
 

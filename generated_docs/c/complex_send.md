@@ -8,7 +8,10 @@ Binary output function for the  data type that serializes a complex number to Po
 
 ## Definition
 
-
+```c
+Datum
+complex_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for converting PostgreSQL's internal  data type representation into binary format suitable for network transmission or binary storage. It serializes the complex number by writing the real and imaginary parts as consecutive 8-byte double-precision floating-point values in network byte order. This function provides efficient binary data transfer capabilities and is the counterpart to .
 

@@ -8,7 +8,10 @@ This function releases all buffers held during a hash index scan operation, prop
 
 ## Definition
 
-
+```c
+void
+_hash_dropscanbuf(Relation rel, HashScanOpaque so)
+```
 ## Detailed Description
  is a comprehensive cleanup function that releases all buffers associated with a hash index scan operation. It handles three categories of buffers: the primary bucket buffer, the split bucket buffer (used during bucket splits), and the current position buffer. The function carefully avoids double-releasing buffers by checking if different buffer variables point to the same underlying buffer. After releasing all buffer pins, it resets the scan state flags to indicate that no bucket data is currently loaded.
 

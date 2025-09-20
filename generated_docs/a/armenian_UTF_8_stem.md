@@ -8,7 +8,11 @@ The main external function that performs complete Armenian text stemming using t
 
 ## Definition
 
+```c
+}
 
+extern int armenian_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 The  function is the primary entry point for Armenian language stemming in PostgreSQL's Snowball stemmer implementation. It orchestrates a multi-phase stemming process that systematically removes Armenian suffixes in a specific order to reduce words to their morphological roots.
 

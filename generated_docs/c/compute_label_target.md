@@ -8,7 +8,10 @@ Calculates the target column position for labels including goto labels, case lab
 
 ## Definition
 
-
+```c
+int
+compute_label_target(void)
+```
 ## Detailed Description
 The compute_label_target function determines the proper column position for various types of labels in C code. It handles three distinct cases: case/default labels within switch statements, preprocessor directives (which start with #), and regular goto labels. The function uses different indentation rules for each type to ensure proper code formatting and readability.
 

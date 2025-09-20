@@ -8,7 +8,10 @@ Processes a single page during B-tree vacuum operations, handling deletions, upd
 
 ## Definition
 
-
+```c
+static void
+btvacuumpage(BTVacState *vstate, BlockNumber scanblkno)
+```
 ## Detailed Description
 The  function is the core page-processing routine for B-tree vacuum operations. It handles a single page identified by  during a vacuum scan. The function manages complex scenarios including:
 

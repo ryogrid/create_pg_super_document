@@ -8,7 +8,10 @@ The cash_cmp function implements a three-way comparison for PostgreSQL's cash (m
 
 ## Definition
 
-
+```c
+Datum
+cash_cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that implements a comparison function for the cash data type, following the standard three-way comparison convention. It extracts two cash values from the function arguments and performs a comparison, returning -1 if the first value is less than the second, 0 if they are equal, and 1 if the first value is greater than the second. This function is typically used for sorting operations and as a foundation for other comparison operators.
 

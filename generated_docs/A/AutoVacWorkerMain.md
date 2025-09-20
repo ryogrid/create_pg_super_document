@@ -8,7 +8,12 @@ The main entry point for autovacuum worker processes that initializes the worker
 
 ## Definition
 
-
+```c
+struct in shared memory.  We must do this
+	 * before we can use LWLocks or access any shared memory.
+	 */
+	InitProcess();
+```
 ## Detailed Description
 The  function serves as the complete lifecycle manager for autovacuum worker processes. It handles the entire initialization sequence, database connection, and cleanup for worker processes spawned by the postmaster at the request of the autovacuum launcher.
 

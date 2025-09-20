@@ -8,7 +8,10 @@ NameGetDatum converts a NameData structure to PostgreSQL's internal Datum repres
 
 ## Definition
 
-
+```c
+static inline Datum
+NameGetDatum(const NameData *X)
+```
 ## Detailed Description
 NameGetDatum converts a NameData structure pointer to a Datum by extracting the string content using the NameStr macro and then calling CStringGetDatum(). This function is essential for converting PostgreSQL's internal Name type (used for identifiers like table names, column names, etc.) into the universal Datum format that can be passed through the function call interface.
 

@@ -8,7 +8,10 @@ PostgreSQL SQL-callable function that compares two tsquery objects and returns t
 
 ## Definition
 
-
+```c
+Datum
+tsquery_cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the SQL-accessible interface for comparing tsquery objects. It extracts two tsquery parameters from the function arguments, delegates the actual comparison to the internal  function, and returns the comparison result as a PostgreSQL Datum.
 

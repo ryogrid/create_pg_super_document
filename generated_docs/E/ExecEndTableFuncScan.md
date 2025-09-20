@@ -8,7 +8,10 @@ ExecEndTableFuncScan performs cleanup operations for a table function scan node,
 
 ## Definition
 
-
+```c
+void
+ExecEndTableFuncScan(TableFuncScanState *node)
+```
 ## Detailed Description
 ExecEndTableFuncScan handles the cleanup phase of table function scan execution by releasing any tuplestore resources that were allocated during the scan. The function checks if a tuplestore exists and properly deallocates it using tuplestore_end(), then sets the pointer to NULL to prevent dangling references.
 

@@ -8,7 +8,11 @@ Detects whether any PlaceHolderVars (PHVs) in the query would create dangerous p
 
 ## Definition
 
-
+```c
+bool
+have_dangerous_phv(PlannerInfo *root,
+				   Relids outer_relids, Relids inner_params)
+```
 ## Detailed Description
 This function identifies potentially problematic PlaceHolderVar scenarios in parameterized nestloop joins. The core issue it addresses is when a PHV's minimum evaluation set includes both the outer relation and some third relation, which would require the PHV expression to be evaluated as a nestloop parameter. Since the executor only handles simple Vars as NestLoopParams, allowing such complex parameter expressions would add significant complexity and overhead.
 

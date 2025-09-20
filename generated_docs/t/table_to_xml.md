@@ -8,7 +8,10 @@ SQL/XML function that converts a PostgreSQL table to XML format, providing a sta
 
 ## Definition
 
-
+```c
+Datum
+table_to_xml(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the SQL/XML:2008 standard for converting table data to XML format. It serves as a wrapper around the internal  function, extracting function arguments and delegating the actual XML generation logic. The function constructs a SELECT * query for the specified table and transforms the result set into an XML document according to the provided formatting options.
 

@@ -8,7 +8,10 @@ Sets up parser hooks to handle parameter references during query parsing when pa
 
 ## Definition
 
-
+```c
+static void
+paramlist_parser_setup(ParseState *pstate, void *arg)
+```
 ## Detailed Description
 The paramlist_parser_setup function is a parser setup callback that configures the PostgreSQL parser to handle parameter references (, , etc.) by setting up the appropriate hooks in the ParseState structure. It specifically sets the p_paramref_hook to paramlist_param_ref, which will be called whenever the parser encounters a parameter reference. The function does not set up a parameter coercion hook (p_coerce_param_hook) as indicated by the comment. The arg parameter, which should be a ParamListInfo structure, is stored in p_ref_hook_state for use by the parameter reference hook.
 

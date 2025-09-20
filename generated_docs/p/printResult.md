@@ -8,7 +8,11 @@ The printResult function displays the results of ECPG test cases by printing the
 
 ## Definition
 
+```c
+}
 
+void printResult(char *tc_name, int loop)
+```
 ## Detailed Description
 The printResult function serves as a utility for displaying test results in the ECPG test framework. It takes a test case name and the number of result rows to display, then formats and prints the contents of the global arrays f1, f2, and f3 that contain query results. The function provides a standardized way to output test results with clear formatting, including a header with the test case name and structured display of the data values.
 

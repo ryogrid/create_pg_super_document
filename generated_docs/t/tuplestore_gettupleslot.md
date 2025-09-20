@@ -8,7 +8,11 @@ Exported function that fetches a MinimalTuple from a tuplestore and stores it in
 
 ## Definition
 
-
+```c
+bool
+tuplestore_gettupleslot(Tuplestorestate *state, bool forward,
+						bool copy, TupleTableSlot *slot)
+```
 ## Detailed Description
 This function retrieves a tuple from a tuplestore and places it into a TupleTableSlot. It serves as the primary interface for fetching tuples from a tuplestore in PostgreSQL's execution engine. The function provides flexibility in memory management through the `copy` parameter - when set to true, it creates a copy of the tuple in the current memory context that remains valid regardless of future tuplestore manipulations. When false, it may return a direct pointer to the tuple within the tuplestore for better performance, but with the risk of corruption if the tuplestore is subsequently modified.
 

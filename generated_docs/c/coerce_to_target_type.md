@@ -8,7 +8,14 @@ Converts an expression to a target type and typmod, serving as the general-purpo
 
 ## Definition
 
-
+```c
+Node *
+coerce_to_target_type(ParseState *pstate, Node *expr, Oid exprtype,
+					  Oid targettype, int32 targettypmod,
+					  CoercionContext ccontext,
+					  CoercionForm cformat,
+					  int location)
+```
 ## Detailed Description
 This function provides a comprehensive type coercion mechanism that attempts to convert an input expression from its current type to a desired target type and typmod. Unlike direct calls to component coercion functions, this function handles the complete coercion pipeline including:
 

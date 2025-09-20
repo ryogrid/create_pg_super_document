@@ -8,7 +8,13 @@ AllocSetFreeList is a structure used to maintain free lists of AllocSetContext o
 
 ## Definition
 
-
+```c
+typedef struct AllocSetFreeList
+{
+	int			num_free;		/* current list length */
+	AllocSetContext *first_free;	/* list header */
+} AllocSetFreeList;
+```
 ## Detailed Description
 AllocSetFreeList is a core data structure in PostgreSQL's allocation set memory management system that implements a freelist optimization for memory context reuse. Instead of destroying and recreating AllocSetContext objects, this structure maintains linked lists of previously allocated but currently unused contexts that can be recycled for future allocations.
 

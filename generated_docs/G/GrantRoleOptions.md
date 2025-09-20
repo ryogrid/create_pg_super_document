@@ -8,7 +8,15 @@ A structure that encapsulates the various options that can be specified when gra
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	unsigned	specified;
+	bool		admin;
+	bool		inherit;
+	bool		set;
+} GrantRoleOptions;
+```
 ## Detailed Description
 This structure is used throughout PostgreSQL's role management system to track the options associated with role grants. It maintains both the actual boolean values for each grant option (admin, inherit, set) and a bitmask indicating which options were explicitly specified by the user. This distinction is important because unspecified options may have different default behaviors compared to explicitly set options.
 

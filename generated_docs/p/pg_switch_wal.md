@@ -8,7 +8,10 @@ Forces PostgreSQL to switch to the next WAL (Write-Ahead Log) file and returns t
 
 ## Definition
 
-
+```c
+Datum
+pg_switch_wal(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a mechanism to forcibly switch to the next WAL file, creating a new segment file for subsequent write-ahead logging operations. This function is commonly used in backup scenarios, WAL archiving setups, or when administrators need to control WAL file boundaries for operational purposes.
 

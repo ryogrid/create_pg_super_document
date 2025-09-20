@@ -8,7 +8,21 @@ The  struct contains basic information for PostgreSQL data types used during the
 
 ## Definition
 
-
+```c
+struct typinfo
+{
+	char		name[NAMEDATALEN];
+	Oid			oid;
+	Oid			elem;
+	int16		len;
+	bool		byval;
+	char		align;
+	char		storage;
+	Oid			collation;
+	Oid			inproc;
+	Oid			outproc;
+};
+```
 ## Detailed Description
 The  structure is used during PostgreSQL's bootstrap process to provide essential type information for core data types before the system catalog  is fully initialized. This structure is part of the bootstrap system that creates the initial catalog tables. It contains all the fundamental properties needed to handle data types during the early database initialization phase, including type alignment, storage characteristics, and input/output functions.
 

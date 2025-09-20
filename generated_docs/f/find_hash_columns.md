@@ -8,7 +8,9 @@ Computes and configures which columns need to be stored in hash table entries fo
 
 ## Definition
 
-
+```c
+union(base_colnos, aggregated_colnos);
+```
 ## Detailed Description
 The  function performs crucial optimization for hashed aggregation by determining the minimal set of columns that must be stored in hash table entries. Input tuples from child plan nodes typically contain grouping columns, columns referenced in target lists and qualifications, columns needed for aggregate function computation, and potentially unused columns. This function identifies and retains only the first two types, significantly reducing hash table entry size and improving performance.
 

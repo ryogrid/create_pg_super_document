@@ -8,7 +8,10 @@ Initializes a BRIN page with the specified page type, setting up the basic page 
 
 ## Definition
 
-
+```c
+void
+brin_page_init(Page page, uint16 type)
+```
 ## Detailed Description
 The  function provides a standardized way to initialize BRIN index pages. It performs the fundamental page setup by calling the generic  function with BRIN-specific parameters, then sets the page type in the BRIN special space.
 

@@ -8,7 +8,11 @@ Tests whether a specific database object is already present in an ObjectAddresse
 
 ## Definition
 
-
+```c
+bool
+object_address_present(const ObjectAddress *object,
+					   const ObjectAddresses *addrs)
+```
 ## Detailed Description
 The  function performs a lookup to determine if a given ObjectAddress is already contained within an ObjectAddresses array. The function implements a reverse iteration strategy (from the end of the array backward) for efficiency reasons, as newer additions are typically found at the end.
 

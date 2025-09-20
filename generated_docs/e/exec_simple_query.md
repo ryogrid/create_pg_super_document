@@ -8,7 +8,11 @@ Executes a "simple Query" protocol message, handling the complete SQL query proc
 
 ## Definition
 
-
+```c
+structing parsetrees.
+	 */
+	oldcontext = MemoryContextSwitchTo(MessageContext);
+```
 ## Detailed Description
 This function is the main entry point for PostgreSQL's simple query protocol, implementing the complete query processing pipeline from raw SQL text to result delivery. It handles multiple SQL statements within a single query string and manages transaction boundaries appropriately.
 

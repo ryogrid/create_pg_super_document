@@ -8,7 +8,10 @@ The getAggregates function retrieves all user-defined aggregate functions from t
 
 ## Definition
 
-
+```c
+AggInfo *
+getAggregates(Archive *fout, int *numAggs)
+```
 ## Detailed Description
 This function is part of pg_dump's catalog reading functionality that specifically handles aggregate functions. It constructs and executes a complex SQL query against the pg_proc system catalog to retrieve user-defined aggregates, filtering out system-defined aggregates in pg_catalog unless they have custom privileges. The function handles different PostgreSQL versions, using different aggregate identification methods (proisagg for older versions, prokind = 'a' for PostgreSQL 11+).
 

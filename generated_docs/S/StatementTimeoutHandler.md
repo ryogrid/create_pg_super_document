@@ -8,7 +8,10 @@ StatementTimeoutHandler is a signal handler function that responds to statement 
 
 ## Definition
 
-
+```c
+static void
+StatementTimeoutHandler(void)
+```
 ## Detailed Description
 This function serves as the timeout handler for SQL statement execution timeouts. When a statement exceeds the configured timeout period, this handler is invoked to interrupt the ongoing operation. The function has two distinct behaviors:
 

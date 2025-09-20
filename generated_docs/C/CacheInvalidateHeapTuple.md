@@ -8,7 +8,12 @@ Registers heap tuples for invalidation at command end, handling both catalog cac
 
 ## Definition
 
-
+```c
+void
+CacheInvalidateHeapTuple(Relation relation,
+						 HeapTuple tuple,
+						 HeapTuple newtuple)
+```
 ## Detailed Description
 This function is called whenever a tuple in a system catalog is inserted, updated, or deleted to ensure proper cache invalidation. It handles two types of invalidation: catalog cache invalidation for tuples that might be cached in catcaches, and relation cache invalidation for tuples that define relation metadata.
 

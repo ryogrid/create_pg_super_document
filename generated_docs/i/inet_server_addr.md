@@ -8,7 +8,10 @@ Returns the IP address that the PostgreSQL server accepted the current connectio
 
 ## Definition
 
-
+```c
+Datum
+inet_server_addr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function retrieves the local IP address of the server socket that accepted the current client connection. It accesses the connection information stored in MyProcPort and extracts the local address (laddr) from the port structure. The function supports both IPv4 (AF_INET) and IPv6 (AF_INET6) address families and returns NULL for Unix domain sockets or when address resolution fails.
 

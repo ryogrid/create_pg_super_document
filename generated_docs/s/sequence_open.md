@@ -8,7 +8,10 @@ Opens a sequence relation by its OID and ensures the relation is a valid sequenc
 
 ## Definition
 
-
+```c
+Relation
+sequence_open(Oid relationId, LOCKMODE lockmode)
+```
 ## Detailed Description
 The  function is a specialized wrapper around  that provides type-safe access to sequence relations. It opens a relation by its object identifier (OID) with the specified lock mode and validates that the opened relation is indeed a sequence. This function ensures that sequence operations are only performed on actual sequence objects, preventing runtime errors and maintaining data integrity.
 

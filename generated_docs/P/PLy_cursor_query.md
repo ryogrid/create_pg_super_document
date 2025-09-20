@@ -8,7 +8,10 @@ Creates a PL/Python cursor object from a SQL query string by preparing the query
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_cursor_query(const char *query)
+```
 ## Detailed Description
 PLy_cursor_query creates a cursor object for executing and iterating through the results of a SQL query string. The function performs several key operations: allocates and initializes a PLyCursorObject, creates a dedicated memory context for the cursor, prepares the SQL query using SPI_prepare(), opens a portal using SPI_cursor_open(), and sets up the necessary infrastructure for converting PostgreSQL tuples to Python objects.
 

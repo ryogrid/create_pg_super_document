@@ -8,7 +8,10 @@ Extracts, sorts, and deduplicates all operands from a TSQuery, returning an arra
 
 ## Definition
 
-
+```c
+static QueryOperand **
+SortAndUniqItems(TSQuery q, int *size)
+```
 ## Detailed Description
 The  function processes a TSQuery structure to extract all query operands (QI_VAL items), sort them lexicographically, and remove duplicates. It performs a complete preprocessing step that transforms a potentially complex query tree into a clean, sorted array of unique operands.
 

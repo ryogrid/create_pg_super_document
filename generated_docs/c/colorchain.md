@@ -8,7 +8,11 @@ The  function adds an arc to the color chain of its associated color, maintainin
 
 ## Definition
 
-
+```c
+static void
+colorchain(struct colormap *cm,
+		   struct arc *a)
+```
 ## Detailed Description
 This function implements the core mechanism for maintaining color-based arc chains in the regular expression engine. It adds a given arc to the beginning of the doubly-linked list of arcs associated with the arc's color. The function properly manages both forward () and reverse () pointers to maintain list integrity.
 

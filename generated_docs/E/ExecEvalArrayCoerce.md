@@ -8,7 +8,10 @@ Evaluates an ArrayCoerceExpr expression by converting an array from one type to 
 
 ## Definition
 
-
+```c
+void
+ExecEvalArrayCoerce(ExprState *state, ExprEvalStep *op, ExprContext *econtext)
+```
 ## Detailed Description
 ExecEvalArrayCoerce is an expression evaluation function that handles array type coercion in PostgreSQL's expression evaluation system. It operates on the result of a previous evaluation step (stored in the step's result variable) and performs one of two types of coercion:
 

@@ -8,7 +8,10 @@ Deletes a specified node from a Red-Black tree while maintaining tree structure 
 
 ## Definition
 
-
+```c
+static void
+rbt_delete_node(RBTree *rbt, RBTNode *z)
+```
 ## Detailed Description
 This function implements the core node deletion logic for Red-Black trees. It handles the complex process of removing a node while preserving the binary search tree property and preparing for Red-Black tree balance maintenance. The algorithm follows the standard approach of finding the node to actually remove (which may be the target node itself or its tree successor), performing the structural removal, and then calling the fixup routine if a black node was removed.
 

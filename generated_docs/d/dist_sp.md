@@ -8,7 +8,9 @@ Calculates the distance from a line segment (LSEG) to a Point in PostgreSQL's ge
 
 ## Definition
 
-
+```c
+struct(&lseg, &path->p[iprev], &path->p[i]);
+```
 ## Detailed Description
 This function computes the shortest distance from a given line segment to a point. It serves as a PostgreSQL SQL function that can be called to perform geometric distance calculations. The implementation is functionally equivalent to  but with reversed argument order - it delegates the actual distance computation to the same  function, demonstrating that distance between a point and line segment is commutative.
 

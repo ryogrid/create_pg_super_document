@@ -8,7 +8,10 @@ A PostgreSQL function that calculates the distance between a polygon and a point
 
 ## Definition
 
-
+```c
+Datum
+dist_polyp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the distance calculation between a POLYGON and a Point in PostgreSQL's geometric data types system. It serves as a SQL-callable wrapper that extracts the polygon and point arguments from the function call arguments and delegates the actual distance computation to the internal function . The function follows PostgreSQL's standard function calling convention using the  macro and returns a float8 datum representing the calculated distance.
 

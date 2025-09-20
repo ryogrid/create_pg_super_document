@@ -8,7 +8,14 @@ A context structure used during constant expression evaluation and simplificatio
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			nargs;
+	List	   *args;
+	int		   *usecounts;
+} substitute_actual_parameters_context;
+```
 ## Detailed Description
 The eval_const_expressions_context structure serves as a state container for the constant expression evaluation process in PostgreSQL's query optimizer. This context is passed through the recursive expression tree walking functions to maintain necessary information for safe and correct constant folding operations. The structure supports two primary modes of operation: safe transformations only (when estimate=false) and unsafe transformations allowed (when estimate=true), enabling different levels of optimization aggressiveness depending on the usage context.
 

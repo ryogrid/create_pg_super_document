@@ -8,7 +8,10 @@ Relational operator that compares two PATH objects for equality based on their c
 
 ## Definition
 
-
+```c
+Datum
+path_n_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `path_n_eq` function implements the "equal" operator for PATH data types based on path cardinality. It compares the number of points (`npts`) in two PATH structures and returns a boolean result indicating whether they have the same cardinality. This completes the set of basic relational operators for PATH types along with `path_n_lt` and `path_n_gt`.
 

@@ -8,7 +8,10 @@ SPI_commit_and_chain commits the current transaction and starts a new one while 
 
 ## Definition
 
-
+```c
+void
+SPI_commit_and_chain(void)
+```
 ## Detailed Description
 SPI_commit_and_chain provides transaction chaining functionality within the SPI (Server Programming Interface) context. This function is a wrapper around the internal _SPI_commit function, called with the 'chain' parameter set to true, which means transaction characteristics (such as isolation level, read-only status, and deferrable status) are preserved across the transaction boundary.
 

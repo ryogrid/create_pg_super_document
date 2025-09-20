@@ -8,7 +8,10 @@ Searches the current parsing state's namespace for a relation item matching a sp
 
 ## Definition
 
-
+```c
+static ParseNamespaceItem *
+scanNameSpaceForRelid(ParseState *pstate, Oid relid, int location)
+```
 ## Detailed Description
 This static function searches through the p_namespace list to find a namespace item that corresponds to a specific relation OID. It is specifically designed for qualified name resolution where a schema.relation reference has been converted to a relation OID. The function only matches relation RTEs that have no alias (since qualified references cannot refer to aliased relations) and handles the same lateral scoping and ambiguity rules as its companion function scanNameSpaceForRefname.
 

@@ -8,7 +8,10 @@ PostgreSQL function that determines if the first MAC address is less than or equ
 
 ## Definition
 
-
+```c
+Datum
+macaddr_le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The macaddr_le function implements the less-than-or-equal-to comparison operator ('<=') for MAC address data types in PostgreSQL. It takes two MAC address arguments and returns true if the first MAC address is lexicographically smaller than or equal to the second, false otherwise. The function uses macaddr_cmp_internal to perform the comparison and checks if the result is less than or equal to zero (<= 0).
 

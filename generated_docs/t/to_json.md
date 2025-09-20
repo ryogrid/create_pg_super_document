@@ -8,7 +8,10 @@ The to_json function is a PostgreSQL SQL function that converts any PostgreSQL v
 
 ## Definition
 
-
+```c
+Datum
+to_json(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the main entry point for converting arbitrary PostgreSQL data types to JSON format. It acts as a wrapper that determines the input data type, categorizes it appropriately for JSON conversion, and delegates the actual conversion work to datum_to_json(). The function is designed to handle any PostgreSQL data type by first analyzing the type and then applying the appropriate JSON conversion logic.
 

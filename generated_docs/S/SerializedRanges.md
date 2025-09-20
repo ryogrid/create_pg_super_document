@@ -8,7 +8,24 @@ SerializedRanges is the on-disk storage representation of BRIN minmax-multi inde
 
 ## Definition
 
+```c
+typedef struct SerializedRanges
+{
+	/* varlena header (do not touch directly!) */
+	int32		vl_len_;
 
+	/* type of values stored in the data array */
+	Oid			typid;
+
+	/* (2*nranges + nvalues) <= maxvalues */
+	int			nranges;		/* number of ranges in the array (stored) */
+	int			nvalues;		/* number of values in the data array (all) */
+	int			maxvalues;		/* maximum number of values (reloption) */
+
+	/* contains the actual data */
+	char		data[FLEXIBLE_ARRAY_MEMBER];
+} SerializedRanges;
+```
 ## Detailed Description
 SerializedRanges is the persistent storage format for BRIN minmax-multi index summaries, designed for efficient disk storage and retrieval. It serves as the counterpart to the in-memory Ranges structure, using a compact bytea representation with a varlena header for integration with PostgreSQL's variable-length storage system. The structure stores essential metadata (type information, counts) in the header, followed by a flexible data array containing the actual serialized boundary values and single-point values. The serialization process is handled by brin_range_serialize/brin_range_deserialize functions.
 

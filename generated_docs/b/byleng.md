@@ -8,7 +8,10 @@ The byleng function calculates the effective length of a string by trimming trai
 
 ## Definition
 
-
+```c
+int
+byleng(char *str, int len)
+```
 ## Detailed Description
 The byleng function is part of PostgreSQL's ECPG Informix compatibility library. It determines the actual length of a string by removing trailing spaces from a fixed-length character array. The function starts from the end of the specified length and works backwards, skipping over space characters until it finds a non-space character or reaches the beginning of the string.
 

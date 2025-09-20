@@ -8,7 +8,10 @@ The checkmatchall function analyzes an NFA (Nondeterministic Finite Automaton) t
 
 ## Definition
 
-
+```c
+static void
+checkmatchall(struct nfa *nfa)
+```
 ## Detailed Description
 This function performs a sophisticated analysis to detect if an NFA represents a 'matchall' pattern - essentially a regex that only tests string length without caring about specific character content (like  which matches any 5-10 character string). When such a pattern is detected, it sets optimization flags and length bounds that allow the regex engine to use faster matching algorithms.
 

@@ -8,7 +8,10 @@ Computes optimization information for tuple slot deformation operations by deter
 
 ## Definition
 
-
+```c
+static bool
+ExecComputeSlotInfo(ExprState *state, ExprEvalStep *op)
+```
 ## Detailed Description
 ExecComputeSlotInfo is a sophisticated optimization function in PostgreSQL's expression evaluation system that analyzes tuple slot access patterns to determine the most efficient way to handle tuple deformation operations. Its primary goal is to determine whether a slot is 'fixed' (has consistent type and descriptor across all evaluations) and whether deformation is actually necessary.
 

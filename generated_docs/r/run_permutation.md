@@ -8,7 +8,9 @@ Executes a single permutation of test steps across multiple database sessions, m
 
 ## Definition
 
-
+```c
+struct timeval start_time;
+```
 ## Detailed Description
 This function is the core execution engine for individual test permutations in PostgreSQL's isolation testing framework. It orchestrates the execution of a specific sequence of test steps across multiple database sessions, handling the complex coordination required for concurrent testing scenarios.
 

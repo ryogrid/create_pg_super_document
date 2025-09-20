@@ -8,7 +8,10 @@ Converts calendar date (year, month, day) to Julian day number, providing a nume
 
 ## Definition
 
-
+```c
+int
+date2j(int y, int m, int d)
+```
 ## Detailed Description
 date2j implements a calendar time to Julian date conversion algorithm that accurately converts between Julian day and calendar date for all non-negative Julian days (from Nov 24, -4713 onwards). The function has been rewritten to eliminate overflow problems and now correctly handles all Julian day counts from 0 to 2147483647 (Nov 24, -4713 to Jun 3, 5874898) for 32-bit integers.
 

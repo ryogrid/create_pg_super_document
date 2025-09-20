@@ -8,7 +8,9 @@ A basic node structure for singly linked lists that can be embedded in other str
 
 ## Definition
 
-
+```c
+typedef struct slist_node slist_node;
+```
 ## Detailed Description
 The  structure serves as the fundamental building block for PostgreSQL's singly linked list implementation. It is designed to be embedded within other structures that need to participate in singly linked lists. This intrusive list design allows for efficient memory usage and eliminates the need for separate allocation of list nodes.
 

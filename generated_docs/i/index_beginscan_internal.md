@@ -8,7 +8,12 @@ The  function is the common internal implementation for all index scan initializ
 
 ## Definition
 
-
+```c
+static IndexScanDesc
+index_beginscan_internal(Relation indexRelation,
+						 int nkeys, int norderbys, Snapshot snapshot,
+						 ParallelIndexScanDesc pscan, bool temp_snap)
+```
 ## Detailed Description
 This static function serves as the unified backend for all index scan initialization operations in PostgreSQL. It performs essential setup tasks including relation validation, access method verification, predicate locking (when applicable), reference counting management, and delegation to the access method-specific scan initialization routine. The function handles both regular and parallel scan scenarios through its parameters. It ensures that proper locks and reference counts are maintained throughout the scan lifecycle and initializes the scan descriptor with parallel scan information and temporary snapshot flags as needed.
 

@@ -8,7 +8,10 @@ Type modifier input function for the variable-length bit string (VARBIT) data ty
 
 ## Definition
 
-
+```c
+Datum
+varbittypmodin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL type modifier input function specifically for the VARBIT (variable-length bit string) data type. It serves as a wrapper around the common  function, providing type-specific error messages and validation for variable-length bit strings. When a VARBIT type is declared with a length specification (e.g., VARBIT(10)), this function processes and validates that specification during type creation or casting operations.
 

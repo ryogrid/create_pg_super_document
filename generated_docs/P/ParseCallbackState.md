@@ -8,7 +8,14 @@ ParseCallbackState is a support structure for providing parser error position in
 
 ## Definition
 
-
+```c
+typedef struct ParseCallbackState
+{
+	ParseState *pstate;
+	int			location;
+	ErrorContextCallback errcallback;
+} ParseCallbackState;
+```
 ## Detailed Description
 ParseCallbackState serves as a callback mechanism for the PostgreSQL error reporting system to provide accurate source location information when parsing errors occur. This structure is used to set up an error context callback that can insert parser error position information into error messages.
 

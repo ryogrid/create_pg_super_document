@@ -8,7 +8,17 @@ Checks whether a specific 32-bit value might be contained in the Bloom filter by
 
 ## Definition
 
-
+```c
+typedef struct BloomOpaque
+{
+	/*
+	 * XXX At this point we only need a single proc (to compute the hash), but
+	 * let's keep the array just like inclusion and minmax opclasses, for
+	 * consistency. We may need additional procs in the future.
+	 */
+	FmgrInfo	extra_procinfos[BLOOM_MAX_PROCNUMS];
+} BloomOpaque;
+```
 ## Detailed Description
 This function implements the standard Bloom filter lookup operation. It computes the same hash values that would be used when adding the value (using identical seeds and double hashing technique), then checks if all corresponding bits in the filter are set. If any bit is not set, the function returns false immediately, guaranteeing the value was never added. If all bits are set, the function returns true, indicating the value might be in the set (with the possibility of false positives based on the filter's configured false positive rate).
 

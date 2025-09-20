@@ -8,7 +8,10 @@ Adds an unsigned 64-bit integer value to a 128-bit integer variable in-place.
 
 ## Definition
 
-
+```c
+static inline void
+int128_add_uint64(INT128 *i128, uint64 v)
+```
 ## Detailed Description
 This function performs an in-place addition operation, adding an unsigned 64-bit integer value to an existing 128-bit integer. The function is implemented as a static inline function for optimal performance, utilizing the underlying 128-bit integer arithmetic capabilities. The addition is performed directly using the += operator on the dereferenced INT128 pointer.
 

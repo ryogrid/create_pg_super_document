@@ -8,7 +8,10 @@ A placeholder PostgreSQL test function intended for Foreign Data Wrapper (FDW) h
 
 ## Definition
 
-
+```c
+Datum
+test_fdw_handler(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a stub for testing Foreign Data Wrapper handler functionality within PostgreSQL's regression test suite. Currently, the function is not implemented and will immediately throw an error when called. The function appears to be part of the testing infrastructure for FDW functionality, which allows PostgreSQL to access external data sources as if they were regular tables.
 

@@ -8,7 +8,10 @@ check_max_worker_processes is a GUC check hook function that validates proposed 
 
 ## Definition
 
-
+```c
+bool
+check_max_worker_processes(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for the max_worker_processes GUC parameter. It checks whether the proposed new value, when combined with MaxConnections, autovacuum workers, WAL senders, and additional system processes, would exceed the maximum number of backends allowed by the system (MAX_BACKENDS). This validation prevents configuration errors that could lead to system resource exhaustion.
 

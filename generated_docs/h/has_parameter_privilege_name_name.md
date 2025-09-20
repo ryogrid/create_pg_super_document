@@ -8,7 +8,10 @@ A PostgreSQL function that checks if a named user has specific privileges on a p
 
 ## Definition
 
-
+```c
+Datum
+has_parameter_privilege_name_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is one of the SQL-accessible variants of the has_parameter_privilege family. It accepts a username (as a Name type), parameter name (as text), and privilege name (as text), then performs the privilege check. The function converts the username to a role OID and the privilege string to an AclMode, then delegates the actual checking to the helper function .
 

@@ -8,7 +8,11 @@ Adjusts merged indexes of re-merged partitions during partition bound merging op
 
 ## Definition
 
-
+```c
+static void
+fix_merged_indexes(PartitionMap *outer_map, PartitionMap *inner_map,
+				   int nmerged, List *merged_indexes)
+```
 ## Detailed Description
 The  function is responsible for updating the merged indexes list when partitions are re-merged during partition bound operations. When partition bounds are merged, the original indexes may become invalid due to restructuring, and this function creates a mapping from old merged indexes to new merged indexes and applies this mapping to fix the provided merged_indexes list.
 

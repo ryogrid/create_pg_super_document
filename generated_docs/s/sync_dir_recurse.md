@@ -8,7 +8,9 @@ A convenient wrapper function that synchronizes a directory and all its contents
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The  function provides a simplified interface for synchronizing a directory and all its contents. It abstracts the complexity of choosing between different synchronization methods and handles the platform-specific implementation details.
 

@@ -8,7 +8,12 @@ A lightweight atomic flag structure providing lock-free synchronization primitiv
 
 ## Definition
 
-
+```c
+typedef struct pg_atomic_flag
+{
+	volatile char value;
+} pg_atomic_flag;
+```
 ## Detailed Description
 The  struct is PostgreSQL's foundational atomic synchronization primitive, designed to provide lock-free test-and-set functionality across different hardware architectures. It serves as the building block for implementing spinlocks and other low-level synchronization mechanisms within the PostgreSQL backend.
 

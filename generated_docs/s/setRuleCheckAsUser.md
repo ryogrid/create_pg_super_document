@@ -8,7 +8,10 @@ setRuleCheckAsUser recursively traverses a query or expression tree to set the c
 
 ## Definition
 
-
+```c
+void
+setRuleCheckAsUser(Node *node, Oid userid)
+```
 ## Detailed Description
 setRuleCheckAsUser modifies the permission checking context within query trees by setting the checkAsUser field in all RTEPermissionInfo structures to a specified user ID. This function is crucial for implementing PostgreSQL's rule system security model, where rule actions may need to be executed with the permissions of the rule owner rather than the current user. The function uses a tree walker pattern to recursively traverse the entire node tree, including subqueries, common table expressions (CTEs), and sublinks, ensuring that all permission checking contexts are consistently updated. This is particularly important for view rules and security-definer functions where privilege escalation is intentional and controlled.
 

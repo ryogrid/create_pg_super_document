@@ -8,7 +8,10 @@ Compares two TSQuery objects for ordering, providing a complete comparison funct
 
 ## Definition
 
-
+```c
+static int
+CompareTSQ(TSQuery a, TSQuery b)
+```
 ## Detailed Description
 The  function implements a comprehensive comparison between two TSQuery objects, returning an integer indicating their relative ordering (-1, 0, or 1). The comparison follows a hierarchical approach: first comparing the number of query items (size), then the total memory size (VARSIZE), and finally performing a deep structural comparison of the query trees themselves.
 

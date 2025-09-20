@@ -8,7 +8,14 @@ Executes a "Parse" protocol message, which parses SQL query strings and creates 
 
 ## Definition
 
-
+```c
+structing parsetrees.
+	 *
+	 * We have two strategies depending on whether the prepared statement is
+	 * named or not.  For a named prepared statement, we do parsing in
+	 * MessageContext and copy the finished trees into the prepared
+	 * statement's plancache entry;
+```
 ## Detailed Description
 This function implements the Parse phase of PostgreSQL's extended query protocol. It parses the provided SQL query string and creates a cached plan source that can be executed later via Bind and Execute messages. The function handles both named and unnamed prepared statements with different memory management strategies:
 

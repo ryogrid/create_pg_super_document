@@ -8,7 +8,9 @@ Creates a deep copy of a non-NULL datum, allocating new memory with palloc() for
 
 ## Definition
 
-
+```c
+struct varlena *vl = (struct varlena *) DatumGetPointer(value);
+```
 ## Detailed Description
 The  function creates a complete copy of a datum, handling the complexities of PostgreSQL's various datum storage mechanisms. The function's behavior depends on the type characteristics:
 

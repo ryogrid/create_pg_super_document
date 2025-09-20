@@ -8,7 +8,10 @@ Recursively traverses a JsonPathGinNode tree and collects all GIN index entries,
 
 ## Definition
 
-
+```c
+static void
+emit_jsp_gin_entries(JsonPathGinNode *node, GinEntries *entries)
+```
 ## Detailed Description
 This function performs a depth-first traversal of a JsonPathGinNode tree to collect and register all GIN index entries required for query execution. It serves as the final phase in jsonpath GIN query preparation, converting the abstract query tree into concrete GIN entries that can be used by the index access method.
 

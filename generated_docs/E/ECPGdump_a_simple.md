@@ -8,7 +8,15 @@ ECPGdump_a_simple is a static function that generates C code to dump simple data
 
 ## Definition
 
-
+```c
+static void
+ECPGdump_a_simple(FILE *o, const char *name, enum ECPGttype type,
+				  char *varcharsize,
+				  char *arrsize,
+				  const char *size,
+				  const char *prefix,
+				  int counter)
+```
 ## Detailed Description
 This function is responsible for generating the appropriate C code representation of simple data types within the ECPG preprocessor. It handles various PostgreSQL data types including varchar, bytea, numeric, timestamps, and others by determining the correct variable addressing (pointer vs. reference), calculating memory offsets, and formatting the output for the ECPG runtime system. The function generates different code patterns based on whether the variable is an array, pointer, or scalar, and handles special cases for varchar structures and string types.
 

@@ -8,7 +8,10 @@ ExecProcNodeFirst is a one-time wrapper function that performs initial setup che
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecProcNodeFirst(PlanState *node)
+```
 ## Detailed Description
 ExecProcNodeFirst serves as an intelligent bootstrap wrapper for plan node execution. It is designed to perform expensive one-time setup operations during the first execution of a plan node, then optimize subsequent executions by removing itself from the call chain.
 

@@ -8,7 +8,10 @@ Computes offset distances needed to step through a multidimensional sub-array wi
 
 ## Definition
 
-
+```c
+void
+mda_get_offset_values(int n, int *dist, const int *prod, const int *span)
+```
 ## Detailed Description
 This utility function calculates the step distances required to navigate through a multidimensional sub-array when it is embedded within a larger parent array. The function computes how much to advance the linear offset when moving from one "row" to the next in each dimension of the sub-array.
 

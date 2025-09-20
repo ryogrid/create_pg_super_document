@@ -8,7 +8,15 @@ Parses publication options from a list of DefElem nodes, setting publication act
 
 ## Definition
 
-
+```c
+static void
+parse_publication_options(ParseState *pstate,
+						  List *options,
+						  bool *publish_given,
+						  PublicationActions *pubactions,
+						  bool *publish_via_partition_root_given,
+						  bool *publish_via_partition_root)
+```
 ## Detailed Description
 This function processes publication creation or alteration options by parsing a list of DefElem nodes. It handles two main publication parameters: the 'publish' option that controls which DML operations (insert, update, delete, truncate) are replicated, and the 'publish_via_partition_root' option that controls whether changes to partitioned tables are published as coming from the partition or the root table.
 

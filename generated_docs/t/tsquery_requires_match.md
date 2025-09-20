@@ -8,7 +8,10 @@ Detects whether a tsquery boolean expression requires any positive matches to va
 
 ## Definition
 
-
+```c
+bool
+tsquery_requires_match(QueryItem *curitem)
+```
 ## Detailed Description
 This function analyzes a text search query tree to determine if the query requires at least one positive match to terms present in the query. This information is crucial for GIN index optimization, as it determines whether a full index scan is necessary or if the search can be limited to specific index entries.
 

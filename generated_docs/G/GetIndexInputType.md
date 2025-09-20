@@ -8,7 +8,10 @@ GetIndexInputType determines the nominal input data type for an index column, pr
 
 ## Definition
 
-
+```c
+static Oid
+GetIndexInputType(Relation index, AttrNumber indexcol)
+```
 ## Detailed Description
 This function determines the appropriate input data type for a given index column by implementing a preference hierarchy. It first checks the opclass's opcintype, and if that's a polymorphic type, it examines the actual input type from either a simple heap column or an index expression. The function ensures that non-polymorphic opclasses don't receive information about binary-compatible types (e.g., preferring "text" over "varchar"), and it flattens domain types when consulting actual input types.
 

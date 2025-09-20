@@ -8,7 +8,10 @@ Determines if a range is strictly positioned before (to the left of) a multirang
 
 ## Definition
 
-
+```c
+Datum
+range_before_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function implements the "strictly left of" operator (<<) between a range and a multirange. It checks whether the given range is entirely positioned before the multirange with no overlap or adjacency. The function serves as a SQL-callable wrapper around the internal  function, handling PostgreSQL's function calling convention and type management.
 

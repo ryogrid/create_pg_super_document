@@ -8,7 +8,10 @@ Converts an XML value to its binary representation for transmission over the net
 
 ## Definition
 
-
+```c
+Datum
+xml_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The xml_send function is a PostgreSQL type output function that serializes XML data into a binary format suitable for network transmission. This function is part of PostgreSQL's binary protocol support, allowing XML values to be efficiently sent from the server to client applications that use binary data transfer mode.
 

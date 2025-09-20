@@ -8,7 +8,10 @@ A static function that performs reverse string comparison for a specified number
 
 ## Definition
 
-
+```c
+static int
+strbncmp(const unsigned char *s1, const unsigned char *s2, size_t count)
+```
 ## Detailed Description
 The  function implements a specialized string comparison algorithm that compares two strings in reverse order (from the end towards the beginning) for up to  characters. This function is particularly useful in spell-checking contexts where suffix comparison is needed, such as when sorting affixes by their endings.
 

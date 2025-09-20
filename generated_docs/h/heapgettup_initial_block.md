@@ -8,7 +8,10 @@ heapgettup_initial_block determines the starting block number for a heap scan ba
 
 ## Definition
 
-
+```c
+static pg_noinline BlockNumber
+heapgettup_initial_block(HeapScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 This function calculates the appropriate initial block number for heap scanning operations, taking into account scan direction and various scan parameters. For forward scans, it simply returns the configured start block. For backward scans, it performs more complex logic: it disables synchronized scanning (since backward scans are rare and would interfere with forward scanners), calculates the ending block considering any scan limits set by heap_setscanlimits(), and handles wraparound cases when the scan doesn't start from block 0. The function returns InvalidBlockNumber for empty tables or when no blocks are available to scan.
 

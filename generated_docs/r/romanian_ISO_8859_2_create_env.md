@@ -8,7 +8,11 @@ A factory function that creates and initializes a Snowball environment structure
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * romanian_ISO_8859_2_create_env(void)
+```
 ## Detailed Description
 This function serves as a language-specific wrapper around the generic Snowball environment creation function. It initializes a stemming environment with the appropriate configuration for Romanian morphological analysis:
 

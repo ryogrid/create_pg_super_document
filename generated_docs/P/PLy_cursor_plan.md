@@ -8,7 +8,10 @@ Creates a PL/Python cursor object from a prepared plan object and optional param
 
 ## Definition
 
-
+```c
+PyObject *
+PLy_cursor_plan(PyObject *ob, PyObject *args)
+```
 ## Detailed Description
 PLy_cursor_plan creates a cursor object for executing prepared SQL plans with parameters. This function is more complex than PLy_cursor_query as it must handle parameter validation, conversion, and binding. It validates that the number of provided arguments matches the plan's expected parameter count, converts Python objects to PostgreSQL Datum values, and opens a cursor using the prepared plan.
 

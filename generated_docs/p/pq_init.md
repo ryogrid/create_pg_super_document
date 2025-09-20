@@ -8,7 +8,10 @@ Initializes libpq communication infrastructure at backend startup, setting up ne
 
 ## Definition
 
-
+```c
+struct and copy the ClientSocket contents to it */
+	port = palloc0(sizeof(Port));
+```
 ## Detailed Description
 The  function is responsible for initializing the PostgreSQL backend's communication layer with a client. It takes a  from the postmaster and creates a fully configured  structure that will be used for all subsequent client communication during the backend process lifetime.
 

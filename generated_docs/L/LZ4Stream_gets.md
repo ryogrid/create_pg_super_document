@@ -8,7 +8,10 @@ Provides a fgets() equivalent interface for reading line-oriented data from LZ4 
 
 ## Definition
 
-
+```c
+static char *
+LZ4Stream_gets(char *ptr, int size, CompressFileHandle *CFH)
+```
 ## Detailed Description
 LZ4Stream_gets implements the standard C library fgets() interface for LZ4 compressed streams. It reads characters from the compressed stream until either a newline character is encountered, the buffer is full (size-1 characters), or end-of-file/error occurs. The function uses LZ4Stream_read_internal() with the eol_flag set to true, enabling line-oriented reading that stops at newline characters.
 

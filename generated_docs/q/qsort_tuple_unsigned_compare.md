@@ -8,7 +8,10 @@ A specialized inline comparison function for sorting tuples when the first sort 
 
 ## Definition
 
-
+```c
+static pg_attribute_always_inline int
+qsort_tuple_unsigned_compare(SortTuple *a, SortTuple *b, Tuplesortstate *state)
+```
 ## Detailed Description
 This function is part of PostgreSQL's tuple sorting optimization system. It provides a specialized comparator that can be inlined into sorting routines to improve performance when the primary sort key uses unsigned integer comparison. The function first compares the first datum of both tuples using , and if they are equal, it falls back to a tiebreak function to compare secondary keys (unless there's only one sort key).
 

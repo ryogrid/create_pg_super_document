@@ -8,7 +8,10 @@ Validates whether a disk item pointer is valid by checking if the pointer is not
 
 ## Definition
 
-
+```c
+static inline bool
+ItemPointerIsValid(const ItemPointerData *pointer)
+```
 ## Detailed Description
 ItemPointerIsValid is a utility function that determines whether an ItemPointerData structure represents a valid disk item pointer. The function performs two key validations: first, it ensures the pointer itself is not NULL using PointerIsValid, and second, it verifies that the ip_posid field is not zero, which would indicate an invalid or uninitialized item pointer.
 

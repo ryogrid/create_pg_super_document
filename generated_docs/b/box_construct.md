@@ -8,7 +8,10 @@ A static inline utility function that constructs a BOX structure from two Point 
 
 ## Definition
 
-
+```c
+static inline void
+box_construct(BOX *result, Point *pt1, Point *pt2)
+```
 ## Detailed Description
 The `box_construct` function creates a properly formed BOX from two arbitrary Point structures. It ensures that the resulting BOX has its coordinates arranged correctly with `high` representing the upper-right corner and `low` representing the lower-left corner, regardless of the input point order. The function compares the x and y coordinates of both input points and assigns the greater values to the `high` fields and lesser values to the `low` fields.
 

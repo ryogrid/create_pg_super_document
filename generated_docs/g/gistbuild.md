@@ -8,7 +8,10 @@ Main entry point function for building GiST (Generalized Search Tree) indexes, r
 
 ## Definition
 
-
+```c
+IndexBuildResult *
+gistbuild(Relation heap, Relation index, IndexInfo *indexInfo)
+```
 ## Detailed Description
 The gistbuild function is the primary interface for GiST index construction, implementing a sophisticated strategy selection mechanism to optimize build performance based on available operators and user configuration. The function supports three main build modes:
 

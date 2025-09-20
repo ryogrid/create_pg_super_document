@@ -8,7 +8,10 @@ This function replays the split cleanup flag operation for a primary bucket page
 
 ## Definition
 
-
+```c
+static void
+hash_xlog_split_cleanup(XLogReaderState *record)
+```
 ## Detailed Description
 The hash_xlog_split_cleanup function is a WAL replay handler that processes split cleanup operations during crash recovery for hash indexes. When a hash bucket is split, the original bucket page is marked with the LH_BUCKET_NEEDS_SPLIT_CLEANUP flag to indicate it requires cleanup. This function replays the operation that clears this flag, indicating the split cleanup has been completed.
 

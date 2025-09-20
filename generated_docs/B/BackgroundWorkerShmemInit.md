@@ -8,7 +8,10 @@ Initializes the background worker shared memory structure and copies worker regi
 
 ## Definition
 
-
+```c
+void
+BackgroundWorkerShmemInit(void)
+```
 ## Detailed Description
 This function sets up the shared memory infrastructure for background workers during PostgreSQL initialization. It allocates or attaches to a shared memory segment named "Background Worker Data" and initializes the BackgroundWorkerData structure. When running as the postmaster (not under another postmaster), it copies all registered background workers from the private BackgroundWorkerList to shared memory slots, ensuring a 1-to-1 correspondence between the postmaster's list and the shared memory array. Each worker is assigned a specific slot number that enables communication between the postmaster and worker processes.
 

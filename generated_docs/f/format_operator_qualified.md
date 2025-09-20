@@ -8,7 +8,10 @@ Converts an operator OID to its fully schema-qualified textual representation, a
 
 ## Definition
 
-
+```c
+char *
+format_operator_qualified(Oid operator_oid)
+```
 ## Detailed Description
 The  function is a specialized wrapper around  that always produces fully qualified operator names. It calls the extended function with the  flag, ensuring that the schema name is always included in the output regardless of whether the operator would be found in the current search_path.
 

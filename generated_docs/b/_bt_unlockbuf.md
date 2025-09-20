@@ -8,7 +8,10 @@ _bt_unlockbuf unlocks a pinned B-tree buffer while maintaining proper memory acc
 
 ## Definition
 
-
+```c
+void
+_bt_unlockbuf(Relation rel, Buffer buf)
+```
 ## Detailed Description
 _bt_unlockbuf is a fundamental B-tree buffer management function that safely unlocks a previously locked buffer. The function performs memory validation checks using Valgrind instrumentation to ensure the buffer's memory is properly defined and accessible before unlocking. After unlocking the buffer using LockBuffer with BUFFER_LOCK_UNLOCK mode, it conditionally marks the buffer memory as inaccessible for non-local relations to help catch use-after-unlock bugs in debug builds.
 

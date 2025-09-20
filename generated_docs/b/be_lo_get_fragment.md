@@ -8,7 +8,10 @@ A PostgreSQL backend function that reads a specific fragment (range) of data fro
 
 ## Definition
 
-
+```c
+Datum
+be_lo_get_fragment(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides selective reading capability for PostgreSQL large objects by allowing retrieval of a specific range of bytes. Unlike  which reads the entire object, this function accepts an offset and length parameter to read only a portion of the large object. It includes parameter validation to ensure the requested length is not negative, and delegates the actual reading operation to the internal  function. This functionality is essential for efficient handling of large objects where only specific portions need to be accessed.
 

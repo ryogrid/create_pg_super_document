@@ -8,7 +8,10 @@ SendCopyBegin is a static function that initiates the COPY TO protocol by sendin
 
 ## Definition
 
-
+```c
+static void
+SendCopyBegin(CopyToState cstate)
+```
 ## Detailed Description
 This function is responsible for starting the frontend copy-out operation by sending the initial protocol message that informs the client about the format of the data that will be sent. It constructs a CopyOutResponse message containing the overall format (binary or text), the number of columns, and the format for each individual column. The function sets up the communication protocol between PostgreSQL backend and the client for COPY TO operations, ensuring both sides understand the data format before actual data transmission begins.
 

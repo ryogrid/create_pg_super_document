@@ -8,7 +8,13 @@ The  structure provides iterator state for safely traversing doubly-linked lists
 
 ## Definition
 
-
+```c
+typedef struct dlist_iter
+{
+	dlist_node *cur;			/* current element */
+	dlist_node *end;			/* last node we'll iterate to */
+} dlist_iter;
+```
 ## Detailed Description
 The  structure is designed to provide safe iteration over doubly-linked lists managed by  and  types. It serves as the state container for the  and  macros (and their dclist variants).
 

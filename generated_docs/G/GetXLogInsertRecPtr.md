@@ -8,7 +8,10 @@ Retrieves the latest WAL (Write-Ahead Log) insert pointer, indicating the curren
 
 ## Definition
 
-
+```c
+XLogRecPtr
+GetXLogInsertRecPtr(void)
+```
 ## Detailed Description
 This function returns the current WAL insert position by reading the CurrBytePos from the WAL insertion control structure. The insert pointer represents the location where the next WAL record would be written. The function uses spinlocks to ensure thread-safe access to the shared insertion position data, as multiple processes may be concurrently inserting WAL records.
 

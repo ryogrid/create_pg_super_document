@@ -8,7 +8,17 @@ Creates a path node for scanning a foreign base table through PostgreSQL's Forei
 
 ## Definition
 
-
+```c
+ForeignPath *
+create_foreignscan_path(PlannerInfo *root, RelOptInfo *rel,
+						PathTarget *target,
+						double rows, Cost startup_cost, Cost total_cost,
+						List *pathkeys,
+						Relids required_outer,
+						Path *fdw_outerpath,
+						List *fdw_restrictinfo,
+						List *fdw_private)
+```
 ## Detailed Description
 This function constructs a ForeignPath node specifically for foreign table scan operations. Unlike other path creation functions in PostgreSQL core, this function is never called directly by core PostgreSQL code. Instead, it's designed to be called by Foreign Data Wrapper (FDW) implementations through their GetForeignPaths function. The FDW must supply all cost and row estimation fields since PostgreSQL core has no way to calculate these values for external data sources. The function creates a specialized ForeignPath structure that extends the basic Path structure with FDW-specific fields for storing optimizer state and private data.
 

@@ -8,7 +8,10 @@ Converts a string from WIN866 (IBM/MS-DOS Cyrillic) encoding to KOI8-R (Russian 
 
 ## Definition
 
-
+```c
+Datum
+win866_to_koi8r(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs character encoding conversion from WIN866 to KOI8-R using a predefined character mapping table. It is the reverse conversion of koi8r_to_win866, utilizing the local2local conversion utility function with the win8662koi mapping table. The function validates encoding compatibility and returns the number of bytes successfully converted.
 

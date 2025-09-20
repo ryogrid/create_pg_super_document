@@ -8,7 +8,13 @@ Returns a pointer to the nullness indicator (isnull field) of a specific argumen
 
 ## Definition
 
-
+```c
+struct_gep(b,
+						  StructFunctionCallInfoData,
+						  v_fcinfo,
+						  FIELDNO_FUNCTIONCALLINFODATA_ARGS,
+						  "");
+```
 ## Detailed Description
 This function is part of PostgreSQL's LLVM JIT compilation infrastructure. It provides a way to access the nullness indicator of a specific function argument within the FunctionCallInfoData structure. The function navigates through the LLVM IR representation of the data structures to return a pointer to the isnull field of the specified argument's NullableDatum structure.
 

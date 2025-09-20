@@ -8,7 +8,16 @@ VariableSetKind is an enumeration that defines the different types of variable s
 
 ## Definition
 
-
+```c
+typedef struct VariableSetStmt
+{
+	NodeTag		type;
+	VariableSetKind kind;
+	char	   *name;			/* variable to be set */
+	List	   *args;			/* List of A_Const nodes */
+	bool		is_local;		/* SET LOCAL? */
+} VariableSetStmt;
+```
 ## Detailed Description
 This enumeration distinguishes between different syntactic forms of PostgreSQL's SET and RESET statements for configuration parameters. While some of these operations are semantically equivalent (such as "SET var TO DEFAULT" and "RESET var"), the distinction is preserved to support proper command tag creation and to handle different parsing contexts.
 

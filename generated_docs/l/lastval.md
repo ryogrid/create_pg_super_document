@@ -8,7 +8,10 @@ Returns the value most recently obtained by nextval() in the current session, wi
 
 ## Definition
 
-
+```c
+Datum
+lastval(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The lastval function returns the value that was most recently returned by nextval() in the current session, regardless of which sequence it came from. This is a session-level function that tracks the globally last-used sequence via the last_used_seq static variable. Unlike currval(), it doesn't require specifying a sequence identifier, making it convenient for applications that work with a single sequence or want the most recent value from any sequence.
 

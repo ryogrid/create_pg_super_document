@@ -8,7 +8,12 @@ Recursively translates column number privileges from a parent relation to a desc
 
 ## Definition
 
-
+```c
+static Bitmapset *
+translate_col_privs_multilevel(PlannerInfo *root, RelOptInfo *rel,
+							   RelOptInfo *parent_rel,
+							   Bitmapset *parent_cols)
+```
 ## Detailed Description
 This function handles column privilege translation across multiple levels of table inheritance. It recursively traverses the inheritance hierarchy from a descendant relation up to a specified parent relation, translating column numbers at each level. The function is designed to handle complex inheritance chains where there may be multiple intermediate parent relations between the target relation and the top-level parent.
 

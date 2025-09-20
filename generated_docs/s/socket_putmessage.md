@@ -8,7 +8,10 @@ A static function that sends a complete PostgreSQL protocol message to the clien
 
 ## Definition
 
-
+```c
+static int
+socket_putmessage(char msgtype, const char *s, size_t len)
+```
 ## Detailed Description
 This function constructs and sends a complete PostgreSQL protocol message following the standard format: message type (1 byte) + message length (4 bytes, including the length field itself) + message body. The function handles the protocol-level details of message formatting and uses internal buffering mechanisms to queue the data for transmission.
 

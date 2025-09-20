@@ -8,7 +8,13 @@ Appends a float8 (double-precision floating-point) value to a StringInfo buffer 
 
 ## Definition
 
-
+```c
+union
+	{
+		float8		f;
+		int64		i;
+	}			swap;
+```
 ## Detailed Description
 The pq_sendfloat8 function handles the serialization of double-precision floating-point values (float8) into PostgreSQL's standardized binary wire format. This function serves as the counterpart to pq_sendfloat4, but operates on 64-bit double-precision values instead of 32-bit single-precision values.
 

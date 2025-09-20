@@ -8,7 +8,10 @@ Checks whether the PostgreSQL server is currently in recovery mode by querying t
 
 ## Definition
 
-
+```c
+static bool
+server_is_in_recovery(PGconn *conn)
+```
 ## Detailed Description
 This function determines if a PostgreSQL server is in recovery mode by executing a SQL query against the pg_catalog.pg_is_in_recovery() system function. It handles the result by comparing the returned string value ('t' for true, 'f' for false) to determine the recovery status. The function provides error handling for query execution failures and properly cleans up resources.
 

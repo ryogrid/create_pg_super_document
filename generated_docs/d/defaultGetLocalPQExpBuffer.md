@@ -8,7 +8,10 @@ A static function that provides a temporary PQExpBuffer for internal use by iden
 
 ## Definition
 
-
+```c
+static PQExpBuffer
+defaultGetLocalPQExpBuffer(void)
+```
 ## Detailed Description
 This function serves as the default implementation for the getLocalPQExpBuffer function pointer. It maintains a single static PQExpBuffer that is reused across calls, providing an efficient way to obtain temporary string buffers for identifier formatting operations like fmtId() and fmtQualifiedId().
 

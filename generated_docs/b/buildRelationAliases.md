@@ -8,7 +8,10 @@ Constructs the eref column name list for a relation RTE (Range Table Entry), han
 
 ## Definition
 
-
+```c
+static void
+buildRelationAliases(TupleDesc tupdesc, Alias *alias, Alias *eref)
+```
 ## Detailed Description
 This function builds the effective reference (eref) column name list for a relation or function RTE. It processes the physical column information from a tuple descriptor and applies user-supplied column aliases where provided. The function handles dropped columns by inserting empty strings to maintain proper alignment with physical column numbers. It also rebuilds the alias->colnames list to ensure one-to-one correspondence with physical columns, and validates that the number of user-supplied aliases doesn't exceed the number of available columns.
 

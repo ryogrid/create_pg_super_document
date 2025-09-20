@@ -8,7 +8,17 @@ A local structure type used within the array_unnest function to maintain state a
 
 ## Definition
 
+```c
+char		elmalign;
+	} array_unnest_fctx;
 
+	FuncCallContext *funcctx;
+	array_unnest_fctx *fctx;
+	MemoryContext oldcontext;
+
+	/* stuff done only on the first call of the function */
+	if (SRF_IS_FIRSTCALL())
+```
 ## Detailed Description
 The array_unnest_fctx structure is a function context data type specifically designed to support the array_unnest() SQL function implementation. It encapsulates all the state information needed to iterate through an array and return its elements one by one across multiple function calls. This structure is allocated in the multi_call_memory_ctx to persist between function calls during the SRF execution cycle.
 

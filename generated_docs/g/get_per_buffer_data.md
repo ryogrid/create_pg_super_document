@@ -8,7 +8,10 @@ Returns a pointer to the per-buffer data for a specific buffer index within a Re
 
 ## Definition
 
-
+```c
+static inline void *
+get_per_buffer_data(ReadStream *stream, int16 buffer_index)
+```
 ## Detailed Description
 This is a utility function that calculates the memory address of per-buffer data for a given buffer index in a ReadStream. It performs pointer arithmetic to find the correct offset within the stream's per_buffer_data memory region. The function multiplies the per_buffer_data_size by the buffer_index to determine the byte offset from the base address.
 

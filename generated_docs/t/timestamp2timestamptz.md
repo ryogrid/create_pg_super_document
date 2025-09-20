@@ -8,7 +8,10 @@ A convenience wrapper function that converts timestamp to timestamptz, throwing 
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This static function serves as a simplified interface to timestamp2timestamptz_opt_overflow, specifically for cases where overflow should result in an error rather than being handled gracefully. By passing NULL as the overflow parameter to timestamp2timestamptz_opt_overflow, this function ensures that any out-of-range conversion will throw an error with the appropriate error code (ERRCODE_DATETIME_VALUE_OUT_OF_RANGE).
 

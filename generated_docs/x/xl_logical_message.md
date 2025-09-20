@@ -8,7 +8,17 @@ The  structure represents a generic logical decoding message WAL record used for
 
 ## Definition
 
-
+```c
+typedef struct xl_logical_message
+{
+	Oid			dbId;			/* database Oid emitted from */
+	bool		transactional;	/* is message transactional? */
+	Size		prefix_size;	/* length of prefix */
+	Size		message_size;	/* size of the message */
+	/* payload, including null-terminated prefix of length prefix_size */
+	char		message[FLEXIBLE_ARRAY_MEMBER];
+} xl_logical_message;
+```
 ## Detailed Description
 The  structure is designed to store application-defined logical messages in PostgreSQL's WAL stream. These messages can be either transactional (committed with a transaction) or non-transactional (immediately visible). The structure provides a flexible way for applications to insert custom data into the logical replication stream that can be consumed by logical decoding output plugins.
 

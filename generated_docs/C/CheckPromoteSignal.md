@@ -8,7 +8,9 @@ Validates the presence of a promotion signal file to determine if a standby prom
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 This function performs a file system check to validate whether a promotion signal file exists, confirming that a promotion request has been made for the standby server. It uses the  system call to check for the existence of  without actually reading or modifying the file. This approach is lightweight and efficient, providing a simple boolean response about the promotion signal's presence. The function serves as a secondary validation mechanism in the promotion detection process, typically called after  indicates a potential promotion signal. It's designed to be called frequently during recovery operations without significant performance impact.
 

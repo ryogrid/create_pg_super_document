@@ -8,7 +8,10 @@ Validates that SPI (Server Programming Interface) functions can be safely called
 
 ## Definition
 
-
+```c
+static void
+check_spi_usage_allowed(void)
+```
 ## Detailed Description
 This function performs critical safety checks before allowing SPI operations in PL/Perl. It prevents SPI usage in two dangerous scenarios:
 1. During PL/Perl cleanup (END blocks) when PostgreSQL infrastructure may be partially torn down

@@ -8,7 +8,10 @@ Compares a target list's output datatypes against a specified list of column typ
 
 ## Definition
 
-
+```c
+bool
+tlist_same_datatypes(List *tlist, List *colTypes, bool junkOK)
+```
 ## Detailed Description
 This function verifies whether a target list produces the same output datatypes as specified in a given list of column types. It's primarily used during query planning to ensure type compatibility between different parts of a query plan, particularly in set operations like UNION.
 

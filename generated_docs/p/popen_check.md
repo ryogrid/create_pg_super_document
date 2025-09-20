@@ -8,7 +8,10 @@ Opens a subprocess command with enhanced error handling and logging for PostgreS
 
 ## Definition
 
-
+```c
+static FILE *
+popen_check(const char *command, const char *mode)
+```
 ## Detailed Description
 This function serves as a wrapper around the standard popen() function, providing consistent error handling and logging for subprocess execution in PostgreSQL utilities. It ensures proper stdio flushing before executing the command to avoid output buffering issues, clears errno for accurate error detection, and provides standardized error messaging through PostgreSQL's logging system. The function is designed to integrate seamlessly with PostgreSQL's error handling conventions while maintaining the standard popen interface.
 

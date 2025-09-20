@@ -8,7 +8,10 @@ Creates a deep copy of an ExtensibleNode by delegating the node-specific copying
 
 ## Definition
 
-
+```c
+static ExtensibleNode *
+_copyExtensibleNode(const ExtensibleNode *from)
+```
 ## Detailed Description
 The  function provides a generic copying mechanism for ExtensibleNode structures, which are a framework in PostgreSQL for creating custom node types that can be plugged into the existing node infrastructure. The function follows a two-phase approach: first, it allocates a new node of the appropriate size using the node's registered methods, then delegates the actual field copying to the node type's custom copy function.
 

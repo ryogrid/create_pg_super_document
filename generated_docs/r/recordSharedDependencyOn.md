@@ -8,7 +8,12 @@ Records a dependency relationship between two objects where the referenced objec
 
 ## Definition
 
-
+```c
+void
+recordSharedDependencyOn(ObjectAddress *depender,
+						 ObjectAddress *referenced,
+						 SharedDependencyType deptype)
+```
 ## Detailed Description
 This function creates an entry in the pg_shdepend catalog table to track dependencies between database objects where the referenced object is shared across databases (like users, roles, tablespaces). It ensures the referenced object still exists by locking it, then records the dependency relationship. The lock is maintained until the end of the current transaction. Dependencies on pinned objects (system objects that cannot be dropped) are not recorded as they are considered permanent.
 

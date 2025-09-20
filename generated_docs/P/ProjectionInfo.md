@@ -8,7 +8,16 @@ ProjectionInfo is a structure used to perform projections in PostgreSQL's execut
 
 ## Definition
 
-
+```c
+typedef struct ProjectionInfo
+{
+	NodeTag		type;
+	/* instructions to evaluate projection */
+	ExprState	pi_state;
+	/* expression context in which to evaluate expression */
+	ExprContext *pi_exprContext;
+} ProjectionInfo;
+```
 ## Detailed Description
 ProjectionInfo contains all the information needed to perform projections in PostgreSQL's execution engine. Projection is the process of forming new tuples by evaluating targetlist expressions. Nodes that need to perform projections create one of these structures.
 

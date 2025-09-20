@@ -8,7 +8,206 @@ RelationSetNewRelfilenumber assigns a new physical file number (and optionally n
 
 ## Definition
 
+```c
+enumber(Relation relation, char persistence)
+{
+	RelFileNumber newrelfilenumber;
+	Relation	pg_class;
+	ItemPointerData otid;
+	HeapTuple	tuple;
+	Form_pg_class classform;
+	MultiXactId minmulti = InvalidMultiXactId;
+	TransactionId freezeXid = InvalidTransactionId;
+	RelFileLocator newrlocator;
 
+	if (!IsBinaryUpgrade)
+	{
+		/* Allocate a new relfilenumber */
+		newrelfilenumber = GetNewRelFileNumber(relation->rd_rel->reltablespace,
+											   NULL, persistence);
+	}
+	else if (relation->rd_rel->relkind == RELKIND_INDEX)
+	{
+		if (!OidIsValid(binary_upgrade_next_index_pg_class_relfilenumber))
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+					 errmsg("index relfilenumber value not set when in binary upgrade mode")));
+
+		newrelfilenumber = binary_upgrade_next_index_pg_class_relfilenumber;
+		binary_upgrade_next_index_pg_class_relfilenumber = InvalidOid;
+	}
+	else if (relation->rd_rel->relkind == RELKIND_RELATION)
+	{
+		if (!OidIsValid(binary_upgrade_next_heap_pg_class_relfilenumber))
+			ereport(ERROR,
+					(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+					 errmsg("heap relfilenumber value not set when in binary upgrade mode")));
+
+		newrelfilenumber = binary_upgrade_next_heap_pg_class_relfilenumber;
+		binary_upgrade_next_heap_pg_class_relfilenumber = InvalidOid;
+	}
+	else
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				 errmsg("unexpected request for new relfilenumber in binary upgrade mode")));
+
+	/*
+	 * Get a writable copy of the pg_class tuple for the given relation.
+	 */
+	pg_class = table_open(RelationRelationId, RowExclusiveLock);
+
+	tuple = SearchSysCacheLockedCopy1(RELOID,
+									  ObjectIdGetDatum(RelationGetRelid(relation)));
+	if (!HeapTupleIsValid(tuple))
+		elog(ERROR, "could not find tuple for relation %u",
+			 RelationGetRelid(relation));
+	otid = tuple->t_self;
+	classform = (Form_pg_class) GETSTRUCT(tuple);
+
+	/*
+	 * Schedule unlinking of the old storage at transaction commit, except
+	 * when performing a binary upgrade, when we must do it immediately.
+	 */
+	if (IsBinaryUpgrade)
+	{
+		SMgrRelation srel;
+
+		/*
+		 * During a binary upgrade, we use this code path to ensure that
+		 * pg_largeobject and its index have the same relfilenumbers as in the
+		 * old cluster. This is necessary because pg_upgrade treats
+		 * pg_largeobject like a user table, not a system table. It is however
+		 * possible that a table or index may need to end up with the same
+		 * relfilenumber in the new cluster as what it had in the old cluster.
+		 * Hence, we can't wait until commit time to remove the old storage.
+		 *
+		 * In general, this function needs to have transactional semantics,
+		 * and removing the old storage before commit time surely isn't.
+		 * However, it doesn't really matter, because if a binary upgrade
+		 * fails at this stage, the new cluster will need to be recreated
+		 * anyway.
+		 */
+		srel = smgropen(relation->rd_locator, relation->rd_backend);
+		smgrdounlinkall(&srel, 1, false);
+		smgrclose(srel);
+	}
+	else
+	{
+		/* Not a binary upgrade, so just schedule it to happen later. */
+		RelationDropStorage(relation);
+	}
+
+	/*
+	 * Create storage for the main fork of the new relfilenumber.  If it's a
+	 * table-like object, call into the table AM to do so, which'll also
+	 * create the table's init fork if needed.
+	 *
+	 * NOTE: If relevant for the AM, any conflict in relfilenumber value will
+	 * be caught here, if GetNewRelFileNumber messes up for any reason.
+	 */
+	newrlocator = relation->rd_locator;
+	newrlocator.relNumber = newrelfilenumber;
+
+	if (RELKIND_HAS_TABLE_AM(relation->rd_rel->relkind))
+	{
+		table_relation_set_new_filelocator(relation, &newrlocator,
+										   persistence,
+										   &freezeXid, &minmulti);
+	}
+	else if (RELKIND_HAS_STORAGE(relation->rd_rel->relkind))
+	{
+		/* handle these directly, at least for now */
+		SMgrRelation srel;
+
+		srel = RelationCreateStorage(newrlocator, persistence, true);
+		smgrclose(srel);
+	}
+	else
+	{
+		/* we shouldn't be called for anything else */
+		elog(ERROR, "relation \"%s\" does not have storage",
+			 RelationGetRelationName(relation));
+	}
+
+	/*
+	 * If we're dealing with a mapped index, pg_class.relfilenode doesn't
+	 * change; instead we have to send the update to the relation mapper.
+	 *
+	 * For mapped indexes, we don't actually change the pg_class entry at all;
+	 * this is essential when reindexing pg_class itself.  That leaves us with
+	 * possibly-inaccurate values of relpages etc, but those will be fixed up
+	 * later.
+	 */
+	if (RelationIsMapped(relation))
+	{
+		/* This case is only supported for indexes */
+		Assert(relation->rd_rel->relkind == RELKIND_INDEX);
+
+		/* Since we're not updating pg_class, these had better not change */
+		Assert(classform->relfrozenxid == freezeXid);
+		Assert(classform->relminmxid == minmulti);
+		Assert(classform->relpersistence == persistence);
+
+		/*
+		 * In some code paths it's possible that the tuple update we'd
+		 * otherwise do here is the only thing that would assign an XID for
+		 * the current transaction.  However, we must have an XID to delete
+		 * files, so make sure one is assigned.
+		 */
+		(void) GetCurrentTransactionId();
+
+		/* Do the deed */
+		RelationMapUpdateMap(RelationGetRelid(relation),
+							 newrelfilenumber,
+							 relation->rd_rel->relisshared,
+							 false);
+
+		/* Since we're not updating pg_class, must trigger inval manually */
+		CacheInvalidateRelcache(relation);
+	}
+	else
+	{
+		/* Normal case, update the pg_class entry */
+		classform->relfilenode = newrelfilenumber;
+
+		/* relpages etc. never change for sequences */
+		if (relation->rd_rel->relkind != RELKIND_SEQUENCE)
+		{
+			classform->relpages = 0;	/* it's empty until further notice */
+			classform->reltuples = -1;
+			classform->relallvisible = 0;
+		}
+		classform->relfrozenxid = freezeXid;
+		classform->relminmxid = minmulti;
+		classform->relpersistence = persistence;
+
+		CatalogTupleUpdate(pg_class, &otid, tuple);
+	}
+
+	UnlockTuple(pg_class, &otid, InplaceUpdateTupleLock);
+	heap_freetuple(tuple);
+
+	table_close(pg_class, RowExclusiveLock);
+
+	/*
+	 * Make the pg_class row change or relation map change visible.  This will
+	 * cause the relcache entry to get updated, too.
+	 */
+	CommandCounterIncrement();
+
+	RelationAssumeNewRelfilelocator(relation);
+}
+
+/*
+ * RelationAssumeNewRelfilelocator
+ *
+ * Code that modifies pg_class.reltablespace or pg_class.relfilenode must call
+ * this.  The call shall precede any code that might insert WAL records whose
+ * replay would modify bytes in the new RelFileLocator, and the call shall follow
+ * any WAL modifying bytes in the prior RelFileLocator.  See struct RelationData.
+ * Ideally, call this as near as possible to the CommandCounterIncrement()
+ * that makes the pg_class change visible (before it or after it);
+```
 ## Detailed Description
 This function performs a complete relfilenumber change operation for a relation, which effectively creates new physical storage while maintaining transactional safety. The process involves several coordinated steps:
 

@@ -8,7 +8,10 @@ Creates and initializes a JsonTablePath node that represents a JSON path express
 
 ## Definition
 
-
+```c
+JsonTablePath *
+makeJsonTablePath(Const *pathvalue, char *pathname)
+```
 ## Detailed Description
 The  function is a constructor function that creates a new JsonTablePath node structure. This function is part of PostgreSQL's node creation utilities and is specifically designed to support the JSON_TABLE functionality. It allocates memory for a new JsonTablePath structure using the  macro and initializes its fields with the provided path value and optional path name.
 

@@ -8,7 +8,9 @@ A static comparison function used for sorting pct_info structures by their first
 
 ## Definition
 
-
+```c
+struct pct_info *a = (const struct pct_info *) pa;
+```
 ## Detailed Description
 This function serves as a comparator for sorting pct_info structures in ordered set aggregate operations. It implements a two-level sorting criterion: first by first_row field, then by second_row field if the first_row values are equal. The function is designed to be used with standard library sorting functions like qsort().
 

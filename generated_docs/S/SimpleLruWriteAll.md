@@ -8,7 +8,10 @@ Writes all dirty pages to disk during checkpoint or database shutdown operations
 
 ## Definition
 
-
+```c
+void
+SimpleLruWriteAll(SlruCtl ctl, bool allow_redirtied)
+```
 ## Detailed Description
 SimpleLruWriteAll is a critical function that performs bulk write operations of all dirty pages in an SLRU buffer pool. It is typically called during checkpoint operations or database shutdown to ensure data durability. The function iterates through all buffer slots, acquires appropriate bank locks, and writes dirty pages using SlruInternalWritePage. It handles file management by tracking opened files during the write process and properly closing them afterward. The function also includes error handling for file operations and ensures directory synchronization for newly created files.
 

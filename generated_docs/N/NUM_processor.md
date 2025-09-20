@@ -8,7 +8,12 @@ The core formatting engine that processes number formatting patterns and convert
 
 ## Definition
 
-
+```c
+static char *
+NUM_processor(FormatNode *node, NUMDesc *Num, char *inout,
+			  char *number, int input_len, int to_char_out_pre_spaces,
+			  int sign, bool is_to_char, Oid collid)
+```
 ## Detailed Description
 NUM_processor is the central function in PostgreSQL's number formatting system. It processes format patterns defined by FormatNode structures and converts between numeric strings and formatted text representations. The function handles both TO_CHAR (number to formatted string) and TO_NUMBER (formatted string to number) operations.
 

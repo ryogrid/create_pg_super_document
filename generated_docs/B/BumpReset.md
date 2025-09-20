@@ -8,7 +8,10 @@ Resets a Bump memory context by freeing all allocated memory blocks except the k
 
 ## Definition
 
-
+```c
+void
+BumpReset(MemoryContext context)
+```
 ## Detailed Description
 BumpReset performs a bulk deallocation operation that is the primary strength of the Bump allocation strategy. The function iterates through all blocks in the context's doubly-linked list, freeing non-keeper blocks entirely and marking the keeper block as empty for reuse. This approach allows for very efficient cleanup of all allocated memory in O(n) time where n is the number of blocks, rather than having to track and free individual allocations.
 

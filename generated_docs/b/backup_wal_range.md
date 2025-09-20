@@ -8,7 +8,14 @@ A structure that holds the details of WAL (Write-Ahead Log) ranges extracted fro
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	uint32		status;
+	const char *path;
+	size_t		size;
+} backup_file_entry;
+```
 ## Detailed Description
 The backup_wal_range structure is used to store information about WAL ranges found in backup manifests during incremental backup operations. Each instance represents a continuous range of WAL records identified by a timeline ID and bounded by start and end LSN (Log Sequence Number) positions. This structure is essential for tracking which WAL segments are covered by a particular backup, allowing the system to determine what additional WAL data is needed for incremental backups.
 

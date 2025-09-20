@@ -8,7 +8,11 @@ Recursively processes set operation trees, handling each node to generate optimi
 
 ## Definition
 
-
+```c
+union_paths(op, root,
+									   refnames_tlist,
+									   pTargetList);
+```
 ## Detailed Description
  is the core recursive function that traverses and processes set operation trees in PostgreSQL's query optimizer. It handles two main types of nodes: leaf nodes (RangeTblRef) representing base subqueries, and internal nodes (SetOperationStmt) representing set operations.
 

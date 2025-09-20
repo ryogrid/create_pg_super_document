@@ -8,7 +8,10 @@ A function that reconstructs a Datum value from its string representation during
 
 ## Definition
 
-
+```c
+Datum
+readDatum(bool typbyval)
+```
 ## Detailed Description
 The  function is a core utility in PostgreSQL's node deserialization system that converts string representations of constant values back into Datum format. A Datum is PostgreSQL's universal data container that can hold values of any data type.
 

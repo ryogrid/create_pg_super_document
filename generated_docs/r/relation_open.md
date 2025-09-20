@@ -8,7 +8,10 @@ Opens any relation by its object identifier (OID) and optionally acquires a lock
 
 ## Definition
 
-
+```c
+Relation
+relation_open(Oid relationId, LOCKMODE lockmode)
+```
 ## Detailed Description
 The `relation_open` function is the primary interface for opening database relations by their OID. It handles locking, relcache access, and validation to ensure safe access to database objects. The function performs several key operations:
 

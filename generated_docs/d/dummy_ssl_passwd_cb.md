@@ -8,7 +8,10 @@ A dummy passphrase callback that returns an empty passphrase to prevent interact
 
 ## Definition
 
-
+```c
+static int
+dummy_ssl_passwd_cb(char *buf, int size, int rwflag, void *userdata)
+```
 ## Detailed Description
 This function serves as a protective mechanism against OpenSSL's default behavior of prompting for passphrases on /dev/tty when encountering password-protected SSL certificates or keys. During automated operations like postmaster SIGHUP cycles or SSL context reloads in EXEC_BACKEND postmaster children, interactive prompting would cause system hangs or failures. This dummy callback intentionally returns an empty passphrase, which guarantees that the SSL key loading will fail gracefully rather than block waiting for user input. The function also sets a flag (dummy_ssl_passwd_cb_called) to enable more descriptive error reporting when this callback is invoked.
 

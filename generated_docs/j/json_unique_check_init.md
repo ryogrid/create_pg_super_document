@@ -8,7 +8,10 @@ The  function initializes a hash table for detecting duplicate keys during JSON 
 
 ## Definition
 
-
+```c
+static void
+json_unique_check_init(JsonUniqueCheckState *cxt)
+```
 ## Detailed Description
 This function creates and configures a hash table specifically designed for JSON key uniqueness checking. It sets up a PostgreSQL HTAB with appropriate hash and comparison functions, using  structures as both keys and entries. The hash table is initialized with a default capacity of 32 entries and uses the current memory context for allocation.
 

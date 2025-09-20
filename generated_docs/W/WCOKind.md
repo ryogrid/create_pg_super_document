@@ -8,7 +8,17 @@ WCOKind is an enumeration that defines the different types of WITH CHECK OPTION 
 
 ## Definition
 
-
+```c
+typedef struct WithCheckOption
+{
+	NodeTag		type;
+	WCOKind		kind;			/* kind of WCO */
+	char	   *relname;		/* name of relation that specified the WCO */
+	char	   *polname;		/* name of RLS policy being checked */
+	Node	   *qual;			/* constraint qual to check */
+	bool		cascaded;		/* true for a cascaded WCO on a view */
+} WithCheckOption;
+```
 ## Detailed Description
 WCOKind classifies different types of WITH CHECK OPTION constraints in PostgreSQL. These constraints ensure that newly inserted or updated tuples satisfy certain conditions. The enumeration distinguishes between view-level checks and various Row Level Security (RLS) policy checks that apply in different contexts such as INSERT, UPDATE, MERGE, and conflict resolution scenarios.
 

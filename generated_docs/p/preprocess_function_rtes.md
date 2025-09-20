@@ -8,7 +8,11 @@ Constant-simplifies FUNCTION RTEs in the FROM clause and attempts to inline set-
 
 ## Definition
 
-
+```c
+structure doesn't escape the planner.
+				 */
+				rte->funcordinality = false;
+```
 ## Detailed Description
 This function processes all FUNCTION range table entries (RTEs) in a query's FROM clause by performing two key optimizations:
 

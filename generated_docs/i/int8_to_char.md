@@ -8,7 +8,10 @@ Converts a 64-bit integer (int8) to its formatted text representation according 
 
 ## Definition
 
-
+```c
+Datum
+int8_to_char(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function formats a 64-bit integer value into a text string according to a format specification. It supports various formatting options including Roman numerals, scientific notation, decimal formatting with padding, and precision control. The function handles three main formatting categories:
 

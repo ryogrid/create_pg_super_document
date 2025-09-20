@@ -8,7 +8,11 @@ repairViewRuleLoop resolves circular dependency loops between views (including m
 
 ## Definition
 
-
+```c
+static void
+repairViewRuleLoop(DumpableObject *viewobj,
+				   DumpableObject *ruleobj)
+```
 ## Detailed Description
 repairViewRuleLoop addresses a specific type of circular dependency that occurs between views/materialized views and their ON SELECT rules. This circular dependency arises because:
 1. pg_dump forces views to depend on their ON SELECT rules (explicit dependency)

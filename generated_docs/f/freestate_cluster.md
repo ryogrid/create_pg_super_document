@@ -8,7 +8,10 @@ Cleans up and releases execution state resources specifically allocated for CLUS
 
 ## Definition
 
-
+```c
+static void
+freestate_cluster(Tuplesortstate *state)
+```
 ## Detailed Description
 The `freestate_cluster` function is responsible for properly cleaning up execution state resources that were allocated specifically for CLUSTER operations. During CLUSTER sort operations, PostgreSQL may create an executor state (EState) to handle expression evaluation and tuple processing. This function ensures that all such resources are properly released to prevent memory leaks.
 

@@ -8,7 +8,10 @@ Returns a human-readable string identifier for relation mapping (relmap) WAL rec
 
 ## Definition
 
-
+```c
+const char *
+relmap_identify(uint8 info)
+```
 ## Detailed Description
 The `relmap_identify` function is a WAL record identification function that converts numeric WAL record type codes into human-readable string identifiers for relation mapping operations. This function is part of PostgreSQL's Write-Ahead Logging (WAL) infrastructure and is used primarily for debugging, logging, and diagnostic purposes to help administrators and developers understand what type of relation mapping operation a particular WAL record represents.
 

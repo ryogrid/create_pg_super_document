@@ -8,7 +8,12 @@ This function provides a nontransactional truncation mechanism for heap relation
 
 ## Definition
 
-
+```c
+enumber value will be caught in
+	 * RelationCreateStorage().
+	 */
+	dstrel = RelationCreateStorage(*newrlocator, rel->rd_rel->relpersistence, true);
+```
 ## Detailed Description
 heapam_relation_nontransactional_truncate is a static function that serves as a wrapper around RelationTruncate, specifically designed to truncate a heap relation to block 0 (effectively removing all data). The function operates outside the normal transaction framework, meaning the truncation occurs immediately and is not subject to transaction rollback. This makes it suitable for operations where immediate data removal is required without the overhead of transaction logging.
 

@@ -8,7 +8,10 @@ Creates and initializes a BlockRefTableReader for incrementally reading and pars
 
 ## Definition
 
-
+```c
+structure. */
+	reader = palloc0(sizeof(BlockRefTableReader));
+```
 ## Detailed Description
 CreateBlockRefTableReader initializes a new BlockRefTableReader structure that provides sequential access to entries in a serialized block reference table file. The function sets up the necessary I/O callbacks, error handling mechanisms, and validates the file format by checking the magic number header. It prepares the internal buffer state and CRC calculation context for subsequent read operations. The reader maintains context for error reporting including the filename and callback function for malformed file detection.
 

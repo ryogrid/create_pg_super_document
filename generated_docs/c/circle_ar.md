@@ -8,7 +8,10 @@ Calculates and returns the area of a circle using the mathematical formula π ×
 
 ## Definition
 
-
+```c
+static float8
+circle_ar(CIRCLE *circle)
+```
 ## Detailed Description
 The  function computes the area of a circle given a CIRCLE structure. It implements the standard geometric formula for circle area: π × radius². The function uses PostgreSQL's  function for safe floating-point multiplication and the mathematical constant  for π. This is a static internal function used by other circle-related operations for area calculations and comparisons.
 

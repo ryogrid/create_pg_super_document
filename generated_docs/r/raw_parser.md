@@ -8,7 +8,17 @@ The primary entry point for PostgreSQL's SQL parser that performs lexical and gr
 
 ## Definition
 
-
+```c
+enum */
+		static const int mode_token[] = {
+			[RAW_PARSE_DEFAULT] = 0,
+			[RAW_PARSE_TYPE_NAME] = MODE_TYPE_NAME,
+			[RAW_PARSE_PLPGSQL_EXPR] = MODE_PLPGSQL_EXPR,
+			[RAW_PARSE_PLPGSQL_ASSIGN1] = MODE_PLPGSQL_ASSIGN1,
+			[RAW_PARSE_PLPGSQL_ASSIGN2] = MODE_PLPGSQL_ASSIGN2,
+			[RAW_PARSE_PLPGSQL_ASSIGN3] = MODE_PLPGSQL_ASSIGN3,
+		};
+```
 ## Detailed Description
 The raw_parser function serves as the main interface to PostgreSQL's parsing subsystem. It takes a SQL query string and performs both lexical scanning (tokenization) and grammatical parsing to produce an Abstract Syntax Tree (AST). The function supports different parsing modes to handle various contexts like type names, PL/pgSQL expressions, and assignments.
 

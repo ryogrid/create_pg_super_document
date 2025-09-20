@@ -8,7 +8,10 @@ Performs cleanup operations when shutting down the pgoutput logical replication 
 
 ## Definition
 
-
+```c
+static void
+pgoutput_shutdown(LogicalDecodingContext *ctx)
+```
 ## Detailed Description
 The  function handles the cleanup and shutdown process for PostgreSQL's pgoutput logical replication output plugin. This function is called when the logical decoding session is ending, either due to normal termination or error conditions.
 

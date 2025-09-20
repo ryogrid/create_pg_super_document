@@ -8,7 +8,9 @@ This static function is the core logic that discovers all available versions for
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This function implements the inner loop logic for pg_available_extension_versions. Given an extension's primary control file, it discovers all installable and non-installable versions by examining the extension's script directory and version update graph. 
 

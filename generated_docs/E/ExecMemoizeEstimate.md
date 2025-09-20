@@ -8,7 +8,10 @@ Estimates the shared memory space required to propagate memoize execution statis
 
 ## Definition
 
-
+```c
+void
+ExecMemoizeEstimate(MemoizeState *node, ParallelContext *pcxt)
+```
 ## Detailed Description
 ExecMemoizeEstimate is a parallel query support function that calculates the shared memory requirements for propagating memoize execution statistics from worker processes back to the leader process. The function is only relevant when instrumentation is enabled and parallel workers are being used. It estimates the memory needed to store MemoizeInstrumentation data for each worker process in a shared memory structure (SharedMemoizeInfo).
 

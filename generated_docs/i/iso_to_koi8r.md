@@ -8,7 +8,10 @@ Converts a string from ISO-8859-5 (Cyrillic) encoding to KOI8-R (Russian Cyrilli
 
 ## Definition
 
-
+```c
+Datum
+iso_to_koi8r(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs character encoding conversion from ISO-8859-5 to KOI8-R using a predefined character mapping table. ISO-8859-5 is part of the ISO-8859 series of ASCII-compatible character encodings that provides Latin/Cyrillic characters, while KOI8-R (Kod Obmena Informatsiey 8-bit Russian) is a character encoding designed specifically for Russian and other Cyrillic alphabets.
 

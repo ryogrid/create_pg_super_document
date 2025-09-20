@@ -8,7 +8,14 @@ A fundamental data structure node that represents an element in a pairing heap, 
 
 ## Definition
 
-
+```c
+typedef struct pairingheap_node
+{
+	struct pairingheap_node *first_child;
+	struct pairingheap_node *next_sibling;
+	struct pairingheap_node *prev_or_parent;
+} pairingheap_node;
+```
 ## Detailed Description
 The  structure implements the node representation for PostgreSQL's pairing heap data structure. It uses a tree-like structure where each node can have multiple children organized as a doubly-linked list. This design allows efficient heap operations while maintaining the heap property.
 

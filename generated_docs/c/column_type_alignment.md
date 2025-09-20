@@ -8,7 +8,9 @@ The column_type_alignment function determines the appropriate text alignment (le
 
 ## Definition
 
-
+```c
+struct lconv *extlconv;
+```
 ## Detailed Description
 This function implements a simple but important formatting rule for tabular data display: numeric data types should be right-aligned while all other data types should be left-aligned. The function takes a PostgreSQL data type OID (Object Identifier) and returns a character indicating the alignment preference ('r' for right, 'l' for left).
 

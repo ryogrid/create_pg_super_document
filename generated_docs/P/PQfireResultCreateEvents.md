@@ -8,7 +8,10 @@ Fires RESULTCREATE events for an application-created PGresult, allowing register
 
 ## Definition
 
-
+```c
+int
+PQfireResultCreateEvents(PGconn *conn, PGresult *res)
+```
 ## Detailed Description
 This function iterates through all registered event procedures associated with a PGresult and fires PGEVT_RESULTCREATE events for those that haven't been initialized yet. It's specifically designed for application-created PGresult objects that need to trigger the same event handling as server-generated results. The function ensures that each event procedure is only fired once per result by checking the  flag.
 

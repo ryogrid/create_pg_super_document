@@ -8,7 +8,10 @@ gtsquery_same is a GiST comparison function that determines whether two TSQueryS
 
 ## Definition
 
-
+```c
+Datum
+gtsquery_same(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the "same" operation required by GiST for TSQuery indexes. It compares two TSQuerySign signatures to determine if they are exactly equal. This function is used by the GiST index machinery during index operations such as tree balancing, duplicate detection, and optimization processes.
 

@@ -8,7 +8,14 @@ The  structure represents metadata for partition attach operations in pg_dump, s
 
 ## Definition
 
-
+```c
+typedef struct _tableAttachInfo
+{
+	DumpableObject dobj;
+	TableInfo  *parentTbl;		/* link to partitioned table */
+	TableInfo  *partitionTbl;	/* link to partition */
+} TableAttachInfo;
+```
 ## Detailed Description
 The  structure is a specialized data structure used by pg_dump to manage partition attachment information during the dump and restore process. It maintains the relationship between a partition table and its parent partitioned table, ensuring that partition hierarchies are properly reconstructed during database restoration.
 

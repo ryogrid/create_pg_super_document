@@ -8,7 +8,10 @@ CopyMultiInsertBufferInit allocates and initializes a new CopyMultiInsertBuffer 
 
 ## Definition
 
-
+```c
+static CopyMultiInsertBuffer *
+CopyMultiInsertBufferInit(ResultRelInfo *rri)
+```
 ## Detailed Description
 This function creates and initializes a CopyMultiInsertBuffer structure that is used to batch multiple tuples before inserting them during COPY FROM operations. The function performs several key initialization steps:
 

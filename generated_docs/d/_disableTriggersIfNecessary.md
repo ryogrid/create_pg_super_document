@@ -8,7 +8,10 @@ _disableTriggersIfNecessary is a utility function that conditionally disables al
 
 ## Definition
 
-
+```c
+static void
+_disableTriggersIfNecessary(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function implements a performance optimization for data-only restore operations by temporarily disabling all triggers on a table before loading data. It only operates when both the data-only restore mode and the disable-triggers option are enabled.
 

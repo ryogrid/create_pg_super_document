@@ -8,7 +8,10 @@ The  function provides window function support for determining if a time value f
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+				   *tm = &tt;
+```
 ## Detailed Description
 This function is a support function for PostgreSQL's window function RANGE clause when working with time data types. It determines whether a given time value falls within a range defined by a base time plus or minus an interval offset. Unlike the regular time arithmetic functions, this function does not perform day wraparound behavior, which is important for window function semantics. The function handles potential integer overflow when adding large intervals and validates that the offset interval is not negative.
 

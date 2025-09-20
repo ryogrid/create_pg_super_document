@@ -8,7 +8,10 @@ pqSaveParameterStatus stores and manages server parameter status information rec
 
 ## Definition
 
-
+```c
+void
+pqSaveParameterStatus(PGconn *conn, const char *name, const char *value)
+```
 ## Detailed Description
 This function manages the storage of server parameter status information in a PGconn structure. It first removes any existing entry for the same parameter name, then creates a new entry with the updated value. The function uses a space-efficient single malloc allocation that stores the pgParameterStatus structure, parameter name, and value in one contiguous block.
 

@@ -8,7 +8,10 @@ Retrieves the first tuple from a specified bucket in a parallel hash table using
 
 ## Definition
 
-
+```c
+static inline HashJoinTuple
+ExecParallelHashFirstTuple(HashJoinTable hashtable, int bucketno)
+```
 ## Detailed Description
 This function provides thread-safe access to the first tuple in a hash table bucket during parallel hash join execution. It uses atomic pointer operations to safely read the bucket head pointer from shared memory and then converts the DSA pointer to a local memory address. The function is designed to work with parallel hash joins where multiple worker processes may be concurrently accessing the same hash table structure.
 

@@ -8,7 +8,16 @@ The  structure represents a WAL record for GiST index page reuse operations, con
 
 ## Definition
 
-
+```c
+typedef struct gistxlogPageReuse
+{
+	RelFileLocator locator;
+	BlockNumber block;
+	FullTransactionId snapshotConflictHorizon;
+	bool		isCatalogRel;	/* to handle recovery conflict during logical
+								 * decoding on standby */
+} gistxlogPageReuse;
+```
 ## Detailed Description
 This structure is used to log GiST index page reuse operations in the write-ahead log. Page reuse occurs when a previously deleted page is recycled for new data. This information is particularly important for hot standby servers to properly handle recovery conflicts, ensuring that transactions with older snapshots don't access reused pages that might contain different data than what they expect to see.
 

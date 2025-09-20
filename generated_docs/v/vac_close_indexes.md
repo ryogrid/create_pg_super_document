@@ -8,7 +8,10 @@ Releases the resources acquired by vac_open_indexes, specifically closing index 
 
 ## Definition
 
-
+```c
+void
+vac_close_indexes(int nindexes, Relation *Irel, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function is the cleanup counterpart to vac_open_indexes. It iterates through an array of index relations in reverse order, closing each index using index_close() and then freeing the memory allocated for the index relation array. The function provides flexibility in lock management by allowing the caller to specify whether to release locks (by passing a specific LOCKMODE) or keep them (by passing NoLock).
 

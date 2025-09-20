@@ -8,7 +8,10 @@ A versatile output function that writes data to various destinations including l
 
 ## Definition
 
-
+```c
+void
+ahwrite(const void *ptr, size_t size, size_t nmemb, ArchiveHandle *AH)
+```
 ## Detailed Description
 The  function serves as the central output mechanism for the PostgreSQL archiver, routing data to appropriate destinations based on the current context. When writing large objects, it manages a buffer and calls  when the buffer fills. For custom formats, it delegates to custom output functions. When restoring directly to a database, it executes SQL commands via . Otherwise, it writes to compressed file handles using the appropriate compression method.
 

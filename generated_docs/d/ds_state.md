@@ -8,7 +8,16 @@ ds_state is an enumerated type (enum) that defines the different parsing states 
 
 ## Definition
 
+```c
+CS_INWVALUE
+	} ds_state;
+	ds_state	state = CS_WAITKEY;
 
+	workspace = (char *) palloc(len + 1);	/* certainly enough room */
+	ptr = VARDATA_ANY(in);
+	endptr = ptr + len;
+	for (; ptr < endptr; ptr++)
+```
 ## Detailed Description
 The ds_state enum implements a finite state machine for parsing parameter lists from serialized text format back into PostgreSQL's DefElem structures. This is used primarily for text search dictionary and parser headline options. The parsing logic handles various quoting styles including unquoted strings, single-quoted strings, double-quoted strings, and escaped characters for backward compatibility.
 

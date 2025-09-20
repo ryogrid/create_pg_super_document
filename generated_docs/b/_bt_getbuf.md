@@ -8,7 +8,10 @@ _bt_getbuf is a core B-tree buffer management function that retrieves an existin
 
 ## Definition
 
-
+```c
+Buffer
+_bt_getbuf(Relation rel, BlockNumber blkno, int access)
+```
 ## Detailed Description
 This function implements the fundamental rule of nbtree buffer management: it's never okay to access a page without holding both a buffer pin and a buffer lock on the page's buffer. The function reads an existing block from the relation, applies the appropriate lock based on the access parameter, and performs sanity checks on the page. It serves as a safe wrapper around ReadBuffer() that ensures proper locking semantics are maintained.
 

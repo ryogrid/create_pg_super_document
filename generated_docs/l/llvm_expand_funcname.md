@@ -8,7 +8,10 @@ Generates unique, non-conflicting function names for LLVM IR functions by append
 
 ## Definition
 
-
+```c
+char *
+llvm_expand_funcname(struct LLVMJitContext *context, const char *basename)
+```
 ## Detailed Description
 This utility function creates unique function names to avoid naming conflicts when adding multiple functions to an LLVM module. It combines the base function name with the module's generation number and an incrementing counter to ensure uniqueness. The naming scheme was specifically designed to be debugger-friendly, avoiding dots that some tools like GDB don't handle well.
 

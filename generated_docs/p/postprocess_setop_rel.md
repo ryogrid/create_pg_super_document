@@ -8,7 +8,10 @@ Performs final processing steps for a set operation RelOptInfo after all paths h
 
 ## Definition
 
-
+```c
+static void
+postprocess_setop_rel(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function serves as a finalization step in the set operation planning process. It handles two main responsibilities:
 

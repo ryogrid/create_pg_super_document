@@ -8,7 +8,10 @@ The leapadd function inserts a new leap second entry into the global leap second
 
 ## Definition
 
-
+```c
+static void
+leapadd(zic_t t, int correction, int rolling)
+```
 ## Detailed Description
 The leapadd function manages leap second data within PostgreSQL's timezone compiler by inserting new leap second entries while preserving chronological order. It validates that the maximum number of leap seconds hasn't been exceeded, finds the correct insertion point based on the timestamp, and shifts existing entries to accommodate the new leap second. The function maintains three parallel arrays tracking transition times, correction values, and rolling indicators, ensuring data consistency across all leap second information.
 

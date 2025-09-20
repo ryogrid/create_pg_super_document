@@ -8,7 +8,10 @@ Recursively searches for mutable functions within a clause, returning true if an
 
 ## Definition
 
-
+```c
+bool
+contain_mutable_functions(Node *clause)
+```
 ## Detailed Description
 This function serves as a wrapper around  to detect the presence of mutable functions within an expression tree. Mutable functions are those whose results can change between calls even with the same input parameters (like , , , etc.).
 

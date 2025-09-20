@@ -8,7 +8,10 @@ Error context callback function that provides detailed error messages during vac
 
 ## Definition
 
-
+```c
+static void
+vacuum_error_callback(void *arg)
+```
 ## Detailed Description
 The  function serves as an error context callback specifically designed for vacuum operations. It receives an  structure containing error information and generates contextual error messages based on the current vacuum phase and location where the error occurred. The function provides detailed error context messages that match those used in parallel vacuum operations, ensuring consistency across both serial and parallel vacuum implementations.
 

@@ -8,7 +8,10 @@ SQL-callable function that determines whether an operator class is visible in th
 
 ## Definition
 
-
+```c
+Datum
+pg_opclass_is_visible(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `pg_opclass_is_visible` function is a SQL-callable wrapper around the internal `OpclassIsVisibleExt` function. It takes an OID of an operator class and returns a boolean indicating whether that operator class is visible in the current search path without requiring explicit schema qualification.
 

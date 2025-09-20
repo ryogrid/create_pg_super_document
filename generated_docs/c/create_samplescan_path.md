@@ -8,7 +8,10 @@ Creates a Path node representing a sample scan access method for a relation usin
 
 ## Definition
 
-
+```c
+Path *
+create_samplescan_path(PlannerInfo *root, RelOptInfo *rel, Relids required_outer)
+```
 ## Detailed Description
 The  function constructs a Path node specifically for sample scan operations. A sample scan implements the SQL TABLESAMPLE clause, which reads a statistically representative sample of rows from a relation rather than the complete dataset. This is useful for approximate queries, statistical analysis, or quick estimates on large tables.
 

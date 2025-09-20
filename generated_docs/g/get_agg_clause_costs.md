@@ -8,7 +8,16 @@ Processes the PlannerInfo's aggregate transition and aggregate info lists to acc
 
 ## Definition
 
-
+```c
+structure.  The aggregate definition can
+			 * provide an estimate of the size.  If it doesn't, then we assume
+			 * ALLOCSET_DEFAULT_INITSIZE, which is a good guess if the data is
+			 * being kept in a private memory context, as is done by
+			 * array_agg() for instance.
+			 */
+			if (transinfo->aggtransspace > 0)
+				costs->transitionSpace += transinfo->aggtransspace;
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's query optimizer that calculates the cost estimates for aggregate operations. It processes two key lists from PlannerInfo: 'aggtransinfos' and 'agginfos', accumulating cost information based on the expected partial-aggregation mode specified by the aggsplit parameter.
 

@@ -8,7 +8,14 @@ MJEvalResult is an enumeration type that represents the evaluation result of tup
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	MJEVAL_MATCHABLE,			/* normal, potentially matchable tuple */
+	MJEVAL_NONMATCHABLE,		/* tuple cannot join because it has a null */
+	MJEVAL_ENDOFJOIN,			/* end of input (physical or effective) */
+} MJEvalResult;
+```
 ## Detailed Description
 MJEvalResult is a critical enumeration used in PostgreSQL's merge join execution to classify the state of tuple evaluation during join processing. This enum serves as the return type for the functions MJEvalOuterValues and MJEvalInnerValues, which evaluate whether outer and inner tuples can participate in the merge join operation.
 

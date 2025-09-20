@@ -8,7 +8,10 @@ This static utility function sorts a list of row-level security policies by thei
 
 ## Definition
 
-
+```c
+static void
+sort_policies_by_name(List *policies)
+```
 ## Detailed Description
 The  function provides deterministic ordering for restrictive row-level security policies by sorting them alphabetically by name. This is crucial for restrictive policies because each policy generates separate WithCheckOption checks that must be applied in a consistent, predictable order. The function serves as a thin wrapper around the generic  function, using  as the comparison function.
 

@@ -8,7 +8,10 @@ A PostgreSQL internal function that performs the core text overlay operation by 
 
 ## Definition
 
-
+```c
+static text *
+text_overlay(text *t1, text *t2, int sp, int sl)
+```
 ## Detailed Description
 This function implements the core logic for PostgreSQL's OVERLAY() operation. It works by:
 

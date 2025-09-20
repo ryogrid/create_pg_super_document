@@ -8,7 +8,10 @@ The xidin function is an input conversion function that parses a string represen
 
 ## Definition
 
-
+```c
+Datum
+xidin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 xidin serves as the input conversion function for the xid data type in PostgreSQL's type system. It takes a C-string containing a numeric representation of a transaction ID and converts it to PostgreSQL's internal TransactionId format. The function uses the generic uint32in_subr utility function to perform the actual string-to-integer conversion, which handles error checking and validation of the input string format.
 

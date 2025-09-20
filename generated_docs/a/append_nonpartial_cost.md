@@ -8,7 +8,10 @@ Estimates the cost of the non-partial paths in a Parallel Append operation by si
 
 ## Definition
 
-
+```c
+static Cost
+append_nonpartial_cost(List *subpaths, int numpaths, int parallel_workers)
+```
 ## Detailed Description
 This function calculates the execution cost for non-partial paths in a parallel append operation. It models how work is distributed among parallel workers by:
 

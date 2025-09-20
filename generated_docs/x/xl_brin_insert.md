@@ -8,7 +8,18 @@ A WAL record structure that contains the information necessary for logging BRIN 
 
 ## Definition
 
+```c
+typedef struct xl_brin_insert
+{
+	BlockNumber heapBlk;
 
+	/* extra information needed to update the revmap */
+	BlockNumber pagesPerRange;
+
+	/* offset number in the main page to insert the tuple to. */
+	OffsetNumber offnum;
+} xl_brin_insert;
+```
 ## Detailed Description
 The  structure is used in PostgreSQL's WAL system to record the insertion of a new BRIN tuple. BRIN (Block Range Index) tuples contain summary information about ranges of heap blocks. This WAL record captures all the necessary information to replay the insertion operation during crash recovery.
 

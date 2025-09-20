@@ -8,7 +8,10 @@ Semantic action function for JSON parsing that initializes object tracking when 
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+json_unique_object_start(void *_state)
+```
 ## Detailed Description
 The `json_unique_object_start` function is a semantic action callback used during JSON parsing to handle the start of JSON objects when key uniqueness validation is enabled. It creates and pushes a new stack entry to track the current object's unique identifier and maintains the parsing state stack hierarchy. This function is part of PostgreSQL's JSON validation infrastructure that ensures objects don't contain duplicate keys.
 

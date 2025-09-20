@@ -8,7 +8,16 @@ A structure that represents the metadata and header information for a single tup
 
 ## Definition
 
-
+```c
+typedef struct xl_multi_insert_tuple
+{
+	uint16		datalen;		/* size of tuple data that follows */
+	uint16		t_infomask2;
+	uint16		t_infomask;
+	uint8		t_hoff;
+	/* TUPLE DATA FOLLOWS AT END OF STRUCT */
+} xl_multi_insert_tuple;
+```
 ## Detailed Description
 The xl_multi_insert_tuple structure serves as a compact header for individual tuples within a multi-insert operation that is being logged to the WAL. This structure is part of PostgreSQL's Write-Ahead Logging system for bulk insert operations, where multiple tuples are inserted in a single transaction and need to be efficiently logged for crash recovery and replication purposes.
 

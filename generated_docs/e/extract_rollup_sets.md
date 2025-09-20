@@ -8,7 +8,10 @@ Extracts lists of grouping sets that can be implemented using a single rollup-ty
 
 ## Definition
 
-
+```c
+static List *
+extract_rollup_sets(List *groupingSets)
+```
 ## Detailed Description
 This function implements an optimal algorithm to partition a list of grouping sets into chains, where each chain can be processed by a single rollup-style aggregate operation. The core problem is finding the minimal partition of a partially-ordered set (ordered by set inclusion) into chains, which is equivalent to finding maximum cardinality matching on a bipartite graph.
 

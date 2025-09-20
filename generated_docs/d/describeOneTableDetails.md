@@ -8,7 +8,26 @@ The core function that displays detailed information about a single database rel
 
 ## Definition
 
-
+```c
+struct
+	{
+		int16		checks;
+		char		relkind;
+		bool		hasindex;
+		bool		hasrules;
+		bool		hastriggers;
+		bool		rowsecurity;
+		bool		forcerowsecurity;
+		bool		hasoids;
+		bool		ispartition;
+		Oid			tablespace;
+		char	   *reloptions;
+		char	   *reloftype;
+		char		relpersistence;
+		char		relreplident;
+		char	   *relam;
+	}			tableinfo;
+```
 ## Detailed Description
  is a comprehensive function responsible for displaying detailed information about a single PostgreSQL relation. This 2000+ line function is the heart of psql's \d command functionality, handling the complex task of gathering and formatting information about tables, views, indexes, sequences, and other database objects.
 

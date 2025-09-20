@@ -8,7 +8,9 @@ A Windows-specific sleep function that delays execution for a specified number o
 
 ## Definition
 
-
+```c
+struct timespec delay;
+```
 ## Detailed Description
  is a Windows-specific implementation of a microsecond sleep function that provides signal-aware sleeping behavior. This function replaces the non-signal-aware version provided by  on Windows platforms.
 

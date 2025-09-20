@@ -8,7 +8,10 @@ Creates a new Bitmapset containing all members from both input bitmapsets (set u
 
 ## Definition
 
-
+```c
+Bitmapset *
+bms_union(const Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 This function performs a bitwise union operation on two Bitmapsets, creating a new Bitmapset that contains all bits that are set in either input set. The function optimizes performance by copying the larger input set first and then ORing the smaller set into it. This approach minimizes the number of word-by-word operations needed. Both input sets remain unmodified, making this a pure functional operation.
 

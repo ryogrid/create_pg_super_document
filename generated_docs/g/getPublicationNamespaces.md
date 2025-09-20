@@ -8,7 +8,10 @@ Retrieves information about publication membership for dumpable schemas, creatin
 
 ## Definition
 
-
+```c
+void
+getPublicationNamespaces(Archive *fout)
+```
 ## Detailed Description
 This function queries the  system catalog to collect information about which schemas are included in publications. It creates  objects for each publication-namespace relationship that should be dumped. The function is part of pg_dump's schema discovery phase and only operates on PostgreSQL version 15.0 and later, as publication namespaces were introduced in that version.
 

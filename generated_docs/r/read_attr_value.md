@@ -8,7 +8,10 @@ Reads and extracts the value of a specified attribute from a SCRAM exchange mess
 
 ## Definition
 
-
+```c
+static char *
+read_attr_value(char **input, char attr)
+```
 ## Detailed Description
 This function parses SCRAM (Salted Challenge Response Authentication Mechanism) protocol messages to extract attribute values. SCRAM messages contain attributes in the format "attribute=value,attribute=value,...". The function validates that the expected attribute character is present at the current position, followed by an equals sign, then extracts the value portion up to the next comma or end of string.
 

@@ -8,7 +8,10 @@ Transforms JSON_ARRAYAGG() aggregate function expressions into JsonConstructorEx
 
 ## Definition
 
-
+```c
+structorOutput(pstate, agg->constructor->output,
+											   list_make1(arg));
+```
 ## Detailed Description
 This function transforms JSON_ARRAYAGG() expressions into PostgreSQL's internal representation for JSON array aggregation. The transformation is simpler than JSON_OBJECTAGG since it only deals with single values rather than key-value pairs, and doesn't support unique constraints (arrays can contain duplicate values).
 

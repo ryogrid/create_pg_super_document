@@ -8,7 +8,10 @@ Verifies that a multibyte string is validly encoded in the specified character e
 
 ## Definition
 
-
+```c
+bool
+pg_verify_mbstr(int encoding, const char *mbstr, int len, bool noError)
+```
 ## Detailed Description
 This function validates whether a given multibyte string conforms to the encoding rules of the specified character encoding. It uses the encoding-specific verification function from the pg_wchar_table to check the entire string byte by byte. If an invalid sequence is found, the function can either report an error or return false based on the noError parameter.
 

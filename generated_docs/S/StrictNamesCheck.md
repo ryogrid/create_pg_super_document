@@ -8,7 +8,10 @@ This function validates that all explicitly named database objects (schemas, tab
 
 ## Definition
 
-
+```c
+static void
+StrictNamesCheck(RestoreOptions *ropt)
+```
 ## Detailed Description
 The  function enforces strict validation of object names when the  option is enabled in restore operations. It iterates through various object name lists in the restore options and verifies that every explicitly specified object was actually encountered and processed during the restoration.
 

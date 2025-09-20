@@ -8,7 +8,15 @@ Performs deletion of index entries from a specific hash bucket, handling both re
 
 ## Definition
 
-
+```c
+void
+hashbucketcleanup(Relation rel, Bucket cur_bucket, Buffer bucket_buf,
+				  BlockNumber bucket_blkno, BufferAccessStrategy bstrategy,
+				  uint32 maxbucket, uint32 highmask, uint32 lowmask,
+				  double *tuples_removed, double *num_index_tuples,
+				  bool split_cleanup,
+				  IndexBulkDeleteCallback callback, void *callback_state)
+```
 ## Detailed Description
 The hashbucketcleanup function is a comprehensive helper function that performs the actual tuple deletion work for a single hash bucket. It operates on the entire bucket chain, including all overflow pages, systematically scanning each tuple and determining whether it should be deleted based on either callback criteria (for regular VACUUM operations) or split cleanup requirements.
 

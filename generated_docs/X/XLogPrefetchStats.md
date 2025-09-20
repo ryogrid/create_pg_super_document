@@ -8,7 +8,23 @@ XLogPrefetchStats is a shared memory structure that maintains performance counte
 
 ## Definition
 
+```c
+typedef struct XLogPrefetchStats
+{
+	pg_atomic_uint64 reset_time;	/* Time of last reset. */
+	pg_atomic_uint64 prefetch;	/* Prefetches initiated. */
+	pg_atomic_uint64 hit;		/* Blocks already in cache. */
+	pg_atomic_uint64 skip_init; /* Zero-inited blocks skipped. */
+	pg_atomic_uint64 skip_new;	/* New/missing blocks filtered. */
+	pg_atomic_uint64 skip_fpw;	/* FPWs skipped. */
+	pg_atomic_uint64 skip_rep;	/* Repeat accesses skipped. */
 
+	/* Dynamic values */
+	int			wal_distance;	/* Number of WAL bytes ahead. */
+	int			block_distance; /* Number of block references ahead. */
+	int			io_depth;		/* Number of I/Os in progress. */
+} XLogPrefetchStats;
+```
 ## Detailed Description
 The XLogPrefetchStats structure serves as a comprehensive metrics collection system for PostgreSQL's WAL prefetching mechanism. It maintains both cumulative atomic counters for lifetime statistics and dynamic instant values for current system state. The structure is allocated in shared memory to allow multiple processes to update and read statistics concurrently. The atomic counters ensure thread-safe updates across different backend processes involved in WAL replay and recovery. These statistics are exposed to users through the pg_stat_recovery_prefetch system view for monitoring prefetch effectiveness.
 

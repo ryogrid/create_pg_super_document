@@ -8,7 +8,10 @@ Computes the element-wise minimum of two 8-bit unsigned integer vectors using SI
 
 ## Definition
 
-
+```c
+static inline Vector8
+vector8_min(const Vector8 v1, const Vector8 v2)
+```
 ## Detailed Description
 The  function performs element-wise minimum comparison between two Vector8 objects (128-bit SIMD vectors containing 16 8-bit unsigned integers). It leverages platform-specific SIMD instruction sets to achieve optimal performance:
 

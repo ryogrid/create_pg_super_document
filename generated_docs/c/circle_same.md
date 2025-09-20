@@ -8,7 +8,10 @@ Tests whether two circles are identical by comparing both their centers and radi
 
 ## Definition
 
-
+```c
+Datum
+circle_same(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function determines if two CIRCLE objects are identical by performing a comprehensive comparison of their geometric properties. The function implements a special equality semantics where NaN (Not a Number) radius values are considered equal to each other, which allows circles with undefined radii to be properly identified as matching. This is crucial for PostgreSQL's geometric operations where NaN values need to be handled consistently.
 

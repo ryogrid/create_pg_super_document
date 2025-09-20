@@ -8,7 +8,13 @@ A hash table entry structure that tracks invalid page references during PostgreS
 
 ## Definition
 
-
+```c
+typedef struct xl_invalid_page
+{
+	xl_invalid_page_key key;	/* hash key ... must be first */
+	bool		present;		/* page existed but contained zeroes */
+} xl_invalid_page;
+```
 ## Detailed Description
 The  structure represents a complete hash table entry in PostgreSQL's invalid page tracking system during WAL replay. It extends the  structure by adding state information about whether the invalid page actually existed (but contained zeros) or was completely missing.
 

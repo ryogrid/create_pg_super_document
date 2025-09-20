@@ -8,7 +8,10 @@ A utility function that processes a set of range table indexes and expands any j
 
 ## Definition
 
-
+```c
+static Relids
+alias_relid_set(Query *query, Relids relids)
+```
 ## Detailed Description
 The  function takes a bitmap set of range table indexes and processes each one to replace join relations with their constituent base relations and outer join relations. This is essential for query optimization when dealing with joins that need to be decomposed into their underlying relations for proper analysis and planning.
 

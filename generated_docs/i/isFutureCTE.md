@@ -8,7 +8,10 @@ Checks if a given reference name matches a "future CTE" that is not yet in scope
 
 ## Definition
 
-
+```c
+static bool
+isFutureCTE(ParseState *pstate, const char *refname)
+```
 ## Detailed Description
 This static function searches through the p_future_ctes lists in the parsing state hierarchy to determine if a reference name corresponds to a Common Table Expression that will be defined later in the query but is not yet accessible due to SQL scoping rules. This function is specifically designed for error reporting purposes - it helps PostgreSQL provide more helpful error messages when users reference CTEs that exist but are not yet in scope, rather than simply reporting "relation does not exist".
 

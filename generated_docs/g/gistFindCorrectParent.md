@@ -8,7 +8,10 @@ Updates the insertion stack to ensure that child->parent points to the correct p
 
 ## Definition
 
-
+```c
+static void
+gistFindCorrectParent(Relation r, GISTInsertStack *child, bool is_build)
+```
 ## Detailed Description
  is a critical function for maintaining parent-child relationships in the GiST tree when concurrent modifications may have invalidated the cached parent pointer in the insertion stack. The function handles several scenarios:
 

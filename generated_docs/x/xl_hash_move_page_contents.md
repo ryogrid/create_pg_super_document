@@ -8,7 +8,15 @@ A PostgreSQL WAL record structure that captures the information needed to replay
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_move_page_contents
+{
+	uint16		ntups;
+	bool		is_prim_bucket_same_wrt;	/* true if the page to which
+											 * tuples are moved is same as
+											 * primary bucket page */
+} xl_hash_move_page_contents;
+```
 ## Detailed Description
 The  structure is used for  WAL records, which log tuple movement operations that occur during hash index squeeze operations. Squeeze operations are part of hash index maintenance that help consolidate tuples and reclaim space by moving tuples from overflow pages back to primary bucket pages or between overflow pages.
 

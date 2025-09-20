@@ -8,7 +8,10 @@ A static utility function that appends a FullTransactionId to a StringInfo buffe
 
 ## Definition
 
-
+```c
+static void
+buf_add_txid(StringInfo buf, FullTransactionId fxid)
+```
 ## Detailed Description
 This function is responsible for adding a transaction ID to a snapshot buffer during snapshot parsing operations. It performs two key actions: first, it increments the transaction count (nxip) in the pg_snapshot structure stored in the buffer, then appends the FullTransactionId in binary format to the buffer. The function includes a comment noting that the nxip increment is done before any potential reallocation that might occur during the append operation.
 

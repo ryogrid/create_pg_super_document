@@ -8,7 +8,10 @@ This function determines which process should become the leader in a parallel bi
 
 ## Definition
 
-
+```c
+static bool
+BitmapShouldInitializeSharedState(ParallelBitmapHeapState *pstate)
+```
 ## Detailed Description
 BitmapShouldInitializeSharedState implements a leader election mechanism for parallel bitmap heap scans. When multiple worker processes participate in a parallel bitmap scan, exactly one process needs to populate the shared TIDBitmap while others wait. This function uses atomic state transitions and condition variables to coordinate this process.
 

@@ -8,7 +8,10 @@ FunctionCall0Coll is a utility function that invokes a previously-looked-up Post
 
 ## Definition
 
-
+```c
+Datum
+FunctionCall0Coll(FmgrInfo *flinfo, Oid collation)
+```
 ## Detailed Description
 This function is part of PostgreSQL's function manager (fmgr) system that provides a high-level interface for calling database functions. FunctionCall0Coll specifically handles the case where a function needs to be called with zero arguments but with a specific collation context. The function sets up the necessary function call information structure, invokes the target function, and performs error checking to ensure the result is not NULL (since the caller is clearly not expecting a NULL result).
 

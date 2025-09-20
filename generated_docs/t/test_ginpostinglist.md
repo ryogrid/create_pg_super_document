@@ -8,7 +8,10 @@ A SQL-callable entry point function that performs comprehensive testing of GIN p
 
 ## Definition
 
-
+```c
+Datum
+test_ginpostinglist(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the main entry point for testing the GIN posting list compression and decompression mechanisms. It executes a series of predefined test cases by calling test_itemptr_pair() with various combinations of block numbers, offset numbers, and maximum size constraints.
 

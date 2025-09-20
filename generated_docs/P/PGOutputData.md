@@ -8,7 +8,27 @@ PGOutputData is a context structure used by PostgreSQL's logical replication pgo
 
 ## Definition
 
+```c
+typedef struct PGOutputData
+{
+	MemoryContext context;		/* private memory context for transient
+								 * allocations */
+	MemoryContext cachectx;		/* private memory context for cache data */
 
+	bool		in_streaming;	/* true if we are streaming a chunk of
+								 * transaction */
+
+	/* client-supplied info: */
+	uint32		protocol_version;
+	List	   *publication_names;
+	List	   *publications;
+	bool		binary;
+	char		streaming;
+	bool		messages;
+	bool		two_phase;
+	bool		publish_no_origin;
+} PGOutputData;
+```
 ## Detailed Description
 PGOutputData serves as the main context structure for PostgreSQL's pgoutput logical replication plugin. This structure encapsulates both the runtime state and client-specified configuration parameters needed for the logical replication output process. The plugin uses this structure to track memory contexts for efficient memory management, maintain streaming transaction state, and store various replication options that control how changes are formatted and transmitted to subscribers.
 

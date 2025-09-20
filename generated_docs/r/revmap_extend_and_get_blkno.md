@@ -8,7 +8,10 @@ A static helper function that finds the physical reverse map block number for a 
 
 ## Definition
 
-
+```c
+static BlockNumber
+revmap_extend_and_get_blkno(BrinRevmap *revmap, BlockNumber heapBlk)
+```
 ## Detailed Description
 This function calculates and ensures the availability of the reverse map page for a specified heap block by:
 1. Using the HEAPBLK_TO_REVMAP_BLK macro to convert the heap block number to a revmap block index

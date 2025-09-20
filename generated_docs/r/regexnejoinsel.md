@@ -8,7 +8,10 @@ A selectivity estimation function for negated regular expression join operations
 
 ## Definition
 
-
+```c
+Datum
+regexnejoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a join selectivity estimation function that provides selectivity estimates for negated regular expression matching operations ( operator) in join conditions. It serves as a wrapper function that delegates the actual selectivity calculation to the generic  function, specifying the pattern type as case-sensitive regular expression () and indicating that this is a negated match (true).
 

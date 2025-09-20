@@ -8,7 +8,10 @@ A static comparison function used for sorting key entries in GIN indexes, handli
 
 ## Definition
 
-
+```c
+static int
+cmpEntries(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 The  function is a comparison function specifically designed for sorting  structures in GIN (Generalized Inverted Index) operations. It implements a three-way comparison that returns negative, zero, or positive values to indicate the relative ordering of two key entries. The function has special handling for NULL values, placing them after non-NULL values in the sort order (NULL > not-NULL). For non-NULL values, it delegates the actual comparison to a user-provided comparison function via . Additionally, it tracks whether duplicate entries are encountered during the sorting process by setting a flag in the argument structure.
 

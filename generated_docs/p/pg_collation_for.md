@@ -8,7 +8,10 @@ pg_collation_for is a SQL-callable function that implements the COLLATION FOR ex
 
 ## Definition
 
-
+```c
+Datum
+pg_collation_for(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides SQL access to determine the collation of a given expression or column. It extracts the type information from the function's argument, validates that the type supports collations, retrieves the collation OID from the current execution context, and returns the human-readable collation name.
 

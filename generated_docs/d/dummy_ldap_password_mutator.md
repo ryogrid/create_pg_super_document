@@ -8,7 +8,10 @@ A default implementation of the LDAP password mutator hook that performs no tran
 
 ## Definition
 
-
+```c
+static char *
+dummy_ldap_password_mutator(char *input)
+```
 ## Detailed Description
 The  function serves as the default implementation for the LDAP password mutation hook (). This function is designed to be a no-op implementation that simply returns the input password unchanged. It provides a safe default behavior when no custom password transformation is required for LDAP authentication.
 

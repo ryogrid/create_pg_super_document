@@ -8,7 +8,10 @@ The cash_mi function implements subtraction for PostgreSQL's cash (money) data t
 
 ## Definition
 
-
+```c
+Datum
+cash_mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that implements the '-' operator for the cash data type. It extracts two cash values from the function arguments and delegates to the internal cash_mi_cash function for the actual arithmetic operation. The function follows PostgreSQL's standard function calling convention and includes overflow detection to prevent arithmetic errors that could result in incorrect monetary calculations.
 

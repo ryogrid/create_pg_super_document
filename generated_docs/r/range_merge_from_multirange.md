@@ -8,7 +8,14 @@ A PostgreSQL function that converts a multirange into a single range by finding 
 
 ## Definition
 
-
+```c
+typedef struct
+	{
+		MultirangeType *mr;
+		TypeCacheEntry *typcache;
+		int			index;
+	} multirange_unnest_fctx;
+```
 ## Detailed Description
 The  function performs a crucial operation in PostgreSQL's multirange system by creating a single range that spans from the lowest bound of the first range to the highest bound of the last range in a multirange. This effectively creates the "convex hull" of all ranges in the multirange.
 

@@ -8,7 +8,10 @@ Checks whether a given operator is a member of a specified operator family, cons
 
 ## Definition
 
-
+```c
+bool
+op_in_opfamily(Oid opno, Oid opfamily)
+```
 ## Detailed Description
 This function provides a simple boolean check to determine if an operator identified by  belongs to the operator family identified by . It specifically looks for search operators (AMOP_SEARCH) in the system catalog cache, excluding ordering operators. The function uses the system cache lookup mechanism to efficiently check the pg_amop catalog for the existence of the specified operator-family relationship.
 

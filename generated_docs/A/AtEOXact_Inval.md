@@ -8,7 +8,10 @@ Processes queued invalidation messages at the end of a main transaction, handlin
 
 ## Definition
 
-
+```c
+void
+AtEOXact_Inval(bool isCommit)
+```
 ## Detailed Description
 This function is called as the last step in processing a transaction to handle all queued invalidation messages. It implements different behavior based on whether the transaction is committing or aborting.
 

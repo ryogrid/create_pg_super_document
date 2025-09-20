@@ -8,7 +8,21 @@ Reads and deserializes individual array elements from a binary data buffer, conv
 
 ## Definition
 
-
+```c
+static void
+ReadArrayBinary(StringInfo buf,
+				int nitems,
+				FmgrInfo *receiveproc,
+				Oid typioparam,
+				int32 typmod,
+				int typlen,
+				bool typbyval,
+				char typalign,
+				Datum *values,
+				bool *nulls,
+				bool *hasnulls,
+				int32 *nbytes)
+```
 ## Detailed Description
 ReadArrayBinary is a static helper function that handles the low-level deserialization of array elements from binary format. It processes each element by reading its length prefix, handling NULL values (indicated by -1 length), and using element-specific receive procedures to convert binary data to internal Datum format. The function efficiently manages memory by using read-only StringInfo structures to avoid data copying, and performs comprehensive validation including buffer bounds checking and proper consumption verification.
 

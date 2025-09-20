@@ -8,7 +8,11 @@ Formats response strings that worker processes send back to the leader after com
 
 ## Definition
 
-
+```c
+static void
+buildWorkerResponse(ArchiveHandle *AH, TocEntry *te, T_Action act, int status,
+					char *buf, int buflen)
+```
 ## Detailed Description
 buildWorkerResponse constructs standardized response messages that worker processes send to the leader process through inter-process communication channels after completing their assigned tasks. The function creates a response string containing the dump ID, completion status, and error count information. The response format is consistent across all archive formats and provides essential feedback for the leader to track worker progress and handle any errors that occurred during processing. The error count is only included when the worker encountered errors but chose to ignore them.
 

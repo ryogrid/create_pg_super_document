@@ -8,7 +8,10 @@ Extracts a 32-bit unsigned integer value from PostgreSQL's internal Datum repres
 
 ## Definition
 
-
+```c
+static inline uint32
+DatumGetUInt32(Datum X)
+```
 ## Detailed Description
 DatumGetUInt32 is a static inline function that converts a PostgreSQL Datum value back to a 32-bit unsigned integer (uint32). This function serves as the counterpart to UInt32GetDatum, providing the reverse conversion from PostgreSQL's universal Datum type to a native C unsigned integer type. The function performs a simple cast operation, which is safe because 32-bit unsigned integers are stored directly within the Datum value without additional encoding or indirection.
 

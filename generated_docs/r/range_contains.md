@@ -8,7 +8,10 @@ The  function determines whether one range completely contains another range, im
 
 ## Definition
 
-
+```c
+Datum
+range_contains(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the range containment check in PostgreSQL's range type system. It takes two range arguments and returns a boolean value indicating whether the first range completely contains the second range. The function serves as the SQL-callable wrapper for the internal  function, handling the PostgreSQL function call protocol and type cache management.
 

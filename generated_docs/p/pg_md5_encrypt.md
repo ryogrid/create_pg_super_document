@@ -8,7 +8,11 @@ Creates a PostgreSQL-style MD5 encrypted password by concatenating password and 
 
 ## Definition
 
-
+```c
+bool
+pg_md5_encrypt(const char *passwd, const char *salt, size_t salt_len,
+			   char *buf, const char **errstr)
+```
 ## Detailed Description
 This function implements PostgreSQL's MD5 password encryption scheme by concatenating a plaintext password with a salt value, computing the MD5 hash of the combined data, and formatting the result with a "md5" prefix followed by the 32-character hexadecimal hash. This is the standard format used for MD5-encrypted passwords in PostgreSQL's authentication system.
 

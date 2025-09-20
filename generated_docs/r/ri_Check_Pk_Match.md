@@ -8,7 +8,12 @@ Internal static function that checks if another primary key row exists with the 
 
 ## Definition
 
-
+```c
+static bool
+ri_Check_Pk_Match(Relation pk_rel, Relation fk_rel,
+				  TupleTableSlot *oldslot,
+				  const RI_ConstraintInfo *riinfo)
+```
 ## Detailed Description
 This function performs a critical check in PostgreSQL's referential integrity system by searching the primary key table to determine if there's another row that matches the key values from a tuple that's being modified or deleted. This check is essential for NO ACTION and RESTRICT foreign key constraints to determine whether the operation should be allowed or blocked.
 

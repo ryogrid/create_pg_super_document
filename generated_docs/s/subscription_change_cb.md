@@ -8,7 +8,10 @@ A callback function triggered by subscription syscache invalidation to mark the 
 
 ## Definition
 
-
+```c
+struct the subxact filename */
+	subxact_filename(path, subid, xid);
+```
 ## Detailed Description
 This function serves as a callback that is invoked when the subscription system cache is invalidated. Its primary purpose is to set the global flag  to false, indicating that the cached subscription information is no longer valid and needs to be refreshed. This is a critical part of PostgreSQL's logical replication infrastructure, ensuring that subscription workers respond appropriately to changes in subscription configuration.
 

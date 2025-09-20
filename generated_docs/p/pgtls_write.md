@@ -8,7 +8,10 @@ Performs secure SSL/TLS data writing to a PostgreSQL connection with comprehensi
 
 ## Definition
 
-
+```c
+ssize_t
+pgtls_write(PGconn *conn, const void *ptr, size_t len)
+```
 ## Detailed Description
 This function provides a secure wrapper around OpenSSL's SSL_write() function for writing data to an encrypted PostgreSQL connection. Similar to pgtls_read(), it implements robust error handling for various SSL error conditions and manages OpenSSL's per-thread error queue to ensure reliable operation in multi-threaded environments.
 

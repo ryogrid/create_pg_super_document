@@ -8,7 +8,10 @@ A convenience wrapper function that registers an HMAC context with PostgreSQL's 
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerRememberHMAC(ResourceOwner owner, pg_hmac_ctx *ctx)
+```
 ## Detailed Description
 ResourceOwnerRememberHMAC is a static inline wrapper function that integrates HMAC context memory management with PostgreSQL's resource owner system. It calls the underlying ResourceOwnerRemember function, registering the given HMAC context pointer with the resource owner using the hmac_resowner_desc descriptor. This ensures that the HMAC context will be automatically cleaned up when the resource owner is released, preventing memory leaks in error scenarios or during normal cleanup operations.
 

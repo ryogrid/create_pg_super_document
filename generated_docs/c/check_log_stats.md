@@ -8,7 +8,10 @@ A GUC check hook function that validates the log_statement_stats configuration p
 
 ## Definition
 
-
+```c
+bool
+check_log_stats(bool *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for PostgreSQL's log_statement_stats configuration parameter. It implements the complementary side of a mutual exclusion constraint with the stage-specific logging parameters (log_parser_stats, log_planner_stats, and log_executor_stats). When attempting to enable log_statement_stats, this function checks if any of the individual stage logging parameters are already enabled, and prevents the configuration if so.
 

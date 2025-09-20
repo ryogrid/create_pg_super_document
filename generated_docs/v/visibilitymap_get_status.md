@@ -8,7 +8,10 @@ Retrieves the current visibility status bits for a given heap block, indicating 
 
 ## Definition
 
-
+```c
+uint8
+visibilitymap_get_status(Relation rel, BlockNumber heapBlk, Buffer *vmbuf)
+```
 ## Detailed Description
 The visibilitymap_get_status function reads the visibility map to determine the current status of a heap page. It returns a bitmask indicating whether the page is all-visible, all-frozen, or has other visibility properties. The function optimizes buffer usage by reusing pinned buffers when possible and handles cases where the visibility map page doesn't exist yet.
 

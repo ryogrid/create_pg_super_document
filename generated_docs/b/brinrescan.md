@@ -8,7 +8,11 @@ Re-initializes state for a BRIN index scan by updating the scan keys if provided
 
 ## Definition
 
-
+```c
+void
+brinrescan(IndexScanDesc scan, ScanKey scankey, int nscankeys,
+		   ScanKey orderbys, int norderbys)
+```
 ## Detailed Description
 The brinrescan function provides the ability to restart a BRIN index scan with potentially new scan keys. This is part of the standard PostgreSQL index access method interface. The function currently implements a simple approach where it copies new scan keys into the scan descriptor if provided.
 

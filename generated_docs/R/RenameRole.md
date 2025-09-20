@@ -8,7 +8,10 @@ Changes the name of an existing PostgreSQL role while maintaining all its attrib
 
 ## Definition
 
-
+```c
+struct the modified tuple */
+	for (i = 0;
+```
 ## Detailed Description
 RenameRole is responsible for safely renaming a PostgreSQL role from one name to another. The function performs comprehensive validation to ensure the rename operation is secure and valid, including checking permissions, verifying that reserved names are not used, and handling special cases like MD5 password clearing. The function updates the pg_authid system catalog and ensures proper locking during the operation.
 

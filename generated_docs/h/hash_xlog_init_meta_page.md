@@ -8,7 +8,10 @@ Replays the initialization of a hash index metapage during WAL recovery, restori
 
 ## Definition
 
-
+```c
+static void
+hash_xlog_init_meta_page(XLogReaderState *record)
+```
 ## Detailed Description
 This function is responsible for replaying WAL records that represent the initialization of a hash index's metapage. During normal operation, when a hash index is created, the metapage initialization is logged to WAL. During recovery, this function reconstructs the metapage from the WAL record data.
 

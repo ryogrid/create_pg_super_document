@@ -8,7 +8,41 @@ The spgxlogPickSplit struct is a PostgreSQL WAL (Write-Ahead Logging) record str
 
 ## Definition
 
+```c
+typedef struct spgxlogPickSplit
+{
+	bool		isRootSplit;
 
+	uint16		nDelete;		/* n to delete from Src */
+	uint16		nInsert;		/* n to insert on Src and/or Dest */
+	bool		initSrc;		/* re-init the Src page? */
+	bool		initDest;		/* re-init the Dest page? */
+
+	/* where to put new inner tuple */
+	OffsetNumber offnumInner;
+	bool		initInner;		/* re-init the Inner page? */
+
+	bool		storesNulls;	/* pages are in the nulls tree? */
+
+	/* where the parent downlink is, if any */
+	bool		innerIsParent;	/* is parent the same as inner page? */
+	OffsetNumber offnumParent;
+	uint16		nodeI;
+
+	spgxlogState stateSrc;
+
+	/*----------
+	 * data follows:
+	 *		array of deleted tuple numbers, length nDelete
+	 *		array of inserted tuple numbers, length nInsert
+	 *		array of page selector bytes for inserted tuples, length nInsert
+	 *		new inner tuple (unaligned!)
+	 *		list of leaf tuples, length nInsert (unaligned!)
+	 *----------
+	 */
+	OffsetNumber offsets[FLEXIBLE_ARRAY_MEMBER];
+} spgxlogPickSplit;
+```
 ## Detailed Description
 This structure represents a WAL record for SP-GiST pick-split operations, one of the most complex operations in SP-GiST index maintenance. A pick-split occurs when a leaf page becomes full and needs to be reorganized by creating a new inner node and potentially redistributing tuples between the original page and a new destination page. The struct contains all the necessary information to redo this operation during WAL replay, including which tuples to delete and insert, page initialization flags, and the new inner tuple structure.
 

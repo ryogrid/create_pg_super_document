@@ -8,7 +8,10 @@ Relational operator that compares two PATH objects based on their cardinality (n
 
 ## Definition
 
-
+```c
+Datum
+path_n_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `path_n_gt` function implements the "greater than" operator for PATH data types based on path cardinality. It compares the number of points (`npts`) in two PATH structures and returns a boolean result. This is the complement to `path_n_lt` and follows the same simple cardinality-based comparison approach.
 

@@ -8,7 +8,12 @@ GrantLockLocal updates the local lock data structures to record that a lock requ
 
 ## Definition
 
+```c
+struction here, on architectures where that is supported.
+	 */
 
+	SpinLockAcquire(&FastPathStrongRelationLocks->mutex);
+```
 ## Detailed Description
 GrantLockLocal is a static function that updates the local lock tracking structures (LOCALLOCK) when a lock has been successfully granted. It maintains two levels of reference counting: a total count of how many times this lock has been acquired by the current backend (nLocks), and per-owner counts that track which resource owners hold references to the lock.
 

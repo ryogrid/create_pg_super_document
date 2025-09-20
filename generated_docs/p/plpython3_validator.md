@@ -8,7 +8,10 @@ PostgreSQL function that validates PL/Python function definitions during CREATE 
 
 ## Definition
 
-
+```c
+Datum
+plpython3_validator(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the validation handler for PL/Python functions and triggers when they are created or modified. It performs several validation steps including access control checks, function body validation (when enabled), and syntax verification by attempting to compile the Python code. The function retrieves the function definition from the system catalog, determines if it's a trigger function, and validates the Python code by invoking the PL/Python compilation process.
 

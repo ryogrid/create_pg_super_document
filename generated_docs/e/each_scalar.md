@@ -8,7 +8,13 @@ A callback function used during JSON parsing that handles scalar values, providi
 
 ## Definition
 
-
+```c
+structure check */
+	if (_state->lex->lex_level == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				 errmsg("cannot deconstruct a scalar")));
+```
 ## Detailed Description
 This function is a callback used by PostgreSQL's JSON parser to process scalar values during JSON object expansion operations. It serves dual purposes: first, it validates that standalone scalar values are not being deconstructed as objects (which would be invalid), and second, it stores normalized scalar values when required by the expansion operation.
 

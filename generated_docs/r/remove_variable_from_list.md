@@ -8,7 +8,10 @@ Removes a specific variable from an argument list by searching for the variable 
 
 ## Definition
 
-
+```c
+void
+remove_variable_from_list(struct arguments **list, struct variable *var)
+```
 ## Detailed Description
 The  function searches through a linked list of arguments to find and remove a node that contains a specific variable. The function performs a linear search comparing variable pointers (not variable names or content) to locate the target entry. Once found, it properly unlinks the node from the list, handling both head and middle/tail removal cases.
 

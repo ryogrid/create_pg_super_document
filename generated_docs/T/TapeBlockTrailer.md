@@ -8,7 +8,15 @@ TapeBlockTrailer is a structure stored at the end of each BLCKSZ block in Postgr
 
 ## Definition
 
-
+```c
+typedef struct TapeBlockTrailer
+{
+	int64		prev;			/* previous block on this tape, or -1 on first
+								 * block */
+	int64		next;			/* next block on this tape, or # of valid
+								 * bytes on last block (if < 0) */
+} TapeBlockTrailer;
+```
 ## Detailed Description
 The TapeBlockTrailer structure implements a doubly-linked list mechanism for organizing blocks within logical tapes. Each BLCKSZ-sized block contains this trailer at its end, enabling efficient navigation between blocks and special handling for the first and last blocks in a tape sequence.
 

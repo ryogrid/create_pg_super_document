@@ -8,7 +8,10 @@ PQsendQueryStart is a static function that provides common startup validation an
 
 ## Definition
 
-
+```c
+static bool
+PQsendQueryStart(PGconn *conn, bool newQuery)
+```
 ## Detailed Description
 PQsendQueryStart serves as the foundation for all query sending operations in libpq, performing essential connection state validation and preparation before any query can be sent to the PostgreSQL server. This function implements the common logic shared across PQsendQuery, PQsendQueryParams, PQsendPrepare, and PQsendQueryPrepared.
 

@@ -8,7 +8,9 @@ MYTYPE is a typedef alias for the struct mytype, used in ECPG (Embedded SQL in C
 
 ## Definition
 
-
+```c
+typedef struct mytype  MYTYPE ;
+```
 ## Detailed Description
 MYTYPE serves as a convenient alias for struct mytype in the PostgreSQL ECPG testing framework. It is defined in the preproc-outofscope.c test file and represents a common pattern in C programming where typedef is used to create cleaner, more readable type names. This typedef allows functions to use MYTYPE instead of the more verbose "struct mytype" when declaring variables and function parameters. The underlying struct mytype contains multiple data fields commonly used in database operations including integer ID, character arrays for text data, and floating-point numbers for numeric calculations.
 

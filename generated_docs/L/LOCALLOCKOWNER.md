@@ -8,7 +8,19 @@ LOCALLOCKOWNER tracks ownership and reference counts for locks held by specific 
 
 ## Definition
 
-
+```c
+typedef struct LOCALLOCKOWNER
+{
+	/*
+	 * Note: if owner is NULL then the lock is held on behalf of the session;
+	 * otherwise it is held on behalf of my current transaction.
+	 *
+	 * Must use a forward struct reference to avoid circularity.
+	 */
+	struct ResourceOwnerData *owner;
+	int64		nLocks;			/* # of times held by this owner */
+} LOCALLOCKOWNER;
+```
 ## Detailed Description
 LOCALLOCKOWNER is a critical component of PostgreSQL's resource management system that tracks how many times a particular lock has been acquired by a specific resource owner. This structure enables proper hierarchical lock management where locks can be held at different levels (session-level or transaction-level) and ensures correct cleanup when transactions abort or complete.
 

@@ -8,7 +8,11 @@ ExecIndexScanEstimate computes the amount of shared memory space needed for a pa
 
 ## Definition
 
-
+```c
+void
+ExecIndexScanEstimate(IndexScanState *node,
+					  ParallelContext *pcxt)
+```
 ## Detailed Description
 ExecIndexScanEstimate is part of PostgreSQL's parallel scan support infrastructure. It calculates the shared memory requirements for coordinating a parallel index scan across multiple worker processes. The function delegates to the index access method's index_parallelscan_estimate function to determine the specific memory needs based on the index type, scan keys, and ordering requirements.
 

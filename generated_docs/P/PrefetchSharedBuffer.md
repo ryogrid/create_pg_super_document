@@ -8,7 +8,12 @@ Implements buffer prefetching for shared buffers by checking if a block is alrea
 
 ## Definition
 
-
+```c
+PrefetchBufferResult
+PrefetchSharedBuffer(SMgrRelation smgr_reln,
+					 ForkNumber forkNum,
+					 BlockNumber blockNum)
+```
 ## Detailed Description
 PrefetchSharedBuffer is the core implementation function for prefetching blocks in PostgreSQL's shared buffer pool. It first checks if the requested block is already present in the buffer cache by performing a buffer table lookup. If the block is not cached, it attempts to initiate asynchronous I/O using the storage manager's prefetch capability (when USE_PREFETCH is defined and direct I/O is not enabled). The function is designed to optimize future ReadBuffer operations by ensuring data is available when needed, without blocking the current operation.
 

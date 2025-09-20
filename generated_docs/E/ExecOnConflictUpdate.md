@@ -8,7 +8,15 @@ ExecOnConflictUpdate handles the UPDATE portion of INSERT ON CONFLICT DO UPDATE 
 
 ## Definition
 
-
+```c
+static bool
+ExecOnConflictUpdate(ModifyTableContext *context,
+					 ResultRelInfo *resultRelInfo,
+					 ItemPointer conflictTid,
+					 TupleTableSlot *excludedSlot,
+					 bool canSetTag,
+					 TupleTableSlot **returning)
+```
 ## Detailed Description
 ExecOnConflictUpdate implements the core logic for INSERT ON CONFLICT DO UPDATE operations. The function performs several critical steps:
 

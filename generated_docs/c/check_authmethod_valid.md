@@ -8,7 +8,10 @@ Validates that a specified authentication method is supported for a particular c
 
 ## Definition
 
-
+```c
+static void
+check_authmethod_valid(const char *authmethod, const char *const *valid_methods, const char *conntype)
+```
 ## Detailed Description
 This function performs validation of authentication methods during initdb execution by:
 

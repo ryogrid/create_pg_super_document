@@ -8,7 +8,9 @@ Retrieves the GUC (Grand Unified Configuration) flags associated with a specifie
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function returns the flags field of a PostgreSQL configuration parameter, which contains bitwise flags that describe various properties and behaviors of the parameter. These flags indicate characteristics such as whether the parameter requires a restart to take effect, whether it can be set by users, its visibility level, and other metadata.
 

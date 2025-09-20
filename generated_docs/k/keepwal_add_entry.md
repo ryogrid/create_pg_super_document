@@ -8,7 +8,10 @@ Adds a WAL file path to the keep-list hash table to prevent its removal during p
 
 ## Definition
 
-
+```c
+void
+keepwal_add_entry(const char *path)
+```
 ## Detailed Description
 The  function marks a specified WAL file path for preservation by adding it to the dedicated keepwal hash table. This function ensures that critical WAL files identified during the rewind process are not deleted, as they may be necessary for maintaining database consistency or for recovery purposes.
 

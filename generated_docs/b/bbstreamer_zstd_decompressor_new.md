@@ -8,7 +8,10 @@ Creates a new base backup streamer that performs Zstandard (zstd) decompression 
 
 ## Definition
 
-
+```c
+bbstreamer *
+bbstreamer_zstd_decompressor_new(bbstreamer *next)
+```
 ## Detailed Description
 This function initializes a new bbstreamer instance specifically designed for Zstandard decompression during PostgreSQL base backup operations. It creates a decompression context using libzstd and sets up the necessary buffering structures for streaming decompression. The streamer follows PostgreSQL's streaming architecture where compressed data flows through a chain of processing nodes, with this decompressor fitting into that pipeline to restore the original uncompressed data.
 

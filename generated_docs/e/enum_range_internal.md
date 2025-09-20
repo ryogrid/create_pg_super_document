@@ -8,7 +8,10 @@ Generates an array containing enum values within a specified range by scanning p
 
 ## Definition
 
-
+```c
+static ArrayType *
+enum_range_internal(Oid enumtypoid, Oid lower, Oid upper)
+```
 ## Detailed Description
 This internal function is the core implementation for PostgreSQL's enum_range() SQL function variants. It scans the pg_enum system catalog to retrieve enum values of a specific enum type within an optional range defined by lower and upper bounds.
 

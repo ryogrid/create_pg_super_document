@@ -8,7 +8,9 @@ CatalogId is a compact structure used by pg_dump to uniquely identify database o
 
 ## Definition
 
-
+```c
+typedef int DumpId;
+```
 ## Detailed Description
 CatalogId represents a fundamental identification mechanism in PostgreSQL's pg_dump utility for uniquely identifying database objects through their entries in the system catalogs. The structure combines two OIDs: the tableoid (identifying which system catalog table contains the object's definition) and the oid (identifying the specific object within that catalog table). This dual-OID approach allows pg_dump to precisely locate and reference any database object during dump and restore operations. The structure is designed to be compact and efficient, with a strict requirement that it contains no unused bytes, making it suitable for use as a hash key or in memory-sensitive operations.
 

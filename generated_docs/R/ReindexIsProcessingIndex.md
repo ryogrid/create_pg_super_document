@@ -8,7 +8,10 @@ The  function determines whether an index is currently being reindexed or is pen
 
 ## Definition
 
-
+```c
+bool
+ReindexIsProcessingIndex(Oid indexOid)
+```
 ## Detailed Description
 This function provides a comprehensive check to determine if an index should be considered unavailable due to reindexing operations. It checks two conditions: whether the index is currently being actively reindexed (by comparing against ) or whether it's in the pending reindex list (checked via ). This broader check is essential for PostgreSQL's reindex coordination system, ensuring that operations avoid using indexes that are either currently being rebuilt or marked as needing rebuild.
 

@@ -8,7 +8,40 @@ InjectionPointEntry is a structure that represents a single injection point stor
 
 ## Definition
 
+```c
+typedef struct InjectionPointEntry
+{
+	/*
+	 * Because injection points need to be usable without LWLocks, we use a
+	 * generation counter on each entry to allow safe, lock-free reading.
+	 *
+	 * To read an entry, first read the current 'generation' value.  If it's
+	 * even, then the slot is currently unused, and odd means it's in use.
+	 * When reading the other fields, beware that they may change while
+	 * reading them, if the entry is released and reused!  After reading the
+	 * other fields, read 'generation' again: if its value hasn't changed, you
+	 * can be certain that the other fields you read are valid.  Otherwise,
+	 * the slot was concurrently recycled, and you should ignore it.
+	 *
+	 * When adding an entry, you must store all the other fields first, and
+	 * then update the generation number, with an appropriate memory barrier
+	 * in between. In addition to that protocol, you must also hold
+	 * InjectionPointLock, to prevent two backends from modifying the array at
+	 * the same time.
+	 */
+	pg_atomic_uint64 generation;
 
+	char		name[INJ_NAME_MAXLEN];	/* point name */
+	char		library[INJ_LIB_MAXLEN];	/* library */
+	char		function[INJ_FUNC_MAXLEN];	/* function */
+
+	/*
+	 * Opaque data area that modules can use to pass some custom data to
+	 * callbacks, registered when attached.
+	 */
+	char		private_data[INJ_PRIVATE_MAXLEN];
+} InjectionPointEntry;
+```
 ## Detailed Description
 InjectionPointEntry represents a single injection point in PostgreSQL's injection point system, which allows for runtime code injection for testing and debugging purposes. The structure is specifically designed to be stored in shared memory and accessed without LWLocks using a sophisticated generation counter protocol.
 

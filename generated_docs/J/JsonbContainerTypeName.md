@@ -8,7 +8,10 @@ A static utility function that determines and returns the type name of a JSONB c
 
 ## Definition
 
-
+```c
+static const char *
+JsonbContainerTypeName(JsonbContainer *jbc)
+```
 ## Detailed Description
 This function analyzes a JSONB container and returns its type name as a human-readable string. It handles different JSONB container types including scalars, arrays, and objects. For scalar values, it delegates to JsonbTypeName to get the specific scalar type. For containers, it directly returns "array" or "object" based on the container type. If an invalid container type is encountered, it logs an error and returns "unknown".
 

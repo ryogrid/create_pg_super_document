@@ -8,7 +8,11 @@ The french_ISO_8859_1_stem function is the main entry point for French word stem
 
 ## Definition
 
+```c
+}
 
+extern int french_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete French stemming algorithm by orchestrating the following phases:
 1. **Prelude**: Character preprocessing and normalization (r_prelude)  

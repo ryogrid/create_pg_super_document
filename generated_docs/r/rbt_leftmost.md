@@ -8,7 +8,10 @@ Returns the leftmost (smallest-valued) node in a Red-Black Tree, which represent
 
 ## Definition
 
-
+```c
+RBTNode *
+rbt_leftmost(RBTree *rbt)
+```
 ## Detailed Description
 This function traverses the Red-Black Tree to find the leftmost node, which contains the smallest value according to the tree's comparison function. The implementation follows the standard binary search tree property where the leftmost node is found by continuously following left child pointers until reaching a leaf (RBTNIL).
 

@@ -8,7 +8,10 @@ Determines whether two RowSecurityDesc structures are equivalent by comparing th
 
 ## Definition
 
-
+```c
+static bool
+equalRSDesc(RowSecurityDesc *rsdesc1, RowSecurityDesc *rsdesc2)
+```
 ## Detailed Description
 This function compares two row security descriptor structures to determine if they contain equivalent sets of row security policies. It handles null pointer cases and compares the policy lists by iterating through them in parallel, using the equalPolicy function to compare individual policies.
 

@@ -8,7 +8,11 @@ pgoutput_stream_stop is a callback function that handles the end of streaming fo
 
 ## Definition
 
-
+```c
+static void
+pgoutput_stream_stop(struct LogicalDecodingContext *ctx,
+					 ReorderBufferTXN *txn)
+```
 ## Detailed Description
 pgoutput_stream_stop is a callback function in the pgoutput logical replication output plugin that handles the STOP STREAM event for large transactions that are being streamed in chunks. When a stream chunk of a large transaction completes, this function is called to signal the end of that particular stream. It writes a stream stop message to the logical replication protocol and updates the internal state to indicate that streaming has stopped for this chunk. The function includes an assertion to ensure that streaming was actually active before attempting to stop it.
 

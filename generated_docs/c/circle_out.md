@@ -8,7 +8,10 @@ Converts PostgreSQL's internal CIRCLE data structure to its external string repr
 
 ## Definition
 
-
+```c
+Datum
+circle_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `circle_out` function is the output conversion routine for PostgreSQL's CIRCLE geometric type. It takes a CIRCLE structure from the internal binary format and converts it to a standardized string representation that can be displayed to users or stored as text. The function generates the standard format `"<(x,y),radius>"` where (x,y) represents the center coordinates and radius is the circle's radius.
 

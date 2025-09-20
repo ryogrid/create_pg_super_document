@@ -8,7 +8,9 @@ Inserts a new value at a specified path in a JSONB structure, with the option to
 
 ## Definition
 
-
+```c
+struct_array_builtin(path, TEXTOID, &path_elems, &path_nulls, &path_len);
+```
 ## Detailed Description
 The  function is a SQL-callable function that inserts a new value at a specified path within a JSONB structure. Unlike  which replaces existing values, this function inserts new elements, primarily useful for array manipulations. The function accepts a boolean parameter to control whether the insertion happens before or after the specified location.
 

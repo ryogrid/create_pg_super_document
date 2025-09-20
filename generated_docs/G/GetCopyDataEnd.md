@@ -8,7 +8,10 @@ GetCopyDataEnd is a static utility function in pg_basebackup that validates whet
 
 ## Definition
 
-
+```c
+static void
+GetCopyDataEnd(size_t r, char *copybuf, size_t cursor)
+```
 ## Detailed Description
 This function serves as a validation mechanism to ensure that streaming replication COPY data messages are fully parsed. It compares the total message length (r) against the current parsing position (cursor). If these values don't match, it indicates that the parsing process didn't consume the entire message, which suggests a parsing error or corrupted data. When such a mismatch is detected, the function calls ReportCopyDataParseError to handle the error condition appropriately.
 

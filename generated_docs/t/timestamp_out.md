@@ -8,7 +8,10 @@ A PostgreSQL output function that converts internal timestamp values to their ex
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function implements the output conversion for the TIMESTAMP data type (without timezone). It takes PostgreSQL's internal timestamp representation and converts it to a human-readable string format. The function handles both regular timestamp values and special values like 'infinity' and '-infinity'.
 

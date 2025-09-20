@@ -8,7 +8,10 @@ Determines whether a permutation step has any unsatisfied blocker conditions tha
 
 ## Definition
 
-
+```c
+static bool
+step_has_blocker(PermutationStep *pstep)
+```
 ## Detailed Description
 This function examines all blocker conditions associated with a PermutationStep to determine if any are currently unsatisfied, which would prevent the step from completing. It iterates through the step's array of blockers and evaluates each one based on its type.
 

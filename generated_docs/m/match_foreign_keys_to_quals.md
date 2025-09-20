@@ -8,7 +8,10 @@ Matches foreign-key constraints to equivalence classes and join quals to enable 
 
 ## Definition
 
-
+```c
+void
+match_foreign_keys_to_quals(PlannerInfo *root)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's cost-based query optimization that leverages foreign key semantics for better selectivity estimation. The core idea is to identify which query join conditions match equality constraints of foreign-key relationships, allowing the optimizer to make more accurate cardinality estimates than would be possible using statistical independence assumptions.
 

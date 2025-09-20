@@ -8,7 +8,19 @@ A specialized structure that extends the base bbstreamer to provide LZ4 frame co
 
 ## Definition
 
+```c
+typedef struct bbstreamer_lz4_frame
+{
+	bbstreamer	base;
 
+	LZ4F_compressionContext_t cctx;
+	LZ4F_decompressionContext_t dctx;
+	LZ4F_preferences_t prefs;
+
+	size_t		bytes_written;
+	bool		header_written;
+} bbstreamer_lz4_frame;
+```
 ## Detailed Description
 The  structure is a concrete implementation of the bbstreamer interface specifically designed for LZ4 frame-based compression and decompression operations. It is used in PostgreSQL's pg_basebackup utility to compress or decompress backup data streams using the LZ4 compression algorithm.
 

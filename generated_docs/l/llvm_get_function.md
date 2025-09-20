@@ -8,7 +8,10 @@ Retrieves a compiled function pointer by name from the LLVM JIT context, trigger
 
 ## Definition
 
-
+```c
+void *
+llvm_get_function(LLVMJitContext *context, const char *funcname)
+```
 ## Detailed Description
 This function provides access to JIT-compiled functions by looking up their symbols in the LLVM execution engine. It handles the complete compilation pipeline - if code is pending compilation, it triggers compilation first via llvm_compile_module(). The function implements version-specific symbol lookup using different LLVM ORC APIs depending on the LLVM version (>11 uses LLJIT, ≤11 uses OrcStack). For newer LLVM versions, it also tracks emission timing since LLJIT performs lazy code generation on first symbol access.
 

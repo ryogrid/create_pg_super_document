@@ -8,7 +8,11 @@ A static helper function that counts the number of null values in function argum
 
 ## Definition
 
-
+```c
+static bool
+count_nulls(FunctionCallInfo fcinfo,
+			int32 *nargs, int32 *nulls)
+```
 ## Detailed Description
 The count_nulls function is a common subroutine that analyzes function call information to determine the total number of arguments and count how many of them are NULL values. It handles two different calling patterns:
 

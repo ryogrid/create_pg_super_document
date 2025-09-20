@@ -8,7 +8,10 @@ Allocates memory for a genetic algorithm pool structure used in PostgreSQL's GEQ
 
 ## Definition
 
-
+```c
+Pool *
+alloc_pool(PlannerInfo *root, int pool_size, int string_length)
+```
 ## Detailed Description
 The  function creates and initializes a memory pool for the genetic algorithm optimizer. It allocates memory for a Pool structure that contains an array of chromosomes, where each chromosome represents a potential query execution plan. The function performs three main memory allocations:
 

@@ -8,7 +8,11 @@ A callback function that extracts and stores the system identifier from a backup
 
 ## Definition
 
-
+```c
+static void
+combinebackup_system_identifier_cb(JsonManifestParseContext *context,
+								   uint64 manifest_system_identifier)
+```
 ## Detailed Description
 This function serves as a callback during JSON manifest parsing to capture the PostgreSQL system identifier from the backup manifest. The system identifier is a unique 64-bit value that identifies a specific PostgreSQL cluster/database system. The function stores this identifier in the manifest_data structure for later validation.
 

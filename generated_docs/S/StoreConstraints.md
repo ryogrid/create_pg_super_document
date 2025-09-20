@@ -8,7 +8,24 @@ StoreConstraints processes a list of pre-cooked constraints and defaults, storin
 
 ## Definition
 
-
+```c
+structures
+ * newConstraints: list of Constraint nodes
+ * allow_merge: true if check constraints may be merged with existing ones
+ * is_local: true if definition is local, false if it's inherited
+ * is_internal: true if result of some internal process, not a user request
+ * queryString: used during expression transformation of default values and
+ *		cooked CHECK constraints
+ *
+ * All entries in newColDefaults will be processed.  Entries in newConstraints
+ * will be processed only if they are CONSTR_CHECK type.
+ *
+ * Returns a list of CookedConstraint nodes that shows the cooked form of
+ * the default and constraint expressions added to the relation.
+ *
+ * NB: caller should have opened rel with some self-conflicting lock mode,
+ * and should hold that lock till end of transaction;
+```
 ## Detailed Description
 StoreConstraints is a static function that takes a list of CookedConstraint structures and stores them in PostgreSQL's system catalogs. The function handles two types of constraints: DEFAULT constraints (column defaults) and CHECK constraints. Each CookedConstraint struct is modified to store the new catalog tuple OID after successful creation.
 

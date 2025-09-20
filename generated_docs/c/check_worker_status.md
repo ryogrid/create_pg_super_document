@@ -8,7 +8,10 @@ A static utility function that checks the status of all background workers in a 
 
 ## Definition
 
-
+```c
+static bool
+check_worker_status(worker_state *wstate)
+```
 ## Detailed Description
 This function is part of PostgreSQL's test infrastructure for shared memory message queues (test_shm_mq module). It iterates through all background workers managed by the provided worker state and checks their current status using the background worker management API. The function serves as a health check mechanism to detect worker failures during testing scenarios involving multiple background processes communicating through shared memory message queues.
 

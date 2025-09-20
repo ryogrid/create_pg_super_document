@@ -8,7 +8,11 @@ Constructs a Common Table Expression (CTE) containing complete pattern informati
 
 ## Definition
 
-
+```c
+static void
+append_rel_pattern_raw_cte(PQExpBuffer buf, const PatternInfoArray *pia,
+						   PGconn *conn)
+```
 ## Detailed Description
 This function generates the body of a SQL CTE that transforms pattern information from the PatternInfoArray into a structured format suitable for SQL queries. The CTE produces six columns that capture all aspects of each pattern: pattern ID, database regex, namespace regex, relation regex, and boolean flags indicating whether the pattern applies only to heap tables or btree indexes. Each pattern entry is converted into a SQL VALUES clause with proper type casting and NULL handling for missing pattern components.
 

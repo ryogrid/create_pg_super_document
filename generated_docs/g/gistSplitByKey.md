@@ -8,7 +8,100 @@ Main entry point for the GiST page-splitting algorithm that recursively processe
 
 ## Definition
 
+```c
+union keys, unless outer recursion level will handle it */
+		if (attno == 0 && giststate->nonLeafTupdesc->natts == 1)
+		{
+			v->spl_dontcare = NULL;
+			gistunionsubkey(giststate, itup, v);
+		}
+	}
+	else
+	{
+		/*
+		 * All keys are not-null, so apply user-defined PickSplit method
+		 */
+		if (gistUserPicksplit(r, entryvec, attno, v, itup, len, giststate))
+		{
+			/*
+			 * Splitting on attno column is not optimal, so consider
+			 * redistributing don't-care tuples according to the next column
+			 */
+			Assert(attno + 1 < giststate->nonLeafTupdesc->natts);
 
+			if (v->spl_dontcare == NULL)
+			{
+				/*
+				 * This split was actually degenerate, so ignore it altogether
+				 * and just split according to the next column.
+				 */
+				gistSplitByKey(r, page, itup, len, giststate, v, attno + 1);
+			}
+			else
+			{
+				/*
+				 * Form an array of just the don't-care tuples to pass to a
+				 * recursive invocation of this function for the next column.
+				 */
+				IndexTuple *newitup = (IndexTuple *) palloc(len * sizeof(IndexTuple));
+				OffsetNumber *map = (OffsetNumber *) palloc(len * sizeof(OffsetNumber));
+				int			newlen = 0;
+				GIST_SPLITVEC backupSplit;
+
+				for (i = 0; i < len; i++)
+				{
+					if (v->spl_dontcare[i + 1])
+					{
+						newitup[newlen] = itup[i];
+						map[newlen] = i + 1;
+						newlen++;
+					}
+				}
+
+				Assert(newlen > 0);
+
+				/*
+				 * Make a backup copy of v->splitVector, since the recursive
+				 * call will overwrite that with its own result.
+				 */
+				backupSplit = v->splitVector;
+				backupSplit.spl_left = (OffsetNumber *) palloc(sizeof(OffsetNumber) * len);
+				memcpy(backupSplit.spl_left, v->splitVector.spl_left, sizeof(OffsetNumber) * v->splitVector.spl_nleft);
+				backupSplit.spl_right = (OffsetNumber *) palloc(sizeof(OffsetNumber) * len);
+				memcpy(backupSplit.spl_right, v->splitVector.spl_right, sizeof(OffsetNumber) * v->splitVector.spl_nright);
+
+				/* Recursively decide how to split the don't-care tuples */
+				gistSplitByKey(r, page, newitup, newlen, giststate, v, attno + 1);
+
+				/* Merge result of subsplit with non-don't-care tuples */
+				for (i = 0; i < v->splitVector.spl_nleft; i++)
+					backupSplit.spl_left[backupSplit.spl_nleft++] = map[v->splitVector.spl_left[i] - 1];
+				for (i = 0; i < v->splitVector.spl_nright; i++)
+					backupSplit.spl_right[backupSplit.spl_nright++] = map[v->splitVector.spl_right[i] - 1];
+
+				v->splitVector = backupSplit;
+			}
+		}
+	}
+
+	/*
+	 * If we're handling a multicolumn index, at the end of the recursion
+	 * recompute the left and right union datums for all index columns.  This
+	 * makes sure we hand back correct union datums in all corner cases,
+	 * including when we haven't processed all columns to start with, or when
+	 * a secondary split moved "don't care" tuples from one side to the other
+	 * (we really shouldn't assume that that didn't change the union datums).
+	 *
+	 * Note: when we're in an internal recursion (attno > 0), we do not worry
+	 * about whether the union datums we return with are sensible, since
+	 * calling levels won't care.  Also, in a single-column index, we expect
+	 * that PickSplit (or the special cases above) produced correct union
+	 * datums.
+	 */
+	if (attno == 0 && giststate->nonLeafTupdesc->natts > 1)
+	{
+		v->spl_dontcare = NULL;
+```
 ## Detailed Description
 This function implements the sophisticated splitting algorithm for GiST index pages, handling multi-column indexes with recursive optimization. The process involves several phases:
 

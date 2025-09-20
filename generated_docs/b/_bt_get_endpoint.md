@@ -8,7 +8,10 @@ Finds the first or last page at a specified level in a B-tree index, providing t
 
 ## Definition
 
-
+```c
+Buffer
+_bt_get_endpoint(Relation rel, uint32 level, bool rightmost)
+```
 ## Detailed Description
 This function locates either the leftmost or rightmost page at a specified level within a B-tree index structure. It implements a top-down traversal strategy, starting from either the fast root (for leaf level operations) or the true root (for internal level operations). The function handles various edge cases including deleted pages, page splits, and index corruption scenarios.
 

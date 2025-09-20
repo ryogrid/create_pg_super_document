@@ -8,7 +8,11 @@ Updates a parent inner tuple's downlink to point to a new location and marks the
 
 ## Definition
 
-
+```c
+static void
+saveNodeLink(Relation index, SPPageDesc *parent,
+			 BlockNumber blkno, OffsetNumber offnum)
+```
 ## Detailed Description
 This function performs the critical final step in many SP-GiST tree modification operations by updating a parent inner tuple's downlink to point to a new block and offset location. It retrieves the inner tuple from the parent page using the page descriptor information, calls spgUpdateNodeLink to modify the appropriate node's item pointer, and then marks the parent buffer as dirty to ensure the change is persisted. The function is designed to be the last modification made to a parent page during a WAL action, ensuring proper write-ahead logging semantics.
 

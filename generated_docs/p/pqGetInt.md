@@ -8,7 +8,10 @@ Reads a 2 or 4 byte integer from the input buffer and converts it from network b
 
 ## Definition
 
-
+```c
+int
+pqGetInt(int *result, size_t bytes, PGconn *conn)
+```
 ## Detailed Description
 The  function is a utility function used in the libpq library to read integer values from the input buffer of a PostgreSQL connection. It handles both 2-byte and 4-byte integers, automatically converting them from network byte order (big-endian) to the local machine's byte order. This is essential for proper interpretation of binary data received from the PostgreSQL server, which always sends data in network byte order regardless of the server's native byte order.
 

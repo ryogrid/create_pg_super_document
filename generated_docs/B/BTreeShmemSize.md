@@ -8,7 +8,10 @@ Calculates the amount of shared memory space needed for B-tree VACUUM coordinati
 
 ## Definition
 
-
+```c
+Size
+BTreeShmemSize(void)
+```
 ## Detailed Description
 This function computes the total shared memory space required for the B-tree VACUUM coordination infrastructure. It calculates the size needed for the main  structure plus space for an array of  entries, with one entry allocated per potential backend process (MaxBackends).
 

@@ -8,7 +8,10 @@ Determines whether there is an external recursive self-reference within a query 
 
 ## Definition
 
-
+```c
+static bool
+contain_outer_selfref(Node *node)
+```
 ## Detailed Description
 This function serves as the entry point for detecting external recursive self-references in PostgreSQL query trees. It specifically looks for cases where a CTE (Common Table Expression) references itself, but the reference occurs at a query nesting level that is outside (higher than) the CTE's own definition level. This is important for query optimization decisions, particularly when determining whether CTEs can be inlined or need special handling for recursive operations.
 

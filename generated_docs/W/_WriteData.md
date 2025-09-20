@@ -8,7 +8,10 @@ Handles the actual writing of data chunks to the archive stream, supporting both
 
 ## Definition
 
-
+```c
+static void
+_WriteData(ArchiveHandle *AH, const void *data, size_t dLen)
+```
 ## Detailed Description
 The  function is a mandatory component of the custom archive format that serves as the primary data writing interface. It is called by the archiver whenever the dumper calls , making it the central bottleneck through which all table data and large object data flows during the dump process.
 

@@ -8,7 +8,10 @@ Performs intersection of two bitmap sets with optimization for recycling the lef
 
 ## Definition
 
-
+```c
+Bitmapset *
+bms_int_members(Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 The bms_int_members function computes the intersection of two bitmap sets, similar to bms_intersect, but with an important optimization: it modifies and reuses the left input bitmap set (a) rather than creating a new bitmap set. This reduces memory allocation overhead when the caller doesn't need to preserve the original left operand.
 

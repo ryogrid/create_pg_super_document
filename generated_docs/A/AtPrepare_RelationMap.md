@@ -8,7 +8,10 @@ Handles relation mapping during PREPARE TRANSACTION by rejecting any transaction
 
 ## Definition
 
-
+```c
+void
+AtPrepare_RelationMap(void)
+```
 ## Detailed Description
 The AtPrepare_RelationMap function is called during the PREPARE phase of two-phase commit processing. Currently, PostgreSQL does not support preparing transactions that have made changes to relation mappings.
 

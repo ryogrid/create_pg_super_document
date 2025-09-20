@@ -8,7 +8,10 @@ check_max_wal_senders is a GUC check hook function that validates proposed value
 
 ## Definition
 
-
+```c
+bool
+check_max_wal_senders(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for the max_wal_senders GUC parameter. It verifies that the proposed new value, when combined with MaxConnections, autovacuum workers, background worker processes, and additional system processes, does not exceed the maximum number of backends allowed by the system (MAX_BACKENDS). This validation is crucial for maintaining system stability when configuring WAL streaming replication.
 

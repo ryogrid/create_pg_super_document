@@ -8,7 +8,11 @@ Copies a file block by block from source to destination while optionally computi
 
 ## Definition
 
-
+```c
+static void
+copy_file_blocks(const char *src, const char *dst,
+				 pg_checksum_context *checksum_ctx)
+```
 ## Detailed Description
 The `copy_file_blocks` function implements a straightforward block-by-block file copying strategy with integrated checksum calculation. It opens both source and destination files, reads data in 50-block chunks, writes to the destination, and updates the checksum context for each chunk. The function includes comprehensive error handling for both read and write operations, providing detailed error messages with offset information for partial writes. This is the default fallback copying method used by pg_combinebackup when more advanced techniques like cloning or copy_file_range are not available.
 

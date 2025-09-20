@@ -8,7 +8,10 @@ Tests whether a given enum type OID is present in the table of uncommitted enum 
 
 ## Definition
 
-
+```c
+enum_types == NULL)
+		return false;
+```
 ## Detailed Description
 This is a utility function that checks if an enum type is considered "uncommitted" - meaning it was created in the current transaction and not yet committed. PostgreSQL maintains a hash table () to track such types during transaction processing. This information is crucial for determining whether certain operations on enum types are allowed, as some operations have different behavior or restrictions when applied to uncommitted enum types.
 

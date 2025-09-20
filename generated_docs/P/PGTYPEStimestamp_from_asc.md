@@ -8,7 +8,10 @@ Parses a string representation of a timestamp and converts it to PostgreSQL's in
 
 ## Definition
 
-
+```c
+struct tm	tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 PGTYPEStimestamp_from_asc is an ECPG (Embedded SQL in C for PostgreSQL) library function that converts a string representation of a timestamp into PostgreSQL's internal timestamp data type. This function handles various timestamp formats including regular dates, special values like epoch, infinity, and negative infinity. 
 

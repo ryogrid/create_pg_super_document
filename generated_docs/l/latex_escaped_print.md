@@ -8,7 +8,10 @@ Escapes special LaTeX characters in text strings to ensure they are properly ren
 
 ## Definition
 
-
+```c
+static void
+latex_escaped_print(const char *in, FILE *fout)
+```
 ## Detailed Description
 This function processes input text character by character and converts special LaTeX metacharacters to their escaped equivalents. It follows recommendations from Scott Pakin's "The Comprehensive LATEX Symbol List" for ASCII character conversions. The function handles characters that have special meaning in LaTeX (like #, $, %, &, etc.) by prefixing them with backslashes or replacing them with appropriate LaTeX commands. For non-ASCII characters, no special handling is performed.
 

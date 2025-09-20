@@ -8,7 +8,10 @@ Decrements the reference count of a catalog cache list with explicit resource ow
 
 ## Definition
 
-
+```c
+static void
+ReleaseCatCacheListWithOwner(CatCList *list, ResourceOwner resowner)
+```
 ## Detailed Description
 ReleaseCatCacheListWithOwner is the core implementation for releasing catalog cache lists. It decrements the list's reference count and removes the list from the specified resource owner's tracking. When the reference count reaches zero and the list is marked as dead, it calls CatCacheRemoveCList to physically remove the list from the cache.
 

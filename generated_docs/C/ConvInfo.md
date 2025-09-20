@@ -8,7 +8,13 @@ ConvInfo represents conversion objects in PostgreSQL's pg_dump utility, storing 
 
 ## Definition
 
-
+```c
+typedef struct _convInfo
+{
+	DumpableObject dobj;
+	const char *rolname;
+} ConvInfo;
+```
 ## Detailed Description
 ConvInfo is a structure used by pg_dump to encapsulate information about conversion objects stored in the pg_conversion system catalog. It extends the base DumpableObject structure to include conversion-specific metadata required for dumping and restoring conversions. The structure is populated by the getConversions() function during the schema discovery phase and later used by dumpConversion() to generate the appropriate CREATE CONVERSION statements. Conversions define mappings between different character encodings in PostgreSQL.
 

@@ -8,7 +8,12 @@ Marks a specific block in a BlockRefTableEntry as known to have been modified, m
 
 ## Definition
 
-
+```c
+void
+BlockRefTableEntryMarkBlockModified(BlockRefTableEntry *entry,
+									ForkNumber forknum,
+									BlockNumber blknum)
+```
 ## Detailed Description
 This function updates a BlockRefTableEntry to record that a specific block has been modified. It implements an adaptive storage strategy that efficiently handles both sparse and dense modification patterns. The function manages chunks of block references, where each chunk can store block numbers either as an array (for sparse modifications) or as a bitmap (for dense modifications). When the number of modified blocks in a chunk reaches a threshold, it automatically converts from array format to bitmap format for better memory efficiency.
 

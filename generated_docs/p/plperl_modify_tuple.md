@@ -8,7 +8,10 @@ Constructs a modified tuple to be returned from a Perl trigger function by conve
 
 ## Definition
 
-
+```c
+static HeapTuple
+plperl_modify_tuple(HV *hvTD, TriggerData *tdata, HeapTuple otup)
+```
 ## Detailed Description
 This function takes modifications made by a Perl trigger function (stored in a Perl hash) and applies them to create a new PostgreSQL heap tuple. It extracts the 'new' key from the trigger data hash, validates that it contains a proper hash reference, and then iterates through each key-value pair to construct the modified tuple. The function performs extensive validation including checking for nonexistent columns, system attributes, and generated columns. It serves as a critical bridge for converting Perl-side data modifications back to PostgreSQL's internal tuple representation.
 

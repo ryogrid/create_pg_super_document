@@ -8,7 +8,10 @@ GISTPageSplitInfo represents information about a page split operation in a GiST 
 
 ## Definition
 
-
+```c
+union(Relation r, IndexTuple *itvec,
+							int len, GISTSTATE *giststate);
+```
 ## Detailed Description
 GISTPageSplitInfo is a structure that encapsulates the essential information about each page created during a GiST index page split operation. When a GiST page becomes too full to accommodate new tuples, it must be split into multiple pages. This structure tracks each resulting page half along with its corresponding downlink tuple.
 

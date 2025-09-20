@@ -8,7 +8,9 @@ A static function that processes scalar JSON tokens during JSONB parsing, conver
 
 ## Definition
 
-
+```c
+structure");
+```
 ## Detailed Description
 This function serves as a callback handler for scalar values during JSON to JSONB conversion. It processes different types of JSON scalar tokens (strings, numbers, booleans, null) and converts them to appropriate JsonbValue structures. The function handles both standalone scalar values and scalars within arrays or objects. For standalone scalars, it wraps them in a special array structure with the rawScalar flag set to true. The function integrates with PostgreSQL's JSON parsing infrastructure and includes proper error handling through the error context mechanism.
 

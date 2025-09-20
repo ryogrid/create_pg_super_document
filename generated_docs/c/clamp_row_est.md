@@ -8,7 +8,10 @@ Forces a row-count estimate to a sane value by clamping it to a reasonable range
 
 ## Definition
 
-
+```c
+double
+clamp_row_est(double nrows)
+```
 ## Detailed Description
 This function sanitizes row count estimates to prevent problematic values from propagating through the PostgreSQL query optimizer's cost calculations. It handles several edge cases:
 

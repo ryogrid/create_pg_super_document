@@ -8,7 +8,10 @@ The  function converts an angle measurement from radians to degrees, providing a
 
 ## Definition
 
-
+```c
+Datum
+degrees(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs a straightforward mathematical conversion from radians to degrees using the standard conversion factor. It divides the input radian value by the constant  (which represents π/180) to obtain the equivalent degree measurement. The function uses PostgreSQL's  function to ensure proper floating-point division with appropriate error handling.
 

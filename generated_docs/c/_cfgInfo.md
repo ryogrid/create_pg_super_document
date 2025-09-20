@@ -8,7 +8,14 @@ The  structure represents text search configuration information in the PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct _cfgInfo
+{
+	DumpableObject dobj;
+	const char *rolname;
+	Oid			cfgparser;
+} TSConfigInfo;
+```
 ## Detailed Description
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about text search configurations, which are high-level objects that coordinate the use of parsers and dictionaries in PostgreSQL's full-text search system. Text search configurations define how documents are processed for indexing and searching.
 

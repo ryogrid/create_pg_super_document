@@ -8,7 +8,11 @@ Tests whether a statistics object covers all expressions in a given list, return
 
 ## Definition
 
-
+```c
+static bool
+stat_covers_expressions(StatisticExtInfo *stat, List *exprs,
+						Bitmapset **expr_idxs)
+```
 ## Detailed Description
 This static function evaluates whether a statistics object contains all the expressions from a provided list. It iterates through each expression in the input list and uses  to locate the expression within the statistics object. If any expression is not found, the function returns false immediately. When all expressions are successfully located, it returns true. The function also optionally populates a bitmap set with the indexes of the found expressions if the  parameter is provided.
 

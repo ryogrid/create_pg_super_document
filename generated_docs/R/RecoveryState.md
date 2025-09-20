@@ -8,7 +8,14 @@ An enumeration that represents the different states of database recovery operati
 
 ## Definition
 
-
+```c
+typedef enum RecoveryState
+{
+	RECOVERY_STATE_CRASH = 0,	/* crash recovery */
+	RECOVERY_STATE_ARCHIVE,		/* archive recovery */
+	RECOVERY_STATE_DONE,		/* currently in production */
+} RecoveryState;
+```
 ## Detailed Description
 RecoveryState tracks the current state of PostgreSQL's recovery process, which occurs during database startup after an unclean shutdown or when performing point-in-time recovery. RECOVERY_STATE_CRASH indicates the database is performing crash recovery, replaying WAL records from the last checkpoint to ensure consistency. RECOVERY_STATE_ARCHIVE indicates the database is in archive recovery mode, typically used for point-in-time recovery or standby server initialization. RECOVERY_STATE_DONE indicates that recovery has completed and the database is running in normal production mode, accepting read-write operations.
 

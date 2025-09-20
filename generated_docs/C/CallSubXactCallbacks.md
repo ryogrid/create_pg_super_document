@@ -8,7 +8,12 @@ CallSubXactCallbacks iterates through all registered subtransaction callback fun
 
 ## Definition
 
-
+```c
+static void
+CallSubXactCallbacks(SubXactEvent event,
+					 SubTransactionId mySubid,
+					 SubTransactionId parentSubid)
+```
 ## Detailed Description
 This internal function traverses the linked list of registered subtransaction callbacks (SubXact_callbacks) and calls each callback function with the provided event information. The function is designed to be safe against callbacks that unregister themselves during execution by capturing the next pointer before making each callback invocation. This ensures that the iteration continues correctly even if the current callback item is removed from the list during the callback execution. The function is called at key points in subtransaction lifecycle management to notify interested modules of subtransaction events.
 

@@ -8,7 +8,10 @@ Determines whether a given relation (identified by OID) should be stored in the 
 
 ## Definition
 
-
+```c
+bool
+RelationIdIsInInitFile(Oid relationId)
+```
 ## Detailed Description
 This function implements the filtering logic that determines which relations should be included in the local database initialization file. The goal is to include relations that are frequently accessed during backend startup to optimize performance.
 

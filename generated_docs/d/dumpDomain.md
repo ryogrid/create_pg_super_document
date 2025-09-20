@@ -8,7 +8,10 @@ Generates SQL commands to recreate a user-defined domain type with constraints, 
 
 ## Definition
 
-
+```c
+static void
+dumpDomain(Archive *fout, const TypeInfo *tyinfo)
+```
 ## Detailed Description
 The  function creates SQL statements to recreate domain types in PostgreSQL dumps. Domains are essentially constrained versions of existing data types, allowing users to define reusable type definitions with specific constraints, default values, and collations. The function handles the complete domain specification including base type, collation (when different from base type), NOT NULL constraints (with version-specific naming), default values, and CHECK constraints.
 

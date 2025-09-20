@@ -8,7 +8,10 @@ A hash function used by the hash table that stores RecordCacheEntry structures, 
 
 ## Definition
 
-
+```c
+static uint32
+record_type_typmod_hash(const void *data, size_t size)
+```
 ## Detailed Description
 This function serves as the hash function for PostgreSQL's internal hash table that manages RecordCacheEntry structures. It extracts the TupleDesc from a RecordCacheEntry and delegates to hashRowType() to compute a hash value based on the row type's structure.
 

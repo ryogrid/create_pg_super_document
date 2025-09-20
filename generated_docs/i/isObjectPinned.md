@@ -8,7 +8,10 @@ Tests if a database object is required for basic database functionality and is t
 
 ## Definition
 
-
+```c
+static bool
+isObjectPinned(const ObjectAddress *object)
+```
 ## Detailed Description
 The  function determines whether a given database object is considered "pinned", meaning it is essential for basic database operations and cannot be dropped by users. This function serves as a wrapper around the lower-level  function, adapting the  structure format to the underlying implementation.
 

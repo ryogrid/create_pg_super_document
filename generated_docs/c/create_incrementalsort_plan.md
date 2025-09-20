@@ -8,7 +8,11 @@ Creates an IncrementalSort plan node from an IncrementalSortPath, which optimize
 
 ## Definition
 
-
+```c
+static IncrementalSort *
+create_incrementalsort_plan(PlannerInfo *root, IncrementalSortPath *best_path,
+							int flags)
+```
 ## Detailed Description
 The  function generates an IncrementalSort plan node, which is an optimized variant of sorting that takes advantage of input data that is already partially sorted. This function operates similarly to  but creates IncrementalSort nodes instead of regular Sort nodes.
 

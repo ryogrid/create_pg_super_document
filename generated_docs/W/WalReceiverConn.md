@@ -8,7 +8,17 @@ WalReceiverConn is a structure that encapsulates the connection information and 
 
 ## Definition
 
-
+```c
+struct WalReceiverConn
+{
+	/* Current connection to the primary, if any */
+	PGconn	   *streamConn;
+	/* Used to remember if the connection is logical or physical */
+	bool		logical;
+	/* Buffer for currently read records */
+	char	   *recvBuf;
+};
+```
 ## Detailed Description
 WalReceiverConn serves as the core data structure for managing WAL receiver connections in PostgreSQL's replication infrastructure. It is defined in the libpqwalreceiver module, which implements the WAL receiver functionality using libpq for communication with the primary server.
 

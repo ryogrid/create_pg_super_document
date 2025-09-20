@@ -8,7 +8,10 @@ Processes type modifier input for the TIMETZ (time with time zone) data type, va
 
 ## Definition
 
-
+```c
+Datum
+timetztypmodin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `timetztypmodin` function is responsible for parsing and validating type modifier input for TIMETZ columns during table creation or type casting operations. When a user specifies a TIMETZ column with precision (e.g., `TIMETZ(3)` for 3-digit fractional seconds), this function processes that specification.
 

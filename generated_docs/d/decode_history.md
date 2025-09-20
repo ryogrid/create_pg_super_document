@@ -8,7 +8,10 @@ Reverses the encoding of newline characters in readline history entries by conve
 
 ## Definition
 
-
+```c
+static void
+decode_history(void)
+```
 ## Detailed Description
 The  function is responsible for reversing the newline encoding that PostgreSQL's psql applies to history entries. When multi-line SQL commands are stored in readline history, actual newline characters ('\n') are encoded as NL_IN_HISTORY (0x01) to preserve the command structure while avoiding issues with readline's handling of embedded newlines.
 

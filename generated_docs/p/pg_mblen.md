@@ -8,7 +8,10 @@ Returns the byte length of a multibyte character at the beginning of a string.
 
 ## Definition
 
-
+```c
+int
+pg_mblen(const char *mbstr)
+```
 ## Detailed Description
  is a utility function that determines the byte length of the first multibyte character in a given string. It serves as a wrapper around the encoding-specific multibyte length function stored in the  for the current database encoding. This function is essential for proper multibyte character handling in PostgreSQL, allowing code to advance through multibyte strings character by character rather than byte by byte.
 

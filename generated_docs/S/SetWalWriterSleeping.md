@@ -8,7 +8,10 @@ Updates the WalWriterSleeping flag in the XLogCtl control structure to indicate 
 
 ## Definition
 
-
+```c
+void
+SetWalWriterSleeping(bool sleeping)
+```
 ## Detailed Description
 This function provides a thread-safe mechanism to update the WalWriterSleeping flag, which tracks whether the WAL writer background process is currently sleeping or active. The function uses a spinlock (info_lck) to ensure atomic updates to the flag, preventing race conditions between the WAL writer process and other processes that might need to wake it up or check its state.
 

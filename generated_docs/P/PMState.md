@@ -8,7 +8,24 @@ PMState is an enumeration that represents the different operational states of th
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	PM_INIT,					/* postmaster starting */
+	PM_STARTUP,					/* waiting for startup subprocess */
+	PM_RECOVERY,				/* in archive recovery mode */
+	PM_HOT_STANDBY,				/* in hot standby mode */
+	PM_RUN,						/* normal "database is alive" state */
+	PM_STOP_BACKENDS,			/* need to stop remaining backends */
+	PM_WAIT_BACKENDS,			/* waiting for live backends to exit */
+	PM_SHUTDOWN,				/* waiting for checkpointer to do shutdown
+								 * ckpt */
+	PM_SHUTDOWN_2,				/* waiting for archiver and walsenders to
+								 * finish */
+	PM_WAIT_DEAD_END,			/* waiting for dead_end children to exit */
+	PM_NO_CHILDREN,				/* all important children have exited */
+} PMState;
+```
 ## Detailed Description
 PMState tracks the postmaster's operational lifecycle from initialization through normal operation to shutdown. This state machine is critical for coordinating the various child processes and ensuring proper startup, recovery, and shutdown sequences. The postmaster uses these states to determine which operations are allowed, which child processes should be running, and how to handle various signals and events.
 

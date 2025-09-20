@@ -8,7 +8,17 @@ The  structure represents text search parser information in the PostgreSQL dump 
 
 ## Definition
 
-
+```c
+typedef struct _prsInfo
+{
+	DumpableObject dobj;
+	Oid			prsstart;
+	Oid			prstoken;
+	Oid			prsend;
+	Oid			prsheadline;
+	Oid			prslextype;
+} TSParserInfo;
+```
 ## Detailed Description
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about text search parsers, which are components of PostgreSQL's full-text search system. The structure contains OIDs (Object Identifiers) for various function components that make up a text search parser.
 

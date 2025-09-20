@@ -8,7 +8,10 @@ Determines if a range is adjacent to a multirange by checking if the range is ad
 
 ## Definition
 
-
+```c
+Datum
+range_adjacent_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL adjacency operator () for checking if a range is adjacent to a multirange. A range is considered adjacent to a multirange if it shares a boundary point with any range in the multirange without overlapping. The function serves as a PostgreSQL function wrapper that extracts the arguments, retrieves the appropriate type cache, and delegates the actual logic to .
 

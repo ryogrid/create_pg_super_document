@@ -8,7 +8,13 @@ SpGistOptions is a structure that holds configuration options for SP-GiST (Space
 
 ## Definition
 
-
+```c
+typedef struct SpGistOptions
+{
+	int32		varlena_header_;	/* varlena header (do not touch directly!) */
+	int			fillfactor;		/* page fill factor in percent (0..100) */
+} SpGistOptions;
+```
 ## Detailed Description
 SpGistOptions is a configuration structure used to store index-specific options for SP-GiST indexes. The structure follows PostgreSQL's standard pattern for index option structures by including a varlena header for variable-length data handling. The primary purpose is to encapsulate the fill factor setting, which controls how densely packed the index pages should be during index creation and maintenance operations.
 

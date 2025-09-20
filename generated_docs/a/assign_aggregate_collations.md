@@ -8,7 +8,11 @@ Handles collation assignment for normal aggregate functions, treating ORDER BY e
 
 ## Definition
 
-
+```c
+static void
+assign_aggregate_collations(Aggref *aggref,
+							assign_collations_context *loccontext)
+```
 ## Detailed Description
 This function implements collation assignment logic specific to normal aggregate functions (AGGKIND_NORMAL). It addresses a key challenge: aggregate functions can have both regular arguments that contribute to the result collation and ORDER BY expressions that should not influence the aggregate's collation or conflict with regular arguments.
 

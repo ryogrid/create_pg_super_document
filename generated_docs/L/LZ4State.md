@@ -8,7 +8,59 @@ LZ4State is a comprehensive state structure used by both the Compressor and Stre
 
 ## Definition
 
+```c
+typedef struct LZ4State
+{
+	/*
+	 * Used by the Stream API to keep track of the file stream.
+	 */
+	FILE	   *fp;
 
+	LZ4F_preferences_t prefs;
+
+	LZ4F_compressionContext_t ctx;
+	LZ4F_decompressionContext_t dtx;
+
+	/*
+	 * Used by the Stream API's lazy initialization.
+	 */
+	bool		inited;
+
+	/*
+	 * Used by the Stream API to distinguish between compression and
+	 * decompression operations.
+	 */
+	bool		compressing;
+
+	/*
+	 * Used by the Compressor API to mark if the compression headers have been
+	 * written after initialization.
+	 */
+	bool		needs_header_flush;
+
+	size_t		buflen;
+	char	   *buffer;
+
+	/*
+	 * Used by the Stream API to store already uncompressed data that the
+	 * caller has not consumed.
+	 */
+	size_t		overflowalloclen;
+	size_t		overflowlen;
+	char	   *overflowbuf;
+
+	/*
+	 * Used by both APIs to keep track of the compressed data length stored in
+	 * the buffer.
+	 */
+	size_t		compressedlen;
+
+	/*
+	 * Used by both APIs to keep track of error codes.
+	 */
+	size_t		errcode;
+} LZ4State;
+```
 ## Detailed Description
 LZ4State serves as the central state management structure for LZ4 compression operations in pg_dump. It supports both streaming and direct compression APIs, maintaining all necessary context for compression/decompression operations including file handles, LZ4 library contexts, buffers, and operational flags. The structure is designed to handle lazy initialization, distinguish between compression and decompression modes, and manage data overflow scenarios efficiently.
 

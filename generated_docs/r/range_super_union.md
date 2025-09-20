@@ -8,7 +8,10 @@ A specialized range union function for GiST indexes that computes the smallest r
 
 ## Definition
 
-
+```c
+static RangeType *
+range_super_union(TypeCacheEntry *typcache, RangeType *r1, RangeType *r2)
+```
 ## Detailed Description
 This static function is a critical component of the GiST range indexing infrastructure. It differs from the regular range_union function in two important ways:
 

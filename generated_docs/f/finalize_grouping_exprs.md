@@ -8,7 +8,12 @@ Scans expression trees for GROUPING() function calls and validates/processes the
 
 ## Definition
 
-
+```c
+static void
+finalize_grouping_exprs(Node *node, ParseState *pstate, Query *qry,
+						List *groupClauses, bool hasJoinRTEs,
+						bool have_non_var_grouping)
+```
 ## Detailed Description
 This function provides specialized processing for GROUPING() and related functions:
 

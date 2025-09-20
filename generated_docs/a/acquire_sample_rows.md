@@ -8,7 +8,12 @@ Acquires a random sample of rows from a table using a two-stage reservoir sampli
 
 ## Definition
 
-
+```c
+static int
+acquire_sample_rows(Relation onerel, int elevel,
+					HeapTuple *rows, int targrows,
+					double *totalrows, double *totaldeadrows)
+```
 ## Detailed Description
 The acquire_sample_rows function implements a sophisticated two-stage random sampling method for PostgreSQL's ANALYZE command. Stage one uses block sampling to select up to targrows random blocks (or all blocks if there aren't many). Stage two applies the Vitter reservoir sampling algorithm to create a random sample of targrows rows from the selected blocks.
 

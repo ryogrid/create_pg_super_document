@@ -8,7 +8,10 @@ A static function in PostgreSQL's text search parser that determines whether to 
 
 ## Definition
 
-
+```c
+static int
+p_isstophost(TParser *prs)
+```
 ## Detailed Description
 p_isstophost is a helper function used in the text search word parser to control host parsing behavior. The function checks if the parser is currently expecting a host token (indicated by the wanthost flag). If so, it resets the flag to false and returns 1 to indicate that host parsing should stop. If the parser is not expecting a host, it returns 0.
 

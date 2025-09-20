@@ -8,7 +8,10 @@ repairTypeFuncLoop resolves circular dependency loops between user-defined datat
 
 ## Definition
 
-
+```c
+static void
+repairTypeFuncLoop(DumpableObject *typeobj, DumpableObject *funcobj)
+```
 ## Detailed Description
 repairTypeFuncLoop addresses a specific type of circular dependency that occurs in PostgreSQL between user-defined datatypes and their I/O functions. This circular dependency arises because:
 1. I/O functions (input/output functions) depend on the datatype for their signatures

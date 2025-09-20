@@ -8,7 +8,23 @@ BTParallelScanDescData is a structure that contains btree-specific shared inform
 
 ## Definition
 
+```c
+typedef struct BTParallelScanDescData
+{
+	BlockNumber btps_scanPage;	/* latest or next page to be scanned */
+	BTPS_State	btps_pageStatus;	/* indicates whether next page is
+									 * available for scan. see above for
+									 * possible states of parallel scan. */
+	slock_t		btps_mutex;		/* protects above variables, btps_arrElems */
+	ConditionVariable btps_cv;	/* used to synchronize parallel scan */
 
+	/*
+	 * btps_arrElems is used when scans need to schedule another primitive
+	 * index scan.  Holds BTArrayKeyInfo.cur_elem offsets for scan keys.
+	 */
+	int			btps_arrElems[FLEXIBLE_ARRAY_MEMBER];
+}			BTParallelScanDescData;
+```
 ## Detailed Description
 This structure serves as the shared state manager for parallel B-tree index scans in PostgreSQL. It coordinates multiple worker processes scanning a B-tree index simultaneously by tracking the current scan position, managing access synchronization, and maintaining state information needed for array key processing.
 

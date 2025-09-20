@@ -8,7 +8,10 @@ Gets a line of interactive input from the user, utilizing readline functionality
 
 ## Definition
 
-
+```c
+char *
+gets_interactive(const char *prompt, PQExpBuffer query_buf)
+```
 ## Detailed Description
 This function is the primary interface for reading interactive input in psql. It provides a unified way to get user input while supporting both readline-enhanced input (when USE_READLINE is defined and useReadline is true) and basic input from stdin. The function handles signal management for SIGINT interrupts and integrates with tab completion functionality when readline is available.
 

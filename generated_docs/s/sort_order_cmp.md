@@ -8,7 +8,9 @@ A static comparison function used by qsort to order pg_enum tuples by their enum
 
 ## Definition
 
-
+```c
+enum en1 = (Form_pg_enum) GETSTRUCT(v1);
+```
 ## Detailed Description
 This function serves as a comparison callback for the qsort() function when sorting enum value tuples from the pg_enum catalog table. It compares two HeapTuple pointers by extracting their Form_pg_enum structures and comparing their enumsortorder fields. The function returns a standard comparison result: negative if the first element should come before the second, positive if it should come after, and zero if they are equal.
 

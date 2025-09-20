@@ -8,7 +8,15 @@ A structure that defines the formatting characters for table column separators a
 
 ## Definition
 
-
+```c
+typedef struct unicodeStyleColumnFormat
+{
+	const char *vertical;
+	const char *vertical_and_horizontal[2];
+	const char *up_and_horizontal[2];
+	const char *down_and_horizontal[2];
+} unicodeStyleColumnFormat;
+```
 ## Detailed Description
 This structure contains the Unicode characters used for formatting table columns in PostgreSQL's frontend utilities. It provides characters for vertical lines and various intersection points where vertical and horizontal lines meet. The structure supports different types of column separators and junction points needed for proper table rendering in terminal output with Unicode/UTF-8 characters.
 

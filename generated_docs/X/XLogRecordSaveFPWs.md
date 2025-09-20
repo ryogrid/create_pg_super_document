@@ -8,7 +8,10 @@ XLogRecordSaveFPWs extracts and saves all full page writes (FPWs) from a WAL rec
 
 ## Definition
 
-
+```c
+static void
+XLogRecordSaveFPWs(XLogReaderState *record, const char *savepath)
+```
 ## Detailed Description
 This function iterates through all block references in a WAL record, identifies those containing full page writes, and saves them as individual files to a specified directory. Each saved page is automatically decompressed if necessary using RestoreBlockImage. The function generates descriptive filenames that include timeline, LSR, relation identifiers, block numbers, and fork information, making it easy to identify and analyze specific page images. This functionality is particularly useful for debugging, forensic analysis, and understanding the content of full page writes in PostgreSQL's WAL stream.
 

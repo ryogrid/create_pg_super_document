@@ -8,7 +8,10 @@ A callback function for TS_execute that determines whether a tsquery operand mat
 
 ## Definition
 
-
+```c
+static TSTernaryValue
+checkcondition_gin(void *checkval, QueryOperand *val, ExecPhraseData *data)
+```
 ## Detailed Description
 This function serves as a specialized callback for PostgreSQL's text search execution engine (TS_execute) when working with GIN indexes. It evaluates individual query operands against indexed TSVector data to determine match conditions during query consistency checking.
 

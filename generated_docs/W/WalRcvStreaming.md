@@ -8,7 +8,10 @@ Determines whether the WAL receiver is actively streaming WAL data or in a state
 
 ## Definition
 
-
+```c
+bool
+WalRcvStreaming(void)
+```
 ## Detailed Description
 This function provides a more specific check than WalRcvRunning() by determining if the WAL receiver is actually engaged in streaming operations or is in a transitional state leading to streaming. It checks for WALRCV_STREAMING, WALRCV_STARTING, and WALRCV_RESTARTING states, making it useful for recovery logic that needs to know if WAL data is being or will be received. Like WalRcvRunning(), it includes timeout handling for startup failures to prevent indefinite waiting on failed WAL receiver processes.
 

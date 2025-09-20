@@ -8,7 +8,14 @@ TheLexeme is a structure used in PostgreSQL's thesaurus dictionary implementatio
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	uint16		lastlexeme;		/* number lexemes to substitute */
+	uint16		reslen;
+	TSLexeme   *res;			/* prepared substituted result */
+} TheSubstitute;
+```
 ## Detailed Description
 TheLexeme serves as a fundamental data structure in the thesaurus dictionary functionality within PostgreSQL's text search system. It encapsulates a lexeme (a string representing a word or term) and maintains a pointer to associated LexemeInfo structures that contain metadata and variant information for that lexeme. This structure is used during thesaurus dictionary processing to organize and access lexeme data efficiently.
 

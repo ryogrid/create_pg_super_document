@@ -8,7 +8,21 @@ BgWorkerStartTime is an enumeration that defines the different points during Pos
 
 ## Definition
 
-
+```c
+typedef struct BackgroundWorker
+{
+	char		bgw_name[BGW_MAXLEN];
+	char		bgw_type[BGW_MAXLEN];
+	int			bgw_flags;
+	BgWorkerStartTime bgw_start_time;
+	int			bgw_restart_time;	/* in seconds, or BGW_NEVER_RESTART */
+	char		bgw_library_name[MAXPGPATH];
+	char		bgw_function_name[BGW_MAXLEN];
+	Datum		bgw_main_arg;
+	char		bgw_extra[BGW_EXTRALEN];
+	pid_t		bgw_notify_pid; /* SIGUSR1 this backend on start/stop */
+} BackgroundWorker;
+```
 ## Detailed Description
 The BgWorkerStartTime enumeration provides precise control over when background workers are started during the PostgreSQL startup sequence. This timing control is crucial for ensuring that workers are launched at appropriate moments when required subsystems are available and the database is in the correct state. Different worker types have different requirements - some need basic postmaster functionality, others require a consistent database state, and some need full recovery completion before they can operate safely.
 

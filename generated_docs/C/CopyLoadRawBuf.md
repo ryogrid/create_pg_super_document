@@ -8,7 +8,10 @@ CopyLoadRawBuf loads new data from the data source into the raw buffer, managing
 
 ## Definition
 
-
+```c
+static void
+CopyLoadRawBuf(CopyFromState cstate)
+```
 ## Detailed Description
 CopyLoadRawBuf is responsible for refreshing the raw input buffer with new data from the underlying data source during COPY FROM operations. The function implements efficient buffer management by:
 

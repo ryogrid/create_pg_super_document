@@ -8,7 +8,14 @@ Generates ALTER EXTENSION ADD commands during binary upgrades to restore extensi
 
 ## Definition
 
-
+```c
+static void
+binary_upgrade_extension_member(PQExpBuffer upgrade_buffer,
+								const DumpableObject *dobj,
+								const char *objtype,
+								const char *objname,
+								const char *objnamespace)
+```
 ## Detailed Description
 This function is part of PostgreSQL's pg_dump utility and handles extension membership during binary upgrades. When an object is a member of an extension, this function adds the appropriate ALTER EXTENSION ADD command to the upgrade buffer. This ensures that after a binary upgrade, objects maintain their correct extension membership relationships.
 

@@ -8,7 +8,10 @@ Displays comprehensive memoization cache statistics for EXPLAIN ANALYZE output, 
 
 ## Definition
 
-
+```c
+static void
+show_memoize_info(MemoizeState *mstate, List *ancestors, ExplainState *es)
+```
 ## Detailed Description
 This function provides detailed reporting for memoization nodes during EXPLAIN ANALYZE operations. Memoization is a query optimization technique that caches results of expensive operations to avoid redundant computation. The function displays both configuration information and runtime performance statistics.
 

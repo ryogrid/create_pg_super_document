@@ -8,7 +8,10 @@ Finds the extension that contains a specified database object, returning the ext
 
 ## Definition
 
-
+```c
+Oid
+getExtensionOfObject(Oid classId, Oid objectId)
+```
 ## Detailed Description
 The `getExtensionOfObject` function searches the `pg_depend` system catalog to determine which extension, if any, contains a given database object. Extension membership is indicated by an EXTENSION dependency relationship from the object to the extension in the dependency catalog.
 

@@ -8,7 +8,10 @@ Retrieves basic information about every procedural language in the PostgreSQL sy
 
 ## Definition
 
-
+```c
+ProcLangInfo *
+getProcLangs(Archive *fout, int *numProcLangs)
+```
 ## Detailed Description
 The  function queries the  system catalog to retrieve information about all procedural languages that have the  flag set to true (indicating they are procedural languages rather than built-in languages). This function is part of the pg_dump utility's schema dumping process and must be called after  because it assumes that  functionality is available.
 

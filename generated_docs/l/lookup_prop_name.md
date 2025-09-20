@@ -8,7 +8,10 @@ Converts a string property name to its corresponding IndexAMProperty enum value 
 
 ## Definition
 
-
+```c
+static IndexAMProperty
+lookup_prop_name(const char *name)
+```
 ## Detailed Description
 This function performs a case-insensitive lookup of property names in the predefined am_propnames array to convert string-based property names into their corresponding IndexAMProperty enumeration values. The function supports all standard index access method properties such as ordering capabilities, scan types, and structural features. If the property name is not found in the standard list, it returns AMPROP_UNKNOWN rather than throwing an error, allowing individual access methods to define their own custom properties.
 

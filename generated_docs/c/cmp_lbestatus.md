@@ -8,7 +8,10 @@ A static comparison function used by bsearch() to search through arrays of Local
 
 ## Definition
 
-
+```c
+static int
+cmp_lbestatus(const void *a, const void *b)
+```
 ## Detailed Description
 This is a standard comparison function that implements the comparison logic required for binary search operations on arrays of LocalPgBackendStatus structures. It follows the standard C library bsearch() convention, returning a negative value if the first argument is less than the second, zero if they are equal, and a positive value if the first argument is greater than the second. The comparison is based solely on the proc_number field of the LocalPgBackendStatus structures.
 

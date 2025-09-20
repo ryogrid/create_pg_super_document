@@ -8,7 +8,10 @@ A PostgreSQL function that compares a 32-bit integer with a 64-bit integer to de
 
 ## Definition
 
-
+```c
+Datum
+int48le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "<=" (less than or equal) comparison operator between an  (32-bit integer) and an  (64-bit integer) in PostgreSQL's type system. It extracts two arguments from the function call context - a 32-bit integer as the first argument and a 64-bit integer as the second argument, then performs the comparison and returns a boolean result.
 

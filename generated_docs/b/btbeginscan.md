@@ -8,7 +8,10 @@ Initializes and starts a scan on a B-tree index, setting up the necessary data s
 
 ## Definition
 
-
+```c
+IndexScanDesc
+btbeginscan(Relation rel, int nkeys, int norderbys)
+```
 ## Detailed Description
 The btbeginscan function is responsible for initializing a B-tree index scan. It creates and configures the IndexScanDesc structure along with the associated BTScanOpaque private workspace. This function sets up the foundational structures needed for subsequent scanning operations but does not perform the actual scan initiation - that occurs in btrescan. The function ensures that no order-by operators are used (as B-tree doesn't support them) and prepares memory allocation for scan keys and other scan-related data structures.
 

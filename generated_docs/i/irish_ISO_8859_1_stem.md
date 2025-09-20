@@ -8,7 +8,11 @@ This is the main entry point function for Irish language stemming using ISO 8859
 
 ## Definition
 
+```c
+}
 
+extern int irish_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 The `irish_ISO_8859_1_stem` function is the primary stemming algorithm for Irish text processing. It implements the complete Irish stemming algorithm through a carefully orchestrated sequence of morphological transformations:
 

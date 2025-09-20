@@ -8,7 +8,10 @@ Detects whether there exists an EquivalenceClass that could produce a join claus
 
 ## Definition
 
-
+```c
+bool
+has_relevant_eclass_joinclause(PlannerInfo *root, RelOptInfo *rel1)
+```
 ## Detailed Description
 This function is a single-relation variant of have_relevant_eclass_joinclause that determines if a given relation could potentially be joined with any other relation in the query via an equivalence class-derived join clause. It treats the "other relation" as implicitly being "everything else in the query", making it useful for determining whether a relation has any potential for equivalence class-based joins at all.
 

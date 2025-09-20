@@ -8,7 +8,17 @@ StatsBuildData is a unified structure that encapsulates all the essential data n
 
 ## Definition
 
-
+```c
+typedef struct StatsBuildData
+{
+	int			numrows;
+	int			nattnums;
+	AttrNumber *attnums;
+	VacAttrStats **stats;
+	Datum	  **values;
+	bool	  **nulls;
+} StatsBuildData;
+```
 ## Detailed Description
 StatsBuildData serves as a central data container that provides a unified representation of the raw data used for building various types of extended statistics in PostgreSQL. This structure aggregates all necessary information including the actual data values, NULL indicators, attribute information, and statistical metadata into a single, convenient interface. It enables different statistical algorithms (MCV, dependencies, n-distinct) to work with a consistent data format, promoting code reuse and maintainability. The structure organizes data in a column-wise format where each attribute's values and null indicators are stored in separate arrays, facilitating efficient processing of multi-column statistics.
 

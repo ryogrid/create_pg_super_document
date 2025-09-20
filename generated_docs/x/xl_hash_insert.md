@@ -8,7 +8,12 @@ A PostgreSQL WAL (Write-Ahead Logging) record structure that represents the data
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_insert
+{
+	OffsetNumber offnum;
+} xl_hash_insert;
+```
 ## Detailed Description
 The  structure is used for  WAL records, which log simple hash index insertions that do not involve page splits. This minimal structure contains only the essential information needed to replay the insertion during crash recovery. The actual tuple data is stored in the backup blocks rather than in this structure itself.
 

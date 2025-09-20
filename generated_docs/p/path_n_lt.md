@@ -8,7 +8,10 @@ Relational operator that compares two PATH objects based on their cardinality (n
 
 ## Definition
 
-
+```c
+Datum
+path_n_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `path_n_lt` function implements the "less than" operator for PATH data types based on path cardinality. It compares the number of points (`npts`) in two PATH structures and returns a boolean result. This is described in the source comments as a simple but "stupid" approach, with better relational operators planned for future implementation.
 

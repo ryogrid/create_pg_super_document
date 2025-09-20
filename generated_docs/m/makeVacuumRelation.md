@@ -8,7 +8,10 @@ Creates a VacuumRelation node that encapsulates information about a table or rel
 
 ## Definition
 
-
+```c
+VacuumRelation *
+makeVacuumRelation(RangeVar *relation, Oid oid, List *va_cols)
+```
 ## Detailed Description
 This function constructs a VacuumRelation structure used to represent a single table or relation that will be processed during VACUUM or ANALYZE operations. The VacuumRelation node serves as a container for the essential information needed to identify and process a specific relation during maintenance operations.
 

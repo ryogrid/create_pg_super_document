@@ -8,7 +8,10 @@ A trivial visibility function that considers all tuples visible, used with the S
 
 ## Definition
 
-
+```c
+static bool
+HeapTupleSatisfiesAny(HeapTuple htup, Snapshot snapshot, Buffer buffer)
+```
 ## Detailed Description
 HeapTupleSatisfiesAny is the simplest visibility function in PostgreSQL's MVCC system. It unconditionally returns true, meaning every tuple is considered visible regardless of its transaction state, commit status, or any other factors.
 

@@ -8,7 +8,10 @@ Core conversion function that transforms Japanese EUC-JP (Extended Unix Code for
 
 ## Definition
 
-
+```c
+static int
+euc_jp2mic(const unsigned char *euc, unsigned char *p, int len, bool noError)
+```
 ## Detailed Description
 This function converts EUC-JP encoded Japanese text to Mule Internal Code format. EUC-JP uses a structured encoding scheme where different character sets are identified by specific byte patterns: ASCII characters (0x00-0x7F), JIS X0208 kanji and kana (high-bit set bytes), JIS X0201 katakana preceded by SS2 (0x8E), and JIS X0212 supplementary kanji preceded by SS3 (0x8F). The function identifies these patterns and adds appropriate MIC language character (LC) prefixes to distinguish the different Japanese character sets in the output.
 

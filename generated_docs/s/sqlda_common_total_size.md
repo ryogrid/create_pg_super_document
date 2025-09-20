@@ -8,7 +8,10 @@ Calculates the total memory size required to store all field values for a specif
 
 ## Definition
 
-
+```c
+static long
+sqlda_common_total_size(const PGresult *res, int row, enum COMPAT_MODE compat, long offset)
+```
 ## Detailed Description
 This function computes the memory space needed to store actual data values for all fields in a specific row of a PostgreSQL result set. It iterates through each field, determines the appropriate ECPG data type based on the PostgreSQL type and compatibility mode, then calculates the aligned storage requirements for each value. The function handles a comprehensive range of data types including numeric types, strings, dates, timestamps, decimals, and the complex numeric type which requires additional storage for digit arrays.
 

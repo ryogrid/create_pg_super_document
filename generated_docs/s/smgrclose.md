@@ -8,7 +8,10 @@ Closes an SMgrRelation object by releasing its resources, serving as a high-leve
 
 ## Definition
 
-
+```c
+void
+smgrclose(SMgrRelation reln)
+```
 ## Detailed Description
 The  function provides a conceptual "close" operation for SMgrRelation objects. According to the implementation comments, this function is currently implemented as a simple wrapper around  because PostgreSQL doesn't track all references to SMgrRelation objects returned by . Since multiple references to the same object may exist, the function cannot safely destroy the object and instead just releases its resources. The SMgrRelation object remains in the storage manager's data structures and can potentially be reused.
 

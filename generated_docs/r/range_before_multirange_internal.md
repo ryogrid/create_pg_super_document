@@ -8,7 +8,12 @@ Internal function that determines whether a single range is strictly before (lef
 
 ## Definition
 
-
+```c
+bool
+range_before_multirange_internal(TypeCacheEntry *rangetyp,
+								 const RangeType *r,
+								 const MultirangeType *mr)
+```
 ## Detailed Description
 This internal function implements the core logic for determining if a range is strictly before a multirange. It performs the comparison by checking if the upper bound of the range is less than the lower bound of the multirange. The function handles empty ranges and multiranges by returning false, as empty sets cannot have a meaningful "before" relationship.
 

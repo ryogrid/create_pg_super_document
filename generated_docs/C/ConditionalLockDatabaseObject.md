@@ -8,7 +8,11 @@ ConditionalLockDatabaseObject attempts to obtain a lock on a database object wit
 
 ## Definition
 
-
+```c
+bool
+ConditionalLockDatabaseObject(Oid classid, Oid objid, uint16 objsubid,
+							  LOCKMODE lockmode)
+```
 ## Detailed Description
 ConditionalLockDatabaseObject provides a non-blocking variant of LockDatabaseObject. It attempts to acquire a lock on a database object but will not wait if the lock is not immediately available. Instead, it returns false if the lock cannot be acquired without blocking, and true if the lock was successfully obtained.
 

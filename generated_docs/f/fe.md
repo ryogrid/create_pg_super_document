@@ -8,7 +8,30 @@ A static test function used in ECPG (Embedded SQL in C) test cases that demonstr
 
 ## Definition
 
+```c
+enum e x)
+{
+	printf("in fe (%d)\n", (int) x);
+	return (int)x;
+}
 
+static void sqlnotice(const char *notice, short trans)
+{
+	if (!notice)
+		notice = "-empty-";
+	printf("in sqlnotice (%s, %d)\n", notice, trans);
+}
+
+
+
+#define YES 1
+
+#ifdef _cplusplus
+namespace N
+{
+	static const int i=2;
+};
+```
 ## Detailed Description
 The `fe` function is a test function that takes an enumeration parameter of type `enum e`, prints its integer value to stdout, and returns the enum value cast to an integer. This function is part of the ECPG test suite and is used to verify that enum parameter passing and type casting work correctly in the ECPG preprocessor and runtime environment.
 

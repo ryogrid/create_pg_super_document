@@ -8,7 +8,10 @@ ExecReScanMemoize resets the Memoize node for a new scan, managing cache validit
 
 ## Definition
 
-
+```c
+void
+ExecReScanMemoize(MemoizeState *node)
+```
 ## Detailed Description
 ExecReScanMemoize handles the complexities of restarting a Memoize node scan while preserving cache validity. It resets the execution state machine to begin cache lookups for the new scan and clears scan-specific pointers. The function implements intelligent cache management by distinguishing between parameters that are part of the cache key versus those that are not. When only cache key parameters change, the existing cache remains valid and useful. However, when non-cache-key parameters change, the entire cache must be purged since cached results may no longer be correct for the new parameter values. The function also coordinates with the outer plan node's rescanning, allowing the outer plan to handle its own parameter changes efficiently.
 

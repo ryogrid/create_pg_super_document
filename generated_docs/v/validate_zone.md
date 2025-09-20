@@ -8,7 +8,10 @@ Validates whether a given timezone name is both valid and acceptable for use in 
 
 ## Definition
 
-
+```c
+static bool
+validate_zone(const char *tzname)
+```
 ## Detailed Description
 This function performs a two-step validation process for timezone names:
 

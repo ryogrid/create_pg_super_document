@@ -8,7 +8,10 @@ The  function collects schema-level metadata about large objects (BLOBs) from th
 
 ## Definition
 
-
+```c
+static void
+getLOs(Archive *fout)
+```
 ## Detailed Description
 The  function queries the pg_largeobject_metadata table to retrieve information about all large objects in the database, including their OIDs, owners, and ACL settings. It groups large objects with identical ownership and ACL settings into batches (up to MAX_BLOBS_PER_ARCHIVE_ENTRY per group) for efficient processing. For each group, it creates both a metadata DumpableObject (LoInfo) containing ownership and permission information, and a separate data DumpableObject for the actual BLOB content. This design allows for proper dependency tracking and selective dumping. The function handles special cases like binary upgrade mode where BLOB data is excluded since pg_upgrade handles it separately.
 

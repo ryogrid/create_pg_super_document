@@ -8,7 +8,10 @@ Initializes expressions for execution outside a normal Plan tree context by appl
 
 ## Definition
 
-
+```c
+ExprState *
+ExecPrepareExpr(Expr *node, EState *estate)
+```
 ## Detailed Description
 ExecPrepareExpr is a specialized function that prepares standalone expressions for execution outside the normal query planning and execution pipeline. Unlike expressions within Plan trees that are already processed during regular planning, standalone expressions require explicit preparation through this function.
 

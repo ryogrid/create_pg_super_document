@@ -8,7 +8,10 @@ Checks whether a value is NULL for a given data type in the Informix compatibili
 
 ## Definition
 
-
+```c
+int
+risnull(int t, const char *ptr)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's ECPG Informix compatibility library. It provides a wrapper around the ECPG library's  function to check if a value is NULL for a specified data type. This function maintains compatibility with Informix's SQL APIs by providing the same interface that Informix developers would expect.
 

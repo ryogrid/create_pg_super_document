@@ -8,7 +8,13 @@ A static helper function that constructs comparison expressions between an eleme
 
 ## Definition
 
-
+```c
+static Expr *
+build_bound_expr(Expr *elemExpr, Datum val,
+				 bool isLowerBound, bool isInclusive,
+				 TypeCacheEntry *typeCache,
+				 Oid opfamily, Oid rng_collation)
+```
 ## Detailed Description
 This function is a helper for range containment optimization that builds specific comparison expressions (OpExpr nodes) for range boundary checks. It determines the appropriate comparison operator based on whether the boundary is a lower or upper bound and whether it's inclusive or exclusive. The function uses the B-tree strategy numbers to select the correct operator from the specified operator family, creates a constant expression from the boundary value, and constructs the final comparison expression. This enables range containment operations to be transformed into simpler boundary comparisons for query optimization.
 

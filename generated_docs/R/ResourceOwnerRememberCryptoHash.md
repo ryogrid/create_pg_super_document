@@ -8,7 +8,10 @@ A convenience wrapper function that registers a cryptographic hash context with 
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerRememberCryptoHash(ResourceOwner owner, pg_cryptohash_ctx *ctx)
+```
 ## Detailed Description
 This function serves as a wrapper around the generic  function, specifically tailored for cryptographic hash contexts. It registers a hash context with the resource owner system so that the context will be automatically cleaned up if the owning transaction aborts or the process terminates unexpectedly. This prevents resource leaks and ensures proper cleanup of OpenSSL cryptographic resources.
 

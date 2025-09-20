@@ -8,7 +8,10 @@ SendNegotiateProtocolVersion sends a protocol negotiation message to inform the 
 
 ## Definition
 
-
+```c
+static void
+SendNegotiateProtocolVersion(List *unrecognized_protocol_options)
+```
 ## Detailed Description
 SendNegotiateProtocolVersion constructs and sends a NegotiateProtocolVersion message to the client when they have requested a newer minor protocol version than the server supports or when unrecognized protocol options are encountered. The message informs the client of the highest protocol version the server supports (PG_PROTOCOL_LATEST) and provides a list of any protocol options that were not understood. This allows clients to use optional parameters without fear of connection failure, while ensuring they know which options were accepted.
 

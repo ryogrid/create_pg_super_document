@@ -8,7 +8,10 @@ Creates a new bbstreamer that can generate a tar archive, intended for creating 
 
 ## Definition
 
-
+```c
+extern bbstreamer *
+bbstreamer_tar_archiver_new(bbstreamer *next)
+```
 ## Detailed Description
 This function creates a new tar archiver bbstreamer that can generate properly formatted tar archives. The archiver is designed to be flexible, supporting both the creation of entirely new tar archives and the modification of existing ones during streaming. The input should consist of typed chunks (not BBSTREAMER_UNKNOWN) that represent different parts of the tar archive structure.
 

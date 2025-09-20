@@ -8,7 +8,10 @@ A simple wrapper function that converts an operator OID to its standard textual 
 
 ## Definition
 
-
+```c
+char *
+format_operator(Oid operator_oid)
+```
 ## Detailed Description
 The  function provides a simplified interface to operator formatting by calling  with default flags (0). This function is the most commonly used operator formatting function in PostgreSQL, providing standard behavior without special formatting requirements.
 

@@ -8,7 +8,10 @@ A SQL function that removes all occurrences of a specified element from a one-di
 
 ## Definition
 
-
+```c
+Datum
+array_remove(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The array_remove function provides the SQL-callable interface for removing elements from PostgreSQL arrays. It serves as a thin wrapper around the array_replace_internal function, configuring it to operate in removal mode. The function takes an array and a search value as arguments, and returns a new array with all elements that match the search value (using the element type's equality operator) removed.
 

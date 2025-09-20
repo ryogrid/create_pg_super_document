@@ -8,7 +8,10 @@ A hook function used in PostgreSQL's psql client to validate and set the SINGLEL
 
 ## Definition
 
-
+```c
+static bool
+singleline_hook(const char *newval)
+```
 ## Detailed Description
 The  function serves as a validation and assignment hook for the SINGLELINE psql variable. It is called whenever the user attempts to set the SINGLELINE variable through psql commands like . The function uses the  utility to parse the string value and convert it to a boolean, storing the result in the global  field. This hook ensures that only valid boolean values are accepted for the SINGLELINE setting. When SINGLELINE mode is enabled, psql processes each line as a complete command rather than allowing multi-line SQL statements, which can be useful for certain scripting scenarios or when processing line-oriented input.
 

@@ -8,7 +8,10 @@ Allocates a new hashtable entry from the freelist, with support for both partiti
 
 ## Definition
 
-
+```c
+static HASHBUCKET
+get_hash_entry(HTAB *hashp, int freelist_idx)
+```
 ## Detailed Description
 This internal function manages the allocation of new hash table entries by retrieving them from freelists. It implements a sophisticated allocation strategy that handles both partitioned and non-partitioned hash tables differently. For partitioned tables, it uses spinlocks to coordinate access to freelists and implements a borrowing mechanism where entries can be taken from other freelists when the requested freelist is empty.
 

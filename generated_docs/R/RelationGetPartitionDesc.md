@@ -8,7 +8,9 @@ Retrieves the partition descriptor for a partitioned table relation, with option
 
 ## Definition
 
-
+```c
+structure;
+```
 ## Detailed Description
 RelationGetPartitionDesc is a core function in PostgreSQL's partitioning subsystem that manages access to partition descriptors stored in the relation cache. The function maintains two types of partition descriptors in relcache: rd_partdesc (includes all partitions, even those being concurrently marked detached) and rd_partdesc_nodetached (omits detached partitions when appropriate).
 

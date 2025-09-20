@@ -8,7 +8,10 @@ A callback function that collects SSL certificate passphrases using an external 
 
 ## Definition
 
-
+```c
+static int
+ssl_external_passwd_cb(char *buf, int size, int rwflag, void *userdata)
+```
 ## Detailed Description
 This function implements OpenSSL's password callback interface to retrieve passphrases for encrypted SSL certificates and private keys. It serves as a bridge between OpenSSL's internal passphrase requests and PostgreSQL's external passphrase command mechanism. The function uses the same prompt text as OpenSSL's internal password callback ("Enter PEM pass phrase:") to maintain consistency. It delegates the actual passphrase collection to run_ssl_passphrase_command(), which executes the command specified in the ssl_passphrase_command configuration parameter.
 

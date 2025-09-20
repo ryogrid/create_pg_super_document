@@ -8,7 +8,11 @@ Creates a new multirange from an array of ranges by canonicalizing (sorting and 
 
 ## Definition
 
-
+```c
+MultirangeType *
+make_multirange(Oid mltrngtypoid, TypeCacheEntry *rangetyp, int32 range_count,
+				RangeType **ranges)
+```
 ## Detailed Description
 This is the primary constructor function for creating multirange objects in PostgreSQL. It performs the complete process of multirange creation:
 

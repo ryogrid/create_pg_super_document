@@ -8,7 +8,10 @@ Determines the 0-based index position of a specific member within a bitmap set, 
 
 ## Definition
 
-
+```c
+int
+bms_member_index(Bitmapset *a, int x)
+```
 ## Detailed Description
 This function calculates the ordinal position of member `x` within the bitmap set `a`, where the position is determined by counting how many other members (set bits) appear before `x` in the bitmap. The function first verifies that `x` is actually a member of the set, returning -1 if it's not found. For valid members, it counts all set bits in the words preceding the target word, then counts set bits within the target word that come before the target bit position. The implementation uses efficient population count operations (bmw_popcount) to count set bits quickly.
 

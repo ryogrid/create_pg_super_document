@@ -8,7 +8,15 @@ Per-heap-tuple callback function for parallel BRIN index builds that processes t
 
 ## Definition
 
-
+```c
+static void
+brinbuildCallbackParallel(Relation index,
+						  ItemPointer tid,
+						  Datum *values,
+						  bool *isnull,
+						  bool tupleIsAlive,
+						  void *brstate)
+```
 ## Detailed Description
 The brinbuildCallbackParallel function is a specialized version of brinbuildCallback designed for parallel index builds. Key differences from the serial version include:
 

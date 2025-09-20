@@ -8,7 +8,10 @@ Returns a string identifier for replication origin WAL record types based on the
 
 ## Definition
 
-
+```c
+const char *
+replorigin_identify(uint8 info)
+```
 ## Detailed Description
 The  function provides a simple mapping from replication origin WAL record type codes to human-readable string identifiers. This function is part of PostgreSQL's WAL record identification system and is typically used by debugging tools and logging infrastructure to provide meaningful names for different types of replication origin operations.
 

@@ -8,7 +8,10 @@ PLy_quote_ident is a Python C extension function that provides SQL identifier qu
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_quote_ident(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 PLy_quote_ident wraps PostgreSQL's quote_identifier function to provide safe SQL identifier quoting from within Python code. This function takes a string argument representing an SQL identifier (such as a table name, column name, or schema name) and returns a properly quoted version that can be safely used in SQL statements. Unlike literal quoting, identifier quoting uses double quotes and follows SQL rules for identifiers, including case preservation and handling of reserved words.
 

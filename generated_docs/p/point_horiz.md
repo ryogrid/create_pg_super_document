@@ -8,7 +8,10 @@ Tests whether two points have the same y-coordinate, determining if they lie on 
 
 ## Definition
 
-
+```c
+Datum
+point_horiz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operator that checks if two points are horizontally aligned by comparing their y-coordinates. It uses floating-point equality comparison with appropriate tolerance handling through the  function to determine if the points share the same horizontal position.
 

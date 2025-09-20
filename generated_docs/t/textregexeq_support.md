@@ -8,7 +8,10 @@ Provides planner support for case-sensitive regular expression operators by dele
 
 ## Definition
 
-
+```c
+Datum
+textregexeq_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as a planner support function for PostgreSQL's case-sensitive regular expression operators (such as ~ operator). It acts as a thin wrapper around the generic  function, specifically configured for case-sensitive regular expression pattern matching. This function is called by the PostgreSQL query planner to optimize queries involving regular expression operations, including selectivity estimation and index condition generation.
 

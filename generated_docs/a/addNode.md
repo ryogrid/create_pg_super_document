@@ -8,7 +8,10 @@ Creates a new SP-GiST inner tuple containing one additional node compared to the
 
 ## Definition
 
-
+```c
+static SpGistInnerTuple
+addNode(SpGistState *state, SpGistInnerTuple tuple, Datum label, int offset)
+```
 ## Detailed Description
 This function constructs a new SP-GiST inner tuple that contains all the nodes from the original tuple plus one additional node with the specified label. The new node is inserted at the specified offset position within the node array. The function preserves the original tuple's prefix while expanding the node array. The newly added node initially has an invalid downlink pointer, which will be set later when a target page is determined. This is a fundamental operation used during tree expansion when new branches need to be added to inner nodes.
 

@@ -8,7 +8,9 @@ AddRelationNewConstraints adds new column default expressions and/or constraint 
 
 ## Definition
 
-
+```c
+union(NIL, vars);
+```
 ## Detailed Description
 AddRelationNewConstraints is a comprehensive function that processes new column defaults and check constraints for an existing relation. The function handles both types of constraints efficiently in a single operation, which is particularly useful during relation definition. It creates a ParseState to enable expression transformation, processes each constraint type appropriately, and returns a list of CookedConstraint nodes representing the processed constraints.
 

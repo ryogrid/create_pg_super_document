@@ -8,7 +8,10 @@ Converts and assigns a string value to character-based variables with appropriat
 
 ## Definition
 
-
+```c
+static bool
+get_char_item(int lineno, void *var, enum ECPGttype vartype, char *value, int varcharsize)
+```
 ## Detailed Description
 This internal utility function handles string and character data assignment within ECPG's dynamic descriptor implementation. Unlike the numeric-focused get_int_item function, this function specializes in managing character data types including simple character arrays, strings, and PostgreSQL's variable-length character (VARCHAR) structures.
 

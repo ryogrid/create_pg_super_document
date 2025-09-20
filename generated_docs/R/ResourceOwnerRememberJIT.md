@@ -8,7 +8,10 @@ A convenience wrapper function that registers an LLVM JIT context with PostgreSQ
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerRememberJIT(ResourceOwner owner, LLVMJitContext *handle)
+```
 ## Detailed Description
 ResourceOwnerRememberJIT is a static inline convenience function that wraps the generic ResourceOwnerRemember function specifically for LLVM JIT contexts. It registers a JIT context handle with the resource owner system, ensuring that the JIT context will be properly cleaned up when the resource owner is released. This is part of PostgreSQL's resource management infrastructure that prevents resource leaks by automatically cleaning up resources when transactions abort or sessions end.
 

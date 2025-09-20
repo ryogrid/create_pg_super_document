@@ -8,7 +8,9 @@ Removes a specified role from a policy's applicable roles list, maintaining poli
 
 ## Definition
 
-
+```c
+struct_array_builtin(role_oids, num_roles, OIDOID);
+```
 ## Detailed Description
 This function removes a role from a policy's applicable roles list stored in the pg_policy catalog. It handles several important aspects:
 

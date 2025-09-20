@@ -8,7 +8,17 @@ Allocates memory for an edge table used in the GEQO (Genetic Query Optimizer) ER
 
 ## Definition
 
-
+```c
+structure which represents the set of explicit
+ *	 edges between points in the (2) input genes
+ *
+ *	 assumes circular tours and bidirectional edges
+ *
+ *	 gimme_edge() will set "shared" edges to negative values
+ *
+ *	 returns average number edges/city in range 2.0 - 4.0
+ *	 where 2.0=homogeneous;
+```
 ## Detailed Description
 This function allocates memory for an edge table that is used in the ERX crossover operation within PostgreSQL's genetic algorithm-based query optimizer. The function allocates space for  Edge structures, where the extra location allows nodes numbered 1 through n to be indexed directly, with index 0 remaining unused. This indexing scheme is common in genetic algorithms to simplify node referencing.
 

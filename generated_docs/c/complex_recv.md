@@ -8,7 +8,10 @@ Binary input function for the  data type that deserializes a complex number from
 
 ## Definition
 
-
+```c
+Datum
+complex_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for converting binary data received over PostgreSQL's network protocol into the internal  data type representation. It reads two consecutive 8-byte double-precision floating-point values from a StringInfo buffer, representing the real and imaginary parts of the complex number. This function is used for efficient binary data transfer in client-server communication and for storage in binary format.
 

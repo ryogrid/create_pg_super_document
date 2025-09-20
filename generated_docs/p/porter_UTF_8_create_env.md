@@ -8,7 +8,11 @@ The porter_UTF_8_create_env function creates and initializes a new stemming envi
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * porter_UTF_8_create_env(void)
+```
 ## Detailed Description
 This function serves as a wrapper around the general Snowball environment creation function, specifically configured for the Porter UTF-8 stemming algorithm. It allocates and initializes a new SN_env structure with the appropriate parameters needed for Porter stemming operations. The function creates an environment with 0 string variables and 3 integer variables, which are used by the Porter algorithm to track regions (R1, R2) and state information during the stemming process.
 

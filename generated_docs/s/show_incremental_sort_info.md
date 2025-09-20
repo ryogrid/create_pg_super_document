@@ -8,7 +8,11 @@ Displays comprehensive tuplesort statistics for incremental sort nodes in EXPLAI
 
 ## Definition
 
-
+```c
+static void
+show_incremental_sort_info(IncrementalSortState *incrsortstate,
+						   ExplainState *es)
+```
 ## Detailed Description
 This function is the main entry point for displaying incremental sort statistics during EXPLAIN ANALYZE operations. It orchestrates the display of sort statistics for both the leader process and any parallel worker processes that participated in the incremental sort operation.
 

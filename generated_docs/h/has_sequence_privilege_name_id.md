@@ -8,7 +8,10 @@ Checks user privileges on a sequence given a username, sequence OID, and text pr
 
 ## Definition
 
-
+```c
+Datum
+has_sequence_privilege_name_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that verifies whether a specific user has the requested privileges on a sequence object. It takes three arguments: a username (Name type), a sequence object identifier (OID), and a privilege specification as text. The function validates that the target object is indeed a sequence, converts the privilege string to an internal privilege mode representation, and performs an access control check. It returns a boolean result indicating whether the user has the specified privileges, or NULL if the sequence doesn't exist.
 

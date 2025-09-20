@@ -8,7 +8,10 @@ Implements the equality operator (=) for multirange types, comparing two multira
 
 ## Definition
 
-
+```c
+Datum
+multirange_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the SQL-callable wrapper for multirange equality comparison. It extracts two multirange arguments from the function call context, retrieves the appropriate type cache entry for the multirange type, and delegates the actual comparison logic to the internal  function. The function follows PostgreSQL's standard function calling convention using the  macro and returns a boolean result wrapped in a .
 

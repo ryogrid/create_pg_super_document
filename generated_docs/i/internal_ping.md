@@ -8,7 +8,10 @@ Determines if a PostgreSQL server is running and if a connection can be establis
 
 ## Definition
 
-
+```c
+static PGPing
+internal_ping(PGconn *conn)
+```
 ## Detailed Description
 The  function is a static utility function that performs a "ping" operation to determine server availability and connection feasibility. It takes a connection that has been started but not completed and attempts to analyze its state to provide meaningful feedback about server accessibility.
 

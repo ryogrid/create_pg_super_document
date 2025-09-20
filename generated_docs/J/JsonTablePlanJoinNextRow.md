@@ -8,7 +8,10 @@ JsonTablePlanJoinNextRow implements a UNION-style iteration over two sibling JSO
 
 ## Definition
 
-
+```c
+static bool
+JsonTablePlanJoinNextRow(JsonTablePlanState *planstate)
+```
 ## Detailed Description
 This function implements the row iteration logic for JsonTableSiblingJoin plans by performing a sequential UNION operation between left and right sibling plans. It first attempts to fetch a row from the left sibling plan, and only when the left sibling is exhausted does it begin fetching from the right sibling plan. The function maintains the UNION semantics by ensuring that all rows from the left plan are returned before any rows from the right plan, effectively concatenating the result sets from both sibling plans.
 

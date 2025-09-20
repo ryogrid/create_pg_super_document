@@ -8,7 +8,10 @@ TidExprListCreate extracts and processes TID qualification expressions from a Ti
 
 ## Definition
 
-
+```c
+static void
+TidExprListCreate(TidRangeScanState *tidrangestate)
+```
 ## Detailed Description
 This function processes the tidrangequals list from a TidRangeScan plan node, converting each OpExpr into a corresponding TidOpExpr structure. It iterates through all qualification expressions that involve CTID comparisons, validates that each expression is indeed an OpExpr, and uses MakeTidOpExpr to create the appropriate TidOpExpr structure. The resulting list of TidOpExpr structures is stored in the TidRangeScanState for use during scan execution.
 

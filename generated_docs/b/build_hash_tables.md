@@ -8,7 +8,10 @@ Initializes or resets hash tables used for hashed aggregation, creating one hash
 
 ## Definition
 
-
+```c
+static void
+build_hash_tables(AggState *aggstate)
+```
 ## Detailed Description
 The  function manages the lifecycle of hash tables used in PostgreSQL's hashed aggregation implementation. For each grouping set that requires hashing, it either resets an existing hash table to empty or creates a new one from scratch.
 

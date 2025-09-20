@@ -8,7 +8,10 @@ A selectivity estimation function for case-insensitive regular expression join o
 
 ## Definition
 
-
+```c
+Datum
+icregexeqjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a join selectivity estimation function that provides selectivity estimates for case-insensitive regular expression matching operations ( operator) in join conditions. It serves as a wrapper function that delegates the actual selectivity calculation to the generic  function, specifying the pattern type as case-insensitive regular expression () and indicating that this is not a negated match (false).
 

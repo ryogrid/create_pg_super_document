@@ -8,7 +8,10 @@ SetAttrMissing sets the missing value for an attribute using a string representa
 
 ## Definition
 
-
+```c
+void
+SetAttrMissing(Oid relid, char *attname, char *value)
+```
 ## Detailed Description
 This function is specifically designed for binary upgrade scenarios to restore missing value information for attributes. It takes a relation OID, attribute name, and string representation of a missing value, then updates the pg_attribute catalog to set atthasmissing to true and stores the parsed missing value in attmissingval. The function acquires an AccessExclusive lock on both the target relation and pg_attribute, validates that the relation is a plain table, looks up the attribute by name, and converts the string value to the appropriate array format using the attribute's type input function. This function ensures that missing value information is properly preserved during PostgreSQL binary upgrades.
 

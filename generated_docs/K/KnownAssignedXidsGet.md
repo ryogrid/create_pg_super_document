@@ -8,7 +8,10 @@ KnownAssignedXidsGet retrieves an array of known assigned transaction IDs by sca
 
 ## Definition
 
-
+```c
+static int
+KnownAssignedXidsGet(TransactionId *xarray, TransactionId xmax)
+```
 ## Detailed Description
 This function serves as a simplified wrapper around KnownAssignedXidsGetAndSetXmin, providing a way to retrieve known assigned transaction IDs without setting the minimum transaction ID. It scans the KnownAssignedXids data structure and populates the provided array with transaction IDs that are less than the specified maximum value (xmax). The function is typically used during transaction visibility checks and snapshot creation in PostgreSQL's MVCC implementation.
 

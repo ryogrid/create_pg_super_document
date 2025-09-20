@@ -8,7 +8,11 @@ A utility function that writes a single PostgreSQL block to a file descriptor an
 
 ## Definition
 
-
+```c
+static void
+write_block(int fd, char *output_filename,
+			uint8 *buffer, pg_checksum_context *checksum_ctx)
+```
 ## Detailed Description
 The  function is a specialized write operation designed for PostgreSQL block-level I/O within the backup reconstruction system. It ensures that exactly BLCKSZ bytes are written to the file and handles both the write operation and checksum update atomically. The function provides comprehensive error handling for write failures, distinguishing between system-level write errors and partial write scenarios.
 

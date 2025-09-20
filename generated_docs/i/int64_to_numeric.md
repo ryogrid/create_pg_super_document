@@ -8,7 +8,10 @@ Converts a 64-bit signed integer value to PostgreSQL's Numeric data type.
 
 ## Definition
 
-
+```c
+Numeric
+int64_to_numeric(int64 val)
+```
 ## Detailed Description
 This function provides a straightforward conversion from a 64-bit signed integer to PostgreSQL's variable-precision Numeric type. It serves as a fundamental type conversion utility used throughout the PostgreSQL system for converting integer values to numeric format. The function handles the conversion by creating a temporary NumericVar structure, populating it with the integer value, and then creating the final Numeric result.
 

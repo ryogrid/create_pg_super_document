@@ -8,7 +8,15 @@ A placeholder join selectivity estimation function for matching-type operators t
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	Node	   *var;			/* might be an expression, not just a Var */
+	RelOptInfo *rel;			/* relation it belongs to */
+	double		ndistinct;		/* # distinct values */
+	bool		isdefault;		/* true if DEFAULT_NUM_DISTINCT was used */
+} GroupVarInfo;
+```
 ## Detailed Description
 This function serves as a join selectivity estimator for matching-type operators, but is currently implemented as a simple placeholder that returns a constant default value. The function comment "Just punt, for the moment" indicates this is a temporary implementation that will likely be enhanced in future PostgreSQL versions.
 

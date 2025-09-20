@@ -8,7 +8,10 @@ DatumGetPathP is an inline function that converts a PostgreSQL Datum value to a 
 
 ## Definition
 
-
+```c
+static inline PATH *
+DatumGetPathP(Datum X)
+```
 ## Detailed Description
 This function serves as a type-safe wrapper for converting PostgreSQL Datum values to PATH geometry pointers. It uses the PG_DETOAST_DATUM macro to ensure that if the Datum contains a TOASTed (compressed/externally stored) PATH value, it will be properly decompressed before returning the pointer. This is essential for PostgreSQL's geometric data types handling where large objects may be stored externally or compressed.
 

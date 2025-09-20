@@ -8,7 +8,10 @@ SendQuery is the main "front door" function in psql for sending user-entered que
 
 ## Definition
 
-
+```c
+bool
+SendQuery(const char *query)
+```
 ## Detailed Description
 SendQuery serves as the primary interface for executing queries entered directly by users in psql. It provides comprehensive query execution management including:
 

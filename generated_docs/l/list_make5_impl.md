@@ -8,7 +8,11 @@ Creates a new PostgreSQL list with exactly five elements, serving as the core im
 
 ## Definition
 
-
+```c
+List *
+list_make5_impl(NodeTag t, ListCell datum1, ListCell datum2,
+				ListCell datum3, ListCell datum4, ListCell datum5)
+```
 ## Detailed Description
 The list_make5_impl function is the underlying implementation for creating lists with five elements in PostgreSQL's list system. It allocates a new list with a fixed capacity of 5 elements and directly assigns the provided ListCell values to the first five positions in the list's elements array. This function is part of PostgreSQL's type-safe list creation system and is typically called through convenience macros rather than directly.
 

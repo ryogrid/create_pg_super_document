@@ -8,7 +8,10 @@ Recursively converts PostgreSQL multi-dimensional arrays into nested Python list
 
 ## Definition
 
-
+```c
+structure */
+	tmptup.t_len = HeapTupleHeaderGetDatumLength(td);
+```
 ## Detailed Description
 This function is the core recursive engine for converting PostgreSQL arrays to Python list objects. It handles multi-dimensional arrays by recursively processing each dimension level. For outer dimensions, it creates sublists and recurses deeper. For the innermost dimension, it extracts individual array elements, converts them to Python objects using the provided conversion function, and handles NULL value checking via bitmap masks. The function also manages proper memory alignment and advances data pointers as it processes each element.
 

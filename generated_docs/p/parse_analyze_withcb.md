@@ -8,7 +8,13 @@ Analyzes a raw parse tree using a caller-supplied parser setup callback, allowin
 
 ## Definition
 
-
+```c
+Query *
+parse_analyze_withcb(RawStmt *parseTree, const char *sourceText,
+					 ParserSetupHook parserSetup,
+					 void *parserSetupArg,
+					 QueryEnvironment *queryEnv)
+```
 ## Detailed Description
 This function provides the most flexible variant of the parse analysis functions by allowing callers to supply their own parser setup callback. The callback mechanism enables custom parameter resolution strategies and other specialized parsing configurations that may be needed for specific use cases.
 

@@ -8,7 +8,15 @@ MCVItem represents a single entry in a multivariate most-common values (MCV) lis
 
 ## Definition
 
-
+```c
+typedef struct MCVItem
+{
+	double		frequency;		/* frequency of this combination */
+	double		base_frequency; /* frequency if independent */
+	bool	   *isnull;			/* NULL flags */
+	Datum	   *values;			/* item values */
+} MCVItem;
+```
 ## Detailed Description
 MCVItem is a fundamental component of PostgreSQL's multivariate MCV (most-common values) statistics. It represents a single combination of values across multiple columns, along with statistical information about how frequently this combination appears in the data. This structure is essential for the query planner to understand the distribution of value combinations across correlated columns.
 

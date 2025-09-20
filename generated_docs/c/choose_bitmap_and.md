@@ -8,7 +8,10 @@
 
 ## Definition
 
-
+```c
+static Path *
+choose_bitmap_and(PlannerInfo *root, RelOptInfo *rel, List *paths)
+```
 ## Detailed Description
 This sophisticated optimization function implements a multi-stage heuristic algorithm to select the best combination of bitmap index paths for AND operations:
 

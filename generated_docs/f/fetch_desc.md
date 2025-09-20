@@ -8,7 +8,13 @@ A simple structure used in ECPG (Embedded C for PostgreSQL) preprocessor to stor
 
 ## Definition
 
-
+```c
+struct fetch_desc
+{
+	char	   *str;
+	char	   *name;
+};
+```
 ## Detailed Description
 The  struct is a lightweight data structure within the ECPG preprocessor infrastructure. It appears to be designed to hold string-based information related to fetch operations in embedded SQL. The structure consists of two string pointers that likely represent different aspects of a fetch descriptor - possibly the actual descriptor content and an associated name or identifier.
 

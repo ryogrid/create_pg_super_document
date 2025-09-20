@@ -8,7 +8,11 @@ Converts a transaction ID to its corresponding page number in the commit log (CL
 
 ## Definition
 
-
+```c
+structures for SUBTRANS control
+ */
+static SlruCtlData SubTransCtlData;
+```
 ## Detailed Description
 TransactionIdToPage is a utility function that calculates which page in the commit log (CLOG) contains the status information for a given transaction ID. The function performs integer division of the transaction ID by CLOG_XACTS_PER_PAGE to determine the page number. This mapping is fundamental to PostgreSQL's transaction status storage system, where multiple transaction statuses are packed into pages for efficient storage and access.
 

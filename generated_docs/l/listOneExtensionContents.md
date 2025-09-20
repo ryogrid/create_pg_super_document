@@ -8,7 +8,10 @@ A static helper function that displays the detailed contents (objects) of a sing
 
 ## Definition
 
-
+```c
+static bool
+listOneExtensionContents(const char *extname, const char *oid)
+```
 ## Detailed Description
 This function generates and executes a SQL query to find all objects that belong to a specific extension by examining the pg_depend catalog. It uses the pg_describe_object function to convert the internal object identifiers into human-readable descriptions. The function creates a formatted title showing which extension's contents are being displayed and presents the results in a table format.
 

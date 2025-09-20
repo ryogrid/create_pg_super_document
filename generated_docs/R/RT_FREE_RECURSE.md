@@ -8,7 +8,10 @@ RT_FREE_RECURSE is a macro that generates a function name for recursively freein
 
 ## Definition
 
-
+```c
+static void
+RT_FREE_RECURSE(RT_RADIX_TREE * tree, RT_PTR_ALLOC ptr, int shift)
+```
 ## Detailed Description
 RT_FREE_RECURSE is part of PostgreSQL's generic radix tree implementation. This macro uses the RT_MAKE_NAME helper to generate a prefixed function name that recursively traverses and frees all nodes in a radix tree structure. The actual function signature generated would be:
 

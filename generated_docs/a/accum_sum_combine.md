@@ -8,7 +8,10 @@ A static utility function that combines one NumericSumAccum accumulator into ano
 
 ## Definition
 
-
+```c
+static void
+accum_sum_combine(NumericSumAccum *accum, NumericSumAccum *accum2)
+```
 ## Detailed Description
 The  function is designed to merge two NumericSumAccum accumulators by adding the final value of the second accumulator (accum2) into the first accumulator (accum). This operation is essential for parallel aggregation and combining partial results in PostgreSQL's numeric sum operations.
 

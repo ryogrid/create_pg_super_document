@@ -8,7 +8,10 @@ Reports the PID of a newly-launched background worker in shared memory, allowing
 
 ## Definition
 
-
+```c
+void
+ReportBackgroundWorkerPID(RegisteredBgWorker *rw)
+```
 ## Detailed Description
 This function updates the shared memory slot with the process ID of a background worker that has just been successfully started. It stores the PID in the appropriate BackgroundWorkerSlot and optionally sends a SIGUSR1 signal to notify the process that requested the background worker (if bgw_notify_pid was specified). This function is designed to be called exclusively from the postmaster process after a background worker has been forked and launched.
 

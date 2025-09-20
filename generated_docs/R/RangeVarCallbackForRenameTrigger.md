@@ -8,7 +8,11 @@ A callback function that performs permissions and integrity checks before acquir
 
 ## Definition
 
-
+```c
+static void
+RangeVarCallbackForRenameTrigger(const RangeVar *rv, Oid relid, Oid oldrelid,
+								 void *arg)
+```
 ## Detailed Description
 This function serves as a validation callback used during trigger rename operations to ensure that the target relation is appropriate for trigger operations and that the user has sufficient privileges. It performs three main checks: relation kind validation (ensuring only tables, views, foreign tables, and partitioned tables can have triggers), ownership verification (ensuring the user owns the relation), and system catalog protection (preventing modifications to system catalogs unless explicitly allowed).
 

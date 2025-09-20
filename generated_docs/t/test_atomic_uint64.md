@@ -8,7 +8,10 @@ A comprehensive static test function that validates the complete functionality o
 
 ## Definition
 
-
+```c
+static void
+test_atomic_uint64(void)
+```
 ## Detailed Description
 The  function is a thorough unit test that systematically validates all atomic operations available for 64-bit unsigned integers in PostgreSQL. Similar to its 32-bit counterpart, this function tests initialization, read/write operations, atomic arithmetic (add, subtract with both fetch-then-op and op-then-fetch variants), atomic exchange, and compare-and-swap operations. It also includes bitwise operations (AND, OR) for flag manipulation. The function includes retry logic for compare-and-exchange operations to handle potential spurious failures due to system interrupts. Unlike the 32-bit version, this test focuses on the core functionality without extensive boundary testing, but still validates the essential atomic operation patterns needed for 64-bit concurrent programming.
 

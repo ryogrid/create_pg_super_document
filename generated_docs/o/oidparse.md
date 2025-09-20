@@ -8,7 +8,10 @@ Utility function that extracts an OID value from PostgreSQL's parser node struct
 
 ## Definition
 
-
+```c
+Oid
+oidparse(Node *node)
+```
 ## Detailed Description
 The  function is a utility function used during SQL parsing and compilation to extract OID values from constant nodes in the parse tree. It handles both Integer and Float constant nodes, which can occur when OID values are specified in SQL commands.
 

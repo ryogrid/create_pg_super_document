@@ -8,7 +8,14 @@ CommitTimestampShared is a shared memory structure that caches the last committe
 
 ## Definition
 
-
+```c
+typedef struct CommitTimestampShared
+{
+	TransactionId xidLastCommit;
+	CommitTimestampEntry dataLastCommit;
+	bool		commitTsActive;
+} CommitTimestampShared;
+```
 ## Detailed Description
 CommitTimestampShared is a critical shared memory structure in PostgreSQL's commit timestamp tracking system. It serves as a performance optimization by caching the most recently committed transaction's information, avoiding the need to access the SLRU buffers for the last commit data in many cases.
 

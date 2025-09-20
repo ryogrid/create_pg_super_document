@@ -8,7 +8,37 @@ Performs a simple even split of a GiST index page by dividing tuples in half bet
 
 ## Definition
 
+```c
+union keys, caller took care of it */
+}
 
+/*
+ * gistSplitByKey: main entry point for page-splitting algorithm
+ *
+ * r: index relation
+ * page: page being split
+ * itup: array of IndexTuples to be processed
+ * len: number of IndexTuples to be processed (must be at least 2)
+ * giststate: additional info about index
+ * v: working state and output area
+ * attno: column we are working on (zero-based index)
+ *
+ * Outside caller must initialize v->spl_lisnull and v->spl_risnull arrays
+ * to all-true.  On return, spl_left/spl_nleft contain indexes of tuples
+ * to go left, spl_right/spl_nright contain indexes of tuples to go right,
+ * spl_lattr/spl_lisnull contain left-side union key values, and
+ * spl_rattr/spl_risnull contain right-side union key values.  Other fields
+ * in this struct are workspace for this file.
+ *
+ * Outside caller must pass zero for attno.  The function may internally
+ * recurse to the next column by passing attno+1.
+ */
+void
+gistSplitByKey(Relation r, Page page, IndexTuple *itup, int len,
+			   GISTSTATE *giststate, GistSplitVector *v, int attno)
+{
+	GistEntryVector *entryvec;
+```
 ## Detailed Description
 This function implements the most basic splitting strategy for GiST index pages when more sophisticated methods are not applicable or have failed. It divides the tuples evenly:
 

@@ -8,7 +8,18 @@ A core function in the pg_combinebackup utility that reconstructs and writes a c
 
 ## Definition
 
-
+```c
+static void
+write_reconstructed_file(char *input_filename,
+						 char *output_filename,
+						 unsigned block_length,
+						 rfile **sourcemap,
+						 off_t *offsetmap,
+						 pg_checksum_context *checksum_ctx,
+						 CopyMethod copy_method,
+						 bool debug,
+						 bool dry_run)
+```
 ## Detailed Description
 The  function is the main workhorse for file reconstruction in PostgreSQL's incremental backup system. It takes a mapping of source files and block offsets and reconstructs a complete output file by reading blocks from various sources or zero-filling them when needed.
 

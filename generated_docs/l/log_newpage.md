@@ -8,7 +8,11 @@ log_newpage writes a WAL record containing a full image of a page for crash reco
 
 ## Definition
 
-
+```c
+XLogRecPtr
+log_newpage(RelFileLocator *rlocator, ForkNumber forknum, BlockNumber blkno,
+			Page page, bool page_std)
+```
 ## Detailed Description
 log_newpage creates a WAL record with a complete full-page image of the provided page data. This function is designed for scenarios where pages are constructed in private memory and then written directly to storage via the storage manager (smgr), bypassing the buffer manager. It forces the inclusion of the page image in the WAL record and optionally optimizes standard page layouts by excluding unused space between pd_lower and pd_upper. After writing the WAL record, it updates the page's LSN unless the page is uninitialized. The caller is responsible for actually writing the page to disk after calling this function.
 

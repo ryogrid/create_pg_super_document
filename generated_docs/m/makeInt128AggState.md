@@ -8,7 +8,10 @@ Creates and initializes a state structure for 128-bit aggregate functions that c
 
 ## Definition
 
-
+```c
+static Int128AggState *
+makeInt128AggState(FunctionCallInfo fcinfo, bool calcSumX2)
+```
 ## Detailed Description
 This function prepares state data for 128-bit aggregate functions by allocating and initializing an  structure in the appropriate aggregate memory context. The function ensures proper memory management by switching to the aggregate context during allocation, which guarantees that the state persists for the duration of the aggregation operation. The state structure will track whether sum of squares calculation is needed based on the  parameter.
 

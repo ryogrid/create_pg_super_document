@@ -8,7 +8,10 @@ Displays Write-Ahead Logging (WAL) usage statistics in EXPLAIN output, showing W
 
 ## Definition
 
-
+```c
+static void
+show_wal_usage(ExplainState *es, const WalUsage *usage)
+```
 ## Detailed Description
 The  function formats and displays WAL usage statistics in EXPLAIN output. It provides insights into the Write-Ahead Logging activity generated during query execution, which is crucial for understanding the logging overhead and recovery implications of different query plans.
 

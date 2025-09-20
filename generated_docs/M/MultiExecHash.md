@@ -8,7 +8,10 @@ MultiExecHash is the main execution function for Hash nodes that builds hash tab
 
 ## Definition
 
-
+```c
+Node *
+MultiExecHash(HashState *node)
+```
 ## Detailed Description
 MultiExecHash serves as the primary execution entry point for Hash nodes in PostgreSQL's executor. Unlike typical executor nodes that return tuples one-by-one, this function consumes all input tuples from its child node to build a complete hash table that will be used by the parent HashJoin node.
 

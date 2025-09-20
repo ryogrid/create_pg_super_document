@@ -8,7 +8,10 @@ Initializes a new freeze plan structure with freeze operation parameters from a 
 
 ## Definition
 
-
+```c
+static inline void
+heap_log_freeze_new_plan(xlhp_freeze_plan *plan, HeapTupleFreeze *frz)
+```
 ## Detailed Description
 This inline function creates a new freeze plan by copying the essential freeze operation parameters from a HeapTupleFreeze structure into an xlhp_freeze_plan structure. The function initializes a canonical freeze plan that can be shared among multiple tuples requiring identical freeze operations, thereby optimizing WAL logging by reducing redundant freeze plan records.
 

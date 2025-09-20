@@ -8,7 +8,10 @@ Calculates the minimum memory size required for an empty compatibility-mode SQLD
 
 ## Definition
 
-
+```c
+structure and field structures */
+	offset = sizeof(struct sqlda_compat) + sqld * sizeof(struct sqlvar_compat);
+```
 ## Detailed Description
 This function computes the base memory requirements for a compatibility-mode SQLDA structure before any actual data values are stored. It calculates space needed for the main SQLDA structure, all field descriptor structures, field names, and proper alignment padding. The "empty" designation means it only accounts for structural metadata, not the actual data values that would be stored later.
 

@@ -8,7 +8,10 @@ Transforms a bare "*" in the target list into a list of target list entries by e
 
 ## Definition
 
-
+```c
+static List *
+ExpandAllTables(ParseState *pstate, int location)
+```
 ## Detailed Description
 This function implements the expansion logic for bare asterisk ("*") expressions in SELECT statements. It iterates through all namespace items in the current parsing context (pstate->p_namespace) and expands each relation that has columns visible for unqualified access.
 

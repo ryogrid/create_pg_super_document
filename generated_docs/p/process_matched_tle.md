@@ -8,7 +8,31 @@ Converts a matched TargetEntry from the original target list into a correct new 
 
 ## Definition
 
-
+```c
+structure and just consider the top
+	 * FieldStore or SubscriptingRef from each assignment, because it works to
+	 * combine these as
+	 *		FieldStore(FieldStore(col, fld1,
+	 *							  FieldStore(placeholder, subfld1, x)),
+	 *				   fld2, FieldStore(placeholder, subfld2, y))
+	 * Note the leftmost expression goes on the inside so that the
+	 * assignments appear to occur left-to-right.
+	 *
+	 * For FieldStore, instead of nesting we can generate a single
+	 * FieldStore with multiple target fields.  We must nest when
+	 * SubscriptingRefs are involved though.
+	 *
+	 * As a further complication, the destination column might be a domain,
+	 * resulting in each assignment containing a CoerceToDomain node over a
+	 * FieldStore or SubscriptingRef.  These should have matching target
+	 * domains, so we strip them and reconstitute a single CoerceToDomain over
+	 * the combined FieldStore/SubscriptingRef nodes.  (Notice that this has
+	 * the result that the domain's checks are applied only after we do all
+	 * the field or element updates, not after each one.  This is desirable.)
+	 *----------
+	 */
+	src_expr = (Node *) src_tle->expr;
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's rewrite system that handles complex UPDATE operations involving multiple assignments to the same column attribute. It intelligently combines FieldStore and SubscriptingRef operations when multiple assignments target the same attribute (e.g., ).
 

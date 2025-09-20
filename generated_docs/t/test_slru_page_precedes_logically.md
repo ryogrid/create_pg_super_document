@@ -8,7 +8,10 @@ A comparison function that determines the logical ordering of SLRU pages by comp
 
 ## Definition
 
-
+```c
+static bool
+test_slru_page_precedes_logically(int64 page1, int64 page2)
+```
 ## Detailed Description
 This function implements a simple logical ordering comparison for SLRU (Simple LRU) pages in the test module. It serves as a callback function that is assigned to the PagePrecedes field of the SLRU control structure. The function determines whether one page logically precedes another by performing a simple numerical comparison of their page numbers. This ordering is used by the SLRU system to determine page precedence for various operations like truncation and logical consistency checks.
 

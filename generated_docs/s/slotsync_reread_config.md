@@ -8,7 +8,10 @@ Handles configuration file reloading for the slot synchronization worker process
 
 ## Definition
 
-
+```c
+static void
+slotsync_reread_config(void)
+```
 ## Detailed Description
 This function manages configuration changes for PostgreSQL's replication slot synchronization worker process. It implements a configuration reload mechanism that responds to SIGHUP signals by re-reading the configuration file and determining whether the worker process should continue running or exit.
 

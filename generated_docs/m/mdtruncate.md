@@ -8,7 +8,11 @@ mdtruncate truncates a PostgreSQL relation to a specified number of blocks, hand
 
 ## Definition
 
-
+```c
+void
+mdtruncate(SMgrRelation reln, ForkNumber forknum,
+		   BlockNumber curnblk, BlockNumber nblocks)
+```
 ## Detailed Description
 mdtruncate safely reduces the size of a PostgreSQL relation by truncating it to the specified number of blocks. The function is designed to be memory-allocation-free, making it safe for use in critical sections. It operates by truncating segments starting from the last one, which simplifies memory management for the file descriptor array in case of errors.
 

@@ -8,7 +8,10 @@ Acquires or releases locks needed for execution of a cached plan by iterating th
 
 ## Definition
 
-
+```c
+static void
+AcquireExecutorLocks(List *stmt_list, bool acquire)
+```
 ## Detailed Description
 This function is responsible for managing locks on relations that are referenced in a cached execution plan. It traverses through a list of planned statements and either acquires or releases appropriate locks on all relations mentioned in the range table entries (RTEs) of each statement. For utility statements that contain embedded queries (like EXPLAIN), it delegates to ScanQueryForLocks to handle the locking. The function operates at the plan execution level, ensuring that all necessary table locks are held before plan execution begins or properly released afterward.
 

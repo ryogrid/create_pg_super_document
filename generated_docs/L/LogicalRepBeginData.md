@@ -8,7 +8,14 @@ LogicalRepBeginData is a structure that contains transaction information for the
 
 ## Definition
 
-
+```c
+typedef struct LogicalRepBeginData
+{
+	XLogRecPtr	final_lsn;
+	TimestampTz committime;
+	TransactionId xid;
+} LogicalRepBeginData;
+```
 ## Detailed Description
 This structure encapsulates the essential information needed to begin processing a transaction in logical replication. It serves as a transaction header that provides the subscriber with critical metadata about the transaction that is about to be replicated. The structure includes the transaction's final LSN (Log Sequence Number), commit timestamp, and transaction ID, which are all necessary for proper transaction ordering, conflict resolution, and maintaining consistency during replication.
 

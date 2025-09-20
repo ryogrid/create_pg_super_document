@@ -8,7 +8,10 @@ Converts regtype data to external binary format, serving as the binary output fu
 
 ## Definition
 
-
+```c
+Datum
+regtypesend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is PostgreSQL's binary send function for the regtype data type. It is responsible for converting an internal regtype value into PostgreSQL's external binary format for transmission or storage. The function is a simple wrapper that delegates all processing to the  function, since regtype is internally represented as an OID.
 

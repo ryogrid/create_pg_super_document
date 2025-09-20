@@ -8,7 +8,10 @@ A Windows-specific function that reads the target path of symbolic links by exam
 
 ## Definition
 
-
+```c
+int
+pgreadlink(const char *path, char *buf, size_t size)
+```
 ## Detailed Description
 The  function implements symbolic link target reading on Windows by interrogating NTFS junction points through the Win32 reparse point system. This function serves as the counterpart to , allowing applications to determine where a junction point refers to.
 

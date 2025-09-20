@@ -8,7 +8,12 @@ ExecHashJoinOuterGetTuple retrieves the next outer tuple for a non-parallel hash
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecHashJoinOuterGetTuple(PlanState *outerNode,
+						  HashJoinState *hjstate,
+						  uint32 *hashvalue)
+```
 ## Detailed Description
 ExecHashJoinOuterGetTuple is responsible for supplying outer tuples to the hash join algorithm in non-parallel execution. It handles two distinct scenarios:
 

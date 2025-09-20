@@ -8,7 +8,11 @@ ATExecCheckNotNull is a validation function that verifies a column already has t
 
 ## Definition
 
-
+```c
+static void
+ATExecCheckNotNull(AlteredTableInfo *tab, Relation rel,
+				   const char *colName, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function performs a validation-only check for the NOT NULL constraint rather than actually setting it. It serves a specific purpose in PostgreSQL's partitioned table architecture:
 

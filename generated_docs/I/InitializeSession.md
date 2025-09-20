@@ -8,7 +8,10 @@ Initializes the current backend's session by allocating memory for an empty Sess
 
 ## Definition
 
-
+```c
+void
+InitializeSession(void)
+```
 ## Detailed Description
 InitializeSession creates a new Session object in the TopMemoryContext and assigns it to the global CurrentSession variable. This function sets up the basic session infrastructure that enables sharing of state between backends performing work for a client session, particularly in parallel query execution scenarios. The allocated Session object is initially empty (zero-initialized) and will be populated by subsequent operations like GetSessionDsmHandle() when shared memory segments are needed.
 

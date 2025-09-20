@@ -8,7 +8,9 @@ A static function that calculates the total physical size of a database across a
 
 ## Definition
 
-
+```c
+struct dirent *direntry;
+```
 ## Detailed Description
 The  function computes the total size of a database by scanning all tablespaces where the database has objects stored. It first performs privilege checking to ensure the user has either CONNECT privilege on the target database or has the pg_read_all_stats role. The function then calculates the size in two phases: first, it measures the size of the database's directory in the default tablespace (base/dbOid), then it iterates through all user-defined tablespaces in pg_tblspc and adds the size of the database's directory in each tablespace. The function excludes shared storage in pg_global from the calculation, as this storage is not database-specific.
 

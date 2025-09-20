@@ -8,7 +8,10 @@ AlterSequence modifies the definition of an existing sequence relation, handling
 
 ## Definition
 
-
+```c
+structure */
+	(void) read_seq_tuple(seqrel, &buf, &datatuple);
+```
 ## Detailed Description
 AlterSequence implements the ALTER SEQUENCE SQL command functionality, allowing modification of sequence parameters while maintaining data consistency and transactional safety.
 

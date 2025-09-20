@@ -8,7 +8,10 @@ A safe file closing utility function in the timezone compiler that properly hand
 
 ## Definition
 
-
+```c
+static void
+close_file(FILE *stream, char const *dir, char const *name)
+```
 ## Detailed Description
 This function provides robust file closing functionality for the timezone compiler (zic). It performs comprehensive error checking before and during file closure, including checking for I/O errors that may have occurred during previous operations on the file stream. The function ensures that any errors encountered during file operations are properly reported with contextual information about the file location.
 

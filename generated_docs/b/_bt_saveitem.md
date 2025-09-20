@@ -8,7 +8,11 @@ Saves a non-pivot, non-posting index tuple into the current scan position's item
 
 ## Definition
 
-
+```c
+static void
+_bt_saveitem(BTScanOpaque so, int itemIndex,
+			 OffsetNumber offnum, IndexTuple itup)
+```
 ## Detailed Description
 This function is a helper routine used during B-tree page scanning to store index tuples in the scan state's current position structure. It specifically handles regular index tuples (not pivot tuples or posting tuples) by copying the heap TID, storing the page offset, and optionally copying the entire tuple data if tuple caching is enabled. The function ensures proper memory alignment when storing tuple data and maintains the scan state's tuple offset counter.
 

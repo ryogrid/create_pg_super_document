@@ -8,7 +8,11 @@ Frees a color in a colormap structure, ensuring the color has no associated arcs
 
 ## Definition
 
-
+```c
+static void
+freecolor(struct colormap *cm,
+		  color co)
+```
 ## Detailed Description
 The freecolor function is responsible for properly deallocating a color from a colormap. Before freeing the color, it performs several safety checks to ensure the color is not actively being used (no arcs, no subcolors, no single/Unicode characters). The function manages a freelist data structure to efficiently track available color slots for reuse.
 

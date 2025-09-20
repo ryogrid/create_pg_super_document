@@ -8,7 +8,10 @@ This function counts the number of pathkeys that may be useful for mergejoins ab
 
 ## Definition
 
-
+```c
+static int
+pathkeys_useful_for_merging(PlannerInfo *root, RelOptInfo *rel, List *pathkeys)
+```
 ## Detailed Description
 The function evaluates the usefulness of pathkeys for potential merge join operations by determining how many leading pathkeys can participate in merge joins. It uses two primary strategies to identify useful pathkeys:
 

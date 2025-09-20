@@ -8,7 +8,11 @@ Converts a string to an unsigned 32-bit integer using standard library functions
 
 ## Definition
 
-
+```c
+uint32
+uint32in_subr(const char *s, char **endloc,
+			  const char *typname, Node *escontext)
+```
 ## Detailed Description
 This function provides string-to-unsigned-32-bit-integer conversion using the standard library strtoul() function as its core parsing engine. It offers flexible parsing options including the ability to parse only a portion of the input string and return a pointer to the remaining unparsed content. The function handles cross-platform compatibility issues, particularly dealing with differences in unsigned long width across architectures.
 

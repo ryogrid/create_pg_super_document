@@ -8,7 +8,10 @@ Converts string-based parallel safety specifications from CREATE FUNCTION or ALT
 
 ## Definition
 
-
+```c
+static char
+interpret_func_parallel(DefElem *defel)
+```
 ## Detailed Description
 This function processes parallel safety attributes specified in function definitions and translates user-facing keywords ("safe", "unsafe", "restricted") into internal PostgreSQL constants. The parallel safety designation determines how the function can be used in parallel query execution. The function enforces strict validation by reporting a syntax error with a descriptive message if an invalid parallel specification is provided, ensuring only the three valid options are accepted.
 

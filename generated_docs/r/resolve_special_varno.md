@@ -8,7 +8,10 @@ Recursively resolves special variable numbers (OUTER_VAR, INNER_VAR, INDEX_VAR) 
 
 ## Definition
 
-
+```c
+union(context->appendparents,
+											   ((Append *) dpns->plan)->apprelids);
+```
 ## Detailed Description
 This function implements a recursive resolution mechanism for special variable references that are commonly found in plan trees. Special variables (OUTER_VAR, INNER_VAR, INDEX_VAR) are placeholders that reference expressions from different parts of the execution plan hierarchy.
 

@@ -8,7 +8,10 @@ A function that determines whether the current character in the parser is a vali
 
 ## Definition
 
-
+```c
+static int
+p_isascii(TParser *prs)
+```
 ## Detailed Description
 The  function checks whether the current character at the parser's position is a valid ASCII character (values 0-127). It performs this check by first verifying that the character length is exactly 1 byte (indicating a single-byte character rather than a multi-byte Unicode character), and then using the standard  macro to test if the character falls within the ASCII range.
 

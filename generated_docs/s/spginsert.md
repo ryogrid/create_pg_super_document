@@ -8,7 +8,14 @@ Inserts a single new tuple into an existing SP-GiST index, handling potential co
 
 ## Definition
 
-
+```c
+bool
+spginsert(Relation index, Datum *values, bool *isnull,
+		  ItemPointer ht_ctid, Relation heapRel,
+		  IndexUniqueCheck checkUnique,
+		  bool indexUnchanged,
+		  IndexInfo *indexInfo)
+```
 ## Detailed Description
 This function handles the insertion of individual tuples into an SP-GiST index during normal database operations (as opposed to bulk building). It creates a temporary memory context for the insertion process and implements retry logic to handle concurrent insertion conflicts. The function repeatedly calls spgdoinsert() until the insertion succeeds, resetting the memory context and reinitializing the SP-GiST state on each retry to handle conflicts with concurrent operations. After successful insertion, it updates the index metapage and cleans up the temporary context.
 

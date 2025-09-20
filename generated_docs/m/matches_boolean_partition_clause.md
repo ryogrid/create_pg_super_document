@@ -8,7 +8,11 @@ Determines if a boolean clause matches a specific partition key column, supporti
 
 ## Definition
 
-
+```c
+static bool
+matches_boolean_partition_clause(RestrictInfo *rinfo,
+								 RelOptInfo *partrel, int partkeycol)
+```
 ## Detailed Description
 This function analyzes a boolean restriction clause to determine if it matches a partition key column in a partitioned table. It supports two types of matches:
 1. Direct match: The clause expression is equivalent to "partkey = true"

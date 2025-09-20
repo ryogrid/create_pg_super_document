@@ -8,7 +8,10 @@ Reads command messages from the leader process in pg_dump's parallel processing 
 
 ## Definition
 
-
+```c
+static char *
+getMessageFromLeader(int pipefd[2])
+```
 ## Detailed Description
 This function serves as a simple wrapper around the lower-level pipe reading functionality, specifically designed for worker processes to receive commands from the leader process. It provides a blocking read operation that:
 

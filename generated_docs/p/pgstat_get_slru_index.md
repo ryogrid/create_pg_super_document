@@ -8,7 +8,10 @@ Determines the index of an entry for a SLRU (Simple LRU) with a given name, prov
 
 ## Definition
 
-
+```c
+int
+pgstat_get_slru_index(const char *name)
+```
 ## Detailed Description
 This function searches through the predefined  array to find an exact match for the provided SLRU name. The function iterates through all known SLRU types including "commit_timestamp", "multixact_member", "multixact_offset", "notify", "serializable", "subtransaction", "transaction", and "other". If no exact match is found, it returns the index of the last entry ("other"), which serves as a catch-all for SLRUs defined in external projects or extensions.
 

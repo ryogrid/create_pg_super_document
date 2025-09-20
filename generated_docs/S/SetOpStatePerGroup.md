@@ -8,7 +8,9 @@ SetOpStatePerGroup is a pointer type to SetOpStatePerGroupData, representing per
 
 ## Definition
 
-
+```c
+typedef struct SetOpStatePerGroupData *SetOpStatePerGroup;
+```
 ## Detailed Description
 SetOpStatePerGroup is a typedef that creates a pointer type to SetOpStatePerGroupData structures. It serves as an abstraction for managing per-group state information during set operations. The actual structure (SetOpStatePerGroupData) is defined privately in nodeSetOp.c and contains counters for tracking duplicate tuples from left and right inputs. This design allows SetOp nodes to efficiently handle both sorted and hashed execution strategies while maintaining clean separation between the public interface and internal implementation details.
 

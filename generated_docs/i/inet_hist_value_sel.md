@@ -8,7 +8,11 @@ Estimates the selectivity of histogram values against a single constant value fo
 
 ## Definition
 
-
+```c
+static Selectivity
+inet_hist_value_sel(Datum *values, int nvalues, Datum constvalue,
+					int opr_codenum)
+```
 ## Detailed Description
 This function performs selectivity estimation for inet types by analyzing histogram buckets against a constant value. It's specifically designed for subnet inclusion operators (<<, <<=, >>, >>=, &&) and uses a sophisticated bucket matching algorithm.
 

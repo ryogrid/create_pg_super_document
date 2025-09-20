@@ -8,7 +8,13 @@ Extracts a 32-bit floating-point number from a message buffer using IEEE 754 bin
 
 ## Definition
 
-
+```c
+union
+	{
+		float4		f;
+		uint32		i;
+	}			swap;
+```
 ## Detailed Description
 The `pq_getmsgfloat4` function reads a 4-byte floating-point value from a message buffer by leveraging the existing integer parsing infrastructure. It uses a union to safely convert between the binary representation (uint32) and the floating-point representation (float4) without violating strict aliasing rules. The function first reads the 4 bytes as an integer using pq_getmsgint, which handles network byte order conversion, then interprets those bytes as an IEEE 754 single-precision floating-point number. This approach ensures portability across different architectures while maintaining the correct binary representation.
 

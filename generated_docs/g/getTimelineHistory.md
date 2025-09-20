@@ -8,7 +8,10 @@ getTimelineHistory retrieves timeline history information for either the source 
 
 ## Definition
 
-
+```c
+static TimeLineHistoryEntry *
+getTimelineHistory(TimeLineID tli, bool is_source, int *nentries)
+```
 ## Detailed Description
 This function fetches timeline history information, which is essential for understanding the branching points in PostgreSQL's WAL timeline structure. The function handles two scenarios:
 

@@ -8,7 +8,13 @@ MTTargetRelLookup is a hash table entry structure used by ModifyTable execution 
 
 ## Definition
 
-
+```c
+typedef struct MTTargetRelLookup
+{
+	Oid			relationOid;	/* hash key, must be first */
+	int			relationIndex;	/* rel's index in resultRelInfo[] array */
+} MTTargetRelLookup;
+```
 ## Detailed Description
 This structure serves as a hash table entry for optimizing target relation lookups in ModifyTable operations when dealing with inherited UPDATE and DELETE queries. When a ModifyTable node needs to process many target relations (typically in inheritance hierarchies or partitioned tables), PostgreSQL creates a hash table using this structure to avoid linear searches through the resultRelInfo array.
 

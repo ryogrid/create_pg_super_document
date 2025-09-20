@@ -8,7 +8,10 @@ The int_cmp function is a binary heap comparator that compares two integer value
 
 ## Definition
 
-
+```c
+static int
+int_cmp(void *a, void *b, void *arg)
+```
 ## Detailed Description
 This function serves as a comparator callback for binary heap operations in the topological sorting algorithm used by pg_dump. It takes two void pointers that represent integers cast to pointer types, converts them back to integer values, and performs a three-way comparison.
 

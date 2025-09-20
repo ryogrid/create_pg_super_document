@@ -8,7 +8,15 @@ A structure that represents and efficiently matches PostgreSQL's schema search p
 
 ## Definition
 
-
+```c
+typedef struct SearchPathMatcher
+{
+	List	   *schemas;		/* OIDs of explicitly named schemas */
+	bool		addCatalog;		/* implicitly prepend pg_catalog? */
+	bool		addTemp;		/* implicitly prepend temp schema? */
+	uint64		generation;		/* for quick detection of equality to active */
+} SearchPathMatcher;
+```
 ## Detailed Description
 This structure captures a snapshot of PostgreSQL's schema search path configuration at a specific point in time. It's designed for efficient comparison with the current active search path to determine if cached plans or other search-path-dependent objects are still valid. The structure separates the explicitly named schemas from the implicitly added system schemas (pg_catalog and temporary schema).
 

@@ -8,7 +8,17 @@ LogicalRepTupleData is a structure that stores a tuple received via logical repl
 
 ## Definition
 
-
+```c
+typedef struct LogicalRepTupleData
+{
+	/* Array of StringInfos, one per column; some may be unused */
+	StringInfoData *colvalues;
+	/* Array of markers for null/unchanged/text/binary, one per column */
+	char	   *colstatus;
+	/* Length of above arrays */
+	int			ncols;
+} LogicalRepTupleData;
+```
 ## Detailed Description
 This structure is the fundamental data container for tuples transmitted through PostgreSQL's logical replication protocol. It represents a single row of data from a remote table, maintaining both the actual column values and metadata about each column's state. The structure is designed to handle variable numbers of columns and different data states that can occur during replication operations.
 

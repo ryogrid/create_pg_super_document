@@ -8,7 +8,10 @@ PostgreSQL function that performs multiplication of two numeric values, implemen
 
 ## Definition
 
-
+```c
+Datum
+numeric_mul(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that multiplies two numeric values together. It serves as the implementation for the SQL multiplication operator (*) when applied to NUMERIC data types. This function is a thin wrapper around , providing the standard PostgreSQL function interface for numeric multiplication operations.
 

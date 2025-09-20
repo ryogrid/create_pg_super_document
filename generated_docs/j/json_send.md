@@ -8,7 +8,10 @@ Serializes PostgreSQL's JSON data into binary format for efficient network trans
 
 ## Definition
 
-
+```c
+Datum
+json_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function converts PostgreSQL's internal JSON representation into a binary format suitable for transmission over PostgreSQL's binary protocol. This function is part of PostgreSQL's binary input/output infrastructure and is used when clients request data in binary format rather than text format. The binary protocol is more efficient for network transmission as it avoids the overhead of text parsing and formatting.
 

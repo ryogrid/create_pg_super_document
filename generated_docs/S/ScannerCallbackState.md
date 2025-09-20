@@ -8,7 +8,14 @@ A support structure for the scanner_errposition_callback function that provides 
 
 ## Definition
 
-
+```c
+typedef struct ScannerCallbackState
+{
+	core_yyscan_t yyscanner;
+	int			location;
+	ErrorContextCallback errcallback;
+} ScannerCallbackState;
+```
 ## Detailed Description
 This structure is designed to support error reporting mechanisms in PostgreSQL's scanner. It serves as a callback state container that maintains the necessary context information for generating meaningful error messages with proper position information when lexical analysis encounters problems. The structure works in conjunction with the error callback system to provide detailed diagnostic information about where parsing errors occur within SQL text.
 

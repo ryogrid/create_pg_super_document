@@ -8,7 +8,11 @@ This function coerces an expression to boolean type and validates that it doesn'
 
 ## Definition
 
-
+```c
+Node *
+coerce_to_boolean(ParseState *pstate, Node *node,
+				  const char *constructName)
+```
 ## Detailed Description
 The coerce_to_boolean function is a specialized coercion function designed for SQL constructs that require boolean expressions (AND, OR, NOT, WHERE clauses, etc.). It performs two main validations:
 

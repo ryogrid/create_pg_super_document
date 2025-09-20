@@ -8,7 +8,10 @@ Internal workhorse function that handles the core logic for changing an event tr
 
 ## Definition
 
-
+```c
+static void
+AlterEventTriggerOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId)
+```
 ## Detailed Description
 This function performs the actual work of changing an event trigger's owner. It operates on an already-retrieved tuple from the pg_event_trigger catalog and handles all the necessary validation, permission checking, and catalog updates. The function ensures that only superusers can own event triggers and that the current user has permission to change ownership. It updates both the catalog tuple and the dependency system to reflect the ownership change.
 

@@ -8,7 +8,10 @@ The  function prepends an OID (Object Identifier) to the beginning of an existin
 
 ## Definition
 
-
+```c
+List *
+lcons_oid(Oid datum, List *list)
+```
 ## Detailed Description
 This function is a specialized version of the generic  function, specifically designed for OID lists. It adds a new OID element to the front of an existing list, ensuring type safety by asserting that the input list is indeed an OID list. If the input list is NIL (empty), it creates a new OID list with the given datum as the first element. Otherwise, it creates a new head cell and inserts the OID at the beginning.
 

@@ -8,7 +8,14 @@ PresortedKeyData represents information about a sorting key that is already sort
 
 ## Definition
 
-
+```c
+typedef struct PresortedKeyData
+{
+	FmgrInfo	flinfo;			/* comparison function info */
+	FunctionCallInfo fcinfo;	/* comparison function call info */
+	OffsetNumber attno;			/* attribute number in tuple */
+} PresortedKeyData;
+```
 ## Detailed Description
 PresortedKeyData is used in PostgreSQL's incremental sort optimization to track information about sorting keys that are already sorted in the input data stream. When performing sorting by multiple keys, if the input dataset is already sorted on a prefix of those keys, the system can optimize the sorting process by treating these "presorted keys" specially. This structure stores the necessary function information and attribute details needed to perform comparisons on such presorted keys during incremental sorting operations.
 

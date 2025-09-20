@@ -8,7 +8,9 @@ Public wrapper function to set a configuration option to a given value with a st
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function provides a stable, public API wrapper around the internal set_config_option function. It's designed to be called from outside the GUC module when setting configuration parameters programmatically. The function simplifies the interface by using default values for parameters like action (GUC_ACTION_SET), changeVal (true), elevel (0), and is_reload (false), making it easier to use for common configuration setting scenarios.
 

@@ -8,7 +8,12 @@ PQescapeStringConn is a public libpq function that escapes arbitrary strings for
 
 ## Definition
 
-
+```c
+size_t
+PQescapeStringConn(PGconn *conn,
+				   char *to, const char *from, size_t length,
+				   int *error)
+```
 ## Detailed Description
 PQescapeStringConn provides a safe way to escape strings for inclusion in SQL queries by taking into account the specific characteristics of the database connection. The function uses the connection's client encoding and standard_conforming_strings setting to properly escape the input string.
 

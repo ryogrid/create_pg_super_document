@@ -8,7 +8,10 @@ A utility function that retrieves the SQL command text associated with a named p
 
 ## Definition
 
-
+```c
+char *
+ecpg_prepared(const char *name, struct connection *con)
+```
 ## Detailed Description
  provides a lookup mechanism to retrieve the original SQL command text from a prepared statement by its name within a specific database connection. The function searches through the connection's list of prepared statements to find the named statement and returns a pointer to the stored command string. This functionality is useful for debugging, logging, or when applications need to inspect the SQL commands associated with their prepared statements. The function returns a direct pointer to the internal command string, so the caller should not modify or free the returned memory.
 

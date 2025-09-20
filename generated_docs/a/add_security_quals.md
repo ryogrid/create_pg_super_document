@@ -8,7 +8,14 @@ This static function constructs and adds security qualifier expressions that enf
 
 ## Definition
 
-
+```c
+static void
+add_security_quals(int rt_index,
+				   List *permissive_policies,
+				   List *restrictive_policies,
+				   List **securityQuals,
+				   bool *hasSubLinks)
+```
 ## Detailed Description
 The  function is responsible for converting row-level security policies into executable SQL qualifiers that filter rows during query execution. It implements PostgreSQL's dual-policy model where:
 

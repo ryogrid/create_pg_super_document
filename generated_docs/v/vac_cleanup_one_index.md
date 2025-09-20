@@ -8,7 +8,10 @@ Performs post-vacuum cleanup operations on a single index relation, handling the
 
 ## Definition
 
-
+```c
+IndexBulkDeleteResult *
+vac_cleanup_one_index(IndexVacuumInfo *ivinfo, IndexBulkDeleteResult *istat)
+```
 ## Detailed Description
 The `vac_cleanup_one_index` function serves as a wrapper around `index_vacuum_cleanup` to perform post-deletion cleanup operations on an index after bulk deletion has occurred. This function is responsible for finalizing the vacuum process on a single index and providing detailed reporting about the cleanup results.
 

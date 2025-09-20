@@ -8,7 +8,10 @@ A PostgreSQL function that sets up optimized sort support for 64-bit integer (in
 
 ## Definition
 
-
+```c
+Datum
+btint8sortsupport(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function configures sort support for 64-bit signed integers in PostgreSQL B-tree operations. It intelligently selects the optimal comparison function based on the platform's datum size: on 64-bit platforms where SIZEOF_DATUM >= 8, it uses the highly optimized  function, while on 32-bit platforms it falls back to the custom  function. This conditional optimization ensures efficient sorting performance across different hardware architectures.
 

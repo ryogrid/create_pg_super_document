@@ -8,7 +8,16 @@ The  structure is used by PostgreSQL autovacuum workers to maintain database-spe
 
 ## Definition
 
-
+```c
+typedef struct avw_dbase
+{
+	Oid			adw_datid;
+	char	   *adw_name;
+	TransactionId adw_frozenxid;
+	MultiXactId adw_minmulti;
+	PgStat_StatDBEntry *adw_entry;
+} avw_dbase;
+```
 ## Detailed Description
 The  structure represents database-specific information that autovacuum workers need to perform their operations effectively. Unlike  which is used by the launcher for scheduling, this structure contains detailed database state information including transaction IDs and statistics that are essential for making autovacuum decisions within a particular database context.
 

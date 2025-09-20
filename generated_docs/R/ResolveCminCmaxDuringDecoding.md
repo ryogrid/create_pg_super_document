@@ -8,7 +8,13 @@ ResolveCminCmaxDuringDecoding looks up the command IDs (cmin/cmax) of a tuple du
 
 ## Definition
 
-
+```c
+bool
+ResolveCminCmaxDuringDecoding(HTAB *tuplecid_data,
+							  Snapshot snapshot,
+							  HeapTuple htup, Buffer buffer,
+							  CommandId *cmin, CommandId *cmax)
+```
 ## Detailed Description
 ResolveCminCmaxDuringDecoding is a critical function in PostgreSQL's logical replication system that resolves command ID information for tuples during logical decoding. During normal transaction processing, PostgreSQL uses combo CIDs to efficiently track multiple commands within a transaction. However, during logical decoding, these combo CIDs are not available, necessitating an alternative mechanism.
 

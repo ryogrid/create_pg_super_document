@@ -8,7 +8,9 @@ A generic internal function that lists regular files in a directory with detaile
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The  function is a static helper function that provides the core implementation for listing files in PostgreSQL system directories. Unlike the basic  function which only returns filenames, this function returns detailed information about each file including the filename, size, and modification time.
 

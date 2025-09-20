@@ -8,7 +8,10 @@ A helper function that safely calculates the relative offset for storing a point
 
 ## Definition
 
-
+```c
+static inline Size
+relptr_store_eval(char *base, char *val)
+```
 ## Detailed Description
  is an inline function designed to support PostgreSQL's relative pointer system. It calculates the offset needed to store a pointer relative to a base address. The function is specifically created to avoid the double evaluation problem that could occur if the calculation logic were directly embedded in the  macro.
 

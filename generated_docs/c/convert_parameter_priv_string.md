@@ -8,7 +8,10 @@ A static function that converts text string representations of parameter privile
 
 ## Definition
 
-
+```c
+static AclMode
+convert_parameter_priv_string(text *priv_text)
+```
 ## Detailed Description
 This function serves as a specialized converter for parameter privilege strings, defining the mapping between human-readable privilege names and their corresponding internal AclMode values. It maintains a static privilege map that defines the valid parameter privileges in PostgreSQL and their associated ACL bits.
 

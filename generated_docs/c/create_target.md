@@ -8,7 +8,10 @@ Creates target directories or symbolic links based on the source file type durin
 
 ## Definition
 
-
+```c
+void
+create_target(file_entry_t *entry)
+```
 ## Detailed Description
 This function is a dispatcher that creates different types of target file system objects based on their source type. It validates that the file entry is marked for creation (FILE_ACTION_CREATE) and that the target does not already exist before proceeding. The function uses a switch statement to delegate to specific creation functions based on the source file type. Notably, it explicitly excludes regular files from creation through this function, as regular files are handled by open_target_file instead. It includes safety assertions and handles undefined file types as fatal errors.
 

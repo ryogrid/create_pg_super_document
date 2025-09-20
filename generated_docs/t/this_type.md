@@ -8,7 +8,17 @@ The  structure is a comprehensive type descriptor used in the ECPG (Embedded SQL
 
 ## Definition
 
-
+```c
+struct this_type
+{
+	char	   *type_storage;
+	enum ECPGttype type_enum;
+	char	   *type_str;
+	char	   *type_dimension;
+	char	   *type_index;
+	char	   *type_sizeof;
+};
+```
 ## Detailed Description
  is a central data structure in PostgreSQL's ECPG preprocessor that provides a complete type specification system. It encapsulates all the necessary information needed to properly handle C data types when interfacing with SQL operations. The structure combines both categorical type information (through the enum) and textual representations for various type attributes, making it suitable for code generation and type checking during the preprocessing phase.
 

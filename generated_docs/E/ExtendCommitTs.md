@@ -8,7 +8,10 @@ Ensures the commit timestamp SLRU has sufficient space for a newly-allocated tra
 
 ## Definition
 
-
+```c
+void
+ExtendCommitTs(TransactionId newestXact)
+```
 ## Detailed Description
 ExtendCommitTs is called to ensure that the commit timestamp SLRU has room to accommodate a newly-allocated transaction ID. This function is designed to be very fast in the common case and is called while holding XidGenLock, so performance is critical.
 

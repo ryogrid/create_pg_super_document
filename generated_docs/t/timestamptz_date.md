@@ -8,7 +8,10 @@ Converts a PostgreSQL timestamp with time zone (timestamptz) value to a date dat
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that converts a timestamp with time zone value (TimestampTz) to a date value (DateADT). This conversion extracts only the date portion from the timestamptz after applying timezone conversion, effectively discarding both the time component and timezone information. The function handles special timestamp values like infinity (NOBEGIN/NOEND) by converting them to corresponding special date values.
 

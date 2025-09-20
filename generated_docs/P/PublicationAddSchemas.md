@@ -8,7 +8,11 @@ Adds a list of schemas to an existing PostgreSQL publication, establishing publi
 
 ## Definition
 
-
+```c
+static void
+PublicationAddSchemas(Oid pubid, List *schemas, bool if_not_exists,
+					  AlterPublicationStmt *stmt)
+```
 ## Detailed Description
 This static function iterates through a list of schema OIDs and adds each schema to the specified publication by creating publication-namespace mappings. It serves as a higher-level wrapper around the  function, handling batch operations and event trigger notifications. The function ensures that schemas are properly associated with publications for logical replication purposes, and optionally handles duplicate schema additions gracefully with the  parameter.
 

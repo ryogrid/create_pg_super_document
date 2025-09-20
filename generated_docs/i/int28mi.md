@@ -8,7 +8,10 @@ Subtracts a 64-bit integer (bigint) from a 16-bit integer (smallint) and returns
 
 ## Definition
 
-
+```c
+Datum
+int28mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements subtraction of an 8-byte integer from a 2-byte integer in PostgreSQL. The operation computes arg1 - arg2 where arg1 is a 16-bit integer and arg2 is a 64-bit integer. The 16-bit argument is implicitly converted to 64-bit before the subtraction operation.
 

@@ -8,7 +8,10 @@ Validates that an internal function name refers to a known built-in function in 
 
 ## Definition
 
-
+```c
+Datum
+fmgr_internal_validator(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the validator for internal language functions in PostgreSQL. When a function is created with language 'internal', this validator is called to ensure that the function name (stored in prosrc) corresponds to an actual built-in function that PostgreSQL knows about.
 

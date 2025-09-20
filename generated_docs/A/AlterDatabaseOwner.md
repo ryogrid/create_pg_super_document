@@ -8,7 +8,10 @@ AlterDatabaseOwner implements the ALTER DATABASE name OWNER TO newowner command,
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterDatabaseOwner(const char *dbname, Oid newOwnerId)
+```
 ## Detailed Description
 This function handles the SQL command `ALTER DATABASE name OWNER TO newowner` which transfers ownership of a database to a new user. The function:
 

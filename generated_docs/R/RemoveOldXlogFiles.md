@@ -8,7 +8,9 @@ Recycles or removes WAL log files that are older than or equal to a specified se
 
 ## Definition
 
-
+```c
+struct dirent *xlde;
+```
 ## Detailed Description
 This function manages the lifecycle of WAL files by removing or recycling segments that are no longer needed for recovery. It intelligently decides between recycling (reusing) and deletion based on various factors including the current WAL position and the last checkpoint's redo pointer. 
 

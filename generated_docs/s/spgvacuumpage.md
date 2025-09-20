@@ -8,7 +8,10 @@ Processes a single page during an SP-GiST index bulkdelete scan, handling differ
 
 ## Definition
 
-
+```c
+static void
+spgvacuumpage(spgBulkDeleteState *bds, BlockNumber blkno)
+```
 ## Detailed Description
 The `spgvacuumpage` function is a core component of SP-GiST's vacuum operation that processes individual index pages during bulk deletion. It implements a state machine approach to handle different types of pages:
 

@@ -8,7 +8,10 @@ Changes the owner of an event trigger identified by its OID, providing an altern
 
 ## Definition
 
-
+```c
+void
+AlterEventTriggerOwner_oid(Oid trigOid, Oid newOwnerId)
+```
 ## Detailed Description
 This function provides a streamlined interface for changing event trigger ownership when the caller already has the trigger's OID rather than its name. It follows the same basic pattern as AlterEventTriggerOwner but skips the name-to-OID lookup step since the OID is provided directly.
 

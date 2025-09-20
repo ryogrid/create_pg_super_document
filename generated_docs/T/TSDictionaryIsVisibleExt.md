@@ -8,7 +8,10 @@ TSDictionaryIsVisibleExt determines whether a text search dictionary is visible 
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &template_name);
+```
 ## Detailed Description
 This function checks whether a text search dictionary identified by its OID is visible according to PostgreSQL's namespace search path rules. It extends the basic visibility check by providing graceful error handling when a dictionary is not found in the system catalog. The function performs a comprehensive visibility check that considers:
 

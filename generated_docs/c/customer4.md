@@ -8,7 +8,15 @@ The  symbol is a struct definition used in ECPG (Embedded SQL in C for PostgreSQ
 
 ## Definition
 
-
+```c
+struct customer4 { 
+#line 41 "array_of_struct.pgc"
+  struct varchar_4  { int len; char arr[ 50 ]; }  name ;
+ 
+#line 42 "array_of_struct.pgc"
+ int phone ;
+ } custs4 ;
+```
 ## Detailed Description
 The  struct represents another variant of a customer record structure designed for ECPG testing. It demonstrates the use of variable-length character fields (varchar_4) within embedded SQL applications. The structure is identical to customer3 in terms of member types but uses varchar_4 for the name field and is instantiated as a single object (custs4) rather than an array. This provides test coverage for different instantiation patterns.
 

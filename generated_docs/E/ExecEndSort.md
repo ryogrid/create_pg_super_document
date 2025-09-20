@@ -8,7 +8,10 @@ Cleans up and releases resources used by a Sort plan node, including tuplesort s
 
 ## Definition
 
-
+```c
+void
+ExecEndSort(SortState *node)
+```
 ## Detailed Description
 ExecEndSort is the cleanup function for Sort plan nodes in PostgreSQL's executor. It performs orderly shutdown of the sort node by:
 

@@ -8,7 +8,9 @@ Prepares locale-specific formatting information for numeric processing in Postgr
 
 ## Definition
 
-
+```c
+struct lconv *lconv;
+```
 ## Detailed Description
 This function initializes locale-specific formatting information in a NUMProc structure. It retrieves locale information from the system and sets appropriate values for number formatting elements like decimal points, thousands separators, positive/negative signs, and currency symbols. The function handles both locale-aware formatting (when  flag is set) and provides default values for non-locale-aware formatting.
 

@@ -8,7 +8,9 @@ Creates a new backup label file in the output directory based on an input backup
 
 ## Definition
 
-
+```c
+struct stat sb;
+```
 ## Detailed Description
 The  function generates a new backup_label file by copying the contents of an input backup label buffer while excluding incremental backup-specific information. It creates a file named "backup_label" in the specified output directory, omitting lines that start with "INCREMENTAL FROM LSN:" and "INCREMENTAL FROM TLI:".
 

@@ -8,7 +8,11 @@ heapgettup_start_page is a helper function that prepares page scanning parameter
 
 ## Definition
 
-
+```c
+static Page
+heapgettup_start_page(HeapScanDesc scan, ScanDirection dir, int *linesleft,
+					  OffsetNumber *lineoff)
+```
 ## Detailed Description
 This function initializes the scanning parameters for a heap page that's already loaded in the scan descriptor's current buffer. It calculates the total number of tuples available on the page and sets the appropriate starting offset based on scan direction. For forward scans, it starts from FirstOffsetNumber (the beginning of the page), while for backward scans, it starts from the last offset on the page. The function assumes the buffer is already locked by the caller if necessary and simply extracts the page pointer and computes scanning bounds.
 

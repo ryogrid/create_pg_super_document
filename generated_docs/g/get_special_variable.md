@@ -8,7 +8,10 @@ A callback function for resolve_special_varno that handles decompilation of spec
 
 ## Definition
 
-
+```c
+static void
+get_special_variable(Node *node, deparse_context *context, void *callback_arg)
+```
 ## Detailed Description
 This function serves as a specialized callback for resolve_special_varno when dealing with special variable numbers that don't correspond to regular range table entries. These special variables (OUTER_VAR, INNER_VAR, INDEX_VAR) are used in plan trees to reference expressions from outer relations, inner relations, or index expressions.
 

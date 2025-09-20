@@ -8,7 +8,10 @@ Marks all expressions in a given Query with collation information after completi
 
 ## Definition
 
-
+```c
+void
+assign_query_collations(ParseState *pstate, Query *query)
+```
 ## Detailed Description
 This function serves as the main entry point for assigning collation information to all expressions within a parsed Query structure. It utilizes query_tree_walker() to traverse the query tree and apply collation assignment to contained expressions. The function specifically avoids recursing into sub-Queries since those should have been processed when they were built. It also skips the range table and CTE subqueries, as RTEs and subqueries must have been processed already to ensure that Vars referring to them are created with the correct collation.
 

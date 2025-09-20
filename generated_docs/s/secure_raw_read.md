@@ -8,7 +8,10 @@ secure_raw_read performs low-level socket read operations for unencrypted connec
 
 ## Definition
 
-
+```c
+ssize_t
+secure_raw_read(Port *port, void *ptr, size_t len)
+```
 ## Detailed Description
 The secure_raw_read function provides the lowest-level read interface for PostgreSQL client connections when no encryption is in use. It serves as the foundation for higher-level secure read operations and handles two primary responsibilities: managing previously buffered 'unread' data and performing actual socket read operations.
 

@@ -8,7 +8,15 @@ Creates non-partial paths for grouping operations by generating various aggregat
 
 ## Definition
 
-
+```c
+static void
+add_paths_to_grouping_rel(PlannerInfo *root, RelOptInfo *input_rel,
+						  RelOptInfo *grouped_rel,
+						  RelOptInfo *partially_grouped_rel,
+						  const AggClauseCosts *agg_costs,
+						  grouping_sets_data *gd, double dNumGroups,
+						  GroupPathExtraData *extra)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's query planning system that generates execution paths for grouping operations. It creates various types of paths (AggPath, GroupPath) to handle different grouping scenarios:
 

@@ -8,7 +8,9 @@ ResetSequence resets a sequence to its initial value by creating a new storage f
 
 ## Definition
 
-
+```c
+enumber(seq_rel, seq_rel->rd_rel->relpersistence);
+```
 ## Detailed Description
 ResetSequence implements sequence reset functionality by creating an entirely new relfilenumber for the sequence, similar to rewriting forms of ALTER TABLE. This approach ensures transactional safety - if the current transaction fails, the sequence is restored to its previous state.
 

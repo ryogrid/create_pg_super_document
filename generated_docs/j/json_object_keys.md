@@ -8,7 +8,10 @@ Extracts all the keys from the top-level JSON object and returns them as a set o
 
 ## Definition
 
-
+```c
+Datum
+json_object_keys(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL table function (set-returning function) that parses a JSON object and extracts all keys from the top level. It uses PostgreSQL's SRF (Set-Returning Function) framework to return multiple rows, one for each key found in the JSON object. The function employs a JSON parser with semantic actions to identify object field names during parsing and stores them in an array for later retrieval.
 

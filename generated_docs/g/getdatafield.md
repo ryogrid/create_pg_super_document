@@ -8,7 +8,9 @@ Extracts the data field from a pg_largeobject tuple, handling detoasting if nece
 
 ## Definition
 
-
+```c
+struct varlena *) datafield);
+```
 ## Detailed Description
 This utility function safely extracts the data field from a large object page tuple stored in the pg_largeobject catalog. It handles PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) mechanism by detecting extended attributes and calling detoast_attr when needed. The function validates that the extracted data length falls within acceptable bounds (0 to LOBLKSIZE) and raises a DATA_CORRUPTED error if the size is invalid. It returns the data pointer, actual data length, and a flag indicating whether the caller needs to pfree the returned data pointer.
 

@@ -8,7 +8,13 @@ NamedLWLockTranche is a structure that stores metadata about lightweight lock tr
 
 ## Definition
 
-
+```c
+typedef struct NamedLWLockTranche
+{
+	int			trancheId;
+	char	   *trancheName;
+} NamedLWLockTranche;
+```
 ## Detailed Description
 NamedLWLockTranche is a metadata structure that associates human-readable names with tranche IDs for lightweight locks. Tranches are groups of related LWLocks that serve similar purposes, and this structure enables PostgreSQL to provide meaningful names in debugging output, statistics, and monitoring tools. The structure is primarily used during system initialization to register tranche names that can later be referenced when reporting lock statistics or debugging lock contention issues.
 

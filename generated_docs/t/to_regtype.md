@@ -8,7 +8,10 @@ Converts a text string representation of a type name to its corresponding regtyp
 
 ## Definition
 
-
+```c
+Datum
+to_regtype(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a safe, non-error-raising alternative to direct type name to regtype conversion. Unlike  which throws an error for invalid type names,  returns NULL when a type name cannot be resolved. This makes it suitable for use in queries where type existence needs to be tested or where error handling should be managed at the SQL level.
 

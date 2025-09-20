@@ -8,7 +8,10 @@ A comparator function used by list_sort to sort PostgreSQL lists containing OID 
 
 ## Definition
 
-
+```c
+int
+list_oid_cmp(const ListCell *p1, const ListCell *p2)
+```
 ## Detailed Description
 The  function serves as a comparison function specifically designed for use with PostgreSQL's  function when sorting lists that contain OID (Object Identifier) values. It extracts OID values from two list cells and compares them using PostgreSQL's standard 32-bit unsigned integer comparison function. OIDs are fundamental identifiers in PostgreSQL used to uniquely identify database objects such as tables, functions, and types. This function follows the standard C library comparator convention, returning a negative value if the first element is smaller, zero if they are equal, and a positive value if the first element is larger.
 

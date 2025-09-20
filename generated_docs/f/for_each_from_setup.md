@@ -8,7 +8,10 @@ Initializes a ForEachState structure for the for_each_from macro, enabling itera
 
 ## Definition
 
-
+```c
+static inline ForEachState
+for_each_from_setup(const List *lst, int N)
+```
 ## Detailed Description
 The `for_each_from_setup` function is a helper function that initializes the state required for the `for_each_from` macro. It creates and returns a `ForEachState` structure that contains the list pointer and the starting index for iteration. This function is used internally by the `for_each_from` macro to set up iteration that begins from an arbitrary position within the list rather than from the beginning.
 

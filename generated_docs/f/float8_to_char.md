@@ -8,7 +8,10 @@ Converts a double-precision floating-point number (float8) to its formatted text
 
 ## Definition
 
-
+```c
+Datum
+float8_to_char(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `float8_to_char` function formats a double-precision floating-point value into a text string according to a format specification. It handles the unique characteristics of double-precision floating-point numbers including special values (NaN, infinity) and precision limitations. The function supports three main formatting categories:
 

@@ -8,7 +8,22 @@ PartitionwiseAggregateType is an enumeration that specifies the strategy for per
 
 ## Definition
 
+```c
+typedef struct
+{
+	/* Data which remains constant once set. */
+	int			flags;
+	bool		partial_costs_set;
+	AggClauseCosts agg_partial_costs;
+	AggClauseCosts agg_final_costs;
 
+	/* Data which may differ across partitions. */
+	bool		target_parallel_safe;
+	Node	   *havingQual;
+	List	   *targetList;
+	PartitionwiseAggregateType patype;
+} GroupPathExtraData;
+```
 ## Detailed Description
 PartitionwiseAggregateType defines three distinct strategies for handling aggregation operations when working with partitioned tables in PostgreSQL. This enumeration is crucial for optimizing query performance by allowing the optimizer to choose the most efficient approach for aggregating data across multiple partitions.
 

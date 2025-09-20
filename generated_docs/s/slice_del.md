@@ -8,7 +8,11 @@ A convenience function in the Snowball stemming library that deletes the current
 
 ## Definition
 
+```c
+}
 
+extern int slice_del(struct SN_env * z)
+```
 ## Detailed Description
 The  function is a simple wrapper around  that effectively deletes the current slice (the substring between  and  positions) from the working string. It works by replacing the selected slice with an empty string (0 characters, NULL pointer). This is a common operation in stemming algorithms where portions of words need to be removed.
 

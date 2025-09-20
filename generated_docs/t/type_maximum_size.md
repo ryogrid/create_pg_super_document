@@ -8,7 +8,10 @@ Determines the maximum possible width (in bytes) of a variable-width PostgreSQL 
 
 ## Definition
 
-
+```c
+int32
+type_maximum_size(Oid type_oid, int32 typemod)
+```
 ## Detailed Description
 The  function calculates the maximum storage size that a variable-width data type can occupy, taking into account the type modifier constraints. This function is crucial for storage planning, memory allocation, and optimization decisions in PostgreSQL.
 

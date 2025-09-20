@@ -8,7 +8,10 @@ Compares two time values to determine if the first time is less than the second 
 
 ## Definition
 
-
+```c
+Datum
+time_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that implements the less-than comparison operator ('<') for the TIME data type. It takes two TimeADT values as arguments and returns a boolean indicating whether the first time value is chronologically earlier than the second time value. This function is part of PostgreSQL's type system for handling temporal comparisons and is typically invoked through SQL queries using the '<' operator on time columns.
 

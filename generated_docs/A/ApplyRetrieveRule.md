@@ -8,7 +8,14 @@ Expands an ON SELECT rule (view definition) by converting the view's RTE to a su
 
 ## Definition
 
-
+```c
+static Query *
+ApplyRetrieveRule(Query *parsetree,
+				  RewriteRule *rule,
+				  int rt_index,
+				  Relation relation,
+				  List *activeRIRs)
+```
 ## Detailed Description
 This function implements view expansion by taking an ON SELECT rule and transforming the query to use the view's definition as a subquery. The process involves several sophisticated steps:
 

@@ -8,7 +8,10 @@ Determines whether a given path refers to a symbolic link, with conditional comp
 
 ## Definition
 
-
+```c
+struct rule *) cp1)->r_name,
+				  ((const struct rule *) cp2)->r_name);
+```
 ## Detailed Description
 The  function provides a simple and efficient way to test whether a filesystem path is a symbolic link. The implementation uses conditional compilation to handle systems that may not support symbolic links:
 

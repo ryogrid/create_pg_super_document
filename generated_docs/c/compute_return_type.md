@@ -8,7 +8,16 @@ Examines the RETURNS clause of a CREATE FUNCTION statement and determines the re
 
 ## Definition
 
-
+```c
+structs
+ * languageOid: OID of function language (InvalidOid if it's CREATE AGGREGATE)
+ * objtype: identifies type of object being created
+ *
+ * Results are stored into output parameters.  parameterTypes must always
+ * be created, but the other arrays/lists can be NULL pointers if not needed.
+ * variadicArgType is set to the variadic array type if there's a VARIADIC
+ * parameter (there can be only one);
+```
 ## Detailed Description
 This function is more complex than a typical typename lookup because it allows shell types to be used or even created if the specified return type doesn't exist yet. This capability is essential for defining I/O procedures for new types. However, SQL functions cannot use shell types, so the function enforces this restriction by raising an error for SQL language functions.
 

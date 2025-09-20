@@ -8,7 +8,10 @@ Acquires a lock to indicate that a transaction is performing a speculative inser
 
 ## Definition
 
-
+```c
+uint32
+SpeculativeInsertionLockAcquire(TransactionId xid)
+```
 ## Detailed Description
 This function is part of PostgreSQL's speculative insertion mechanism, which is used primarily for handling unique constraint violations efficiently. When a transaction performs an insertion that might conflict with existing data (such as during ON CONFLICT handling), it first acquires a speculative insertion lock.
 

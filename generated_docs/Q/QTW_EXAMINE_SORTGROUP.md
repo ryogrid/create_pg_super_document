@@ -8,7 +8,9 @@ A flag bit constant used to control the behavior of query_tree_walker and query_
 
 ## Definition
 
-
+```c
+#define QTW_EXAMINE_SORTGROUP		0x80	/* include SortGroupClause lists */
+```
 ## Detailed Description
 QTW_EXAMINE_SORTGROUP is a bit flag with value 0x80 (128 in decimal) that extends the scope of query tree traversal to include SortGroupClause lists. SortGroupClause structures represent sorting and grouping specifications in SQL queries, such as those found in ORDER BY, GROUP BY, and DISTINCT clauses. 
 

@@ -8,7 +8,9 @@ ExplainPrintSettings prints a summary of modified GUC (Grand Unified Configurati
 
 ## Definition
 
-
+```c
+struct config_generic **gucs;
+```
 ## Detailed Description
 ExplainPrintSettings generates output showing configuration settings that have been modified from their defaults and could influence query planning decisions. This information helps users understand why the planner made certain choices by showing relevant non-default configuration values.
 

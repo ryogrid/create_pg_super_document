@@ -8,7 +8,11 @@ Scans the pre-parsed HBA (Host-Based Authentication) configuration to find a mat
 
 ## Definition
 
-
+```c
+struct sockaddr *) &hba->addr,
+									  (struct sockaddr *) &hba->mask))
+							continue;
+```
 ## Detailed Description
 This function implements the core logic of PostgreSQL's host-based authentication system. It iterates through the parsed pg_hba.conf rules (stored in parsed_hba_lines) and applies a series of filters to find the first matching rule for the incoming connection. The matching process follows a strict hierarchical evaluation:
 

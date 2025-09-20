@@ -8,7 +8,10 @@ A PostgreSQL C function that determines whether an employee's salary exceeds a s
 
 ## Definition
 
-
+```c
+Datum
+c_overpaid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL C language function that takes a composite type (employee record) and a salary limit as parameters, then returns a boolean indicating whether the employee's salary is greater than the specified limit. This function demonstrates how to extract attributes from composite types using PostgreSQL's internal API.
 

@@ -8,7 +8,16 @@ DefineRelation is the core function for creating new relations (tables, views, i
 
 ## Definition
 
-
+```c
+structively
+	 * modified by MergeAttributes.)
+	 */
+	stmt->tableElts =
+		MergeAttributes(stmt->tableElts, inheritOids,
+						stmt->relation->relpersistence,
+						stmt->partbound != NULL,
+						&old_constraints);
+```
 ## Detailed Description
 DefineRelation serves as the primary entry point for creating database relations in PostgreSQL. It processes CREATE TABLE statements and related commands, coordinating the entire relation creation workflow. The function handles schema validation, inheritance processing, constraint management, partitioning setup, and catalog registration. It operates by first validating the creation parameters, processing inheritance relationships, building the relation descriptor, creating the physical relation through heap_create_with_catalog, and finally setting up any additional features like partitioning, indexes, and constraints.
 

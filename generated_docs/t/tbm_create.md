@@ -8,7 +8,10 @@ Creates an initially empty TID (Tuple Identifier) bitmap structure that will be 
 
 ## Definition
 
-
+```c
+struct and zero all its fields */
+	tbm = makeNode(TIDBitmap);
+```
 ## Detailed Description
 The  function initializes a new TIDBitmap structure in the current memory context. This bitmap is designed to efficiently store tuple identifiers (TIDs) for use in bitmap heap scans, which are an optimization technique in PostgreSQL's query execution. The function sets up the basic structure with memory management constraints and optional shared memory support through a DSA (Dynamic Shared Area).
 

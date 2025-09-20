@@ -8,7 +8,10 @@ Executes a diff command and validates its execution status, ensuring the command
 
 ## Definition
 
-
+```c
+static int
+run_diff(const char *cmd, const char *filename)
+```
 ## Detailed Description
 This function is a wrapper around the system() call for executing diff commands in PostgreSQL's regression testing framework. It provides robust error handling by checking the exit status of the diff command and ensuring it terminates normally. The function handles platform-specific issues, particularly on Windows where a missing diff command returns status 1 but produces no output. It validates that diff commands exit with status 0 (files identical) or 1 (files differ), treating any other exit status as an error condition.
 

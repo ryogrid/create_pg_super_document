@@ -8,7 +8,10 @@ Attempts to switch PostgreSQL's GiST (Generalized Search Tree) index build proce
 
 ## Definition
 
-
+```c
+static void
+gistInitBuffering(GISTBuildState *buildstate)
+```
 ## Detailed Description
 This function implements the initialization phase of the buffering algorithm for GiST index construction, based on research by Arge et al. The buffering mode groups index tuples by their target subtrees and processes them in batches, reducing the number of random page accesses during index construction.
 

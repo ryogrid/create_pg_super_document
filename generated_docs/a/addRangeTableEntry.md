@@ -8,7 +8,14 @@ Creates a range table entry for a relation and adds it to the parser state, retu
 
 ## Definition
 
-
+```c
+struct and return a ParseNamespaceItem for the new RTE.
+ *
+ * This is just like addRangeTableEntry() except that it makes an RTE
+ * given an already-open relation instead of a RangeVar reference.
+ *
+ * lockmode is the lock type required for query execution;
+```
 ## Detailed Description
 The  function is a core parser utility that creates and initializes a RangeTblEntry (RTE) for a relation reference in a SQL query. It handles the complete process of:
 

@@ -8,7 +8,11 @@ A recursive debugging function that generates a hierarchical dump of the B-tree 
 
 ## Definition
 
-
+```c
+static void
+FreePageManagerDumpBtree(FreePageManager *fpm, FreePageBtree *btp,
+						 FreePageBtree *parent, int level, StringInfo buf)
+```
 ## Detailed Description
 This function performs a depth-first traversal of the Free Page Manager's B-tree structure, generating a formatted textual representation of the tree's contents and structure. It serves as a debugging aid by displaying page numbers, tree levels, node types (internal vs leaf), parent-child relationships, and key information for each node in the tree. The function validates parent pointers and recursively processes child nodes for internal nodes.
 

@@ -8,7 +8,10 @@ Cleans up archive notification status files for a particular WAL (Write-Ahead Lo
 
 ## Definition
 
-
+```c
+void
+XLogArchiveCleanup(const char *xlog)
+```
 ## Detailed Description
 XLogArchiveCleanup is responsible for removing archive status files associated with a specific WAL segment from the archive_status directory. This function removes both  and  status files that PostgreSQL uses to track the archiving state of WAL segments.
 

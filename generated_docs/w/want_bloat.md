@@ -8,7 +8,10 @@ Determines whether the timezone compiler should generate "bloated" timezone data
 
 ## Definition
 
-
+```c
+static bool
+want_bloat(void)
+```
 ## Detailed Description
 The want_bloat function is a simple predicate that checks the global bloat variable to determine if the timezone compiler should include additional data in the output files. When bloat is enabled (>= 0), the generated timezone files will contain extra information that can improve compatibility with older systems or provide more detailed debugging information, at the cost of larger file sizes. The function serves as a centralized check used throughout the timezone compilation process.
 

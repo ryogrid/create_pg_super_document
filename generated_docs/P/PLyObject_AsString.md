@@ -8,7 +8,10 @@ Converts a Python object to a C string in PostgreSQL server encoding, with speci
 
 ## Definition
 
-
+```c
+char *
+PLyObject_AsString(PyObject *plrv)
+```
 ## Detailed Description
 This function provides a robust conversion mechanism from Python objects to C strings encoded in PostgreSQL server encoding. It handles different Python object types with specialized logic:
 

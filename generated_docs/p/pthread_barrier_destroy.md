@@ -8,7 +8,10 @@ Destroys a pthread barrier object and releases its associated resources.
 
 ## Definition
 
-
+```c
+int
+pthread_barrier_destroy(pthread_barrier_t *barrier)
+```
 ## Detailed Description
 This function cleans up a pthread barrier by destroying the underlying synchronization primitives (condition variable and mutex) that were initialized during pthread_barrier_init(). It should be called when the barrier is no longer needed to free system resources and prevent resource leaks.
 

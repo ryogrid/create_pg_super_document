@@ -8,7 +8,10 @@ Adds pending notification messages to the shared memory notification queue, proc
 
 ## Definition
 
-
+```c
+struct a valid queue entry in local variable qe */
+		asyncQueueNotificationToEntry(n, &qe);
+```
 ## Detailed Description
 This function is the core implementation for writing notification entries into the asynchronous notification queue. It operates with the following key characteristics:
 

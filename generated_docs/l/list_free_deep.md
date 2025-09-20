@@ -8,7 +8,10 @@ Frees all memory associated with a List structure including both the list itself
 
 ## Definition
 
-
+```c
+void
+list_free_deep(List *list)
+```
 ## Detailed Description
 This function performs a deep free operation on a PostgreSQL List structure. Unlike `list_free()`, it not only deallocates the memory used by the list structure itself but also frees every object that the list elements point to. This function should only be used when the list contains pointers to `palloc()`'d memory regions that are owned exclusively by the list.
 

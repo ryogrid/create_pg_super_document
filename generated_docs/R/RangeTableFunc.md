@@ -8,7 +8,19 @@ RangeTableFunc represents the raw parsed form of "table functions" such as XMLTA
 
 ## Definition
 
-
+```c
+typedef struct RangeTableFunc
+{
+	NodeTag		type;
+	bool		lateral;		/* does it have LATERAL prefix? */
+	Node	   *docexpr;		/* document expression */
+	Node	   *rowexpr;		/* row generator expression */
+	List	   *namespaces;		/* list of namespaces as ResTarget */
+	List	   *columns;		/* list of RangeTableFuncCol */
+	Alias	   *alias;			/* table alias & optional column aliases */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} RangeTableFunc;
+```
 ## Detailed Description
 RangeTableFunc is a parse node structure that represents table functions like XMLTABLE during the parsing phase. These functions take a document (typically XML) and extract tabular data from it based on specified expressions and column definitions. The structure captures all the syntactic elements needed to later transform this into an executable plan. Note that JSON_TABLE uses a separate JsonTable node rather than RangeTableFunc.
 

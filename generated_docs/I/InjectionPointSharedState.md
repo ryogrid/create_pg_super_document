@@ -8,7 +8,22 @@ A shared memory structure that maintains global state for injection point synchr
 
 ## Definition
 
+```c
+typedef struct InjectionPointSharedState
+{
+	/* Protects access to other fields */
+	slock_t		lock;
 
+	/* Counters advancing when injection_points_wakeup() is called */
+	uint32		wait_counts[INJ_MAX_WAIT];
+
+	/* Names of injection points attached to wait counters */
+	char		name[INJ_MAX_WAIT][INJ_NAME_MAXLEN];
+
+	/* Condition variable used for waits and wakeups */
+	ConditionVariable wait_point;
+} InjectionPointSharedState;
+```
 ## Detailed Description
 The  structure provides shared memory infrastructure for coordinating injection point waits and wakeups between different PostgreSQL processes. This structure is used by the injection point testing framework to enable synchronization scenarios where test code needs to wait for specific conditions or coordinate between multiple processes.
 

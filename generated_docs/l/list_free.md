@@ -8,7 +8,10 @@ Frees all memory associated with a List structure while leaving the pointed-to e
 
 ## Definition
 
-
+```c
+void
+list_free(List *list)
+```
 ## Detailed Description
 This function performs a shallow free operation on a PostgreSQL List structure. It deallocates the memory used by the list itself (including any dynamically allocated elements array) but does NOT free the objects that the list elements point to. This is the standard way to free a list when the caller is responsible for managing the memory of the individual elements or when those elements are allocated elsewhere and should remain valid.
 

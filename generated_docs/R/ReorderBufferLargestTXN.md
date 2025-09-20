@@ -8,7 +8,10 @@ Identifies and returns the largest transaction (by memory size) from the reorder
 
 ## Definition
 
-
+```c
+static ReorderBufferTXN *
+ReorderBufferLargestTXN(ReorderBuffer *rb)
+```
 ## Detailed Description
 ReorderBufferLargestTXN is a static function that extracts the transaction with the largest memory footprint from the reorder buffer's transaction heap (). This function is a key component of PostgreSQL's logical replication memory management system.
 

@@ -8,7 +8,15 @@ JsonbSubWorkspace is a workspace structure used for PostgreSQL's JSONB subscript
 
 ## Definition
 
-
+```c
+typedef struct JsonbSubWorkspace
+{
+	bool		expectArray;	/* jsonb root is expected to be an array */
+	Oid		   *indexOid;		/* OID of coerced subscript expression, could
+								 * be only integer or text */
+	Datum	   *index;			/* Subscript values in Datum format */
+} JsonbSubWorkspace;
+```
 ## Detailed Description
 JsonbSubWorkspace serves as the workspace component of PostgreSQL's SubscriptingRefState for JSONB subscripting execution. This structure maintains the necessary state information when processing JSONB subscript operations like  for both fetch and assignment operations.
 

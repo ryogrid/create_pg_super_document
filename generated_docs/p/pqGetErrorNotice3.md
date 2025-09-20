@@ -8,7 +8,10 @@ Processes Error or Notice response messages from the PostgreSQL server in protoc
 
 ## Definition
 
-
+```c
+int
+pqGetErrorNotice3(PGconn *conn, bool isError)
+```
 ## Detailed Description
 This function reads and processes Error ('E') or Notice ('N') messages from the PostgreSQL server using protocol version 3. The message type and length have already been consumed before this function is called. It creates a PGresult structure to hold the error/notice fields, builds a formatted error message, and either stores it as an async result (for errors) or processes it as a notice callback.
 

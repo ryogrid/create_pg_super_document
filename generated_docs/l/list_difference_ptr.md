@@ -8,7 +8,10 @@ Returns a new list containing elements from the first list that are not present 
 
 ## Definition
 
-
+```c
+List *
+list_difference_ptr(const List *list1, const List *list2)
+```
 ## Detailed Description
 This function creates a new list containing all elements from  that are not found in . It is a specialized variant of  that uses simple pointer equality (==) rather than deep comparison to determine list membership. This makes it more efficient when working with lists of pointers where identity matters more than content equality.
 

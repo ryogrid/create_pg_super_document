@@ -8,7 +8,12 @@ Internal function that determines whether a single range is strictly after (righ
 
 ## Definition
 
-
+```c
+bool
+range_after_multirange_internal(TypeCacheEntry *rangetyp,
+								const RangeType *r,
+								const MultirangeType *mr)
+```
 ## Detailed Description
 This internal function implements the core logic for determining if a range is strictly after a multirange. It performs the comparison by checking if the lower bound of the range is greater than the upper bound of the rightmost range in the multirange. The function handles empty ranges and multiranges by returning false, as empty sets cannot have meaningful ordering relationships.
 

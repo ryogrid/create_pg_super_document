@@ -8,7 +8,10 @@ PQescapeBytea converts binary data to a format suitable for inclusion in SQL INS
 
 ## Definition
 
-
+```c
+unsigned char *
+PQescapeBytea(const unsigned char *from, size_t from_length, size_t *to_length)
+```
 ## Detailed Description
 PQescapeBytea is a libpq client library function that converts binary data (byte arrays) into an escaped string format that can be safely included in SQL statements for bytea columns. This function specifically uses the traditional escape encoding method, not hex encoding.
 

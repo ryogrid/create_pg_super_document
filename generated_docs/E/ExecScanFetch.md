@@ -8,7 +8,12 @@ ExecScanFetch is a core function in PostgreSQL's executor that fetches the next 
 
 ## Definition
 
-
+```c
+static inline TupleTableSlot *
+ExecScanFetch(ScanState *node,
+			  ExecScanAccessMtd accessMtd,
+			  ExecScanRecheckMtd recheckMtd)
+```
 ## Detailed Description
 ExecScanFetch serves as an intermediary layer between high-level scan execution and access method-specific tuple retrieval. Its primary responsibility is to determine whether to return a regular tuple from the access method or handle special EPQ (EvalPlanQual) recheck scenarios that occur during concurrent transaction processing.
 

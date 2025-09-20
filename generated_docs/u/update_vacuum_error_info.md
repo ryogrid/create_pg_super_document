@@ -8,7 +8,11 @@ Updates the vacuum error information for error callbacks, while optionally savin
 
 ## Definition
 
-
+```c
+static void
+update_vacuum_error_info(LVRelState *vacrel, LVSavedErrInfo *saved_vacrel,
+						 int phase, BlockNumber blkno, OffsetNumber offnum)
+```
 ## Detailed Description
 The `update_vacuum_error_info` function manages the error context information used by the vacuum error callback system. It serves a dual purpose: first, it saves the current error state to a provided save structure (if one is provided), and second, it updates the current error context with new phase, block number, and offset number information.
 

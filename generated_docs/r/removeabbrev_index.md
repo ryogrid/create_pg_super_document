@@ -8,7 +8,10 @@ Removes abbreviated key optimization from index tuples by extracting and caching
 
 ## Definition
 
-
+```c
+static void
+removeabbrev_index(Tuplesortstate *state, SortTuple *stups, int count)
+```
 ## Detailed Description
 The `removeabbrev_index` function is called when the tuplesort system determines that abbreviated key optimization is not beneficial for index tuple sorting and needs to fall back to full tuple comparisons. This function iterates through an array of SortTuple structures and extracts the actual value of the first column from each IndexTuple, storing it in the `datum1` field for subsequent comparison operations.
 

@@ -8,7 +8,10 @@ Tests PostgreSQL pipeline mode functionality for prepared statements and portals
 
 ## Definition
 
-
+```c
+static void
+test_prepared(PGconn *conn)
+```
 ## Detailed Description
 This function comprehensively tests the pipeline mode support for prepared statements and portal operations in PostgreSQL. The test is divided into several phases:
 

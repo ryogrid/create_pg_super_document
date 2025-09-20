@@ -8,7 +8,10 @@ bytea_substr is a PostgreSQL internal function that extracts a substring from a 
 
 ## Definition
 
-
+```c
+Datum
+bytea_substr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides bytea substring extraction functionality with three arguments: the source bytea, starting position (1-based), and length. It serves as a wrapper around the bytea_substring function, handling the PostgreSQL function calling convention. The function follows SQL standard behavior for substring operations, including handling of zero or negative starting positions and proper length validation. It was cloned from text_substr and adapted for binary data.
 

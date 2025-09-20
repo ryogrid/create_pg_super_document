@@ -8,7 +8,10 @@ Parses the temp_tablespaces GUC variable and configures the storage subsystem to
 
 ## Definition
 
-
+```c
+void
+PrepareTempTablespaces(void)
+```
 ## Detailed Description
 This function ensures that temporary file storage is properly configured according to the temp_tablespaces GUC setting. It is designed to be called multiple times safely - it performs no work if tablespaces have already been set up in the current transaction.
 

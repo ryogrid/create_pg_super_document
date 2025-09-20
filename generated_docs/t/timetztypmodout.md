@@ -8,7 +8,10 @@ Converts a TIMETZ type modifier to its string representation for display in syst
 
 ## Definition
 
-
+```c
+Datum
+timetztypmodout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `timetztypmodout` function is responsible for converting internal type modifier representations back to human-readable string format for the TIMETZ (time with time zone) data type. This function is used when PostgreSQL needs to display type information to users, such as in \\dt commands, system catalog queries, or error messages.
 

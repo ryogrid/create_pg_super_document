@@ -8,7 +8,10 @@ Permanently drops a replication slot, removing all associated files and metadata
 
 ## Definition
 
-
+```c
+static void
+ReplicationSlotDropPtr(ReplicationSlot *slot)
+```
 ## Detailed Description
 This function performs the complete and permanent removal of a replication slot. It handles both the logical cleanup (marking the slot as inactive, removing it from memory) and physical cleanup (removing directory and files from disk). The function is designed to be crash-safe and handles concurrent operations through proper locking mechanisms.
 

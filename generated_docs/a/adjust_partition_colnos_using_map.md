@@ -8,7 +8,10 @@ Adjusts partition column numbers using a caller-supplied attribute map instead o
 
 ## Definition
 
-
+```c
+static List *
+adjust_partition_colnos_using_map(List *colnos, AttrMap *attrMap)
+```
 ## Detailed Description
 This function remaps a list of partition column numbers using a provided attribute map (AttrMap). It is a more flexible version of adjust_partition_colnos that allows the caller to specify the mapping instead of using a default root relation mapping. The function validates each attribute number in the input list and translates it using the provided map. It performs bounds checking to ensure the attribute numbers are valid and exist in the map.
 

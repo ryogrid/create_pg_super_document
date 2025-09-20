@@ -8,7 +8,10 @@ A utility function that sorts an array of compact NFA arcs by their color values
 
 ## Definition
 
-
+```c
+static void
+carcsort(struct carc *first, size_t n)
+```
 ## Detailed Description
 This function sorts an array of compact arcs ( structures) using the standard library's  function with a custom comparison function . The sorting is performed by color values, which allows the regex engine to use binary search or other efficient lookup methods when traversing the NFA during pattern matching.
 

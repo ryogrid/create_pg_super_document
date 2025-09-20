@@ -8,7 +8,11 @@ Stores operator family members into the pg_amop system catalog and creates all n
 
 ## Definition
 
-
+```c
+static void
+storeOperators(List *opfamilyname, Oid amoid, Oid opfamilyoid,
+			   List *operators, bool isAdd)
+```
 ## Detailed Description
 This function persists operator family members to the pg_amop catalog table, which stores the association between operators and operator families. It handles both search and ordering operators, determining the purpose based on the presence of a sort family. The function creates comprehensive dependency records to track relationships between the pg_amop entry and the referenced operator, operator class/family, data types, and sort family. It includes conflict detection when adding to existing families and invokes post-creation hooks. The dependency strength (NORMAL, INTERNAL, AUTO) is determined by the ref_is_hard flag and object type.
 

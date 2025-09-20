@@ -8,7 +8,10 @@ Implements the  command in psql to list foreign tables with their associated sch
 
 ## Definition
 
-
+```c
+bool
+listForeignTables(const char *pattern, bool verbose)
+```
 ## Detailed Description
 This function queries the PostgreSQL system catalogs to retrieve information about foreign tables. It constructs a SQL query that joins multiple system tables (pg_foreign_table, pg_class, pg_namespace, pg_foreign_server, and optionally pg_description) to present a comprehensive view of foreign tables. The function supports pattern matching for selective display and verbose mode for additional details like FDW options and descriptions.
 

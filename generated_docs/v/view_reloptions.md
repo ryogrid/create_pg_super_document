@@ -8,7 +8,10 @@ Parses and validates relation options specifically for database views, handling 
 
 ## Definition
 
-
+```c
+bytea *
+view_reloptions(Datum reloptions, bool validate)
+```
 ## Detailed Description
 The `view_reloptions` function is a specialized option parser for PostgreSQL views that processes view-specific relation options. It defines and processes three key view options: `security_barrier`, `security_invoker`, and `check_option`. The function uses the generic `build_reloptions` infrastructure to parse and validate the options, ensuring they conform to the expected types and values for view configurations. This function is part of PostgreSQL's reloptions system that allows fine-grained control over database object behavior through customizable options.
 

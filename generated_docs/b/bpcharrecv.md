@@ -8,7 +8,10 @@ Converts external binary format to the PostgreSQL bpchar (blank-padded character
 
 ## Definition
 
-
+```c
+Datum
+bpcharrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL I/O function that handles the conversion of binary data received from external sources (such as network protocol messages) into the internal bpchar representation. This function is part of PostgreSQL's binary protocol support, enabling efficient transmission of character data between clients and server without ASCII conversion overhead.
 

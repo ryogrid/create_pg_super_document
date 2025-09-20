@@ -8,7 +8,11 @@ A static function that splits an array of index tuples across multiple pages and
 
 ## Definition
 
-
+```c
+static void
+makeSublist(Relation index, IndexTuple *tuples, int32 ntuples,
+			GinMetaPageData *res)
+```
 ## Detailed Description
 This function is responsible for organizing index tuples into a chain of pending-list pages when the tuples exceed the capacity of a single page. It iterates through the tuple array, calculating space requirements for each tuple (including alignment and item identifier overhead), and creates new pages when the current page would exceed GinListPageSize. The function maintains a linked list structure by setting rightlink pointers between consecutive pages. It updates the provided GinMetaPageData structure with information about the created sublist including head and tail block numbers, tail page free space, and page counts.
 

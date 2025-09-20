@@ -8,7 +8,13 @@ SharedIncrementalSortInfo is a shared memory structure used to collect and aggre
 
 ## Definition
 
-
+```c
+typedef struct SharedIncrementalSortInfo
+{
+	int			num_workers;
+	IncrementalSortInfo sinfo[FLEXIBLE_ARRAY_MEMBER];
+} SharedIncrementalSortInfo;
+```
 ## Detailed Description
 This structure serves as a shared memory container for collecting incremental sort performance data from parallel workers in PostgreSQL's parallel query execution. When incremental sort operations are executed in parallel, each worker process generates its own IncrementalSortInfo data. The SharedIncrementalSortInfo structure aggregates this data from all workers, allowing the main process to retrieve comprehensive performance statistics for the entire parallel operation.
 

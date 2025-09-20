@@ -8,7 +8,20 @@ A shared memory message queue structure that enables efficient inter-process com
 
 ## Definition
 
-
+```c
+struct shm_mq
+{
+	slock_t		mq_mutex;
+	PGPROC	   *mq_receiver;
+	PGPROC	   *mq_sender;
+	pg_atomic_uint64 mq_bytes_read;
+	pg_atomic_uint64 mq_bytes_written;
+	Size		mq_ring_size;
+	bool		mq_detached;
+	uint8		mq_ring_offset;
+	char		mq_ring[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 The  structure represents the actual message queue stored in shared memory, designed for high-performance communication between parallel processes in PostgreSQL. The implementation uses careful synchronization techniques to achieve lock-free operation for the critical path operations:
 

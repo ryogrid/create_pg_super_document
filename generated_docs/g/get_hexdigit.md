@@ -8,7 +8,10 @@ Converts a single hexadecimal digit character (0-9, A-F, a-f) to its correspondi
 
 ## Definition
 
-
+```c
+static bool
+get_hexdigit(char digit, int *value)
+```
 ## Detailed Description
 This utility function provides case-insensitive conversion of hexadecimal digit characters to their numeric values. It supports all valid hexadecimal characters:
 - Digits 0-9: converted to values 0-9

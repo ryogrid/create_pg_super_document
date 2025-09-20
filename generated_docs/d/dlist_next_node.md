@@ -8,7 +8,10 @@ Returns the next node in a doubly-linked list, with an assertion to ensure that 
 
 ## Definition
 
-
+```c
+static inline dlist_node *
+dlist_next_node(dlist_head *head, dlist_node *node)
+```
 ## Detailed Description
 This function provides safe navigation to the next node in a doubly-linked list by returning the node's next pointer. Before returning the pointer, it uses an assertion to verify that a next node actually exists by calling dlist_has_next(). This prevents accidental traversal beyond the end of the list, which could lead to accessing invalid memory or the sentinel node.
 

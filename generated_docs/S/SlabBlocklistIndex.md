@@ -8,7 +8,10 @@ SlabBlocklistIndex is an internal function that determines which blocklist index
 
 ## Definition
 
-
+```c
+static inline int32
+SlabBlocklistIndex(SlabContext *slab, int nfree)
+```
 ## Detailed Description
 This function implements a critical part of the slab allocator's block management strategy. It calculates the appropriate blocklist index for a block based on its number of free chunks, using an efficient bit-shifting algorithm. The function uses two's complement arithmetic tricks to ensure that blocks with 0 free chunks are always assigned to index 0, while blocks with any number of free chunks (1 or more) are assigned to indices 1 through SLAB_BLOCKLIST_COUNT-1.
 

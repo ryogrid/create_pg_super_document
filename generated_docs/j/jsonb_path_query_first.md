@@ -8,7 +8,10 @@ SQL function that executes a JSONPath expression against a JSONB document and re
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_query_first(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL SQL-callable wrapper for executing JSONPath queries with the requirement of returning only the first matching result. It delegates the actual implementation to  with timezone handling disabled (tz=false). The function follows PostgreSQL's standard function calling convention using  to access parameters.
 

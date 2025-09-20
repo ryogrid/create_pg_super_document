@@ -8,7 +8,10 @@ SetRelationHasSubclass updates the relhassubclass field in pg_class system catal
 
 ## Definition
 
-
+```c
+void
+SetRelationHasSubclass(Oid relationId, bool relhassubclass)
+```
 ## Detailed Description
 This function is critical for maintaining accurate inheritance metadata in PostgreSQL's system catalogs. It updates the relhassubclass field in the pg_class catalog, which is used by the query planner to determine if a relation has child tables that need to be considered during query execution.
 

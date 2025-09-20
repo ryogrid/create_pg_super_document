@@ -8,7 +8,10 @@ Creates and returns an empty range of the specified type by constructing dummy b
 
 ## Definition
 
-
+```c
+RangeType *
+make_empty_range(TypeCacheEntry *typcache)
+```
 ## Detailed Description
 The `make_empty_range` function provides a convenient way to create an empty range of any range type. It constructs dummy lower and upper bounds with default values (both set to 0, non-infinite, non-inclusive) and then calls `make_range` with the empty flag set to true. Since the range is explicitly marked as empty, the actual bound values are irrelevant and ignored. This function is essential for range operations that need to return empty results, such as when ranges don't intersect or when performing set operations that yield no result.
 

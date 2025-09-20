@@ -8,7 +8,12 @@ Serializes an ArrayBuildState structure into a bytea format for transmission dur
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate),
+						   VARSIZE_ANY_EXHDR(sstate));
+```
 ## Detailed Description
 This function converts an ArrayBuildState structure into a serialized bytea format that can be transmitted between parallel workers during array_agg() processing. The serialization process includes metadata about the array elements (type information, length, alignment) as well as the actual data values and null indicators.
 

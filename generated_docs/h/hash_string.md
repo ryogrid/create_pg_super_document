@@ -8,7 +8,10 @@ A convenience function for hashing NUL-terminated C strings, providing a simple 
 
 ## Definition
 
-
+```c
+static inline uint32
+hash_string(const char *s)
+```
 ## Detailed Description
 The hash_string function provides a streamlined interface for hashing NUL-terminated strings using PostgreSQL's incremental fasthash framework. It automatically handles string length determination and applies appropriate length-based mixing in the final hash computation.
 

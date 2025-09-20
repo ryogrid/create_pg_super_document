@@ -8,7 +8,10 @@ A hook-enabled wrapper function that must be called at the end of execution of a
 
 ## Definition
 
-
+```c
+void
+ExecutorEnd(QueryDesc *queryDesc)
+```
 ## Detailed Description
 The  function serves as the primary entry point for ending query execution in PostgreSQL. It implements a plugin hook mechanism that allows loadable extensions to intercept and customize the executor end process. If no hook is installed, it delegates to the standard implementation. This design pattern enables third-party plugins to perform custom cleanup, logging, or monitoring operations while maintaining the standard executor behavior.
 

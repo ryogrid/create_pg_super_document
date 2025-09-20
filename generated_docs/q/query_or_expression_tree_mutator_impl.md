@@ -8,7 +8,13 @@ A hybrid tree mutator function that intelligently chooses between query tree mut
 
 ## Definition
 
-
+```c
+Node *
+query_or_expression_tree_mutator_impl(Node *node,
+									  tree_mutator_callback mutator,
+									  void *context,
+									  int flags)
+```
 ## Detailed Description
 The  function provides a unified entry point for tree mutation operations that can handle both Query nodes and expression nodes. It acts as a dispatcher that determines the appropriate mutation strategy based on the input node type. If the node is a Query, it delegates to the specialized  function; otherwise, it directly applies the mutator callback.
 

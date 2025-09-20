@@ -8,7 +8,10 @@ Returns the sum of products (Sxy) component from a regression transition array, 
 
 ## Definition
 
-
+```c
+Datum
+float8_regr_sxy(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of PostgreSQL's statistical aggregate functions infrastructure, specifically designed to extract the Sxy (sum of products of deviations) value from a 6-element transition array used in regression calculations. The function validates the input array, extracts the count (N) and Sxy values, and returns the Sxy component if the sample size is valid. The Sxy value represents the sum of products of deviations from means: Σ((x_i - x̄)(y_i - ȳ)), which is fundamental for computing correlation coefficients and regression statistics.
 

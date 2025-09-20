@@ -8,7 +8,10 @@ A utility function that deallocates all prepared statements associated with a sp
 
 ## Definition
 
-
+```c
+bool
+ecpg_deallocate_all_conn(int lineno, enum COMPAT_MODE c, struct connection *con)
+```
 ## Detailed Description
  provides a bulk deallocation mechanism for cleaning up all prepared statements associated with a particular database connection. It iterates through the connection's linked list of prepared statements, calling  for each statement until the list is empty. This function is typically used during connection cleanup or when an application needs to reset all prepared statements for a connection. The function ensures complete cleanup by continuing until all statements are removed from the connection's prep_stmts list.
 

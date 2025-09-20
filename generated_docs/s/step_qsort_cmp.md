@@ -8,7 +8,10 @@ A comparison function used for sorting Step objects alphabetically by their name
 
 ## Definition
 
-
+```c
+static int
+step_qsort_cmp(const void *a, const void *b)
+```
 ## Detailed Description
 This function implements a comparison callback for sorting Step pointers using the qsort() function from the C standard library. It compares two Step objects by their name field using string comparison. The function follows the standard qsort comparison contract: returning a negative value if the first step's name comes before the second alphabetically, zero if they are equal, and a positive value if the first comes after the second.
 

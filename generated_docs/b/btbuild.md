@@ -8,7 +8,10 @@ The main entry point function for building a new B-tree index from scratch, coor
 
 ## Definition
 
-
+```c
+IndexBuildResult *
+btbuild(Relation heap, Relation index, IndexInfo *indexInfo)
+```
 ## Detailed Description
  is the primary function responsible for constructing a new B-tree index. It orchestrates the complete index building process through several distinct phases:
 

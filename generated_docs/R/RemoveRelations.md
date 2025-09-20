@@ -8,7 +8,9 @@ RemoveRelations implements the core functionality for DROP TABLE, DROP INDEX, DR
 
 ## Definition
 
-
+```c
+struct DropRelationCallbackState state;
+```
 ## Detailed Description
 RemoveRelations is the main function responsible for handling various DROP statements for database relations. It processes a DropStmt parse tree and coordinates the deletion of one or more relations. The function operates in two phases: first identifying and validating all relations to be dropped, then performing the actual deletions in a single batch operation. It handles special cases like concurrent drops, partitioned indexes, and dependency validation. The function maps different DROP command types to their corresponding relation kinds, performs appropriate locking, validates permissions and constraints, and finally invokes performMultipleDeletions to remove the objects from the system catalogs and file system.
 

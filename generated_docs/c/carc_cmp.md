@@ -8,7 +8,9 @@ A comparison function used by  to order compact NFA arcs first by color, then by
 
 ## Definition
 
-
+```c
+struct carc *aa = (const struct carc *) a;
+```
 ## Detailed Description
 This function implements the comparison logic needed to sort compact arcs ( structures) in a deterministic order. The comparison follows a two-level hierarchy:
 

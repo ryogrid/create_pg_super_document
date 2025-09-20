@@ -8,7 +8,10 @@ Scans the TidStore and returns the TIDs of the next block during iteration, with
 
 ## Definition
 
-
+```c
+TidStoreIterResult *
+TidStoreIterateNext(TidStoreIter *iter)
+```
 ## Detailed Description
 This function advances the TidStore iteration to the next block and returns the tuple identifiers for that block. It retrieves the next key-value pair from the underlying tree structure and extracts all TIDs associated with the block number encoded in the key. The function ensures that offsets within each iteration result are ordered, and block numbers are returned in order across all iterations.
 

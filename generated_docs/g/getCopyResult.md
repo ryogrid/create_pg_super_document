@@ -8,7 +8,10 @@ Internal helper function for PQgetResult that generates appropriate PGresult obj
 
 ## Definition
 
-
+```c
+static PGresult *
+getCopyResult(PGconn *conn, ExecStatusType copytype)
+```
 ## Detailed Description
 getCopyResult is a specialized helper function called by PQgetResult when the connection is in a COPY-related asynchronous state. The function handles three main scenarios for COPY operations.
 

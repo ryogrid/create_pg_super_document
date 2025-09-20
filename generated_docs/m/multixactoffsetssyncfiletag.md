@@ -8,7 +8,10 @@ multixactoffsetssyncfiletag is an entrypoint function for sync.c to synchronize 
 
 ## Definition
 
-
+```c
+int
+multixactoffsetssyncfiletag(const FileTag *ftag, char *path)
+```
 ## Detailed Description
 This function serves as a wrapper around SlruSyncFileTag specifically for multixact offsets files. It is called by the sync.c subsystem when PostgreSQL needs to ensure that multixact offset SLRU pages are properly synchronized to disk. The function delegates the actual synchronization work to the generic SLRU sync mechanism while providing the correct control structure (MultiXactOffsetCtl) for multixact offsets.
 

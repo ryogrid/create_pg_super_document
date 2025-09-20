@@ -8,7 +8,10 @@ NextCopyFromRawFields reads raw field data from the next line in COPY FROM opera
 
 ## Definition
 
-
+```c
+bool
+NextCopyFromRawFields(CopyFromState cstate, char ***fields, int *nfields)
+```
 ## Detailed Description
 This function is responsible for reading and parsing the next line of input data during COPY FROM operations in text or CSV format. It handles header line validation when required and parses the input line into individual field values. The function returns an internal temporary buffer containing all raw fields found in the input line, which remains valid until the next call to the function. Importantly, it does not apply force_not_null options to the returned fields, leaving them in their raw state for further processing.
 

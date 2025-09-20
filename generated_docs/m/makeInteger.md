@@ -8,7 +8,10 @@ The makeInteger function creates a new Integer node containing a specified integ
 
 ## Definition
 
-
+```c
+Integer *
+makeInteger(int i)
+```
 ## Detailed Description
 makeInteger is a factory function that allocates and initializes a new Integer node in PostgreSQL's node system. It uses the makeNode macro to create a properly initialized node with the correct NodeTag, then sets the integer value. This function is part of PostgreSQL's value node system, which allows primitive types like integers to be stored in parse trees and expression trees as proper nodes that can be manipulated by the node system.
 

@@ -8,7 +8,19 @@ ShellTypeInfo represents a shell (placeholder) type definition in pg_dump, used 
 
 ## Definition
 
-
+```c
+typedef struct _funcInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
+	const char *rolname;
+	Oid			lang;
+	int			nargs;
+	Oid		   *argtypes;
+	Oid			prorettype;
+	bool		postponed_def;	/* function must be postponed into post-data */
+} FuncInfo;
+```
 ## Detailed Description
 ShellTypeInfo extends DumpableObject to represent shell type definitions during the dump process. Shell types are placeholder type declarations that allow PostgreSQL to resolve dependencies when creating base types and range types that have associated I/O functions or canonicalize functions. The shell type is created first with just "CREATE TYPE typename;", then the full type definition with its functions is created later, ensuring proper dependency ordering.
 

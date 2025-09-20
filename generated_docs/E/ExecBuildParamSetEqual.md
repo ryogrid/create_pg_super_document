@@ -8,7 +8,16 @@ Builds an equality expression that can be evaluated using ExecQual(), returning 
 
 ## Definition
 
-
+```c
+ExprState *
+ExecBuildParamSetEqual(TupleDesc desc,
+					   const TupleTableSlotOps *lops,
+					   const TupleTableSlotOps *rops,
+					   const Oid *eqfunctions,
+					   const Oid *collations,
+					   const List *param_exprs,
+					   PlanState *parent)
+```
 ## Detailed Description
 ExecBuildParamSetEqual constructs a specialized expression evaluation state for comparing tuples where the comparison parameters are explicitly defined through a parameter expression list. This function is similar to ExecBuildGroupingEqual but is designed for scenarios where the comparison is based on a predetermined set of parameters rather than arbitrary column indices.
 

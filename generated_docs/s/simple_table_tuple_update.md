@@ -8,7 +8,13 @@ A simplified interface for updating a tuple in a table when concurrent updates a
 
 ## Definition
 
-
+```c
+void
+simple_table_tuple_update(Relation rel, ItemPointer otid,
+						  TupleTableSlot *slot,
+						  Snapshot snapshot,
+						  TU_UpdateIndexes *update_indexes)
+```
 ## Detailed Description
 This function provides a wrapper around  that is designed for scenarios where concurrent tuple updates are not anticipated (e.g., when holding an appropriate lock on the relation). Unlike the lower-level , this function does not return status codes to the caller. Instead, it handles all possible failure scenarios internally and reports any errors via , making it suitable for contexts where update failures should be treated as fatal errors.
 

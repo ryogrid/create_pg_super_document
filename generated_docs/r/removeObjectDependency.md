@@ -8,7 +8,10 @@ Removes dependency links from a DumpableObject, eliminating references to a spec
 
 ## Definition
 
-
+```c
+void
+removeObjectDependency(DumpableObject *dobj, DumpId refId)
+```
 ## Detailed Description
 This function removes all instances of a specific dependency ID from a DumpableObject's dependency array. It uses an efficient in-place compaction algorithm that iterates through the dependencies array once, copying non-matching entries to the front of the array while skipping entries that match the target ID. If multiple instances of the same dependency exist, all are removed in a single pass.
 

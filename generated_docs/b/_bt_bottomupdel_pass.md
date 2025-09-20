@@ -8,7 +8,11 @@ Performs bottom-up index deletion to remove duplicate index tuples and nearby tu
 
 ## Definition
 
-
+```c
+bool
+_bt_bottomupdel_pass(Relation rel, Buffer buf, Relation heapRel,
+					 Size newitemsz)
+```
 ## Detailed Description
 This function implements bottom-up index deletion, a technique to remove index tuples whose corresponding heap tuples have been deleted or updated. The primary goal is to prevent page splits caused by MVCC version churn from UPDATE operations that don't logically modify indexed columns.
 

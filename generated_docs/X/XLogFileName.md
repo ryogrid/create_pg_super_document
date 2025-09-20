@@ -8,7 +8,10 @@ XLogFileName generates a standardized WAL (Write-Ahead Log) segment file name us
 
 ## Definition
 
-
+```c
+static inline void
+XLogFileName(char *fname, TimeLineID tli, XLogSegNo logSegNo, int wal_segsz_bytes)
+```
 ## Detailed Description
 XLogFileName constructs a WAL segment file name in the standard PostgreSQL format: 8-character timeline ID followed by two 8-character hexadecimal segments representing the file number. The function calculates the file and segment portions by dividing the logical segment number by the number of segments per XLogId. This inline function is designed for efficiency and should not be used in helper functions that allocate the result.
 

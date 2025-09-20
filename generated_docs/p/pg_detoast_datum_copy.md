@@ -8,7 +8,10 @@ This function creates a modifiable copy of a varlena datum, detoasting it if nec
 
 ## Definition
 
-
+```c
+struct varlena *
+pg_detoast_datum_copy(struct varlena *datum)
+```
 ## Detailed Description
 pg_detoast_datum_copy is a utility function that ensures the caller receives a modifiable copy of a varlena datum. If the input datum is in extended form (compressed, externally stored, etc.), it calls detoast_attr to fully detoast it. If the datum is already in normal form, it creates a palloc'd copy to ensure the result is always modifiable and independently manageable.
 

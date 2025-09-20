@@ -8,7 +8,10 @@ The  function implements the not-equal comparison operator between a text type a
 
 ## Definition
 
-
+```c
+Datum
+textnename(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares a text value with a name (fixed-length string) and returns true if they are not equal. It mirrors the functionality of  but with reversed argument order. The function handles both C collation (simple byte comparison) and locale-aware collation using PostgreSQL's collation system. It extracts the lengths of both arguments and performs either a direct memory comparison for C collation or uses the  function for locale-aware comparison.
 

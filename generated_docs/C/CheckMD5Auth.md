@@ -8,7 +8,10 @@ CheckMD5Auth implements MD5 challenge-response authentication for PostgreSQL, ge
 
 ## Definition
 
-
+```c
+static int
+CheckMD5Auth(Port *port, char *shadow_pass, const char **logdetail)
+```
 ## Detailed Description
 CheckMD5Auth performs MD5-based challenge-response authentication by generating a cryptographically secure 4-byte random salt, sending it to the client along with an MD5 authentication request, and then verifying the client's hashed response against the stored password hash. This method prevents plaintext passwords from being transmitted over the network while providing authentication verification. The function handles the complete MD5 authentication flow including salt generation, client communication, and password verification.
 

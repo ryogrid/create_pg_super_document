@@ -8,7 +8,12 @@ Determines whether two range intervals overlap by comparing their boundary value
 
 ## Definition
 
-
+```c
+static bool
+range_bounds_overlaps(TypeCacheEntry *typcache,
+					  RangeBound *lower1, RangeBound *upper1,
+					  RangeBound *lower2, RangeBound *upper2)
+```
 ## Detailed Description
 This function implements overlap detection logic for range intervals using boundary comparisons. It checks if two ranges defined by their lower and upper bounds have any overlapping portion. The function uses a two-way comparison approach: it checks if the lower bound of the first range falls within the second range, or if the lower bound of the second range falls within the first range. This is more efficient than constructing full range objects when only boundary information is needed for overlap detection.
 

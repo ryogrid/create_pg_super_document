@@ -8,7 +8,10 @@ PostgreSQL function that calculates the intersection point between two line segm
 
 ## Definition
 
-
+```c
+Datum
+lseg_interpt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This is a PostgreSQL function interface that wraps the internal lseg_interpt_lseg() function to provide intersection point calculation between two line segments. The function takes two line segments as arguments, allocates memory for a result point, and calls the internal intersection calculation function. If the segments intersect, it returns the intersection point; otherwise, it returns NULL. This function serves as the SQL-callable interface for line segment intersection point calculations.
 

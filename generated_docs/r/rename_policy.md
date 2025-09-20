@@ -8,7 +8,10 @@ Changes the name of a policy on a relation by updating the policy's name in the 
 
 ## Definition
 
-
+```c
+ObjectAddress
+rename_policy(RenameStmt *stmt)
+```
 ## Detailed Description
 This function implements policy renaming through a two-phase process to ensure data consistency:
 

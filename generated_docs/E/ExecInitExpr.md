@@ -8,7 +8,10 @@ ExecInitExpr prepares an expression tree for execution by building and returning
 
 ## Definition
 
-
+```c
+ExprState *
+ExecInitExpr(Expr *node, PlanState *parent)
+```
 ## Detailed Description
 ExecInitExpr is a core function in PostgreSQL's expression evaluation system that transforms a read-only expression tree (Expr node) into an executable state machine (ExprState). The function builds a series of evaluation steps that can be efficiently executed by ExecEvalExpr. The resulting ExprState contains compiled bytecode-like instructions that eliminate the overhead of recursive tree traversal during expression evaluation.
 

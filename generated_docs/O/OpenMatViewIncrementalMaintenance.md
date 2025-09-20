@@ -8,7 +8,10 @@ Enters a materialized view maintenance context by incrementing the maintenance d
 
 ## Definition
 
-
+```c
+static void
+OpenMatViewIncrementalMaintenance(void)
+```
 ## Detailed Description
 This function serves as the entry point for materialized view maintenance operations. It increments a global depth counter (matview_maintenance_depth) to signal that the system is now in a context where DML operations on materialized views should be permitted for internal maintenance purposes.
 

@@ -8,7 +8,10 @@ This function creates regular files during archive extraction, opening them for 
 
 ## Definition
 
-
+```c
+static FILE *
+create_file_for_extract(const char *filename, mode_t mode)
+```
 ## Detailed Description
 The  function is responsible for creating regular files as part of the archive extraction process in pg_basebackup. It serves as a comprehensive file creation utility that handles both file opening and permission management.
 

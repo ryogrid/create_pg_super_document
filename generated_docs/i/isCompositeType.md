@@ -8,7 +8,10 @@ Determines whether a given type is considered "composite" for the purpose of cho
 
 ## Definition
 
-
+```c
+struct default path as '$."column_name"' */
+		StringInfoData path;
+```
 ## Detailed Description
 This static function examines a PostgreSQL type OID to determine if it should be treated as a composite type in the context of JSON table column processing. The function uses a recursive approach to handle domain types by checking their base types. A type is considered composite if it's one of the special JSON types, an array type, a composite type, or a domain over any of these types.
 

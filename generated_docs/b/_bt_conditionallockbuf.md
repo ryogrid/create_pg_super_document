@@ -8,7 +8,10 @@ _bt_conditionallockbuf attempts to conditionally acquire a B-tree write lock on 
 
 ## Definition
 
-
+```c
+bool
+_bt_conditionallockbuf(Relation rel, Buffer buf)
+```
 ## Detailed Description
 _bt_conditionallockbuf provides a non-blocking mechanism to acquire a BT_WRITE lock on a pinned B-tree buffer. Unlike regular locking functions, this function will not wait if the lock is already held by another backend - instead it immediately returns false, allowing the caller to implement alternative strategies or retry logic.
 

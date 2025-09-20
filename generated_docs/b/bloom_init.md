@@ -8,7 +8,10 @@ Initializes and allocates memory for a new Bloom filter with optimal parameters 
 
 ## Definition
 
-
+```c
+static BloomFilter *
+bloom_init(int ndistinct, double false_positive_rate)
+```
 ## Detailed Description
 This function creates a new Bloom filter by first calculating the optimal parameters using bloom_filter_size(), then allocating memory for the filter structure. The function includes safeguards to prevent creating filters that are too large to store on a database page. The filter is allocated with palloc0() so it starts as all zeros, making it highly compressible initially. As values are added, the filter becomes more random and less compressible.
 

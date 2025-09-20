@@ -8,7 +8,10 @@ This function validates locale values for the LC_MESSAGES category during Postgr
 
 ## Definition
 
-
+```c
+bool
+check_locale_messages(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 The  function serves as a GUC (Grand Unified Configuration) check hook for validating LC_MESSAGES locale settings. Unlike most other locale categories in PostgreSQL, LC_MESSAGES is allowed to be set globally. The function handles several special cases:
 

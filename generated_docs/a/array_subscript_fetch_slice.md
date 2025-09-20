@@ -8,7 +8,9 @@ Evaluates a SubscriptingRef fetch operation for an array slice, extracting a sub
 
 ## Definition
 
-
+```c
+struct_empty_array(workspace->refelemtype));
+```
 ## Detailed Description
 This function performs array slice extraction during expression execution. It is called after subscripts have been validated and converted to integers by array_subscript_check_subscripts. Unlike array_subscript_fetch which extracts single elements, this function handles slice operations that return sub-arrays containing multiple elements.
 

@@ -8,7 +8,10 @@ Converts a Notification structure into an AsyncQueueEntry format suitable for st
 
 ## Definition
 
-
+```c
+static void
+asyncQueueNotificationToEntry(Notification *n, AsyncQueueEntry *qe)
+```
 ## Detailed Description
 This function transforms an internal Notification object into the format required for storage in the shared memory notification queue. It performs several key operations:
 

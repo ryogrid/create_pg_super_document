@@ -8,7 +8,10 @@ Deallocates a PL/Python cursor object, properly closing the associated PostgreSQ
 
 ## Definition
 
-
+```c
+static void
+PLy_cursor_dealloc(PyObject *arg)
+```
 ## Detailed Description
 PLy_cursor_dealloc serves as the Python tp_dealloc function for PLyCursorObject instances, implementing proper cleanup when a cursor object is garbage collected or explicitly deleted. The function performs comprehensive resource management by ensuring the PostgreSQL portal is properly closed and unpinned, the cursor's dedicated memory context is deleted, and the Python object itself is freed.
 

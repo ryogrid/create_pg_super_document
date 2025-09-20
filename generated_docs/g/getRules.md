@@ -8,7 +8,10 @@ Retrieves comprehensive information about all PostgreSQL rules in the system fro
 
 ## Definition
 
-
+```c
+RuleInfo *
+getRules(Archive *fout, int *numRules)
+```
 ## Detailed Description
 This function queries the pg_rewrite system catalog to collect information about all rules defined in the database. Rules in PostgreSQL are used to implement views, materialized views, and custom query rewriting logic. The function creates RuleInfo structures for each rule, establishing proper dependency relationships between rules and their associated tables.
 

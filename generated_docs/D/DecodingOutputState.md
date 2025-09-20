@@ -8,7 +8,15 @@ DecodingOutputState is a private data structure that manages output state for lo
 
 ## Definition
 
-
+```c
+typedef struct DecodingOutputState
+{
+	Tuplestorestate *tupstore;
+	TupleDesc	tupdesc;
+	bool		binary_output;
+	int64		returned_rows;
+} DecodingOutputState;
+```
 ## Detailed Description
 DecodingOutputState serves as a container for managing the output state during logical decoding operations in PostgreSQL's logical replication system. This structure is specifically designed for the SQL-callable logical decoding functions like `pg_logical_slot_get_changes()` and `pg_logical_slot_peek_changes()`. It encapsulates all necessary information for storing decoded logical replication changes into a tuplestore, which can then be returned as a result set to SQL clients.
 

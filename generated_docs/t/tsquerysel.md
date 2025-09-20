@@ -8,7 +8,10 @@ Computes selectivity estimates for tsvector variables against tsquery constants 
 
 ## Definition
 
-
+```c
+static Selectivity
+tsquerysel(VariableStatData *vardata, Datum constval)
+```
 ## Detailed Description
  is the core selectivity estimation function for text search operations. It calculates the probability that a tsvector column will match a given TSQuery expression. The function uses PostgreSQL's column statistics, particularly the most-common-elements (MCELEM) statistics, to make informed estimates about query selectivity.
 

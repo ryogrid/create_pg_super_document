@@ -8,7 +8,29 @@ StreamCtl is a control structure that encapsulates all global parameters needed 
 
 ## Definition
 
+```c
+typedef struct StreamCtl
+{
+	XLogRecPtr	startpos;		/* Start position for streaming */
+	TimeLineID	timeline;		/* Timeline to stream data from */
+	char	   *sysidentifier;	/* Validate this system identifier and
+								 * timeline */
+	int			standby_message_timeout;	/* Send status messages this often */
+	bool		synchronous;	/* Flush immediately WAL data on write */
+	bool		mark_done;		/* Mark segment as done in generated archive */
+	bool		do_sync;		/* Flush to disk to ensure consistent state of
+								 * data */
 
+	stream_stop_callback stream_stop;	/* Stop streaming when returns true */
+
+	pgsocket	stop_socket;	/* if valid, watch for input on this socket
+								 * and check stream_stop() when there is any */
+
+	WalWriteMethod *walmethod;	/* How to write the WAL */
+	char	   *partial_suffix; /* Suffix appended to partially received files */
+	char	   *replication_slot;	/* Replication slot to use, or NULL */
+} StreamCtl;
+```
 ## Detailed Description
 StreamCtl serves as the central configuration structure for WAL streaming operations in PostgreSQL's base backup and WAL receiving utilities (pg_basebackup, pg_receivewal). This structure contains all necessary parameters to control how WAL data is received, processed, and written to disk during replication streaming. It provides fine-grained control over synchronization behavior, file handling, network communication, and streaming lifecycle management.
 

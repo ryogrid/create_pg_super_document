@@ -8,7 +8,16 @@ JsonbAggState is a state structure used by JSONB aggregate functions to maintain
 
 ## Definition
 
-
+```c
+typedef struct JsonbAggState
+{
+	JsonbInState *res;
+	JsonTypeCategory key_category;
+	Oid			key_output_func;
+	JsonTypeCategory val_category;
+	Oid			val_output_func;
+} JsonbAggState;
+```
 ## Detailed Description
 JsonbAggState serves as the aggregation state structure for JSONB aggregate functions like jsonb_agg() and jsonb_object_agg(). It encapsulates the result construction state along with type categorization and output function information needed for proper conversion of input values to JSON representation. This structure is particularly important for object aggregation where both keys and values need type-specific handling during the aggregation process.
 

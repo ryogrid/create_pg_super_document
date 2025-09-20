@@ -8,7 +8,9 @@ Creates a text array listing the authentication options specified in an HBA (Hos
 
 ## Definition
 
-
+```c
+struct_array_builtin(options, noptions, TEXTOID);
+```
 ## Detailed Description
 The  function processes an HBA configuration line and extracts all authentication-related options into a PostgreSQL text array. It handles various authentication methods including GSS/SSPI, LDAP, RADIUS, and certificate-based authentication. The function examines the authentication method type and conditionally includes relevant options such as Kerberos realms, LDAP server configurations, RADIUS settings, and client certificate requirements. Each option is formatted as a "key=value" string and added to the array.
 

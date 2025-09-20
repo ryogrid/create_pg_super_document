@@ -8,7 +8,12 @@ Parses parallel arrays of PostgreSQL connection parameter keywords and values, w
 
 ## Definition
 
-
+```c
+static PQconninfoOption *
+conninfo_array_parse(const char *const *keywords, const char *const *values,
+					 PQExpBuffer errorMessage, bool use_defaults,
+					 int expand_dbname)
+```
 ## Detailed Description
 This function is a sophisticated connection parameter parser that processes parallel arrays of connection keywords and their corresponding values. It provides advanced functionality beyond basic parsing, including the ability to expand connection strings found in the "dbname" parameter and merge those parameters with the explicitly provided ones.
 

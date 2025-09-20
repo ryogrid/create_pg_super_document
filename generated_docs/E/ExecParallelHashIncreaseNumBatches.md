@@ -8,7 +8,10 @@ ExecParallelHashIncreaseNumBatches coordinates the dynamic expansion of batch co
 
 ## Definition
 
-
+```c
+static void
+ExecParallelHashIncreaseNumBatches(HashJoinTable hashtable)
+```
 ## Detailed Description
 This function orchestrates a complex multi-phase operation that increases the number of batches in a parallel hash join when the current batching scheme becomes insufficient due to memory constraints. The function implements a state machine with multiple barrier synchronization phases to ensure all parallel workers coordinate properly during the repartitioning process.
 

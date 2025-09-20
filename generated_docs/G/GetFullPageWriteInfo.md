@@ -8,7 +8,10 @@ GetFullPageWriteInfo returns cached information needed to decide whether a modif
 
 ## Definition
 
-
+```c
+void
+GetFullPageWriteInfo(XLogRecPtr *RedoRecPtr_p, bool *doPageWrites_p)
+```
 ## Detailed Description
 GetFullPageWriteInfo provides cached backend-private copies of two critical pieces of information for WAL generation: the current Redo record pointer and the full-page write flag. This information helps determine whether modified data blocks need full-page images included in WAL records for crash recovery safety. The function returns cached values that may be out-of-date or uninitialized (InvalidXLogRecPtr and false respectively), which is acceptable because XLogInsertRecord will re-verify these values while holding the WAL insert lock before making the final decision.
 

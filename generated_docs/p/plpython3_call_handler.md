@@ -8,7 +8,13 @@ Main entry point for executing PL/Python functions and triggers, handling the co
 
 ## Definition
 
-
+```c
+structure pops this for us again at exit, so we needn't do that
+		 * explicitly, nor do we risk the callback getting called after we've
+		 * destroyed the exec_ctx.
+		 */
+		plerrcontext.callback = plpython_error_callback;
+```
 ## Detailed Description
 This function serves as the primary execution handler for PL/Python procedures and triggers within PostgreSQL. It manages the complete execution context, including SPI connections, execution context stack management, error handling, and proper cleanup. The function distinguishes between trigger and regular function calls, setting up appropriate execution environments for each type. It implements robust error handling using PostgreSQL's PG_TRY/PG_CATCH mechanism and ensures proper cleanup of Python execution contexts.
 

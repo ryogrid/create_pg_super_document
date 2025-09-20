@@ -8,7 +8,10 @@ Creates a LockRows plan node that applies row-level locking to tuples returned b
 
 ## Definition
 
-
+```c
+static LockRows *
+make_lockrows(Plan *lefttree, List *rowMarks, int epqParam)
+```
 ## Detailed Description
 The  function constructs a LockRows plan node that implements row-level locking functionality in PostgreSQL. This node is typically used to implement SELECT FOR UPDATE, SELECT FOR SHARE, and similar locking operations. The LockRows node processes tuples from its child plan and applies the specified locking semantics to each tuple before passing it up to the parent node.
 

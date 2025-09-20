@@ -8,7 +8,17 @@ AutoVacuumWorkItem is a structure used in PostgreSQL's autovacuum system to repr
 
 ## Definition
 
-
+```c
+typedef struct AutoVacuumWorkItem
+{
+	AutoVacuumWorkItemType avw_type;
+	bool		avw_used;		/* below data is valid */
+	bool		avw_active;		/* being processed */
+	Oid			avw_database;
+	Oid			avw_relation;
+	BlockNumber avw_blockNumber;
+} AutoVacuumWorkItem;
+```
 ## Detailed Description
 AutoVacuumWorkItem represents a work request that external processes can submit to the autovacuum system for specialized maintenance tasks. This structure is stored in the autovacuum shared memory work item array (AutoVacuumShmem->av_workItems) and allows coordination between regular PostgreSQL operations and the autovacuum workers.
 

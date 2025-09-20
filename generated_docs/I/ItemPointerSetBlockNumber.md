@@ -8,7 +8,10 @@ Sets only the block number portion of a disk item pointer, leaving the offset nu
 
 ## Definition
 
-
+```c
+static inline void
+ItemPointerSetBlockNumber(ItemPointerData *pointer, BlockNumber blockNumber)
+```
 ## Detailed Description
 ItemPointerSetBlockNumber is a specialized inline function that modifies only the block number component of an existing ItemPointerData structure while preserving the current offset number. This function is particularly useful when relocating tuples between blocks but maintaining their relative position within the destination block, or when updating references during block splits, merges, or other reorganization operations.
 

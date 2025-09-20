@@ -8,7 +8,10 @@ Advances the replication progress tracking for the current session's configured 
 
 ## Definition
 
-
+```c
+void
+replorigin_session_advance(XLogRecPtr remote_commit, XLogRecPtr local_commit)
+```
 ## Detailed Description
 This function provides an optimized way to update replication progress for the currently active replication origin session. It updates the session's local and remote LSN (Log Sequence Number) positions to track replication progress.
 

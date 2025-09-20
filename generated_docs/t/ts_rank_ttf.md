@@ -8,7 +8,10 @@ A PostgreSQL function that calculates the rank of a TSVector against a TSQuery u
 
 ## Definition
 
-
+```c
+Datum
+ts_rank_ttf(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that computes text search ranking scores with custom normalization options. It takes three arguments: a TSVector representing indexed text, a TSQuery representing the search criteria, and an integer specifying the normalization method to apply. Unlike , this function uses default weights for the four word classes (D, C, B, A) by passing NULL to the getWeights function. The normalization method parameter allows control over how the final ranking score is adjusted based on document characteristics like length, uniqueness, etc.
 

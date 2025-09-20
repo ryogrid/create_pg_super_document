@@ -8,7 +8,10 @@ Returns both the textual name string and its length for a given CommandTag enume
 
 ## Definition
 
-
+```c
+const char *
+GetCommandTagNameAndLen(CommandTag commandTag, Size *len)
+```
 ## Detailed Description
 This function is an optimized variant of GetCommandTagName that also retrieves the pre-computed length of the command tag name string. It performs a single lookup into the tag_behavior array to fetch both the name string and its length, avoiding the need for a separate strlen() call when both pieces of information are needed.
 

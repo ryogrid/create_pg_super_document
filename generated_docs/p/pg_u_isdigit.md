@@ -8,7 +8,10 @@ Determines whether a Unicode code point is a digit character, with support for b
 
 ## Definition
 
-
+```c
+bool
+pg_u_isdigit(pg_wchar code, bool posix)
+```
 ## Detailed Description
 This function checks if a given Unicode code point represents a digit character. It implements the Unicode Compatibility Properties as described in Unicode Technical Report #18. The function provides two different behaviors based on the  parameter:
 

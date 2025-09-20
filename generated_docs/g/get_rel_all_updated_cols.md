@@ -8,7 +8,9 @@ Returns the complete set of columns for a given relation that are updated by the
 
 ## Definition
 
-
+```c
+union(updatedCols, extraUpdatedCols);
+```
 ## Detailed Description
 This function determines all columns that will be affected by an UPDATE operation on a specified relation. It performs several key operations:
 

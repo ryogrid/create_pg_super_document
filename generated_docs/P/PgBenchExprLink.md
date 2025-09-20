@@ -8,7 +8,9 @@ PgBenchExprLink is a linked list node structure that chains together PgBenchExpr
 
 ## Definition
 
-
+```c
+typedef struct PgBenchExprLink PgBenchExprLink;
+```
 ## Detailed Description
 PgBenchExprLink implements a singly-linked list data structure to organize sequences of PgBenchExpr nodes. This is essential for representing function calls with multiple arguments in pgbench expressions. Each link contains a pointer to an expression and a pointer to the next link in the chain. The structure enables recursive expression evaluation where functions can have arbitrary numbers of arguments, each of which can be complex expressions themselves.
 

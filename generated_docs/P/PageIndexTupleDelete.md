@@ -8,7 +8,10 @@ Removes a tuple from an index page by compacting out the line pointer and adjust
 
 ## Definition
 
-
+```c
+void
+PageIndexTupleDelete(Page page, OffsetNumber offnum)
+```
 ## Detailed Description
 PageIndexTupleDelete performs the complete removal of a tuple from an index page, which involves more complex operations than heap tuple deletion. Unlike heap pages where line pointers are typically left in place when tuples are deleted, index pages compact out the deleted line pointer to maintain efficiency.
 

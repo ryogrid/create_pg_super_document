@@ -8,7 +8,10 @@ The  function checks whether a specific index is currently being actively reinde
 
 ## Definition
 
-
+```c
+static bool
+ReindexIsCurrentlyProcessingIndex(Oid indexOid)
+```
 ## Detailed Description
 This static function provides a boolean check to determine if an index identified by its OID is currently being processed during an active reindex operation. It compares the provided index OID against the global variable  that tracks which index is currently undergoing reconstruction. This mechanism is part of PostgreSQL's reindex coordination system that prevents operations on indexes that are in an inconsistent state during rebuilding.
 

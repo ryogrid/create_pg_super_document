@@ -8,7 +8,10 @@ Tests whether the lower edge of the first box is at or above the lower edge of t
 
 ## Definition
 
-
+```c
+Datum
+box_overabove(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements a geometric relationship test that determines if the lower edge (minimum y-coordinate) of the first box is positioned at or above the lower edge of the second box. This function checks whether box1->low.y >= box2->low.y, allowing for cases where the boxes may overlap vertically but ensuring that the bottom of the first box is not below the bottom of the second box.
 

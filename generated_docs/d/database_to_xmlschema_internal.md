@@ -8,7 +8,11 @@ Generates an XML Schema definition for all visible tables and schemas in the cur
 
 ## Definition
 
-
+```c
+static StringInfo
+database_to_xmlschema_internal(bool nulls, bool tableforest,
+							   const char *targetns)
+```
 ## Detailed Description
 This internal function creates a complete XML Schema (XSD) representation of the entire database structure. It retrieves all visible tables and schemas from the database, processes their tuple descriptors to extract type information, and generates corresponding XML Schema elements and type definitions. The function establishes an SPI connection to access the database catalog, collects metadata about tables and schemas, and delegates the actual XML Schema generation to specialized mapping functions.
 

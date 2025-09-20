@@ -8,7 +8,11 @@ A static utility function that safely sets compression parameters for a ZSTD com
 
 ## Definition
 
-
+```c
+static void
+_Zstd_CCtx_setParam_or_die(ZSTD_CStream *cstream,
+						   ZSTD_cParameter param, int value, char *paramname)
+```
 ## Detailed Description
 This function provides a wrapper around the ZSTD library's  function with error handling. It attempts to set a compression parameter on the given ZSTD compression stream and calls  to terminate the program if the operation fails. The function is designed to be used during initialization of ZSTD compression contexts where parameter setting failures are considered unrecoverable errors.
 

@@ -8,7 +8,10 @@ A comparison function for multi-dimensional sorting that compares two SortItem s
 
 ## Definition
 
-
+```c
+int
+multi_sort_compare(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 This function implements a lexicographic comparison for multi-dimensional sorting operations. It iterates through all dimensions of two SortItem structures, applying the appropriate comparison function for each dimension. The function returns as soon as it finds a non-zero comparison result, implementing a proper ordering for multi-column sort operations. This is essential for PostgreSQL's extended statistics system where data needs to be sorted across multiple columns simultaneously for statistical analysis.
 

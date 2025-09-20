@@ -8,7 +8,10 @@ Saves data about a single part of an ALTER TABLE command for event trigger proce
 
 ## Definition
 
-
+```c
+void
+EventTriggerCollectAlterTableSubcmd(Node *subcmd, ObjectAddress address)
+```
 ## Detailed Description
 This function is responsible for collecting information about individual ALTER TABLE subcommands during command execution. It operates as part of PostgreSQL's event trigger system, which allows users to define triggers that fire in response to DDL commands.
 

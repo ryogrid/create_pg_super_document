@@ -8,7 +8,23 @@ ColumnIOData is a structure that caches record metadata needed for populating re
 
 ## Definition
 
-
+```c
+struct ColumnIOData
+{
+	Oid			typid;			/* column type id */
+	int32		typmod;			/* column type modifier */
+	TypeCat		typcat;			/* column type category */
+	ScalarIOData scalar_io;		/* metadata cache for direct conversion
+								 * through input function */
+	union
+	{
+		ArrayIOData array;
+		CompositeIOData composite;
+		DomainIOData domain;
+	}			io;				/* metadata cache for various column type
+								 * categories */
+};
+```
 ## Detailed Description
 ColumnIOData serves as a comprehensive metadata cache structure for column type handling in PostgreSQL's JSON and record processing systems. It provides a unified interface for managing different types of columns by storing type identification information and specialized I/O data for each category of types. The structure uses a union to efficiently store type-specific metadata, supporting arrays, composite types, and domain types while also maintaining scalar I/O information for direct conversions.
 

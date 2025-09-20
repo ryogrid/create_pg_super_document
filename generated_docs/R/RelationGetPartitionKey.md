@@ -8,7 +8,9 @@ Retrieves the partition key of a relation if it is a partitioned table, ensuring
 
 ## Definition
 
-
+```c
+structure;
+```
 ## Detailed Description
 RelationGetPartitionKey is a fundamental function in PostgreSQL's partitioning system that provides access to a relation's partition key. The function performs lazy initialization of the partition key - if the partition key hasn't been built yet (rd_partkey is NULL), it calls RelationBuildPartitionKey to construct it. 
 

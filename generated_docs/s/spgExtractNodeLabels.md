@@ -8,7 +8,10 @@ Extracts the label datums from child nodes within an SP-GiST inner tuple, return
 
 ## Definition
 
-
+```c
+Datum *
+spgExtractNodeLabels(SpGistState *state, SpGistInnerTuple innerTuple)
+```
 ## Detailed Description
 The  function retrieves the label values from all child nodes contained within an SP-GiST inner tuple. It enforces the constraint that either all node labels must be NULL or none can be NULL - mixed states are considered an error condition. If all labels are null, the function returns NULL instead of allocating an array. For non-null labels, it allocates memory and extracts each label datum using the appropriate type handling.
 

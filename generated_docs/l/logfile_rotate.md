@@ -8,7 +8,10 @@ Performs log file rotation for PostgreSQL's system logger, handling time-based a
 
 ## Definition
 
-
+```c
+static void
+logfile_rotate(bool time_based_rotation, int size_rotation_for)
+```
 ## Detailed Description
 The  function is responsible for coordinating log file rotation across all active log destinations in PostgreSQL's system logger. It supports both time-based rotation (triggered by scheduled intervals) and size-based rotation (triggered when log files exceed size limits). The function ensures consistent naming across all log file types by using a unified timestamp, and handles the rotation process atomically by updating metadata and scheduling the next rotation time only after all individual destination rotations succeed.
 

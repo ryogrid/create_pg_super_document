@@ -8,7 +8,10 @@ Searches for a specific 8-bit value within an array of 8-bit integers using vect
 
 ## Definition
 
-
+```c
+static inline bool
+pg_lfind8(uint8 key, uint8 *base, uint32 nelem)
+```
 ## Detailed Description
 The  function performs a linear search for a given 8-bit key value within an array of 8-bit unsigned integers. The function is optimized for performance by using SIMD (Single Instruction, Multiple Data) vectorized operations when possible, processing multiple elements simultaneously. When the array size is not perfectly aligned with the vector size, it falls back to element-by-element comparison for the remaining elements.
 

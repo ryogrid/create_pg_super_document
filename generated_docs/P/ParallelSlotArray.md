@@ -8,7 +8,17 @@ ParallelSlotArray is a structure that manages an array of parallel worker slots 
 
 ## Definition
 
-
+```c
+typedef struct ParallelSlotArray
+{
+	int			numslots;
+	ConnParams *cparams;
+	const char *progname;
+	bool		echo;
+	const char *initcmd;
+	ParallelSlot slots[FLEXIBLE_ARRAY_MEMBER];
+} ParallelSlotArray;
+```
 ## Detailed Description
 ParallelSlotArray serves as a container and management structure for multiple ParallelSlot instances in PostgreSQL frontend utilities. It encapsulates the configuration and state needed to coordinate parallel worker processes, including connection parameters, program identification, and initialization commands. The structure uses a flexible array member to dynamically allocate the exact number of slots needed for parallel operations.
 

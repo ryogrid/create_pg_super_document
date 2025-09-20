@@ -8,7 +8,13 @@ Appends a psql meta-command that connects to the given database using the curren
 
 ## Definition
 
-
+```c
+struct the text representation of a 1-dimensional Postgres array
+ * into individual items.
+ *
+ * On success, returns true and sets *itemarray and *nitems to describe
+ * an array of individual strings.  On parse failure, returns false;
+```
 ## Detailed Description
 This function generates a psql meta-command to connect to a specified database. It analyzes the database name to determine the appropriate connection syntax:
 

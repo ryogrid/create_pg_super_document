@@ -8,7 +8,11 @@ ExecMaterial is the main execution function for Material nodes that collects and
 
 ## Definition
 
-
+```c
+structure
+	 */
+	matstate = makeNode(MaterialState);
+```
 ## Detailed Description
 ExecMaterial implements a buffering strategy for tuple access. It operates in a lazy manner - as long as it's at the end of collected data, it fetches one new row from the subplan on each call and stores it in the tuplestore before returning it. The tuplestore is only read when backward scanning, rescanning, or mark/restore operations are requested.
 

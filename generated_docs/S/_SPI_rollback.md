@@ -8,7 +8,10 @@ _SPI_rollback is the internal implementation function that handles transaction r
 
 ## Definition
 
-
+```c
+static void
+_SPI_rollback(bool chain)
+```
 ## Detailed Description
 _SPI_rollback is the core internal function that implements transaction rollback functionality for the SPI (Server Programming Interface). This static function serves as the implementation backend for both SPI_rollback and SPI_rollback_and_chain, with the behavior controlled by the 'chain' parameter.
 

@@ -8,7 +8,13 @@ Allocates new subcolors for all characters and ranges in a character vector (cve
 
 ## Definition
 
-
+```c
+static void
+subcolorcvec(struct vars *v,
+			 struct cvec *cv,
+			 struct state *lp,
+			 struct state *rp)
+```
 ## Detailed Description
 The  function is a key component of PostgreSQL's regex compilation system. It processes a character vector (cvec) containing individual characters, character ranges, and character classes, converting them into subcolors and creating NFA arcs. The function optimizes performance by avoiding duplicate arc creation through the  state variable. It handles three types of character specifications: ordinary individual characters, character ranges, and character classes. For character classes, it dynamically expands the hicolormap if needed and processes all relevant color combinations.
 

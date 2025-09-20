@@ -8,7 +8,10 @@ Checks whether all the joinquals of a nestloop join are used as inner index qual
 
 ## Definition
 
-
+```c
+static bool
+has_indexed_join_quals(NestPath *path)
+```
 ## Detailed Description
 This function determines whether a nestloop join path can process unmatched outer tuples efficiently by checking if all join qualifications are handled as index qualifications on the inner path. This optimization is particularly important for SEMI/ANTI joins where:
 

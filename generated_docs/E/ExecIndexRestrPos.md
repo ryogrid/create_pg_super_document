@@ -8,7 +8,11 @@ ExecIndexRestrPos restores an index scan to a previously marked position, servin
 
 ## Definition
 
-
+```c
+structure
+	 */
+	indexstate = makeNode(IndexScanState);
+```
 ## Detailed Description
 ExecIndexRestrPos restores an index scan to a position that was previously saved by ExecIndexMarkPos. This function is part of PostgreSQL's execution engine infrastructure that supports position-based scan operations, allowing the executor to backtrack to previously visited positions during query execution.
 

@@ -8,7 +8,10 @@ DeleteSharedSecurityLabel removes all security labels associated with a specifie
 
 ## Definition
 
-
+```c
+void
+DeleteSharedSecurityLabel(Oid objectId, Oid classId)
+```
 ## Detailed Description
 DeleteSharedSecurityLabel is a helper function of DeleteSecurityLabel specifically designed to handle shared database objects. Shared objects in PostgreSQL are those that exist at the cluster level rather than within individual databases, such as roles, tablespaces, and databases themselves. The function deletes all security label entries for the specified object from the pg_shseclabel system catalog.
 

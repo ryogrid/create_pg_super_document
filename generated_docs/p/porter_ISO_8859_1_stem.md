@@ -8,7 +8,11 @@ The porter_ISO_8859_1_stem function implements the complete Porter stemming algo
 
 ## Definition
 
+```c
+}
 
+extern int porter_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 This is the main entry point function for the Porter stemming algorithm implementation in the Snowball library. It performs a comprehensive stemming process by executing all steps of the Porter algorithm in sequence:
 

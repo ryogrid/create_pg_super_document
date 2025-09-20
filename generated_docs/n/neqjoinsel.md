@@ -8,7 +8,10 @@ Estimates the selectivity of a "!=" (not equal) operator in join conditions, ret
 
 ## Definition
 
-
+```c
+Datum
+neqjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function calculates join selectivity for inequality ("!=") operations by computing the complement of equality selectivity. It handles different join types with specialized logic:
 

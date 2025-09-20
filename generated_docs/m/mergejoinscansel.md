@@ -8,7 +8,11 @@ Estimates scan selectivity for merge joins by calculating how much of each input
 
 ## Definition
 
-
+```c
+struct the merge clause */
+	if (!is_opclause(clause))
+		return;
+```
 ## Detailed Description
 The function analyzes a merge join clause to estimate scanning behavior of both input streams. Since merge joins stop as soon as either input stream is exhausted, understanding the data ranges of both inputs allows PostgreSQL to estimate how much data will actually be scanned. This is particularly important for index scans where the cost can vary dramatically based on how much of the index needs to be read.
 

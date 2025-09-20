@@ -8,7 +8,11 @@ Verifies a plaintext password against a stored SCRAM secret, enabling plaintext 
 
 ## Definition
 
-
+```c
+bool
+scram_verify_plain_password(const char *username, const char *password,
+							const char *secret)
+```
 ## Detailed Description
 This function enables plaintext password authentication for users who have SCRAM secrets stored in pg_authid.rolpassword. It works by parsing the stored SCRAM secret to extract the salt, iteration count, and server key, then computing what the server key should be for the provided plaintext password using the same parameters. If the computed server key matches the stored one, the password is verified as correct.
 

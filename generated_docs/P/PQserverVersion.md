@@ -8,7 +8,10 @@ Returns the version number of the PostgreSQL server that the connection is conne
 
 ## Definition
 
-
+```c
+int
+PQserverVersion(const PGconn *conn)
+```
 ## Detailed Description
 This function retrieves the PostgreSQL server version number from an established connection. The version is returned as an integer where major, minor, and patch versions are encoded into a single number. For example, version 13.2.1 would be represented as 130201. This encoding allows for easy numerical comparison of server versions to determine feature availability and compatibility.
 

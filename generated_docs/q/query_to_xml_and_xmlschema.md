@@ -8,7 +8,10 @@ Executes a SQL query and returns both the XML representation of the query result
 
 ## Definition
 
-
+```c
+Datum
+query_to_xml_and_xmlschema(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that combines the functionality of executing a SQL query and generating both XML data and its schema. It uses the SPI (Server Programming Interface) to prepare and execute the provided query, then generates an XML schema based on the query's tuple descriptor and finally converts the query results to XML format with the embedded schema. The function returns the combined result as an XML type.
 

@@ -8,7 +8,11 @@ Decomposes an operator OID into its constituent parts (schema name, operator nam
 
 ## Definition
 
-
+```c
+void
+format_operator_parts(Oid operator_oid, List **objnames, List **objargs,
+					  bool missing_ok)
+```
 ## Detailed Description
 The  function breaks down an operator into its structural components rather than returning a formatted string. This function is specifically designed for use by PostgreSQL's object identity system, which needs to handle object names and arguments as separate entities.
 

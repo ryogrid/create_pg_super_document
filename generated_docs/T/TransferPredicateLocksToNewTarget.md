@@ -8,7 +8,12 @@ Transfers or copies all predicate locks from an old lock target to a new lock ta
 
 ## Definition
 
-
+```c
+static bool
+TransferPredicateLocksToNewTarget(PREDICATELOCKTARGETTAG oldtargettag,
+								  PREDICATELOCKTARGETTAG newtargettag,
+								  bool removeOld)
+```
 ## Detailed Description
 TransferPredicateLocksToNewTarget is a complex function that handles the migration of predicate locks during structural changes in the database, particularly during index operations. The function performs several critical operations:
 

@@ -8,7 +8,10 @@ Returns the first node in a doubly-linked list, providing direct access to the h
 
 ## Definition
 
-
+```c
+static inline dlist_node *
+dlist_head_node(dlist_head *head)
+```
 ## Detailed Description
 This function is a convenience wrapper around  that returns the first node in a doubly-linked list. It assumes the list contains at least one element and will return undefined behavior if called on an empty list. The function is implemented as a static inline for performance, calling  with a zero offset to get the actual node structure. This is part of PostgreSQL's intrusive doubly-linked list implementation where list nodes are embedded within the data structures they organize.
 

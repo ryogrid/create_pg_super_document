@@ -8,7 +8,10 @@ WalkInnerWith is a static helper function that handles the recursive traversal o
 
 ## Definition
 
-
+```c
+static void
+WalkInnerWith(Node *stmt, WithClause *withClause, CteState *cstate)
+```
 ## Detailed Description
 This function is a subroutine of makeDependencyGraphWalker that specifically handles the complex visibility semantics of CTE names within WITH clauses. It implements two distinct behaviors:
 

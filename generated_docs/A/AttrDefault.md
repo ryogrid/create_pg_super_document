@@ -8,7 +8,13 @@ AttrDefault represents a column default value constraint in PostgreSQL's tuple d
 
 ## Definition
 
-
+```c
+typedef struct AttrDefault
+{
+	AttrNumber	adnum;
+	char	   *adbin;			/* nodeToString representation of expr */
+} AttrDefault;
+```
 ## Detailed Description
 AttrDefault is a structure that stores information about default values for table columns. It is part of PostgreSQL's constraint system and is used within tuple descriptors to maintain default value information. The structure contains the column number (attribute number) and a string representation of the default value expression that has been serialized using nodeToString().
 

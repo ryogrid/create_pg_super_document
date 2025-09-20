@@ -8,7 +8,10 @@ This function converts a timestamp with time zone to a timestamp without time zo
 
 ## Definition
 
-
+```c
+Datum
+timestamptz_izone(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs timezone conversion using an interval value to specify the timezone offset. Unlike  which accepts timezone names or abbreviations, this function accepts an interval that represents the timezone offset from UTC.
 

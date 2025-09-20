@@ -8,7 +8,13 @@ BTOneVacInfo is a structure that tracks active B-tree vacuum operations by stori
 
 ## Definition
 
-
+```c
+typedef struct BTOneVacInfo
+{
+	LockRelId	relid;			/* global identifier of an index */
+	BTCycleId	cycleid;		/* cycle ID for its active VACUUM */
+} BTOneVacInfo;
+```
 ## Detailed Description
 This structure represents a single entry in the shared memory area that tracks currently active B-tree vacuum operations. Each active vacuum operation gets assigned a unique cycle ID to coordinate with other database operations that might need to avoid interfering with ongoing vacuum processes. The structure stores both the global identifier of the index being vacuumed and its associated cycle ID. This information is used to prevent multiple concurrent vacuum operations on the same index and to provide coordination between vacuum and other B-tree operations.
 

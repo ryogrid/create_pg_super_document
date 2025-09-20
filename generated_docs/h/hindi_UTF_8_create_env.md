@@ -8,7 +8,11 @@ Creates and initializes a new Snowball environment structure for Hindi text stem
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * hindi_UTF_8_create_env(void)
+```
 ## Detailed Description
 This function serves as a factory method for creating Snowball environment structures specifically configured for Hindi language processing. It acts as a language-specific wrapper around the generic  function, ensuring that the environment is properly initialized for Hindi stemming operations. The returned environment structure contains all necessary state information including text buffers, cursor positions, and processing boundaries required by the Hindi stemming algorithm. This function is typically called before performing any stemming operations on Hindi text.
 

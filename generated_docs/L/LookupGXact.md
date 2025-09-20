@@ -8,7 +8,11 @@ LookupGXact checks if a prepared transaction with the given Global Transaction I
 
 ## Definition
 
-
+```c
+bool
+LookupGXact(const char *gid, XLogRecPtr prepare_end_lsn,
+			TimestampTz origin_prepare_timestamp)
+```
 ## Detailed Description
 This function is primarily used in logical replication scenarios to verify whether a prepared transaction received from an upstream (remote) node already exists locally. The function performs a comprehensive match check using three criteria: GID, origin LSN, and origin timestamp. This multi-criteria matching is essential because different prepared transactions with the same GID can exist on the same node, and matching only the GID would be insufficient to distinguish between transactions from different nodes.
 

@@ -8,7 +8,10 @@ The  function implements the  psql command for displaying schema (namespace) inf
 
 ## Definition
 
-
+```c
+bool
+listSchemas(const char *pattern, bool verbose, bool showSystem)
+```
 ## Detailed Description
 This function queries the  system catalog to retrieve and display information about schemas defined in the database. Schemas are logical containers that organize database objects like tables, views, functions, and types. The function shows schema names, owners, and optionally access control lists (ACLs) and descriptions.
 

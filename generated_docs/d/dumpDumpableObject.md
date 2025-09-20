@@ -8,7 +8,10 @@ The central dispatcher function in pg_dump that routes each database object to i
 
 ## Definition
 
-
+```c
+static void
+dumpDumpableObject(Archive *fout, DumpableObject *dobj)
+```
 ## Detailed Description
 The  function serves as the main dispatcher in pg_dump's dumping process. It takes a DumpableObject and routes it to the appropriate specialized dump function based on the object's type. Before dispatching, it performs optimization by clearing any dump-request bits for components that don't exist for the current object type, allowing the use of  as a safe default request for all object types.
 

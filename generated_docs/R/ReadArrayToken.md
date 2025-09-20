@@ -8,7 +8,11 @@ Tokenizes array string input by reading one token at a time, handling quoted/unq
 
 ## Definition
 
-
+```c
+static ArrayToken
+ReadArrayToken(char **srcptr, StringInfo elembuf, char typdelim,
+			   const char *origStr, Node *escontext)
+```
 ## Detailed Description
 ReadArrayToken is the fundamental lexical analyzer for PostgreSQL array input parsing. It implements a sophisticated tokenizer that can distinguish between different types of array tokens and handle complex quoting and escaping rules.
 

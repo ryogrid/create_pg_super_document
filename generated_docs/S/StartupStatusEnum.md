@@ -8,7 +8,15 @@ StartupStatusEnum is an enumeration that tracks the current state of the startup
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	STARTUP_NOT_RUNNING,
+	STARTUP_RUNNING,
+	STARTUP_SIGNALED,			/* we sent it a SIGQUIT or SIGKILL */
+	STARTUP_CRASHED,
+} StartupStatusEnum;
+```
 ## Detailed Description
 StartupStatusEnum defines the possible states of the PostgreSQL startup process, which is responsible for crash recovery and bringing the database to a consistent state during server startup. The postmaster uses this enum to track the startup process lifecycle and make appropriate decisions during database initialization, recovery, and shutdown procedures.
 

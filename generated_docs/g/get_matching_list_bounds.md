@@ -8,7 +8,13 @@ Determines which list partition bounds match the specified value according to th
 
 ## Definition
 
-
+```c
+structure to provide us with proofs
+	 * that would allow us to do anything smarter here.
+	 */
+	if (opstrategy != BTEqualStrategyNumber)
+		result->scan_default = partition_bound_has_default(boundinfo);
+```
 ## Detailed Description
 This function implements list partition pruning by searching through the sorted list of partition bounds to find which partitions should be included based on the specified value and operator strategy. It handles various comparison operators including:
 

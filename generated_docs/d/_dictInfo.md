@@ -8,7 +8,15 @@ The  structure represents text search dictionary information in the PostgreSQL d
 
 ## Definition
 
-
+```c
+typedef struct _dictInfo
+{
+	DumpableObject dobj;
+	const char *rolname;
+	Oid			dicttemplate;
+	char	   *dictinitoption;
+} TSDictInfo;
+```
 ## Detailed Description
 This structure is part of the pg_dump utility's internal representation of database objects. It stores information about text search dictionaries, which are key components of PostgreSQL's full-text search system. Text search dictionaries are used to process tokens during text search operations, performing tasks like stemming, synonym replacement, and stop word filtering.
 

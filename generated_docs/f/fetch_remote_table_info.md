@@ -8,7 +8,12 @@ Retrieves comprehensive metadata about a remote table from the publisher databas
 
 ## Definition
 
-
+```c
+struct a unified row filter expression at
+		 * all.
+		 */
+		slot = MakeSingleTupleTableSlot(res->tupledesc, &TTSOpsMinimalTuple);
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's logical replication table synchronization process. It performs multiple SQL queries against the publisher database to gather complete metadata about a target table, which is essential for properly setting up replication.
 

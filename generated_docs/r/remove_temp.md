@@ -8,7 +8,10 @@ Removes the temporary socket directory and its contents created during PostgreSQ
 
 ## Definition
 
-
+```c
+static void
+remove_temp(void)
+```
 ## Detailed Description
 This function performs cleanup of the temporary Unix socket directory used during pg_regress operations. Since pg_regress never waits for postmaster exit, it cannot rely on the postmaster to clean up its socket and lock files. The function proactively removes these files and the containing directory to ensure clean test environment teardown. It's designed to be safe for execution from signal handlers and ignores errors since temporary directory leaks are considered non-critical failures.
 

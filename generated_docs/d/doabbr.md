@@ -8,7 +8,11 @@ The doabbr function generates timezone abbreviations from zone format strings, h
 
 ## Definition
 
-
+```c
+static size_t
+doabbr(char *abbr, struct zone const *zp, char const *letters,
+	   bool isdst, zic_t save, bool doquotes)
+```
 ## Detailed Description
 This function creates timezone abbreviations based on the zone's format specification. It handles several different abbreviation formats:
 

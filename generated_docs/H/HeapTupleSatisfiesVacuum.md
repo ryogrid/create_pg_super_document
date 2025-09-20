@@ -8,7 +8,11 @@ HeapTupleSatisfiesVacuum determines the vacuum status of heap tuples by checking
 
 ## Definition
 
-
+```c
+HTSV_Result
+HeapTupleSatisfiesVacuum(HeapTuple htup, TransactionId OldestXmin,
+						 Buffer buffer)
+```
 ## Detailed Description
 This function determines the status of tuples for VACUUM purposes by answering the fundamental question: "Can this tuple be safely removed by VACUUM?" The main concern is whether a tuple is potentially visible to any currently running transaction.
 

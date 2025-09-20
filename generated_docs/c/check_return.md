@@ -8,7 +8,10 @@ A static utility function that interprets and displays human-readable error mess
 
 ## Definition
 
-
+```c
+static void
+check_return(int ret)
+```
 ## Detailed Description
 The check_return function serves as an error code interpreter for the ECPG (Embedded SQL in C for PostgreSQL) Informix compatibility layer. It takes an integer error code as input and outputs a corresponding human-readable error description. The function uses a switch statement to map specific ECPG Informix error constants to descriptive text, making it easier to understand test failures and debugging information.
 

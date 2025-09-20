@@ -8,7 +8,10 @@ A static utility function that adds a word entry to the HeadlineParsedText struc
 
 ## Definition
 
-
+```c
+static void
+hladdword(HeadlineParsedText *prs, char *buf, int buflen, int type)
+```
 ## Detailed Description
 The  function is responsible for dynamically adding word entries to the  structure during the process of parsing text for headline generation. It manages memory allocation for the words array, automatically expanding it when needed by doubling its size. Each word entry contains metadata including the word type, length, and a copy of the actual word content. This function is part of PostgreSQL's text search framework for creating highlighted text snippets.
 

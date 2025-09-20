@@ -8,7 +8,10 @@ Finds and returns the ObjectAddress for a user mapping by resolving the username
 
 ## Definition
 
-
+```c
+static ObjectAddress
+get_object_address_usermapping(List *object, bool missing_ok)
+```
 ## Detailed Description
 This function resolves a user mapping object address by taking a list containing a username and server name, then performing lookups in the PostgreSQL system catalogs to find the corresponding user mapping. The function handles the special case of "public" user mappings (where userid is InvalidOid) and provides controlled error handling based on the missing_ok parameter.
 

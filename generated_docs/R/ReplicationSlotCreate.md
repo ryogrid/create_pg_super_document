@@ -8,7 +8,12 @@ Creates a new replication slot and marks it as used by the current backend, hand
 
 ## Definition
 
-
+```c
+void
+ReplicationSlotCreate(const char *name, bool db_specific,
+					  ReplicationSlotPersistency persistency,
+					  bool two_phase, bool failover, bool synced)
+```
 ## Detailed Description
 ReplicationSlotCreate is responsible for creating and initializing a new replication slot in PostgreSQL. It performs comprehensive validation, handles resource allocation, and ensures thread-safe creation with proper locking mechanisms. The function supports various replication slot types including physical slots for streaming replication and logical slots for logical decoding, with advanced features like two-phase commit support and failover capabilities.
 

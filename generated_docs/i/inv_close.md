@@ -8,7 +8,10 @@ Closes a large object descriptor and releases its associated memory, complementi
 
 ## Definition
 
-
+```c
+void
+inv_close(LargeObjectDesc *obj_desc)
+```
 ## Detailed Description
 The  function provides a clean way to close a large object descriptor that was previously created by . It performs validation to ensure the descriptor pointer is valid and then releases the long-term memory allocated for the descriptor structure. This function is essential for proper resource management in large object operations.
 

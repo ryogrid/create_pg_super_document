@@ -8,7 +8,16 @@ Recursively applies table locks across an inheritance hierarchy, locking all chi
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	LOCKMODE	lockmode;		/* lock mode to use */
+	bool		nowait;			/* no wait mode */
+	Oid			check_as_user;	/* user for checking the privilege */
+	Oid			viewoid;		/* OID of the view to be locked */
+	List	   *ancestor_views; /* OIDs of ancestor views */
+} LockViewRecurse_context;
+```
 ## Detailed Description
 LockTableRecurse implements the inheritance-aware locking mechanism for LOCK TABLE commands. When a table with child tables is locked, this function ensures all children in the inheritance tree receive the same lock mode. The function uses find_all_inheritors to discover the complete inheritance hierarchy, then iterates through each child table to acquire the requested lock. It handles both blocking and non-blocking (NOWAIT) lock modes, with appropriate error handling for concurrent table drops and lock conflicts. The function assumes permission checking has already been performed on the parent table, which is sufficient for child table access.
 

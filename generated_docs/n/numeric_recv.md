@@ -8,7 +8,10 @@ This function deserializes a PostgreSQL Numeric value from its external binary r
 
 ## Definition
 
-
+```c
+Datum
+numeric_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the binary input function for PostgreSQL's Numeric data type. It reads a binary representation from a StringInfo buffer and reconstructs the internal Numeric value. The external binary format consists of a sequence of int16 values: ndigits (length), weight (decimal position), sign (positive/negative/special), dscale (display scale), followed by the actual numeric digits. The function performs extensive validation of the received data, including checking sign values, scale values, and individual digits. It handles both regular numeric values and special values (NaN, ±Infinity). After reconstruction, it applies any necessary truncation and typmod constraints before returning the final Numeric value.
 

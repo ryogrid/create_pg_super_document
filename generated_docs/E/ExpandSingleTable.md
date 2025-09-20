@@ -8,7 +8,11 @@ Transforms a qualified star expression (foo.*) into a list of column expressions
 
 ## Definition
 
-
+```c
+static List *
+ExpandSingleTable(ParseState *pstate, ParseNamespaceItem *nsitem,
+				  int sublevels_up, int location, bool make_target_entry)
+```
 ## Detailed Description
 ExpandSingleTable handles the expansion of star expressions (.*) when the prefix has been determined to reference a simple table (RTE - Range Table Entry). It generates appropriate Var nodes for each column in the referenced table and ensures proper access control by marking the referenced columns as requiring SELECT privileges.
 

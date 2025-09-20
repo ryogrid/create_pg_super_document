@@ -8,7 +8,10 @@ A comparison function for the RegisteredSnapshots pairing heap that orders snaps
 
 ## Definition
 
-
+```c
+static int
+xmin_cmp(const pairingheap_node *a, const pairingheap_node *b, void *arg)
+```
 ## Detailed Description
 This function serves as a comparison callback for PostgreSQL's pairing heap data structure used to maintain registered snapshots. It implements a three-way comparison that orders SnapshotData objects by their xmin field in ascending order. The function extracts SnapshotData structures from pairing heap nodes using container_of-style macros and compares their xmin values using PostgreSQL's transaction ID comparison functions that handle modular arithmetic properly.
 

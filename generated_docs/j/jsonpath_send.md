@@ -8,7 +8,10 @@ The  function is a PostgreSQL binary send function for the jsonpath data type, r
 
 ## Definition
 
-
+```c
+Datum
+jsonpath_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  handles the binary serialization of jsonpath values for transmission over PostgreSQL's binary protocol. This function is the counterpart to  and is used when client applications request binary format data or during replication operations. The function implements a versioned binary format to ensure compatibility and allow for future format evolution.
 

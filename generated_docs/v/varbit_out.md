@@ -8,7 +8,10 @@ Converts a variable-length bit string (VarBit) to its external string representa
 
 ## Definition
 
-
+```c
+Datum
+varbit_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for converting PostgreSQL's internal VarBit representation to a human-readable string format consisting of '0' and '1' characters. This function preserves the exact length of the bit string, unlike some other representations that might lose precision. The function processes the bit string byte by byte, extracting individual bits and converting them to their character representation.
 

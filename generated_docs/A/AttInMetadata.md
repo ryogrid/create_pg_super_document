@@ -8,7 +8,22 @@ A structure that holds metadata information needed to efficiently convert raw C 
 
 ## Definition
 
+```c
+typedef struct AttInMetadata
+{
+	/* full TupleDesc */
+	TupleDesc	tupdesc;
 
+	/* array of attribute type input function finfo */
+	FmgrInfo   *attinfuncs;
+
+	/* array of attribute type i/o parameter OIDs */
+	Oid		   *attioparams;
+
+	/* array of attribute typmod */
+	int32	   *atttypmods;
+} AttInMetadata;
+```
 ## Detailed Description
 AttInMetadata is a support structure designed to ease the creation of composite types from raw C string data. It pre-computes and caches expensive metadata lookups that would otherwise be performed repeatedly during tuple construction. This structure is particularly valuable in set-returning functions where the same tuple structure is created many times.
 

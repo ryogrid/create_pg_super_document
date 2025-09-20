@@ -8,7 +8,12 @@ A common worker function that implements the core logic for JSON/JSONB to record
 
 ## Definition
 
-
+```c
+static Datum
+populate_record_worker(FunctionCallInfo fcinfo, const char *funcname,
+					   bool is_json, bool have_record_arg,
+					   Node *escontext)
+```
 ## Detailed Description
 This function serves as the unified implementation for multiple JSON record conversion functions including , , , and . It handles type resolution, caching, input validation, and delegates the actual conversion work to . The function manages different input scenarios, including cases where record types must be inferred from query context.
 

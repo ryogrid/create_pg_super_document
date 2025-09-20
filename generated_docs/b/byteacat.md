@@ -8,7 +8,10 @@ byteacat is a PostgreSQL internal function that concatenates two bytea values an
 
 ## Definition
 
-
+```c
+Datum
+byteacat(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides bytea concatenation functionality by taking two bytea arguments and returning their concatenation as a new bytea value. It serves as a wrapper around the internal bytea_catenate function, handling the PostgreSQL function calling convention and argument extraction. The function was cloned from textcat and modified for bytea data types.
 

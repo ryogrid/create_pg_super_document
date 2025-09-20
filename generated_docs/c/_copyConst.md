@@ -8,7 +8,11 @@ Creates a deep copy of a Const node, handling both value and reference types app
 
 ## Definition
 
-
+```c
+struct when value is null!
+		 */
+		newnode->constvalue = from->constvalue;
+```
 ## Detailed Description
 The  function is a specialized copy function for Const nodes in PostgreSQL's parse tree. It performs a deep copy by creating a new Const node and copying all scalar fields, with special handling for the constant value itself. The function intelligently handles both pass-by-value and pass-by-reference data types, ensuring that referenced data is properly duplicated rather than just copying pointers.
 

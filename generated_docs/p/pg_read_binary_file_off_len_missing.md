@@ -8,7 +8,10 @@ A PostgreSQL system function that reads a binary file from a specified offset fo
 
 ## Definition
 
-
+```c
+Datum
+pg_read_binary_file_off_len_missing(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that provides controlled binary file reading capabilities with offset positioning, length limiting, and missing file tolerance. It serves as a wrapper around the common binary file reading functionality () with specific parameters for handling file access scenarios where the file may not exist. The function reads binary data from a file starting at a specific byte offset and reads up to a specified number of bytes, returning the data as a bytea (binary data) type or NULL if the file is missing and the missing_ok flag is set.
 

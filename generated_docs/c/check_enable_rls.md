@@ -8,7 +8,10 @@ Determines whether Row Level Security (RLS) should be applied to a query based o
 
 ## Definition
 
-
+```c
+int
+check_enable_rls(Oid relid, Oid checkAsUser, bool noError)
+```
 ## Detailed Description
 This function evaluates whether Row Level Security (RLS) should be enabled for a given relation in the current query context. It returns one of three values:
 - : RLS is not applicable to the relation at all

@@ -8,7 +8,13 @@ Writes a WAL (Write-Ahead Logging) record for a GiST index page split operation,
 
 ## Definition
 
-
+```c
+XLogRecPtr
+gistXLogSplit(bool page_is_leaf,
+			  SplitPageLayout *dist,
+			  BlockNumber origrlink, GistNSN orignsn,
+			  Buffer leftchildbuf, bool markfollowright)
+```
 ## Detailed Description
 The  function creates a comprehensive WAL record that captures all information needed to replay a GiST page split operation during crash recovery. When a GiST page becomes too full and needs to be split into multiple pages, this function logs the split operation so it can be reconstructed on standby servers or during recovery.
 

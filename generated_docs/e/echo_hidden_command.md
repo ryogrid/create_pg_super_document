@@ -8,7 +8,10 @@ Manages the display of hidden SQL queries according to psql's ECHO_HIDDEN settin
 
 ## Definition
 
-
+```c
+static bool
+echo_hidden_command(const char *query)
+```
 ## Detailed Description
 The  function implements psql's ECHO_HIDDEN functionality, which controls the visibility of internally generated SQL queries that are normally hidden from users. When ECHO_HIDDEN is enabled, these queries are displayed with decorative borders to distinguish them from user-entered commands.
 

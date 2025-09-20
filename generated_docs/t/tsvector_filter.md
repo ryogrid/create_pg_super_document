@@ -8,7 +8,9 @@ Filters a tsvector to keep only lexemes with specified weights, returning a new 
 
 ## Definition
 
-
+```c
+struct_array_builtin(weights, CHAROID, &dweights, &nulls, &nweights);
+```
 ## Detailed Description
 The  function implements the  PostgreSQL function which processes a tsvector and an array of weight characters (A, B, C, D), keeping only those lexemes that have positional information matching the specified weights. The function creates a filtered copy of the input tsvector by examining each lexeme's positional data and retaining only positions whose weights match those in the provided weight array.
 

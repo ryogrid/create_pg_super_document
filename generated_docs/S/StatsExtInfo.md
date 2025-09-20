@@ -8,7 +8,18 @@ StatsExtInfo represents extended statistics objects in PostgreSQL's pg_dump util
 
 ## Definition
 
-
+```c
+typedef struct _ruleInfo
+{
+	DumpableObject dobj;
+	TableInfo  *ruletable;		/* link to table the rule is for */
+	char		ev_type;
+	bool		is_instead;
+	char		ev_enabled;
+	bool		separate;		/* true if must dump as separate item */
+	/* separate is always true for non-ON SELECT rules */
+} RuleInfo;
+```
 ## Detailed Description
 StatsExtInfo is a data structure in pg_dump that represents extended statistics objects (also known as multivariate statistics) in PostgreSQL databases. Extended statistics allow the query planner to make better estimates for queries involving multiple columns by collecting cross-column statistical information that goes beyond the single-column statistics maintained in pg_statistic.
 

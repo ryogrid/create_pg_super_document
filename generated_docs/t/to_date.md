@@ -8,7 +8,9 @@ Converts a text string representing a date into PostgreSQL's internal DateADT fo
 
 ## Definition
 
-
+```c
+struct pg_tm tm;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that parses a date string according to a specified format pattern and returns a DateADT value. It serves as the implementation for the SQL  function. The function uses the  function internally to perform the actual parsing, then converts the resulting timestamp components into a date value by calculating the Julian day number relative to the PostgreSQL epoch.
 

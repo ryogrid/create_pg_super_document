@@ -8,7 +8,10 @@ A specialized qsort() comparator function that compares two JsonbValue string ob
 
 ## Definition
 
-
+```c
+static int
+lengthCompareJsonbStringValue(const void *a, const void *b)
+```
 ## Detailed Description
 The  function is a comparator designed for use with qsort() to sort JsonbValue string objects. It implements a length-first comparison strategy:
 

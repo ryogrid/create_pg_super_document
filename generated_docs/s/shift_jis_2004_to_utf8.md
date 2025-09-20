@@ -8,7 +8,10 @@ Converts text from Shift JIS 2004 encoding to UTF-8 encoding as a PostgreSQL con
 
 ## Definition
 
-
+```c
+Datum
+shift_jis_2004_to_utf8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL encoding conversion procedure that converts text from Shift JIS 2004 (Japanese character encoding) to UTF-8 encoding. It follows the standard PostgreSQL conversion function interface, accepting source and destination buffers along with conversion parameters. The function uses the LocalToUtf conversion utility with Shift JIS 2004-specific mapping tables to perform the actual character conversion. The conversion process validates encoding parameters and can optionally suppress errors during conversion failures.
 

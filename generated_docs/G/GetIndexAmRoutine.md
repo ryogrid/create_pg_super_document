@@ -8,7 +8,10 @@ GetIndexAmRoutine calls the specified access method handler routine to get its I
 
 ## Definition
 
-
+```c
+struct",
+			 amhandler);
+```
 ## Detailed Description
 This function serves as a central interface for obtaining the IndexAmRoutine structure from an access method handler function. It takes an OID of an access method handler function and calls it to retrieve the IndexAmRoutine struct that defines the operations supported by that index access method.
 

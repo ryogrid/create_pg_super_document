@@ -8,7 +8,10 @@ A static helper function that writes a chunk of data to a file stream, used prim
 
 ## Definition
 
-
+```c
+static void
+write_chunk(FILE *fpout, void *ptr, size_t len)
+```
 ## Detailed Description
 This function is a simple wrapper around the standard C library  function. It writes a block of data of specified length from memory to a file stream. The function is designed as a helper for  and follows a pattern where error checking is deferred - the return value from  is captured but not immediately checked, with the expectation that errors will be detected later using .
 

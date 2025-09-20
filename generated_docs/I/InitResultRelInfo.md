@@ -8,7 +8,14 @@ Initializes a ResultRelInfo structure for a result relation, setting up all nece
 
 ## Definition
 
-
+```c
+void
+InitResultRelInfo(ResultRelInfo *resultRelInfo,
+				  Relation resultRelationDesc,
+				  Index resultRelationIndex,
+				  ResultRelInfo *partition_root_rri,
+				  int instrument_options)
+```
 ## Detailed Description
 InitResultRelInfo performs comprehensive initialization of a ResultRelInfo structure, which contains all the metadata and state information needed for data modification operations on a target relation. The function sets up trigger-related structures, foreign data wrapper routines for foreign tables, and partitioning-related fields. It creates deep copies of trigger descriptors to avoid dependency on relcache changes and allocates arrays for trigger functions and expressions based on instrumentation requirements.
 

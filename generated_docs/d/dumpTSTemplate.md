@@ -8,7 +8,10 @@ Writes out a single text search template definition to the PostgreSQL dump outpu
 
 ## Definition
 
-
+```c
+static void
+dumpTSTemplate(Archive *fout, const TSTemplateInfo *tmplinfo)
+```
 ## Detailed Description
 The  function is responsible for dumping text search template objects during a pg_dump operation. It generates the CREATE TEXT SEARCH TEMPLATE statement with the required LEXIZE function and optional INIT function. Text search templates define the interface between dictionaries and their underlying implementation functions, serving as a blueprint for dictionary creation.
 

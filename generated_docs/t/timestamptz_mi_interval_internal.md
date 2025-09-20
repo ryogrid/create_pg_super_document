@@ -8,7 +8,12 @@ Internal function that subtracts an interval from a timestamp with timezone (tim
 
 ## Definition
 
-
+```c
+static TimestampTz
+timestamptz_mi_interval_internal(TimestampTz timestamp,
+								 Interval *span,
+								 pg_tz *attimezone)
+```
 ## Detailed Description
 This function implements timestamptz-interval subtraction using the same efficient approach as its plain timestamp counterpart. It leverages code reuse by:
 

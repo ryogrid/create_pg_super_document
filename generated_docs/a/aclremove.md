@@ -8,7 +8,10 @@ A deprecated PostgreSQL function that previously supported ACL manipulation but 
 
 ## Definition
 
-
+```c
+Datum
+aclremove(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a legacy PostgreSQL function that was once exported for removing entries from Access Control Lists. In current PostgreSQL versions, this function has been deprecated and removed from active use. When called, it immediately raises a FEATURE_NOT_SUPPORTED error indicating that the functionality is no longer available.
 

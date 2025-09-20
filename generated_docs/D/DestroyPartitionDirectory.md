@@ -8,7 +8,10 @@ Destroys a partition directory by releasing all relation reference counts held b
 
 ## Definition
 
-
+```c
+void
+DestroyPartitionDirectory(PartitionDirectory pdir)
+```
 ## Detailed Description
 DestroyPartitionDirectory properly cleans up a partition directory by iterating through all cached entries and releasing the reference counts on relations that were incremented during PartitionDirectoryLookup operations. This is essential for proper memory management and preventing relation leaks.
 

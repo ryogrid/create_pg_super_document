@@ -8,7 +8,10 @@ Retrieves and caches I/O function information needed for multirange type input/o
 
 ## Definition
 
-
+```c
+static MultirangeIOData *
+get_multirange_io_data(FunctionCallInfo fcinfo, Oid mltrngtypid, IOFuncSelector func)
+```
 ## Detailed Description
 The  function is a caching utility that retrieves and stores I/O function information needed by multirange type I/O functions. It maintains a cache in the function's  field to avoid repeated lookups of type information.
 

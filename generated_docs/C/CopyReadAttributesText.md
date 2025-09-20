@@ -8,7 +8,10 @@ Parses a single line of text-format COPY data into separate attribute fields, pe
 
 ## Definition
 
-
+```c
+static int
+CopyReadAttributesText(CopyFromState cstate)
+```
 ## Detailed Description
 This function is the core parser for text-format COPY operations in PostgreSQL. It processes the current input line stored in , separating it into individual field values based on the configured delimiter character. The function performs sophisticated escape sequence processing, converting backslash-escaped characters (like , , octal sequences , and hexadecimal sequences ) back to their literal values.
 

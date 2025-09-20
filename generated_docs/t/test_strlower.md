@@ -8,7 +8,10 @@ A comprehensive test function that validates the  function's behavior across dif
 
 ## Definition
 
-
+```c
+static void
+test_strlower(const char *test_string, const char *expected)
+```
 ## Detailed Description
 This function performs rigorous testing of PostgreSQL's  function by testing four different combinations of source and destination string termination states:
 

@@ -8,7 +8,18 @@ PartitionRangeDatumKind is an enumeration that specifies the type of range parti
 
 ## Definition
 
+```c
+typedef struct PartitionRangeDatum
+{
+	NodeTag		type;
 
+	PartitionRangeDatumKind kind;
+	Node	   *value;			/* Const (or A_Const in raw tree), if kind is
+								 * PARTITION_RANGE_DATUM_VALUE, else NULL */
+
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} PartitionRangeDatum;
+```
 ## Detailed Description
 PartitionRangeDatumKind defines the three types of boundary values that can appear in range partition definitions. It is essential for PostgreSQL's range partitioning functionality, allowing partitions to be bounded by explicit values or by infinite bounds (MINVALUE/MAXVALUE). The enum uses specific integer values (-1, 0, 1) that facilitate comparison operations during partition pruning and tuple routing. This classification system enables PostgreSQL to handle both finite partition boundaries and unbounded partitions that capture all values below or above a certain threshold.
 

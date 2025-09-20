@@ -8,7 +8,10 @@ SQL-callable function that drops a replication origin by name, providing a user 
 
 ## Definition
 
-
+```c
+Datum
+pg_replication_origin_drop(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL SQL function wrapper for dropping replication origins. It takes a text parameter containing the origin name, validates prerequisites, converts the text parameter to a C string, and calls the internal  function to perform the actual deletion. The function is designed to be called from SQL as .
 

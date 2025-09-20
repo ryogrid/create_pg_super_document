@@ -8,7 +8,10 @@ Identifies the largest streamable top-level transaction from the reorder buffer 
 
 ## Definition
 
-
+```c
+static ReorderBufferTXN *
+ReorderBufferLargestStreamableTopTXN(ReorderBuffer *rb)
+```
 ## Detailed Description
 ReorderBufferLargestStreamableTopTXN is an optimized function that finds the largest top-level transaction suitable for streaming eviction. Unlike ReorderBufferLargestTXN which considers all transactions, this function specifically targets transactions that meet streaming requirements.
 

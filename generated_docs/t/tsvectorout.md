@@ -8,7 +8,10 @@ The  function converts a PostgreSQL TSVector data type to its textual string rep
 
 ## Definition
 
-
+```c
+Datum
+tsvectorout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the output function for the TSVector data type, which serializes a TSVector's internal binary representation into a human-readable string format. The function handles the complex task of formatting lexemes along with their positional information and weights. Each lexeme is enclosed in single quotes and properly escaped, with positions and weights (A, B, C, D) displayed after a colon when present. The output format follows the pattern: .
 

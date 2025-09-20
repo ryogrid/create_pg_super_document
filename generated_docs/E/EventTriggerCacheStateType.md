@@ -8,7 +8,13 @@ An enumeration type that represents the current state of the event trigger cache
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	EventTriggerEvent event;
+	List	   *triggerlist;
+} EventTriggerCacheEntry;
+```
 ## Detailed Description
  is an enum that manages the lifecycle states of PostgreSQL's event trigger cache system. The event trigger cache stores information about event triggers to avoid repeated database lookups, and this type ensures proper synchronization during cache rebuilds and prevents race conditions or inconsistent states.
 

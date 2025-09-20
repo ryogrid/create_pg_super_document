@@ -8,7 +8,12 @@ BackendStartupData is a structure that carries initialization information from t
 
 ## Definition
 
-
+```c
+typedef struct BackendStartupData
+{
+	CAC_state	canAcceptConnections;
+} BackendStartupData;
+```
 ## Detailed Description
 BackendStartupData serves as a communication mechanism between the postmaster and backend processes during backend initialization. The structure is passed through the startup_data parameter when a new backend process is created. It contains essential state information that determines whether the backend should proceed with accepting and processing the client connection or should reject it with an appropriate error message.
 

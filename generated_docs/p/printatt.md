@@ -8,7 +8,12 @@ The printatt function outputs debug information about a PostgreSQL attribute to 
 
 ## Definition
 
-
+```c
+static void
+printatt(unsigned attributeId,
+		 Form_pg_attribute attributeP,
+		 char *value)
+```
 ## Detailed Description
 The printatt function is a debugging utility that prints detailed information about a PostgreSQL table attribute. It formats and displays the attribute's metadata including its ID, name, value, type information, length, type modifier, and whether it's passed by value.
 

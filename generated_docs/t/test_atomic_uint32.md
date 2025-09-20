@@ -8,7 +8,10 @@ A comprehensive static test function that validates the complete functionality o
 
 ## Definition
 
-
+```c
+static void
+test_atomic_uint32(void)
+```
 ## Detailed Description
 The  function is an extensive unit test that systematically validates all atomic operations available for 32-bit unsigned integers in PostgreSQL. The function tests initialization, read/write operations, atomic arithmetic (add, subtract with both fetch-then-op and op-then-fetch variants), atomic exchange, compare-and-swap operations, and bitwise operations (AND, OR). It includes comprehensive edge case testing around numerical limits (INT_MAX, UINT_MAX, PG_INT16_MAX/MIN) to ensure proper handling of overflow and underflow conditions. The function also tests the compare-and-exchange operation with a retry loop to handle potential spurious failures due to system interrupts, which is a realistic scenario in concurrent environments.
 

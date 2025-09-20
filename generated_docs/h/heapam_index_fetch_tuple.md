@@ -8,7 +8,14 @@ Fetches a tuple from a heap relation using an item pointer (TID) obtained from a
 
 ## Definition
 
-
+```c
+static bool
+heapam_index_fetch_tuple(struct IndexFetchTableData *scan,
+						 ItemPointer tid,
+						 Snapshot snapshot,
+						 TupleTableSlot *slot,
+						 bool *call_again, bool *all_dead)
+```
 ## Detailed Description
 This function is the core implementation of tuple fetching for heap tables within PostgreSQL's table access method framework. It retrieves a tuple from the heap using a tuple identifier (TID) obtained from an index scan. The function handles complex scenarios including HOT chain traversal, buffer management, page pruning, and MVCC visibility checking. It uses heap_hot_search_buffer() to find the appropriate tuple version in a HOT chain that satisfies the given snapshot's visibility requirements. The function manages buffer switching when accessing different pages and performs page pruning optimization when encountering a new page.
 

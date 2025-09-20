@@ -8,7 +8,10 @@ A PostgreSQL user function that returns an array with the same dimensions as inp
 
 ## Definition
 
-
+```c
+Datum
+array_shuffle(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a PostgreSQL function that randomly reorders the elements along the first dimension of a multi-dimensional array while preserving all other dimensions and the overall structure. It provides a complete shuffle of all items in the first dimension, unlike  which selects only a subset.
 

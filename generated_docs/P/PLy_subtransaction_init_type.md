@@ -8,7 +8,10 @@ Initializes the Python type object for PLy_SubtransactionType, preparing it for 
 
 ## Definition
 
-
+```c
+void
+PLy_subtransaction_init_type(void)
+```
 ## Detailed Description
 This function initializes the PLy_SubtransactionType Python type object by calling PyType_Ready(). It is part of the PLPython extension's initialization sequence and ensures that the subtransaction type is properly set up for Python to use. The function is essential for enabling subtransaction functionality in PL/Python stored procedures and functions. If the type initialization fails, it raises an ERROR using PostgreSQL's elog mechanism.
 

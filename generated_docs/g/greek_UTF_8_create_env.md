@@ -8,7 +8,11 @@ Creates and initializes a Snowball stemmer environment specifically configured f
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * greek_UTF_8_create_env(void)
+```
 ## Detailed Description
 This function serves as a factory function for creating a Snowball stemmer environment tailored for Greek language processing with UTF-8 character encoding. It acts as a thin wrapper around the generic  function, providing language-specific initialization parameters. The function allocates and initializes the necessary data structures required for Greek stemming operations, including string arrays and integer arrays used by the stemming algorithm.
 

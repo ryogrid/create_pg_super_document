@@ -8,7 +8,32 @@ ReadBuffersOperation is a structure that encapsulates the state and parameters f
 
 ## Definition
 
+```c
+struct ReadBuffersOperation
+{
+	/*
+	 * The following members should be set by the caller.  If only smgr is
+	 * provided without rel, then smgr_persistence can be set to override the
+	 * default assumption of RELPERSISTENCE_PERMANENT.
+	 */
+	Relation	rel;
+	struct SMgrRelationData *smgr;
+	char		smgr_persistence;
+	ForkNumber	forknum;
+	BufferAccessStrategy strategy;
 
+	/*
+	 * The following private members are private state for communication
+	 * between StartReadBuffers() and WaitReadBuffers(), initialized only if
+	 * an actual read is required, and should not be modified.
+	 */
+	Buffer	   *buffers;
+	BlockNumber blocknum;
+	int			flags;
+	int16		nblocks;
+	int16		io_buffers_len;
+};
+```
 ## Detailed Description
 ReadBuffersOperation serves as a comprehensive control structure for PostgreSQL's bulk buffer reading mechanism. It encapsulates both the input parameters (relation identification, fork, strategy) and the internal state needed to coordinate asynchronous I/O operations across multiple blocks. The structure follows a two-phase approach: StartReadBuffers() initiates the operation and sets up the internal state, while WaitReadBuffers() completes the actual I/O and buffer validation.
 

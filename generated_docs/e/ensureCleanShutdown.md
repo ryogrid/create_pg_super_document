@@ -8,7 +8,10 @@ Ensures the target PostgreSQL cluster has undergone a clean shutdown by running 
 
 ## Definition
 
-
+```c
+static void
+ensureCleanShutdown(const char *argv0)
+```
 ## Detailed Description
 This function is a critical part of the pg_rewind process that ensures the target cluster is in a consistent state before performing the rewind operation. It works by:
 

@@ -8,7 +8,14 @@ Prepares ALTER COLUMN TYPE operations during Phase 1 of ALTER TABLE processing, 
 
 ## Definition
 
-
+```c
+static void
+ATPrepAlterColumnType(List **wqueue,
+					  AlteredTableInfo *tab, Relation rel,
+					  bool recurse, bool recursing,
+					  AlterTableCmd *cmd, LOCKMODE lockmode,
+					  AlterTableUtilityContext *context)
+```
 ## Detailed Description
 This function performs Phase 1 preparation for ALTER COLUMN TYPE operations. Unlike other ALTER TABLE subcommands, it performs parse transformation during Phase 1 to ensure all USING expressions are parsed against the original table schema. The function validates the target column exists and is alterable, checks type compatibility and permissions, transforms USING expressions or creates default coercion expressions, determines if a table rewrite is required, and handles inheritance recursion with proper attribute number remapping. It supports both regular tables and typed tables, with special handling for generated columns, partition keys, and inherited columns.
 

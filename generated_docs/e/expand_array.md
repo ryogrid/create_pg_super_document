@@ -8,7 +8,21 @@ Converts a PostgreSQL array Datum into an expanded array representation, which p
 
 ## Definition
 
+```c
+struct that later if necessary.  For the pass-by-ref case, we
+		 * could perhaps save some cycles with custom code that generates the
+		 * deconstructed representation in parallel with copying the values,
+		 * but it would be a lot of extra code for fairly marginal gain.  So,
+		 * fall through into the flat-source code path.
+		 */
+	}
 
+	/*
+	 * Detoast and copy source array into private context, as a flat array.
+	 *
+	 * Note that this coding risks leaking some memory in the private context
+	 * if we have to fetch data from a TOAST table;
+```
 ## Detailed Description
 The  function converts a standard PostgreSQL array Datum into an expanded array representation. Expanded arrays are an optimized in-memory format that allows for more efficient array operations by avoiding repeated serialization/deserialization cycles. 
 

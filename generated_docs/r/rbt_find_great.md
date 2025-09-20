@@ -8,7 +8,10 @@ Searches for the smallest value in a Red-Black Tree that is greater than or opti
 
 ## Definition
 
-
+```c
+RBTNode *
+rbt_find_great(RBTree *rbt, const RBTNode *data, bool equal_match)
+```
 ## Detailed Description
 This function performs a specialized search to find the node with the smallest value that is greater than the search data. If equal_match is true, it will also accept an exact match. The algorithm traverses the tree while maintaining a pointer to the best candidate found so far. When the comparison shows the search data is less than the current node, that node becomes a candidate and the search continues left to find potentially smaller candidates. When the search data is greater than or equal to the current node, the search continues right to find larger values.
 

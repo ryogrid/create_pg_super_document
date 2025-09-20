@@ -8,7 +8,9 @@ An enumeration that represents the availability status of WAL (Write-Ahead Log) 
 
 ## Definition
 
-
+```c
+struct XLogRecData;
+```
 ## Detailed Description
 WALAvailability provides status codes returned by the GetWALAvailability function to indicate the current availability of WAL segments. This is crucial for replication and backup systems that need to know if specific WAL segments are still accessible. WALAVAIL_RESERVED indicates the segment is protected by max_wal_size configuration, WALAVAIL_EXTENDED means it's kept by replication slots or wal_keep_size setting, WALAVAIL_UNRESERVED means it's no longer protected but not yet deleted, and WALAVAIL_REMOVED indicates the segment has been cleaned up and is no longer available.
 

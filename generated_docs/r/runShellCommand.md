@@ -8,7 +8,10 @@ Executes a shell command constructed from argument variables and optionally capt
 
 ## Definition
 
-
+```c
+static bool
+runShellCommand(Variables *variables, char *variable, char **argv, int argc)
+```
 ## Detailed Description
 The `runShellCommand` function constructs and executes shell commands in pgbench scripts with sophisticated argument processing and variable substitution. It supports three types of arguments: string literals, variable references (prefixed with ':'), and escaped colons ('::' for literal ':'). The function has two execution modes: a fast path for commands without output capture using `system()`, and a capture mode using `popen()` that reads the command's standard output and converts it to an integer for variable assignment. The command construction enforces size limits and provides comprehensive error handling for various failure scenarios including command launch failures, read errors, and invalid output formats.
 

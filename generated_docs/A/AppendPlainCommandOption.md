@@ -8,7 +8,11 @@ Appends a "plain" option (option without a value) to a PostgreSQL replication co
 
 ## Definition
 
-
+```c
+void
+AppendPlainCommandOption(PQExpBuffer buf, bool use_new_option_syntax,
+						 char *option_name)
+```
 ## Detailed Description
 This utility function builds PostgreSQL replication protocol commands by appending option names without values to a command buffer. It handles the syntax differences between old parser keyword style (space-separated) and new parenthesized comma-separated list style. The function intelligently adds appropriate separators (comma and space for new syntax, just space for old syntax) based on the current buffer state and syntax mode being used.
 

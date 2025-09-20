@@ -8,7 +8,11 @@ Converts a Python object to a PostgreSQL composite type (record/tuple), handling
 
 ## Definition
 
-
+```c
+static Datum
+PLyObject_ToComposite(PLyObToDatum *arg, PyObject *plrv,
+					  bool *isnull, bool inarray)
+```
 ## Detailed Description
 This function serves as the main entry point for converting Python objects to PostgreSQL composite types. It first handles the special case of None values by setting the isnull flag. For string inputs, it delegates to PLyUnicode_ToComposite for direct string-to-composite conversion.
 

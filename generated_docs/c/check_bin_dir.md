@@ -8,7 +8,9 @@ Validates a PostgreSQL cluster's binary directory by verifying the presence and 
 
 ## Definition
 
-
+```c
+struct stat statBuf;
+```
 ## Detailed Description
 This function performs comprehensive validation of a PostgreSQL cluster's binary directory structure and executables. It first verifies that the binary directory exists and is actually a directory, then checks for the presence of essential PostgreSQL executables required for the upgrade process.
 

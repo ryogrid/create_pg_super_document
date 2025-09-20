@@ -8,7 +8,35 @@ ExtensionInfo represents a PostgreSQL extension object in pg_dump, storing metad
 
 ## Definition
 
+```c
+typedef struct _typeInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
 
+	/*
+	 * Note: dobj.name is the raw pg_type.typname entry.  ftypname is the
+	 * result of format_type(), which will be quoted if needed, and might be
+	 * schema-qualified too.
+	 */
+	char	   *ftypname;
+	const char *rolname;
+	Oid			typelem;
+	Oid			typrelid;
+	char		typrelkind;		/* 'r', 'v', 'c', etc */
+	char		typtype;		/* 'b', 'c', etc */
+	bool		isArray;		/* true if auto-generated array type */
+	bool		isMultirange;	/* true if auto-generated multirange type */
+	bool		isDefined;		/* true if typisdefined */
+	/* If needed, we'll create a "shell type" entry for it; link that here: */
+	struct _shellTypeInfo *shellType;	/* shell-type entry, or NULL */
+	/* If it's a domain, its not-null constraint is here: */
+	struct _constraintInfo *notnull;
+	/* If it's a domain, we store links to its CHECK constraints here: */
+	int			nDomChecks;
+	struct _constraintInfo *domChecks;
+} TypeInfo;
+```
 ## Detailed Description
 ExtensionInfo extends DumpableObject to represent PostgreSQL extensions during the dump and restore process. Extensions are collections of SQL objects (functions, data types, operators, etc.) that are installed and managed as a unit. This structure contains all the metadata necessary to recreate an extension in the target database, including version information, relocatability, and configuration table details.
 

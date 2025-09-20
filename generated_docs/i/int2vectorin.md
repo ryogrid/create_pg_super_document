@@ -8,7 +8,10 @@ Converts a string representation of space-separated smallint values ("num num ..
 
 ## Definition
 
-
+```c
+Datum
+int2vectorin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function parses a textual representation of a vector of smallint (int2) values and converts it into PostgreSQL's internal int2vector format. The input string should contain space-separated integer values within the smallint range (-32768 to 32767). The function dynamically allocates memory for the result vector, starting with an initial guess of 32 elements and doubling the allocation when needed. It performs comprehensive error checking for invalid syntax, out-of-range values, and improper formatting.
 

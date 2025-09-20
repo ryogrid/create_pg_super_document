@@ -8,7 +8,14 @@ GinOptions is a storage structure that holds reloption (relation options) parame
 
 ## Definition
 
-
+```c
+typedef struct GinOptions
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	bool		useFastUpdate;	/* use fast updates? */
+	int			pendingListCleanupSize; /* maximum size of pending list */
+} GinOptions;
+```
 ## Detailed Description
 GinOptions stores configuration parameters that control the behavior of GIN indexes, particularly related to performance optimization features. It follows PostgreSQL's varlena structure format for relation options. The structure enables fine-tuning of GIN index operations through two key parameters: fast update mode and pending list size management.
 

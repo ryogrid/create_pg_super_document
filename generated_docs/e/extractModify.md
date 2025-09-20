@@ -8,7 +8,10 @@ extractModify is a utility function that converts string representations of fina
 
 ## Definition
 
-
+```c
+static char
+extractModify(DefElem *defel)
+```
 ## Detailed Description
 extractModify parses the string value from a DefElem parameter node representing finalfunc_modify or mfinalfunc_modify clauses in CREATE AGGREGATE statements. It converts the human-readable string values ("read_only", "shareable", "read_write") into their corresponding internal catalog representation constants (AGGMODIFY_READ_ONLY, AGGMODIFY_SHAREABLE, AGGMODIFY_READ_WRITE). These modify flags control how the aggregate's final function can access and modify the transition state, which is important for optimization and parallel execution safety. The function provides strict validation and reports a syntax error for any invalid values.
 

@@ -8,7 +8,10 @@ AfterTriggerSetState executes the SET CONSTRAINTS utility command, managing the 
 
 ## Definition
 
-
+```c
+void
+AfterTriggerSetState(ConstraintsSetStmt *stmt)
+```
 ## Detailed Description
 This function implements the SQL SET CONSTRAINTS command, which allows changing the deferred/immediate status of deferrable constraints. It supports both "SET CONSTRAINTS ALL" and "SET CONSTRAINTS constraint-name [, ...]" syntax.
 

@@ -8,7 +8,11 @@
 
 ## Definition
 
-
+```c
+static void
+dead_items_add(LVRelState *vacrel, BlockNumber blkno, OffsetNumber *offsets,
+			   int num_offsets)
+```
 ## Detailed Description
 This function serves as a centralized mechanism for recording dead tuple locations during VACUUM operations. It takes a block number and an array of offset numbers within that block, then stores these tuple identifiers in the vacuum relation state's dead items collection using TidStore. Additionally, it maintains accurate progress reporting by updating vacuum statistics including the total number of dead items and memory usage.
 

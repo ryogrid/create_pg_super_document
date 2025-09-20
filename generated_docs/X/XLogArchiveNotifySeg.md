@@ -8,7 +8,9 @@ A convenience wrapper function that creates an archive notification for a WAL se
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 XLogArchiveNotifySeg provides a simplified interface to the WAL archiving notification system by accepting logical WAL segment identifiers (segment number and timeline ID) rather than requiring the caller to construct the actual WAL filename. This function serves as a convenient wrapper around XLogArchiveNotify for code that works with WAL segments in their numeric representation.
 

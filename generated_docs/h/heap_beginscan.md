@@ -8,7 +8,13 @@ Initializes and returns a new heap table scan descriptor for sequential scanning
 
 ## Definition
 
-
+```c
+TableScanDesc
+heap_beginscan(Relation relation, Snapshot snapshot,
+			   int nkeys, ScanKey key,
+			   ParallelTableScanDesc parallel_scan,
+			   uint32 flags)
+```
 ## Detailed Description
 This function serves as the entry point for heap table scanning operations. It allocates and initializes a HeapScanDesc structure, increments the relation reference count for safety, and sets up various scan parameters including snapshot, scan keys, and flags. The function handles special considerations for different scan types: disables page-at-a-time mode for non-MVCC snapshots, acquires predicate locks for serializable transactions on sequential and sample scans, allocates parallel worker data for parallel scans, and sets up read streams for sequential and TID range scans with appropriate callback functions for parallel vs serial execution.
 

@@ -8,7 +8,11 @@ Updates the replication state of an existing subscription table in the pg_subscr
 
 ## Definition
 
-
+```c
+void
+UpdateSubscriptionRelStateEx(Oid subid, Oid relid, char state,
+							 XLogRecPtr sublsn, bool already_locked)
+```
 ## Detailed Description
 This function modifies an existing entry in the pg_subscription_rel catalog to update the replication state and LSN position of a specific table within a logical replication subscription. It provides extended functionality compared to the basic UpdateSubscriptionRelState by allowing callers to specify whether appropriate locks are already held, enabling more efficient operation in contexts where locking has been handled externally.
 

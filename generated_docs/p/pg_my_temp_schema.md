@@ -8,7 +8,10 @@ A PostgreSQL system function that returns the OID of the current session's tempo
 
 ## Definition
 
-
+```c
+Datum
+pg_my_temp_schema(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides access to the current session's temporary schema namespace by returning the OID of the temporary namespace. In PostgreSQL, each session can have its own temporary schema where temporary tables, views, and other temporary objects are created. This function returns the OID of that namespace if it exists, or InvalidOid if no temporary schema has been created for the current session yet.
 

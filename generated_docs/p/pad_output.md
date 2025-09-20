@@ -8,7 +8,15 @@ Writes tabs and spaces to move the current column position up to a desired targe
 
 ## Definition
 
-
+```c
+static int
+pad_output(int current, int target)
+			        /* writes tabs and blanks (if necessary) to
+				 * get the current output position up to the
+				 * target column */
+    /* current: the current column value */
+    /* target: position we want it at */
+```
 ## Detailed Description
 The  function is a static utility function in the PostgreSQL BSD indent tool that handles output formatting by inserting the appropriate combination of tabs and spaces to move from the current column position to a target column position. This is essential for proper code indentation and alignment.
 

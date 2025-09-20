@@ -8,7 +8,10 @@ A convenience routine that checks if a function name matches an existing type na
 
 ## Definition
 
-
+```c
+static Oid
+FuncNameAsType(List *funcname)
+```
 ## Detailed Description
 The  function serves as a utility to determine whether a given function name corresponds to an existing PostgreSQL type. This is particularly useful during function resolution when the parser needs to distinguish between function calls and type casting operations. The function performs a type lookup and validates that the type is properly defined and not just a shell type or complex type that should be ignored.
 

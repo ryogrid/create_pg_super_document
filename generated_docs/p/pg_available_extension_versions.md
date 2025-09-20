@@ -8,7 +8,9 @@ This function provides a set-returning function (SRF) that lists all available v
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The pg_available_extension_versions function scans the extension control directory and, for each available extension, discovers all available versions by examining installation scripts in the extension's script directory. Unlike pg_available_extensions which returns one row per extension, this function returns one row per available version of each extension.
 

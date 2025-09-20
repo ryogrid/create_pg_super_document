@@ -8,7 +8,17 @@ Initializes a Tuplesortstate for sorting hash index tuples during hash index cre
 
 ## Definition
 
-
+```c
+Tuplesortstate *
+tuplesort_begin_index_hash(Relation heapRel,
+						   Relation indexRel,
+						   uint32 high_mask,
+						   uint32 low_mask,
+						   uint32 max_buckets,
+						   int workMem,
+						   SortCoordinate coordinate,
+						   int sortopt)
+```
 ## Detailed Description
 This function creates a specialized tuplesort state for hash index creation operations. Unlike other index types that sort by key values, hash indexes sort tuples by their hash codes to distribute them efficiently across hash buckets. The function configures a single-key sort operation where the sort key is the computed hash code rather than the original data values. It sets up hash-specific comparison functions and stores the bucket configuration parameters needed for proper hash index organization.
 

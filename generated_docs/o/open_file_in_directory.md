@@ -8,7 +8,9 @@ Opens a file with a specified filename within a given directory and returns a re
 
 ## Definition
 
-
+```c
+struct dirent *xlde;
+```
 ## Detailed Description
 This function constructs a file path by combining a directory path and filename, then attempts to open the file in read-only mode with binary access. The function is designed to handle file opening operations safely within the pg_waldump utility context. It uses PostgreSQL's standard error handling approach and will terminate the program with a fatal error if the file cannot be opened (except for the case where the file simply doesn't exist, indicated by ENOENT).
 

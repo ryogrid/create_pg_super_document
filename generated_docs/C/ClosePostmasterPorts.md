@@ -8,7 +8,10 @@ Closes all the postmaster's open sockets and file descriptors that are not neede
 
 ## Definition
 
-
+```c
+void
+ClosePostmasterPorts(bool am_syslogger)
+```
 ## Detailed Description
 ClosePostmasterPorts is called during child process startup to release file descriptors that are not needed by that child process. The postmaster still retains these file descriptors open. This function systematically closes various categories of file descriptors:
 

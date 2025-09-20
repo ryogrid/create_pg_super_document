@@ -8,7 +8,10 @@ Lists PostgreSQL logical replication publications, displaying their properties s
 
 ## Definition
 
-
+```c
+bool
+listPublications(const char *pattern)
+```
 ## Detailed Description
 The  function implements the  psql meta-command functionality to display information about logical replication publications. It constructs and executes a SQL query against the  system catalog to retrieve publication details. The function supports optional pattern matching to filter results and adapts its output columns based on the PostgreSQL server version to show version-appropriate features.
 

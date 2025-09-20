@@ -8,7 +8,11 @@ Modifies an array of configuration lines by replacing or adding a GUC (Grand Uni
 
 ## Definition
 
-
+```c
+static char **
+replace_guc_value(char **lines, const char *guc_name, const char *guc_value,
+				  bool mark_as_comment)
+```
 ## Detailed Description
 This function processes PostgreSQL configuration files by finding existing GUC parameter assignments and replacing them with new values, or appending new assignments if none exist. It handles complex formatting requirements including proper quoting of values that require it, preservation of original comments with indentation, and optional commenting out of assignments. The function is designed to maintain the readability and structure of postgresql.conf files during database initialization. It assumes at most one matching assignment exists and processes lines in order until a match is found.
 

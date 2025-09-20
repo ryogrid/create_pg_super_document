@@ -8,7 +8,10 @@ SPI_cursor_fetch retrieves rows from an open cursor in either forward or backwar
 
 ## Definition
 
-
+```c
+void
+SPI_cursor_fetch(Portal portal, bool forward, long count)
+```
 ## Detailed Description
 This function fetches a specified number of rows from a cursor Portal in the requested direction. It acts as a wrapper around the internal _SPI_cursor_operation function, setting up the appropriate fetch direction and destination receiver. The fetched rows are stored in the SPI result structure (SPI_tuptable) and the count is updated in SPI_processed, making them accessible to the calling code through the standard SPI result interface.
 

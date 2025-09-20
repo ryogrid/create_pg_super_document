@@ -8,7 +8,10 @@ Creates a lock file in the PostgreSQL data directory to prevent multiple server 
 
 ## Definition
 
-
+```c
+void
+CreateDataDirLockFile(bool amPostmaster)
+```
 ## Detailed Description
 This function creates the data directory lock file using the standard DIRECTORY_LOCK_FILE name (typically "postmaster.pid"). It serves as a critical safety mechanism to prevent data corruption by ensuring only one PostgreSQL instance can access a data directory at a time. The function assumes the working directory has already been switched to the DataDir, allowing it to use a relative path for enhanced security. Initially, the socket directory path line in the lock file is written as empty, which will later be updated by postmaster.c when the first Unix socket is created.
 

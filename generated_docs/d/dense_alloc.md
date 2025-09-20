@@ -8,7 +8,10 @@ Allocates memory for hash table tuples from memory chunks, managing allocation o
 
 ## Definition
 
-
+```c
+static void *
+dense_alloc(HashJoinTable hashtable, Size size)
+```
 ## Detailed Description
 The  function is a memory allocation utility specifically designed for hash join operations in PostgreSQL. It manages memory allocation for hash table tuples using a chunked memory allocation strategy to optimize memory usage and reduce fragmentation.
 

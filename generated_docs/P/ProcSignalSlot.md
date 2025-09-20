@@ -8,7 +8,13 @@ ProcSignalSlot is a shared memory structure that enables inter-process communica
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	pg_atomic_uint64 psh_barrierGeneration;
+	ProcSignalSlot psh_slot[FLEXIBLE_ARRAY_MEMBER];
+} ProcSignalHeader;
+```
 ## Detailed Description
 ProcSignalSlot is a core component of PostgreSQL's inter-process signaling system that multiplexes SIGUSR1 signals to support multiple concurrent event types. Each PostgreSQL process (backend or auxiliary process like checkpointer) that wants to receive signals registers its process ID in a ProcSignalSlots array, which is indexed by ProcNumber for efficient slot allocation and signal targeting.
 

@@ -8,7 +8,13 @@ InitPostgres performs comprehensive initialization of a PostgreSQL backend proce
 
 ## Definition
 
-
+```c
+struct to the ProcArray.
+	 *
+	 * Once I have done this, I am visible to other backends!
+	 */
+	InitProcessPhase2();
+```
 ## Detailed Description
 InitPostgres is the main initialization function for PostgreSQL backend processes that handles the complete setup required for database operations. It performs authentication, establishes database connections, initializes system catalogs, sets up user sessions, and configures the runtime environment.
 

@@ -8,7 +8,10 @@ constraints_equivalent is a static function that determines whether two check co
 
 ## Definition
 
-
+```c
+static bool
+constraints_equivalent(HeapTuple a, HeapTuple b, TupleDesc tupleDesc)
+```
 ## Detailed Description
 This function compares two check constraints to determine if they are functionally equivalent. The comparison is performed in two stages: first checking constraint properties (deferrable flags), then comparing the actual constraint expressions by decompiling them to source text. The function uses string comparison of the decompiled expressions rather than binary comparison to handle cases where constraints may be logically equivalent but stored differently (e.g., due to different column numbers between parent and child relations in inheritance scenarios).
 

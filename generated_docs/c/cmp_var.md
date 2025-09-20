@@ -8,7 +8,10 @@ Compares two NumericVar values and returns an integer indicating their relative 
 
 ## Definition
 
-
+```c
+static int
+cmp_var(const NumericVar *var1, const NumericVar *var2)
+```
 ## Detailed Description
 This function provides a high-level interface for comparing two NumericVar structures. It extracts the relevant fields (digits, ndigits, weight, and sign) from both input variables and delegates the actual comparison logic to the lower-level cmp_var_common function. The function assumes that both input variables have been properly normalized with leading and trailing zeros removed. The comparison follows standard numeric ordering rules, taking into account both magnitude and sign.
 

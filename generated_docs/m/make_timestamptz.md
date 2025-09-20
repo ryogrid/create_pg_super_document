@@ -8,7 +8,10 @@ PostgreSQL SQL function constructor that creates a timestamp with timezone from 
 
 ## Definition
 
-
+```c
+Datum
+make_timestamptz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that constructs a timestamp with timezone value from separate year, month, day, hour, minute, and second components. This function creates a timestamptz value by first constructing a plain timestamp using , then converting it to timestamptz using the current session's timezone setting via .
 

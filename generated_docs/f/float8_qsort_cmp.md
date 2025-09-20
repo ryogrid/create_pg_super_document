@@ -8,7 +8,10 @@ The  function is a comparison function specifically designed for sorting float8 
 
 ## Definition
 
-
+```c
+static int
+float8_qsort_cmp(const void *a1, const void *a2, void *arg)
+```
 ## Detailed Description
 This is a standard three-way comparison function compatible with the qsort family of sorting functions. It compares two float8 values and returns an integer indicating their relative ordering. The function implements a straightforward numerical comparison suitable for sorting floating-point range lengths in ascending order.
 

@@ -8,7 +8,33 @@ BTInsertStateData is a working area structure used during B-tree insertion opera
 
 ## Definition
 
+```c
+typedef struct BTInsertStateData
+{
+	IndexTuple	itup;			/* Item we're inserting */
+	Size		itemsz;			/* Size of itup -- should be MAXALIGN()'d */
+	BTScanInsert itup_key;		/* Insertion scankey */
 
+	/* Buffer containing leaf page we're likely to insert itup on */
+	Buffer		buf;
+
+	/*
+	 * Cache of bounds within the current buffer.  Only used for insertions
+	 * where _bt_check_unique is called.  See _bt_binsrch_insert and
+	 * _bt_findinsertloc for details.
+	 */
+	bool		bounds_valid;
+	OffsetNumber low;
+	OffsetNumber stricthigh;
+
+	/*
+	 * if _bt_binsrch_insert found the location inside existing posting list,
+	 * save the position inside the list.  -1 sentinel value indicates overlap
+	 * with an existing posting list tuple that has its LP_DEAD bit set.
+	 */
+	int			postingoff;
+} BTInsertStateData;
+```
 ## Detailed Description
 BTInsertStateData serves as a comprehensive working area for B-tree insertion operations. It is populated after descending the tree to the first leaf page where the new tuple might belong. The structure maintains all necessary state information during the insertion process, particularly during uniqueness checking phases before the final insertion location is determined.
 

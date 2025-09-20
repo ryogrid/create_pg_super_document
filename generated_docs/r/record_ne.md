@@ -8,7 +8,10 @@ Compares two records (row types) for inequality, returning true if the records a
 
 ## Definition
 
-
+```c
+Datum
+record_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a simple wrapper around  that negates the equality result. It provides the "not equal" comparison operator for PostgreSQL record types by calling  with the same function call information and returning the logical negation of the result.
 

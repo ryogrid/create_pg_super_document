@@ -8,7 +8,10 @@ Converts a character value from PostgreSQL's external binary format to internal 
 
 ## Definition
 
-
+```c
+Datum
+charrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The charrecv function is the binary input (receive) function for PostgreSQL's "char" data type. It is part of the binary protocol support that allows efficient transmission of data between PostgreSQL clients and servers without character set conversion overhead.
 

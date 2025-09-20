@@ -8,7 +8,10 @@ Preprocesses scan keys by transforming, sorting, eliminating redundancies, detec
 
 ## Definition
 
-
+```c
+void
+_bt_preprocess_keys(IndexScanDesc scan)
+```
 ## Detailed Description
 This function is a comprehensive scan key preprocessing routine that transforms the input scan keys from scan->keyData[] into processed output keys in so->keyData[]. It performs multiple critical operations:
 

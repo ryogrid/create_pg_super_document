@@ -8,7 +8,12 @@ Changes the hash key of an existing entry in a PostgreSQL dynamic hash table wit
 
 ## Definition
 
-
+```c
+bool
+hash_update_hash_key(HTAB *hashp,
+					 void *existingEntry,
+					 const void *newKeyPtr)
+```
 ## Detailed Description
 This function provides a specialized operation to update the hash key of an existing hash table entry. It is equivalent to removing the entry, creating a new entry, and copying the data, but with a crucial difference: the entry never goes to the table's freelist. This design ensures that the operation cannot suffer from out-of-memory failures, even when other processes are operating in different partitions of the hashtable.
 

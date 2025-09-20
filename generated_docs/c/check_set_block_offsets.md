@@ -8,7 +8,10 @@ A comprehensive verification function that validates the correctness of TID (tup
 
 ## Definition
 
-
+```c
+Datum
+check_set_block_offsets(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs thorough validation of TidStore functionality by implementing a multi-stage verification process. It checks TID storage integrity through three different approaches: direct member lookup, comprehensive block scanning, and iteration-based retrieval. The function ensures that all three methods return consistent results and match the original verification data.
 

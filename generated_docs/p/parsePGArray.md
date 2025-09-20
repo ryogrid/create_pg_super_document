@@ -8,7 +8,10 @@ Deconstructs the text representation of a 1-dimensional PostgreSQL array into in
 
 ## Definition
 
-
+```c
+bool
+parsePGArray(const char *atext, char ***itemarray, int *nitems)
+```
 ## Detailed Description
 This function parses PostgreSQL array literal syntax (e.g., "{item1,item2,item3}") and extracts individual elements into a dynamically allocated array of strings. The function handles both quoted and unquoted array elements, processing escape sequences within quoted strings according to PostgreSQL array literal rules.
 

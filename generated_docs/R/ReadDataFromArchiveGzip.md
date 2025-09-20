@@ -8,7 +8,10 @@ Reads and decompresses gzip-compressed data from a PostgreSQL archive using zlib
 
 ## Definition
 
-
+```c
+static void
+ReadDataFromArchiveGzip(ArchiveHandle *AH, CompressorState *cs)
+```
 ## Detailed Description
 This function handles the decompression of gzip-compressed data during the reading phase of PostgreSQL's pg_dump/pg_restore operations. It initializes a zlib decompression stream, reads compressed data in chunks through the CompressorState's readF function, and decompresses the data using zlib's inflate() function. The decompressed data is then written to the archive using ahwrite(). The function includes proper error handling for decompression failures and ensures complete decompression by continuing to call inflate() until Z_STREAM_END is reached.
 

@@ -8,7 +8,16 @@ The  structure stores information about DEFAULT expressions for table columns in
 
 ## Definition
 
-
+```c
+typedef struct _attrDefInfo
+{
+	DumpableObject dobj;		/* note: dobj.name is name of table */
+	TableInfo  *adtable;		/* link to table of attribute */
+	int			adnum;
+	char	   *adef_expr;		/* decompiled DEFAULT expression */
+	bool		separate;		/* true if must dump as separate item */
+} AttrDefInfo;
+```
 ## Detailed Description
 The  structure encapsulates information about DEFAULT expressions defined on table columns. It serves as a container for storing the textual representation of default value expressions along with metadata that links the default to its corresponding table and column. This structure is essential for pg_dump to properly reconstruct column defaults during database restoration.
 

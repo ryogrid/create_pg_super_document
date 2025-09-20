@@ -8,7 +8,22 @@ Serializes a Const node to its string representation, outputting all metadata fi
 
 ## Definition
 
-
+```c
+enum representation */
+	switch (node->boolop)
+	{
+		case AND_EXPR:
+			opstr = "and";
+			break;
+		case OR_EXPR:
+			opstr = "or";
+			break;
+		case NOT_EXPR:
+			opstr = "not";
+			break;
+	}
+	appendStringInfoString(str, " :boolop ");
+```
 ## Detailed Description
 The  function is a specialized node serialization function that handles Const nodes in PostgreSQL's expression tree system. Const nodes represent literal constant values in SQL queries (like numbers, strings, booleans, etc.).
 

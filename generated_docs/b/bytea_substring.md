@@ -8,7 +8,13 @@ bytea_substring is a static internal function that performs the core substring e
 
 ## Definition
 
-
+```c
+static bytea *
+bytea_substring(Datum str,
+				int S,
+				int L,
+				bool length_not_specified)
+```
 ## Detailed Description
 This function implements the complete substring extraction logic for bytea values, handling all the complex edge cases required by the SQL99 standard. It processes starting position and length parameters, validates them according to SQL rules, and handles special cases like negative positions, overflow conditions, and unspecified lengths. The function serves as the core implementation used by both bytea_substr and bytea_substr_no_len wrapper functions, as well as bytea_overlay operations.
 

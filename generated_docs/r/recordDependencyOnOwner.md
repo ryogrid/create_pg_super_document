@@ -8,7 +8,10 @@ A convenience wrapper function that records ownership dependency between a datab
 
 ## Definition
 
-
+```c
+void
+recordDependencyOnOwner(Oid classId, Oid objectId, Oid owner)
+```
 ## Detailed Description
 This function simplifies the process of recording ownership relationships in PostgreSQL. It constructs ObjectAddress structures for both the dependent object and the owner, then calls recordSharedDependencyOn with SHARED_DEPENDENCY_OWNER type to establish the ownership relationship. The owner is always referenced from the pg_authid catalog (AuthIdRelationId). This function is widely used throughout the system when creating objects that have owners.
 

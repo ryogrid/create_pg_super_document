@@ -8,7 +8,10 @@ ECPGfree_type is a function that recursively frees ECPGtype structures and their
 
 ## Definition
 
-
+```c
+void
+ECPGfree_type(struct ECPGtype *type)
+```
 ## Detailed Description
 This function implements a comprehensive memory deallocation system for ECPGtype structures. It first checks if the type is a simple type using IS_SIMPLE_TYPE macro, and if not, it handles complex types through a switch statement. For array types, it recursively handles the element type, with special handling for arrays of structs/unions. For struct and union types, it calls ECPGfree_struct_member to free all member information. The function includes error handling for unexpected or unsupported type combinations like multidimensional arrays.
 

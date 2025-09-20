@@ -8,7 +8,12 @@ Tests whether an object is present in an ObjectAddresses array and if found, ORs
 
 ## Definition
 
-
+```c
+static bool
+object_address_present_add_flags(const ObjectAddress *object,
+								 int flags,
+								 ObjectAddresses *addrs)
+```
 ## Detailed Description
 The  function extends the basic presence check of  by also modifying flag data when objects are found. This function is critical for dependency management during object deletion operations, particularly when dealing with complex relationships between whole objects and their subobjects (like tables and columns).
 

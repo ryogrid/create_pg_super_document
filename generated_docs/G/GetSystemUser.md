@@ -8,7 +8,10 @@ Returns the system user string representing the authenticated identity, formatte
 
 ## Definition
 
-
+```c
+const char *
+GetSystemUser(void)
+```
 ## Detailed Description
 GetSystemUser is a simple accessor function that returns the globally stored system user identifier. This identifier is a formatted string that combines the authentication method used (such as "md5", "trust", "peer", etc.) with the authenticated identity (username or other identifier provided by the auth method). 
 

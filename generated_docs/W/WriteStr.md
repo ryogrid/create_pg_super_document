@@ -8,7 +8,9 @@ WriteStr serializes a C string to an archive stream with length-prefixed format,
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 WriteStr serializes a C string to an archive stream using a length-prefixed format. For non-NULL strings, it first writes the string length as an integer using WriteInt, followed by the string content using the archive's bulk write function. For NULL strings, it writes -1 as the length indicator to distinguish them from empty strings. This design ensures that NULL strings can be properly reconstructed during deserialization.
 

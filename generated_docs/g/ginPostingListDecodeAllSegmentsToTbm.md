@@ -8,7 +8,11 @@ A convenience function that decodes compressed GIN posting list segments and dir
 
 ## Definition
 
-
+```c
+int
+ginPostingListDecodeAllSegmentsToTbm(GinPostingList *ptr, int len,
+									 TIDBitmap *tbm)
+```
 ## Detailed Description
 This function serves as an optimized pathway for decoding GIN posting lists when the end goal is to populate a TID bitmap. Rather than requiring the caller to manage the intermediate ItemPointer array, it handles the complete workflow: decode the posting list segments, add all items to the bitmap, and clean up the temporary memory.
 

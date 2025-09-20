@@ -8,7 +8,10 @@ transientrel_startup is an executor startup function that initializes a DestRece
 
 ## Definition
 
-
+```c
+static void
+transientrel_startup(DestReceiver *self, int operation, TupleDesc typeinfo)
+```
 ## Detailed Description
 This function serves as the startup callback for a DestReceiver that handles writing tuples to a transient relation, typically used in materialized view operations. It initializes the DR_transientrel state structure by opening the target transient relation and configuring bulk insert parameters for optimal performance. The function sets up frozen tuple insertion with FSM (Free Space Map) skipping to maximize insertion speed for temporary data.
 

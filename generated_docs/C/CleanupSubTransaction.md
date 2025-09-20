@@ -8,7 +8,10 @@ CleanupSubTransaction performs final cleanup of a subtransaction that has been a
 
 ## Definition
 
-
+```c
+static void
+CleanupSubTransaction(void)
+```
 ## Detailed Description
 CleanupSubTransaction is a static function that performs the final cleanup phase of a subtransaction that has been aborted. This function is typically called after AbortSubTransaction to complete the cleanup process:
 

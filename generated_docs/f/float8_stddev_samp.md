@@ -8,7 +8,10 @@ Calculates the sample standard deviation for a float8 aggregate transition state
 
 ## Definition
 
-
+```c
+Datum
+float8_stddev_samp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function computes the sample standard deviation from aggregate transition values stored in a float8 array. The sample standard deviation uses Bessel's correction (dividing by N-1 instead of N) to provide an unbiased estimator of population standard deviation. The function extracts the count (N) and sum of squared deviations (Sxx) from the transition array, then applies the formula: sqrt(Sxx / (N - 1)). Returns NULL when there are insufficient data points (N ≤ 1) since sample standard deviation is undefined for single values or empty sets.
 

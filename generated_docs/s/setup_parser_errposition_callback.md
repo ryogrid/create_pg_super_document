@@ -8,7 +8,11 @@ Sets up an error context callback to provide parse error location information fo
 
 ## Definition
 
-
+```c
+void
+setup_parser_errposition_callback(ParseCallbackState *pcbstate,
+								  ParseState *pstate, int location)
+```
 ## Detailed Description
 The  function establishes an error context stack entry that enables non-parser functions to report parser error locations. This is essential when the parser calls external functions that cannot reasonably be passed a ParseState but should still provide meaningful error location information.
 

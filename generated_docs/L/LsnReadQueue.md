@@ -8,7 +8,24 @@ LsnReadQueue is a simple circular queue data structure used to control the numbe
 
 ## Definition
 
-
+```c
+typedef struct LsnReadQueue
+{
+	LsnReadQueueNextFun next;
+	uintptr_t	lrq_private;
+	uint32		max_inflight;
+	uint32		inflight;
+	uint32		completed;
+	uint32		head;
+	uint32		tail;
+	uint32		size;
+	struct
+	{
+		bool		io;
+		XLogRecPtr	lsn;
+	}			queue[FLEXIBLE_ARRAY_MEMBER];
+} LsnReadQueue;
+```
 ## Detailed Description
 The LsnReadQueue serves as a circular buffer for managing LSN (Log Sequence Number) read operations in the PostgreSQL WAL prefetcher. It acts as an intermediate IO control mechanism, designed with intentional indirection through function pointers to allow for future extension to more general IO control mechanisms. The structure maintains counters for tracking inflight and completed operations while using a flexible array member to store queue entries containing LSN positions and IO status flags.
 

@@ -8,7 +8,10 @@ Converts a multibyte string to a wide character array with a specified length li
 
 ## Definition
 
-
+```c
+int
+pg_mb2wchar_with_len(const char *from, pg_wchar *to, int len)
+```
 ## Detailed Description
 This function converts a multibyte character string to an array of wide characters (pg_wchar) with a length restriction. It acts as a wrapper that delegates the actual conversion to the appropriate encoding-specific conversion function stored in the pg_wchar_table array based on the current DatabaseEncoding. The function respects the specified length limit during conversion, making it safer for bounded operations.
 

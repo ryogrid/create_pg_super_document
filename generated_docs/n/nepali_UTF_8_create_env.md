@@ -8,7 +8,11 @@ Creates and initializes a Snowball stemming environment for processing Nepali te
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * nepali_UTF_8_create_env(void)
+```
 ## Detailed Description
 This function is a language-specific wrapper for creating a Snowball stemming environment tailored for Nepali language text processing. It serves as the entry point for initializing the stemming algorithm environment without requiring additional string or integer storage arrays, as indicated by the zero parameters passed to the underlying SN_create_env function.
 

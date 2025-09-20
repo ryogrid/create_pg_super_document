@@ -8,7 +8,15 @@ Per-heap-tuple callback function used during BRIN index build that processes ind
 
 ## Definition
 
-
+```c
+static void
+brinbuildCallback(Relation index,
+				  ItemPointer tid,
+				  Datum *values,
+				  bool *isnull,
+				  bool tupleIsAlive,
+				  void *brstate)
+```
 ## Detailed Description
 The brinbuildCallback function is called for each heap tuple during BRIN index construction via table_index_build_scan. It maintains the core logic for building BRIN summary information by:
 

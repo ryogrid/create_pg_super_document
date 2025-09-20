@@ -8,7 +8,10 @@ A PostgreSQL function that generates highlighted headlines from text based on a 
 
 ## Definition
 
-
+```c
+Datum
+ts_headline(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a wrapper function that provides a simplified interface for generating text search headlines. It automatically uses the current default text search configuration (obtained via ) and delegates the actual work to . This function is typically used when you want to generate highlighted text snippets without specifying a particular text search configuration or custom options.
 

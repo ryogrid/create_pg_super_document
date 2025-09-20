@@ -8,7 +8,10 @@ Removes a predicate lock target along with all associated predicate locks, perfo
 
 ## Definition
 
-
+```c
+static void
+DeleteLockTarget(PREDICATELOCKTARGET *target, uint32 targettaghash)
+```
 ## Detailed Description
 DeleteLockTarget is an internal function responsible for cleaning up predicate lock targets and their associated locks within PostgreSQL's serializable snapshot isolation system. The function performs a comprehensive cleanup operation:
 

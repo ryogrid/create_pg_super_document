@@ -8,7 +8,13 @@ InProgressIO is a simple structure that tracks individual asynchronous read oper
 
 ## Definition
 
-
+```c
+typedef struct InProgressIO
+{
+	int16		buffer_index;
+	ReadBuffersOperation op;
+} InProgressIO;
+```
 ## Detailed Description
 The InProgressIO structure serves as a lightweight tracking record for asynchronous I/O operations within the read stream system. It maintains the minimal information needed to correlate pending read operations with their target buffers and the underlying I/O operations. This structure is used internally by the ReadStream infrastructure to manage multiple concurrent read operations that may complete out of order.
 

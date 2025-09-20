@@ -8,7 +8,14 @@ SortByDir is an enumeration type that defines sort ordering options used in ORDE
 
 ## Definition
 
-
+```c
+typedef enum SortByNulls
+{
+	SORTBY_NULLS_DEFAULT,
+	SORTBY_NULLS_FIRST,
+	SORTBY_NULLS_LAST,
+} SortByNulls;
+```
 ## Detailed Description
 SortByDir provides a standardized way to represent sort direction options in PostgreSQL's parser nodes. It encompasses the standard ascending and descending sort orders, as well as a default option and a special USING clause option for custom sorting operators. The enum is primarily used in query parsing and execution planning to maintain sort order information throughout the query processing pipeline.
 

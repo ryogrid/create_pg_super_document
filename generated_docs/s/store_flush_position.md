@@ -8,7 +8,10 @@ Stores current remote/local LSN pairs in the tracking list for logical replicati
 
 ## Definition
 
-
+```c
+void
+store_flush_position(XLogRecPtr remote_lsn, XLogRecPtr local_lsn)
+```
 ## Detailed Description
 This function maintains the critical mapping between remote publisher LSNs and local subscriber LSNs that enables safe flush position reporting in logical replication. It works by:
 

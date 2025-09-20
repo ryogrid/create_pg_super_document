@@ -8,7 +8,10 @@ A static comparison function used for sorting ParsedWord structures, comparing b
 
 ## Definition
 
-
+```c
+static int
+compareWORD(const void *a, const void *b)
+```
 ## Detailed Description
  is a comparison function designed for use with sorting algorithms (like ) to order  structures. It implements a two-level comparison strategy:
 

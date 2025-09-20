@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) check hook function that validates the maint
 
 ## Definition
 
-
+```c
+bool
+check_maintenance_io_concurrency(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a check hook for the maintenance_io_concurrency GUC parameter in PostgreSQL. The maintenance_io_concurrency parameter controls the number of concurrent disk I/O operations that PostgreSQL should expect for maintenance operations like VACUUM, ANALYZE, CREATE INDEX, and similar background tasks.
 

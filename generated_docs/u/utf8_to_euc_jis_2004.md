@@ -8,7 +8,10 @@ Converts text from UTF-8 encoding to EUC-JIS-2004 encoding, serving as a Postgre
 
 ## Definition
 
-
+```c
+Datum
+utf8_to_euc_jis_2004(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a PostgreSQL conversion procedure that transforms text encoded in UTF-8 to EUC-JIS-2004 (Extended Unix Code for Japanese Industrial Standards 2004) encoding. It serves as the reverse conversion counterpart to euc_jis_2004_to_utf8, following the standard PostgreSQL conversion function signature with source and destination buffers and conversion parameters. The function utilizes the  conversion engine with EUC-JIS-2004 specific mapping tables and conversion trees to perform the character encoding transformation from Unicode to the Japanese encoding standard.
 

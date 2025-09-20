@@ -8,7 +8,10 @@ This static helper function calculates and returns the absolute value of a Postg
 
 ## Definition
 
-
+```c
+static Numeric
+numeric_absolute(Numeric n)
+```
 ## Detailed Description
 The numeric_absolute function computes the absolute value of a PostgreSQL Numeric data type. It serves as a wrapper around the standard numeric_abs function, providing a convenient interface for obtaining absolute values while handling the Datum conversion process automatically. The function preserves the precision and scale of the input numeric value while ensuring the result is always non-negative. It handles all special numeric values including positive/negative infinity and NaN according to PostgreSQL's standard numeric rules.
 

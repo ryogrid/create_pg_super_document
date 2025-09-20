@@ -8,7 +8,11 @@ Handles the post-commit processing for two-phase commit transactions by restorin
 
 ## Definition
 
-
+```c
+void
+pgstat_twophase_postcommit(TransactionId xid, uint16 info,
+						   void *recdata, uint32 len)
+```
 ## Detailed Description
 This function is part of PostgreSQL's two-phase commit (2PC) protocol handling for statistics collection. When a prepared transaction is committed via COMMIT PREPARED, this function restores the previously saved relation statistics from the transaction record into the current backend's local statistics state. The function performs the same mathematical operations as the normal commit case in AtEOXact_PgStat, ensuring that statistics are properly maintained across 2PC boundaries.
 

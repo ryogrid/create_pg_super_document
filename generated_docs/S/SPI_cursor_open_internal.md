@@ -8,7 +8,11 @@ SPI_cursor_open_internal is the common internal function that implements cursor 
 
 ## Definition
 
-
+```c
+static Portal
+SPI_cursor_open_internal(const char *name, SPIPlanPtr plan,
+						 ParamListInfo paramLI, bool read_only)
+```
 ## Detailed Description
 This internal function handles the core logic for opening SPI cursors. It validates that the provided plan is suitable for cursor operations, creates a Portal with the specified name (or generates one automatically), configures cursor options including scroll behavior, handles parameter binding, and starts portal execution with the appropriate snapshot. The function ensures proper memory context management and error handling throughout the process.
 

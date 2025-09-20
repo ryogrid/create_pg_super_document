@@ -8,7 +8,10 @@ Implements the \i and \ir commands in PostgreSQL's psql client for including and
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_include(PsqlScanState scan_state, bool active_branch, const char *cmd)
+```
 ## Detailed Description
 This function handles the execution of the \i (include) and \ir (include relative) backslash commands in psql. It reads and processes SQL commands from a specified file. The \i command resolves file paths relative to the current working directory, while \ir resolves paths relative to the directory containing the currently executing script. The function validates that a filename argument is provided, expands tilde (~) characters in file paths, and delegates actual file processing to the process_file function. It respects the active_branch parameter for conditional execution.
 

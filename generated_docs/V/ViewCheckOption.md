@@ -8,7 +8,18 @@ ViewCheckOption is an enumeration type that defines the check option behavior fo
 
 ## Definition
 
-
+```c
+typedef struct ViewStmt
+{
+	NodeTag		type;
+	RangeVar   *view;			/* the view to be created */
+	List	   *aliases;		/* target column names */
+	Node	   *query;			/* the SELECT query (as a raw parse tree) */
+	bool		replace;		/* replace an existing view? */
+	List	   *options;		/* options from WITH clause */
+	ViewCheckOption withCheckOption;	/* WITH CHECK OPTION */
+} ViewStmt;
+```
 ## Detailed Description
 ViewCheckOption specifies the constraint checking behavior for views that support INSERT and UPDATE operations. This enumeration implements the SQL standard's WITH CHECK OPTION feature, which ensures that modified rows through a view continue to satisfy the view's WHERE conditions:
 

@@ -8,7 +8,10 @@ Converts a VARCHAR value to a specified size with configurable truncation behavi
 
 ## Definition
 
-
+```c
+Datum
+varchar(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `varchar` function performs length coercion for VARCHAR values, converting them to fit within a specified maximum length constraint. This function implements the core logic for VARCHAR length enforcement in PostgreSQL, handling both explicit and implicit casts with different truncation rules.
 

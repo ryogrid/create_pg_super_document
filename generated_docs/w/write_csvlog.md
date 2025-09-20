@@ -8,7 +8,10 @@ Generates and writes a comprehensive CSV-formatted log entry containing error/me
 
 ## Definition
 
-
+```c
+void
+write_csvlog(ErrorData *edata)
+```
 ## Detailed Description
 This function constructs a detailed CSV log entry based on the provided ErrorData structure and current process state. It generates a standardized CSV format that includes timestamps, user/database information, process details, error specifics, and contextual data. The function maintains a static line counter per process, handles process ID changes (such as after fork), and formats all data according to PostgreSQL's CSV logging conventions. The resulting CSV line contains approximately 23 fields covering all aspects of the logged event, from basic identification to detailed error context.
 

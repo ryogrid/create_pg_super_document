@@ -8,7 +8,14 @@ A Windows-specific implementation of pthread mutex type for PostgreSQL's ECPG (E
 
 ## Definition
 
-
+```c
+typedef struct pthread_mutex_t
+{
+	/* initstate = 0: not initialized; 1: init done; 2: init in progress */
+	LONG		initstate;
+	CRITICAL_SECTION csection;
+} pthread_mutex_t;
+```
 ## Detailed Description
 This structure is PostgreSQL's custom implementation of pthread_mutex_t specifically for Win32 platforms in the ECPG (Embedded SQL in C) interface. It provides a compatibility layer that mimics POSIX pthread mutex behavior using Windows-native synchronization primitives. The structure wraps a Windows CRITICAL_SECTION object with an initialization state tracker to ensure proper mutex lifecycle management.
 

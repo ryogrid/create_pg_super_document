@@ -8,7 +8,12 @@ Retrieves the next entry from the BuildAccumulator's red-black tree in sorted or
 
 ## Definition
 
-
+```c
+ItemPointerData *
+ginGetBAEntry(BuildAccumulator *accum,
+			  OffsetNumber *attnum, Datum *key, GinNullCategory *category,
+			  uint32 *n)
+```
 ## Detailed Description
 This function extracts the next entry from the BuildAccumulator during the scanning phase of GIN index construction. It uses the tree iterator initialized by ginBeginBAScan to traverse entries in sorted order. Each call returns a single key value along with all the heap tuple pointers (TIDs) that contain that key.
 

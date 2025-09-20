@@ -8,7 +8,10 @@ Checks whether a specified role has explicit REPLICATION privilege by examining 
 
 ## Definition
 
-
+```c
+bool
+has_rolreplication(Oid roleid)
+```
 ## Detailed Description
 This function determines if a given role has replication privileges in PostgreSQL. It first checks if the role is a superuser (which automatically grants all privileges including replication). If not a superuser, it queries the pg_authid system catalog to check the rolreplication attribute of the specified role. The function follows PostgreSQL's standard privilege checking pattern with superuser bypass and system catalog lookup.
 

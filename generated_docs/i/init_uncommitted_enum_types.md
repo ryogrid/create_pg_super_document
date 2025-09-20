@@ -8,7 +8,10 @@ Initializes the uncommitted_enum_types hash table to track enum types created wi
 
 ## Definition
 
-
+```c
+static void
+init_uncommitted_enum_types(void)
+```
 ## Detailed Description
 init_uncommitted_enum_types is a static initialization function that creates and configures the uncommitted_enum_types hash table used to track enum types created within the current transaction. This hash table is essential for PostgreSQL's enum handling because it enables the system to distinguish between enum types that were created in the current transaction versus those that existed before the transaction began.
 

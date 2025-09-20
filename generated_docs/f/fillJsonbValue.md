@@ -8,7 +8,12 @@ A low-level helper function that extracts and converts JSONB element data from i
 
 ## Definition
 
-
+```c
+static void
+fillJsonbValue(JsonbContainer *container, int index,
+			   char *base_addr, uint32 offset,
+			   JsonbValue *result)
+```
 ## Detailed Description
 This fundamental utility function decodes JSONB elements from their compact internal representation into the more accessible JsonbValue format. It examines the JEntry metadata to determine the data type and location, then appropriately sets up the JsonbValue fields based on the element's type.
 

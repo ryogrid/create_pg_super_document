@@ -8,7 +8,10 @@ Returns the replication progress for the origin setup in the current session, re
 
 ## Definition
 
-
+```c
+Datum
+pg_replication_origin_session_progress(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function retrieves the current replication progress for a replication origin that has been configured in the current session. The function returns the remote LSN (Log Sequence Number) that represents the position of the last transaction that was successfully replicated from the remote source. 
 

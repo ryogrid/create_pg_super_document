@@ -8,7 +8,12 @@ MergeInheritedAttribute merges a parent attribute definition into an existing in
 
 ## Definition
 
-
+```c
+static ColumnDef *
+MergeInheritedAttribute(List *inh_columns,
+						int exist_attno,
+						const ColumnDef *newdef)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's table inheritance mechanism. It handles the complex task of merging attribute definitions when a child table inherits from multiple parents that have columns with the same name. The function performs strict validation to ensure that inherited attributes are compatible and follows PostgreSQL's inheritance rules.
 

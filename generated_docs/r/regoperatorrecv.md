@@ -8,7 +8,10 @@ Converts external binary format to regoperator data type, used for deserializing
 
 ## Definition
 
-
+```c
+Datum
+regoperatorrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a receive function for the  data type in PostgreSQL. It handles the conversion of binary data received over the wire or from storage back into the internal  representation. Since  is essentially an OID (Object Identifier), this function simply delegates to the existing  function, sharing the same binary format and conversion logic.
 

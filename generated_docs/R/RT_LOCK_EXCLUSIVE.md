@@ -8,7 +8,10 @@ RT_LOCK_EXCLUSIVE is a macro that generates a function name for acquiring an exc
 
 ## Definition
 
-
+```c
+RT_SCOPE void
+RT_LOCK_EXCLUSIVE(RT_RADIX_TREE * tree)
+```
 ## Detailed Description
 RT_LOCK_EXCLUSIVE is part of PostgreSQL's generic radix tree implementation for shared memory usage. This macro uses the RT_MAKE_NAME helper to generate a prefixed function name that acquires an exclusive lock on a shared memory radix tree. The actual function signature generated would be:
 

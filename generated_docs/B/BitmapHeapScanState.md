@@ -8,7 +8,27 @@ BitmapHeapScanState is an execution state structure that manages bitmap heap sca
 
 ## Definition
 
-
+```c
+typedef struct BitmapHeapScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	ExprState  *bitmapqualorig;
+	TIDBitmap  *tbm;
+	TBMIterator *tbmiterator;
+	TBMIterateResult *tbmres;
+	Buffer		pvmbuffer;
+	long		exact_pages;
+	long		lossy_pages;
+	TBMIterator *prefetch_iterator;
+	int			prefetch_pages;
+	int			prefetch_target;
+	int			prefetch_maximum;
+	bool		initialized;
+	TBMSharedIterator *shared_tbmiterator;
+	TBMSharedIterator *shared_prefetch_iterator;
+	ParallelBitmapHeapState *pstate;
+} BitmapHeapScanState;
+```
 ## Detailed Description
 BitmapHeapScanState extends ScanState to implement the heap-scanning portion of PostgreSQL's bitmap scan strategy. It takes TID bitmaps produced by bitmap index scans and efficiently retrieves the corresponding tuples from heap pages in physical storage order, minimizing random I/O. The structure supports both exact and lossy page representations, implements sophisticated prefetching mechanisms to optimize I/O performance, and provides full support for parallel execution where multiple workers can collaborate on scanning the same bitmap. It maintains statistics on exact vs lossy pages and dynamically adjusts prefetch distances based on system performance.
 

@@ -8,7 +8,11 @@ Searches for an unqualified column name in the parser namespace and returns the 
 
 ## Definition
 
-
+```c
+Node *
+colNameToVar(ParseState *pstate, const char *colname, bool localonly,
+			 int location)
+```
 ## Detailed Description
 The  function performs an unqualified column name lookup within the PostgreSQL parser. It searches through the parser namespace hierarchy, starting from the current parse state and potentially traversing up to parent parse states. The function handles ambiguity detection by raising an error if the same column name is found in multiple namespace items. It also respects lateral reference rules and visibility constraints for namespace items.
 

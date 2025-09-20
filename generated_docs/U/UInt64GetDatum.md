@@ -8,7 +8,10 @@ Converts a 64-bit unsigned integer to a PostgreSQL Datum representation, handlin
 
 ## Definition
 
-
+```c
+static inline Datum
+UInt64GetDatum(uint64 X)
+```
 ## Detailed Description
 UInt64GetDatum is a utility function that converts a 64-bit unsigned integer (uint64) into PostgreSQL's universal Datum type. The implementation varies based on compilation flags:
 

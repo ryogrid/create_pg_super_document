@@ -8,7 +8,16 @@ The WalRcvExecResult structure is a return value container used by the PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct WalRcvExecResult
+{
+	WalRcvExecStatus status;
+	int			sqlstate;
+	char	   *err;
+	Tuplestorestate *tuplestore;
+	TupleDesc	tupledesc;
+} WalRcvExecResult;
+```
 ## Detailed Description
 WalRcvExecResult is a composite data structure designed to hold comprehensive information about the execution of SQL commands or replication protocol commands through the WAL receiver interface. This structure enables the WAL receiver subsystem to communicate detailed execution results back to calling functions, including success/failure status, error information, and any result data.
 

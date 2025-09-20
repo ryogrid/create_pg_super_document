@@ -8,7 +8,11 @@ Initializes an ArrayBuildState structure with a specified initial array size, pr
 
 ## Definition
 
-
+```c
+ArrayBuildState *
+initArrayResultWithSize(Oid element_type, MemoryContext rcontext,
+						bool subcontext, int initsize)
+```
 ## Detailed Description
 This function creates and initializes an ArrayBuildState structure for building arrays incrementally, allowing the caller to specify the initial size of the allocated arrays. It performs the core initialization work for array building, setting up memory contexts, allocating initial storage for element values and null flags, and retrieving type information.
 

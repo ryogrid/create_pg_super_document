@@ -8,7 +8,10 @@ Provides specific warnings and guidance when initdb detects that a directory app
 
 ## Definition
 
-
+```c
+void
+warn_on_mount_point(int error)
+```
 ## Detailed Description
 This function generates informative warnings when  detects conditions that suggest a directory is a filesystem mount point. It provides context-specific error details and guidance to help users understand why using mount points directly as PostgreSQL data directories is problematic.
 

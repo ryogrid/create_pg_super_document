@@ -8,7 +8,11 @@ A convenience wrapper function that unregisters a TupleDesc from a resource owne
 
 ## Definition
 
-
+```c
+structure.
+ *
+ * Tuple type ID information is initially set for an anonymous record type;
+```
 ## Detailed Description
 This is a static inline convenience wrapper around the generic ResourceOwnerForget function, specifically designed for TupleDesc objects. It simplifies the process of unregistering a tuple descriptor from a resource owner by automatically handling the type-specific resource descriptor (tupdesc_resowner_desc) and datum conversion. This is typically called when a TupleDesc is being manually cleaned up before the resource owner is released, ensuring that the resource owner doesn't attempt to clean it up again.
 

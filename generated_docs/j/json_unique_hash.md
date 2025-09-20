@@ -8,7 +8,10 @@ The  function computes hash values for JSON object keys to enable fast duplicate
 
 ## Definition
 
-
+```c
+static uint32
+json_unique_hash(const void *key, Size keysize)
+```
 ## Detailed Description
 This function serves as a hash function for the hash table used in JSON key uniqueness checking. It takes a  structure as input and computes a 32-bit hash value by combining two hash components: the object ID (using ) and the key string (using ). The hash combination uses XOR to blend the two hash values, providing good distribution for the hash table.
 

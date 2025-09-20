@@ -8,7 +8,10 @@ This function validates and prepares random seed value changes, ensuring that on
 
 ## Definition
 
-
+```c
+bool
+check_random_seed(double *newval, void **extra, GucSource source)
+```
 ## Detailed Description
  is a GUC check hook function that validates attempts to set the random seed via  commands. The function implements special handling for the random seed to prevent undesirable behavior such as configuration file reloads affecting the random sequence or transaction rollbacks attempting to re-execute the seed operation.
 

@@ -8,7 +8,11 @@ Extracts the fixed prefix portion from a LIKE pattern string to support query op
 
 ## Definition
 
-
+```c
+static Pattern_Prefix_Status
+like_fixed_prefix(Const *patt_const, bool case_insensitive, Oid collation,
+				  Const **prefix_const, Selectivity *rest_selec)
+```
 ## Detailed Description
 This function analyzes LIKE patterns to extract the fixed (literal) prefix portion that appears before any wildcard characters (% or _). This analysis is crucial for PostgreSQL's query optimizer as it allows the use of index scans when patterns start with literal characters. The function handles both case-sensitive and case-insensitive matching, supports TEXT and BYTEA data types, and properly handles escaped characters.
 

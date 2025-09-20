@@ -8,7 +8,10 @@ A no-op function that serves as a custom Tcl timer setting function in PostgreSQ
 
 ## Definition
 
-
+```c
+static void
+pltcl_SetTimer(CONST86 Tcl_Time *timePtr)
+```
 ## Detailed Description
 The `pltcl_SetTimer` function is part of PostgreSQL's custom Tcl notifier subsystem replacement that prevents multithreading issues in PL/Tcl. This function is intentionally implemented as a no-op (empty function body) because PostgreSQL never enters the Tcl event loop and therefore never needs timer functionality.
 

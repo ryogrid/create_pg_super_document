@@ -8,7 +8,10 @@ A wrapper function that delegates to  while maintaining SQL function signature c
 
 ## Definition
 
-
+```c
+Datum
+regexp_substr_no_start(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a simple wrapper function that directly calls the main  function. It exists primarily to satisfy PostgreSQL's function overloading mechanism and to keep the opr_sanity regression test from complaining about function signature mismatches. The function forwards all arguments unchanged to , which handles the actual pattern matching logic.
 

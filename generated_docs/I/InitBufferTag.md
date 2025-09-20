@@ -8,7 +8,11 @@ InitBufferTag is an inline function that initializes a BufferTag structure with 
 
 ## Definition
 
-
+```c
+static inline void
+InitBufferTag(BufferTag *tag, const RelFileLocator *rlocator,
+			  ForkNumber forkNum, BlockNumber blockNum)
+```
 ## Detailed Description
 InitBufferTag serves as a convenience function for properly initializing a BufferTag structure. The BufferTag is a critical data structure in PostgreSQL's buffer management that uniquely identifies a specific database block across the entire system. This function takes a RelFileLocator (which contains tablespace, database, and relation identifiers) along with fork and block numbers, and populates all the necessary fields of the BufferTag structure.
 

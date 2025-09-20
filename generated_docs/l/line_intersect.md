@@ -8,7 +8,10 @@ Determines whether two LINE objects intersect in PostgreSQL's geometric data typ
 
 ## Definition
 
-
+```c
+Datum
+line_intersect(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function checks if two LINE objects intersect by using the internal  helper function. It takes two LINE arguments and returns a boolean value indicating whether the lines intersect. The function delegates the actual intersection calculation to , passing NULL as the first parameter to indicate that only the intersection test (not the intersection point) is needed.
 

@@ -8,7 +8,12 @@ Inserts a new BRIN tuple into the index relation, updating the revmap to associa
 
 ## Definition
 
-
+```c
+OffsetNumber
+brin_doinsert(Relation idxrel, BlockNumber pagesPerRange,
+			  BrinRevmap *revmap, Buffer *buffer, BlockNumber heapBlk,
+			  BrinTuple *tup, Size itemsz)
+```
 ## Detailed Description
 The  function handles the complete process of inserting a BRIN tuple into the index. It manages buffer allocation, space validation, page initialization for newly extended pages, and maintains the critical revmap structure that maps heap block ranges to their corresponding index tuples.
 

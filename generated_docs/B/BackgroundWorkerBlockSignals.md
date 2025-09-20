@@ -8,7 +8,10 @@ Blocks signal delivery to a background worker process by setting the process sig
 
 ## Definition
 
-
+```c
+void
+BackgroundWorkerBlockSignals(void)
+```
 ## Detailed Description
 This function blocks signal delivery to the current background worker process by calling sigprocmask() with the SIG_SETMASK operation and the global BlockSig signal set. This is typically used when a background worker needs to perform critical operations that should not be interrupted by signal handlers.
 

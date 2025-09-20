@@ -8,7 +8,10 @@ hdefault is a static function that initializes a hash table's header structure w
 
 ## Definition
 
-
+```c
+static void
+hdefault(HTAB *hashp)
+```
 ## Detailed Description
 hdefault serves as the default initialization function for HASHHDR structures within PostgreSQL's dynamic hash table implementation. This function clears the hash header and sets standard default values for directory size, segment parameters, partitioning, and statistical tracking. It establishes the basic configuration that can later be overridden by specific flags and parameters passed to hash_create. The function ensures that all hash tables start with consistent, well-defined default behavior before any custom configuration is applied.
 

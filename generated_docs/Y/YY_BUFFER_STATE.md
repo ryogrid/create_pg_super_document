@@ -8,7 +8,9 @@ YY_BUFFER_STATE is a typedef for a pointer to the flex lexer's buffer state stru
 
 ## Definition
 
-
+```c
+typedef struct yy_buffer_state *YY_BUFFER_STATE;
+```
 ## Detailed Description
 YY_BUFFER_STATE is a type definition that represents a pointer to flex's internal buffer state structure. This type is part of PostgreSQL's lexical scanning infrastructure, specifically used in the psql command-line interface and related utilities. The type is defined conditionally to ensure compatibility when the file is included in different contexts - it's primarily intended to be used within flex-generated lexer files where these symbols are already defined, but can also be compiled standalone for header validity checking.
 

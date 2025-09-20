@@ -8,7 +8,11 @@ Maps SQL identifiers to XML names according to SQL/XML:2008 section 9.1, perform
 
 ## Definition
 
-
+```c
+char *
+map_sql_identifier_to_xml_name(const char *ident, bool fully_escaped,
+							   bool escape_period)
+```
 ## Detailed Description
 This function converts SQL identifiers to XML-compliant names by escaping special characters that are invalid in XML names. The function follows the SQL/XML standard specification for identifier mapping, ensuring that the resulting XML names are valid while preserving the original identifier's meaning through reversible character encoding.
 

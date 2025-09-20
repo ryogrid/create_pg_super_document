@@ -8,7 +8,11 @@ ATExecValidateConstraint implements the ALTER TABLE VALIDATE CONSTRAINT command,
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecValidateConstraint(List **wqueue, Relation rel, char *constrName,
+						 bool recurse, bool recursing, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function validates foreign key and check constraints that were previously created with the NOT VALID option. It finds the target constraint, verifies it's an appropriate type (foreign key or check), and if not already validated, queues the validation work for phase 3 of ALTER TABLE processing. The function handles both foreign key and check constraints differently:
 

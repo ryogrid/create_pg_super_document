@@ -8,7 +8,27 @@ RT_RADIX_TREE_CONTROL is a macro that generates a type name for the control stru
 
 ## Definition
 
+```c
+typedef struct RT_RADIX_TREE_CONTROL
+{
+#ifdef RT_SHMEM
+	RT_HANDLE	handle;
+	uint32		magic;
+	LWLock		lock;
+#endif
 
+	RT_PTR_ALLOC root;
+	uint64		max_val;
+	int64		num_keys;
+	int			start_shift;
+
+	/* statistics */
+#ifdef RT_DEBUG
+	int64		num_nodes[RT_NUM_SIZE_CLASSES];
+	int64		num_leaves;
+#endif
+}			RT_RADIX_TREE_CONTROL;
+```
 ## Detailed Description
 RT_RADIX_TREE_CONTROL is the central control structure for PostgreSQL's adaptive radix tree implementation. This structure contains all the essential metadata and state information needed to manage a radix tree instance, including the root pointer, size information, and optional debugging statistics.
 

@@ -8,7 +8,10 @@ Validates that server configuration parameters are set to appropriate values for
 
 ## Definition
 
-
+```c
+static void
+CheckRequiredParameterValues(void)
+```
 ## Detailed Description
 CheckRequiredParameterValues performs critical validation of server configuration parameters to ensure compatibility with recovery operations. This function implements essential safety checks that prevent runtime failures during archive recovery and hot standby scenarios.
 

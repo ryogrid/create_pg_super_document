@@ -8,7 +8,11 @@ The r_deriv function handles Irish derivational suffix removal and transformatio
 
 ## Definition
 
+```c
+}
 
+static int r_deriv(struct SN_env * z)
+```
 ## Detailed Description
 This function processes Irish derivational suffixes that modify the meaning or grammatical category of root words. It uses a lookup table (a_2 with 25 entries) to identify derivational suffix patterns and applies one of six different transformation strategies:
 

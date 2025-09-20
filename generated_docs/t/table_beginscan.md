@@ -8,7 +8,22 @@ table_beginscan is a core table scanning function that initiates a sequential sc
 
 ## Definition
 
+```c
+struct ScanKeyData *key)
+{
+	uint32		flags = SO_TYPE_SEQSCAN |
+		SO_ALLOW_STRAT | SO_ALLOW_SYNC | SO_ALLOW_PAGEMODE;
 
+	return rel->rd_tableam->scan_begin(rel, snapshot, nkeys, key, NULL, flags);
+}
+
+/*
+ * Like table_beginscan(), but for scanning catalog. It'll automatically use a
+ * snapshot appropriate for scanning catalog relations.
+ */
+extern TableScanDesc table_beginscan_catalog(Relation relation, int nkeys,
+											 struct ScanKeyData *key);
+```
 ## Detailed Description
 table_beginscan is a high-level interface function that starts a table scan operation. It acts as a wrapper around the table access method's scan_begin function, providing a standardized way to initiate sequential scans across different table access methods. The function sets up default scan flags optimized for sequential scanning, including strategy allowance, synchronization, and page mode operations.
 

@@ -8,7 +8,16 @@ The  function is a PostgreSQL I/O function that converts a text string into a TS
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	QueryItem  *curpol;
+	char	   *buf;
+	char	   *cur;
+	char	   *op;
+	int			buflen;
+} INFIX;
+```
 ## Detailed Description
 This function serves as the input function for the TSQuery data type in PostgreSQL's type system. It takes a C-string representation of a text search query and converts it directly into the internal TSQuery format. The key characteristic of this function is that it performs "raw" parsing without any morphological analysis - meaning it doesn't apply stemming, dictionary lookups, or other text processing that would normally be done by text search configurations.
 

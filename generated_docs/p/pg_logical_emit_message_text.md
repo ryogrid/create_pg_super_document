@@ -8,7 +8,10 @@ Writes a logical decoding message with textual data into the Write-Ahead Log (WA
 
 ## Definition
 
-
+```c
+Datum
+pg_logical_emit_message_text(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a PostgreSQL SQL function implementation that provides a text-based interface for writing logical decoding messages into the WAL. The function is essentially a thin wrapper around , leveraging the compatibility between PostgreSQL's  and  data types.
 

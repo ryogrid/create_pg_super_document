@@ -8,7 +8,16 @@ MININT is a preprocessor directive used to undefine a potentially conflicting MI
 
 ## Definition
 
-
+```c
+typedef struct stemmer_module
+{
+	const char *name;
+	pg_enc		enc;
+	struct SN_env *(*create) (void);
+	void		(*close) (struct SN_env *);
+	int			(*stem) (struct SN_env *);
+} stemmer_module;
+```
 ## Detailed Description
 The MININT symbol appears in PostgreSQL's Snowball dictionary implementation as a preprocessor directive that conditionally undefines the MININT macro. This is a defensive programming measure used to prevent naming conflicts between platform-specific definitions of MININT and the Snowball library's own definition.
 

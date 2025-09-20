@@ -8,7 +8,10 @@ Finalizes the data writing process by terminating compression and writing an end
 
 ## Definition
 
-
+```c
+static void
+_EndData(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 The  function is a mandatory component of the custom archive format that handles the cleanup and finalization tasks after a dumper's  routine has completed writing table data. This function serves as the counterpart to , ensuring proper termination of the data writing process.
 

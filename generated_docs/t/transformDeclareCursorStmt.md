@@ -8,7 +8,10 @@ Transforms a DECLARE CURSOR statement into a CMD_UTILITY Query node after valida
 
 ## Definition
 
-
+```c
+static Query *
+transformDeclareCursorStmt(ParseState *pstate, DeclareCursorStmt *stmt)
+```
 ## Detailed Description
 This function processes a DECLARE CURSOR statement by first validating the compatibility of various cursor options, then transforming the contained query (which must be a SELECT), and finally wrapping the result as a utility statement. The transformation occurs during parse analysis rather than execution to ensure parser hooks are triggered at the expected time.
 

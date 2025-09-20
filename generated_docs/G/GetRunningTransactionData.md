@@ -8,7 +8,10 @@ GetRunningTransactionData returns comprehensive information about all currently 
 
 ## Definition
 
-
+```c
+RunningTransactions
+GetRunningTransactionData(void)
+```
 ## Detailed Description
 This function collects and returns detailed information about all running transactions in the system. Unlike GetSnapshotData which is optimized for snapshot creation, GetRunningTransactionData provides more comprehensive information including VACUUM processes and prepared transactions. It is specifically designed for checkpointing operations and standby server coordination.
 

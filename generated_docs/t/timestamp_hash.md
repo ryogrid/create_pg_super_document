@@ -8,7 +8,10 @@ The timestamp_hash function computes a hash value for timestamp data types by de
 
 ## Definition
 
-
+```c
+Datum
+timestamp_hash(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides hash support for timestamp values in PostgreSQL's hash-based operations (such as hash joins, hash aggregation, and hash indexes). It leverages the fact that timestamps are internally represented as 64-bit integers and delegates the actual hashing computation to the hashint8 function. This approach ensures consistent hashing behavior between timestamp values and their underlying integer representations.
 

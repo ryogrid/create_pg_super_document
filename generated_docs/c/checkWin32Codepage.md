@@ -8,7 +8,10 @@ A Windows-specific utility function that checks for code page mismatches between
 
 ## Definition
 
-
+```c
+static void
+checkWin32Codepage(void)
+```
 ## Detailed Description
 This function is designed specifically for Windows environments to detect and warn about code page inconsistencies that could cause display problems with 8-bit characters in psql. It compares the Active Code Page (ACP) used by Windows applications with the Console Code Page (CP) used by the console window. When these differ, it can result in incorrect character rendering, particularly for non-ASCII characters.
 

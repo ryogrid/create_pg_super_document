@@ -8,7 +8,13 @@ A static iterator function that advances through elements of an array constant d
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	OpExpr		opexpr;
+	ListCell   *next;
+} ArrayExprIterState;
+```
 ## Detailed Description
 This function is part of PostgreSQL's predicate testing infrastructure, specifically designed to iterate through the elements of an array constant. It serves as a callback function in the predicate iterator framework, allowing the optimizer to examine each element of an array constant sequentially during predicate analysis operations.
 

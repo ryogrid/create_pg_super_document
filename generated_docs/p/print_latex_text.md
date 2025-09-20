@@ -8,7 +8,10 @@ Formats and prints table data in standard LaTeX tabular environment format with 
 
 ## Definition
 
-
+```c
+static void
+print_latex_text(const printTableContent *cont, FILE *fout)
+```
 ## Detailed Description
 This function generates LaTeX code for displaying tabular data using the standard tabular environment. It creates a complete LaTeX table with configurable borders (0-3 levels), proper column alignment specifications, optional titles centered above the table, headers in italics, and footers below the table. The function handles LaTeX-specific formatting requirements including proper escaping of special characters and appropriate use of LaTeX table syntax including column separators (&) and row terminators (\\).
 

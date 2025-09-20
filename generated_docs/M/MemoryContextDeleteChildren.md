@@ -8,7 +8,10 @@ Deletes all descendants of the named context and releases all space allocated th
 
 ## Definition
 
-
+```c
+void
+MemoryContextDeleteChildren(MemoryContext context)
+```
 ## Detailed Description
 MemoryContextDeleteChildren provides a targeted deletion operation that removes all child contexts of a specified parent context while preserving the parent itself. This function is particularly useful when you need to clear all subordinate memory contexts but maintain the parent structure for continued use.
 

@@ -8,7 +8,10 @@ IsTransactionBlock is a utility function that determines whether the current ses
 
 ## Definition
 
-
+```c
+bool
+IsTransactionBlock(void)
+```
 ## Detailed Description
 IsTransactionBlock checks the current transaction's block state to determine if the session is operating within an explicit transaction block (started with BEGIN/START TRANSACTION). The function examines the blockState field of the current transaction state and returns false only when the transaction is in DEFAULT state (no explicit transaction) or STARTED state (transaction started but no user commands executed yet). All other states indicate the session is within a transaction block where certain operations may be restricted.
 

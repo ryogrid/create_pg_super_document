@@ -8,7 +8,15 @@ Performs the complex transformation of pulling up a simple subquery into the par
 
 ## Definition
 
-
+```c
+structure for this subquery.
+	 *
+	 * NOTE: the next few steps should match the first processing in
+	 * subquery_planner().  Can we refactor to avoid code duplication, or
+	 * would that just make things uglier?
+	 */
+	subroot = makeNode(PlannerInfo);
+```
 ## Detailed Description
 This function implements the core mechanics of subquery pull-up transformation. It takes a subquery that has been determined to be "simple" (no aggregation, DISTINCT, etc.) and physically merges it into the parent query by:
 

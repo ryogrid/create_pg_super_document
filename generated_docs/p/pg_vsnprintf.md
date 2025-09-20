@@ -8,7 +8,10 @@ pg_vsnprintf is PostgreSQL's portable implementation of the vsnprintf function t
 
 ## Definition
 
-
+```c
+int
+pg_vsnprintf(char *str, size_t count, const char *fmt, va_list args)
+```
 ## Detailed Description
 pg_vsnprintf provides a safe, portable alternative to the standard vsnprintf function. It formats the format string `fmt` with the variable arguments contained in `args` and stores the result in the buffer `str`. The function ensures null-termination and handles edge cases like zero-length buffers by substituting a temporary one-byte buffer when count is 0 (following C99 standard). The actual formatting work is delegated to the internal `dopr` function which provides comprehensive printf-style formatting capabilities including support for positional parameters (%n$), various format specifiers, and proper error handling.
 

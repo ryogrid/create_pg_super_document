@@ -8,7 +8,21 @@ Creates a path node for a bitmap heap scan, which represents an execution plan t
 
 ## Definition
 
+```c
+union of what the child paths
+	 * depend on.  (Alternatively, we could insist that the caller pass this
+	 * in, but it's more convenient and reliable to compute it here.)
+	 */
+	foreach(lc, bitmapquals)
+	{
+		Path	   *bitmapqual = (Path *) lfirst(lc);
 
+		required_outer = bms_add_members(required_outer,
+										 PATH_REQ_OUTER(bitmapqual));
+	}
+	pathnode->path.param_info = get_baserel_parampathinfo(root, rel,
+														  required_outer);
+```
 ## Detailed Description
 This function constructs a BitmapHeapPath node that represents a bitmap heap scan access path. A bitmap heap scan is a two-phase operation: first, one or more index scans create a bitmap indicating which heap pages contain matching tuples, then the heap is scanned in physical page order using this bitmap to guide the scan. This approach is particularly efficient when multiple indexes can be combined or when the selectivity results in scattered tuple locations that would make individual index lookups inefficient.
 

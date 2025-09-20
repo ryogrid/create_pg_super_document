@@ -8,7 +8,11 @@ Requests the postmaster to start or restart a WAL receiver process to stream tra
 
 ## Definition
 
-
+```c
+void
+RequestXLogStreaming(TimeLineID tli, XLogRecPtr recptr, const char *conninfo,
+					 const char *slotname, bool create_temp_slot)
+```
 ## Detailed Description
 This function initiates WAL (Write-Ahead Log) streaming by configuring and starting a WAL receiver process. It sets up the connection parameters, replication slot information, and starting position for streaming. The function ensures streaming always begins at segment boundaries to prevent broken segments. It handles both initial startup and restart scenarios, updating the global WalRcv shared memory structure and signaling the postmaster to launch the receiver process when needed.
 

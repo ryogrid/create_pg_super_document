@@ -8,7 +8,10 @@ Validates the configuration of a BackgroundWorker structure and reports errors o
 
 ## Definition
 
-
+```c
+static bool
+SanityCheckBackgroundWorker(BackgroundWorker *worker, int elevel)
+```
 ## Detailed Description
 This function performs comprehensive validation of a BackgroundWorker configuration before it can be registered with the system. It checks various aspects of the worker configuration including flags, restart intervals, database connection requirements, and parallel worker constraints. The function uses PostgreSQL's error reporting system to communicate validation failures and can be configured to report at different error levels (WARNING, ERROR, etc.).
 

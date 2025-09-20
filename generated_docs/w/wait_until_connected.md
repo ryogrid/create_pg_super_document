@@ -8,7 +8,10 @@ Processes the asynchronous connection sequence initiated by PQconnectStartParams
 
 ## Definition
 
-
+```c
+static void
+wait_until_connected(PGconn *conn)
+```
 ## Detailed Description
 The  function implements a polling loop to complete PostgreSQL database connections initiated in asynchronous mode. It handles the complex state machine of libpq's non-blocking connection establishment, managing socket polling for both read and write operations as needed by the connection protocol.
 

@@ -8,7 +8,10 @@ Determines whether it is safe to start a parallel apply worker in PostgreSQL log
 
 ## Definition
 
-
+```c
+static bool
+pa_can_start(void)
+```
 ## Detailed Description
 This function performs a series of checks to determine if a parallel apply worker can be started safely. It ensures that only leader apply workers can start parallel workers and validates various subscription and replication state conditions. The function is crucial for maintaining the integrity of parallel logical replication by preventing worker creation when it would be inappropriate or unsafe.
 

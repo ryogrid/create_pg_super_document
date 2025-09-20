@@ -8,7 +8,10 @@ ParameterAclLookup looks up the OID of a configuration parameter's Access Contro
 
 ## Definition
 
-
+```c
+Oid
+ParameterAclLookup(const char *parameter, bool missing_ok)
+```
 ## Detailed Description
 This function searches for a configuration parameter's ACL entry in the pg_parameter_acl system catalog and returns its OID. The function first converts the parameter name to the standardized form used in the catalog using convert_GUC_name_for_parameter_acl, then performs a system cache lookup using the PARAMETERACLNAME cache. If the ACL entry is not found and missing_ok is false, it throws an ERROR with ERRCODE_UNDEFINED_OBJECT. The function ensures proper memory cleanup by freeing the converted parameter name before returning.
 

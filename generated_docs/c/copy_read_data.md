@@ -8,7 +8,10 @@ A data source callback function for PostgreSQL's COPY FROM operation that reads 
 
 ## Definition
 
-
+```c
+static int
+copy_read_data(void *outbuf, int minread, int maxread)
+```
 ## Detailed Description
 The  function serves as the data source callback for COPY FROM operations during logical replication table synchronization. It acts as an intermediary between the remote connection and the local COPY process, reading data from the publisher via the WAL receiver connection and buffering it for the COPY operation.
 

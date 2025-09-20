@@ -8,7 +8,12 @@ A static function that determines the record type from the calling query context
 
 ## Definition
 
-
+```c
+static void
+get_record_type_from_query(FunctionCallInfo fcinfo,
+						   const char *funcname,
+						   PopulateRecordCache *cache)
+```
 ## Detailed Description
 This function extracts record type information from the SQL query context when it cannot be determined from function arguments. It's primarily used for  functions and as a fallback for  functions when the first argument is a null record. The function validates that the result type is composite and sets up the necessary tuple descriptor cache.
 

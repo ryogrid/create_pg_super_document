@@ -8,7 +8,12 @@ Executes all queued file fetch requests by sending a batch query to the remote P
 
 ## Definition
 
-
+```c
+struct
+	 * the string representations of them.
+	 */
+	resetStringInfo(&src->paths);
+```
 ## Detailed Description
 This function represents the core of the libpq-based file transfer mechanism in pg_rewind. It processes all queued fetch requests in a single batch operation, which significantly improves efficiency compared to individual requests.
 

@@ -8,7 +8,11 @@ Clones or reflinks a file from source to destination using platform-specific opt
 
 ## Definition
 
-
+```c
+static void
+copy_file_clone(const char *src, const char *dest,
+				pg_checksum_context *checksum_ctx)
+```
 ## Detailed Description
 The `copy_file_clone` function implements high-performance file copying using platform-specific cloning/reflink capabilities. On macOS, it uses the `copyfile` system call with `COPYFILE_CLONE_FORCE` flag. On Linux, it uses the `FICLONE` ioctl to create reflinks that share storage blocks until modified (copy-on-write). These techniques provide near-instantaneous copying for large files by creating metadata references rather than copying actual data blocks. If cloning fails, the function reports an error and cleans up partial files. After successful cloning, it separately calculates the checksum by reading the source file if needed.
 

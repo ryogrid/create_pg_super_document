@@ -8,7 +8,10 @@ A test orchestrator function that validates Unicode lowercase conversion functio
 
 ## Definition
 
-
+```c
+static void
+test_convert_case()
+```
 ## Detailed Description
 This function serves as a test suite coordinator for Unicode case conversion functionality, specifically targeting the lowercase conversion capabilities. It executes three carefully chosen test cases that represent different scenarios:
 

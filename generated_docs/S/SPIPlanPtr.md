@@ -8,7 +8,9 @@ SPIPlanPtr is an opaque pointer type that represents a prepared execution plan i
 
 ## Definition
 
-
+```c
+typedef struct _SPI_plan *SPIPlanPtr;
+```
 ## Detailed Description
 SPIPlanPtr serves as the primary handle for prepared execution plans within the SPI system. It is deliberately designed as an opaque pointer to hide the internal implementation details of the _SPI_plan structure from external users, providing a clean abstraction layer for plan management. This design ensures that users cannot directly manipulate plan internals while still allowing efficient plan reuse and execution.
 

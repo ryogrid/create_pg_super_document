@@ -8,7 +8,12 @@ A structure representing a TOAST pointer to an expanded object, containing a dir
 
 ## Definition
 
-
+```c
+typedef struct varatt_expanded
+{
+	ExpandedObjectHeader *eohptr;
+} varatt_expanded;
+```
 ## Detailed Description
 The varatt_expanded structure is a specialized TOAST pointer type designed specifically for PostgreSQL's expanded datum system. Unlike other TOAST pointer types that reference external storage (varatt_external) or indirect memory locations (varatt_indirect), varatt_expanded directly points to an ExpandedObjectHeader structure.
 

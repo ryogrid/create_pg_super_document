@@ -8,7 +8,10 @@ Allocates memory for a new Access Control List (ACL) with a specified number of 
 
 ## Definition
 
-
+```c
+static Acl *
+allocacl(int n)
+```
 ## Detailed Description
 This function creates a new ACL data structure by allocating memory and initializing all the required array metadata. ACLs in PostgreSQL are implemented as variable-length arrays (varlena) containing AclItem structures. The function calculates the appropriate size based on the number of entries, allocates zero-initialized memory using palloc0, and sets up the array dimensions and properties.
 

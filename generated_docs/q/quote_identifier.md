@@ -8,7 +8,10 @@ quote_identifier is a PostgreSQL backend utility function that conditionally add
 
 ## Definition
 
-
+```c
+char *
+quote_identifier(const char *s)
+```
 ## Detailed Description
 quote_identifier analyzes a SQL identifier string and determines whether it needs to be quoted with double quotes according to SQL standards. The function implements PostgreSQL's identifier quoting rules: identifiers are quoted if they contain uppercase letters, special characters (other than underscores), start with a digit, or match SQL reserved keywords. The function performs case-insensitive keyword lookups using PostgreSQL's keyword scanning system and only quotes keywords that are not unreserved. When quoting is needed, the function handles proper escaping by doubling any internal quote characters. If the global quote_all_identifiers setting is enabled, all identifiers are quoted regardless of other conditions. The function returns either the original identifier (if safe) or a newly allocated quoted version.
 

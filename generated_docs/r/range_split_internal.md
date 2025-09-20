@@ -8,7 +8,11 @@ Splits a range by removing an intersecting range from its middle, returning two 
 
 ## Definition
 
-
+```c
+bool
+range_split_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2,
+					 RangeType **output1, RangeType **output2)
+```
 ## Detailed Description
 The  function performs a specialized range subtraction operation where range  is subtracted from range , but only if  intersects the middle portion of , leaving non-empty ranges on both sides. This is essentially computing  when the result would be two disjoint ranges.
 

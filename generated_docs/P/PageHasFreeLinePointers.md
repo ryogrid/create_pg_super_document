@@ -8,7 +8,10 @@ Checks whether a page has free line pointers available for reuse by examining th
 
 ## Definition
 
-
+```c
+static inline bool
+PageHasFreeLinePointers(Page page)
+```
 ## Detailed Description
 This function is a simple flag checker that tests the PD_HAS_FREE_LINES bit in the page header's pd_flags field. When this flag is set, it indicates that the page contains line pointers that have been marked as unused and can be reclaimed for new tuple insertions. This optimization helps avoid unnecessary page fragmentation by reusing existing line pointer slots instead of always appending new ones.
 

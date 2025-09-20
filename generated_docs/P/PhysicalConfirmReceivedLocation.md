@@ -8,7 +8,10 @@ Updates the restart LSN for a physical replication slot when a walreceiver confi
 
 ## Definition
 
-
+```c
+static void
+PhysicalConfirmReceivedLocation(XLogRecPtr lsn)
+```
 ## Detailed Description
 This function is called when a walreceiver (standby server) confirms that it has successfully received and processed WAL data up to a specific Log Sequence Number (LSN). The function updates the restart_lsn field of the current replication slot to reflect this confirmation, which is crucial for determining how much WAL data can be safely removed from the primary server.
 

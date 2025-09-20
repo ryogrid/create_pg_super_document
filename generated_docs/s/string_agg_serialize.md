@@ -8,7 +8,12 @@ The serialize function for PostgreSQL's string_agg() aggregate that converts the
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate),
+						   VARSIZE_ANY_EXHDR(sstate));
+```
 ## Detailed Description
 The string_agg_serialize function serves as the serialize function for the string_agg aggregate, used in parallel query execution to convert the internal StringInfo state into a binary format (bytea) that can be transmitted between parallel workers and the leader process.
 

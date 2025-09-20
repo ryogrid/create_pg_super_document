@@ -8,7 +8,37 @@ Parser callback function for handling ParamRef nodes ( symbols) in SQL function 
 
 ## Definition
 
+```c
+struct a Param node for the given paramno
+ */
+static Node *
+sql_fn_make_param(SQLFunctionParseInfoPtr pinfo,
+				  int paramno, int location)
+{
+	Param	   *param;
 
+	param = makeNode(Param);
+	param->paramkind = PARAM_EXTERN;
+	param->paramid = paramno;
+	param->paramtype = pinfo->argtypes[paramno - 1];
+	param->paramtypmod = -1;
+	param->paramcollid = get_typcollation(param->paramtype);
+	param->location = location;
+
+	/*
+	 * If we have a function input collation, allow it to override the
+	 * type-derived collation for parameter symbols.  (XXX perhaps this should
+	 * not happen if the type collation is not default?)
+	 */
+	if (OidIsValid(pinfo->collation) && OidIsValid(param->paramcollid))
+		param->paramcollid = pinfo->collation;
+
+	return (Node *) param;
+}
+
+/*
+ * Search for a function parameter of the given name;
+```
 ## Detailed Description
 This function serves as a callback for processing parameter references (, , etc.) encountered during SQL function parsing. It validates that the parameter number is within the valid range for the function's declared parameters and delegates the actual parameter node creation to sql_fn_make_param. This function ensures that only valid parameter numbers are processed and provides proper error handling for out-of-range parameter references.
 

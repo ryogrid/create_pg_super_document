@@ -8,7 +8,10 @@ Computes the products of array dimensions to calculate scale factors for multidi
 
 ## Definition
 
-
+```c
+void
+mda_get_prod(int n, const int *range, int *prod)
+```
 ## Detailed Description
 This utility function calculates the scale factors (products) needed for converting multidimensional array subscripts into linear offsets. It works by computing cumulative products of dimension sizes from right to left. The rightmost dimension has a scale factor of 1, and each preceding dimension's scale factor is the product of all dimensions to its right.
 

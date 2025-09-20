@@ -8,7 +8,22 @@ Processes a "Bind" message to create a portal from a prepared statement, binding
 
 ## Definition
 
-
+```c
+structure
+	 * that expects to run inside a valid transaction.  We also disallow
+	 * binding any parameters, since we can't risk calling user-defined I/O
+	 * functions.
+	 */
+	if (IsAbortedTransactionBlockState() &&
+		(!(psrc->raw_parse_tree &&
+		   IsTransactionExitStmt(psrc->raw_parse_tree->stmt)) ||
+		 numParams != 0))
+		ereport(ERROR,
+				(errcode(ERRCODE_IN_FAILED_SQL_TRANSACTION),
+				 errmsg("current transaction is aborted, "
+						"commands ignored until end of transaction block"),
+				 errdetail_abort()));
+```
 ## Detailed Description
 This function implements the Bind phase of PostgreSQL's extended query protocol. It creates a portal (execution context) from a previously prepared statement by binding actual parameter values and result format specifications. The function handles both named and unnamed prepared statements and portals.
 

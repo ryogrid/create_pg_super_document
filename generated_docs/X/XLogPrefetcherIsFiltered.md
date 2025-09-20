@@ -8,7 +8,11 @@ Checks whether a specific block should be skipped for prefetching due to active 
 
 ## Definition
 
-
+```c
+static inline bool
+XLogPrefetcherIsFiltered(XLogPrefetcher *prefetcher, RelFileLocator rlocator,
+						 BlockNumber blockno)
+```
 ## Detailed Description
 This function implements the filtering logic that determines whether a specific block should be excluded from prefetching. It performs a two-level filtering check:
 

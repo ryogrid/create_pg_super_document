@@ -8,7 +8,16 @@ A structure that defines runtime conditions for controlling when injection point
 
 ## Definition
 
+```c
+typedef struct InjectionPointCondition
+{
+	/* Type of the condition */
+	InjectionPointConditionType type;
 
+	/* ID of the process where the injection point is allowed to run */
+	int			pid;
+} InjectionPointCondition;
+```
 ## Detailed Description
 The  structure is part of PostgreSQL's injection point testing framework. It provides a mechanism to conditionally execute injection points based on runtime criteria. This allows fine-grained control over when testing code should be activated, enabling more precise testing scenarios where injection points should only fire under specific conditions.
 

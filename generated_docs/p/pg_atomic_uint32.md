@@ -8,7 +8,12 @@ An atomic 32-bit unsigned integer structure that provides lock-free operations f
 
 ## Definition
 
-
+```c
+typedef struct pg_atomic_uint32
+{
+	volatile uint32 value;
+} pg_atomic_uint32;
+```
 ## Detailed Description
 The `pg_atomic_uint32` struct is PostgreSQL's fundamental atomic integer type for lock-free programming with 32-bit unsigned values. It enables safe concurrent read, write, compare-and-swap, and arithmetic operations without requiring explicit locking mechanisms. This structure is extensively used throughout PostgreSQL for implementing counters, state variables, linked list pointers, and other shared data that requires atomic access.
 

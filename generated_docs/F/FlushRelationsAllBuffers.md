@@ -8,7 +8,10 @@ Flushes all dirty pages from the buffer pool for multiple specified relations, e
 
 ## Definition
 
-
+```c
+void
+FlushRelationsAllBuffers(SMgrRelation *smgrs, int nrels)
+```
 ## Detailed Description
 This function efficiently flushes all dirty pages belonging to multiple relations from the shared buffer pool to disk. It is optimized for bulk operations by using either linear search (for small numbers of relations) or binary search (for larger numbers) to identify matching buffers. The function assumes that all specified relations use shared buffers rather than local buffers (i.e., they are not temporary relations).
 

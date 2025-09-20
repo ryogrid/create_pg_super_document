@@ -8,7 +8,10 @@ Counts the number of digits in the integral part of a numeric string, used for f
 
 ## Definition
 
-
+```c
+static int
+integer_digits(const char *my_str)
+```
 ## Detailed Description
 The  function is a utility function that counts the number of consecutive digits at the beginning of a numeric string, effectively determining the length of the integral (non-fractional) part of a number. The function ignores any leading sign character ('+' or '-') and uses  to count consecutive characters that are decimal digits (0-9). This information is typically used for formatting numbers with thousands separators or other locale-specific numeric formatting.
 

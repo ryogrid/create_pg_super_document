@@ -8,7 +8,10 @@ A GUC assign hook function that applies the validated synchronous_standby_names 
 
 ## Definition
 
-
+```c
+void
+assign_synchronous_standby_names(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as the assignment hook for the synchronous_standby_names GUC parameter in PostgreSQL's configuration system. It is called after the check_synchronous_standby_names function has successfully validated a new configuration value. The function's primary responsibility is to update the global SyncRepConfig variable with the parsed configuration data that was prepared during the validation phase.
 

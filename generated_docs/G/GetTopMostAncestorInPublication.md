@@ -8,7 +8,10 @@ A function that finds the topmost ancestor table in a partition hierarchy that i
 
 ## Definition
 
-
+```c
+Oid
+GetTopMostAncestorInPublication(Oid puboid, List *ancestors, int *ancestor_level)
+```
 ## Detailed Description
 This function traverses a list of ancestor tables (ordered from immediate parent to topmost ancestor) to find the highest-level ancestor that is included in the specified publication. It checks each ancestor both for direct inclusion in the publication's table list and for indirect inclusion through schema-level publication. The function tracks the hierarchical level of the found ancestor, allowing callers to compare results across multiple publications to determine which represents the highest-level publication. This is essential for PostgreSQL's logical replication system to determine the appropriate replication behavior for partitioned tables.
 

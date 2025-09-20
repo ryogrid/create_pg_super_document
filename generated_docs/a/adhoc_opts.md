@@ -8,7 +8,21 @@ A structure that holds all command-line options and parsed arguments for psql, s
 
 ## Definition
 
-
+```c
+struct adhoc_opts
+{
+	char	   *dbname;
+	char	   *host;
+	char	   *port;
+	char	   *username;
+	char	   *logfilename;
+	bool		no_readline;
+	bool		no_psqlrc;
+	bool		single_txn;
+	bool		list_dbs;
+	SimpleActionList actions;
+};
+```
 ## Detailed Description
 The adhoc_opts structure serves as the central repository for all command-line options parsed by psql during startup. It stores connection parameters, behavioral flags, and a queue of actions to be executed. The structure is populated by parse_psql_options() which processes argc/argv using getopt_long, and is then used throughout the main() function to configure psql's behavior and execute the requested actions. This design separates option parsing from option processing, allowing for clean initialization and execution phases.
 

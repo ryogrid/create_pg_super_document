@@ -8,7 +8,12 @@ PQescapeByteaConn is a connection-aware wrapper function that escapes binary dat
 
 ## Definition
 
-
+```c
+unsigned char *
+PQescapeByteaConn(PGconn *conn,
+				  const unsigned char *from, size_t from_length,
+				  size_t *to_length)
+```
 ## Detailed Description
 PQescapeByteaConn provides a connection-aware interface for bytea escaping that automatically determines the best encoding format based on the PostgreSQL server version and connection settings. It calls PQescapeByteaInternal with connection-specific parameters: uses the connection's standard_conforming_strings setting and automatically enables hexadecimal encoding for server versions 9.0 and later (which introduced more efficient hex format support). The function validates the connection handle, clears any previous error state, and delegates the actual escaping work to the internal implementation.
 

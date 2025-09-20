@@ -8,7 +8,10 @@ Replays a B-tree page unlink operation during WAL recovery, updating sibling lin
 
 ## Definition
 
-
+```c
+static void
+btree_xlog_unlink_page(uint8 info, XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the replay of B-tree page unlink operations during Write-Ahead Log (WAL) recovery. When a B-tree page is deleted during normal operation, the page must be unlinked from the B-tree structure by updating the left and right sibling pointers. During recovery, this function reconstructs these changes from the WAL record.
 

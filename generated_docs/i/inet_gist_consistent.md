@@ -8,7 +8,10 @@ The GiST query consistency check function for inet data types that determines wh
 
 ## Definition
 
-
+```c
+Datum
+inet_gist_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the GiST consistent method for inet/cidr data types, performing multi-level consistency checking to determine if a GiST index entry can contain values that satisfy a given query condition. The function performs five sequential checks:
 

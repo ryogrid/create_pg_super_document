@@ -8,7 +8,10 @@ Resolves an operator class specification to its OID, handling both explicit spec
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(opclass, &schemaname, &opcname);
+```
 ## Detailed Description
 This function takes an operator class specification (which may be NULL/empty for default resolution) and resolves it to a specific operator class OID that is compatible with the given data type and access method. It handles two main scenarios:
 

@@ -8,7 +8,10 @@ Returns the file descriptor (socket) of the connection to the PostgreSQL server,
 
 ## Definition
 
-
+```c
+int
+PQsocket(const PGconn *conn)
+```
 ## Detailed Description
 This function provides access to the underlying socket file descriptor used for the PostgreSQL connection. It returns the socket that can be used with system calls like select(), poll(), epoll(), or kqueue() for asynchronous I/O operations and event-driven programming.
 

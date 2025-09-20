@@ -8,7 +8,12 @@ Retrieves the current state information of the WAL summarizer from shared memory
 
 ## Definition
 
-
+```c
+structure contents are
+		 * undefined.
+		 */
+		*summarized_tli = 0;
+```
 ## Detailed Description
 This function provides a thread-safe way to query the current state of the WAL summarizer subsystem. It acquires a shared lock on the WAL summarizer control structure and returns information about the summarization progress. The function handles both initialized and uninitialized states, returning appropriate default values when the summarizer hasn't been initialized yet. It also correctly handles cases where the summarizer process has exited.
 

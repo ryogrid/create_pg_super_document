@@ -8,7 +8,10 @@ A PostgreSQL test function that checks if a specific SLRU (Simple LRU) page phys
 
 ## Definition
 
-
+```c
+Datum
+test_slru_page_exists(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of PostgreSQL's test_slru module, designed for testing SLRU functionality. It takes a page number as input and determines whether the corresponding SLRU page physically exists in storage. The function uses proper locking mechanisms to ensure thread-safe access to the SLRU control structure and returns a boolean result indicating page existence.
 

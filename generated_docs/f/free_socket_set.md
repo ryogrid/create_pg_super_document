@@ -8,7 +8,10 @@ A function in pgbench that deallocates memory for a socket set data structure, s
 
 ## Definition
 
-
+```c
+static void
+free_socket_set(socket_set *sa)
+```
 ## Detailed Description
 This function provides a simple wrapper around  to deallocate memory for socket set structures. It is part of pgbench's socket abstraction layer that provides a consistent interface for managing socket sets regardless of whether the underlying implementation uses ppoll() or select().
 

@@ -8,7 +8,10 @@ Converts 4-byte GB18030 encoded characters to a linear code space representation
 
 ## Definition
 
-
+```c
+static inline uint32
+gb_linear(uint32 gb)
+```
 ## Detailed Description
 The  function transforms 4-byte GB18030 character encodings into a linear numerical representation. GB18030 is a character encoding standard for Chinese text that uses a complex multi-byte structure. This function linearizes the encoding by extracting each byte and applying a mathematical formula that maps the GB18030 character space to a continuous linear space.
 

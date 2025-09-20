@@ -8,7 +8,10 @@ Processes a single page during GiST index vacuum operations, handling tuple dele
 
 ## Definition
 
-
+```c
+static void
+gistvacuumpage(GistVacState *vstate, BlockNumber blkno, BlockNumber orig_blkno)
+```
 ## Detailed Description
 This function performs detailed processing of individual pages during GiST vacuum operations. It handles multiple scenarios: recyclable pages that can be immediately reused, deleted pages that need tracking, leaf pages requiring tuple-level processing, and internal pages that need structural validation.
 

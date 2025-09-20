@@ -8,7 +8,10 @@ Establishes a database connection for a background worker process, allowing it t
 
 ## Definition
 
-
+```c
+void
+BackgroundWorkerInitializeConnection(const char *dbname, const char *username, uint32 flags)
+```
 ## Detailed Description
 This function initializes a database connection for a background worker process by calling InitPostgres() with appropriate parameters. It performs several validation checks to ensure the background worker is properly configured for database access and handles special connection flags that can bypass normal access restrictions.
 

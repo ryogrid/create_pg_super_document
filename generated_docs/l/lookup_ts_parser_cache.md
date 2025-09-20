@@ -8,7 +8,10 @@ Retrieves and caches text search parser configuration information from the Postg
 
 ## Definition
 
-
+```c
+TSParserCacheEntry *
+lookup_ts_parser_cache(Oid prsId)
+```
 ## Detailed Description
 lookup_ts_parser_cache is the primary function for accessing text search parser information in PostgreSQL. It implements a two-level caching strategy to optimize repeated lookups of parser configurations. The function first checks a single-entry cache (lastUsedParser) for the most recently accessed parser, then falls back to a hash table cache (TSParserCacheHash) for other parsers.
 

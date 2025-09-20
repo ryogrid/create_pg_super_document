@@ -8,7 +8,10 @@ ExecHash is a stub function for pro forma compliance that serves as a placeholde
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecHash(PlanState *pstate)
+```
 ## Detailed Description
 ExecHash is a static function that exists purely for interface compliance within PostgreSQL's executor framework. The function intentionally throws an error when called, as Hash nodes do not support the standard ExecProcNode call convention. This is because Hash nodes are special-purpose nodes that are only used to build hash tables for hash joins, and they are executed through the MultiExecHash interface rather than the standard tuple-by-tuple execution model used by other plan nodes.
 

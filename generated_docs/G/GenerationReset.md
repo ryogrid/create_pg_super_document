@@ -8,7 +8,10 @@ Frees all memory allocated in the given Generation memory context while preservi
 
 ## Definition
 
-
+```c
+void
+GenerationReset(MemoryContext context)
+```
 ## Detailed Description
 GenerationReset efficiently clears a Generation memory context by freeing all allocated memory except for the initial "keeper" block. This function is optimized for scenarios where contexts are repeatedly reset after small allocations. The keeper block, which shares a malloc chunk with the context header, is retained and marked as empty rather than being freed back to the operating system.
 

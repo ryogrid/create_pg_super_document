@@ -8,7 +8,15 @@ ExtensibleNode is a base structure that allows PostgreSQL extensions to define n
 
 ## Definition
 
+```c
+typedef struct ExtensibleNode
+{
+	pg_node_attr(custom_copy_equal, custom_read_write)
 
+	NodeTag		type;
+	const char *extnodename;	/* identifier of ExtensibleNodeMethods */
+} ExtensibleNode;
+```
 ## Detailed Description
 ExtensibleNode provides a framework for PostgreSQL extensions to create custom node types that can be integrated into the query planning and execution system. The structure always uses the T_ExtensibleNode NodeTag, while the extnodename field serves as a unique identifier that can be looked up to find the corresponding ExtensibleNodeMethods structure containing the callback functions for handling this specific node type.
 

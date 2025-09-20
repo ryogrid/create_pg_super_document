@@ -8,7 +8,10 @@ Extracts an unsigned 64-bit integer from a COPY data message buffer and advances
 
 ## Definition
 
-
+```c
+static uint64
+GetCopyDataUInt64(size_t r, char *copybuf, size_t *cursor)
+```
 ## Detailed Description
 GetCopyDataUInt64 is a utility function that safely reads an 8-byte unsigned integer from a COPY protocol message buffer. It performs bounds checking to ensure that at least 8 bytes remain in the buffer before attempting to read the integer. The function uses memcpy to safely extract the bytes and applies network-to-host byte order conversion using pg_ntoh64 to handle endianness differences between client and server architectures.
 

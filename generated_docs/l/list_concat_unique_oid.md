@@ -8,7 +8,10 @@ Concatenates two lists of OIDs, ensuring that duplicates from the second list ar
 
 ## Definition
 
-
+```c
+List *
+list_concat_unique_oid(List *list1, const List *list2)
+```
 ## Detailed Description
 This function is a specialized variant of  that operates specifically on lists containing OID (Object Identifier) values. It iterates through each element in the second list and appends it to the first list only if that OID is not already present in the first list. This ensures the resulting list contains unique OIDs while preserving the original order of elements from both lists.
 

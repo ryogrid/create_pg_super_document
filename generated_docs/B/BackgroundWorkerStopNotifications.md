@@ -8,7 +8,10 @@ Cancels SIGUSR1 notifications for a specific PID by clearing the notification PI
 
 ## Definition
 
-
+```c
+void
+BackgroundWorkerStopNotifications(pid_t pid)
+```
 ## Detailed Description
 This function iterates through all registered background workers and clears the bgw_notify_pid field for any workers that were configured to send SIGUSR1 notifications to the specified PID. This is typically called when a backend process is exiting to prevent the postmaster from attempting to send signals to a non-existent process. The function ensures that no orphaned notification references remain after a process terminates, preventing potential issues with signal delivery to invalid PIDs.
 

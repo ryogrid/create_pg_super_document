@@ -8,7 +8,10 @@ ExecGrant_Parameter handles GRANT and REVOKE operations on PostgreSQL configurat
 
 ## Definition
 
-
+```c
+static void
+ExecGrant_Parameter(InternalGrant *istmt)
+```
 ## Detailed Description
 ExecGrant_Parameter implements privilege management for PostgreSQL configuration parameters. This function allows granting SET and ALTER SYSTEM privileges on specific GUC parameters to non-superuser roles. Unlike other objects, parameters are treated as owned by the bootstrap superuser (BOOTSTRAP_SUPERUSERID) and use a dedicated pg_parameter_acl catalog for storing ACLs.
 

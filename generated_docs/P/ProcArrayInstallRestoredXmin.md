@@ -8,7 +8,9 @@ Installs a restored xmin from a specific PGPROC structure into the current backe
 
 ## Definition
 
-
+```c
+structure is statically allocated;
+```
 ## Detailed Description
 ProcArrayInstallRestoredXmin is similar to ProcArrayInstallImportedXmin but operates with a direct PGPROC pointer rather than searching by virtual transaction ID. This function is used when restoring snapshots where the source transaction's PGPROC structure is already known.
 

@@ -8,7 +8,10 @@ Calculates the additional string length required when formatting a numeric strin
 
 ## Definition
 
-
+```c
+static int
+additional_numeric_locale_len(const char *my_str)
+```
 ## Detailed Description
 The  function computes how much extra space is needed to format a numeric string with locale-specific formatting. It accounts for two main additions: thousands separators that will be inserted between digit groups, and the replacement of the decimal point character ('.') with the locale-specific decimal point. The function calculates the number of thousands separator instances based on the length of the integral part and the grouping digits setting, then adds space for the locale decimal point if a decimal point exists in the original string.
 

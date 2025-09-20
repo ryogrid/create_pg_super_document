@@ -8,7 +8,10 @@ Converts IPv4 network addresses from binary network format to presentation forma
 
 ## Definition
 
-
+```c
+static char *
+inet_net_ntop_ipv4(const u_char *src, int bits, char *dst, size_t size)
+```
 ## Detailed Description
 This static function handles the IPv4-specific conversion from network byte order binary format to dotted-decimal notation with optional CIDR suffix. It always formats all four octets of the IPv4 address, regardless of the mask length specified. The function assumes network byte order input, meaning that for an address like 192.5.5.240/28, the fourth octet contains 0b11110000. The CIDR mask length is appended unless it's 32 bits (full address).
 

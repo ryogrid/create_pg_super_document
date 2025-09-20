@@ -8,7 +8,10 @@ IsLogicalWorker is a simple utility function that determines whether the current
 
 ## Definition
 
-
+```c
+bool
+IsLogicalWorker(void)
+```
 ## Detailed Description
 This function provides a straightforward way to identify if the current process is operating as a logical replication worker. It performs this check by examining the global variable MyLogicalRepWorker, which is non-NULL when the process is functioning as a logical replication worker (either an apply worker or a table synchronization worker). The function is commonly used for conditional logic that should only execute within the context of logical replication processes.
 

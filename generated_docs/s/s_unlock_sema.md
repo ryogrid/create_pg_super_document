@@ -8,7 +8,10 @@ A semaphore-based implementation of spinlock unlock operation, providing a fallb
 
 ## Definition
 
-
+```c
+void
+s_unlock_sema(volatile slock_t *lock)
+```
 ## Detailed Description
 The s_unlock_sema function implements spinlock unlocking using POSIX semaphores as a fallback mechanism. This function is part of PostgreSQL's adaptive spinlock implementation that can switch between hardware test-and-set operations and semaphore-based locking depending on system capabilities and configuration.
 

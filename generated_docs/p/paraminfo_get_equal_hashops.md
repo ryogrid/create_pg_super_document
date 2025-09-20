@@ -8,7 +8,13 @@ Analyzes parameterization information and lateral variables to determine if they
 
 ## Definition
 
-
+```c
+static bool
+paraminfo_get_equal_hashops(PlannerInfo *root, ParamPathInfo *param_info,
+							RelOptInfo *outerrel, RelOptInfo *innerrel,
+							List **param_exprs, List **operators,
+							bool *binary_mode)
+```
 ## Detailed Description
 This function examines the join clauses in a ParamPathInfo structure and the lateral variables of the inner relation to determine whether they can be used for hash-based memoization. It validates that all parameter expressions have appropriate hash functions and equality operators needed for efficient caching.
 

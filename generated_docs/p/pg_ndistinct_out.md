@@ -8,7 +8,10 @@ A PostgreSQL output function for the pg_ndistinct data type that produces a huma
 
 ## Definition
 
-
+```c
+Datum
+pg_ndistinct_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The pg_ndistinct_out function serves as the output routine for the pg_ndistinct data type in PostgreSQL. It takes serialized multivariate n-distinct statistics data and converts it into a human-readable JSON-like string format. The function deserializes the input bytea data into an MVNDistinct structure and iterates through all n-distinct items to format them as a string containing attribute combinations and their corresponding n-distinct values.
 

@@ -8,7 +8,13 @@ The  struct is a simple key-value mapping structure used in PostgreSQL's timezon
 
 ## Definition
 
-
+```c
+struct lookup
+{
+	const char *l_word;
+	const int	l_value;
+};
+```
 ## Detailed Description
 The  structure serves as a fundamental building block for keyword-to-value translation in PostgreSQL's timezone compilation system. It is used extensively throughout the zic.c module to create lookup tables that map textual representations (such as month names, day names, rule types, etc.) to their corresponding numeric values. This structure enables the timezone compiler to parse human-readable timezone definition files and convert them into the internal numeric representations needed for timezone calculations.
 

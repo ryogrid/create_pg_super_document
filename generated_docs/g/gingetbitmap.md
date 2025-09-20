@@ -8,7 +8,10 @@ The  function is the core bitmap scan implementation for GIN (Generalized Invert
 
 ## Definition
 
-
+```c
+int64
+gingetbitmap(IndexScanDesc scan, TIDBitmap *tbm)
+```
 ## Detailed Description
 This function performs a complete bitmap scan of a GIN index, collecting all tuples that satisfy the scan conditions into the provided TIDBitmap. The function implements a two-phase scanning strategy: first scanning the pending list for recently inserted items that haven't been integrated into the main index structure, then scanning the main index itself.
 

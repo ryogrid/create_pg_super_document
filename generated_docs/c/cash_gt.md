@@ -8,7 +8,10 @@ The cash_gt function implements the greater-than comparison operator for Postgre
 
 ## Definition
 
-
+```c
+Datum
+cash_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that implements the '>' operator for the cash data type. It extracts two cash values from the function arguments using PostgreSQL's argument retrieval macros and performs a simple numeric comparison. The function follows PostgreSQL's standard function calling convention, taking arguments through PG_FUNCTION_ARGS and returning a Datum result.
 

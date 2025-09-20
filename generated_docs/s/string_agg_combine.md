@@ -8,7 +8,10 @@ The combine function for PostgreSQL's string_agg() aggregate that merges two par
 
 ## Definition
 
-
+```c
+Datum
+string_agg_combine(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The string_agg_combine function serves as the combine function for the string_agg aggregate, specifically designed for parallel query execution. It merges two StringInfo states representing partial aggregation results from different parallel workers or execution contexts.
 

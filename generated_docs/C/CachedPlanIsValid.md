@@ -8,7 +8,10 @@ Tests whether the rewritten querytree within a CachedPlanSource is currently val
 
 ## Definition
 
-
+```c
+bool
+CachedPlanIsValid(CachedPlanSource *plansource)
+```
 ## Detailed Description
 CachedPlanIsValid is a simple validity check function that returns the current validation status of a cached plan source. The function checks the  flag of the provided CachedPlanSource structure to determine if the cached plan is still usable. This is a lightweight operation that simply returns the cached validity state without performing any expensive revalidation checks.
 

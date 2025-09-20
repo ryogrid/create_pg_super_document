@@ -8,7 +8,10 @@ A PostgreSQL function that validates whether a given XML text content is well-fo
 
 ## Definition
 
-
+```c
+Datum
+xml_is_well_formed_content(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a SQL-callable interface to validate XML content for well-formedness. It takes a text input containing XML content and returns a boolean indicating whether the XML is properly structured according to XML parsing rules. The function is conditionally compiled based on whether PostgreSQL was built with libxml2 support (USE_LIBXML). When libxml2 support is unavailable, it raises a "no XML support" error.
 

@@ -8,7 +8,10 @@ Extracts and returns the netmask length (number of network bits) from an inet or
 
 ## Definition
 
-
+```c
+Datum
+network_masklen(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The network_masklen function is a simple utility that extracts the netmask length from an inet or cidr value and returns it as a 32-bit integer. The netmask length represents the number of significant network bits in the address (e.g., 24 for a /24 network, 16 for a /16 network). This function provides direct access to the netmask portion of network data types, which is useful for network calculations, filtering, and analysis operations.
 

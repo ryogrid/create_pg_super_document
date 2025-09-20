@@ -8,7 +8,12 @@ Generates execution paths for INTERSECT, INTERSECT ALL, EXCEPT, and EXCEPT ALL o
 
 ## Definition
 
-
+```c
+static RelOptInfo *
+generate_nonunion_paths(SetOperationStmt *op, PlannerInfo *root,
+						List *refnames_tlist,
+						List **pTargetList)
+```
 ## Detailed Description
 This function handles path generation for set operations that require comparing two input sets (INTERSECT and EXCEPT operations). It follows a systematic approach:
 

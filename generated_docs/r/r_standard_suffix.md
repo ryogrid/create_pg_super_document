@@ -8,7 +8,11 @@ The r_standard_suffix function performs the main suffix removal operations in th
 
 ## Definition
 
+```c
+}
 
+static int r_standard_suffix(struct SN_env * z)
+```
 ## Detailed Description
 The r_standard_suffix function implements the core suffix removal logic of the Snowball stemming algorithm. It operates by:
 

@@ -8,7 +8,35 @@ The  function implements Test-And-Set atomic operation for 32-bit i386 architect
 
 ## Definition
 
+```c
+struction */
+#define S_UNLOCK(lock)	\
+do \
+{ \
+	__asm__ __volatile__( \
+		"       .set push           \n" \
+		MIPS_SET_MIPS2 \
+		"       .set noreorder      \n" \
+		"       .set nomacro        \n" \
+		"       sync                \n" \
+		"       .set pop              " \
+:		/* no outputs */ \
+:		/* no inputs */	\
+:		"memory"); \
+	*((volatile slock_t *) (lock)) = 0; \
+} while (0)
 
+#endif /* __mips__ && !__sgi */
+
+
+#if defined(__hppa) || defined(__hppa__)	/* HP PA-RISC */
+/*
+ * HP's PA-RISC
+ *
+ * Because LDCWX requires a 16-byte-aligned address, we declare slock_t as a
+ * 16-byte struct.  The active word in the struct is whichever has the aligned
+ * address;
+```
 ## Detailed Description
 The  function is a platform-specific implementation of the Test-And-Set operation for 32-bit i386 processors. It uses inline assembly to perform an atomic exchange operation that is fundamental to PostgreSQL's spinlock mechanism. The function first performs a non-locking test to check if the lock is already taken, and only if it appears free does it attempt the actual atomic exchange using the  instruction with a  prefix.
 

@@ -8,7 +8,10 @@ Initializes SASL authentication exchange between the PostgreSQL client and serve
 
 ## Definition
 
-
+```c
+static int
+pg_SASL_init(PGconn *conn, int payloadlen)
+```
 ## Detailed Description
 The  function handles the initial phase of SASL (Simple Authentication and Security Layer) authentication in PostgreSQL's libpq client library. It parses the list of SASL authentication mechanisms sent by the server in the AuthenticationSASL message, selects the best supported mechanism based on priority and security requirements, and sends the SASLInitialResponse message back to the server.
 

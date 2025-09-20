@@ -8,7 +8,10 @@ Finishes a shared iteration over a TIDBitmap by cleaning up the backend-private 
 
 ## Definition
 
-
+```c
+void
+tbm_end_shared_iterate(TBMSharedIterator *iterator)
+```
 ## Detailed Description
 The  function serves as the cleanup routine for shared TIDBitmap iterations. Unlike , this function only deallocates the local backend-private state while preserving the shared memory state that may still be accessed by other processes.
 

@@ -8,7 +8,10 @@ Checks whether a functional dependency is fully matched by verifying that all de
 
 ## Definition
 
-
+```c
+static bool
+dependency_is_fully_matched(MVDependency *dependency, Bitmapset *attnums)
+```
 ## Detailed Description
 This function determines if a given functional dependency can be applied to optimize query planning by checking if all attributes involved in the dependency have corresponding equality clauses in the query. The function:
 

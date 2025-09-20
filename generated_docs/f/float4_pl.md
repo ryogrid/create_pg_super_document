@@ -8,7 +8,10 @@ Performs single-precision floating-point addition with overflow detection and er
 
 ## Definition
 
-
+```c
+static inline float4
+float4_pl(const float4 val1, const float4 val2)
+```
 ## Detailed Description
 This inline function implements safe single-precision floating-point addition by performing the arithmetic operation and checking for overflow conditions. The function adds two float4 values and validates that the result hasn't overflowed to infinity. If both input values are finite but the result is infinite, it indicates an overflow condition and triggers an error. The function is designed to catch arithmetic overflow while allowing legitimate infinite results (when at least one input is already infinite) to pass through unchanged.
 

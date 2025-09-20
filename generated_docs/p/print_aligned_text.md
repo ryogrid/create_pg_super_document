@@ -8,7 +8,9 @@ Renders tabular data in aligned text format with proper column borders, spacing,
 
 ## Definition
 
-
+```c
+struct lineptr **col_lineptrs;
+```
 ## Detailed Description
 This is the most sophisticated table formatting function in PostgreSQL's printing subsystem. It creates well-formatted tables with aligned columns, configurable borders (none, single, double), automatic text wrapping when content exceeds available width, and intelligent column width optimization. The function handles complex scenarios including multi-line cells, variable-width character encodings, automatic pager invocation for large output, and responsive formatting that adapts to terminal width. It supports both horizontal and vertical layout modes, with automatic switching to vertical mode when the table is too wide for the available display width.
 

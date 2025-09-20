@@ -8,7 +8,10 @@ DecodeUpdate processes HEAP_UPDATE and HEAP_HOT_UPDATE WAL records in PostgreSQL
 
 ## Definition
 
-
+```c
+static void
+DecodeUpdate(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+```
 ## Detailed Description
 DecodeUpdate handles the decoding of heap update operations from WAL records for logical replication. It processes both XLOG_HEAP_UPDATE and XLOG_HEAP_HOT_UPDATE records, which share the same layout structure. The function extracts both the new tuple data and the old tuple data (when available) from the WAL record.
 

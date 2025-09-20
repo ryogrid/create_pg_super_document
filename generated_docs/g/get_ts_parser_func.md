@@ -8,7 +8,10 @@ This function looks up a text search parser support function and returns its OID
 
 ## Definition
 
-
+```c
+static Datum
+get_ts_parser_func(DefElem *defel, int attnum)
+```
 ## Detailed Description
 The function serves as a validation and lookup mechanism for text search parser functions in PostgreSQL. It takes a parser function definition element and determines the expected function signature based on the attribute number (attnum), which corresponds to specific columns in the pg_ts_parser system catalog. The function then looks up the specified function name and validates that its signature matches the expected interface for that type of parser function.
 

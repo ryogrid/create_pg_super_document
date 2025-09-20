@@ -8,7 +8,13 @@ Transforms a PL/pgSQL assignment statement into a SELECT query that computes the
 
 ## Definition
 
-
+```c
+struct a ColumnRef for the target variable.  If the target
+	 * has more than one dotted name, we have to pull the extra names out of
+	 * the indirection list.
+	 */
+	cref->fields = list_make1(makeString(stmt->name));
+```
 ## Detailed Description
 This function transforms a PL/pgSQL assignment statement into a Query structure representing a SELECT statement. The transformation handles both simple assignments and complex assignments involving field access or array subscripting through indirection. The function performs type checking and coercion using PL/pgSQL-specific coercion rules (COERCION_PLPGSQL) rather than standard SQL assignment coercion.
 

@@ -8,7 +8,9 @@ Checks whether a given color represents an end-of-line or end-of-string pseudo-c
 
 ## Definition
 
-
+```c
+struct cnfa *cnfa;
+```
 ## Detailed Description
 This function determines if a specified color code corresponds to an end-of-line (EOL) or end-of-string (EOS) pseudo-character in the regex engine. These are special "colors" that don't represent actual characters but instead represent positional assertions at the end of text.
 

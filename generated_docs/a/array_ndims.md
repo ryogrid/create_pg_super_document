@@ -8,7 +8,10 @@ Returns the number of dimensions of a PostgreSQL array, providing essential meta
 
 ## Definition
 
-
+```c
+Datum
+array_ndims(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that examines an array and returns its dimensionality (number of dimensions). It performs basic sanity checks to ensure the input is a valid array structure before returning the dimension count. If the array has an invalid dimension count (≤ 0 or > MAXDIM), the function returns NULL instead of an invalid value.
 

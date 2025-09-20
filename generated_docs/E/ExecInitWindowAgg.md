@@ -8,7 +8,11 @@ Initialization function for WindowAgg execution nodes that creates the runtime s
 
 ## Definition
 
-
+```c
+structure
+	 */
+	winstate = makeNode(WindowAggState);
+```
 ## Detailed Description
 ExecInitWindowAgg is the comprehensive initialization function for window aggregation nodes in PostgreSQL's executor. It transforms the planner-generated WindowAgg plan node into a fully operational WindowAggState execution state, setting up all the complex infrastructure needed for window function processing.
 

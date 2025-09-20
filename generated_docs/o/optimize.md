@@ -8,7 +8,10 @@ Transforms an NFA (Non-deterministic Finite Automaton) from parser output format
 
 ## Definition
 
-
+```c
+struct nfa *nfa,
+		 FILE *f)				/* for debug output;
+```
 ## Detailed Description
 The primary purpose of this function is to convert the NFA from the format produced by the regex parser into a form that the regex executor can handle. The executor and cNFA format can only process PLAIN and LACON arcs, so this function must eliminate:
 

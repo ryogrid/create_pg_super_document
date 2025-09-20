@@ -8,7 +8,10 @@ Initiates SSPI authentication by acquiring credentials, setting up the target pr
 
 ## Definition
 
-
+```c
+static int
+pg_SSPI_startup(PGconn *conn, int use_negotiate, int payloadlen)
+```
 ## Detailed Description
 This function handles the initialization phase of SSPI (Security Support Provider Interface) authentication for PostgreSQL client connections on Windows systems. It performs comprehensive setup for Windows integrated authentication using either Kerberos or NTLM protocols. The function:
 

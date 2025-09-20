@@ -8,7 +8,10 @@ Returns a scratch memory context for temporary allocations during PL/Python proc
 
 ## Definition
 
-
+```c
+MemoryContext
+PLy_get_scratch_context(PLyExecutionContext *context)
+```
 ## Detailed Description
 PLy_get_scratch_context provides access to a dedicated memory context for temporary allocations within a PL/Python procedure execution context. The function implements lazy initialization - the scratch context is only allocated when first requested, as it might never be needed for some procedures. When created, the scratch context is a child of TopTransactionContext and uses default allocation set sizes for efficient memory management.
 

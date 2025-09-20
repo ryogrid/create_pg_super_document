@@ -8,7 +8,10 @@ A Windows-specific function that determines whether PostgreSQL is running as a W
 
 ## Definition
 
-
+```c
+int
+pgwin32_is_service(void)
+```
 ## Detailed Description
 The  function implements a comprehensive detection mechanism to determine if PostgreSQL is running as a Windows service. It employs a multi-criteria approach using three distinct checks:
 

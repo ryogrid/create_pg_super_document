@@ -8,7 +8,15 @@ Sets the predicate-derived IndexOptInfo fields for each index of a specified rel
 
 ## Definition
 
-
+```c
+struct a list of clauses that we can assume true for the purpose of
+	 * proving the index(es) usable.  Restriction clauses for the rel are
+	 * always usable, and so are any join clauses that are "movable to" this
+	 * rel.  Also, we can consider any EC-derivable join clauses (which must
+	 * be "movable to" this rel, by definition).
+	 */
+	clauselist = list_copy(rel->baserestrictinfo);
+```
 ## Detailed Description
 This function is a crucial part of PostgreSQL's query optimizer that handles partial index predicate analysis. It determines whether partial indexes can be used by checking if the query's WHERE clauses imply the index predicates. For each index, it sets the  field to true if the predicate is satisfied and computes  - the list of restriction conditions that remain after accounting for what the index predicate already guarantees.
 

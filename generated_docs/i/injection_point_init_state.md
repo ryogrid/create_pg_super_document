@@ -8,7 +8,10 @@ A static callback function that initializes the shared memory state for injectio
 
 ## Definition
 
-
+```c
+static void
+injection_point_init_state(void *ptr)
+```
 ## Detailed Description
 This function serves as a callback for shared memory area initialization in the injection points testing module. It takes a generic pointer to shared memory and casts it to the appropriate  structure, then initializes all the necessary synchronization primitives and data fields to their default states. This ensures that the injection point shared state is properly set up when the shared memory segment is first created.
 

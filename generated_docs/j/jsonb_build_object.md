@@ -8,7 +8,10 @@ A PostgreSQL SQL function that constructs a JSONB object from a variadic list of
 
 ## Definition
 
-
+```c
+Datum
+jsonb_build_object(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the entry point for the SQL function . It accepts a variable number of arguments that must be provided in alternating key-value pairs and constructs a JSONB object from them. The function extracts the variadic arguments and delegates the actual object construction to . If an odd number of arguments is provided, an error will be raised by the worker function since keys must be paired with values.
 

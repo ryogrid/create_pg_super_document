@@ -8,7 +8,11 @@ Converts a string representation of a bit string (binary or hexadecimal format) 
 
 ## Definition
 
-
+```c
+structure */
+				bitlen,			/* Number of bits in the bit string   */
+				slen;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in input function for the  (variable-length bit string) data type. It parses string representations of bit strings in either binary format (prefixed with 'b' or 'B') or hexadecimal format (prefixed with 'x' or 'X') and converts them into PostgreSQL's internal VarBit representation.
 

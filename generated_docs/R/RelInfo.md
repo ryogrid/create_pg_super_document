@@ -8,7 +8,13 @@ RelInfo is a structure that stores metadata information for a PostgreSQL relatio
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	RelInfo    *rels;
+	int			nrels;
+} RelInfoArr;
+```
 ## Detailed Description
 RelInfo is a fundamental data structure in pg_upgrade that encapsulates all essential metadata for a database relation during the upgrade process. It serves as a bridge between the old and new PostgreSQL clusters, ensuring that relation mappings are correctly maintained. The structure is designed to be portable across different PostgreSQL versions, which is why it avoids using NAMEDATALEN directly.
 

@@ -8,7 +8,11 @@ Determines and assigns the lefttype/righttype for a support procedure in an oper
 
 ## Definition
 
-
+```c
+static void
+assignProcTypes(OpFamilyMember *member, Oid amoid, Oid typeoid,
+				int opclassOptsProcNum)
+```
 ## Detailed Description
 This comprehensive function processes support procedures being added to operator families, validating their signatures and determining their associated data types. It performs specialized validation based on the access method (btree, hash) and procedure number. For btree, it validates comparison functions, sort support functions, in_range functions, and equal image functions. For hash, it validates standard and extended hash functions. It also handles operator class options parsing functions with specific signature requirements. The function automatically infers lefttype/righttype from procedure signatures when not explicitly specified, falling back to the opclass input type.
 

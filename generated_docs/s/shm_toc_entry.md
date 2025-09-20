@@ -8,7 +8,13 @@ The shm_toc_entry structure represents a single entry in a shared memory table o
 
 ## Definition
 
-
+```c
+typedef struct shm_toc_entry
+{
+	uint64		key;			/* Arbitrary identifier */
+	Size		offset;			/* Offset, in bytes, from TOC start */
+} shm_toc_entry;
+```
 ## Detailed Description
 The shm_toc_entry structure is a fundamental building block of PostgreSQL's shared memory TOC system. Each entry maps a 64-bit key to a byte offset within a shared memory segment. This design allows processes to register and discover data structures within shared memory segments using well-known keys, even when the segment is mapped at different virtual addresses in different processes.
 

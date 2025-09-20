@@ -8,7 +8,10 @@ Deserializes a PostgreSQL multirange value from its binary representation, recon
 
 ## Definition
 
-
+```c
+struct output */
+	pq_begintypsend(buf);
+```
 ## Detailed Description
 The  function is the binary input function for PostgreSQL multirange types, responsible for converting binary wire format into internal multirange format. The binary representation consists of:
 

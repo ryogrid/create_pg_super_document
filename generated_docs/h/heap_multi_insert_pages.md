@@ -8,7 +8,10 @@ heap_multi_insert_pages is a static helper function for heap_multi_insert() that
 
 ## Definition
 
-
+```c
+static int
+heap_multi_insert_pages(HeapTuple *heaptuples, int done, int ntuples, Size saveFreeSpace)
+```
 ## Detailed Description
 This function calculates how many pages will be needed to accommodate the remaining tuples in a multi-insert operation. It simulates the insertion process by iterating through the tuples starting from the 'done' index and tracking available space on each page. When a tuple cannot fit on the current page, it increments the page count and starts a new page. The calculation includes space for both the tuple data and its item identifier, ensuring accurate page count estimation for relation extension.
 

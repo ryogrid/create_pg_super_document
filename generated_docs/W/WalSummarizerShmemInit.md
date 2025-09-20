@@ -8,7 +8,10 @@ Initializes or attaches to the shared memory segment used by the WAL summarizer 
 
 ## Definition
 
-
+```c
+void
+WalSummarizerShmemInit(void)
+```
 ## Detailed Description
 This function creates or attaches to the shared memory structure for WAL summarization. It uses ShmemInitStruct to either allocate new shared memory (if this is the first process) or attach to existing shared memory (if already created by another process). When creating new shared memory, it initializes the WalSummarizerData structure with default values. The actual meaningful initialization happens later when GetOldestUnsummarizedLSN() is called for the first time.
 

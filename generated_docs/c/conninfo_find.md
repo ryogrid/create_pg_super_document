@@ -8,7 +8,10 @@ A static utility function that searches for a specific connection option by keyw
 
 ## Definition
 
-
+```c
+static PQconninfoOption *
+conninfo_find(PQconninfoOption *connOptions, const char *keyword)
+```
 ## Detailed Description
 This function performs a linear search through the connOptions array to locate a connection option that matches the specified keyword. It iterates through the array until it either finds a matching option or reaches the end of the array (indicated by a NULL keyword field). The search is case-sensitive and uses string comparison to match keywords exactly.
 

@@ -8,7 +8,10 @@ Calculates the required block length for a reconstructed file based on the trunc
 
 ## Definition
 
-
+```c
+static unsigned
+find_reconstructed_block_length(rfile *s)
+```
 ## Detailed Description
 This function determines how many blocks the reconstructed output file should contain. It starts with the truncation_block_length from the incremental file (the minimum length the file should have) and then examines all blocks present in the incremental file. If any block has a number equal to or greater than the initial block length, the function extends the required length to include that block.
 

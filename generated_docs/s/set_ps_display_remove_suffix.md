@@ -8,7 +8,10 @@ Removes the suffix that was previously added to the process title by set_ps_disp
 
 ## Definition
 
-
+```c
+void
+set_ps_display_remove_suffix(void)
+```
 ## Detailed Description
 This function removes a previously added suffix from the process title, effectively restoring the title to the state it was in before set_ps_display_suffix was called. The implementation:
 

@@ -8,7 +8,10 @@ PGTYPESinterval_new is a public API function that allocates and returns a new in
 
 ## Definition
 
-
+```c
+struct tm	tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function provides a standard way to allocate memory for a new interval structure in client applications using the ECPG (Embedded C for PostgreSQL) interface. It uses the pgtypes memory allocation system to ensure proper memory management within the PostgreSQL type system context.
 

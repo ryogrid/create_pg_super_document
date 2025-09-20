@@ -8,7 +8,10 @@ PostgreSQL function that determines if the first MAC address is greater than or 
 
 ## Definition
 
-
+```c
+Datum
+macaddr_ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The macaddr_ge function implements the greater-than-or-equal-to comparison operator ('>=') for MAC address data types in PostgreSQL. It takes two MAC address arguments and returns true if the first MAC address is lexicographically greater than or equal to the second, false otherwise. The function uses macaddr_cmp_internal to perform the comparison and checks if the result is greater than or equal to zero (>= 0).
 

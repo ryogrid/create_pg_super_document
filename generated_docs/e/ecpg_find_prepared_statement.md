@@ -8,7 +8,11 @@ Searches for a prepared statement by name within a specific database connection'
 
 ## Definition
 
-
+```c
+struct prepared_statement *
+ecpg_find_prepared_statement(const char *name,
+							 struct connection *con, struct prepared_statement **prev_)
+```
 ## Detailed Description
 This function implements a linear search through a connection's linked list of prepared statements to find a statement with a matching name. It performs a case-sensitive string comparison using  to locate the target prepared statement. The function also provides an optional mechanism to retrieve the predecessor node, which is useful for list manipulation operations such as deletion or insertion.
 

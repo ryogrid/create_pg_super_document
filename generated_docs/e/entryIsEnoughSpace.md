@@ -8,7 +8,11 @@ Determines whether there is sufficient free space on a GIN index page to accommo
 
 ## Definition
 
-
+```c
+static bool
+entryIsEnoughSpace(GinBtree btree, Buffer buf, OffsetNumber off,
+				   GinBtreeEntryInsertData *insertData)
+```
 ## Detailed Description
 This function calculates whether a GIN index page has enough free space to perform an entry insertion operation. It considers both the space that will be consumed by the new entry and the space that might be freed if the operation involves deleting an existing entry (as indicated by the isDelete flag in insertData).
 

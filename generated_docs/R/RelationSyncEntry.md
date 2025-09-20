@@ -8,7 +8,62 @@ RelationSyncEntry is a struct used in PostgreSQL's logical replication pgoutput 
 
 ## Definition
 
+```c
+typedef struct RelationSyncEntry
+{
+	Oid			relid;			/* relation oid */
 
+	bool		replicate_valid;	/* overall validity flag for entry */
+
+	bool		schema_sent;
+	List	   *streamed_txns;	/* streamed toplevel transactions with this
+								 * schema */
+
+	/* are we publishing this rel? */
+	PublicationActions pubactions;
+
+	/*
+	 * ExprState array for row filter. Different publication actions don't
+	 * allow multiple expressions to always be combined into one, because
+	 * updates or deletes restrict the column in expression to be part of the
+	 * replica identity index whereas inserts do not have this restriction, so
+	 * there is one ExprState per publication action.
+	 */
+	ExprState  *exprstate[NUM_ROWFILTER_PUBACTIONS];
+	EState	   *estate;			/* executor state used for row filter */
+	TupleTableSlot *new_slot;	/* slot for storing new tuple */
+	TupleTableSlot *old_slot;	/* slot for storing old tuple */
+
+	/*
+	 * OID of the relation to publish changes as.  For a partition, this may
+	 * be set to one of its ancestors whose schema will be used when
+	 * replicating changes, if publish_via_partition_root is set for the
+	 * publication.
+	 */
+	Oid			publish_as_relid;
+
+	/*
+	 * Map used when replicating using an ancestor's schema to convert tuples
+	 * from partition's type to the ancestor's; NULL if publish_as_relid is
+	 * same as 'relid' or if unnecessary due to partition and the ancestor
+	 * having identical TupleDesc.
+	 */
+	AttrMap    *attrmap;
+
+	/*
+	 * Columns included in the publication, or NULL if all columns are
+	 * included implicitly.  Note that the attnums in this bitmap are not
+	 * shifted by FirstLowInvalidHeapAttributeNumber.
+	 */
+	Bitmapset  *columns;
+
+	/*
+	 * Private context to store additional data for this entry - state for the
+	 * row filter expressions, column list, etc.
+	 */
+	MemoryContext entry_cxt;
+} RelationSyncEntry;
+```
 ## Detailed Description
 RelationSyncEntry serves as a cache entry in the pgoutput logical replication plugin's relation synchronization system. It tracks whether schema information has been sent to subscribers for specific relations and maintains the necessary state for row filtering, column lists, and partition handling. 
 

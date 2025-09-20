@@ -8,7 +8,10 @@ This function returns the timestamp of a statistics snapshot if one exists, prov
 
 ## Definition
 
-
+```c
+TimestampTz
+pgstat_get_stat_snapshot_timestamp(bool *have_snapshot)
+```
 ## Detailed Description
 The  function provides a way to determine whether a statistics snapshot currently exists and, if so, when it was created. This function is particularly useful for understanding the temporal context of statistics data and determining the freshness of the current snapshot.
 

@@ -8,7 +8,12 @@ A complex parsing function that extracts a qualified function or operator name a
 
 ## Definition
 
-
+```c
+static bool
+parseNameAndArgTypes(const char *string, bool allowNone, List **names,
+					 int *nargs, Oid *argtypes,
+					 Node *escontext)
+```
 ## Detailed Description
 The  function is a sophisticated parser that handles the complex task of decomposing function or operator signatures from their string representations. It expects input in the format "name(type1, type2, ...)", where the name can be schema-qualified and types can include complex constructs with parentheses and brackets.
 

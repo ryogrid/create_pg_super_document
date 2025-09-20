@@ -8,7 +8,10 @@ A comparator function used for sorting ScalarItems during PostgreSQL's ANALYZE o
 
 ## Definition
 
-
+```c
+static int
+compare_scalars(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 The  function serves as a custom comparator for sorting  structures during statistical analysis in PostgreSQL's ANALYZE command. Beyond simple comparison, it performs an important optimization by maintaining a  array that tracks equal datums. When two  elements contain equal datums, the function updates this array to record the relationship, allowing  to avoid redundant comparisons later in the analysis process.
 

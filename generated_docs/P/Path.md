@@ -8,7 +8,56 @@ Path is the base structure representing execution paths in PostgreSQL's query pl
 
 ## Definition
 
+```c
+typedef struct Path
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+
+	/* tag identifying scan/join method */
+	NodeTag		pathtype;
+
+	/*
+	 * the relation this path can build
+	 *
+	 * We do NOT print the parent, else we'd be in infinite recursion.  We can
+	 * print the parent's relids for identification purposes, though.
+	 */
+	RelOptInfo *parent pg_node_attr(write_only_relids);
+
+	/*
+	 * list of Vars/Exprs, cost, width
+	 *
+	 * We print the pathtarget only if it's not the default one for the rel.
+	 */
+	PathTarget *pathtarget pg_node_attr(write_only_nondefault_pathtarget);
+
+	/*
+	 * parameterization info, or NULL if none
+	 *
+	 * We do not print the whole of param_info, since it's printed via
+	 * RelOptInfo; it's sufficient and less cluttering to print just the
+	 * required outer relids.
+	 */
+	ParamPathInfo *param_info pg_node_attr(write_only_req_outer);
+
+	/* engage parallel-aware logic? */
+	bool		parallel_aware;
+	/* OK to use as part of parallel plan? */
+	bool		parallel_safe;
+	/* desired # of workers; 0 = not parallel */
+	int			parallel_workers;
+
+	/* estimated size/costs for path (see costsize.c for more info) */
+	Cardinality rows;			/* estimated number of result tuples */
+	Cost		startup_cost;	/* cost expended before fetching any tuples */
+	Cost		total_cost;		/* total cost (assuming all tuples fetched) */
+
+	/* sort ordering of path's output; a List of PathKey nodes; see above */
+	List	   *pathkeys;
+} Path;
+```
 ## Detailed Description
 Path is the fundamental data structure used by PostgreSQL's query planner to represent different ways of executing a query operation. It serves as the base structure for sequential scan paths and other simple plan types, and as the first component for more complex path types that extend it with additional information.
 

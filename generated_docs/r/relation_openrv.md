@@ -8,7 +8,10 @@ Opens a relation specified by a RangeVar (relation name with optional schema qua
 
 ## Definition
 
-
+```c
+Relation
+relation_openrv(const RangeVar *relation, LOCKMODE lockmode)
+```
 ## Detailed Description
 The `relation_openrv` function provides a name-based interface to relation opening, accepting a RangeVar structure that contains the relation name and optional schema qualification. It performs namespace resolution to convert the name to an OID and then delegates to `relation_open` for the actual opening process. The function includes several important mechanisms:
 

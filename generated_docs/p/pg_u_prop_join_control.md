@@ -8,7 +8,10 @@ Determines whether a Unicode code point has the Join_Control property, identifyi
 
 ## Definition
 
-
+```c
+bool
+pg_u_prop_join_control(pg_wchar code)
+```
 ## Detailed Description
 This function checks if a given Unicode code point has the Join_Control property according to the Unicode Standard. Characters with this property are format characters that control whether adjacent characters should join when rendered in cursive scripts. The most common examples are the Zero Width Joiner (ZWJ, U+200D) and Zero Width Non-Joiner (ZWNJ, U+200C), which are used to explicitly control letter joining in scripts like Arabic, Persian, and Devanagari.
 

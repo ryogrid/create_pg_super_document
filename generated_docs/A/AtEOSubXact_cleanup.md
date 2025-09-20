@@ -8,7 +8,56 @@ Handles cleanup of a single relation at subtransaction commit or abort, managing
 
 ## Definition
 
+```c
+enumber-in-subtransaction record
+	 * or drop record.
+	 */
+	if (relation->rd_newRelfilelocatorSubid == mySubid)
+	{
+		if (isCommit)
+			relation->rd_newRelfilelocatorSubid = parentSubid;
+		else
+			relation->rd_newRelfilelocatorSubid = InvalidSubTransactionId;
+	}
 
+	if (relation->rd_firstRelfilelocatorSubid == mySubid)
+	{
+		if (isCommit)
+			relation->rd_firstRelfilelocatorSubid = parentSubid;
+		else
+			relation->rd_firstRelfilelocatorSubid = InvalidSubTransactionId;
+	}
+
+	if (relation->rd_droppedSubid == mySubid)
+	{
+		if (isCommit)
+			relation->rd_droppedSubid = parentSubid;
+		else
+			relation->rd_droppedSubid = InvalidSubTransactionId;
+	}
+}
+
+
+/*
+ *		RelationBuildLocalRelation
+ *			Build a relcache entry for an about-to-be-created relation,
+ *			and enter it into the relcache.
+ */
+Relation
+RelationBuildLocalRelation(const char *relname,
+						   Oid relnamespace,
+						   TupleDesc tupDesc,
+						   Oid relid,
+						   Oid accessmtd,
+						   RelFileNumber relfilenumber,
+						   Oid reltablespace,
+						   bool shared_relation,
+						   bool mapped_relation,
+						   char relpersistence,
+						   char relkind)
+{
+	Relation	rel;
+```
 ## Detailed Description
 This static function performs subtransaction-specific cleanup for individual relation cache entries. It handles the complex logic of subtransaction state transitions by managing various subtransaction IDs associated with relations:
 

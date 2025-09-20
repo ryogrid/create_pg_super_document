@@ -8,7 +8,10 @@ A PostgreSQL test function that converts an internal array of four 32-bit intege
 
 ## Definition
 
-
+```c
+Datum
+int44out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a custom output function for a test data type that represents an array of four 32-bit integers. It takes the internal representation (a pointer to an array of four int32 values) and converts it into a human-readable string format "int1,int2,int3,int4". This function is the complement to  and is part of PostgreSQL's regression test suite, demonstrating how to implement custom output functions for user-defined data types. The function allocates sufficient memory to hold the formatted string representation.
 

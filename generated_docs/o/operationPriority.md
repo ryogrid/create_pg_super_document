@@ -8,7 +8,10 @@ Returns the precedence level of JSON path operations to ensure correct operator 
 
 ## Definition
 
-
+```c
+static int
+operationPriority(JsonPathItemType op)
+```
 ## Detailed Description
 This static function assigns numeric priority values to JSON path operations according to standard mathematical and logical operator precedence rules. Lower numbers indicate higher precedence (higher priority). The function is used primarily during JSON path expression printing and parsing to determine when parentheses are needed to preserve the intended order of operations. The precedence follows conventional operator precedence: unary operators (highest), multiplicative operators, additive operators, comparison operators, logical AND, and logical OR (lowest).
 

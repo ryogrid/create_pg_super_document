@@ -8,7 +8,12 @@ This function traverses plan state trees by recursively visiting all sub-nodes o
 
 ## Definition
 
-
+```c
+bool
+planstate_tree_walker_impl(PlanState *planstate,
+						   planstate_tree_walker_callback walker,
+						   void *context)
+```
 ## Detailed Description
 The  function implements a depth-first traversal of PostgreSQL plan state trees. It is designed to work after the current node has already been visited by the caller, so it only needs to recurse into sub-nodes. The function handles various types of plan nodes that can contain sub-plans or child plan states:
 

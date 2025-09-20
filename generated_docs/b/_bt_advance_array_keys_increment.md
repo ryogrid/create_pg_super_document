@@ -8,7 +8,10 @@ Advances array keys by a single increment in the current scan direction, handlin
 
 ## Definition
 
-
+```c
+static bool
+_bt_advance_array_keys_increment(IndexScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 This function implements the core logic for advancing through combinations of array elements during B-tree index scans with multiple SK_SEARCHARRAY scan keys. It works like a multi-digit counter, advancing the lowest-order (rightmost) array first and carrying over to higher-order arrays when the current array wraps around.
 

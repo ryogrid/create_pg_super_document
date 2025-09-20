@@ -8,7 +8,13 @@ heap_update is the core function responsible for replacing a tuple in a heap tab
 
 ## Definition
 
-
+```c
+TM_Result
+heap_update(Relation relation, ItemPointer otid, HeapTuple newtup,
+			CommandId cid, Snapshot crosscheck, bool wait,
+			TM_FailureData *tmfd, LockTupleMode *lockmode,
+			TU_UpdateIndexes *update_indexes)
+```
 ## Detailed Description
 heap_update performs the low-level replacement of a heap tuple with comprehensive transaction safety, concurrency control, and optimization strategies. This function is one of the most complex operations in PostgreSQL's heap access method, implementing sophisticated logic for:
 

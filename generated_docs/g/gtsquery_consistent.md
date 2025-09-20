@@ -8,7 +8,10 @@ gtsquery_consistent is a GiST consistency checking function that determines whet
 
 ## Definition
 
-
+```c
+Datum
+gtsquery_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the consistency checking logic for TSQuery GiST indexes. It compares TSQuerySign signatures to determine if an index entry might contain matches for a given query. The function supports two search strategies: RTContainsStrategyNumber (@@) and RTContainedByStrategyNumber (<@).
 

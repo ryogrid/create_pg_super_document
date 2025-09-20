@@ -8,7 +8,17 @@ get_db_info is a static helper function that looks up comprehensive information 
 
 ## Definition
 
-
+```c
+static bool
+get_db_info(const char *name, LOCKMODE lockmode,
+			Oid *dbIdP, Oid *ownerIdP,
+			int *encodingP, bool *dbIsTemplateP, bool *dbAllowConnP, bool *dbHasLoginEvtP,
+			TransactionId *dbFrozenXidP, MultiXactId *dbMinMultiP,
+			Oid *dbTablespace, char **dbCollate, char **dbCtype, char **dbLocale,
+			char **dbIcurules,
+			char *dbLocProvider,
+			char **dbCollversion)
+```
 ## Detailed Description
 This function provides a centralized way to lookup database information from the pg_database catalog table. The function:
 

@@ -8,7 +8,10 @@ Converts a deserialized range value to its textual representation, formatting th
 
 ## Definition
 
-
+```c
+static char *
+range_deparse(char flags, const char *lbound_str, const char *ubound_str)
+```
 ## Detailed Description
 The  function takes the internal representation of a range (flags and bound strings) and converts it into the standard PostgreSQL range text format. It handles empty ranges, bound inclusion/exclusion markers, and proper escaping of bound values. The function constructs a string using brackets/parentheses to indicate inclusive/exclusive bounds and commas to separate lower and upper bounds.
 

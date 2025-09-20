@@ -8,7 +8,12 @@ Generates a combination pruning step that merges the results of multiple other p
 
 ## Definition
 
-
+```c
+static PartitionPruneStep *
+gen_prune_step_combine(GeneratePruningStepsContext *context,
+					   List *source_stepids,
+					   PartitionPruneCombineOp combineOp)
+```
 ## Detailed Description
 This function creates a combine-type partition pruning step (PartitionPruneStepCombine) that specifies how to merge the results from multiple previously generated pruning steps. The function is essential for implementing complex boolean logic in partition pruning, particularly when dealing with OR and AND expressions in WHERE clauses.
 

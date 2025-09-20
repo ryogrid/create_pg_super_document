@@ -8,7 +8,11 @@ Assigns a string value to a pgbench variable, creating the variable if it doesn'
 
 ## Definition
 
-
+```c
+static bool
+putVariable(Variables *variables, const char *context, char *name,
+			const char *value)
+```
 ## Detailed Description
 This function is responsible for setting the string value of a pgbench variable within the specified context. It handles both updating existing variables and creating new ones as needed. The function ensures safe memory management by duplicating the input value before assignment and freeing any previously allocated string value. After assignment, the variable's numeric value type is reset to PGBT_NO_VALUE to indicate that only the string representation is valid.
 

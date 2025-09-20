@@ -8,7 +8,10 @@ MaybeStartWalReceiver conditionally starts a WAL receiver process if none is cur
 
 ## Definition
 
-
+```c
+static void
+MaybeStartWalReceiver(void)
+```
 ## Detailed Description
 MaybeStartWalReceiver implements conditional startup logic for WAL receiver processes in PostgreSQL. It starts a WAL receiver only when specific conditions are met: no receiver is currently running (WalReceiverPID == 0), the postmaster is in a recovery-related state (PM_STARTUP, PM_RECOVERY, or PM_HOT_STANDBY), and the system is not in an immediate shutdown mode.
 

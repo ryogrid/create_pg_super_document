@@ -8,7 +8,10 @@ A common support function that provides selectivity estimation and index conditi
 
 ## Definition
 
-
+```c
+static Node *
+like_regex_support(Node *rawreq, Pattern_Type ptype)
+```
 ## Detailed Description
 The `like_regex_support` function serves as a unified backend for PostgreSQL's pattern matching support infrastructure. It handles two primary types of support requests:
 

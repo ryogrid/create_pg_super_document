@@ -8,7 +8,13 @@ A hash table entry structure that serves as a key-value pair for storing and ret
 
 ## Definition
 
-
+```c
+typedef struct plperl_query_entry
+{
+	char		query_name[NAMEDATALEN];
+	plperl_query_desc *query_data;
+} plperl_query_entry;
+```
 ## Detailed Description
 The  structure acts as a hash table entry for managing cached query descriptors in PL/Perl. It provides a mapping between query names and their associated query descriptor data, enabling efficient lookup and retrieval of prepared SQL statements. This structure is essential for the query caching mechanism that improves performance by avoiding repeated preparation of the same SQL statements.
 

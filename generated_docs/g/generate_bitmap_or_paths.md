@@ -8,7 +8,11 @@
 
 ## Definition
 
-
+```c
+static List *
+generate_bitmap_or_paths(PlannerInfo *root, RelOptInfo *rel,
+						 List *clauses, List *other_clauses)
+```
 ## Detailed Description
 This recursive function processes OR clauses to create bitmap OR trees by:
 

@@ -8,7 +8,11 @@ The irish_UTF_8_stem function is the main entry point for stemming Irish languag
 
 ## Definition
 
+```c
+}
 
+extern int irish_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete Irish language stemming algorithm for UTF-8 encoded text. The stemming process follows a carefully structured sequence:
 

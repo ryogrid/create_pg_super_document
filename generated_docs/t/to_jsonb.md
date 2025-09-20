@@ -8,7 +8,10 @@ A SQL-callable function that converts any PostgreSQL value to its JSONB represen
 
 ## Definition
 
-
+```c
+Datum
+to_jsonb(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The to_jsonb function is the PostgreSQL SQL function implementation that converts any PostgreSQL data type to its corresponding JSONB format. It follows the standard PostgreSQL function calling convention (PG_FUNCTION_ARGS) and can be called from SQL as to_jsonb(anyvalue). The function extracts the input value and its type from the function call context, categorizes the type to determine the appropriate conversion strategy, and then delegates the actual conversion work to datum_to_jsonb. This function serves as the public interface for JSONB conversion from SQL.
 

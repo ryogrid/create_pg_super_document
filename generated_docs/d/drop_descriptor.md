@@ -8,7 +8,9 @@ Removes a specific SQL descriptor from the global descriptors linked list, match
 
 ## Definition
 
-
+```c
+struct descriptor *i;
+```
 ## Detailed Description
 This function searches for and removes a descriptor from the global descriptors linked list. It performs an exact match on both the descriptor name and connection string. The function validates that the name starts with a quote character before processing and handles both connected and default (NULL connection) descriptors.
 

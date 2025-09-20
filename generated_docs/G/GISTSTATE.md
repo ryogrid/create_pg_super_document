@@ -8,7 +8,32 @@ GISTSTATE is a core data structure that maintains all the information needed for
 
 ## Definition
 
+```c
+typedef struct GISTSTATE
+{
+	MemoryContext scanCxt;		/* context for scan-lifespan data */
+	MemoryContext tempCxt;		/* short-term context for calling functions */
 
+	TupleDesc	leafTupdesc;	/* index's tuple descriptor */
+	TupleDesc	nonLeafTupdesc; /* truncated tuple descriptor for non-leaf
+								 * pages */
+	TupleDesc	fetchTupdesc;	/* tuple descriptor for tuples returned in an
+								 * index-only scan */
+
+	FmgrInfo	consistentFn[INDEX_MAX_KEYS];
+	FmgrInfo	unionFn[INDEX_MAX_KEYS];
+	FmgrInfo	compressFn[INDEX_MAX_KEYS];
+	FmgrInfo	decompressFn[INDEX_MAX_KEYS];
+	FmgrInfo	penaltyFn[INDEX_MAX_KEYS];
+	FmgrInfo	picksplitFn[INDEX_MAX_KEYS];
+	FmgrInfo	equalFn[INDEX_MAX_KEYS];
+	FmgrInfo	distanceFn[INDEX_MAX_KEYS];
+	FmgrInfo	fetchFn[INDEX_MAX_KEYS];
+
+	/* Collations to pass to the support functions */
+	Oid			supportCollation[INDEX_MAX_KEYS];
+} GISTSTATE;
+```
 ## Detailed Description
 GISTSTATE serves as the central state holder for GiST index operations, encapsulating both memory management contexts and the complete set of opclass-specific support functions. The structure maintains two distinct memory contexts: scanCxt for long-lived scan data and tempCxt for short-term function calls that are typically reset after each tuple. This design enables efficient memory management during index operations while providing the necessary function dispatch mechanism for the extensible GiST framework.
 

@@ -8,7 +8,11 @@ Determines whether a set of input types can be coerced to corresponding target t
 
 ## Definition
 
-
+```c
+bool
+can_coerce_type(int nargs, const Oid *input_typeids, const Oid *target_typeids,
+				CoercionContext ccontext)
+```
 ## Detailed Description
 This function serves as the feasibility checker for type coercion operations, validating whether type conversions are possible before attempting them. It evaluates each input-target type pair according to PostgreSQL's coercion rules:
 

@@ -8,7 +8,9 @@ A general-purpose hash function for variable-length data types where all bits ar
 
 ## Definition
 
-
+```c
+struct varlena *key = PG_GETARG_VARLENA_PP(0);
+```
 ## Detailed Description
 The hashvarlena function provides hash computation for any variable-length (varlena) data type where there are no non-significant bits - meaning that distinct bit patterns never compare as equal. This function directly hashes the data content without any transformation, making it suitable for data types like bytea, varchar (in C locale), and other binary or simple text data where byte-for-byte comparison determines equality.
 

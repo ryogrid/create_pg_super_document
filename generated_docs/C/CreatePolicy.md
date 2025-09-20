@@ -8,7 +8,9 @@ Handles the execution of the CREATE POLICY command by creating a new row-level s
 
 ## Definition
 
-
+```c
+struct_array_builtin(role_oids, nitems, OIDOID);
+```
 ## Detailed Description
 This function implements the CREATE POLICY SQL command by performing comprehensive validation and catalog operations:
 

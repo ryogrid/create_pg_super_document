@@ -8,7 +8,10 @@ Performs bitwise NOT operation on a MAC-8 (EUI-64) address, inverting all bits i
 
 ## Definition
 
-
+```c
+Datum
+macaddr8_not(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the bitwise NOT arithmetic operation for PostgreSQL's macaddr8 data type (8-byte MAC addresses / EUI-64 identifiers). It creates a new macaddr8 structure where each byte is the bitwise complement of the corresponding byte in the input address. The operation inverts every bit in the address, effectively flipping all 0s to 1s and all 1s to 0s across all 8 bytes of the MAC address.
 

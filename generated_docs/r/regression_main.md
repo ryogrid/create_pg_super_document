@@ -8,7 +8,35 @@ The main entry point function for PostgreSQL's regression testing framework that
 
 ## Definition
 
-
+```c
+struct option long_options[] = {
+		{"help", no_argument, NULL, 'h'},
+		{"version", no_argument, NULL, 'V'},
+		{"dbname", required_argument, NULL, 1},
+		{"debug", no_argument, NULL, 2},
+		{"inputdir", required_argument, NULL, 3},
+		{"max-connections", required_argument, NULL, 5},
+		{"encoding", required_argument, NULL, 6},
+		{"outputdir", required_argument, NULL, 7},
+		{"schedule", required_argument, NULL, 8},
+		{"temp-instance", required_argument, NULL, 9},
+		{"no-locale", no_argument, NULL, 10},
+		{"host", required_argument, NULL, 13},
+		{"port", required_argument, NULL, 14},
+		{"user", required_argument, NULL, 15},
+		{"bindir", required_argument, NULL, 16},
+		{"dlpath", required_argument, NULL, 17},
+		{"create-role", required_argument, NULL, 18},
+		{"temp-config", required_argument, NULL, 19},
+		{"use-existing", no_argument, NULL, 20},
+		{"launcher", required_argument, NULL, 21},
+		{"load-extension", required_argument, NULL, 22},
+		{"config-auth", required_argument, NULL, 24},
+		{"max-concurrent-tests", required_argument, NULL, 25},
+		{"expecteddir", required_argument, NULL, 26},
+		{NULL, 0, NULL, 0}
+	};
+```
 ## Detailed Description
 The  function is the core orchestrator of PostgreSQL's regression testing framework. It provides a comprehensive command-line interface for configuring and running regression tests, handles both temporary and existing PostgreSQL instances, and manages the complete lifecycle of test execution.
 

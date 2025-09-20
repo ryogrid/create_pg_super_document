@@ -8,7 +8,10 @@ Retrieves the next tuple in a hash bucket chain during parallel hash join execut
 
 ## Definition
 
-
+```c
+static inline HashJoinTuple
+ExecParallelHashNextTuple(HashJoinTable hashtable, HashJoinTuple tuple)
+```
 ## Detailed Description
 This function provides the mechanism to traverse a linked list of hash join tuples within a bucket during parallel hash join execution. It takes the current tuple and returns the next tuple in the same hash bucket chain by following the shared memory pointer stored in the current tuple's next field. The function operates on shared memory structures and converts DSA (Dynamic Shared Area) pointers to local memory addresses for access by the current process.
 

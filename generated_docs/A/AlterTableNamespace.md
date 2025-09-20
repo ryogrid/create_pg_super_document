@@ -8,7 +8,10 @@ AlterTableNamespace implements the ALTER TABLE SET SCHEMA command by moving a ta
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterTableNamespace(AlterObjectSchemaStmt *stmt, Oid *oldschema)
+```
 ## Detailed Description
 This function handles the high-level logic for moving a table between schemas. It performs several important validation steps and delegates the actual namespace change to AlterTableNamespaceInternal. The function ensures that:
 

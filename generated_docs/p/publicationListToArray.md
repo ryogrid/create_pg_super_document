@@ -8,7 +8,9 @@ Converts a List of publication name strings into a PostgreSQL text array suitabl
 
 ## Definition
 
-
+```c
+struct_array_builtin(datums, list_length(publist), TEXTOID);
+```
 ## Detailed Description
 This utility function transforms a List containing String nodes (publication names) into a PostgreSQL ArrayType structure represented as a Datum. The function is essential for storing publication lists in system catalogs like pg_subscription, where the publication list is stored as a text array.
 

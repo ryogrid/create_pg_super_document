@@ -8,7 +8,10 @@ Encodes a geometric path data structure into its string representation, handling
 
 ## Definition
 
-
+```c
+static char *
+path_encode(enum path_delim path_delim, int npts, Point *pt)
+```
 ## Detailed Description
 The  function converts an array of Point structures into a properly formatted string representation of a geometric path. It handles three types of path delimiters: closed paths (surrounded by ), open paths (surrounded by ), and paths with no outer delimiters. Each point in the path is formatted as  with points separated by commas. The function uses PostgreSQL's StringInfo mechanism for efficient string building.
 

@@ -8,7 +8,18 @@ LWLock (Lightweight Lock) is the fundamental locking structure in PostgreSQL use
 
 ## Definition
 
-
+```c
+typedef struct LWLock
+{
+	uint16		tranche;		/* tranche ID */
+	pg_atomic_uint32 state;		/* state of exclusive/nonexclusive lockers */
+	proclist_head waiters;		/* list of waiting PGPROCs */
+#ifdef LOCK_DEBUG
+	pg_atomic_uint32 nwaiters;	/* number of waiters */
+	struct PGPROC *owner;		/* last exclusive owner of the lock */
+#endif
+} LWLock;
+```
 ## Detailed Description
 LWLock is PostgreSQL's lightweight locking mechanism designed for high-performance synchronization of shared memory access. Unlike heavier database locks, LWLocks are optimized for short-duration operations and provide both shared (read) and exclusive (write) locking modes. The structure uses atomic operations for the state field to minimize contention and improve scalability in multi-processor environments.
 

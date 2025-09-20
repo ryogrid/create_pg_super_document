@@ -8,7 +8,10 @@ Creates a new bbstreamer that parses a stream of content as tar data, converting
 
 ## Definition
 
-
+```c
+extern bbstreamer *
+bbstreamer_tar_parser_new(bbstreamer *next)
+```
 ## Detailed Description
 This function creates and initializes a bbstreamer_tar_parser instance that serves as a tar format parser in the backup streaming pipeline. The parser takes input as a series of BBSTREAMER_UNKNOWN chunks and processes them to produce typed chunks (such as BBSTREAMER_MEMBER_HEADER, BBSTREAMER_MEMBER_CONTENTS, etc.) that downstream components can understand. The parser maintains state to track its position within tar file structure and handles the transition between different tar member components.
 

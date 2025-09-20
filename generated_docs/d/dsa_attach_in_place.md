@@ -8,7 +8,10 @@ Attaches to a DSA (Dynamic Shared Area) that was created with dsa_create_in_plac
 
 ## Definition
 
-
+```c
+dsa_area *
+dsa_attach_in_place(void *place, dsm_segment *segment)
+```
 ## Detailed Description
 This function attaches to an existing DSA that was created using dsa_create_in_place. Unlike regular DSA attachment which uses handles, this function requires the caller to provide the exact memory location where the area was originally created. The area may be mapped at a different virtual address in the current process, but the underlying memory location must be accessible.
 

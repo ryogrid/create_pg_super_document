@@ -8,7 +8,12 @@ A streaming read API callback function that provides the next block number for p
 
 ## Definition
 
-
+```c
+static BlockNumber
+heap_scan_stream_read_next_parallel(ReadStream *stream,
+									void *callback_private_data,
+									void *per_buffer_data)
+```
 ## Detailed Description
 heap_scan_stream_read_next_parallel is a callback function used by PostgreSQL's streaming read API to coordinate parallel sequential scans of heap tables. It determines which block should be read next by a worker process in a parallel scan operation.
 

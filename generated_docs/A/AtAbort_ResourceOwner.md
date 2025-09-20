@@ -8,7 +8,10 @@ AtAbort_ResourceOwner resets the current resource owner to TopTransactionResourc
 
 ## Definition
 
-
+```c
+static void
+AtAbort_ResourceOwner(void)
+```
 ## Detailed Description
 This function performs a critical resource management operation during transaction abort by setting CurrentResourceOwner to TopTransactionResourceOwner. The resource owner system in PostgreSQL tracks and manages various resources (such as buffer pins, locks, file descriptors, etc.) that are acquired during transaction processing.
 

@@ -8,7 +8,10 @@ Returns a list of relation OIDs in a given namespace, filtered by a specific rel
 
 ## Definition
 
-
+```c
+static List *
+getRelationsInNamespace(Oid namespaceId, char relkind)
+```
 ## Detailed Description
 This function performs a catalog scan on the pg_class system table to find all relations within a specified namespace that match a particular relation kind. It uses a two-key scan strategy: first filtering by namespace ID and then by relation kind. The function opens the pg_class catalog with an AccessShareLock, performs a sequential scan using the constructed scan keys, and builds a list of OIDs for all matching relations. This is an efficient way to enumerate specific types of objects within a schema without requiring individual lookups.
 

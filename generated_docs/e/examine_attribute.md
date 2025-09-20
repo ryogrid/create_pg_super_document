@@ -8,7 +8,11 @@ Performs pre-analysis examination of a single column to determine if it's analyz
 
 ## Definition
 
-
+```c
+struct.
+	 */
+	stats = (VacAttrStats *) palloc0(sizeof(VacAttrStats));
+```
 ## Detailed Description
 The examine_attribute function is a critical component of PostgreSQL's ANALYZE command that performs initial column examination before statistical data collection. It determines whether a column should be analyzed based on various criteria and prepares the necessary data structures for the analysis process.
 

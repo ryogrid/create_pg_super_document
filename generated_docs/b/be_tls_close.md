@@ -8,7 +8,10 @@ Cleanly shuts down an SSL/TLS connection and frees all associated SSL resources 
 
 ## Definition
 
-
+```c
+void
+be_tls_close(Port *port)
+```
 ## Detailed Description
 The  function performs a complete cleanup of SSL/TLS resources associated with a client connection. It properly shuts down the SSL connection, frees all SSL-related objects, and cleans up client certificate information that was extracted during the connection establishment.
 

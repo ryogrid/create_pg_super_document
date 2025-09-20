@@ -8,7 +8,13 @@ Replays transaction commit records during WAL recovery, handling both regular co
 
 ## Definition
 
-
+```c
+static void
+xact_redo_commit(xl_xact_parsed_commit *parsed,
+				 TransactionId xid,
+				 XLogRecPtr lsn,
+				 RepOriginId origin_id)
+```
 ## Detailed Description
 This function performs the recovery replay of transaction commit operations during PostgreSQL's crash recovery process. It carefully orchestrates multiple critical operations in the correct order including advancing transaction IDs, setting commit timestamps, updating transaction status in pg_xact, handling invalidation messages, releasing locks, advancing replication origins, dropping relation files, and executing statistical drops. The function handles both normal recovery (standbyState == STANDBY_DISABLED) and hot standby recovery with different code paths for each scenario.
 

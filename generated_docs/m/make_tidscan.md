@@ -8,7 +8,13 @@ Creates and initializes a TidScan plan node that directly accesses specific heap
 
 ## Definition
 
-
+```c
+static TidScan *
+make_tidscan(List *qptlist,
+			 List *qpqual,
+			 Index scanrelid,
+			 List *tidquals)
+```
 ## Detailed Description
 This function constructs a TidScan plan node, which implements a highly specialized scan operation that directly fetches tuples from a heap table using their physical tuple identifiers (TIDs). TID scans are typically used when the query contains explicit CTID conditions or when the planner can determine that specific tuple locations need to be accessed directly. This is the most efficient way to access known tuples since it bypasses all indexing mechanisms and goes directly to the heap page and tuple offset specified by the TID.
 

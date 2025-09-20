@@ -8,7 +8,10 @@ A PostgreSQL system function that pauses execution for a specified number of sec
 
 ## Definition
 
-
+```c
+Datum
+pg_sleep(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements a delay mechanism that suspends execution for a specified floating-point number of seconds. It uses PostgreSQL's  mechanism to ensure responsive signal handling during the sleep period. The function is designed to handle interrupts gracefully and can wake up promptly when important signals like SIGALRM or SIGINT arrive.
 

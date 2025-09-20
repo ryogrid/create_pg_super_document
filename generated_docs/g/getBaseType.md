@@ -8,7 +8,10 @@ Returns the base type OID for a given type, resolving domain types to their unde
 
 ## Definition
 
-
+```c
+Oid
+getBaseType(Oid typid)
+```
 ## Detailed Description
 This function provides a convenient interface for resolving PostgreSQL domain types to their underlying base types. A domain in PostgreSQL is a user-defined data type that is based on an existing type but can have additional constraints. When given a domain type OID, this function returns the OID of the underlying base type. For regular (non-domain) types, it simply returns the same type OID. Internally, it delegates to  with a dummy typmod parameter, making it a simplified wrapper for cases where the type modifier is not needed.
 

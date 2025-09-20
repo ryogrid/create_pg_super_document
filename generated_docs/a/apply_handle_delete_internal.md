@@ -8,7 +8,13 @@ Internal workhorse function that performs the actual DELETE operation for logica
 
 ## Definition
 
-
+```c
+static void
+apply_handle_delete_internal(ApplyExecutionData *edata,
+							 ResultRelInfo *relinfo,
+							 TupleTableSlot *remoteslot,
+							 Oid localindexoid)
+```
 ## Detailed Description
 This function performs the core DELETE operation for logical replication after the higher-level apply_handle_delete has handled message parsing and setup. The function:
 

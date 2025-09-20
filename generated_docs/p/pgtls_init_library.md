@@ -8,7 +8,10 @@ Initializes the PostgreSQL TLS library configuration by setting flags for SSL an
 
 ## Definition
 
-
+```c
+void
+pgtls_init_library(bool do_ssl, int do_crypto)
+```
 ## Detailed Description
 This function configures the global SSL and crypto library initialization flags for the PostgreSQL libpq client library. It serves as a safety mechanism to control which parts of the OpenSSL library should be initialized by PostgreSQL versus the application. The function includes a critical safety check that prevents modification of these flags when there are active SSL connections, which would lead to inconsistent library state.
 

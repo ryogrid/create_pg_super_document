@@ -8,7 +8,9 @@
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function orchestrates the entire base backup process in PostgreSQL. It begins by calling  to initiate the backup, then systematically processes each tablespace, creating tar archives for the data. The function handles both regular and incremental backups, and optionally includes WAL files in the backup. It uses error cleanup mechanisms to ensure proper cleanup even if the backup fails partway through.
 

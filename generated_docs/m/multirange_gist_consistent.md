@@ -8,7 +8,11 @@ Implements the GiST consistency check operation for multirange types, determinin
 
 ## Definition
 
-
+```c
+union range with no gaps.
+	 */
+	*recheck = true;
+```
 ## Detailed Description
 The  function is the core consistency checking function for GiST indexes on multirange types. It determines whether a given query (which can be a range, multirange, or element) matches an index entry based on the specified search strategy. Since multiranges are stored in the index as compressed union ranges (via ), this function performs consistency checking against those compressed representations.
 

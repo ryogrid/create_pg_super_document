@@ -8,7 +8,9 @@ Compares two datums for identical byte-level contents, with special handling for
 
 ## Definition
 
-
+```c
+struct varlena *arg1val;
+```
 ## Detailed Description
 The  function performs exact byte-level comparison between two datums, with sophisticated handling for different storage types. Unlike , this function properly handles TOAST (The Oversized-Attribute Storage Technique) by detoasting variable-length data before comparison:
 

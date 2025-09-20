@@ -8,7 +8,10 @@ Spools an index entry into the sort file during hash index construction by addin
 
 ## Definition
 
-
+```c
+void
+_h_spool(HSpool *hspool, ItemPointer self, const Datum *values, const bool *isnull)
+```
 ## Detailed Description
 This function serves as an interface to add index tuples to the sorting mechanism during hash index construction. It takes the tuple data (values and null indicators) along with the tuple identifier and passes them to the underlying tuplesort subsystem via . The function acts as a thin wrapper that maintains the abstraction between the hash index building logic and the generic tuple sorting functionality.
 

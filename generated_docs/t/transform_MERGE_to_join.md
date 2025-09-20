@@ -8,7 +8,10 @@ Transforms a MERGE statement's jointree to include the target relation by creati
 
 ## Definition
 
-
+```c
+void
+transform_MERGE_to_join(Query *parse)
+```
 ## Detailed Description
 This function is responsible for converting a MERGE statement into a join operation that includes both the target and source relations. It analyzes the MERGE action list to determine the appropriate join type (INNER, LEFT, RIGHT, or FULL) based on the presence of different WHEN clauses:
 

@@ -8,7 +8,10 @@ logicalmsg_redo is a WAL redo function that handles replay of logical message re
 
 ## Definition
 
-
+```c
+void
+logicalmsg_redo(XLogReaderState *record)
+```
 ## Detailed Description
 This function is called during WAL replay to handle XLOG_LOGICAL_MESSAGE records. It serves as a no-operation redo function because logical messages don't modify the database state directly - they are primarily consumed by logical decoding plugins during logical replication. The function validates that the WAL record has the correct operation code (XLOG_LOGICAL_MESSAGE) and panics if an unknown operation code is encountered, but otherwise performs no actual replay work since the logical messages are handled separately by the logical decoding infrastructure.
 

@@ -8,7 +8,13 @@ page_collect_tuples is an inline helper function that scans through all tuples o
 
 ## Definition
 
-
+```c
+static int
+page_collect_tuples(HeapScanDesc scan, Snapshot snapshot,
+					Page page, Buffer buffer,
+					BlockNumber block, int lines,
+					bool all_visible, bool check_serializable)
+```
 ## Detailed Description
 This function iterates through all item identifiers on a heap page and evaluates each tuple's visibility according to the provided snapshot. It's designed as an always-inline function to maximize performance during sequential scans. The function handles both optimized paths (when all tuples are known to be visible) and general paths (requiring full visibility checks). For each visible tuple, it records the offset number in the scan descriptor's rs_vistuples array, enabling efficient tuple retrieval in subsequent operations.
 

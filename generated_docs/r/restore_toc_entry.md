@@ -8,7 +8,10 @@ The restore_toc_entry function is the core function responsible for restoring a 
 
 ## Definition
 
-
+```c
+static int
+restore_toc_entry(ArchiveHandle *AH, TocEntry *te, bool is_parallel)
+```
 ## Detailed Description
 This function handles the complete restoration of a single TOC entry, which can include both schema (DDL) and data components. It manages transaction boundaries, error handling, parallel processing coordination, and various restoration optimizations. The function processes two main phases:
 

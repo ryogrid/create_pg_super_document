@@ -8,7 +8,10 @@ Sets LP_DEAD state for index tuples that an index scan caller has identified as 
 
 ## Definition
 
-
+```c
+void
+_hash_kill_items(IndexScanDesc scan)
+```
 ## Detailed Description
 The  function is responsible for marking index tuples as dead (LP_DEAD state) based on information provided by an index scan caller. This function operates as part of PostgreSQL's hash index implementation and serves as an optimization mechanism for tuple cleanup.
 

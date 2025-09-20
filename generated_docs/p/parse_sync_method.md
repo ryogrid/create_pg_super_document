@@ -8,7 +8,10 @@ Provides standardized parsing of the --sync-method command-line option across Po
 
 ## Definition
 
-
+```c
+bool
+parse_sync_method(const char *optarg, DataDirSyncMethod *sync_method)
+```
 ## Detailed Description
 This utility function implements consistent parsing and validation of synchronization method options across PostgreSQL tools that perform data directory operations. It converts string arguments to the appropriate DataDirSyncMethod enumeration values while ensuring platform compatibility.
 

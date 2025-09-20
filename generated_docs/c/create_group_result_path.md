@@ -8,7 +8,11 @@ Creates a path representing a Result-and-nothing-else plan for degenerate groupi
 
 ## Definition
 
-
+```c
+GroupResultPath *
+create_group_result_path(PlannerInfo *root, RelOptInfo *rel,
+						 PathTarget *target, List *havingqual)
+```
 ## Detailed Description
 This function constructs a GroupResultPath node for degenerate grouping scenarios where the optimizer knows it needs to produce exactly one result row, possibly filtered by a HAVING qualification. This typically occurs in queries with aggregate functions but no GROUP BY clause, or when grouping produces exactly one group. The function creates a Result plan node that generates a single tuple with the computed target expressions.
 

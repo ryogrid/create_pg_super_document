@@ -8,7 +8,10 @@ The `apply_typmod` function performs bounds checking and rounding on a numeric v
 
 ## Definition
 
-
+```c
+static bool
+apply_typmod(NumericVar *var, int32 typmod, Node *escontext)
+```
 ## Detailed Description
 This function is responsible for enforcing numeric type constraints by:
 

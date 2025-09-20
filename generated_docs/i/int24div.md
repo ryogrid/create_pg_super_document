@@ -8,7 +8,10 @@
 
 ## Definition
 
-
+```c
+Datum
+int24div(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the division operator for mixed-precision integer arithmetic in PostgreSQL's type system. It takes a 16-bit integer as the dividend and a 32-bit integer as the divisor, performs integer division with division-by-zero checking, and returns the result as a 32-bit integer. Unlike the other int24 arithmetic functions, this function does not need overflow checking since dividing a promoted 16-bit value by a 32-bit value cannot produce overflow. The function includes explicit division-by-zero error handling.
 

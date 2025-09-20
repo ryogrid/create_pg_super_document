@@ -8,7 +8,10 @@ A static inline function that converts a TSQuerySign value into a PostgreSQL Dat
 
 ## Definition
 
-
+```c
+static inline Datum
+TSQuerySignGetDatum(TSQuerySign X)
+```
 ## Detailed Description
 TSQuerySignGetDatum is a conversion utility function that transforms a TSQuerySign value (which is a typedef for uint64) into a Datum representation. This function is part of PostgreSQL's text search infrastructure and is used internally by the GiST indexing mechanism for tsquery operations. The function simply wraps the Int64GetDatum conversion, providing a type-safe interface specifically for TSQuerySign values.
 

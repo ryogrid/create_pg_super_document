@@ -8,7 +8,10 @@ Renumbers existing enum elements to have consecutive sort positions (1..n), typi
 
 ## Definition
 
-
+```c
+static void
+RenumberEnumType(Relation pg_enum, HeapTuple *existing, int nelems)
+```
 ## Detailed Description
 This function performs a critical but rarely-used operation of renumbering all enum values in an enum type to have consecutive sort positions starting from 1. The renumbering is done reluctantly because:
 

@@ -8,7 +8,10 @@ Converts PostgreSQL's internal PATH data structure into its string representatio
 
 ## Definition
 
-
+```c
+Datum
+path_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the output conversion routine for the PATH geometric data type in PostgreSQL. It takes an internal PATH structure and converts it to a human-readable string representation. The function acts as a simple wrapper around the path_encode function, determining the appropriate path type (open or closed) based on the PATH's closed flag and delegating the actual string formatting to path_encode.
 

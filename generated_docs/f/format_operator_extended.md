@@ -8,7 +8,10 @@ Converts an operator OID to a textual representation in the format "opr_name(arg
 
 ## Definition
 
-
+```c
+char *
+format_operator_extended(Oid operator_oid, bits16 flags)
+```
 ## Detailed Description
 The  function is the core operator formatting function that converts an operator OID to its textual representation. It provides the underlying functionality used by other operator formatting functions and offers flexible control over the output format through flag parameters.
 

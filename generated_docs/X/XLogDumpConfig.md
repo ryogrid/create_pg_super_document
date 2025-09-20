@@ -8,7 +8,35 @@ XLogDumpConfig is a comprehensive configuration structure that controls all aspe
 
 ## Definition
 
+```c
+typedef struct XLogDumpConfig
+{
+	/* display options */
+	bool		quiet;
+	bool		bkp_details;
+	int			stop_after_records;
+	int			already_displayed_records;
+	bool		follow;
+	bool		stats;
+	bool		stats_per_record;
 
+	/* filter options */
+	bool		filter_by_rmgr[RM_MAX_ID + 1];
+	bool		filter_by_rmgr_enabled;
+	TransactionId filter_by_xid;
+	bool		filter_by_xid_enabled;
+	RelFileLocator filter_by_relation;
+	bool		filter_by_extended;
+	bool		filter_by_relation_enabled;
+	BlockNumber filter_by_relation_block;
+	bool		filter_by_relation_block_enabled;
+	ForkNumber	filter_by_relation_forknum;
+	bool		filter_by_fpw;
+
+	/* save options */
+	char	   *save_fullpage_path;
+} XLogDumpConfig;
+```
 ## Detailed Description
 XLogDumpConfig serves as the central configuration hub for pg_waldump operations. It encompasses three main categories of settings: display options that control output format and verbosity, filter options that determine which WAL records to process based on various criteria, and save options for extracting specific data from WAL records.
 

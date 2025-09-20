@@ -8,7 +8,16 @@ Initializes tuple table slots and attribute mapping for storing old and new tupl
 
 ## Definition
 
-
+```c
+enums
+	 * having specific values.
+	 */
+	static const int map_changetype_pubaction[] = {
+		[REORDER_BUFFER_CHANGE_INSERT] = PUBACTION_INSERT,
+		[REORDER_BUFFER_CHANGE_UPDATE] = PUBACTION_UPDATE,
+		[REORDER_BUFFER_CHANGE_DELETE] = PUBACTION_DELETE
+	};
+```
 ## Detailed Description
 This function sets up the tuple storage infrastructure needed for logical replication by creating tuple table slots for both old and new tuple versions. It creates copies of the relation's tuple descriptor that will persist for the lifetime of the cache. When the relation is published under a different identity (ancestor relation), it also builds an attribute mapping between the actual relation and the published relation format. This mapping is essential for converting tuples from the actual relation format to the ancestor's format during replication. The tuple slots use heap tuple operations and are allocated in the plugin's cache memory context for longevity.
 

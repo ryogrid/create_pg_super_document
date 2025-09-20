@@ -8,7 +8,10 @@ A static helper function that compares whether two colors from a given state lea
 
 ## Definition
 
-
+```c
+static bool
+check_out_colors_match(struct state *s, color co1, color co2)
+```
 ## Detailed Description
 This function is a subroutine for  that determines if two colors (co1 and co2) from a given state produce equivalent transition patterns. It performs a linear-time comparison by examining the outgoing arcs from state  and checking whether arcs of color  reach the same set of destination states as arcs of color .
 

@@ -8,7 +8,10 @@ Sets missing values for table attributes during binary upgrades, allowing Postgr
 
 ## Definition
 
-
+```c
+Datum
+binary_upgrade_set_missing_value(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of PostgreSQL's binary upgrade support infrastructure. It enables setting missing values for table attributes during the upgrade process from older PostgreSQL versions. Missing values are used to represent default values for columns that were added to existing tables without requiring a full table rewrite. The function extracts the table OID, attribute name, and value from its arguments, then calls the internal SetAttrMissing function to perform the actual operation.
 

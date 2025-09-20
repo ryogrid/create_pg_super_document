@@ -8,7 +8,9 @@ A PostgreSQL function that returns the closest point on a line to a given point,
 
 ## Definition
 
-
+```c
+struct(&tmp, pt, point_invsl(&lseg->p[0], &lseg->p[1]));
+```
 ## Detailed Description
 This function implements the SQL-callable interface for finding the closest point on an infinite line to a given point. It extracts a Point and LINE from the function arguments, allocates memory for the result point, and delegates the actual computation to . If the internal function returns NaN (indicating a computation error), the function returns NULL to SQL. Otherwise, it returns the computed closest point. This function follows PostgreSQL's standard function calling convention and provides proper memory management for the result.
 

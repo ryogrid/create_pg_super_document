@@ -8,7 +8,14 @@ Registers a new injection point in the shared memory hash table, associating a n
 
 ## Definition
 
-
+```c
+void
+InjectionPointAttach(const char *name,
+					 const char *library,
+					 const char *function,
+					 const void *private_data,
+					 int private_data_size)
+```
 ## Detailed Description
 This function creates and registers a new injection point in PostgreSQL's testing infrastructure. It performs several validation checks on the input parameters, finds a free slot in the shared memory array, and atomically registers the new injection point. The function uses a generation counter mechanism to ensure thread-safe access to injection point entries.
 

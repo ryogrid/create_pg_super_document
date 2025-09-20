@@ -8,7 +8,11 @@ Transfers security-barrier qualifiers from a RangeTblEntry's securityQuals field
 
 ## Definition
 
-
+```c
+static void
+process_security_barrier_quals(PlannerInfo *root,
+							   int rti, JoinTreeItem *jtitem)
+```
 ## Detailed Description
 The  function handles the processing of security-barrier conditions that were previously placed by the rewriter into the RTE's securityQuals field. It transfers these conditions into the relation's baserestrictinfo for proper handling during query optimization.
 

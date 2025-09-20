@@ -8,7 +8,10 @@ process_settings loads and applies database and role-specific GUC configuration 
 
 ## Definition
 
-
+```c
+static void
+process_settings(Oid databaseid, Oid roleid)
+```
 ## Detailed Description
 process_settings is a static function that loads GUC (Grand Unified Configuration) settings from the pg_db_role_setting system catalog. It applies configuration parameters in a hierarchical precedence order, from most specific (database+role combination) to most general (global defaults).
 

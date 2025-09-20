@@ -8,7 +8,69 @@ ParallelVacuumState is the main coordination structure that maintains the comple
 
 ## Definition
 
+```c
+struct ParallelVacuumState
+{
+	/* NULL for worker processes */
+	ParallelContext *pcxt;
 
+	/* Parent Heap Relation */
+	Relation	heaprel;
+
+	/* Target indexes */
+	Relation   *indrels;
+	int			nindexes;
+
+	/* Shared information among parallel vacuum workers */
+	PVShared   *shared;
+
+	/*
+	 * Shared index statistics among parallel vacuum workers. The array
+	 * element is allocated for every index, even those indexes where parallel
+	 * index vacuuming is unsafe or not worthwhile (e.g.,
+	 * will_parallel_vacuum[] is false).  During parallel vacuum,
+	 * IndexBulkDeleteResult of each index is kept in DSM and is copied into
+	 * local memory at the end of parallel vacuum.
+	 */
+	PVIndStats *indstats;
+
+	/* Shared dead items space among parallel vacuum workers */
+	TidStore   *dead_items;
+
+	/* Points to buffer usage area in DSM */
+	BufferUsage *buffer_usage;
+
+	/* Points to WAL usage area in DSM */
+	WalUsage   *wal_usage;
+
+	/*
+	 * False if the index is totally unsuitable target for all parallel
+	 * processing. For example, the index could be <
+	 * min_parallel_index_scan_size cutoff.
+	 */
+	bool	   *will_parallel_vacuum;
+
+	/*
+	 * The number of indexes that support parallel index bulk-deletion and
+	 * parallel index cleanup respectively.
+	 */
+	int			nindexes_parallel_bulkdel;
+	int			nindexes_parallel_cleanup;
+	int			nindexes_parallel_condcleanup;
+
+	/* Buffer access strategy used by leader process */
+	BufferAccessStrategy bstrategy;
+
+	/*
+	 * Error reporting state.  The error callback is set only for workers
+	 * processes during parallel index vacuum.
+	 */
+	char	   *relnamespace;
+	char	   *relname;
+	char	   *indname;
+	PVIndVacStatus status;
+};
+```
 ## Detailed Description
 ParallelVacuumState serves as the central control structure for PostgreSQL's parallel vacuum operations. It coordinates all aspects of parallel vacuum processing, including managing worker processes, tracking index processing states, sharing dead tuple information, and collecting statistics. The structure is used by both the leader process (which orchestrates the operation) and worker processes (which perform the actual vacuum work). It integrates with PostgreSQL's parallel processing framework and shared memory system to enable efficient multi-process vacuum operations.
 

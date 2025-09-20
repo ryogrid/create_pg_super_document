@@ -8,7 +8,14 @@ Formats and appends descriptive text for dependent objects to a string buffer, c
 
 ## Definition
 
-
+```c
+static void
+storeObjectDescription(StringInfo descs,
+					   SharedDependencyObjectType type,
+					   ObjectAddress *object,
+					   SharedDependencyType deptype,
+					   int count)
+```
 ## Detailed Description
 This function constructs human-readable descriptions of database objects that depend on shared objects (like roles, tablespaces, databases). It formats dependency relationships in user-friendly language that can be displayed in error messages when attempting to drop referenced shared objects.
 

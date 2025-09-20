@@ -8,7 +8,10 @@ Shows the target relation (table) of a scan node in EXPLAIN output by delegating
 
 ## Definition
 
-
+```c
+static void
+ExplainScanTarget(Scan *plan, ExplainState *es)
+```
 ## Detailed Description
 The  function is a simple wrapper that displays the target relation (table or view) being scanned by a Scan node in EXPLAIN output. It extracts the scan relation ID from the Scan plan node and delegates the actual formatting work to the  function.
 

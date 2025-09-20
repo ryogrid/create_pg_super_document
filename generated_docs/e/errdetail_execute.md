@@ -8,7 +8,10 @@ Adds an error detail line showing the original query text referenced by an EXECU
 
 ## Definition
 
-
+```c
+static int
+errdetail_execute(List *raw_parsetree_list)
+```
 ## Detailed Description
 This function searches through a list of raw parse trees to find EXECUTE statements and provides additional error context by showing the original prepared statement query text. When an error occurs during execution of a prepared statement, this function enhances the error message by including the actual SQL query that was prepared, making debugging easier for users who see EXECUTE statement errors.
 

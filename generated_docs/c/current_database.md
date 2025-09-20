@@ -8,7 +8,9 @@ A PostgreSQL built-in function that returns the name of the current database tha
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The current_database function provides a way for SQL queries and applications to programmatically determine which database they are currently connected to. It retrieves the database name using the global MyDatabaseId variable and converts it to a user-readable string format.
 

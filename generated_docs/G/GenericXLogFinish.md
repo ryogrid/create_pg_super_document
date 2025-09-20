@@ -8,7 +8,10 @@ Finalizes a generic transaction log operation by applying pending changes to buf
 
 ## Definition
 
-
+```c
+XLogRecPtr
+GenericXLogFinish(GenericXLogState *state)
+```
 ## Detailed Description
 GenericXLogFinish applies all changes stored in a GenericXLogState to the actual database buffers and creates a generic WAL (Write-Ahead Log) record. The function handles both logged and unlogged relations differently:
 

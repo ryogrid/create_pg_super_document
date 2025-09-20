@@ -8,7 +8,12 @@ Records a line pointer that should be converted to a redirect pointer during hea
 
 ## Definition
 
-
+```c
+static void
+heap_prune_record_redirect(PruneState *prstate,
+						   OffsetNumber offnum, OffsetNumber rdoffnum,
+						   bool was_normal)
+```
 ## Detailed Description
 This function records that a line pointer at offset `offnum` should be converted to a redirect pointer pointing to offset `rdoffnum`. Redirects are used in PostgreSQL's HOT (Heap-Only Tuples) implementation to chain together versions of the same logical tuple that reside on the same page. The function updates the pruning state to track this redirect operation, which will be applied later during the actual page modification phase.
 

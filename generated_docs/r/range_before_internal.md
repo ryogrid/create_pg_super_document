@@ -8,7 +8,10 @@ The  function determines whether one range is strictly positioned before (to the
 
 ## Definition
 
-
+```c
+bool
+range_before_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2)
+```
 ## Detailed Description
 This function implements the internal logic for determining if one range is strictly before another range. A range r1 is considered "before" r2 if the upper bound of r1 is less than the lower bound of r2, meaning there is no overlap and r1 is positioned entirely to the left of r2 on the value axis.
 

@@ -8,7 +8,10 @@ Parses and validates relation options specifically for tablespaces, handling I/O
 
 ## Definition
 
-
+```c
+bytea *
+tablespace_reloptions(Datum reloptions, bool validate)
+```
 ## Detailed Description
 The `tablespace_reloptions` function is a specialized option parser for PostgreSQL tablespaces that processes tablespace-specific configuration options affecting I/O operations and performance characteristics. It defines four key options: `random_page_cost`, `seq_page_cost`, `effective_io_concurrency`, and `maintenance_io_concurrency`. These options allow database administrators to tune the cost model and I/O behavior per tablespace, enabling optimization for different storage devices (HDDs, SSDs, network storage) and workload patterns. The function uses the standard `build_reloptions` infrastructure with RELOPT_KIND_TABLESPACE to ensure consistent parsing and validation of tablespace-level options.
 

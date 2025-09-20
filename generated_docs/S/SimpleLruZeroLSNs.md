@@ -8,7 +8,10 @@ Zeros all LSN (Log Sequence Number) values stored for a specific SLRU page slot 
 
 ## Definition
 
-
+```c
+static void
+SimpleLruZeroLSNs(SlruCtl ctl, int slotno)
+```
 ## Detailed Description
 SimpleLruZeroLSNs is a static utility function that clears all LSN values associated with a particular SLRU page slot. This function is crucial for maintaining WAL (Write-Ahead Logging) consistency by ensuring that newly created pages or pages read from disk start with clean LSN state. The function operates under the assumption that InvalidXLogRecPtr is bitwise-all-0, allowing it to use a simple memory zeroing operation.
 

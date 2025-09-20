@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) check hook function that validates attempts 
 
 ## Definition
 
-
+```c
+bool
+check_bonjour(bool *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a check hook for the bonjour GUC parameter in PostgreSQL. Check hooks are validation functions called by PostgreSQL's configuration system before a parameter value is accepted. The function ensures that users cannot enable Bonjour service discovery on PostgreSQL builds that were compiled without USE_BONJOUR support.
 

@@ -8,7 +8,10 @@ ShowGUCOption retrieves the string representation of a PostgreSQL configuration 
 
 ## Definition
 
-
+```c
+char *
+ShowGUCOption(struct config_generic *record, bool use_units)
+```
 ## Detailed Description
 ShowGUCOption is a core function in PostgreSQL's configuration system that converts configuration variable values to their string representation for display purposes. The function handles all supported GUC variable types (boolean, integer, real, string, and enum) and provides flexible formatting options.
 

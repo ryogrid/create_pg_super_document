@@ -8,7 +8,10 @@ A PostgreSQL function that implements the "less than or equal to" comparison ope
 
 ## Definition
 
-
+```c
+Datum
+text_le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that performs a "less than or equal to" comparison between two text values. It uses collation-aware comparison through the  function to determine the lexicographic ordering. The function follows PostgreSQL's standard function calling convention for built-in functions, accepting arguments through the  macro and returning a  type. The comparison result is true (1) if the first text argument is lexicographically less than or equal to the second argument, and false (0) otherwise.
 

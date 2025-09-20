@@ -8,7 +8,29 @@ RangeTblFunction is subsidiary data for individual functions within a FUNCTION r
 
 ## Definition
 
+```c
+typedef struct RangeTblFunction
+{
+	NodeTag		type;
 
+	Node	   *funcexpr;		/* expression tree for func call */
+	/* number of columns it contributes to RTE */
+	int			funccolcount pg_node_attr(query_jumble_ignore);
+	/* These fields record the contents of a column definition list, if any: */
+	/* column names (list of String) */
+	List	   *funccolnames pg_node_attr(query_jumble_ignore);
+	/* OID list of column type OIDs */
+	List	   *funccoltypes pg_node_attr(query_jumble_ignore);
+	/* integer list of column typmods */
+	List	   *funccoltypmods pg_node_attr(query_jumble_ignore);
+	/* OID list of column collation OIDs */
+	List	   *funccolcollations pg_node_attr(query_jumble_ignore);
+
+	/* This is set during planning for use by the executor: */
+	/* PARAM_EXEC Param IDs affecting this func */
+	Bitmapset  *funcparams pg_node_attr(query_jumble_ignore);
+} RangeTblFunction;
+```
 ## Detailed Description
 RangeTblFunction represents individual functions within a FUNCTION range table entry. When a query contains function calls in the FROM clause, each function gets its own RangeTblFunction structure. This structure is particularly important for handling functions that return RECORD types with explicit column definition lists.
 

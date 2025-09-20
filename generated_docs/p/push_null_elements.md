@@ -8,7 +8,10 @@ A utility function that pushes a specified number of null JSON elements into a J
 
 ## Definition
 
-
+```c
+static void
+push_null_elements(JsonbParseState **ps, int num)
+```
 ## Detailed Description
 This function creates and pushes null JSON values as array elements into a JSONB parse state. It's used internally to fill array positions with null values, typically when constructing or modifying JSONB arrays where certain positions need to be explicitly set to null. The function operates by creating a JsonbValue of type jbvNull and repeatedly pushing it as an array element using the WJB_ELEM flag.
 

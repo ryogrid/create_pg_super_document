@@ -8,7 +8,32 @@ GlobalTransactionData is a structure that describes one global transaction that 
 
 ## Definition
 
+```c
+typedef struct GlobalTransactionData
+{
+	GlobalTransaction next;		/* list link for free list */
+	int			pgprocno;		/* ID of associated dummy PGPROC */
+	TimestampTz prepared_at;	/* time of preparation */
 
+	/*
+	 * Note that we need to keep track of two LSNs for each GXACT. We keep
+	 * track of the start LSN because this is the address we must use to read
+	 * state data back from WAL when committing a prepared GXACT. We keep
+	 * track of the end LSN because that is the LSN we need to wait for prior
+	 * to commit.
+	 */
+	XLogRecPtr	prepare_start_lsn;	/* XLOG offset of prepare record start */
+	XLogRecPtr	prepare_end_lsn;	/* XLOG offset of prepare record end */
+	TransactionId xid;			/* The GXACT id */
+
+	Oid			owner;			/* ID of user that executed the xact */
+	ProcNumber	locking_backend;	/* backend currently working on the xact */
+	bool		valid;			/* true if PGPROC entry is in proc array */
+	bool		ondisk;			/* true if prepare state file is on disk */
+	bool		inredo;			/* true if entry was added via xlog_redo */
+	char		gid[GIDSIZE];	/* The GID assigned to the prepared xact */
+}			GlobalTransactionData;
+```
 ## Detailed Description
 This structure manages the complete lifecycle of a global transaction in PostgreSQL's two-phase commit protocol. The lifecycle follows these phases:
 

@@ -8,7 +8,10 @@ Releases all resources of a specific type held by a resource owner, providing se
 
 ## Definition
 
-
+```c
+void
+ResourceOwnerReleaseAllOfKind(ResourceOwner owner, const ResourceOwnerDesc *kind)
+```
 ## Detailed Description
 ResourceOwnerReleaseAllOfKind provides a selective resource release mechanism that targets only resources of a specific type within a resource owner. Unlike the general release functions that process all resources in phases, this function focuses on a particular resource category defined by the ResourceOwnerDesc descriptor.
 

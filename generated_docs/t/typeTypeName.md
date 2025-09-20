@@ -8,7 +8,10 @@ Returns a copy of the name of a PostgreSQL data type from its type structure.
 
 ## Definition
 
-
+```c
+char *
+typeTypeName(Type t)
+```
 ## Detailed Description
 The  function extracts the type name from a PostgreSQL type structure and returns a dynamically allocated copy of it. The function accesses the  field from the  system catalog entry and uses  to create a copy that can outlive the syscache entry. This is important because syscache entries may be invalidated or freed, so returning a copy ensures the caller has a stable reference to the type name.
 

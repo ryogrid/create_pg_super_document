@@ -8,7 +8,10 @@ Common code for generating string representations of type modifiers for TIME and
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This static function serves as shared implementation for both  and  functions. It converts internal type modifier representations back into human-readable string format that matches SQL syntax. The function formats the precision value (if non-negative) along with the appropriate time zone specification, producing strings like "(3) with time zone" or "without time zone".
 

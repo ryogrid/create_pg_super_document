@@ -8,7 +8,9 @@ Evaluates the fitness of a given gene tour in the GEQO (Genetic Query Optimizer)
 
 ## Definition
 
-
+```c
+struct HTAB *savehash;
+```
 ## Detailed Description
 The geqo_eval function is a critical component of PostgreSQL's genetic query optimizer that evaluates the fitness of individual chromosomes (gene tours) in the genetic population. It takes a gene tour representing a join order and constructs an actual query plan to determine the cost, which serves as the fitness value for the genetic algorithm.
 

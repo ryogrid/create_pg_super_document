@@ -8,7 +8,10 @@ Returns the current status of a transaction ID as a text string, indicating whet
 
 ## Definition
 
-
+```c
+Datum
+pg_xact_status(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that reports the current status of a given transaction ID. It takes a full transaction ID (xid8) and returns one of several possible status strings: "in progress", "committed", "aborted", or NULL for transactions that are too old to determine status.
 

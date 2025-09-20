@@ -8,7 +8,10 @@ Generates human-readable descriptions of XLOG (transaction log) records for debu
 
 ## Definition
 
-
+```c
+void
+xlog_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This function is a resource manager descriptor function specifically for XLOG records. It parses different types of WAL (Write-Ahead Log) records and formats them into human-readable descriptions that are appended to a StringInfo buffer. The function handles various XLOG record types including checkpoints, parameter changes, restore points, full-page writes, backup operations, and recovery-related records.
 

@@ -8,7 +8,12 @@ Rechecks and typecasts function arguments as needed after default arguments have
 
 ## Definition
 
-
+```c
+static void
+recheck_cast_function_args(List *args, Oid result_type,
+						   Oid *proargtypes, int pronargs,
+						   HeapTuple func_tuple)
+```
 ## Detailed Description
 This function handles the re-resolution of function arguments after default parameters have been added to a function call. When default arguments are added to a function call, some of these defaulted arguments may be polymorphic types that require re-resolution. The function ensures that all arguments have the correct data types by re-resolving polymorphic types and performing necessary type coercion, similar to what the parser originally did.
 

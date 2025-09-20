@@ -8,7 +8,10 @@ Destroys all unpinned SMgrRelation objects, releasing all their resources and re
 
 ## Definition
 
-
+```c
+void
+smgrdestroyall(void)
+```
 ## Detailed Description
 The  function performs a comprehensive cleanup of all unpinned SMgrRelation objects in the storage manager. It iterates through the global list of unpinned relations () and calls  on each one. This function is typically used during major cleanup operations like transaction end, checkpointing, or background writer maintenance. The function assumes that no external pointers to unpinned SMgrRelations exist except those explicitly pinned with .
 

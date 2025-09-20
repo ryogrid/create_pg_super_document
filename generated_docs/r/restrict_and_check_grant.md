@@ -8,7 +8,13 @@ Validates and restricts privilege operations to what the grantor can actually gr
 
 ## Definition
 
-
+```c
+static AclMode
+restrict_and_check_grant(bool is_grant, AclMode avail_goptions, bool all_privs,
+						 AclMode privileges, Oid objectId, Oid grantorId,
+						 ObjectType objtype, const char *objname,
+						 AttrNumber att_number, const char *colname)
+```
 ## Detailed Description
 This static function performs comprehensive privilege validation and restriction for PostgreSQL's GRANT and REVOKE operations. It first determines the complete privilege mask available for the given object type through a large switch statement covering all supported object types (tables, sequences, databases, functions, etc.). The function then validates that the grantor has sufficient privileges on the object by checking if they have any privileges at all - if not, it raises an access denied error. Next, it restricts the requested privileges to only those the grantor can actually grant (intersection of requested privileges with available grant options). Finally, it issues SQL standard-compliant warnings when no privileges were granted/revoked or when only a subset of requested privileges could be processed. The function handles special cases for column-level privileges and event triggers (which don't support grantable rights).
 

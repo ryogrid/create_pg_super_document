@@ -8,7 +8,22 @@ BipartiteMatchState is a data structure that represents the state of a bipartite
 
 ## Definition
 
-
+```c
+typedef struct BipartiteMatchState
+{
+	/* inputs: */
+	int			u_size;			/* size of U */
+	int			v_size;			/* size of V */
+	short	  **adjacency;		/* adjacency[u] = [k, v1,v2,v3,...,vk] */
+	/* outputs: */
+	int			matching;		/* number of edges in matching */
+	short	   *pair_uv;		/* pair_uv[u] -> v */
+	short	   *pair_vu;		/* pair_vu[v] -> u */
+	/* private state for matching algorithm: */
+	short	   *distance;		/* distance[u] */
+	short	   *queue;			/* queue storage for breadth search */
+} BipartiteMatchState;
+```
 ## Detailed Description
 BipartiteMatchState encapsulates the complete state needed for computing maximum cardinality matchings in bipartite graphs using the Hopcroft-Karp algorithm. A bipartite graph consists of two disjoint sets of nodes U (numbered 1..nU) and V (numbered 1..nV), with edges only between nodes from different sets.
 

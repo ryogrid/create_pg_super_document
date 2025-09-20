@@ -8,7 +8,10 @@ PostgreSQL built-in function that converts string input to double-precision floa
 
 ## Definition
 
-
+```c
+Datum
+float8in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The float8in function is PostgreSQL's standard input function for the float8 (double precision) data type. It serves as the public interface for converting textual representations of double-precision floating-point numbers into PostgreSQL's internal float8 format. The function acts as a wrapper around the more comprehensive float8in_internal function, providing the standard PostgreSQL function calling interface while delegating the actual parsing logic to the internal implementation.
 

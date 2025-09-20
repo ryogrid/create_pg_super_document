@@ -8,7 +8,10 @@ Performs a high-precision multiplication followed by a right bit shift, using 12
 
 ## Definition
 
-
+```c
+static inline uint32
+mulShift(const uint32 m, const uint64 factor, const int32 shift)
+```
 ## Detailed Description
 This function multiplies a 64-bit value  by a multi-precision number represented as an array  and then shifts the result right by  bits. The implementation uses 128-bit arithmetic to handle the intermediate calculations without precision loss. It performs two 128-bit multiplications: one with  and another with , then combines the results to form a 128-bit intermediate value before applying the right shift.
 

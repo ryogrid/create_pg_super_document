@@ -8,7 +8,10 @@ Deserializes a CIRCLE from PostgreSQL's external binary format, converting netwo
 
 ## Definition
 
-
+```c
+Datum
+circle_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `circle_recv` function is the binary input conversion routine for PostgreSQL's CIRCLE geometric type. It reads a binary representation of a circle from a StringInfo buffer and converts it into the internal CIRCLE data structure. This function is used during binary protocol communications, such as when data is received from network clients using the binary wire format or when reading from binary-format dumps.
 

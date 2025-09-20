@@ -8,7 +8,10 @@ The main function responsible for building a new BRIN (Block Range Index) from s
 
 ## Definition
 
-
+```c
+IndexBuildResult *
+brinbuild(Relation heap, Relation index, IndexInfo *indexInfo)
+```
 ## Detailed Description
  is the primary index construction function for BRIN indexes. It performs a complete build of a new BRIN index by:
 

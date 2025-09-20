@@ -8,7 +8,10 @@ Computes the logarithm of one numeric value using another numeric value as the b
 
 ## Definition
 
-
+```c
+Datum
+numeric_log(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function calculates log_base2(value1) where the first argument is the value and the second argument is the base. It implements comprehensive special value semantics: log(∞, ∞) returns NaN due to the indeterminate form ∞/∞, log(∞, finite) returns 0, and log(finite, ∞) returns ∞. The function enforces mathematical constraints by rejecting negative inputs and zero inputs with appropriate error messages.
 

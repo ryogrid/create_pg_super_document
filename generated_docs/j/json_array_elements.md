@@ -8,7 +8,10 @@ A PostgreSQL SQL-callable function that extracts elements from a JSON array and 
 
 ## Definition
 
-
+```c
+Datum
+json_array_elements(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the main entry point for the json_array_elements SQL function in PostgreSQL. It is a thin wrapper around the elements_worker function, specifically configured to handle JSON (not JSONB) input and return JSON values rather than text. The function processes JSON arrays by delegating the actual work to elements_worker with appropriate parameters to maintain JSON format in the output.
 

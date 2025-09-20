@@ -8,7 +8,10 @@ pg_input_error_info is a SQL-callable function that tests input validity for a d
 
 ## Definition
 
-
+```c
+Datum
+pg_input_error_info(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides comprehensive error reporting for data type input validation. Unlike  which only returns a boolean, this function captures and returns the complete error information when input parsing fails, including the primary error message, detail message, hint message, and SQL error code.
 

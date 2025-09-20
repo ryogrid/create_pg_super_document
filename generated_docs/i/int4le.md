@@ -8,7 +8,10 @@ A PostgreSQL built-in function that compares two 32-bit integers and returns tru
 
 ## Definition
 
-
+```c
+Datum
+int4le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int4le function implements the "<=" (less than or equal) comparison operator for PostgreSQL's int4 (32-bit integer) data type. It takes two int4 values as arguments and returns a boolean result indicating whether the first value is less than or equal to the second value. This function is part of PostgreSQL's type system and is used internally by the SQL engine when processing "<=" comparisons between integer values.
 

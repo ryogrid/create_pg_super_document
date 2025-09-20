@@ -8,7 +8,10 @@ Checks whether the current user has specified privileges on a named foreign serv
 
 ## Definition
 
-
+```c
+Datum
+has_server_privilege_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a variant of the has_server_privilege family that checks foreign server privileges for the current user. It takes two arguments: the server name and the privilege type, and automatically uses the current user's identity (obtained via GetUserId()). The function converts the server name to an OID, converts the privilege string to an AclMode bitmask, and then performs the actual privilege check using PostgreSQL's object access control system.
 

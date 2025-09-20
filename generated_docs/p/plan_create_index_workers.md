@@ -8,7 +8,10 @@ Uses the planner to determine the optimal number of parallel worker processes fo
 
 ## Definition
 
-
+```c
+int
+plan_create_index_workers(Oid tableOid, Oid indexOid)
+```
 ## Detailed Description
 The  function performs intelligent sizing of parallel worker processes for index creation and rebuilding operations. It evaluates multiple factors to determine the optimal level of parallelism:
 

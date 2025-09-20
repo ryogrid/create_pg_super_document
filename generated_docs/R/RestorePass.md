@@ -8,7 +8,9 @@ An enumeration that defines the different phases (passes) used during PostgreSQL
 
 ## Definition
 
-
+```c
+#define RESTORE_PASS_LAST RESTORE_PASS_POST_ACL
+```
 ## Detailed Description
 The RestorePass enumeration is a critical component of PostgreSQL's pg_dump/pg_restore mechanism that implements a multi-pass restoration strategy. The restoration process must handle dependencies carefully, particularly ensuring that Access Control Lists (ACLs) are restored after the objects they protect, and that event triggers and materialized view refreshes are restored after ACLs to prevent interference.
 

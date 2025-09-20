@@ -8,7 +8,10 @@ Handles authentication failure by sending an appropriate error message to the cl
 
 ## Definition
 
-
+```c
+enumber,
+					   port->hba->rawline);
+```
 ## Detailed Description
 The  function is responsible for handling authentication failures in PostgreSQL's connection process. It carefully constructs error messages that inform the user about the authentication failure without revealing sensitive security information. The function takes into account the specific authentication method that failed and provides method-specific error messages.
 

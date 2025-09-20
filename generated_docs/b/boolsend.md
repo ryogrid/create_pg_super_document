@@ -8,7 +8,10 @@ Converts a PostgreSQL boolean value to binary format for network transmission or
 
 ## Definition
 
-
+```c
+Datum
+boolsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's type system that handles the binary serialization of boolean values. It takes a boolean input parameter and converts it to a binary representation suitable for network transmission or binary storage. The function follows PostgreSQL's standard binary output protocol, creating a binary buffer and writing a single byte (1 for true, 0 for false) to represent the boolean value.
 

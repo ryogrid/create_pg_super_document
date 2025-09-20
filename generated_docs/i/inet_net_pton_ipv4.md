@@ -8,7 +8,11 @@ Converts IPv4 network addresses from presentation format to network format, acce
 
 ## Definition
 
-
+```c
+struction unless we prefetched EOS. */
+	if (ch != '\0')
+		goto enoent;
+```
 ## Detailed Description
 This function parses IPv4 addresses from string format into binary format, accepting standard dotted decimal notation with optional CIDR prefix specification. Unlike inet_cidr_pton_ipv4, this function is designed to handle host addresses with included netmasks, meaning it accepts addresses like 192.5.5.1/28 which have nonzero host parts.
 

@@ -8,7 +8,10 @@ Prints per-worker information for the current node and then deallocates the Expl
 
 ## Definition
 
-
+```c
+static void
+ExplainFlushWorkersState(ExplainState *es)
+```
 ## Detailed Description
 This function is responsible for outputting worker-specific information that has been collected during parallel query execution and then cleaning up the associated memory. It iterates through all workers in the ExplainWorkersState, outputting the collected information for each initialized worker within proper XML/JSON grouping constructs. After outputting all worker information, it performs comprehensive cleanup by freeing all allocated memory including worker strings, initialization flags, saved states, and the main workers state structure itself.
 

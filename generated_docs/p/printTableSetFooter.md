@@ -8,7 +8,10 @@ Modifies the content of the last-added footer in a table content structure, or a
 
 ## Definition
 
-
+```c
+void
+printTableSetFooter(printTableContent *const content, const char *footer)
+```
 ## Detailed Description
 This function provides a way to modify the content of the most recently added footer in a printTableContent structure. If a footer already exists, it frees the current content of the last footer and replaces it with the new content. If no footers exist yet, it delegates to printTableAddFooter to create a new footer.
 

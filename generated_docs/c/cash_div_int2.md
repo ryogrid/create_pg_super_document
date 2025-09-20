@@ -8,7 +8,10 @@ A PostgreSQL function that divides a Cash value by a 16-bit integer, providing d
 
 ## Definition
 
-
+```c
+Datum
+cash_div_int2(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the division operation between a Cash data type value and a 16-bit signed integer (int2). It serves as a PostgreSQL SQL function that can be called to perform cash/integer division operations. The function acts as a wrapper that converts the int2 parameter to int64 and delegates the actual division logic to the cash_div_int64 helper function, ensuring consistent division behavior across different integer types.
 

@@ -8,7 +8,20 @@ Registers a new relation in the system catalogs by updating the relation descrip
 
 ## Definition
 
-
+```c
+static void
+AddNewRelationTuple(Relation pg_class_desc,
+					Relation new_rel_desc,
+					Oid new_rel_oid,
+					Oid new_type_oid,
+					Oid reloftype,
+					Oid relowner,
+					char relkind,
+					TransactionId relfrozenxid,
+					TransactionId relminmxid,
+					Datum relacl,
+					Datum reloptions)
+```
 ## Detailed Description
 AddNewRelationTuple is a high-level catalog management function that completes the registration of a new relation in PostgreSQL's system catalogs. It serves as an intermediary between relation creation logic and the low-level InsertPgClassTuple function, handling the preparation and updating of relation metadata before catalog insertion.
 

@@ -8,7 +8,29 @@ PlaceHolderVar is a placeholder node for expressions that need to be evaluated b
 
 ## Definition
 
+```c
+typedef struct PlaceHolderVar
+{
+	pg_node_attr(no_query_jumble)
 
+	Expr		xpr;
+
+	/* the represented expression */
+	Expr	   *phexpr pg_node_attr(equal_ignore);
+
+	/* base+OJ relids syntactically within expr src */
+	Relids		phrels pg_node_attr(equal_ignore);
+
+	/* RT indexes of outer joins that can null PHV's value */
+	Relids		phnullingrels;
+
+	/* ID for PHV (unique within planner run) */
+	Index		phid;
+
+	/* > 0 if PHV belongs to outer query */
+	Index		phlevelsup;
+} PlaceHolderVar;
+```
 ## Detailed Description
 PlaceHolderVar represents an expression that must be evaluated at a specific level in the plan tree, typically below an outer join. During planning, it serves as a placeholder for expressions that might yield NULL instead of their actual value when referenced above outer joins. At the end of planning, PlaceHolderVars are replaced either by the contained expression itself or by a Var that refers to a lower-level evaluation of the expression.
 

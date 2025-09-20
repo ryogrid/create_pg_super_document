@@ -8,7 +8,9 @@ Implements the ALTER INDEX ATTACH PARTITION command to attach a partition index 
 
 ## Definition
 
-
+```c
+struct AttachIndexCallbackState state;
+```
 ## Detailed Description
 This function handles the complex process of attaching an index on a partition table to its corresponding parent partitioned index. The operation involves multiple validation steps and relationship establishment:
 

@@ -8,7 +8,13 @@ A callback function invoked in the leader process after a step has been parallel
 
 ## Definition
 
-
+```c
+static void
+mark_dump_job_done(ArchiveHandle *AH,
+				   TocEntry *te,
+				   int status,
+				   void *callback_data)
+```
 ## Detailed Description
 This function serves as a completion callback for parallel dump operations in PostgreSQL's pg_dump utility. It is called by the leader process when a worker process finishes dumping a particular database object. The function's primary responsibilities are to log the completion of the dump item and to detect and handle worker process failures. If a worker process fails (indicated by a non-zero status), the function terminates the entire dump operation with a fatal error.
 

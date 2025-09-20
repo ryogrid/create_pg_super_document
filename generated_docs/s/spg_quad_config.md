@@ -8,7 +8,10 @@ Configuration function for SP-GiST quadtree index method that sets up the index 
 
 ## Definition
 
-
+```c
+Datum
+spg_quad_config(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function initializes configuration parameters for an SP-GiST quadtree index. This function is called during index creation to specify how the quadtree should handle point data. It configures the index to use POINTOID as the prefix type (representing geometric points), sets the label type to VOIDOID (indicating no node labels are needed), enables data return capability, and disables long values support since geometric points are fixed-size data.
 

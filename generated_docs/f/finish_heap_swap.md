@@ -8,7 +8,10 @@ Completes the table reorganization process by swapping relation files, rebuildin
 
 ## Definition
 
-
+```c
+enumber */
+	object.classId = RelationRelationId;
+```
 ## Detailed Description
 The `finish_heap_swap` function is the final stage of PostgreSQL's table reorganization operations, completing the process started by `make_new_heap` and `copy_table_data`. It performs the critical final steps:
 

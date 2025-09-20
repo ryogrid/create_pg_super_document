@@ -8,7 +8,10 @@ This function handles the redo operation for GIN (Generalized Inverted Index) me
 
 ## Definition
 
-
+```c
+static void
+ginRedoUpdateMetapage(XLogReaderState *record)
+```
 ## Detailed Description
 The  function is responsible for replaying GIN metapage update operations during PostgreSQL's crash recovery process. It performs the following key operations:
 

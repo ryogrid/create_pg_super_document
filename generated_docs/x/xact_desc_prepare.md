@@ -8,7 +8,10 @@ A static function that formats WAL prepare record information into human-readabl
 
 ## Definition
 
-
+```c
+static void
+xact_desc_prepare(StringInfo buf, uint8 info, xl_xact_prepare *xlrec, RepOriginId origin_id)
+```
 ## Detailed Description
 This function parses and formats transaction prepare record information from WAL (Write-Ahead Log) for two-phase commit operations. It extracts comprehensive information about the prepare operation including the global transaction ID (GID), timestamp, relations for both commit and abort phases, statistics, subtransactions, cache invalidations, and replication origin information. The function provides separate formatting for commit and abort relation lists and statistics, reflecting the dual nature of prepared transactions that can be either committed or aborted later.
 

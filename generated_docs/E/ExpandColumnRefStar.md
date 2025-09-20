@@ -8,7 +8,14 @@ Transforms "foo.*" expressions into a list of individual column expressions or t
 
 ## Definition
 
-
+```c
+enum
+		{
+			CRSERR_NO_RTE,
+			CRSERR_WRONG_DB,
+			CRSERR_TOO_MANY
+		}			crserr = CRSERR_NO_RTE;
+```
 ## Detailed Description
 This function expands star expressions in SQL queries, handling two distinct cases:
 

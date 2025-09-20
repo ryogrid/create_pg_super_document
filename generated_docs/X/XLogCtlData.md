@@ -8,7 +8,113 @@ XLogCtlData is the master shared-memory control structure that contains all the 
 
 ## Definition
 
+```c
+typedef struct XLogCtlData
+{
+	XLogCtlInsert Insert;
 
+	/* Protected by info_lck: */
+	XLogwrtRqst LogwrtRqst;
+	XLogRecPtr	RedoRecPtr;		/* a recent copy of Insert->RedoRecPtr */
+	FullTransactionId ckptFullXid;	/* nextXid of latest checkpoint */
+	XLogRecPtr	asyncXactLSN;	/* LSN of newest async commit/abort */
+	XLogRecPtr	replicationSlotMinLSN;	/* oldest LSN needed by any slot */
+
+	XLogSegNo	lastRemovedSegNo;	/* latest removed/recycled XLOG segment */
+
+	/* Fake LSN counter, for unlogged relations. */
+	pg_atomic_uint64 unloggedLSN;
+
+	/* Time and LSN of last xlog segment switch. Protected by WALWriteLock. */
+	pg_time_t	lastSegSwitchTime;
+	XLogRecPtr	lastSegSwitchLSN;
+
+	/* These are accessed using atomics -- info_lck not needed */
+	pg_atomic_uint64 logInsertResult;	/* last byte + 1 inserted to buffers */
+	pg_atomic_uint64 logWriteResult;	/* last byte + 1 written out */
+	pg_atomic_uint64 logFlushResult;	/* last byte + 1 flushed */
+
+	/*
+	 * Latest initialized page in the cache (last byte position + 1).
+	 *
+	 * To change the identity of a buffer (and InitializedUpTo), you need to
+	 * hold WALBufMappingLock.  To change the identity of a buffer that's
+	 * still dirty, the old page needs to be written out first, and for that
+	 * you need WALWriteLock, and you need to ensure that there are no
+	 * in-progress insertions to the page by calling
+	 * WaitXLogInsertionsToFinish().
+	 */
+	XLogRecPtr	InitializedUpTo;
+
+	/*
+	 * These values do not change after startup, although the pointed-to pages
+	 * and xlblocks values certainly do.  xlblocks values are protected by
+	 * WALBufMappingLock.
+	 */
+	char	   *pages;			/* buffers for unwritten XLOG pages */
+	pg_atomic_uint64 *xlblocks; /* 1st byte ptr-s + XLOG_BLCKSZ */
+	int			XLogCacheBlck;	/* highest allocated xlog buffer index */
+
+	/*
+	 * InsertTimeLineID is the timeline into which new WAL is being inserted
+	 * and flushed. It is zero during recovery, and does not change once set.
+	 *
+	 * If we create a new timeline when the system was started up,
+	 * PrevTimeLineID is the old timeline's ID that we forked off from.
+	 * Otherwise it's equal to InsertTimeLineID.
+	 *
+	 * We set these fields while holding info_lck. Most that reads these
+	 * values knows that recovery is no longer in progress and so can safely
+	 * read the value without a lock, but code that could be run either during
+	 * or after recovery can take info_lck while reading these values.
+	 */
+	TimeLineID	InsertTimeLineID;
+	TimeLineID	PrevTimeLineID;
+
+	/*
+	 * SharedRecoveryState indicates if we're still in crash or archive
+	 * recovery.  Protected by info_lck.
+	 */
+	RecoveryState SharedRecoveryState;
+
+	/*
+	 * InstallXLogFileSegmentActive indicates whether the checkpointer should
+	 * arrange for future segments by recycling and/or PreallocXlogFiles().
+	 * Protected by ControlFileLock.  Only the startup process changes it.  If
+	 * true, anyone can use InstallXLogFileSegment().  If false, the startup
+	 * process owns the exclusive right to install segments, by reading from
+	 * the archive and possibly replacing existing files.
+	 */
+	bool		InstallXLogFileSegmentActive;
+
+	/*
+	 * WalWriterSleeping indicates whether the WAL writer is currently in
+	 * low-power mode (and hence should be nudged if an async commit occurs).
+	 * Protected by info_lck.
+	 */
+	bool		WalWriterSleeping;
+
+	/*
+	 * During recovery, we keep a copy of the latest checkpoint record here.
+	 * lastCheckPointRecPtr points to start of checkpoint record and
+	 * lastCheckPointEndPtr points to end+1 of checkpoint record.  Used by the
+	 * checkpointer when it wants to create a restartpoint.
+	 *
+	 * Protected by info_lck.
+	 */
+	XLogRecPtr	lastCheckPointRecPtr;
+	XLogRecPtr	lastCheckPointEndPtr;
+	CheckPoint	lastCheckPoint;
+
+	/*
+	 * lastFpwDisableRecPtr points to the start of the last replayed
+	 * XLOG_FPW_CHANGE record that instructs full_page_writes is disabled.
+	 */
+	XLogRecPtr	lastFpwDisableRecPtr;
+
+	slock_t		info_lck;		/* locks shared variables shown above */
+} XLogCtlData;
+```
 ## Detailed Description
 XLogCtlData serves as the central nervous system for PostgreSQL's WAL subsystem, containing all shared state necessary for coordinating WAL operations across multiple backend processes. This structure manages everything from WAL insertion and buffer management to recovery state tracking and checkpoint coordination.
 

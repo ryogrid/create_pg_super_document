@@ -8,7 +8,10 @@ Randomly generates a legal "traveling salesman" tour where each point is visited
 
 ## Definition
 
-
+```c
+void
+init_tour(PlannerInfo *root, Gene *tour, int num_gene)
+```
 ## Detailed Description
 This function creates a random permutation of numbers from 1 to num_gene to represent a valid tour for the traveling salesman problem, which is the underlying optimization problem in GEQO. It implements the "inside-out" variant of the Fisher-Yates shuffle algorithm to generate the permutation efficiently in a single pass.
 

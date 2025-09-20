@@ -8,7 +8,11 @@ Records the final commit or abort state of a transaction and its entire subtrans
 
 ## Definition
 
-
+```c
+void
+TransactionIdSetTreeStatus(TransactionId xid, int nsubxids,
+						   TransactionId *subxids, XidStatus status, XLogRecPtr lsn)
+```
 ## Detailed Description
 This function is responsible for atomically setting the commit status for a main transaction and all of its subtransactions in the commit log (CLOG). It implements a sophisticated algorithm to handle cases where the transaction tree spans multiple CLOG pages while maintaining atomicity from the perspective of concurrent readers.
 

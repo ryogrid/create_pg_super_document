@@ -8,7 +8,65 @@ Initializes state and data structures required for executing MERGE statements, i
 
 ## Definition
 
+```c
+struct and the root
+					 * table's "new" tuple slot for that, if not already done.
+					 * The projection we prepare, for all relations, uses the
+					 * root relation descriptor, and targets the plan's root
+					 * slot.  (This is consistent with the fact that we
+					 * checked the plan output to match the root relation,
+					 * above.)
+					 */
+					if (rootRelInfo->ri_RelationDesc->rd_rel->relkind ==
+						RELKIND_PARTITIONED_TABLE)
+					{
+						if (mtstate->mt_partition_tuple_routing == NULL)
+						{
+							/*
+							 * Initialize planstate for routing if not already
+							 * done.
+							 *
+							 * Note that the slot is managed as a standalone
+							 * slot belonging to ModifyTableState, so we pass
+							 * NULL for the 2nd argument.
+							 */
+							mtstate->mt_root_tuple_slot =
+								table_slot_create(rootRelInfo->ri_RelationDesc,
+												  NULL);
+							mtstate->mt_partition_tuple_routing =
+								ExecSetupPartitionTupleRouting(estate,
+															   rootRelInfo->ri_RelationDesc);
+						}
+						tgtslot = mtstate->mt_root_tuple_slot;
+						tgtdesc = RelationGetDescr(rootRelInfo->ri_RelationDesc);
+					}
+					else
+					{
+						/*
+						 * If the MERGE targets an inherited table, we insert
+						 * into the root table, so we must initialize its
+						 * "new" tuple slot, if not already done, and use its
+						 * relation descriptor for the projection.
+						 *
+						 * For non-inherited tables, rootRelInfo and
+						 * resultRelInfo are the same, and the "new" tuple
+						 * slot will already have been initialized.
+						 */
+						if (rootRelInfo->ri_newTupleSlot == NULL)
+							rootRelInfo->ri_newTupleSlot =
+								table_slot_create(rootRelInfo->ri_RelationDesc,
+												  &estate->es_tupleTable);
 
+						tgtslot = rootRelInfo->ri_newTupleSlot;
+						tgtdesc = RelationGetDescr(rootRelInfo->ri_RelationDesc);
+					}
+
+					action_state->mas_proj =
+						ExecBuildProjectionInfo(action->targetList, econtext,
+												tgtslot,
+												&mtstate->ps,
+												tgtdesc);
+```
 ## Detailed Description
 ExecInitMerge performs comprehensive initialization for MERGE statement execution by setting up all necessary runtime structures:
 

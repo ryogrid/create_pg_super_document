@@ -8,7 +8,10 @@ KnownAssignedXidsDisplay is a debugging function that formats and logs the conte
 
 ## Definition
 
-
+```c
+static void
+KnownAssignedXidsDisplay(int trace_level)
+```
 ## Detailed Description
 This function provides detailed debugging output for the KnownAssignedXids array, which is essential for troubleshooting Hot Standby recovery issues. The function creates a comprehensive debug trace that includes:
 

@@ -8,7 +8,10 @@ A static function that sets the checkAsUser field to a specified user ID in all 
 
 ## Definition
 
-
+```c
+static void
+setRuleCheckAsUser_Query(Query *qry, Oid userid)
+```
 ## Detailed Description
 This function is responsible for updating permission checking behavior within PostgreSQL Query structures. It systematically traverses a Query node to set the checkAsUser field in all RTEPermissionInfo structures, ensuring that permission checks are performed as the specified user rather than the current user. The function handles three main areas: direct RTEPermissionInfos in the query, subqueries in range table entries (RTEs), and Common Table Expressions (CTEs). Additionally, it processes sublinks within the query tree using a specialized walker function.
 

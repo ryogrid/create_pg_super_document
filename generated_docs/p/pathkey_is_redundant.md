@@ -8,7 +8,10 @@ Determines whether a PathKey is redundant with respect to an existing list of Pa
 
 ## Definition
 
-
+```c
+static bool
+pathkey_is_redundant(PathKey *new_pathkey, List *pathkeys)
+```
 ## Detailed Description
 This function implements sophisticated redundancy detection for PathKeys in PostgreSQL's query optimizer. It identifies two key cases where a PathKey can be considered redundant:
 

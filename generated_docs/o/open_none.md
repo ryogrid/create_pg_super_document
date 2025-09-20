@@ -8,7 +8,10 @@ A static function that opens an uncompressed file for reading or writing as part
 
 ## Definition
 
-
+```c
+static bool
+open_none(const char *path, int fd, const char *mode, CompressFileHandle *CFH)
+```
 ## Detailed Description
 The `open_none` function handles opening files without compression ("none" compression mode) in pg_dump. It supports two methods of opening files: by file path or by file descriptor. If a valid file descriptor is provided (fd >= 0), it duplicates the descriptor and opens it using `fdopen()`. Otherwise, it opens the file using the provided path with `fopen()`. The resulting FILE pointer is stored in the CompressFileHandle's private_data member. The function returns true on success and false on failure.
 

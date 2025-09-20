@@ -8,7 +8,11 @@ Performs efficient binary search lookup of values by string key within a JSONB o
 
 ## Definition
 
-
+```c
+JsonbValue *
+getKeyJsonValueFromContainer(JsonbContainer *container,
+							 const char *keyVal, int keyLen, JsonbValue *res)
+```
 ## Detailed Description
 This function implements key-based value retrieval from JSONB objects using binary search for optimal performance. It takes advantage of the fact that JSONB objects store their key-value pairs in sorted order by key. The function searches through the object's keys to find an exact match, then retrieves and returns the corresponding value.
 

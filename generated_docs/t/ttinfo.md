@@ -8,7 +8,16 @@ The ttinfo struct represents time type information for timezone transitions, sto
 
 ## Definition
 
-
+```c
+struct ttinfo
+{								/* time type information */
+	int32		tt_utoff;		/* UT offset in seconds */
+	bool		tt_isdst;		/* used to set tm_isdst */
+	int			tt_desigidx;	/* abbreviation list index */
+	bool		tt_ttisstd;		/* transition is std time */
+	bool		tt_ttisut;		/* transition is UT */
+};
+```
 ## Detailed Description
 The ttinfo struct defines the properties of a specific timezone state, including its offset from UTC, daylight saving time status, and standardization flags. Each instance represents one possible timezone configuration that can be active during certain time periods. This structure is fundamental to PostgreSQL's timezone handling system, allowing the database to correctly interpret and convert timestamps across different timezone rules and historical changes.
 

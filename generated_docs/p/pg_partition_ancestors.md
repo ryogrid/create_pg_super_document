@@ -8,7 +8,10 @@ A PostgreSQL system function that returns a set of relation OIDs representing al
 
 ## Definition
 
-
+```c
+Datum
+pg_partition_ancestors(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the  SQL function that provides a complete view of a partition hierarchy from a given relation up to the root partitioned table. Unlike  which returns only the topmost parent, this function returns all intermediate ancestors, making it valuable for comprehensive partition tree analysis.
 

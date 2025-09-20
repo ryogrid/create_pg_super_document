@@ -8,7 +8,10 @@ get_dtype is a utility function that converts ECPGdtype enumeration values to th
 
 ## Definition
 
-
+```c
+const char *
+get_dtype(enum ECPGdtype type)
+```
 ## Detailed Description
 This function serves as a lookup table that maps ECPGdtype enumeration values to their string equivalents. It's primarily used in ECPG code generation where descriptor type information needs to be output as literal strings in the generated C code. The function handles all defined ECPGdtype values including data descriptors, indicator information, precision/scale attributes, length information, and metadata descriptors. It provides error handling for unrecognized descriptor types through the mmerror reporting system.
 

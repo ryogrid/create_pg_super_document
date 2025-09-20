@@ -8,7 +8,10 @@ The  function performs vacuum and analyze operations on all pgbench tables to op
 
 ## Definition
 
-
+```c
+static void
+initVacuum(PGconn *con)
+```
 ## Detailed Description
 This function executes VACUUM ANALYZE commands on all four standard pgbench tables to reclaim storage space and update table statistics after bulk data loading. The VACUUM operation removes dead tuples and compacts table storage, while ANALYZE updates the query planner's statistics about data distribution. This step is crucial after large data loads to ensure optimal query performance during benchmark execution. The function processes all pgbench tables systematically: branches, tellers, accounts, and history tables.
 

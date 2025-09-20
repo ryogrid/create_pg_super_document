@@ -8,7 +8,10 @@ Waits for all active connections in a parallel slots array to complete their cur
 
 ## Definition
 
-
+```c
+bool
+ParallelSlotsWaitCompletion(ParallelSlotArray *sa)
+```
 ## Detailed Description
 ParallelSlotsWaitCompletion synchronously waits for all active database connections in the parallel slots array to finish their current operations. It iterates through each slot, consuming query results from active connections and handling any errors that occur.
 

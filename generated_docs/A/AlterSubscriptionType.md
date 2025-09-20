@@ -8,7 +8,17 @@ AlterSubscriptionType is an enumeration that specifies the type of alteration op
 
 ## Definition
 
-
+```c
+typedef struct AlterSubscriptionStmt
+{
+	NodeTag		type;
+	AlterSubscriptionType kind; /* ALTER_SUBSCRIPTION_OPTIONS, etc */
+	char	   *subname;		/* Name of the subscription */
+	char	   *conninfo;		/* Connection string to publisher */
+	List	   *publication;	/* One or more publication to subscribe to */
+	List	   *options;		/* List of DefElem nodes */
+} AlterSubscriptionStmt;
+```
 ## Detailed Description
 This enumeration defines the different types of modifications that can be made to PostgreSQL logical replication subscriptions through the ALTER SUBSCRIPTION statement. Subscriptions represent the subscriber side of logical replication, connecting to publications on remote PostgreSQL instances. Each enum value represents a specific aspect of the subscription that can be modified, from connection parameters to publication lists and operational settings.
 

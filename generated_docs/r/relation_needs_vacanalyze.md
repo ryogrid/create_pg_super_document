@@ -8,7 +8,18 @@ Determines whether a relation needs to be vacuumed or analyzed based on tuple st
 
 ## Definition
 
-
+```c
+static void
+relation_needs_vacanalyze(Oid relid,
+						  AutoVacOpts *relopts,
+						  Form_pg_class classForm,
+						  PgStat_StatTabEntry *tabentry,
+						  int effective_multixact_freeze_max_age,
+ /* output params below */
+						  bool *dovacuum,
+						  bool *doanalyze,
+						  bool *wraparound)
+```
 ## Detailed Description
 This function is a core decision-making component of PostgreSQL's autovacuum system. It analyzes various statistics and thresholds to determine if a table requires vacuuming or analyzing. The function implements PostgreSQL's autovacuum algorithm by:
 

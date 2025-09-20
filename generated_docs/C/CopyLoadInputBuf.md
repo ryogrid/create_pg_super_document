@@ -8,7 +8,10 @@ CopyLoadInputBuf ensures that input_buf contains converted, ready-to-process dat
 
 ## Definition
 
-
+```c
+static void
+CopyLoadInputBuf(CopyFromState cstate)
+```
 ## Detailed Description
 CopyLoadInputBuf serves as the central coordinator for the COPY FROM input pipeline, ensuring that processed input data is available for parsing. The function implements a sophisticated loop that:
 

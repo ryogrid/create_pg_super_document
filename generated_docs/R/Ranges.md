@@ -8,7 +8,36 @@ Ranges is a core data structure for BRIN minmax-multi indexes that represents a 
 
 ## Definition
 
+```c
+typedef struct Ranges
+{
+	/* Cache information that we need quite often. */
+	Oid			typid;
+	Oid			colloid;
+	AttrNumber	attno;
+	FmgrInfo   *cmp;
 
+	/* (2*nranges + nvalues) <= maxvalues */
+	int			nranges;		/* number of ranges in the values[] array */
+	int			nsorted;		/* number of nvalues which are sorted */
+	int			nvalues;		/* number of point values in values[] array */
+	int			maxvalues;		/* number of elements in the values[] array */
+
+	/*
+	 * We simply add the values into a large buffer, without any expensive
+	 * steps (sorting, deduplication, ...). The buffer is a multiple of the
+	 * target number of values, so the compaction happens less often,
+	 * amortizing the costs. We keep the actual target and compact to the
+	 * requested number of values at the very end, before serializing to
+	 * on-disk representation.
+	 */
+	/* requested number of values */
+	int			target_maxvalues;
+
+	/* values stored for this range - either raw values, or ranges */
+	Datum		values[FLEXIBLE_ARRAY_MEMBER];
+} Ranges;
+```
 ## Detailed Description
 Ranges is the in-memory representation used by BRIN minmax-multi indexes for efficient processing of range operations. It stores boundary values in a hybrid format: regular ranges (storing both lower and upper bounds) followed by single-point values. The structure uses a flexible array layout where the first 2*nranges elements represent range boundaries (pairs of lower/upper bounds), followed by nvalues single-point values. This design allows efficient addition of new values and storage of outliers without widening existing ranges. The structure includes caching of frequently-used metadata (type info, comparison functions) and supports incremental sorting with the nsorted counter tracking how many single-point values are currently sorted.
 

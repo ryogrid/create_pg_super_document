@@ -8,7 +8,10 @@ A GUC check hook function that validates the client_connection_check_interval co
 
 ## Definition
 
-
+```c
+bool
+check_client_connection_check_interval(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for the PostgreSQL configuration parameter client_connection_check_interval. It performs platform-specific validation by checking if the system supports reporting closed connections through the WaitEventSetCanReportClosed() function. On platforms where this capability is not available, the function enforces that the parameter must be set to 0, preventing the use of client connection checking when the underlying system cannot detect connection state changes.
 

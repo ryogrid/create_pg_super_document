@@ -8,7 +8,13 @@ A structure used by PostgreSQL's system logger to temporarily buffer log message
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int32		pid;			/* PID of source process */
+	StringInfoData data;		/* accumulated data, as a StringInfo */
+} save_buffer;
+```
 ## Detailed Description
 The  structure is a core component of PostgreSQL's system logger (syslogger) mechanism, defined in . It serves as a temporary storage buffer for log messages that arrive in multiple chunks from various PostgreSQL processes. 
 

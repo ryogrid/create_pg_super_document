@@ -8,7 +8,10 @@ Multiplies a 16-bit integer (smallint) by a 64-bit integer (bigint) and returns 
 
 ## Definition
 
-
+```c
+Datum
+int28mul(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements multiplication of a 2-byte integer with an 8-byte integer in PostgreSQL. The function performs safe multiplication by using PostgreSQL's overflow-checking arithmetic functions. The 16-bit argument is implicitly converted to 64-bit before the multiplication operation to ensure proper type compatibility.
 

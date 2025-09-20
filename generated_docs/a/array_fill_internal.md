@@ -8,7 +8,9 @@ The core implementation function for creating filled PostgreSQL arrays, handling
 
 ## Definition
 
-
+```c
+struct_empty_array(elmtype);
+```
 ## Detailed Description
 This is the workhorse function behind PostgreSQL's array_fill functionality. It performs comprehensive validation of input parameters, calculates memory requirements, manages element type metadata caching, and constructs arrays filled with a specified value. The function handles both NULL and non-NULL fill values, supports multi-dimensional arrays with custom or default lower bounds, and includes extensive error checking for edge cases and resource limits.
 

@@ -8,7 +8,11 @@ Public wrapper function for SetHintBits that provides an exported interface for 
 
 ## Definition
 
-
+```c
+void
+HeapTupleSetHintBits(HeapTupleHeader tuple, Buffer buffer,
+					 uint16 infomask, TransactionId xid)
+```
 ## Detailed Description
 HeapTupleSetHintBits serves as the exported version of the static inline SetHintBits function. This separation exists due to C99 standard requirements for inline function implementation - inline functions cannot be easily exported across module boundaries, so this wrapper provides external visibility.
 

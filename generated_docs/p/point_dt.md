@@ -8,7 +8,10 @@ Calculates the Euclidean distance between two points in 2D space using the stand
 
 ## Definition
 
-
+```c
+static inline float8
+point_dt(Point *pt1, Point *pt2)
+```
 ## Detailed Description
 The  function computes the straight-line distance between two points in a 2D coordinate system. It implements the Euclidean distance formula: distance = √((x₂-x₁)² + (y₂-y₁)²). The function uses the  macro which provides a numerically stable implementation of the hypotenuse calculation, avoiding potential overflow issues that could occur with direct squaring and square root operations.
 

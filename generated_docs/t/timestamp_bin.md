@@ -8,7 +8,10 @@ Bins a timestamp into a specified interval by calculating the start of the inter
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function takes a timestamp and "bins" it into a specified interval starting from a given origin point. This is useful for time-series data aggregation where you want to group timestamps into regular intervals (e.g., every 15 minutes, every hour, etc.).
 

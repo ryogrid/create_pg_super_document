@@ -8,7 +8,10 @@ Applies throttling to manifest contents data transfer and forwards the data to t
 
 ## Definition
 
-
+```c
+static void
+bbsink_throttle_manifest_contents(bbsink *sink, size_t len)
+```
 ## Detailed Description
 The  function handles manifest contents data transfer while applying bandwidth throttling controls. Like its archive contents counterpart, it operates in two sequential steps: first applying the throttling mechanism to control the transfer rate based on the specified data length, then forwarding the manifest contents to the next sink in the pipeline.
 

@@ -8,7 +8,17 @@ The  struct stores cached function metadata for PostgreSQL's fastpath function c
 
 ## Definition
 
-
+```c
+struct fp_info
+{
+	Oid			funcid;
+	FmgrInfo	flinfo;			/* function lookup info for funcid */
+	Oid			namespace;		/* other stuff from pg_proc */
+	Oid			rettype;
+	Oid			argtypes[FUNC_MAX_ARGS];
+	char		fname[NAMEDATALEN]; /* function name for logging */
+};
+```
 ## Detailed Description
 The  struct is a data structure used in PostgreSQL's fastpath function call mechanism to store function metadata retrieved from the system catalog. This struct serves as a temporary container for function information needed during fastpath function execution. The fastpath interface allows clients to call PostgreSQL functions directly via the libpq protocol using PQfn(), bypassing the SQL parser for performance optimization.
 

@@ -8,7 +8,11 @@ Constructs complete "CREATE OR REPLACE" SQL commands for PostgreSQL database obj
 
 ## Definition
 
-
+```c
+static bool
+get_create_object_cmd(EditableObjectType obj_type, Oid oid,
+					  PQExpBuffer buf)
+```
 ## Detailed Description
 The  function generates complete DDL (Data Definition Language) statements for PostgreSQL database objects that can be used to recreate them. It supports functions and views, handling the complexity of reconstructing proper CREATE OR REPLACE statements from system catalog information.
 

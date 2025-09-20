@@ -8,7 +8,10 @@ Creates a deep copy of an A_Const node, handling different constant value types 
 
 ## Definition
 
-
+```c
+static A_Const *
+_copyA_Const(const A_Const *from)
+```
 ## Detailed Description
 The  function is a specialized copy function for A_Const nodes, which represent constants in the abstract syntax tree before type resolution. Unlike Const nodes which are used in the executor, A_Const nodes are used during parsing and analysis phases. The function handles the polymorphic nature of A_Const by using a switch statement based on the node type tag to determine how to copy the underlying value union.
 

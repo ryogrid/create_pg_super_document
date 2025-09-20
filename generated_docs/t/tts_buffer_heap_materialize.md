@@ -8,7 +8,10 @@ Materializes a BufferHeapTupleTableSlot by creating a persistent copy of its tup
 
 ## Definition
 
-
+```c
+static void
+tts_buffer_heap_materialize(TupleTableSlot *slot)
+```
 ## Detailed Description
 This function transforms a BufferHeapTupleTableSlot from a potentially transient state (where the tuple data might be tied to a buffer that could be released) into a materialized state where the tuple data is copied into the slot's own memory context. The materialization process ensures that the tuple data remains accessible even after the original buffer is released.
 

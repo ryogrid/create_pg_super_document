@@ -8,7 +8,10 @@ The main headline function for PostgreSQL's default text search parser, responsi
 
 ## Definition
 
-
+```c
+Datum
+prsd_headline(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the entry point for headline generation in PostgreSQL's full-text search system. It processes configuration options, validates parameters, locates query matches within the parsed text, and delegates to appropriate headline selection algorithms based on the MaxFragments setting.
 

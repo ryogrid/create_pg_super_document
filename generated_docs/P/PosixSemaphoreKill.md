@@ -8,7 +8,10 @@ PosixSemaphoreKill is a static internal function that properly destroys a POSIX 
 
 ## Definition
 
-
+```c
+static void
+PosixSemaphoreKill(sem_t *sem)
+```
 ## Detailed Description
 This function provides a unified interface for destroying POSIX semaphores while abstracting the differences between named and unnamed semaphore implementations. The function uses conditional compilation to call the appropriate POSIX function based on whether the system is configured to use named semaphores (USE_NAMED_POSIX_SEMAPHORES) or unnamed semaphores.
 

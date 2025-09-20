@@ -8,7 +8,10 @@ A static helper function that processes type modifier input for both TIMESTAMP a
 
 ## Definition
 
-
+```c
+static int32
+anytimestamp_typmodin(bool istz, ArrayType *ta)
+```
 ## Detailed Description
 This function serves as common code for both timestamptypmodin and timestamptztypmodin functions. It parses the type modifier array provided during type declaration (e.g., TIMESTAMP(3) or TIMESTAMPTZ(6)) and extracts the precision value. The function validates that exactly one type modifier is provided and delegates the actual validation of the precision value to anytimestamp_typmod_check.
 

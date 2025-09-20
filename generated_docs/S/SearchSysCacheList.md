@@ -8,7 +8,11 @@ SearchSysCacheList is a PostgreSQL system cache function that performs list-base
 
 ## Definition
 
-
+```c
+struct catclist *
+SearchSysCacheList(int cacheId, int nkeys,
+				   Datum key1, Datum key2, Datum key3)
+```
 ## Detailed Description
 SearchSysCacheList provides a list-search interface for PostgreSQL's system catalog cache system. Unlike SearchSysCache functions that return individual tuples, this function returns a list of all tuples that match the specified partial key criteria. It serves as a high-level wrapper around the lower-level SearchCatCacheList function, providing cache ID validation and error handling.
 

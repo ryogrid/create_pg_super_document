@@ -8,7 +8,12 @@ An enumeration that defines the possible result types returned by the SP-GiST "c
 
 ## Definition
 
+```c
+spgSplitTuple,				/* split inner tuple (change its prefix) */
+} spgChooseResultType;
 
+typedef struct spgChooseOut
+```
 ## Detailed Description
 The spgChooseResultType enum is a fundamental component of the SP-GiST (Space-Partitioned Generalized Search Tree) access method in PostgreSQL. This enum is used by the "choose" support function to communicate the decision made when determining where to insert a new datum in the tree structure. The choose function examines the characteristics of the new datum relative to an inner tuple and decides whether to descend into an existing child node, add a new node, or split the current tuple to accommodate the new data.
 

@@ -8,7 +8,18 @@ Identifies stored generated columns that depend on any of the specified target c
 
 ## Definition
 
+```c
+structure if we didn't already.
+	 */
+	if (root->glob->partition_directory == NULL)
+	{
+		root->glob->partition_directory =
+			CreatePartitionDirectory(CurrentMemoryContext, true);
+	}
 
+	partdesc = PartitionDirectoryLookup(root->glob->partition_directory,
+										relation);
+```
 ## Detailed Description
 This function analyzes the dependency relationships between columns in a relation to find stored generated columns that depend on any column in the provided target set. It examines each stored generated column's expression to determine which base columns it references, then checks if any of those referenced columns overlap with the target columns.
 

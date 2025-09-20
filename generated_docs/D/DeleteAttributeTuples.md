@@ -8,7 +8,10 @@ Removes all pg_attribute catalog entries associated with a specified relation du
 
 ## Definition
 
-
+```c
+void
+DeleteAttributeTuples(Oid relid)
+```
 ## Detailed Description
 This function is responsible for cleaning up column metadata when a relation or index is being dropped from the database. It systematically removes all attribute definitions stored in the pg_attribute system catalog that belong to the specified relation.
 

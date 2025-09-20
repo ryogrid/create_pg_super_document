@@ -8,7 +8,11 @@ Calculates the number of UTF-8 characters in a symbol string by counting UTF-8 c
 
 ## Definition
 
+```c
+}
 
+extern int len_utf8(const symbol * p)
+```
 ## Detailed Description
 The  function counts the number of UTF-8 characters in a symbol string pointed to by . It works by iterating through each byte of the string and identifying UTF-8 character boundaries. In UTF-8 encoding, continuation bytes (bytes that are part of a multi-byte character but not the first byte) have values between 0x80 and 0xBF, while character start bytes are either ASCII (< 0x80) or have values >= 0xC0. The function increments the character count only for bytes that represent the start of a UTF-8 character.
 

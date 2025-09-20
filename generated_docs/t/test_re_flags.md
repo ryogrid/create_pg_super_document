@@ -8,7 +8,17 @@ A structure that holds all configuration options for PostgreSQL's regex testing 
 
 ## Definition
 
-
+```c
+typedef struct test_re_flags
+{
+	int			cflags;			/* compile flags for Spencer's regex code */
+	int			eflags;			/* execute flags for Spencer's regex code */
+	long		info;			/* expected re_info bits */
+	bool		glob;			/* do it globally (for each occurrence) */
+	bool		indices;		/* report indices not actual strings */
+	bool		partial;		/* expect partial match */
+} test_re_flags;
+```
 ## Detailed Description
 The test_re_flags structure serves as a configuration container for PostgreSQL's regex testing module. It combines Spencer's regex library flags with PostgreSQL-specific testing options. This structure is used throughout the test_regex module to control how regular expressions are compiled and executed, and how results are formatted and reported.
 

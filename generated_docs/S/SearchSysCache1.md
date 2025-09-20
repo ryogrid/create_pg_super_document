@@ -8,7 +8,11 @@ A specialized wrapper around SearchCatCache1 optimized for system catalog caches
 
 ## Definition
 
-
+```c
+HeapTuple
+SearchSysCache1(int cacheId,
+				Datum key1)
+```
 ## Detailed Description
 SearchSysCache1 is a type-safe convenience function that provides access to system catalog caches that are indexed by a single key. It serves as a specialized version of SearchSysCache, but with compile-time enforcement that the target cache uses exactly one search key.
 

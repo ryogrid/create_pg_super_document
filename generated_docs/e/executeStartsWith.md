@@ -8,7 +8,11 @@ A JSON path predicate callback function that checks if a string value starts wit
 
 ## Definition
 
-
+```c
+static JsonPathBool
+executeStartsWith(JsonPathItem *jsp, JsonbValue *whole, JsonbValue *initial,
+				  void *param)
+```
 ## Detailed Description
 The  function implements the STARTS_WITH predicate functionality for JSON path expressions in PostgreSQL. It performs a string prefix comparison operation by checking if the 'whole' string begins with the 'initial' string. The function handles JSON string values and performs binary comparison using  for efficiency. Both input values are validated and converted to string scalars before comparison.
 

@@ -8,7 +8,10 @@ Resets an AllocSet memory context by freeing all allocated memory while preservi
 
 ## Definition
 
-
+```c
+void
+AllocSetReset(MemoryContext context)
+```
 ## Detailed Description
 AllocSetReset implements an efficient context reset mechanism that deallocates all memory chunks within an AllocSet context while using a keeper block optimization. Rather than freeing all memory blocks back to the system, it retains the initial "keeper" block that was allocated with the context header.
 

@@ -8,7 +8,10 @@ Returns the OID of the access method (AM) that should be used to implement the T
 
 ## Definition
 
-
+```c
+static inline Oid
+table_relation_toast_am(Relation rel)
+```
 ## Detailed Description
 This function provides a table access method interface for determining which access method should be used to create and manage the TOAST table associated with a given relation. TOAST (The Oversized-Attribute Storage Technique) tables require their own access method, which may differ from the main table's access method depending on the storage engine's requirements and capabilities.
 

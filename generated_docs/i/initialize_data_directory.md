@@ -8,7 +8,10 @@ The  function is the core function in PostgreSQL's initdb utility that performs 
 
 ## Definition
 
-
+```c
+void
+initialize_data_directory(void)
+```
 ## Detailed Description
 This function orchestrates the entire PostgreSQL cluster initialization process. It performs the following major steps:
 

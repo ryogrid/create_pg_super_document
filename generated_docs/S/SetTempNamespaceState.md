@@ -8,7 +8,10 @@ Sets the status of a session's temporary namespace, specifically designed for co
 
 ## Definition
 
-
+```c
+structure is allocated in the specified memory context
+ * (which might or might not be equal to CurrentMemoryContext);
+```
 ## Detailed Description
 This function assigns temporary namespace OIDs from a leader process to a parallel worker process, ensuring that workers have the same notion of the search path as their leader. The function includes safety assertions to verify that the worker hasn't created its own temporary namespaces before receiving the leader's state. After setting the namespace OIDs, it invalidates the search path cache to force rebuilding with the new namespace information.
 

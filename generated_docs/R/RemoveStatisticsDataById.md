@@ -8,7 +8,10 @@ Deletes an entry from the pg_statistic_ext_data catalog table for a specific sta
 
 ## Definition
 
-
+```c
+void
+RemoveStatisticsDataById(Oid statsOid, bool inh)
+```
 ## Detailed Description
 This utility function removes statistical data from the pg_statistic_ext_data system catalog for a given extended statistics object. The function is designed to be tolerant of missing data - it searches for the specified row but does not error if the row doesn't exist, making it safe to call during cleanup operations.
 

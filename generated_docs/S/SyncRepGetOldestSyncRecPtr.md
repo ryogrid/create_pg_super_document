@@ -8,7 +8,14 @@ Calculates the oldest (most conservative) Write, Flush, and Apply LSN positions 
 
 ## Definition
 
-
+```c
+static void
+SyncRepGetOldestSyncRecPtr(XLogRecPtr *writePtr,
+						   XLogRecPtr *flushPtr,
+						   XLogRecPtr *applyPtr,
+						   SyncRepStandbyData *sync_standbys,
+						   int num_standbys)
+```
 ## Detailed Description
 This function implements the position calculation logic for priority-based synchronous replication in PostgreSQL. It iterates through all synchronous standbys and finds the minimum (oldest) LSN position for each operation type (write, flush, apply).
 

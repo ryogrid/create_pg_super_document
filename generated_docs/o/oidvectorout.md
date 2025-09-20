@@ -8,7 +8,10 @@ Output function that converts PostgreSQL's internal oidvector format into a stri
 
 ## Definition
 
-
+```c
+Datum
+oidvectorout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a type output function that converts an oidvector data structure from PostgreSQL's internal binary format into its external string representation. This function is the counterpart to  and is part of PostgreSQL's type system infrastructure.
 

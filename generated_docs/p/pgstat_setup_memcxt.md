@@ -8,7 +8,10 @@ This static function initializes memory contexts used by PostgreSQL statistics s
 
 ## Definition
 
-
+```c
+static void
+pgstat_setup_memcxt(void)
+```
 ## Detailed Description
 The function lazily initializes two critical memory contexts for the PostgreSQL statistics system if they haven't been created yet. It uses the  macro to optimize for the common case where the contexts are already initialized. Both contexts are created as children of  with small allocation sizes, indicating they're used for lightweight operations.
 

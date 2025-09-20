@@ -8,7 +8,10 @@ Creates a GatherMerge plan node that performs ordered parallel execution by coll
 
 ## Definition
 
-
+```c
+static GatherMerge *
+create_gather_merge_plan(PlannerInfo *root, GatherMergePath *best_path)
+```
 ## Detailed Description
 The  function creates a GatherMerge plan node that coordinates parallel execution while preserving the sort order of results. Unlike regular Gather nodes that simply collect results in any order, GatherMerge performs an ordered merge of sorted streams from worker processes.
 

@@ -8,7 +8,10 @@ Implements the status command functionality for pg_ctl, checking and reporting t
 
 ## Definition
 
-
+```c
+static void
+do_status(void)
+```
 ## Detailed Description
 This function checks whether a PostgreSQL server is currently running and provides detailed status information. The function performs the following operations:
 

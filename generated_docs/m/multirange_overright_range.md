@@ -8,7 +8,10 @@ Tests whether a multirange is positioned to the right of or overlapping with a r
 
 ## Definition
 
-
+```c
+Datum
+multirange_overright_range(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "overright" or "not left of" operator (&>) for checking the positional relationship between a multirange and a range. It returns true if the multirange is positioned to the right of or overlapping with the range, which is determined by comparing their leftmost bounds.
 

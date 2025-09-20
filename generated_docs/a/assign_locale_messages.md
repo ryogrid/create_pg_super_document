@@ -8,7 +8,10 @@ This function applies a validated LC_MESSAGES locale setting to the system, serv
 
 ## Definition
 
-
+```c
+void
+assign_locale_messages(const char *newval, void *extra)
+```
 ## Detailed Description
 The  function is the assignment counterpart to  in PostgreSQL's GUC system. After a locale value has been validated by the check hook, this assign hook is responsible for actually applying the setting to the system. The function is designed to be fault-tolerant:
 

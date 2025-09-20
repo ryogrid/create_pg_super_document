@@ -8,7 +8,15 @@ relopt_int is a structure that defines an integer-type relation option, extendin
 
 ## Definition
 
-
+```c
+typedef struct relopt_int
+{
+	relopt_gen	gen;
+	int			default_val;
+	int			min;
+	int			max;
+} relopt_int;
+```
 ## Detailed Description
 The relopt_int structure represents an integer relation option definition in PostgreSQL's reloption system. It inherits all the common metadata from relopt_gen and adds integer-specific fields: a default value and minimum/maximum bounds for validation.
 

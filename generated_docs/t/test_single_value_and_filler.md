@@ -8,7 +8,10 @@ Test function that validates IntegerSet behavior with both a single specific val
 
 ## Definition
 
-
+```c
+static void
+test_single_value_and_filler(uint64 value, uint64 filler_min, uint64 filler_max)
+```
 ## Detailed Description
 The  function performs comprehensive testing of the PostgreSQL IntegerSet implementation by creating sets that contain both a specific target value and a continuous range of filler values. This testing approach is specifically designed to exercise different internal codepaths than single-value tests, particularly the internal B-tree implementation and buffering mechanisms that are only triggered when the set contains multiple values.
 

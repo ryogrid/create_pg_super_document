@@ -8,7 +8,10 @@ This SQL function tests whether a JSONB object can successfully populate a Postg
 
 ## Definition
 
-
+```c
+Datum
+jsonb_populate_record_valid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the SQL function  which serves as a validation wrapper around the core  functionality. Instead of returning the populated record or raising an error on invalid input, this function returns a boolean value indicating whether the population operation would succeed.
 

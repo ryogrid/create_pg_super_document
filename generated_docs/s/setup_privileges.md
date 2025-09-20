@@ -8,7 +8,10 @@ Sets up default privileges for system catalogs and populates the pg_init_privs t
 
 ## Definition
 
-
+```c
+static void
+setup_privileges(FILE *cmdfd)
+```
 ## Detailed Description
 The setup_privileges function is responsible for establishing initial access permissions on PostgreSQL system catalogs during database initialization. It performs two main tasks:
 

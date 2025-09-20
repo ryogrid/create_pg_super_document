@@ -8,7 +8,10 @@ Schedules the removal of statistics for a logical replication subscription when 
 
 ## Definition
 
-
+```c
+void
+pgstat_drop_subscription(Oid subid)
+```
 ## Detailed Description
 This function handles the statistics cleanup when a logical replication subscription is dropped. It uses PostgreSQL's transactional statistics mechanism to ensure that the statistics entry for the subscription is only removed if the DROP SUBSCRIPTION transaction commits successfully. This provides ACID compliance for statistics management - if the drop operation fails or is rolled back, the statistics entry remains intact.
 

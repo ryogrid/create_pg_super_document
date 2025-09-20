@@ -8,7 +8,10 @@ Performs set_plan_references processing on scan-level expressions by adjusting v
 
 ## Definition
 
-
+```c
+static Node *
+fix_scan_expr(PlannerInfo *root, Node *node, int rtoffset, double num_exec)
+```
 ## Detailed Description
 The fix_scan_expr function is a core component of PostgreSQL's query plan reference fixing mechanism. It processes expressions at the scan level by performing several transformations:
 

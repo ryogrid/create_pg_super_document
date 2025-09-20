@@ -8,7 +8,10 @@ PostgreSQL system function that converts a float8 (double precision) value to it
 
 ## Definition
 
-
+```c
+Datum
+float8out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the PostgreSQL system interface for converting float8 values to string format. It acts as a thin wrapper around , handling the PostgreSQL function call protocol by extracting the float8 argument and returning the result as a C string Datum. This function is typically registered in the system catalogs as the output function for the float8 data type.
 

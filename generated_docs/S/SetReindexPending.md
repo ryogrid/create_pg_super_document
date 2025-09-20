@@ -8,7 +8,10 @@ Marks a list of indexes as pending reindex by storing them in the global pending
 
 ## Definition
 
-
+```c
+static void
+SetReindexPending(List *indexes)
+```
 ## Detailed Description
 SetReindexPending is a static function that establishes a list of indexes that are pending reindex by copying the provided index list to the global pendingReindexedIndexes variable. The function includes important safety checks: it prevents re-entrant reindexing operations by checking if there are already pending indexes, and it prevents modification of reindex state during parallel operations. The function also records the current transaction nesting level for proper cleanup during transaction abort scenarios.
 

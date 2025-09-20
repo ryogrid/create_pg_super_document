@@ -8,7 +8,10 @@ A Windows-specific timer management thread function that handles timer events an
 
 ## Definition
 
-
+```c
+static DWORD WINAPI
+pg_timer_thread(LPVOID param)
+```
 ## Detailed Description
 The  function implements the core timer thread for PostgreSQL's Windows port timer emulation. It runs in an infinite loop, waiting for timer events or timeout expiration. When the main thread signals a timer change via the communication area event, this thread updates its wait time accordingly. When a timeout occurs, it signals SIGALRM to the main process and resets to infinite wait time. This provides POSIX-style timer functionality on Windows systems that lack native setitimer() support.
 

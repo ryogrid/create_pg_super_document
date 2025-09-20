@@ -8,7 +8,10 @@ Reads a heap tuple from a logical tape during CLUSTER sort operations, reconstru
 
 ## Definition
 
-
+```c
+struct the HeapTupleData header */
+	tuple->t_data = (HeapTupleHeader) ((char *) tuple + HEAPTUPLESIZE);
+```
 ## Detailed Description
 The `readtup_cluster` function is the counterpart to `writetup_cluster`, responsible for deserializing heap tuples from logical tapes during CLUSTER operations. It reconstructs a complete HeapTuple structure from the serialized data, including the tuple header, data, and physical location information.
 

@@ -8,7 +8,18 @@ The  structure represents PostgreSQL rules that need to be dumped and restored b
 
 ## Definition
 
-
+```c
+typedef struct _ruleInfo
+{
+	DumpableObject dobj;
+	TableInfo  *ruletable;		/* link to table the rule is for */
+	char		ev_type;
+	bool		is_instead;
+	char		ev_enabled;
+	bool		separate;		/* true if must dump as separate item */
+	/* separate is always true for non-ON SELECT rules */
+} RuleInfo;
+```
 ## Detailed Description
 The  structure is used by pg_dump to manage PostgreSQL rules, which are stored in the pg_rewrite system catalog. Rules in PostgreSQL define query rewrite transformations, most commonly used to implement views (which have ON SELECT rules) but can also define custom INSERT, UPDATE, or DELETE transformations on tables. The structure stores metadata about each rule to enable proper dumping and restoration, including the event type, whether it's an INSTEAD rule, and its enabled status.
 

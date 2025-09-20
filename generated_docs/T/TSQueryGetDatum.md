@@ -8,7 +8,10 @@ TSQueryGetDatum is a static inline function that converts a TSQueryData pointer 
 
 ## Definition
 
-
+```c
+static inline Datum
+TSQueryGetDatum(const TSQueryData *X)
+```
 ## Detailed Description
 TSQueryGetDatum is a type conversion utility function that wraps a TSQueryData pointer into PostgreSQL's universal Datum type. This function is essential for PostgreSQL's internal architecture where all function arguments and return values must be represented as Datum types. The function simply delegates to PointerGetDatum(), which performs the actual pointer-to-Datum conversion by casting the pointer to a Datum type.
 

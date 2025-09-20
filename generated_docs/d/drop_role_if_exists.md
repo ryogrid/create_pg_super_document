@@ -8,7 +8,10 @@ Safely drops a PostgreSQL role if it exists, suppressing warnings about non-exis
 
 ## Definition
 
-
+```c
+static void
+drop_role_if_exists(const char *rolename)
+```
 ## Detailed Description
 This function provides a safe way to drop a database role during PostgreSQL regression testing without generating error messages if the role doesn't exist. It uses the SQL "DROP ROLE IF EXISTS" command while temporarily setting the client message level to warning to suppress informational messages about non-existent roles.
 

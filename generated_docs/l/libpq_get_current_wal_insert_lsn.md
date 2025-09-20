@@ -8,7 +8,10 @@ Retrieves the current WAL (Write-Ahead Log) insert LSN (Log Sequence Number) fro
 
 ## Definition
 
-
+```c
+static XLogRecPtr
+libpq_get_current_wal_insert_lsn(rewind_source *source)
+```
 ## Detailed Description
 The  function queries a remote PostgreSQL server to obtain the current WAL insert position. This function is part of the rewind_source interface and provides a way for pg_rewind to determine the exact point in the WAL stream where new records are being inserted on the source server.
 

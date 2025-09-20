@@ -8,7 +8,10 @@ The hemdistsign function calculates the Hamming distance between two bit vector 
 
 ## Definition
 
-
+```c
+static int
+hemdistsign(BITVECP a, BITVECP b, int siglen)
+```
 ## Detailed Description
 This function computes the Hamming distance between two bit vector signatures by performing an XOR operation on each byte and counting the number of set bits in the result. It uses a byte-wise approach with a lookup table (pg_number_of_ones) to efficiently count bits rather than using popcount functions, as noted in the comment that popcount isn't likely to provide performance benefits for this specific use case. The Hamming distance is crucial for determining similarity between signatures in the GiST index structure.
 

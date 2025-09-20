@@ -8,7 +8,10 @@ Cleans up and frees all resources allocated by a Gather plan node, including shu
 
 ## Definition
 
-
+```c
+void
+ExecEndGather(GatherState *node)
+```
 ## Detailed Description
 ExecEndGather performs the cleanup phase for Gather plan nodes as part of query plan termination. It follows the standard PostgreSQL executor cleanup pattern by first allowing child nodes to clean up their resources through ExecEndNode, then performing Gather-specific cleanup through ExecShutdownGather. The ExecShutdownGather function handles the complex process of shutting down parallel workers and destroying the parallel context, ensuring that all worker processes are properly terminated and shared memory resources are released.
 

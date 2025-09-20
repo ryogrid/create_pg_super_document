@@ -8,7 +8,10 @@ Calculates and returns the hash value for a given key using the hash table's con
 
 ## Definition
 
-
+```c
+uint32
+get_hash_value(HTAB *hashp, const void *keyPtr)
+```
 ## Detailed Description
 This function is an exported routine that computes the hash value for a key using the hash function associated with the given hash table. It serves as a public interface to access the internal hash computation, which is particularly useful for partitioned tables where callers need to determine the partition number from the low-order bits of the hash value before performing search operations.
 

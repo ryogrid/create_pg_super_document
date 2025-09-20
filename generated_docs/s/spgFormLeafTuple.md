@@ -8,7 +8,11 @@ Constructs a complete SP-GiST leaf tuple containing a heap TID reference and att
 
 ## Definition
 
-
+```c
+SpGistLeafTuple
+spgFormLeafTuple(SpGistState *state, ItemPointer heapPtr,
+				 const Datum *datums, const bool *isnulls)
+```
 ## Detailed Description
 This function creates a properly formatted SP-GiST leaf tuple that stores a reference to a heap tuple along with the indexed attribute values. The function implements the same size calculation logic as SpGistGetLeafTupleSize and then constructs the actual tuple structure.
 

@@ -8,7 +8,14 @@ A linked list structure used in ECPG (Embedded C for PostgreSQL) to represent fu
 
 ## Definition
 
-
+```c
+struct arguments
+{
+	struct variable *variable;
+	struct variable *indicator;
+	struct arguments *next;
+};
+```
 ## Detailed Description
 The  struct is part of the ECPG preprocessor infrastructure, designed to manage SQL function arguments in embedded C programs. It forms a linked list where each node contains a primary variable and an optional indicator variable. This structure is essential for handling SQL function calls where parameters may have associated null indicators or status information.
 

@@ -8,7 +8,10 @@ Allocates large memory chunks that require their own dedicated block, implementi
 
 ## Definition
 
-
+```c
+static void *
+AllocSetAllocLarge(MemoryContext context, Size size, int flags)
+```
 ## Detailed Description
 AllocSetAllocLarge is a specialized helper function for AllocSetAlloc() that handles large memory allocations requiring dedicated blocks. When a requested allocation size exceeds the context's allocChunkLimit, this function creates an entire new block exclusively for that single chunk.
 

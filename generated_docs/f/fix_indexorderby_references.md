@@ -8,7 +8,10 @@ Adjusts indexorderby clauses to the form required by PostgreSQL's executor's ind
 
 ## Definition
 
-
+```c
+static List *
+fix_indexorderby_references(PlannerInfo *root, IndexPath *index_path)
+```
 ## Detailed Description
 This function performs transformations on index ORDER BY clauses to prepare them for execution by the index scan machinery. It is a simplified counterpart to fix_indexqual_references, designed specifically for handling ORDER BY expressions in index scans.
 

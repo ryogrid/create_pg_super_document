@@ -8,7 +8,9 @@ The  function parses a text search query string and converts it into PostgreSQL'
 
 ## Definition
 
-
+```c
+struct TSQueryParserStateData state;
+```
 ## Detailed Description
 This function is the core parser for PostgreSQL's text search queries. It takes a query string and transforms it into an internal TSQuery structure that can be efficiently executed against tsvector data. The function supports multiple parsing modes:
 

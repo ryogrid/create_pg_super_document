@@ -8,7 +8,11 @@ Converts a string from one encoding to another using PostgreSQL's encoding conve
 
 ## Definition
 
-
+```c
+unsigned char *
+pg_do_encoding_conversion(unsigned char *src, int len,
+						  int src_encoding, int dest_encoding)
+```
 ## Detailed Description
 This is the core function for performing encoding conversions in PostgreSQL. It takes a source string and converts it from one character encoding to another, handling various edge cases and optimizations:
 

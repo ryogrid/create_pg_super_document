@@ -8,7 +8,10 @@ Creates a deep copy of a linked list of struct members, recursively duplicating 
 
 ## Definition
 
-
+```c
+struct ECPGstruct_member *
+ECPGstruct_member_dup(struct ECPGstruct_member *rm)
+```
 ## Detailed Description
 This function performs a deep duplication of a linked list of ECPGstruct_member structures. It iterates through the provided member list and creates new copies of each member, handling different type categories appropriately:
 

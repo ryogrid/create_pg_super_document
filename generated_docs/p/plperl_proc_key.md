@@ -8,7 +8,19 @@ The plperl_proc_key structure serves as a composite hash table key for fast look
 
 ## Definition
 
+```c
+typedef struct plperl_proc_key
+{
+	Oid			proc_id;		/* Function OID */
 
+	/*
+	 * is_trigger is really a bool, but declare as Oid to ensure this struct
+	 * contains no padding
+	 */
+	Oid			is_trigger;		/* is it a trigger function? */
+	Oid			user_id;		/* User calling the function, or 0 */
+} plperl_proc_key;
+```
 ## Detailed Description
 This structure defines a composite key used for efficient hash table lookups of plperl_proc_desc entries. The key combines three critical pieces of information that uniquely identify a compiled Perl function context: the function's OID, whether it's a trigger function, and the user context.
 

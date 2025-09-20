@@ -8,7 +8,10 @@ ExecHashIncreaseNumBuckets dynamically increases the number of buckets in a hash
 
 ## Definition
 
-
+```c
+static void
+ExecHashIncreaseNumBuckets(HashJoinTable hashtable)
+```
 ## Detailed Description
 This function optimizes hash table performance by increasing the number of buckets when analysis indicates that a larger bucket array would improve lookup efficiency. Unlike batch repartitioning which addresses memory pressure, bucket increase addresses hash distribution efficiency by reducing the average chain length per bucket.
 

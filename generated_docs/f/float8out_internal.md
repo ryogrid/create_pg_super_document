@@ -8,7 +8,10 @@ Internal implementation function that converts double precision floating-point v
 
 ## Definition
 
-
+```c
+char *
+float8out_internal(double num)
+```
 ## Detailed Description
 This function serves as the core implementation for converting double-precision floating-point numbers to string format. It provides platform-independent output formatting with two modes of operation:
 

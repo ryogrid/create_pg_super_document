@@ -8,7 +8,13 @@ MultiXactMember is a structure that represents a single transaction member withi
 
 ## Definition
 
-
+```c
+typedef struct MultiXactMember
+{
+	TransactionId xid;
+	MultiXactStatus status;
+} MultiXactMember;
+```
 ## Detailed Description
 MultiXactMember is a fundamental data structure in PostgreSQL's multi-transaction system used to store information about individual transactions that participate in a multi-transaction. Multi-transactions allow multiple concurrent transactions to hold different types of locks on the same tuple simultaneously. Each MultiXactMember represents one transaction's participation in such a multi-transaction, tracking both the transaction identifier and the specific type of lock it holds.
 

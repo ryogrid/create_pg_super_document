@@ -8,7 +8,10 @@ Error callback function for WAL summary operations that logs formatted error mes
 
 ## Definition
 
-
+```c
+void
+walsummary_error_callback(void *callback_arg, char *fmt,...)
+```
 ## Detailed Description
 This callback function handles error conditions that occur during WAL summary processing. It accepts variable arguments using va_list to support printf-style formatted error messages. The function logs the error using PostgreSQL's logging infrastructure with ERROR level and PRIMARY log destination, then immediately terminates the program with exit code 1. This ensures that any critical errors during WAL summary operations result in immediate program termination with proper error reporting.
 

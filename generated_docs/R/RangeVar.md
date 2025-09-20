@@ -8,7 +8,33 @@ RangeVar represents a range variable used in FROM clauses and utility statements
 
 ## Definition
 
+```c
+typedef struct RangeVar
+{
+	NodeTag		type;
 
+	/* the catalog (database) name, or NULL */
+	char	   *catalogname;
+
+	/* the schema name, or NULL */
+	char	   *schemaname;
+
+	/* the relation/sequence name */
+	char	   *relname;
+
+	/* expand rel by inheritance? recursively act on children? */
+	bool		inh;
+
+	/* see RELPERSISTENCE_* in pg_class.h */
+	char		relpersistence;
+
+	/* table alias & optional column aliases */
+	Alias	   *alias;
+
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} RangeVar;
+```
 ## Detailed Description
 RangeVar is a fundamental structure in PostgreSQL's parser that represents table and relation references throughout the system. It serves as a comprehensive container for relation identification, supporting fully qualified names (catalog.schema.relation), inheritance behavior control, and aliasing capabilities.
 

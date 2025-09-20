@@ -8,7 +8,10 @@ Serializes a PostgreSQL multirange value to its binary representation for networ
 
 ## Definition
 
-
+```c
+struct output */
+	pq_begintypsend(buf);
+```
 ## Detailed Description
 The  function is the binary output function for PostgreSQL multirange types, responsible for converting internal multirange format into binary wire format. The binary representation it produces consists of:
 

@@ -8,7 +8,10 @@ ExecJustOuterVar is a fast-path function for evaluating simple expressions that 
 
 ## Definition
 
-
+```c
+static Datum
+ExecJustOuterVar(ExprState *state, ExprContext *econtext, bool *isnull)
+```
 ## Detailed Description
 This function provides optimized evaluation for expressions consisting solely of a reference to an attribute from the outer relation in a join operation. It serves as a specialized wrapper around ExecJustVarImpl, specifically targeting the outer tuple slot from the expression context.
 

@@ -8,7 +8,10 @@ A static function in pg_verifybackup that reports fatal errors with formatted me
 
 ## Definition
 
-
+```c
+static void
+report_fatal_error(const char *pg_restrict fmt,...)
+```
 ## Detailed Description
 This function provides a standardized way to handle fatal errors in the pg_verifybackup utility. It accepts a printf-style format string and variable arguments, formats the error message using the gettext internationalization system, logs it as an error through PostgreSQL's logging infrastructure, and then exits the program with status code 1. The function uses variadic arguments (va_list) to handle the variable number of parameters that can be passed along with the format string.
 

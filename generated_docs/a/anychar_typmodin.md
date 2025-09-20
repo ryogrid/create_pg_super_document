@@ -8,7 +8,10 @@ A static utility function that processes type modifier input for character types
 
 ## Definition
 
-
+```c
+static int32
+anychar_typmodin(ArrayType *ta, const char *typename)
+```
 ## Detailed Description
 This function serves as common code for both bpchartypmodin and varchartypmodin functions. It processes the type modifier array provided during type declaration (e.g., CHAR(10) or VARCHAR(255)) and performs validation on the length parameter. The function extracts the length value from the input array, validates it against PostgreSQL's constraints, and converts it to the internal typmod representation by adding VARHDRSZ (variable header size) to the user-specified length. This design maintains backward compatibility with existing client-side code that expects this specific typmod encoding.
 

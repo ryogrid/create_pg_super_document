@@ -8,7 +8,12 @@ Checks whether a parameterized nested loop join would create unsafe references t
 
 ## Definition
 
-
+```c
+static inline bool
+have_unsafe_outer_join_ref(PlannerInfo *root,
+						   Relids outerrelids,
+						   Relids inner_paramrels)
+```
 ## Detailed Description
 This function performs a critical safety check when considering parameterized nested loop joins involving outer joins. It determines whether the proposed join would create unsafe references where parameters from outer join relations are passed down in a way that could violate SQL semantics.
 

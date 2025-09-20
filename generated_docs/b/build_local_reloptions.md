@@ -8,7 +8,9 @@ A function that builds relation options structures specifically for local (unreg
 
 ## Definition
 
-
+```c
+struct_size, vals, noptions);
+```
 ## Detailed Description
 This function handles the processing of local relation options that are not part of the global registered options system. It dynamically constructs a parsing table (relopt_parse_elt array) from the local_relopts structure, extracting option names, types, and offsets from the local option definitions. After creating this parsing table, it follows the standard option processing workflow: parsing the input options with parseLocalRelOptions, allocating memory with allocateReloptStruct, and filling the structure with fillRelOptions. Additionally, if validation is enabled, it runs any registered validator functions on the final result.
 

@@ -8,7 +8,10 @@ A PostgreSQL function that reads data from a specific SLRU page, with optional w
 
 ## Definition
 
-
+```c
+Datum
+test_slru_page_read(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a testing interface for reading data from SLRU (Simple Log-structured Record Update) pages. It takes a page number and a write permission flag, acquires an exclusive lock on the appropriate page bank, reads the page from disk if necessary (loading it into the buffer cache), retrieves the data from the page buffer, and returns it as a PostgreSQL text value. The function handles proper locking to ensure thread-safe access and can control whether the page should be marked as available for writing.
 

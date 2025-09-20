@@ -8,7 +8,10 @@ procsignal_sigusr1_handler is the central SIGUSR1 signal handler that dispatches
 
 ## Definition
 
-
+```c
+void
+procsignal_sigusr1_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 procsignal_sigusr1_handler serves as the main signal dispatcher for SIGUSR1 in PostgreSQL processes. When a PostgreSQL backend or auxiliary process receives SIGUSR1, this handler function systematically checks for all possible signal reasons using CheckProcSignal and dispatches each detected signal to its corresponding specialized handler function.
 

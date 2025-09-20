@@ -8,7 +8,9 @@ A struct definition used in PostgreSQL's ECPG test suite for handling bytea (bin
 
 ## Definition
 
-
+```c
+struct bytea_1  { int len; char arr[ 512 ]; }  send_buf [ 2 ] ;
+```
 ## Detailed Description
 The  struct is defined in the ECPG (Embedded SQL in C) test suite and serves as a buffer structure for testing bytea data type operations. It contains a length field to track the size of binary data and a fixed-size character array to store the actual binary content. The structure is instantiated as an array of 2 elements named , indicating it's designed for testing data transmission scenarios.
 

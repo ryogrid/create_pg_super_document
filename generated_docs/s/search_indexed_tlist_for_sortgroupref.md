@@ -8,7 +8,13 @@ Searches for a sort/group expression in an indexed target list by matching both 
 
 ## Definition
 
-
+```c
+union.c assigns ressortgroupref equal to the
+		 * column resno without regard to whether that matches the topmost
+		 * level's sortgrouprefs and without regard to whether any implicit
+		 * coercions are added in the setop tree.  We might have to clean that
+		 * up someday;
+```
 ## Detailed Description
 This function searches through an indexed target list to find a target entry that matches both the provided expression node and sortgroupref. The matching is performed by comparing the sortgroupref values and using equal() to compare the expressions. This dual matching is essential for ensuring that the correct subplan target list entry is selected in cases where there are multiple textually-equal but volatile sort expressions.
 

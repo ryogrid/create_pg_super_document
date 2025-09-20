@@ -8,7 +8,14 @@ Copies outgoing arcs from one state to another state pair while modifying the ar
 
 ## Definition
 
-
+```c
+static void
+cloneouts(struct nfa *nfa,
+		  struct state *old,
+		  struct state *from,
+		  struct state *to,
+		  int type)
+```
 ## Detailed Description
 The `cloneouts` function is a specialized arc copying utility specifically designed for converting PLAIN arcs to lookahead/lookbehind arcs (AHEAD/BEHIND types). It creates new arcs between a specified from-to state pair, copying the color information from the original arcs but changing their type. This function is primarily used in the context of processing lookahead and lookbehind assertions in regular expressions, where the same pattern matching logic needs to be applied with different semantic meaning.
 

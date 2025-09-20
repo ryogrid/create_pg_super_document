@@ -8,7 +8,13 @@ The get_line_style function returns the appropriate line style format for table 
 
 ## Definition
 
-
+```c
+struct can be initialized to zeroes to get default
+	 * behavior.
+	 */
+	if (opt->line_style != NULL)
+		return opt->line_style;
+```
 ## Detailed Description
 This utility function implements a simple but important design pattern for PostgreSQL's table printing system. It allows printTableOpt structures to be initialized with all zero values (which is a common C programming convention for default initialization) while still providing a valid line style for table formatting.
 

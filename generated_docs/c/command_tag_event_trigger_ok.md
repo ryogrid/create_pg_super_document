@@ -8,7 +8,10 @@ Determines whether a given CommandTag is eligible to fire event triggers during 
 
 ## Definition
 
-
+```c
+bool
+command_tag_event_trigger_ok(CommandTag commandTag)
+```
 ## Detailed Description
 This function checks the event_trigger_ok property of a command tag to determine whether the command is permitted to fire event triggers. Event triggers are special triggers that fire on DDL commands and certain utility commands, providing hooks for extensions and custom logic to execute before or after schema changes.
 

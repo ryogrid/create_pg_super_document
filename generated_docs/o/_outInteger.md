@@ -8,7 +8,10 @@ Serializes an Integer node to string format by outputting its integer value dire
 
 ## Definition
 
-
+```c
+static void
+_outInteger(StringInfo str, const Integer *node)
+```
 ## Detailed Description
 The  function is a simple serialization function for Integer nodes in PostgreSQL's node system. Unlike other node output functions that typically write type information and field names, this function directly appends the integer value to the output string using a straightforward format.
 

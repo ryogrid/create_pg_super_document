@@ -8,7 +8,10 @@ Validates a GIN (Generalized Inverted Index) operator class to ensure it contain
 
 ## Definition
 
-
+```c
+bool
+ginvalidate(Oid opclassoid)
+```
 ## Detailed Description
 The  function performs comprehensive validation of a GIN operator class by checking:
 1. **Support function validation**: Verifies that all required GIN support functions are present with correct signatures

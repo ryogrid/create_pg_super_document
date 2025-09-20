@@ -8,7 +8,10 @@ pg_vsprintf is PostgreSQL's portable implementation of vsprintf that formats a s
 
 ## Definition
 
-
+```c
+int
+pg_vsprintf(char *str, const char *fmt, va_list args)
+```
 ## Detailed Description
 pg_vsprintf provides a portable alternative to the standard vsprintf function. Unlike pg_vsnprintf which takes a buffer size limit, pg_vsprintf assumes the output buffer is large enough to hold the entire formatted string. It formats the format string `fmt` with the variable arguments contained in `args` and stores the result in the buffer `str`. The function sets the PrintfTarget's bufend to NULL to indicate unlimited buffer mode, allowing dopr() to write without bounds checking. This function should only be used when you can guarantee the buffer is sufficiently large.
 

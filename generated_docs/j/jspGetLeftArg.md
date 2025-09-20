@@ -8,7 +8,10 @@ Extracts and initializes the left argument from a binary JSON path operation ite
 
 ## Definition
 
-
+```c
+void
+jspGetLeftArg(JsonPathItem *v, JsonPathItem *a)
+```
 ## Detailed Description
 The jspGetLeftArg function is designed to extract the left operand from binary JSON path operations. It validates that the input JsonPathItem represents a binary operation through an Assert statement that checks for logical operations (AND, OR), comparison operations (equal, not equal, less than, greater than, etc.), arithmetic operations (add, subtract, multiply, divide, modulo), string operations (starts with), and type conversion operations (decimal). Once validated, it initializes the destination JsonPathItem structure with the left argument using jspInitByBuffer(), accessing the left argument offset stored in the item's content.args.left field.
 

@@ -8,7 +8,11 @@ StoreRelCheck stores a check constraint expression for a relation in PostgreSQL'
 
 ## Definition
 
+```c
+structed? */
 
+	pfree(ccbin);
+```
 ## Detailed Description
 StoreRelCheck is a static function that creates and stores a check constraint for a given relation. The function converts the constraint expression to string form for storage, analyzes the expression to identify which columns are referenced, and creates the constraint entry in the pg_constraint catalog. The function handles the complete process of constraint creation including validation of constraint properties like NO INHERIT constraints on partitioned tables.
 

@@ -8,7 +8,10 @@ A test utility function that wraps GetOldestNonRemovableTransactionId() to deter
 
 ## Definition
 
-
+```c
+Datum
+removable_cutoff(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `removable_cutoff` function is a PostgreSQL SQL-callable function designed specifically for testing purposes, particularly for the syscache-update-pruned.spec isolation test. It serves as a wrapper around `GetOldestNonRemovableTransactionId()` with additional safeguards to handle the inherent instability of transaction ID horizons.
 

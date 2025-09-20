@@ -8,7 +8,10 @@ Looks up a database's OID given its name, with optional error handling for missi
 
 ## Definition
 
-
+```c
+Oid
+get_database_oid(const char *dbname, bool missing_ok)
+```
 ## Detailed Description
 This function performs a name-to-OID lookup for databases in PostgreSQL's system catalog. Unlike many other system objects, there is no syscache (system cache) for pg_database indexed by name, so this function must perform a direct table scan of the pg_database system catalog to locate the database by name.
 

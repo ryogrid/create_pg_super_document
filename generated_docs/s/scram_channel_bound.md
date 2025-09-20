@@ -8,7 +8,10 @@ Determines whether channel binding was successfully employed during a completed 
 
 ## Definition
 
-
+```c
+static bool
+scram_channel_bound(void *opaq)
+```
 ## Detailed Description
 This function verifies that a SCRAM authentication exchange not only completed successfully but also used channel binding for enhanced security. Channel binding provides additional protection against man-in-the-middle attacks by cryptographically binding the authentication to the underlying secure transport layer (typically TLS). The function performs several validation checks: ensuring the exchange state exists, confirming the exchange completed (FE_SCRAM_FINISHED state), and verifying that the SCRAM-SHA-256-PLUS mechanism (which includes channel binding) was actually used rather than the regular SCRAM-SHA-256 variant.
 

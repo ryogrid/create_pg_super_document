@@ -8,7 +8,15 @@ An enumeration that specifies how to combine the results of multiple partition p
 
 ## Definition
 
+```c
+typedef struct PartitionPruneStepCombine
+{
+	PartitionPruneStep step;
 
+	PartitionPruneCombineOp combineOp;
+	List	   *source_stepids;
+} PartitionPruneStepCombine;
+```
 ## Detailed Description
 PartitionPruneCombineOp defines the logical operations used to combine partition sets from multiple pruning steps. This is essential for handling complex WHERE clauses that involve boolean expressions like AND and OR. When the partition pruner encounters a BoolExpr, it creates separate pruning steps for each argument clause, then uses a PartitionPruneStepCombine to merge the results according to the boolean logic.
 

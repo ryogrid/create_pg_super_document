@@ -8,7 +8,16 @@ RuleInfo represents database rules in PostgreSQL's pg_dump utility, containing m
 
 ## Definition
 
-
+```c
+typedef struct _triggerInfo
+{
+	DumpableObject dobj;
+	TableInfo  *tgtable;		/* link to table the trigger is for */
+	char		tgenabled;
+	bool		tgispartition;
+	char	   *tgdef;
+} TriggerInfo;
+```
 ## Detailed Description
 RuleInfo is a data structure in pg_dump that represents PostgreSQL rules during the database dumping process. Rules in PostgreSQL are a powerful mechanism for query rewriting that can transform queries on-the-fly, commonly used to implement updatable views and complex query transformations.
 

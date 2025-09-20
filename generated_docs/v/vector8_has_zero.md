@@ -8,7 +8,10 @@ A convenience function that checks whether a Vector8 contains any zero bytes, eq
 
 ## Definition
 
-
+```c
+static inline bool
+vector8_has_zero(const Vector8 v)
+```
 ## Detailed Description
 This function provides a simplified interface for detecting zero bytes within a Vector8 structure. It serves as a wrapper around the more general vector8_has() function, specifically checking for the presence of zero values. The implementation varies based on SIMD availability:
 - When SIMD is available: directly calls vector8_has(v, 0)

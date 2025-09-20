@@ -8,7 +8,11 @@ BuildCachedPlan constructs a new CachedPlan from a CachedPlanSource, handling bo
 
 ## Definition
 
-
+```c
+struct within the new context.
+	 */
+	plan = (CachedPlan *) palloc(sizeof(CachedPlan));
+```
 ## Detailed Description
 BuildCachedPlan is responsible for creating executable plans from cached plan sources in PostgreSQL's plan cache system. It can generate either generic plans (parameter-value-independent) or custom plans (parameter-specific) based on the boundParams argument. The function handles complex scenarios including query revalidation, snapshot management, memory context creation, and dependency tracking for role-based security and transaction isolation.
 

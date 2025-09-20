@@ -8,7 +8,15 @@ GroupingSetKind is an enumeration that defines the different types of grouping s
 
 ## Definition
 
-
+```c
+typedef struct GroupingSet
+{
+	NodeTag		type;
+	GroupingSetKind kind pg_node_attr(query_jumble_ignore);
+	List	   *content;
+	ParseLoc	location;
+} GroupingSet;
+```
 ## Detailed Description
 GroupingSetKind classifies the various types of grouping sets that can appear in SQL GROUP BY clauses with advanced aggregation features. This enumeration supports the SQL standard's grouping sets functionality, allowing for complex aggregation patterns like hierarchical rollups, multidimensional cubes, and arbitrary grouping combinations. The different kinds represent various stages of parse analysis transformation from raw syntax to the final optimized representation.
 

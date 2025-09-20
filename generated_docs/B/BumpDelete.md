@@ -8,7 +8,10 @@ Completely destroys a Bump memory context by freeing all allocated memory and th
 
 ## Definition
 
-
+```c
+void
+BumpDelete(MemoryContext context)
+```
 ## Detailed Description
 BumpDelete performs the complete destruction of a Bump memory context. It operates in two phases: first calling BumpReset to free all memory blocks except the keeper block, then freeing the context structure itself (which includes the keeper block). This two-step approach ensures that all allocated memory is properly released before the context header is deallocated.
 

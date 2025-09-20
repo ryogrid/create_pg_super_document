@@ -8,7 +8,10 @@ The btoptions function processes and validates storage parameters (reloptions) s
 
 ## Definition
 
-
+```c
+bytea *
+btoptions(Datum reloptions, bool validate)
+```
 ## Detailed Description
 This function is responsible for parsing and validating B-tree index storage parameters. It defines a table of valid options for B-tree indexes including fillfactor, vacuum_cleanup_index_scale_factor, and deduplicate_items. The function uses PostgreSQL's generic reloptions parsing infrastructure to build a BTOptions structure containing the validated parameters.
 

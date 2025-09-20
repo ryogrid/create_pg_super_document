@@ -8,7 +8,10 @@ DatumGetNumeric is an inline function that converts a Datum value to a Numeric p
 
 ## Definition
 
-
+```c
+static inline Numeric
+DatumGetNumeric(Datum X)
+```
 ## Detailed Description
 This function serves as a conversion utility in PostgreSQL's function manager (fmgr) interface to extract Numeric data from a Datum. It wraps the PG_DETOAST_DATUM macro to ensure that if the numeric value is stored in TOAST format (for large values), it gets properly detoasted before being cast to a Numeric pointer. This is essential for accessing numeric values that may be stored externally due to PostgreSQL's TOAST (The Oversized Attribute Storage Technique) mechanism.
 

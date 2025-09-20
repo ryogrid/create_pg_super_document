@@ -8,7 +8,19 @@ UpdateContext is a specialized context structure that contains output data speci
 
 ## Definition
 
+```c
+typedef struct UpdateContext
+{
+	bool		crossPartUpdate;	/* was it a cross-partition update? */
+	TU_UpdateIndexes updateIndexes; /* Which index updates are required? */
 
+	/*
+	 * Lock mode to acquire on the latest tuple version before performing
+	 * EvalPlanQual on it
+	 */
+	LockTupleMode lockmode;
+} UpdateContext;
+```
 ## Detailed Description
 This structure serves as an output parameter container for UPDATE-specific operations, allowing functions like ExecUpdateAct() to communicate important results back to their callers. It encapsulates information about whether a cross-partition update occurred, what index updates are needed, and what lock mode should be used for EvalPlanQual processing.
 

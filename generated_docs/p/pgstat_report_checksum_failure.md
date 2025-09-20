@@ -8,7 +8,10 @@ Reports a single checksum failure in the current database by incrementing the da
 
 ## Definition
 
-
+```c
+void
+pgstat_report_checksum_failure(void)
+```
 ## Detailed Description
 This function serves as a convenience wrapper that reports exactly one checksum failure in the current database (identified by MyDatabaseId). It is typically called when a page checksum verification fails during buffer page operations. The function delegates the actual statistics update to pgstat_report_checksum_failures_in_db(), passing the current database ID and a failure count of 1.
 

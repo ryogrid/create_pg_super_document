@@ -8,7 +8,10 @@ An optimized expression evaluation function specifically designed for scanning v
 
 ## Definition
 
-
+```c
+static Datum
+ExecJustScanVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+```
 ## Detailed Description
 ExecJustScanVarVirt is a specialized version of ExecJustScanVar that is optimized for virtual tuple slots. This function is part of PostgreSQL's expression evaluation infrastructure and is used when the expression system can determine at compilation time that only virtual slots will be accessed for scanning variables.
 

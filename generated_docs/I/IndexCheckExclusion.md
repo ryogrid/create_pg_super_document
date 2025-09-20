@@ -8,7 +8,12 @@ Verifies that a new exclusion constraint is satisfied by scanning the heap relat
 
 ## Definition
 
-
+```c
+static void
+IndexCheckExclusion(Relation heapRelation,
+					Relation indexRelation,
+					IndexInfo *indexInfo)
+```
 ## Detailed Description
 IndexCheckExclusion performs the validation phase of exclusion constraint creation. After an exclusion index is built normally, this function rescans the heap to ensure no existing tuples violate the exclusion constraint. It validates only tuples that are live according to an up-to-date snapshot, assuming they were correctly indexed even with broken HOT chains. The function holds at least ShareLock on the table to prevent uncommitted updates from other transactions.
 

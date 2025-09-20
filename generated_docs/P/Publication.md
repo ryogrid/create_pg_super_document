@@ -8,7 +8,16 @@ Publication is the main structure representing a logical replication publication
 
 ## Definition
 
-
+```c
+typedef struct Publication
+{
+	Oid			oid;
+	char	   *name;
+	bool		alltables;
+	bool		pubviaroot;
+	PublicationActions pubactions;
+} Publication;
+```
 ## Detailed Description
 Publication is the primary data structure that represents a logical replication publication in PostgreSQL. It encapsulates all the essential information needed to define and manage a publication, including its unique identifier, name, scope configuration, and the types of operations it publishes.
 

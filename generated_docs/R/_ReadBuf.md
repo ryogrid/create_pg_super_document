@@ -8,7 +8,10 @@ A low-level function that reads a block of bytes from the archive file in Postgr
 
 ## Definition
 
-
+```c
+static void
+_ReadBuf(ArchiveHandle *AH, void *buf, size_t len)
+```
 ## Detailed Description
 _ReadBuf is a mandatory function in the custom archive format implementation that provides the basic file reading capability for pg_dump. It serves as a wrapper around the standard fread() function, reading exactly the specified number of bytes from the archive file. The function includes error handling to ensure that the read operation completes successfully or terminates the program with an appropriate error message.
 

@@ -8,7 +8,12 @@ ApplyInt32SortComparator is an inline function that performs comparison of two D
 
 ## Definition
 
-
+```c
+static inline int
+ApplyInt32SortComparator(Datum datum1, bool isNull1,
+						 Datum datum2, bool isNull2,
+						 SortSupport ssup)
+```
 ## Detailed Description
 This function provides a specialized comparison for 32-bit signed integer values stored as Datum. It converts Datum values to signed 32-bit integers using DatumGetInt32() and compares them directly. The function implements the same NULL handling logic as other comparator functions and supports sort direction reversal.
 

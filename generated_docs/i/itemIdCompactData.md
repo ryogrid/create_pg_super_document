@@ -8,7 +8,14 @@ A structure used to organize tuple data during page defragmentation operations i
 
 ## Definition
 
-
+```c
+typedef struct itemIdCompactData
+{
+	uint16		offsetindex;	/* linp array index */
+	int16		itemoff;		/* page offset of item data */
+	uint16		alignedlen;		/* MAXALIGN(item data len) */
+} itemIdCompactData;
+```
 ## Detailed Description
 The `itemIdCompactData` structure serves as a temporary data organization tool during tuple defragmentation operations in PostgreSQL's buffer page management system. It is specifically designed to support the `PageRepairFragmentation` and `PageIndexMultiDelete` functions by storing essential information about each tuple that needs to be relocated during page compaction.
 

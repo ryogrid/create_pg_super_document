@@ -8,7 +8,10 @@ FilePathName is a utility function that returns the pathname associated with an 
 
 ## Definition
 
-
+```c
+char *
+FilePathName(File file)
+```
 ## Detailed Description
 FilePathName provides access to the pathname string associated with an open PostgreSQL File descriptor. The function retrieves the fileName field from the VfdCache (Virtual File Descriptor Cache) for the given file descriptor. This function is part of PostgreSQL's file descriptor management system that abstracts file operations and provides a centralized way to track open files.
 

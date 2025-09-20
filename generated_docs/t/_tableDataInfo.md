@@ -8,7 +8,14 @@ The  structure represents the actual data content of a table that needs to be du
 
 ## Definition
 
-
+```c
+typedef struct _tableDataInfo
+{
+	DumpableObject dobj;
+	TableInfo  *tdtable;		/* link to table to dump */
+	char	   *filtercond;		/* WHERE condition to limit rows dumped */
+} TableDataInfo;
+```
 ## Detailed Description
 The  structure is a specialized container used by pg_dump to represent table data as a distinct dumpable object separate from the table's schema definition. This separation allows pg_dump to handle table schema and table data independently, enabling flexible dump ordering and selective data dumping. The structure maintains a link to the corresponding table's metadata while treating the data itself as a separate entity in the dump process.
 

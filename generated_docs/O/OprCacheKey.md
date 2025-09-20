@@ -8,7 +8,15 @@ OprCacheKey is a structure that serves as the hash table lookup key for caching 
 
 ## Definition
 
-
+```c
+typedef struct OprCacheKey
+{
+	char		oprname[NAMEDATALEN];
+	Oid			left_arg;		/* Left input OID, or 0 if prefix op */
+	Oid			right_arg;		/* Right input OID */
+	Oid			search_path[MAX_CACHED_PATH_LEN];
+} OprCacheKey;
+```
 ## Detailed Description
 OprCacheKey is used as the lookup key in PostgreSQL's operator caching mechanism to avoid repeated operator resolution. When the parser needs to resolve an operator (like +, -, etc.), it creates a cache key containing the operator name, argument types, and the current search path. This key is then used to check if the operator has already been resolved and cached, significantly improving performance during query parsing by avoiding redundant catalog lookups.
 

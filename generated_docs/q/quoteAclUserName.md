@@ -8,7 +8,10 @@ The quoteAclUserName function safely quotes PostgreSQL role/user names for inclu
 
 ## Definition
 
-
+```c
+void
+quoteAclUserName(PQExpBuffer output, const char *input)
+```
 ## Detailed Description
 This function ensures that role names are properly quoted when building ACL strings for PostgreSQL dumps. It implements the same identifier quoting logic as the backend's putid() function in acl.c to maintain consistency between the server and client-side ACL handling.
 

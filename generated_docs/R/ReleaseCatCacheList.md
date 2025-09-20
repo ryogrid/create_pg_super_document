@@ -8,7 +8,10 @@ Decrements the reference count of a catalog cache list, serving as a wrapper fun
 
 ## Definition
 
-
+```c
+void
+ReleaseCatCacheList(CatCList *list)
+```
 ## Detailed Description
 ReleaseCatCacheList is a simple wrapper function that decrements the reference count of a catalog cache list using the current resource owner. It delegates the actual work to ReleaseCatCacheListWithOwner, passing the CurrentResourceOwner as the owner parameter.
 

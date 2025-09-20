@@ -8,7 +8,10 @@ A utility function that determines if two heap tuple identifiers (TIDs) are "adj
 
 ## Definition
 
-
+```c
+static bool
+_bt_adjacenthtid(ItemPointer lowhtid, ItemPointer highhtid)
+```
 ## Detailed Description
 This function implements a heuristic to detect whether two heap TIDs represent adjacent insertions in the heap. The adjacency test is used during B-tree split location decisions to optimize page splits by keeping related tuples together. The function uses two criteria for adjacency:
 

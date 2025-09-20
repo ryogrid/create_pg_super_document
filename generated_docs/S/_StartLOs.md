@@ -8,7 +8,10 @@ Initializes the format-specific structures and writes control information when b
 
 ## Definition
 
-
+```c
+static void
+_StartLOs(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 The  function is a key component of PostgreSQL's custom archive format that handles the initialization phase for Binary Large Object (BLOB) data dumping. This function serves as the counterpart to  but specifically for large object content rather than regular table data.
 

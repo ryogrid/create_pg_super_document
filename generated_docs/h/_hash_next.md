@@ -8,7 +8,10 @@ Advances a hash index scan to the next item, handling pagination across overflow
 
 ## Definition
 
-
+```c
+bool
+_hash_next(IndexScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 This function implements the core scanning logic for hash indexes by advancing to the next tuple in the specified direction. It manages the current scan position within a page and handles transitions between pages when the current page is exhausted. The function maintains proper buffer management including killing dead items before moving to new pages, and handles both forward and backward scan directions with appropriate overflow page navigation.
 

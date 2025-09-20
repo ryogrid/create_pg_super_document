@@ -8,7 +8,13 @@ Records the final state of transaction entries in the commit log for all transac
 
 ## Definition
 
-
+```c
+static void
+TransactionIdSetPageStatus(TransactionId xid, int nsubxids,
+						   TransactionId *subxids, XidStatus status,
+						   XLogRecPtr lsn, int64 pageno,
+						   bool all_xact_same_page)
+```
 ## Detailed Description
 This function provides an optimized interface for updating transaction status entries on a single CLOG page. It implements a sophisticated group update mechanism to reduce SLRU bank lock contention when multiple backends are trying to update transaction status simultaneously.
 

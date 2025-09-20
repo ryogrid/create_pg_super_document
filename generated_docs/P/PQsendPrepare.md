@@ -8,7 +8,13 @@ PQsendPrepare is a public API function that sends a Parse message to prepare a S
 
 ## Definition
 
-
+```c
+struct the Parse message */
+	if (pqPutMsgStart(PqMsg_Parse, conn) < 0 ||
+		pqPuts(stmtName, conn) < 0 ||
+		pqPuts(query, conn) < 0)
+		goto sendFailed;
+```
 ## Detailed Description
 PQsendPrepare implements the asynchronous preparation of SQL statements using PostgreSQL's extended query protocol. It sends a Parse message to the server, which parses and analyzes the SQL statement, creating a prepared statement that can be executed multiple times with different parameters. This function is part of the prepare-bind-execute cycle that provides improved performance for repeatedly executed queries.
 

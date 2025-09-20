@@ -8,7 +8,9 @@ Generates the lexicographically next n-tuple for iterating through multidimensio
 
 ## Definition
 
-
+```c
+struct_array_builtin(arr, CSTRINGOID, &elem_values, NULL, n);
+```
 ## Detailed Description
 This function implements a counter-like mechanism for multidimensional arrays, advancing coordinates in lexicographic order. It works similar to an odometer, where the rightmost digit increments first, and when it reaches its maximum value (span-1), it wraps to 0 and carries over to the next dimension.
 

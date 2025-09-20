@@ -8,7 +8,10 @@ Creates and returns a custom BIO_METHOD structure for PostgreSQL's secure socket
 
 ## Definition
 
-
+```c
+static BIO_METHOD *
+my_BIO_s_socket(void)
+```
 ## Detailed Description
 This function creates a custom BIO method structure that integrates PostgreSQL's secure socket I/O operations with OpenSSL's BIO abstraction layer. It uses a singleton pattern to ensure only one instance of the custom BIO method is created. The function handles two different OpenSSL API versions - newer versions with BIO_meth_new() and older versions that require direct structure manipulation.
 

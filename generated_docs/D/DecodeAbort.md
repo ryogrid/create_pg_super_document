@@ -8,7 +8,12 @@ DecodeAbort processes ABORT records in PostgreSQL's logical replication, handlin
 
 ## Definition
 
-
+```c
+static void
+DecodeAbort(LogicalDecodingContext *ctx, XLogRecordBuffer *buf,
+			xl_xact_parsed_abort *parsed, TransactionId xid,
+			bool two_phase)
+```
 ## Detailed Description
 DecodeAbort handles the abortion of transactions in logical replication by processing WAL abort records. It supports both regular transaction aborts and rollbacks of prepared transactions in two-phase commit scenarios. The function extracts abort information from the WAL record, determines whether the transaction should be processed or skipped, and appropriately handles the rollback through the reorder buffer.
 

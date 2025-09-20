@@ -8,7 +8,10 @@ Retrieves provider-specific collation version strings from the operating system 
 
 ## Definition
 
-
+```c
+char *
+get_collation_actual_version(char collprovider, const char *collcollate)
+```
 ## Detailed Description
 This function obtains the actual version string for a collation from the underlying provider (builtin, ICU, or libc). For builtin collations like "C" and "C.UTF-8", it returns a static version "1" since these are memcmp-based and stable. For ICU collations, it queries the ICU library for version information using UCCollator. For libc collations, the implementation is platform-specific: on glibc systems it uses gnu_get_libc_version(), on FreeBSD it uses querylocale() with LC_VERSION_MASK, and on Windows it uses GetNLSVersionEx() API. The function is crucial for detecting when the underlying collation library has been updated, which could affect sort order and require index rebuilds.
 

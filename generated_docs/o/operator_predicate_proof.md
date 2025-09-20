@@ -8,7 +8,14 @@ Performs predicate implication or refutation tests for "simple clause" predicate
 
 ## Definition
 
-
+```c
+structs such as DistinctExpr.  But the planner isn't very smart
+	 * about DistinctExpr in general, and this probably isn't the first place
+	 * to fix if you want to improve that.
+	 */
+	if (!is_opclause(predicate))
+		return false;
+```
 ## Detailed Description
 This function determines whether a predicate can be proven true or false based on a given clause constraint. It handles operator clauses with related operators (commutators, negators, or btree opfamily siblings) and identical input expressions. The function supports several proof patterns:
 

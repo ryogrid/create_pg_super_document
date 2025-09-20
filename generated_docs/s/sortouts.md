@@ -8,7 +8,11 @@ Sorts the outgoing arcs of a state in PostgreSQL's regex NFA by destination stat
 
 ## Definition
 
-
+```c
+static void
+sortouts(struct nfa *nfa,
+		 struct state *s)
+```
 ## Detailed Description
 This function sorts all outgoing arcs from a given NFA state using a temporary array and qsort(). The sorting maintains a consistent ordering of arcs which is important for NFA operations and optimizations. The function:
 

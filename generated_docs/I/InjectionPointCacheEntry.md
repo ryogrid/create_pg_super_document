@@ -8,7 +8,22 @@ InjectionPointCacheEntry represents a backend-local cache entry for injection po
 
 ## Definition
 
+```c
+typedef struct InjectionPointCacheEntry
+{
+	char		name[INJ_NAME_MAXLEN];
+	char		private_data[INJ_PRIVATE_MAXLEN];
+	InjectionPointCallback callback;
 
+	/*
+	 * Shmem slot and copy of its generation number when this cache entry was
+	 * created.  They can be used to validate if the cached entry is still
+	 * valid.
+	 */
+	int			slot_idx;
+	uint64		generation;
+} InjectionPointCacheEntry;
+```
 ## Detailed Description
 InjectionPointCacheEntry is a backend-local cache structure that stores loaded injection point callbacks to avoid repeated lookups and loading operations. Each backend process maintains its own cache of injection points in TopMemoryContext, which persists for the lifetime of the backend process.
 

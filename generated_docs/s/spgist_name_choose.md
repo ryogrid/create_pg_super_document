@@ -8,7 +8,9 @@ The choose function for SP-GiST name operator class that determines how to navig
 
 ## Definition
 
-
+```c
+structedValue;
+```
 ## Detailed Description
 This function implements the core logic for the SP-GiST choose operation on PostgreSQL 'name' data types. It determines how to handle a new value being inserted into the index by analyzing the relationship between the incoming value and the current node's prefix and labels. The function can return one of three results: match an existing node, add a new node, or split the current tuple.
 

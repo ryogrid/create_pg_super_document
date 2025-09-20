@@ -8,7 +8,11 @@ ProcessXLogDataMsg processes XLogData messages containing actual WAL (Write-Ahea
 
 ## Definition
 
-
+```c
+static bool
+ProcessXLogDataMsg(PGconn *conn, StreamCtl *stream, char *copybuf, int len,
+				   XLogRecPtr *blockpos)
+```
 ## Detailed Description
 This function is the core handler for actual WAL data received during streaming replication. It parses XLogData message headers to extract the WAL location information, validates that received data aligns with expected positions, and writes the data to appropriate WAL files. The function handles WAL segment boundaries by automatically closing completed segments and opening new ones as needed. It also implements position tracking to ensure data continuity and can terminate streaming when a configured stop condition is met. The function carefully manages file operations and handles potential write errors.
 

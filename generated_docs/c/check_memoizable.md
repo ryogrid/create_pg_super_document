@@ -8,7 +8,10 @@ Determines if a restriction clause is suitable for use with a Memoize node and s
 
 ## Definition
 
-
+```c
+static void
+check_memoizable(RestrictInfo *restrictinfo)
+```
 ## Detailed Description
 This function evaluates whether a restriction clause can benefit from PostgreSQL's memoization optimization, which was introduced to improve the performance of nested loop joins by caching the results of expensive sub-plans. Memoize nodes act as a cache layer that can dramatically reduce redundant computation when the outer relation contains many duplicate values that would otherwise cause repeated execution of the same inner sub-plan.
 

@@ -8,7 +8,10 @@ PostgreSQL function that compares a text value with a name value and returns tru
 
 ## Definition
 
-
+```c
+Datum
+textgtname(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that performs a comparison between a text value and a name value, returning a boolean result indicating whether the text value is lexicographically greater than the name value. This function is part of PostgreSQL's text comparison operators and is typically used in SQL queries with the  operator when comparing text and name types.
 

@@ -8,7 +8,19 @@ The _funcInfo structure represents function metadata used by PostgreSQL's pg_dum
 
 ## Definition
 
-
+```c
+typedef struct _funcInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
+	const char *rolname;
+	Oid			lang;
+	int			nargs;
+	Oid		   *argtypes;
+	Oid			prorettype;
+	bool		postponed_def;	/* function must be postponed into post-data */
+} FuncInfo;
+```
 ## Detailed Description
 The _funcInfo structure is used by pg_dump to manage function information during database dumping operations. It extends the base DumpableObject and DumpableAcl structures with function-specific metadata including the function's programming language, argument types, return type, and owner information. The structure also includes a flag to indicate whether the function definition should be postponed to the post-data section of the dump, which is necessary for functions that depend on other objects that haven't been created yet.
 

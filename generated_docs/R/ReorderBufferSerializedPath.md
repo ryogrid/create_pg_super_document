@@ -8,7 +8,9 @@ Generates the file path for a replication slot's serialized (spilled) transactio
 
 ## Definition
 
-
+```c
+struct dirent *logical_de;
+```
 ## Detailed Description
 This function constructs the filesystem path for spill files used by PostgreSQL's logical replication system. When a transaction in the reorder buffer becomes too large to keep in memory, its changes are serialized ("spilled") to disk. This function generates the standardized path format for these spill files, incorporating the replication slot name, transaction ID, and the WAL segment number converted to LSN format. The resulting path follows the pattern: 
 

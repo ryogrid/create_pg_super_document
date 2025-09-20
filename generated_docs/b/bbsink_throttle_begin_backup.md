@@ -8,7 +8,10 @@ Initializes the throttling sink for backup operations by recording the current t
 
 ## Definition
 
-
+```c
+static void
+bbsink_throttle_begin_backup(bbsink *sink)
+```
 ## Detailed Description
 The  function serves as the initialization callback for the throttling basebackup sink when backup operations begin. While it performs minimal actual work, it plays a crucial role in establishing the timing baseline for the throttling mechanism. The function forwards the begin_backup call to the next sink in the pipeline and then records the current timestamp, which will be used as the reference point for subsequent throttling rate calculations.
 

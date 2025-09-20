@@ -8,7 +8,13 @@ Processes a single NFA node in the regular expression parse tree, creating an op
 
 ## Definition
 
-
+```c
+static long						/* optimize results */
+nfanode(struct vars *v,
+		struct subre *t,
+		int converttosearch,
+		FILE *f)				/* for debug output */
+```
 ## Detailed Description
 The nfanode function is a core component of PostgreSQL's regex compilation process that converts a single node in the parsed regular expression tree into an optimized NFA (Non-deterministic Finite Automaton). It takes a subre (sub-regular expression) structure representing a portion of the regex parse tree and builds a complete NFA fragment from it.
 

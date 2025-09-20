@@ -8,7 +8,13 @@ A callback function used during JSON parsing that validates the structure when e
 
 ## Definition
 
-
+```c
+structure check */
+	if (_state->lex->lex_level == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				 errmsg("cannot deconstruct an array as an object")));
+```
 ## Detailed Description
 This function is a callback used by PostgreSQL's JSON parser specifically for JSON object expansion operations. It serves as a validation checkpoint when the parser encounters the beginning of an array. The primary purpose is to enforce that arrays cannot be deconstructed as objects, which would be a structural mismatch. When called at the top level (lex_level == 0), it raises an error indicating that the operation is invalid.
 

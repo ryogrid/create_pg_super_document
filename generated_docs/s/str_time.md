@@ -8,7 +8,10 @@ A utility function that converts a PostgreSQL timestamp to a human-readable stri
 
 ## Definition
 
-
+```c
+static char *
+str_time(pg_time_t tnow)
+```
 ## Detailed Description
 str_time is a static utility function within the XLOG subsystem that provides formatted timestamp strings for logging and diagnostic purposes. The function converts a pg_time_t timestamp into a readable string format using the system's log_timezone setting.
 

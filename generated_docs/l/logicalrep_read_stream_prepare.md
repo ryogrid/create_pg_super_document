@@ -8,7 +8,10 @@ This function reads a STREAM PREPARE message from the logical replication input 
 
 ## Definition
 
-
+```c
+void
+logicalrep_read_stream_prepare(StringInfo in, LogicalRepPreparedTxnData *prepare_data)
+```
 ## Detailed Description
 The  function is the counterpart to , responsible for deserializing STREAM PREPARE messages from the logical replication stream. It delegates the parsing work to  with "stream prepare" as the message type identifier. This function extracts transaction preparation information including LSN positions, prepare timestamp, transaction ID, and global identifier from the input stream and populates the provided  structure.
 

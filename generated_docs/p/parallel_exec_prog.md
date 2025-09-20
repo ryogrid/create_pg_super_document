@@ -8,7 +8,10 @@ Executes a command in parallel mode as part of PostgreSQL's pg_upgrade utility, 
 
 ## Definition
 
-
+```c
+struct */
+		pg_free(new_arg->log_file);
+```
 ## Detailed Description
 This function provides parallel execution capabilities for pg_upgrade operations. It has the same API as exec_prog but adds parallel execution support. The function manages a pool of worker processes (on Unix) or threads (on Windows) to execute commands concurrently, significantly improving performance during database upgrade operations.
 

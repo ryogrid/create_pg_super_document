@@ -8,7 +8,11 @@ A utility function that removes duplicates from a pre-sorted array using a user-
 
 ## Definition
 
-
+```c
+static inline size_t
+qunique(void *array, size_t elements, size_t width,
+		int (*compare) (const void *, const void *))
+```
 ## Detailed Description
 The qunique function is designed to eliminate duplicate elements from an array that has already been sorted. It works by iterating through the array and comparing adjacent elements using the provided comparator function. When a duplicate is found (comparator returns 0), the element is skipped. When a unique element is found, it is moved to the next available position in the array. This in-place operation maintains the sorted order while removing duplicates.
 

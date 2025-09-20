@@ -8,7 +8,10 @@ Builds the output string for the current match in regexp split operations, extra
 
 ## Definition
 
-
+```c
+static Datum
+build_regexp_split_result(regexp_matches_ctx *splitctx)
+```
 ## Detailed Description
 This static helper function constructs the result string for regexp split operations by extracting the substring between the current match and the previous match (or the beginning/end of the string for the first/last segments). It handles two different string representation modes: when a conversion buffer exists (for multi-byte character sets), it uses pg_wchar2mb_with_len for proper character encoding conversion; otherwise, it uses the more efficient text_substr function to extract the substring directly. The function calculates start and end positions from the match_locs array and includes error checking to ensure valid position values.
 

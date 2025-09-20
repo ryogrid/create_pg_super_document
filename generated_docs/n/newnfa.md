@@ -8,7 +8,12 @@ Creates and initializes a new NFA (Non-deterministic Finite Automaton) structure
 
 ## Definition
 
-
+```c
+static struct nfa *				/* the NFA, or NULL */
+newnfa(struct vars *v,
+	   struct colormap *cm,
+	   struct nfa *parent)		/* NULL if primary NFA */
+```
 ## Detailed Description
 The  function allocates and initializes a new NFA structure used in PostgreSQL's regular expression engine. It creates the basic infrastructure needed for pattern matching by setting up initial and final states, along with the necessary arcs and transitions. The function handles memory allocation, creates required states (post, pre, init, final), and establishes basic transitions including start-of-string (^) and end-of-string ($) anchors. If any error occurs during initialization, the function properly cleans up allocated memory using .
 

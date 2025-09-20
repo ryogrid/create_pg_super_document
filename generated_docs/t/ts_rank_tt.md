@@ -8,7 +8,26 @@ A PostgreSQL function that calculates the rank of a TSVector against a TSQuery u
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	union
+	{
+		struct
+		{						/* compiled doc representation */
+			QueryItem **items;
+			int16		nitem;
+		}			query;
+		struct
+		{						/* struct is used for preparing doc
+								 * representation */
+			QueryItem  *item;
+			WordEntry  *entry;
+		}			map;
+	}			data;
+	WordEntryPos pos;
+} DocRepresentation;
+```
 ## Detailed Description
 The  function is the simplest PostgreSQL built-in text search ranking function. It takes only two arguments: a TSVector representing indexed text and a TSQuery representing the search criteria. This function uses both default weights for the four word classes (D, C, B, A) and the default normalization method (RANK_NO_NORM). It provides the most straightforward way to calculate text search ranking scores without any customization options, making it the most commonly used variant for basic full-text search applications.
 

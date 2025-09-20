@@ -8,7 +8,10 @@ Converts a GinTernaryValue to a Datum type for use in PostgreSQL's function call
 
 ## Definition
 
-
+```c
+static inline Datum
+GinTernaryValueGetDatum(GinTernaryValue X)
+```
 ## Detailed Description
 This is a simple inline conversion function that casts a  to a . It serves as the counterpart to  and is part of PostgreSQL's GIN (Generalized Inverted Index) infrastructure for handling ternary logic values.
 

@@ -8,7 +8,10 @@ Provides a default description for custom resource manager records when no speci
 
 ## Definition
 
-
+```c
+static void
+default_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The  function serves as a fallback description generator for custom resource manager WAL records in pg_waldump. When a custom resource manager doesn't provide its own description function, this function is used instead. It simply outputs the resource manager ID to help identify which custom resource manager generated the WAL record, since no detailed information is available about custom resource managers' record formats.
 

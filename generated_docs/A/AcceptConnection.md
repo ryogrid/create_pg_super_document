@@ -8,7 +8,27 @@ Accepts a new client connection on the server socket and populates the client so
 
 ## Definition
 
+```c
+struct sockaddr *) &client_sock->raddr.addr,
+									&client_sock->raddr.salen)) == PGINVALID_SOCKET)
+	{
+		ereport(LOG,
+				(errcode_for_socket_access(),
+				 errmsg("could not accept new connection: %m")));
 
+		/*
+		 * If accept() fails then postmaster.c will still see the server
+		 * socket as read-ready, and will immediately try again.  To avoid
+		 * uselessly sucking lots of CPU, delay a bit before trying again.
+		 * (The most likely reason for failure is being out of kernel file
+		 * table slots; we can do little except hope some will get freed up.)
+		 */
+		pg_usleep(100000L);		/* wait 0.1 sec */
+		return STATUS_ERROR;
+	}
+
+	return STATUS_OK;
+```
 ## Detailed Description
 This function wraps the standard accept() system call to establish a new client connection. It accepts an incoming connection request on the server socket and fills in the client socket structure with the new connection's file descriptor and remote address information.
 

@@ -8,7 +8,10 @@ A comparison function used for sorting WordEntryPos values in PostgreSQL's text 
 
 ## Definition
 
-
+```c
+int
+compareWordEntryPos(const void *a, const void *b)
+```
 ## Detailed Description
 This function serves as a comparator for qsort operations on arrays of WordEntryPos structures. It extracts position information from two WordEntryPos values and compares them using PostgreSQL's standard 32-bit signed integer comparison function. The function is essential for maintaining sorted order of word positions within tsvector data structures, which is crucial for efficient text search operations.
 

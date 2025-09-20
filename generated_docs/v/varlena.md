@@ -8,7 +8,13 @@ The  structure is the fundamental header for all variable-length datatypes in Po
 
 ## Definition
 
-
+```c
+struct varlena
+{
+	char		vl_len_[4];		/* Do not touch this field directly! */
+	char		vl_dat[FLEXIBLE_ARRAY_MEMBER];	/* Data content is here */
+};
+```
 ## Detailed Description
 The  structure serves as the universal header for all variable-length datatypes in PostgreSQL. It implements a sophisticated storage system that supports both inline and out-of-line (TOASTed) storage for large values. The structure is designed to be memory-efficient while providing flexibility for handling values of varying sizes.
 

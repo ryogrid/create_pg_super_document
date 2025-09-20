@@ -8,7 +8,10 @@ Module initialization function that registers the libpq-based WAL receiver funct
 
 ## Definition
 
-
+```c
+void
+_PG_init(void)
+```
 ## Detailed Description
 The  function is the standard PostgreSQL dynamic module initialization function for the libpqwalreceiver module. This function is automatically called when the module is loaded into the PostgreSQL server process. It registers the libpq-specific implementation of WAL receiver functions by setting the global  pointer to point to the  structure.
 

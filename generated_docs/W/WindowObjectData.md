@@ -8,7 +8,19 @@ WindowObjectData is a structure that serves as the context object passed to wind
 
 ## Definition
 
-
+```c
+typedef struct WindowObjectData
+{
+	NodeTag		type;
+	WindowAggState *winstate;	/* parent WindowAggState */
+	List	   *argstates;		/* ExprState trees for fn's arguments */
+	void	   *localmem;		/* WinGetPartitionLocalMemory's chunk */
+	int			markptr;		/* tuplestore mark pointer for this fn */
+	int			readptr;		/* tuplestore read pointer for this fn */
+	int64		markpos;		/* row that markptr is positioned on */
+	int64		seekpos;		/* row that readptr is positioned on */
+} WindowObjectData;
+```
 ## Detailed Description
 WindowObjectData is the central data structure used in PostgreSQL's window function implementation. It acts as a bridge between the window aggregation executor node and individual window functions, being passed as the context (fcinfo->context) to all window function API calls. This structure encapsulates the state needed for window functions to access rows within their window frame, manage memory, and coordinate with the parent WindowAggState executor node.
 

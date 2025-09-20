@@ -8,7 +8,9 @@ A simple static test function used in ECPG (Embedded SQL in C) test cases to dem
 
 ## Definition
 
-
+```c
+struct sa { int member; };
+```
 ## Detailed Description
 The  function is a minimal test function that serves as part of the ECPG test suite. It prints a debug message to stdout and returns a fixed integer value. This function is primarily used to verify that function calls work correctly in the ECPG preprocessor and runtime environment.
 

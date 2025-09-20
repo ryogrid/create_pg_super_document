@@ -8,7 +8,10 @@ SetRelationNumChecks updates the count of check constraints in a relation's pg_c
 
 ## Definition
 
-
+```c
+static void
+SetRelationNumChecks(Relation rel, int numchecks)
+```
 ## Detailed Description
 SetRelationNumChecks is a static function that updates the relchecks field in the pg_class catalog table for a given relation. The function serves a dual purpose: maintaining accurate constraint counts and triggering relcache invalidation across all PostgreSQL backends.
 

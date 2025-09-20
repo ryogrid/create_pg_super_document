@@ -8,7 +8,12 @@ Sets frozen XIDs and minimum multixact IDs in the new cluster during pg_upgrade 
 
 ## Definition
 
-
+```c
+structs a query for creating logical replication slots */
+			appendPQExpBuffer(query,
+							  "SELECT * FROM "
+							  "pg_catalog.pg_create_logical_replication_slot(");
+```
 ## Detailed Description
 The set_frozenxids function is a critical component of PostgreSQL's pg_upgrade utility that manages transaction ID consistency between old and new database clusters. This function operates in two distinct modes:
 

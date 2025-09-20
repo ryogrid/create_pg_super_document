@@ -8,7 +8,17 @@ VacErrPhase is an enumerated type that defines different phases of the vacuum op
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	VACUUM_ERRCB_PHASE_UNKNOWN,
+	VACUUM_ERRCB_PHASE_SCAN_HEAP,
+	VACUUM_ERRCB_PHASE_VACUUM_INDEX,
+	VACUUM_ERRCB_PHASE_VACUUM_HEAP,
+	VACUUM_ERRCB_PHASE_INDEX_CLEANUP,
+	VACUUM_ERRCB_PHASE_TRUNCATE,
+} VacErrPhase;
+```
 ## Detailed Description
 VacErrPhase is used within PostgreSQL's lazy vacuum implementation to track the current phase of vacuum operation for error reporting purposes. This enumeration helps provide meaningful error context when issues occur during different stages of the vacuum process. The enum is defined in src/backend/access/heap/vacuumlazy.c and is used to maintain state information about which specific phase of vacuum is currently being executed.
 

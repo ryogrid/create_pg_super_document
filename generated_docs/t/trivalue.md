@@ -8,7 +8,16 @@ A three-state enumeration type used throughout PostgreSQL client utilities to re
 
 ## Definition
 
-
+```c
+typedef enum _archiveFormat
+{
+	archUnknown = 0,
+	archCustom = 1,
+	archTar = 3,
+	archNull = 4,
+	archDirectory = 5,
+} ArchiveFormat;
+```
 ## Detailed Description
 The  enum provides a three-state boolean representation commonly needed in PostgreSQL client applications where a setting can be explicitly enabled, explicitly disabled, or left to use a default value. This is particularly useful for command-line utilities and connection parameters where users may want to override defaults or leave them unspecified.
 

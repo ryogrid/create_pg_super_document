@@ -8,7 +8,13 @@ A static function that obtains a vacant state set for reuse in the DFA regex eng
 
 ## Definition
 
-
+```c
+static struct sset *
+getvacant(struct vars *v,
+		  struct dfa *d,
+		  chr *cp,
+		  chr *start)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's regex DFA (Deterministic Finite Automaton) engine that manages state set recycling. It obtains a vacant state set by calling  and then performs comprehensive cleanup of the state set's arc connections. The function meticulously clears both incoming and outgoing arcs to prepare the state set for reuse, while also handling special cases for post-match states and no-progress states by updating the DFA's tracking pointers.
 

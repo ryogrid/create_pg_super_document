@@ -8,7 +8,10 @@ Performs multiplication of two single-precision floating-point numbers (float4) 
 
 ## Definition
 
-
+```c
+static inline float4
+float4_mul(const float4 val1, const float4 val2)
+```
 ## Detailed Description
 The  function multiplies two  (single-precision floating-point) values and returns the result with appropriate error handling. This is an inline function defined in the header file for performance optimization. The function performs standard multiplication but includes additional checks to detect and handle floating-point overflow and underflow conditions, which are important for maintaining data integrity in database operations.
 

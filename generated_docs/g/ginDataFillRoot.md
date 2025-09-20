@@ -8,7 +8,10 @@ ginDataFillRoot fills a new root page with right bound values from left and righ
 
 ## Definition
 
-
+```c
+void
+ginDataFillRoot(GinBtree btree, Page root, BlockNumber lblkno, Page lpage, BlockNumber rblkno, Page rpage)
+```
 ## Detailed Description
 This function initializes a new root page by creating PostingItems for both left and right child pages and adding them to the root page. Each PostingItem contains the right bound key from the respective child page and the block number where that child page is located. This operation is typically performed during B-tree splits when a new root level needs to be created.
 

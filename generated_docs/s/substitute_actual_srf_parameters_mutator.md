@@ -8,7 +8,11 @@ The actual mutator function that performs the substitution of Param nodes with r
 
 ## Definition
 
-
+```c
+static Node *
+substitute_actual_srf_parameters_mutator(Node *node,
+										 substitute_actual_srf_parameters_context *context)
+```
 ## Detailed Description
 This function implements the core logic for parameter substitution in set-returning function inlining. It serves as a tree mutator callback that is invoked for each node in the query tree during traversal. The function specifically handles Param nodes by replacing them with the corresponding actual argument expressions, while properly adjusting variable sublevel references to maintain correct scoping semantics in the modified query tree.
 

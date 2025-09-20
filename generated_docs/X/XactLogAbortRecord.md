@@ -8,7 +8,15 @@ Creates and writes a WAL (Write-Ahead Log) record for transaction abort operatio
 
 ## Definition
 
-
+```c
+XLogRecPtr
+XactLogAbortRecord(TimestampTz abort_time,
+				   int nsubxacts, TransactionId *subxacts,
+				   int nrels, RelFileLocator *rels,
+				   int ndroppedstats, xl_xact_stats_item *droppedstats,
+				   int xactflags, TransactionId twophase_xid,
+				   const char *twophase_gid)
+```
 ## Detailed Description
 This function constructs and logs a comprehensive abort record to the Write-Ahead Log for transaction rollback operations. It handles both regular transaction aborts and two-phase commit prepared transaction aborts. The function collects various transaction-related metadata including sub-transactions, file relationships, dropped statistics, access exclusive locks, replication origin information, and two-phase commit details, then packages them into a structured WAL record for crash recovery and replication purposes.
 

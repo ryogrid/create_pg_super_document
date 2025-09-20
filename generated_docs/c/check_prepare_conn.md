@@ -8,7 +8,10 @@ A utility function that validates a PostgreSQL database connection and sets up a
 
 ## Definition
 
-
+```c
+static void
+check_prepare_conn(PGconn *conn, const char *dbName)
+```
 ## Detailed Description
 The  function performs essential connection validation and security setup for PostgreSQL connections in test environments. It first verifies that the database connection was successfully established, then immediately sets up a secure search path to prevent malicious users from taking control through search path manipulation attacks.
 

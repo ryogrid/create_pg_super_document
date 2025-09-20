@@ -8,7 +8,30 @@ The  struct represents a compiled NFA (Non-deterministic Finite Automaton) used 
 
 ## Definition
 
-
+```c
+struct cnfa
+{
+	int			nstates;		/* number of states */
+	int			ncolors;		/* number of colors (max color in use + 1) */
+	int			flags;			/* bitmask of the following flags: */
+#define  HASLACONS	01			/* uses lookaround constraints */
+#define  MATCHALL	02			/* matches all strings of a range of lengths */
+#define  HASCANTMATCH 04		/* contains CANTMATCH arcs */
+	/* Note: HASCANTMATCH appears in nfa structs' flags, but never in cnfas */
+	int			pre;			/* setup state number */
+	int			post;			/* teardown state number */
+	color		bos[2];			/* colors, if any, assigned to BOS and BOL */
+	color		eos[2];			/* colors, if any, assigned to EOS and EOL */
+	char	   *stflags;		/* vector of per-state flags bytes */
+#define  CNFA_NOPROGRESS	01	/* flag bit for a no-progress state */
+	struct carc **states;		/* vector of pointers to outarc lists */
+	/* states[n] are pointers into a single malloc'd array of arcs */
+	struct carc *arcs;			/* the area for the lists */
+	/* these fields are used only in a MATCHALL NFA (else they're -1): */
+	int			minmatchall;	/* min number of chrs to match */
+	int			maxmatchall;	/* max number of chrs to match, or DUPINF */
+};
+```
 ## Detailed Description
 The  struct is the core data structure representing a compiled NFA in PostgreSQL's regex engine. It stores the complete state machine representation of a regular expression pattern after compilation. The structure includes state information, transition arcs between states, color mappings for character classes, and various optimization flags. This compiled form enables efficient pattern matching during regex execution by providing a direct representation of the automaton's transitions and states.
 

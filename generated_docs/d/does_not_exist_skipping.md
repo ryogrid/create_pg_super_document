@@ -8,7 +8,10 @@ does_not_exist_skipping generates appropriate NOTICE messages when objects speci
 
 ## Definition
 
-
+```c
+static void
+does_not_exist_skipping(ObjectType objtype, Node *object)
+```
 ## Detailed Description
 This function is the central dispatcher for generating NOTICE messages when objects don't exist in DROP IF EXISTS operations. It contains a large switch statement that handles different object types, using hierarchical checking through helper functions to determine whether the object itself is missing or its dependencies (schemas, types, owning relations) are missing. The function provides user-friendly error messages that accurately describe what is missing and being skipped.
 

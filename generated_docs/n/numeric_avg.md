@@ -8,7 +8,10 @@ Computes the average (arithmetic mean) of accumulated numeric values during aggr
 
 ## Definition
 
-
+```c
+Datum
+numeric_avg(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the final step of the numeric average aggregate operation. It takes the accumulated state from numeric aggregate operations and computes the final average by dividing the sum by the count of values. The function handles special cases including NULL inputs, NaN values, and positive/negative infinity values according to mathematical rules.
 

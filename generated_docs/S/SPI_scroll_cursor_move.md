@@ -8,7 +8,10 @@ Move the position of a scrollable cursor in PostgreSQL's Server Programming Inte
 
 ## Definition
 
-
+```c
+void
+SPI_scroll_cursor_move(Portal portal, FetchDirection direction, long count)
+```
 ## Detailed Description
 SPI_scroll_cursor_move is a utility function that moves the position of a scrollable cursor without retrieving any rows. This function is useful when you need to reposition a cursor to a specific location before performing fetch operations. The function internally calls _SPI_cursor_operation with a None_Receiver destination, which means no data is retrieved - only the cursor position is changed.
 

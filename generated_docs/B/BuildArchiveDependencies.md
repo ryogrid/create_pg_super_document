@@ -8,7 +8,10 @@ BuildArchiveDependencies creates dependency data for archive TOC entries by adju
 
 ## Definition
 
-
+```c
+static void
+BuildArchiveDependencies(Archive *fout)
+```
 ## Detailed Description
 This function processes TOC entries in an archive dump to build correct dependencies for each entry. The raw dependency data from getDependencies() is not directly useful in archive dumps because dependency chains often link through objects that don't appear explicitly in the dump (like views depending on _RETURN rules). The function recursively searches DumpableObject data structures to build correct dependencies while preserving "special" dependencies (like TABLE DATA depending on its TABLE) that must remain as-is for pg_restore compatibility.
 

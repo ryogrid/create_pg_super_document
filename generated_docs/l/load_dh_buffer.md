@@ -8,7 +8,10 @@ Loads hardcoded Diffie-Hellman parameters from a memory buffer as a fallback whe
 
 ## Definition
 
-
+```c
+static DH  *
+load_dh_buffer(const char *buffer, size_t len)
+```
 ## Detailed Description
 This function serves as a fallback mechanism for loading DH parameters when the specified DH parameters file is unavailable or cannot be read. It loads hardcoded DH parameters from a memory buffer using OpenSSL's BIO (Basic Input/Output) interface. The function creates a memory BIO from the provided buffer and uses it to read PEM-formatted DH parameters. This prevents SSL/TLS connection failures when custom DH parameters are not available, ensuring the server can still establish secure connections using predefined parameters.
 

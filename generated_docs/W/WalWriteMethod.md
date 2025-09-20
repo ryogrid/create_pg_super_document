@@ -8,7 +8,9 @@ WalWriteMethod is a structure that represents a way of writing streaming WAL (Wr
 
 ## Definition
 
-
+```c
+typedef struct WalWriteMethod WalWriteMethod;
+```
 ## Detailed Description
 WalWriteMethod is an abstract base structure used in PostgreSQL's backup utilities (pg_basebackup and pg_receivewal) to provide a polymorphic interface for writing WAL data to different destinations. The structure uses a vtable pattern through the WalWriteMethodOps function pointer table to support different storage methods like writing to regular files in a directory or to tar archives.
 

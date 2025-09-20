@@ -8,7 +8,12 @@ ProcArrayShmemSize calculates and returns the amount of shared memory space need
 
 ## Definition
 
+```c
+structure itself */
+#define PROCARRAY_MAXPROCS	(MaxBackends + max_prepared_xacts)
 
+	size = offsetof(ProcArrayStruct, pgprocnos);
+```
 ## Detailed Description
 This function computes the total shared memory requirements for the process array subsystem, which is central to PostgreSQL's transaction management and Hot Standby functionality. The calculation includes space for the main ProcArrayStruct and, when Hot Standby is enabled, additional space for the KnownAssignedXids tracking system used during recovery operations.
 

@@ -8,7 +8,12 @@ Determines whether a relation provably has at most one row satisfying a set of e
 
 ## Definition
 
-
+```c
+bool
+relation_has_unique_index_for(PlannerInfo *root, RelOptInfo *rel,
+							  List *restrictlist,
+							  List *exprlist, List *oprlist)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's uniqueness analysis that determines if a given set of equality conditions can guarantee at most one matching row from a relation. It works by checking whether the conditions collectively constrain all columns of any unique index on the relation.
 

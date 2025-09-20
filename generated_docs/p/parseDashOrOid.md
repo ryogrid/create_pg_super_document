@@ -8,7 +8,10 @@ A utility function that parses a string as either a dash ("-") representing Inva
 
 ## Definition
 
-
+```c
+static bool
+parseDashOrOid(char *string, Oid *result, Node *escontext)
+```
 ## Detailed Description
 The  function extends the functionality of  by adding special handling for the dash character ("-"). This function is part of PostgreSQL's regtype input parsing system and serves as a helper for various reg* type input functions. It provides a standardized way to represent InvalidOid using a human-readable dash symbol, which is commonly used in PostgreSQL's system catalogs and dumps to indicate null or invalid object references.
 

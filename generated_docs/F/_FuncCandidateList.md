@@ -8,7 +8,20 @@ A structure that holds a list of possible functions or operators found by namesp
 
 ## Definition
 
-
+```c
+typedef struct _FuncCandidateList
+{
+	struct _FuncCandidateList *next;
+	int			pathpos;		/* for internal use of namespace lookup */
+	Oid			oid;			/* the function or operator's OID */
+	int			nominalnargs;	/* either pronargs or length(proallargtypes) */
+	int			nargs;			/* number of arg types returned */
+	int			nvargs;			/* number of args to become variadic array */
+	int			ndargs;			/* number of defaulted args */
+	int		   *argnumbers;		/* args' positional indexes, if named call */
+	Oid			args[FLEXIBLE_ARRAY_MEMBER];	/* arg types */
+}		   *FuncCandidateList;
+```
 ## Detailed Description
 This structure represents a linked list of function or operator candidates discovered during namespace lookup. Each candidate is identified by OID and argument types, but the list must be further pruned by type resolution rules implemented in the parser. The structure supports various PostgreSQL function features including variadic functions, default arguments, and named parameter calls.
 

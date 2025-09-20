@@ -8,7 +8,16 @@ CatCInProgress is a struct used to track catalog cache entries that are currentl
 
 ## Definition
 
-
+```c
+typedef struct CatCInProgress
+{
+	CatCache   *cache;			/* cache that the entry belongs to */
+	uint32		hash_value;		/* hash of the entry; ignored for lists */
+	bool		list;			/* is it a list entry? */
+	bool		dead;			/* set when the entry is invalidated */
+	struct CatCInProgress *next;
+} CatCInProgress;
+```
 ## Detailed Description
 The CatCInProgress struct is designed to solve a critical race condition in PostgreSQL's catalog cache system. When a catalog cache entry (or list) is being created, there's a window of vulnerability where a cache invalidation event could apply to the entry being constructed, potentially making it invalid before it's even inserted into the cache.
 

@@ -8,7 +8,13 @@ BTPendingFSM is a structure used during VACUUM operations to track deleted B-tre
 
 ## Definition
 
-
+```c
+typedef struct BTPendingFSM
+{
+	BlockNumber target;			/* Page deleted by current VACUUM */
+	FullTransactionId safexid;	/* Page's BTDeletedPageData.safexid */
+} BTPendingFSM;
+```
 ## Detailed Description
 BTPendingFSM is part of PostgreSQL's B-tree VACUUM infrastructure, specifically designed to manage the lifecycle of deleted pages during vacuum operations. When VACUUM deletes B-tree pages, they cannot be immediately recycled because concurrent transactions might still need to access them.
 

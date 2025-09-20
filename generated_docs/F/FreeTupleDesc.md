@@ -8,7 +8,10 @@ Completely deallocates a TupleDesc and all its associated constraint structures,
 
 ## Definition
 
-
+```c
+void
+FreeTupleDesc(TupleDesc tupdesc)
+```
 ## Detailed Description
 This function performs a complete cleanup of a tuple descriptor by deallocating all memory associated with it and its constraint structures. It systematically frees default value expressions, missing value data, check constraint information, and finally the tuple descriptor itself. The function includes proper handling of pass-by-reference data types in missing values and validates that the reference count is non-positive before proceeding with deallocation.
 

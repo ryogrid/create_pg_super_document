@@ -8,7 +8,11 @@ LockDatabaseObject obtains a lock on a general database object within the curren
 
 ## Definition
 
-
+```c
+void
+LockDatabaseObject(Oid classid, Oid objid, uint16 objsubid,
+				   LOCKMODE lockmode)
+```
 ## Detailed Description
 LockDatabaseObject is used to acquire locks on general database objects that belong to the current database. It creates a database-specific lock tag using the provided object identifiers and acquires the lock through the standard PostgreSQL lock manager. The function is specifically designed for catalog objects and other database-scoped objects.
 

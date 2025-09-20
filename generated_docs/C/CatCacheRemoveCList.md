@@ -8,7 +8,10 @@ CatCacheRemoveCList is a static function that removes and deallocates a catalog 
 
 ## Definition
 
-
+```c
+static void
+CatCacheRemoveCList(CatCache *cache, CatCList *cl)
+```
 ## Detailed Description
 This function handles the complete removal of a CatCList (catalog cache list) structure from the cache system. CatCLists are used to cache the results of searches that return multiple tuples matching the same key values. The function performs a complex cleanup process that includes managing the relationships between the list and its member cache entries.
 

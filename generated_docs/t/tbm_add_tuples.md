@@ -8,7 +8,11 @@ Adds multiple tuple identifiers (TIDs) to a TID bitmap, efficiently handling con
 
 ## Definition
 
-
+```c
+void
+tbm_add_tuples(TIDBitmap *tbm, const ItemPointer tids, int ntids,
+			   bool recheck)
+```
 ## Detailed Description
 The `tbm_add_tuples` function adds an array of tuple identifiers to a TID bitmap structure. It efficiently processes multiple TIDs by optimizing for the common case where consecutive tuples belong to the same page, avoiding redundant page lookups. The function handles both exact page entries (where individual tuple bits are set) and lossy chunk entries (where only page-level bits are set).
 

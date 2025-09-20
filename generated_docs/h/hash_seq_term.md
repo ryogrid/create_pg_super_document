@@ -8,7 +8,10 @@ Terminates a hash table sequential scan by deregistering it from the hash table'
 
 ## Definition
 
-
+```c
+void
+hash_seq_term(HASH_SEQ_STATUS *status)
+```
 ## Detailed Description
 The hash_seq_term function is responsible for properly cleaning up after a sequential scan of a hash table. It checks if the hash table is frozen (immutable), and if not, deregisters the sequential scan from the hash table's internal scan tracking mechanism. This is essential for maintaining consistency during hash table operations and preventing memory leaks or corruption during concurrent access.
 

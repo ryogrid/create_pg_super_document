@@ -8,7 +8,10 @@ FunctionRecheck is an access method routine used to recheck a tuple during EvalP
 
 ## Definition
 
-
+```c
+static bool
+FunctionRecheck(FunctionScanState *node, TupleTableSlot *slot)
+```
 ## Detailed Description
 FunctionRecheck is a minimal implementation that always returns true, indicating that no additional tuple validation is needed during EvalPlanQual operations. This is appropriate for function scans because:
 

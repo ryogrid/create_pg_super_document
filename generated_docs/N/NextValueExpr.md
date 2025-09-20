@@ -8,7 +8,14 @@ A node representing the generation of the next value from a sequence, equivalent
 
 ## Definition
 
-
+```c
+typedef struct NextValueExpr
+{
+	Expr		xpr;
+	Oid			seqid;
+	Oid			typeId;
+} NextValueExpr;
+```
 ## Detailed Description
 NextValueExpr provides the same functionality as calling the nextval() function on a sequence but bypasses permission checks. This specialized behavior makes it particularly suitable for identity columns, where the sequence is treated as an implicit dependency without requiring separate permissions. The expression node is used internally by PostgreSQL to automatically generate sequential values for identity columns during INSERT operations.
 

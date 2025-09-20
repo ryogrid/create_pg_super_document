@@ -8,7 +8,10 @@ Sets the pg_database.dathasloginevt flag for the current database to indicate th
 
 ## Definition
 
-
+```c
+void
+SetDatabaseHasLoginEventTriggers(void)
+```
 ## Detailed Description
 This function updates the PostgreSQL system catalog to mark that the current database has login event triggers. It modifies the dathasloginevt flag in the pg_database system catalog table, which serves as an optimization hint for the system to know whether it needs to check for and potentially fire login event triggers when users connect to this database.
 

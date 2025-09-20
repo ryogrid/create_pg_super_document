@@ -8,7 +8,10 @@ ExplainCustomChildren is a static function in PostgreSQL's explain module that h
 
 ## Definition
 
-
+```c
+static void
+ExplainCustomChildren(CustomScanState *css, List *ancestors, ExplainState *es)
+```
 ## Detailed Description
 This function iterates through the list of child PlanState nodes associated with a CustomScanState and explains each one. It automatically determines the appropriate label ('child' for single children, 'children' for multiple) based on the number of child plans present. The function provides a standardized way to explain the child nodes of custom scan implementations.
 

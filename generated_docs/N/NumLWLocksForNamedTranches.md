@@ -8,7 +8,10 @@ Computes the total number of lightweight locks required by all registered named 
 
 ## Definition
 
-
+```c
+static int
+NumLWLocksForNamedTranches(void)
+```
 ## Detailed Description
 This function iterates through all registered named LWLock tranche requests and calculates the cumulative number of locks required. Named tranches allow extensions and different PostgreSQL subsystems to register their lightweight lock requirements during system initialization. The function provides the total count that needs to be allocated in the main LWLock array to accommodate all named tranche requests.
 

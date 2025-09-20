@@ -8,7 +8,10 @@ Records a line pointer that should be marked as unused (LP_UNUSED) during heap p
 
 ## Definition
 
-
+```c
+static void
+heap_prune_record_unused(PruneState *prstate, OffsetNumber offnum, bool was_normal)
+```
 ## Detailed Description
 This function records that a line pointer at the specified offset should be marked as unused (LP_UNUSED) during the heap pruning operation. Unlike dead line pointers which require a later VACUUM to reclaim space, unused line pointers immediately free up their space for reuse by new tuples. This provides more aggressive space reclamation during pruning operations when conditions allow for immediate cleanup.
 

@@ -8,7 +8,11 @@ ExecInitForeignScan initializes a ForeignScanState node for executing foreign sc
 
 ## Definition
 
-
+```c
+structure
+	 */
+	scanstate = makeNode(ForeignScanState);
+```
 ## Detailed Description
 ExecInitForeignScan is a comprehensive initialization function that prepares a foreign scan node for execution within PostgreSQL's executor framework. This function handles the complex setup required for interfacing with Foreign Data Wrappers (FDWs) while integrating seamlessly with PostgreSQL's execution infrastructure.
 

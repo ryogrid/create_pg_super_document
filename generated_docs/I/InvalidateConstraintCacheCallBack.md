@@ -8,7 +8,10 @@ Cache invalidation callback function for pg_constraint system catalog changes th
 
 ## Definition
 
-
+```c
+static void
+InvalidateConstraintCacheCallBack(Datum arg, int cacheid, uint32 hashvalue)
+```
 ## Detailed Description
 This function serves as a callback for PostgreSQL's cache invalidation system when pg_constraint catalog entries are modified. It implements smart invalidation rather than flushing all entries:
 

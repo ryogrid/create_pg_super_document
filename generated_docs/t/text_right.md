@@ -8,7 +8,10 @@ The  function extracts the rightmost n characters from a text string, with suppo
 
 ## Definition
 
-
+```c
+Datum
+text_right(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's  SQL function for text data types. It handles multibyte character encoding properly by using PostgreSQL's multibyte string functions. The function supports two modes of operation:
 - When n is positive: returns the last n characters from the string

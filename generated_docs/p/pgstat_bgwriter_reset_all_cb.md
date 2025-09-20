@@ -8,7 +8,10 @@ This function serves as a callback to reset all background writer statistics to 
 
 ## Definition
 
-
+```c
+void
+pgstat_bgwriter_reset_all_cb(TimestampTz ts)
+```
 ## Detailed Description
 The  function implements the callback mechanism for resetting background writer statistics. It follows a specific reset protocol that ensures thread-safe operations when resetting statistics in shared memory. The function acquires an exclusive lock on the bgwriter statistics shared memory structure, copies the current statistics to the reset offset (preserving a snapshot of values before reset), and updates the reset timestamp. This ensures that any ongoing statistics collection operations can continue safely while the reset occurs.
 

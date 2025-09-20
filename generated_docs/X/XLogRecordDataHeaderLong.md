@@ -8,7 +8,13 @@ XLogRecordDataHeaderLong is a header structure used for the "main data" portion 
 
 ## Definition
 
-
+```c
+typedef struct XLogRecordDataHeaderLong
+{
+	uint8		id;				/* XLR_BLOCK_ID_DATA_LONG */
+	/* followed by uint32 data_length, unaligned */
+}			XLogRecordDataHeaderLong;
+```
 ## Detailed Description
 XLogRecordDataHeaderLong is one of two possible headers for the main data portion of WAL records, specifically used when the data payload exceeds 255 bytes. It forms part of PostgreSQL's space-efficient WAL format that uses variable-length headers based on data size. The structure includes an ID field that identifies it as the long form header, followed by an unaligned uint32 data_length field that can accommodate much larger data sizes than the single-byte length field in XLogRecordDataHeaderShort. This design optimizes WAL storage by using the minimal header size appropriate for the data length.
 

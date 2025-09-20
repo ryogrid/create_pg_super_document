@@ -8,7 +8,10 @@ A GUC assign hook function that applies the parsed flags from the  configuration
 
 ## Definition
 
-
+```c
+void
+assign_restrict_nonsystem_relation_kind(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as the assign hook for the  GUC parameter. It receives the validated and parsed flags from the corresponding check hook and applies them to the global  variable. This simple assignment function ensures that the restriction settings take effect immediately when the configuration parameter is changed.
 

@@ -8,7 +8,10 @@ Deletes a PostgreSQL large object from the database, permanently removing it and
 
 ## Definition
 
-
+```c
+int
+lo_unlink(PGconn *conn, Oid lobjId)
+```
 ## Detailed Description
 The  function permanently deletes a large object from the PostgreSQL database. It operates similar to the Unix  system call, removing the large object identified by its OID from the database. Once deleted, the large object cannot be recovered and all its associated data is lost.
 

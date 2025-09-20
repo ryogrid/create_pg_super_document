@@ -8,7 +8,11 @@ Constructs the filename for an auxiliary extension control file that contains ve
 
 ## Definition
 
-
+```c
+static char *
+get_extension_aux_control_filename(ExtensionControlFile *control,
+								   const char *version)
+```
 ## Detailed Description
 This function generates the complete file path for an auxiliary control file associated with a specific version of a PostgreSQL extension. Auxiliary control files follow the naming pattern "extension_name--version.control" and are stored in the extension's script directory. These files contain version-specific control information that supplements the main extension control file.
 

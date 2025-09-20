@@ -8,7 +8,15 @@ The main entry point function that converts JSON or JSONB values into PostgreSQL
 
 ## Definition
 
-
+```c
+static Datum
+populate_array(ArrayIOData *aio,
+			   const char *colname,
+			   MemoryContext mcxt,
+			   JsValue *jsv,
+			   bool *isnull,
+			   Node *escontext)
+```
 ## Detailed Description
 This function serves as the primary interface for converting JSON or JSONB data into PostgreSQL arrays. It initializes a PopulateArrayContext with the necessary array metadata and memory contexts, then dispatches to the appropriate parsing function based on whether the input is JSON text or binary JSONB. The function handles both text JSON (via populate_array_json) and binary JSONB (via populate_array_dim_jsonb) formats. After successful parsing, it constructs the final multi-dimensional array using PostgreSQL's array building infrastructure, setting appropriate lower bounds and managing memory cleanup.
 

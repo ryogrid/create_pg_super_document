@@ -8,7 +8,13 @@ Initializes a EEOP_JSONEXPR_COERCION step to coerce the value given in resv to t
 
 ## Definition
 
-
+```c
+static void
+ExecInitJsonCoercion(ExprState *state, JsonReturning *returning,
+					 ErrorSaveContext *escontext, bool omit_quotes,
+					 bool exists_coerce,
+					 Datum *resv, bool *resnull)
+```
 ## Detailed Description
 ExecInitJsonCoercion sets up a specialized coercion step for PostgreSQL's JSON expressions that converts JSON values to the target data types specified in the RETURNING clause. This function creates a single EEOP_JSONEXPR_COERCION evaluation step with all necessary configuration for the json_populate_type() function.
 

@@ -8,7 +8,25 @@ IndexTupleData is the header structure for all index tuples in PostgreSQL, provi
 
 ## Definition
 
+```c
+typedef struct IndexTupleData
+{
+	ItemPointerData t_tid;		/* reference TID to heap tuple */
 
+	/* ---------------
+	 * t_info is laid out in the following fashion:
+	 *
+	 * 15th (high) bit: has nulls
+	 * 14th bit: has var-width attributes
+	 * 13th bit: AM-defined meaning
+	 * 12-0 bit: size of tuple
+	 * ---------------
+	 */
+
+	unsigned short t_info;		/* various info about tuple */
+
+} IndexTupleData;
+```
 ## Detailed Description
 IndexTupleData serves as the fundamental header structure for all index tuples in PostgreSQL's indexing system. This structure is always present at the beginning of every index tuple, regardless of the index access method (btree, hash, GiST, GIN, etc.). The structure is designed to be compact yet informative, containing only the essential metadata needed to interpret the index tuple.
 

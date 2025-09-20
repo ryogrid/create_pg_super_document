@@ -8,7 +8,10 @@ A PostgreSQL function that returns detailed I/O statistics for all backend types
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_get_io(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the backend logic for PostgreSQL's pg_stat_io system view, which provides comprehensive I/O statistics across different backend types (like autovacuum, background writer, checkpointer), I/O objects (relations, temp relations), and I/O contexts (normal, vacuum, bulkread, etc.). The function fetches current I/O statistics from the statistics collector and formats them into a table with columns for backend type, context, object, operation counts, timing information, and reset timestamps.
 

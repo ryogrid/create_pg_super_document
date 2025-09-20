@@ -8,7 +8,10 @@ ExecEndResult performs cleanup and resource deallocation for a Result plan node 
 
 ## Definition
 
-
+```c
+void
+ExecEndResult(ResultState *node)
+```
 ## Detailed Description
 ExecEndResult is the cleanup function for Result plan nodes that is called during executor shutdown. This function is part of PostgreSQL's executor termination phase and ensures proper resource cleanup.
 

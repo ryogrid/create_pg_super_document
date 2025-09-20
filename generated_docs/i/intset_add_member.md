@@ -8,7 +8,10 @@ Adds a 64-bit integer value to an IntegerSet data structure, maintaining the req
 
 ## Definition
 
-
+```c
+void
+intset_add_member(IntegerSet *intset, uint64 x)
+```
 ## Detailed Description
 The  function is responsible for adding new integer values to a PostgreSQL IntegerSet. It implements a buffered insertion strategy where new values are first stored in a temporary buffer before being flushed to the compressed B-tree structure. This approach optimizes performance by batching insertions and reducing the overhead of immediate compression.
 

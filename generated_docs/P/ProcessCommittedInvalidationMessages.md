@@ -8,7 +8,12 @@ Processes invalidation messages during transaction replay in recovery mode, hand
 
 ## Definition
 
-
+```c
+void
+ProcessCommittedInvalidationMessages(SharedInvalidationMessage *msgs,
+									 int nmsgs, bool RelcacheInitFileInval,
+									 Oid dbid, Oid tsid)
+```
 ## Detailed Description
 This function is executed by xact_redo_commit() or standby_redo() to process invalidation messages during WAL replay. It handles the processing of shared invalidation messages that were recorded during a committed transaction, ensuring that cache invalidations are properly applied during recovery.
 

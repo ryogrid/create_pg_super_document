@@ -8,7 +8,16 @@ PinBufferForBlock is a core internal function in PostgreSQL's buffer management 
 
 ## Definition
 
-
+```c
+static pg_attribute_always_inline Buffer
+PinBufferForBlock(Relation rel,
+				  SMgrRelation smgr,
+				  char smgr_persistence,
+				  ForkNumber forkNum,
+				  BlockNumber blockNum,
+				  BufferAccessStrategy strategy,
+				  bool *foundPtr)
+```
 ## Detailed Description
 PinBufferForBlock is a critical function in PostgreSQL's buffer manager that handles the low-level task of pinning buffers for specific database blocks. The function determines whether to use local (temporary) or shared buffers based on relation persistence, allocates the appropriate buffer, and updates various statistics and tracing information. It sets the  flag to indicate whether the block was already present in the buffer pool or needs to be read from disk. The function is marked as  for performance optimization since it's called frequently during database operations.
 

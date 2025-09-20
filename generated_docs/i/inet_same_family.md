@@ -8,7 +8,10 @@ Determines whether two inet addresses belong to the same address family (IPv4 or
 
 ## Definition
 
-
+```c
+Datum
+inet_same_family(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares two inet addresses to determine if they belong to the same address family. It is used internally to validate that network operations can be performed between two addresses, ensuring they are compatible (both IPv4 or both IPv6). The function extracts the IP family information from each address and performs a simple equality comparison.
 

@@ -8,7 +8,11 @@ HandleEndOfCopyStream handles the graceful termination of a streaming replicatio
 
 ## Definition
 
-
+```c
+static PGresult *
+HandleEndOfCopyStream(PGconn *conn, StreamCtl *stream, char *copybuf,
+					  XLogRecPtr blockpos, XLogRecPtr *stoppos)
+```
 ## Detailed Description
 This function manages the orderly shutdown of a streaming replication session when the server closes its end of the copy stream. It ensures that any open WAL file is properly closed and that the copy protocol is completed correctly by sending a copy-end packet if necessary. The function handles different scenarios: normal termination where the client closes the copy stream gracefully, and error conditions where the server may have terminated due to an error. It also cleans up allocated memory and sets the final stop position for the streaming session.
 

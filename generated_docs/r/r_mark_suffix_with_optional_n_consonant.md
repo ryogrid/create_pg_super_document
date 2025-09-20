@@ -8,7 +8,11 @@ This function handles the morphological analysis of Turkish suffixes that may op
 
 ## Definition
 
+```c
+}
 
+static int r_mark_suffix_with_optional_n_consonant(struct SN_env * z)
+```
 ## Detailed Description
 The  function is designed to handle Turkish morphological patterns where the consonant 'n' may be optionally inserted in certain suffix contexts. This is a common phenomenon in Turkish morphology where consonants are inserted to avoid vowel clusters or to maintain phonological well-formedness.
 

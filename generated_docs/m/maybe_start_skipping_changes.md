@@ -8,7 +8,10 @@ maybe_start_skipping_changes is a static function that conditionally initiates t
 
 ## Definition
 
-
+```c
+static void
+maybe_start_skipping_changes(XLogRecPtr finish_lsn)
+```
 ## Detailed Description
 This function implements a selective transaction skipping mechanism for logical replication. It evaluates whether a transaction should be skipped based on comparing the transaction's finish LSN with the subscription's skip LSN configuration. When a match is found, the function activates the skipping mode for the entire transaction, which allows logical replication to bypass problematic transactions that might cause replication failures.
 

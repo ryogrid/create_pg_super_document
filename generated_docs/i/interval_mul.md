@@ -8,7 +8,10 @@ A PostgreSQL function that implements interval multiplication by a floating-poin
 
 ## Definition
 
-
+```c
+Datum
+interval_mul(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function multiplies an interval by a floating-point factor, handling various edge cases including NaN, infinities, and overflow conditions. The implementation uses careful floating-point arithmetic with proper rounding and cascading of fractional units from higher to lower precision units.
 

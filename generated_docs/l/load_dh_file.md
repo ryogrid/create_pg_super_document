@@ -8,7 +8,10 @@ Loads and validates precomputed Diffie-Hellman (DH) parameters from a file to pr
 
 ## Definition
 
-
+```c
+static DH  *
+load_dh_file(char *filename, bool isServerStart)
+```
 ## Detailed Description
 This function loads DH parameters from a PEM-formatted file and performs comprehensive validation to ensure the parameters are cryptographically sound. It implements security measures to prevent "downgrade" attacks by verifying that the DBA-generated DH parameters file contains expected and secure values. The function performs multiple checks including prime validation, generator suitability, and safe prime verification.
 

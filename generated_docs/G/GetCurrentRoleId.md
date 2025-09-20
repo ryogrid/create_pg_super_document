@@ -8,7 +8,10 @@ GetCurrentRoleId returns the current role ID following SET ROLE semantics, provi
 
 ## Definition
 
-
+```c
+Oid
+GetCurrentRoleId(void)
+```
 ## Detailed Description
 This function reports the current role ID following the semantics of PostgreSQL's SET ROLE command. It returns the outer-level user ID rather than the current effective ID, and returns InvalidOid when the setting is logically equivalent to 'SET ROLE NONE'. The function checks the global SetRoleIsActive flag to determine whether a role is currently active. If a role is active, it returns the OuterUserId; otherwise, it returns InvalidOid to indicate no role is set.
 

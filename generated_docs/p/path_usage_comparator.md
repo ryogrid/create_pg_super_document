@@ -8,7 +8,10 @@ A qsort comparator function used to sort PathClauseUsage structures in increasin
 
 ## Definition
 
-
+```c
+static int
+path_usage_comparator(const void *a, const void *b)
+```
 ## Detailed Description
 This static comparator function is used by qsort to order PathClauseUsage entries based on their associated bitmap tree node costs. It first compares the access costs of two PathClauseUsage structures, and if the costs are equal, it uses selectivity as a tiebreaker. The function implements a standard three-way comparison returning -1, 0, or 1 to indicate the relative ordering of the two elements.
 

@@ -8,7 +8,10 @@ ExecEndForeignScan performs cleanup and shutdown operations for a foreign scan n
 
 ## Definition
 
-
+```c
+void
+ExecEndForeignScan(ForeignScanState *node)
+```
 ## Detailed Description
 ExecEndForeignScan serves as the cleanup and shutdown function for foreign scan operations in PostgreSQL's executor framework. This function is responsible for properly terminating foreign scan execution by ensuring all resources are freed and all FDW-specific cleanup is performed.
 

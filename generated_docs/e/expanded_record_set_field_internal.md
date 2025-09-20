@@ -8,7 +8,11 @@ Sets the value of a specific field in an expanded record, with support for domai
 
 ## Definition
 
-
+```c
+structed the tuple, do that */
+	if (!(erh->flags & ER_FLAG_DVALUES_VALID))
+		deconstruct_expanded_record(erh);
+```
 ## Detailed Description
 This function provides the comprehensive backend implementation for field assignment in expanded records. It handles multiple complex scenarios including domain constraint validation, external value detoasting, memory context management, and proper cleanup of replaced values.
 

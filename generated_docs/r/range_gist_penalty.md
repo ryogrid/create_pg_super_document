@@ -8,7 +8,10 @@ Implements the GiST penalty function for range types, calculating the cost of in
 
 ## Definition
 
-
+```c
+Datum
+range_gist_penalty(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a crucial component of the GiST index implementation for range types. It calculates a penalty value that represents the cost of adding a new range to an existing index entry. This penalty guides the GiST algorithm in making optimal decisions about where to insert new entries and how to split index pages when they become full.
 

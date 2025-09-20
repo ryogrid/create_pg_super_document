@@ -8,7 +8,10 @@ minmax_multi_init is a constructor function that allocates and initializes a new
 
 ## Definition
 
-
+```c
+static Ranges *
+minmax_multi_init(int maxvalues)
+```
 ## Detailed Description
 This function serves as the primary constructor for the Ranges data structure used in BRIN minmax-multi access method. It allocates memory for the complete structure including space for the maximum number of Datum values that the ranges can hold. The function uses a single memory allocation to avoid fragmentation and improve performance.
 

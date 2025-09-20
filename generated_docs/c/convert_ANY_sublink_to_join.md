@@ -8,7 +8,11 @@ Converts an ANY SubLink expression into a semi-join (JOIN_SEMI) by pulling up th
 
 ## Definition
 
-
+```c
+JoinExpr *
+convert_ANY_sublink_to_join(PlannerInfo *root, SubLink *sublink,
+							Relids available_rels)
+```
 ## Detailed Description
 This function implements a critical query optimization technique in PostgreSQL by converting EXISTS-equivalent ANY sublinks into semi-joins. Semi-joins are often more efficiently executed than correlated subqueries because they can leverage hash joins, nested loops, and other join algorithms instead of repetitive subquery evaluation.
 

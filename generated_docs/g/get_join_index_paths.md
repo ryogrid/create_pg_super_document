@@ -8,7 +8,17 @@ Generates index paths using clauses from specified outer relations by collecting
 
 ## Definition
 
-
+```c
+static void
+get_join_index_paths(PlannerInfo *root, RelOptInfo *rel,
+					 IndexOptInfo *index,
+					 IndexClauseSet *rclauseset,
+					 IndexClauseSet *jclauseset,
+					 IndexClauseSet *eclauseset,
+					 List **bitindexpaths,
+					 Relids relids,
+					 List **considered_relids)
+```
 ## Detailed Description
 This function serves as the final step in parameterized index path generation, responsible for:
 

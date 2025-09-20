@@ -8,7 +8,10 @@ Imports a file from the client filesystem into a PostgreSQL large object, automa
 
 ## Definition
 
-
+```c
+Oid
+lo_import(PGconn *conn, const char *filename)
+```
 ## Detailed Description
 The  function is a convenience wrapper that imports a file from the client's filesystem into a new PostgreSQL large object. It automatically creates a new large object with a system-assigned OID and copies the entire contents of the specified file into it. The function is implemented as a simple wrapper around  with  as the OID parameter, which tells the internal function to create a new large object with an automatically assigned OID.
 

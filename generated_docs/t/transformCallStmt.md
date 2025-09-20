@@ -8,7 +8,10 @@ Transforms a CALL statement (procedure call) into a CMD_UTILITY Query node, hand
 
 ## Definition
 
-
+```c
+static Query *
+transformCallStmt(ParseState *pstate, CallStmt *stmt)
+```
 ## Detailed Description
 This function transforms a CALL statement used to invoke stored procedures. It performs comprehensive argument processing including transformation of input arguments, resolution of the called procedure, expansion of arguments to handle named parameters and defaults, and separation of arguments into input and output categories based on their parameter modes.
 

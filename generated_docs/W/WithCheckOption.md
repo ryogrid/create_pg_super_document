@@ -8,7 +8,17 @@ WithCheckOption represents a WITH CHECK OPTION constraint used in views and Row 
 
 ## Definition
 
-
+```c
+typedef struct WithCheckOption
+{
+	NodeTag		type;
+	WCOKind		kind;			/* kind of WCO */
+	char	   *relname;		/* name of relation that specified the WCO */
+	char	   *polname;		/* name of RLS policy being checked */
+	Node	   *qual;			/* constraint qual to check */
+	bool		cascaded;		/* true for a cascaded WCO on a view */
+} WithCheckOption;
+```
 ## Detailed Description
 WithCheckOption implements constraint checking for WITH CHECK OPTION clauses in views and Row Level Security policies. When a view is defined with WITH CHECK OPTION (either LOCAL or CASCADED), or when RLS policies are active, this structure ensures that INSERT and UPDATE operations produce rows that satisfy the specified constraints.
 

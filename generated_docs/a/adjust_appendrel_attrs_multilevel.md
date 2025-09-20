@@ -8,7 +8,12 @@ Handles variable translation through multiple levels of inheritance hierarchy, r
 
 ## Definition
 
-
+```c
+Node *
+adjust_appendrel_attrs_multilevel(PlannerInfo *root, Node *node,
+								  RelOptInfo *childrel,
+								  RelOptInfo *parentrel)
+```
 ## Detailed Description
 This function manages the complex scenario where a child relation is separated from its ultimate parent by multiple inheritance levels. It recursively traverses up the inheritance hierarchy, applying variable translations at each level until it reaches the specified parent relation. The function ensures that expressions referencing variables in ancestor relations are properly translated to reference the corresponding variables in the target child relation, handling the multi-step transformation that may be required in deep inheritance hierarchies.
 

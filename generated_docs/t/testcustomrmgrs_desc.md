@@ -8,7 +8,10 @@ Formats a human-readable description of test custom resource manager WAL records
 
 ## Definition
 
-
+```c
+void
+testcustomrmgrs_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The  function implements the description callback for the test_custom_rmgrs custom WAL resource manager. This function is part of the RMGR API and is called to generate human-readable descriptions of WAL records for debugging tools, log analysis, and WAL examination utilities like .
 

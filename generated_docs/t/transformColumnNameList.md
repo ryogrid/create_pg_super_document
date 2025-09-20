@@ -8,7 +8,11 @@ transformColumnNameList transforms a list of column names into their correspondi
 
 ## Definition
 
-
+```c
+static int
+transformColumnNameList(Oid relId, List *colList,
+						int16 *attnums, Oid *atttypids)
+```
 ## Detailed Description
 This function takes a list of column names and resolves them to their internal attribute numbers and type OIDs for a given relation. It performs several validation checks to ensure the columns are suitable for use in foreign key constraints:
 

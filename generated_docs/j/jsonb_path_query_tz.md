@@ -8,7 +8,10 @@ PostgreSQL function that executes a JSONPath query against a JSONB document with
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_query_tz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a timezone-aware wrapper for JSONPath query execution. It delegates the actual query processing to  with the timezone flag set to true, enabling timezone-aware datetime operations during path expression evaluation. This allows JSONPath expressions to properly handle datetime operations that depend on timezone information.
 

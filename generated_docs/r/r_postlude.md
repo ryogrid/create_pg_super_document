@@ -8,7 +8,11 @@ Performs final post-processing operations on Turkish words after stemming, inclu
 
 ## Definition
 
+```c
+}
 
+static int r_postlude(struct SN_env * z)
+```
 ## Detailed Description
 This function serves as the final cleanup phase in the Turkish stemming process, orchestrating three critical post-processing operations:
 

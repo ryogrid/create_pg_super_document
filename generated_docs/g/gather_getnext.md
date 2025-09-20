@@ -8,7 +8,10 @@ The core tuple retrieval function for Gather nodes that implements the logic for
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+gather_getnext(GatherState *gatherstate)
+```
 ## Detailed Description
 gather_getnext implements the central tuple retrieval strategy for parallel query execution. It manages two possible sources of tuples: worker processes (accessed through tuple queues) and local execution of the child plan. The function operates in a loop, first attempting to read from worker processes using gather_readnext, and if no tuple is available from workers, it may execute the plan locally if need_to_scan_locally is true.
 

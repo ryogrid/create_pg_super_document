@@ -8,7 +8,22 @@ The  struct defines formatting options for printing PostgreSQL query results. It
 
 ## Definition
 
-
+```c
+typedef struct _PQprintOpt
+{
+	pqbool		header;			/* print output field headings and row count */
+	pqbool		align;			/* fill align the fields */
+	pqbool		standard;		/* old brain dead format */
+	pqbool		html3;			/* output html tables */
+	pqbool		expanded;		/* expand tables */
+	pqbool		pager;			/* use pager for output if needed */
+	char	   *fieldSep;		/* field separator */
+	char	   *tableOpt;		/* insert to HTML <table ...> */
+	char	   *caption;		/* HTML <caption> */
+	char	  **fieldName;		/* null terminated array of replacement field
+								 * names */
+} PQprintOpt;
+```
 ## Detailed Description
 The  structure is a configuration container for controlling the output formatting of PostgreSQL query results through libpq. It supports multiple output formats including standard text, aligned columns, HTML tables, and expanded (vertical) display modes. The structure allows fine-grained control over field separators, HTML table attributes, captions, and custom field names. This struct is typically used with PostgreSQL client applications that need to format query results for display or export purposes.
 

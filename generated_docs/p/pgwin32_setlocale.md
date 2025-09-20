@@ -8,7 +8,10 @@ A Windows-specific wrapper around the standard  function that works around two k
 
 ## Definition
 
-
+```c
+char *
+pgwin32_setlocale(int category, const char *locale)
+```
 ## Detailed Description
 The  function serves as a drop-in replacement for the standard  function on Windows, addressing two specific problems:
 

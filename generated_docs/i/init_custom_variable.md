@@ -8,7 +8,16 @@ Common initialization function for custom GUC variables that allocates and confi
 
 ## Definition
 
-
+```c
+static struct config_generic *
+init_custom_variable(const char *name,
+					 const char *short_desc,
+					 const char *long_desc,
+					 GucContext context,
+					 int flags,
+					 enum config_type type,
+					 size_t sz)
+```
 ## Detailed Description
 This internal function serves as the common initialization routine for all DefineCustomXXXVariable functions. It allocates memory for a new custom GUC variable's configuration structure and fills in the generic fields that are common to all variable types. The function performs several validation checks to ensure custom variables are created safely and securely, including restrictions on PGC_POSTMASTER variables (must be created during shared library preload) and security restrictions on certain pljava variables.
 

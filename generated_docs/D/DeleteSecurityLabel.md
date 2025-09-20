@@ -8,7 +8,10 @@ DeleteSecurityLabel removes all security labels for a specified database object 
 
 ## Definition
 
-
+```c
+void
+DeleteSecurityLabel(const ObjectAddress *object)
+```
 ## Detailed Description
 DeleteSecurityLabel removes all security labels associated with a database object from the appropriate system catalog. The function handles both regular objects (using pg_seclabel) and shared objects (delegating to DeleteSharedSecurityLabel for pg_shseclabel). For regular objects, it can delete labels for either a specific sub-object (when objectSubId is non-zero) or all sub-objects of the main object (when objectSubId is zero).
 

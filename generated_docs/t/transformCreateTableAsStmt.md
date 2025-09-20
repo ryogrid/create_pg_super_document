@@ -8,7 +8,10 @@ Transforms CREATE TABLE AS, SELECT INTO, or CREATE MATERIALIZED VIEW statements 
 
 ## Definition
 
-
+```c
+static Query *
+transformCreateTableAsStmt(ParseState *pstate, CreateTableAsStmt *stmt)
+```
 ## Detailed Description
 This function transforms statements that create new tables or materialized views from the results of a query. It handles three types of statements: CREATE TABLE AS, SELECT INTO, and CREATE MATERIALIZED VIEW. The function first transforms the contained query, then applies additional validation and processing specific to materialized views.
 

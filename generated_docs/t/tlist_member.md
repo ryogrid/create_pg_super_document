@@ -8,7 +8,10 @@ Searches a target list for an entry whose expression matches a given expression 
 
 ## Definition
 
-
+```c
+TargetEntry *
+tlist_member(Expr *node, List *targetlist)
+```
 ## Detailed Description
 The  function performs a linear search through a target list to find the first  whose expression is equal to the provided node expression. It uses PostgreSQL's  function to perform deep structural comparison of the expressions. This is a fundamental utility function used throughout the optimizer for finding existing target list entries to avoid duplication.
 

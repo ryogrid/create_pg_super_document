@@ -8,7 +8,10 @@ Converts a string representation of a character to a single character value, han
 
 ## Definition
 
-
+```c
+Datum
+charin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The charin function is the input function for PostgreSQL's "char" (single character) data type. It accepts string input and converts it to a single character value. The function handles two main input formats:
 

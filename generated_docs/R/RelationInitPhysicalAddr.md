@@ -8,7 +8,10 @@ Initializes the physical addressing information (RelFileLocator) for a relation 
 
 ## Definition
 
-
+```c
+enumber(relation->rd_id,
+									   relation->rd_rel->relisshared);
+```
 ## Detailed Description
 This function sets up the RelFileLocator structure within a relation descriptor to establish the physical location of the relation's data files on disk. It handles different scenarios including normal relations with explicit file nodes, mapped relations that require consultation with the relation mapper, and special cases for global tablespace relations.
 

@@ -8,7 +8,10 @@ Dumps comments associated with table constraints, handling the proper formatting
 
 ## Definition
 
-
+```c
+static void
+dumpTableConstraintComment(Archive *fout, const ConstraintInfo *coninfo)
+```
 ## Detailed Description
 The  function is a specialized utility for dumping comments on table constraints. It was split out as a separate function because constraint comments need to be handled in two different contexts:
 

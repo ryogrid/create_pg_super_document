@@ -8,7 +8,14 @@ A structure that provides indexed access to target list entries, optimizing look
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PlannerInfo *root;
+	int			rtoffset;
+	double		num_exec;
+} fix_scan_expr_context;
+```
 ## Detailed Description
 The  structure is a performance optimization used in PostgreSQL's query planner to provide efficient access to target list entries during expression fixing phases. It acts as an indexed view over a target list, pre-computing and caching information about variable references to avoid repeated linear searches through the target list.
 

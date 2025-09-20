@@ -8,7 +8,10 @@ Generates detailed error messages explaining why a database operation failed due
 
 ## Definition
 
-
+```c
+static int
+errdetail_busy_db(int notherbackends, int npreparedxacts)
+```
 ## Detailed Description
 This utility function creates user-friendly error detail messages when database operations (such as DROP DATABASE, CREATE DATABASE with template, RENAME DATABASE, or moving databases between tablespaces) cannot proceed because the target database is currently in use. The function intelligently formats messages based on the specific types of database activity preventing the operation.
 

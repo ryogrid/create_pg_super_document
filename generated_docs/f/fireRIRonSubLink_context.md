@@ -8,7 +8,13 @@ A context structure used during the firing of Row-level Insert/Update/Delete (RI
 
 ## Definition
 
-
+```c
+typedef struct fireRIRonSubLink_context
+{
+	List	   *activeRIRs;
+	bool		hasRowSecurity;
+} fireRIRonSubLink_context;
+```
 ## Detailed Description
 The  structure provides essential context information when processing RIR (Row-level Insert/Update/Delete) rules on sublinks within query rewriting. It tracks the list of currently active RIR rules to prevent infinite recursion and maintains information about whether row-level security policies are involved in the current rewrite operation. This context is crucial for ensuring proper rule processing while avoiding infinite loops and correctly handling security constraints.
 

@@ -8,7 +8,10 @@ Adjusts an Aggref node in-place to represent a partial-aggregation step as part 
 
 ## Definition
 
-
+```c
+void
+mark_partial_aggref(Aggref *agg, AggSplit aggsplit)
+```
 ## Detailed Description
 This function modifies an existing Aggref node to transform it from a simple aggregation into a partial aggregation step. This is a key component of PostgreSQL's parallel aggregation optimization, where aggregation can be split across multiple phases (e.g., partial aggregation in worker processes followed by final aggregation in the leader process).
 

@@ -8,7 +8,10 @@ This function creates a consistent snapshot of I/O statistics for all backend ty
 
 ## Definition
 
-
+```c
+struct assignment due to better type safety */
+		*bktype_snap = *bktype_shstats;
+```
 ## Detailed Description
 The  function is a callback function that creates a consistent snapshot of I/O statistics. It iterates through all backend types (BACKEND_NUM_TYPES) and copies the I/O statistics from the shared memory statistics area to the local snapshot area. Each backend type's statistics are protected by their own LWLock to ensure data consistency during the copy operation.
 

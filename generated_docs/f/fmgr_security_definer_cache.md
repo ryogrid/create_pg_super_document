@@ -8,7 +8,17 @@ This structure caches information required for executing security-definer functi
 
 ## Definition
 
-
+```c
+struct fmgr_security_definer_cache
+{
+	FmgrInfo	flinfo;			/* lookup info for target function */
+	Oid			userid;			/* userid to set, or InvalidOid */
+	List	   *configNames;	/* GUC names to set, or NIL */
+	List	   *configHandles;	/* GUC handles to set, or NIL */
+	List	   *configValues;	/* GUC values to set, or NIL */
+	Datum		arg;			/* passthrough argument for plugin modules */
+};
+```
 ## Detailed Description
 The fmgr_security_definer_cache structure is used to cache metadata for PostgreSQL functions that require special execution contexts. It supports two main features: security-definer functions (which run with the privileges of their owner rather than caller) and functions with proconfig settings (which modify GUC parameters during execution). The structure is designed to avoid repeated lookups of function metadata and GUC configuration during function execution, improving performance for these special function types.
 

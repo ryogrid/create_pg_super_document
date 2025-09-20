@@ -8,7 +8,12 @@ Builds a restricted targetlist index that only includes Vars belonging to relati
 
 ## Definition
 
-
+```c
+structure with enough slots for all tlist entries */
+	itlist = (indexed_tlist *)
+		palloc(offsetof(indexed_tlist, vars) +
+			   list_length(tlist) * sizeof(tlist_vinfo));
+```
 ## Detailed Description
 This function creates a specialized index structure similar to build_tlist_index, but with filtering applied to exclude variables from a specific relation. It is designed for scenarios where you need to match variables from all relations except one particular relation (specified by ignore_rel parameter).
 

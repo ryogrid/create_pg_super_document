@@ -8,7 +8,11 @@ Converts a list of PublicationObjSpec objects into separate lists of table OIDs 
 
 ## Definition
 
-
+```c
+static void
+ObjectsInPublicationToOids(List *pubobjspec_list, ParseState *pstate,
+						   List **rels, List **schemas)
+```
 ## Detailed Description
 This function processes a list of PublicationObjSpec objects that represent different types of publication targets (individual tables, all tables in specific schemas, or all tables in the current schema) and separates them into two output lists: one for table relations and one for schema OIDs. It handles three publication object types: PUBLICATIONOBJ_TABLE for individual tables, PUBLICATIONOBJ_TABLES_IN_SCHEMA for all tables in named schemas, and PUBLICATIONOBJ_TABLES_IN_CUR_SCHEMA for all tables in the current schema from the search path.
 

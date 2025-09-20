@@ -8,7 +8,9 @@ ArrayIterator is an opaque pointer type used for efficient iteration through Pos
 
 ## Definition
 
-
+```c
+typedef struct ArrayIteratorData *ArrayIterator;
+```
 ## Detailed Description
 ArrayIterator provides a high-level interface for iterating through PostgreSQL arrays in a memory-efficient manner. The actual implementation details are encapsulated in the ArrayIteratorData structure, which is private to arrayfuncs.c. This design supports two iteration modes: element-by-element iteration where individual datums of the array's element type are returned, and slice-based iteration where sub-arrays of the original array type are returned.
 

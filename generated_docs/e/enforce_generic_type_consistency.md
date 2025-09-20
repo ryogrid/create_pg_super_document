@@ -8,7 +8,9 @@ Enforces type consistency rules for polymorphic functions and deduces actual arg
 
 ## Definition
 
-
+```c
+enum = (rettype == ANYENUMOID);
+```
 ## Detailed Description
 This function ensures that polymorphic functions are legally callable by enforcing consistency rules among polymorphic arguments and deducing concrete types. It handles two families of polymorphic types:
 

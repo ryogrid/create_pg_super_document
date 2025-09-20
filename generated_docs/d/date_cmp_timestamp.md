@@ -8,7 +8,10 @@ Provides a three-way comparison between a date value and a timestamp value, retu
 
 ## Definition
 
-
+```c
+Datum
+date_cmp_timestamp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the comparison function used for sorting and ordering operations between DATE and TIMESTAMP types in PostgreSQL. It extracts a DateADT value and a Timestamp value from the function arguments, then delegates the actual comparison logic to the internal helper function date_cmp_timestamp_internal(). The function returns an integer: negative if date < timestamp, zero if date = timestamp, or positive if date > timestamp.
 

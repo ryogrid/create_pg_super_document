@@ -8,7 +8,10 @@ CheckAndSetLockHeld is a debug utility function that tracks whether the current 
 
 ## Definition
 
-
+```c
+static inline void
+CheckAndSetLockHeld(LOCALLOCK *locallock, bool acquired)
+```
 ## Detailed Description
 CheckAndSetLockHeld is a specialized tracking function that maintains the global flag IsRelationExtensionLockHeld to indicate whether the current backend holds a relation extension lock. This function is only active when assertion checking is enabled (USE_ASSERT_CHECKING), serving as a debugging aid to detect improper lock acquisition patterns.
 

@@ -8,7 +8,10 @@ Handles the STREAM START message in logical replication, initiating the processi
 
 ## Definition
 
-
+```c
+static void
+apply_handle_stream_start(StringInfo s)
+```
 ## Detailed Description
 This function processes STREAM START messages during logical replication, which signal the beginning of a streaming transaction. It performs several critical tasks:
 

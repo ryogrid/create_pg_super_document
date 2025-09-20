@@ -8,7 +8,10 @@ Returns an array containing n randomly chosen first-dimension elements from the 
 
 ## Definition
 
-
+```c
+Datum
+array_sample(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements a PostgreSQL built-in function that performs random sampling from the first dimension of an array. It takes an input array and a sample size n, then returns a new array containing n randomly selected elements from the first dimension of the input array. The sampling is performed without replacement, meaning each element can only appear once in the result.
 

@@ -8,7 +8,10 @@ Validates that a function meets the requirements to serve as a transform functio
 
 ## Definition
 
-
+```c
+static void
+check_transform_function(Form_pg_proc procstruct)
+```
 ## Detailed Description
 check_transform_function is a static helper function that validates whether a function can be used as a transform function in Postgreural language transforms. Transform functions are used to convert between SQL data types and procedural language-specific representations.
 

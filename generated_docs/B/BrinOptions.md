@@ -8,7 +8,14 @@ BrinOptions is a PostgreSQL data structure that stores the reloptions (relation 
 
 ## Definition
 
-
+```c
+typedef struct BrinOptions
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	BlockNumber pagesPerRange;
+	bool		autosummarize;
+} BrinOptions;
+```
 ## Detailed Description
 BrinOptions is a varlena structure that encapsulates configuration options for BRIN indexes. BRIN indexes are designed to efficiently index very large tables by storing summary information about ranges of table blocks. This structure allows users to customize two key aspects of BRIN index behavior:
 

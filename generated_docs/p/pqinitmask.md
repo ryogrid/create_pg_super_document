@@ -8,7 +8,10 @@ Initializes the global signal mask sets used throughout PostgreSQL for signal ma
 
 ## Definition
 
-
+```c
+void
+pqinitmask(void)
+```
 ## Detailed Description
 The  function initializes three global signal mask sets that control which signals are blocked or allowed during different phases of PostgreSQL operation:
 

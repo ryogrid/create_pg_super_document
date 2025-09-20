@@ -8,7 +8,11 @@ A specialized comparison function for hash index sorting that orders tuples by b
 
 ## Definition
 
-
+```c
+static int
+comparetup_index_hash(const SortTuple *a, const SortTuple *b,
+					  Tuplesortstate *state)
+```
 ## Detailed Description
 This function implements a three-level comparison strategy specifically designed for hash index tuple sorting:
 

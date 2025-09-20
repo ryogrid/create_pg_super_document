@@ -8,7 +8,10 @@ Checks if a given type is a preferred type within its category or within a speci
 
 ## Definition
 
-
+```c
+bool
+IsPreferredType(TYPCATEGORY category, Oid type)
+```
 ## Detailed Description
 This function determines whether a specified type is marked as "preferred" within its type category. Preferred types are used by PostgreSQL's type resolution system to break ties when multiple types could potentially be used for an operation.
 

@@ -8,7 +8,16 @@ Main entry point for estimating the selectivity of a clause list using functiona
 
 ## Definition
 
-
+```c
+Selectivity
+dependencies_clauselist_selectivity(PlannerInfo *root,
+									List *clauses,
+									int varRelid,
+									JoinType jointype,
+									SpecialJoinInfo *sjinfo,
+									RelOptInfo *rel,
+									Bitmapset **estimatedclauses)
+```
 ## Detailed Description
 This function serves as the primary interface for applying functional dependency statistics during selectivity estimation. It implements a sophisticated multi-stage algorithm:
 

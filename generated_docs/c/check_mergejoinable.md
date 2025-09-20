@@ -8,7 +8,10 @@ Determines if a restriction clause is suitable for merge join operations and pop
 
 ## Definition
 
-
+```c
+static void
+check_mergejoinable(RestrictInfo *restrictinfo)
+```
 ## Detailed Description
 This function evaluates whether a given restriction clause can be used in merge join operations, which are one of PostgreSQL's fundamental join algorithms. Merge joins require the input relations to be sorted on the join keys and work by merging the sorted streams together, making them particularly efficient for large datasets that are already sorted or can be efficiently sorted.
 

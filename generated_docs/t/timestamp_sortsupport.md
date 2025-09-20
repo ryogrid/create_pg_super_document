@@ -8,7 +8,10 @@ The timestamp_sortsupport function provides sort support functionality for times
 
 ## Definition
 
-
+```c
+Datum
+timestamp_sortsupport(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's sort support interface for timestamp values. It examines the build configuration to determine the most efficient comparison method. On platforms where SIZEOF_DATUM >= 8 (64-bit builds with pass-by-value timestamps), it uses the standard signed datum comparator (ssup_datum_signed_cmp). On smaller platforms where timestamps are passed by reference, it falls back to the specialized timestamp_fastcmp function. This conditional approach optimizes sorting performance based on the underlying timestamp representation.
 

@@ -8,7 +8,10 @@ Detects whether a specified relation can legally be joined to any other relation
 
 ## Definition
 
-
+```c
+union */
+			joinrelids = bms_union(rel->relids, rel2->relids);
+```
 ## Detailed Description
 This function examines whether a given relation can participate in legal joins with other relations in the current planning context. It iterates through all relations in the  list and checks if there are relevant join clauses between the target relation and each candidate relation. For each potential join, it verifies that the join is legally permissible according to PostgreSQL's join ordering constraints.
 

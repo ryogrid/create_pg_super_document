@@ -8,7 +8,11 @@ Allocates memory from a specified memory context with custom byte alignment requ
 
 ## Definition
 
-
+```c
+void *
+MemoryContextAllocAligned(MemoryContext context,
+						  Size size, Size alignto, int flags)
+```
 ## Detailed Description
 The `MemoryContextAllocAligned` function provides memory allocation with custom alignment requirements from a specified memory context. It addresses the need for memory aligned to boundaries larger than the standard `MAXIMUM_ALIGNOF` guarantee provided by regular memory allocation functions.
 

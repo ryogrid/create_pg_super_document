@@ -8,7 +8,11 @@ Converts an expression from one data type to a different type, implementing the 
 
 ## Definition
 
-
+```c
+enum, range, or multirange
+		 * type.  In particular the argument must *not* be an UNKNOWN
+		 * constant.  If it is, we just fall through;
+```
 ## Detailed Description
 This function performs the fundamental type conversion operations in PostgreSQL, handling various coercion scenarios:
 

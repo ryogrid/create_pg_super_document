@@ -8,7 +8,9 @@ Determines whether a checkpoint (or restartpoint during recovery) is progressing
 
 ## Definition
 
-
+```c
+struct timeval now;
+```
 ## Detailed Description
 This function evaluates checkpoint progress by comparing current advancement against two criteria: time elapsed since checkpoint start and WAL segments written since checkpoint start. It scales the progress according to  and uses caching to avoid expensive calculations when progress hasn't reached the previously calculated target.
 

@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) show hook function that displays the current
 
 ## Definition
 
-
+```c
+const char *
+show_tcp_keepalives_idle(void)
+```
 ## Detailed Description
 This function serves as the display hook for the PostgreSQL GUC parameter . It retrieves the current TCP keepalive idle timeout setting for the active client connection (MyProcPort) and formats it as a string for display. The function uses a static buffer to store the formatted integer value, which represents the number of seconds before keepalive probes are sent on an idle connection.
 

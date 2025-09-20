@@ -8,7 +8,10 @@ A public function that handles shared invalidation (SI) cache flush messages by 
 
 ## Definition
 
-
+```c
+void
+RelationMapInvalidate(bool shared)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's shared invalidation system, responsible for maintaining cache consistency across multiple backend processes. When an SI cache flush message is received, this function determines whether to reload the appropriate relation mapping file (shared or local). It includes an important safety mechanism: it only attempts to reload a mapping file if it's currently loaded and valid (indicated by the magic number). This prevents issues in processes like the autovacuum launcher that should not attempt to read local maps since they're not attached to any particular database.
 

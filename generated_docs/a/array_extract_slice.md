@@ -8,7 +8,13 @@ Extracts a slice of a multidimensional array into consecutive elements in a dest
 
 ## Definition
 
-
+```c
+structed.  destArray must already
+ * have been allocated and its header initialized.
+ *
+ * st[]/endp[] identify the slice to be replaced.  Elements within the slice
+ * volume are taken from consecutive elements of the srcArray;
+```
 ## Detailed Description
 This function performs the core logic for extracting a slice from a multidimensional array. It iterates through the specified slice coordinates, copying each element from the source array to consecutive positions in the destination array. The function handles both the data copying (using ) and null bitmap copying (using ) to ensure complete slice extraction. It uses PostgreSQL's multidimensional array navigation utilities to efficiently traverse the slice boundaries and skip unwanted elements. The destination array is assumed to be properly allocated and initialized by the caller.
 

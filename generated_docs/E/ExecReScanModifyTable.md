@@ -8,7 +8,10 @@ A placeholder function that explicitly prevents rescanning of ModifyTable nodes 
 
 ## Definition
 
-
+```c
+void
+ExecReScanModifyTable(ModifyTableState *node)
+```
 ## Detailed Description
 This function is part of PostgreSQL's executor node interface that requires all plan node types to implement a rescan method. However, for ModifyTable nodes, the concept of rescanning is semantically problematic and not currently supported.
 

@@ -8,7 +8,10 @@ Returns a string representation of the partition key column definitions for a pa
 
 ## Definition
 
-
+```c
+char *
+pg_get_partkeydef_columns(Oid relid, bool pretty)
+```
 ## Detailed Description
 This function is an internal version of the partition key definition retrieval that specifically reports only the column definitions portion of a partition key. It serves as a wrapper around  with specific parameters to return just the column information. The function is used when you need to extract only the column names and expressions that make up a partition key, without the full SQL syntax that would normally include the "PARTITION BY" clause.
 

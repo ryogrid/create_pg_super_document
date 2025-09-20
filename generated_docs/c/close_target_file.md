@@ -8,7 +8,10 @@ Closes the currently open target file in pg_rewind's file operations system.
 
 ## Definition
 
-
+```c
+void
+close_target_file(void)
+```
 ## Detailed Description
 This function safely closes the currently open target file managed by the file operations module. It checks if a file is actually open (dstfd != -1) before attempting to close it, making it safe to call multiple times. Upon successful closure, it resets the global file descriptor to -1 to indicate no file is currently open. If the close operation fails, it terminates the program with a fatal error message including the file path and system error details.
 

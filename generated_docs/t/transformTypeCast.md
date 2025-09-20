@@ -8,7 +8,42 @@ Handles explicit CAST constructs in PostgreSQL by transforming the argument, loo
 
 ## Definition
 
+```c
+struct and the target
+	 * type is an array type, we invoke transformArrayExpr() directly so that
+	 * we can pass down the type information.  This avoids some cases where
+	 * transformArrayExpr() might not infer the correct type.  Otherwise, just
+	 * transform the argument normally.
+	 */
+	if (IsA(arg, A_ArrayExpr))
+	{
+		Oid			targetBaseType;
+		int32		targetBaseTypmod;
+		Oid			elementType;
 
+		/*
+		 * If target is a domain over array, work with the base array type
+		 * here.  Below, we'll cast the array type to the domain.  In the
+		 * usual case that the target is not a domain, the remaining steps
+		 * will be a no-op.
+		 */
+		targetBaseTypmod = targetTypmod;
+		targetBaseType = getBaseTypeAndTypmod(targetType, &targetBaseTypmod);
+		elementType = get_element_type(targetBaseType);
+		if (OidIsValid(elementType))
+		{
+			expr = transformArrayExpr(pstate,
+									  (A_ArrayExpr *) arg,
+									  targetBaseType,
+									  elementType,
+									  targetBaseTypmod);
+		}
+		else
+			expr = transformExprRecurse(pstate, arg);
+	}
+	else
+		expr = transformExprRecurse(pstate, arg);
+```
 ## Detailed Description
 The  function is responsible for processing explicit type cast operations in SQL expressions (e.g.,  or ). It performs type conversion by first determining the target type and then applying the appropriate coercion mechanisms. The function includes special handling for array expressions, where it can pass down type information to improve type inference. When the target type is an array and the source is an ARRAY[] construct, it invokes  directly to ensure correct type handling. For domain types over arrays, it works with the base array type first and then casts to the domain. The function validates that the conversion is possible and reports appropriate errors if the cast cannot be performed.
 

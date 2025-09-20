@@ -8,7 +8,10 @@ Provides human-readable descriptions of commit timestamp WAL record operations f
 
 ## Definition
 
-
+```c
+void
+commit_ts_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This function is part of PostgreSQL's WAL (Write-Ahead Logging) system and specifically handles the description of commit timestamp-related WAL records. It extracts information from WAL records and formats them into human-readable strings for debugging, logging, and diagnostic purposes. The function processes two types of commit timestamp operations: ZEROPAGE (for initializing pages) and TRUNCATE (for removing old commit timestamp data).
 

@@ -8,7 +8,10 @@ Converts a variable-length bit string to a fixed-length bit string with a specif
 
 ## Definition
 
-
+```c
+Datum
+bit(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that performs length conversion for bit strings, specifically converting from variable-length bit strings () to fixed-length bit strings () with a specified target length. This function handles both explicit and implicit type casts differently:
 

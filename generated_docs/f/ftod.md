@@ -8,7 +8,10 @@ A conversion function that converts a float4 (single precision) number to a floa
 
 ## Definition
 
-
+```c
+Datum
+ftod(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs a simple type conversion from PostgreSQL's float4 data type (single precision floating point) to float8 data type (double precision floating point). The conversion is straightforward, utilizing C's built-in type casting to promote the single-precision value to double precision. This function is part of PostgreSQL's type conversion infrastructure and enables implicit and explicit conversions between floating-point precisions.
 

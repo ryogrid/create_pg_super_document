@@ -8,7 +8,10 @@ Determines whether a subscription has any associated relation subscriptions by c
 
 ## Definition
 
-
+```c
+bool
+HasSubscriptionRelations(Oid subid)
+```
 ## Detailed Description
 HasSubscriptionRelations is a utility function that performs a quick existence check to determine if a given subscription has any table relations associated with it. The function opens the pg_subscription_rel system catalog and performs a scan looking for any tuples with the specified subscription ID. It's designed as an efficient boolean check that avoids the overhead of building a complete list of relations when only a true/false answer is needed.
 

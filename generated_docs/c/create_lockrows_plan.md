@@ -8,7 +8,11 @@ Creates a LockRows plan node that implements row-level locking operations, typic
 
 ## Definition
 
-
+```c
+static LockRows *
+create_lockrows_plan(PlannerInfo *root, LockRowsPath *best_path,
+					 int flags)
+```
 ## Detailed Description
 This function constructs a LockRows plan node that handles row-level locking in PostgreSQL queries. The LockRows operation is used to implement various locking modes like SELECT FOR UPDATE, SELECT FOR SHARE, and similar constructs that need to acquire locks on specific rows during query execution. The function creates a plan for the underlying subpath and configures the LockRows node with the appropriate row marks and evaluation-time parameters needed for proper lock acquisition and management.
 

@@ -8,7 +8,13 @@ SeqScanState represents the execution state for sequential scan operations in Po
 
 ## Definition
 
-
+```c
+typedef struct SeqScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	Size		pscan_len;		/* size of parallel heap scan descriptor */
+} SeqScanState;
+```
 ## Detailed Description
 SeqScanState is a specialized execution state structure used by PostgreSQL's executor for sequential table scans. It inherits from ScanState, which provides the basic scanning infrastructure including relation access, scan descriptors, and tuple slots. The structure adds specific support for parallel sequential scans through the pscan_len field, which tracks the size of the parallel heap scan descriptor used in parallel query execution.
 

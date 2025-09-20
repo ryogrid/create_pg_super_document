@@ -8,7 +8,9 @@ PostgreSQL SQL function that decodes text-encoded data back into binary format (
 
 ## Definition
 
-
+```c
+struct pg_encoding *enc;
+```
 ## Detailed Description
 The `binary_decode` function is a SQL-callable function that converts encoded text data back into binary format (`bytea`). It serves as the inverse operation to `binary_encode`, supporting various decoding schemes like base64, hex, and escape formats. The function takes two arguments: the encoded text data to decode and the name of the decoding method to use.
 

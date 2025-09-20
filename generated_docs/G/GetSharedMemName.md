@@ -8,7 +8,10 @@ Generates a unique shared memory segment name based on the PostgreSQL data direc
 
 ## Definition
 
-
+```c
+static char *
+GetSharedMemName(void)
+```
 ## Detailed Description
 This function creates a unique identifier for shared memory segments by expanding the data directory path and converting it into a suitable name format. The function performs several key operations:
 

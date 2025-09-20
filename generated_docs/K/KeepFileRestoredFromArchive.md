@@ -8,7 +8,9 @@ Moves a file restored from archive storage from its temporary location to the pe
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 KeepFileRestoredFromArchive finalizes the restoration of an archived file by moving it from its temporary restoration path to the permanent location in the pg_wal directory. The function handles the complexities of file replacement, particularly on Windows systems where open file handles can prevent immediate replacement.
 

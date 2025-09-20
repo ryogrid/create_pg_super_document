@@ -8,7 +8,10 @@ PostgreSQL SQL function that returns a text representation of a rewrite rule def
 
 ## Definition
 
-
+```c
+Datum
+pg_get_ruledef(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a public interface for retrieving the definition of a PostgreSQL rewrite rule in SQL text format. It takes a rule OID as input and returns the complete rule definition as text that can be executed to recreate the rule. The function uses default pretty-printing with indentation to format the output for better readability.
 

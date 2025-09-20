@@ -8,7 +8,10 @@ An error context callback function that inserts parser error location informatio
 
 ## Definition
 
-
+```c
+static void
+pcb_error_callback(void *arg)
+```
 ## Detailed Description
 This function serves as an error context callback that automatically adds parser location information to error reports. It is designed to be called for any error occurring while the callback is installed in the error context stack. The function intelligently avoids inserting irrelevant error location information for query cancellation errors, as these typically don't need location context.
 

@@ -8,7 +8,10 @@ Determines whether a table relation requires a TOAST (The Oversized-Attribute St
 
 ## Definition
 
-
+```c
+static inline bool
+table_relation_needs_toast_table(Relation rel)
+```
 ## Detailed Description
 This function provides a table access method interface for determining if a given relation needs a TOAST table. TOAST tables are auxiliary tables used in PostgreSQL to store large attribute values that exceed the maximum tuple size or page size limits. The function delegates to the underlying table access method's relation_needs_toast_table function, allowing different storage engines to implement their own logic for determining TOAST table requirements.
 

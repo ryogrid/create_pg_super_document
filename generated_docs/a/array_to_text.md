@@ -8,7 +8,10 @@ PostgreSQL built-in function that concatenates array elements into a single text
 
 ## Definition
 
-
+```c
+Datum
+array_to_text(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the main entry point for the array_to_text SQL function in PostgreSQL. It takes an array and a field separator as arguments and converts the array elements to their string representations, then concatenates them using the provided separator. The function is a thin wrapper around array_to_text_internal, handling argument extraction and result formatting according to PostgreSQL's function calling conventions. NULL array elements are simply skipped in the concatenation process (no null replacement string is used).
 

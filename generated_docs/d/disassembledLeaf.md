@@ -8,7 +8,42 @@ A structure type used in PostgreSQL's GIN (Generalized Inverted Index) implement
 
 ## Definition
 
+```c
+typedef struct
+{
+	dlist_node	node;			/* linked list pointers */
 
+	/*-------------
+	 * 'action' indicates the status of this in-memory segment, compared to
+	 * what's on disk. It is one of the GIN_SEGMENT_* action codes:
+	 *
+	 * UNMODIFIED	no changes
+	 * DELETE		the segment is to be removed. 'seg' and 'items' are
+	 *				ignored
+	 * INSERT		this is a completely new segment
+	 * REPLACE		this replaces an existing segment with new content
+	 * ADDITEMS		like REPLACE, but no items have been removed, and we track
+	 *				in detail what items have been added to this segment, in
+	 *				'modifieditems'
+	 *-------------
+	 */
+	char		action;
+
+	ItemPointerData *modifieditems;
+	uint16		nmodifieditems;
+
+	/*
+	 * The following fields represent the items in this segment. If 'items' is
+	 * not NULL, it contains a palloc'd array of the items in this segment. If
+	 * 'seg' is not NULL, it contains the items in an already-compressed
+	 * format. It can point to an on-disk page (!modified), or a palloc'd
+	 * segment in memory. If both are set, they must represent the same items.
+	 */
+	GinPostingList *seg;
+	ItemPointer items;
+	int			nitems;			/* # of items in 'items', if items != NULL */
+} leafSegmentInfo;
+```
 ## Detailed Description
 The  structure is a key component of PostgreSQL's GIN index leaf page management system. It provides an in-memory representation of a leaf page that has been broken down into manageable segments for modification operations such as insertions, deletions, and page splits. This structure enables efficient reorganization of posting list data within leaf pages while maintaining the compressed format used by GIN indexes.
 

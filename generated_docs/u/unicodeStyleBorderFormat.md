@@ -8,7 +8,17 @@ A structure that defines the formatting characters for table border elements in 
 
 ## Definition
 
-
+```c
+typedef struct unicodeStyleBorderFormat
+{
+	const char *up_and_right;
+	const char *vertical;
+	const char *down_and_right;
+	const char *horizontal;
+	const char *down_and_left;
+	const char *left_and_right;
+} unicodeStyleBorderFormat;
+```
 ## Detailed Description
 This structure contains the Unicode characters used for formatting the outer borders of tables in PostgreSQL's frontend utilities. It provides all the necessary corner pieces and edge elements needed to draw complete table borders, including corner connections and straight border lines. The structure is specifically designed to support the rendering of table perimeters with proper Unicode/UTF-8 border characters.
 

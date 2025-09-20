@@ -8,7 +8,10 @@ An internal static function that resets the statistics counters for a specific S
 
 ## Definition
 
-
+```c
+static void
+pgstat_reset_slru_counter_internal(int index, TimestampTz ts)
+```
 ## Detailed Description
 This internal function performs the actual work of resetting SLRU statistics for a specific SLRU type identified by its index. It acquires an exclusive lock on the shared SLRU statistics structure to ensure atomic updates, clears all statistics fields using memset, sets the reset timestamp to track when the reset occurred, and then releases the lock. The exclusive lock prevents concurrent access during the reset operation, ensuring data consistency. This function serves as the core implementation for both individual and bulk SLRU statistics reset operations.
 

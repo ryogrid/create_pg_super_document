@@ -8,7 +8,10 @@ Opens a relation by its OID with the same functionality as relation_open, but re
 
 ## Definition
 
-
+```c
+Relation
+try_relation_open(Oid relationId, LOCKMODE lockmode)
+```
 ## Detailed Description
 The `try_relation_open` function provides a non-failing alternative to `relation_open`. It performs the same core operations but uses a defensive approach that allows callers to handle non-existent relations gracefully. The function includes these key steps:
 

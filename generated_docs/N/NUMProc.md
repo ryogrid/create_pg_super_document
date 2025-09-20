@@ -8,7 +8,36 @@ A comprehensive processor structure used by PostgreSQL's numeric formatting syst
 
 ## Definition
 
+```c
+typedef struct NUMProc
+{
+	bool		is_to_char;
+	NUMDesc    *Num;			/* number description		*/
 
+	int			sign,			/* '-' or '+'			*/
+				sign_wrote,		/* was sign write		*/
+				num_count,		/* number of write digits	*/
+				num_in,			/* is inside number		*/
+				num_curr,		/* current position in number	*/
+				out_pre_spaces, /* spaces before first digit	*/
+
+				read_dec,		/* to_number - was read dec. point	*/
+				read_post,		/* to_number - number of dec. digit */
+				read_pre;		/* to_number - number non-dec. digit */
+
+	char	   *number,			/* string with number	*/
+			   *number_p,		/* pointer to current number position */
+			   *inout,			/* in / out buffer	*/
+			   *inout_p,		/* pointer to current inout position */
+			   *last_relevant,	/* last relevant number after decimal point */
+
+			   *L_negative_sign,	/* Locale */
+			   *L_positive_sign,
+			   *decimal,
+			   *L_thousands_sep,
+			   *L_currency_symbol;
+} NUMProc;
+```
 ## Detailed Description
 The NUMProc structure is a sophisticated state machine used by PostgreSQL's numeric formatting system for bidirectional conversion between numbers and formatted strings. It maintains all the necessary context information during formatting operations, including parsing state, buffer management, locale-specific formatting characters, and position tracking. The structure supports both to_char (number-to-string) and to_number (string-to-number) operations, adapting its behavior based on the is_to_char flag. It handles complex formatting scenarios including locale-specific number formatting, decimal precision control, and currency symbol placement.
 

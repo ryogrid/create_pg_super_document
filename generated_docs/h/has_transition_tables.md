@@ -8,7 +8,10 @@ Detects whether a specified relation has any transition tables for a given DML e
 
 ## Definition
 
-
+```c
+bool
+has_transition_tables(PlannerInfo *root, Index rti, CmdType event)
+```
 ## Detailed Description
 This function checks if a relation referenced by a range table entry has transition tables configured for a specific command type. Transition tables are special tables that store row data during trigger execution, allowing triggers to access OLD and NEW row versions during INSERT, UPDATE, and DELETE operations. The function opens the relation, examines its trigger descriptor, and checks for the presence of transition tables based on the event type.
 

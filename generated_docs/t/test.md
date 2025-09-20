@@ -8,7 +8,12 @@ The  function is a static test function in the ECPG (Embedded SQL in C for Postg
 
 ## Definition
 
+```c
+#line 6 "autoprep.pgc"
 
+
+static void test(void)
+```
 ## Detailed Description
 This function serves as a comprehensive test case for ECPG functionality, specifically for auto-prepared statements. It performs a series of database operations including:
 - Establishing a database connection

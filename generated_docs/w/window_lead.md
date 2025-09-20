@@ -8,7 +8,10 @@ The window_lead function implements the basic LEAD window function, returning th
 
 ## Definition
 
-
+```c
+Datum
+window_lead(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL LEAD window function functionality without offset or default value parameters. It retrieves the value of a specified column from the row that is exactly 1 position after the current row within the same partition. The function is part of PostgreSQL's window function implementation and delegates its core logic to the common leadlag_common function with appropriate parameters to indicate it's a lead operation with no offset and no default value.
 

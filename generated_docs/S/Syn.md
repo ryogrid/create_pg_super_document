@@ -8,7 +8,14 @@ Syn is a structure that represents a single synonym mapping entry in PostgreSQL'
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			len;			/* length of syn array */
+	Syn		   *syn;
+	bool		case_sensitive;
+} DictSyn;
+```
 ## Detailed Description
 The Syn structure is a fundamental data type used by PostgreSQL's synonym dictionary (dict_synonym) for text search operations. Each Syn instance represents a single synonym mapping rule that transforms an input word to an output word. The structure is designed to store both the original word and its synonym replacement, along with metadata about the replacement including its length and any special flags.
 

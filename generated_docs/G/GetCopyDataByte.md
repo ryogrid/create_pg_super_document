@@ -8,7 +8,10 @@ Extracts a single byte from a COPY data message buffer and advances the cursor p
 
 ## Definition
 
-
+```c
+static char
+GetCopyDataByte(size_t r, char *copybuf, size_t *cursor)
+```
 ## Detailed Description
 GetCopyDataByte is a utility function that safely reads a single byte from a COPY protocol message buffer. It performs bounds checking to ensure that there are remaining bytes to read in the buffer before extracting the byte. The function automatically advances the cursor position to point to the next unread byte, making it suitable for sequential reading of message contents.
 

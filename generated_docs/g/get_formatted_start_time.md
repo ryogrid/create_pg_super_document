@@ -8,7 +8,10 @@ Computes and returns a formatted timestamp string representing the backend start
 
 ## Definition
 
-
+```c
+char *
+get_formatted_start_time(void)
+```
 ## Detailed Description
 This function provides a formatted timestamp string representing when the current PostgreSQL backend process started (MyStartTime). It implements a lazy initialization pattern with caching - the timestamp is only computed on the first call and stored in a static buffer for subsequent reuse. The function formats the timestamp using the format "%Y-%m-%d %H:%M:%S %Z" (e.g., "2024-01-15 14:30:25 UTC") and respects the configured log_timezone setting. The caching mechanism ensures that multiple logging operations within the same backend session use consistent start time formatting without repeated computation overhead.
 

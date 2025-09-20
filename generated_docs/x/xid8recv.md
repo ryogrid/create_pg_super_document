@@ -8,7 +8,10 @@ Receives a FullTransactionId (XID8) value from a binary message buffer during Po
 
 ## Definition
 
-
+```c
+Datum
+xid8recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is PostgreSQL's binary input function for the XID8 data type. It deserializes a FullTransactionId from a binary message buffer, typically used during client-server communication when binary protocol is employed or during internal data transfer operations. This function is part of PostgreSQL's type system infrastructure for handling binary format data.
 

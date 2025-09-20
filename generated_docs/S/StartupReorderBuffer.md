@@ -8,7 +8,9 @@ Cleans up all serialized (spilled) transaction data from replication slots after
 
 ## Definition
 
-
+```c
+struct dirent *logical_de;
+```
 ## Detailed Description
 This function is called during PostgreSQL startup to perform cleanup of serialized reorder buffer data. When logical replication processes large transactions that exceed memory limits, they serialize (spill) the transaction data to disk in the pg_replslot directory. After a server restart or crash, this leftover spilled data needs to be cleaned up since it will be recreated when the respective replication slots are used again. The function iterates through all directories in pg_replslot, validates that they are legitimate replication slot directories, and removes all serialized transaction files (those starting with "xid-") from each slot directory.
 

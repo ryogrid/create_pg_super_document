@@ -8,7 +8,10 @@ Updates a HMAC context with new data during the HMAC computation process.
 
 ## Definition
 
-
+```c
+int
+pg_hmac_update(pg_hmac_ctx *ctx, const uint8 *data, size_t len)
+```
 ## Detailed Description
 The pg_hmac_update function feeds data into an existing HMAC context for incremental HMAC computation. This function allows processing data in chunks rather than requiring all data to be available at once. It serves as a wrapper around the underlying cryptographic hash update function, providing error handling specific to HMAC operations. The function returns 0 on success and -1 on failure, setting appropriate error codes in the context.
 

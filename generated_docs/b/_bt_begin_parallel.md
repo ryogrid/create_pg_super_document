@@ -8,7 +8,10 @@ Initializes and launches parallel workers for B-tree index construction, setting
 
 ## Definition
 
-
+```c
+static void
+_bt_begin_parallel(BTBuildState *buildstate, bool isconcurrent, int request)
+```
 ## Detailed Description
 This function is responsible for setting up the entire parallel infrastructure for B-tree index building. It creates a parallel context, estimates and allocates shared memory for various components (tuplesort states, WAL/buffer usage tracking, query strings), and launches worker processes. The function handles both regular and concurrent index builds by selecting appropriate snapshots.
 

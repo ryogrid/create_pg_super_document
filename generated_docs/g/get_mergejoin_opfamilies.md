@@ -8,7 +8,10 @@ Returns a list of btree operator family OIDs in which a given operator represent
 
 ## Definition
 
-
+```c
+List *
+get_mergejoin_opfamilies(Oid opno)
+```
 ## Detailed Description
 This function searches for all btree operator families where the specified operator is registered as an equality operator (BTEqualStrategyNumber). The result is essential for merge join planning, as merge joins require equality operators that belong to compatible operator families.
 

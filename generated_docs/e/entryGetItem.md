@@ -8,7 +8,11 @@ Advances a GIN scan entry to the next heap item pointer greater than a specified
 
 ## Definition
 
-
+```c
+static void
+entryGetItem(GinState *ginstate, GinScanEntry entry,
+			 ItemPointerData advancePast)
+```
 ## Detailed Description
 The entryGetItem function is the core mechanism for iterating through item pointers within a single GIN scan entry. It implements three distinct algorithms depending on the data source: bitmap results from potentially large result sets, posting lists from entry tuples or final posting tree pages, and posting trees requiring incremental loading.
 

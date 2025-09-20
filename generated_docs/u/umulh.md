@@ -8,7 +8,11 @@ Returns the high 64 bits of the 128-bit product of two 64-bit unsigned integers,
 
 ## Definition
 
-
+```c
+structions used to compute the low part of the product.
+	 */
+	uint64		hi;
+```
 ## Detailed Description
 The  function computes the high 64 bits of a 128-bit multiplication result. This function is conditionally compiled and only available on 32-bit platforms (when  is defined). It serves as a building block for efficient division-by-constant operations on platforms where 64-bit division would otherwise require expensive library function calls.
 

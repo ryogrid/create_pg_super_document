@@ -8,7 +8,12 @@ This function writes a STREAM PREPARE message to the logical replication output 
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_stream_prepare(StringInfo out,
+								ReorderBufferTXN *txn,
+								XLogRecPtr prepare_lsn)
+```
 ## Detailed Description
 The  function is a specialized wrapper that creates a logical replication message for preparing a streamed transaction. It delegates to the common preparation logic by calling  with the  message type. This function is part of PostgreSQL's logical replication protocol implementation, specifically handling the prepare phase of two-phase commit transactions that are being streamed.
 

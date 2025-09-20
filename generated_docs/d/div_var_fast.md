@@ -8,7 +8,11 @@ A fast division algorithm for NumericVar values using floating-point estimation 
 
 ## Definition
 
-
+```c
+static void
+div_var_fast(const NumericVar *var1, const NumericVar *var2,
+			 NumericVar *result, int rscale, bool round)
+```
 ## Detailed Description
 The  function implements a fast division algorithm for PostgreSQL's NUMERIC data type, designed as an alternative to Knuth's schoolbook division used in . Key characteristics:
 

@@ -8,7 +8,10 @@ Masks a BRIN page before consistency checks by removing non-essential data that 
 
 ## Definition
 
-
+```c
+void
+brin_mask(char *pagedata, BlockNumber blkno)
+```
 ## Detailed Description
 This function prepares a BRIN page for consistency checking by masking (zeroing out or normalizing) data that is expected to differ between primary and standby servers during logical replication or other consistency verification processes. The function performs several masking operations:
 

@@ -8,7 +8,10 @@ Sets the size estimates for a base relation that represents a Common Table Expre
 
 ## Definition
 
-
+```c
+void
+set_cte_size_estimates(PlannerInfo *root, RelOptInfo *rel, double cte_rows)
+```
 ## Detailed Description
 This function estimates cardinality for relations that reference Common Table Expressions (WITH clauses). It handles two distinct scenarios: regular CTE references and recursive CTE self-references. For regular CTEs, it simply uses the provided CTE row estimate. For recursive CTEs with self-references, it applies a configurable multiplier () to account for the iterative nature of recursive queries.
 

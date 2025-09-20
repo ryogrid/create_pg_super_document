@@ -8,7 +8,11 @@ Creates a Path node representing a sequential scan access method for a relation,
 
 ## Definition
 
-
+```c
+Path *
+create_seqscan_path(PlannerInfo *root, RelOptInfo *rel,
+					Relids required_outer, int parallel_workers)
+```
 ## Detailed Description
 The  function constructs a Path node specifically for sequential scan operations. A sequential scan reads through all pages of a relation in physical storage order without using any indexes. The function initializes all Path structure fields appropriately for this access method and delegates cost calculation to the  function.
 

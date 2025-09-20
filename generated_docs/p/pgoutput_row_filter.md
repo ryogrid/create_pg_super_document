@@ -8,7 +8,16 @@ Evaluates row filter expressions to determine if a tuple change should be replic
 
 ## Definition
 
-
+```c
+enums
+	 * having specific values.
+	 */
+	static const int map_changetype_pubaction[] = {
+		[REORDER_BUFFER_CHANGE_INSERT] = PUBACTION_INSERT,
+		[REORDER_BUFFER_CHANGE_UPDATE] = PUBACTION_UPDATE,
+		[REORDER_BUFFER_CHANGE_DELETE] = PUBACTION_DELETE
+	};
+```
 ## Detailed Description
 This function implements sophisticated row filtering logic for logical replication in the pgoutput plugin. It evaluates row filter expressions against old and new tuple versions to determine if changes should be replicated. For INSERT and DELETE operations, it simply evaluates the filter against the single available tuple. For UPDATE operations, it implements complex transformation logic: if only the old tuple matches, it converts UPDATE to DELETE; if only the new tuple matches, it converts UPDATE to INSERT; if both match, it keeps the UPDATE; if neither matches, it drops the change entirely. The function also handles TOAST (The Oversized-Attribute Storage Technique) values by copying unchanged replica identity columns from old to new tuples when necessary.
 

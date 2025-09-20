@@ -8,7 +8,10 @@ Performs bitwise AND operation between two 16-bit signed integers (smallint type
 
 ## Definition
 
-
+```c
+Datum
+int2and(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the bitwise AND operation for PostgreSQL's  data type (16-bit signed integers). It takes two  arguments from the function call context, performs a bitwise AND operation using the C  operator, and returns the result as a  value. This function is typically invoked through PostgreSQL's SQL operator  when used with  operands.
 

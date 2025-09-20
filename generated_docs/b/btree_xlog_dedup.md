@@ -8,7 +8,10 @@ Replays WAL (Write-Ahead Log) records for B-tree page deduplication operations d
 
 ## Definition
 
-
+```c
+static void
+btree_xlog_dedup(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the recovery/replay of B-tree deduplication operations from WAL records. B-tree deduplication is an optimization that combines multiple index tuples with identical key values into a single posting list tuple, reducing page space usage and improving performance.
 

@@ -8,7 +8,13 @@ A container structure that manages a linked list of tablespace directory mapping
 
 ## Definition
 
-
+```c
+typedef struct TablespaceList
+{
+	TablespaceListCell *head;
+	TablespaceListCell *tail;
+} TablespaceList;
+```
 ## Detailed Description
 TablespaceList is a list management structure in pg_basebackup that provides an efficient way to maintain a collection of tablespace directory mappings. It implements a standard linked list container pattern with both head and tail pointers, allowing for O(1) insertion at both ends of the list and efficient traversal from the beginning.
 

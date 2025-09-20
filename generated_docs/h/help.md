@@ -8,7 +8,10 @@ This function displays comprehensive command-line help information for the Postg
 
 ## Definition
 
-
+```c
+static void
+help(const char *progname)
+```
 ## Detailed Description
 The GNU bash, version 5.1.16(1)-release (x86_64-pc-linux-gnu)
 These shell commands are defined internally.  Type `help' to see this list.

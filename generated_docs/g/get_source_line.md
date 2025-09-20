@@ -8,7 +8,10 @@ Extracts a specific line from source code text as a palloc'd string, used for er
 
 ## Definition
 
-
+```c
+static char *
+get_source_line(const char *src, int lineno)
+```
 ## Detailed Description
 This function parses through source code text to find and extract a specific line number. It iterates through the source text character by character, counting newline characters to track line numbers. Once the target line is found, it skips leading whitespace and returns a copy of the line content. The function handles edge cases such as invalid line numbers, all-whitespace lines, and files that end without a final newline.
 

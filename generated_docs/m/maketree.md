@@ -8,7 +8,14 @@ The  function constructs a binary tree representation from a flat array represen
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	QueryItem  *ptr;
+	int			len;			/* allocated size of ptr */
+	int			cur;			/* number of elements in ptr */
+} PLAINTREE;
+```
 ## Detailed Description
 The  function is a recursive function that transforms a linearized query structure (QueryItem array) into a binary tree of NODE structures. This conversion is essential for text search query processing, as it allows the system to work with a hierarchical tree representation that mirrors the logical structure of the query operators and operands.
 

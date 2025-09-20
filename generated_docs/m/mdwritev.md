@@ -8,7 +8,9 @@ mdwritev is a function that writes multiple database blocks at the appropriate l
 
 ## Definition
 
-
+```c
+struct iovec iov[PG_IOV_MAX];
+```
 ## Detailed Description
 mdwritev performs vectorized block writing operations for PostgreSQL's storage manager (smgr) layer. It writes an array of buffers to consecutive block positions in a relation file, handling segment boundaries and ensuring proper error handling. The function is designed specifically for updating existing blocks and cannot extend relations beyond their current EOF. It uses efficient vectorized I/O operations through iovec structures and handles cases where writes might be incomplete due to system constraints.
 

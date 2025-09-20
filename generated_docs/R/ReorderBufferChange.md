@@ -8,7 +8,97 @@ ReorderBufferChange represents a single modification operation (insert, update, 
 
 ## Definition
 
+```c
+typedef struct ReorderBufferChange
+{
+	XLogRecPtr	lsn;
 
+	/* The type of change. */
+	ReorderBufferChangeType action;
+
+	/* Transaction this change belongs to. */
+	struct ReorderBufferTXN *txn;
+
+	RepOriginId origin_id;
+
+	/*
+	 * Context data for the change. Which part of the union is valid depends
+	 * on action.
+	 */
+	union
+	{
+		/* Old, new tuples when action == *_INSERT|UPDATE|DELETE */
+		struct
+		{
+			/* relation that has been changed */
+			RelFileLocator rlocator;
+
+			/* no previously reassembled toast chunks are necessary anymore */
+			bool		clear_toast_afterwards;
+
+			/* valid for DELETE || UPDATE */
+			HeapTuple	oldtuple;
+			/* valid for INSERT || UPDATE */
+			HeapTuple	newtuple;
+		}			tp;
+
+		/*
+		 * Truncate data for REORDER_BUFFER_CHANGE_TRUNCATE representing one
+		 * set of relations to be truncated.
+		 */
+		struct
+		{
+			Size		nrelids;
+			bool		cascade;
+			bool		restart_seqs;
+			Oid		   *relids;
+		}			truncate;
+
+		/* Message with arbitrary data. */
+		struct
+		{
+			char	   *prefix;
+			Size		message_size;
+			char	   *message;
+		}			msg;
+
+		/* New snapshot, set when action == *_INTERNAL_SNAPSHOT */
+		Snapshot	snapshot;
+
+		/*
+		 * New command id for existing snapshot in a catalog changing tx. Set
+		 * when action == *_INTERNAL_COMMAND_ID.
+		 */
+		CommandId	command_id;
+
+		/*
+		 * New cid mapping for catalog changing transaction, set when action
+		 * == *_INTERNAL_TUPLECID.
+		 */
+		struct
+		{
+			RelFileLocator locator;
+			ItemPointerData tid;
+			CommandId	cmin;
+			CommandId	cmax;
+			CommandId	combocid;
+		}			tuplecid;
+
+		/* Invalidation. */
+		struct
+		{
+			uint32		ninvalidations; /* Number of messages */
+			SharedInvalidationMessage *invalidations;	/* invalidation message */
+		}			inval;
+	}			data;
+
+	/*
+	 * While in use this is how a change is linked into a transactions,
+	 * otherwise it's the preallocated list.
+	 */
+	dlist_node	node;
+} ReorderBufferChange;
+```
 ## Detailed Description
 ReorderBufferChange is the fundamental data structure used in PostgreSQL's logical replication system to represent any type of change that occurs within a transaction. It uses a union to efficiently store different types of change data depending on the operation type. The structure supports tuple-level changes (INSERT, UPDATE, DELETE), DDL operations like TRUNCATE, logical replication messages, and internal operations for snapshot and command ID management. Each change is linked to its parent transaction and maintains ordering information through LSN values.
 

@@ -8,7 +8,10 @@ ReThrowError is a function that re-throws a previously copied error in PostgreSQ
 
 ## Definition
 
-
+```c
+void
+ReThrowError(ErrorData *edata)
+```
 ## Detailed Description
 ReThrowError provides a mechanism to re-throw an error that was previously captured using CopyErrorData/FlushErrorState. This function is used when a handler needs to exit the error subsystem, perform some processing that might itself trigger errors, and then re-throw the original error. This approach is slower than PG_RE_THROW() but safer when intermediate processing could cause additional errors.
 

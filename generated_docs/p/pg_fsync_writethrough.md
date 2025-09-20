@@ -8,7 +8,10 @@ A PostgreSQL storage layer function that performs write-through filesystem synch
 
 ## Definition
 
-
+```c
+static int
+pg_fsync_writethrough(int fd)
+```
 ## Detailed Description
 The pg_fsync_writethrough function provides write-through filesystem synchronization functionality in PostgreSQL. It attempts to ensure that data is not only written to the OS cache but is actually persisted to physical storage media. On platforms that support F_FULLFSYNC (primarily macOS), it uses fcntl with F_FULLFSYNC to perform a complete synchronization that bypasses OS-level caching. On platforms without this capability, it returns an error with ENOSYS. The function respects the global enableFsync setting and returns immediately if fsync operations are disabled.
 

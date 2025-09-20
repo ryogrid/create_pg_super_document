@@ -8,7 +8,10 @@ Join selectivity function for array containment operators (@>, &&, <@) that curr
 
 ## Definition
 
-
+```c
+Datum
+arraycontjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is intended to estimate join selectivity for array containment operations when arrays from two different relations are compared. However, it is currently implemented as a stub function that simply returns the default selectivity for the given operator.
 

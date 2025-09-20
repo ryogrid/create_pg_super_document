@@ -8,7 +8,12 @@ This function searches through a HOT (Heap-Only Tuples) chain to find the first 
 
 ## Definition
 
-
+```c
+bool
+heap_hot_search_buffer(ItemPointer tid, Relation relation, Buffer buffer,
+					   Snapshot snapshot, HeapTuple heapTuple,
+					   bool *all_dead, bool first_call)
+```
 ## Detailed Description
 heap_hot_search_buffer traverses a HOT chain starting from a given TID to find a tuple visible to the specified snapshot. HOT chains are created when updates don't change indexed columns, allowing multiple tuple versions to share the same index entry. The function follows the chain by examining each tuple's t_ctid pointer, validating chain integrity through xmin/xmax relationships, and testing visibility.
 

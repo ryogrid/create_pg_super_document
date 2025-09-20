@@ -8,7 +8,10 @@ Initializes a GIN scan key by dividing its entries into required and additional 
 
 ## Definition
 
-
+```c
+static void
+startScanKey(GinState *ginstate, GinScanOpaque so, GinScanKey key)
+```
 ## Detailed Description
 The startScanKey function prepares a GIN (Generalized Inverted Index) scan key for efficient scanning by intelligently partitioning scan entries into two categories: required and additional. This optimization is crucial for complex queries involving multiple terms with varying frequencies.
 

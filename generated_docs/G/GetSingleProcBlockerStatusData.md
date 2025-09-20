@@ -8,7 +8,13 @@ GetSingleProcBlockerStatusData accumulates blocking data for a single process, c
 
 ## Definition
 
-
+```c
+structure.
+	 *
+	 * Must grab LWLocks in partition-number order to avoid LWLock deadlock.
+	 */
+	for (i = 0;
+```
 ## Detailed Description
 This internal helper function analyzes a single process to determine its blocking status and contributes data to a BlockedProcsData structure. It's called by GetBlockerStatusData for each process that needs to be examined, whether individually or as part of a lock group.
 

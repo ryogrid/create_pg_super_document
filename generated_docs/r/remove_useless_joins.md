@@ -8,7 +8,10 @@ Identifies and removes relations that don't actually need to be joined in a quer
 
 ## Definition
 
-
+```c
+List *
+remove_useless_joins(PlannerInfo *root, List *joinlist)
+```
 ## Detailed Description
 This function is part of PostgreSQL's query optimizer that performs join elimination optimization. It scans through the list of special join information (join_info_list) to identify left joins that can be safely removed without affecting the query result. The function only considers left-joined relations since they are the only type of joins that can be eliminated without changing semantics.
 

@@ -8,7 +8,10 @@ Makes a parallel apply worker available for reuse by removing it from the transa
 
 ## Definition
 
-
+```c
+static void
+pa_free_worker(ParallelApplyWorkerInfo *winfo)
+```
 ## Detailed Description
 This function is responsible for cleaning up and managing parallel apply workers after they complete their transaction work. It removes the worker's entry from the ParallelApplyTxnHash table to prevent further use with the current transaction. The function implements a worker pool management strategy where it either:
 

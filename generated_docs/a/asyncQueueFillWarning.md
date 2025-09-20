@@ -8,7 +8,10 @@ Internal function that monitors notification queue utilization and emits warning
 
 ## Definition
 
-
+```c
+static void
+asyncQueueFillWarning(void)
+```
 ## Detailed Description
 This function serves as a monitoring and alerting mechanism for the asynchronous notification queue. It checks if the queue utilization has reached or exceeded 50% capacity and, if so, emits a warning message to help administrators identify potential performance issues. The function includes rate limiting to ensure warnings are shown at most once every QUEUE_FULL_WARN_INTERVAL. When issuing a warning, it identifies the backend process with the oldest transaction that is preventing queue cleanup and provides specific guidance about the situation.
 

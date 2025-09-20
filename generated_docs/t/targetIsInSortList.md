@@ -8,7 +8,10 @@ Checks whether a given target entry is already present in a SortGroupClause list
 
 ## Definition
 
-
+```c
+bool
+targetIsInSortList(TargetEntry *tle, Oid sortop, List *sortList)
+```
 ## Detailed Description
 This function determines if a target entry is already represented in a sort or group list to prevent duplicate entries. It uses the ressortgroupref field of the TargetEntry to efficiently locate matching entries in the list. When a specific sort operator is provided, it also verifies operator compatibility, including checking for commutator operators (e.g., treating ASC and DESC as potentially redundant).
 

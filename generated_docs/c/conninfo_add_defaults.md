@@ -8,7 +8,10 @@ Populates unspecified connection options with default values obtained from servi
 
 ## Definition
 
-
+```c
+static bool
+conninfo_add_defaults(PQconninfoOption *options, PQExpBuffer errorMessage)
+```
 ## Detailed Description
 This function implements a sophisticated default value resolution system for PostgreSQL connection parameters. It follows a specific precedence hierarchy to determine default values for any connection options that weren't explicitly specified by the user.
 

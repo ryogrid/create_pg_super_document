@@ -8,7 +8,10 @@ ExplainCloseWorker is a static function in PostgreSQL's explain module that ends
 
 ## Definition
 
-
+```c
+static void
+ExplainCloseWorker(int n, ExplainState *es)
+```
 ## Detailed Description
 This function serves as the counterpart to ExplainOpenWorker, properly terminating the worker-specific output session. It performs several critical tasks: saves the current formatting state for potential future use, handles format-specific cleanup (particularly for TEXT format), and restores the previous output buffer pointer.
 

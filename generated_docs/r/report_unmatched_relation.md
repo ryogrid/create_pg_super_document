@@ -8,7 +8,10 @@ Reports detailed information about relations that could not be matched between o
 
 ## Definition
 
-
+```c
+static void
+report_unmatched_relation(const RelInfo *rel, const DbInfo *db, bool is_new_db)
+```
 ## Detailed Description
 This static function generates detailed error reports when a relation from one cluster cannot be matched with a corresponding relation in the other cluster during pg_upgrade operations. It builds a comprehensive description of the unmatched relation, including its namespace and name, and provides additional context if the relation is an index or TOAST table by identifying the table it belongs to.
 

@@ -8,7 +8,10 @@ Handles the STREAM ABORT message in logical replication, coordinating the abort 
 
 ## Definition
 
-
+```c
+static void
+apply_handle_stream_abort(StringInfo s)
+```
 ## Detailed Description
 This function processes STREAM ABORT messages during logical replication, which signal the abort of either a complete streaming transaction or a subtransaction rollback. It performs different actions based on the current transaction apply strategy:
 

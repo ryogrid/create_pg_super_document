@@ -8,7 +8,10 @@ A memory debugging function that places a sentinel byte at a specific offset fro
 
 ## Definition
 
-
+```c
+static inline void
+set_sentinel(void *base, Size offset)
+```
 ## Detailed Description
 The `set_sentinel` function is a crucial component of PostgreSQL's memory debugging infrastructure. It places a sentinel byte (0x7E) at a calculated position relative to a base memory address. This sentinel acts as a canary value that can be checked later to detect buffer overruns, memory corruption, or other memory-related bugs. The function integrates with Valgrind to properly mark the sentinel byte location, first making it writable, then setting the value, and finally marking it as inaccessible to normal code execution.
 

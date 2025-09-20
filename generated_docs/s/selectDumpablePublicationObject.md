@@ -8,7 +8,10 @@ Determines whether a publication object should be dumped based on the dump polic
 
 ## Definition
 
-
+```c
+static void
+selectDumpablePublicationObject(DumpableObject *dobj, Archive *fout)
+```
 ## Detailed Description
 This function implements the policy-setting logic for publication objects in pg_dump. Publications are special database objects that are only dumped when performing a complete dump (include_everything option). The function first checks if the object is part of an extension (which would override the dumping decision), and then sets the dump flag based on whether a complete dump is being performed.
 

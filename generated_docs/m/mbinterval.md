@@ -8,7 +8,13 @@ A structure that defines a Unicode character range interval used for determining
 
 ## Definition
 
-
+```c
+struct mbinterval
+{
+	unsigned int first;
+	unsigned int last;
+};
+```
 ## Detailed Description
 The  structure represents a contiguous range of Unicode code points, used primarily in PostgreSQL's implementation of  functionality for determining the display width of wide characters. This structure is part of the wide character handling system that implements the Single UNIX Specification for character width calculation.
 

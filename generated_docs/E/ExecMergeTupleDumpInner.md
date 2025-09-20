@@ -8,7 +8,10 @@ ExecMergeTupleDumpInner is a debug utility function that prints the current inne
 
 ## Definition
 
-
+```c
+static void
+ExecMergeTupleDumpInner(MergeJoinState *mergestate)
+```
 ## Detailed Description
 ExecMergeTupleDumpInner is a debugging utility function within the merge join executor that provides formatted output of the current inner tuple. This function serves as a companion to ExecMergeTupleDumpOuter, specifically focusing on the inner relation's tuple during merge join processing.
 

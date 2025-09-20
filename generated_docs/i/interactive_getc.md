@@ -8,7 +8,10 @@ A signal-aware character input function that safely reads one character from std
 
 ## Definition
 
-
+```c
+static int
+interactive_getc(void)
+```
 ## Detailed Description
 The `interactive_getc` function is a specialized character input function designed for PostgreSQL's interactive backend mode. Unlike the standard `getc()` function, it incorporates PostgreSQL's signal handling mechanisms to ensure that the backend can properly respond to signals like SIGTERM and SIGQUIT even while waiting for user input.
 

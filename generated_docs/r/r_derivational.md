@@ -8,7 +8,11 @@ The r_derivational function removes derivational suffixes from Russian words, sp
 
 ## Definition
 
+```c
+}
 
+static int r_derivational(struct SN_env * z)
+```
 ## Detailed Description
 This function implements step 4 of the Russian stemming algorithm for KOI8-R encoded text, focusing on derivational morphology. It specifically targets the removal of the derivational suffixes "ость" (ost', abstract noun suffix) and "ости" (osti, genitive/dative/locative forms).
 

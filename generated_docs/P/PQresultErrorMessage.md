@@ -8,7 +8,10 @@ PQresultErrorMessage retrieves the error message associated with a PostgreSQL qu
 
 ## Definition
 
-
+```c
+char *
+PQresultErrorMessage(const PGresult *res)
+```
 ## Detailed Description
 This function extracts the error message from a PGresult object, if one exists. It serves as an essential accessor function for error handling in libpq-based applications. The function provides a safe way to retrieve error details from failed or problematic database operations.
 

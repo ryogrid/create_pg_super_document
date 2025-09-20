@@ -8,7 +8,10 @@ Writes out a single collation definition, generating CREATE COLLATION SQL statem
 
 ## Definition
 
-
+```c
+static void
+dumpCollation(Archive *fout, const CollInfo *collinfo)
+```
 ## Detailed Description
 The  function generates SQL commands to recreate a collation during database dumps. It handles multiple collation providers (libc, ICU, builtin, default) and adapts the output based on PostgreSQL version differences. The function queries the pg_collation catalog to retrieve collation properties including provider, determinism, locale settings, and ICU rules. It constructs CREATE COLLATION statements with appropriate provider-specific parameters:
 

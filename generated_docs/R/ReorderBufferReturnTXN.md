@@ -8,7 +8,10 @@ Frees and cleans up a ReorderBufferTXN structure, deallocating all associated me
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferReturnTXN(ReorderBuffer *rb, ReorderBufferTXN *txn)
+```
 ## Detailed Description
 ReorderBufferReturnTXN performs complete cleanup of a transaction structure. It first clears any cache references in the reorder buffer that point to this transaction, then systematically deallocates all dynamically allocated data within the transaction including the global transaction ID (gid), tuple command ID hash table, invalidation arrays, and toast-related data. The function includes an assertion to ensure all changes have been properly deallocated before freeing the transaction itself.
 

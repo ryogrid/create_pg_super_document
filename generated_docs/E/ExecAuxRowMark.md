@@ -8,7 +8,15 @@ ExecAuxRowMark provides additional runtime representation for FOR [KEY] UPDATE/S
 
 ## Definition
 
-
+```c
+typedef struct ExecAuxRowMark
+{
+	ExecRowMark *rowmark;		/* related entry in es_rowmarks */
+	AttrNumber	ctidAttNo;		/* resno of ctid junk attribute, if any */
+	AttrNumber	toidAttNo;		/* resno of tableoid junk attribute, if any */
+	AttrNumber	wholeAttNo;		/* resno of whole-row junk attribute, if any */
+} ExecAuxRowMark;
+```
 ## Detailed Description
 ExecAuxRowMark augments the basic ExecRowMark structure by providing attribute numbers for resjunk columns that are needed for row locking operations. These auxiliary structures are maintained by LockRows and ModifyTable nodes to efficiently access the special columns (ctid, tableoid, whole-row) that carry the information needed to locate and lock specific rows. The structure acts as a bridge between the general row marking information in ExecRowMark and the specific column positions in the result tuple.
 

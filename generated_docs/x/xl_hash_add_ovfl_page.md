@@ -8,7 +8,13 @@ A PostgreSQL WAL record structure that captures the information needed to replay
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_add_ovfl_page
+{
+	uint16		bmsize;
+	bool		bmpage_found;
+} xl_hash_add_ovfl_page;
+```
 ## Detailed Description
 The  structure is used for  WAL records, which log the addition of overflow pages to hash index bucket chains when the primary bucket page becomes full. This operation is more complex than simple insertions as it involves managing the bucket chain structure and potentially allocating new bitmap pages to track the overflow pages.
 

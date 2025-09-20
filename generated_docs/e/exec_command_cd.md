@@ -8,7 +8,9 @@ Implements the psql  command for changing the current working directory of the p
 
 ## Definition
 
-
+```c
+struct passwd *pw;
+```
 ## Detailed Description
 The  function handles the  command in psql, which changes the current working directory similar to the shell's  command. When no directory argument is provided, it attempts to change to the user's home directory. The function includes platform-specific logic for determining the home directory on Unix-like systems versus Windows.
 

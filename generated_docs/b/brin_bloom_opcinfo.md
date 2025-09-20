@@ -8,7 +8,10 @@ Initializes and returns operator class information structure for BRIN bloom inde
 
 ## Definition
 
-
+```c
+Datum
+brin_bloom_opcinfo(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the opcinfo support function for BRIN bloom operator classes. It allocates and initializes a BrinOpcInfo structure that contains metadata about how the bloom operator class stores and manages summary information. The function sets up a single-column storage model (since bloom filters are stored as a single BYTEA column), configures null handling, and establishes the type cache for the bloom summary data type.
 

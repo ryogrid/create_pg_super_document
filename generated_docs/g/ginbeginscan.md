@@ -8,7 +8,10 @@ Initializes and begins a new GIN (Generalized Inverted Index) index scan, settin
 
 ## Definition
 
-
+```c
+IndexScanDesc
+ginbeginscan(Relation rel, int nkeys, int norderbys)
+```
 ## Detailed Description
 The  function is the entry point for starting a GIN index scan. It creates and initializes an  structure with GIN-specific private data (GinScanOpaque). The function sets up two separate memory contexts: one for temporary data during scanning and another for scan key data. It also initializes the GIN state information that will be used throughout the scan process.
 

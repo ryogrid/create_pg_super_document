@@ -8,7 +8,16 @@ The  structure tracks position and state information while scanning through GIN 
 
 ## Definition
 
-
+```c
+typedef struct pendingPosition
+{
+	Buffer		pendingBuffer;
+	OffsetNumber firstOffset;
+	OffsetNumber lastOffset;
+	ItemPointerData item;
+	bool	   *hasMatchKey;
+} pendingPosition;
+```
 ## Detailed Description
 The  structure is an internal data structure used by PostgreSQL's GIN access method to maintain state while scanning through the pending list during index searches. It encapsulates all necessary information to track the current position within a buffer page and manage the scanning process across multiple tuples within that page.
 

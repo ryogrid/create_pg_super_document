@@ -8,7 +8,11 @@ Calculates optimal Bloom filter parameters (number of bits, bytes, and hash func
 
 ## Definition
 
-
+```c
+static void
+bloom_filter_size(int ndistinct, double false_positive_rate,
+				  int *nbytesp, int *nbitsp, int *nhashesp)
+```
 ## Detailed Description
 This function implements the mathematical formulas for calculating optimal Bloom filter parameters. It uses the standard Bloom filter sizing formula: -(n * ln(p)) / (ln(2))^2 to determine the optimal number of bits, then rounds up to whole bytes. The optimal number of hash functions is calculated using the formula: round(log(2.0) * m / ndistinct), where m is the number of bits and ndistinct is the expected number of distinct values.
 

@@ -8,7 +8,12 @@ Validates that columns specified in ON DELETE SET NULL/DEFAULT (...) column list
 
 ## Definition
 
-
+```c
+static int
+validateFkOnDeleteSetColumns(int numfks, const int16 *fkattnums,
+							 int numfksetcols, int16 *fksetcolsattnums,
+							 List *fksetcols)
+```
 ## Detailed Description
 This function performs validation on columns that are specified in ON DELETE SET NULL or ON DELETE SET DEFAULT actions with explicit column lists. It ensures that:
 

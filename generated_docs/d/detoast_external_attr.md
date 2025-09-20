@@ -8,7 +8,10 @@ A public entry point function that retrieves a toasted value from external stora
 
 ## Definition
 
-
+```c
+struct varlena *
+detoast_external_attr(struct varlena *attr)
+```
 ## Detailed Description
 This function handles the retrieval and conversion of externally stored data values back into a usable format. It processes different types of external references including:
 

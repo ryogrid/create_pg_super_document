@@ -8,7 +8,11 @@ A static inline function that performs vector addition of two geometric points b
 
 ## Definition
 
-
+```c
+struct(result,
+					float8_pl(pt1->x, pt2->x),
+					float8_pl(pt1->y, pt2->y));
+```
 ## Detailed Description
 This function computes the sum of two Point structures by adding their corresponding x and y coordinates. The result is stored in the provided result Point structure. The function uses PostgreSQL's float8_pl function to ensure proper floating-point addition semantics and calls point_construct to properly initialize the result point with the computed coordinates.
 

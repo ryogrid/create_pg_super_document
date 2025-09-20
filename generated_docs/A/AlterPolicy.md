@@ -8,7 +8,9 @@ Handles the execution of the ALTER POLICY command by modifying an existing row-l
 
 ## Definition
 
-
+```c
+struct_array_builtin(role_oids, nitems, OIDOID);
+```
 ## Detailed Description
 This function implements the ALTER POLICY SQL command through a comprehensive modification process:
 

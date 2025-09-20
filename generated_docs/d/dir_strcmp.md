@@ -8,7 +8,10 @@ A specialized string comparison function for directory paths that treats differe
 
 ## Definition
 
-
+```c
+static int
+dir_strcmp(const char *s1, const char *s2)
+```
 ## Detailed Description
 The  function performs a specialized comparison of two path strings with directory-aware logic. Unlike standard , this function considers any two directory separator characters as equal (e.g., '/' and '\' on Windows), making it suitable for cross-platform path comparisons. 
 

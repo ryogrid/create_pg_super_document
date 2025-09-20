@@ -8,7 +8,10 @@ A static inline function that packs numeric precision and scale values into a si
 
 ## Definition
 
-
+```c
+static inline int32
+make_numeric_typmod(int precision, int scale)
+```
 ## Detailed Description
 This function creates a typmod (type modifier) value by encoding both precision and scale into a single 32-bit integer. The encoding scheme uses:
 - Upper 16 bits: precision value (though not all bits are needed since max precision is 1000)

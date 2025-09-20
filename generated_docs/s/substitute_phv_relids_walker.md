@@ -8,7 +8,10 @@ A tree walker function that modifies PlaceHolderVar relation ID sets in-place by
 
 ## Definition
 
-
+```c
+union(phv->phrels,
+									context->subrelids);
+```
 ## Detailed Description
 This walker function traverses expression trees and modifies PlaceHolderVar nodes in-place to update their relation ID bitmapsets. When it encounters a PlaceHolderVar that references a specific relation ID (context->varno), it replaces that relation ID with a set of subrelation IDs (context->subrelids).
 

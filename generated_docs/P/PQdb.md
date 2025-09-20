@@ -8,7 +8,10 @@ A public libpq API accessor function that returns the database name associated w
 
 ## Definition
 
-
+```c
+char *
+PQdb(const PGconn *conn)
+```
 ## Detailed Description
 This function provides access to the database name that was used to establish the PostgreSQL connection. It's one of the basic accessor functions in libpq that allows applications to query connection properties without directly accessing the PGconn structure internals.
 

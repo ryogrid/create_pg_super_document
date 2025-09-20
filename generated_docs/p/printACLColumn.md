@@ -8,7 +8,10 @@ A static helper function that generates standardized SQL expressions for formatt
 
 ## Definition
 
-
+```c
+static void
+printACLColumn(PQExpBuffer buf, const char *colname)
+```
 ## Detailed Description
 The  function is a utility function used throughout psql's describe.c module to consistently format ACL (Access Control List) columns in various \d commands. It generates a SQL CASE expression that handles the display of privilege information in a user-friendly format.
 

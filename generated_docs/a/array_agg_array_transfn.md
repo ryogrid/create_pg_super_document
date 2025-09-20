@@ -8,7 +8,10 @@ Transition function for the ARRAY_AGG(anyarray) aggregate that accumulates array
 
 ## Definition
 
-
+```c
+Datum
+array_agg_array_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for the ARRAY_AGG() aggregate when operating on array inputs (as opposed to scalar inputs). It accumulates individual arrays into an ArrayBuildStateArr structure, which maintains state for building multi-dimensional result arrays. The function handles the initialization of state on the first call and subsequent accumulation of array values.
 

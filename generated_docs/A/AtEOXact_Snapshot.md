@@ -8,7 +8,10 @@ Comprehensive cleanup function that manages all snapshot-related state at the en
 
 ## Definition
 
-
+```c
+void
+AtEOXact_Snapshot(bool isCommit, bool resetXmin)
+```
 ## Detailed Description
 This function serves as the central cleanup mechanism for the snapshot management system at transaction end. It performs multiple cleanup tasks:
 

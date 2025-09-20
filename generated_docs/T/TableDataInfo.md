@@ -8,7 +8,30 @@ TableDataInfo is a structure used by pg_dump to represent table data that needs 
 
 ## Definition
 
+```c
+typedef struct _indxInfo
+{
+	DumpableObject dobj;
+	TableInfo  *indextable;		/* link to table the index is for */
+	char	   *indexdef;
+	char	   *tablespace;		/* tablespace in which index is stored */
+	char	   *indreloptions;	/* options specified by WITH (...) */
+	char	   *indstatcols;	/* column numbers with statistics */
+	char	   *indstatvals;	/* statistic values for columns */
+	int			indnkeyattrs;	/* number of index key attributes */
+	int			indnattrs;		/* total number of index attributes */
+	Oid		   *indkeys;		/* In spite of the name 'indkeys' this field
+								 * contains both key and nonkey attributes */
+	bool		indisclustered;
+	bool		indisreplident;
+	bool		indnullsnotdistinct;
+	Oid			parentidx;		/* if a partition, parent index OID */
+	SimplePtrList partattaches; /* if partitioned, partition attach objects */
 
+	/* if there is an associated constraint object, its dumpId: */
+	DumpId		indexconstraint;
+} IndxInfo;
+```
 ## Detailed Description
 TableDataInfo is a fundamental data structure in PostgreSQL's pg_dump utility that represents table data objects during the database dumping process. It extends the base DumpableObject structure to include specific information about table data dumps. This structure serves as a container that links to the actual table metadata (TableInfo) and optionally stores filtering conditions to limit which rows should be included in the dump.
 

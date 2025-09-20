@@ -8,7 +8,10 @@ The  function is a PostgreSQL wrapper that extracts specified time components fr
 
 ## Definition
 
-
+```c
+Datum
+time_part(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the public interface for PostgreSQL's  function when applied to time data types. It is a simple wrapper around , specifically configured to return floating-point results (float8) rather than numeric values. The function delegates all the actual processing work to  with the  parameter set to false.
 

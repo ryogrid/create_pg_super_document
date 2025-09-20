@@ -8,7 +8,10 @@ Performs end-of-stream processing for the zstd compressor by flushing any remain
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_zstd_compressor_finalize(bbstreamer *streamer)
+```
 ## Detailed Description
 This function handles the finalization phase of zstd compression when no more input data will be provided. It uses ZSTD_compressStream2 with the ZSTD_e_end flag to signal the end of the compression stream and flush any remaining data from the compressor's internal buffers. The function operates in a loop, continuing to call the compression function until all data has been flushed (indicated by yet_to_flush returning 0).
 

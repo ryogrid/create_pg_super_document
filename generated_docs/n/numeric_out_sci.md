@@ -8,7 +8,10 @@ This function converts a PostgreSQL Numeric value to its scientific notation str
 
 ## Definition
 
-
+```c
+char *
+numeric_out_sci(Numeric num, int scale)
+```
 ## Detailed Description
 The  function is responsible for converting PostgreSQL's internal Numeric data type to a string representation in scientific notation format. It handles special numeric values (NaN, positive infinity, negative infinity) as well as regular numeric values. The function first checks for special values and returns appropriate string literals for them. For regular numeric values, it initializes a NumericVar from the input and uses the scientific notation formatting helper function to generate the final string.
 

@@ -8,7 +8,10 @@ Finalizes zstd compression by flushing internal buffers, ending the compression 
 
 ## Definition
 
-
+```c
+static void
+bbsink_zstd_end_archive(bbsink *sink)
+```
 ## Detailed Description
 This function completes the zstd compression for an archive by flushing any remaining data from zstd's internal buffers and properly ending the compression frame. It uses ZSTD_e_end mode to signal the end of compression, which causes zstd to flush all buffered data and write frame termination markers. The function continues compressing until no more data needs to be flushed, handles output buffer management by sending data to the next sink when space is needed, and ensures any final compressed bytes are forwarded before notifying the next sink that the archive has ended.
 

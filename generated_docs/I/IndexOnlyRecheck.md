@@ -8,7 +8,10 @@ A stub function that explicitly prevents EvalPlanQual rechecking operations in i
 
 ## Definition
 
-
+```c
+static bool
+IndexOnlyRecheck(IndexOnlyScanState *node, TupleTableSlot *slot)
+```
 ## Detailed Description
 IndexOnlyRecheck is a deliberately non-functional access method routine that serves as a safety mechanism in the executor framework. The function exists to maintain interface compatibility with the scan node framework but is designed to never actually execute successfully.
 

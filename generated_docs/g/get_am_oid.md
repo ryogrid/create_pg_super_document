@@ -8,7 +8,10 @@ Looks up an access method by name and returns its OID without enforcing any type
 
 ## Definition
 
-
+```c
+Oid
+get_am_oid(const char *amname, bool missing_ok)
+```
 ## Detailed Description
 get_am_oid provides a type-agnostic wrapper for access method lookup operations. Unlike its specialized counterparts (get_index_am_oid and get_table_am_oid), this function does not enforce any access method type constraints, making it suitable for generic access method resolution where the type is not relevant or will be validated elsewhere. It serves as the most flexible interface in the access method lookup family.
 

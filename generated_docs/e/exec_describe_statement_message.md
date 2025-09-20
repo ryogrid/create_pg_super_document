@@ -8,7 +8,10 @@ Processes a "Describe" message for a prepared statement, sending parameter and r
 
 ## Definition
 
-
+```c
+static void
+exec_describe_statement_message(const char *stmt_name)
+```
 ## Detailed Description
 This function handles the Describe message for prepared statements in PostgreSQL's wire protocol. It retrieves information about a prepared statement (either named or unnamed) and sends back two types of descriptions to the client: parameter descriptions and row descriptions. The function starts a transaction command to ensure proper transaction context, then locates the prepared statement and validates that it can be described safely. If the transaction is in an aborted state, it restricts descriptions of statements that return data to avoid catalog access issues.
 

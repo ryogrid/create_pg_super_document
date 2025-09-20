@@ -8,7 +8,10 @@ Calculates and stores the center point coordinates of a geometric box into a pro
 
 ## Definition
 
-
+```c
+static void
+box_cn(Point *center, BOX *box)
+```
 ## Detailed Description
 The `box_cn` function is a static helper function that computes the center point of a BOX geometric data type and stores the result in a provided Point structure. It calculates the center coordinates by taking the average of the high and low x-coordinates for the x-axis, and the average of the high and low y-coordinates for the y-axis. The function uses PostgreSQL's safe floating-point arithmetic functions to ensure proper handling of floating-point operations.
 

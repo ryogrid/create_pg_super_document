@@ -8,7 +8,11 @@ Restarts a table scan with the ability to modify scan parameters including buffe
 
 ## Definition
 
-
+```c
+static inline void
+table_rescan_set_params(TableScanDesc scan, struct ScanKeyData *key,
+						bool allow_strat, bool allow_sync, bool allow_pagemode)
+```
 ## Detailed Description
 The  function provides an advanced way to restart a table scan while allowing modification of important scan parameters that affect performance and behavior. Unlike the basic  function, this variant enables changing buffer strategy, synchronized scanning, and page mode settings before restarting the scan.
 

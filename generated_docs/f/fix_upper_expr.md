@@ -8,7 +8,16 @@ A high-level wrapper function that modifies expression trees so that all Var nod
 
 ## Definition
 
-
+```c
+static Node *
+fix_upper_expr(PlannerInfo *root,
+			   Node *node,
+			   indexed_tlist *subplan_itlist,
+			   int newvarno,
+			   int rtoffset,
+			   NullingRelsMatch nrm_match,
+			   double num_exec)
+```
 ## Detailed Description
 The  function serves as the entry point for fixing variable references in expressions for upper-level (non-join) plan nodes such as aggregation, sorting, and limit nodes, as well as index-only scan nodes. It acts as a wrapper that sets up the necessary context and delegates the actual tree mutation work to .
 

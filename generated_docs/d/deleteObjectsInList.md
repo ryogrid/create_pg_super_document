@@ -8,7 +8,12 @@ Executes the final deletion of objects in a dependency list, handling event trig
 
 ## Definition
 
-
+```c
+struct a list of objects to delete (ie, the given object plus
+	 * everything directly or indirectly dependent on it).
+	 */
+	targetObjects = new_object_addresses();
+```
 ## Detailed Description
 The deleteObjectsInList function is responsible for the final phase of object deletion in PostgreSQL's dependency management system. It operates on a list of objects that have already been determined to be safe for deletion and performs the actual deletion operations. The function handles two main responsibilities:
 

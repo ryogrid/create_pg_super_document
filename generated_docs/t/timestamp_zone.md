@@ -8,7 +8,9 @@ Converts a timestamp to timestamptz by encoding it with a specified time zone, e
 
 ## Definition
 
-
+```c
+struct pg_tm tm;
+```
 ## Detailed Description
 This function implements PostgreSQL's timezone conversion functionality for timestamp values. Unlike typical AT TIME ZONE operations that shift times between zones, timestamp_zone() sets the time to BE in the specified timezone. It takes a timestamp without timezone information and returns a timestamptz by interpreting the input timestamp as being in the specified timezone.
 

@@ -8,7 +8,10 @@ getInstallationPaths determines and validates the filesystem paths to PostgreSQL
 
 ## Definition
 
-
+```c
+static void
+getInstallationPaths(const char *argv0)
+```
 ## Detailed Description
 getInstallationPaths performs critical path discovery and validation during postmaster startup to establish the locations of key PostgreSQL installation components. The function implements a systematic approach to installation path resolution:
 

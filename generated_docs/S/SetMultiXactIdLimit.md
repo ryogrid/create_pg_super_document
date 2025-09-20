@@ -8,7 +8,11 @@ Determines and sets the safe limits for MultiXact ID allocation based on the old
 
 ## Definition
 
-
+```c
+void
+SetMultiXactIdLimit(MultiXactId oldest_datminmxid, Oid oldest_datoid,
+					bool is_startup)
+```
 ## Detailed Description
 SetMultiXactIdLimit is a critical function for preventing MultiXact ID wraparound by calculating and setting various safety limits based on the oldest MultiXact ID that might exist in any database of the cluster. The function establishes a multi-tiered warning and protection system similar to transaction ID wraparound protection.
 

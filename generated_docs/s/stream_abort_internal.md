@@ -8,7 +8,10 @@ Handles the internal abort processing for serialized streaming transactions, eit
 
 ## Definition
 
-
+```c
+static void
+stream_abort_internal(TransactionId xid, TransactionId subxid)
+```
 ## Detailed Description
 This function manages the abort processing for streaming transactions that have been serialized to files. It handles two distinct scenarios:
 

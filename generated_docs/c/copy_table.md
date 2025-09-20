@@ -8,7 +8,10 @@ Performs the initial data synchronization for a table in logical replication by 
 
 ## Definition
 
-
+```c
+static void
+copy_table(Relation rel)
+```
 ## Detailed Description
 The  function is a central component of PostgreSQL's logical replication initial table synchronization process. It orchestrates the complete process of copying existing data from a table on the publisher to the corresponding table on the subscriber.
 

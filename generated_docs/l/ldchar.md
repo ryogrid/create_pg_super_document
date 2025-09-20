@@ -8,7 +8,10 @@ The ldchar function copies a fixed-length string to a destination buffer, automa
 
 ## Definition
 
-
+```c
+void
+ldchar(char *src, int len, char *dest)
+```
 ## Detailed Description
 The ldchar function is part of PostgreSQL's ECPG Informix compatibility library. It provides a convenient way to convert fixed-length character arrays (such as those used in database CHAR columns) into null-terminated C strings. The function first determines the effective length of the source string by calling byleng() to skip trailing spaces, then copies only the meaningful content to the destination and adds a null terminator.
 

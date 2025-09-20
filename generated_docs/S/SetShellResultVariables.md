@@ -8,7 +8,10 @@ SetShellResultVariables updates psql's special variables to track the success an
 
 ## Definition
 
-
+```c
+void
+SetShellResultVariables(int wait_result)
+```
 ## Detailed Description
 SetShellResultVariables is a public function that manages psql's special variables for tracking shell command execution results. It takes a wait status value (as returned by system calls like wait(), waitpid(), pclose(), or system()) and converts it into user-friendly psql variables. The function sets SHELL_ERROR to "false" if the command succeeded (wait_result == 0) or "true" if it failed, and sets SHELL_EXIT_CODE to the actual exit code extracted from the wait status using a helper function. This provides a consistent interface for psql scripts to check the success of shell commands and access their exit codes for conditional logic.
 

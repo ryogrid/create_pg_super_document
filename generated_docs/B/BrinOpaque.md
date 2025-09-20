@@ -8,7 +8,14 @@ BrinOpaque is a structure used as opaque data during BRIN index scans, storing e
 
 ## Definition
 
-
+```c
+typedef struct BrinOpaque
+{
+	BlockNumber bo_pagesPerRange;
+	BrinRevmap *bo_rmAccess;
+	BrinDesc   *bo_bdesc;
+} BrinOpaque;
+```
 ## Detailed Description
 BrinOpaque serves as the opaque data structure passed between scan initialization, execution, and cleanup phases during BRIN index scans. It encapsulates the essential components needed for efficient index scanning: the reverse map for range-to-block mapping, the index descriptor for operator class information, and the pages per range configuration.
 

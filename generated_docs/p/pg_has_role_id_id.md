@@ -8,7 +8,10 @@ This function checks whether a given user (roleid) has specific privileges on a 
 
 ## Definition
 
-
+```c
+Datum
+pg_has_role_id_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL system function that determines if a user has specific privileges on a role. It takes three arguments: a user role OID, a target role OID, and a text string specifying the privilege type. The function converts the privilege string to an internal access control mode using , then performs the actual privilege check using . It returns a boolean value indicating whether the privilege check succeeded.
 

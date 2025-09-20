@@ -8,7 +8,12 @@ MultiXactIdWait provides a blocking interface to wait for conflicting members of
 
 ## Definition
 
-
+```c
+static void
+MultiXactIdWait(MultiXactId multi, MultiXactStatus status, uint16 infomask,
+				Relation rel, ItemPointer ctid, XLTW_Oper oper,
+				int *remaining)
+```
 ## Detailed Description
 This function serves as a simple wrapper around Do_MultiXactIdWait with blocking behavior enabled. It sleeps until all conflicting transactions in the specified multixact have completed. The function is designed to be called in a loop by the caller, as the tuple's Xmax may change while waiting, requiring re-evaluation.
 

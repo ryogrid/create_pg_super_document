@@ -8,7 +8,10 @@ Determines whether SQL commands should be logged based on the log_statement conf
 
 ## Definition
 
-
+```c
+static bool
+check_log_statement(List *stmt_list)
+```
 ## Detailed Description
 This function implements PostgreSQL's statement logging policy by evaluating whether statements in the provided list should be logged according to the current log_statement configuration. The function supports PostgreSQL's hierarchical logging levels:
 

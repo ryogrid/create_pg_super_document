@@ -8,7 +8,12 @@ Records a dependency between two database objects via their respective ObjectAdd
 
 ## Definition
 
-
+```c
+void
+recordDependencyOn(const ObjectAddress *depender,
+				   const ObjectAddress *referenced,
+				   DependencyType behavior)
+```
 ## Detailed Description
 This function provides a simple interface for recording a dependency relationship between two PostgreSQL database objects. It serves as a wrapper around  for the common case of recording a single dependency. The function creates an entry in the pg_depend system catalog table without performing any additional processing or validation. The dependency relationship indicates that the depender object relies on the referenced object and helps PostgreSQL's dependency tracking system manage object lifecycles, particularly during DROP operations.
 

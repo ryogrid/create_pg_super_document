@@ -8,7 +8,13 @@ A structure used in ECPG (Embedded C for PostgreSQL) preprocessor to store infor
 
 ## Definition
 
-
+```c
+struct describe
+{
+	int			input;
+	char	   *stmt_name;
+};
+```
 ## Detailed Description
 The  struct is part of the ECPG preprocessor infrastructure, designed to handle DESCRIBE statements in embedded SQL. DESCRIBE is a SQL statement that provides metadata about prepared statements or result sets. This structure appears to capture the essential parameters needed when processing DESCRIBE operations during the preprocessing phase.
 

@@ -8,7 +8,10 @@ Internal comparison function for composite type (record) values that implements 
 
 ## Definition
 
-
+```c
+structures */
+	tuple1.t_len = HeapTupleHeaderGetDatumLength(record1);
+```
 ## Detailed Description
 The  function is the core comparison engine for composite types in PostgreSQL. It performs a lexicographic comparison between two record values by comparing corresponding columns in order. The function handles different record types as long as they have the same number of non-dropped columns with compatible types. It implements PostgreSQL's NULL comparison semantics where NULL values are considered greater than any non-NULL value, and two NULL values are considered equal.
 

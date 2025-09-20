@@ -8,7 +8,10 @@ Finalizes a pending posting list tuple and adds it to the page, either as the or
 
 ## Definition
 
-
+```c
+Size
+_bt_dedup_finish_pending(Page newpage, BTDedupState state)
+```
 ## Detailed Description
 This function completes the deduplication process for a pending posting list by deciding whether to create a new posting list tuple or use the original base tuple unchanged. The decision depends on whether any duplicates were found and merged.
 

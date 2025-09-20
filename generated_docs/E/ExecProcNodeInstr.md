@@ -8,7 +8,10 @@ ExecProcNodeInstr is a wrapper function that adds performance instrumentation ar
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecProcNodeInstr(PlanState *node)
+```
 ## Detailed Description
 ExecProcNodeInstr provides a lightweight instrumentation wrapper for plan node execution when performance monitoring is enabled. The function implements a clean separation between normal execution and instrumented execution, ensuring that the overhead of instrumentation only affects queries when monitoring is explicitly requested.
 

@@ -8,7 +8,10 @@ Computes the exponential function (e^x) for a numeric value with intelligent sca
 
 ## Definition
 
-
+```c
+Datum
+numeric_exp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function calculates e raised to the power of a numeric input value. It implements proper mathematical semantics for special values: exp(-∞) returns zero per POSIX standards, while NaN and +∞ are preserved. The function uses a sophisticated scale calculation that estimates the decimal weight of the result using the mathematical relationship log10(result) = x * log10(e), where the constant 0.434294481903252 represents log10(e).
 

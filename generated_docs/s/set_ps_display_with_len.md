@@ -8,7 +8,10 @@ Updates the process status display to show a combination of a fixed prefix and a
 
 ## Definition
 
-
+```c
+void
+set_ps_display_with_len(const char *activity, size_t len)
+```
 ## Detailed Description
 This function updates the process title by combining a fixed prefix (typically set during initialization) with a current activity description. It is designed for performance-sensitive code paths where the activity string length is already known, avoiding redundant strlen() calls.
 

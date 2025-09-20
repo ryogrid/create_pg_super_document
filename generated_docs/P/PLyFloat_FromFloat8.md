@@ -8,7 +8,9 @@ Converts a PostgreSQL float8 (double precision) value to a Python float object i
 
 ## Definition
 
-
+```c
+structor;
+```
 ## Detailed Description
 This function serves as a conversion utility in PostgreSQL's PL/Python extension, specifically handling the transformation of PostgreSQL's float8 data type (which represents double precision floating-point numbers) into Python float objects. The function is a straightforward wrapper that extracts the float8 value from a PostgreSQL Datum and creates the corresponding Python object using the Python C API.
 

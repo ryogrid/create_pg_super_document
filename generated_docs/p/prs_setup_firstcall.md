@@ -8,7 +8,11 @@ Initializes function context and performs text parsing during the first call of 
 
 ## Definition
 
-
+```c
+static void
+prs_setup_firstcall(FuncCallContext *funcctx, FunctionCallInfo fcinfo,
+					Oid prsid, text *txt)
+```
 ## Detailed Description
 This function sets up the necessary data structures and performs the complete text parsing process for PostgreSQL text search parser functions during their first call. Unlike  which retrieves token type definitions, this function actually parses input text and stores all resulting lexemes (tokens) for subsequent retrieval. The function uses the parser's start, token, and end methods to process the entire input text and stores each lexeme with its type information.
 

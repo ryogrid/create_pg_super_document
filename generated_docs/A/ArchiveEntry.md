@@ -8,7 +8,11 @@ ArchiveEntry creates a new Table of Contents (TOC) entry that serves as the cent
 
 ## Definition
 
-
+```c
+TocEntry *
+ArchiveEntry(Archive *AHX, CatalogId catalogId, DumpId dumpId,
+			 ArchiveOpts *opts)
+```
 ## Detailed Description
 ArchiveEntry is a fundamental function in the pg_dump archiver that creates and initializes new TOC entries for database objects being dumped. Despite its name suggesting a simple table of contents, this function actually creates comprehensive metadata records that serve as the primary repository for all information about database objects during the dump process.
 

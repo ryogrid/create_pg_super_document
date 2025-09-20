@@ -8,7 +8,10 @@ Validates PL/Perl function definitions during CREATE FUNCTION, checking argument
 
 ## Definition
 
-
+```c
+Datum
+plperl_validator(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs validation of PL/Perl functions when they are created or modified using CREATE FUNCTION or ALTER FUNCTION statements. It examines the function's metadata in pg_proc to validate that the function's signature is compatible with PL/Perl restrictions. The validator checks that return types and argument types are supported by PL/Perl, specifically disallowing most pseudotypes except for triggers, event triggers, records, and void. When check_function_bodies is enabled, it also compiles the function body to detect syntax errors early during function creation rather than at runtime.
 

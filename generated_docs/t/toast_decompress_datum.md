@@ -8,7 +8,10 @@ Decompresses a compressed varlena datum by determining the compression method us
 
 ## Definition
 
-
+```c
+static struct varlena *
+toast_decompress_datum(struct varlena *attr)
+```
 ## Detailed Description
 This function serves as a dispatch mechanism for decompressing TOAST-ed data that has been compressed using various compression algorithms supported by PostgreSQL. It examines the compression header of the input datum to determine which compression method was used (such as PGLZ or LZ4) and then calls the appropriate algorithm-specific decompression function.
 

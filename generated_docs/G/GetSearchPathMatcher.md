@@ -8,7 +8,10 @@ Fetches the current search path definition and creates a SearchPathMatcher struc
 
 ## Definition
 
-
+```c
+SearchPathMatcher *
+GetSearchPathMatcher(MemoryContext context)
+```
 ## Detailed Description
 This function creates a SearchPathMatcher structure that represents the current search path configuration. It recomputes the namespace path to ensure accuracy, then constructs a matcher object that includes the list of schemas to search, flags indicating whether temporary and catalog namespaces should be implicitly added, and a generation number for cache validation. The function allocates the result in the specified memory context while performing intermediate calculations in the current memory context.
 

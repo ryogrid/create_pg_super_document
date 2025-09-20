@@ -8,7 +8,10 @@ A PostgreSQL function that initializes the default text search parser with a giv
 
 ## Definition
 
-
+```c
+Datum
+prsd_start(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 prsd_start is a PostgreSQL built-in function that serves as the initialization interface for the default word parser. It acts as a wrapper around the internal TParserInit function, converting PostgreSQL function arguments into the appropriate format for parser initialization.
 

@@ -8,7 +8,10 @@ Determines whether security labels are supported for a given PostgreSQL object t
 
 ## Definition
 
-
+```c
+static bool
+SecLabelSupportsObjectType(ObjectType objtype)
+```
 ## Detailed Description
 This function serves as a filter to validate whether security labels can be applied to specific PostgreSQL database objects. It implements a whitelist approach, explicitly returning  for object types that support security labeling and  for those that do not. The function uses a comprehensive switch statement to categorize all known PostgreSQL object types into supported and unsupported groups.
 

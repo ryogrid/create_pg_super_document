@@ -8,7 +8,11 @@ heap_attr_equals is a static helper function that compares two attribute values 
 
 ## Definition
 
-
+```c
+static bool
+heap_attr_equals(TupleDesc tupdesc, int attrnum, Datum value1, Datum value2,
+				 bool isnull1, bool isnull2)
+```
 ## Detailed Description
 This function performs attribute value comparison with careful handling of NULL values and different data types. It implements a conservative binary comparison approach rather than using type-specific equality operators for safety reasons. The function is designed to avoid false positives while operating under exclusive buffer locks, where invoking user-defined functions would be unsafe.
 

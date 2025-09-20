@@ -8,7 +8,11 @@ Generates a list of PartitionPruneStepOp based on OpExpr and BooleanTest clauses
 
 ## Definition
 
-
+```c
+static List *
+gen_prune_steps_from_opexps(GeneratePruningStepsContext *context,
+							List **keyclauses, Bitmapset *nullkeys)
+```
 ## Detailed Description
 This function is responsible for converting matched operator clauses into concrete partition pruning steps. It processes an array of clause lists indexed by partition key position and generates appropriate pruning steps based on the partitioning strategy (LIST, RANGE, or HASH).
 

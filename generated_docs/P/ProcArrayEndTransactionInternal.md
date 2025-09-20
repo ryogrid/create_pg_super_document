@@ -8,7 +8,10 @@ Internal function that performs the actual work of marking a write transaction a
 
 ## Definition
 
-
+```c
+static inline void
+ProcArrayEndTransactionInternal(PGPROC *proc, TransactionId latestXid)
+```
 ## Detailed Description
 ProcArrayEndTransactionInternal is the low-level worker function that performs the actual transaction cleanup in the shared process array. Unlike its public counterpart ProcArrayEndTransaction, this function assumes that the caller has already acquired the necessary locks (specifically ProcArrayLock in exclusive mode).
 

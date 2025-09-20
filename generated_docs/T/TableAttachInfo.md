@@ -8,7 +8,16 @@ TableAttachInfo represents partition attachment operations in PostgreSQL's pg_du
 
 ## Definition
 
-
+```c
+typedef struct _attrDefInfo
+{
+	DumpableObject dobj;		/* note: dobj.name is name of table */
+	TableInfo  *adtable;		/* link to table of attribute */
+	int			adnum;
+	char	   *adef_expr;		/* decompiled DEFAULT expression */
+	bool		separate;		/* true if must dump as separate item */
+} AttrDefInfo;
+```
 ## Detailed Description
 TableAttachInfo is a specialized structure used by pg_dump to handle table partitioning relationships. It represents the ATTACH PARTITION operation that must be executed after both the partitioned parent table and the partition table are created during database restoration. This structure is created during the schema discovery phase for each partition found in the database, ensuring that partition attachments are performed in the correct order during restoration. The structure exists solely to manage dependencies and generate ALTER TABLE ... ATTACH PARTITION statements.
 

@@ -8,7 +8,10 @@ PQgetvalue retrieves the value of a specific field (column) from a specific row 
 
 ## Definition
 
-
+```c
+char *
+PQgetvalue(const PGresult *res, int tup_num, int field_num)
+```
 ## Detailed Description
 PQgetvalue is a fundamental function in libpq for extracting data from query results. It returns a pointer to the string representation of the value at the specified row and column position. The function performs bounds checking to ensure the requested tuple (row) and field (column) numbers are valid before accessing the data. If the validation fails, it returns NULL and generates an internal notice message.
 

@@ -8,7 +8,13 @@ MergeWithExistingConstraint checks for pre-existing check constraints with the s
 
 ## Definition
 
-
+```c
+static bool
+MergeWithExistingConstraint(Relation rel, const char *ccname, Node *expr,
+							bool allow_merge, bool is_local,
+							bool is_initially_valid,
+							bool is_no_inherit)
+```
 ## Detailed Description
 MergeWithExistingConstraint is a static function that handles constraint merging during constraint addition operations. The function searches for existing constraints with the same name and relation, validates that they are identical check constraints, and either merges them by updating inheritance metadata or reports appropriate conflicts.
 

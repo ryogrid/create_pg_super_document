@@ -8,7 +8,11 @@ Generates execution plans for a list of already-rewritten queries, handling both
 
 ## Definition
 
-
+```c
+List *
+pg_plan_queries(List *querytrees, const char *query_string, int cursorOptions,
+				ParamListInfo boundParams)
+```
 ## Detailed Description
 This function serves as a batch planning interface that processes multiple queries at once, which is common when dealing with complex SQL statements that may be rewritten into multiple query trees. The function handles two distinct types of queries:
 

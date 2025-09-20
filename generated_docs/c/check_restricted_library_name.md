@@ -8,7 +8,10 @@ Validates that a library name follows the security restrictions for accessing sh
 
 ## Definition
 
-
+```c
+static void
+check_restricted_library_name(const char *name)
+```
 ## Detailed Description
 This function enforces security restrictions on library names to prevent unauthorized access to system libraries or directory traversal attacks. It implements a strict validation policy that requires restricted library names to:
 

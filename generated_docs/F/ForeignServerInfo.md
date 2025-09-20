@@ -8,7 +8,15 @@ ForeignServerInfo is a structure used by pg_dump to represent PostgreSQL foreign
 
 ## Definition
 
-
+```c
+typedef struct _defaultACLInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
+	const char *defaclrole;
+	char		defaclobjtype;
+} DefaultACLInfo;
+```
 ## Detailed Description
 ForeignServerInfo is a data structure that encapsulates all information about PostgreSQL foreign servers needed for backup and restore operations. It extends the standard DumpableObject pattern used throughout pg_dump, allowing foreign servers to be treated as dumpable database objects with proper dependency tracking and selective dumping capabilities. The structure stores both the server's configuration properties and metadata needed for proper access control restoration.
 

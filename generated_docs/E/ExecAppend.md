@@ -8,7 +8,10 @@ The main execution function for Append nodes that handles iteration over multipl
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecAppend(PlanState *pstate)
+```
 ## Detailed Description
 ExecAppend is the core execution function for PostgreSQL's Append node executor. It implements a sophisticated iteration strategy that can handle both synchronous and asynchronous subplan execution. The function operates in a continuous loop, cycling through available subplans until all are exhausted.
 

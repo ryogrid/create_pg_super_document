@@ -8,7 +8,10 @@ A cleanup function that properly deallocates memory used by an ObjectAddresses s
 
 ## Definition
 
-
+```c
+void
+free_object_addresses(ObjectAddresses *addrs)
+```
 ## Detailed Description
 This function performs proper memory deallocation for an ObjectAddresses structure when it is no longer needed. The ObjectAddresses structure contains dynamically allocated arrays that hold object references and optional extra information used in PostgreSQL's dependency tracking system. The function ensures that all allocated memory is freed in the correct order - first the contained arrays, then the structure itself.
 

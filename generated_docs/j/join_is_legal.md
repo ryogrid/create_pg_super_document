@@ -8,7 +8,12 @@ Determines whether a proposed join between two relations is legal given the quer
 
 ## Definition
 
-
+```c
+static bool
+join_is_legal(PlannerInfo *root, RelOptInfo *rel1, RelOptInfo *rel2,
+			  Relids joinrelids,
+			  SpecialJoinInfo **sjinfo_p, bool *reversed_p)
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's join planning that validates whether two relations can be legally joined according to the query's constraints. It handles complex join order restrictions arising from:
 

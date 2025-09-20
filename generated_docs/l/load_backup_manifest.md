@@ -8,7 +8,9 @@ Parses the backup_manifest file in the named backup directory and constructs a h
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function loads and parses a PostgreSQL backup manifest file ("backup_manifest") located in the specified backup directory. The manifest contains metadata about all files in the backup and WAL ranges. The function creates a hash table to efficiently store file information and initializes callback functions for parsing different sections of the JSON manifest.
 

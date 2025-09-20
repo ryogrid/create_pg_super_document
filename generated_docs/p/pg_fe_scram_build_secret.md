@@ -8,7 +8,10 @@ Builds a new SCRAM secret from a plain text password by performing SASLprep norm
 
 ## Definition
 
-
+```c
+char *
+pg_fe_scram_build_secret(const char *password, int iterations, const char **errstr)
+```
 ## Detailed Description
 This function creates a SCRAM (Salted Challenge Response Authentication Mechanism) secret suitable for storage and use in PostgreSQL authentication. It performs the complete process of converting a plain text password into a SCRAM secret by first normalizing the password using SASLprep (RFC 4013), generating a cryptographically secure random salt, and then invoking the core SCRAM secret building functionality with SHA-256 hashing.
 

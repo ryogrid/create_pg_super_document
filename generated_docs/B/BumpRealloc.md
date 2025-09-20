@@ -8,7 +8,10 @@ A deliberately unsupported function that throws an error when called, enforcing 
 
 ## Definition
 
-
+```c
+void *
+BumpRealloc(void *pointer, Size size, int flags)
+```
 ## Detailed Description
 BumpRealloc is an intentionally non-functional implementation of the memory context reallocation operation for the bump allocator. Instead of attempting to resize the memory pointed to by the given pointer, this function immediately throws an ERROR indicating that 'realloc is not supported by the bump memory allocator'. This design choice is consistent with bump allocator principles: once memory is allocated sequentially, it cannot be individually managed, resized, or freed. The function returns NULL after the error to satisfy compiler requirements, though this return statement is never reached due to the error.
 

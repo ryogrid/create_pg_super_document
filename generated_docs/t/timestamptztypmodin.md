@@ -8,7 +8,10 @@ Processes and validates type modifier input for the timestamptz data type, conve
 
 ## Definition
 
-
+```c
+Datum
+timestamptztypmodin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the type modifier input function for the timestamptz data type. It processes an array of strings containing type modifier specifications (such as precision values) and converts them into PostgreSQL's internal typmod representation. This function is called during SQL parsing when timestamptz types are declared with modifiers, such as  for 3-digit fractional seconds precision.
 

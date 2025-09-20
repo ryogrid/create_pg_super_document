@@ -8,7 +8,10 @@ Frees memory allocated for a tuple created by brin_form_tuple or related BRIN tu
 
 ## Definition
 
-
+```c
+void
+brin_free_tuple(BrinTuple *tuple)
+```
 ## Detailed Description
 This function provides a simple memory deallocation interface for BRIN tuples that were previously created by brin_form_tuple or brin_form_placeholder_tuple. It serves as an abstraction layer over the standard pfree() function, providing a consistent API for BRIN tuple memory management and potentially allowing for future enhancements to the deallocation process if needed.
 

@@ -8,7 +8,10 @@ Reads and processes invalidation messages from the shared invalidation message q
 
 ## Definition
 
-
+```c
+void
+AcceptInvalidationMessages(void)
+```
 ## Detailed Description
 AcceptInvalidationMessages is a critical function that retrieves and processes invalidation messages from the shared invalidation queue to maintain cache consistency across PostgreSQL backends. The function serves as the main entry point for receiving invalidation messages from other backends that have modified shared data structures.
 

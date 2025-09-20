@@ -8,7 +8,10 @@ This is a GUC check hook function that validates and loads timezone abbreviation
 
 ## Definition
 
-
+```c
+bool
+check_timezone_abbreviations(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 The  function serves as the validation hook for PostgreSQL's  configuration parameter. This parameter specifies which file of timezone abbreviations to use for parsing ambiguous datetime values.
 

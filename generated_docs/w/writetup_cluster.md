@@ -8,7 +8,10 @@ Writes a heap tuple to a logical tape during the CLUSTER sort operation, storing
 
 ## Definition
 
-
+```c
+struct the HeapTupleData header */
+	tuple->t_data = (HeapTupleHeader) ((char *) tuple + HEAPTUPLESIZE);
+```
 ## Detailed Description
 The  function is responsible for serializing heap tuples to logical tapes during CLUSTER sort operations. It writes the tuple in a format optimized for clustering, storing not only the tuple data but also the ItemPointer (t_self) which contains the physical location of the tuple in the heap. This information is crucial for the clustering operation as it needs to maintain the relationship between sorted tuples and their physical storage locations.
 

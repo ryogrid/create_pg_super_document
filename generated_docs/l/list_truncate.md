@@ -8,7 +8,10 @@ The  function modifies a list in-place to contain no more than a specified numbe
 
 ## Definition
 
-
+```c
+List *
+list_truncate(List *list, int new_size)
+```
 ## Detailed Description
 This function provides an efficient way to reduce the length of a list without deallocating memory or moving list cells. It operates by simply adjusting the list's length field when the requested size is smaller than the current length. If the requested size is greater than or equal to the current length, no modification occurs.
 

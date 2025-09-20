@@ -8,7 +8,14 @@ ATExecSetStorage implements the ALTER TABLE ALTER COLUMN SET STORAGE command, mo
 
 ## Definition
 
-
+```c
+structTupleDescriptor()).
+	 */
+	SetIndexStorageProperties(rel, attrelation, attnum,
+							  true, attrtuple->attstorage,
+							  false, 0,
+							  lockmode);
+```
 ## Detailed Description
 This function modifies the storage strategy (PLAIN, EXTERNAL, EXTENDED, or MAIN) for a table column by updating the pg_attribute system catalog. The function validates the column existence, ensures it's not a system column, updates the storage setting in the catalog, and propagates the change to any associated indexes. It also triggers post-alter hooks to notify other subsystems of the change.
 

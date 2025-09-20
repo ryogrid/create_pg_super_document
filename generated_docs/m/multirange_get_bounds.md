@@ -8,7 +8,32 @@ This function efficiently extracts the lower and upper bounds from the i-th rang
 
 ## Definition
 
+```c
+struct union range from the multirange.
+ */
+RangeType *
+multirange_get_union_range(TypeCacheEntry *rangetyp,
+						   const MultirangeType *mr)
+{
+	RangeBound	lower,
+				upper,
+				tmp;
 
+	if (MultirangeIsEmpty(mr))
+		return make_empty_range(rangetyp);
+
+	multirange_get_bounds(rangetyp, mr, 0, &lower, &tmp);
+	multirange_get_bounds(rangetyp, mr, mr->rangeCount - 1, &tmp, &upper);
+
+	return make_range(rangetyp, &lower, &upper, false, NULL);
+}
+
+
+/*
+ * multirange_deserialize: deconstruct a multirange value
+ *
+ * NB: the given multirange object must be fully detoasted;
+```
 ## Detailed Description
 The function provides a streamlined way to access range bounds without the overhead of constructing a complete RangeType structure. It directly extracts bounds data from the multirange's compressed format, handling type-specific considerations like alignment and value fetching. The function properly handles both finite and infinite bounds, as well as inclusive/exclusive boundaries.
 

@@ -8,7 +8,10 @@ Reverses the sort direction for all sort keys in a Tuplesortstate, switching bet
 
 ## Definition
 
-
+```c
+static void
+reversedirection(Tuplesortstate *state)
+```
 ## Detailed Description
 The  function modifies the sort direction and null handling behavior for all sort keys associated with a tuple sort operation. It iterates through all sort keys in the given  and inverts both the sort direction () and null ordering () for each key. This function is primarily used in bounded heap operations where the sort direction needs to be reversed to maintain proper heap ordering.
 

@@ -8,7 +8,9 @@ A recursive descent parsing function that processes JSON object field definition
 
 ## Definition
 
-
+```c
+struct_action ostart = sem->object_start;
+```
 ## Detailed Description
 parse_object_field handles the parsing of individual JSON object fields following the pattern "fieldname" : value. It validates that the field name is a string token, extracts and preserves the field name for semantic callbacks, processes the colon separator, and then recursively parses the field value which can be a scalar, object, or array. The function manages semantic action callbacks for both field start and field end events, passing the field name and null status information. It supports the complete JSON value grammar for field values and ensures proper syntax validation throughout the parsing process.
 

@@ -8,7 +8,19 @@ Assigns collation information to an expression tree node during parse analysis, 
 
 ## Definition
 
+```c
+structorExpr:
+			{
+				JsonConstructorExpr *ctor = (JsonConstructorExpr *) expr;
 
+				if (ctor->coercion)
+					exprSetCollation((Node *) ctor->coercion, collation);
+				else
+					Assert(!OidIsValid(collation)); /* result is always a
+													 * json[b] type */
+			}
+			break;
+```
 ## Detailed Description
 The  function is responsible for assigning collation information to various types of expression tree nodes during PostgreSQL's parse analysis phase. It uses a comprehensive switch statement based on the node's tag to determine the appropriate collation field to set for each expression type.
 

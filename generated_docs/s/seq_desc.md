@@ -8,7 +8,10 @@ Generates human-readable description text for PostgreSQL sequence-related WAL (W
 
 ## Definition
 
-
+```c
+void
+seq_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL record description infrastructure, specifically handling sequence-related operations. It extracts information from WAL records related to sequence operations and formats it into a readable string representation. This function is primarily used for debugging WAL records and providing meaningful output in tools like .
 

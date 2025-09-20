@@ -8,7 +8,10 @@ Converts a PostgreSQL timestamp value to a date data type, discarding the time c
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that converts a timestamp value (Timestamp) to a date value (DateADT). This conversion extracts only the date portion from the timestamp, effectively discarding the time component. The function handles special timestamp values like infinity (NOBEGIN/NOEND) by converting them to corresponding special date values.
 

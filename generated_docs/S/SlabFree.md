@@ -8,7 +8,10 @@ SlabFree deallocates memory chunks from the slab memory context, managing block 
 
 ## Definition
 
-
+```c
+void
+SlabFree(void *pointer)
+```
 ## Detailed Description
 SlabFree is the deallocation function for the slab memory allocator in PostgreSQL. It performs the following key operations:
 

@@ -8,7 +8,9 @@ Validates generic options given to SERVER or USER MAPPING for PostgreSQL foreign
 
 ## Definition
 
-
+```c
+struct ConnectionOption *opt;
+```
 ## Detailed Description
 The `postgresql_fdw_validator` function is a PostgreSQL SQL-callable function that validates options provided to foreign servers or user mappings in the context of PostgreSQL foreign data wrappers. The function checks each option against the list of valid libpq connection options appropriate for the given context.
 

@@ -8,7 +8,10 @@ Creates and initializes a new PLyPlan Python object that represents a prepared S
 
 ## Definition
 
-
+```c
+PyObject *
+PLy_plan_new(void)
+```
 ## Detailed Description
 This function allocates and initializes a new PLyPlanObject instance using the Python C API. The created object represents a prepared SQL plan that can be executed multiple times with different parameters. All member fields are initialized to safe default values (NULL or 0) to ensure the object is in a clean state. The function returns a PyObject pointer that can be used by Python code, or NULL if memory allocation fails.
 

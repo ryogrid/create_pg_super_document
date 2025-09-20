@@ -8,7 +8,10 @@ Creates and initializes a new lexeme entry in the thesaurus dictionary structure
 
 ## Definition
 
-
+```c
+static void
+newLexeme(DictThesaurus *d, char *b, char *e, uint32 idsubst, uint16 posinsubst)
+```
 ## Detailed Description
 The newLexeme function is responsible for adding a new lexeme (word/token) to the DictThesaurus structure. It dynamically manages memory allocation for the lexeme array, automatically expanding the storage capacity when needed. The function extracts the lexeme string from a character buffer range, creates a copy in allocated memory, and initializes associated metadata including substitution ID and position information.
 

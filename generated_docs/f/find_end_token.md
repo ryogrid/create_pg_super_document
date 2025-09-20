@@ -8,7 +8,10 @@ A static helper function that locates the end position of a token in a string du
 
 ## Definition
 
-
+```c
+static char *
+find_end_token(char *str, char *fmt)
+```
 ## Detailed Description
 This function is a critical component of the ECPG date/time parsing system. It analyzes a format string pattern and finds where the current token ends in the input string by looking for the next literal text delimiter. The function handles the complex task of matching format specifiers with actual date/time values while accounting for flexible whitespace handling.
 

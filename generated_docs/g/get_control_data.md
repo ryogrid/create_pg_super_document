@@ -8,7 +8,118 @@ Extracts pg_control information from PostgreSQL clusters in a version-independen
 
 ## Definition
 
+```c
+struct the
+	 * WAL file name from the xlogid and segno.
+	 */
+	if (GET_MAJOR_VERSION(cluster->major_version) <= 902)
+	{
+		if (got_tli && got_log_id && got_log_seg)
+		{
+			snprintf(cluster->controldata.nextxlogfile, 25, "%08X%08X%08X",
+					 tli, logid, segno);
+			got_nextxlogfile = true;
+		}
+	}
 
+	/* verify that we got all the mandatory pg_control data */
+	if (!got_xid || !got_oid ||
+		!got_multi || !got_oldestxid ||
+		(!got_oldestmulti &&
+		 cluster->controldata.cat_ver >= MULTIXACT_FORMATCHANGE_CAT_VER) ||
+		!got_mxoff || (!live_check && !got_nextxlogfile) ||
+		!got_float8_pass_by_value || !got_align || !got_blocksz ||
+		!got_largesz || !got_walsz || !got_walseg || !got_ident ||
+		!got_index || !got_toast ||
+		(!got_large_object &&
+		 cluster->controldata.ctrl_ver >= LARGE_OBJECT_SIZE_PG_CONTROL_VER) ||
+		!got_date_is_int || !got_data_checksum_version)
+	{
+		if (cluster == &old_cluster)
+			pg_log(PG_REPORT,
+				   "The source cluster lacks some required control information:");
+		else
+			pg_log(PG_REPORT,
+				   "The target cluster lacks some required control information:");
+
+		if (!got_xid)
+			pg_log(PG_REPORT, "  checkpoint next XID");
+
+		if (!got_oid)
+			pg_log(PG_REPORT, "  latest checkpoint next OID");
+
+		if (!got_multi)
+			pg_log(PG_REPORT, "  latest checkpoint next MultiXactId");
+
+		if (!got_oldestmulti &&
+			cluster->controldata.cat_ver >= MULTIXACT_FORMATCHANGE_CAT_VER)
+			pg_log(PG_REPORT, "  latest checkpoint oldest MultiXactId");
+
+		if (!got_oldestxid)
+			pg_log(PG_REPORT, "  latest checkpoint oldestXID");
+
+		if (!got_mxoff)
+			pg_log(PG_REPORT, "  latest checkpoint next MultiXactOffset");
+
+		if (!live_check && !got_nextxlogfile)
+			pg_log(PG_REPORT, "  first WAL segment after reset");
+
+		if (!got_float8_pass_by_value)
+			pg_log(PG_REPORT, "  float8 argument passing method");
+
+		if (!got_align)
+			pg_log(PG_REPORT, "  maximum alignment");
+
+		if (!got_blocksz)
+			pg_log(PG_REPORT, "  block size");
+
+		if (!got_largesz)
+			pg_log(PG_REPORT, "  large relation segment size");
+
+		if (!got_walsz)
+			pg_log(PG_REPORT, "  WAL block size");
+
+		if (!got_walseg)
+			pg_log(PG_REPORT, "  WAL segment size");
+
+		if (!got_ident)
+			pg_log(PG_REPORT, "  maximum identifier length");
+
+		if (!got_index)
+			pg_log(PG_REPORT, "  maximum number of indexed columns");
+
+		if (!got_toast)
+			pg_log(PG_REPORT, "  maximum TOAST chunk size");
+
+		if (!got_large_object &&
+			cluster->controldata.ctrl_ver >= LARGE_OBJECT_SIZE_PG_CONTROL_VER)
+			pg_log(PG_REPORT, "  large-object chunk size");
+
+		if (!got_date_is_int)
+			pg_log(PG_REPORT, "  dates/times are integers?");
+
+		/* value added in Postgres 9.3 */
+		if (!got_data_checksum_version)
+			pg_log(PG_REPORT, "  data checksum version");
+
+		pg_fatal("Cannot continue without required control information, terminating");
+	}
+}
+
+
+/*
+ * check_control_data()
+ *
+ * check to make sure the control data settings are compatible
+ */
+void
+check_control_data(ControlData *oldctrl,
+				   ControlData *newctrl)
+{
+	if (oldctrl->align == 0 || oldctrl->align != newctrl->align)
+		pg_fatal("old and new pg_controldata alignments are invalid or do not match.\n"
+				 "Likely one cluster is a 32-bit install, the other 64-bit");
+```
 ## Detailed Description
 The  function is a core component of pg_upgrade that extracts critical control data from PostgreSQL clusters. It handles version differences by using different utilities:
 

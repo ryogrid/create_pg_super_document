@@ -8,7 +8,10 @@ PostgreSQL SQL function that calculates the distance from a PATH to a Point (rev
 
 ## Definition
 
-
+```c
+Datum
+dist_pathp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the public PostgreSQL SQL interface for computing the shortest distance from a path to a point. It extracts the path and point arguments from the function call framework and delegates the actual distance calculation to . The function is functionally equivalent to  but with reversed argument order, demonstrating that distance between a point and path is commutative.
 

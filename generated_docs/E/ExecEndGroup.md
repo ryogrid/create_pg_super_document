@@ -8,7 +8,10 @@ ExecEndGroup performs cleanup and resource deallocation for a Group plan node du
 
 ## Definition
 
-
+```c
+void
+ExecEndGroup(GroupState *node)
+```
 ## Detailed Description
 ExecEndGroup is responsible for the orderly shutdown of a Group plan node during query completion or early termination. The function follows PostgreSQL's standard cleanup protocol by recursively calling ExecEndNode on its child plan node to ensure proper resource deallocation throughout the plan tree.
 

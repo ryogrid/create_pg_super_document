@@ -8,7 +8,10 @@ ExecInitTableFuncScan initializes a TableFuncScanState node for executing table 
 
 ## Definition
 
-
+```c
+TableFuncScanState *
+ExecInitTableFuncScan(TableFuncScan *node, EState *estate, int eflags)
+```
 ## Detailed Description
 ExecInitTableFuncScan performs comprehensive initialization of a table function scan node. It creates a TableFuncScanState structure and initializes all components needed for table function execution, including expression contexts, tuple descriptors, projection information, and function-specific routines.
 

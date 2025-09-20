@@ -8,7 +8,13 @@ Creates a TargetEntry node in PostgreSQL's query tree structure, representing a 
 
 ## Definition
 
-
+```c
+TargetEntry *
+makeTargetEntry(Expr *expr,
+				AttrNumber resno,
+				char *resname,
+				bool resjunk)
+```
 ## Detailed Description
 The  function allocates and initializes a new TargetEntry node, which is a fundamental component in PostgreSQL's query processing system. TargetEntry nodes represent items in the target list (SELECT clause) of a query, including both regular output columns and internal "junk" columns used for query processing but not returned to the user.
 

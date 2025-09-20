@@ -8,7 +8,10 @@ PostgreSQL function that determines if two MAC addresses are equal, returning a 
 
 ## Definition
 
-
+```c
+Datum
+macaddr_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The macaddr_eq function implements the equality comparison operator ('=') for MAC address data types in PostgreSQL. It takes two MAC address arguments and returns true if they are identical, false otherwise. The function uses macaddr_cmp_internal to perform the comparison and checks if the result equals zero (== 0), indicating that both MAC addresses have the same high-order and low-order bits.
 

@@ -8,7 +8,10 @@ WAL (Write-Ahead Logging) redo function for heap access method operations that p
 
 ## Definition
 
-
+```c
+void
+heap_redo(XLogReaderState *record)
+```
 ## Detailed Description
 The  function is the primary entry point for replaying heap table operations from WAL records during PostgreSQL recovery. It serves as a dispatcher that examines the operation type encoded in the WAL record and calls the appropriate specific redo function. This function handles basic heap operations that don't involve MVCC conflicts, distinguishing it from heap2_redo which handles more complex operations requiring conflict processing.
 

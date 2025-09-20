@@ -8,7 +8,12 @@ Handles the content processing phase of the plain writer base backup streamer by
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_plain_writer_content(bbstreamer *streamer,
+								bbstreamer_member *member, const char *data,
+								int len, bbstreamer_archive_context context)
+```
 ## Detailed Description
 This is the content processing callback function for the plain writer streamer operations. It receives data chunks from the base backup streaming pipeline and writes them directly to the output file without any transformation. The function performs error handling for write operations and sets appropriate errno values when disk space issues are encountered.
 

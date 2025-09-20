@@ -8,7 +8,12 @@ Updates the local synced slot's metadata based on data from the remote slot, ens
 
 ## Definition
 
-
+```c
+static bool
+update_local_synced_slot(RemoteSlot *remote_slot, Oid remote_dbid,
+						 bool *found_consistent_snapshot,
+						 bool *remote_slot_precedes)
+```
 ## Detailed Description
 This function synchronizes a local replication slot with its corresponding remote slot by updating LSNs, xmins, and configuration parameters. It implements careful logic to prevent data loss by ensuring that slot updates only proceed when consistent snapshots are available. The function handles two main scenarios:
 

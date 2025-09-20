@@ -8,7 +8,14 @@ PublicationRelInfo is a structure used by pg_dump to represent the relationship 
 
 ## Definition
 
-
+```c
+typedef struct PublicationRelInfo
+{
+	Relation	relation;
+	Node	   *whereClause;
+	List	   *columns;
+} PublicationRelInfo;
+```
 ## Detailed Description
 PublicationRelInfo is a pg_dump-specific structure that represents the association between a publication and an individual table. This structure is part of pg_dump's internal data model for capturing and reconstructing logical replication publication configurations during database backup and restore operations.
 

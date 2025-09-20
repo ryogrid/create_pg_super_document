@@ -8,7 +8,10 @@ A method function that calculates the size in bytes required to flatten an expan
 
 ## Definition
 
-
+```c
+static Size
+EA_get_flat_size(ExpandedObjectHeader *eohptr)
+```
 ## Detailed Description
 This function is part of the ExpandedObjectMethods interface for expanded arrays, used to determine how much memory space will be needed to create a flattened (standard PostgreSQL array) representation of an expanded array. It employs multiple optimization strategies to avoid expensive recalculation.
 

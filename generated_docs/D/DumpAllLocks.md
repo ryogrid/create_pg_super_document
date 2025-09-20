@@ -8,7 +8,10 @@ Dumps all locks in the PostgreSQL lock manager system by iterating through the e
 
 ## Definition
 
-
+```c
+void
+DumpAllLocks(void)
+```
 ## Detailed Description
 The DumpAllLocks function is a comprehensive debugging utility that prints information about every lock in the PostgreSQL lock manager system. Unlike DumpLocks which focuses on a specific process, this function provides a global view of all locks by iterating through the entire LockMethodProcLockHash hash table. It examines every PROCLOCK entry and the associated LOCK structures to provide complete visibility into the system's lock state.
 

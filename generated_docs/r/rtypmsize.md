@@ -8,7 +8,9 @@ rtypmsize is a stub function in PostgreSQL's ECPG Informix compatibility library
 
 ## Definition
 
-
+```c
+struct sqlca_t *sqlca = ECPGget_sqlca();
+```
 ## Detailed Description
 This function is part of the ECPG (Embedded SQL in C for PostgreSQL) Informix compatibility layer. It's designed to return the memory size in bytes required for a particular data type and length combination. However, in the current implementation, it's a stub function that simply returns 0 regardless of the input parameters. The function parameters are explicitly cast to void to suppress compiler warnings about unused parameters.
 

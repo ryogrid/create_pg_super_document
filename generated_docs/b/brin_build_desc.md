@@ -8,7 +8,11 @@ Constructs and initializes a BrinDesc structure that contains all metadata neede
 
 ## Definition
 
-
+```c
+struct and fill it in */
+	totalsize = offsetof(BrinDesc, bd_info) +
+		sizeof(BrinOpcInfo *) * tupdesc->natts;
+```
 ## Detailed Description
 This function creates a comprehensive descriptor for a BRIN index by collecting opclass information for each indexed column. It allocates a dedicated memory context to manage the descriptor's lifetime, retrieves opclass-specific information using the BRIN_PROCNUM_OPCINFO procedure, and assembles all metadata into a BrinDesc structure. The function calculates the total number of stored columns across all opclasses, as this varies by opclass implementation. The resulting descriptor contains everything needed for tuple construction, scanning, and other BRIN operations.
 

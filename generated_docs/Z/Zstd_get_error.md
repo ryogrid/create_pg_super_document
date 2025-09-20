@@ -8,7 +8,10 @@ Retrieves the last error message from a zstd compression file handle by accessin
 
 ## Definition
 
-
+```c
+static const char *
+Zstd_get_error(CompressFileHandle *CFH)
+```
 ## Detailed Description
 This function provides access to error information for zstd compression operations within PostgreSQL's pg_dump utility. It extracts the ZstdCompressorState from the CompressFileHandle's private data and returns the stored error message string. The function serves as the error reporting mechanism for the zstd compression backend, allowing calling code to retrieve descriptive error messages when compression operations fail.
 

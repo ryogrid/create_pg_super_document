@@ -8,7 +8,10 @@ This is a debugging function that reports Valgrind memory errors associated with
 
 ## Definition
 
-
+```c
+static void
+valgrind_report_error_query(const char *query)
+```
 ## Detailed Description
 The  function is a diagnostic utility specifically designed for debugging memory-related issues in PostgreSQL when running under Valgrind memory analysis tool. It compares the current Valgrind error count with a previously stored count () and if new errors have been detected since the last check, it outputs a message identifying the SQL query that was being executed when the errors occurred. This helps developers correlate memory errors with specific database operations during development and testing phases.
 

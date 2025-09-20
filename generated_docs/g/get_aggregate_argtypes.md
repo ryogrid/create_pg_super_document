@@ -8,7 +8,10 @@ Extracts the actual datatypes of input arguments passed to an aggregate function
 
 ## Definition
 
-
+```c
+int
+get_aggregate_argtypes(Aggref *aggref, Oid *inputTypes)
+```
 ## Detailed Description
 This function identifies the specific datatypes passed to an aggregate call by examining an Aggref node. It extracts the actual datatypes of the input arguments and reports them in a way that matches the aggregate's declaration. The function handles the nuances of different aggregate types:
 

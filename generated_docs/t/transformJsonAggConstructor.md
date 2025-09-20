@@ -8,7 +8,14 @@ Common transformation function for both JSON_OBJECTAGG and JSON_ARRAYAGG constru
 
 ## Definition
 
-
+```c
+static Node *
+transformJsonAggConstructor(ParseState *pstate, JsonAggConstructor *agg_ctor,
+							JsonReturning *returning, List *args,
+							Oid aggfnoid, Oid aggtype,
+							JsonConstructorType ctor_type,
+							bool unique, bool absent_on_null)
+```
 ## Detailed Description
 This is a shared transformation function that handles the common functionality for both JSON_OBJECTAGG and JSON_ARRAYAGG expressions. The function determines whether to create a regular aggregate (Aggref) or a window function (WindowFunc) based on the presence of an OVER clause in the constructor.
 

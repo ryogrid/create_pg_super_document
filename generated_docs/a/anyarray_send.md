@@ -8,7 +8,13 @@ A wrapper function that provides binary output capability for the anyarray pseud
 
 ## Definition
 
-
+```c
+enum
+ *
+ * We may as well allow output, since enum_out will in fact work.
+ */
+PSEUDOTYPE_DUMMY_INPUT_FUNC(anyenum);
+```
 ## Detailed Description
 The anyarray_send function serves as a binary output function for the anyarray pseudotype in PostgreSQL. It acts as a thin wrapper around the array_send function, simply forwarding the function call information (fcinfo) to array_send to handle the actual binary serialization. This design allows the anyarray pseudotype to leverage the existing array binary output infrastructure without duplicating code.
 

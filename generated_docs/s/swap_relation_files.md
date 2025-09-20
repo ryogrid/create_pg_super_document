@@ -8,7 +8,10 @@ Swaps the physical files of two relations while maintaining their logical identi
 
 ## Definition
 
-
+```c
+enumber1,
+				relfilenumber2;
+```
 ## Detailed Description
 The `swap_relation_files` function is a critical component of PostgreSQL's table reorganization operations that swaps the physical storage identities of two relations while preserving their logical identities. This allows the system to atomically replace an old table with a reorganized version.
 

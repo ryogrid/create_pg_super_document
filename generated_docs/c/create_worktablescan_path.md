@@ -8,7 +8,11 @@ Creates a path node for scanning a self-reference CTE (Common Table Expression),
 
 ## Definition
 
-
+```c
+Path *
+create_worktablescan_path(PlannerInfo *root, RelOptInfo *rel,
+						  Relids required_outer)
+```
 ## Detailed Description
 This function constructs a Path node specifically for work table scan operations, which are used in recursive CTEs when the CTE needs to reference itself. Work tables serve as intermediate storage during recursive CTE evaluation, holding the results from each iteration of the recursion. The function sets the pathtype to T_WorkTableScan and initializes all necessary Path structure fields. Interestingly, it reuses the cost_ctescan function for cost calculation, as the cost model is similar to regular CTE scans. Like other scan types that deal with computed or temporary data, work table scans produce unordered results.
 

@@ -8,7 +8,10 @@ Writes PostgreSQL type information to the logical replication output stream, alw
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_typ(StringInfo out, TransactionId xid, Oid typoid)
+```
 ## Detailed Description
 This function serializes type metadata for logical replication by writing a LOGICAL_REP_MSG_TYPE message to the output stream. It resolves any complex types (like domains) to their base types using , then retrieves the type information from the system catalog (pg_type). The function outputs the type's OID, namespace, and type name in a format suitable for logical replication consumers.
 

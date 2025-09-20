@@ -8,7 +8,10 @@ Main entry point for replaying transaction-related WAL records during PostgreSQL
 
 ## Definition
 
-
+```c
+void
+xact_redo(XLogReaderState *record)
+```
 ## Detailed Description
 This function serves as the central dispatcher for all transaction-related WAL record replay during crash recovery and hot standby. It examines the operation code from the WAL record and routes to the appropriate specialized replay function. The function handles six different types of transaction records: regular commits, prepared transaction commits, regular aborts, prepared transaction aborts, transaction preparations, and transaction assignments. For two-phase commit operations, it also manages the cleanup of TwoPhaseState entries and associated files.
 

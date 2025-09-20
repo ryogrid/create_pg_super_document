@@ -8,7 +8,12 @@ Evaluates a SubscriptingRef fetch operation to extract an element from a JSONB c
 
 ## Definition
 
-
+```c
+static void
+jsonb_subscript_fetch(ExprState *state,
+					  ExprEvalStep *op,
+					  ExprContext *econtext)
+```
 ## Detailed Description
 This function performs the actual fetching of an element from a JSONB value during expression evaluation. It takes a source JSONB container (which is guaranteed to be non-NULL) and uses the previously processed subscripts stored in the workspace to extract the desired element. 
 

@@ -8,7 +8,13 @@ SlabStats computes and reports memory consumption statistics for a Slab memory c
 
 ## Definition
 
-
+```c
+void
+SlabStats(MemoryContext context,
+		  MemoryStatsPrintFunc printfunc, void *passthru,
+		  MemoryContextCounters *totals,
+		  bool print_to_stderr)
+```
 ## Detailed Description
 SlabStats walks through all blocks in a Slab memory context to collect comprehensive statistics about memory usage. It calculates the total space consumed, free space available, number of blocks, and free chunks. The function can either print human-readable statistics via a provided callback function or accumulate the statistics into a totals counter structure for aggregation across multiple contexts.
 

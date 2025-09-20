@@ -8,7 +8,10 @@ DatumGetUInt64 extracts a 64-bit unsigned integer value from a Datum, providing 
 
 ## Definition
 
-
+```c
+static inline uint64
+DatumGetUInt64(Datum X)
+```
 ## Detailed Description
 DatumGetUInt64 is a platform-aware function that extracts a 64-bit unsigned integer from a Datum representation. Like its signed counterpart DatumGetInt64, this function handles platform differences in 64-bit value storage automatically based on the USE_FLOAT8_BYVAL compilation flag.
 

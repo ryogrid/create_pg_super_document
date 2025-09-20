@@ -8,7 +8,10 @@ A callback function that flushes pending database statistics from local pending 
 
 ## Definition
 
-
+```c
+bool
+pgstat_database_flush_cb(PgStat_EntryRef *entry_ref, bool nowait)
+```
 ## Detailed Description
 This function serves as a flush callback specifically for database-level statistics in PostgreSQL's statistics collection system. It transfers accumulated database statistics from the local pending entry to the shared statistics entry, where they can be accessed by other processes and the statistics views like .
 

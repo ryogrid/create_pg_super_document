@@ -8,7 +8,10 @@ A PostgreSQL utility function that formats text data using sprintf-style formatt
 
 ## Definition
 
-
+```c
+char *
+psprintf(const char *fmt,...)
+```
 ## Detailed Description
 The  function provides a safe, memory-managed alternative to  that automatically allocates and resizes buffers as needed. It uses a retry loop mechanism that starts with an initial buffer size of 128 bytes and doubles the allocation if the format operation requires more space. The function handles both backend (using ) and frontend (using ) memory allocation contexts.
 

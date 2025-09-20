@@ -8,7 +8,10 @@ Computes join selectivity estimates for LIKE pattern non-match operations betwee
 
 ## Definition
 
-
+```c
+Datum
+nlikejoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides selectivity estimation for join operations involving LIKE pattern non-match (NOT LIKE operations). It is a PostgreSQL system function that helps the query planner estimate how many rows will result from a join condition using negated LIKE pattern matching.
 

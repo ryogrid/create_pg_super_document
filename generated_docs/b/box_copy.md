@@ -8,7 +8,10 @@ Creates a deep copy of a BOX structure by allocating new memory and copying the 
 
 ## Definition
 
-
+```c
+BOX *
+box_copy(BOX *orig)
+```
 ## Detailed Description
 This utility function performs a deep copy of a BOX structure, which represents an axis-aligned bounding box in 2D space. The function allocates new memory using palloc() to store the copied box, ensuring that modifications to the copy do not affect the original box structure. This is essential for SP-GiST operations where box structures need to be modified or preserved independently during tree traversal and node splitting operations.
 

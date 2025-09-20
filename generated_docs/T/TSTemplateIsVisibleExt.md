@@ -8,7 +8,10 @@ TSTemplateIsVisibleExt determines whether a text search template is visible in t
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &config_name);
+```
 ## Detailed Description
 This function performs a comprehensive visibility check for text search templates identified by their OID. It extends the basic visibility functionality by providing graceful error handling when a template is not found in the system catalog. The function implements PostgreSQL's standard namespace resolution rules to determine whether a template would be found during an unqualified name search.
 

@@ -8,7 +8,10 @@ Computes the correlation coefficient between two sets of values from statistical
 
 ## Definition
 
-
+```c
+Datum
+float8_corr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function calculates the Pearson correlation coefficient from statistical aggregate data. It takes a 6-element float8 array containing pre-computed statistical values (N, sum_x, sum_x2, sum_y, sum_y2, sum_xy) and returns the correlation coefficient using the formula: r = Sxy / sqrt(Sxx * Syy), where Sxx and Syy are the sum of squares and Sxy is the sum of cross-products.
 

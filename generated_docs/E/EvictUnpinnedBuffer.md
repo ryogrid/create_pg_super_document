@@ -8,7 +8,10 @@ Attempts to evict the current block in a shared buffer, intended for testing and
 
 ## Definition
 
-
+```c
+bool
+EvictUnpinnedBuffer(Buffer buf)
+```
 ## Detailed Description
 EvictUnpinnedBuffer is a specialized function designed exclusively for testing and development scenarios. It attempts to forcibly evict a block from a shared buffer pool by invalidating the buffer if it meets specific conditions. The function operates with inherent race conditions due to the unpinned nature of buffers, making it unsuitable for production use.
 

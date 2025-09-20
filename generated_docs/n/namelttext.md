@@ -8,7 +8,10 @@ The  function implements the less-than comparison operator between a name type a
 
 ## Definition
 
-
+```c
+Datum
+namelttext(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function determines if a name (fixed-length string) is lexicographically less than a text value. It leverages the  function to perform the actual comparison and returns true if the comparison result is less than zero. This is a simple wrapper function that provides a specific boolean comparison operation based on the three-way comparison provided by .
 

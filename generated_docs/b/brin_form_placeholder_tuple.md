@@ -8,7 +8,10 @@ Generates a new on-disk tuple with no data values, marked as placeholder, repres
 
 ## Definition
 
-
+```c
+BrinTuple *
+brin_form_placeholder_tuple(BrinDesc *brdesc, BlockNumber blkno, Size *size)
+```
 ## Detailed Description
 This function creates a simplified BRIN tuple that serves as a placeholder for block ranges that contain no meaningful data or require special handling. It is a cut-down version of brin_form_tuple that skips value processing and creates a minimal tuple structure with appropriate flags set. The function allocates space for null bitmaps and sets all attributes to "allnulls" state, indicating that no summarizable data exists for the represented range.
 

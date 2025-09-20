@@ -8,7 +8,10 @@ _bt_getrootheight returns the height of the B-tree search tree by retrieving the
 
 ## Definition
 
-
+```c
+int
+_bt_getrootheight(Relation rel)
+```
 ## Detailed Description
 This function provides the height (level) of the B-tree index, counting from zero at the leaf level. Key characteristics:
 

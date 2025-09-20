@@ -8,7 +8,11 @@ Extracts a single UTF-8 character from a symbol buffer and converts it to its Un
 
 ## Definition
 
+```c
+/* Code for character groupings: utf8 cases */
 
+static int get_utf8(const symbol * p, int c, int l, int * slot)
+```
 ## Detailed Description
 The  function is a low-level UTF-8 decoding utility that extracts and decodes a single UTF-8 character from a symbol buffer starting at a specified position. It properly handles UTF-8's variable-length encoding scheme (1-4 bytes per character) and converts the encoded bytes into the corresponding Unicode codepoint value. This function is essential for character grouping operations in PostgreSQL's Snowball stemming library, enabling proper Unicode character classification and matching for international text processing.
 

@@ -8,7 +8,10 @@ A PostgreSQL system function that returns information about available WAL summar
 
 ## Definition
 
-
+```c
+Datum
+pg_available_wal_summaries(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a view of all WAL summary files currently available in the PostgreSQL data directory's pg_wal/summaries subdirectory. It returns a result set with three columns containing timeline ID, start LSN, and end LSN for each WAL summary file. The function uses the GetWalSummaries() function to retrieve the list of available summary files and formats the results as a materialized set-returning function that can be used in SQL queries.
 

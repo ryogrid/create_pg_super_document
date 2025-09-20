@@ -8,7 +8,10 @@ Retrieves the next tuple from a heap table scan and stores it in a provided Tupl
 
 ## Definition
 
-
+```c
+bool
+heap_getnextslot(TableScanDesc sscan, ScanDirection direction, TupleTableSlot *slot)
+```
 ## Detailed Description
 The  function is a slot-based variant of  that follows the modern PostgreSQL tuple slot interface. It performs the same core scanning logic as  but stores the result in a provided  rather than returning a  directly. The function chooses between page-mode and regular scanning based on scan flags, and handles the case where no tuple is found by clearing the slot and returning false.
 

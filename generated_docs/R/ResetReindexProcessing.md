@@ -8,7 +8,10 @@ Clears the global reindexing state by resetting the currently reindexed heap and
 
 ## Definition
 
-
+```c
+static void
+ResetReindexProcessing(void)
+```
 ## Detailed Description
 ResetReindexProcessing is a static function that clears the global reindexing state by setting both currentlyReindexedHeap and currentlyReindexedIndex to InvalidOid. This function is called when a reindex operation completes or needs to be cleaned up. Notably, it does not reset the reindexingNestLevel variable, which remains set until the end of the current transaction or subtransaction to enable proper cleanup during transaction abort scenarios.
 

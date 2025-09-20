@@ -8,7 +8,10 @@ Returns the appropriate TupleTableSlotOps callback structure for a given relatio
 
 ## Definition
 
-
+```c
+const TupleTableSlotOps *
+table_slot_callbacks(Relation relation)
+```
 ## Detailed Description
 This function serves as a central dispatcher for determining the appropriate tuple table slot operations for different types of relations in PostgreSQL. It implements a three-tier decision process:
 

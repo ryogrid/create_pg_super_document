@@ -8,7 +8,14 @@ A convenience wrapper around SearchCatCache that provides a simplified interface
 
 ## Definition
 
-
+```c
+HeapTuple
+SearchSysCache(int cacheId,
+			   Datum key1,
+			   Datum key2,
+			   Datum key3,
+			   Datum key4)
+```
 ## Detailed Description
 SearchSysCache serves as a high-level interface to PostgreSQL's catalog cache system, abstracting away the complexity of cache initialization and key management. It acts as a layer on top of SearchCatCache, automatically handling the cache lookup and reference counting.
 

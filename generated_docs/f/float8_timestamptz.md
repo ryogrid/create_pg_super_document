@@ -8,7 +8,10 @@ PostgreSQL SQL function that converts a Unix epoch timestamp (as double precisio
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that implements the  SQL function. It converts a Unix epoch timestamp (seconds since January 1, 1970 UTC) to PostgreSQL's internal timestamptz representation.
 

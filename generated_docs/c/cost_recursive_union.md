@@ -8,7 +8,63 @@ Determines and returns the cost and estimated output size of performing a recurs
 
 ## Definition
 
+```c
+union(Path *runion, Path *nrterm, Path *rterm)
+{
+	Cost		startup_cost;
+	Cost		total_cost;
+	double		total_rows;
 
+	/* We probably have decent estimates for the non-recursive term */
+	startup_cost = nrterm->startup_cost;
+	total_cost = nrterm->total_cost;
+	total_rows = nrterm->rows;
+
+	/*
+	 * We arbitrarily assume that about 10 recursive iterations will be
+	 * needed, and that we've managed to get a good fix on the cost and output
+	 * size of each one of them.  These are mighty shaky assumptions but it's
+	 * hard to see how to do better.
+	 */
+	total_cost += 10 * rterm->total_cost;
+	total_rows += 10 * rterm->rows;
+
+	/*
+	 * Also charge cpu_tuple_cost per row to account for the costs of
+	 * manipulating the tuplestores.  (We don't worry about possible
+	 * spill-to-disk costs.)
+	 */
+	total_cost += cpu_tuple_cost * total_rows;
+
+	runion->startup_cost = startup_cost;
+	runion->total_cost = total_cost;
+	runion->rows = total_rows;
+	runion->pathtarget->width = Max(nrterm->pathtarget->width,
+									rterm->pathtarget->width);
+}
+
+/*
+ * cost_tuplesort
+ *	  Determines and returns the cost of sorting a relation using tuplesort,
+ *    not including the cost of reading the input data.
+ *
+ * If the total volume of data to sort is less than sort_mem, we will do
+ * an in-memory sort, which requires no I/O and about t*log2(t) tuple
+ * comparisons for t tuples.
+ *
+ * If the total volume exceeds sort_mem, we switch to a tape-style merge
+ * algorithm.  There will still be about t*log2(t) tuple comparisons in
+ * total, but we will also need to write and read each tuple once per
+ * merge pass.  We expect about ceil(logM(r)) merge passes where r is the
+ * number of initial runs formed and M is the merge order used by tuplesort.c.
+ * Since the average initial run should be about sort_mem, we have
+ *		disk traffic = 2 * relsize * ceil(logM(p / sort_mem))
+ *		cpu = comparison_cost * t * log2(t)
+ *
+ * If the sort is bounded (i.e., only the first k result tuples are needed)
+ * and k tuples can fit into sort_mem, we use a heap method that keeps only
+ * k tuples in the heap;
+```
 ## Detailed Description
 This function calculates the execution cost for a recursive union operation, which is the core mechanism behind recursive CTEs in PostgreSQL. The cost estimation involves:
 

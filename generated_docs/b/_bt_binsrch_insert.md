@@ -8,7 +8,10 @@ This function performs cacheable, incremental binary search on leaf pages during
 
 ## Definition
 
-
+```c
+OffsetNumber
+_bt_binsrch_insert(Relation rel, BTInsertState insertstate)
+```
 ## Detailed Description
 _bt_binsrch_insert is a specialized binary search function optimized for insertion operations on B-tree leaf pages. Unlike the general _bt_binsrch function, it supports caching of search bounds between calls, which can significantly improve performance when multiple searches are performed on the same page.
 

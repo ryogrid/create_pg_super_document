@@ -8,7 +8,16 @@ ExecBRDeleteTriggers is an ABI-compatible wrapper function that executes BEFORE 
 
 ## Definition
 
-
+```c
+bool
+ExecBRDeleteTriggers(EState *estate, EPQState *epqstate,
+					 ResultRelInfo *relinfo,
+					 ItemPointer tupleid,
+					 HeapTuple fdw_trigtuple,
+					 TupleTableSlot **epqslot,
+					 TM_Result *tmresult,
+					 TM_FailureData *tmfd)
+```
 ## Detailed Description
 This function serves as a compatibility wrapper around the newer ExecBRDeleteTriggersNew function. It maintains backward compatibility by calling the new implementation with the  parameter set to false. The function handles the execution of BEFORE ROW DELETE triggers, which are fired before a row is deleted from a table. These triggers can potentially suppress the delete operation by returning NULL.
 

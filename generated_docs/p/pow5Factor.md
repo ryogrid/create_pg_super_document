@@ -8,7 +8,10 @@ Calculates the highest power of 5 that divides a given 64-bit unsigned integer v
 
 ## Definition
 
-
+```c
+static inline uint32
+pow5Factor(uint32 value)
+```
 ## Detailed Description
 This function determines how many times the value can be divided by 5 before yielding a remainder. It implements an efficient algorithm that repeatedly divides the input value by 5 using the  helper function until a non-zero remainder is encountered. The function is used in floating-point number conversion algorithms where factoring out powers of 5 is necessary for decimal representation optimization.
 

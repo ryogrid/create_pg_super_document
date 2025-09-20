@@ -8,7 +8,9 @@ Returns the number of arguments (parameters) that a given function accepts by lo
 
 ## Definition
 
-
+```c
+struct;
+```
 ## Detailed Description
 This function retrieves the argument count for a specified function by performing a system cache lookup on the pg_proc table. It extracts the pronargs field from the function's catalog entry, which contains the number of input arguments the function expects. Like get_func_rettype, this function throws an error if the function is not found rather than returning a default value.
 

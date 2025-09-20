@@ -8,7 +8,10 @@ A PostgreSQL function that compares a timestamp with timezone to a date value to
 
 ## Definition
 
-
+```c
+Datum
+timestamptz_ne_date(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the not-equal comparison operator (<>) between a timestamptz (timestamp with timezone) and a date value. It extracts the timestamptz and date arguments from the function call context, then uses the internal comparison function  to perform the comparison. The function returns true if the values are not equal, false if they are equal.
 

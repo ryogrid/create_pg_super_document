@@ -8,7 +8,10 @@ A PostgreSQL function that returns the larger of two Cash values, implementing t
 
 ## Definition
 
-
+```c
+Datum
+cashlarger(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL GREATEST/max operation for the Cash data type. It takes two Cash values as arguments and returns whichever value is numerically larger. The function uses a simple ternary conditional operator to perform the comparison and selection. This is typically used to support SQL functions like GREATEST() when applied to cash data types or in contexts where the maximum of two monetary values needs to be determined.
 

@@ -8,7 +8,15 @@ RoleStmtType is an enumeration that distinguishes between different types of rol
 
 ## Definition
 
-
+```c
+typedef struct CreateRoleStmt
+{
+	NodeTag		type;
+	RoleStmtType stmt_type;		/* ROLE/USER/GROUP */
+	char	   *role;			/* role name */
+	List	   *options;		/* List of DefElem nodes */
+} CreateRoleStmt;
+```
 ## Detailed Description
 This enumeration identifies the original SQL syntax used when creating database roles in PostgreSQL. While USER and GROUP are legacy concepts that have been unified under the ROLE concept, PostgreSQL maintains backward compatibility by accepting CREATE USER and CREATE GROUP statements. The enumeration allows the system to distinguish between these different syntactic forms because they have different default behaviors.
 

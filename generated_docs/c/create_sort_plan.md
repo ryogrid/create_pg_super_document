@@ -8,7 +8,10 @@ Creates a Sort plan node from a SortPath, recursively building plans for subpath
 
 ## Definition
 
-
+```c
+static Sort *
+create_sort_plan(PlannerInfo *root, SortPath *best_path, int flags)
+```
 ## Detailed Description
 The  function generates a Sort plan node from the provided SortPath. It's a key component in PostgreSQL's query planning process, responsible for creating execution plans that perform sorting operations. The function recursively creates plans for subpaths and applies specific optimizations for sorting.
 

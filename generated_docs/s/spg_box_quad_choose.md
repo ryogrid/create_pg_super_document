@@ -8,7 +8,10 @@ The SP-GiST choose function for box geometric types that determines which quadra
 
 ## Definition
 
-
+```c
+Datum
+spg_box_quad_choose(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the "choose" operation for SP-GiST (Space-Partitioned Generalized Search Tree) indexes on PostgreSQL's BOX geometric type using a quadtree partitioning strategy. When inserting a new box into the index, this function determines which child node (quadrant) the box should be placed in based on the centroid of the current internal node.
 

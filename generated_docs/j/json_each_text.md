@@ -8,7 +8,10 @@ The json_each_text function is a PostgreSQL SQL function that expands a JSON obj
 
 ## Definition
 
-
+```c
+Datum
+json_each_text(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a thin wrapper around the each_worker function, specifically designed to handle JSON (not JSONB) objects. It calls each_worker with the as_text parameter set to true, ensuring that all JSON values are converted to their text representation. The function is part of PostgreSQL's JSON processing functionality and allows users to decompose JSON objects into tabular form where both keys and values are text strings.
 

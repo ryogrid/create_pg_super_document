@@ -8,7 +8,10 @@ Utility function that converts hexadecimal string representation back to binary 
 
 ## Definition
 
-
+```c
+uint64
+hex_decode(const char *src, size_t len, char *dst)
+```
 ## Detailed Description
 The `hex_decode` function provides a simple interface for hexadecimal decoding operations. It acts as a wrapper around `hex_decode_safe`, providing the same functionality but without the enhanced error context handling. The function converts a hexadecimal string (e.g., "48656c6c6f") back into its binary representation (e.g., "Hello").
 

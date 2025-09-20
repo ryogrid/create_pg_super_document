@@ -8,7 +8,10 @@ A wrapper function that delegates to  while providing an alternative SQL functio
 
 ## Definition
 
-
+```c
+Datum
+regexp_substr_no_flags(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a wrapper function that directly calls the main  function without any parameter modification. It serves as part of PostgreSQL's function overloading mechanism, allowing SQL users to call REGEXP_SUBSTR without specifying regex flags. The function name indicates it handles cases where the flags parameter (which controls regex behavior like case-insensitive matching, multi-line mode, etc.) is omitted from SQL calls.
 

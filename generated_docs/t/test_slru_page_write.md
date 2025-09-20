@@ -8,7 +8,10 @@ A PostgreSQL function that writes data to a specific SLRU page for testing purpo
 
 ## Definition
 
-
+```c
+Datum
+test_slru_page_write(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a testing interface for writing data to SLRU (Simple Log-structured Record Update) pages. It takes a page number and data string, allocates and zeros a page in the SLRU cache, copies the provided data to the page buffer, marks the page as dirty and valid, then writes it to disk. The function handles proper locking to ensure thread-safe access to the SLRU control structure and maintains data integrity during the write operation.
 

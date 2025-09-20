@@ -8,7 +8,11 @@ Processes and sends TRUNCATE operations over the wire during logical replication
 
 ## Definition
 
-
+```c
+static void
+pgoutput_truncate(LogicalDecodingContext *ctx, ReorderBufferTXN *txn,
+				  int nrelations, Relation relations[], ReorderBufferChange *change)
+```
 ## Detailed Description
 The  function handles the replication of TRUNCATE operations in PostgreSQL's logical replication system. Unlike regular DML operations that affect individual rows, TRUNCATE operations can affect multiple tables simultaneously and remove all data from specified relations.
 

@@ -8,7 +8,10 @@ Creates or validates the Datum/isnull array representation of an expanded record
 
 ## Definition
 
-
+```c
+void
+deconstruct_expanded_record(ExpandedRecordHeader *erh)
+```
 ## Detailed Description
 This function ensures that the dvalues and dnulls arrays in an expanded record are populated and valid. It serves as a lazy initialization mechanism for the flattened representation of the record's fields. The function first checks if the ER_FLAG_DVALUES_VALID flag is set; if so, it returns immediately as the arrays are already valid.
 

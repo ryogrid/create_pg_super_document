@@ -8,7 +8,10 @@ Tests whether the current backend process is actively listening on a specified n
 
 ## Definition
 
-
+```c
+static bool
+IsListeningOn(const char *channel)
+```
 ## Detailed Description
 This function determines if the backend is currently listening to a specific notification channel by searching through the  list. The function performs the following operations:
 

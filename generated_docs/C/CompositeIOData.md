@@ -8,7 +8,22 @@ CompositeIOData is a structure used to cache metadata needed for populating comp
 
 ## Definition
 
-
+```c
+typedef struct CompositeIOData
+{
+	/*
+	 * We use pointer to a RecordIOData here because variable-length struct
+	 * RecordIOData can't be used directly in ColumnIOData.io union
+	 */
+	RecordIOData *record_io;	/* metadata cache for populate_record() */
+	TupleDesc	tupdesc;		/* cached tuple descriptor */
+	/* these fields differ from target type only if domain over composite: */
+	Oid			base_typid;		/* base type id */
+	int32		base_typmod;	/* base type modifier */
+	/* this field is used only if target type is domain over composite: */
+	void	   *domain_info;	/* opaque cache for domain checks */
+} CompositeIOData;
+```
 ## Detailed Description
 CompositeIOData serves as a comprehensive metadata cache for composite type handling in JSON functions. It maintains essential information about composite types including a pointer to RecordIOData for record population, a cached tuple descriptor, and specific handling for domain types over composites. The structure is designed to optimize performance by avoiding repeated lookups of type information during JSON-to-composite-type conversions.
 

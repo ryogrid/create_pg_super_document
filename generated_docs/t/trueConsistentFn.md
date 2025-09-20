@@ -8,7 +8,10 @@ A dummy consistent function for GIN index EVERYTHING keys that always returns tr
 
 ## Definition
 
-
+```c
+static bool
+trueConsistentFn(GinScanKey key)
+```
 ## Detailed Description
 This function serves as a placeholder consistent function for GIN (Generalized Inverted Index) scan keys that represent "EVERYTHING" - meaning they should match all possible values. It's a trivial implementation that always indicates a match without performing any actual consistency checking. The function also sets the recheckCurItem flag to false, indicating that no additional verification is needed at the heap level.
 

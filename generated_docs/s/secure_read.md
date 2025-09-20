@@ -8,7 +8,10 @@ secure_read provides a secure, blocking read operation from a client connection 
 
 ## Definition
 
-
+```c
+ssize_t
+secure_read(Port *port, void *ptr, size_t len)
+```
 ## Detailed Description
 The secure_read function is the primary interface for reading data from PostgreSQL client connections in a secure manner. It abstracts away the complexities of different security protocols (SSL/TLS, GSS-API) and provides a unified interface for secure communications. The function implements a sophisticated blocking mechanism that handles client read interrupts and integrates with PostgreSQL's wait event system.
 

@@ -8,7 +8,15 @@ Creates a multi-dimensional array object with arbitrary dimensions and support f
 
 ## Definition
 
-
+```c
+ArrayType *
+construct_md_array(Datum *elems,
+				   bool *nulls,
+				   int ndims,
+				   int *dims,
+				   int *lbs,
+				   Oid elmtype, int elmlen, bool elmbyval, char elmalign)
+```
 ## Detailed Description
 The construct_md_array function provides the most flexible and comprehensive method for constructing PostgreSQL array objects. It supports arrays with arbitrary numbers of dimensions (up to MAXDIM), custom lower bounds for each dimension, and NULL element values. This function serves as the foundation for other array construction functions like construct_array.
 

@@ -8,7 +8,10 @@ Static function that performs character-by-character comparison of two text datu
 
 ## Definition
 
-
+```c
+static int
+internal_text_pattern_compare(text *arg1, text *arg2)
+```
 ## Detailed Description
 The  function is a core utility function for PostgreSQL's text pattern comparison operations. It performs byte-by-byte comparison of text values using memcmp(), which enables character-by-character ordering that is essential for building indexes suitable for LIKE clauses and pattern matching operations.
 

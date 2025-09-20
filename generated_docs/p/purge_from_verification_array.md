@@ -8,7 +8,10 @@ A static utility function that removes all ItemPointers belonging to a specific 
 
 ## Definition
 
-
+```c
+static void
+purge_from_verification_array(BlockNumber blkno)
+```
 ## Detailed Description
 This function performs an in-place removal of ItemPointers that belong to a specified block number from the insert_tids verification array. It uses a two-pointer technique where:
 

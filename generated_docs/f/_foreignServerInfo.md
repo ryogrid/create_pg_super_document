@@ -8,7 +8,18 @@ The  structure represents metadata about a foreign server object in pg_dump, use
 
 ## Definition
 
-
+```c
+typedef struct _foreignServerInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
+	const char *rolname;
+	Oid			srvfdw;
+	char	   *srvtype;
+	char	   *srvversion;
+	char	   *srvoptions;
+} ForeignServerInfo;
+```
 ## Detailed Description
 This structure is part of pg_dump's internal representation of database objects. It encapsulates all necessary information about a foreign server that needs to be preserved during dump operations. Foreign servers are PostgreSQL objects that define connections to external data sources through foreign data wrappers (FDW). The structure inherits dumpable object properties and includes access control information along with server-specific attributes.
 

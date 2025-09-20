@@ -8,7 +8,14 @@ IndexDeleteCounts is a struct used by heap_index_delete_tuples to track groups o
 
 ## Definition
 
-
+```c
+typedef struct IndexDeleteCounts
+{
+	int16		npromisingtids; /* Number of "promising" TIDs in group */
+	int16		ntids;			/* Number of TIDs in group */
+	int16		ifirsttid;		/* Offset to group's first deltid */
+} IndexDeleteCounts;
+```
 ## Detailed Description
 The IndexDeleteCounts structure is used internally by the heap access method's index deletion functionality to optimize bottom-up index deletion operations. It groups TIDs by heap blocks and tracks metadata about each group to help determine the most efficient order for visiting heap blocks during deletion. This structure is specifically designed to support the bottom-up deletion strategy where the system tries to visit heap blocks in an order that maximizes the likelihood of finding deletable tuples while minimizing I/O operations.
 

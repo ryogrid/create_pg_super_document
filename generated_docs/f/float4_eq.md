@@ -8,7 +8,10 @@ Performs NaN-aware equality comparison between two single-precision floating-poi
 
 ## Definition
 
-
+```c
+static inline bool
+float4_eq(const float4 val1, const float4 val2)
+```
 ## Detailed Description
 The  function provides a specialized equality comparison for  (single-precision floating-point) values that handles NaN (Not a Number) values in a database-friendly manner. Unlike standard floating-point equality comparison where NaN != NaN, this function considers all NaN values to be equal to each other and different from any non-NaN value.
 

@@ -8,7 +8,11 @@ This function loads a specified dynamic-link library file and looks for a named 
 
 ## Definition
 
-
+```c
+void *
+load_external_function(const char *filename, const char *funcname,
+					   bool signalNotFound, void **filehandle)
+```
 ## Detailed Description
 The  function is a key component of PostgreSQL's dynamic function manager (dfmgr) that enables loading external C functions from shared libraries at runtime. It first expands the possibly-abbreviated filename to an exact path name, then loads the shared library using the internal loading mechanism. Once the library is loaded, it searches for the specified function name within the library using the system's dynamic symbol lookup functionality.
 

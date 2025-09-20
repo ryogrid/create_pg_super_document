@@ -8,7 +8,10 @@ Parses a command-line archive format string and converts it into the correspondi
 
 ## Definition
 
-
+```c
+static ArchiveFormat
+parseArchiveFormat(const char *format, ArchiveMode *mode)
+```
 ## Detailed Description
 This function is responsible for parsing the archive format specification provided by the user through command-line arguments (typically via the -F option in pg_dump). It performs case-insensitive string comparison to match the input format string against known format types and returns the corresponding ArchiveFormat enum value. The function also sets the appropriate ArchiveMode through the mode output parameter.
 

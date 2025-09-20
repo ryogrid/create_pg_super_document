@@ -8,7 +8,10 @@ Sets a disk item pointer to the specified block number and offset number, provid
 
 ## Definition
 
-
+```c
+static inline void
+ItemPointerSet(ItemPointerData *pointer, BlockNumber blockNumber, OffsetNumber offNum)
+```
 ## Detailed Description
 ItemPointerSet is a fundamental inline function in PostgreSQL's storage subsystem that initializes an ItemPointerData structure with a specific block number and offset number. The function serves as the primary method for setting tuple location information within the database's physical storage layout. It combines block identification and position within that block into a single atomic operation, ensuring consistency when establishing references to specific tuples on disk.
 

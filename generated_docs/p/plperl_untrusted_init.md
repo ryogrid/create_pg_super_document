@@ -8,7 +8,10 @@ Initializes the current Perl interpreter as an untrusted interpreter, allowing u
 
 ## Definition
 
-
+```c
+static void
+plperl_untrusted_init(void)
+```
 ## Detailed Description
 This function configures a Perl interpreter to run in untrusted mode, which provides no security restrictions compared to the trusted mode. The function is intentionally minimal since untrusted interpreters allow full Perl functionality without sandboxing.
 

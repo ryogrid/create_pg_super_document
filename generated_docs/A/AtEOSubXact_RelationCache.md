@@ -8,7 +8,11 @@ Cleans up the relation cache at subtransaction commit or abort, handling subtran
 
 ## Definition
 
-
+```c
+void
+AtEOSubXact_RelationCache(bool isCommit, SubTransactionId mySubid,
+						  SubTransactionId parentSubid)
+```
 ## Detailed Description
 This function is the subtransaction counterpart to AtEOXact_RelationCache, handling cleanup operations when a subtransaction commits or aborts. It performs similar scanning and cleanup operations but with subtransaction-specific logic:
 

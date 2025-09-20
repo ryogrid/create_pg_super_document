@@ -8,7 +8,10 @@ Returns the status string of a SQL command execution result in PLython, indicati
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_result_status(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 This function is a Python method implementation that provides access to the status information of a PLython result object. The status typically contains a string describing the command that was executed and its outcome, such as 'SELECT 5' for a SELECT query that returned 5 rows, or 'INSERT 0 1' for an INSERT that affected 1 row. The function returns the pre-stored status string from the PLyResultObject structure, properly managing reference counting.
 

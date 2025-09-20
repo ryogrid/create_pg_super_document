@@ -8,7 +8,10 @@ SQL function wrapper that evaluates a JSONPath predicate expression against a JS
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_match(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a PostgreSQL SQL function wrapper that provides the interface for evaluating JSONPath predicate expressions against JSONB data. This function serves as the entry point for the  SQL function and delegates the actual work to  with timezone handling disabled (false parameter).
 

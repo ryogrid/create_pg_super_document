@@ -8,7 +8,13 @@ A static function that resolves conflicts when multiple operator candidates matc
 
 ## Definition
 
-
+```c
+struct.
+ *
+ * IMPORTANT: the returned operator (if any) is only promised to be
+ * coercion-compatible with the input datatypes.  Do not use this if
+ * you need an exact- or binary-compatible match;
+```
 ## Detailed Description
 The `oper_select_candidate` function attempts to resolve conflicts when multiple operator candidates are available for given input argument types. It first filters out candidates that cannot accept the input types (either directly or through coercion) using `func_match_argtypes`. If exactly one candidate remains, it's selected. If multiple candidates remain, the function applies the same disambiguation heuristics used for function resolution via `func_select_candidate`. The function assumes no exact match exists (as determined by the caller) and focuses on finding the best approximate match.
 

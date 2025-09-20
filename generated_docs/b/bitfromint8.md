@@ -8,7 +8,10 @@ Converts a 64-bit integer to a variable-length bit string representation, preser
 
 ## Definition
 
-
+```c
+Datum
+bitfromint8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function converts a 64-bit signed integer to a PostgreSQL variable-length bit string (varbit) with a specified length. This function is very similar to  but operates on 64-bit integers instead of 32-bit. It preserves the natural ordering of bits and handles sign extension for negative numbers. It supports creating bit strings of any length up to the maximum allowed, truncating or sign-extending the input integer as needed.
 

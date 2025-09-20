@@ -8,7 +8,10 @@ Sets up the default text search configuration for a PostgreSQL database during i
 
 ## Definition
 
-
+```c
+void
+setup_text_search(void)
+```
 ## Detailed Description
 This function configures the default text search configuration for the PostgreSQL database being initialized. It operates in two modes:
 

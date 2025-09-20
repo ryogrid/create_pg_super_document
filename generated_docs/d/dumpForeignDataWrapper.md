@@ -8,7 +8,10 @@ Writes out a single foreign-data wrapper definition to the PostgreSQL dump outpu
 
 ## Definition
 
-
+```c
+static void
+dumpForeignDataWrapper(Archive *fout, const FdwInfo *fdwinfo)
+```
 ## Detailed Description
 The  function is responsible for dumping foreign-data wrapper objects during a pg_dump operation. It generates the CREATE FOREIGN DATA WRAPPER statement with optional HANDLER and VALIDATOR functions, as well as any wrapper-specific options. Foreign-data wrappers are part of PostgreSQL's foreign data access framework, allowing access to external data sources.
 

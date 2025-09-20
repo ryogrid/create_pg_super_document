@@ -8,7 +8,10 @@ Triggers a failsafe mechanism to prevent transaction ID wraparound failure by ch
 
 ## Definition
 
-
+```c
+static bool
+lazy_check_wraparound_failsafe(LVRelState *vacrel)
+```
 ## Detailed Description
 This function implements a critical safety mechanism in PostgreSQL's vacuum system to prevent transaction ID wraparound disasters. It checks whether the table's frozen transaction ID (relfrozenxid) or minimum multixact ID (relminmxid) has fallen dangerously behind, indicating that the table is at risk of transaction ID wraparound.
 

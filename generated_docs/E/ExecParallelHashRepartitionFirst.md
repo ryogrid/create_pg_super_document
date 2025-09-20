@@ -8,7 +8,10 @@ ExecParallelHashRepartitionFirst repartitions tuples currently loaded in memory 
 
 ## Definition
 
-
+```c
+static void
+ExecParallelHashRepartitionFirst(HashJoinTable hashtable)
+```
 ## Detailed Description
 This function performs the first phase of tuple repartitioning when the parallel hash join needs to increase the number of batches due to memory pressure. It processes all tuples currently residing in memory chunks for batch 0, recalculating their target batch numbers based on the new batch count, and either keeping them in memory (if they still belong to batch 0) or writing them to disk (if they now belong to a later batch).
 

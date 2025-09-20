@@ -8,7 +8,10 @@ Cleanup function that saves command history to persistent storage and frees allo
 
 ## Definition
 
-
+```c
+static void
+finishInput(void)
+```
 ## Detailed Description
 The  function serves as a cleanup handler for psql's input subsystem, automatically invoked when the program exits. Its primary responsibility is to ensure that the current session's command history is properly persisted to disk and that associated memory resources are freed.
 

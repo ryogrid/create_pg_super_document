@@ -8,7 +8,10 @@ Determines which partitions survive partition pruning by executing a list of pru
 
 ## Definition
 
-
+```c
+Bitmapset *
+get_matching_partitions(PartitionPruneContext *context, List *pruning_steps)
+```
 ## Detailed Description
 This function is the main entry point for partition pruning execution. It processes a list of pruning steps in sequence, where each step can be either a base pruning operation (PartitionPruneStepOp) or a combination operation (PartitionPruneStepCombine). The function allocates space for storing intermediate results from each pruning step, then iterates through all steps, executing them based on their type.
 

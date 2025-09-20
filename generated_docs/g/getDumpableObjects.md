@@ -8,7 +8,10 @@ Builds an array of pointers to all known dumpable objects by creating a modifiab
 
 ## Definition
 
-
+```c
+void
+getDumpableObjects(DumpableObject ***objs, int *numObjs)
+```
 ## Detailed Description
 This function serves as an interface to retrieve all currently registered dumpable objects in pg_dump. It iterates through the internal  array, which maintains a mapping of dump IDs to DumpableObject pointers, and creates a compact array containing only the valid (non-NULL) object pointers. The function allocates memory for the output array and returns both the array of object pointers and the count of objects through output parameters.
 

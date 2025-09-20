@@ -8,7 +8,9 @@ PGReserveSemaphores initializes PostgreSQL's semaphore support during postmaster
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function performs the initial setup required for PostgreSQL's platform-independent semaphore system. It prepares data structures and allocates memory to support semaphore creation, with different strategies for named and unnamed POSIX semaphores.
 

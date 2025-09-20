@@ -8,7 +8,10 @@ Determines if any rectangle from a RectBox does not extend to the left of a give
 
 ## Definition
 
-
+```c
+static bool
+overRight4D(RectBox *rect_box, RangeBox *query)
+```
 ## Detailed Description
 This function is part of PostgreSQL's SP-GiST implementation for geometric box operations. It evaluates whether any rectangle within the provided RectBox structure could be positioned such that it does not extend beyond (to the left of) the specified query boundary. Unlike right4D which checks for strict right positioning, overRight4D allows for overlap at the boundary. The function uses the overHigher2D helper function to perform the x-axis range comparison with the query's left boundary.
 

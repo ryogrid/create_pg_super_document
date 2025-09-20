@@ -8,7 +8,10 @@ Tests whether two BOX structures are identical by comparing their corner coordin
 
 ## Definition
 
-
+```c
+Datum
+box_same(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `box_same` function determines if two BOX structures are geometrically identical by performing exact coordinate comparison. It checks both the high (upper-right) and low (lower-left) corner points of the boxes using point equality operations. This function provides exact equality testing, which is different from other BOX comparison operators that are based on area calculations.
 

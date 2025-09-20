@@ -8,7 +8,12 @@ pqPipelineSyncInternal is a static helper function that implements the core logi
 
 ## Definition
 
-
+```c
+struct the Sync message */
+	if (pqPutMsgStart(PqMsg_Sync, conn) < 0 ||
+		pqPutMsgEnd(conn) < 0)
+		goto sendFailed;
+```
 ## Detailed Description
 This function serves as the workhorse implementation for both PQpipelineSync and PQsendPipelineSync functions. It constructs and sends a Sync message to the PostgreSQL server to mark a synchronization point in a pipeline of queries. The function validates the connection state, ensures pipeline mode is active, constructs the appropriate protocol message, and handles the sending process with optional immediate flushing.
 

@@ -8,7 +8,10 @@ WriteData is a public interface function that provides a safe way to write binar
 
 ## Definition
 
-
+```c
+void
+WriteData(Archive *AHX, const void *data, size_t dLen)
+```
 ## Detailed Description
 WriteData serves as a wrapper function in the pg_dump archiver interface that validates the current dumping context and delegates the actual data writing to the appropriate backend-specific write function. The function ensures that data can only be written when there is an active table of contents (TOC) entry being processed, preventing invalid write operations outside of proper dumping contexts.
 

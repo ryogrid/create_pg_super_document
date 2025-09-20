@@ -8,7 +8,10 @@ A configuration function for the SP-GiST (Space-Partitioned Generalized Search T
 
 ## Definition
 
-
+```c
+Datum
+spgist_name_config(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the configuration entry point for an SP-GiST operator class that handles PostgreSQL 'name' data types. It sets up the necessary configuration parameters for the SP-GiST index structure, defining the data types used for different components of the index (prefix, label, and leaf nodes) and enabling specific optimizations.
 

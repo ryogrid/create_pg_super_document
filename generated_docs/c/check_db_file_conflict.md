@@ -8,7 +8,9 @@ Checks whether a proposed database OID would conflict with existing filesystem o
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This function serves as a safety mechanism during database creation to prevent filesystem conflicts. Before PostgreSQL commits to using a specific OID for a new database, this function scans all tablespaces to verify that no directory or file with the same name (the database OID) already exists.
 

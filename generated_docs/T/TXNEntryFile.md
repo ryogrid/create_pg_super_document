@@ -8,7 +8,14 @@ TXNEntryFile is a virtual file descriptor structure that tracks file operations 
 
 ## Definition
 
-
+```c
+typedef struct TXNEntryFile
+{
+	File		vfd;			/* -1 when the file is closed */
+	off_t		curOffset;		/* offset for next write or read. Reset to 0
+								 * when vfd is opened. */
+} TXNEntryFile;
+```
 ## Detailed Description
 This structure encapsulates a virtual file descriptor along with offset tracking functionality for managing transaction entry files in PostgreSQL's logical replication system. When the reorder buffer needs to spill transaction data to disk (typically when memory usage exceeds configured limits), it uses this structure to manage the file operations. The virtual file descriptor (vfd) provides an abstraction over regular file operations, while the curOffset field tracks the current position within the file for sequential read/write operations. The offset is reset to 0 when the file is reopened, ensuring proper positioning for subsequent operations.
 

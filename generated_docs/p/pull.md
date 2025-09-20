@@ -8,7 +8,101 @@ Pulls a single back constraint arc (^ or BEHIND) backward past its source state,
 
 ## Definition
 
+```c
+struct nfa *nfa,
+	 struct arc *con,
+	 struct state **intermediates)
+{
+	struct state *from = con->from;
+	struct state *to = con->to;
+	struct arc *a;
+	struct arc *nexta;
+	struct state *s;
 
+	assert(from != to);			/* should have gotten rid of this earlier */
+	if (from->flag)				/* can't pull back beyond start */
+		return 0;
+	if (from->nins == 0)
+	{							/* unreachable */
+		freearc(nfa, con);
+		return 1;
+	}
+
+	/*
+	 * First, clone from state if necessary to avoid other outarcs.  This may
+	 * seem wasteful, but it simplifies the logic, and we'll get rid of the
+	 * clone state again at the bottom.
+	 */
+	if (from->nouts > 1)
+	{
+		s = newstate(nfa);
+		if (NISERR())
+			return 0;
+		copyins(nfa, from, s);	/* duplicate inarcs */
+		cparc(nfa, con, s, to); /* move constraint arc */
+		freearc(nfa, con);
+		if (NISERR())
+			return 0;
+		from = s;
+		con = from->outs;
+	}
+	assert(from->nouts == 1);
+
+	/* propagate the constraint into the from state's inarcs */
+	for (a = from->ins; a != NULL && !NISERR(); a = nexta)
+	{
+		nexta = a->inchain;
+		switch (combine(nfa, con, a))
+		{
+			case INCOMPATIBLE:	/* destroy the arc */
+				freearc(nfa, a);
+				break;
+			case SATISFIED:		/* no action needed */
+				break;
+			case COMPATIBLE:	/* swap the two arcs, more or less */
+				/* need an intermediate state, but might have one already */
+				for (s = *intermediates; s != NULL; s = s->tmp)
+				{
+					assert(s->nins > 0 && s->nouts > 0);
+					if (s->ins->from == a->from && s->outs->to == to)
+						break;
+				}
+				if (s == NULL)
+				{
+					s = newstate(nfa);
+					if (NISERR())
+						return 0;
+					s->tmp = *intermediates;
+					*intermediates = s;
+				}
+				cparc(nfa, con, a->from, s);
+				cparc(nfa, a, s, to);
+				freearc(nfa, a);
+				break;
+			case REPLACEARC:	/* replace arc's color */
+				newarc(nfa, a->type, con->co, a->from, to);
+				freearc(nfa, a);
+				break;
+			default:
+				assert(NOTREACHED);
+				break;
+		}
+	}
+
+	/* remaining inarcs, if any, incorporate the constraint */
+	moveins(nfa, from, to);
+	freearc(nfa, con);
+	/* from state is now useless, but we leave it to pullback() to clean up */
+	return 1;
+}
+
+/*
+ * pushfwd - push forward constraints forward to eliminate them
+ */
+static void
+pushfwd(struct nfa *nfa,
+		FILE *f)				/* for debug output;
+```
 ## Detailed Description
 This function implements the core logic for moving constraint arcs backward in the NFA. The process involves several complex steps:
 

@@ -8,7 +8,10 @@ Define and register reloptions (relation options) for the BRIN minmax-multi oper
 
 ## Definition
 
-
+```c
+Datum
+brin_minmax_multi_options(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the options handler for the BRIN minmax-multi operator class, allowing users to configure behavior parameters when creating BRIN indexes. Currently, it defines a single option 'values_per_range' that controls how many distinct values can be stored per range before the range gets collapsed.
 

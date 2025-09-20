@@ -8,7 +8,11 @@ A static helper function that appends a PostgreSQL-style interval field to a str
 
 ## Definition
 
-
+```c
+static char *
+AddPostgresIntPart(char *cp, int64 value, const char *units,
+				   bool *is_zero, bool *is_before)
+```
 ## Detailed Description
 This function is responsible for formatting individual components of PostgreSQL interval values in the traditional PostgreSQL interval output format. It conditionally appends interval field values (like years, months, days, etc.) to a string buffer only when the value is non-zero. The function handles proper spacing, sign formatting, and pluralization of unit names. It implements a specific behavior where each nonzero field influences the sign formatting of the subsequent field through the  parameter.
 

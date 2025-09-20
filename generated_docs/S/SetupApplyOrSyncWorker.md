@@ -8,7 +8,10 @@ Common setup function for both leader apply workers and tablesync workers that h
 
 ## Definition
 
-
+```c
+void
+SetupApplyOrSyncWorker(int worker_slot)
+```
 ## Detailed Description
 This function performs the common initialization sequence shared between leader apply workers and table synchronization workers. It establishes the runtime environment necessary for logical replication processing:
 

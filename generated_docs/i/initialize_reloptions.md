@@ -8,7 +8,9 @@ The initialize_reloptions function is a static initialization routine that must 
 
 ## Definition
 
-
+```c
+enumRelOpts[i].gen.name;
+```
 ## Detailed Description
 This function initializes the global relOpts array, which serves as a consolidated registry of all available relation options across different data types (bool, int, real, enum, string, and custom options). The function performs two main phases:
 

@@ -8,7 +8,10 @@ A static helper function that performs the core logic for quoting string literal
 
 ## Definition
 
-
+```c
+static size_t
+quote_literal_internal(char *dst, const char *src, size_t len)
+```
 ## Detailed Description
 The `quote_literal_internal` function is a low-level utility that converts a source string into a properly quoted SQL string literal. It handles the complexities of SQL string escaping, including backslash escaping and quote doubling. The function is designed to work regardless of the `standard_conforming_strings` setting, ensuring consistent behavior across different PostgreSQL configurations. It scans the source string for backslashes to determine if escape string syntax is needed, then processes each character to properly escape quotes and other special characters.
 

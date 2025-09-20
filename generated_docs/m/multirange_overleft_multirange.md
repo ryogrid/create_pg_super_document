@@ -8,7 +8,10 @@ Checks if the first multirange does not extend to the right of the second multir
 
 ## Definition
 
-
+```c
+Datum
+multirange_overleft_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the "overleft" or "does not extend to right of" operator (&<) between two multirange types. It determines whether the first multirange does not extend to the right of the second multirange by comparing their rightmost upper bounds. 
 

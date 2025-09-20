@@ -8,7 +8,14 @@ Calculates the selectivity of a restriction operator clause by invoking the oper
 
 ## Definition
 
-
+```c
+Selectivity
+restriction_selectivity(PlannerInfo *root,
+						Oid operatorid,
+						List *args,
+						Oid inputcollid,
+						int varRelid)
+```
 ## Detailed Description
 This function computes the selectivity estimate for a restriction clause (WHERE clause condition) by calling the selectivity estimation function associated with the specified operator. Selectivity represents the fraction of rows that are expected to satisfy the condition, ranging from 0.0 (no rows) to 1.0 (all rows).
 

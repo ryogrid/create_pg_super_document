@@ -8,7 +8,10 @@ Performs case-independent comparison of two strings that are not necessarily nul
 
 ## Definition
 
-
+```c
+int
+pg_strncasecmp(const char *s1, const char *s2, size_t n)
+```
 ## Detailed Description
 The  function compares two strings character by character in a case-insensitive manner, but with a length limit. It examines at most  bytes from each string, making it safe to use with non-null-terminated strings or when only comparing a prefix of strings. Like , it handles both ASCII characters (A-Z) with direct case conversion and locale-specific extended characters using standard C library functions.
 

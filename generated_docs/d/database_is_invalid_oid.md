@@ -8,7 +8,9 @@ A convenience wrapper function that checks whether a database is invalid by look
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This function provides a convenient interface to check if a database is in an invalid state using only its OID. It performs a system catalog lookup to retrieve the database's pg_database entry, then calls database_is_invalid_form() to determine validity. The function handles the catalog lookup complexity internally and provides error handling for cases where the database OID doesn't exist. This is particularly useful when you only have a database OID and need to verify the database's validity status.
 

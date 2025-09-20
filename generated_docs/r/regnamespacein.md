@@ -8,7 +8,10 @@ The regnamespacein function converts string representations of namespace (schema
 
 ## Definition
 
-
+```c
+Datum
+regnamespacein(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL input function that handles the conversion of text input to the regnamespace data type, which represents namespace (schema) references by their OID. The function accepts multiple input formats: namespace names as strings, numeric OIDs, or the special value "-" which signifies unknown (OID 0).
 

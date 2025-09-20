@@ -8,7 +8,10 @@ Processes LIKE clauses in CREATE TABLE statements, copying column definitions an
 
 ## Definition
 
-
+```c
+static void
+transformTableLikeClause(CreateStmtContext *cxt, TableLikeClause *table_like_clause)
+```
 ## Detailed Description
 transformTableLikeClause implements PostgreSQL's LIKE clause functionality for CREATE TABLE statements. The LIKE clause allows creating a new table with the same column structure as an existing table, view, materialized view, composite type, foreign table, or partitioned table. The function handles two phases of LIKE processing:
 

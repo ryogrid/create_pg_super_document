@@ -8,7 +8,10 @@ Transition function for standard JSONB object aggregation that collects key-valu
 
 ## Definition
 
-
+```c
+Datum
+jsonb_object_agg_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for the  aggregate function, which collects key-value pairs into a JSONB object. It acts as a wrapper around , passing  for both  and  parameters. This means NULL values are included in the object and duplicate keys are allowed (later values overwrite earlier ones). The function is called once for each input row during aggregate processing.
 

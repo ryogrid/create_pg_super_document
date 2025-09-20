@@ -8,7 +8,10 @@ Updates the application name field in the backend status entry, enabling identif
 
 ## Definition
 
-
+```c
+void
+pgstat_report_appname(const char *appname)
+```
 ## Detailed Description
 This function updates the application name stored in the backend's status entry in shared memory. The application name is typically set by client applications through the application_name connection parameter or GUC setting, allowing database administrators to identify and monitor different applications or components connecting to the database.
 

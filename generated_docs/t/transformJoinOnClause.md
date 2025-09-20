@@ -8,7 +8,10 @@ Transforms the qualification conditions for JOIN/ON clauses by setting up the ap
 
 ## Definition
 
-
+```c
+static Node *
+transformJoinOnClause(ParseState *pstate, JoinExpr *j, List *namespace)
+```
 ## Detailed Description
 The `transformJoinOnClause` function is a static helper function responsible for transforming the ON clause conditions in JOIN expressions. It performs namespace management to ensure that the ON clause expressions can only see the appropriate set of relations and columns.
 

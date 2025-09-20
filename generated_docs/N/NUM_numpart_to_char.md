@@ -8,7 +8,10 @@ Formats and writes numeric parts (digits, signs, decimal points) to output strin
 
 ## Definition
 
-
+```c
+static void
+NUM_numpart_to_char(NUMProc *Np, int id)
+```
 ## Detailed Description
 This function is the counterpart to NUM_numpart_from_char, responsible for generating formatted numeric output during TO_CHAR() operations. It handles the complex logic of positioning signs, digits, and decimal points according to PostgreSQL's formatting specifications.
 

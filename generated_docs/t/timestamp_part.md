@@ -8,7 +8,10 @@ A PostgreSQL function that extracts specified date/time fields from timestamp va
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that extracts specific date/time components from timestamp values. It serves as the backend implementation for the  SQL function when operating on timestamp (without time zone) values. The function acts as a simple wrapper that calls the shared implementation  with the  parameter set to , indicating that results should be returned as floating-point numbers rather than numeric types.
 

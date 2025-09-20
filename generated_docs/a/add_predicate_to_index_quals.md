@@ -8,7 +8,10 @@ Augments index qualifier lists with partial index predicates to improve selectiv
 
 ## Definition
 
-
+```c
+List *
+add_predicate_to_index_quals(IndexOptInfo *index, List *indexQuals)
+```
 ## Detailed Description
 The  function handles the integration of partial index predicates with explicitly given index qualifiers to produce more accurate selectivity estimates. When an index has a WHERE clause (making it a partial index), this function intelligently combines the index predicate with the query's index qualifiers.
 

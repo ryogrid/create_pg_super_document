@@ -8,7 +8,10 @@ Attempts to acquire the SeLockMemoryPrivilege Windows user right so that Postgre
 
 ## Definition
 
-
+```c
+static bool
+EnableLockPagesPrivilege(int elevel)
+```
 ## Detailed Description
 This Windows-specific function tries to enable the "Lock pages in memory" privilege for the current PostgreSQL process. This privilege is required to use large pages (huge pages) on Windows, which can significantly improve performance by reducing TLB (Translation Lookaside Buffer) misses for large memory allocations.
 

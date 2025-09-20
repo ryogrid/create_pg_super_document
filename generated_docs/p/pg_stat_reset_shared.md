@@ -8,7 +8,10 @@ A PostgreSQL system function that resets cluster-wide statistics counters, allow
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_reset_shared(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a mechanism to reset various shared cluster-wide statistical counters in PostgreSQL. It accepts an optional text parameter that specifies which category of statistics to reset. When called without arguments (NULL), it resets all supported statistics categories. The function is designed to help database administrators manage and monitor PostgreSQL's internal statistics by providing selective reset capabilities.
 

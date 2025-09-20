@@ -8,7 +8,9 @@ A Windows-specific helper function that determines if an lstat operation failed 
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This static function serves as a diagnostic utility to identify a specific Windows file system condition where a file has been marked for deletion but still physically exists on disk. On Windows, when a file is deleted while still open by another process, the system marks it with STATUS_DELETE_PENDING status rather than immediately removing it. This function checks if a previous  call failed specifically due to this condition.
 

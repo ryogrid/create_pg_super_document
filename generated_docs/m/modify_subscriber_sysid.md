@@ -8,7 +8,10 @@ Modifies the system identifier of a subscriber database to prevent WAL file conf
 
 ## Definition
 
-
+```c
+static void
+modify_subscriber_sysid(const struct CreateSubscriberOptions *opt)
+```
 ## Detailed Description
 The  function changes the system identifier of a subscriber database to create a unique identity separate from the publisher. This is crucial because standby servers initially preserve the same system identifier as their primary, which can lead to dangerous situations where WAL files from one system might accidentally be used in another. The function generates a new system identifier using a time-based algorithm similar to the one used during database initialization (), then updates the control file and runs  to ensure all related metadata is properly synchronized.
 

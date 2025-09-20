@@ -8,7 +8,10 @@ Indicates whether GSSAPI authentication was used during the establishment of a P
 
 ## Definition
 
-
+```c
+int
+PQconnectionUsedGSSAPI(const PGconn *conn)
+```
 ## Detailed Description
 The PQconnectionUsedGSSAPI function determines whether GSSAPI (Generic Security Services Application Program Interface) authentication was used during the connection establishment process. GSSAPI is a standardized interface for security services that supports various authentication mechanisms including Kerberos. This function examines the connection's gssapi_used flag, which is set when GSSAPI authentication was successfully employed during the connection handshake.
 

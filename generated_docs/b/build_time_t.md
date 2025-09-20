@@ -8,7 +8,9 @@ Converts a calendar date (year, month, day) into a time_t value representing sec
 
 ## Definition
 
-
+```c
+struct tm	tm;
+```
 ## Detailed Description
 The build_time_t function is a utility that constructs a time_t timestamp from individual date components. It uses the standard C library's mktime() function to perform the conversion, handling the necessary adjustments for the struct tm format.
 

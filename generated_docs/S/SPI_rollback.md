@@ -8,7 +8,10 @@ SPI_rollback aborts the current transaction and starts a new one within the SPI 
 
 ## Definition
 
-
+```c
+void
+SPI_rollback(void)
+```
 ## Detailed Description
 SPI_rollback provides a mechanism for procedural languages and SPI-based extensions to abort the current transaction and immediately start a new one. This function is a wrapper around the internal _SPI_rollback function, called with the 'chain' parameter set to false, meaning transaction characteristics are not preserved across the rollback.
 

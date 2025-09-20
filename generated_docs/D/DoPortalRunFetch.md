@@ -8,7 +8,13 @@ DoPortalRunFetch implements the core logic for fetching rows from a portal with 
 
 ## Definition
 
-
+```c
+static uint64
+DoPortalRunFetch(Portal portal,
+				 FetchDirection fdirection,
+				 long count,
+				 DestReceiver *dest)
+```
 ## Detailed Description
 DoPortalRunFetch is the internal implementation that handles the complexity of portal row fetching operations. It serves as the guts of PortalRunFetch with the portal context already established. The function supports multiple fetch directions and interprets negative count values as direction reversals. It handles special cases like FETCH_ALL (retrieving all remaining rows) and optimizes various fetch patterns.
 

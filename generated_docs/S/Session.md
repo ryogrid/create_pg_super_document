@@ -8,7 +8,16 @@ A struct that encapsulates elements of a user's session, primarily managing stat
 
 ## Definition
 
-
+```c
+struct Step
+{
+	char	   *name;
+	char	   *sql;
+	/* These fields are filled by check_testspec(): */
+	int			session;		/* identifies owning session */
+	bool		used;			/* has step been used in a permutation? */
+};
+```
 ## Detailed Description
 The Session struct is designed to manage session-scoped state that was previously handled by global variables. It serves as a container for resources that need to be shared across parallel workers within a single user session. The structure primarily focuses on parallel query execution infrastructure, providing shared memory management through DSM (Dynamic Shared Memory) segments and DSA (Dynamic Shared Areas). It also manages type cache state that needs to be shared between parallel processes.
 

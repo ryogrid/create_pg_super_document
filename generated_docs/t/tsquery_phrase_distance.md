@@ -8,7 +8,10 @@ Implements the phrase search operation between two TSQuery objects with a specif
 
 ## Definition
 
-
+```c
+Datum
+tsquery_phrase_distance(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `tsquery_phrase_distance` function is a PostgreSQL built-in function that performs a phrase operation on two TSQuery objects with a user-specified maximum distance between terms. It creates a new TSQuery that will match documents only if the terms from both input queries appear within the specified distance of each other in the document. The function includes strict validation of the distance parameter (must be between 0 and MAXENTRYPOS) and the same empty-query optimizations as the AND/OR functions. It uses the `join_tsqueries` helper function with the OP_PHRASE operator and passes the distance parameter to control proximity matching.
 

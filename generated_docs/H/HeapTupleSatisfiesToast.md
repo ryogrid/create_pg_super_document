@@ -8,7 +8,11 @@ Specialized visibility function for TOAST tuples that performs simplified checks
 
 ## Definition
 
-
+```c
+static bool
+HeapTupleSatisfiesToast(HeapTuple htup, Snapshot snapshot,
+						Buffer buffer)
+```
 ## Detailed Description
 HeapTupleSatisfiesToast implements specialized visibility semantics for TOAST tables. TOAST is PostgreSQL's mechanism for storing large attribute values separately from the main table row. This visibility function is simplified compared to regular tuple visibility functions because TOAST tables have different access patterns and requirements.
 

@@ -8,7 +8,9 @@ Performs a binary search to find all security labels associated with a specific 
 
 ## Definition
 
-
+```c
+struct a table of all security labels available for database objects;
+```
 ## Detailed Description
 This function efficiently searches through a sorted array of security labels to find all labels associated with a particular database object. It uses a binary search algorithm to locate the first matching entry, then expands the search to find all entries with the same classoid and objoid combination. Security labels in PostgreSQL are stored as a sorted array for efficient lookup, and this function takes advantage of that ordering.
 

@@ -8,7 +8,9 @@ Returns the overlapping portion of two boxes, or NULL if they do not intersect.
 
 ## Definition
 
-
+```c
+struct(result, &box->high, &box->low);
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operation that computes the intersection of two BOX objects. It first checks if the boxes overlap using the  function. If they don't overlap, it returns NULL. If they do overlap, it calculates the intersection box by taking the minimum of the high coordinates and maximum of the low coordinates for both x and y dimensions. The resulting box represents the overlapping rectangular area between the two input boxes.
 

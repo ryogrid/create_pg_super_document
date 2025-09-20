@@ -8,7 +8,11 @@ lazy_scan_new_or_empty handles new and empty page processing during vacuum opera
 
 ## Definition
 
-
+```c
+static bool
+lazy_scan_new_or_empty(LVRelState *vacrel, Buffer buf, BlockNumber blkno,
+					   Page page, bool sharelock, Buffer vmbuffer)
+```
 ## Detailed Description
 lazy_scan_new_or_empty provides specialized handling for new and empty heap pages that require different treatment from normal pages during vacuum operations:
 

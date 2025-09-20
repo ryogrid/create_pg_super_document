@@ -8,7 +8,10 @@ Compares a timestamp value with a date value to determine if the timestamp is gr
 
 ## Definition
 
-
+```c
+Datum
+timestamp_gt_date(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the greater-than comparison operator between a timestamp and a date. It extracts a timestamp and a date from the function arguments, then uses the internal comparison function  to perform the comparison. The function returns true if the timestamp is greater than the date, false otherwise.
 

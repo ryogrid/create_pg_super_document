@@ -8,7 +8,17 @@ RewriteRule is a structure that holds information for a rewrite rule in PostgreS
 
 ## Definition
 
-
+```c
+typedef struct RewriteRule
+{
+	Oid			ruleId;
+	CmdType		event;
+	Node	   *qual;
+	List	   *actions;
+	char		enabled;
+	bool		isInstead;
+} RewriteRule;
+```
 ## Detailed Description
 RewriteRule represents a single rewrite rule within PostgreSQL's rule system. These rules are used to transform queries, particularly for implementing views and handling certain types of query modifications. The structure contains all the essential information needed to identify, evaluate, and execute a rewrite rule during query processing.
 

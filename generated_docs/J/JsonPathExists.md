@@ -8,7 +8,10 @@ An executor-callable function that implements JSON_EXISTS functionality, determi
 
 ## Definition
 
-
+```c
+bool
+JsonPathExists(Datum jb, JsonPath *jp, bool *error, List *vars)
+```
 ## Detailed Description
 The  function serves as the primary entry point for JSON_EXISTS operations in PostgreSQL's SQL/JSON implementation. It wraps the core  function with appropriate parameters to determine existence rather than extract values. The function operates in two modes: it can either throw errors on path evaluation failures (when error is NULL) or return a controlled error state (when error is not NULL). This dual behavior makes it suitable for both direct SQL usage and internal executor operations where error handling needs to be deferred.
 

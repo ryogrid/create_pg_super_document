@@ -8,7 +8,9 @@ Loads all replication slots from disk into memory during server startup, perform
 
 ## Definition
 
-
+```c
+struct dirent *replication_de;
+```
 ## Detailed Description
 This function initializes the replication slot system during PostgreSQL server startup by scanning the pg_replslot directory and restoring all valid replication slots from disk into shared memory. The function performs several critical operations:
 

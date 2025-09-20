@@ -8,7 +8,10 @@ The  function implements the  psql command for displaying extended statistics ob
 
 ## Definition
 
-
+```c
+bool
+listExtendedStats(const char *pattern)
+```
 ## Detailed Description
 This function queries the  system catalog to retrieve and display information about extended statistics objects. Extended statistics are multi-column statistics that help the PostgreSQL query planner make better decisions for complex queries involving correlated columns. The function constructs a SQL query that shows the schema, name, definition, and types of extended statistics (ndistinct, dependencies, and MCV for PostgreSQL 12+).
 

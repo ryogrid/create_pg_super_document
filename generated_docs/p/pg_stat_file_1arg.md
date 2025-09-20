@@ -8,7 +8,9 @@ A PostgreSQL wrapper function that provides a single-argument interface to the p
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This function serves as a wrapper around the main  function, providing a single-argument variant that is required for PostgreSQL's internal function validation system. The function exists specifically to satisfy the sanity check in , which verifies that all built-in functions sharing the same implementing C function take the same number of arguments. It simply forwards the function call to  with the same function call info (), allowing the underlying function to handle the argument processing. This pattern is common in PostgreSQL where functions need multiple signatures but share implementation code.
 

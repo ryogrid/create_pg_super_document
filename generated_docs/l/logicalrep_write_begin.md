@@ -8,7 +8,10 @@ Writes a BEGIN message to the logical replication output stream to indicate the 
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_begin(StringInfo out, ReorderBufferTXN *txn)
+```
 ## Detailed Description
 This function serializes a BEGIN message into the logical replication protocol stream. It marks the beginning of a transaction in the replication stream and includes essential transaction metadata such as the final LSN, commit timestamp, and transaction ID. The function is part of PostgreSQL's logical replication protocol implementation and is used to communicate transaction boundaries to logical replication subscribers.
 

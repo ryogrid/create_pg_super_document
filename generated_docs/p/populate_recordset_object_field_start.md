@@ -8,7 +8,10 @@ This function handles the start of JSON object field processing during JSON-to-r
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+populate_recordset_object_field_start(void *state, char *fname, bool isnull)
+```
 ## Detailed Description
 The  function is a callback handler used during JSON parsing to process the beginning of object fields when converting JSON data to PostgreSQL recordsets. It operates as part of the JSON parsing infrastructure to track parsing state and handle nested JSON structures.
 

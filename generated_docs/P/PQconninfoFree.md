@@ -8,7 +8,10 @@ A public libpq API function that properly deallocates memory for a PQconninfoOpt
 
 ## Definition
 
-
+```c
+void
+PQconninfoFree(PQconninfoOption *connOptions)
+```
 ## Detailed Description
 This function provides proper memory management for PQconninfoOption arrays returned by functions like PQconninfo(), PQconndefaults(), and PQconninfoParse(). It performs a complete cleanup by:
 

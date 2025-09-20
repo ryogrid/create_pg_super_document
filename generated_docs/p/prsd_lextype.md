@@ -8,7 +8,10 @@ A PostgreSQL function that returns metadata about all lexical token types suppor
 
 ## Definition
 
-
+```c
+Datum
+prsd_lextype(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 prsd_lextype is a PostgreSQL built-in function that serves as the lextype interface for the default word parser. It creates and returns an array of LexDescr structures containing comprehensive information about all supported token types.
 

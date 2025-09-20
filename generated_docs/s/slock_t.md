@@ -8,7 +8,9 @@
 
 ## Definition
 
-
+```c
+typedef int slock_t;
+```
 ## Detailed Description
  serves as the hardware-abstraction layer for spinlocks in PostgreSQL. The actual type definition varies by platform to optimize for the underlying hardware's atomic operation capabilities. This typedef is defined in  with different implementations selected based on compile-time platform detection.
 

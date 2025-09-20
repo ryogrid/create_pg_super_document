@@ -8,7 +8,11 @@ Formats and outputs a GroupingSet clause as a string representation for SQL rule
 
 ## Definition
 
-
+```c
+static void
+get_rule_groupingset(GroupingSet *gset, List *targetlist,
+					 bool omit_parens, deparse_context *context)
+```
 ## Detailed Description
 This function is a recursive SQL deparsing utility that converts internal GroupingSet structures into their textual SQL representation. It handles various SQL grouping constructs:
 

@@ -8,7 +8,18 @@ PartitionDispatchData contains information about one partitioned table in a part
 
 ## Definition
 
-
+```c
+typedef struct PartitionDispatchData
+{
+	Relation	reldesc;
+	PartitionKey key;
+	List	   *keystate;		/* list of ExprState */
+	PartitionDesc partdesc;
+	TupleTableSlot *tupslot;
+	AttrMap    *tupmap;
+	int			indexes[FLEXIBLE_ARRAY_MEMBER];
+}			PartitionDispatchData;
+```
 ## Detailed Description
 PartitionDispatchData represents the routing information needed for a single partitioned table within PostgreSQL's partition hierarchy. Each instance contains the table's relation descriptor, partition key information, execution state for partition key expressions, and mapping structures for tuple conversion. The structure includes a flexible array member 'indexes' that provides efficient lookup into the parent PartitionTupleRouting's arrays, coordinating access to both leaf partitions and nested partitioned tables.
 

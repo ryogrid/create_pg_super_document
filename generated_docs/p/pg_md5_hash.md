@@ -8,7 +8,10 @@ Calculates the MD5 hash digest of a buffer and returns it as a hexadecimal strin
 
 ## Definition
 
-
+```c
+bool
+pg_md5_hash(const void *buff, size_t len, char *hexsum, const char **errstr)
+```
 ## Detailed Description
 This function computes the MD5 cryptographic hash of the specified input buffer using PostgreSQL's cryptographic hash framework. It processes the input data through the MD5 algorithm and converts the resulting 16-byte binary digest into a 32-character lowercase hexadecimal string representation. The function provides comprehensive error handling and memory management for the cryptographic operations.
 

@@ -8,7 +8,10 @@ Compares two PostgreSQL Log Sequence Number (LSN) values to determine if the fir
 
 ## Definition
 
-
+```c
+Datum
+pg_lsn_le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the less-than-or-equal-to operator (<=) for the pg_lsn data type in PostgreSQL. It extracts two XLogRecPtr values from the function arguments and performs a direct numerical comparison to determine if the first LSN represents an earlier or equal position in the WAL compared to the second LSN.
 

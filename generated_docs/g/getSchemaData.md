@@ -8,7 +8,10 @@ Orchestrates the collection of all potentially dumpable database objects from a 
 
 ## Definition
 
-
+```c
+TableInfo *
+getSchemaData(Archive *fout, int *numTablesPtr)
+```
 ## Detailed Description
 The getSchemaData function is the central orchestrator in pg_dump that systematically collects metadata about all database objects that might need to be dumped. It coordinates the reading of various PostgreSQL system catalogs in a specific order to ensure proper dependency resolution and relationship establishment. The function ensures extensions are processed first since extension membership affects dumping decisions for other objects, followed by namespaces and tables which form the foundation for most other objects.
 

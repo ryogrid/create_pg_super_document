@@ -8,7 +8,10 @@ Returns the next list cell after a given cell within a PostgreSQL List structure
 
 ## Definition
 
-
+```c
+static inline ListCell *
+lnext(const List *l, const ListCell *c)
+```
 ## Detailed Description
 The  function is a core utility for iterating through PostgreSQL's List data structure. It provides safe navigation to the next cell in a list by performing bounds checking and returning the appropriate result. The function is implemented as an inline function for performance, as it's heavily used throughout the PostgreSQL codebase for list traversal operations.
 

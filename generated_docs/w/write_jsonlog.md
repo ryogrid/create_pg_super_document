@@ -8,7 +8,10 @@ The main function responsible for formatting and writing PostgreSQL log messages
 
 ## Definition
 
-
+```c
+void
+write_jsonlog(ErrorData *edata)
+```
 ## Detailed Description
 This function takes PostgreSQL error/log data and formats it as a structured JSON log entry containing comprehensive session and error information. It serves as the primary JSON logging mechanism in PostgreSQL, producing machine-readable log output that includes timestamps, process information, session details, transaction context, error details, and query information.
 

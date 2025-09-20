@@ -8,7 +8,11 @@ A specialized suffix processing function in the Romanian Snowball stemming algor
 
 ## Definition
 
+```c
+}
 
+static int r_combo_suffix(struct SN_env * z)
+```
 ## Detailed Description
 The r_combo_suffix function processes complex Romanian suffix combinations that require sophisticated handling beyond simple deletion or single-character replacement. This function is designed to handle compound suffixes that are characteristic of Romanian morphology, where multiple morphological elements combine to form complex endings.
 

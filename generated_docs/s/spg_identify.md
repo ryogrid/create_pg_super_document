@@ -8,7 +8,10 @@ A function that converts SP-GiST WAL record type codes into human-readable strin
 
 ## Definition
 
-
+```c
+const char *
+spg_identify(uint8 info)
+```
 ## Detailed Description
 The  function is a companion to  in the SP-GiST WAL description system. It takes a WAL record info byte and returns a corresponding string identifier that describes the type of SP-GiST operation. This function provides a simple way to convert numeric WAL record type codes into meaningful names for debugging, logging, and monitoring purposes.
 

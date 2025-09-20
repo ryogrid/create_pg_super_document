@@ -8,7 +8,10 @@ Returns the width (horizontal magnitude) of a BOX geometric type by calculating 
 
 ## Definition
 
-
+```c
+static float8
+box_wd(BOX *box)
+```
 ## Detailed Description
 The  function is a static helper function in PostgreSQL's geometric operations module that calculates the width of a BOX object. It computes the horizontal distance by subtracting the low x-coordinate from the high x-coordinate using the  function. This is an internal utility function used by other box-related operations that need to determine the horizontal extent of a box.
 

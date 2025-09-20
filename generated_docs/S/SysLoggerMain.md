@@ -8,7 +8,10 @@ SysLoggerMain is the main entry point and event loop for the PostgreSQL system l
 
 ## Definition
 
-
+```c
+void
+SysLoggerMain(char *startup_data, size_t startup_data_len)
+```
 ## Detailed Description
 SysLoggerMain implements the core functionality of the PostgreSQL logging system's dedicated logger process. This function serves as the main event loop that:
 

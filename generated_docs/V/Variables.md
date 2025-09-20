@@ -8,7 +8,21 @@ The Variables structure is a container that manages a dynamic array of Variable 
 
 ## Definition
 
-
+```c
+structure to keep stats about something.
+ *
+ * XXX probably the first value should be kept and used as an offset for
+ * better numerical stability...
+ */
+typedef struct SimpleStats
+{
+	int64		count;			/* how many values were encountered */
+	double		min;			/* the minimum seen */
+	double		max;			/* the maximum seen */
+	double		sum;			/* sum of values */
+	double		sum2;			/* sum of squared values */
+} SimpleStats;
+```
 ## Detailed Description
 The Variables structure serves as a comprehensive variable management container in pgbench, implementing a dynamic array of Variable structures with built-in capacity management and optional sorting. This design allows efficient variable storage, lookup, and manipulation during benchmark execution.
 

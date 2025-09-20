@@ -8,7 +8,11 @@ Copies a PostgreSQL relation file from a source path to a destination path durin
 
 ## Definition
 
-
+```c
+void
+copyFile(const char *src, const char *dst,
+		 const char *schemaName, const char *relName)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's pg_upgrade utility and is responsible for copying relation files during database upgrades. It provides a cross-platform implementation with different strategies for Unix-like systems and Windows:
 

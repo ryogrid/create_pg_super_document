@@ -8,7 +8,10 @@ Determines the size of a large object by finding the offset of the last byte plu
 
 ## Definition
 
-
+```c
+static uint64
+inv_getsize(LargeObjectDesc *obj_desc)
+```
 ## Detailed Description
 The  function calculates the effective size of a large object by scanning through its pages to find the last byte position. Unlike simple file systems, PostgreSQL large objects can contain gaps (similar to Unix sparse files), so the function returns the offset of the last byte plus one rather than just counting stored bytes.
 

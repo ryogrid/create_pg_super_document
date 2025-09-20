@@ -8,7 +8,10 @@ Performs final cleanup operations on the template1 database by running ANALYZE a
 
 ## Definition
 
-
+```c
+static void
+vacuum_db(FILE *cmdfd)
+```
 ## Detailed Description
 The vacuum_db function performs essential database maintenance operations as the final step in PostgreSQL database initialization. It executes two critical commands in sequence:
 

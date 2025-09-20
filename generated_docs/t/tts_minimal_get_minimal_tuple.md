@@ -8,7 +8,10 @@ Retrieves the MinimalTuple from a MinimalTupleTableSlot, materializing it if nec
 
 ## Definition
 
-
+```c
+static MinimalTuple
+tts_minimal_get_minimal_tuple(TupleTableSlot *slot)
+```
 ## Detailed Description
 This function is a specialized accessor for MinimalTupleTableSlot that ensures the slot contains a materialized minimal tuple before returning it. The function casts the generic TupleTableSlot to a MinimalTupleTableSlot and checks if the mintuple field is populated. If the minimal tuple is not yet materialized (mintuple is NULL), it calls tts_minimal_materialize to create one. This lazy materialization approach optimizes memory usage by only creating the minimal tuple when actually needed.
 

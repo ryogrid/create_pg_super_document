@@ -8,7 +8,10 @@ CopyFromErrorCallback is an error context callback function for COPY FROM operat
 
 ## Definition
 
-
+```c
+void
+CopyFromErrorCallback(void *arg)
+```
 ## Detailed Description
 This function serves as the error context callback for COPY FROM operations in PostgreSQL. It takes a CopyFromState argument and generates contextual error messages based on the current state of the copy operation. The function handles different scenarios:
 

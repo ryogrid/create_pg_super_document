@@ -8,7 +8,9 @@ GinScanKey is a pointer typedef that references GinScanKeyData structures, repre
 
 ## Definition
 
-
+```c
+typedef struct GinScanKeyData *GinScanKey;
+```
 ## Detailed Description
 GinScanKey serves as a convenient pointer type for accessing GinScanKeyData structures in the PostgreSQL GIN (Generalized Inverted Index) access method. Each GinScanKey represents a single qualifier expression from a query that will be evaluated against the GIN index. The actual functionality and data are contained within the GinScanKeyData structure that this pointer references.
 

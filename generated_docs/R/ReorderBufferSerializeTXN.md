@@ -8,7 +8,10 @@ Spills data of a large transaction (and its subtransactions) to disk when memory
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferSerializeTXN(ReorderBuffer *rb, ReorderBufferTXN *txn)
+```
 ## Detailed Description
 This function handles the serialization of large transactions to disk storage when memory usage exceeds configured limits. It recursively processes all subtransactions first, then serializes the main transaction's changes. Changes are organized into separate files based on their WAL segment numbers to maintain locality and efficient access patterns during deserialization.
 

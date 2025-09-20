@@ -8,7 +8,10 @@ Returns the pg_namespace OID associated with a given function, providing namespa
 
 ## Definition
 
-
+```c
+Oid
+get_func_namespace(Oid funcid)
+```
 ## Detailed Description
 This function retrieves the namespace (schema) OID for a specified function by looking up the function in the system catalog. It performs a system cache lookup on the pg_proc table using the function's OID and extracts the pronamespace field which contains the namespace OID. The function returns InvalidOid if the function does not exist in the catalog.
 

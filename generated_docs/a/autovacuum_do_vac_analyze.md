@@ -8,7 +8,10 @@ Executes vacuum and/or analyze operations on a specified table within the autova
 
 ## Definition
 
-
+```c
+static void
+autovacuum_do_vac_analyze(autovac_table *tab, BufferAccessStrategy bstrategy)
+```
 ## Detailed Description
 This function serves as the execution layer for autovacuum operations after decision-making is complete. It performs the following key operations:
 

@@ -8,7 +8,11 @@ This function constructs a SQL VACUUM or ANALYZE command string based on provide
 
 ## Definition
 
-
+```c
+static void
+prepare_vacuum_command(PQExpBuffer sql, int serverVersion,
+					   vacuumingOptions *vacopts, const char *table)
+```
 ## Detailed Description
 The function generates SQL commands for database maintenance operations (VACUUM/ANALYZE) by examining the provided options and constructing syntax appropriate for the target PostgreSQL server version. It handles two main command types:
 

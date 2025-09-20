@@ -8,7 +8,10 @@ Common initialization function for all types of logical replication workers (lea
 
 ## Definition
 
-
+```c
+void
+InitializeLogRepWorker(void)
+```
 ## Detailed Description
 This function performs comprehensive initialization for logical replication workers, establishing the runtime environment required for replication processing. The initialization sequence includes:
 

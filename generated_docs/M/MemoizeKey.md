@@ -8,7 +8,13 @@ MemoizeKey serves as the hash table key for cached entries in PostgreSQL's memoi
 
 ## Definition
 
-
+```c
+typedef struct MemoizeKey
+{
+	MinimalTuple params;
+	dlist_node	lru_node;		/* Pointer to next/prev key in LRU list */
+} MemoizeKey;
+```
 ## Detailed Description
 MemoizeKey is a crucial component of PostgreSQL's memoization cache that serves a dual purpose: it acts as the hash table key for cache lookups and simultaneously participates in the Least Recently Used (LRU) eviction strategy. The structure contains the parameter values that uniquely identify a cache entry and includes doubly-linked list nodes for efficient LRU management.
 

@@ -8,7 +8,10 @@ Processes CopyInResponse, CopyOutResponse, or CopyBothResponse messages from the
 
 ## Definition
 
-
+```c
+static int
+getCopyStart(PGconn *conn, ExecStatusType copytype)
+```
 ## Detailed Description
 The getCopyStart function handles the initial phase of PostgreSQL's COPY protocol by parsing the server's response message that indicates the start of a COPY operation. The function reads the binary/text format flag, the number of fields, and the format codes for each field from the network stream. It creates a PGresult structure to store this metadata information which will be used throughout the COPY operation.
 

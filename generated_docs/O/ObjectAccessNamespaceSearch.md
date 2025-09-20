@@ -8,7 +8,13 @@ ObjectAccessNamespaceSearch is a struct that holds arguments for the OAT_NAMESPA
 
 ## Definition
 
-
+```c
+typedef void (*object_access_hook_type) (ObjectAccessType access,
+										 Oid classId,
+										 Oid objectId,
+										 int subId,
+										 void *arg);
+```
 ## Detailed Description
 The ObjectAccessNamespaceSearch struct serves as a parameter container for object access hooks that are triggered during namespace (schema) search operations (OAT_NAMESPACE_SEARCH events). This struct implements a cooperative security model where multiple extensions can participate in access control decisions.
 

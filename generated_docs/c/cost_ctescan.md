@@ -8,7 +8,11 @@ Determines and returns the cost of scanning a CTE (Common Table Expression) RTE,
 
 ## Definition
 
-
+```c
+void
+cost_ctescan(Path *path, PlannerInfo *root,
+			 RelOptInfo *baserel, ParamPathInfo *param_info)
+```
 ## Detailed Description
 This function calculates the execution cost for scanning a Common Table Expression (CTE), which can be either a regular CTE or a recursive CTE's work table. The cost model accounts for:
 

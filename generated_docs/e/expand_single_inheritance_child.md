@@ -8,7 +8,13 @@ Builds a RangeTblEntry and AppendRelInfo for a single child relation in an inher
 
 ## Definition
 
-
+```c
+structure of the parent RTE has to be
+	 * translated to match the child table's column ordering, which we do
+	 * below, so a "flat" copy is sufficient to start with.
+	 */
+	childrte = makeNode(RangeTblEntry);
+```
 ## Detailed Description
 This static function creates the necessary planner data structures for a single child relation in an inheritance or partitioning hierarchy. Key operations include:
 

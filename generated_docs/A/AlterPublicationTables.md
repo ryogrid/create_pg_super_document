@@ -8,7 +8,12 @@ AlterPublicationTables handles adding, removing, or replacing tables in a public
 
 ## Definition
 
-
+```c
+static void
+AlterPublicationTables(AlterPublicationStmt *stmt, HeapTuple tup,
+					   List *tables, const char *queryString,
+					   bool publish_schema)
+```
 ## Detailed Description
 AlterPublicationTables is a static function that manages table membership in publications based on the specified action (ADD, DROP, or SET). For ADD operations, it validates WHERE clauses and column lists before adding tables. For DROP operations, it removes specified tables. For SET operations, it performs a sophisticated comparison between existing and new table lists, preserving tables that match exactly (including WHERE clauses and column lists) and dropping/adding others as needed.
 

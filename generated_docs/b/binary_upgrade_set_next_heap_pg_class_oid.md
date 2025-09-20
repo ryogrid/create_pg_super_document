@@ -8,7 +8,9 @@ Sets the next heap relation OID to be used during binary upgrade operations for 
 
 ## Definition
 
-
+```c
+enumber = PG_GETARG_OID(0);
+```
 ## Detailed Description
 This function is part of PostgreSQL's binary upgrade infrastructure, which allows upgrading PostgreSQL installations without needing to dump and reload data. It sets the global variable  to a specific OID value that will be used when creating the next heap table during the upgrade process. This ensures that object OIDs are preserved across upgrades, maintaining system catalog consistency.
 

@@ -8,7 +8,10 @@ Initializes runtime-computed GUC (Grand Unified Configuration) parameters relate
 
 ## Definition
 
-
+```c
+void
+InitializeShmemGUCs(void)
+```
 ## Detailed Description
 This function calculates and sets two important GUC parameters that provide information about shared memory requirements:
 

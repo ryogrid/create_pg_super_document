@@ -8,7 +8,28 @@ HashScanPosData is a structure that maintains the state and position information
 
 ## Definition
 
+```c
+typedef struct HashScanPosData
+{
+	Buffer		buf;			/* if valid, the buffer is pinned */
+	BlockNumber currPage;		/* current hash index page */
+	BlockNumber nextPage;		/* next overflow page */
+	BlockNumber prevPage;		/* prev overflow or bucket page */
 
+	/*
+	 * The items array is always ordered in index order (ie, increasing
+	 * indexoffset).  When scanning backwards it is convenient to fill the
+	 * array back-to-front, so we start at the last slot and fill downwards.
+	 * Hence we need both a first-valid-entry and a last-valid-entry counter.
+	 * itemIndex is a cursor showing which entry was last returned to caller.
+	 */
+	int			firstItem;		/* first valid index in items[] */
+	int			lastItem;		/* last valid index in items[] */
+	int			itemIndex;		/* current index in items[] */
+
+	HashScanPosItem items[MaxIndexTuplesPerPage];	/* MUST BE LAST */
+} HashScanPosData;
+```
 ## Detailed Description
 HashScanPosData is the core structure for managing hash index scan state. It tracks the current position within the bucket chain and maintains an array of items found on the current page. The structure supports both forward and backward scanning by providing flexible indexing mechanisms for the items array.
 

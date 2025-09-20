@@ -8,7 +8,10 @@ PQfmod retrieves the type modifier value for a specified field in a PostgreSQL q
 
 ## Definition
 
-
+```c
+int
+PQfmod(const PGresult *res, int field_num)
+```
 ## Detailed Description
 PQfmod extracts the type modifier (atttypmod) for a given field from a PostgreSQL result set. Type modifiers provide additional information about how a column's data type should be interpreted, such as precision for numeric types, length limits for character types, or other type-specific constraints. The function performs bounds checking on the field number and returns 0 if the field is invalid or if no attribute descriptors are available.
 

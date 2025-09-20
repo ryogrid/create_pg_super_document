@@ -8,7 +8,10 @@ SPI_scroll_cursor_fetch provides advanced cursor navigation by allowing fetches 
 
 ## Definition
 
-
+```c
+void
+SPI_scroll_cursor_fetch(Portal portal, FetchDirection direction, long count)
+```
 ## Detailed Description
 This function extends the basic SPI_cursor_fetch functionality by accepting a FetchDirection enum parameter instead of a simple boolean, allowing for more sophisticated cursor movement patterns. It supports the full range of fetch directions including FETCH_FORWARD, FETCH_BACKWARD, FETCH_ABSOLUTE, FETCH_RELATIVE, and positioning operations like FETCH_FIRST and FETCH_LAST. This makes it particularly useful for implementing scrollable cursor operations that require precise positioning.
 

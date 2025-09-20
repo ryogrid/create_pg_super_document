@@ -8,7 +8,11 @@ Compresses data using zlib compression and writes it to a TAR archive file durin
 
 ## Definition
 
-
+```c
+static bool
+tar_write_compressed_data(TarMethodData *tar_data, const void *buf, size_t count,
+						  bool flush)
+```
 ## Detailed Description
 This function handles the compression of data using zlib deflate algorithm and writes the compressed output to a TAR archive file. It operates on the TarMethodData structure which maintains the compression state and file descriptor. The function processes input data through the zlib compression stream, handling output buffering and ensuring all compressed data is written to the underlying file. When the flush parameter is true, it forces completion of compression and resets the stream for subsequent writes.
 

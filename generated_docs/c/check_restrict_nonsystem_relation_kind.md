@@ -8,7 +8,10 @@ A GUC check hook function that validates the format and content of the  configur
 
 ## Definition
 
-
+```c
+bool
+check_restrict_nonsystem_relation_kind(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for the  GUC parameter. It parses a comma-separated string containing relation kind names (such as "view" and "foreign-table") and converts them into internal flag representations. The function performs syntax validation, recognizes valid keywords, and prepares the parsed flags for use by the corresponding assign hook. If validation fails, it provides specific error messages indicating the nature of the problem.
 

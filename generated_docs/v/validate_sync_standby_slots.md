@@ -8,7 +8,10 @@ A helper function that validates slots specified in the GUC synchronized_standby
 
 ## Definition
 
-
+```c
+struct */
+	size = offsetof(SyncStandbySlotsConfigData, slot_names);
+```
 ## Detailed Description
 This function validates the synchronized_standby_slots GUC parameter by first parsing the comma-separated list of slot names using SplitIdentifierString, then verifying that each specified slot exists and is a physical replication slot. The validation is performed under ReplicationSlotControlLock to ensure consistency. If any slot doesn't exist or is not physical, the function sets appropriate error details and returns false. The function skips slot existence checks for processes without a PGPROC structure, as explained in StandbySlotsHaveCaughtup() comments.
 

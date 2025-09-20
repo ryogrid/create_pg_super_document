@@ -8,7 +8,10 @@ ExplainCreateWorkersState is a static function in PostgreSQL's explain module th
 
 ## Definition
 
-
+```c
+static ExplainWorkersState *
+ExplainCreateWorkersState(int num_workers)
+```
 ## Detailed Description
 This function allocates and initializes an ExplainWorkersState structure that serves as a workspace for handling output from parallel workers during query plan explanation. The function creates separate buffers for each worker's output, which allows the explain system to collect worker-specific data independently and then merge it coherently into the main output stream. This design enables the generation of organized per-worker field groups even though the code that produces these fields is distributed across multiple locations in the explain module.
 

@@ -8,7 +8,11 @@ Handles the transfer of predicate locks from an old page to a new page during pa
 
 ## Definition
 
-
+```c
+void
+PredicateLockPageSplit(Relation relation, BlockNumber oldblkno,
+					   BlockNumber newblkno)
+```
 ## Detailed Description
 PredicateLockPageSplit is a critical function in PostgreSQL's predicate locking system that maintains serializable isolation guarantees during page split operations. When a page is split (due to overflow or other reasons), any existing predicate locks on the old page must be copied to the new page to ensure that serializable transactions continue to detect potential conflicts correctly.
 

@@ -8,7 +8,10 @@ Updates the top-level query identifier in the backend status entry, enabling que
 
 ## Definition
 
-
+```c
+void
+pgstat_report_query_id(uint64 query_id, bool force)
+```
 ## Detailed Description
 This function updates the query identifier stored in the backend's status entry in shared memory. It implements a policy of only tracking top-level query identifiers to avoid noise from nested or sub-queries. The function uses the same change-counting protocol as other backend status updates to ensure atomic modifications.
 

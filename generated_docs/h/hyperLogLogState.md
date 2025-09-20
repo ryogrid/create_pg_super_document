@@ -8,7 +8,16 @@ The  struct represents the state of a HyperLogLog cardinality estimator, which p
 
 ## Definition
 
-
+```c
+typedef struct hyperLogLogState
+{
+	uint8		registerWidth;
+	Size		nRegisters;
+	double		alphaMM;
+	uint8	   *hashesArr;
+	Size		arrSize;
+} hyperLogLogState;
+```
 ## Detailed Description
 The  structure maintains the complete state needed for HyperLogLog cardinality estimation, implementing the algorithm described in the 2007 paper "HyperLogLog: the analysis of a near-optimal cardinality estimation algorithm". This structure is used throughout PostgreSQL for approximate distinct counting operations, particularly in aggregate operations where exact counting would be memory-prohibitive.
 

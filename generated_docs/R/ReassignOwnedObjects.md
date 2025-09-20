@@ -8,7 +8,10 @@ Implements the REASSIGN OWNED command by transferring ownership of all objects o
 
 ## Definition
 
-
+```c
+void
+ReassignOwnedObjects(ReassignOwnedStmt *stmt)
+```
 ## Detailed Description
 ReassignOwnedObjects provides the high-level interface for PostgreSQL's REASSIGN OWNED command, which transfers ownership of all database objects from one or more source roles to a single target role. The function performs comprehensive privilege validation on both the source and destination sides before delegating the actual ownership transfer to the lower-level shdepReassignOwned function.
 

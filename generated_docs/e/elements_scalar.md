@@ -8,7 +8,14 @@ This function serves as a JSON parser callback that handles scalar values during
 
 ## Definition
 
-
+```c
+structure check */
+	if (_state->lex->lex_level == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				 errmsg("cannot call %s on a scalar",
+						_state->function_name)));
+```
 ## Detailed Description
 The  function is a callback function used during JSON parsing to process scalar values encountered within array elements. It serves dual purposes: validation and data preparation.
 

@@ -8,7 +8,22 @@ A specialized basebackup sink structure that implements LZ4 compression for Post
 
 ## Definition
 
+```c
+typedef struct bbsink_lz4
+{
+	/* Common information for all types of sink. */
+	bbsink		base;
 
+	/* Compression level. */
+	int			compresslevel;
+
+	LZ4F_compressionContext_t ctx;
+	LZ4F_preferences_t prefs;
+
+	/* Number of bytes staged in output buffer. */
+	size_t		bytes_written;
+} bbsink_lz4;
+```
 ## Detailed Description
 The  structure extends the base  functionality to provide LZ4 compression capabilities for PostgreSQL base backups. This structure is part of the basebackup sink chain architecture, where each sink performs a specific task such as compression, progress reporting, or client communication.
 

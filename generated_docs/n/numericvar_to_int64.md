@@ -8,7 +8,13 @@ The `numericvar_to_int64` function converts a PostgreSQL numeric variable to a 6
 
 ## Definition
 
-
+```c
+struct the result. To avoid issues with converting a value
+	 * corresponding to INT64_MIN (which can't be represented as a positive 64
+	 * bit two's complement integer), accumulate value as a negative number.
+	 */
+	digits = rounded.digits;
+```
 ## Detailed Description
 This function performs a safe conversion from PostgreSQL's arbitrary-precision numeric representation to a 64-bit signed integer:
 

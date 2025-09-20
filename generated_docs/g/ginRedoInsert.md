@@ -8,7 +8,10 @@ Replays GIN index insert operations during WAL recovery, handling both data and 
 
 ## Definition
 
-
+```c
+static void
+ginRedoInsert(XLogReaderState *record)
+```
 ## Detailed Description
 ginRedoInsert is a WAL recovery function that replays GIN (Generalized Inverted Index) insert operations from transaction log records. It handles the restoration of insert operations on both data pages and entry pages within GIN indexes. The function processes different types of insertions based on flags in the WAL record, including leaf/non-leaf page distinctions and data/entry page types.
 

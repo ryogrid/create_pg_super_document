@@ -8,7 +8,10 @@ AssignTypeArrayOid is a function that pre-assigns an OID for the array type asso
 
 ## Definition
 
-
+```c
+Oid
+AssignTypeArrayOid(void)
+```
 ## Detailed Description
 This function is responsible for allocating a unique OID that will be used for the array type corresponding to a base type being created. The function handles two distinct scenarios:
 

@@ -8,7 +8,10 @@ Determines whether it's worth updating the global visibility state boundaries ba
 
 ## Definition
 
-
+```c
+static bool
+GlobalVisTestShouldUpdate(GlobalVisState *state)
+```
 ## Detailed Description
 This function implements a heuristic to decide whether recomputing the global visibility horizons would be beneficial. Since determining xmin horizons is somewhat expensive, the function avoids repeated calculations when there's low likelihood of benefit.
 

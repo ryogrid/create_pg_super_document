@@ -8,7 +8,10 @@ DatumGetBool is an inline function that extracts a boolean value from a PostgreS
 
 ## Definition
 
-
+```c
+static inline bool
+DatumGetBool(Datum X)
+```
 ## Detailed Description
 DatumGetBool is a fundamental type conversion function in PostgreSQL's datum system that converts a Datum value to a boolean. The function implements a simple truth evaluation where any nonzero Datum value is considered true, and only zero is considered false. This follows standard C boolean semantics. The function is implemented as a static inline function for optimal performance, as it's used frequently throughout the PostgreSQL codebase for boolean type operations.
 

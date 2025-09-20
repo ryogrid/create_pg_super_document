@@ -8,7 +8,15 @@ DomainIOData is a structure used to cache state information across multiple call
 
 ## Definition
 
-
+```c
+typedef struct DomainIOData
+{
+	ColumnIOData *base_io;		/* metadata cache */
+	Oid			base_typid;		/* base type id */
+	int32		base_typmod;	/* base type modifier */
+	void	   *domain_info;	/* opaque cache for domain checks */
+} DomainIOData;
+```
 ## Detailed Description
 DomainIOData serves as a comprehensive cache structure for domain type processing in PostgreSQL. It maintains all necessary information for efficiently handling domain types including the base type's I/O functions, constraint validation references, and execution contexts. This caching mechanism significantly improves performance by avoiding repeated lookups of type information and constraint definitions during domain value processing operations.
 

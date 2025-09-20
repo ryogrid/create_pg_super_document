@@ -8,7 +8,10 @@ Traverses all leaf pages of a GIN posting tree from left to right, vacuuming eac
 
 ## Definition
 
-
+```c
+static bool
+ginVacuumPostingTreeLeaves(GinVacuumState *gvs, BlockNumber blkno)
+```
 ## Detailed Description
 This static function performs a two-phase operation on GIN posting tree leaf pages. First, it navigates down the posting tree to find the leftmost leaf page by following the first posting item in each internal page until reaching a leaf. Then, it traverses all leaf pages from left to right using rightlinks, calling ginVacuumPostingTreeLeaf() to vacuum each page.
 

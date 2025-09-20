@@ -8,7 +8,10 @@ Determines if an expression is compatible with functional dependencies by checki
 
 ## Definition
 
-
+```c
+static bool
+dependency_is_compatible_expression(Node *clause, Index relid, List *statlist, Node **expr)
+```
 ## Detailed Description
 This function serves as an extended version of  that supports complex expressions beyond simple Var nodes. It evaluates whether a clause can be used with functional dependencies by checking if the clause's expression matches any of the expressions tracked in extended statistics.
 

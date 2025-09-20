@@ -8,7 +8,10 @@ Provides planner support for VARCHAR length coercion functions, optimizing cases
 
 ## Definition
 
-
+```c
+Datum
+varchar_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `varchar_support` function serves as a planner support function for VARCHAR length coercion operations in PostgreSQL. It is called by the query planner to optimize expressions involving VARCHAR length constraints, particularly when converting between different VARCHAR length specifications.
 

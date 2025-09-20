@@ -8,7 +8,10 @@ Writes the last pages of all loaded node buffers to disk, effectively flushing a
 
 ## Definition
 
-
+```c
+void
+gistUnloadNodeBuffers(GISTBuildBuffers *gfbb)
+```
 ## Detailed Description
 This function orchestrates the unloading of all node buffers that currently have pages loaded in memory. It iterates through the array of loaded buffers and calls gistUnloadNodeBuffer for each one, ensuring that all buffered index data is persisted to temporary storage. After unloading, it resets the loaded buffer count to zero, indicating that no buffers currently have active pages in memory.
 

@@ -8,7 +8,15 @@ The  struct is a data structure used in the Snowball stemming library to represe
 
 ## Definition
 
-
+```c
+struct among
+{   int s_size;     /* number of chars in string */
+    const symbol * s;       /* search string */
+    int substring_i;/* index to longest matching substring */
+    int result;     /* result of the lookup */
+    int (* function)(struct SN_env *);
+};
+```
 ## Detailed Description
 The  struct serves as an entry in a lookup table used by the Snowball stemming algorithm. It represents a search pattern with associated metadata that enables efficient string matching and transformation. Each  entry contains a search string, its length, substring information for optimization, a result value, and an optional function pointer for custom processing. This structure is primarily used by the  and  functions to perform binary search operations on sorted arrays of these structures.
 

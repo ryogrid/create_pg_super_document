@@ -8,7 +8,10 @@ The pg_config function is a PostgreSQL system function that exposes the same con
 
 ## Definition
 
-
+```c
+Datum
+pg_config(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function returns PostgreSQL installation configuration information as a set of rows, where each row contains a configuration parameter name and its corresponding value. It serves as the SQL interface equivalent to the command-line pg_config utility, allowing users to query build-time configuration settings directly from within the database.
 

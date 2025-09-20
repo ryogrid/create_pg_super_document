@@ -8,7 +8,13 @@ A headline selector function used specifically when MaxFragments > 0, responsibl
 
 ## Definition
 
-
+```c
+static void
+mark_hl_fragments(HeadlineParsedText *prs, TSQuery query, List *locations,
+				  bool highlightall,
+				  int shortword, int min_words,
+				  int max_words, int max_fragments)
+```
 ## Detailed Description
 This function implements a sophisticated fragment selection algorithm for text search highlighting when multiple fragments are requested. It analyzes the parsed text to find query word covers (continuous spans containing query words), breaks them into manageable fragments of at most max_words length, and then selects the best fragments based on query word density and fragment length.
 

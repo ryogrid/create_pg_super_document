@@ -8,7 +8,10 @@ A qsort_arg() comparator function that compares JsonbPair values based on their 
 
 ## Definition
 
-
+```c
+static int
+lengthCompareJsonbPair(const void *a, const void *b, void *binequal)
+```
 ## Detailed Description
 This function serves as a comparison function for sorting JsonbPair structures using qsort_arg(). It performs "length-wise" string comparisons on the keys of JsonbPair objects, meaning it compares strings by their length rather than lexicographically. The function is designed to maintain stability for equal pairs by respecting their original order field, ensuring that when keys are equal, the pair with the smaller order value comes first. This behavior is crucial for the uniqueification algorithm, which prefers the first element when duplicates are found.
 

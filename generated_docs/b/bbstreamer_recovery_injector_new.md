@@ -8,7 +8,12 @@ Creates a bbstreamer that can edit recovery configuration data into an archive s
 
 ## Definition
 
-
+```c
+extern bbstreamer *
+bbstreamer_recovery_injector_new(bbstreamer *next,
+								 bool is_recovery_guc_supported,
+								 PQExpBuffer recoveryconfcontents)
+```
 ## Detailed Description
 This function creates a specialized bbstreamer instance that modifies an archive stream to inject recovery configuration data. The function handles different scenarios based on whether recovery GUCs are supported in the PostgreSQL version:
 

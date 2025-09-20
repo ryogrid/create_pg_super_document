@@ -8,7 +8,10 @@ The  function is a static helper function that computes the cosine of an angle i
 
 ## Definition
 
-
+```c
+static double
+cosd_0_to_60(double x)
+```
 ## Detailed Description
 This function provides a specialized implementation for computing cosine values in the first 60 degrees of the unit circle. It is designed as an internal helper function with specific mathematical guarantees:
 

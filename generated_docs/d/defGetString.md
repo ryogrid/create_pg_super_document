@@ -8,7 +8,10 @@ Extracts a string value from a DefElem (definition element), converting various 
 
 ## Definition
 
-
+```c
+char *
+defGetString(DefElem *def)
+```
 ## Detailed Description
 The  function is a utility function that extracts string values from DefElem nodes in PostgreSQL's parser tree. It handles various node types and converts them to their string representations. The function is commonly used in command processing where SQL definition elements (like options in CREATE statements) need to be converted to string format for further processing.
 

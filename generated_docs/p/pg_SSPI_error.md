@@ -8,7 +8,10 @@ A utility function that generates formatted error messages for SSPI (Security Su
 
 ## Definition
 
-
+```c
+static void
+pg_SSPI_error(int severity, const char *errmsg, SECURITY_STATUS r)
+```
 ## Detailed Description
 The pg_SSPI_error function is responsible for creating detailed error reports when SSPI authentication operations fail. It takes a Windows SECURITY_STATUS error code and converts it into a human-readable error message using the Windows FormatMessage API. The function provides two levels of error detail depending on whether the system error message can be successfully retrieved.
 

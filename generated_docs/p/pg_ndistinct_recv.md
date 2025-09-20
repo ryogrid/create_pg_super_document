@@ -8,7 +8,10 @@ A PostgreSQL binary input function for the pg_ndistinct data type that explicitl
 
 ## Definition
 
-
+```c
+Datum
+pg_ndistinct_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The pg_ndistinct_recv function serves as the binary input routine for the pg_ndistinct data type in PostgreSQL. However, instead of accepting binary input, this function deliberately throws a FEATURE_NOT_SUPPORTED error, indicating that binary input operations are not supported for the pg_ndistinct type. This is a design decision to prevent users from directly creating pg_ndistinct values through binary input methods, as these statistics are typically generated internally by PostgreSQL's statistics collection processes.
 

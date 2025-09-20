@@ -8,7 +8,10 @@ Selects the optimal slot to reuse when a free slot is needed for a given page, i
 
 ## Definition
 
-
+```c
+static int
+SlruSelectLRUPage(SlruCtl ctl, int64 pageno)
+```
 ## Detailed Description
 SlruSelectLRUPage is a critical function that implements the page replacement algorithm for SLRU buffers. It first checks if the target page is already in a buffer slot, and if not, selects the least recently used page for eviction. The algorithm prioritizes empty slots, then clean valid pages, and finally dirty pages that require write-out. It includes optimizations to avoid evicting the most recently zeroed page, handles concurrent access scenarios, and deals with I/O-busy slots intelligently. The function operates within a bank-based architecture where pages are distributed across multiple banks for better concurrency.
 

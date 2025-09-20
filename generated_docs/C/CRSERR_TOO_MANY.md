@@ -8,7 +8,62 @@ An enumeration constant used in ExpandColumnRefStar() to indicate an error condi
 
 ## Definition
 
+```c
+struct to a full-fledged Node type so that callees
+		 * could identify its type.)
+		 */
+		if (pstate->p_post_columnref_hook != NULL)
+		{
+			Node	   *node;
 
+			node = pstate->p_post_columnref_hook(pstate, cref,
+												 (Node *) (nsitem ? nsitem->p_rte : NULL));
+			if (node != NULL)
+			{
+				if (nsitem != NULL)
+					ereport(ERROR,
+							(errcode(ERRCODE_AMBIGUOUS_COLUMN),
+							 errmsg("column reference \"%s\" is ambiguous",
+									NameListToString(cref->fields)),
+							 parser_errposition(pstate, cref->location)));
+				return ExpandRowReference(pstate, node, make_target_entry);
+			}
+		}
+
+		/*
+		 * Throw error if no translation found.
+		 */
+		if (nsitem == NULL)
+		{
+			switch (crserr)
+			{
+				case CRSERR_NO_RTE:
+					errorMissingRTE(pstate, makeRangeVar(nspname, relname,
+														 cref->location));
+					break;
+				case CRSERR_WRONG_DB:
+					ereport(ERROR,
+							(errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+							 errmsg("cross-database references are not implemented: %s",
+									NameListToString(cref->fields)),
+							 parser_errposition(pstate, cref->location)));
+					break;
+				case CRSERR_TOO_MANY:
+					ereport(ERROR,
+							(errcode(ERRCODE_SYNTAX_ERROR),
+							 errmsg("improper qualified name (too many dotted names): %s",
+									NameListToString(cref->fields)),
+							 parser_errposition(pstate, cref->location)));
+					break;
+			}
+		}
+
+		/*
+		 * OK, expand the nsitem into fields.
+		 */
+		return ExpandSingleTable(pstate, nsitem, levels_up, cref->location,
+								 make_target_entry);
+```
 ## Detailed Description
 CRSERR_TOO_MANY is one of three error classification constants defined within the ExpandColumnRefStar() function to track different types of column reference resolution failures. This specific constant represents the error condition when a qualified column reference contains more than four dotted name components.
 

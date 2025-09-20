@@ -8,7 +8,10 @@ Converts a bit string to binary format for network transmission or storage, used
 
 ## Definition
 
-
+```c
+Datum
+bit_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that converts a bit string from its internal representation to binary format suitable for network transmission. This function is part of PostgreSQL's type system infrastructure, specifically handling the binary serialization of the  data type. The function simply delegates to  since both fixed-length bit strings () and variable-length bit strings () use the same binary representation format.
 

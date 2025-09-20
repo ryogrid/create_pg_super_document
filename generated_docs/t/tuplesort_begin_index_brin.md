@@ -8,7 +8,12 @@ Initializes a tuplesort state for sorting BRIN (Block Range Index) index tuples,
 
 ## Definition
 
-
+```c
+Tuplesortstate *
+tuplesort_begin_index_brin(int workMem,
+						   SortCoordinate coordinate,
+						   int sortopt)
+```
 ## Detailed Description
 This function creates and configures a tuplesort state specifically optimized for BRIN index operations. BRIN indexes work with block ranges, so this variant is designed to sort index tuples primarily by block number. The function sets up specialized comparison, read/write, and abbreviation removal functions that are tailored for BRIN index tuple handling. It configures the sort to use only one sort column (the block number) and enables datum-based sorting optimizations.
 

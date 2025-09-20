@@ -8,7 +8,10 @@ Extracts a null-terminated text string from a message buffer without character e
 
 ## Definition
 
-
+```c
+const char *
+pq_getmsgrawstring(StringInfo msg)
+```
 ## Detailed Description
 The  function retrieves a null-terminated string from a PostgreSQL message buffer without performing any character encoding conversion. It always returns a pointer directly into the message buffer, making it a zero-copy operation suitable for cases where the string data is already in the correct encoding or when encoding conversion is not desired. The function validates that a proper null terminator exists within the message boundaries and advances the cursor appropriately.
 

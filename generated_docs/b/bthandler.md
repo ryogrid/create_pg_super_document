@@ -8,7 +8,10 @@ The bthandler function is the main access method handler for PostgreSQL B-tree i
 
 ## Definition
 
-
+```c
+struct metapage. */
+	metabuf = smgr_bulk_get_buf(bulkstate);
+```
 ## Detailed Description
 The bthandler function serves as the central registry for B-tree index access method capabilities and operations. It constructs and returns an IndexAmRoutine structure that defines all the properties, capabilities, and function pointers that PostgreSQL's index access method framework needs to interact with B-tree indexes. This includes specifying what operations the B-tree access method supports (like ordering, uniqueness, backward scans), what callback functions to use for various operations (building, inserting, scanning), and configuration parameters that control the behavior of B-tree indexes.
 

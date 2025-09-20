@@ -8,7 +8,10 @@ Returns a default selectivity estimate for multirange operators when statistics 
 
 ## Definition
 
-
+```c
+static double
+default_multirange_selectivity(Oid operator)
+```
 ## Detailed Description
 This function provides fallback selectivity estimates for various multirange operators when PostgreSQL cannot use statistics-based calculations. It maps different multirange operator OIDs to appropriate default probability values based on the expected behavior and frequency of matches for each operator type.
 

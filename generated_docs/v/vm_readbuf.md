@@ -8,7 +8,10 @@ Reads a visibility map page from storage, optionally extending the file if the p
 
 ## Definition
 
-
+```c
+static Buffer
+vm_readbuf(Relation rel, BlockNumber blkno, bool extend)
+```
 ## Detailed Description
 This static function is responsible for reading visibility map pages from storage. It manages the cached visibility map fork size and handles cases where the requested block doesn't exist yet. The function uses RBM_ZERO_ON_ERROR mode for robust reading, preferring to clear corrupt pages rather than error out. When extending is requested and the block doesn't exist, it calls vm_extend() to grow the file. The function also handles concurrent page initialization scenarios by using double-checked locking pattern to ensure pages are properly initialized exactly once.
 

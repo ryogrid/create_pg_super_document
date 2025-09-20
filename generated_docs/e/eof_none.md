@@ -8,7 +8,10 @@ A static function that checks if the end-of-file indicator is set for an uncompr
 
 ## Definition
 
-
+```c
+static bool
+eof_none(CompressFileHandle *CFH)
+```
 ## Detailed Description
 The  function is a simple wrapper around the standard C library's  function. It operates on uncompressed files ("none" compression) and provides a consistent interface for checking end-of-file status within the compression abstraction layer of pg_dump. The function casts the private_data member of the CompressFileHandle to a FILE pointer and calls  on it, returning true if the end-of-file indicator is set.
 

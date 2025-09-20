@@ -8,7 +8,10 @@ A utility function that determines whether the rank should increase for window r
 
 ## Definition
 
-
+```c
+static bool
+rank_up(WindowObject winobj)
+```
 ## Detailed Description
 This function is a core utility for PostgreSQL's ranking window functions (RANK, DENSE_RANK, PERCENT_RANK, etc.). It maintains the ranking context for each partition and determines when the rank value should be incremented. The function compares the current row with the previous row using the ORDER BY clause specified in the window function. If the rows are not peers (i.e., they have different values for the ORDER BY columns), the rank should increase.
 

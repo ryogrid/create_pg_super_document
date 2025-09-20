@@ -8,7 +8,11 @@ A recursive function that searches through DumpableObject dependencies to build 
 
 ## Definition
 
-
+```c
+static void
+findDumpableDependencies(ArchiveHandle *AH, const DumpableObject *dobj,
+						 DumpId **dependencies, int *nDeps, int *allocDeps)
+```
 ## Detailed Description
 This function recursively traverses the dependency tree of a DumpableObject to identify all dependencies that should be included in the final dump. When an object depends on something that won't be dumped, the function recurses into that object's dependencies to find transitive dependencies that will be dumped. It dynamically grows the dependencies array as needed and avoids infinite recursion by relying on sortDumpableObjects having already broken dependency cycles.
 

@@ -8,7 +8,13 @@ Attempts to simplify a function call during constant expression evaluation by ex
 
 ## Definition
 
-
+```c
+static Expr *
+simplify_function(Oid funcid, Oid result_type, int32 result_typmod,
+				  Oid result_collid, Oid input_collid, List **args_p,
+				  bool funcvariadic, bool process_args, bool allow_non_const,
+				  eval_const_expressions_context *context)
+```
 ## Detailed Description
 This function serves as a subroutine for eval_const_expressions and implements three strategies for function call simplification:
 

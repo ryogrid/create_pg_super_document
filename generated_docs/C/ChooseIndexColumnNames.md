@@ -8,7 +8,10 @@ ChooseIndexColumnNames generates unique column names for an index by processing 
 
 ## Definition
 
-
+```c
+static List *
+ChooseIndexColumnNames(const List *indexElems)
+```
 ## Detailed Description
 ChooseIndexColumnNames takes a list of IndexElem nodes representing the columns/expressions in an index and produces a list of unique string names for those columns. It handles three types of column specifications:
 1. Explicitly named columns (using indexcolname)

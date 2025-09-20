@@ -8,7 +8,22 @@ SortState represents the execution state information for PostgreSQL's Sort node,
 
 ## Definition
 
-
+```c
+typedef struct SortState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	bool		randomAccess;	/* need random access to sort output? */
+	bool		bounded;		/* is the result set bounded? */
+	int64		bound;			/* if bounded, how many tuples are needed */
+	bool		sort_Done;		/* sort completed yet? */
+	bool		bounded_Done;	/* value of bounded we did the sort with */
+	int64		bound_Done;		/* value of bound we did the sort with */
+	void	   *tuplesortstate; /* private state of tuplesort.c */
+	bool		am_worker;		/* are we a worker? */
+	bool		datumSort;		/* Datum sort instead of tuple sort? */
+	SharedSortInfo *shared_info;	/* one entry per worker */
+} SortState;
+```
 ## Detailed Description
 SortState maintains the runtime state for PostgreSQL's Sort execution node, which implements various sorting algorithms and optimizations. The structure tracks whether the sort operation has completed, manages bounded sorts (LIMIT operations), and handles both tuple-based and datum-based sorting. It integrates with PostgreSQL's tuplesort subsystem through the tuplesortstate pointer and supports parallel execution through shared information structures. The node can handle random access requirements and provides optimizations for bounded result sets.
 

@@ -8,7 +8,10 @@ Returns a HeapTuple from a BufferHeapTupleTableSlot, materializing the slot if n
 
 ## Definition
 
-
+```c
+static HeapTuple
+tts_buffer_heap_get_heap_tuple(TupleTableSlot *slot)
+```
 ## Detailed Description
 This function provides access to the HeapTuple contained within a BufferHeapTupleTableSlot. It implements lazy materialization - if the slot contains only virtual tuple data (no actual HeapTuple), it calls tts_buffer_heap_materialize() to create a persistent HeapTuple from the slot's tts_values and tts_isnull arrays.
 

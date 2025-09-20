@@ -8,7 +8,10 @@ Cleans and optimizes a TSQuery expression tree by removing redundant NOT operato
 
 ## Definition
 
-
+```c
+QueryItem *
+clean_NOT(QueryItem *ptr, int *len)
+```
 ## Detailed Description
 The  function processes a TSQuery (text search query) represented as a flat array of QueryItem structures and removes unnecessary NOT operators from the query tree. NOT operators in PostgreSQL's text search always return TRUE, so they can be safely removed to optimize query performance. The function converts the flat QueryItem array into a tree structure, applies the cleanup logic recursively, and then converts it back to a flat array format.
 

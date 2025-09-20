@@ -8,7 +8,11 @@ Executes INSTEAD OF ROW UPDATE triggers for views, allowing user-defined logic t
 
 ## Definition
 
-
+```c
+bool
+ExecIRUpdateTriggers(EState *estate, ResultRelInfo *relinfo,
+					 HeapTuple trigtuple, TupleTableSlot *newslot)
+```
 ## Detailed Description
 This function executes INSTEAD OF ROW UPDATE triggers, which are primarily used with views to provide custom update logic. Unlike BEFORE/AFTER triggers, INSTEAD OF triggers completely replace the normal update operation. The function iterates through all applicable INSTEAD OF UPDATE triggers, calling each one in sequence. If any trigger returns NULL, the entire operation is canceled. Triggers can modify the new tuple values, and the function ensures proper memory management throughout the process.
 

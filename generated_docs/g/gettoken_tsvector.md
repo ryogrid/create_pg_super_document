@@ -8,7 +8,13 @@ Parses and extracts the next token from a tsvector or tsquery input string, incl
 
 ## Definition
 
-
+```c
+bool
+gettoken_tsvector(TSVectorParseState state,
+				  char **strval, int *lenval,
+				  WordEntryPos **pos_ptr, int *poslen,
+				  char **endptr)
+```
 ## Detailed Description
 This is the core parsing function that implements a finite state machine to tokenize tsvector and tsquery input strings. It handles various token types including simple words, quoted complex words, escaped characters, and positional information with weights. The parser supports different modes (web search, tsquery, operator-as-delimiter) and can extract position and weight information associated with tokens. The function returns true on successful token extraction and false at end-of-input or on soft errors.
 

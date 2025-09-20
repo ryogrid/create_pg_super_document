@@ -8,7 +8,10 @@ Creates a new wait event for injection points with the specified name, or return
 
 ## Definition
 
-
+```c
+uint32
+WaitEventInjectionPointNew(const char *wait_event_name)
+```
 ## Detailed Description
 This function provides a specialized interface for PostgreSQL's injection point testing framework to create custom wait events. It serves as a wrapper around WaitEventCustomNew(), automatically categorizing the wait event under the PG_WAIT_INJECTIONPOINT class.
 

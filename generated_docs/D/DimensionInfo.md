@@ -8,7 +8,16 @@ DimensionInfo is a structure that stores metadata for serialization and deserial
 
 ## Definition
 
-
+```c
+typedef struct DimensionInfo
+{
+	int			nvalues;		/* number of deduplicated values */
+	int			nbytes;			/* number of bytes (serialized) */
+	int			nbytes_aligned; /* size of deserialized data with alignment */
+	int			typlen;			/* pg_type.typlen */
+	bool		typbyval;		/* pg_type.typbyval */
+} DimensionInfo;
+```
 ## Detailed Description
 DimensionInfo serves as a metadata container that tracks important information needed for proper serialization and deserialization of dimension data in extended statistics. This structure is primarily used in the MCV (Most Common Values) statistics implementation to maintain type information and size calculations for efficient storage and retrieval of statistical data. The structure ensures that data can be properly reconstructed with correct alignment and type handling during deserialization operations.
 

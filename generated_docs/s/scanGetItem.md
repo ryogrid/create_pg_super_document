@@ -8,7 +8,11 @@ Retrieves the next heap item pointer from a GIN index scan that matches all sear
 
 ## Definition
 
-
+```c
+static bool
+scanGetItem(IndexScanDesc scan, ItemPointerData advancePast,
+			ItemPointerData *item, bool *recheck)
+```
 ## Detailed Description
 This function implements the core logic for advancing through GIN index scan results by coordinating multiple key streams in lock-step fashion. It ensures that only heap item pointers that satisfy ALL search keys are returned, implementing AND logic for key combination. The function handles both exact and lossy page pointers, with special care taken to maintain correct ordering semantics. It continues scanning until either a matching item is found or all key streams are exhausted.
 

@@ -8,7 +8,13 @@ Initializes a Tuplesortstate for cluster operations that sort heap tuples accord
 
 ## Definition
 
-
+```c
+Tuplesortstate *
+tuplesort_begin_cluster(TupleDesc tupDesc,
+						Relation indexRel,
+						int workMem,
+						SortCoordinate coordinate, int sortopt)
+```
 ## Detailed Description
 This function creates a specialized tuplesort state for cluster operations, which sort heap tuples according to the ordering defined by a B-tree index. It builds the necessary infrastructure to compare tuples based on the index's key attributes, handling both simple column references and complex index expressions. The function sets up execution state and expression evaluation context when the index contains expressions, ensuring proper tuple comparison during the clustering process. It configures sort support for each index key attribute, respecting the index's collation, null ordering, and sort direction.
 

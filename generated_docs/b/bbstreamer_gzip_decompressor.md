@@ -8,7 +8,14 @@ A structure representing a gzip decompression stream processor that decompresses
 
 ## Definition
 
-
+```c
+typedef struct bbstreamer_gzip_decompressor
+{
+	bbstreamer	base;
+	z_stream	zstream;
+	size_t		bytes_written;
+} bbstreamer_gzip_decompressor;
+```
 ## Detailed Description
 The `bbstreamer_gzip_decompressor` is a specialized bbstreamer implementation that provides gzip decompression functionality for PostgreSQL's base backup system. It inherits from the base `bbstreamer` structure and uses zlib's z_stream for handling compressed data streams. This structure operates as part of a streaming pipeline, where it receives compressed data, decompresses it using inflate operations, and forwards the decompressed data to the next streamer in the chain.
 

@@ -8,7 +8,10 @@ PostgreSQL function implementing text inequality comparison (`<>` operator) with
 
 ## Definition
 
-
+```c
+Datum
+textne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `textne` implements the PostgreSQL `<>` or `!=` operator for text data types. It mirrors the optimization strategy of `texteq` exactly, using fast bitwise comparison for C locale and deterministic collations, and falling back to `text_cmp` for non-deterministic collations. The key difference is that it returns the logical negation of the equality test result. Like `texteq`, it includes optimizations for early detection of inequality by comparing string lengths first, and proper memory management for toasted values.
 

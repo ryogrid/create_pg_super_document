@@ -8,7 +8,10 @@ A matching function for lexemes used in hash table lookups that delegates to lex
 
 ## Definition
 
-
+```c
+static int
+lexeme_match(const void *key1, const void *key2, Size keysize)
+```
 ## Detailed Description
 This function serves as a wrapper around lexeme_compare for use in PostgreSQL hash table operations. It provides the standard hash table matching function interface while delegating the actual comparison logic to lexeme_compare. The function is designed to work with LexemeHashKey structures that contain non-null-terminated lexeme strings with explicit lengths.
 

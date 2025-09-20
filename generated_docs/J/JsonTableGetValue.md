@@ -8,7 +8,11 @@ JsonTableGetValue is a static function that retrieves the value for a specific c
 
 ## Definition
 
-
+```c
+static Datum
+JsonTableGetValue(TableFuncScanState *state, int colnum,
+				  Oid typid, int32 typmod, bool *isnull)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's JSON_TABLE() functionality, responsible for extracting values from JSON data for specific columns. It operates within the context of table function scanning and handles three distinct scenarios:
 

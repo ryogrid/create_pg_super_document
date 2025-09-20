@@ -8,7 +8,9 @@ Adds a new local string-type reloption to a specific local reloption set, used f
 
 ## Definition
 
-
+```c
+struct_array_builtin(array, TEXTOID, &oldoptions, NULL, &noldoptions);
+```
 ## Detailed Description
 This function registers a local string reloption within a specific local reloption set (). Unlike global reloptions that are available system-wide, local reloptions are scoped to particular access methods, table access methods, or extensions. The function creates a string reloption with  kind and registers it using . The  parameter specifies where in the resulting bytea structure the string value offset should be stored.
 

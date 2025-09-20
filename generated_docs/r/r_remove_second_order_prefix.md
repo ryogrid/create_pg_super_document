@@ -8,7 +8,11 @@ Removes second-order prefixes from Indonesian words including 'be', 'belajar', '
 
 ## Definition
 
+```c
+}
 
+static int r_remove_second_order_prefix(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the removal of Indonesian second-order prefixes as part of the Snowball stemming algorithm. It searches for prefixes defined in the  array and performs different transformations based on the matched prefix type. The function handles complex morphological rules including complete deletion of simple prefixes, restoration of root words by replacing compound prefixes with their underlying roots (e.g., 'belajar' → 'ajar', 'pelajar' → 'ajar'), and proper morphological type tracking through  settings. Second-order prefixes are processed after first-order prefixes have been removed.
 

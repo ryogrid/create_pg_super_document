@@ -8,7 +8,10 @@ This function converts a text string representing role privileges into an intern
 
 ## Definition
 
-
+```c
+static AclMode
+convert_role_priv_string(text *priv_type_text)
+```
 ## Detailed Description
 The `convert_role_priv_string` function is a static helper function that translates human-readable privilege strings into internal ACL mode values for role-based access control. It uses a predefined mapping table (role_priv_map) to convert strings like "USAGE", "MEMBER", "SET" and their grant/admin option variants into appropriate ACL bits. The function employs a special convention where ACL_CREATE is used to represent MEMBER privileges since there is no dedicated ACL bit for membership. This mapping convention is shared with the pg_role_aclcheck function.
 

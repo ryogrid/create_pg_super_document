@@ -8,7 +8,10 @@ Returns the version number of the libpq library as an integer value.
 
 ## Definition
 
-
+```c
+int
+PQlibVersion(void)
+```
 ## Detailed Description
 PQlibVersion is a simple utility function that returns the version number of the PostgreSQL libpq library. It returns the compile-time PostgreSQL version number (PG_VERSION_NUM) which represents the version of PostgreSQL that libpq was built against. This function allows client applications to programmatically determine which version of libpq they are using, which can be useful for version-specific feature detection or compatibility checks.
 

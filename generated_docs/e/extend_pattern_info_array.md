@@ -8,7 +8,10 @@ A utility function that dynamically extends a PatternInfoArray to accommodate on
 
 ## Definition
 
-
+```c
+static PatternInfo *
+extend_pattern_info_array(PatternInfoArray *pia)
+```
 ## Detailed Description
 The  function manages dynamic memory allocation for pattern information arrays used in pg_amcheck's pattern matching system. It increases the array size by one element, reallocates memory to accommodate the larger array, and initializes the new entry to zero.
 

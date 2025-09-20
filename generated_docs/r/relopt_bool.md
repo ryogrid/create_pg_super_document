@@ -8,7 +8,13 @@ relopt_bool is a structure that defines a boolean-type relation option, extendin
 
 ## Definition
 
-
+```c
+typedef struct relopt_bool
+{
+	relopt_gen	gen;
+	bool		default_val;
+} relopt_bool;
+```
 ## Detailed Description
 The relopt_bool structure represents a boolean relation option definition in PostgreSQL's reloption system. It inherits all the common metadata from relopt_gen (name, description, applicable object kinds, etc.) and adds a default_val field to specify the default boolean value for this option.
 

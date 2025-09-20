@@ -8,7 +8,10 @@ Creates a static, self-contained copy of a ParamListInfo structure, forcibly ins
 
 ## Definition
 
-
+```c
+ParamListInfo
+copyParamList(ParamListInfo from)
+```
 ## Detailed Description
 The copyParamList function creates a deep copy of a ParamListInfo structure, with the specific intent of producing a static, self-contained set of parameter values. Unlike a simple copy, this function deliberately does not copy dynamic parameter hooks (paramFetch, paramCompile). Instead, it forcibly instantiates all available parameter values by calling the paramFetch hook if present, then performs deep copies of the actual datum values. For pass-by-reference datatypes, it uses datumCopy to ensure the copied values are independent of the original. The paramValuesStr field is intentionally not copied. The result is allocated in CurrentMemoryContext.
 

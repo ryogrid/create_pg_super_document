@@ -8,7 +8,12 @@ Estimates the physical size of a heap-based relation by providing statistics on 
 
 ## Definition
 
-
+```c
+static void
+heapam_estimate_rel_size(Relation rel, int32 *attr_widths,
+						 BlockNumber *pages, double *tuples,
+						 double *allvisfrac)
+```
 ## Detailed Description
 This function is part of the heap table access method interface and provides size estimation for heap-based relations. It serves as a wrapper that delegates the actual estimation work to the generic  function, providing heap-specific overhead constants. The function calculates estimates for the number of pages, tuples, and all-visible fraction based on the relation's current statistics and the provided attribute width information.
 

@@ -8,7 +8,10 @@ Checks if a specified user (by name) has any given privilege on any column of a 
 
 ## Definition
 
-
+```c
+Datum
+has_any_column_privilege_name_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a hybrid variant that takes a user name and table OID as inputs, providing more precise table identification while maintaining user-friendly name-based user specification. A key feature of this function is its robust error handling: it returns NULL if either the table OID doesn't correspond to an existing table or if other database objects are missing, rather than throwing errors.
 

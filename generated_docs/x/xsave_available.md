@@ -8,7 +8,11 @@ A static inline function that checks if the CPU supports XSAVE instructions by q
 
 ## Definition
 
-
+```c
+struction not available
+#endif
+	return (exx[2] & (1 << 27)) != 0;
+```
 ## Detailed Description
 This function performs a CPUID query to determine whether the processor and operating system support the XSAVE instruction family. XSAVE is a CPU instruction that allows the operating system to save and restore extended processor state information, which is essential for using advanced SIMD instructions like AVX-512. The function specifically checks the OSXSAVE bit (bit 27) in the ECX register returned by CPUID leaf 1, which indicates that the OS has enabled the XSAVE feature and can properly save/restore extended state during context switches.
 

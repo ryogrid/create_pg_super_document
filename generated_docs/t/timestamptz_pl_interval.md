@@ -8,7 +8,10 @@ Adds an interval to a timestamptz (timestamp with time zone) value, performing t
 
 ## Definition
 
-
+```c
+Datum
+timestamptz_pl_interval(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that implements the addition operation between a timestamp with time zone and an interval. It serves as a wrapper around the internal function , handling the PostgreSQL function call interface by extracting arguments and returning the result in the proper format. The operation is performed in the context of the current session's timezone setting.
 

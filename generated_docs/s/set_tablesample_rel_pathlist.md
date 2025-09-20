@@ -8,7 +8,10 @@ Builds access paths for a sampled relation, creating a SampleScan path and optio
 
 ## Definition
 
-
+```c
+static void
+set_tablesample_rel_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function constructs the access path list for a relation that uses table sampling. It creates a SampleScan path as the primary access method for the sampled relation. The function handles a key constraint of some sampling methods: those that don't support repeatable scans across multiple executions.
 

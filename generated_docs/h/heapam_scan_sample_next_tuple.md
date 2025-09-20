@@ -8,7 +8,18 @@ Retrieves the next sampled tuple from the current page during a heap sample scan
 
 ## Definition
 
-
+```c
+struct and rewrite the given tuple
+ *
+ * We cannot simply copy the tuple as-is, for several reasons:
+ *
+ * 1. We'd like to squeeze out the values of any dropped columns, both
+ * to save space and to ensure we have no corner-case failures. (It's
+ * possible for example that the new table hasn't got a TOAST table
+ * and so is unable to store any large values of dropped cols.)
+ *
+ * 2. The tuple might not even be legal for the new table;
+```
 ## Detailed Description
 This function works with heapam_scan_sample_next_block to implement tuple-level sampling during sample scans. It uses the Table Sampling Method (TSM) API to determine which tuples on the current page should be examined, performs visibility checks on selected tuples, and handles both pagemode and non-pagemode scanning. The function manages buffer locking appropriately, performs serializable isolation checks when needed, and maintains scan statistics. It continues sampling tuples from the current page until a visible tuple is found or the page is exhausted.
 

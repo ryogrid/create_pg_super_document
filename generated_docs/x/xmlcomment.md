@@ -8,7 +8,10 @@ Creates an XML comment from a text input, validating that the text doesn't conta
 
 ## Definition
 
-
+```c
+Datum
+xmlcomment(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The xmlcomment function creates a properly formatted XML comment by wrapping the input text with XML comment delimiters ( and ). It performs validation to ensure the input text doesn't contain invalid sequences that would break XML comment syntax:
 

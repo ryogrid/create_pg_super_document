@@ -8,7 +8,10 @@ A PostgreSQL built-in function that counts and returns the number of non-NULL ar
 
 ## Definition
 
-
+```c
+Datum
+pg_num_nonnulls(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The pg_num_nonnulls function provides a way to count non-NULL values among a set of arguments in PostgreSQL. It uses the same count_nulls helper function as pg_num_nulls but returns the complement - the number of arguments that are NOT NULL.
 

@@ -8,7 +8,10 @@ A relcache invalidation callback function that invalidates cached plans when a r
 
 ## Definition
 
-
+```c
+static void
+PlanCacheRelCallback(Datum arg, Oid relid)
+```
 ## Detailed Description
 PlanCacheRelCallback is a callback function registered with the relcache invalidation system. It is invoked whenever a relation (table, view, etc.) is modified or dropped. The function scans through all cached plan sources and cached expressions, invalidating any that depend on the specified relation. If relid is InvalidOid, it invalidates all plans that depend on any relation.
 

@@ -8,7 +8,10 @@ Initializes an iterator for reading entries from the BuildAccumulator's red-blac
 
 ## Definition
 
-
+```c
+void
+ginBeginBAScan(BuildAccumulator *accum)
+```
 ## Detailed Description
 This function prepares the BuildAccumulator for sequential reading of its accumulated entries. It initializes a red-black tree iterator that will traverse the tree in left-to-right (ascending) order, allowing subsequent calls to ginGetBAEntry to retrieve entries in sorted sequence.
 

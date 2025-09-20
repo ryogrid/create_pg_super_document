@@ -8,7 +8,12 @@ A static helper function that appends a properly escaped string literal to a PQE
 
 ## Definition
 
-
+```c
+static bool
+escape_append_literal(PGconn *conn, PQExpBuffer target,
+					  const char *unescaped, size_t unescaped_len,
+					  PQExpBuffer escape_err)
+```
 ## Detailed Description
 This function is a wrapper around the  function that formats an unescaped string as a properly quoted and escaped PostgreSQL string literal. It uses the client encoding from the provided database connection to ensure proper character encoding handling. The function always returns , indicating successful operation, as the underlying  function handles all the complexity of string escaping.
 

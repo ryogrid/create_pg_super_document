@@ -8,7 +8,11 @@ XmlPGetDatum is an inline function that converts an xmltype pointer back to a Po
 
 ## Definition
 
+```c
+enum */
 
+extern PGDLLIMPORT int xmloption;
+```
 ## Detailed Description
 This function provides the reverse conversion from DatumGetXmlP, converting an xmltype pointer back into a Datum value. It uses PostgreSQL's PointerGetDatum macro to perform the conversion, allowing XML values to be returned from PostgreSQL functions or passed as arguments through the function call interface. This is essential for integrating XML processing functions with PostgreSQL's type system.
 

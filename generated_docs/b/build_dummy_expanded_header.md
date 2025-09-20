@@ -8,7 +8,10 @@ Constructs a temporary "dummy" expanded record header used for domain constraint
 
 ## Definition
 
-
+```c
+struct dummy header to contain proposed new field set */
+	build_dummy_expanded_header(erh);
+```
 ## Detailed Description
 This function creates a specialized dummy expanded record header that serves as a temporary workspace for domain constraint checking. The dummy header contains proposed field values that can be validated without affecting the main record's state. This approach ensures that constraint violations don't leave the main record in a corrupted state.
 

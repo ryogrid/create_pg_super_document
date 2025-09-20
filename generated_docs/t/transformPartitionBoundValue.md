@@ -8,7 +8,12 @@ Transforms and evaluates a partition bound expression into a constant value, han
 
 ## Definition
 
-
+```c
+static Const *
+transformPartitionBoundValue(ParseState *pstate, Node *val,
+							 const char *colName, Oid colType, int32 colTypmod,
+							 Oid partCollation)
+```
 ## Detailed Description
 This function processes a single partition bound value expression by transforming it from a raw parse tree node into a fully evaluated constant. It performs several critical steps: validates the expression type (ensuring no variables, subqueries, or aggregates), coerces the value to match the partition column's data type, evaluates non-constant expressions into constants, and assigns appropriate collation information.
 

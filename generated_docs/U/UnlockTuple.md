@@ -8,7 +8,10 @@ UnlockTuple releases a lock on a specific tuple (row) within a PostgreSQL relati
 
 ## Definition
 
-
+```c
+void
+UnlockTuple(Relation relation, ItemPointer tid, LOCKMODE lockmode)
+```
 ## Detailed Description
 UnlockTuple is a lock management function that releases a previously acquired lock on a specific tuple identified by its ItemPointer (TID - Tuple Identifier). The function constructs a LOCKTAG specifically for tuple-level locking using the relation's database ID, relation ID, block number, and offset number from the tuple's ItemPointer. It then calls LockRelease to perform the actual unlock operation.
 

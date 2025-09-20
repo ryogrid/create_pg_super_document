@@ -8,7 +8,11 @@ This function scans through the shared hashtable of PostgreSQL statistics, reset
 
 ## Definition
 
-
+```c
+void
+pgstat_reset_matching_entries(bool (*do_reset) (PgStatShared_HashEntry *, Datum),
+							  Datum match_data, TimestampTz ts)
+```
 ## Detailed Description
 The function iterates through all entries in the shared statistics hashtable () and applies a user-provided reset function to determine which entries should have their statistics reset. For each entry that passes the reset criteria, it acquires an exclusive lock on the entry's header and calls  to reset the statistics data with the provided timestamp.
 

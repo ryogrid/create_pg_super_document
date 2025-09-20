@@ -8,7 +8,15 @@ TableSampleClause represents a TABLESAMPLE clause that appears in a transformed 
 
 ## Definition
 
-
+```c
+typedef struct TableSampleClause
+{
+	NodeTag		type;
+	Oid			tsmhandler;		/* OID of the tablesample handler function */
+	List	   *args;			/* tablesample argument expression(s) */
+	Expr	   *repeatable;		/* REPEATABLE expression, or NULL if none */
+} TableSampleClause;
+```
 ## Detailed Description
 TableSampleClause is a subnode of RangeTblEntry that represents table sampling functionality in PostgreSQL. Unlike RangeTableSample (used in raw parse trees), TableSampleClause appears in transformed query trees after parsing and analysis are complete.
 

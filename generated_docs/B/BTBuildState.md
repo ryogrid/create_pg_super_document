@@ -8,7 +8,30 @@ BTBuildState is the working state structure for B-tree index construction (btbui
 
 ## Definition
 
+```c
+typedef struct BTBuildState
+{
+	bool		isunique;
+	bool		nulls_not_distinct;
+	bool		havedead;
+	Relation	heap;
+	BTSpool    *spool;
 
+	/*
+	 * spool2 is needed only when the index is a unique index. Dead tuples are
+	 * put into spool2 instead of spool in order to avoid uniqueness check.
+	 */
+	BTSpool    *spool2;
+	double		indtuples;
+
+	/*
+	 * btleader is only present when a parallel index build is performed, and
+	 * only in the leader process. (Actually, only the leader has a
+	 * BTBuildState.  Workers have their own spool and spool2, though.)
+	 */
+	BTLeader   *btleader;
+} BTBuildState;
+```
 ## Detailed Description
 BTBuildState serves as the primary working state container for B-tree index construction operations. Each participant in an index build (whether serial or parallel) maintains its own BTBuildState instance. The structure manages the sorting and spooling operations required during index construction, including special handling for unique indexes through a secondary spool.
 

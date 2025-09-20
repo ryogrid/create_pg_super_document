@@ -8,7 +8,14 @@ A utility function in psql's large object module that handles formatted output o
 
 ## Definition
 
+```c
+#include "settings.h"
 
+static void print_lo_result(const char *fmt,...) pg_attribute_printf(1, 2);
+
+static void
+print_lo_result(const char *fmt,...)
+```
 ## Detailed Description
 This static function provides a centralized mechanism for outputting formatted messages related to large object operations in psql. It handles dual output streams - both to the query output file and to the log file if logging is enabled. The function is format-aware, automatically wrapping output in HTML paragraph tags when HTML output format is selected. Output is conditional based on the quiet setting, allowing suppression of messages when needed.
 

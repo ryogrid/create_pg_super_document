@@ -8,7 +8,10 @@ PostgreSQL SQL-callable function that converts a polygon to its approximate equi
 
 ## Definition
 
-
+```c
+Datum
+poly_circle(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `poly_circle` function serves as the public PostgreSQL interface for converting polygon geometric objects to circle representations. It acts as a wrapper around the internal `poly_to_circle` function, handling the PostgreSQL function call protocol including parameter extraction, memory allocation, and return value handling.
 

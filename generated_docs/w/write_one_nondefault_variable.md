@@ -8,7 +8,10 @@ write_one_nondefault_variable writes a single non-default GUC configuration vari
 
 ## Definition
 
-
+```c
+static void
+write_one_nondefault_variable(FILE *fp, struct config_generic *gconf)
+```
 ## Detailed Description
 write_one_nondefault_variable is a static helper function that serializes a single PostgreSQL configuration variable to a binary file. This function is part of PostgreSQL's mechanism for sharing non-default GUC settings with newly spawned backend processes through exec.
 

@@ -8,7 +8,10 @@ A debugging/validation function that verifies the synchronous replication wait q
 
 ## Definition
 
-
+```c
+static bool
+SyncRepQueueIsOrderedByLSN(int mode)
+```
 ## Detailed Description
 This function iterates through the synchronous replication wait queue for a specific mode and validates that all processes in the queue are ordered by their waitLSN values in ascending order. It also ensures that no two processes have the same LSN value. This is primarily used for debugging and assertion purposes to maintain the integrity of the synchronous replication queue ordering, which is critical for proper synchronous replication behavior in PostgreSQL.
 

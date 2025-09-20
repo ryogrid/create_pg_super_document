@@ -8,7 +8,10 @@ B-tree comparator function that provides total ordering for range types, enablin
 
 ## Definition
 
-
+```c
+Datum
+range_cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the primary comparison logic for PostgreSQL range types, providing the foundation for B-tree indexing and ordering operations. It establishes a total ordering among range values by comparing them lexicographically: first by lower bounds, then by upper bounds if the lower bounds are equal.
 

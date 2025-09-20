@@ -8,7 +8,14 @@ Extracts searchable terms from a TSQuery (text search query) for GIN index looku
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	QueryItem  *first_item;
+	GinTernaryValue *check;
+	int		   *map_item_operand;
+} GinChkVal;
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's GIN indexing system for text search queries. It analyzes a TSQuery object and extracts individual searchable terms (lexemes) that need to be looked up in the GIN index. The function performs several key operations:
 

@@ -8,7 +8,10 @@ Removes a specified PGPROC from the shared process array, maintaining the sorted
 
 ## Definition
 
-
+```c
+void
+ProcArrayRemove(PGPROC *proc, TransactionId latestXid)
+```
 ## Detailed Description
 ProcArrayRemove removes a process entry from the shared process array while maintaining the array's sorted order. The function handles two distinct scenarios: removing a live 2PC (two-phase commit) transaction or removing a process that is no longer active.
 

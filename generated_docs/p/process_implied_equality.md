@@ -8,7 +8,18 @@ Creates a RestrictInfo clause representing an implied equality "item1 op item2" 
 
 ## Definition
 
-
+```c
+structure with
+	 * original (this is necessary in case there are subselects in there...)
+	 */
+	clause = (Node *) make_opclause(opno,
+									BOOLOID,	/* opresulttype */
+									false,	/* opretset */
+									copyObject(item1),
+									copyObject(item2),
+									InvalidOid,
+									collation);
+```
 ## Detailed Description
 This function constructs implied equality clauses that are derived from equivalence class relationships during query optimization. It builds a new OpExpr representing "item1 op item2" (typically a btree equality operator), performs constant folding if both expressions are constant, and integrates the resulting RestrictInfo into the planner's constraint lists.
 

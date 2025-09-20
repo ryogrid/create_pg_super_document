@@ -8,7 +8,10 @@ Primary function for retrieving individual tuples during SPGiST index scans, imp
 
 ## Definition
 
-
+```c
+structed tuples to avoid memory leak */
+			int			i;
+```
 ## Detailed Description
 This function implements the gettuple interface for SPGiST (Space-Partitioned Generalized Search Tree) indexes in PostgreSQL. It retrieves individual tuples one at a time during index scans, managing the scan state and coordinating with the SPGiST walking algorithm. The function handles both forward scanning and ORDER BY operations with distance calculations.
 

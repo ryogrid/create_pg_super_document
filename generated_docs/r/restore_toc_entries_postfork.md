@@ -8,7 +8,10 @@ Final cleanup phase of parallel restore that processes any remaining TOC entries
 
 ## Definition
 
-
+```c
+static void
+restore_toc_entries_postfork(ArchiveHandle *AH, TocEntry *pending_list)
+```
 ## Detailed Description
 This function implements the third and final phase of PostgreSQL's three-phase parallel restore system. It serves as a safety net to handle TOC entries that couldn't be processed during the parallel phase, typically due to circular dependencies, deadlocks, or other pathological conditions that prevent normal dependency resolution. The function reconnects a single parent database connection and processes any remaining items serially, without concern for RestorePass ordering since the normal restore sequence has likely already been disrupted.
 

@@ -8,7 +8,10 @@ Sets the corresponding lexeme for a text search parsing operation by managing th
 
 ## Definition
 
-
+```c
+static void
+setCorrLex(LexizeData *ld, ParsedLex **correspondLexem)
+```
 ## Detailed Description
 The setCorrLex function manages the waste list within the LexizeData structure during text search parsing operations. It serves a dual purpose based on whether a correspondLexem parameter is provided:
 

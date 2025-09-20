@@ -8,7 +8,10 @@ TidRangeEval computes and sets the block and offset range to scan by evaluating 
 
 ## Definition
 
-
+```c
+static bool
+TidRangeEval(TidRangeScanState *node)
+```
 ## Detailed Description
 This function evaluates all TID comparison expressions stored in the TidRangeScanState to determine the actual range of ItemPointers (TIDs) that need to be scanned. It starts with the absolute limits of the ItemPointer type and progressively narrows the range based on each TidOpExpr. The function handles both inclusive and exclusive bounds by normalizing non-inclusive ranges. It processes both lower and upper bounds, updating the scan range only when a more restrictive bound is found. The final computed range is stored in the node's trss_mintid and trss_maxtid fields.
 

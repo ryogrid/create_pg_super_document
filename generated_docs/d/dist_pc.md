@@ -8,7 +8,10 @@ Calculates the minimum distance between a point and a circle, returning 0 if the
 
 ## Definition
 
-
+```c
+Datum
+dist_pc(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function computes the distance from a point to the closest point on a circle. It calculates the distance from the point to the circle's center, then subtracts the circle's radius. If the result is negative (indicating the point is inside the circle), it returns 0.0 instead.
 

@@ -8,7 +8,49 @@ Initializes special colors for BOS (Beginning of String), BOL (Beginning of Line
 
 ## Definition
 
+```c
+struct nfa *nfa)
+{
+	/* false colors for BOS, BOL, EOS, EOL */
+	if (nfa->parent == NULL)
+	{
+		nfa->bos[0] = pseudocolor(nfa->cm);
+		nfa->bos[1] = pseudocolor(nfa->cm);
+		nfa->eos[0] = pseudocolor(nfa->cm);
+		nfa->eos[1] = pseudocolor(nfa->cm);
+	}
+	else
+	{
+		assert(nfa->parent->bos[0] != COLORLESS);
+		nfa->bos[0] = nfa->parent->bos[0];
+		assert(nfa->parent->bos[1] != COLORLESS);
+		nfa->bos[1] = nfa->parent->bos[1];
+		assert(nfa->parent->eos[0] != COLORLESS);
+		nfa->eos[0] = nfa->parent->eos[0];
+		assert(nfa->parent->eos[1] != COLORLESS);
+		nfa->eos[1] = nfa->parent->eos[1];
+	}
+}
 
+/*
+ * optimize - optimize an NFA
+ *
+ * The main goal of this function is not so much "optimization" (though it
+ * does try to get rid of useless NFA states) as reducing the NFA to a form
+ * the regex executor can handle.  The executor, and indeed the cNFA format
+ * that is its input, can only handle PLAIN and LACON arcs.  The output of
+ * the regex parser also includes EMPTY (do-nothing) arcs, as well as
+ * ^, $, AHEAD, and BEHIND constraint arcs, which we must get rid of here.
+ * We first get rid of EMPTY arcs and then deal with the constraint arcs.
+ * The hardest part of either job is to get rid of circular loops of the
+ * target arc type.  We would have to do that in any case, though, as such a
+ * loop would otherwise allow the executor to cycle through the loop endlessly
+ * without making any progress in the input string.
+ */
+static long						/* re_info bits */
+optimize(struct nfa *nfa,
+		 FILE *f)				/* for debug output;
+```
 ## Detailed Description
 This function sets up special pseudo-colors that represent boundary conditions in regular expression matching. The function handles two scenarios:
 

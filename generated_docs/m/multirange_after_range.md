@@ -8,7 +8,10 @@ Determines if a multirange is strictly positioned after (to the right of) a rang
 
 ## Definition
 
-
+```c
+Datum
+multirange_after_range(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function implements the "strictly right of" operator (>>) between a multirange and a range. Like its counterpart , it uses a clever symmetric implementation approach. Instead of implementing dedicated "after" logic, it calls  with swapped argument semantics - if a multirange is after a range, then equivalently the range is before the multirange.
 

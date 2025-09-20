@@ -8,7 +8,9 @@ This function returns the name string of a given timezone structure.
 
 ## Definition
 
-
+```c
+struct pg_tm *tt;
+```
 ## Detailed Description
 pg_get_timezone_name is a simple accessor function that retrieves the timezone name from a pg_tz structure. The function performs a null pointer check and returns the TZname field from the timezone structure if valid, or NULL if the timezone pointer is null.
 

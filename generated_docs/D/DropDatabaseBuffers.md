@@ -8,7 +8,10 @@ Removes all buffers in the buffer cache for a particular database, dropping dirt
 
 ## Definition
 
-
+```c
+void
+DropDatabaseBuffers(Oid dbid)
+```
 ## Detailed Description
 This function removes all buffers belonging to a specific database from the PostgreSQL shared buffer pool. It is primarily used during database destruction operations where the database directory tree no longer exists, making it unnecessary (and impossible) to flush dirty pages to disk. The function iterates through all buffers in the shared buffer pool and invalidates any buffer that belongs to the target database.
 

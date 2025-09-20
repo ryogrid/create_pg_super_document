@@ -8,7 +8,13 @@ A structure used in PostgreSQL's PL/Python extension to store conversion informa
 
 ## Definition
 
-
+```c
+typedef struct PLyObToDomain
+{
+	PLyObToDatum *base;			/* conversion info for domain's base type */
+	void	   *domain_info;	/* cache space for domain_check() */
+} PLyObToDomain;
+```
 ## Detailed Description
 PLyObToDomain is a specialized structure within the PL/Python type conversion system that handles the conversion of Python objects to PostgreSQL domain types. Domain types in PostgreSQL are user-defined types based on existing base types with additional constraints. This structure provides the necessary information to perform both the base type conversion and domain constraint validation.
 

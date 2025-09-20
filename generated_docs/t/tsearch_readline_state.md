@@ -8,7 +8,18 @@ A working state structure for managing file reading operations in PostgreSQL's t
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	FILE	   *fp;
+	const char *filename;
+	int			lineno;
+	StringInfoData buf;			/* current input line, in UTF-8 */
+	char	   *curline;		/* current input line, in DB's encoding */
+	/* curline may be NULL, or equal to buf.data, or a palloc'd string */
+	ErrorContextCallback cb;
+} tsearch_readline_state;
+```
 ## Detailed Description
 The  structure provides a complete state management system for reading text search configuration files line by line. It handles UTF-8 input validation, encoding conversion to the database's encoding, memory management, and comprehensive error reporting with file context information. This structure is designed to be used as a local variable in calling functions and provides safe, incremental file processing with proper resource cleanup.
 

@@ -8,7 +8,10 @@ A static inline helper function that copies a key from source to destination in 
 
 ## Definition
 
-
+```c
+static inline void
+copy_key(dshash_table *hash_table, void *dest, const void *src)
+```
 ## Detailed Description
 The  function is a utility function within PostgreSQL's dynamic shared hash table implementation that handles copying keys from one location to another. It serves as a wrapper around the hash table's configured copy function, providing a consistent interface for key copying operations throughout the dshash implementation.
 

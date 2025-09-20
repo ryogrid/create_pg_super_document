@@ -8,7 +8,10 @@ pg_fatal is a convenience macro that logs an error message and immediately termi
 
 ## Definition
 
-
+```c
+void
+pg_fatal(const char *fmt,...)
+```
 ## Detailed Description
 pg_fatal is a macro defined in PostgreSQL's common logging framework that combines error logging with program termination. It serves as a convenient shortcut for situations where an error is so severe that the program cannot continue execution. The macro first logs the error message using pg_log_generic with PG_LOG_ERROR level and PG_LOG_PRIMARY part, then immediately calls exit(1) to terminate the program. This macro is widely used throughout PostgreSQL's frontend utilities for handling fatal errors such as invalid command-line arguments, file access failures, and other unrecoverable conditions.
 

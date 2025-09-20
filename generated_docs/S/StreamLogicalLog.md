@@ -8,7 +8,9 @@ StreamLogicalLog is the core function that implements the logical replication st
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function implements the main logical replication streaming loop for the pg_recvlogical utility. It establishes a replication connection to the PostgreSQL server, initiates logical replication from a specified slot, and continuously processes incoming WAL data messages until completion or termination.
 

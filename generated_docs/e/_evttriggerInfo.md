@@ -8,7 +8,18 @@ The  structure represents PostgreSQL event triggers that need to be dumped and r
 
 ## Definition
 
-
+```c
+typedef struct _evttriggerInfo
+{
+	DumpableObject dobj;
+	char	   *evtname;
+	char	   *evtevent;
+	const char *evtowner;
+	char	   *evttags;
+	char	   *evtfname;
+	char		evtenabled;
+} EventTriggerInfo;
+```
 ## Detailed Description
 The  structure is used by pg_dump to manage PostgreSQL event triggers, which are special triggers that fire in response to database-wide events rather than table-specific DML operations. Event triggers were introduced in PostgreSQL 9.3 and can respond to DDL events like CREATE, ALTER, DROP commands, and other database-level operations. The structure stores all necessary metadata about each event trigger to enable proper dumping and restoration, including the triggering event, associated tags, trigger function, and enabled status.
 

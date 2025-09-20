@@ -8,7 +8,20 @@ The  function deserializes binary data received over the network into a TSVector
 
 ## Definition
 
+```c
+struct, and copy lexeme.
+		 *
+		 * But make sure the buffer is large enough first.
+		 */
+		while (hdrlen + SHORTALIGN(datalen + lex_len) +
+			   sizeof(uint16) + npos * sizeof(WordEntryPos) >= len)
+		{
+			len *= 2;
+			vec = (TSVector) repalloc(vec, len);
+		}
 
+		vec->entries[i].haspos = (npos > 0) ? 1 : 0;
+```
 ## Detailed Description
 This function is the binary receive function for the TSVector data type, responsible for parsing binary data transmitted via PostgreSQL's binary protocol and reconstructing it into a valid TSVector structure. The function reads the binary format created by : starting with the lexeme count, then for each lexeme reading the null-terminated text, position count, and position data.
 

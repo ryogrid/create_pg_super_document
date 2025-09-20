@@ -8,7 +8,10 @@ Determines whether one type inherits from another by checking the inheritance hi
 
 ## Definition
 
-
+```c
+bool
+typeInheritsFrom(Oid subclassTypeId, Oid superclassTypeId)
+```
 ## Detailed Description
 This function determines whether the first type (subclassTypeId) is a complex type (class type) that inherits from the second type (superclassTypeId). The function essentially asks whether the first type is guaranteed to be coercible to the second type.
 

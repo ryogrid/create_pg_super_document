@@ -8,7 +8,10 @@ Initializes all registered resource managers by calling their startup routines d
 
 ## Definition
 
-
+```c
+void
+RmgrStartup(void)
+```
 ## Detailed Description
 RmgrStartup iterates through all possible resource manager IDs (from 0 to RM_MAX_ID) and calls the startup routine (rm_startup) for each registered resource manager that has one defined. This function is typically called during PostgreSQL startup or WAL recovery to allow resource managers to perform any necessary initialization before WAL replay begins.
 

@@ -8,7 +8,10 @@ Determines whether the current command's execution duration should be logged bas
 
 ## Definition
 
-
+```c
+int
+check_log_duration(char *msec_str, bool was_logged)
+```
 ## Detailed Description
 This function implements PostgreSQL's duration-based logging policy by measuring statement execution time and determining the appropriate logging action based on multiple configuration parameters:
 

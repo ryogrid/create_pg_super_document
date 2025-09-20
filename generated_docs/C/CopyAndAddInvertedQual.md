@@ -8,7 +8,12 @@ Modifies a query by adding an inverted qualification ('AND rule_qual IS NOT TRUE
 
 ## Definition
 
-
+```c
+structuring so that
+	 * we only need to process the qual this way once.)
+	 */
+	(void) acquireLocksOnSubLinks(new_qual, &context);
+```
 ## Detailed Description
 CopyAndAddInvertedQual is used in PostgreSQL's rule rewriting system to create the "else" condition for conditional INSTEAD rules. When a rule has a qualification that determines when it should fire, this function creates the inverse condition for cases when the rule should NOT fire. The function:
 

@@ -8,7 +8,14 @@ SearchCatCache is a core function in PostgreSQL's catalog cache system that sear
 
 ## Definition
 
-
+```c
+HeapTuple
+SearchCatCache(CatCache *cache,
+			   Datum v1,
+			   Datum v2,
+			   Datum v3,
+			   Datum v4)
+```
 ## Detailed Description
 SearchCatCache searches a system catalog cache for a tuple matching the provided search key values. This function serves as the primary interface for cache lookups, automatically opening the underlying relation if necessary (on the first access to a particular cache). The function is designed to handle up to 4 search key values, accommodating the various indexing patterns used across PostgreSQL's system catalogs.
 

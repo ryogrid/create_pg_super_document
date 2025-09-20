@@ -8,7 +8,13 @@ Core internal function that generates possibly-qualified PostgreSQL type names w
 
 ## Definition
 
-
+```c
+structed.  Also check the toast property, and don't
+	 * deconstruct "plain storage" array types --- this is because we don't
+	 * want to show oidvector as oid[].
+	 */
+	array_base_type = typeform->typelem;
+```
 ## Detailed Description
  is the main workhorse function for PostgreSQL type name formatting. It provides comprehensive control over how type names are presented through a flags parameter. The function handles built-in types with special formatting rules, array types, schema qualification decisions, and various error conditions.
 

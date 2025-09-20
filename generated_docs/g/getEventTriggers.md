@@ -8,7 +8,10 @@ Retrieves information about all PostgreSQL event triggers from the system catalo
 
 ## Definition
 
-
+```c
+EventTriggerInfo *
+getEventTriggers(Archive *fout, int *numEventTriggers)
+```
 ## Detailed Description
 This function queries the pg_event_trigger system catalog to collect comprehensive information about all event triggers defined in the database. Event triggers are a PostgreSQL feature introduced in version 9.3 that allow functions to be executed in response to DDL events across the entire database.
 

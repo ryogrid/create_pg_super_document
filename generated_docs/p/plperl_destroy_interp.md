@@ -8,7 +8,18 @@ Performs controlled cleanup of a Perl interpreter by running END blocks while av
 
 ## Definition
 
-
+```c
+struction is performed: - just call END
+		 * blocks.
+		 *
+		 * We could call perl_destruct() but we'd need to audit its actions
+		 * very carefully and work-around any that impact us. (Calling
+		 * sv_clean_objs() isn't an option because it's not part of perl's
+		 * public API so isn't portably available.) Meanwhile END blocks can
+		 * be used to perform manual cleanup.
+		 */
+		dTHX;
+```
 ## Detailed Description
 The  function implements a minimal but safe cleanup strategy for Perl interpreters in the PL/Perl environment. Rather than performing a full perl_destruct() which could have unpredictable side effects on PostgreSQL's process state, this function takes a conservative approach by only running Perl END blocks.
 

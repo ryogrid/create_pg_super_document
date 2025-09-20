@@ -8,7 +8,10 @@ A recursive tree walker function that traverses query nodes to locate and replac
 
 ## Definition
 
-
+```c
+static bool
+inline_cte_walker(Node *node, inline_cte_walker_context *context)
+```
 ## Detailed Description
 This function performs the core work of CTE inlining by recursively traversing the query tree and replacing matching CTE references with inline subqueries. When it encounters a RangeTblEntry that matches the target CTE (by name and nesting level), it transforms the RTE from RTE_CTE type to RTE_SUBQUERY type and substitutes the CTE's query definition.
 

@@ -8,7 +8,11 @@ Initializes a parallel table scan descriptor by setting up snapshot serializatio
 
 ## Definition
 
-
+```c
+void
+table_parallelscan_initialize(Relation rel, ParallelTableScanDesc pscan,
+							  Snapshot snapshot)
+```
 ## Detailed Description
 This function initializes the shared memory structures needed for coordinating a parallel table scan across multiple worker processes. The initialization process involves:
 

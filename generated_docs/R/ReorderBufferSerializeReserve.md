@@ -8,7 +8,10 @@ Ensures that the reorder buffer's I/O output buffer has adequate space allocated
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferSerializeReserve(ReorderBuffer *rb, Size sz)
+```
 ## Detailed Description
 ReorderBufferSerializeReserve is a static utility function that manages the allocation and reallocation of the output buffer () within a ReorderBuffer structure. This function is part of PostgreSQL's logical replication disk serialization subsystem. It ensures that the buffer has sufficient capacity to hold data of the requested size before serialization operations proceed.
 

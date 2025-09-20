@@ -8,7 +8,10 @@ Provides a PostgreSQL function interface to retrieve the SQL definition of a vie
 
 ## Definition
 
-
+```c
+Datum
+pg_get_viewdef_wrap(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL SQL function entry point for retrieving view definitions with line wrapping capabilities. It takes a view OID and a wrap parameter, then delegates to the core worker function  to generate the actual view definition string. The function automatically enables pretty printing flags and returns the result as a PostgreSQL text datum.
 

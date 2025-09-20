@@ -8,7 +8,10 @@ UnlockReleaseBuffer is a convenience function that unlocks a buffer's content lo
 
 ## Definition
 
-
+```c
+void
+UnlockReleaseBuffer(Buffer buffer)
+```
 ## Detailed Description
 This function provides a shorthand for the common combination of unlocking a buffer and then releasing it. It sequentially calls LockBuffer() with BUFFER_LOCK_UNLOCK to release the content lock, followed by ReleaseBuffer() to release the pin on the buffer. This pattern is frequently used throughout PostgreSQL's storage layer when code has finished working with a buffer and needs to clean up both the lock and the reference.
 

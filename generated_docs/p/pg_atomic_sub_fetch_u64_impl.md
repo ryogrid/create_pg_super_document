@@ -8,7 +8,10 @@ Performs an atomic subtract-and-fetch operation on a 64-bit unsigned integer, re
 
 ## Definition
 
-
+```c
+static inline uint64
+pg_atomic_sub_fetch_u64_impl(volatile pg_atomic_uint64 *ptr, int64 sub_)
+```
 ## Detailed Description
 This function implements the atomic subtract-and-fetch operation for 64-bit unsigned integers by leveraging the existing  function and subtracting the decrement value from its result. Unlike fetch-and-subtract which returns the original value, this function returns the new value after the subtraction has been performed. This is implemented as a generic fallback when direct subtract-and-fetch atomic operations are not available in hardware.
 

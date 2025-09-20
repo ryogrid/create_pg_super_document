@@ -8,7 +8,11 @@ Copies a file from source to destination using the copy_file_range system call f
 
 ## Definition
 
-
+```c
+static void
+copy_file_by_range(const char *src, const char *dest,
+				   pg_checksum_context *checksum_ctx)
+```
 ## Detailed Description
 The `copy_file_by_range` function utilizes the Linux `copy_file_range` system call to perform efficient file copying. This system call can optimize data transfer by avoiding unnecessary copies between kernel and user space, and may use advanced filesystem features like reflinks or server-side copy operations. The function repeatedly calls `copy_file_range` with `SSIZE_MAX` length until all data is copied, as the system call may not transfer the entire file in a single operation. After successful copying, it separately calculates the checksum by reading the source file if needed, since the copying doesn't provide access to the data stream for checksum computation.
 

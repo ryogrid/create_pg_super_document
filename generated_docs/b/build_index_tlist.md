@@ -8,7 +8,11 @@ Constructs a target list representing the columns of a specified index, with eac
 
 ## Definition
 
-
+```c
+static List *
+build_index_tlist(PlannerInfo *root, IndexOptInfo *index,
+				  Relation heapRelation)
+```
 ## Detailed Description
 This function builds a target list that represents the structure of an index by creating appropriate expressions for each indexed column. Unlike , this function does not need to handle dropped columns since indexes never contain dropped columns.
 

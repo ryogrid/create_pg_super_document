@@ -8,7 +8,10 @@ The read_restore_filters function parses a filter file containing object identif
 
 ## Definition
 
-
+```c
+static void
+read_restore_filters(const char *filename, RestoreOptions *opts)
+```
 ## Detailed Description
 This function implements the core logic for processing filter files in pg_restore, allowing users to selectively include or exclude specific database objects during restoration. The function reads filter commands from a file (or STDIN if filename is "-") and processes them line by line.
 

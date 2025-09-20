@@ -8,7 +8,10 @@ AllocSetAlloc is the main allocation function for the AllocSet memory context, r
 
 ## Definition
 
-
+```c
+void *
+AllocSetAlloc(MemoryContext context, Size size, int flags)
+```
 ## Detailed Description
 AllocSetAlloc is the primary allocation function that implements a sophisticated multi-tier allocation strategy optimized for performance and memory efficiency. The function follows a carefully designed decision tree:
 

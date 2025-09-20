@@ -8,7 +8,10 @@ This function optimizes ScalarArrayOpExpr nodes by identifying opportunities to 
 
 ## Definition
 
-
+```c
+void
+convert_saop_to_hashed_saop(Node *node)
+```
 ## Detailed Description
 The  function performs a recursive optimization pass on expression trees to identify ScalarArrayOpExpr nodes that would benefit from hash table evaluation. It analyzes array operations and fills in hash function information when certain conditions are met, allowing the executor to use more efficient hash-based lookups instead of linear searches through array elements.
 

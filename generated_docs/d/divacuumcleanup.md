@@ -8,7 +8,10 @@ A stub implementation of post-VACUUM cleanup for the dummy index access method u
 
 ## Definition
 
-
+```c
+static IndexBulkDeleteResult *
+divacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+```
 ## Detailed Description
 The  function is a minimal implementation of the vacuum cleanup interface for the dummy index access method. This function is called after bulk delete operations during VACUUM to perform any final cleanup tasks and return statistics about the vacuum operation.
 

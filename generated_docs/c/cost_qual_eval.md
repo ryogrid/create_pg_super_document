@@ -8,7 +8,10 @@ Estimates the CPU costs of evaluating a WHERE clause, providing both startup and
 
 ## Definition
 
-
+```c
+void
+cost_qual_eval(QualCost *cost, List *quals, PlannerInfo *root)
+```
 ## Detailed Description
 The  function computes cost estimates for evaluating boolean qualification expressions (WHERE clause conditions). It processes a list of qualification expressions and calculates both one-time startup costs and per-tuple evaluation costs. The function serves as the main entry point for qualification cost estimation throughout the PostgreSQL query planner.
 

@@ -8,7 +8,10 @@ Initiates the asynchronous connection process to a PostgreSQL backend server, se
 
 ## Definition
 
-
+```c
+int
+pqConnectDBStart(PGconn *conn)
+```
 ## Detailed Description
 This function serves as the entry point for establishing a connection to a PostgreSQL backend. It performs essential initialization and validation steps before beginning the actual connection process. The function validates the connection object, ensures proper linking to frontend libraries, initializes connection buffers, and sets up the connection state machine for asynchronous operation.
 

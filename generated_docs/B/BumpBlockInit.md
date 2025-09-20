@@ -8,7 +8,10 @@ BumpBlockInit initializes a newly allocated bump memory block by setting up its 
 
 ## Definition
 
-
+```c
+static inline void
+BumpBlockInit(BumpContext *context, BumpBlock *block, Size blksize)
+```
 ## Detailed Description
 This function performs the essential initialization of a bump memory block after it has been allocated but before it can be used for chunk allocations. It sets up the free pointer to point just after the block header, establishes the end pointer to mark the block boundary, and optionally stores a back-reference to the context for debugging. The function also integrates with Valgrind memory debugging by marking the unallocated portion of the block as NOACCESS to catch invalid memory access errors during development.
 

@@ -8,7 +8,10 @@ Returns human-readable string identifiers for GIN (Generalized Inverted Index) W
 
 ## Definition
 
-
+```c
+const char *
+gin_identify(uint8 info)
+```
 ## Detailed Description
 This function provides a simple mapping from GIN WAL record operation codes to their corresponding string representations. It serves as a lookup function that converts the numeric operation type stored in WAL records into human-readable operation names. This is primarily used for debugging, logging, and analysis tools that need to display meaningful names for WAL record types.
 

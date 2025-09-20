@@ -8,7 +8,10 @@ Converts a string representation of a privilege name into the corresponding AclM
 
 ## Definition
 
-
+```c
+static AclMode
+string_to_privilege(const char *privname)
+```
 ## Detailed Description
 This function performs case-sensitive string matching to convert human-readable privilege names (such as "select", "insert", "update") into their corresponding AclMode constants. It supports all standard PostgreSQL privilege types including table privileges (SELECT, INSERT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER), database privileges (CREATE, CONNECT, TEMPORARY), function privileges (EXECUTE), schema privileges (USAGE), and system privileges (SET, ALTER SYSTEM, MAINTAIN).
 

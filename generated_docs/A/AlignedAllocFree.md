@@ -8,7 +8,10 @@ Frees memory allocated by aligned allocation functions, properly handling the me
 
 ## Definition
 
-
+```c
+void
+AlignedAllocFree(void *pointer)
+```
 ## Detailed Description
 AlignedAllocFree is responsible for freeing memory that was allocated using PostgreSQL's aligned allocation system. The function performs several important operations:
 

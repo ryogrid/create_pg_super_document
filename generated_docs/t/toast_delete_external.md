@@ -8,7 +8,11 @@ Iterates through all attributes of a tuple and deletes any externally stored TOA
 
 ## Definition
 
-
+```c
+void
+toast_delete_external(Relation rel, const Datum *values, const bool *isnull,
+					  bool is_speculative)
+```
 ## Detailed Description
 The  function is responsible for cleaning up externally stored TOAST values when a tuple is being deleted or updated. It examines each attribute of the given relation's tuple descriptor and identifies variable-length attributes (attlen == -1) that are stored externally on disk. For each such attribute that is not null and is marked as externally stored on disk, it calls  to remove the associated TOAST chunks from the secondary toast relation.
 

@@ -8,7 +8,16 @@ Sets size estimates for an append relation by computing aggregate statistics acr
 
 ## Definition
 
-
+```c
+structures as well.  This is needed either if the parent
+		 * participates in some eclass joins (because we will want to consider
+		 * inner-indexscan joins on the individual children) or if the parent
+		 * has useful pathkeys (because we should try to build MergeAppend
+		 * paths that produce those sort orderings).
+		 */
+		if (rel->has_eclass_joins || has_useful_pathkeys(root, rel))
+			add_child_rel_equivalences(root, appinfo, rel, childrel);
+```
 ## Detailed Description
 This function computes size estimates for append relations, which represent tables accessed through inheritance hierarchies or partitioned tables. It processes each child relation in the append relation list, applies constraint exclusion to eliminate children that cannot produce rows, and aggregates size statistics from all remaining live children.
 

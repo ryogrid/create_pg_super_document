@@ -8,7 +8,11 @@ Reads WAL records from a PostgreSQL datadir starting from a specified point unti
 
 ## Definition
 
-
+```c
+void
+extractPageMap(const char *datadir, XLogRecPtr startpoint, int tliIndex,
+			   XLogRecPtr endpoint, const char *restoreCommand)
+```
 ## Detailed Description
 This function is a core component of pg_rewind that processes Write-Ahead Log (WAL) records to determine which data blocks were modified. It reads WAL records sequentially from the specified starting point until the endpoint, calling extractPageInfo() for each record to build a map of modified pages. This page map is then used by pg_rewind to determine which pages need to be copied or synchronized between the source and target PostgreSQL instances.
 

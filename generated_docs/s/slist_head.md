@@ -8,7 +8,12 @@ The head structure for managing singly linked lists, providing the entry point a
 
 ## Definition
 
-
+```c
+typedef struct slist_head
+{
+	slist_node	head;
+} slist_head;
+```
 ## Detailed Description
 The  structure serves as the control structure for singly linked lists in PostgreSQL. Unlike doubly linked lists, singly linked lists are not circularly linked - when the list is empty, the head.next pointer is simply set to NULL. This design choice eliminates additional conditional branches in common list manipulation operations, improving performance.
 

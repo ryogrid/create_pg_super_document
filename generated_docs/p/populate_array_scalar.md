@@ -8,7 +8,10 @@ A JSON parsing callback function that handles scalar values encountered during J
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+populate_array_scalar(void *_state, char *token, JsonTokenType tokentype)
+```
 ## Detailed Description
 This function serves as a JSON semantic action callback specifically designed for handling scalar values (strings, numbers, booleans, null) during the JSON array population process. It performs critical validation to ensure that the JSON structure matches the expected array dimensions, and when appropriate, stores the scalar token for later processing. The function handles dimension validation by checking if scalars appear at the correct nesting level and reports errors when the structure doesn't match expectations.
 

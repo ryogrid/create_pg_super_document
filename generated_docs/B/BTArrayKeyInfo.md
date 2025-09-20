@@ -8,7 +8,15 @@ BTArrayKeyInfo manages array scan keys in B-tree index scans, tracking the curre
 
 ## Definition
 
-
+```c
+typedef struct BTArrayKeyInfo
+{
+	int			scan_key;		/* index of associated key in keyData */
+	int			cur_elem;		/* index of current element in elem_values */
+	int			num_elems;		/* number of elems in current array value */
+	Datum	   *elem_values;	/* array of num_elems Datums */
+} BTArrayKeyInfo;
+```
 ## Detailed Description
 This structure is used to manage array-based scan keys in B-tree index operations. When a scan involves SK_SEARCHARRAY type keys (which allow searching for any value in an array), this structure tracks the current state of iteration through the array elements. It enables efficient scanning by maintaining the current position within the array and providing direct access to the array elements as Datum values.
 

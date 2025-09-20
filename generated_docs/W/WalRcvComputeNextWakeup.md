@@ -8,7 +8,10 @@ Computes the next scheduled wakeup time for various WAL receiver operations base
 
 ## Definition
 
-
+```c
+static void
+WalRcvComputeNextWakeup(WalRcvWakeupReason reason, TimestampTz now)
+```
 ## Detailed Description
 This function manages the timing of various periodic operations performed by the WAL receiver process. It calculates when the WAL receiver should next wake up to perform specific actions like sending status replies, hot standby feedback, pings, or handling timeouts.
 

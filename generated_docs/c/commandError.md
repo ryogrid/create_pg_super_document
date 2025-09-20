@@ -8,7 +8,10 @@ Reports SQL command errors that occur during pgbench script execution, providing
 
 ## Definition
 
-
+```c
+static void
+commandError(CState *st, const char *message)
+```
 ## Detailed Description
 The `commandError` function provides informational error reporting specifically for SQL command failures during pgbench script execution. Unlike `commandFailed` which reports client abortion, this function logs recoverable errors that don't necessarily terminate the client. It includes an assertion to verify that the current command is indeed a SQL command before logging, ensuring type safety. The function logs at the INFO level rather than ERROR level, indicating these are expected operational events rather than fatal errors. This distinction is important for benchmark analysis where SQL errors might be part of the testing scenario.
 

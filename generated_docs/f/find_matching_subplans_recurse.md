@@ -8,7 +8,13 @@ A recursive worker function for ExecFindMatchingSubPlans that processes partitio
 
 ## Definition
 
-
+```c
+static void
+find_matching_subplans_recurse(PartitionPruningData *prunedata,
+							   PartitionedRelPruningData *pprune,
+							   bool initial_prune,
+							   Bitmapset **validsubplans)
+```
 ## Detailed Description
 This function is the core recursive engine that traverses partition hierarchies to determine which subplans should be executed. It operates by first determining which partitions should be included based on the current pruning context, then translating those partitions into subplan indexes or recursively processing sub-partitions.
 

@@ -8,7 +8,10 @@ Recursively evaluates a JsonPathGinNode expression tree using GIN index entry ma
 
 ## Definition
 
-
+```c
+static GinTernaryValue
+execute_jsp_gin_node(JsonPathGinNode *node, void *check, bool ternary)
+```
 ## Detailed Description
 This function serves as the execution engine for jsonpath GIN queries, evaluating the logical expression tree built during query extraction. It implements three-valued logic where GIN_TRUE indicates a definite match, GIN_FALSE indicates a definite non-match, and GIN_MAYBE indicates uncertainty requiring further verification.
 

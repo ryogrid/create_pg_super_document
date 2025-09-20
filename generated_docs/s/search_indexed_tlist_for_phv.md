@@ -8,7 +8,12 @@ Searches for a PlaceHolderVar in an indexed target list and returns a Var constr
 
 ## Definition
 
-
+```c
+static Var *
+search_indexed_tlist_for_phv(PlaceHolderVar *phv,
+							 indexed_tlist *itlist, int newvarno,
+							 NullingRelsMatch nrm_match)
+```
 ## Detailed Description
 This function searches through an indexed target list to find a PlaceHolderVar that matches the provided PlaceHolderVar by phid (placeholder ID). When a match is found, it constructs and returns a new Var node that references the target list item containing the matching PlaceHolderVar. The matching is performed based on phid only, not using complete equality checks, both for performance reasons and because phnullingrels might not be exactly equal.
 

@@ -8,7 +8,48 @@ BTScanOpaqueData is the comprehensive btree-private state structure that manages
 
 ## Definition
 
+```c
+typedef struct BTScanOpaqueData
+{
+	/* these fields are set by _bt_preprocess_keys(): */
+	bool		qual_ok;		/* false if qual can never be satisfied */
+	int			numberOfKeys;	/* number of preprocessed scan keys */
+	ScanKey		keyData;		/* array of preprocessed scan keys */
 
+	/* workspace for SK_SEARCHARRAY support */
+	int			numArrayKeys;	/* number of equality-type array keys */
+	bool		needPrimScan;	/* New prim scan to continue in current dir? */
+	bool		scanBehind;		/* Last array advancement matched -inf attr? */
+	BTArrayKeyInfo *arrayKeys;	/* info about each equality-type array key */
+	FmgrInfo   *orderProcs;		/* ORDER procs for required equality keys */
+	MemoryContext arrayContext; /* scan-lifespan context for array data */
+
+	/* info about killed items if any (killedItems is NULL if never used) */
+	int		   *killedItems;	/* currPos.items indexes of killed items */
+	int			numKilled;		/* number of currently stored items */
+
+	/*
+	 * If we are doing an index-only scan, these are the tuple storage
+	 * workspaces for the currPos and markPos respectively.  Each is of size
+	 * BLCKSZ, so it can hold as much as a full page's worth of tuples.
+	 */
+	char	   *currTuples;		/* tuple storage for currPos */
+	char	   *markTuples;		/* tuple storage for markPos */
+
+	/*
+	 * If the marked position is on the same page as current position, we
+	 * don't use markPos, but just keep the marked itemIndex in markItemIndex
+	 * (all the rest of currPos is valid for the mark position). Hence, to
+	 * determine if there is a mark, first look at markItemIndex, then at
+	 * markPos.
+	 */
+	int			markItemIndex;	/* itemIndex, or -1 if not valid */
+
+	/* keep these last in struct for efficiency */
+	BTScanPosData currPos;		/* current position data */
+	BTScanPosData markPos;		/* marked position, if any */
+} BTScanOpaqueData;
+```
 ## Detailed Description
 This structure serves as the central control hub for B-tree index scans, containing preprocessed scan keys, array scan support, position management, and tuple storage. It implements the page-at-a-time scanning approach where pages are pinned and read-locked, matching items are identified and saved, then the read-lock is released while items are returned to the caller. This minimizes lock/unlock traffic while maintaining proper VACUUM synchronization.
 

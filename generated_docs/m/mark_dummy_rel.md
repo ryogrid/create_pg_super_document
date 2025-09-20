@@ -8,7 +8,10 @@ Marks a relation as proven empty by creating a childless Append path and updatin
 
 ## Definition
 
-
+```c
+void
+mark_dummy_rel(RelOptInfo *rel)
+```
 ## Detailed Description
 This function transforms a RelOptInfo into a "dummy" relation that represents an empty result set. When the optimizer determines that a relation will contain no rows (through constraint exclusion, contradictory WHERE clauses, or other logical analysis), this function creates the appropriate path structure and metadata to represent that emptiness.
 

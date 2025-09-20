@@ -8,7 +8,10 @@ A callback function that invalidates text search cache entries when changes are 
 
 ## Definition
 
-
+```c
+static void
+InvalidateTSCacheCallBack(Datum arg, int cacheid, uint32 hashvalue)
+```
 ## Detailed Description
 InvalidateTSCacheCallBack is a syscache callback function designed to detect when visible changes have been made to text search catalog entries, either by the current backend or another one. Rather than attempting to flush only the specific cache entry that changed, this function takes a simpler approach and invalidates all entries in the related hash table, which is reasonable given that text search configuration changes are typically infrequent.
 

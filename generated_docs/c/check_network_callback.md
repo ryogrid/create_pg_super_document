@@ -8,7 +8,11 @@ A callback function used with  to determine if a client's IP address matches any
 
 ## Definition
 
-
+```c
+static void
+check_network_callback(struct sockaddr *addr, struct sockaddr *netmask,
+					   void *cb_data)
+```
 ## Detailed Description
 The  function serves as a callback for the  utility, which iterates through all network interfaces on the server machine. For each interface, this callback determines whether the client's IP address matches the interface's network range.
 

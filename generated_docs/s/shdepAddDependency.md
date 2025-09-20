@@ -8,7 +8,13 @@ Internal workhorse function for inserting shared dependency records into the pg_
 
 ## Definition
 
-
+```c
+static void
+shdepAddDependency(Relation sdepRel,
+				   Oid classId, Oid objectId, int32 objsubId,
+				   Oid refclassId, Oid refobjId,
+				   SharedDependencyType deptype)
+```
 ## Detailed Description
 This function serves as the core implementation for recording shared dependencies in PostgreSQL's dependency tracking system. It performs the actual insertion of a dependency record into the pg_shdepend catalog table, which tracks dependencies between regular database objects and cluster-wide shared objects such as roles, tablespaces, and databases.
 

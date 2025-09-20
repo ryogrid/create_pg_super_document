@@ -8,7 +8,14 @@ Retrieves the next item from an ordered scan queue during SP-GiST index scanning
 
 ## Definition
 
-
+```c
+enum SpGistSpecialOffsetNumbers
+{
+	SpGistBreakOffsetNumber = InvalidOffsetNumber,
+	SpGistRedirectOffsetNumber = MaxOffsetNumber + 1,
+	SpGistErrorOffsetNumber = MaxOffsetNumber + 2,
+};
+```
 ## Detailed Description
 This function serves as a queue management utility for SP-GiST (Space-partitioned Generalized Search Tree) index scans. It operates on a priority queue (pairing heap) that maintains search items in order during index traversal. The function performs a simple but critical role: it checks if the scan queue is empty and either returns the next item to process or signals completion of the scan by returning NULL. The caller is responsible for freeing the returned item.
 

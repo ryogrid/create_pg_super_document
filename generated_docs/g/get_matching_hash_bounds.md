@@ -8,7 +8,12 @@ Determines which hash partition bound matches the specified values by computing 
 
 ## Definition
 
-
+```c
+static PruneStepResult *
+get_matching_hash_bounds(PartitionPruneContext *context,
+						 StrategyNumber opstrategy, Datum *values, int nvalues,
+						 FmgrInfo *partsupfunc, Bitmapset *nullkeys)
+```
 ## Detailed Description
 This function implements hash partition pruning by calculating the hash value for the given partition key values and determining which specific hash partition should be accessed. For hash partitioning, pruning can only be performed when:
 

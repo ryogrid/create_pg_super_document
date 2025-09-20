@@ -8,7 +8,10 @@ This function finalizes a bbstreamer object by calling its finalize callback, al
 
 ## Definition
 
-
+```c
+static inline void
+bbstreamer_finalize(bbstreamer *streamer)
+```
 ## Detailed Description
 bbstreamer_finalize is a static inline function that provides a standardized interface for finalizing any bbstreamer implementation. It acts as a wrapper around the finalize callback function pointer in the bbstreamer's operations structure (bbs_ops->finalize). This function is called once at the end of data processing to give each bbstreamer in the pipeline a chance to perform cleanup operations such as closing files, flushing buffers, writing final data, or releasing resources.
 

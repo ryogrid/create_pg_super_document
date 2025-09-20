@@ -8,7 +8,12 @@ Compiles the currently pending LLVM module by performing inlining, optimization,
 
 ## Definition
 
-
+```c
+struction combining/selection passes etc. Without optimization a
+	 * faster instruction selection mechanism is used.
+	 */
+	INSTR_TIME_SET_CURRENT(starttime);
+```
 ## Detailed Description
 This function orchestrates the complete compilation pipeline for an LLVM module:
 

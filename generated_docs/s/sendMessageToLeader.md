@@ -8,7 +8,10 @@ Sends a status message from a worker process to the leader process through a com
 
 ## Definition
 
-
+```c
+static void
+sendMessageToLeader(int pipefd[2], const char *str)
+```
 ## Detailed Description
 This function is executed within worker processes to communicate status messages back to the leader process during parallel database dump operations. It writes the provided string message to the write end of a pipe, ensuring proper error handling if the write operation fails. The function calculates the message length including the null terminator and performs a complete write operation through the  utility function.
 

@@ -8,7 +8,12 @@ A debugging function that outputs detailed information about a single NFA arc in
 
 ## Definition
 
-
+```c
+static void
+dumparc(struct arc *a,
+		struct state *s,
+		FILE *f)
+```
 ## Detailed Description
 The  function provides a comprehensive textual representation of an individual NFA arc for debugging purposes. It displays different arc types using specific notation: PLAIN arcs with square brackets, AHEAD/BEHIND lookaround assertions with angle brackets, LACON constraints with colons, anchor assertions with their symbols, and special cases like EMPTY and CANTMATCH arcs. The function also validates arc chain integrity by checking that the arc appears in both the source state's outgoing chain and the destination state's incoming chain.
 

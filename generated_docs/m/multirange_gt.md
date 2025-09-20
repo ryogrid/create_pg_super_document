@@ -8,7 +8,10 @@ A PostgreSQL function that implements the greater-than operator (>) for multiran
 
 ## Definition
 
-
+```c
+Datum
+multirange_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a comparison operator that implements the ">" (greater than) operation for multirange data types in PostgreSQL. It complements the other comparison operators in the multirange operator family and is essential for B-tree index support and query processing involving multirange comparisons.
 

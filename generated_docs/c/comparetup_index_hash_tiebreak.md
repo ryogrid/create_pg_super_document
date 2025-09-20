@@ -8,7 +8,11 @@ A placeholder tiebreaker comparison function for hash indexes that should never 
 
 ## Definition
 
-
+```c
+static int
+comparetup_index_hash_tiebreak(const SortTuple *a, const SortTuple *b,
+							   Tuplesortstate *state)
+```
 ## Detailed Description
 This function serves as a consistency placeholder in the hash index sorting infrastructure but is never intended to be executed. Hash indexes use only a single sort key (the hash value), so there should never be a need for tiebreaking comparison beyond what is already handled in the primary comparison function .
 

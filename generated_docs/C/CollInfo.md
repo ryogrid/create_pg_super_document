@@ -8,7 +8,13 @@ CollInfo represents collation objects in PostgreSQL's pg_dump utility, storing i
 
 ## Definition
 
-
+```c
+typedef struct _convInfo
+{
+	DumpableObject dobj;
+	const char *rolname;
+} ConvInfo;
+```
 ## Detailed Description
 CollInfo is a structure used by pg_dump to encapsulate information about collation objects stored in the pg_collation system catalog. It extends the base DumpableObject structure to include collation-specific metadata required for dumping and restoring collations. The structure is populated by the getCollations() function during the schema discovery phase and later used by dumpCollation() to generate the appropriate CREATE COLLATION statements.
 

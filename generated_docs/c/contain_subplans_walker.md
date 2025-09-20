@@ -8,7 +8,10 @@ A tree-walking function that recursively searches for subplan-related nodes (Sub
 
 ## Definition
 
-
+```c
+static bool
+contain_subplans_walker(Node *node, void *context)
+```
 ## Detailed Description
 This static helper function implements the actual recursive tree traversal logic for detecting subplans within an expression tree. It serves as the worker function for  and follows PostgreSQL's standard tree walker pattern.
 

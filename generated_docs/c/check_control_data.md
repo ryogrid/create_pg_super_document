@@ -8,7 +8,11 @@ Validates compatibility between old and new PostgreSQL clusters by comparing cri
 
 ## Definition
 
-
+```c
+void
+check_control_data(ControlData *oldctrl,
+				   ControlData *newctrl)
+```
 ## Detailed Description
 The  function performs essential compatibility validation between source and target PostgreSQL clusters during pg_upgrade operations. It systematically compares fundamental database configuration parameters that cannot differ between clusters for upgrade compatibility.
 

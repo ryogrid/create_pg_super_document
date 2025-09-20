@@ -8,7 +8,10 @@ A static utility function that converts a socket address structure to a human-re
 
 ## Definition
 
-
+```c
+static void
+print_addr(struct sockaddr *addr)
+```
 ## Detailed Description
 The  function takes a generic socket address structure and converts it to a human-readable string format using the  system call. It handles both IPv4 and IPv6 addresses by determining the appropriate address family and setting the correct length parameter for the  call. The function outputs the numeric host address (IP address) without performing reverse DNS lookups due to the  flag.
 

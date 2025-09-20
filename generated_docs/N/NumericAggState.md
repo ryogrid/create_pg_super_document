@@ -8,7 +8,22 @@ NumericAggState is a structure used to maintain state information during numeric
 
 ## Definition
 
-
+```c
+typedef struct NumericAggState
+{
+	bool		calcSumX2;		/* if true, calculate sumX2 */
+	MemoryContext agg_context;	/* context we're calculating in */
+	int64		N;				/* count of processed numbers */
+	NumericSumAccum sumX;		/* sum of processed numbers */
+	NumericSumAccum sumX2;		/* sum of squares of processed numbers */
+	int			maxScale;		/* maximum scale seen so far */
+	int64		maxScaleCount;	/* number of values seen with maximum scale */
+	/* These counts are *not* included in N!  Use NA_TOTAL_COUNT() as needed */
+	int64		NaNcount;		/* count of NaN values */
+	int64		pInfcount;		/* count of +Inf values */
+	int64		nInfcount;		/* count of -Inf values */
+} NumericAggState;
+```
 ## Detailed Description
 NumericAggState serves as the transition datatype for PostgreSQL's numeric aggregate functions. It maintains comprehensive state information needed to compute various statistical and mathematical aggregates over numeric values. The structure handles both basic aggregates (sum, count) and more complex statistical functions (variance, standard deviation) by optionally calculating sum of squares. It also properly handles special numeric values like NaN and infinity, maintaining separate counts for these cases that don't interfere with normal calculations.
 

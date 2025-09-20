@@ -8,7 +8,10 @@ An SP-GiST operator function that determines which child nodes should be visited
 
 ## Definition
 
-
+```c
+Datum
+spg_quad_inner_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's SP-GiST quadtree implementation that determines which child nodes to visit during index traversal. The function:
 

@@ -8,7 +8,47 @@ PruneFreezeResult is a structure that contains per-page state information return
 
 ## Definition
 
+```c
+typedef struct PruneFreezeResult
+{
+	int			ndeleted;		/* Number of tuples deleted from the page */
+	int			nnewlpdead;		/* Number of newly LP_DEAD items */
+	int			nfrozen;		/* Number of tuples we froze */
 
+	/* Number of live and recently dead tuples on the page, after pruning */
+	int			live_tuples;
+	int			recently_dead_tuples;
+
+	/*
+	 * all_visible and all_frozen indicate if the all-visible and all-frozen
+	 * bits in the visibility map can be set for this page, after pruning.
+	 *
+	 * vm_conflict_horizon is the newest xmin of live tuples on the page.  The
+	 * caller can use it as the conflict horizon when setting the VM bits.  It
+	 * is only valid if we froze some tuples (nfrozen > 0), and all_frozen is
+	 * true.
+	 *
+	 * These are only set if the HEAP_PRUNE_FREEZE option is set.
+	 */
+	bool		all_visible;
+	bool		all_frozen;
+	TransactionId vm_conflict_horizon;
+
+	/*
+	 * Whether or not the page makes rel truncation unsafe.  This is set to
+	 * 'true', even if the page contains LP_DEAD items.  VACUUM will remove
+	 * them before attempting to truncate.
+	 */
+	bool		hastup;
+
+	/*
+	 * LP_DEAD items on the page after pruning.  Includes existing LP_DEAD
+	 * items.
+	 */
+	int			lpdead_items;
+	OffsetNumber deadoffsets[MaxHeapTuplesPerPage];
+} PruneFreezeResult;
+```
 ## Detailed Description
 PruneFreezeResult serves as a comprehensive reporting mechanism for heap page pruning and freezing operations. This structure captures detailed statistics about what was accomplished during a single heap_page_prune_and_freeze() operation, including counts of deleted tuples, newly dead items, frozen tuples, and the overall state of live and recently dead tuples remaining on the page.
 

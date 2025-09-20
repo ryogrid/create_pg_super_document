@@ -8,7 +8,11 @@ Properly deallocates and cleans up a Snowball stemming environment, freeing all 
 
 ## Definition
 
+```c
+}
 
+extern void SN_close_env(struct SN_env * z, int S_size)
+```
 ## Detailed Description
 This function is the destructor counterpart to . It performs a complete cleanup of a Snowball stemming environment by systematically deallocating all memory resources that were allocated during environment creation. The function handles:
 

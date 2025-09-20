@@ -8,7 +8,10 @@ Changes the ownership of a PostgreSQL logical replication subscription using the
 
 ## Definition
 
-
+```c
+void
+AlterSubscriptionOwner_oid(Oid subid, Oid newOwnerId)
+```
 ## Detailed Description
 This function serves as a public interface for changing subscription ownership when the subscription is identified by its OID rather than by name. It performs the necessary system catalog lookups to validate the subscription exists, then delegates the actual ownership change to the internal implementation function. The function handles error reporting if the specified subscription OID does not exist in the system.
 

@@ -8,7 +8,13 @@ The range function creates a character vector (cvec) representing a character ra
 
 ## Definition
 
-
+```c
+static struct cvec *
+range(struct vars *v,			/* context */
+	  chr a,					/* range start */
+	  chr b,					/* range end, might equal a */
+	  int cases)				/* case-independent? */
+```
 ## Detailed Description
 The range function is a core component of PostgreSQL's regex bracket expression processing that creates character vectors representing character ranges. It handles both simple case-sensitive ranges and complex case-independent ranges with sophisticated case folding.
 

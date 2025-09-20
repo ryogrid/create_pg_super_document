@@ -8,7 +8,14 @@ generate_subscripts_fctx is a simple state structure used by the generate_subscr
 
 ## Definition
 
-
+```c
+typedef struct generate_subscripts_fctx
+{
+	int32		lower;
+	int32		upper;
+	bool		reverse;
+} generate_subscripts_fctx;
+```
 ## Detailed Description
 generate_subscripts_fctx serves as the function context structure for PostgreSQL's generate_subscripts() built-in function. This structure maintains the minimal state required to iterate through array subscripts for a given dimension, supporting both forward and reverse iteration modes. The structure is designed to work with PostgreSQL's set-returning function (SRF) framework, allowing the generate_subscripts function to return one subscript value per call while preserving state between calls.
 

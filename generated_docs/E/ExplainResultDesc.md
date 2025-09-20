@@ -8,7 +8,10 @@ ExplainResultDesc constructs the result tuple descriptor for EXPLAIN command out
 
 ## Definition
 
-
+```c
+TupleDesc
+ExplainResultDesc(ExplainStmt *stmt)
+```
 ## Detailed Description
 ExplainResultDesc creates a tuple descriptor that defines the structure of the result set returned by an EXPLAIN command. The function examines the EXPLAIN statement's options to determine the output format and sets the appropriate data type for the single result column. It supports three main formats: TEXT (TEXTOID), XML (XMLOID), and JSON (JSONOID). YAML format is treated as TEXT since PostgreSQL doesn't have a native YAML type.
 

@@ -8,7 +8,10 @@ SPI_cursor_move changes the position of a cursor without retrieving any rows, ef
 
 ## Definition
 
-
+```c
+void
+SPI_cursor_move(Portal portal, bool forward, long count)
+```
 ## Detailed Description
 This function moves the cursor position by the specified number of rows in the given direction without actually fetching any data. It is similar to SPI_cursor_fetch but discards any rows that would be retrieved during the movement operation. The function uses None_Receiver as the destination, which causes the rows to be processed but not returned to the caller. This is useful for repositioning a cursor before subsequent fetch operations or for skipping over unwanted rows efficiently.
 

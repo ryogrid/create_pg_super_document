@@ -8,7 +8,10 @@ Gets a buffer for an existing block and initializes it from scratch, automatical
 
 ## Definition
 
-
+```c
+Buffer
+_hash_getinitbuf(Relation rel, BlockNumber blkno)
+```
 ## Detailed Description
 This function is designed for accessing existing pages that are known to exist within the index's filesystem EOF but need to be completely reinitialized from scratch. Unlike _hash_getbuf which expects valid existing content, _hash_getinitbuf assumes the page content is invalid or unwanted and will be completely replaced.
 

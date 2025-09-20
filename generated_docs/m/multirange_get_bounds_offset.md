@@ -8,7 +8,10 @@ This function calculates the byte offset of bounds values for the i-th range wit
 
 ## Definition
 
-
+```c
+static uint32
+multirange_get_bounds_offset(const MultirangeType *multirange, int32 i)
+```
 ## Detailed Description
 The function implements an efficient offset calculation mechanism for multirange types in PostgreSQL. It works by traversing the multirange's item array backwards from the target index, accumulating the offset lengths stored in each item. The traversal stops early when it encounters an item that has an explicit offset stored (indicated by MULTIRANGE_ITEM_HAS_OFF), providing an optimization for frequently accessed ranges.
 

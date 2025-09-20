@@ -8,7 +8,10 @@ Reads the current page containing valid data for a parallel B-tree scan, handlin
 
 ## Definition
 
-
+```c
+static bool
+_bt_parallel_readpage(IndexScanDesc scan, BlockNumber blkno, ScanDirection dir)
+```
 ## Detailed Description
 This function is a specialized page reader for parallel B-tree scans. It coordinates the reading of a specific page block during parallel index scanning operations. The function initializes additional scan data structures, attempts to read the next page, and manages buffer locks and pins appropriately. It's designed to work within PostgreSQL's parallel scanning framework where multiple processes may be scanning different portions of the same B-tree index simultaneously.
 

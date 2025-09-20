@@ -8,7 +8,10 @@ Prepares the statistics snapshot infrastructure by creating the memory context a
 
 ## Definition
 
-
+```c
+static void
+pgstat_prep_snapshot(void)
+```
 ## Detailed Description
 This internal function initializes the snapshot infrastructure required for statistics data collection and storage. It ensures that the necessary memory context and statistics hash table are properly set up before snapshot building operations commence. The function operates conditionally, only performing initialization when specific conditions are met, making it safe to call multiple times.
 

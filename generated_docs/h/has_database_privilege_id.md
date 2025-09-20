@@ -8,7 +8,10 @@ Checks if the current user has a specified privilege on a database identified by
 
 ## Definition
 
-
+```c
+Datum
+has_database_privilege_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function implements the most efficient variant of the has_database_privilege SQL function family. It takes a database OID and a privilege type string, then determines whether the current user has the requested privilege on the specified database. By using the current user (via GetUserId()) and the database OID directly, this variant avoids all name-to-OID conversions, making it the fastest option. The function uses object_aclcheck_ext to properly handle cases where the database might not exist.
 

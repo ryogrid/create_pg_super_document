@@ -8,7 +8,10 @@ PrintNotifications is a static helper function that checks for and displays any 
 
 ## Definition
 
-
+```c
+static void
+PrintNotifications(void)
+```
 ## Detailed Description
 PrintNotifications handles the processing and display of asynchronous notifications sent by the PostgreSQL server via the NOTIFY/LISTEN mechanism. The function:
 

@@ -8,7 +8,10 @@ Converts an interval value to a time data type by extracting the fractional-day 
 
 ## Definition
 
-
+```c
+Datum
+interval_time(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that converts an Interval to a TimeADT by extracting the fractional-day portion of the interval. The function focuses specifically on the time component within a single day, ignoring the months field of the interval since it deals only with the intra-day time portion.
 

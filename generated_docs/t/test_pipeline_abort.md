@@ -8,7 +8,20 @@ Tests PostgreSQL pipeline mode error handling by verifying that when an operatio
 
 ## Definition
 
-
+```c
+enum for test_pipelined_insert */
+enum PipelineInsertStep
+{
+	BI_BEGIN_TX,
+	BI_DROP_TABLE,
+	BI_CREATE_TABLE,
+	BI_PREPARE,
+	BI_INSERT_ROWS,
+	BI_COMMIT_TX,
+	BI_SYNC,
+	BI_DONE,
+};
+```
 ## Detailed Description
 This function comprehensively tests PostgreSQL's pipeline mode abort behavior by intentionally creating error conditions within pipelines and verifying the proper handling of aborted operations. The test creates multiple pipelines where:
 

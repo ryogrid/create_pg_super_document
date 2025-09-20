@@ -8,7 +8,9 @@ Converts a Python sequence (or nested lists) to a PostgreSQL SQL array, handling
 
 ## Definition
 
-
+```c
+struct_empty_array(arg->u.array.elmbasetype));
+```
 ## Detailed Description
 This function serves as the main entry point for converting Python sequence objects into PostgreSQL array data structures. It validates that the input is a sequence, initializes array dimension tracking, and delegates the recursive traversal to PLySequence_ToArray_recurse. The function supports multi-dimensional arrays by recognizing nested Python lists and maintains PostgreSQL's convention of returning zero-dimensional arrays for empty inputs.
 

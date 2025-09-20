@@ -8,7 +8,10 @@ Deallocates and cleans up a PGconn data structure, freeing all associated memory
 
 ## Definition
 
-
+```c
+static void
+freePGconn(PGconn *conn)
+```
 ## Detailed Description
 The  function is responsible for the complete deallocation of a PGconn structure and all its associated resources. This function is designed to complement  by handling cleanup of data that persists for the entire lifetime of the connection object, rather than transient state that gets reset during connection reuse.
 

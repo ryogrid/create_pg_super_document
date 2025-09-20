@@ -8,7 +8,10 @@ Checks whether there is pending encrypted data buffered in the SSL connection th
 
 ## Definition
 
-
+```c
+bool
+pgtls_read_pending(PGconn *conn)
+```
 ## Detailed Description
 This function provides a simple wrapper around OpenSSL's SSL_pending() function to determine if there is any data that has already been read from the network and buffered within the SSL layer but not yet returned to the application. This is crucial for non-blocking I/O operations where the application needs to know if data is immediately available without performing a potentially blocking read operation.
 

@@ -8,7 +8,10 @@ PostgreSQL function that performs subtraction of two double-precision floating-p
 
 ## Definition
 
-
+```c
+Datum
+float8mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 float8mi is a PostgreSQL built-in function wrapper that implements the subtraction operator (-) for double-precision floating-point numbers in SQL. It extracts two float8 arguments from the function call arguments, performs subtraction using the inline helper function float8_mi(), and returns the result wrapped in a Datum. The function includes overflow detection to handle cases where finite operands produce infinite results, which would indicate arithmetic overflow.
 

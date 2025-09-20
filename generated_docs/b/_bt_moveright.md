@@ -8,7 +8,16 @@ This function moves right in the B-tree when necessary to handle page splits tha
 
 ## Definition
 
-
+```c
+Buffer
+_bt_moveright(Relation rel,
+			  Relation heaprel,
+			  BTScanInsert key,
+			  Buffer buf,
+			  bool forupdate,
+			  BTStack stack,
+			  int access)
+```
 ## Detailed Description
 _bt_moveright implements the "move right" protocol essential for B-tree concurrency control. When following a pointer to reach a page, the page may have split since the downlink was created, requiring movement to the right sibling(s). The function examines the high key on each page to determine if further rightward movement is needed.
 

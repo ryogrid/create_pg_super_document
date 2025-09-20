@@ -8,7 +8,11 @@ ATExecAddStatistics implements the internal creation of extended statistics obje
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecAddStatistics(AlteredTableInfo *tab, Relation rel,
+					CreateStatsStmt *stmt, bool is_rebuild, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function serves as an internal mechanism for creating extended statistics objects within the ALTER TABLE infrastructure. Unlike other ALTER TABLE operations that correspond to explicit SQL commands, this function is used internally to add AT_ReAddStatistics subcommands that rebuild extended statistics after table column type changes. The function acts as a simple wrapper around CreateStatistics, providing the ALTER TABLE context while delegating the actual statistics creation to the standard statistics creation infrastructure.
 

@@ -8,7 +8,21 @@ SPITupleTable is a structure that represents a result table returned by SPI (Ser
 
 ## Definition
 
+```c
+typedef struct SPITupleTable
+{
+	/* Public members */
+	TupleDesc	tupdesc;		/* tuple descriptor */
+	HeapTuple  *vals;			/* array of tuples */
+	uint64		numvals;		/* number of valid tuples */
 
+	/* Private members, not intended for external callers */
+	uint64		alloced;		/* allocated length of vals array */
+	MemoryContext tuptabcxt;	/* memory context of result table */
+	slist_node	next;			/* link for internal bookkeeping */
+	SubTransactionId subid;		/* subxact in which tuptable was created */
+} SPITupleTable;
+```
 ## Detailed Description
 SPITupleTable serves as the primary container for query results in PostgreSQL's Server Programming Interface. It encapsulates both the actual tuple data and the metadata necessary to interpret and manage that data. The structure is designed with a clear separation between public members (intended for external use) and private members (used internally by the SPI system for memory management and bookkeeping).
 

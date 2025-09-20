@@ -8,7 +8,10 @@ A PostgreSQL built-in function that counts and returns the number of NULL argume
 
 ## Definition
 
-
+```c
+Datum
+pg_num_nulls(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The pg_num_nulls function provides a way to count NULL values among a set of arguments in PostgreSQL. It leverages the count_nulls helper function to handle the complexity of processing both individual arguments and variadic arrays. The function is exposed to SQL users through the PostgreSQL function interface.
 

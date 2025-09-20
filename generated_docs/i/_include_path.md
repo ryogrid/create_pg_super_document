@@ -8,7 +8,13 @@ The  structure implements a linked list data structure used in the ECPG (Embedde
 
 ## Definition
 
-
+```c
+struct _include_path
+{
+	char	   *path;
+	struct _include_path *next;
+};
+```
 ## Detailed Description
  is a self-referential structure that forms the foundation of a singly-linked list used by the ECPG preprocessor to maintain a collection of directory paths where header files should be searched during the preprocessing phase. This structure enables the preprocessor to traverse through multiple include directories in a specific order when resolving #include directives, similar to how compilers handle include path resolution.
 

@@ -8,7 +8,10 @@ handle_sigint is a signal handler function that responds to interrupt signals (t
 
 ## Definition
 
-
+```c
+static void
+handle_sigint(SIGNAL_ARGS)
+```
 ## Detailed Description
 handle_sigint is a static signal handler function designed to handle SIGINT (interrupt) signals, typically generated when a user presses Ctrl+C. When invoked, it sets a global flag indicating that a cancel was requested and attempts to cancel any currently running database query using the global cancelConn object.
 

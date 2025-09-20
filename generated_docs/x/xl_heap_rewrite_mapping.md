@@ -8,7 +8,17 @@ A WAL record structure that logs tuple mapping information during heap rewrites 
 
 ## Definition
 
-
+```c
+typedef struct xl_heap_rewrite_mapping
+{
+	TransactionId mapped_xid;	/* xid that might need to see the row */
+	Oid			mapped_db;		/* DbOid or InvalidOid for shared rels */
+	Oid			mapped_rel;		/* Oid of the mapped relation */
+	off_t		offset;			/* How far have we written so far */
+	uint32		num_mappings;	/* Number of in-memory mappings */
+	XLogRecPtr	start_lsn;		/* Insert LSN at begin of rewrite */
+} xl_heap_rewrite_mapping;
+```
 ## Detailed Description
 The xl_heap_rewrite_mapping structure is used in PostgreSQL's logical replication system to maintain tuple mapping information during heap rewrites (such as during ALTER TABLE operations that require table reconstruction). When a table is rewritten, the physical locations of tuples change, but logical replication needs to maintain the mapping between old and new tuple locations to ensure consistency across replicated systems.
 

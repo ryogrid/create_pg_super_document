@@ -8,7 +8,14 @@ RmgrDescData is a structure that defines the interface for resource manager desc
 
 ## Definition
 
-
+```c
+typedef struct RmgrDescData
+{
+	const char *rm_name;
+	void		(*rm_desc) (StringInfo buf, XLogReaderState *record);
+	const char *(*rm_identify) (uint8 info);
+} RmgrDescData;
+```
 ## Detailed Description
 RmgrDescData serves as a descriptor structure for PostgreSQL resource managers in the pg_waldump utility. This structure encapsulates the essential operations needed to interpret and display Write-Ahead Log (WAL) records for different resource managers. Each resource manager in PostgreSQL (such as heap, btree, hash, etc.) has its own RmgrDescData entry that defines how to format and identify its specific WAL record types.
 

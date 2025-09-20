@@ -8,7 +8,11 @@ Converts the internal type modifier representation for the bit data type back in
 
 ## Definition
 
-
+```c
+structure */
+				bitlen,			/* Number of bits in the bit string   */
+				slen;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that handles type modifier output for the  data type. It converts the internal integer type modifier representation back into a string format suitable for display or error messages. This function is the inverse of  - while  converts user input (like "10" from ) into an internal integer,  converts that internal integer back into a displayable string format like "(10)".
 

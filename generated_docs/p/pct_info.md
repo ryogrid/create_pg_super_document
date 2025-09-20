@@ -8,7 +8,15 @@ pct_info is a structure used in PostgreSQL's ordered-set aggregates to handle ar
 
 ## Definition
 
-
+```c
+struct pct_info
+{
+	int64		first_row;		/* first row to sample */
+	int64		second_row;		/* possible second row to sample */
+	double		proportion;		/* interpolation fraction */
+	int			idx;			/* index of this item in original array */
+};
+```
 ## Detailed Description
 The pct_info structure is a support data structure designed specifically for handling arrays of percentiles efficiently. It is used when PostgreSQL needs to compute multiple percentile values from the same sorted dataset, allowing for optimized processing by organizing the required sampling information.
 

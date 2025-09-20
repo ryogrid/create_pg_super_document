@@ -8,7 +8,10 @@ Allocates space for a decoded WAL (Write-Ahead Log) record within a circular dec
 
 ## Definition
 
-
+```c
+static DecodedXLogRecord *
+XLogReadRecordAlloc(XLogReaderState *state, size_t xl_tot_len, bool allow_oversized)
+```
 ## Detailed Description
 This function manages memory allocation for decoded XLog records using a circular buffer strategy. It attempts to allocate space within the existing decode buffer first, and if that fails, can optionally allocate oversized memory outside the buffer. The function implements sophisticated circular buffer logic to efficiently reuse memory space.
 

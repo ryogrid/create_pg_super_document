@@ -8,7 +8,13 @@ Merges a list of incoming arcs into a state by eliminating duplicates and adding
 
 ## Definition
 
-
+```c
+static void
+mergeins(struct nfa *nfa,
+		 struct state *s,
+		 struct arc **arcarray,
+		 int arccount)
+```
 ## Detailed Description
 The  function is an optimized version of  that processes an array of arc pointers rather than individual arcs. It merges incoming arcs from multiple sources into a target state while eliminating duplicates. The function first sorts both the existing incoming arcs of the target state and the provided arc array, then performs a merge operation to add only unique arcs. This approach is more efficient than processing arcs individually when dealing with multiple arc sources, as it avoids creating duplicate arcs that would need to be removed later.
 

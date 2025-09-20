@@ -8,7 +8,17 @@ The  structure represents type cast information in PostgreSQL's pg_dump utility,
 
 ## Definition
 
-
+```c
+typedef struct _castInfo
+{
+	DumpableObject dobj;
+	Oid			castsource;
+	Oid			casttarget;
+	Oid			castfunc;
+	char		castcontext;
+	char		castmethod;
+} CastInfo;
+```
 ## Detailed Description
 The  structure encapsulates all information necessary to define a type cast in PostgreSQL. It identifies the source and target types, the conversion function (if any), the context in which the cast can be applied, and the method used for the conversion. This structure enables pg_dump to preserve user-defined casts during database backup and restoration operations.
 

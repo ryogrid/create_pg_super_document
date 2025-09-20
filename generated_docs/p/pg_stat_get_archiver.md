@@ -8,7 +8,10 @@ This function retrieves comprehensive statistical information about PostgreSQL's
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_get_archiver(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides detailed statistics about PostgreSQL's Write-Ahead Log (WAL) archiver process. It creates and returns a tuple containing seven fields of archiver-related metrics:
 

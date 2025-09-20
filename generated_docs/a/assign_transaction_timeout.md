@@ -8,7 +8,10 @@ A GUC assign hook function that manages the transaction timeout mechanism when t
 
 ## Definition
 
-
+```c
+void
+assign_transaction_timeout(int newval, void *extra)
+```
 ## Detailed Description
 This function serves as a GUC (Grand Unified Configuration) assign hook that is automatically invoked whenever the  parameter is modified. It ensures that transaction timeout behavior is properly managed within active transactions by enabling or disabling the timeout timer based on the new value. When called within an active transaction, it immediately applies the new timeout setting rather than waiting for the next transaction to begin.
 

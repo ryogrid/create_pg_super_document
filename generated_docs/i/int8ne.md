@@ -8,7 +8,10 @@ PostgreSQL function that compares two 64-bit integers and returns true if they a
 
 ## Definition
 
-
+```c
+Datum
+int8ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "not equal" comparison operator (<>) for the PostgreSQL bigint (int8) data type. It takes two 64-bit signed integers as arguments through the PostgreSQL function call interface and performs a simple inequality comparison. The function is part of PostgreSQL's type system infrastructure, providing the underlying implementation for SQL expressions like .
 

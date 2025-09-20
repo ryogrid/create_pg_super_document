@@ -8,7 +8,10 @@ A specialized page masking function for GIN (Generalized Inverted Index) pages t
 
 ## Definition
 
-
+```c
+void
+gin_mask(char *pagedata, BlockNumber blkno)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's Write-Ahead Logging (WAL) consistency checking mechanism specifically designed for GIN index pages. It masks (zeros out or modifies) portions of a GIN page that contain variable data that legitimately differs between the primary and standby servers during consistency verification.
 

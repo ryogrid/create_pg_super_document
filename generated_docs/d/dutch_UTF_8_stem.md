@@ -8,7 +8,11 @@ dutch_UTF_8_stem is the main entry point function for the Dutch Snowball stemmin
 
 ## Definition
 
+```c
+}
 
+extern int dutch_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 The dutch_UTF_8_stem function serves as the primary interface for Dutch stemming operations using UTF-8 character encoding. It implements a structured, multi-phase stemming pipeline:
 

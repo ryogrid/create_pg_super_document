@@ -8,7 +8,10 @@ recompute_limits evaluates LIMIT and OFFSET expressions at node startup or resca
 
 ## Definition
 
-
+```c
+static void
+recompute_limits(LimitState *node)
+```
 ## Detailed Description
 This function is responsible for computing the actual offset and count values from potentially parameterized LIMIT and OFFSET expressions. It is called during node initialization and rescans when parameters may have changed. The function evaluates the expressions in the current expression context, handles NULL values appropriately, validates that the values are non-negative, and resets the node's position tracking state.
 

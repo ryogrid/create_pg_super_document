@@ -8,7 +8,10 @@ Checks if a thesaurus pattern matches at the current lexeme position and returns
 
 ## Definition
 
-
+```c
+static TSLexeme *
+checkMatch(DictThesaurus *d, LexemeInfo *info, uint16 curpos, bool *moreres)
+```
 ## Detailed Description
 The  function is a static helper function within the thesaurus dictionary implementation that determines whether a pattern matches at a specific position in the input. It iterates through potential lexeme variants starting from the provided File: dir,	Node: Top,	This is the top of the INFO tree.
 

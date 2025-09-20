@@ -8,7 +8,10 @@ A static validation function that performs sanity checks on PostgreSQL ArrayType
 
 ## Definition
 
-
+```c
+static void
+sanity_check_array(ArrayType *ta)
+```
 ## Detailed Description
 This function validates that an ArrayType structure meets the requirements for use in tidstore test operations. It performs two critical validation checks:
 

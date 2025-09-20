@@ -8,7 +8,10 @@ setop_retrieve_direct implements the direct (non-hashed) strategy for set operat
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+setop_retrieve_direct(SetOpState *setopstate)
+```
 ## Detailed Description
 This function implements the core logic for set operations when inputs are sorted and can be processed directly without hashing. It operates by:
 

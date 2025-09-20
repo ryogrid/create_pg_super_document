@@ -8,7 +8,10 @@ A support routine for MatchText that compares two multibyte character strings as
 
 ## Definition
 
-
+```c
+static inline int
+wchareq(const char *p1, const char *p2)
+```
 ## Detailed Description
 The wchareq function performs byte-by-byte comparison of multibyte character sequences in PostgreSQL's LIKE pattern matching. It's designed to handle Unicode and other multibyte character encodings correctly by:
 

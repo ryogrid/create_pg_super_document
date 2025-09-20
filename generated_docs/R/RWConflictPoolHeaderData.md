@@ -8,7 +8,13 @@ A structure that represents the header of a pool for managing read-write conflic
 
 ## Definition
 
-
+```c
+typedef struct RWConflictPoolHeaderData
+{
+	dlist_head	availableList;
+	RWConflict	element;
+}			RWConflictPoolHeaderData;
+```
 ## Detailed Description
 RWConflictPoolHeaderData serves as the header structure for a memory pool that manages RWConflict objects in PostgreSQL's serializable snapshot isolation system. This structure is part of the predicate locking mechanism that detects and prevents serialization anomalies. The pool header maintains a doubly-linked list of available conflict objects that can be allocated when new read-write conflicts need to be tracked between transactions. This pooling approach improves performance by reusing conflict objects rather than constantly allocating and deallocating them.
 

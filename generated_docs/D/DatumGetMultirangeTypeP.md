@@ -8,7 +8,10 @@ DatumGetMultirangeTypeP is an inline function that converts a PostgreSQL Datum v
 
 ## Definition
 
-
+```c
+static inline MultirangeType *
+DatumGetMultirangeTypeP(Datum X)
+```
 ## Detailed Description
 This function serves as a type conversion utility for PostgreSQL's multirange data types. It takes a Datum (PostgreSQL's universal data type container) and safely converts it to a MultirangeType pointer. The function automatically handles TOAST (The Oversized-Attribute Storage Technique) decompression if the data was stored in compressed or out-of-line format. This is essential for working with potentially large multirange values that may have been stored using PostgreSQL's TOAST mechanism.
 

@@ -8,7 +8,10 @@ Checks whether a given node in a doubly-linked counted list has a preceding node
 
 ## Definition
 
-
+```c
+static inline bool
+dclist_has_prev(const dclist_head *head, const dlist_node *node)
+```
 ## Detailed Description
 The `dclist_has_prev` function determines whether a specific node in a doubly-linked counted list has a predecessor. This function is part of PostgreSQL's counted list infrastructure, which maintains both doubly-linked list functionality and a count of elements. The function performs validation checks to ensure the node belongs to the specified list and that the list is not empty before delegating to the underlying dlist implementation.
 

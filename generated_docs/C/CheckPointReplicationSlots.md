@@ -8,7 +8,9 @@ Flushes all replication slots to disk during checkpoint operations, with special
 
 ## Definition
 
-
+```c
+struct dirent *replication_de;
+```
 ## Detailed Description
 This function performs a checkpoint operation for all replication slots by flushing their state to persistent storage. It serves two main purposes:
 1. Regular checkpoint flushing of dirty replication slots to ensure data durability

@@ -8,7 +8,10 @@ Converts a text search dictionary name string to its corresponding dictionary OI
 
 ## Definition
 
-
+```c
+Datum
+regdictionaryin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's regtype system for text search dictionaries. It parses input strings and converts them to dictionary OIDs. The function handles several input formats and scenarios:
 

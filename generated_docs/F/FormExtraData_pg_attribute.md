@@ -8,7 +8,13 @@ FormExtraData_pg_attribute is a supplementary structure that contains additional
 
 ## Definition
 
-
+```c
+typedef struct FormExtraData_pg_attribute
+{
+	NullableDatum attstattarget;
+	NullableDatum attoptions;
+} FormExtraData_pg_attribute;
+```
 ## Detailed Description
 This structure is designed to work in conjunction with FormData_pg_attribute to provide a complete representation of column attribute information in PostgreSQL's DDL (Data Definition Language) operations. The structure contains fields that cannot be included in the main FormData_pg_attribute structure because they are variable-length fields that are excluded by the CATALOG_VARLEN mechanism.
 

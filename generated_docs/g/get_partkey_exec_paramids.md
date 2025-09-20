@@ -8,7 +8,10 @@ Loops through given pruning steps and finds out which exec Params are used, retu
 
 ## Definition
 
-
+```c
+static Bitmapset *
+get_partkey_exec_paramids(List *steps)
+```
 ## Detailed Description
 This function analyzes a list of partition pruning steps to identify all execution parameters (PARAM_EXEC) that are referenced in the pruning expressions. It iterates through each PartitionPruneStepOp in the steps list and examines the expressions associated with each step. For non-constant expressions, it calls pull_exec_paramids to extract parameter IDs and accumulates them using bms_join.
 

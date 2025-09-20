@@ -8,7 +8,11 @@ CheckSASLAuth performs a complete SASL (Simple Authentication and Security Layer
 
 ## Definition
 
-
+```c
+int
+CheckSASLAuth(const pg_be_sasl_mech *mech, Port *port, char *shadow_pass,
+			  const char **logdetail)
+```
 ## Detailed Description
 CheckSASLAuth orchestrates a complete SASL authentication session between PostgreSQL server and client. The function implements the server-side SASL protocol handling, which includes:
 

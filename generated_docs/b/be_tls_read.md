@@ -8,7 +8,10 @@ Reads encrypted data from an SSL/TLS connection, handling various SSL error cond
 
 ## Definition
 
-
+```c
+ssize_t
+be_tls_read(Port *port, void *ptr, size_t len, int *waitfor)
+```
 ## Detailed Description
 The  function provides a secure wrapper around OpenSSL's SSL_read() function for reading data from an established SSL/TLS connection. It handles the complexity of SSL error conditions and translates them into appropriate system-level errno values and wait conditions for PostgreSQL's I/O infrastructure.
 

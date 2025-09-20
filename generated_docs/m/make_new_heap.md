@@ -8,7 +8,9 @@ Creates a transient table with the same logical structure as an existing table b
 
 ## Definition
 
-
+```c
+struct VacuumCutoffs cutoffs;
+```
 ## Detailed Description
 The `make_new_heap` function creates a temporary table that duplicates the logical structure (columns, data types) of an existing table while allowing different physical storage characteristics. This is a critical component of PostgreSQL's table reorganization operations.
 

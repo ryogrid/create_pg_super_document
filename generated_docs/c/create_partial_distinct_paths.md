@@ -8,7 +8,12 @@ Creates partial distinct paths for parallel execution by processing input relati
 
 ## Definition
 
-
+```c
+static void
+create_partial_distinct_paths(PlannerInfo *root, RelOptInfo *input_rel,
+							  RelOptInfo *final_distinct_rel,
+							  PathTarget *target)
+```
 ## Detailed Description
 This function is responsible for creating partial execution paths for DISTINCT operations in parallel query execution. It processes the input relation's partial paths and generates appropriate paths for the partial distinct phase of query execution. The function handles both sort-based and hash-based approaches to eliminate duplicates within each parallel worker, then creates Gather paths to combine results from multiple workers. The final step involves calling create_final_distinct_paths to handle any remaining duplicates that may arise from combining parallel worker results.
 

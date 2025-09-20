@@ -8,7 +8,12 @@ A specialized function that prepares archive data for parallel restore by calcul
 
 ## Definition
 
-
+```c
+struct the length of each item as the delta to the start offset of
+	 * the next data item.
+	 */
+	for (te = AH->toc->next;
+```
 ## Detailed Description
 _PrepParallelRestore plays a crucial role in enabling efficient parallel restore operations in PostgreSQL's custom dump format. The function calculates the dataLength field for TABLE DATA and BLOBS TOC entries by analyzing the positions of consecutive data items in the archive.
 

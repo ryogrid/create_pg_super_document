@@ -8,7 +8,10 @@ Main function for receiving and processing a PostgreSQL WAL (Write-Ahead Log) st
 
 ## Definition
 
-
+```c
+bool
+ReceiveXlogStream(PGconn *conn, StreamCtl *stream)
+```
 ## Detailed Description
  is the core function that orchestrates PostgreSQL streaming replication. It establishes and maintains a continuous WAL stream from the primary server, handling the complete lifecycle of replication including server version validation, system identifier verification, timeline history management, and automatic timeline transitions. The function runs in a loop, continuously streaming WAL data until explicitly stopped by a callback or server shutdown. It manages both physical and logical replication scenarios and handles various edge cases like timeline switches and partial WAL records at timeline boundaries.
 

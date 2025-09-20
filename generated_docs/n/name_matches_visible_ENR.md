@@ -8,7 +8,10 @@ Checks whether a given reference name matches a visible Ephemeral Named Relation
 
 ## Definition
 
-
+```c
+bool
+name_matches_visible_ENR(ParseState *pstate, const char *refname)
+```
 ## Detailed Description
 This function serves as a boolean test to determine if a specified relation name corresponds to a visible ENR within the current parsing environment. It acts as a wrapper around `get_visible_ENR_metadata`, returning true if the ENR exists and is accessible in the current query environment, false otherwise. ENRs are temporary named relations that exist only during query execution, commonly used for CTEs (Common Table Expressions) and other temporary constructs.
 

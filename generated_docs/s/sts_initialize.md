@@ -8,7 +8,15 @@ Initializes a SharedTuplestore structure in existing shared memory and returns a
 
 ## Definition
 
-
+```c
+SharedTuplestoreAccessor *
+sts_initialize(SharedTuplestore *sts, int participants,
+			   int my_participant_number,
+			   size_t meta_data_size,
+			   int flags,
+			   SharedFileSet *fileset,
+			   const char *name)
+```
 ## Detailed Description
 The  function sets up a  in pre-allocated shared memory and creates a  for the calling process to interact with it. The function initializes all participant structures, sets up locks, and configures the shared tuple store with the specified parameters.
 

@@ -8,7 +8,11 @@ Deletes a posting tree page from a GIN index by unlinking it from the tree struc
 
 ## Definition
 
-
+```c
+static void
+ginDeletePage(GinVacuumState *gvs, BlockNumber deleteBlkno, BlockNumber leftBlkno,
+			  BlockNumber parentBlkno, OffsetNumber myoff, bool isParentRoot)
+```
 ## Detailed Description
 This static function performs the complete deletion of a posting tree page in a GIN index. It handles the complex process of safely removing a page from the B-tree structure while maintaining consistency and crash recovery. The function requires that the parent page holds an exclusive cleanup lock to guarantee no concurrent insertions occur in the subtree during deletion.
 

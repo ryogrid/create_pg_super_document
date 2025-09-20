@@ -8,7 +8,12 @@ Tests whether an object is present in an ObjectAddressStack (linked list) and if
 
 ## Definition
 
-
+```c
+static bool
+stack_address_present_add_flags(const ObjectAddress *object,
+								int flags,
+								ObjectAddressStack *stack)
+```
 ## Detailed Description
 The  function provides stack-based equivalent functionality to , operating on a linked list structure (ObjectAddressStack) instead of an array. This function is used during dependency traversal to check for object presence while managing flags for complex object relationships.
 

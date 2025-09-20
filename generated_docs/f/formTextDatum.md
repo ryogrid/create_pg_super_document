@@ -8,7 +8,10 @@ A utility function that constructs a PostgreSQL text datum from a character stri
 
 ## Definition
 
-
+```c
+static Datum
+formTextDatum(const char *data, int datalen)
+```
 ## Detailed Description
 This function creates a properly formatted PostgreSQL text datum from raw character data. It implements an optimization by choosing between short and standard varlena header formats based on the data length, which can save storage space for smaller text values. The function handles memory allocation, header setup, and data copying to create a valid PostgreSQL text value that can be stored in the database or used in index operations.
 

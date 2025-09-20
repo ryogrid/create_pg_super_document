@@ -8,7 +8,9 @@ The bbstreamer structure is the core component of PostgreSQL's backup streaming 
 
 ## Definition
 
-
+```c
+typedef struct bbstreamer bbstreamer;
+```
 ## Detailed Description
 The bbstreamer represents a single stage in a processing pipeline for backup data streams. Each tar archive returned by the PostgreSQL server is passed through one or more bbstreamer objects for processing. These objects can perform various operations ranging from simple tasks like writing archives to files (possibly with compression) to complex operations like parsing the byte stream to annotate different parts of the data (tar headers, payload data, trailing padding) or modifying archive contents.
 

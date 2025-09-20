@@ -8,7 +8,10 @@ Determines whether an expression contains any nonstrict functions that could pro
 
 ## Definition
 
-
+```c
+bool
+contain_nonstrict_functions(Node *clause)
+```
 ## Detailed Description
 The  function performs a critical analysis for PostgreSQL's query optimizer by determining whether an expression tree contains any nonstrict functions. A strict function is one that always returns NULL when any of its arguments is NULL, while a nonstrict function can return non-NULL values even with NULL inputs.
 

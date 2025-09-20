@@ -8,7 +8,12 @@ The low-level function that actually records the final transaction state in the 
 
 ## Definition
 
-
+```c
+static void
+TransactionIdSetPageStatusInternal(TransactionId xid, int nsubxids,
+								   TransactionId *subxids, XidStatus status,
+								   XLogRecPtr lsn, int64 pageno)
+```
 ## Detailed Description
 This is the core low-level function responsible for physically updating transaction status bits in the CLOG page. It operates under the assumption that the caller has already acquired appropriate locks, and it focuses solely on the mechanical aspects of updating the commit log data.
 

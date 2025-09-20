@@ -8,7 +8,13 @@ Returns the targetlist entry matching a given (untransformed) node, implementing
 
 ## Definition
 
-
+```c
+struct, eg ORDER BY */
+									 errmsg("%s \"%s\" is ambiguous",
+											ParseExprKindName(exprKind),
+											name),
+									 parser_errposition(pstate, location)));
+```
 ## Detailed Description
 This function supports the old SQL92 ORDER BY interpretation where expressions can be:
 1. **Column names**: Bare identifiers that match output column names in the SELECT list

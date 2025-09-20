@@ -8,7 +8,10 @@ Retrieves the OID of a datatype-specific btree ordering operator associated with
 
 ## Definition
 
-
+```c
+Oid
+get_ordering_op_for_equality_op(Oid opno, bool use_lhs_type)
+```
 ## Detailed Description
 This function performs the inverse operation of get_equality_op_for_ordering_op. Given an equality operator, it finds a compatible ordering operator (specifically a "<" operator) within the same btree operator family. This is primarily used when the system needs to sort data before performing unique-ification operations.
 

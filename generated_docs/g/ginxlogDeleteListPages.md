@@ -8,7 +8,13 @@ A WAL (Write-Ahead Logging) record structure used to log the deletion of multipl
 
 ## Definition
 
-
+```c
+typedef struct ginxlogDeleteListPages
+{
+	GinMetaPageData metadata;
+	int32		ndeleted;
+} ginxlogDeleteListPages;
+```
 ## Detailed Description
 The  structure is used in PostgreSQL's GIN (Generalized Inverted Index) access method to record WAL entries when deleting multiple pages from the pending list during cleanup operations. This structure is part of the crash recovery mechanism that ensures data consistency when the pending list is being compacted or cleared.
 

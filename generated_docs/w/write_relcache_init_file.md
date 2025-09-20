@@ -8,7 +8,10 @@ Writes out a new initialization file containing the current contents of the rela
 
 ## Definition
 
-
+```c
+static void
+write_relcache_init_file(bool shared)
+```
 ## Detailed Description
 This function creates a binary initialization file containing pre-built relation cache entries to optimize backend startup performance. It writes either shared catalog relations or local database relations based on the shared parameter.
 

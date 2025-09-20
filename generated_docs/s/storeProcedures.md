@@ -8,7 +8,11 @@ Stores operator family support procedures (support routines) into the pg_amproc 
 
 ## Definition
 
-
+```c
+static void
+storeProcedures(List *opfamilyname, Oid amoid, Oid opfamilyoid,
+				List *procedures, bool isAdd)
+```
 ## Detailed Description
 This function is responsible for inserting procedure entries into the pg_amproc catalog table when defining or modifying operator families. It processes a list of OpFamilyMember structures representing support procedures and creates corresponding entries in the system catalog. The function also establishes proper dependency relationships between the procedures and related database objects (operator families/classes, types, and the procedures themselves) to ensure referential integrity. When adding procedures to an existing operator family, it performs conflict checking to prevent duplicate entries and provides meaningful error messages.
 

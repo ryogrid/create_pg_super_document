@@ -8,7 +8,21 @@ CreateSubscriberOptions is a struct that holds command-line options and configur
 
 ## Definition
 
-
+```c
+struct CreateSubscriberOptions
+{
+	char	   *config_file;	/* configuration file */
+	char	   *pub_conninfo_str;	/* publisher connection string */
+	char	   *socket_dir;		/* directory for Unix-domain socket, if any */
+	char	   *sub_port;		/* subscriber port number */
+	const char *sub_username;	/* subscriber username */
+	SimpleStringList database_names;	/* list of database names */
+	SimpleStringList pub_names; /* list of publication names */
+	SimpleStringList sub_names; /* list of subscription names */
+	SimpleStringList replslot_names;	/* list of replication slot names */
+	int			recovery_timeout;	/* stop recovery after this time */
+};
+```
 ## Detailed Description
 CreateSubscriberOptions serves as the central configuration structure for the pg_createsubscriber command-line utility. This struct encapsulates all the necessary parameters required to transform a standby PostgreSQL server into a logical replication subscriber. The structure holds connection information, database and publication specifications, and operational parameters that control the conversion process. It is used throughout the pg_createsubscriber.c module to pass configuration data between functions during the subscriber creation workflow.
 

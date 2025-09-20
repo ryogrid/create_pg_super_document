@@ -8,7 +8,10 @@ This inline function initiates a write operation to change-counted statistics by
 
 ## Definition
 
-
+```c
+static inline void
+pgstat_begin_changecount_write(uint32 *cc)
+```
 ## Detailed Description
 This function implements the beginning phase of PostgreSQL's change-count protocol, which is used to protect shared memory statistics from corruption during concurrent reads and writes. The change-count protocol ensures that readers can detect when a write is in progress and retry their reads accordingly.
 

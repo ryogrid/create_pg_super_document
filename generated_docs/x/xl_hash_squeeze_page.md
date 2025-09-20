@@ -8,7 +8,21 @@ The xl_hash_squeeze_page struct represents the WAL record data for hash index sq
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_squeeze_page
+{
+	BlockNumber prevblkno;
+	BlockNumber nextblkno;
+	uint16		ntups;
+	bool		is_prim_bucket_same_wrt;	/* true if the page to which
+											 * tuples are moved is same as
+											 * primary bucket page */
+	bool		is_prev_bucket_same_wrt;	/* true if the page to which
+											 * tuples are moved is the page
+											 * previous to the freed overflow
+											 * page */
+} xl_hash_squeeze_page;
+```
 ## Detailed Description
 This structure contains the necessary information to perform or replay a hash index squeeze page operation during WAL recovery. The squeeze page operation is part of PostgreSQL's hash index management, specifically for reclaiming space when overflow pages are freed. During this operation, tuples from a freed overflow page are moved to other pages in the hash bucket chain, and the freed page is removed from the chain.
 

@@ -8,7 +8,19 @@ A PostgreSQL structure that represents a base backup sink implementing zstd comp
 
 ## Definition
 
+```c
+typedef struct bbsink_zstd
+{
+	/* Common information for all types of sink. */
+	bbsink		base;
 
+	/* Compression options */
+	pg_compress_specification *compress;
+
+	ZSTD_CCtx  *cctx;
+	ZSTD_outBuffer zstd_outBuf;
+} bbsink_zstd;
+```
 ## Detailed Description
 The bbsink_zstd structure is a specialized implementation of the base backup sink system in PostgreSQL that provides zstd compression capabilities. It is part of PostgreSQL's modular backup architecture where different sink types can be chained together to process backup data through various stages (compression, throttling, progress reporting, etc.).
 

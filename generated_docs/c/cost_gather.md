@@ -8,7 +8,12 @@ Calculates the cost estimate for a gather path, which is used in PostgreSQL's pa
 
 ## Definition
 
-
+```c
+void
+cost_gather(GatherPath *path, PlannerInfo *root,
+			RelOptInfo *rel, ParamPathInfo *param_info,
+			double *rows)
+```
 ## Detailed Description
 The  function determines the total cost of executing a gather operation in PostgreSQL's parallel query processing. A gather path represents the coordination point where the main process collects results from parallel worker processes. The function calculates both startup and run costs by considering the underlying subpath costs and adding parallel-specific overhead costs including setup time and per-tuple communication costs.
 

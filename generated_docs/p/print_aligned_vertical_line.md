@@ -8,7 +8,10 @@ Draws horizontal separating lines for aligned vertical table format, including r
 
 ## Definition
 
-
+```c
+struct lineptr *hlineptr,
+			   *dlineptr;
+```
 ## Detailed Description
 This utility function generates horizontal separator lines specifically for vertical (record-oriented) table layouts. It creates lines that separate individual records and includes optional record numbering ("* Record N" or "[ RECORD N ]"). The function handles different border styles and can dynamically adjust line width based on terminal width constraints and expanded header width settings. It supports various header width modes including page-width, exact-width, and column-width formatting.
 

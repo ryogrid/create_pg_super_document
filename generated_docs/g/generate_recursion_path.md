@@ -8,7 +8,9 @@ Generates optimized execution paths for recursive UNION operations, specifically
 
 ## Definition
 
-
+```c
+union(lrel->relids, rrel->relids));
+```
 ## Detailed Description
  is a specialized function that creates execution paths for recursive UNION operations, which are used to implement recursive Common Table Expressions (CTEs) in PostgreSQL. Unlike regular UNION operations that can be processed by combining inputs into an Append node, recursive UNIONs require special handling with a RecursiveUnion execution node.
 

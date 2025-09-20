@@ -8,7 +8,10 @@ Outputs a formatted timestamp comment to an archive handle for PostgreSQL dump f
 
 ## Definition
 
-
+```c
+static void
+dumpTimestamp(ArchiveHandle *AH, const char *msg, time_t tim)
+```
 ## Detailed Description
 This function formats and outputs timestamp information as SQL comments in PostgreSQL dump files. It converts a Unix timestamp to a human-readable format using the standard format "%Y-%m-%d %H:%M:%S %Z" and writes it to the archive handle with a descriptive message. The output appears as SQL comments (lines beginning with --) in the dump file, providing timing information for various dump operations.
 

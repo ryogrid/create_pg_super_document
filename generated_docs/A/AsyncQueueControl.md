@@ -8,7 +8,20 @@ AsyncQueueControl is the main shared memory control structure for PostgreSQL's L
 
 ## Definition
 
-
+```c
+typedef struct AsyncQueueControl
+{
+	QueuePosition head;			/* head points to the next free location */
+	QueuePosition tail;			/* tail must be <= the queue position of every
+								 * listening backend */
+	int64		stopPage;		/* oldest unrecycled page; must be <=
+								 * tail.page */
+	ProcNumber	firstListener;	/* id of first listener, or
+								 * INVALID_PROC_NUMBER */
+	TimestampTz lastQueueFillWarn;	/* time of last queue-full msg */
+	QueueBackendStatus backend[FLEXIBLE_ARRAY_MEMBER];
+} AsyncQueueControl;
+```
 ## Detailed Description
 AsyncQueueControl serves as the central coordination structure for PostgreSQL's asynchronous notification system. It manages the notification queue's head and tail positions, tracks which pages can be recycled, and maintains information about all listening backends. The structure uses a sophisticated locking protocol with NotifyQueueLock and NotifyQueueTailLock to ensure safe concurrent access. The backend array contains status information for each potentially listening backend, indexed by ProcNumber, and active listeners are linked together for efficient scanning.
 

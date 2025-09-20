@@ -8,7 +8,10 @@ Cleans up resources when evaluation of an ordered-set aggregate is complete, ens
 
 ## Definition
 
-
+```c
+static void
+ordered_set_shutdown(Datum arg)
+```
 ## Detailed Description
 The  function serves as a cleanup callback for ordered-set aggregates. It is registered during  and is automatically called by the aggregate framework when a group's processing is complete. The function ensures that any non-memory resources (particularly temporary files used by tuplesort) are properly released.
 

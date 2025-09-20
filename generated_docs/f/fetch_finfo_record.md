@@ -8,7 +8,10 @@ This function fetches and validates the information record for a given external 
 
 ## Definition
 
-
+```c
+const Pg_finfo_record *
+fetch_finfo_record(void *filehandle, const char *funcname)
+```
 ## Detailed Description
 fetch_finfo_record retrieves metadata about a C-language function by:
 

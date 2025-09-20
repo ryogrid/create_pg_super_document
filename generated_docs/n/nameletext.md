@@ -8,7 +8,10 @@ Compares a name data type with a text data type and returns true if the name is 
 
 ## Definition
 
-
+```c
+Datum
+nameletext(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the less-than-or-equal-to comparison operator (<=) between PostgreSQL's  data type and  data type. It leverages the existing  comparison function through the  macro to perform the actual comparison, returning true if the name value is lexicographically less than or equal to the text value.
 

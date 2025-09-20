@@ -8,7 +8,10 @@ Counts the number of coordinate pairs in a delimited string representation of ge
 
 ## Definition
 
-
+```c
+static int
+pair_count(char *s, char delim)
+```
 ## Detailed Description
 The  function analyzes a string containing geometric coordinate data and determines how many coordinate pairs it represents. It supports two different coordinate notation formats: nested format like '((1,2),(3,4))' and flat format like '(1,3,2,4)'. The function counts delimiter characters and uses the mathematical property that valid coordinate pairs require an odd number of delimiters. If an even number of delimiters is found, the function returns -1 to indicate invalid input.
 

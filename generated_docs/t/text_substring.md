@@ -8,7 +8,10 @@ A PostgreSQL internal function that performs substring extraction from text data
 
 ## Definition
 
-
+```c
+static text *
+text_substring(Datum str, int32 start, int32 length, bool length_not_specified)
+```
 ## Detailed Description
 This is the core implementation function that handles substring extraction for PostgreSQL text types. It serves as the backend for both  and  functions. The function is designed to handle various edge cases including:
 

@@ -8,7 +8,10 @@ A comparison function that compares two SplitInterval structures based on their 
 
 ## Definition
 
-
+```c
+static int
+interval_cmp_upper(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 This function serves as a comparator for sorting SplitInterval structures during GiST (Generalized Search Tree) index splitting operations. It extracts the upper bound values from two SplitInterval structures and compares them using PostgreSQL's internal float8 comparison logic.
 

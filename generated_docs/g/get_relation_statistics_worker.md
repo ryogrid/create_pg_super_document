@@ -8,7 +8,12 @@ Internal worker function that loads and creates StatisticExtInfo structures for 
 
 ## Definition
 
-
+```c
+static void
+get_relation_statistics_worker(List **stainfos, RelOptInfo *rel,
+							   Oid statOid, bool inh,
+							   Bitmapset *keys, List *exprs)
+```
 ## Detailed Description
 The  function is responsible for loading extended statistics data for a specific statistics object identified by its OID and inheritance flag. It searches the system cache for the statistics data and creates  structures for each type of extended statistics that has been built and is available.
 

@@ -8,7 +8,10 @@ Validates that all columns currently using a domain type contain no null values,
 
 ## Definition
 
-
+```c
+static void
+validateDomainNotNullConstraint(Oid domainoid)
+```
 ## Detailed Description
 This function verifies that existing data in all tables using the specified domain type does not violate a NOT NULL constraint. It retrieves all relations containing columns of the domain type, scans each relation's tuples, and checks that domain-typed columns contain no null values. If any null values are found, it raises an error with detailed information about the violating column and table. The function uses proper snapshot isolation and maintains appropriate locks during validation.
 

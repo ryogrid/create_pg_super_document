@@ -8,7 +8,10 @@ Removes a cache entry from the memoize cache and frees all memory associated wit
 
 ## Definition
 
-
+```c
+static void
+remove_cache_entry(MemoizeState *mstate, MemoizeEntry *entry)
+```
 ## Detailed Description
 This function is responsible for completely removing a cache entry from the PostgreSQL memoize cache system. It performs a comprehensive cleanup that includes removing the entry from the LRU (Least Recently Used) list, purging all cached tuples associated with the entry, updating memory accounting, removing the entry from the hash table, and freeing all allocated memory structures.
 

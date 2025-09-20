@@ -8,7 +8,10 @@ Allocates memory for hash table data structures in PostgreSQL's simplehash imple
 
 ## Definition
 
-
+```c
+static inline void *
+SH_ALLOCATE(SH_TYPE * type, Size size)
+```
 ## Detailed Description
 This function provides memory allocation services for the simplehash template system with support for different allocation strategies. The implementation varies based on compile-time configuration:
 

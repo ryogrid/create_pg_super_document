@@ -8,7 +8,10 @@ Creates a new PostgreSQL extended statistics object that tracks column correlati
 
 ## Definition
 
-
+```c
+struct the char array of enabled statistic types */
+	ntypes = 0;
+```
 ## Detailed Description
 This function implements the CREATE STATISTICS SQL command, which creates extended statistics objects on table columns and expressions. Extended statistics help the query planner make better estimates for queries involving multiple correlated columns by tracking relationships like functional dependencies, n-distinct counts, and most common value lists across column combinations.
 

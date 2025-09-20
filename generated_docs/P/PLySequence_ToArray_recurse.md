@@ -8,7 +8,12 @@ Recursively traverses Python nested sequences in depth-first order to extract sc
 
 ## Definition
 
-
+```c
+static void
+PLySequence_ToArray_recurse(PyObject *obj, ArrayBuildState **astatep,
+							int *ndims, int *dims, int cur_depth,
+							PLyObToDatum *elm, Oid elmbasetype)
+```
 ## Detailed Description
 This helper function performs the core recursive traversal logic for converting Python nested sequences into PostgreSQL arrays. It operates in depth-first order, validating array structure consistency and collecting scalar elements into an ArrayBuildState. The function enforces that multi-dimensional arrays have matching dimensions at each level and prevents mixing of scalars and sub-arrays at the same depth level.
 

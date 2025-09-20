@@ -8,7 +8,21 @@ TransactionStmtKind is an enumeration type that defines the different kinds of t
 
 ## Definition
 
-
+```c
+typedef struct TransactionStmt
+{
+	NodeTag		type;
+	TransactionStmtKind kind;	/* see above */
+	List	   *options;		/* for BEGIN/START commands */
+	/* for savepoint commands */
+	char	   *savepoint_name pg_node_attr(query_jumble_ignore);
+	/* for two-phase-commit related commands */
+	char	   *gid pg_node_attr(query_jumble_ignore);
+	bool		chain;			/* AND CHAIN option */
+	/* token location, or -1 if unknown */
+	ParseLoc	location pg_node_attr(query_jumble_location);
+} TransactionStmt;
+```
 ## Detailed Description
 TransactionStmtKind categorizes the various transaction control statements supported by PostgreSQL. It covers three main areas of transaction management:
 

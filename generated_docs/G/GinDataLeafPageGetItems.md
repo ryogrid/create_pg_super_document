@@ -8,7 +8,10 @@ Extracts and returns all TIDs (tuple identifiers) from a GIN data leaf page in a
 
 ## Definition
 
-
+```c
+ItemPointer
+GinDataLeafPageGetItems(Page page, int *nitems, ItemPointerData advancePast)
+```
 ## Detailed Description
 This function reads TIDs from a GIN (Generalized Inverted Index) data leaf page and returns them as a single uncompressed array in ascending order. The function handles both compressed and uncompressed page formats automatically.
 

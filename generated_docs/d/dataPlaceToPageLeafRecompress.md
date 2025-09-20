@@ -8,7 +8,10 @@ dataPlaceToPageLeafRecompress reconstructs a GIN data leaf page from a disassemb
 
 ## Definition
 
-
+```c
+static void
+dataPlaceToPageLeafRecompress(Buffer buf, disassembledLeaf *leaf)
+```
 ## Detailed Description
 This function reassembles a GIN data leaf page by applying all modifications stored in a disassembledLeaf structure to the target buffer. It handles the physical reconstruction of the page content by iterating through all segments and copying modified data to the appropriate locations.
 

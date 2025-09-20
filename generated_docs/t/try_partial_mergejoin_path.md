@@ -8,7 +8,19 @@ Evaluates and potentially adds a partial merge join path for parallel query exec
 
 ## Definition
 
-
+```c
+static void
+try_partial_mergejoin_path(PlannerInfo *root,
+						   RelOptInfo *joinrel,
+						   Path *outer_path,
+						   Path *inner_path,
+						   List *pathkeys,
+						   List *mergeclauses,
+						   List *outersortkeys,
+						   List *innersortkeys,
+						   JoinType jointype,
+						   JoinPathExtraData *extra)
+```
 ## Detailed Description
 This function is specialized for creating partial merge join paths that can be executed in parallel. It implements stricter parameterization requirements than regular merge joins, rejecting any inner path that has parameterization since parameterized partial paths are not supported. The function optimizes sort operations by checking if input paths are already appropriately ordered and skipping explicit sorting when possible.
 

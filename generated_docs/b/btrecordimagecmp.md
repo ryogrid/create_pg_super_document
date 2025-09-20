@@ -8,7 +8,10 @@ A PostgreSQL B-tree comparison function for record (composite) types that perfor
 
 ## Definition
 
-
+```c
+structure */
+	tuple.t_len = HeapTupleHeaderGetDatumLength(record);
+```
 ## Detailed Description
 The `btrecordimagecmp` function is a wrapper around `record_image_cmp` that provides the three-way comparison interface required by PostgreSQL's B-tree indexing system. Unlike the boolean comparison functions (lt, gt, le, ge), this function returns an integer indicating the comparison result: negative if the first record is less than the second, zero if they are equal in byte representation, and positive if the first is greater than the second.
 

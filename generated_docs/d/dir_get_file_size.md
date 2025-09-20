@@ -8,7 +8,9 @@ Returns the size of a file within a directory-based WAL writing method implement
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function is a static implementation of the file size retrieval operation for the directory-based WAL writing method. It constructs the full file path by combining the base directory from the DirectoryMethodData structure with the provided pathname, then uses the system's stat() function to retrieve the file size. The function is designed to work within PostgreSQL's WAL (Write-Ahead Logging) backup infrastructure, specifically for pg_basebackup operations that write WAL files directly to a directory.
 

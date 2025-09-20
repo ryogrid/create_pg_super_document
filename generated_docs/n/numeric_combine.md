@@ -8,7 +8,10 @@ A PostgreSQL combine function for numeric aggregates that require both sum (sumX
 
 ## Definition
 
-
+```c
+Datum
+numeric_combine(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the combine operation for numeric aggregates that maintain both sumX and sumX2 values (like variance and standard deviation). It's essential for PostgreSQL's parallel aggregation capabilities, where partial aggregates computed by different worker processes need to be combined into a final result.
 

@@ -8,7 +8,11 @@ Refreshes a materialized view with transactional semantics while allowing concur
 
 ## Definition
 
-
+```c
+static void
+refresh_by_match_merge(Oid matviewOid, Oid tempOid, Oid relowner,
+					   int save_sec_context)
+```
 ## Detailed Description
 This function implements a sophisticated materialized view refresh strategy that allows concurrent reads during the refresh operation. It works by:
 

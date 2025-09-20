@@ -8,7 +8,10 @@ Returns a list of regular files in the PostgreSQL WAL (Write-Ahead Log) director
 
 ## Definition
 
-
+```c
+Datum
+pg_ls_waldir(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL system function that provides SQL access to list files in the PostgreSQL WAL directory. It is a simple wrapper around the  function that specifically targets the WAL directory defined by the  constant.
 

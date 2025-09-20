@@ -8,7 +8,12 @@ The main control routine for deleting database objects and their dependencies, s
 
 ## Definition
 
-
+```c
+struct a list of objects to delete (ie, the given object plus
+	 * everything directly or indirectly dependent on it).
+	 */
+	targetObjects = new_object_addresses();
+```
 ## Detailed Description
 performDeletion is the primary entry point for dropping database objects that participate in PostgreSQL's dependency system. This function orchestrates the complete deletion process in several well-defined phases:
 

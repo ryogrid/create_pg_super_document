@@ -8,7 +8,10 @@ Provides a C-callable interface for setting PostgreSQL configuration variables, 
 
 ## Definition
 
-
+```c
+void
+SetPGVariable(const char *name, List *args, bool is_local)
+```
 ## Detailed Description
 This function offers a convenient C API for setting GUC (Grand Unified Configuration) variables programmatically. It handles the conversion of argument lists to string format and delegates to the underlying set_config_option function. The function supports both session-level and transaction-local variable setting.
 

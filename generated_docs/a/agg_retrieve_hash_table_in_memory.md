@@ -8,7 +8,10 @@ Retrieves groups from the in-memory hash tables during hash aggregation without 
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+agg_retrieve_hash_table_in_memory(AggState *aggstate)
+```
 ## Detailed Description
 This function is responsible for retrieving aggregated groups from in-memory hash tables during the hash aggregation process. It operates in a loop to scan through hash table entries across all grouping sets, finalizing aggregates for each group and projecting the results. The function handles multiple grouping sets by switching between them when one hash table is exhausted.
 

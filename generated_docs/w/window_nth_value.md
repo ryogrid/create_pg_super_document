@@ -8,7 +8,10 @@ Implements the SQL window function NTH_VALUE(), which returns the value of the s
 
 ## Definition
 
-
+```c
+Datum
+window_nth_value(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the backend implementation of PostgreSQL's NTH_VALUE() window function. It retrieves and returns the value of the first argument (the value expression) evaluated on the nth row within the current window frame, where n is specified by the second argument. This function follows the SQL standard specification for window functions.
 

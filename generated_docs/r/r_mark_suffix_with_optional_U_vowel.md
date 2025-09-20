@@ -8,7 +8,11 @@ This function handles the morphological analysis of Turkish suffixes that may op
 
 ## Definition
 
+```c
+}
 
+static int r_mark_suffix_with_optional_U_vowel(struct SN_env * z)
+```
 ## Detailed Description
 The  function is designed to handle Turkish morphological patterns where a high vowel ('U' representing the archiphoneme that can surface as 'ı', 'i', 'u', or 'ü' depending on vowel harmony) may be optionally inserted in certain suffix contexts. This function differs from the consonant insertion functions in that it deals with vowel insertion rather than consonant insertion.
 

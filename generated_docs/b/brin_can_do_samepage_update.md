@@ -8,7 +8,10 @@ Determines whether a BRIN tuple update can be performed on the same page by chec
 
 ## Definition
 
-
+```c
+bool
+brin_can_do_samepage_update(Buffer buffer, Size origsz, Size newsz)
+```
 ## Detailed Description
 This utility function performs a simple but critical space calculation to determine if an in-place tuple update is feasible on the same page. The function implements an optimization check that avoids the overhead of cross-page updates when possible.
 

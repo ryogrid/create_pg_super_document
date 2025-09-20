@@ -8,7 +8,11 @@ Retrieves the OID(s) of standard hash support functions compatible with a given 
 
 ## Definition
 
-
+```c
+bool
+get_op_hash_functions(Oid opno,
+					  RegProcedure *lhs_procno, RegProcedure *rhs_procno)
+```
 ## Detailed Description
 This function searches for hash support functions associated with an operator by examining the pg_amop system catalog. It looks for entries where the operator is registered as the equality operator ("=") in hash operator families. The function can retrieve hash functions for both the left-hand side and right-hand side datatypes of the operator, which is particularly important for cross-type operators where the LHS and RHS types differ.
 

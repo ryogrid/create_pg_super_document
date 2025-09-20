@@ -8,7 +8,10 @@ Writes the SQL declaration of one user-defined event trigger, including its even
 
 ## Definition
 
-
+```c
+static void
+dumpEventTrigger(Archive *fout, const EventTriggerInfo *evtinfo)
+```
 ## Detailed Description
 The  function generates SQL CREATE EVENT TRIGGER statements to restore PostgreSQL event triggers. Event triggers fire on database-wide events (like DDL commands) rather than table-specific events. The function constructs the CREATE EVENT TRIGGER statement with the trigger name, event type, optional WHEN TAG IN clause for filtering specific DDL commands, and the EXECUTE FUNCTION clause specifying the trigger function. If the event trigger is not in the default enabled state ('O'), it appends ALTER EVENT TRIGGER statements to set the correct enabled state (DISABLE, ENABLE, ENABLE ALWAYS, ENABLE REPLICA).
 

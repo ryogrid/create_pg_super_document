@@ -8,7 +8,10 @@ StartAutovacuumWorker creates and manages autovacuum worker processes, handling 
 
 ## Definition
 
-
+```c
+static void
+StartAutovacuumWorker(void)
+```
 ## Detailed Description
 StartAutovacuumWorker is responsible for creating autovacuum worker processes in PostgreSQL. Unlike simple auxiliary processes, autovacuum workers require more complex setup including backend registration, cancel key generation, and slot assignment. The function first checks if the system is in a suitable state to accept autovacuum connections using canAcceptConnections(). 
 

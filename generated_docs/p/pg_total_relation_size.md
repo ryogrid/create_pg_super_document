@@ -8,7 +8,9 @@ This function calculates and returns the total size of a PostgreSQL relation (ta
 
 ## Definition
 
-
+```c
+struct size_pretty_unit *unit;
+```
 ## Detailed Description
 The pg_total_relation_size function is a PostgreSQL built-in function that computes the complete disk space usage of a relation. Unlike pg_relation_size which only returns the size of the main relation fork, this function includes all associated storage:
 - Main relation data

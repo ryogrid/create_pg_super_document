@@ -8,7 +8,10 @@ Internal function that determines if two polygons overlap using bounding box che
 
 ## Definition
 
-
+```c
+static bool
+poly_overlap_internal(POLYGON *polya, POLYGON *polyb)
+```
 ## Detailed Description
 The `poly_overlap_internal` function is a comprehensive algorithm for determining polygon overlap using a multi-stage approach. It first performs a quick bounding box overlap check using `box_ov`, and if the bounding boxes overlap, it proceeds with a more detailed geometric analysis.
 

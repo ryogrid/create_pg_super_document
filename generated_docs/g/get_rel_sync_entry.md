@@ -8,7 +8,10 @@ Finds or creates an entry in the relation schema cache for PostgreSQL logical re
 
 ## Definition
 
-
+```c
+static RelationSyncEntry *
+get_rel_sync_entry(PGOutputData *data, Relation relation)
+```
 ## Detailed Description
 This function manages a hash-based cache of relation synchronization entries for logical replication output. It performs the following key operations:
 

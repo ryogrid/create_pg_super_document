@@ -8,7 +8,10 @@ Detaches from all shared parallel hash join resources and performs global cleanu
 
 ## Definition
 
-
+```c
+void
+ExecHashTableDetach(HashJoinTable hashtable)
+```
 ## Detailed Description
 This function handles the complete detachment of a worker process from all shared parallel hash join resources. It operates at a higher level than ExecHashTableDetachBatch, managing the overall parallel hash join state rather than individual batch resources. The function ensures proper coordination between all participating processes through barrier synchronization.
 

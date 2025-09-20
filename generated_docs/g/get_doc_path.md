@@ -8,7 +8,10 @@ Constructs the full path to PostgreSQL's documentation directory by calculating 
 
 ## Definition
 
-
+```c
+void
+get_doc_path(const char *my_exec_path, char *ret_path)
+```
 ## Detailed Description
 This function determines the absolute path to PostgreSQL's documentation directory based on the location of the current executable. It uses the  function to compute the path by using the compile-time constants DOCDIR and PGBINDIR to establish the relative relationship between the binary directory and the documentation directory.
 

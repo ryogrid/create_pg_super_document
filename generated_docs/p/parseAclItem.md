@@ -8,7 +8,13 @@ The parseAclItem function parses individual ACL (Access Control List) item strin
 
 ## Definition
 
-
+```c
+static bool
+parseAclItem(const char *item, const char *type,
+			 const char *name, const char *subname, int remoteVersion,
+			 PQExpBuffer grantee, PQExpBuffer grantor,
+			 PQExpBuffer privs, PQExpBuffer privswgo)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's ACL parsing system that breaks down individual ACL entries into their constituent parts. Each ACL item has the format "username=privilegecodes/grantor" where privilege codes are single-character abbreviations (like 'r' for SELECT, 'w' for UPDATE, etc.).
 

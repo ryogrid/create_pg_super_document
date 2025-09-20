@@ -8,7 +8,10 @@ Entry point function executed by parallel worker processes during B-tree index c
 
 ## Definition
 
-
+```c
+void
+_bt_parallel_build_main(dsm_segment *seg, shm_toc *toc)
+```
 ## Detailed Description
 This function serves as the main entry point for parallel worker processes during B-tree index builds. It performs the complete workflow for a worker process:
 

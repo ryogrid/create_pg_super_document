@@ -8,7 +8,10 @@ Eliminates forward constraint arcs ($ and AHEAD) by pushing them forward through
 
 ## Definition
 
-
+```c
+struct nfa *nfa,
+		FILE *f)				/* for debug output;
+```
 ## Detailed Description
 This function is the forward counterpart to , handling the elimination of forward-looking constraint arcs. The process works iteratively:
 

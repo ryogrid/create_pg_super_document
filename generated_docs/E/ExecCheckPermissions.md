@@ -8,7 +8,11 @@ Validates access permissions for all relations mentioned in a query, with suppor
 
 ## Definition
 
-
+```c
+bool
+ExecCheckPermissions(List *rangeTable, List *rteperminfos,
+					 bool ereport_on_violation)
+```
 ## Detailed Description
 The  function performs comprehensive access control validation for all relations referenced in a query execution plan. It iterates through the permission information structures (rteperminfos) and validates each relation's access permissions based on the current user's privileges. The function supports both strict error reporting mode and silent validation mode, making it suitable for different execution contexts.
 

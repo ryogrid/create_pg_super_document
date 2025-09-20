@@ -8,7 +8,11 @@ Adds a list of tables to an existing publication with proper permission checks a
 
 ## Definition
 
-
+```c
+static void
+PublicationAddTables(Oid pubid, List *rels, bool if_not_exists,
+					 AlterPublicationStmt *stmt)
+```
 ## Detailed Description
 PublicationAddTables is a static function that handles the addition of multiple tables to a publication. The function performs comprehensive validation and integration:
 

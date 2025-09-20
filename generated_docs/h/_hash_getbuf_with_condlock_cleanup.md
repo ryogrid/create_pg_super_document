@@ -8,7 +8,10 @@ Attempts to get a buffer for cleanup operations by trying to acquire a condition
 
 ## Definition
 
-
+```c
+Buffer
+_hash_getbuf_with_condlock_cleanup(Relation rel, BlockNumber blkno, int flags)
+```
 ## Detailed Description
 This function is designed specifically for cleanup operations that should not block. It attempts to acquire a cleanup lock on a hash index page, which is stronger than regular read/write locks and is typically used during maintenance operations like vacuum or page reorganization. The key characteristic is that it uses conditional locking - if the cleanup lock cannot be acquired immediately, the function gives up and returns InvalidBuffer rather than waiting.
 

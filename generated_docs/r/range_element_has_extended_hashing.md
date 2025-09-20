@@ -8,7 +8,10 @@ Checks whether the element type of a range type supports extended hashing (hash 
 
 ## Definition
 
-
+```c
+static bool
+range_element_has_extended_hashing(TypeCacheEntry *typentry)
+```
 ## Detailed Description
 This function determines if the element type of a range type has extended hashing capabilities. Extended hashing refers to hash functions that support hash partitioning and hash joins in PostgreSQL. The function first ensures that element properties have been cached by checking the TCFLAGS_CHECKED_ELEM_PROPERTIES flag, and if not, it calls cache_range_element_properties() to populate the cache. It then returns whether the TCFLAGS_HAVE_ELEM_EXTENDED_HASHING flag is set.
 

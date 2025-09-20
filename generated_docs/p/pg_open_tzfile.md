@@ -8,7 +8,10 @@ Opens a timezone data file given a timezone name and returns the file descriptor
 
 ## Definition
 
-
+```c
+int
+pg_open_tzfile(const char *name, char *canonname)
+```
 ## Detailed Description
 The pg_open_tzfile function is a utility that opens timezone data files by constructing the full path from the timezone directory and the provided timezone name. This is a simplified version of the backend function with the same name, designed specifically for the initdb process.
 

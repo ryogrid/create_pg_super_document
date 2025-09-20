@@ -8,7 +8,10 @@ A macro that provides namespace concatenation functionality for the Devel::PPPor
 
 ## Definition
 
-
+```c
+OP *
+DPPP_(my_die_sv)(pTHX_ SV *baseex)
+```
 ## Detailed Description
 The  macro is a fundamental building block of the Perl portability layer (ppport.h) that implements a namespacing system. It concatenates the  prefix with a given symbol name using the  macro to create unique symbol names. This mechanism helps prevent naming conflicts between different versions of Perl and various extensions by ensuring that all ppport-provided symbols have a consistent namespace prefix.
 

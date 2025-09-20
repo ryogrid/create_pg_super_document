@@ -8,7 +8,10 @@ Changes the current read/write position within a large object, similar to the PO
 
 ## Definition
 
-
+```c
+int64
+inv_seek(LargeObjectDesc *obj_desc, int64 offset, int whence)
+```
 ## Detailed Description
 The  function provides positioning control within a large object, allowing applications to move the current offset to any valid location. It supports three positioning modes similar to standard file operations: absolute positioning from the beginning (SEEK_SET), relative positioning from the current location (SEEK_CUR), and positioning relative to the end of the object (SEEK_END).
 

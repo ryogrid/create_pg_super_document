@@ -8,7 +8,11 @@ Determines and returns the cost of scanning a table function, calculating costs 
 
 ## Definition
 
-
+```c
+void
+cost_tablefuncscan(Path *path, PlannerInfo *root,
+				   RelOptInfo *baserel, ParamPathInfo *param_info)
+```
 ## Detailed Description
 The `cost_tablefuncscan` function calculates the cost of scanning a table function (such as XMLTABLE, JSON_TABLE, or other table-generating functions) by evaluating the cost of executing the table function expression and adding the overhead of tuple processing and qualification checking. Similar to regular function scans, the table function evaluation cost is treated as startup cost, reflecting that the function is typically executed to completion before returning results. The function accounts for the cost of evaluating table function expressions, applying any restriction clauses, and processing the target list. Like `cost_functionscan`, it does not currently account for tuplestore spill costs, acknowledging that row count estimates for table functions are often imprecise.
 

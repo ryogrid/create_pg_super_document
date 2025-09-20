@@ -8,7 +8,10 @@ An internal function that parses a string representation of a PostgreSQL Log Seq
 
 ## Definition
 
-
+```c
+XLogRecPtr
+pg_lsn_in_internal(const char *str, bool *have_error)
+```
 ## Detailed Description
 This function serves as the core parsing logic for LSN string input validation and conversion. It takes a string in the format "XXXXXXXX/XXXXXXXX" (where X represents hexadecimal digits) and converts it to a 64-bit XLogRecPtr value. The function performs thorough input validation including format checking, length validation, and proper error reporting through an output parameter rather than throwing exceptions.
 

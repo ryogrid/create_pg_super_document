@@ -8,7 +8,17 @@ Handles catalog cache misses by searching the actual catalog tables and creating
 
 ## Definition
 
-
+```c
+static pg_noinline HeapTuple
+SearchCatCacheMiss(CatCache *cache,
+				   int nkeys,
+				   uint32 hashValue,
+				   Index hashIndex,
+				   Datum v1,
+				   Datum v2,
+				   Datum v3,
+				   Datum v4)
+```
 ## Detailed Description
 SearchCatCacheMiss is called when SearchCatCacheInternal fails to find a tuple in the cache. It performs the actual database search by opening the catalog relation and scanning it with the provided key values. If a matching tuple is found, it creates a new positive cache entry. If no tuple is found, it creates a negative cache entry to remember that the tuple doesn't exist, avoiding future expensive disk searches.
 

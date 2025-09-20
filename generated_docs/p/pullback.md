@@ -8,7 +8,10 @@ Eliminates constraint arcs (^ and BEHIND) by pulling them backward through the N
 
 ## Definition
 
-
+```c
+struct nfa *nfa,
+		 FILE *f)				/* for debug output;
+```
 ## Detailed Description
 This function implements a critical optimization step that eliminates constraint arcs from the NFA by pulling them backward toward the start state. The process works iteratively:
 

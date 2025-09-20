@@ -8,7 +8,13 @@ RelMapping is a simple structure that maps an OID of a catalog to its correspond
 
 ## Definition
 
-
+```c
+typedef struct RelMapping
+{
+	Oid			mapoid;			/* OID of a catalog */
+	RelFileNumber mapfilenumber;	/* its rel file number */
+} RelMapping;
+```
 ## Detailed Description
 RelMapping represents a single mapping entry in the relation mapper system. It establishes the correspondence between a catalog's object identifier (OID) and its physical file number (RelFileNumber) on disk. This mapping is essential for PostgreSQL's ability to locate the physical files that store catalog data, particularly for critical system catalogs that need special handling during bootstrap and recovery operations.
 

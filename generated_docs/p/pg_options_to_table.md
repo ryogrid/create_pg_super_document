@@ -8,7 +8,13 @@ Converts options array to a name/value table format, useful for providing detail
 
 ## Definition
 
-
+```c
+struct ConnectionOption
+{
+	const char *optname;
+	Oid			optcontext;		/* Oid of catalog in which option may appear */
+};
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that takes an array of options and converts them into a tabular format with name-value pairs. This function is primarily designed to support introspection queries and database dumping operations by transforming internal option representations into a user-friendly table format.
 

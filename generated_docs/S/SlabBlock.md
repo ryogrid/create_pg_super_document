@@ -8,7 +8,17 @@ SlabBlock represents a single block of memory within a SlabContext, containing m
 
 ## Definition
 
-
+```c
+typedef struct SlabBlock
+{
+	SlabContext *slab;			/* owning context */
+	int32		nfree;			/* number of chunks on free + unused chunks */
+	int32		nunused;		/* number of unused chunks */
+	MemoryChunk *freehead;		/* pointer to the first free chunk */
+	MemoryChunk *unused;		/* pointer to the next unused chunk */
+	dlist_node	node;			/* doubly-linked list for blocklist[] */
+} SlabBlock;
+```
 ## Detailed Description
 SlabBlock is the fundamental unit of memory organization within the slab allocator. Each block contains a fixed number of equally-sized chunks that can be allocated to satisfy memory requests. The block maintains separate tracking for unused chunks (never allocated) and freed chunks (previously allocated but now available for reuse). This dual tracking mechanism allows the allocator to efficiently manage memory lifecycle and implement optimal allocation strategies.
 

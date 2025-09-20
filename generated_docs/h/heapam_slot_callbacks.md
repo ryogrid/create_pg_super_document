@@ -8,7 +8,10 @@ Returns the tuple table slot operations structure for heap access method relatio
 
 ## Definition
 
-
+```c
+static const TupleTableSlotOps *
+heapam_slot_callbacks(Relation relation)
+```
 ## Detailed Description
 This function is part of PostgreSQL's table access method (TAM) infrastructure. It serves as a callback function within the heap access method handler to return the appropriate tuple table slot operations for heap relations. The function returns a pointer to , which contains the set of operations optimized for heap tuples that reside in shared buffer pages. This is a key component of the pluggable storage engine architecture, allowing different storage formats to provide their own slot operation implementations while maintaining a consistent interface.
 

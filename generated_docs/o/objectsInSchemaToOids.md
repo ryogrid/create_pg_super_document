@@ -8,7 +8,10 @@ Finds all objects of a specified type within given schemas and returns a list of
 
 ## Definition
 
-
+```c
+static List *
+objectsInSchemaToOids(ObjectType objtype, List *nspnames)
+```
 ## Detailed Description
 This function iterates through a list of schema names and collects all objects of a specified type from those schemas. It performs USAGE privilege checks on each schema via LookupExplicitNamespace but does not check privileges on the individual objects found. The function handles different object types including tables (regular tables, views, materialized views, foreign tables, partitioned tables), sequences, and callable objects (functions, procedures, routines). For relation-based objects, it uses getRelationsInNamespace to efficiently retrieve objects by relation kind. For functions and procedures, it performs a catalog scan on pg_proc with appropriate filtering based on the prokind attribute.
 

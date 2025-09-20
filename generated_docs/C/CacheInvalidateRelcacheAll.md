@@ -8,7 +8,10 @@ Registers invalidation of the entire relcache at the end of the current command,
 
 ## Definition
 
-
+```c
+void
+CacheInvalidateRelcacheAll(void)
+```
 ## Detailed Description
 CacheInvalidateRelcacheAll invalidates the entire relation cache (relcache) for all relations in the current database. This is a heavyweight operation used in situations where changes may affect a large number of tables and it's more efficient to invalidate everything rather than try to identify and invalidate individual relations. The primary use case is with publication operations, where changes to publications may affect the caching behavior of many tables.
 

@@ -8,7 +8,10 @@ Builds a SpecialJoinInfo structure for the current outer join, determining order
 
 ## Definition
 
-
+```c
+union(clause_relids, inner_join_rels),
+									right_rels);
+```
 ## Detailed Description
 The  function creates and initializes a SpecialJoinInfo structure that captures essential metadata about an outer join operation. This function is critical for the PostgreSQL optimizer's ability to understand join ordering constraints and determine which joins can be safely reordered or commuted.
 

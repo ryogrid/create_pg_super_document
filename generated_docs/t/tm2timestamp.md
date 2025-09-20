@@ -8,7 +8,10 @@ Converts a POSIX time structure (struct pg_tm) to a PostgreSQL timestamp data ty
 
 ## Definition
 
-
+```c
+int
+tm2timestamp(struct pg_tm *tm, fsec_t fsec, int *tzp, Timestamp *result)
+```
 ## Detailed Description
 The  function converts human-readable time components stored in a  structure into PostgreSQL's internal timestamp representation. The conversion process includes:
 

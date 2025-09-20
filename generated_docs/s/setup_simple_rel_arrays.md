@@ -8,7 +8,10 @@ Initializes and prepares the arrays used by the PostgreSQL query planner for qui
 
 ## Definition
 
-
+```c
+void
+setup_simple_rel_arrays(PlannerInfo *root)
+```
 ## Detailed Description
 This function sets up three critical arrays within the PlannerInfo structure that enable efficient access to relation information during query planning:
 

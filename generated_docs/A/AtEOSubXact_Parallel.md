@@ -8,7 +8,10 @@ Performs end-of-subtransaction cleanup for parallel contexts by destroying any p
 
 ## Definition
 
-
+```c
+void
+AtEOSubXact_Parallel(bool isCommit, SubTransactionId mySubId)
+```
 ## Detailed Description
 This function is called during subtransaction cleanup (both commit and abort) to properly manage parallel contexts that were created within the subtransaction being ended. It walks through the global list of parallel contexts (pcxt_list) and destroys any contexts whose subtransaction ID matches the current subtransaction.
 

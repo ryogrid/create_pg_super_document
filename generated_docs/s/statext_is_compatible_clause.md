@@ -8,7 +8,11 @@ Wrapper function that determines if a clause is compatible with MCV lists by han
 
 ## Definition
 
-
+```c
+static bool
+statext_is_compatible_clause(PlannerInfo *root, Node *clause, Index relid,
+							 Bitmapset **attnums, List **exprs)
+```
 ## Detailed Description
 This function serves as the public interface for clause compatibility checking with extended statistics MCV lists. It handles RestrictInfo superstructure that wraps actual clauses and performs essential security checks. The function first handles special cases like bare BoolExpr AND clauses, then validates that clauses reference only the target relation and are not pseudoconstants. It delegates the core compatibility analysis to statext_is_compatible_clause_internal and performs additional permission checks when non-leakproof operators are involved to ensure users cannot access data they lack permissions for through statistics inference.
 

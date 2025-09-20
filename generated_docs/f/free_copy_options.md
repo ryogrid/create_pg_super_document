@@ -8,7 +8,10 @@ Frees memory allocated for a copy_options structure and its dynamically allocate
 
 ## Definition
 
-
+```c
+static void
+free_copy_options(struct copy_options *ptr)
+```
 ## Detailed Description
 This function performs cleanup by freeing all dynamically allocated memory within a copy_options structure. It safely handles NULL pointers and frees the individual string members (before_tofrom, after_tofrom, file) before freeing the structure itself. This function is essential for preventing memory leaks in psql's \copy command implementation.
 

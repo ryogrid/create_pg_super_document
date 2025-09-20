@@ -8,7 +8,10 @@ ResetTempTableNamespace provides a simple interface to remove all temporary tabl
 
 ## Definition
 
-
+```c
+void
+ResetTempTableNamespace(void)
+```
 ## Detailed Description
 This function serves as a clean, public interface for removing all temporary relations from the current backend's temporary namespace. It acts as a lightweight wrapper around RemoveTempRelations, providing a simple way to clear temporary objects without requiring knowledge of the internal namespace management details.
 

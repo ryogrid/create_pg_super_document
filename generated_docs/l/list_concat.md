@@ -8,7 +8,10 @@ The  function concatenates two lists by appending all elements of the second lis
 
 ## Definition
 
-
+```c
+List *
+list_concat(List *list1, const List *list2)
+```
 ## Detailed Description
 This function performs an efficient concatenation of two lists by destructively modifying the first list to include all elements from the second list. The operation is equivalent to calling  for each element of list2 in order, but is more efficient as it performs the concatenation in a single operation using . 
 

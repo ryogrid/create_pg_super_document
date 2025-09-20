@@ -8,7 +8,10 @@ Converts text search configuration names to their corresponding OID, serving as 
 
 ## Definition
 
-
+```c
+Datum
+regconfigin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is PostgreSQL's input function for the regconfig data type, which represents text search configuration identifiers. The function accepts several input formats:
 

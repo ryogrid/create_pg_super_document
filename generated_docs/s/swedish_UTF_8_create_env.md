@@ -8,7 +8,11 @@ Creates a new Snowball stemming environment specifically configured for Swedish 
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * swedish_UTF_8_create_env(void)
+```
 ## Detailed Description
 This function is a wrapper around the generic SN_create_env function that creates a Snowball stemming environment tailored for Swedish language text processing in UTF-8 encoding. It initializes the environment with specific parameters suitable for Swedish stemming algorithms, including the appropriate string and integer variable counts needed by the Swedish stemming rules.
 

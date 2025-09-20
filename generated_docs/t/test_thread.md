@@ -8,7 +8,11 @@ The test_thread function is a thread worker function used in ECPG (Embedded SQL 
 
 ## Definition
 
+```c
+}
 
+void *test_thread(void *arg)
+```
 ## Detailed Description
 The test_thread function serves as a worker thread in PostgreSQL's ECPG threading test suite. Each thread creates its own database connection with a unique name, performs a series of database insert operations in a transaction, and then commits and disconnects. This function is designed to test the thread-safety of ECPG's embedded SQL functionality by allowing multiple threads to simultaneously perform database operations.
 

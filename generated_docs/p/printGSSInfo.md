@@ -8,7 +8,10 @@ Displays information about GSSAPI encryption status if the current database conn
 
 ## Definition
 
-
+```c
+static void
+printGSSInfo(void)
+```
 ## Detailed Description
 The  function provides users with information about GSSAPI (Generic Security Services Application Program Interface) encryption on their database connection. GSSAPI encryption provides an alternative to SSL/TLS for securing database communications, often used in enterprise environments with Kerberos authentication.
 

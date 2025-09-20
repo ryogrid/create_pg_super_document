@@ -8,7 +8,11 @@ Initializes a new colormap structure for regular expression compilation, setting
 
 ## Definition
 
-
+```c
+static void
+initcm(struct vars *v,
+	   struct colormap *cm)
+```
 ## Detailed Description
 The  function initializes a colormap structure which is used during regular expression compilation to map characters to colors for efficient pattern matching. It sets up two types of color mappings:
 

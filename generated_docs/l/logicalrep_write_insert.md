@@ -8,7 +8,11 @@ This function writes an INSERT message to the logical replication output stream,
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_insert(StringInfo out, TransactionId xid, Relation rel,
+						TupleTableSlot *newslot, bool binary, Bitmapset *columns)
+```
 ## Detailed Description
 The  function serializes an INSERT operation into the logical replication stream format. It creates a message with the  type, followed by optional transaction ID (for streaming transactions), the relation OID, and the actual tuple data. The function marks the tuple data with 'N' (indicating "new tuple") before delegating the actual tuple serialization to .
 

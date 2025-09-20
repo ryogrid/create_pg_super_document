@@ -8,7 +8,10 @@ A PostgreSQL built-in function that converts a numeric value to a formatted text
 
 ## Definition
 
-
+```c
+Datum
+numeric_to_char(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's TO_CHAR functionality for converting numeric values into formatted text strings. It takes a Numeric value and a format pattern, then produces a formatted string representation according to the pattern specifications.
 

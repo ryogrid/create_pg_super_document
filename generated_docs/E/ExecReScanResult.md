@@ -8,7 +8,10 @@ Reinitializes a Result node to start scanning from the beginning, resetting inte
 
 ## Definition
 
-
+```c
+void
+ExecReScanResult(ResultState *node)
+```
 ## Detailed Description
 ExecReScanResult is part of PostgreSQL's executor framework responsible for reinitializing Result plan nodes during query execution. Result nodes are simple plan nodes that typically apply constant qualifications or perform one-time operations. This function resets the node's internal state to prepare for a fresh scan of the data.
 

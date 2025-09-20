@@ -8,7 +8,9 @@ PgBenchExprList is a list management structure that maintains head and tail poin
 
 ## Definition
 
-
+```c
+typedef struct PgBenchExprList PgBenchExprList;
+```
 ## Detailed Description
 PgBenchExprList provides an efficient way to manage linked lists of expressions by maintaining both head and tail pointers. This design pattern allows for O(1) insertion at both the beginning and end of the list, which is important for building argument lists during expression parsing. The structure serves as a container for PgBenchExprLink chains, facilitating the construction and manipulation of expression sequences in pgbench scripts.
 

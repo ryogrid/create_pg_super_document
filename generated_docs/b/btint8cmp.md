@@ -8,7 +8,10 @@ A PostgreSQL B-tree comparison function for 64-bit integer (int8/bigint) data ty
 
 ## Definition
 
-
+```c
+Datum
+btint8cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the standard three-way comparison for 64-bit signed integers in PostgreSQL B-tree indexes. It takes two int64 arguments and returns an integer indicating their relative ordering: positive if the first argument is greater, zero if equal, or negative if the first is less than the second. This comparison function is essential for B-tree index operations on bigint columns.
 

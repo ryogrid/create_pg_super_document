@@ -8,7 +8,10 @@ Returns ResultRelInfo structures for all ancestor relations of a given leaf part
 
 ## Definition
 
-
+```c
+List *
+ExecGetAncestorResultRels(EState *estate, ResultRelInfo *resultRelInfo)
+```
 ## Detailed Description
 ExecGetAncestorResultRels builds and caches a list of ResultRelInfo structures representing the complete ancestry chain of a partition relation. It uses get_partition_ancestors to obtain the OID list of ancestor relations, then creates corresponding ResultRelInfo structures for each ancestor up to (but not including) the root relation mentioned in the query. The root relation is added separately using the existing ri_RootResultRelInfo. This functionality is essential for operations like foreign key constraint checking that must propagate across partition boundaries.
 

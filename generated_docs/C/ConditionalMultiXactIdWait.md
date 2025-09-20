@@ -8,7 +8,11 @@ ConditionalMultiXactIdWait provides a non-blocking interface to conditionally wa
 
 ## Definition
 
-
+```c
+static bool
+ConditionalMultiXactIdWait(MultiXactId multi, MultiXactStatus status,
+						   uint16 infomask, Relation rel, int *remaining)
+```
 ## Detailed Description
 This function serves as a wrapper around Do_MultiXactIdWait with non-blocking behavior enabled. Unlike MultiXactIdWait, it will not block if conflicting transactions are still active. Instead, it returns false to indicate that some transactions might still be running and the operation could not proceed immediately.
 

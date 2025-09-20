@@ -8,7 +8,13 @@ Determines which row of a specified table is currently being scanned by a named 
 
 ## Definition
 
-
+```c
+bool
+execCurrentOf(CurrentOfExpr *cexpr,
+			  ExprContext *econtext,
+			  Oid table_oid,
+			  ItemPointer current_tid)
+```
 ## Detailed Description
 The execCurrentOf function implements the core logic for PostgreSQL's "WHERE CURRENT OF cursor" functionality, which allows UPDATE and DELETE statements to target the row currently positioned by a cursor. The function uses two different strategies depending on whether the cursor query uses FOR UPDATE/SHARE row locking or not:
 

@@ -8,7 +8,10 @@ CheckDataVersion validates that the PostgreSQL data directory version is compati
 
 ## Definition
 
-
+```c
+static void
+CheckDataVersion(void)
+```
 ## Detailed Description
 This function performs a critical safety check by reading and verifying the PostgreSQL major version stored in the PG_VERSION file within the data directory. The primary purpose is to prevent the pg_resetwal utility from operating on a data directory that belongs to a different major PostgreSQL version, which could lead to serious corruption.
 

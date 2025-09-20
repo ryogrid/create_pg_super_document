@@ -8,7 +8,10 @@ BumpGetChunkSpace is a stub function in the Bump memory allocator that deliberat
 
 ## Definition
 
-
+```c
+Size
+BumpGetChunkSpace(void *pointer)
+```
 ## Detailed Description
 This function is part of the MemoryContext interface but is intentionally unimplemented in the Bump allocator. The Bump allocator is designed as a simple, fast allocator that only supports allocation and reset operations, but does not track individual chunk sizes or provide chunk introspection capabilities. When called, it immediately raises an ERROR with the message that "GetMemoryChunkSpace is not supported by the bump memory allocator".
 

@@ -8,7 +8,12 @@ Estimates the selectivity of RowCompareExpr nodes by focusing on the first (high
 
 ## Definition
 
-
+```c
+Selectivity
+rowcomparesel(PlannerInfo *root,
+			  RowCompareExpr *clause,
+			  int varRelid, JoinType jointype, SpecialJoinInfo *sjinfo)
+```
 ## Detailed Description
 This function provides selectivity estimation for row comparison expressions (e.g., ). The implementation uses a simplified approach that considers only the leading columns of the row comparison, making it equivalent to an ordinary OpExpr evaluation. While this approach could theoretically be refined by considering additional columns, the current implementation acknowledges that significant improvements would require multi-column statistics that are typically not available.
 

@@ -8,7 +8,28 @@ SubOpts is a structure that holds a bitmap representing user-provided CREATE/ALT
 
 ## Definition
 
-
+```c
+typedef struct SubOpts
+{
+	bits32		specified_opts;
+	char	   *slot_name;
+	char	   *synchronous_commit;
+	bool		connect;
+	bool		enabled;
+	bool		create_slot;
+	bool		copy_data;
+	bool		refresh;
+	bool		binary;
+	char		streaming;
+	bool		twophase;
+	bool		disableonerr;
+	bool		passwordrequired;
+	bool		runasowner;
+	bool		failover;
+	char	   *origin;
+	XLogRecPtr	lsn;
+} SubOpts;
+```
 ## Detailed Description
 The SubOpts structure serves as a comprehensive container for subscription configuration options in PostgreSQL's logical replication framework. It maintains both a bitmap () to track which options were explicitly provided by the user and the actual values for each configurable parameter. This design allows the system to distinguish between explicitly set options and those using default values, which is crucial for proper subscription management and ALTER SUBSCRIPTION operations.
 

@@ -8,7 +8,10 @@ Checks whether the second box is contained within the first box or lies on its b
 
 ## Definition
 
-
+```c
+static bool
+box_contain_box(BOX *contains_box, BOX *contained_box)
+```
 ## Detailed Description
 This function determines if one box (contained_box) is completely contained within another box (contains_box) or touches its border. The containment check is performed by comparing the coordinates of both boxes using floating-point comparison functions. A box is considered contained if all its boundary coordinates fall within or on the boundary of the containing box.
 

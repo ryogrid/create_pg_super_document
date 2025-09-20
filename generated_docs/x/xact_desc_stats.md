@@ -8,7 +8,11 @@ A static utility function that formats dropped statistics information from WAL t
 
 ## Definition
 
-
+```c
+static void
+xact_desc_stats(StringInfo buf, const char *label,
+				int ndropped, xl_xact_stats_item *dropped_stats)
+```
 ## Detailed Description
 This function appends formatted information about dropped statistics to a StringInfo buffer. It iterates through an array of dropped statistics items and formats each one with its kind, database OID, and object OID. The function is used internally by transaction description functions to provide detailed information about statistics that were dropped during transaction operations like commit, abort, or prepare.
 

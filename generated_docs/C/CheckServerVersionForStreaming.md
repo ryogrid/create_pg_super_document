@@ -8,7 +8,10 @@ Validates that the PostgreSQL server version is compatible with the streaming re
 
 ## Definition
 
-
+```c
+bool
+CheckServerVersionForStreaming(PGconn *conn)
+```
 ## Detailed Description
 The  function performs version compatibility checks to ensure that the connected PostgreSQL server supports the streaming replication protocol used by the client tools. It enforces both minimum and maximum version constraints: the server must be at least version 9.3 (where the streaming replication message format was standardized) and cannot be newer than the client version (to avoid protocol incompatibilities). If the version check fails, appropriate error messages are logged and the function returns false to prevent streaming attempts that would fail.
 

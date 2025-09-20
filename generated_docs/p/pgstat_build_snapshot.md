@@ -8,7 +8,10 @@ Builds a comprehensive snapshot of all PostgreSQL statistics by copying variable
 
 ## Definition
 
-
+```c
+static void
+pgstat_build_snapshot(void)
+```
 ## Detailed Description
 This function creates a complete snapshot of the PostgreSQL statistics system by iterating through all variable statistics stored in shared memory and building snapshots for all fixed-numbered statistics kinds. It operates only when snapshot consistency mode is required and avoids rebuilding if a snapshot already exists.
 

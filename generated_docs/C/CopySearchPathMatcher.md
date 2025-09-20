@@ -8,7 +8,10 @@ Creates a deep copy of an existing SearchPathMatcher structure, allocating the r
 
 ## Definition
 
-
+```c
+SearchPathMatcher *
+CopySearchPathMatcher(SearchPathMatcher *path)
+```
 ## Detailed Description
 This function performs a deep copy of a SearchPathMatcher structure, creating a new instance with identical configuration but independent memory allocation. It copies all fields including the schema list, catalog/temp namespace flags, and generation number. The function is essential for maintaining separate copies of search path configurations that can be modified independently without affecting the original.
 

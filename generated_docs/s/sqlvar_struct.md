@@ -8,7 +8,16 @@ The  represents a single variable descriptor in PostgreSQL's ECPG native SQLDA, 
 
 ## Definition
 
-
+```c
+struct sqlvar_struct
+{
+	short		sqltype;
+	short		sqllen;
+	char	   *sqldata;
+	short	   *sqlind;
+	struct sqlname sqlname;
+};
+```
 ## Detailed Description
 The  is a core component of PostgreSQL's ECPG native SQLDA (SQL Descriptor Area) implementation. Each instance describes a single database column or SQL variable, providing complete metadata including data type, length, actual data pointer, null indicator, and name information. This structure enables dynamic SQL operations where the structure of result sets or parameter lists is not known at compile time.
 

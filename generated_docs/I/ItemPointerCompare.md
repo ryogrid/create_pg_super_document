@@ -8,7 +8,10 @@ ItemPointerCompare is a generic comparison function that provides btree-style or
 
 ## Definition
 
-
+```c
+int32
+ItemPointerCompare(ItemPointer arg1, ItemPointer arg2)
+```
 ## Detailed Description
 This function implements a lexicographic comparison of ItemPointer structures, first comparing block numbers and then offset numbers within blocks. The comparison follows standard btree ordering semantics, making it suitable for use in sorting operations, btree index operations, and general ordering requirements. The function uses "NoCheck" variants of accessor functions to handle potentially invalid ItemPointers (such as user-supplied TIDs) without triggering assertions.
 

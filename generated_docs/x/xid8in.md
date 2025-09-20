@@ -8,7 +8,10 @@ Parses a string representation of a transaction ID and converts it to a FullTran
 
 ## Definition
 
-
+```c
+Datum
+xid8in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is PostgreSQL's input conversion function for the XID8 data type. It takes a string representation of a transaction ID and converts it into the internal FullTransactionId representation. This function is part of PostgreSQL's type system infrastructure and is automatically called when converting string literals or text values to the XID8 type.
 

@@ -8,7 +8,10 @@ Returns the size of the free (allocatable) space on a heap page, reduced by the 
 
 ## Definition
 
-
+```c
+Size
+PageGetHeapFreeSpace(Page page)
+```
 ## Detailed Description
 PageGetHeapFreeSpace is the heap-specific variant of PageGetFreeSpace that includes additional checks to enforce PostgreSQL's MaxHeapTuplesPerPage limit. While it starts by calling PageGetFreeSpace to get the basic free space calculation, it then performs heap-specific validation to ensure that no more than MaxHeapTuplesPerPage line pointers exist on the page.
 

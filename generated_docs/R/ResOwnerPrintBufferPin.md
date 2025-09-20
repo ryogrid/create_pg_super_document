@@ -8,7 +8,10 @@ A ResourceOwner callback function that generates detailed diagnostic messages fo
 
 ## Definition
 
-
+```c
+static char *
+ResOwnerPrintBufferPin(Datum res)
+```
 ## Detailed Description
 ResOwnerPrintBufferPin is a static callback function used by PostgreSQL's ResourceOwner system to generate detailed diagnostic information about buffer pins that remain unreleased during resource cleanup. The function converts the generic Datum parameter to a Buffer identifier and delegates to DebugPrintBufferRefcount to produce comprehensive debugging information about the buffer's reference count and state.
 

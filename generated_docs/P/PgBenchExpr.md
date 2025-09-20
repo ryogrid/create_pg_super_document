@@ -8,7 +8,9 @@ PgBenchExpr is a struct that represents expression nodes in the pgbench expressi
 
 ## Definition
 
-
+```c
+typedef struct PgBenchExpr PgBenchExpr;
+```
 ## Detailed Description
 PgBenchExpr is the core data structure for representing expressions in pgbench scripts. It uses a discriminated union design where the  field determines which member of the union is active. This allows pgbench to handle three types of expressions: constant values (literals), variable references, and function calls. The struct is designed to support recursive expression evaluation, where function calls can contain nested expressions as arguments through the PgBenchExprLink structure.
 

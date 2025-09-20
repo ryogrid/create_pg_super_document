@@ -8,7 +8,10 @@ Implements the psql \set backslash command that manages psql variables by settin
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_set(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 The  function handles the execution of the \set backslash command in psql, which provides variable management functionality. The command operates in two modes: when called without arguments, it lists all currently defined psql variables and their values; when called with arguments, it sets a variable to a specified value.
 

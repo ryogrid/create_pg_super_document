@@ -8,7 +8,19 @@ The plperl_call_data structure manages the runtime context and state information
 
 ## Definition
 
-
+```c
+typedef struct plperl_call_data
+{
+	plperl_proc_desc *prodesc;
+	FunctionCallInfo fcinfo;
+	/* remaining fields are used only in a function returning set: */
+	Tuplestorestate *tuple_store;
+	TupleDesc	ret_tdesc;
+	Oid			cdomain_oid;	/* 0 unless returning domain-over-composite */
+	void	   *cdomain_info;
+	MemoryContext tmp_cxt;
+} plperl_call_data;
+```
 ## Detailed Description
 This structure encapsulates the runtime execution context for a single invocation of a PL/Perl function. It bridges the gap between PostgreSQL's function call infrastructure and the cached procedure information, providing a temporary workspace for function execution.
 

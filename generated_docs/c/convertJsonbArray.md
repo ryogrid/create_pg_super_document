@@ -8,7 +8,12 @@ Converts a JsonbValue array structure into its binary JSONB representation by se
 
 ## Definition
 
-
+```c
+struct the header Jentry and store it in the beginning of the
+	 * variable-length payload.
+	 */
+	containerhead = nElems | JB_FARRAY;
+```
 ## Detailed Description
 The  function is responsible for converting a JsonbValue array into the binary JSONB format. It constructs a JSONB array container by:
 

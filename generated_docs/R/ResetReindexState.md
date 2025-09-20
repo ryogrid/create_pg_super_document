@@ -8,7 +8,10 @@ Clears all global reindexing state during transaction or subtransaction abort, r
 
 ## Definition
 
-
+```c
+void
+ResetReindexState(int nestLevel)
+```
 ## Detailed Description
 ResetReindexState is a public function called during transaction abort scenarios to clean up reindexing state. It compares the provided nest level against the stored reindexingNestLevel to determine if cleanup is needed. When the reindexing nest level is greater than or equal to the abort nest level, it resets all reindexing state including currently reindexed heap/index OIDs, the pending reindexed indexes list, and the nesting level itself. The function is designed to handle subtransaction failures within REINDEX operations without affecting outer-level state.
 

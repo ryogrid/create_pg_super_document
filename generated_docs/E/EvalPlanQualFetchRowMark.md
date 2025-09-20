@@ -8,7 +8,10 @@ EvalPlanQualFetchRowMark fetches the current row value for a non-locked relation
 
 ## Definition
 
-
+```c
+bool
+EvalPlanQualFetchRowMark(EPQState *epqstate, Index rti, TupleTableSlot *slot)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's EPQ (Eval Plan Qual) mechanism that retrieves tuple data for relations that need to be rescanned during concurrent update detection. It handles two main row mark types: ROW_MARK_REFERENCE (which fetches tuples by their ctid) and ROW_MARK_COPY (which uses stored whole-row values). For child relations in inheritance hierarchies, it validates that the current row actually belongs to the expected relation by checking the tableoid. The function includes special handling for foreign tables by delegating to the appropriate FDW (Foreign Data Wrapper) routine. It returns true if a substitution tuple was successfully found and false otherwise.
 

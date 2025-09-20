@@ -8,7 +8,11 @@ RememberAllDependentForRebuilding scans for all objects that depend on a specifi
 
 ## Definition
 
-
+```c
+static void
+RememberAllDependentForRebuilding(AlteredTableInfo *tab, AlterTableType subtype,
+								  Relation rel, AttrNumber attnum, const char *colName)
+```
 ## Detailed Description
 This function performs a comprehensive dependency analysis for a specific column by scanning the pg_depend system catalog. It identifies all objects that reference the column and categorizes them for appropriate handling:
 

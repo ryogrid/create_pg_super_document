@@ -8,7 +8,44 @@ Detects whether a query looks like SELECT ... FROM VALUES() with no need to rena
 
 ## Definition
 
+```c
+structure.  However, DefineView might have modified the tlist by
+	 * injecting new column aliases, or we might have some other column
+	 * aliases forced by a resultDesc.  We can only simplify if the RTE's
+	 * column names match the names that get_target_list() would select.
+	 */
+	if (result)
+	{
+		ListCell   *lcn;
+		int			colno;
 
+		if (list_length(query->targetList) != list_length(result->eref->colnames))
+			return NULL;		/* this probably cannot happen */
+		colno = 0;
+		forboth(lc, query->targetList, lcn, result->eref->colnames)
+		{
+			TargetEntry *tle = (TargetEntry *) lfirst(lc);
+			char	   *cname = strVal(lfirst(lcn));
+			char	   *colname;
+
+			if (tle->resjunk)
+				return NULL;	/* this probably cannot happen */
+
+			/* compute name that get_target_list would use for column */
+			colno++;
+			if (resultDesc && colno <= resultDesc->natts)
+				colname = NameStr(TupleDescAttr(resultDesc, colno - 1)->attname);
+			else
+				colname = tle->resname;
+
+			/* does it match the VALUES RTE? */
+			if (colname == NULL || strcmp(colname, cname) != 0)
+				return NULL;	/* column name has been changed */
+		}
+	}
+
+	return result;
+```
 ## Detailed Description
 This function analyzes a query to determine if it has the simple form "SELECT ... FROM VALUES()" without column renaming requirements. It scans the query's range table (rtable) to find exactly one VALUES RTE that is marked as inFromCl (in the FROM clause). The function also validates that the column names in the target list match what get_target_list() would select, ensuring no column aliases have been introduced that would complicate the representation.
 

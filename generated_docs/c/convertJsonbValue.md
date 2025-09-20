@@ -8,7 +8,12 @@ A recursive static function that serves as the main dispatcher for serializing i
 
 ## Definition
 
-
+```c
+struct the header Jentry and store it in the beginning of the
+	 * variable-length payload.
+	 */
+	containerhead = nElems | JB_FARRAY;
+```
 ## Detailed Description
 The `convertJsonbValue` function is the central recursive workhorse of JSONB serialization. It acts as a type dispatcher that examines the type of a JsonbValue and delegates to appropriate specialized conversion functions (`convertJsonbScalar`, `convertJsonbArray`, or `convertJsonbObject`). The function includes important safety checks such as stack depth monitoring to prevent stack overflow during deep recursion, and validation that input values don't already have binary representation. It fills in the JEntry header with length and type information for the serialized value, making it a critical component in building the JSONB binary format's header structure.
 

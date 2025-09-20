@@ -8,7 +8,10 @@ Combines a date value and a time value to create a timestamp, merging separate d
 
 ## Definition
 
-
+```c
+Datum
+datetime_timestamp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that takes two separate inputs - a date (DateADT) and a time (TimeADT) - and combines them to produce a complete timestamp. The function first converts the date component to a timestamp representation, then adds the time component (represented as microseconds since midnight) to create the final timestamp value.
 

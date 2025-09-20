@@ -8,7 +8,14 @@ A WAL (Write-Ahead Logging) record structure used to log the insertion of tuples
 
 ## Definition
 
-
+```c
+typedef struct ginxlogInsertListPage
+{
+	BlockNumber rightlink;
+	int32		ntuples;
+	/* array of inserted tuples follows */
+} ginxlogInsertListPage;
+```
 ## Detailed Description
 The  structure is used in PostgreSQL's GIN (Generalized Inverted Index) access method to record WAL entries when inserting tuples into pending list pages. This structure is part of the crash recovery mechanism that ensures data consistency by logging changes before they are applied to disk pages.
 

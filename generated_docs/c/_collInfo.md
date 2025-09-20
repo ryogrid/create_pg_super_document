@@ -8,7 +8,14 @@ A structure definition used in PostgreSQL's pg_dump utility to represent collati
 
 ## Definition
 
-
+```c
+typedef struct _collInfo
+{
+	DumpableObject dobj;
+	const char *rolname;
+	int			collencoding;
+} CollInfo;
+```
 ## Detailed Description
 The  structure is part of PostgreSQL's pg_dump utility framework, designed to store metadata about collations during database backup operations. Collations in PostgreSQL define the rules for sorting and comparing character data, including locale-specific sorting rules, case sensitivity, and character equivalence rules. This structure extends the base  to include collation-specific information, enabling pg_dump to properly serialize and restore collation definitions along with their encoding and ownership information.
 

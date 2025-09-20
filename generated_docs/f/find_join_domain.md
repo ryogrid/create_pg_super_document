@@ -8,7 +8,10 @@ Finds the highest JoinDomain that is completely enclosed within a given set of r
 
 ## Definition
 
-
+```c
+static JoinDomain *
+find_join_domain(PlannerInfo *root, Relids relids)
+```
 ## Detailed Description
 This is a utility function in PostgreSQL's query optimizer that searches through the list of JoinDomains in the PlannerInfo structure to find the most specific (highest) JoinDomain whose relation IDs are completely contained within the provided relid set. JoinDomains are used to track constraints and dependencies related to outer joins and full joins during query planning.
 

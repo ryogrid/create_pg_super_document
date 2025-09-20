@@ -8,7 +8,9 @@ Validates that the current user has sufficient REFERENCES privileges on the refe
 
 ## Definition
 
-
+```c
+structure;
+```
 ## Detailed Description
 This function performs permission checks to ensure the current user has the necessary REFERENCES privileges to create a foreign key constraint that references specific columns in a target table. It implements a two-tier permission model: first checking for table-level REFERENCES permission (which grants access to all columns), and if that fails, checking for column-level REFERENCES permission on each individually specified column. The function assumes that ownership of the referencing table has already been verified earlier in the process.
 

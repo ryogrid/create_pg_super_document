@@ -8,7 +8,11 @@ A static function that displays the grouping keys for a Group node in PostgreSQL
 
 ## Definition
 
-
+```c
+static void
+show_group_keys(GroupState *gstate, List *ancestors,
+				ExplainState *es)
+```
 ## Detailed Description
 The  function is responsible for displaying the grouping keys used by a Group node in PostgreSQL's query execution plan. This function is part of the EXPLAIN infrastructure and helps users understand which columns are being used for grouping operations. It works by delegating to the more general  function, passing the appropriate parameters specific to grouping operations.
 

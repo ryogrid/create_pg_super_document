@@ -8,7 +8,10 @@ Returns the height (vertical magnitude) of a geometric box data type in PostgreS
 
 ## Definition
 
-
+```c
+Datum
+box_height(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that calculates and returns the height of a BOX geometric data type. It operates by extracting the BOX argument from the function call and delegating the actual height calculation to the internal helper function . The height is computed as the difference between the high and low y-coordinates of the box (vertical magnitude).
 

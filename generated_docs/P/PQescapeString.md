@@ -8,7 +8,10 @@ PQescapeString is a public libpq function that escapes arbitrary strings for use
 
 ## Definition
 
-
+```c
+size_t
+PQescapeString(char *to, const char *from, size_t length)
+```
 ## Detailed Description
 PQescapeString provides string escaping functionality for situations where a database connection is not available. This function uses static default values for client encoding and standard string settings rather than connection-specific settings.
 

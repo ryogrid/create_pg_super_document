@@ -8,7 +8,11 @@ Removes dependency entries from pg_depend catalog that were created during table
 
 ## Definition
 
-
+```c
+static void
+drop_parent_dependency(Oid relid, Oid refclassid, Oid refobjid,
+					   DependencyType deptype)
+```
 ## Detailed Description
 drop_parent_dependency is a utility function that removes specific dependency entries from the pg_depend system catalog. It searches for and deletes dependency records that match the specified criteria, effectively breaking the dependency relationship between a child table and its parent (either inheritance or typed table relationships). The function scans pg_depend using the DependDependerIndexId index to efficiently locate matching dependency entries and removes them using CatalogTupleDelete. This is used when breaking inheritance relationships (INHERITS) or typed table relationships (OF type).
 

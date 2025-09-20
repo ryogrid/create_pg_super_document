@@ -8,7 +8,10 @@ Handles CHECK constraints during table creation and alteration, with special log
 
 ## Definition
 
-
+```c
+static void
+transformCheckConstraints(CreateStmtContext *cxt, bool skipValidation)
+```
 ## Detailed Description
 The  function processes CHECK constraints in both CREATE TABLE and ALTER TABLE scenarios. The function implements an optimization for new table creation where CHECK constraint validation can be safely skipped since there are no existing rows to validate against. When validation is skipped, the constraints are automatically marked as valid, overriding any user-supplied NOT VALID flags.
 

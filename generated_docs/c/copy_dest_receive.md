@@ -8,7 +8,10 @@ Processes individual tuples received by the COPY destination receiver, formattin
 
 ## Definition
 
-
+```c
+static bool
+copy_dest_receive(TupleTableSlot *slot, DestReceiver *self)
+```
 ## Detailed Description
 This function serves as the main tuple processing callback for COPY TO operations within PostgreSQL's executor framework. It receives individual tuples from the executor, extracts the COPY state information from the destination receiver, and delegates the actual row formatting and output to CopyOneRowTo. Additionally, it maintains progress tracking by incrementing the processed tuple counter and reporting progress updates through the statistics system. The function always returns true to indicate successful processing and continuation of the operation.
 

@@ -8,7 +8,10 @@ Provides human-readable identification strings for PostgreSQL sequence-related W
 
 ## Definition
 
-
+```c
+const char *
+seq_identify(uint8 info)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL record identification infrastructure, specifically for sequence-related operations. It takes a WAL record info byte and returns a corresponding human-readable string identifier. This function is used by WAL analysis and debugging tools to provide meaningful names for different types of sequence operations recorded in the WAL.
 

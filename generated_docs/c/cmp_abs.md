@@ -8,7 +8,10 @@ Compares the absolute values of two NumericVar structures and returns an integer
 
 ## Definition
 
-
+```c
+static int
+cmp_abs(const NumericVar *var1, const NumericVar *var2)
+```
 ## Detailed Description
 This function compares the absolute values of two NumericVar structures, ignoring their signs. It serves as a high-level wrapper around the lower-level cmp_abs_common() function, extracting the necessary components (digits, ndigits, weight) from the NumericVar structures and delegating the actual comparison logic.
 

@@ -8,7 +8,10 @@ The numeric_trunc function implements PostgreSQL's TRUNC() SQL function for NUME
 
 ## Definition
 
-
+```c
+Datum
+numeric_trunc(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL-accessible interface for truncating NUMERIC values in PostgreSQL. Unlike rounding, truncation simply removes digits beyond the specified scale without any rounding behavior. The function accepts two arguments: the numeric value to truncate and the scale (number of digits after the decimal point). Like numeric_round, it supports negative scale values, which truncates digits before the decimal point, following Oracle's interpretation.
 

@@ -8,7 +8,10 @@ A specialized implementation of width_bucket for float8 (double precision) data 
 
 ## Definition
 
-
+```c
+static int
+width_bucket_array_float8(Datum operand, ArrayType *thresholds)
+```
 ## Detailed Description
 This function implements a high-performance version of width bucketing specifically for float8 data types. It uses binary search to efficiently locate the appropriate bucket for the given operand value within the sorted thresholds array.
 

@@ -8,7 +8,25 @@ The sset struct represents a state set in PostgreSQL's regular expression engine
 
 ## Definition
 
-
+```c
+struct sset
+{								/* state set */
+	unsigned   *states;			/* pointer to bitvector */
+	unsigned	hash;			/* hash of bitvector */
+#define  HASH(bv, nw)	 (((nw) == 1) ? *(bv) : hash(bv, nw))
+#define  HIT(h,bv,ss,nw) ((ss)->hash == (h) && ((nw) == 1 || \
+		memcmp(VS(bv), VS((ss)->states), (nw)*sizeof(unsigned)) == 0))
+	int			flags;
+#define  STARTER	 01			/* the initial state set */
+#define  POSTSTATE	 02			/* includes the goal state */
+#define  LOCKED		 04			/* locked in cache */
+#define  NOPROGRESS  010		/* zero-progress state set */
+	struct arcp ins;			/* chain of inarcs pointing here */
+	chr		   *lastseen;		/* last entered on arrival here */
+	struct sset **outs;			/* outarc vector indexed by color */
+	struct arcp *inchain;		/* chain-pointer vector for outarcs */
+};
+```
 ## Detailed Description
 The sset structure is a fundamental component of PostgreSQL's regular expression engine that represents a set of states in the DFA (Deterministic Finite Automaton). It uses a bitvector representation where each bit corresponds to a state in the automaton - if a bit is set, that state is included in the set. This compact representation allows efficient storage and manipulation of state collections during regex pattern matching operations.
 

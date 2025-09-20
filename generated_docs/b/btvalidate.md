@@ -8,7 +8,10 @@ Validates a btree operator class by checking the consistency and completeness of
 
 ## Definition
 
-
+```c
+bool
+btvalidate(Oid opclassoid)
+```
 ## Detailed Description
 The  function performs comprehensive validation of a btree operator class to ensure it contains all required operators and support functions with correct signatures. It validates both the individual components and the overall consistency of the operator family. The function checks:
 

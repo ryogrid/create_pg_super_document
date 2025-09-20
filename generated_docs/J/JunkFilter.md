@@ -8,7 +8,16 @@ JunkFilter is a structure used to store information regarding junk attributes an
 
 ## Definition
 
-
+```c
+typedef struct JunkFilter
+{
+	NodeTag		type;
+	List	   *jf_targetList;
+	TupleDesc	jf_cleanTupType;
+	AttrNumber *jf_cleanMap;
+	TupleTableSlot *jf_resultSlot;
+} JunkFilter;
+```
 ## Detailed Description
 JunkFilter handles junk attributes, which are attributes in a tuple needed only for storing intermediate information in the executor and do not belong in emitted tuples. For example, during UPDATE queries, the planner adds a "junk" entry to the targetlist containing the ctid of the tuple to be updated. This ctid is needed for the update operation but should not be part of the stored new tuple.
 

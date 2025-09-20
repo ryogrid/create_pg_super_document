@@ -8,7 +8,14 @@ Generates implied equality clauses for equivalence classes containing no pseudoc
 
 ## Definition
 
-
+```c
+structures.  Multi-relation
+ * clauses will be regurgitated later by generate_join_implied_equalities().
+ * (We do it this way to maintain continuity with the case that ec_broken
+ * becomes set only after we've gone up a join level or two.)  However, for
+ * an EC that contains constants, we can adopt a simpler strategy and just
+ * throw back all the source RestrictInfos immediately;
+```
 ## Detailed Description
 This function handles equivalence classes that contain only variable members (no constants or pseudoconstants). It implements a scanning strategy that tracks the last-seen member for each base relation and generates equality clauses between consecutive members of the same relation, producing the minimum number of derived clauses needed to maintain equivalence constraints.
 

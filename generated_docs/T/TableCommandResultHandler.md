@@ -8,7 +8,10 @@ A specialized result handler for parallel slot operations that processes command
 
 ## Definition
 
-
+```c
+bool
+TableCommandResultHandler(PGresult *res, PGconn *conn, void *context)
+```
 ## Detailed Description
 TableCommandResultHandler is a ParallelSlotResultHandler implementation specifically designed for database utilities that execute commands (such as VACUUM, REINDEX, etc.) against tables. It handles the common race condition where a table might be dropped between the time a utility compiles its list of tables to process and when it actually attempts to process each table.
 

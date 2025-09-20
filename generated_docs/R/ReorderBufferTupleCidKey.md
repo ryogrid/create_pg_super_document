@@ -8,7 +8,13 @@ ReorderBufferTupleCidKey is a composite key structure used in hash tables to map
 
 ## Definition
 
-
+```c
+typedef struct ReorderBufferTupleCidKey
+{
+	RelFileLocator rlocator;
+	ItemPointerData tid;
+} ReorderBufferTupleCidKey;
+```
 ## Detailed Description
 This structure serves as the key component for hash tables that maintain mappings between specific tuple locations and their associated command IDs (cmin, cmax). In PostgreSQL's logical replication system, it's essential to track when tuples were created and modified within transactions to properly decode WAL records and maintain consistency. The combination of relation file locator and tuple ID uniquely identifies a tuple's physical location, making it an ideal composite key for such mappings.
 

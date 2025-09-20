@@ -8,7 +8,10 @@ Opens an existing PostgreSQL large object and returns a file descriptor for subs
 
 ## Definition
 
-
+```c
+int
+lo_open(PGconn *conn, Oid lobjId, int mode)
+```
 ## Detailed Description
 The  function provides access to an existing large object in PostgreSQL by opening it and returning a file descriptor that can be used for subsequent read, write, seek, and other large object operations. The function initializes the large object function lookup table if necessary, then calls the PostgreSQL backend function  through the function call interface (). The operation mode parameter determines what operations are permitted on the opened large object.
 

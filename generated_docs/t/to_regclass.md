@@ -8,7 +8,10 @@ Converts a class name to class OID with NULL return on failure, providing a safe
 
 ## Definition
 
-
+```c
+Datum
+to_regclass(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a "safe" version of regclass input conversion in PostgreSQL. Unlike the  function which throws an error when a class name is not found,  returns NULL instead, making it suitable for cases where the existence of a relation is uncertain and error handling is preferred to be done by the caller.
 

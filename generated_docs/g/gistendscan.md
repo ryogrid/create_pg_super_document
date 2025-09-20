@@ -8,7 +8,10 @@ Terminates a GiST index scan and cleans up all associated resources, including m
 
 ## Definition
 
-
+```c
+void
+gistendscan(IndexScanDesc scan)
+```
 ## Detailed Description
 This function serves as the cleanup routine for GiST index scans, implementing the final phase of the index access method API. It performs comprehensive resource deallocation by calling freeGISTstate(), which recursively cleans up all memory contexts, data structures, and temporary resources that were allocated during the scan's lifetime. The function follows PostgreSQL's memory management patterns where hierarchical memory contexts ensure that a single cleanup operation can safely deallocate all related resources without memory leaks.
 

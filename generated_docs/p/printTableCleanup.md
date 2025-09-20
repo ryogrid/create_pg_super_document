@@ -8,7 +8,10 @@ Frees all memory allocated to a printTableContent structure, making it ready for
 
 ## Definition
 
-
+```c
+void
+printTableCleanup(printTableContent *const content)
+```
 ## Detailed Description
 This function performs comprehensive memory cleanup for a printTableContent structure, freeing all dynamically allocated memory including cells, headers, footers, alignment information, and auxiliary data structures. The function handles selective cell cleanup based on the cellmustfree array, which tracks which individual cells were marked for automatic memory management.
 

@@ -8,7 +8,12 @@ Adjusts LEFT JOIN qualifiers for commuted-left-join cases and distributes them i
 
 ## Definition
 
-
+```c
+static void
+deconstruct_distribute_oj_quals(PlannerInfo *root,
+								List *jtitems,
+								JoinTreeItem *jtitem)
+```
 ## Detailed Description
 The  function handles the complex task of processing postponed outer join qualifiers after the main deconstruct_distribute scan is complete. This function is critical for implementing outer join identity optimizations, particularly identity 3, which allows certain LEFT JOINs to commute under specific conditions.
 

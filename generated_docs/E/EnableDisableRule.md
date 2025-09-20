@@ -8,7 +8,11 @@ Changes the firing semantics of an existing rewrite rule by modifying its enable
 
 ## Definition
 
-
+```c
+void
+EnableDisableRule(Relation rel, const char *rulename,
+				  char fires_when)
+```
 ## Detailed Description
 This function modifies the firing behavior of a PostgreSQL rewrite rule by updating the ev_enabled field in the pg_rewrite system catalog. It performs comprehensive validation including rule existence checks, permission verification, and proper catalog updates. The function handles the complete workflow: locating the rule in the system catalog, verifying user permissions, updating the rule's firing state if different from the current state, and invalidating relevant caches to ensure the change takes effect across all database backends. The operation is performed with proper locking to ensure consistency.
 

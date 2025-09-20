@@ -8,7 +8,12 @@ getParamDescriptions processes PostgreSQL protocol 't' (ParameterDescription) me
 
 ## Definition
 
-
+```c
+structed result with an error result. First
+	 * discard the old result to try to win back some memory.
+	 */
+	pqClearAsyncResult(conn);
+```
 ## Detailed Description
 This function parses ParameterDescription messages from the PostgreSQL server, which contain metadata about the parameters expected by a prepared statement. It creates a new PGresult structure with PGRES_COMMAND_OK status and populates it with parameter descriptors that include the data type OID for each parameter. This information is essential for properly formatting and binding parameters when executing prepared statements.
 

@@ -8,7 +8,10 @@ Releases the storage and resources allocated by RelationGetIndexScan, completing
 
 ## Definition
 
-
+```c
+void
+IndexScanEnd(IndexScanDesc scan)
+```
 ## Detailed Description
 IndexScanEnd is the complementary function to RelationGetIndexScan that handles the deallocation of memory and cleanup of an IndexScanDesc structure. This function is called as part of the index scan termination process, but importantly, it assumes that any access method (AM) specific resources have already been released by the AM's own endscan routine. The function performs a clean shutdown by freeing the scan key workspace and order-by data that were allocated during scan initialization, then freeing the scan descriptor itself.
 

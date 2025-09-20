@@ -8,7 +8,10 @@ DropLOIfExists generates SQL to conditionally drop a large object if it exists, 
 
 ## Definition
 
-
+```c
+void
+DropLOIfExists(ArchiveHandle *AH, Oid oid)
+```
 ## Detailed Description
 This function generates a SQL query that safely removes a large object (LO) if it exists in the database. It uses PostgreSQL's pg_catalog.lo_unlink() function to delete the large object, but only if the specified OID exists in the pg_largeobject_metadata system catalog.
 

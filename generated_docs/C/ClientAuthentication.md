@@ -8,7 +8,10 @@ The main entry point function for client authentication in PostgreSQL that orche
 
 ## Definition
 
-
+```c
+void
+ClientAuthentication(Port *port)
+```
 ## Detailed Description
  is the central function responsible for authenticating client connections in PostgreSQL. It serves as the dispatcher that determines the appropriate authentication method based on pg_hba.conf configuration and coordinates the entire authentication process.
 

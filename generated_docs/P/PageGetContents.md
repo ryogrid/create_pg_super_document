@@ -8,7 +8,10 @@ PageGetContents is an inline function that returns a pointer to the content area
 
 ## Definition
 
-
+```c
+static inline char *
+PageGetContents(Page page)
+```
 ## Detailed Description
 This function calculates and returns a pointer to the content area of a page by adding the maximum-aligned size of the page header to the page base address. It is specifically intended for use with pages that do not use line pointers (such as meta pages, bitmap pages, and other special-purpose pages). The function ensures proper memory alignment by using MAXALIGN on the page header size, which is critical for performance and correctness on architectures that require aligned access. Prior to PostgreSQL 8.3, this function did not guarantee proper alignment, but it now ensures that the returned pointer is properly aligned for any data type.
 

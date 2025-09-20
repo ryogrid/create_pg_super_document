@@ -8,7 +8,9 @@ A PostgreSQL built-in function that returns the text of the currently executing 
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The current_query function provides access to the currently executing SQL statement text. It leverages the global debug_query_string variable, which contains the query text when available. This function is particularly valuable in stored procedures, triggers, and functions where you need to access information about the calling query context.
 

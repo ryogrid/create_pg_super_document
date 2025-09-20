@@ -8,7 +8,10 @@ Extracts the GMT offset in seconds from a system struct tm, providing a portable
 
 ## Definition
 
-
+```c
+static int
+get_timezone_offset(struct tm *tm)
+```
 ## Detailed Description
 The get_timezone_offset function provides a platform-independent interface for obtaining the GMT offset from a struct tm. It handles the differences in how various operating systems store timezone offset information by using conditional compilation.
 

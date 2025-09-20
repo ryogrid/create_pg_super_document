@@ -8,7 +8,10 @@ Processes a dead tuple during heap rewrite by removing any unresolved references
 
 ## Definition
 
-
+```c
+bool
+rewrite_heap_dead_tuple(RewriteState state, HeapTuple old_tuple)
+```
 ## Detailed Description
 The `rewrite_heap_dead_tuple` function handles dead tuples encountered during a heap rewrite operation. Since dead tuples are not copied to the new table, this function's primary purpose is to clean up any unresolved tuple references that may have been waiting for this tuple. This can happen when an earlier tuple in an update chain points to a tuple that is now determined to be dead.
 

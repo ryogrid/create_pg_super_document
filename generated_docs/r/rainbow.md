@@ -8,7 +8,15 @@ The  function creates arcs for all full colors (except optionally one) between s
 
 ## Definition
 
-
+```c
+static void
+rainbow(struct nfa *nfa,
+		struct colormap *cm,
+		int type,
+		color but,				/* COLORLESS if no exceptions */
+		struct state *from,
+		struct state *to)
+```
 ## Detailed Description
 This function implements an important optimization in regular expression compilation by creating arcs that match "all colors except one" (or truly all colors). When no exception color is specified (but == COLORLESS), it creates a single special RAINBOW arc, which is much more efficient than creating individual arcs for each color.
 

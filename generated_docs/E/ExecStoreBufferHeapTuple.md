@@ -8,7 +8,12 @@ Stores an on-disk physical tuple from a buffer into a specified TTSOpsBufferHeap
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+ExecStoreBufferHeapTuple(HeapTuple tuple,
+						 TupleTableSlot *slot,
+						 Buffer buffer)
+```
 ## Detailed Description
 ExecStoreBufferHeapTuple is specialized for storing on-disk physical tuples that reside in disk buffers into TTSOpsBufferHeapTuple type slots. The function is optimized for accessing tuples directly from disk pages without copying them into memory unnecessarily. It acquires and maintains a pin on the buffer to ensure the tuple remains valid until the slot is cleared.
 

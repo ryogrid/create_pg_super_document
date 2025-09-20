@@ -8,7 +8,11 @@ A utility function that appends a command option with an associated string value
 
 ## Definition
 
-
+```c
+void
+AppendStringCommandOption(PQExpBuffer buf, bool use_new_option_syntax,
+						  char *option_name, char *option_value)
+```
 ## Detailed Description
 This function extends the functionality of AppendPlainCommandOption by adding support for string values that require proper SQL escaping. It first calls AppendPlainCommandOption to append the option name, then if a non-NULL option_value is provided, it escapes the string using PQescapeStringConn and appends it in single quotes to the command buffer. This ensures that special characters in the option value are properly handled and don't cause SQL injection vulnerabilities or parsing errors.
 

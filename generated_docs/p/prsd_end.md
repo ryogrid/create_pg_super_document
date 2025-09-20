@@ -8,7 +8,10 @@ PostgreSQL text search parser function that finalizes and cleans up a parser ses
 
 ## Definition
 
-
+```c
+Datum
+prsd_end(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the cleanup function for PostgreSQL's default text search parser. It is responsible for properly closing and deallocating resources associated with a TParser instance that was previously created and used for text parsing operations. This function is part of the parser interface that allows PostgreSQL to tokenize and parse text for full-text search functionality.
 

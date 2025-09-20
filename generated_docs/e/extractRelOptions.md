@@ -8,7 +8,9 @@ Extracts and parses relation options from a pg_class tuple, converting them into
 
 ## Definition
 
-
+```c
+struct_array_builtin(array, TEXTOID, &optiondatums, NULL, &noptions);
+```
 ## Detailed Description
 This low-level function extracts relation options from a pg_class heap tuple and parses them into the appropriate bytea structure based on the relation's kind. It reads the reloptions field from the tuple, determines the relation type from relkind, and calls the appropriate parser function (heap_reloptions, index_reloptions, view_reloptions, etc.). This function is designed for use by the relcache system and other low-level code that needs to process relation options without having access to a relation's cache entry. For index relations, it uses the provided amoptions function pointer to handle access method specific options.
 

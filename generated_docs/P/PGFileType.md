@@ -8,7 +8,13 @@ PGFileType is an enumeration that defines different types of file system objects
 
 ## Definition
 
-
+```c
+typedef enum DataDirSyncMethod
+{
+	DATA_DIR_SYNC_METHOD_FSYNC,
+	DATA_DIR_SYNC_METHOD_SYNCFS,
+} DataDirSyncMethod;
+```
 ## Detailed Description
 The PGFileType enumeration is used throughout PostgreSQL to classify file system objects into distinct categories. This classification is essential for proper file handling operations such as directory scanning, backup operations, and file system synchronization. The enum provides a standardized way to represent file types across different platforms and file system operations.
 

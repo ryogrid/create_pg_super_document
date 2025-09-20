@@ -8,7 +8,16 @@ An enumeration that tracks the execution status of window aggregation operations
 
 ## Definition
 
-
+```c
+typedef enum WindowAggStatus
+{
+	WINDOWAGG_DONE,				/* No more processing to do */
+	WINDOWAGG_RUN,				/* Normal processing of window funcs */
+	WINDOWAGG_PASSTHROUGH,		/* Don't eval window funcs */
+	WINDOWAGG_PASSTHROUGH_STRICT,	/* Pass-through plus don't store new
+									 * tuples during spool */
+} WindowAggStatus;
+```
 ## Detailed Description
 WindowAggStatus manages the execution state of PostgreSQL's window function processing. Window functions (like ROW_NUMBER(), RANK(), SUM() OVER(), etc.) require special handling because they operate over a window frame within a partition of data. The status controls whether the executor should actively compute window function results or simply pass through existing data, and whether it should continue accumulating tuples for processing. This optimization is particularly important for queries where not all partitions need window function evaluation.
 

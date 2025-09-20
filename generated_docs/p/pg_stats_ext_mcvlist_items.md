@@ -8,7 +8,10 @@ A Set-Returning Function (SRF) that exposes detailed information about individua
 
 ## Definition
 
-
+```c
+Datum
+pg_stats_ext_mcvlist_items(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides SQL access to MCV list contents by deserializing the binary statistics data and returning each MCV item as a tuple. The function operates as a set-returning function, yielding one tuple per MCV item containing:
 

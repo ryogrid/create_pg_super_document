@@ -8,7 +8,10 @@ ResetAllOptions is a function that implements the SQL RESET ALL command by reset
 
 ## Definition
 
-
+```c
+struct config_generic *gconf = dlist_container(struct config_generic,
+													   nondef_link, iter.cur);
+```
 ## Detailed Description
 This function systematically resets all configuration parameters that are eligible for the RESET ALL operation. It iterates through the list of non-default GUC variables and selectively resets them based on several criteria:
 

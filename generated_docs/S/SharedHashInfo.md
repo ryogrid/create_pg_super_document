@@ -8,7 +8,13 @@ SharedHashInfo is a structure that serves as a shared memory container for colle
 
 ## Definition
 
-
+```c
+typedef struct SharedHashInfo
+{
+	int			num_workers;
+	HashInstrumentation hinstrument[FLEXIBLE_ARRAY_MEMBER];
+} SharedHashInfo;
+```
 ## Detailed Description
 SharedHashInfo facilitates the collection and aggregation of hash operation performance metrics across multiple parallel workers in PostgreSQL's parallel query execution system. It acts as a shared memory container that allows each parallel worker to record its hash instrumentation data, which can then be retrieved and aggregated by the main process for comprehensive performance analysis. The structure uses a flexible array member to accommodate a variable number of workers, with each worker having its own HashInstrumentation entry.
 

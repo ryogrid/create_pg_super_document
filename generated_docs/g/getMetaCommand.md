@@ -8,7 +8,10 @@ Converts a command name string to its corresponding meta-command enum identifier
 
 ## Definition
 
-
+```c
+static MetaCommand
+getMetaCommand(const char *cmd)
+```
 ## Detailed Description
 The `getMetaCommand` function serves as a command name parser that maps string representations of pgbench meta-commands to their corresponding enum values. It performs case-insensitive string comparisons using `pg_strcasecmp` to identify which meta-command type the input string represents. The function supports all pgbench meta-commands including variable assignment (`set`, `setshell`), control flow (`if`, `elif`, `else`, `endif`), system interaction (`shell`, `sleep`), result handling (`gset`, `aset`), and pipeline operations (`startpipeline`, `syncpipeline`, `endpipeline`). If the input is NULL or doesn't match any known command, it returns `META_NONE`.
 

@@ -8,7 +8,10 @@ Calculates the Euclidean distance between two points using the standard distance
 
 ## Definition
 
-
+```c
+Datum
+point_distance(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operator that computes the straight-line distance between two points in 2D space. It serves as a SQL-callable wrapper around the internal  function, which implements the standard Euclidean distance formula using the HYPOT function for numerical stability. This function is part of PostgreSQL's geometric arithmetic operators and is used in spatial queries, indexing operations, and distance-based calculations.
 

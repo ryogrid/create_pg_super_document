@@ -8,7 +8,10 @@ A fallback compiler barrier implementation that prevents compiler reordering opt
 
 ## Definition
 
-
+```c
+void
+pg_extern_compiler_barrier(void)
+```
 ## Detailed Description
 pg_extern_compiler_barrier is a fallback implementation of compiler barrier functionality for PostgreSQL's atomic operations framework. It is compiled only when PG_HAVE_COMPILER_BARRIER_EMULATION is defined, indicating that the compiler/architecture combination lacks native compiler barrier support. The function provides a compiler fence by being an external function call, which prevents the compiler from reordering memory operations across the call boundary. Despite containing no actual code (just a comment "do nothing"), the function call itself provides the necessary compiler barrier semantics.
 

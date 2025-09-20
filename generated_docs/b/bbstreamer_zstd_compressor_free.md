@@ -8,7 +8,10 @@ Releases all memory and resources allocated for the zstd compressor streamer, in
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_zstd_compressor_free(bbstreamer *streamer)
+```
 ## Detailed Description
 This function performs cleanup and memory deallocation for a zstd compressor streamer instance. It follows the standard PostgreSQL pattern for resource cleanup by first freeing the next streamer in the chain, then releasing zstd-specific resources (the compression context), followed by freeing the buffer data and finally the streamer structure itself. This ensures proper cleanup of the entire streaming pipeline and prevents memory leaks.
 

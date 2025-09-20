@@ -8,7 +8,10 @@ IsTidRangeClause is a static function that identifies whether a RestrictInfo rep
 
 ## Definition
 
-
+```c
+static bool
+IsTidRangeClause(RestrictInfo *rinfo, RelOptInfo *rel)
+```
 ## Detailed Description
 This function determines if a RestrictInfo represents a range comparison clause of the form "CTID OP pseudoconstant" or "pseudoconstant OP CTID", where OP is a range operator (<, <=, >, or >=). It first validates the clause structure using IsBinaryTidClause, then specifically checks that the operator is one of the supported TID range operators. This function is crucial for identifying clauses that can be used for TID range scanning, which allows efficient scanning of tuple identifier ranges.
 

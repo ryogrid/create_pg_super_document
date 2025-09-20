@@ -8,7 +8,10 @@ Initializes the random number generator state used by PostgreSQL's sampling algo
 
 ## Definition
 
-
+```c
+void
+sampler_random_init_state(uint32 seed, pg_prng_state *randstate)
+```
 ## Detailed Description
 This function serves as a wrapper around PostgreSQL's pseudo-random number generator (PRNG) initialization. It takes a 32-bit seed value and initializes the provided PRNG state structure, which is then used by various sampling algorithms throughout PostgreSQL. The function converts the 32-bit seed to a 64-bit value for the underlying PRNG implementation and ensures consistent random number generation for sampling operations.
 

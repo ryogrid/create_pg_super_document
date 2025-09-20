@@ -8,7 +8,10 @@ Converts a 16-bit integer (int2) to a 64-bit integer (int8) with sign extension.
 
 ## Definition
 
-
+```c
+Datum
+int28(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int28 function implements type conversion from PostgreSQL's 2-byte integer type (int2/smallint) to 8-byte integer type (int8/bigint). This is a widening conversion that preserves the original value by extending the sign bit from 16 bits to 64 bits. The conversion is lossless, as all int2 values can be exactly represented as int8 values.
 

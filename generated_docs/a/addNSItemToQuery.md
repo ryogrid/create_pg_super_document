@@ -8,7 +8,12 @@ Adds a given namespace item (nsitem) and its corresponding Range Table Entry (RT
 
 ## Definition
 
-
+```c
+void
+addNSItemToQuery(ParseState *pstate, ParseNamespaceItem *nsitem,
+				 bool addToJoinList,
+				 bool addToRelNameSpace, bool addToVarNameSpace)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's parser infrastructure that manages namespace visibility and join relationships during query parsing. It takes a ParseNamespaceItem (which represents a relation in the query's namespace) and optionally adds it to two critical parser state structures:
 

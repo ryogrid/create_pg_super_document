@@ -8,7 +8,16 @@ The dshash_table_item struct represents an item in a dynamic shared hash table, 
 
 ## Definition
 
-
+```c
+struct dshash_table_item
+{
+	/* The next item in the same bucket. */
+	dsa_pointer next;
+	/* The hashed key, to avoid having to recompute it. */
+	dshash_hash hash;
+	/* The user's entry object follows here.  See ENTRY_FROM_ITEM(item). */
+};
+```
 ## Detailed Description
 The dshash_table_item struct serves as a wrapper around user-defined data entries in PostgreSQL's dynamic shared hash table implementation. This structure provides the necessary metadata for hash table operations while maintaining a separation between the hash table's internal management data and the user's actual data. The struct implements a linked list structure for collision resolution within hash buckets, and caches the computed hash value to avoid recomputation during operations like resizing.
 

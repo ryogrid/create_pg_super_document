@@ -8,7 +8,11 @@ Creates partial bitmap heap scan paths for parallel execution, enabling bitmap s
 
 ## Definition
 
-
+```c
+void
+create_partial_bitmap_paths(PlannerInfo *root, RelOptInfo *rel,
+							Path *bitmapqual)
+```
 ## Detailed Description
 This function generates partial paths for bitmap heap scans that can be executed in parallel. It evaluates whether parallelization would be beneficial by computing the number of heap pages that would be fetched and determining the optimal number of parallel workers. If parallel execution is worthwhile (more than 0 workers), it creates a bitmap heap path with the specified parallelism and adds it to the relation's partial path list.
 

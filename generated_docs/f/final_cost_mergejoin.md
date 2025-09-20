@@ -8,7 +8,12 @@ Computes the final cost estimate and result size of a mergejoin path, making cri
 
 ## Definition
 
-
+```c
+void
+final_cost_mergejoin(PlannerInfo *root, MergePath *path,
+					 JoinCostWorkspace *workspace,
+					 JoinPathExtraData *extra)
+```
 ## Detailed Description
 This function finalizes the cost estimation for a merge join operation, making two important execution decisions that affect performance:
 

@@ -8,7 +8,11 @@ r_cleaning is a static function that performs character normalization and cleani
 
 ## Definition
 
+```c
+}
 
+static int r_cleaning(struct SN_env * z)
+```
 ## Detailed Description
 This function implements a character cleaning and normalization step for Catalan text processing within the Snowball stemming framework. It operates by continuously searching for specific patterns in the input word and replacing them with normalized equivalents. The function uses a pattern matching approach with the find_among function to identify character sequences that need cleaning.
 

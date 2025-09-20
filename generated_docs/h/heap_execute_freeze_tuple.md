@@ -8,7 +8,10 @@ A static inline function that executes a prepared freeze plan by applying the sp
 
 ## Definition
 
-
+```c
+static inline void
+heap_execute_freeze_tuple(HeapTupleHeader tuple, HeapTupleFreeze *frz)
+```
 ## Detailed Description
 heap_execute_freeze_tuple is the execution phase of PostgreSQL's tuple freezing mechanism. This function takes a freeze plan prepared by heap_prepare_freeze_tuple and applies all the specified modifications to the actual tuple header. The function is designed to be simple and fast, performing only the mechanical updates specified in the freeze plan.
 

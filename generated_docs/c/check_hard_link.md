@@ -8,7 +8,10 @@ Tests the ability to create hard links between the old and new data directories 
 
 ## Definition
 
-
+```c
+void
+check_hard_link(void)
+```
 ## Detailed Description
 This function is a critical component of pg_upgrade's link mode functionality that verifies whether hard links can be created between files in the old and new PostgreSQL data directories. Link mode is an optimization that allows pg_upgrade to create hard links to existing files instead of copying them, which significantly reduces upgrade time and disk space usage for large databases.
 

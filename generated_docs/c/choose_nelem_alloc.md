@@ -8,7 +8,10 @@ choose_nelem_alloc is a static function that determines the optimal number of el
 
 ## Definition
 
-
+```c
+static int
+choose_nelem_alloc(Size entrysize)
+```
 ## Detailed Description
 choose_nelem_alloc calculates the optimal number of hash table elements to allocate during expansion operations. The function takes into account the total element size (including HASHELEMENT header plus user data) and chooses an allocation count that will result in power-of-2 memory requests. This optimization is particularly important for palloc-managed hash tables, where memory allocation requests are rounded up to power-of-2 boundaries. By aligning the allocation size with these boundaries, the function prevents wasting up to half of the allocated memory space. The algorithm ensures a minimum allocation of 32 elements while scaling up allocation sizes based on element size.
 

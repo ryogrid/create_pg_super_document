@@ -8,7 +8,21 @@ ParseNamespaceItem represents an element in the parser's namespace list, definin
 
 ## Definition
 
-
+```c
+struct ParseNamespaceItem
+{
+	Alias	   *p_names;		/* Table and column names */
+	RangeTblEntry *p_rte;		/* The relation's rangetable entry */
+	int			p_rtindex;		/* The relation's index in the rangetable */
+	RTEPermissionInfo *p_perminfo;	/* The relation's rteperminfos entry */
+	/* array of same length as p_names->colnames: */
+	ParseNamespaceColumn *p_nscolumns;	/* per-column data */
+	bool		p_rel_visible;	/* Relation name is visible? */
+	bool		p_cols_visible; /* Column names visible as unqualified refs? */
+	bool		p_lateral_only; /* Is only visible to LATERAL expressions? */
+	bool		p_lateral_ok;	/* If so, does join type allow use? */
+};
+```
 ## Detailed Description
 ParseNamespaceItem is a crucial structure in PostgreSQL's name resolution system during SQL parsing. It represents a single entry in the parser's namespace that determines how table and column names can be referenced in queries. The structure handles complex visibility rules that distinguish between qualified and unqualified name references, implements LATERAL visibility semantics, and manages the relationship between namespace items and the underlying range table entries.
 

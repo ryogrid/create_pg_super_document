@@ -8,7 +8,10 @@ Returns the number of JSON values stored in a JsonValueList structure, providing
 
 ## Definition
 
-
+```c
+static int
+JsonValueListLength(const JsonValueList *jvl)
+```
 ## Detailed Description
 This function calculates and returns the total number of JSON values contained within a JsonValueList structure. The JsonValueList is an optimization structure that can store either a single value (singleton) or multiple values in a linked list. The function efficiently determines the count by checking if the list is in singleton mode (returning 1) or by calling list_length() on the underlying list structure.
 

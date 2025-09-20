@@ -8,7 +8,11 @@ Changes an object's namespace given its class OID and object OID, primarily desi
 
 ## Definition
 
-
+```c
+Oid
+AlterObjectNamespace_oid(Oid classId, Oid objid, Oid nspOid,
+						 ObjectAddresses *objsMoved)
+```
 ## Detailed Description
 AlterObjectNamespace_oid provides a low-level interface for moving database objects between schemas when you have the object's class OID and object OID. This function is specifically designed to support ALTER EXTENSION SET SCHEMA operations, which need to move multiple objects that belong to an extension to a new schema.
 

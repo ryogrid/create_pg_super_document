@@ -8,7 +8,10 @@ gtsquery_compress is a GiST (Generalized Search Tree) compression function that 
 
 ## Definition
 
-
+```c
+Datum
+gtsquery_compress(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of PostgreSQL's GiST index operator class for TSQuery data types. It performs compression by converting leaf-level TSQuery values into compact TSQuerySign signatures. For non-leaf entries, it returns the entry unchanged. The compression creates a lossy but space-efficient representation that maintains the essential search characteristics needed for index operations.
 

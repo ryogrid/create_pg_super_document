@@ -8,7 +8,10 @@ Allocates new hash table elements and links them into the specified free list fo
 
 ## Definition
 
-
+```c
+static bool
+element_alloc(HTAB *hashp, int nelem, int freelist_idx)
+```
 ## Detailed Description
 This internal function is responsible for expanding the capacity of dynamic hash tables by allocating a batch of new hash elements and linking them into the appropriate free list. The function calculates the required memory size for each element (including both the HASHELEMENT header and user data), allocates memory for all requested elements in a single allocation, and then chains them together in a linked list structure. For partitioned hash tables, it properly handles mutex locking to ensure thread-safe access to the free list.
 

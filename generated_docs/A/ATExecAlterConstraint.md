@@ -8,7 +8,11 @@ ATExecAlterConstraint updates the attributes of a constraint in PostgreSQL, spec
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecAlterConstraint(Relation rel, AlterTableCmd *cmd, bool recurse,
+					  bool recursing, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function modifies constraint attributes such as deferrability and initial deferred status for foreign key constraints. It performs several validation checks including ensuring the constraint exists, is a foreign key constraint, and is a top-level constraint (not inherited). The function handles both regular tables and partitioned tables, with special logic for partitioned tables where partitions need processing regardless of whether the constraint attributes actually changed.
 

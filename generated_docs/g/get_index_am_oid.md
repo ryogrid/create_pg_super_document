@@ -8,7 +8,10 @@ Looks up an access method by name and verifies it corresponds to an index access
 
 ## Definition
 
-
+```c
+Oid
+get_index_am_oid(const char *amname, bool missing_ok)
+```
 ## Detailed Description
 get_index_am_oid is a specialized wrapper function that provides type-safe lookup of index access methods. It leverages the internal get_am_type_oid function with the AMTYPE_INDEX constraint to ensure that only valid index access methods are returned. This function is commonly used throughout the system when creating or manipulating index-related objects that require validation of the access method type.
 

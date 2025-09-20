@@ -8,7 +8,10 @@ FastPathGrantRelationLock attempts to grant a lock on a relation using PostgreSQ
 
 ## Definition
 
-
+```c
+static bool
+FastPathGrantRelationLock(Oid relid, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function implements PostgreSQL's fast-path locking mechanism for relation locks. It maintains a per-backend array of lock slots that can quickly grant locks without the overhead of accessing the shared lock table. The function first scans the existing fast-path slots to check if the relation already has an entry, and if found, it adds the requested lock mode to that slot. If no existing entry is found, it attempts to use an available empty slot. If neither condition is met (no existing entry and no empty slots), the function returns false, indicating that the standard locking mechanism should be used instead.
 

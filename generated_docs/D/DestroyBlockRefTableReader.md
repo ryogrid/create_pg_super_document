@@ -8,7 +8,10 @@ Releases all memory allocated for a BlockRefTableReader structure, performing pr
 
 ## Definition
 
-
+```c
+void
+DestroyBlockRefTableReader(BlockRefTableReader *reader)
+```
 ## Detailed Description
 DestroyBlockRefTableReader performs complete cleanup of a BlockRefTableReader structure by releasing all dynamically allocated memory. The function first checks if the chunk_size array was allocated and frees it if necessary, then frees the reader structure itself. This function provides the symmetric cleanup operation for readers created by CreateBlockRefTableReader, ensuring no memory leaks occur when block reference table reading is complete.
 

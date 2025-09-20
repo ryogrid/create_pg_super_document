@@ -8,7 +8,10 @@ Converts external binary format data to a VARCHAR value, serving as the binary i
 
 ## Definition
 
-
+```c
+Datum
+varcharrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `varcharrecv` function handles the conversion of VARCHAR data from PostgreSQL's external binary format to the internal VARCHAR representation. This function is part of PostgreSQL's type I/O system and is called when receiving VARCHAR data through the binary protocol, such as during COPY operations with binary format or when using prepared statements with binary parameter formats.
 

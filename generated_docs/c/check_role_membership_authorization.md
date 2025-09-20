@@ -8,7 +8,11 @@ check_role_membership_authorization validates that the current user has sufficie
 
 ## Definition
 
-
+```c
+static void
+check_role_membership_authorization(Oid currentUserId, Oid roleid,
+									bool is_grant)
+```
 ## Detailed Description
 This function implements authorization checks for role membership operations (GRANT ROLE and REVOKE ROLE). It enforces PostgreSQL's security model by ensuring that only properly authorized users can modify role memberships. The function implements a hierarchical permission model where superuser privileges are required to modify superuser roles, and admin option is required for non-superuser roles.
 

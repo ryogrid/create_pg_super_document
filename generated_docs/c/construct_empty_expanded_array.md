@@ -8,7 +8,12 @@ Creates an empty expanded array object that provides an optimized in-memory repr
 
 ## Definition
 
-
+```c
+ExpandedArrayHeader *
+construct_empty_expanded_array(Oid element_type,
+							   MemoryContext parentcontext,
+							   ArrayMetaState *metacache)
+```
 ## Detailed Description
 The construct_empty_expanded_array function creates an empty array in PostgreSQL's expanded object format, which provides an optimized in-memory representation designed for efficient array operations. Unlike regular ArrayType objects, expanded arrays maintain additional metadata and use structures that facilitate faster element access, modification, and array operations.
 

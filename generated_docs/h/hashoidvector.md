@@ -8,7 +8,10 @@ Computes a hash value for an oidvector data structure containing an array of Pos
 
 ## Definition
 
-
+```c
+Datum
+hashoidvector(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function generates a hash value for an oidvector by hashing its entire array of OID values. The oidvector is a PostgreSQL data type that stores a vector of object identifiers, commonly used in system catalogs. The function calculates the hash by treating the OID array as raw binary data and passing it to the generic hash_any function.
 

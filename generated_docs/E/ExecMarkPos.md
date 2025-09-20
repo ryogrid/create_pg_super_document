@@ -8,7 +8,10 @@ ExecMarkPos marks the current scan position in a plan node, enabling later resto
 
 ## Definition
 
-
+```c
+void
+ExecMarkPos(PlanState *node)
+```
 ## Detailed Description
 ExecMarkPos is a dispatcher function that marks the current position in a scan node so that execution can later return to this exact position using ExecRestrPos. This capability is essential for implementing certain join algorithms, particularly MergeJoin, which may need to re-read portions of the inner relation when processing duplicate values.
 

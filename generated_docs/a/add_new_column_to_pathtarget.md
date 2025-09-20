@@ -8,7 +8,10 @@ Appends a target column to a PathTarget, but only if it's not equal() to any pre
 
 ## Definition
 
-
+```c
+void
+add_new_column_to_pathtarget(PathTarget *target, Expr *expr)
+```
 ## Detailed Description
 This function provides a safe way to add a new expression column to a PathTarget structure while avoiding duplicates. It first checks if the given expression already exists in the target's expression list using list_member(), and only adds it if it's not found. The function delegates the actual addition to add_column_to_pathtarget() with a sortgroupref of 0, since the caller cannot specify a sortgroupref when using this function (it would be unclear how to merge that with a pre-existing column).
 

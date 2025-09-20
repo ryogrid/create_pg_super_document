@@ -8,7 +8,10 @@ Performs bitwise OR operation on two 32-bit integer values and returns the resul
 
 ## Definition
 
-
+```c
+Datum
+int4or(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int4or function implements the bitwise OR operator (|) for PostgreSQL's integer type (int4). It takes two 32-bit signed integer arguments and returns their bitwise OR result. This function is part of PostgreSQL's built-in integer arithmetic operations and is typically invoked through SQL's # operator for integers.
 

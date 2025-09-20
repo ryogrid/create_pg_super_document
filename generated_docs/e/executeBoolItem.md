@@ -8,7 +8,11 @@ This function executes boolean-valued JSONPath expressions, handling logical ope
 
 ## Definition
 
-
+```c
+static JsonPathBool
+executeBoolItem(JsonPathExecContext *cxt, JsonPathItem *jsp,
+				JsonbValue *jb, bool canHaveNext)
+```
 ## Detailed Description
 The  function is the core boolean expression evaluator for JSONPath. It implements a comprehensive set of boolean operations including logical AND/OR/NOT, comparison operations, pattern matching, and existence checks. The function uses three-valued logic (true/false/unknown) to handle SQL/JSON semantics correctly. It processes various JSONPath item types recursively, implementing proper short-circuit evaluation for logical operations and delegating predicate evaluation to specialized functions. The function includes stack depth checking to prevent overflow during recursive evaluation.
 

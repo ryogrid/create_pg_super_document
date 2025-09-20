@@ -8,7 +8,14 @@ SerializeMetrics is a struct that tracks instrumentation data for PostgreSQL's S
 
 ## Definition
 
-
+```c
+typedef struct SerializeMetrics
+{
+	uint64		bytesSent;		/* # of bytes serialized */
+	instr_time	timeSpent;		/* time spent serializing */
+	BufferUsage bufferUsage;	/* buffers accessed during serialization */
+} SerializeMetrics;
+```
 ## Detailed Description
 The SerializeMetrics structure is used to collect and store performance instrumentation data when PostgreSQL executes queries with the SERIALIZE option enabled in EXPLAIN commands. This struct provides comprehensive metrics about the serialization process, including the volume of data serialized, the time taken for serialization, and detailed buffer usage statistics. It serves as a container for monitoring the efficiency and resource consumption of the result serialization phase, which is crucial for performance analysis and optimization of query execution plans.
 

@@ -8,7 +8,10 @@ ATGetQueueEntry finds an existing or creates a new AlteredTableInfo entry in the
 
 ## Definition
 
-
+```c
+static AlteredTableInfo *
+ATGetQueueEntry(List **wqueue, Relation rel)
+```
 ## Detailed Description
 ATGetQueueEntry serves as the central registry mechanism for managing table alterations during complex ALTER TABLE operations. The function maintains a work queue (wqueue) that tracks all tables that need processing during an ALTER TABLE command, including the primary table being altered and any related tables that require cascading changes (such as child tables in inheritance hierarchies or tables with foreign key relationships).
 

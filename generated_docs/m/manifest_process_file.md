@@ -8,7 +8,14 @@ A callback function invoked for each file mentioned in the backup manifest to st
 
 ## Definition
 
-
+```c
+static void
+manifest_process_file(JsonManifestParseContext *context,
+					  const char *pathname, size_t size,
+					  pg_checksum_type checksum_type,
+					  int checksum_length,
+					  uint8 *checksum_payload)
+```
 ## Detailed Description
 This function is a callback that gets invoked during backup manifest parsing for every file entry encountered. It extracts and stores essential file metadata (path and size) in the IncrementalBackupInfo structure's manifest_files hash table. The function performs memory management by duplicating the pathname string in the appropriate memory context and only processes new entries (avoiding duplicates). While checksum-related parameters are provided, they are not currently used by this implementation, focusing instead on basic file tracking for incremental backup validation.
 

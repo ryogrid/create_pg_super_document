@@ -8,7 +8,10 @@ Gets a buffer for a specific block number in a hash index for read or write oper
 
 ## Definition
 
-
+```c
+Buffer
+_hash_getbuf(Relation rel, BlockNumber blkno, int access, int flags)
+```
 ## Detailed Description
 This function retrieves a buffer for an existing page in a hash index by its block number. It is specifically designed to access pages that are already known to exist and be valid - it cannot be used to extend the index (P_NEW is explicitly disallowed). The function performs several critical operations:
 

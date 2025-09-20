@@ -8,7 +8,10 @@ The  function dumps the metadata definition of a large object group, including O
 
 ## Definition
 
-
+```c
+static void
+dumpLO(Archive *fout, const LoInfo *loinfo)
+```
 ## Detailed Description
 The  function creates dump archive entries for large object metadata. It generates a simple definition consisting of newline-separated OID lists, then conditionally dumps comments, security labels, and ACL permissions based on the dump component flags. For groups containing multiple BLOBs, it optimizes ACL dumping by creating a single "LARGE OBJECTS" entry that applies to the entire range, while comments and security labels are dumped individually for each BLOB. The function handles both single BLOB and BLOB group scenarios with appropriate naming and tagging strategies.
 

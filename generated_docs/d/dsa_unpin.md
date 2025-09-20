@@ -8,7 +8,10 @@ Unpins a previously pinned dynamic shared memory area, allowing it to be automat
 
 ## Definition
 
-
+```c
+void
+dsa_unpin(dsa_area *area)
+```
 ## Detailed Description
 This function reverses the effects of , restoring normal cleanup behavior for a DSA area. When unpinned, the area will be automatically destroyed when its reference count drops to zero (i.e., when no backends are attached to it). The unpinning process involves:
 

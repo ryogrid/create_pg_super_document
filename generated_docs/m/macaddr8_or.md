@@ -8,7 +8,10 @@ Performs bitwise OR operation between two MAC-8 (EUI-64) addresses, combining co
 
 ## Definition
 
-
+```c
+Datum
+macaddr8_or(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the bitwise OR arithmetic operation for PostgreSQL's macaddr8 data type (8-byte MAC addresses / EUI-64 identifiers). It takes two macaddr8 input addresses and creates a new macaddr8 structure where each byte is the result of performing bitwise OR between the corresponding bytes of the input addresses. The operation combines bits such that the result bit is 1 when either input bit (or both) is 1, and 0 only when both input bits are 0.
 

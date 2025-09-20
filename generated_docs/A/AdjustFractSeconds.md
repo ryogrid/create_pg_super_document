@@ -8,7 +8,10 @@ AdjustFractSeconds is a utility function that adjusts fractional seconds by conv
 
 ## Definition
 
-
+```c
+static void
+AdjustFractSeconds(double frac, struct /* pg_ */ tm *tm, fsec_t *fsec, int scale)
+```
 ## Detailed Description
 This function handles the conversion of fractional seconds into their constituent parts when processing time intervals. It takes a fractional value, scales it appropriately, extracts the whole second portion to add to the tm_sec field of a time structure, and converts the remaining fractional part to microseconds stored in the fsec parameter. The function is copied and adapted from the backend datetime utilities for use in the ECPG (Embedded SQL in C for PostgreSQL) pgtypeslib.
 

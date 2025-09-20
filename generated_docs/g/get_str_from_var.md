@@ -8,7 +8,10 @@ Converts a NumericVar to its text representation, handling proper formatting of 
 
 ## Definition
 
-
+```c
+static char *
+get_str_from_var(const NumericVar *var)
+```
 ## Detailed Description
 This static function serves as the core conversion routine for transforming a NumericVar into a human-readable string representation. It handles the complex task of properly formatting numeric digits into decimal notation, including sign handling, decimal point placement, and trailing zero management according to the variable's dscale (display scale).
 

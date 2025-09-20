@@ -8,7 +8,10 @@ Removes a function or aggregate from the PostgreSQL system catalogs by deleting 
 
 ## Definition
 
-
+```c
+void
+RemoveFunctionById(Oid funcOid)
+```
 ## Detailed Description
 RemoveFunctionById is the core function responsible for physically deleting function and aggregate definitions from PostgreSQL's system catalogs. It handles the low-level deletion of catalog tuples and statistics cleanup. The function works by:
 

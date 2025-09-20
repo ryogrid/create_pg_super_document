@@ -8,7 +8,17 @@ The filemap_t structure contains the final decisions and summary information for
 
 ## Definition
 
+```c
+typedef struct filemap_t
+{
+	/* Summary information, filled by calculate_totals() */
+	uint64		total_size;		/* total size of the source cluster */
+	uint64		fetch_size;		/* number of bytes that needs to be copied */
 
+	int			nentries;		/* size of 'entries' array */
+	file_entry_t *entries[FLEXIBLE_ARRAY_MEMBER];
+} filemap_t;
+```
 ## Detailed Description
 The filemap_t structure serves as the master container for all file operation decisions made during pg_rewind execution. It contains an array of file_entry_t pointers sorted in the order that their actions should be executed, along with summary statistics about the total work to be performed. This structure is created after all file information has been gathered and analyzed, representing the final plan for synchronizing the target cluster with the source cluster.
 

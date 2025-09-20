@@ -8,7 +8,16 @@ CombinationGenerator is a data structure used in PostgreSQL's multivariate stati
 
 ## Definition
 
-
+```c
+typedef struct CombinationGenerator
+{
+	int			k;				/* size of the combination */
+	int			n;				/* total number of elements */
+	int			current;		/* index of the next combination to return */
+	int			ncombinations;	/* number of combinations (size of array) */
+	int		   *combinations;	/* array of pre-built combinations */
+} CombinationGenerator;
+```
 ## Detailed Description
 The CombinationGenerator struct provides a mechanism for generating all possible combinations of k elements from a set of n elements. It is used in PostgreSQL's multivariate distinct statistics calculations (mvdistinct.c) to analyze relationships between different combinations of table columns.
 

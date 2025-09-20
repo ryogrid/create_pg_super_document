@@ -8,7 +8,11 @@ Retrieves foreign key information for a given relation and creates ForeignKeyOpt
 
 ## Definition
 
-
+```c
+static void
+get_relation_foreign_keys(PlannerInfo *root, RelOptInfo *rel,
+						  Relation relation, bool inhparent)
+```
 ## Detailed Description
 This static function extracts foreign key constraints from a relation's relcache entry and creates ForeignKeyOptInfo structures for foreign keys that are relevant to the current query. The function focuses on foreign keys that reference other base relations present in the query's range table, as these are the ones that can potentially be used for join optimization and constraint inference.
 

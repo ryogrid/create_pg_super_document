@@ -8,7 +8,10 @@ Empties a conditional stack by destroying all its elements while keeping the sta
 
 ## Definition
 
-
+```c
+void
+conditional_stack_reset(ConditionalStack cstack)
+```
 ## Detailed Description
 This function removes and deallocates all elements from the conditional stack without destroying the stack structure itself. It provides a way to clear the stack of all nested conditional states and return it to an empty state, equivalent to a freshly created stack. The function performs a null check and gracefully handles the case where a NULL stack pointer is passed. The reset operation is implemented by repeatedly calling conditional_stack_pop until the stack is empty.
 

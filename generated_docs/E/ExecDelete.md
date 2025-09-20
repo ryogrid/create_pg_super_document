@@ -8,7 +8,19 @@ Executes the deletion of a tuple from a table, handling various scenarios includ
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecDelete(ModifyTableContext *context,
+		   ResultRelInfo *resultRelInfo,
+		   ItemPointer tupleid,
+		   HeapTuple oldtuple,
+		   bool processReturning,
+		   bool changingPart,
+		   bool canSetTag,
+		   TM_Result *tmresult,
+		   bool *tupleDeleted,
+		   TupleTableSlot **epqreturnslot)
+```
 ## Detailed Description
 ExecDelete is the core function for executing DELETE operations in PostgreSQL. It handles the complete deletion workflow including:
 

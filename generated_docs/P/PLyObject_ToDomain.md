@@ -8,7 +8,11 @@ Converts a Python object to a PostgreSQL domain type by delegating to the base t
 
 ## Definition
 
-
+```c
+static Datum
+PLyObject_ToDomain(PLyObToDatum *arg, PyObject *plrv,
+				   bool *isnull, bool inarray)
+```
 ## Detailed Description
 This function implements conversion for PostgreSQL domain types, which are user-defined types based on existing base types with additional constraints. The conversion follows a two-stage approach that mirrors PostgreSQL's domain type architecture.
 

@@ -8,7 +8,10 @@ InitShmemIndex initializes the shared memory index hash table that tracks all na
 
 ## Definition
 
-
+```c
+void
+InitShmemIndex(void)
+```
 ## Detailed Description
 This function creates and initializes the ShmemIndex hash table, which serves as a registry for all named shared memory structures in PostgreSQL. The ShmemIndex acts as a lookup table that maps structure names to their locations in shared memory, enabling other processes to find and attach to previously allocated shared memory structures.
 

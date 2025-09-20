@@ -8,7 +8,12 @@ check_lock_if_inplace_updateable_rel is a static validation function that confir
 
 ## Definition
 
-
+```c
+static void
+check_lock_if_inplace_updateable_rel(Relation relation,
+									 ItemPointer otid,
+									 HeapTuple newtup)
+```
 ## Detailed Description
 This function implements critical safety checks for heap updates on specific system catalog tables that support inplace updates - a special optimization where certain catalog updates can modify tuples without creating new tuple versions. This optimization requires careful coordination to prevent corruption from concurrent access.
 

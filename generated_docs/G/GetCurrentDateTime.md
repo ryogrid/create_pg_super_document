@@ -8,7 +8,10 @@ GetCurrentDateTime is a convenience wrapper function that retrieves the current 
 
 ## Definition
 
-
+```c
+void
+GetCurrentDateTime(struct tm *tm)
+```
 ## Detailed Description
 This function provides a simplified interface to obtain the current transaction timestamp without requiring fractional seconds or timezone offset information. It internally calls GetCurrentTimeUsec but discards the microsecond precision and timezone offset components, making it suitable for applications that only need the basic date and time components.
 

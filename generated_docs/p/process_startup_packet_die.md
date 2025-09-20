@@ -8,7 +8,10 @@ A signal handler function that terminates the backend process when SIGTERM is re
 
 ## Definition
 
-
+```c
+static void
+process_startup_packet_die(SIGNAL_ARGS)
+```
 ## Detailed Description
 This function serves as a SIGTERM signal handler specifically designed for the critical startup packet processing phase. When a SIGTERM signal is received during this early stage of backend initialization, the function performs an immediate process termination using  instead of the standard  routine.
 

@@ -8,7 +8,10 @@ Assigns input collation information to expression tree nodes that support input 
 
 ## Definition
 
-
+```c
+void
+exprSetInputCollation(Node *expr, Oid inputcollation)
+```
 ## Detailed Description
 The  function is responsible for setting the input collation field for expression nodes that need to track the collation of their input arguments. Unlike  which sets the result collation, this function sets the collation used for input argument processing.
 

@@ -8,7 +8,10 @@ The  function determines whether one range is completely contained by another ra
 
 ## Definition
 
-
+```c
+Datum
+range_contained_by(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the range containment check from the opposite perspective of . It takes two range arguments and returns a boolean value indicating whether the first range is completely contained by the second range. The function serves as the SQL-callable wrapper for the internal  function, handling the PostgreSQL function call protocol and type cache management.
 

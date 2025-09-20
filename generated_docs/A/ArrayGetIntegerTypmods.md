@@ -8,7 +8,9 @@ Validates and converts a 1-D cstring array into an array of integer type modifie
 
 ## Definition
 
-
+```c
+struct_array_builtin(arr, CSTRINGOID, &elem_values, NULL, n);
+```
 ## Detailed Description
 This function is essential for PostgreSQL's type system, specifically for handling type modifiers (typmod) that specify constraints like precision, scale, or length for data types. It takes a cstring array containing numeric values as strings and converts them to a palloc'd array of int32 values.
 

@@ -8,7 +8,10 @@ A PostgreSQL function that counts the number of set bits (1s) in a bytea value, 
 
 ## Definition
 
-
+```c
+Datum
+bytea_bit_count(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `bytea_bit_count` function implements the SQL standard BIT_COUNT() function for bytea data types. It counts the total number of bits that are set to 1 across all bytes in the input bytea value. The function uses PostgreSQL's optimized `pg_popcount` function to efficiently count the set bits in the binary data. This is useful for bit manipulation operations, bitmap analysis, and various algorithmic applications that work with binary data.
 

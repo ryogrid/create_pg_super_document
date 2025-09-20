@@ -8,7 +8,10 @@ The  function is the main entry point for analyzing and transforming SQL express
 
 ## Definition
 
-
+```c
+Node *
+transformExpr(ParseState *pstate, Node *expr, ParseExprKind exprKind)
+```
 ## Detailed Description
  serves as the primary interface for expression transformation in PostgreSQL's parser. It acts as a wrapper around , managing the parse state's expression kind context during the transformation process. The function ensures that the expression kind is properly set and restored, providing crucial context for the recursive expression analysis that follows. This design allows the parser to track what type of expression context it's currently processing (e.g., WHERE clause, SELECT list, etc.), which affects how certain expressions are interpreted and validated.
 

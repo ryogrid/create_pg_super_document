@@ -8,7 +8,11 @@ Creates a function scan plan for scanning the results of function calls that app
 
 ## Definition
 
-
+```c
+static FunctionScan *
+create_functionscan_plan(PlannerInfo *root, Path *best_path,
+						 List *tlist, List *scan_clauses)
+```
 ## Detailed Description
 The  function constructs a FunctionScan execution plan node for scanning the output of function calls that are used as table sources. This handles cases where functions are called in the FROM clause (e.g.,  or ).
 

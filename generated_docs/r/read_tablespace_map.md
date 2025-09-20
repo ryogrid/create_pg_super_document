@@ -8,7 +8,10 @@ Reads and parses the tablespace_map file during backup recovery to extract table
 
 ## Definition
 
-
+```c
+static bool
+read_tablespace_map(List **tablespaces)
+```
 ## Detailed Description
 This function checks for the presence of a tablespace_map file during recovery from a backup dump. When found, it parses the file to extract tablespace information including OID and path mappings. The tablespace_map file is created during backup operations and contains the necessary information to recreate tablespace symlinks in the correct locations during recovery.
 

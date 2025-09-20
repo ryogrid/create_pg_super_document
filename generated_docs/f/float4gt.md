@@ -8,7 +8,10 @@ PostgreSQL SQL-callable function that tests whether one single-precision floatin
 
 ## Definition
 
-
+```c
+Datum
+float4gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that implements the greater-than comparison operator () for single-precision floating-point numbers (float4 type). It extracts two float4 arguments from the function call context and delegates the actual comparison logic to the  inline helper function.
 

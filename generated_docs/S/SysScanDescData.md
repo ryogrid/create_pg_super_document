@@ -8,7 +8,17 @@ SysScanDescData is a structure that encapsulates the state information for scann
 
 ## Definition
 
-
+```c
+typedef struct SysScanDescData
+{
+	Relation	heap_rel;		/* catalog being scanned */
+	Relation	irel;			/* NULL if doing heap scan */
+	struct TableScanDescData *scan; /* only valid in storage-scan case */
+	struct IndexScanDescData *iscan;	/* only valid in index-scan case */
+	struct SnapshotData *snapshot;	/* snapshot to unregister at end of scan */
+	struct TupleTableSlot *slot;
+}			SysScanDescData;
+```
 ## Detailed Description
 This structure provides a unified interface for scanning PostgreSQL system catalogs (pg_class, pg_attribute, pg_proc, etc.) with intelligent scan method selection. The structure supports both index-based and heap-based scanning modes, automatically choosing the most appropriate method based on system conditions.
 

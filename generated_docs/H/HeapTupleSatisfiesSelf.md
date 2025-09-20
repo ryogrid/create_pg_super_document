@@ -8,7 +8,10 @@ Determines if a heap tuple is visible to the current transaction under the "self
 
 ## Definition
 
-
+```c
+static bool
+HeapTupleSatisfiesSelf(HeapTuple htup, Snapshot snapshot, Buffer buffer)
+```
 ## Detailed Description
 HeapTupleSatisfiesSelf implements the "self" visibility semantics for PostgreSQL's MVCC system. This function determines whether a tuple should be visible to the current transaction by examining the transaction IDs in the tuple header and comparing them with the current transaction.
 

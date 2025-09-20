@@ -8,7 +8,10 @@ Calculates and returns the area of a geometric box by multiplying its width and 
 
 ## Definition
 
-
+```c
+static float8
+box_ar(BOX *box)
+```
 ## Detailed Description
 The `box_ar` function is a static helper function that computes the area of a BOX geometric data type. It calculates the area by multiplying the box's width (obtained via `box_wd`) by its height (obtained via `box_ht`) using PostgreSQL's safe floating-point multiplication function `float8_mul`. This function is used internally by various box comparison and area calculation functions.
 

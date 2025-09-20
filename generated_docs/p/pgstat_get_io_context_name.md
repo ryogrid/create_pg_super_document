@@ -8,7 +8,10 @@ Returns a human-readable string representation of PostgreSQL I/O context enumera
 
 ## Definition
 
-
+```c
+const char *
+pgstat_get_io_context_name(IOContext io_context)
+```
 ## Detailed Description
 This function provides a mapping from internal IOContext enumeration values to their corresponding string representations for display purposes. It uses a switch statement to convert each IOContext enum value to its descriptive string name. The function handles all defined I/O contexts including bulk operations, normal operations, and vacuum operations. If an unrecognized IOContext value is passed, the function logs an error and calls pg_unreachable() to indicate this should never happen in correct operation.
 

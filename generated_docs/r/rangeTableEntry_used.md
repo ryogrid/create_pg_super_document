@@ -8,7 +8,10 @@ A high-level interface function that determines whether a specific range table e
 
 ## Definition
 
-
+```c
+bool
+rangeTableEntry_used(Node *node, int rt_index, int sublevels_up)
+```
 ## Detailed Description
 This function serves as the main entry point for detecting whether a specific range table entry is referenced within a query or expression. It sets up the context structure and initiates a tree walk using query_or_expression_tree_walker, which can handle both Query nodes and bare expression trees without incorrectly incrementing the sublevels_up counter.
 

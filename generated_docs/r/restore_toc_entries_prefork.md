@@ -8,7 +8,11 @@ Main engine for the first phase of parallel restore, processing PRE_DATA TOC ent
 
 ## Definition
 
-
+```c
+structure.  When we can no longer
+ * make any entries ready to process, we exit.  Normally, there will be
+ * nothing left to do;
+```
 ## Detailed Description
 This function implements the first phase of PostgreSQL's parallel restore process. It processes all SECTION_PRE_DATA TOC (Table of Contents) entries that are allowed to be processed in the RESTORE_PASS_MAIN pass, which includes most PRE_DATA items except ACLs. The function operates in a single connection in the parent process for efficiency, since pre-data operations benefit less from parallelization and older pg_dump versions had incomplete dependency information for these items.
 

@@ -8,7 +8,10 @@ defGetCopyLogVerbosityChoice extracts and validates a CopyLogVerbosityChoice val
 
 ## Definition
 
-
+```c
+static CopyLogVerbosityChoice
+defGetCopyLogVerbosityChoice(DefElem *def, ParseState *pstate)
+```
 ## Detailed Description
 This function parses and validates the LOG_VERBOSITY option value for COPY statements. The LOG_VERBOSITY option controls the amount of detail included in log messages generated during COPY operations. It accepts two string values: "default" (standard logging level) and "verbose" (increased logging detail for debugging and monitoring purposes). The function provides case-insensitive string matching and generates descriptive error messages with precise parser position information when invalid values are provided.
 

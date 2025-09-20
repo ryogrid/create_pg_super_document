@@ -8,7 +8,10 @@ Closes the pipe from an external program and performs proper error checking on t
 
 ## Definition
 
-
+```c
+static void
+ClosePipeFromProgram(CopyFromState cstate)
+```
 ## Detailed Description
 This function is responsible for properly closing a pipe connection to an external program that was opened as part of a COPY FROM PROGRAM operation. It wraps the ClosePipeStream() call and provides comprehensive error handling for various failure scenarios.
 

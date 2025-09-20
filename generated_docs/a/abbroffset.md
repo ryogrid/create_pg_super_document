@@ -8,7 +8,10 @@ The abbroffset function converts a timezone offset value into a human-readable s
 
 ## Definition
 
-
+```c
+static char const *
+abbroffset(char *buf, zic_t offset)
+```
 ## Detailed Description
 This function takes a timezone offset in seconds and formats it into a string representation following the ±HHMM or ±HHMMSS format. It handles the conversion of the offset into hours, minutes, and seconds components, applying appropriate sign handling and formatting.
 

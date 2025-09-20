@@ -8,7 +8,11 @@ Evaluates a list of parameter expressions for a prepared statement, performing t
 
 ## Definition
 
-
+```c
+static ParamListInfo
+EvaluateParams(ParseState *pstate, PreparedStatement *pstmt, List *params,
+			   EState *estate)
+```
 ## Detailed Description
 EvaluateParams processes parameter expressions provided to an EXECUTE statement by validating parameter count, performing parse analysis and type transformation on each parameter expression, coercing parameter values to expected types, and evaluating the expressions to produce concrete parameter values. The function ensures type safety by checking that provided parameters can be coerced to the types expected by the prepared statement, and produces a ParamListInfo structure that can be used during query execution.
 

@@ -8,7 +8,10 @@ Returns the process ID (PID) of the PostgreSQL backend server process that is ha
 
 ## Definition
 
-
+```c
+int
+PQbackendPID(const PGconn *conn)
+```
 ## Detailed Description
 This function retrieves the process identifier of the PostgreSQL server backend process that is handling the specified connection. Each client connection to PostgreSQL is served by a dedicated backend process, and this function provides access to that process's PID.
 

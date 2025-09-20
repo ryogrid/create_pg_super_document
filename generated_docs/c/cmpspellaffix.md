@@ -8,7 +8,10 @@ A static comparison function used for sorting SPELL structures by their affix fl
 
 ## Definition
 
-
+```c
+static int
+cmpspellaffix(const void *s1, const void *s2)
+```
 ## Detailed Description
 The  function is a comparison function specifically designed for use with  to sort an array of SPELL structure pointers by their affix flag strings. This function is crucial in the dictionary processing phase where affix flags need to be organized alphabetically to optimize storage and lookup operations.
 

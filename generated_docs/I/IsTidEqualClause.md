@@ -8,7 +8,10 @@ IsTidEqualClause is a static function that checks whether a RestrictInfo represe
 
 ## Definition
 
-
+```c
+static bool
+IsTidEqualClause(RestrictInfo *rinfo, RelOptInfo *rel)
+```
 ## Detailed Description
 This function determines if a RestrictInfo represents an equality clause of the form "CTID = pseudoconstant" or "pseudoconstant = CTID". It builds upon IsBinaryTidClause to first verify that the clause is a valid binary TID clause, then specifically checks that the operator is the TID equality operator. This function is essential for identifying clauses that can be used for direct TID-based tuple access in query execution.
 

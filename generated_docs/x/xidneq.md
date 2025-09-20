@@ -8,7 +8,10 @@ The  function is a PostgreSQL built-in function that compares two transaction ID
 
 ## Definition
 
-
+```c
+Datum
+xidneq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the inequality comparison operator for transaction IDs in PostgreSQL. It takes two TransactionId parameters through the PostgreSQL function call interface and returns a boolean value indicating whether the two transaction IDs are different. The function uses the  macro internally and negates its result to determine inequality.
 

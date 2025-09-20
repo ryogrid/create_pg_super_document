@@ -8,7 +8,10 @@ A static inline comparison function used by hash tables to compare PgStat_HashKe
 
 ## Definition
 
-
+```c
+static inline int
+pgstat_cmp_hash_key(const void *a, const void *b, size_t size, void *arg)
+```
 ## Detailed Description
 This function serves as a key comparison helper for dshash and simplehash hashtables used in PostgreSQL's statistics collection system. It performs a binary comparison between two PgStat_HashKey structures to determine if they are equal. The function is designed to work with hash table implementations that require a comparison callback function, returning 0 for equal keys and non-zero for different keys.
 

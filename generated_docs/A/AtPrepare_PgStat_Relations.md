@@ -8,7 +8,10 @@ Generates 2PC (Two-Phase Commit) records for all pending transaction-dependent r
 
 ## Definition
 
-
+```c
+void
+AtPrepare_PgStat_Relations(PgStat_SubXactStatus *xact_state)
+```
 ## Detailed Description
 This function is called during the prepare phase of a two-phase commit transaction to create persistent records of all relation statistics that have been accumulated during the transaction. It iterates through all table transaction status entries and creates TwoPhasePgStatRecord structures containing the statistics data, which are then registered with the two-phase commit system via RegisterTwoPhaseRecord.
 

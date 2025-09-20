@@ -8,7 +8,11 @@ Looks up PostgreSQL database objects by their textual description and retrieves 
 
 ## Definition
 
-
+```c
+static bool
+lookup_object_oid(EditableObjectType obj_type, const char *desc,
+				  Oid *obj_oid)
+```
 ## Detailed Description
 The  function provides a unified interface for converting textual object descriptions into PostgreSQL internal Object Identifiers (OIDs). It supports different object types with type-specific lookup strategies using PostgreSQL's built-in conversion functions like regproc, regprocedure, and regclass.
 

@@ -8,7 +8,10 @@ ExecSupportsBackwardScan determines whether a complete plan tree supports backwa
 
 ## Definition
 
-
+```c
+struct */
+	amroutine = GetIndexAmRoutineByAmId(idxrelrec->relam, false);
+```
 ## Detailed Description
 ExecSupportsBackwardScan analyzes a complete plan tree to determine if it can support backward scanning operations. This capability is essential for implementing scrollable cursors, where users can move both forward and backward through query results. Unlike mark/restore operations which only need to return to specific marked positions, backward scanning requires the ability to move in reverse through the entire result set.
 

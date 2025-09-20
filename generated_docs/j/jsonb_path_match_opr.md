@@ -8,7 +8,10 @@ Implementation of the PostgreSQL operator "jsonb @@ jsonpath" that evaluates a J
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_match_opr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `jsonb_path_match_opr` implements the PostgreSQL operator "jsonb @@ jsonpath", which provides a convenient operator-based syntax for evaluating JSONPath predicate expressions against JSONB data. This function serves as the 2-argument version of `jsonb_path_match()`, allowing users to write expressions like `jsonb_value @@ 'path_expression'` instead of calling the function directly.
 

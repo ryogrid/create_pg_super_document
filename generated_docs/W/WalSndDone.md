@@ -8,7 +8,10 @@ WalSndDone handles graceful shutdown of WAL sender processes by ensuring all WAL
 
 ## Definition
 
-
+```c
+static void
+WalSndDone(WalSndSendDataCallback send_data)
+```
 ## Detailed Description
 WalSndDone is responsible for the orderly shutdown of WAL sender processes when a shutdown signal has been received from the postmaster. The function implements a careful protocol to ensure data integrity by verifying that all WAL data has been successfully transmitted and acknowledged by the client before terminating.
 

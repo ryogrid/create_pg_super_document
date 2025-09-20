@@ -8,7 +8,10 @@ This function checks whether support for a specific compression algorithm is imp
 
 ## Definition
 
-
+```c
+char *
+supports_compression(const pg_compress_specification compression_spec)
+```
 ## Detailed Description
 The  function validates whether a given compression algorithm is available in the current build of PostgreSQL's pg_dump/restore utilities. It checks compile-time flags to determine if specific compression libraries (libz, LZ4, ZSTD) were included during the build process. The function returns NULL on success (indicating the algorithm is supported) or a malloc'ed error string that can be used in error messages when the algorithm is not supported.
 

@@ -8,7 +8,22 @@ A structure that extends the base backup sink () to provide gzip compression fun
 
 ## Definition
 
+```c
+typedef struct bbsink_gzip
+{
+	/* Common information for all types of sink. */
+	bbsink		base;
 
+	/* Compression level. */
+	int			compresslevel;
+
+	/* Compressed data stream. */
+	z_stream	zstream;
+
+	/* Number of bytes staged in output buffer. */
+	size_t		bytes_written;
+} bbsink_gzip;
+```
 ## Detailed Description
 The  structure is a specialized backup sink that implements gzip compression for PostgreSQL base backup operations. It inherits from the base  structure and adds compression-specific functionality using the zlib library. This structure is part of PostgreSQL's backup infrastructure and is used to compress backup data streams on-the-fly during base backup operations.
 

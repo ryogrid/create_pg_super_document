@@ -8,7 +8,11 @@ Creates a MergeAppend plan node that merges multiple sorted child plans into a s
 
 ## Definition
 
-
+```c
+static Plan *
+create_merge_append_plan(PlannerInfo *root, MergeAppendPath *best_path,
+						 int flags)
+```
 ## Detailed Description
 The  function creates a MergeAppend execution plan node from a MergeAppendPath. This plan type is used when the optimizer needs to combine results from multiple child plans (typically from different partitions of a partitioned table) while maintaining a specific sort order. The function ensures that all child plans produce output in the same sort order by potentially adding Sort nodes where necessary.
 

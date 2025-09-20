@@ -8,7 +8,14 @@ AggregateInstrumentation is a structure that captures performance metrics for ha
 
 ## Definition
 
-
+```c
+typedef struct AggregateInstrumentation
+{
+	Size		hash_mem_peak;	/* peak hash table memory usage */
+	uint64		hash_disk_used; /* kB of disk space used */
+	int			hash_batches_used;	/* batches used during entire execution */
+} AggregateInstrumentation;
+```
 ## Detailed Description
 AggregateInstrumentation is a specialized structure designed to collect and store performance instrumentation data for hash aggregate operations in PostgreSQL. This structure captures key metrics that help analyze the performance characteristics of hash-based aggregation, particularly focusing on memory consumption and disk spill behavior.
 

@@ -8,7 +8,10 @@ The  function removes whitespace characters (specifically spaces) from the begin
 
 ## Definition
 
-
+```c
+Datum
+ltrim1(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that implements left whitespace trimming for text data types. It is a specialized variant of the  function with the trim set fixed to contain only the space character (). This function removes all leading space characters from the input string and returns the remaining portion.
 

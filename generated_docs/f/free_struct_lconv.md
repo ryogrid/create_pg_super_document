@@ -8,7 +8,10 @@ This static function safely deallocates the dynamically allocated string members
 
 ## Definition
 
-
+```c
+static void
+free_struct_lconv(struct lconv *s)
+```
 ## Detailed Description
 The  function is a utility function responsible for cleaning up the malloc'd string content within a  structure. The  is a standard C library structure that contains locale-specific numeric and monetary formatting information. The function systematically frees all the dynamically allocated string members of the structure:
 

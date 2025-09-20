@@ -8,7 +8,10 @@ Calculates and returns the amount of shared memory space required for WAL receiv
 
 ## Definition
 
-
+```c
+Size
+WalRcvShmemSize(void)
+```
 ## Detailed Description
 This function is responsible for calculating the total shared memory size needed for the WAL receiver subsystem. It determines the memory requirements for the WalRcvData structure, which contains the shared state information for WAL receiver processes. The function is typically called during PostgreSQL startup as part of the shared memory initialization process to ensure adequate memory allocation for WAL receiver operations.
 

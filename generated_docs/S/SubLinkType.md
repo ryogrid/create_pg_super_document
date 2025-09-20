@@ -8,7 +8,20 @@ SubLinkType is an enumeration that defines the different types of subselect expr
 
 ## Definition
 
-
+```c
+typedef struct SubLink
+{
+	Expr		xpr;
+	SubLinkType subLinkType;	/* see above */
+	int			subLinkId;		/* ID (1..n); 0 if not MULTIEXPR */
+	Node	   *testexpr;		/* outer-query test for ALL/ANY/ROWCOMPARE */
+	/* originally specified operator name */
+	List	   *operName pg_node_attr(query_jumble_ignore);
+	/* subselect as Query* or raw parsetree */
+	Node	   *subselect;
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} SubLink;
+```
 ## Detailed Description
 SubLinkType categorizes the various forms of subselect expressions that can appear in SQL queries. Each type represents a different semantic behavior for how the subquery interacts with the outer query:
 

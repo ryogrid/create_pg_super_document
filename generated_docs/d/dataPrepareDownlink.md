@@ -8,7 +8,10 @@ dataPrepareDownlink constructs an insertion payload containing a downlink for a 
 
 ## Definition
 
-
+```c
+static void *
+dataPrepareDownlink(GinBtree btree, Buffer lbuf)
+```
 ## Detailed Description
 This static function creates a PostingItem that represents a downlink to be inserted into a GIN B-tree structure. The function allocates memory for a new PostingItem, extracts the block number from the provided buffer, and sets the item's key to the right bound value of the data page. This downlink serves as a pointer/reference that allows navigation from parent nodes to child nodes in the GIN index structure.
 

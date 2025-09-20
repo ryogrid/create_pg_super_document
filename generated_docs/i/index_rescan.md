@@ -8,7 +8,10 @@ The  function restarts an existing index scan with potentially new scan keys and
 
 ## Definition
 
-
+```c
+structure itself */
+	IndexScanEnd(scan);
+```
 ## Detailed Description
 This function allows restarting an active index scan with new search parameters without requiring complete scan teardown and recreation. It validates that the new key counts match the original scan setup, releases any resources from previous table accesses, resets scan state flags, and delegates to the access method-specific rescan implementation. The function is more efficient than ending and restarting a scan when only the search conditions need to change. It maintains the same scan descriptor while allowing the underlying index access method to reinitialize its internal scan state with the new parameters.
 

@@ -8,7 +8,10 @@ A memory allocation wrapper function that provides error-checked malloc function
 
 ## Definition
 
-
+```c
+void *
+mm_alloc(size_t size)
+```
 ## Detailed Description
 The  function serves as a safe wrapper around the standard  function specifically designed for the ECPG (Embedded SQL in C) preprocessor. It performs dynamic memory allocation with automatic error checking, ensuring that allocation failures are handled gracefully by terminating the program with an appropriate error message. This function is critical for maintaining memory management reliability throughout the ECPG preprocessing pipeline.
 

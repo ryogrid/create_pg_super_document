@@ -8,7 +8,11 @@ Compiles or retrieves a cached PL/Perl function descriptor, handling the complet
 
 ## Definition
 
-
+```c
+struct prodesc and subsidiary data must all live in proc_cxt.
+		 ************************************************************/
+		oldcontext = MemoryContextSwitchTo(proc_cxt);
+```
 ## Detailed Description
 This is a comprehensive function that manages the entire lifecycle of PL/Perl function compilation. It first attempts to find an existing cached function descriptor in the hash table, validating it against the current pg_proc entry. If no valid cached version exists, it creates a new function descriptor by analyzing the function's metadata, setting up memory contexts, processing argument and return types, extracting the source code, and compiling it in the appropriate Perl interpreter. The function handles both trusted (plperl) and untrusted (plperlu) variants, different function types (regular, trigger, event trigger), and includes comprehensive error handling with proper cleanup.
 

@@ -8,7 +8,9 @@ VarString is a type alias for the  that represents variable-length string data i
 
 ## Definition
 
-
+```c
+typedef struct varlena VarString;
+```
 ## Detailed Description
 VarString serves as a semantic type alias for  when used specifically for string data. The underlying  structure is PostgreSQL's standard header format for all variable-length datatypes, providing a unified way to handle strings, bytea, and other variable-length data.
 

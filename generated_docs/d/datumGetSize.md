@@ -8,7 +8,9 @@ Determines the actual memory size required to store a PostgreSQL datum, handling
 
 ## Definition
 
-
+```c
+struct varlena *s = (struct varlena *) DatumGetPointer(value);
+```
 ## Detailed Description
 The  function calculates the "real" size of a datum given its value and type characteristics. This is an out-of-line version of the  macro in , with additional error checking. The function handles four different datum storage scenarios:
 

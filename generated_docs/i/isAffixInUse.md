@@ -8,7 +8,10 @@ isAffixInUse checks whether a specific affix flag is actually used by dictionary
 
 ## Definition
 
-
+```c
+static bool
+isAffixInUse(IspellDict *Conf, char *affixflag)
+```
 ## Detailed Description
 This function verifies if a given affix flag is actively used by dictionary entries. It searches through the AffixData array, which contains the consolidated list of affix flags that are actually referenced by words in the dictionary file.
 

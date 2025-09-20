@@ -8,7 +8,10 @@ pg_collation_actual_version is a SQL-callable function that returns the actual v
 
 ## Definition
 
-
+```c
+Datum
+pg_collation_actual_version(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the pg_collation_actual_version() SQL function, which queries the underlying collation library to obtain the current version information for a collation. The function handles two cases:
 1. For the default collation (DEFAULT_COLLATION_OID), it retrieves locale information from pg_database

@@ -8,7 +8,10 @@ Loads a chunk of memory (8 uint8 values) into a Vector8 SIMD register, providing
 
 ## Definition
 
-
+```c
+static inline void
+vector8_load(Vector8 *v, const uint8 *s)
+```
 ## Detailed Description
 This function provides a platform-abstracted interface for loading 8 bytes of memory into a Vector8 SIMD register. The implementation uses conditional compilation to select the most appropriate SIMD instruction set available on the target platform:
 

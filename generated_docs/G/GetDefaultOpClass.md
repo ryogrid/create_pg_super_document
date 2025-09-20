@@ -8,7 +8,10 @@ Finds the default operator class for a given data type and access method combina
 
 ## Definition
 
-
+```c
+Oid
+GetDefaultOpClass(Oid type_id, Oid am_id)
+```
 ## Detailed Description
 This function searches through all available operator classes for a specific access method to find the appropriate default operator class for a given data type. The search algorithm implements a sophisticated preference system:
 

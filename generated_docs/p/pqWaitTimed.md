@@ -8,7 +8,10 @@ pqWaitTimed is a PostgreSQL libpq function that waits for socket readiness with 
 
 ## Definition
 
-
+```c
+int
+pqWaitTimed(int forRead, int forWrite, PGconn *conn, pg_usec_time_t end_time)
+```
 ## Detailed Description
 pqWaitTimed provides timed socket waiting functionality for PostgreSQL client connections. It waits for the connection socket to become ready for reading or writing operations, but will not wait past the specified end time. The function delegates the actual socket checking to pqSocketCheck and handles the return value interpretation. It returns different values to indicate success (socket ready), timeout, or failure conditions.
 

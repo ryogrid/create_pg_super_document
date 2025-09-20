@@ -8,7 +8,13 @@ Records multiple dependencies of the same type for a single dependent object eff
 
 ## Definition
 
-
+```c
+void
+recordMultipleDependencies(const ObjectAddress *depender,
+						   const ObjectAddress *referenced,
+						   int nreferenced,
+						   DependencyType behavior)
+```
 ## Detailed Description
 This function provides an optimized way to record multiple dependency relationships for a single dependent object. It creates entries in the pg_depend system catalog table using batch insertion techniques to improve performance when dealing with multiple dependencies. The function handles several optimizations including skipping pinned objects (which don't need dependency tracking), using tuple slots for efficient insertion, and batching insertions to reduce I/O overhead. It also handles bootstrap mode by returning early since pg_depend may not exist during system initialization.
 

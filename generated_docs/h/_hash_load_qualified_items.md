@@ -8,7 +8,11 @@ Loads all the qualified index tuples from a current hash index page into the sca
 
 ## Definition
 
-
+```c
+static int
+_hash_load_qualified_items(IndexScanDesc scan, Page page,
+						   OffsetNumber offnum, ScanDirection dir)
+```
 ## Detailed Description
 This function is responsible for extracting all tuples from a hash index page that match the scan criteria and storing them in the scan's current position buffer. It handles both forward and backward scan directions, applying proper filtering logic to skip inappropriate tuples (such as those moved by split operations or marked as dead). The function ensures that only tuples with matching hash keys and that satisfy the scan qualifiers are loaded into the buffer.
 

@@ -8,7 +8,10 @@ ExecJustVarImpl is a fast-path implementation function for simple variable expre
 
 ## Definition
 
-
+```c
+static pg_attribute_always_inline Datum
+ExecJustVarImpl(ExprState *state, TupleTableSlot *slot, bool *isnull)
+```
 ## Detailed Description
 This function serves as the core implementation for simple variable access operations (ExecJustInnerVar, ExecJustOuterVar, ExecJustScanVar). It's designed as a fast-path optimization for expressions that consist of just a single variable reference without complex operations.
 

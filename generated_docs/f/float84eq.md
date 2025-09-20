@@ -8,7 +8,10 @@ PostgreSQL function that performs equality comparison between a float8 (double p
 
 ## Definition
 
-
+```c
+Datum
+float84eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `float84eq` function implements the equality comparison operator for mixed-precision floating point types in PostgreSQL. It takes a float8 (8-byte double precision float) as the first argument and a float4 (4-byte single precision float) as the second argument, then determines if the two values are equal.
 

@@ -8,7 +8,10 @@ This function reduces recognizably constant subexpressions in an expression tree
 
 ## Definition
 
-
+```c
+Node *
+eval_const_expressions(PlannerInfo *root, Node *node)
+```
 ## Detailed Description
 The  function is a critical optimization component in PostgreSQL's query planner that performs constant folding and expression simplification. It reduces constant subexpressions (e.g., "2 + 2" => "4") and applies logical optimizations for boolean expressions. The function respects immutability constraints - only functions marked as "immutable" in pg_proc are pre-evaluated to ensure consistent results.
 

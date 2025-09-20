@@ -8,7 +8,9 @@ Executes the complete RADIUS authentication protocol transaction including packe
 
 ## Definition
 
-
+```c
+struct sockaddr_in6 localaddr;
+```
 ## Detailed Description
 This static function implements the core RADIUS authentication protocol as defined in RFC 2865. It handles the complete transaction lifecycle including:
 

@@ -8,7 +8,11 @@ SlabAllocSetupNewChunk is a static inline helper function that initializes and s
 
 ## Definition
 
-
+```c
+static inline void *
+SlabAllocSetupNewChunk(MemoryContext context, SlabBlock *block,
+					   MemoryChunk *chunk, Size size)
+```
 ## Detailed Description
 SlabAllocSetupNewChunk is a small helper function designed to avoid code duplication between SlabAlloc() and SlabAllocFromNewBlock(). It performs the complete initialization of a new memory chunk within a slab block, including setting up the chunk header with proper alignment and memory context identification, applying memory debugging features when enabled (such as sentinel values for detecting buffer overruns), and managing Valgrind memory access annotations. The function ensures the chunk is properly aligned and positioned within the block boundaries before returning a pointer to the usable memory area.
 

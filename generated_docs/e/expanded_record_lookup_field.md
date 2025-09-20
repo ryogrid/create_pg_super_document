@@ -8,7 +8,10 @@ Searches for a field by name within an expanded record and returns metadata info
 
 ## Definition
 
-
+```c
+structed form */
+		deconstruct_expanded_record(erh);
+```
 ## Detailed Description
 This function performs a field lookup operation on an expanded record using a field name string. It searches through both user-defined attributes and system attributes to find a matching field. The function uses a two-phase search strategy:
 

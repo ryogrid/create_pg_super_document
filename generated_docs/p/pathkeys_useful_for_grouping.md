@@ -8,7 +8,10 @@ Counts the number of pathkeys that are useful for grouping operations, allowing 
 
 ## Definition
 
-
+```c
+static int
+pathkeys_useful_for_grouping(PlannerInfo *root, List *pathkeys)
+```
 ## Detailed Description
 This function evaluates how many leading pathkeys from a given list can be leveraged for GROUP BY operations. The function implements a sophisticated optimization strategy where group pathkeys can be reordered to benefit from existing ordering, potentially allowing incremental sort instead of a full explicit sort operation.
 

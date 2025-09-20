@@ -8,7 +8,10 @@ Looks up a policy by name on a specified relation to find its OID, with configur
 
 ## Definition
 
-
+```c
+Oid
+get_relation_policy_oid(Oid relid, const char *policy_name, bool missing_ok)
+```
 ## Detailed Description
 This utility function provides a simple interface for policy OID lookup by encapsulating the catalog search process:
 

@@ -8,7 +8,11 @@ Creates final distinct paths by implementing both sort-based and hash-based DIST
 
 ## Definition
 
-
+```c
+static RelOptInfo *
+create_final_distinct_paths(PlannerInfo *root, RelOptInfo *input_rel,
+							RelOptInfo *distinct_rel)
+```
 ## Detailed Description
 This function creates the final execution paths for DISTINCT operations by considering both sort-based and hash-based implementations. It analyzes the input relation's paths and generates optimal distinct paths based on several factors including existing sort order, cost considerations, and configuration settings.
 

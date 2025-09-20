@@ -8,7 +8,10 @@ Transfers ownership of an expanded object to a new parent memory context while r
 
 ## Definition
 
-
+```c
+Datum
+TransferExpandedObject(Datum d, MemoryContext new_parent)
+```
 ## Detailed Description
 TransferExpandedObject is a utility function that manages memory context ownership for expanded objects in PostgreSQL. It takes an expanded object referenced by a read-write pointer and transfers its ownership to a new parent memory context. The function ensures that the returned pointer is always the "standard" read-write pointer, which has the same lifespan as the object itself and provides a unique identifier for the object.
 

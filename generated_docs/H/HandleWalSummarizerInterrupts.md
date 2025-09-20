@@ -8,7 +8,10 @@ Handles various interrupt signals in the WAL summarizer process, managing config
 
 ## Definition
 
-
+```c
+static void
+HandleWalSummarizerInterrupts(void)
+```
 ## Detailed Description
 This static function serves as the central interrupt handler for the WAL summarizer process. It checks and processes various pending interrupt conditions including process signal barriers, configuration reloads, shutdown requests, and memory context logging requests. The function ensures that the WAL summarizer responds appropriately to system signals and administrative commands.
 

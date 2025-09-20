@@ -8,7 +8,21 @@ A structure that represents the state of a currently-open large object in Postgr
 
 ## Definition
 
+```c
+typedef struct LargeObjectDesc
+{
+	Oid			id;				/* LO's identifier */
+	Snapshot	snapshot;		/* snapshot to use */
+	SubTransactionId subid;		/* owning subtransaction ID */
+	uint64		offset;			/* current seek pointer */
+	int			flags;			/* see flag bits below */
 
+/* bits in flags: */
+#define IFS_RDLOCK		(1 << 0)	/* LO was opened for reading */
+#define IFS_WRLOCK		(1 << 1)	/* LO was opened for writing */
+
+} LargeObjectDesc;
+```
 ## Detailed Description
 The LargeObjectDesc structure serves as a descriptor for managing large objects that are currently open in a PostgreSQL session. It maintains essential state information including the object's logical identifier, snapshot for transaction isolation, ownership tracking, current position within the object, and access permissions.
 

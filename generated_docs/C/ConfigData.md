@@ -8,7 +8,13 @@ ConfigData is a simple structure that holds PostgreSQL build and installation co
 
 ## Definition
 
-
+```c
+typedef struct ConfigData
+{
+	char	   *name;
+	char	   *setting;
+} ConfigData;
+```
 ## Detailed Description
 ConfigData serves as a fundamental data structure for storing and retrieving PostgreSQL's build-time and installation configuration information. It is primarily used by the BINDIR = /usr/lib/postgresql/14/bin
 DOCDIR = /usr/share/doc/postgresql-doc-14

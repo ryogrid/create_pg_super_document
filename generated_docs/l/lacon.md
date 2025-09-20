@@ -8,7 +8,13 @@ The  function is a lookaround-constraint checker that evaluates whether a specif
 
 ## Definition
 
-
+```c
+static int						/* predicate:  constraint satisfied? */
+lacon(struct vars *v,
+	  struct cnfa *pcnfa,		/* parent cnfa */
+	  chr *cp,
+	  color co)					/* "color" of the lookaround constraint */
+```
 ## Detailed Description
 This function implements the evaluation logic for lookaround assertions (lookahead and lookbehind) in PostgreSQL's regular expression engine. LACONs (Look-Around CONstraints) are advanced regex features that allow matching based on what comes before or after a position without consuming characters.
 

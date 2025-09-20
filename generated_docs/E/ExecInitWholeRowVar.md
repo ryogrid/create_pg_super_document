@@ -8,7 +8,10 @@ Prepares a step for the evaluation of a whole-row variable by initializing the n
 
 ## Definition
 
-
+```c
+static void
+ExecInitWholeRowVar(ExprEvalStep *scratch, Var *variable, ExprState *state)
+```
 ## Detailed Description
 ExecInitWholeRowVar initializes an expression evaluation step for whole-row variables, which represent entire tuples from a relation rather than individual columns. The function sets up the necessary evaluation context and handles special cases where the input tuple may contain "resjunk" columns (such as GROUP BY or ORDER BY columns) that should be filtered out from the whole-row result.
 

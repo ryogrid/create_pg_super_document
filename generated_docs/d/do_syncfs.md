@@ -8,7 +8,9 @@ Performs a file system synchronization operation using the syncfs() system call 
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function is a low-level utility that synchronizes an entire file system by calling the Linux-specific  system call. It opens a file descriptor to the specified path, performs the synchronization, and then closes the file descriptor. This function is used as part of PostgreSQL's data directory synchronization process to ensure data durability during critical operations like startup or shutdown.
 

@@ -8,7 +8,10 @@ Calculates an appropriate number of buckets for the initial hash table size in h
 
 ## Definition
 
-
+```c
+static long
+hash_choose_num_buckets(double hashentrysize, long ngroups, Size memory)
+```
 ## Detailed Description
 This function determines the optimal number of buckets for a hash table used in aggregation operations. It takes a conservative approach by starting with the expected number of groups and then limiting this based on available memory and estimated hash entry size. The function deliberately underestimates rather than overestimates to prevent crowding out space needed for group keys and transition state values. The calculated maximum is halved to ensure sufficient memory remains for the actual data storage.
 

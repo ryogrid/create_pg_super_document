@@ -8,7 +8,10 @@ A tree-walking function that validates parameter symbols match their assigned ty
 
 ## Definition
 
-
+```c
+static bool
+check_parameter_resolution_walker(Node *node, ParseState *pstate)
+```
 ## Detailed Description
 This static function serves as a tree walker that traverses a fully-analyzed query tree to verify that parameter symbols are consistently typed. It addresses the issue where some parameters might remain UNKNOWN if there was insufficient context to force their coercion, while other instances of the same parameter might have been coerced to specific types elsewhere in the query.
 

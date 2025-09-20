@@ -8,7 +8,10 @@ A callback function that resets all SLRU statistics counters to zero across all 
 
 ## Definition
 
-
+```c
+void
+pgstat_slru_reset_all_cb(TimestampTz ts)
+```
 ## Detailed Description
 This function serves as a callback handler for resetting all SLRU (Simple LRU) statistics. It iterates through all elements in the SLRU statistics array and calls the internal reset function for each one. This provides a convenient way to clear all SLRU statistics at once, typically used during system maintenance or when requested by database administrators. The function ensures that all SLRU types including commit_timestamp, multixact_member, multixact_offset, notify, serializable, subtransaction, transaction, and other are reset uniformly.
 

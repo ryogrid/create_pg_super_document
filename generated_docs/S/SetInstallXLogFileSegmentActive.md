@@ -8,7 +8,10 @@ Enables WAL file recycling and preallocation by setting the InstallXLogFileSegme
 
 ## Definition
 
-
+```c
+void
+SetInstallXLogFileSegmentActive(void)
+```
 ## Detailed Description
 This function activates the WAL file segment installation mechanism by setting the InstallXLogFileSegmentActive flag in the XLogCtl control structure. When this flag is active, the system can perform WAL file recycling and preallocation operations, which are important optimizations for WAL management. The function ensures thread safety by acquiring an exclusive lock on the ControlFileLock before modifying the flag.
 

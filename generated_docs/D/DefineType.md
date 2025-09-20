@@ -8,7 +8,9 @@ DefineType registers a new base type in the PostgreSQL type system, handling bot
 
 ## Definition
 
-
+```c
+enum, delete the pg_enum entries too;
+```
 ## Detailed Description
 DefineType is the primary function for creating new base types in PostgreSQL. It operates in two modes:
 

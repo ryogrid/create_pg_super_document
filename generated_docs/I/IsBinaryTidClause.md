@@ -8,7 +8,10 @@ IsBinaryTidClause is a static function that determines whether a RestrictInfo re
 
 ## Definition
 
-
+```c
+static bool
+IsBinaryTidClause(RestrictInfo *rinfo, RelOptInfo *rel)
+```
 ## Detailed Description
 This function examines a RestrictInfo to check if it represents a clause of the form "CTID OP pseudoconstant" or "pseudoconstant OP CTID", where OP is a binary operation. It validates that one operand is a CTID variable belonging to the specified relation, while the other operand is a pseudoconstant (an expression that doesn't reference the relation and contains no volatile functions). This is essential for identifying clauses that can be used for TID-based access paths in query optimization.
 

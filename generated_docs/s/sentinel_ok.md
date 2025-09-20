@@ -8,7 +8,10 @@ A memory debugging function that verifies the integrity of a sentinel byte place
 
 ## Definition
 
-
+```c
+static inline bool
+sentinel_ok(const void *base, Size offset)
+```
 ## Detailed Description
 The `sentinel_ok` function is the verification counterpart to `set_sentinel` in PostgreSQL's memory debugging system. It checks whether a sentinel byte previously placed at a specific location still contains the expected value (0x7E). This verification is essential for detecting buffer overruns, memory corruption, and other memory-related bugs that might have overwritten the sentinel value. The function temporarily makes the sentinel location accessible to Valgrind, reads the value, compares it with the expected sentinel byte, and then marks the location as inaccessible again.
 

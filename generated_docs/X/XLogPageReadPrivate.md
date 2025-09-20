@@ -8,7 +8,13 @@ XLogPageReadPrivate is a private data structure used to pass parameters from hig
 
 ## Definition
 
-
+```c
+typedef struct XLogPageReadPrivate
+{
+	const char *restoreCommand;
+	int			tliIndex;
+} XLogPageReadPrivate;
+```
 ## Detailed Description
 This structure serves as a communication mechanism between the high-level WAL recovery logic and the low-level page reading operations. It encapsulates context information that the XLogPageRead callback function needs to make appropriate decisions about error handling, timeline selection, and access patterns during WAL recovery.
 

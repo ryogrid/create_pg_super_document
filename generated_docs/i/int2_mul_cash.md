@@ -8,7 +8,10 @@ A PostgreSQL function that multiplies a 16-bit signed integer by a Cash value, p
 
 ## Definition
 
-
+```c
+Datum
+int2_mul_cash(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `int2_mul_cash` function is a PostgreSQL built-in function that performs multiplication of a 16-bit signed integer (int2) by a Cash data type. This function provides the commutative counterpart to `cash_mul_int2`, allowing multiplication in both directions (Cash * int2 and int2 * Cash). Like its counterpart, it delegates to the internal `cash_mul_int64` helper function after promoting the int2 parameter to int64 for consistent arithmetic handling.
 

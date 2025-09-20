@@ -8,7 +8,10 @@ Configuration function for SP-GiST k-dimensional tree (k-d tree) opclass that se
 
 ## Definition
 
-
+```c
+Datum
+spg_kd_config(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the configuration entry point for SP-GiST k-d tree operations. It initializes the  structure with parameters specific to k-dimensional tree indexing. The function sets up the data types used for prefixes and labels, specifies that the index can return data directly, and indicates that long values are not supported. This configuration is essential for establishing how the SP-GiST framework will handle k-d tree operations.
 

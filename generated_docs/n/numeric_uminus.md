@@ -8,7 +8,10 @@ The  function implements the unary minus operation for NUMERIC data types, negat
 
 ## Definition
 
-
+```c
+Datum
+numeric_uminus(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs sign negation on PostgreSQL NUMERIC values by directly manipulating the sign bits in the packed format for efficiency. It handles all numeric representations including special values (NaN, positive and negative infinity) and zero values. The function implements the mathematical unary minus operator (-x) where positive values become negative and vice versa. Zero values remain zero since -0 = 0. The function optimizes by avoiding unpacking and repacking of the numeric value.
 

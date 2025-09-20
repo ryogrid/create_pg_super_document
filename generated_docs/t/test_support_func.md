@@ -8,7 +8,10 @@ A PostgreSQL test function that implements a support function interface for test
 
 ## Definition
 
-
+```c
+structure */
+PG_FUNCTION_INFO_V1(test_enc_setup);
+```
 ## Detailed Description
 This function serves as a comprehensive test implementation of PostgreSQL's support function interface, which is used by the query planner to obtain better estimates for selectivity, cost, and row counts of functions and operators. The function handles three main types of support requests:
 

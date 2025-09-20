@@ -8,7 +8,10 @@ Copies a tuple descriptor into caller-supplied memory without copying constraint
 
 ## Definition
 
-
+```c
+void
+TupleDescCopy(TupleDesc dst, TupleDesc src)
+```
 ## Detailed Description
 This function performs a flat copy of a tuple descriptor into pre-allocated memory provided by the caller. Unlike CreateTupleDescCopyConstr, this function explicitly does NOT copy constraints, defaults, or other metadata. It performs a direct memory copy of the header and attribute array, then clears all constraint-related fields in the destination. The function is designed for scenarios where the tuple descriptor needs to be placed in specific memory locations, such as shared memory, and where constraints are not needed.
 

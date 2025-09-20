@@ -8,7 +8,10 @@ PrintNewControlValues displays the control file values that will be modified whe
 
 ## Definition
 
-
+```c
+static void
+PrintNewControlValues(void)
+```
 ## Detailed Description
 This static function is part of the pg_resetwal utility and is responsible for printing a formatted summary of all the control file values that will be changed during the WAL reset operation. The function conditionally prints various control file parameters based on what the user has requested to modify through command-line options. This provides transparency to the user about exactly what changes will be made before the actual reset occurs.
 

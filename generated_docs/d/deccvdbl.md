@@ -8,7 +8,10 @@ Converts a double-precision floating-point value to a decimal data type, providi
 
 ## Definition
 
-
+```c
+int
+deccvdbl(double dbl, decimal *np)
+```
 ## Detailed Description
 The `deccvdbl` function is part of the PostgreSQL ECPG Informix compatibility library that converts a double-precision floating-point number to a decimal data type. It performs null input validation, creates a new numeric value using PostgreSQL's numeric functions, converts the double to numeric format, and then converts the numeric to decimal format. The function includes comprehensive error handling for memory allocation failures and conversion errors.
 

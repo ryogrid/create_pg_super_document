@@ -8,7 +8,10 @@ Initializes the output directory structure and creates summary output files for 
 
 ## Definition
 
-
+```c
+static void
+open_result_files(void)
+```
 ## Detailed Description
 This function sets up the file system infrastructure needed for regression test output. It creates the main output directory if it doesn't exist, initializes key output files (regression log and diffs), and ensures the results subdirectory is available. The function prepares the environment for capturing test execution logs and storing test result comparisons.
 

@@ -8,7 +8,9 @@ Initializes a parser state object for parsing tsvector or tsquery input strings 
 
 ## Definition
 
-
+```c
+struct TSVectorParseStateData));
+```
 ## Detailed Description
 This function creates and initializes a TSVectorParseState structure that maintains the parsing state for tsvector and tsquery operations. It allocates memory for the parser state and sets up initial values based on the provided flags. The parser supports different parsing modes including operator-as-delimiter mode, tsquery mode, and web search mode. The function also configures error handling through the provided error context.
 

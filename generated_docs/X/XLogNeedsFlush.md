@@ -8,7 +8,10 @@ Tests whether WAL data has been flushed up to a given position, handling both no
 
 ## Definition
 
-
+```c
+bool
+XLogNeedsFlush(XLogRecPtr record)
+```
 ## Detailed Description
 XLogNeedsFlush is a utility function that determines whether a flush operation is needed to ensure a specific WAL position has been made durable. The function has fundamentally different behavior depending on whether the system is in recovery or normal operation:
 

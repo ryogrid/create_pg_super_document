@@ -8,7 +8,10 @@ DefineViewRules creates the rewrite rules for a view, specifically the ON SELECT
 
 ## Definition
 
-
+```c
+static void
+DefineViewRules(Oid viewOid, Query *viewParse, bool replace)
+```
 ## Detailed Description
 DefineViewRules is responsible for creating the rule system infrastructure that makes views functional in PostgreSQL. Currently, it creates only the ON SELECT rule, which is the fundamental rule that defines how SELECT statements against the view are rewritten to execute the view's underlying query.
 

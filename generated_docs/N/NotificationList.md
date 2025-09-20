@@ -8,7 +8,15 @@ NotificationList manages the hierarchical structure of pending NOTIFY events acr
 
 ## Definition
 
-
+```c
+typedef struct NotificationList
+{
+	int			nestingLevel;	/* current transaction nesting depth */
+	List	   *events;			/* list of Notification structs */
+	HTAB	   *hashtab;		/* hash of NotificationHash structs, or NULL */
+	struct NotificationList *upper; /* details for upper transaction levels */
+} NotificationList;
+```
 ## Detailed Description
 NotificationList is the core data structure that manages pending NOTIFY events in PostgreSQL's asynchronous notification system across transaction boundaries. It implements a hierarchical system where each transaction nesting level maintains its own list of notifications, with successful subtransactions merging their notifications into their parent transaction's list.
 

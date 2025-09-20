@@ -8,7 +8,10 @@ Transforms a set-operations tree (UNION/INTERSECT/EXCEPT) into a Query containin
 
 ## Definition
 
-
+```c
+static Query *
+transformSetOperationStmt(ParseState *pstate, SelectStmt *stmt)
+```
 ## Detailed Description
 transformSetOperationStmt handles the transformation of complex SELECT statements that involve set operations (UNION, INTERSECT, EXCEPT). The function builds a top-level Query structure that contains the individual SELECT statements as subqueries in its range table, with the set operation tree stored in the Query's setOperations field.
 

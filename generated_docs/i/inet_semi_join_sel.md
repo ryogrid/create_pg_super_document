@@ -8,7 +8,43 @@ Estimates the probability that at least one row in the right-hand side table sat
 
 ## Definition
 
+```c
+enum)
+{
+	if (mcv_exists)
+	{
+		int			i;
 
+		for (i = 0; i < mcv_nvalues; i++)
+		{
+			if (DatumGetBool(FunctionCall2(proc,
+										   lhs_value,
+										   mcv_values[i])))
+				return 1.0;
+		}
+	}
+
+	if (hist_exists && hist_weight > 0)
+	{
+		Selectivity hist_selec;
+
+		/* Commute operator, since we're passing lhs_value on the right */
+		hist_selec = inet_hist_value_sel(hist_values, hist_nvalues,
+										 lhs_value, -opr_codenum);
+
+		if (hist_selec > 0)
+			return Min(1.0, hist_weight * hist_selec);
+	}
+
+	return 0.0;
+}
+
+/*
+ * Assign useful code numbers for the subnet inclusion/overlap operators
+ *
+ * Only inet_masklen_inclusion_cmp() and inet_hist_match_divider() depend
+ * on the exact codes assigned here;
+```
 ## Detailed Description
 This function calculates the selectivity for semi-join operations where the goal is to determine if there exists at least one matching row in the right-hand side table for a given left-hand side value. It implements a two-stage approach using both MCV and histogram statistics from the right-hand side table.
 

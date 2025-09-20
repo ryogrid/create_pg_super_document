@@ -8,7 +8,10 @@ AttributeTemplate is a template function used by PostgreSQL's LLVM JIT compiler 
 
 ## Definition
 
-
+```c
+struct ExprEvalStep *op,
+									   ExprContext *econtext);
+```
 ## Detailed Description
 AttributeTemplate serves as a template function in PostgreSQL's LLVM JIT compilation system. Its primary purpose is to provide a concrete example of a PostgreSQL function that can be used to determine which function attributes (such as compiler-specific attributes that depend on compiler version and settings) need to be present for functions to be compatible for inlining. The JIT compiler copies the attributes of this function to ensure compatibility when generating optimized code. The function itself simply returns NULL and serves purely as a template - it is not meant to perform any actual computation.
 

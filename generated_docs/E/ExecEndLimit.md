@@ -8,7 +8,10 @@ ExecEndLimit performs cleanup for a Limit node by shutting down its subplan and 
 
 ## Definition
 
-
+```c
+void
+ExecEndLimit(LimitState *node)
+```
 ## Detailed Description
 ExecEndLimit is the cleanup function for Limit execution nodes, responsible for properly terminating execution and releasing resources when a Limit node is no longer needed. The function follows the standard PostgreSQL execution node cleanup pattern by recursively calling ExecEndNode on its child plan.
 

@@ -8,7 +8,17 @@ Creates a new set of targetlist entries or join qual clauses by changing varno/v
 
 ## Definition
 
-
+```c
+static List *
+fix_join_expr(PlannerInfo *root,
+			  List *clauses,
+			  indexed_tlist *outer_itlist,
+			  indexed_tlist *inner_itlist,
+			  Index acceptable_rel,
+			  int rtoffset,
+			  NullingRelsMatch nrm_match,
+			  double num_exec)
+```
 ## Detailed Description
 This function transforms variable references in clauses by replacing them with references to target list values from outer and inner join relations. It operates by setting up a context structure and delegating the actual transformation work to fix_join_expr_mutator(). The function also performs opcode lookup and adds regclass OIDs to root->glob->relationOids.
 

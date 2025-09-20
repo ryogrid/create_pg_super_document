@@ -8,7 +8,12 @@ Reports syntax errors encountered while parsing pgbench script commands with det
 
 ## Definition
 
-
+```c
+void
+syntax_error(const char *source, int lineno,
+			 const char *line, const char *command,
+			 const char *msg, const char *more, int column)
+```
 ## Detailed Description
 The syntax_error function provides comprehensive error reporting for syntax errors found in pgbench scripts. It formats and displays detailed error messages including the source file or script name, line number, error message, and optional contextual information. The function constructs a formatted error message using PostgreSQL's PQExpBuffer utilities and outputs it through the logging system. After displaying the error information, it terminates the program with exit code 1, following the fail-fast principle for syntax errors.
 

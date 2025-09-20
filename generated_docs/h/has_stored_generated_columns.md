@@ -8,7 +8,10 @@ Determines whether a relation identified by a range table index has any stored g
 
 ## Definition
 
-
+```c
+bool
+has_stored_generated_columns(PlannerInfo *root, Index rti)
+```
 ## Detailed Description
 This function checks if a table has any stored generated columns by examining the relation's tuple descriptor constraints. Stored generated columns are columns whose values are automatically computed and physically stored based on expressions involving other columns in the same row. The function opens the relation, retrieves its tuple descriptor, and checks the constraint information for the presence of stored generated columns.
 

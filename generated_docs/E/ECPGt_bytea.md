@@ -8,7 +8,28 @@ ECPGt_bytea is an enumeration constant that represents the PostgreSQL bytea data
 
 ## Definition
 
-
+```c
+enum ECPGdtype
+{
+	ECPGd_count = 1,
+	ECPGd_data,
+	ECPGd_di_code,
+	ECPGd_di_precision,
+	ECPGd_indicator,
+	ECPGd_key_member,
+	ECPGd_length,
+	ECPGd_name,
+	ECPGd_nullable,
+	ECPGd_octet,
+	ECPGd_precision,
+	ECPGd_ret_length,
+	ECPGd_ret_octet,
+	ECPGd_scale,
+	ECPGd_type,
+	ECPGd_EODT,					/* End of descriptor types. */
+	ECPGd_cardinality
+};
+```
 ## Detailed Description
 ECPGt_bytea is the final enumeration value in the ECPGttype enum, defined in src/interfaces/ecpg/include/ecpgtype.h:67. It represents the bytea data type, which is used to store binary data in PostgreSQL. This enumeration constant is used throughout the ECPG system to identify and handle bytea data types when processing embedded SQL statements in C programs.
 

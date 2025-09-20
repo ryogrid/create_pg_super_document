@@ -8,7 +8,11 @@ Performs one-time initialization of projection data for UPDATE operations, setti
 
 ## Definition
 
-
+```c
+static void
+ExecInitUpdateProjection(ModifyTableState *mtstate,
+						 ResultRelInfo *resultRelInfo)
+```
 ## Detailed Description
 This function initializes the projection infrastructure required for UPDATE operations. Unlike INSERT, UPDATE always requires projection because:
 1. The subplan output contains junk attributes (row identity information)

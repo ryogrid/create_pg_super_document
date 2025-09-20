@@ -8,7 +8,11 @@ Creates execution paths for degenerate grouping cases where no actual grouping c
 
 ## Definition
 
-
+```c
+static void
+create_degenerate_grouping_paths(PlannerInfo *root, RelOptInfo *input_rel,
+								 RelOptInfo *grouped_rel)
+```
 ## Detailed Description
 This function handles the special optimization case of degenerate grouping, where the query has grouping sets or HAVING clauses but no actual variables that require data from the base tables. In such cases, PostgreSQL can completely bypass the input relation and generate results using a Result node.
 

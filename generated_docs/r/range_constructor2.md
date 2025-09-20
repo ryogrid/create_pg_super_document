@@ -8,7 +8,10 @@ Creates a standard-form range value from two boundary arguments, constructing a 
 
 ## Definition
 
-
+```c
+Datum
+range_constructor2(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `range_constructor2` function constructs a PostgreSQL range type from two input arguments representing the lower and upper bounds. This is one of the core range constructor functions that follows the standard mathematical convention of [lower, upper) - inclusive lower bound and exclusive upper bound. The function handles null values by treating them as infinite bounds, automatically determines the range type from the function call context, and validates the constructed range through the `make_range` function.
 

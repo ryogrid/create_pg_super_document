@@ -8,7 +8,14 @@ LogicalRepCommitData is a structure that contains transaction commit information
 
 ## Definition
 
-
+```c
+typedef struct LogicalRepCommitData
+{
+	XLogRecPtr	commit_lsn;
+	XLogRecPtr	end_lsn;
+	TimestampTz committime;
+} LogicalRepCommitData;
+```
 ## Detailed Description
 This structure encapsulates the critical information needed to complete a transaction in logical replication. It serves as a transaction footer that provides the subscriber with essential metadata about the transaction that has just been replicated. The structure contains LSN (Log Sequence Number) information that marks both the commit point and the end of the transaction in the WAL, along with the commit timestamp.
 

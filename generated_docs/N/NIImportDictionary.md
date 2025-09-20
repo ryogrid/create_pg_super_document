@@ -8,7 +8,10 @@ Imports dictionary data from a .dict file into the temporary array Spell, parsin
 
 ## Definition
 
-
+```c
+void
+NIImportDictionary(IspellDict *Conf, const char *filename)
+```
 ## Detailed Description
 NIImportDictionary reads and processes a dictionary file line by line, extracting words and their associated affix flags. Each line in the dictionary file contains a word optionally followed by a slash (/) and affix flags. The function performs several key operations:
 

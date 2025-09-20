@@ -8,7 +8,10 @@ The hash_record_extended function computes a seeded hash value for a composite t
 
 ## Definition
 
-
+```c
+structure */
+	tuple.t_len = HeapTupleHeaderGetDatumLength(record);
+```
 ## Detailed Description
 This function is the extended version of hash_record that supports seeded hashing. It takes both a record and a 64-bit seed value as input parameters. The function decomposes the record into individual columns and computes a combined hash by calling the extended hash function for each column's data type, passing the seed value to ensure better hash distribution and collision resistance.
 

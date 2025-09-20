@@ -8,7 +8,9 @@ ReindexIndex recreates a specific index by handling different reindex scenarios 
 
 ## Definition
 
-
+```c
+struct ReindexIndexCallbackState state;
+```
 ## Detailed Description
 ReindexIndex implements single-index reindexing by first acquiring appropriate locks and determining the index's characteristics (persistence and kind). It then chooses one of three reindex paths:
 

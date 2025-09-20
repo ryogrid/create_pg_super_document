@@ -8,7 +8,10 @@ Determines whether a query statement should be included in PostgreSQL log output
 
 ## Definition
 
-
+```c
+bool
+check_log_of_query(ErrorData *edata)
+```
 ## Detailed Description
 This function serves as a gate-keeper for query logging in PostgreSQL's error and logging system. It evaluates three critical conditions to determine if a query statement should be logged: (1) whether the error level meets the minimum threshold defined by log_min_error_statement, (2) whether the statement is explicitly marked to be hidden via the hide_stmt flag, and (3) whether there is actually a query string available for logging (debug_query_string is not NULL). The function returns true only when all conditions are favorable for logging the query, ensuring that sensitive or irrelevant queries are appropriately filtered from the logs.
 

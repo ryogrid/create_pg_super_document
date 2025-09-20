@@ -8,7 +8,10 @@ Internal implementation function that evaluates a JSONPath predicate against a J
 
 ## Definition
 
-
+```c
+static Datum
+jsonb_path_match_internal(FunctionCallInfo fcinfo, bool tz)
+```
 ## Detailed Description
 This function implements the core logic for JSONPath predicate matching in PostgreSQL. Unlike  which only checks for existence, this function evaluates JSONPath expressions that return boolean predicates and validates that exactly one boolean result is produced. The function is designed to support the "@@" operator and follows similar error handling philosophy as the existence functions.
 

@@ -8,7 +8,11 @@ Aborts a transaction that possibly has previous changes, purging the transaction
 
 ## Definition
 
-
+```c
+void
+ReorderBufferAbort(ReorderBuffer *rb, TransactionId xid, XLogRecPtr lsn,
+				   TimestampTz abort_time)
+```
 ## Detailed Description
 ReorderBufferAbort handles the cleanup of transactions that have actively aborted (i.e., have produced an abort record). This function is designed to be called first for subtransactions and then for the toplevel transaction ID. 
 

@@ -8,7 +8,10 @@ canChangeResultMode is a static utility function that determines whether it's sa
 
 ## Definition
 
-
+```c
+static bool
+canChangeResultMode(PGconn *conn)
+```
 ## Detailed Description
 This function performs validation checks to determine if the connection state allows changing the result mode (such as switching to single-row mode or chunked rows mode). The function ensures that mode changes only occur at the appropriate time in the query execution lifecycle - specifically after a query has been launched but before any results have been received.
 

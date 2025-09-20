@@ -8,7 +8,10 @@ Advances to the next combination of array key values for multi-dimensional array
 
 ## Definition
 
-
+```c
+bool
+ExecIndexAdvanceArrayKeys(IndexArrayKeyInfo *arrayKeys, int numArrayKeys)
+```
 ## Detailed Description
 The `ExecIndexAdvanceArrayKeys` function implements a multi-dimensional iterator for array-based index scans. It advances through all possible combinations of array elements in a right-to-left (rightmost-first) manner, similar to an odometer. This function is typically called after `ExecIndexEvalArrayKeys` has initialized the arrays and set up the first combination.
 

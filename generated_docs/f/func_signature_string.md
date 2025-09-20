@@ -8,7 +8,11 @@ A convenience wrapper around  that accepts a qualified function name as a list r
 
 ## Definition
 
-
+```c
+const char *
+func_signature_string(List *funcname, int nargs,
+					  List *argnames, const Oid *argtypes)
+```
 ## Detailed Description
 The  function serves as a simple wrapper around , providing the same functionality but accepting the function name as a qualified name list (e.g., ) instead of a pre-formatted string. This is particularly useful when working with qualified function names that need to be converted to their string representation for display in error messages or logging.
 

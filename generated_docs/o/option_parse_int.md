@@ -8,7 +8,12 @@ Parses and validates integer values from command-line option arguments with rang
 
 ## Definition
 
-
+```c
+bool
+option_parse_int(const char *optarg, const char *optname,
+				 int min_range, int max_range,
+				 int *result)
+```
 ## Detailed Description
 This utility function provides robust parsing of integer command-line option values with comprehensive validation. It converts string arguments to integers while performing range validation and error handling. The function handles trailing whitespace gracefully and provides informative error messages for invalid input.
 

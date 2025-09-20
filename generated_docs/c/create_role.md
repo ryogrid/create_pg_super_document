@@ -8,7 +8,10 @@ A utility function in the PostgreSQL regression test framework that creates a da
 
 ## Definition
 
-
+```c
+static void
+create_role(const char *rolename, const _stringlist *granted_dbs)
+```
 ## Detailed Description
 The  function is part of the PostgreSQL regression testing infrastructure (). It constructs and executes SQL commands to create a new database role with login capabilities and optionally grants ALL privileges on specified databases to that role. The function uses the psql command interface to execute the SQL statements against the PostgreSQL server.
 

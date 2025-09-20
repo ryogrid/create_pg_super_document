@@ -8,7 +8,9 @@ Implements the CREATE TRANSFORM command to define data conversion functions betw
 
 ## Definition
 
-
+```c
+struct;
+```
 ## Detailed Description
 CreateTransform processes CREATE TRANSFORM statements to establish bidirectional data conversion mechanisms between PostgreSQL's SQL data types and procedural language-specific data representations. The function supports creating or replacing transform entries in the pg_transform system catalog.
 

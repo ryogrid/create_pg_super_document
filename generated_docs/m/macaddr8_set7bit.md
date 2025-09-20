@@ -8,7 +8,10 @@ Sets the 7th bit (Universal/Local bit) in a MAC-8 (EUI-64) address for creating 
 
 ## Definition
 
-
+```c
+Datum
+macaddr8_set7bit(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the modified EUI-64 format conversion for PostgreSQL's macaddr8 data type as required by IPv6 specifications. It creates a new macaddr8 structure where the 7th bit (second least significant bit) of the first byte is set to 1 by performing a bitwise OR operation with 0x02. This modification transforms a MAC address into a modified EUI-64 identifier suitable for use as an IPv6 interface identifier.
 

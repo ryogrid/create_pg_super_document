@@ -8,7 +8,14 @@ A structure that serves as callback data for network interface enumeration durin
 
 ## Definition
 
-
+```c
+typedef struct check_network_data
+{
+	IPCompareMethod method;		/* test method */
+	SockAddr   *raddr;			/* client's actual address */
+	bool		result;			/* set to true if match */
+} check_network_data;
+```
 ## Detailed Description
 The `check_network_data` structure is used as a parameter passing mechanism for the `check_network_callback` function during network interface enumeration. It encapsulates all the necessary information needed to determine whether a client's network address matches any of the server's network interfaces, which is essential for implementing PostgreSQL's "samehost" and "samenet" authentication rules defined in pg_hba.conf.
 

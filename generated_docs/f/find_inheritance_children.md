@@ -8,7 +8,10 @@ Returns a list of OIDs for all relations that directly inherit from a specified 
 
 ## Definition
 
-
+```c
+List *
+find_inheritance_children(Oid parentrelId, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function is a convenience wrapper around  that provides the most common inheritance child lookup behavior. It finds all relations that inherit *directly* from the specified parent relation, automatically excluding partitions marked as being detached. The function acquires the specified lock type on each child relation (but not on the parent relation, which should already be locked by the caller).
 

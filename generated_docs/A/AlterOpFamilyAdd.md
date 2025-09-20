@@ -8,7 +8,12 @@ Implements the ADD portion of ALTER OPERATOR FAMILY commands by adding new opera
 
 ## Definition
 
-
+```c
+static void
+AlterOpFamilyAdd(AlterOpFamilyStmt *stmt, Oid amoid, Oid opfamilyoid,
+				 int maxOpNumber, int maxProcNumber, int optsProcNumber,
+				 List *items)
+```
 ## Detailed Description
 AlterOpFamilyAdd processes the addition of operators and support functions to an existing operator family. It validates each item in the provided list, ensuring operator and function numbers are within valid ranges for the access method, resolves operator and function references, and creates the necessary catalog entries.
 

@@ -8,7 +8,10 @@ Returns the DSA (Dynamic Shared Area) where a shared TidStore resides, providing
 
 ## Definition
 
-
+```c
+dsa_area *
+TidStoreGetDSA(TidStore *ts)
+```
 ## Detailed Description
 This function provides access to the Dynamic Shared Area (DSA) that contains a shared TidStore. The DSA is PostgreSQL's mechanism for managing shared memory that can be allocated and freed dynamically across multiple processes. This function is only valid for shared TidStores and includes an assertion to verify this precondition.
 

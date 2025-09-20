@@ -8,7 +8,10 @@ Returns the size of the free (allocatable) space on a page, reduced by the space
 
 ## Definition
 
-
+```c
+Size
+PageGetFreeSpace(Page page)
+```
 ## Detailed Description
 PageGetFreeSpace calculates the amount of free space available on a page for new data insertion. It computes this by finding the difference between the upper and lower bounds of the page header (pd_upper and pd_lower), then subtracts the space required for an ItemIdData structure (line pointer). The function is designed primarily for index pages, as noted in the comments. The implementation uses signed arithmetic to handle edge cases where pd_lower might exceed pd_upper, which would indicate a corrupted page.
 

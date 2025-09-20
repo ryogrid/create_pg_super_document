@@ -8,7 +8,10 @@ CteScanNext is the workhorse function for ExecCteScan that retrieves the next tu
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+CteScanNext(CteScanState *node)
+```
 ## Detailed Description
 CteScanNext implements the core tuple retrieval logic for CTE scans by managing a shared tuplestore that contains previously fetched CTE results. The function supports bidirectional scanning and handles three main scenarios:
 

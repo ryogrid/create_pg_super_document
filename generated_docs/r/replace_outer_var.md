@@ -8,7 +8,10 @@ Generates a Param node to replace the given Var which is expected to have varlev
 
 ## Definition
 
-
+```c
+Param *
+replace_outer_var(PlannerInfo *root, Var *var)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's parameter assignment mechanism for handling correlated subqueries. It takes a Var node that references a column from an outer query level (indicated by varlevelsup > 0) and converts it into a Param node that can be used to pass the value from the outer query to the inner query during execution.
 

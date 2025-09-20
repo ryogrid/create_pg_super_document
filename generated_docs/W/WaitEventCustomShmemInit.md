@@ -8,7 +8,10 @@ Initializes shared memory structures for custom wait events, including the alloc
 
 ## Definition
 
-
+```c
+void
+WaitEventCustomShmemInit(void)
+```
 ## Detailed Description
 This function performs the initialization of shared memory data structures required for the custom wait event subsystem. It creates or attaches to:
 

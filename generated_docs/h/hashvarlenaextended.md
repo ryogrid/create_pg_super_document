@@ -8,7 +8,9 @@ An extended version of hashvarlena that supports seed-based hashing for variable
 
 ## Definition
 
-
+```c
+struct varlena *key = PG_GETARG_VARLENA_PP(0);
+```
 ## Detailed Description
 The hashvarlenaextended function is the extended variant of hashvarlena that accepts an additional seed parameter for hash computation. It provides the same direct hashing capability for variable-length data types where all bits are significant, but allows for seed-based hash value generation. This enables the creation of multiple independent hash functions from the same input data, which is valuable for advanced hash table implementations and algorithms requiring hash function families.
 

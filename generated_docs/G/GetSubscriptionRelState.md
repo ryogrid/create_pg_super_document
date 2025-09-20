@@ -8,7 +8,10 @@ Retrieves the current replication state and LSN position of a specific table wit
 
 ## Definition
 
-
+```c
+char
+GetSubscriptionRelState(Oid subid, Oid relid, XLogRecPtr *sublsn)
+```
 ## Detailed Description
 This function queries the pg_subscription_rel catalog to retrieve the current replication state and associated LSN position for a specific subscription-relation pair. It provides race condition protection against AlterSubscription operations by acquiring an AccessShareLock on the catalog relation. The function returns both the state character and the LSN position through an output parameter.
 

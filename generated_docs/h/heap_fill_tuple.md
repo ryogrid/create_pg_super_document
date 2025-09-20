@@ -8,7 +8,13 @@ heap_fill_tuple loads the data portion of a PostgreSQL heap tuple from arrays of
 
 ## Definition
 
-
+```c
+void
+heap_fill_tuple(TupleDesc tupleDesc,
+				const Datum *values, const bool *isnull,
+				char *data, Size data_size,
+				uint16 *infomask, bits8 *bit)
+```
 ## Detailed Description
 heap_fill_tuple is a fundamental function in PostgreSQL's tuple construction system. It takes column values and null indicators in array form and serializes them into the binary heap tuple format. The function iterates through all attributes defined in the tuple descriptor, calling fill_val for each attribute to handle the specific storage requirements of different data types.
 

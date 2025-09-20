@@ -8,7 +8,12 @@ TimestampDifferenceExceeds is a utility function that checks whether the differe
 
 ## Definition
 
-
+```c
+bool
+TimestampDifferenceExceeds(TimestampTz start_time,
+						   TimestampTz stop_time,
+						   int msec)
+```
 ## Detailed Description
 This function performs a simple comparison to determine if the time difference between two TimestampTz values is greater than or equal to a specified millisecond threshold. It calculates the difference by subtracting start_time from stop_time and compares the result against the threshold converted to microseconds (PostgreSQL's internal timestamp resolution). The function is designed to work with ordinary finite timestamps and is commonly used with results from GetCurrentTimestamp().
 

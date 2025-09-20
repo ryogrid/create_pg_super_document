@@ -8,7 +8,17 @@ RecordTransactionAbortPrepared records the abort of a previously prepared two-ph
 
 ## Definition
 
-
+```c
+static void
+RecordTransactionAbortPrepared(TransactionId xid,
+							   int nchildren,
+							   TransactionId *children,
+							   int nrels,
+							   RelFileLocator *rels,
+							   int nstats,
+							   xl_xact_stats_item *stats,
+							   const char *gid)
+```
 ## Detailed Description
 RecordTransactionAbortPrepared handles the abort processing for a previously prepared two-phase transaction. Similar to its commit counterpart, it writes an abort record to the WAL, marks the transaction and its subtransactions as aborted in the transaction status log (pg_xact), and performs necessary cleanup operations. The function includes safety checks to prevent aborting transactions that have already been committed, which would be a serious consistency violation. It handles replication origins appropriately and ensures synchronous replication requirements are met even for aborted transactions.
 

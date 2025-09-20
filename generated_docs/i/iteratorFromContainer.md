@@ -8,7 +8,10 @@ Creates and initializes a JsonbIterator structure for traversing elements within
 
 ## Definition
 
-
+```c
+static JsonbIterator *
+iteratorFromContainer(JsonbContainer *container, JsonbIterator *parent)
+```
 ## Detailed Description
 iteratorFromContainer is an internal static function that constructs a new JsonbIterator for a given JsonbContainer. It determines the container type (array or object) by examining header flags and initializes the iterator's state machine accordingly. For arrays, it sets up data pointers to skip over the JEntry array and initializes array-specific state. For objects, it allocates space for both key and value JEntry arrays before setting up data pointers and object-specific state.
 

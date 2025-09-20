@@ -8,7 +8,9 @@ Comprehensive test function that validates all PostgreSQL query cancellation mec
 
 ## Definition
 
-
+```c
+struct timeval tv;
+```
 ## Detailed Description
 The  function is a comprehensive test suite that exercises all the different query cancellation mechanisms provided by libpq. It tests both synchronous and asynchronous cancellation methods, including the traditional PQcancel() and PQrequestCancel() functions, as well as the newer blocking and polling-based cancellation APIs.
 

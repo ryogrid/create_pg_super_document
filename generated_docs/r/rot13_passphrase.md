@@ -8,7 +8,10 @@ Transforms a password using ROT13 cipher as part of PostgreSQL's LDAP authentica
 
 ## Definition
 
-
+```c
+static int
+rot13_passphrase(char *buf, int size, int rwflag, void *userdata)
+```
 ## Detailed Description
 This function applies the ROT13 cipher transformation to a given password string, creating a new copy with all alphabetic characters shifted by 13 positions in the alphabet. ROT13 is a simple letter substitution cipher that replaces each letter with the letter 13 positions after it in the alphabet (wrapping around from Z to A). This function is used in PostgreSQL's LDAP password testing module to demonstrate custom password transformation hooks in the authentication system. The function allocates new memory for the transformed password and preserves non-alphabetic characters unchanged.
 

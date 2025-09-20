@@ -8,7 +8,10 @@ A resource owner callback function that automatically releases snapshot referenc
 
 ## Definition
 
-
+```c
+static void
+ResOwnerReleaseSnapshot(Datum res)
+```
 ## Detailed Description
 ResOwnerReleaseSnapshot is a callback function used by PostgreSQL's resource management system to automatically clean up snapshot references when their associated resource owner is destroyed or reset. This function is part of the resource owner framework that ensures proper cleanup of resources when transactions abort, subtransactions rollback, or other cleanup scenarios occur. The function extracts the snapshot pointer from the Datum parameter and calls UnregisterSnapshotNoOwner to properly decrement the snapshot's reference count.
 

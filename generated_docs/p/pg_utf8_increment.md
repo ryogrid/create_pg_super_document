@@ -8,7 +8,10 @@ A UTF-8 character incrementer function that safely increments UTF-8 encoded char
 
 ## Definition
 
-
+```c
+static bool
+pg_utf8_increment(unsigned char *charptr, int length)
+```
 ## Detailed Description
 This function implements UTF-8-specific logic for incrementing character values, which is essential for range operations and string comparisons in PostgreSQL. It handles the complex UTF-8 encoding rules where multi-byte characters must maintain specific byte value constraints.
 

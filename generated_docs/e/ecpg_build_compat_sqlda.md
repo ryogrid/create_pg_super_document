@@ -8,7 +8,55 @@ Builds a compatibility SQLDA (SQL Descriptor Area) structure from a PostgreSQL r
 
 ## Definition
 
+```c
+enum COMPAT_MODE compat)
+{
+	struct sqlda_compat *sqlda;
+	struct sqlvar_compat *sqlvar;
+	char	   *fname;
+	long		size;
+	int			sqld;
+	int			i;
 
+	size = sqlda_compat_total_size(res, row, compat);
+	sqlda = (struct sqlda_compat *) ecpg_alloc(size, line);
+	if (!sqlda)
+		return NULL;
+
+	memset(sqlda, 0, size);
+	sqlvar = (struct sqlvar_compat *) (sqlda + 1);
+	sqld = PQnfields(res);
+	fname = (char *) (sqlvar + sqld);
+
+	sqlda->sqld = sqld;
+	ecpg_log("ecpg_build_compat_sqlda on line %d sqld = %d\n", line, sqld);
+	sqlda->desc_occ = size;		/* cheat here, keep the full allocated size */
+	sqlda->sqlvar = sqlvar;
+
+	for (i = 0; i < sqlda->sqld; i++)
+	{
+		sqlda->sqlvar[i].sqltype = sqlda_dynamic_type(PQftype(res, i), compat);
+		strcpy(fname, PQfname(res, i));
+		sqlda->sqlvar[i].sqlname = fname;
+		fname += strlen(sqlda->sqlvar[i].sqlname) + 1;
+
+		/*
+		 * this is reserved for future use, so we leave it empty for the time
+		 * being
+		 */
+		/* sqlda->sqlvar[i].sqlformat = (char *) (long) PQfformat(res, i); */
+		sqlda->sqlvar[i].sqlxid = PQftype(res, i);
+		sqlda->sqlvar[i].sqltypelen = PQfsize(res, i);
+	}
+
+	return sqlda;
+}
+
+/*
+ * Sets values from PGresult.
+ */
+static int16 value_is_null = -1;
+```
 ## Detailed Description
 This function constructs a  structure that contains metadata about the columns in a PostgreSQL query result. The SQLDA (SQL Descriptor Area) is a data structure used in embedded SQL programming to describe the format and characteristics of dynamic SQL statements. This function specifically builds the compatibility version of SQLDA, which maintains backward compatibility with older ECPG (Embedded C for PostgreSQL) applications.
 

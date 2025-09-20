@@ -8,7 +8,10 @@ Initializes a pthread thread-specific data key used to store the current databas
 
 ## Definition
 
-
+```c
+static void
+ecpg_actual_connection_init(void)
+```
 ## Detailed Description
 This function is a one-time initialization routine that creates a pthread thread-specific data key () which allows each thread to maintain its own current database connection context. The function is designed to be called exactly once per process using  to ensure thread-safe initialization of the shared key. This enables the ECPG library to support multi-threaded applications where different threads can have different active database connections.
 

@@ -8,7 +8,10 @@ Converts PostgreSQL's internal date format to a human-readable text string repre
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function serves as the output conversion routine for PostgreSQL's DATE data type. It takes an internal DateADT value and converts it to a string representation according to the current DateStyle setting. The function handles both regular finite dates and special infinite values ('infinity' and '-infinity'). For finite dates, it converts from the internal Julian day representation back to calendar components and then formats them according to the configured date style. For infinite dates, it uses specialized encoding to produce the appropriate string representation.
 

@@ -8,7 +8,13 @@ RowSecurityDesc is a container structure that holds all row-level security polic
 
 ## Definition
 
-
+```c
+typedef struct RowSecurityDesc
+{
+	MemoryContext rscxt;		/* row security memory context */
+	List	   *policies;		/* list of row security policies */
+} RowSecurityDesc;
+```
 ## Detailed Description
 RowSecurityDesc serves as the top-level container for all row-level security information associated with a database relation. It encapsulates both the memory management context used for allocating policy-related data structures and a list containing all RowSecurityPolicy objects that apply to the relation.
 

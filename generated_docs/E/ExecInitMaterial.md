@@ -8,7 +8,11 @@ ExecInitMaterial initializes a MaterialState node for buffering subplan output, 
 
 ## Definition
 
-
+```c
+structure
+	 */
+	matstate = makeNode(MaterialState);
+```
 ## Detailed Description
 ExecInitMaterial creates and configures a MaterialState node that will buffer subplan output in a tuplestore when needed. The function determines whether buffering is necessary based on the execution flags - buffering is required for backward scanning, mark/restore operations, or when rewinding might be needed frequently.
 

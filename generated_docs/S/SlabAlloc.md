@@ -8,7 +8,10 @@ SlabAlloc is the main allocation function for the slab memory allocator that ret
 
 ## Definition
 
-
+```c
+void *
+SlabAlloc(MemoryContext context, Size size, int flags)
+```
 ## Detailed Description
 SlabAlloc is the primary allocation function for PostgreSQL's slab memory allocator, designed for high-performance allocation of fixed-size memory chunks. The function implements a fast-path optimization strategy: it handles the most common allocation scenarios in the main function body to avoid stack frame overhead, while delegating edge cases to helper functions. The allocator maintains multiple block lists organized by the number of free chunks, allowing efficient selection of partially filled blocks. When no partially filled blocks are available, it calls SlabAllocFromNewBlock to obtain memory from a new block. The function validates that the requested size matches the slab's fixed chunk size and efficiently manages block list transitions as chunks are allocated.
 

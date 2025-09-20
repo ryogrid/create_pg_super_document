@@ -8,7 +8,13 @@ SPI_execute_snapshot allows execution of a prepared SPI plan with explicit contr
 
 ## Definition
 
-
+```c
+int
+SPI_execute_snapshot(SPIPlanPtr plan,
+					 Datum *Values, const char *Nulls,
+					 Snapshot snapshot, Snapshot crosscheck_snapshot,
+					 bool read_only, bool fire_triggers, long tcount)
+```
 ## Detailed Description
 SPI_execute_snapshot is identical to SPI_execute_plan except that it allows the caller to specify exactly which snapshots to use for query execution. The function registers the provided snapshots and gives control over when AFTER triggers are fired. This function is specifically designed for internal use by referential integrity triggers and is not documented in the public SPI documentation.
 

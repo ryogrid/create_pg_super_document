@@ -8,7 +8,10 @@ Retrieves the type category of a PostgreSQL data type by returning the typtype f
 
 ## Definition
 
-
+```c
+char
+get_typtype(Oid typid)
+```
 ## Detailed Description
 This function performs a system catalog lookup to determine the category of a PostgreSQL data type. It returns a single character that indicates the fundamental nature of the type:
 

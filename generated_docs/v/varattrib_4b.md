@@ -8,7 +8,13 @@ The  union represents the structure for 4-byte aligned variable-length attribute
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	uint8		va_header;
+	char		va_data[FLEXIBLE_ARRAY_MEMBER]; /* Data begins here */
+} varattrib_1b;
+```
 ## Detailed Description
 The  union is a fundamental data structure in PostgreSQL's variable-length attribute storage system. It provides two different layouts for storing variable-length data that requires 4-byte alignment:
 

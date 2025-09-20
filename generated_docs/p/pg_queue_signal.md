@@ -8,7 +8,10 @@ Queues a signal for delivery to the main PostgreSQL thread on Windows by setting
 
 ## Definition
 
-
+```c
+void
+pg_queue_signal(int signum)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's Windows signal emulation system. It executes on the signal handler thread and safely queues signals for the main thread by setting bits in a signal queue bitmask and triggering an event. The function uses critical sections to ensure thread-safe access to the global signal queue variable.
 

@@ -8,7 +8,10 @@ PostgreSQL function that performs not-equal comparison between a float8 (double 
 
 ## Definition
 
-
+```c
+Datum
+float84ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `float84ne` function implements the not-equal comparison operator for mixed-precision floating point types in PostgreSQL. It takes a float8 (8-byte double precision float) as the first argument and a float4 (4-byte single precision float) as the second argument, then determines if the two values are not equal.
 

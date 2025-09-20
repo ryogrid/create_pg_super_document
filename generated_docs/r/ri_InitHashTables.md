@@ -8,7 +8,10 @@ Initializes the internal hash tables used for caching referential integrity cons
 
 ## Definition
 
-
+```c
+static void
+ri_InitHashTables(void)
+```
 ## Detailed Description
 This function sets up three critical hash tables that serve as caches for the referential integrity system. The first table caches constraint information to avoid repeatedly looking up constraint details from the system catalogs. The second table caches prepared SPI query plans for executing referential integrity checks efficiently. The third table caches comparison operator information for key matching operations. The function also registers a callback to invalidate the constraint cache when pg_constraint catalog changes occur.
 

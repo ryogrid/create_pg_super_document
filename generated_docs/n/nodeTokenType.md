@@ -8,7 +8,10 @@ Determines the type of a node token from its string representation, classifying 
 
 ## Definition
 
-
+```c
+static NodeTag
+nodeTokenType(const char *token, int length)
+```
 ## Detailed Description
 The  function analyzes a token string and determines its semantic type based on its content and format. It performs lexical analysis to classify tokens into various categories that are meaningful for PostgreSQL's node system. The function handles numeric values (integers and floats), boolean values, quoted strings, bit strings, and special structural tokens like parentheses and braces.
 

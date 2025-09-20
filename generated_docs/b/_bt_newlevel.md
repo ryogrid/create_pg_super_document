@@ -8,7 +8,10 @@ Creates a new root level above the existing root page when a B-tree root split o
 
 ## Definition
 
-
+```c
+static Buffer
+_bt_newlevel(Relation rel, Relation heaprel, Buffer lbuf, Buffer rbuf)
+```
 ## Detailed Description
 The  function is called during B-tree insertion when the root page needs to be split, requiring the creation of a new root page at a higher level. This operation is critical for maintaining B-tree balance and ensuring logarithmic search performance as the tree grows.
 

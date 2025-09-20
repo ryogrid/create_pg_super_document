@@ -8,7 +8,10 @@ A core implementation function for efficiently assigning variables from virtual 
 
 ## Definition
 
-
+```c
+static pg_attribute_always_inline Datum
+ExecJustAssignVarVirtImpl(ExprState *state, TupleTableSlot *inslot, bool *isnull)
+```
 ## Detailed Description
 ExecJustAssignVarVirtImpl is the shared implementation function used by specialized variable assignment functions (ExecJustAssignInnerVarVirt, ExecJustAssignOuterVarVirt, and ExecJustAssignScanVarVirt). This function performs optimized variable assignment operations specifically for virtual tuple slots.
 

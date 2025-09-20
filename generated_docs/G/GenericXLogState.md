@@ -8,7 +8,16 @@ GenericXLogState is a structure that maintains the state during generic WAL (Wri
 
 ## Definition
 
-
+```c
+struct GenericXLogState
+{
+	/* Page images (properly aligned, must be first) */
+	PGIOAlignedBlock images[MAX_GENERIC_XLOG_PAGES];
+	/* Info about each page, see above */
+	PageData	pages[MAX_GENERIC_XLOG_PAGES];
+	bool		isLogged;
+};
+```
 ## Detailed Description
 The GenericXLogState structure serves as the central state container for PostgreSQL's generic WAL logging mechanism. It is specifically designed to handle modifications to multiple pages within a single WAL record, ensuring proper alignment for I/O operations. The structure must be allocated at an I/O aligned address to meet PostgreSQL's performance and correctness requirements for disk operations.
 

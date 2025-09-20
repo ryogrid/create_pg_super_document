@@ -8,7 +8,10 @@ This function performs the actual assignment of a new random seed value to Postg
 
 ## Definition
 
-
+```c
+void
+assign_random_seed(double newval, void *extra)
+```
 ## Detailed Description
  is a GUC assign hook function that performs the actual random seed assignment when the  configuration parameter is changed. This function works as part of a two-phase system with  to ensure that random seed changes only occur under appropriate circumstances.
 

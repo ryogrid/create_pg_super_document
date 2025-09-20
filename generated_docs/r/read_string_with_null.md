@@ -8,7 +8,10 @@ read_string_with_null reads a null-terminated string from a binary file, with dy
 
 ## Definition
 
-
+```c
+static char *
+read_string_with_null(FILE *fp)
+```
 ## Detailed Description
 read_string_with_null is a static utility function that reads null-terminated strings from a binary file stream. It is specifically designed to deserialize strings written by write_one_nondefault_variable during the EXEC_BACKEND configuration sharing process.
 

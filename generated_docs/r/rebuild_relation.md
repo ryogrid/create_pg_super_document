@@ -8,7 +8,9 @@ Rebuilds an existing relation in either index order (clustering) or physical ord
 
 ## Definition
 
-
+```c
+structure of the OldHeap;
+```
 ## Detailed Description
 The  function is the core implementation for PostgreSQL's table clustering and rewriting operations. It performs a complete reconstruction of a table by:
 

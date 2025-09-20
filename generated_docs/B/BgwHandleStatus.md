@@ -8,7 +8,9 @@ BgwHandleStatus is an enumeration that represents the current state of a backgro
 
 ## Definition
 
-
+```c
+struct BackgroundWorkerHandle;
+```
 ## Detailed Description
 The BgwHandleStatus enumeration provides a comprehensive way to track the current state of background worker processes throughout their lifecycle. This status information is crucial for applications and systems that need to monitor worker health, coordinate with worker processes, or make decisions based on worker availability. The enumeration covers all possible states from initial registration through normal termination or abnormal failure scenarios.
 

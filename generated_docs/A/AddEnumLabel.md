@@ -8,7 +8,14 @@ Adds a new label to an existing enum type, with support for positioning the labe
 
 ## Definition
 
-
+```c
+void
+AddEnumLabel(Oid enumTypeOid,
+			 const char *newVal,
+			 const char *neighbor,
+			 bool newValIsAfter,
+			 bool skipIfExists)
+```
 ## Detailed Description
 AddEnumLabel implements the core functionality for ALTER TYPE ADD VALUE operations in PostgreSQL. This complex function handles adding new enum values to existing enum types with several sophisticated features:
 

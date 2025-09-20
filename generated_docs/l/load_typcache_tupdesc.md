@@ -8,7 +8,10 @@ A helper function that loads and caches the tuple descriptor for composite types
 
 ## Definition
 
-
+```c
+static void
+load_typcache_tupdesc(TypeCacheEntry *typentry)
+```
 ## Detailed Description
 This function is responsible for populating the tupDesc field in a TypeCacheEntry for composite (row) types. It opens the relation corresponding to the composite type using the stored typrelid, extracts the relation's tuple descriptor, and stores a reference to it in the cache entry.
 

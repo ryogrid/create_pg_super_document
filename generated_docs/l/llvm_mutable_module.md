@@ -8,7 +8,10 @@ Returns a mutable LLVM module from the JIT context, creating a new module if one
 
 ## Definition
 
-
+```c
+LLVMModuleRef
+llvm_mutable_module(LLVMJitContext *context)
+```
 ## Detailed Description
 This function provides access to a mutable LLVM module that can be modified by adding new functions or other LLVM IR constructs. It implements lazy initialization - if the context doesn't have a module, it creates a new one with the PostgreSQL-specific target configuration (triple and data layout). When creating a new module, it resets the compiled flag and assigns a new generation number for tracking purposes.
 

@@ -8,7 +8,10 @@ Performs cleanup of libpq communication resources at backend process exit, shutt
 
 ## Definition
 
-
+```c
+struct addrinfo *addrs = NULL,
+			   *addr;
+```
 ## Detailed Description
 The  function is a process exit callback that handles the orderly shutdown of the libpq communication layer when a backend process terminates. It is designed to be safely callable at any instant during process execution, making it suitable for use as an exit callback even during initialization phases.
 

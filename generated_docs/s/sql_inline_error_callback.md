@@ -8,7 +8,10 @@ An error context callback function that provides call-stack traceback informatio
 
 ## Definition
 
-
+```c
+static void
+sql_inline_error_callback(void *arg)
+```
 ## Detailed Description
 This function serves as an error callback handler specifically designed for SQL function inlining operations. When an error occurs during the inlining process, this callback is invoked to provide enhanced error reporting with proper context information. The function performs two main tasks: handling syntax errors by converting external syntax error positions to internal ones, and adding contextual information about which SQL function was being processed when the error occurred.
 

@@ -8,7 +8,15 @@ RBTNode is the fundamental node structure for PostgreSQL's red-black tree implem
 
 ## Definition
 
-
+```c
+typedef struct RBTNode
+{
+	char color;					/* node's current color, red or black */
+	struct RBTNode *left;		/* left child, or RBTNIL if none */
+	struct RBTNode *right;		/* right child, or RBTNIL if none */
+	struct RBTNode *parent;		/* parent, or NULL (not RBTNIL!) if none */
+} RBTNode;
+```
 ## Detailed Description
 RBTNode serves as the base structure for all nodes in PostgreSQL's red-black tree implementation. It follows a composition pattern where applications define larger structs with RBTNode as the first field, allowing the tree operations to work with the RBTNode portion while applications access their specific data through pointer casting. The structure maintains the essential red-black tree properties: node color for balancing and three pointers for tree navigation. This design provides type safety while allowing flexibility for different data types to be stored in the tree.
 

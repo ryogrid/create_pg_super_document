@@ -8,7 +8,10 @@ Returns a tuple descriptor used for on-disk storage of BRIN tuples, providing th
 
 ## Definition
 
-
+```c
+static TupleDesc
+brtuple_disk_tupdesc(BrinDesc *brdesc)
+```
 ## Detailed Description
 This function creates and caches a tuple descriptor that defines the on-disk storage format for BRIN (Block Range Index) tuples. The function builds a template tuple descriptor based on the BRIN descriptor's stored attribute information, ensuring that each stored value from the BRIN opclass gets a corresponding entry in the disk tuple descriptor. The tuple descriptor is cached in the BrinDesc structure to avoid repeated creation, and memory allocation is performed in the BrinDesc's memory context to ensure proper lifecycle management.
 

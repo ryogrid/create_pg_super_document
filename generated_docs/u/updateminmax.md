@@ -8,7 +8,10 @@ The updateminmax function maintains global minimum and maximum year values by up
 
 ## Definition
 
-
+```c
+static void
+updateminmax(const zic_t x)
+```
 ## Detailed Description
 This is a simple utility function that tracks the range of years being processed in the timezone compiler. It compares the input value against the current global minimum and maximum year values, updating them if the new value extends the range in either direction.
 

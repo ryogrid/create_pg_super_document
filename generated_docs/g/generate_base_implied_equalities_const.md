@@ -8,7 +8,11 @@ Generates implied equality clauses for equivalence classes that contain pseudoco
 
 ## Definition
 
-
+```c
+static void
+generate_base_implied_equalities_const(PlannerInfo *root,
+									   EquivalenceClass *ec)
+```
 ## Detailed Description
 This function handles the specific case where an EquivalenceClass contains one or more constant or pseudoconstant members. It implements an optimization strategy that generates equality clauses comparing each variable member to a chosen constant member, effectively constraining all variables at their points of creation without requiring variable-to-variable comparisons.
 

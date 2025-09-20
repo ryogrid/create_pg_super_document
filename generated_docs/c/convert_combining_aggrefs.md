@@ -8,7 +8,10 @@ Recursively scans an expression tree and converts Aggrefs to the proper intermed
 
 ## Definition
 
-
+```c
+static Node *
+convert_combining_aggrefs(Node *node, void *context)
+```
 ## Detailed Description
 This function transforms aggregate expressions (Aggrefs) in preparation for two-phase partial aggregation. It replaces each original Aggref with a parent-child structure where:
 1. The child Aggref performs partial aggregation with the original arguments and filters

@@ -8,7 +8,10 @@ Returns the GSSAPI principal used for authentication on the given connection, or
 
 ## Definition
 
-
+```c
+const char *
+be_gssapi_get_princ(Port *port)
+```
 ## Detailed Description
 This function retrieves the GSSAPI principal name that was used during the authentication process for a specific PostgreSQL backend connection. The function performs safety checks to ensure the port and its GSSAPI structure are valid before accessing the principal information. If GSSAPI authentication was not performed or if the connection is invalid, the function returns NULL.
 

@@ -8,7 +8,15 @@ PartitionCmd represents information for ALTER TABLE/INDEX ATTACH/DETACH PARTITIO
 
 ## Definition
 
-
+```c
+typedef struct PartitionCmd
+{
+	NodeTag		type;
+	RangeVar   *name;			/* name of partition to attach/detach */
+	PartitionBoundSpec *bound;	/* FOR VALUES, if attaching */
+	bool		concurrent;
+} PartitionCmd;
+```
 ## Detailed Description
 PartitionCmd is used during ALTER TABLE operations to specify partition attachment and detachment operations. When attaching a partition, it contains the partition bound specification that defines which data belongs to the partition. When detaching, it identifies the partition to be removed. The structure supports both regular and concurrent operations, where concurrent operations allow other transactions to continue working with the partitioned table during the partition management operation.
 

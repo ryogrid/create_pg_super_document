@@ -8,7 +8,10 @@ exec_command_a implements the \a backslash command that toggles between aligned 
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_a(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 exec_command_a provides a simple toggle mechanism for psql's field alignment formatting. When the current format is aligned (PRINT_ALIGNED), it switches to unaligned format; when the current format is anything other than aligned, it switches to aligned format. The function only performs the actual format change when active_branch is true (i.e., when not within a false \if conditional block).
 

@@ -8,7 +8,14 @@ Creates a new Generation memory context, which is a specialized memory managemen
 
 ## Definition
 
-
+```c
+MemoryContext
+GenerationContextCreate(MemoryContext parent,
+						const char *name,
+						Size minContextSize,
+						Size initBlockSize,
+						Size maxBlockSize)
+```
 ## Detailed Description
 GenerationContextCreate initializes a new Generation memory context, which is optimized for workloads that allocate many objects of similar sizes and then free them all at once. The context manages memory in blocks, starting with an initial block that contains the context header itself. The function validates allocation parameters, allocates the initial block using malloc, initializes the block structure, and sets up the context-specific parameters like chunk size limits.
 

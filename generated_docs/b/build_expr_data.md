@@ -8,7 +8,10 @@ Constructs an array of AnlExprData structures for a list of expressions, prepari
 
 ## Definition
 
-
+```c
+static AnlExprData *
+build_expr_data(List *exprs, int stattarget)
+```
 ## Detailed Description
 This function creates and initializes the data structures needed to analyze expressions for extended statistics. For each expression in the input list, it creates an AnlExprData entry that contains the expression node and an associated VacAttrStats structure obtained by calling examine_expression. The function allocates memory for all expression data entries at once and populates them sequentially. Since this function operates on standalone expressions rather than table columns, some fields in the VacAttrStats structures may be artificially populated by examine_expression to work with the standard statistics infrastructure.
 

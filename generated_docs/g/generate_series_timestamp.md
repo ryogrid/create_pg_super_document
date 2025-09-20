@@ -8,7 +8,10 @@ This function generates a set-returning series of timestamp values from a start 
 
 ## Definition
 
-
+```c
+Datum
+generate_series_timestamp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a set-returning function (SRF) that produces a sequence of timestamp values between two bounds. It follows PostgreSQL's standard SRF pattern with initialization on the first call and state management across multiple calls.
 

@@ -8,7 +8,10 @@ Outputs diagnostic messages (warnings and errors) with formatted output that inc
 
 ## Definition
 
-
+```c
+void
+diag4(int level, const char *msg, int a, int b)
+```
 ## Detailed Description
 The  function is a diagnostic reporting utility in the PostgreSQL BSD indent tool that outputs formatted warning and error messages. The function handles message output differently depending on whether the output is being written to stdout or another destination.
 

@@ -8,7 +8,10 @@ Creates a dumpable object for the data of a specific table, determining whether 
 
 ## Definition
 
-
+```c
+static void
+makeTableDataInfo(DumpOptions *dopt, TableInfo *tbinfo)
+```
 ## Detailed Description
 This function creates a TableDataInfo object that represents the data content of a table for pg_dump operations. It performs various checks to determine if the table's data should be dumped, including filtering out views, foreign tables, partitioned tables, and unlogged tables based on dump options. The function assigns appropriate object types based on the relation kind (materialized view, sequence, or regular table) and establishes dependencies between the data object and its parent table.
 

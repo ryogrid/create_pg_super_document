@@ -8,7 +8,10 @@ Builds access paths for a foreign table by delegating to the Foreign Data Wrappe
 
 ## Definition
 
-
+```c
+static void
+set_foreign_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function serves as a simple dispatcher that delegates the responsibility of generating access paths for foreign tables to the Foreign Data Wrapper (FDW). Unlike other path generation functions that implement complex logic for creating various path types, this function takes a minimalist approach by relying entirely on the FDW's specialized knowledge of how to best access the foreign data source.
 

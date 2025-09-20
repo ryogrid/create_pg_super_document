@@ -8,7 +8,10 @@ Returns the I/O concurrency setting for a specified tablespace, falling back to 
 
 ## Definition
 
-
+```c
+int
+get_tablespace_io_concurrency(Oid spcid)
+```
 ## Detailed Description
 This function provides access to tablespace-specific I/O concurrency configuration, which controls the level of parallelism for I/O operations on the given tablespace. The I/O concurrency setting influences how PostgreSQL schedules and batches I/O operations, particularly for operations like bitmap heap scans and prefetching.
 

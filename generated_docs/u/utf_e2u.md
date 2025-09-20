@@ -8,7 +8,10 @@ A utility function in PL/Tcl that converts strings from the database's current e
 
 ## Definition
 
-
+```c
+static inline char *
+utf_e2u(const char *src)
+```
 ## Detailed Description
 The `utf_e2u` function is the counterpart to `utf_u2e`, providing conversion from PostgreSQL's database server encoding to UTF-8. This function is essential for the PL/Tcl procedural language implementation when data needs to flow from PostgreSQL's internal representation to Tcl, which expects UTF-8 encoded strings.
 

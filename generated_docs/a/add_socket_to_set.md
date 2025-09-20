@@ -8,7 +8,9 @@ Adds a socket file descriptor to a socket set for monitoring with select(), perf
 
 ## Definition
 
-
+```c
+struct timeval timeout;
+```
 ## Detailed Description
 This function adds a socket file descriptor to a socket_set structure for use with the select() system call. The function performs critical validation to ensure the file descriptor is within the limits imposed by the platform's select() implementation. On Windows, it checks that the total number of file descriptors doesn't exceed FD_SETSIZE. On Unix-like systems, it validates that the file descriptor value itself is within the valid range (0 to FD_SETSIZE-1). After validation, it adds the socket to the fd_set and updates the maximum file descriptor value for efficient select() calls.
 

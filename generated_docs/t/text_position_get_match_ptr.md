@@ -8,7 +8,10 @@ Returns a pointer to the current match found in a text search operation within t
 
 ## Definition
 
-
+```c
+static char *
+text_position_get_match_ptr(TextPositionState *state)
+```
 ## Detailed Description
 This is a simple accessor function that retrieves the pointer to the last successful match found during text position searching operations. The function returns the  field from the TextPositionState structure, which points directly into the original haystack string where a match was found. This allows callers to access the actual matched text without needing to know the internal structure details.
 

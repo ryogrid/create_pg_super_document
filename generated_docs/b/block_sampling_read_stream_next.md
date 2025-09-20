@@ -8,7 +8,12 @@ Read stream callback function that returns the next block number selected by the
 
 ## Definition
 
-
+```c
+static BlockNumber
+block_sampling_read_stream_next(ReadStream *stream,
+								void *callback_private_data,
+								void *per_buffer_data)
+```
 ## Detailed Description
 This function serves as a callback for the read stream infrastructure during table analysis, implementing the block sampling strategy used by ANALYZE. It interfaces with the BlockSampler algorithm to determine which blocks should be read next during the sampling process. The function uses BlockSamplerData to maintain the sampling state and provides the selected block numbers to the read stream system for efficient I/O.
 

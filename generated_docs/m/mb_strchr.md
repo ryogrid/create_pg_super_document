@@ -8,7 +8,10 @@ Searches for a multibyte character within a string, similar to strchr but with p
 
 ## Definition
 
-
+```c
+static bool
+mb_strchr(char *str, char *c)
+```
 ## Detailed Description
 mb_strchr provides multibyte-aware character searching functionality, acting as a replacement for the standard strchr function when dealing with multibyte character encodings. The function iterates through the input string character by character, using pg_mblen to determine the length of each multibyte character. For each character in the string, it compares both the length and the byte sequence with the target character. If a match is found (same length and identical byte sequence), it returns true; otherwise, it continues searching until the end of the string.
 

@@ -8,7 +8,10 @@ Tests PostgreSQL pipeline mode with bulk insert operations using prepared statem
 
 ## Definition
 
-
+```c
+enum PipelineInsertStep send_step = BI_BEGIN_TX,
+				recv_step = BI_BEGIN_TX;
+```
 ## Detailed Description
 This function performs a comprehensive test of PostgreSQL's pipeline mode for bulk insert operations. It creates a complete transaction workflow including table creation, prepared statement setup, and bulk data insertion using non-blocking I/O to avoid deadlocks. The test follows a state machine approach with distinct phases:
 

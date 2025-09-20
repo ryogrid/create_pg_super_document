@@ -8,7 +8,10 @@ TransactionIdDidAbort determines whether a specified transaction has explicitly 
 
 ## Definition
 
-
+```c
+bool							/* true if given transaction aborted */
+TransactionIdDidAbort(TransactionId transactionId)
+```
 ## Detailed Description
 TransactionIdDidAbort is a specialized function that determines if a transaction has explicitly aborted. Unlike commit checking, abort detection has additional complexities due to crash scenarios:
 

@@ -8,7 +8,10 @@ Adds a TID (Tuple Identifier) to the pending list during SP-GiST vacuum operatio
 
 ## Definition
 
-
+```c
+static void
+spgAddPendingTID(spgBulkDeleteState *bds, ItemPointer tid)
+```
 ## Detailed Description
 This function maintains a list of pending TIDs during SP-GiST vacuum operations. It performs a linear search through the existing pending list to check for duplicates before adding new entries. New items are always appended at the end of the list, which ensures that scans of the list don't miss items added during the scan. This is crucial for maintaining consistency during concurrent vacuum operations.
 

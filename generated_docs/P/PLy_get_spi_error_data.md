@@ -8,7 +8,14 @@ PLy_get_spi_error_data extracts comprehensive error information from Python SPIE
 
 ## Definition
 
-
+```c
+static void
+PLy_get_spi_error_data(PyObject *exc, int *sqlerrcode, char **detail,
+					   char **hint, char **query, int *position,
+					   char **schema_name, char **table_name,
+					   char **column_name,
+					   char **datatype_name, char **constraint_name)
+```
 ## Detailed Description
 PLy_get_spi_error_data is a specialized function for extracting detailed error information from SPI (Server Programming Interface) errors in PL/Python. The function attempts to parse the 'spidata' attribute from SPIError exceptions, which contains structured error information as a Python tuple.
 

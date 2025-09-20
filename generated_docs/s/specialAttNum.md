@@ -8,7 +8,10 @@ This static function checks if an attribute name corresponds to a PostgreSQL sys
 
 ## Definition
 
-
+```c
+static int
+specialAttNum(const char *attname)
+```
 ## Detailed Description
 The  function determines whether a given attribute name is a special system attribute (such as "xmin", "xmax", "ctid", etc.) and returns the corresponding attribute number if found. It uses  to look up the attribute name in the system attribute catalog. This function only identifies potential system attributes by name - the caller is responsible for ensuring that the attribute actually exists in the target relation. System attributes have negative attribute numbers to distinguish them from regular user-defined attributes.
 

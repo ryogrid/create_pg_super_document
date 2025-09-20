@@ -8,7 +8,10 @@ Accumulates a new numeric value into a NumericSumAccum structure, which is used 
 
 ## Definition
 
-
+```c
+static void
+accum_sum_add(NumericSumAccum *accum, const NumericVar *val)
+```
 ## Detailed Description
 This function adds a new numeric value to an accumulator structure that maintains separate arrays for positive and negative digits to enable efficient summation. The function performs carry propagation when necessary to prevent overflow, rescales the accumulator to accommodate the new value's weight and scale, and then adds the digits to the appropriate accumulator array based on the value's sign.
 

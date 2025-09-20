@@ -8,7 +8,10 @@ Converts character encoding from EUC-TW (Extended Unix Code for Taiwan) to UTF-8
 
 ## Definition
 
-
+```c
+Datum
+euc_tw_to_utf8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a PostgreSQL conversion procedure that transforms text encoded in EUC-TW format to UTF-8 encoding. It follows the standard PostgreSQL conversion procedure interface, accepting source and destination buffers along with conversion parameters. The function uses the LocalToUtf conversion utility with the EUC-TW to Unicode mapping tree to perform the actual character encoding transformation. It validates the encoding parameters and handles error conditions based on the noError flag.
 

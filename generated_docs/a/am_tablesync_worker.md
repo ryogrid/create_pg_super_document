@@ -8,7 +8,10 @@ A convenience function that determines if the current logical replication worker
 
 ## Definition
 
-
+```c
+static inline bool
+am_tablesync_worker(void)
+```
 ## Detailed Description
 The  function is a simple inline wrapper that checks whether the current logical replication worker (represented by the global ) is configured as a table synchronization worker. This function provides a clean interface for determining the worker type without directly accessing the worker structure fields.
 

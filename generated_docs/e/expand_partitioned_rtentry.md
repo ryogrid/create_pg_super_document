@@ -8,7 +8,14 @@ Recursively expands a range table entry for a partitioned table by creating chil
 
 ## Definition
 
-
+```c
+static void
+expand_partitioned_rtentry(PlannerInfo *root, RelOptInfo *relinfo,
+						   RangeTblEntry *parentrte,
+						   Index parentRTindex, Relation parentrel,
+						   Bitmapset *parent_updatedCols,
+						   PlanRowMark *top_parentrc, LOCKMODE lockmode)
+```
 ## Detailed Description
 This static function handles the recursive expansion of partitioned tables by discovering live partitions through pruning and creating necessary planner structures for each surviving partition. Key operations include:
 

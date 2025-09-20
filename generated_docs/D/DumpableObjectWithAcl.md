@@ -8,7 +8,16 @@ DumpableObjectWithAcl is a generic struct that provides a unified interface for 
 
 ## Definition
 
-
+```c
+typedef struct _namespaceInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
+	bool		create;			/* CREATE SCHEMA, or just set owner? */
+	Oid			nspowner;		/* OID of owner */
+	const char *rolname;		/* name of owner */
+} NamespaceInfo;
+```
 ## Detailed Description
 DumpableObjectWithAcl serves as a composite structure that combines the base DumpableObject functionality with ACL-specific data handling. This structure is designed as a casting target for database objects that have ACL information, allowing pg_dump to handle ACL processing in a type-safe and uniform manner across different object types like namespaces, types, functions, aggregates, tables, procedural languages, foreign data wrappers, and foreign servers.
 

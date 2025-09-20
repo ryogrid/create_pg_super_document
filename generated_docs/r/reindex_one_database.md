@@ -8,7 +8,14 @@ Performs reindex operations on a single database, handling both serial and paral
 
 ## Definition
 
-
+```c
+static void
+reindex_one_database(ConnParams *cparams, ReindexType type,
+					 SimpleStringList *user_list,
+					 const char *progname, bool echo,
+					 bool verbose, bool concurrently, int concurrentCons,
+					 const char *tablespace)
+```
 ## Detailed Description
 This function coordinates reindex operations on a single database and serves as the core logic for the reindexdb utility. It handles different reindex types and execution modes:
 

@@ -8,7 +8,9 @@ BufferAccessStrategy is a pointer type that represents a strategy object for man
 
 ## Definition
 
-
+```c
+typedef struct BufferAccessStrategyData *BufferAccessStrategy;
+```
 ## Detailed Description
 BufferAccessStrategy is an opaque pointer type that encapsulates buffer management strategies in PostgreSQL's buffer pool system. The actual implementation is hidden in the BufferAccessStrategyData structure, which is private to . This design provides different buffer access patterns optimized for various database operations.
 

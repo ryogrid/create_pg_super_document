@@ -8,7 +8,11 @@ Completely removes a state from an NFA by freeing all its incoming and outgoing 
 
 ## Definition
 
-
+```c
+static void
+dropstate(struct nfa *nfa,
+		  struct state *s)
+```
 ## Detailed Description
 The  function performs complete removal of a state from an NFA structure. It systematically deletes all arcs connected to the state by iterating through the state's incoming arcs (ins) and outgoing arcs (outs), calling  for each one. After all arcs are removed, it calls  to deallocate the state itself. This ensures proper cleanup and prevents memory leaks when states need to be removed during NFA optimization or error handling.
 

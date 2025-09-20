@@ -8,7 +8,11 @@ Tests whether an index tuple satisfies a row-comparison scan condition by perfor
 
 ## Definition
 
-
+```c
+static bool
+_bt_check_rowcompare(ScanKey skey, IndexTuple tuple, int tupnatts,
+					 TupleDesc tupdesc, ScanDirection dir, bool *continuescan)
+```
 ## Detailed Description
 This function handles row-comparison operations for composite B-tree index keys, where multiple columns are compared as a single logical unit (e.g., WHERE (col1, col2) > (val1, val2)). It performs a lexicographic comparison by iterating through each column in the row until it finds a decisive difference or reaches the end. The function handles NULL values according to the index's NULLS FIRST/LAST configuration and can optimize scans by setting *continuescan to false when no future tuples can satisfy required conditions. For each column, it performs a three-way comparison and applies the appropriate strategy (less than, greater than, etc.) to determine the final result.
 

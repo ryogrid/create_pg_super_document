@@ -8,7 +8,10 @@ Implements the SQL OVERLAPS operator for time with timezone data types, determin
 
 ## Definition
 
-
+```c
+Datum
+overlaps_timetz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `overlaps_timetz` function implements the SQL OVERLAPS operator for time intervals that include timezone information. It takes four TimeTzADT arguments representing two time intervals (ts1, te1) and (ts2, te2), and determines whether these intervals overlap. Like its non-timezone counterpart, it follows the SQL specification algorithm with complex null-handling logic that can return non-null results even when some inputs are null.
 

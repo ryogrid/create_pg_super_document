@@ -8,7 +8,20 @@ PROCLOCK represents the association between a process (PGPROC) and a lock object
 
 ## Definition
 
+```c
+typedef struct PROCLOCK
+{
+	/* tag */
+	PROCLOCKTAG tag;			/* unique identifier of proclock object */
 
+	/* data */
+	PGPROC	   *groupLeader;	/* proc's lock group leader, or proc itself */
+	LOCKMASK	holdMask;		/* bitmask for lock types currently held */
+	LOCKMASK	releaseMask;	/* bitmask for lock types to be released */
+	dlist_node	lockLink;		/* list link in LOCK's list of proclocks */
+	dlist_node	procLink;		/* list link in PGPROC's list of proclocks */
+} PROCLOCK;
+```
 ## Detailed Description
 PROCLOCK is a crucial data structure in PostgreSQL's lock management system that maintains the relationship between processes and locks. Each PROCLOCK instance represents a specific process's interest in a particular lock object, whether that interest is an already-granted lock or a pending lock request. The structure serves as a bidirectional link, allowing efficient traversal from locks to processes and vice versa through embedded doubly-linked list nodes.
 

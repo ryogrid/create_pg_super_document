@@ -8,7 +8,10 @@ Establishes dependency relationships between materialized view refresh operation
 
 ## Definition
 
-
+```c
+static void
+buildMatViewRefreshDependencies(Archive *fout)
+```
 ## Detailed Description
 This function builds dependency relationships for materialized view refresh operations by querying the database to find all materialized views that depend on other materialized views through rewrite rules. It uses a recursive CTE to traverse the dependency chain and ensures that when dumping, a materialized view's refresh operation depends on the refresh operations of all materialized views it references. The function also propagates the 'populated' status, marking dependent materialized views as unpopulated if any of their dependencies are unpopulated.
 

@@ -8,7 +8,10 @@ An internal function that implements the core logic for generating a series of t
 
 ## Definition
 
-
+```c
+static Datum
+generate_series_timestamptz_internal(FunctionCallInfo fcinfo)
+```
 ## Detailed Description
 This function implements a set-returning function (SRF) that generates a sequence of timestamp with timezone values from a start point to a finish point, incrementing by a specified interval step. The function operates in a specified timezone (either provided as parameter or using session timezone) and handles both positive and negative step intervals.
 

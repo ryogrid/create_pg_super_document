@@ -8,7 +8,13 @@ This function retrieves a specific tuple from a heap relation using its tuple id
 
 ## Definition
 
-
+```c
+static bool
+heapam_fetch_row_version(Relation relation,
+						 ItemPointer tid,
+						 Snapshot snapshot,
+						 TupleTableSlot *slot)
+```
 ## Detailed Description
 heapam_fetch_row_version is a static callback function used by the heap access method to fetch a specific tuple version from a heap relation. It acts as a wrapper around the lower-level heap_fetch function, providing the interface expected by the table access method layer. The function attempts to retrieve the tuple identified by the given TID, checks its visibility according to the provided snapshot, and if successful, stores the tuple in the provided table slot with proper buffer management.
 

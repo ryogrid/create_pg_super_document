@@ -8,7 +8,10 @@ ExecutorStart is the entry point function that must be called at the beginning o
 
 ## Definition
 
-
+```c
+void
+ExecutorStart(QueryDesc *queryDesc, int eflags)
+```
 ## Detailed Description
 ExecutorStart serves as the primary interface for initiating query execution in PostgreSQL. It performs essential setup tasks including query ID reporting for statistics and provides an extensibility mechanism through function hooks. The function takes a QueryDesc that was previously created by CreateQueryDesc and fills in the tupDesc field to describe the tuples that will be returned, while also setting up internal fields (estate and planstate).
 

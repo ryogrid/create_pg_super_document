@@ -8,7 +8,10 @@ Extends a flattened target list by adding new expressions, avoiding duplicates b
 
 ## Definition
 
-
+```c
+List *
+add_to_flat_tlist(List *tlist, List *exprs)
+```
 ## Detailed Description
 The `add_to_flat_tlist` function takes a flattened target list and a list of expressions, then adds each expression to the target list if it doesn't already exist. It uses `tlist_member` to check for duplicates and creates new TargetEntry nodes for unique expressions. Each new entry is assigned a sequential resource number starting from the length of the existing list plus one. The expressions are copied using `copyObject` to ensure proper memory management.
 

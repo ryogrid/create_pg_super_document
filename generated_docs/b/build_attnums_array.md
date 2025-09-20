@@ -8,7 +8,10 @@ Transforms a bitmap representation of attributes into an array of AttrNumber val
 
 ## Definition
 
-
+```c
+AttrNumber *
+build_attnums_array(Bitmapset *attrs, int nexprs, int *numattrs)
+```
 ## Detailed Description
 This function converts a Bitmapset containing attribute references into a dynamically allocated array of AttrNumber values. It's specifically designed for extended statistics operations where all attributes are user-defined (positive attribute numbers). The function iterates through the bitmap members, adjusts for expression indices, and validates that all resulting attribute numbers are valid user-defined attributes. It includes comprehensive assertions to ensure data integrity and prevent overflows.
 

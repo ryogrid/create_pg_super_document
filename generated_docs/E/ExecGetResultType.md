@@ -8,7 +8,10 @@ Returns the result tuple descriptor for a given plan state, providing type infor
 
 ## Definition
 
-
+```c
+TupleDesc
+ExecGetResultType(PlanState *planstate)
+```
 ## Detailed Description
 ExecGetResultType is a simple accessor function that retrieves the result tuple descriptor (TupleDesc) from a plan state node. This function provides a standardized way to access the ps_ResultTupleDesc field, which contains the schema information describing the structure and types of tuples that will be produced by the execution plan node.
 

@@ -8,7 +8,11 @@ A validation function that ensures timeline switches during WAL recovery are saf
 
 ## Definition
 
-
+```c
+static void
+checkTimeLineSwitch(XLogRecPtr lsn, TimeLineID newTLI, TimeLineID prevTLI,
+					TimeLineID replayTLI)
+```
 ## Detailed Description
 This function performs critical validation when PostgreSQL encounters a timeline switch during WAL recovery, specifically at shutdown checkpoint records. Timeline switches occur in scenarios like failover, point-in-time recovery (PITR), or when following a different recovery path.
 

@@ -8,7 +8,10 @@ Attempts to compress a specific attribute in a tuple and updates the TOAST conte
 
 ## Definition
 
-
+```c
+void
+toast_tuple_try_compression(ToastTupleContext *ttc, int attribute)
+```
 ## Detailed Description
 This function attempts to compress a single attribute using the configured compression algorithm. If compression succeeds and reduces the attribute size sufficiently, it replaces the original value with the compressed version. If compression fails or doesn't provide adequate space savings, the attribute is marked as incompressible to prevent future compression attempts.
 

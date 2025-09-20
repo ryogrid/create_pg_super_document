@@ -8,7 +8,66 @@ AppendRelInfo provides the mapping information needed to translate between paren
 
 ## Definition
 
+```c
+typedef struct AppendRelInfo
+{
+	pg_node_attr(no_query_jumble)
 
+	NodeTag		type;
+
+	/*
+	 * These fields uniquely identify this append relationship.  There can be
+	 * (in fact, always should be) multiple AppendRelInfos for the same
+	 * parent_relid, but never more than one per child_relid, since a given
+	 * RTE cannot be a child of more than one append parent.
+	 */
+	Index		parent_relid;	/* RT index of append parent rel */
+	Index		child_relid;	/* RT index of append child rel */
+
+	/*
+	 * For an inheritance appendrel, the parent and child are both regular
+	 * relations, and we store their rowtype OIDs here for use in translating
+	 * whole-row Vars.  For a UNION-ALL appendrel, the parent and child are
+	 * both subqueries with no named rowtype, and we store InvalidOid here.
+	 */
+	Oid			parent_reltype; /* OID of parent's composite type */
+	Oid			child_reltype;	/* OID of child's composite type */
+
+	/*
+	 * The N'th element of this list is a Var or expression representing the
+	 * child column corresponding to the N'th column of the parent. This is
+	 * used to translate Vars referencing the parent rel into references to
+	 * the child.  A list element is NULL if it corresponds to a dropped
+	 * column of the parent (this is only possible for inheritance cases, not
+	 * UNION ALL).  The list elements are always simple Vars for inheritance
+	 * cases, but can be arbitrary expressions in UNION ALL cases.
+	 *
+	 * Notice we only store entries for user columns (attno > 0).  Whole-row
+	 * Vars are special-cased, and system columns (attno < 0) need no special
+	 * translation since their attnos are the same for all tables.
+	 *
+	 * Caution: the Vars have varlevelsup = 0.  Be careful to adjust as needed
+	 * when copying into a subquery.
+	 */
+	List	   *translated_vars;	/* Expressions in the child's Vars */
+
+	/*
+	 * This array simplifies translations in the reverse direction, from
+	 * child's column numbers to parent's.  The entry at [ccolno - 1] is the
+	 * 1-based parent column number for child column ccolno, or zero if that
+	 * child column is dropped or doesn't exist in the parent.
+	 */
+	int			num_child_cols; /* length of array */
+	AttrNumber *parent_colnos pg_node_attr(array_size(num_child_cols));
+
+	/*
+	 * We store the parent table's OID here for inheritance, or InvalidOid for
+	 * UNION ALL.  This is only needed to help in generating error messages if
+	 * an attempt is made to reference a dropped parent column.
+	 */
+	Oid			parent_reloid;	/* OID of parent relation */
+} AppendRelInfo;
+```
 ## Detailed Description
 AppendRelInfo structures are created when PostgreSQL expands an inheritable table or UNION-ALL subselect into an "append relation" - essentially a list of child relations that must be processed together. Each AppendRelInfo maps one child relation to its parent, providing all the translation information needed to convert references to parent columns into appropriate references to child columns.
 

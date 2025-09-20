@@ -8,7 +8,16 @@ The  structure is used by PostgreSQL autovacuum workers to track table-specific 
 
 ## Definition
 
-
+```c
+typedef struct av_relation
+{
+	Oid			ar_toastrelid;	/* hash key - must be first */
+	Oid			ar_relid;
+	bool		ar_hasrelopts;
+	AutoVacOpts ar_reloptions;	/* copy of AutoVacOpts from the main table's
+								 * reloptions, or NULL if none */
+} av_relation;
+```
 ## Detailed Description
 The  structure serves as a tracking mechanism for tables and their associated TOAST tables during autovacuum's table discovery and evaluation phase. It maintains the relationship between main tables and their TOAST tables, along with any table-specific autovacuum options that may have been configured. This structure is particularly important for managing TOAST table autovacuum operations, which have special handling requirements in PostgreSQL.
 

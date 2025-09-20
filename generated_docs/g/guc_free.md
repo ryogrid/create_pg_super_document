@@ -8,7 +8,10 @@ GUC-related memory deallocation function that safely frees memory allocated in t
 
 ## Definition
 
-
+```c
+void
+guc_free(void *ptr)
+```
 ## Detailed Description
  is a PostgreSQL-specific memory deallocation function designed for the GUC (Grand Unified Configuration) system. It provides functionality similar to the standard C library's  but operates within PostgreSQL's memory context system and includes additional safety features. The function safely handles NULL pointers (unlike PostgreSQL's ) and includes assertions to verify that the memory being freed actually belongs to the GUCMemoryContext.
 

@@ -8,7 +8,9 @@ Deletes a value at a specified path in a JSONB structure, removing the key-value
 
 ## Definition
 
-
+```c
+struct_array_builtin(path, TEXTOID, &path_elems, &path_nulls, &path_len);
+```
 ## Detailed Description
 The  function is a SQL-callable function that removes a value at a specified path within a JSONB structure. Unlike  which works only with arrays and integer indices, this function accepts a path array of text elements and can delete values from both objects and arrays. It uses the internal  function with the  mode to perform the deletion operation.
 

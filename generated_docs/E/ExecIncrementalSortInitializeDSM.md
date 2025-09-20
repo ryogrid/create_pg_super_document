@@ -8,7 +8,10 @@ Initializes dynamic shared memory (DSM) space for collecting and sharing increme
 
 ## Definition
 
-
+```c
+void
+ExecIncrementalSortInitializeDSM(IncrementalSortState *node, ParallelContext *pcxt)
+```
 ## Detailed Description
 ExecIncrementalSortInitializeDSM allocates and initializes shared memory structures needed for collecting incremental sort performance statistics in parallel query execution. This function sets up the SharedIncrementalSortInfo structure that will be used to aggregate statistics from all parallel worker processes.
 

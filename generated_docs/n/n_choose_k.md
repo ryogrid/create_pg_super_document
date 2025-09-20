@@ -8,7 +8,10 @@ Computes binomial coefficients using an algorithm that is both efficient and pre
 
 ## Definition
 
-
+```c
+static int
+n_choose_k(int n, int k)
+```
 ## Detailed Description
 This function calculates the binomial coefficient "n choose k" (C(n,k)), which represents the number of ways to choose k items from n items without regard to order. The implementation uses an iterative algorithm that multiplies and divides alternately to prevent integer overflow that could occur with the naive factorial-based approach. The function leverages the symmetry property of binomial coefficients where C(n,k) = C(n,n-k) to minimize computation by always computing the smaller of k or n-k.
 

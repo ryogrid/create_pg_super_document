@@ -8,7 +8,13 @@ accumArrayResultAny accumulates one input value for building an array result, ha
 
 ## Definition
 
-
+```c
+ArrayBuildStateAny *
+accumArrayResultAny(ArrayBuildStateAny *astate,
+					Datum dvalue, bool disnull,
+					Oid input_type,
+					MemoryContext rcontext)
+```
 ## Detailed Description
 This function provides a unified interface for accumulating array elements during array construction, handling both scalar elements and array inputs. It maintains state in an ArrayBuildStateAny structure and delegates to appropriate specialized accumulation functions based on whether the input is scalar or array data. The function automatically initializes the state on the first call if astate is NULL.
 

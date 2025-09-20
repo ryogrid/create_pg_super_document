@@ -8,7 +8,10 @@ A static utility function that serves as a wrapper to call numeric functions tha
 
 ## Definition
 
-
+```c
+static int
+deccall2(decimal *arg1, decimal *arg2, int (*ptr) (numeric *, numeric *))
+```
 ## Detailed Description
 The  function is an internal helper function in the ECPG Informix compatibility library that provides a standardized way to call numeric functions requiring two input parameters. It handles the conversion from Informix decimal types to PostgreSQL numeric types, manages memory allocation and cleanup, and executes the provided function pointer. The function ensures proper resource management by cleaning up allocated numeric values regardless of success or failure.
 

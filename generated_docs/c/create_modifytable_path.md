@@ -8,7 +8,20 @@ Creates a pathnode that represents performing INSERT/UPDATE/DELETE/MERGE operati
 
 ## Definition
 
-
+```c
+ModifyTablePath *
+create_modifytable_path(PlannerInfo *root, RelOptInfo *rel,
+						Path *subpath,
+						CmdType operation, bool canSetTag,
+						Index nominalRelation, Index rootRelation,
+						bool partColsUpdated,
+						List *resultRelations,
+						List *updateColnosLists,
+						List *withCheckOptionLists, List *returningLists,
+						List *rowMarks, OnConflictExpr *onconflict,
+						List *mergeActionLists, List *mergeJoinConditions,
+						int epqParam)
+```
 ## Detailed Description
 This function creates a ModifyTablePath node that represents data modification operations (INSERT, UPDATE, DELETE, MERGE) in PostgreSQL's query planning system. It serves as the top-level path node for any query that modifies table data and wraps a subpath that produces the source data for the modification.
 

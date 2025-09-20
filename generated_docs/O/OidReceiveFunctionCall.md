@@ -8,7 +8,11 @@ OidReceiveFunctionCall is a convenience function that calls a datatype binary-in
 
 ## Definition
 
-
+```c
+Datum
+OidReceiveFunctionCall(Oid functionId, StringInfo buf,
+					   Oid typioparam, int32 typmod)
+```
 ## Detailed Description
 OidReceiveFunctionCall provides a simple interface for calling datatype binary-input (receive) functions when you only have the function's OID rather than a pre-cached FmgrInfo structure. The function internally sets up the function manager info using fmgr_info() and then calls ReceiveFunctionCall() to perform the actual conversion from binary format to internal Datum representation.
 

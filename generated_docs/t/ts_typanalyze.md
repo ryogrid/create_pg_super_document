@@ -8,7 +8,10 @@ A custom typanalyze function for tsvector columns that configures statistics col
 
 ## Definition
 
-
+```c
+Datum
+ts_typanalyze(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a specialized analysis function for tsvector data types during PostgreSQL's ANALYZE operation. It configures the VacAttrStats structure with appropriate parameters for collecting statistics on tsvector columns, including setting the compute_stats callback to compute_tsvector_stats and determining the minimum number of rows needed for accurate statistics.
 

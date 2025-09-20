@@ -8,7 +8,25 @@ RowCompareType is an enumeration that defines the comparison operators supported
 
 ## Definition
 
+```c
+typedef struct RowCompareExpr
+{
+	Expr		xpr;
 
+	/* LT LE GE or GT, never EQ or NE */
+	RowCompareType rctype;
+	/* OID list of pairwise comparison ops */
+	List	   *opnos pg_node_attr(query_jumble_ignore);
+	/* OID list of containing operator families */
+	List	   *opfamilies pg_node_attr(query_jumble_ignore);
+	/* OID list of collations for comparisons */
+	List	   *inputcollids pg_node_attr(query_jumble_ignore);
+	/* the left-hand input arguments */
+	List	   *largs;
+	/* the right-hand input arguments */
+	List	   *rargs;
+} RowCompareExpr;
+```
 ## Detailed Description
 RowCompareType specifies the type of comparison operation for row-wise expressions where entire rows (tuples) are compared element-by-element. This enumeration supports all standard comparison operators that can be determined to act like equality, inequality, and ordering operations.
 

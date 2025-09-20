@@ -8,7 +8,14 @@ A simple structure used for sorting key datums during GIN index key extraction o
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	FmgrInfo   *cmpDatumFunc;
+	Oid			collation;
+	bool		haveDups;
+} cmpEntriesArg;
+```
 ## Detailed Description
  is a utility structure used specifically within the  function in PostgreSQL's GIN (Generalized Inverted Index) access method. This structure serves as a temporary container for key data during the sorting and deduplication process. When multiple keys are extracted from an indexed value, they need to be sorted and duplicates removed for efficient storage. The  structure pairs each key datum with its null flag, allowing the sorting algorithm to handle both null and non-null values appropriately.
 

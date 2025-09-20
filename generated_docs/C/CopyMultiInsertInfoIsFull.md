@@ -8,7 +8,10 @@ CopyMultiInsertInfoIsFull checks whether the multi-insert buffers have reached t
 
 ## Definition
 
-
+```c
+static inline bool
+CopyMultiInsertInfoIsFull(CopyMultiInsertInfo *miinfo)
+```
 ## Detailed Description
 This function serves as a capacity check for the multi-insert buffering system in COPY FROM operations. It implements a dual-threshold approach to determine when buffers should be flushed:
 

@@ -8,7 +8,10 @@ Searches for a library file by basename in the configured dynamic library search
 
 ## Definition
 
-
+```c
+static char *
+find_in_dynamic_libpath(const char *basename)
+```
 ## Detailed Description
 This function implements a comprehensive search mechanism for dynamic libraries within PostgreSQL's configured library search paths. It processes the  configuration parameter, which contains a colon-separated list of directory paths where libraries should be searched.
 

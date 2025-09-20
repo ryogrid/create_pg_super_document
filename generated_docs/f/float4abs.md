@@ -8,7 +8,10 @@ Computes the absolute value of a single-precision floating-point number (float4)
 
 ## Definition
 
-
+```c
+Datum
+float4abs(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that returns the absolute value of a float4 (single-precision floating-point) argument. It uses the standard C library function  to compute the absolute value and returns the result as a PostgreSQL Datum. This function is part of the float4 base operations in PostgreSQL's arithmetic system.
 

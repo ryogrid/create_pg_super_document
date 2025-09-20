@@ -8,7 +8,12 @@ Optimizes simple VALUES clauses by pulling them up and replacing the VALUES RTE 
 
 ## Definition
 
-
+```c
+structure.  We can assume there's no outer joins or
+	 * appendrels in the dummy Query that surrounds a VALUES RTE.
+	 */
+	perform_pullup_replace_vars(root, &rvcontext, NULL);
+```
 ## Detailed Description
 This function performs a specialized optimization for simple VALUES clauses by completely eliminating the VALUES RTE (Range Table Entry) and replacing it with a more efficient RESULT RTE. The optimization applies to VALUES clauses that contain only a single row of constant values.
 

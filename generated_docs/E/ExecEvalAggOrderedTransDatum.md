@@ -8,7 +8,11 @@ This function invokes an ordered transition function for aggregate operations, s
 
 ## Definition
 
-
+```c
+void
+ExecEvalAggOrderedTransDatum(ExprState *state, ExprEvalStep *op,
+							 ExprContext *econtext)
+```
 ## Detailed Description
 ExecEvalAggOrderedTransDatum is part of PostgreSQL's expression evaluation framework for aggregate functions that require ordered processing. When an aggregate function needs to process its input values in a specific order (such as string_agg with ORDER BY), this function handles the storage of individual datum values into a tuple sort structure. The function extracts the datum value and its null indicator from the operation step and feeds them to the tuple sort mechanism, which will later be used to retrieve the values in the correct order during the transition phase.
 

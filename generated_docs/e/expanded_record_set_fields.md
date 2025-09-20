@@ -8,7 +8,11 @@ Sets all fields of an expanded record in one operation, ensuring proper memory m
 
 ## Definition
 
-
+```c
+structed the tuple, do that */
+	if (!(erh->flags & ER_FLAG_DVALUES_VALID))
+		deconstruct_expanded_record(erh);
+```
 ## Detailed Description
 This function performs bulk assignment of field values to an expanded record, providing an efficient way to initialize or completely replace all fields at once. Unlike individual field assignments via , this function does not guarantee atomicity or corruption-free state in case of errors, making it primarily suitable for initializing new expanded records.
 

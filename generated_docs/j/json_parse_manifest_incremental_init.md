@@ -8,7 +8,10 @@ Sets up and initializes an incremental JSON manifest parser state for processing
 
 ## Definition
 
-
+```c
+JsonManifestParseIncrementalState *
+json_parse_manifest_incremental_init(JsonManifestParseContext *context)
+```
 ## Detailed Description
 This function creates and initializes a new incremental parsing state for JSON manifest files. It sets up all the necessary components for streaming JSON parsing including the lexical context, semantic handlers, and cryptographic hash computation for manifest verification. The incremental parser allows processing large manifest files in chunks rather than loading the entire file into memory at once.
 

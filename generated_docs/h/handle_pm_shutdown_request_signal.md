@@ -8,7 +8,10 @@ A signal handler function that processes shutdown request signals (SIGTERM, SIGI
 
 ## Definition
 
-
+```c
+static void
+handle_pm_shutdown_request_signal(SIGNAL_ARGS)
+```
 ## Detailed Description
 This signal handler function is responsible for interpreting different shutdown signals sent to the PostgreSQL postmaster and setting corresponding internal flags to indicate the type of shutdown requested. The function supports three types of shutdown requests:
 

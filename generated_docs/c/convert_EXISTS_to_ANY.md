@@ -8,7 +8,11 @@ Transforms an EXISTS subquery into a hashable ANY subquery by extracting equalit
 
 ## Definition
 
-
+```c
+static Query *
+convert_EXISTS_to_ANY(PlannerInfo *root, Query *subselect,
+					  Node **testexpr, List **paramIds)
+```
 ## Detailed Description
 This function attempts to convert an EXISTS subquery into an ANY subquery with hashable conditions, which can be executed more efficiently using hash tables. The transformation works by analyzing the WHERE clause of the EXISTS subquery to find equality conditions between outer and inner query variables.
 

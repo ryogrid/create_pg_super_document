@@ -8,7 +8,10 @@ Validates and normalizes precision values for TIME data types, ensuring they fal
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function validates the precision (type modifier) value for TIME data types with or without time zone. It performs bounds checking to ensure the precision is not negative and does not exceed the maximum allowed precision. If the precision exceeds the maximum, it issues a warning and clamps the value to the maximum allowed precision. The function is exported so that parse_expr.c can use it for SQL value function transformations.
 

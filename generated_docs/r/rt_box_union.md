@@ -8,7 +8,10 @@ Calculates the union of two BOX structures by determining the minimum bounding b
 
 ## Definition
 
-
+```c
+static void
+rt_box_union(BOX *n, const BOX *a, const BOX *b)
+```
 ## Detailed Description
 This function computes the spatial union of two boxes by finding the minimum bounding rectangle that contains both input boxes. The union operation is fundamental in spatial indexing operations, particularly in R-tree and GiST (Generalized Search Tree) implementations where bounding boxes need to be merged or expanded to accommodate new entries.
 

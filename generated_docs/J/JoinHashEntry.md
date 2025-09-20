@@ -8,7 +8,13 @@ JoinHashEntry is a hash table entry structure used by PostgreSQL's query planner
 
 ## Definition
 
-
+```c
+typedef struct JoinHashEntry
+{
+	Relids		join_relids;	/* hash key --- MUST BE FIRST */
+	RelOptInfo *join_rel;
+} JoinHashEntry;
+```
 ## Detailed Description
 JoinHashEntry serves as an auxiliary data structure that enables fast lookups of join relations in the query planner's optimization process. It acts as an entry in a hash table where each entry maps a set of relation identifiers (join_relids) to the corresponding RelOptInfo structure that represents the join relation.
 

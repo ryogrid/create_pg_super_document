@@ -8,7 +8,10 @@ Calculates the minimum distance from a point to a line in 2D space.
 
 ## Definition
 
-
+```c
+Datum
+dist_pl(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function computes the shortest distance between a point and an infinite line in 2D space. The function leverages the internal line_closept_point() function, which calculates the closest point on the line to the given point and returns the distance. This is a fundamental geometric operation used in spatial queries and geometric calculations within PostgreSQL's geometric data type system.
 

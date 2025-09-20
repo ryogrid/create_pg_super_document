@@ -8,7 +8,18 @@ A comprehensive structure that maintains the complete parsing and formatting sta
 
 ## Definition
 
+```c
+extern int   space_after_cast;		/* "b = (int) a" vs "b = (int)a" */
+extern int   postgres_tab_rules;	/* use Postgres tab-vs-space rules */
+extern int   tabsize;			/* the size of a tab */
+extern int   else_endif_com_ind;	/* the column in which comments to
+					 * the right of #else and #endif
+					 * should start */
 
+extern int   ifdef_level;
+
+struct parser_state
+```
 ## Detailed Description
 The parser_state structure is the central data structure of the pg_bsd_indent tool, maintaining all necessary state information for parsing and formatting C source code. This structure tracks multiple aspects of code formatting simultaneously: indentation management through various level counters, comment handling with specialized positioning logic, declaration and statement context tracking, and parenthesis/brace nesting management.
 

@@ -8,7 +8,11 @@ BumpAllocFromNewBlock is a helper function that allocates a new memory block for
 
 ## Definition
 
-
+```c
+static void *
+BumpAllocFromNewBlock(MemoryContext context, Size size, int flags,
+					  Size chunk_size)
+```
 ## Detailed Description
 This function is responsible for creating new memory blocks in the bump memory allocation context when the current block doesn't have sufficient space for the requested allocation. It implements a block size doubling strategy, starting with initBlockSize and doubling for each successive block up to maxBlockSize. The function calculates the required block size to accommodate the chunk plus necessary headers, rounds it up to the next power of 2 if needed, allocates the block using malloc, initializes it, adds it to the block list, and finally allocates the requested chunk from the new block.
 

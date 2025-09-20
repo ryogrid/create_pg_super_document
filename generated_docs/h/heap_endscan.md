@@ -8,7 +8,10 @@ Terminates a heap table scan by releasing all associated resources including buf
 
 ## Definition
 
-
+```c
+void
+heap_endscan(TableScanDesc sscan)
+```
 ## Detailed Description
 The  function performs cleanup operations to terminate a heap table scan and free all associated resources. This includes releasing any pinned buffers, ending read streams, decrementing relation reference counts, freeing memory allocations, and cleaning up temporary snapshots. The function ensures proper resource management by releasing resources in the correct order - notably freeing the read stream before the BufferAccessStrategy to avoid dependency issues.
 

@@ -8,7 +8,11 @@ Builds a pathkeys list that describes the ordering induced by the partitions of 
 
 ## Definition
 
-
+```c
+List *
+build_partition_pathkeys(PlannerInfo *root, RelOptInfo *partrel,
+						 ScanDirection scandir, bool *partialkeys)
+```
 ## Detailed Description
 This function constructs a list of PathKey objects that represent the sort order implied by the partitioning scheme of a relation. It iterates through each partition key column and attempts to create canonical pathkeys that capture the ordering relationship between partitions.
 

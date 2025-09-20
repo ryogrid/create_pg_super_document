@@ -8,7 +8,10 @@ Writes out an extended statistics object to the dump archive, including the CREA
 
 ## Definition
 
-
+```c
+static void
+dumpStatisticsExt(Archive *fout, const StatsExtInfo *statsextinfo)
+```
 ## Detailed Description
 The  function handles dumping of PostgreSQL extended statistics objects (created with CREATE STATISTICS). Extended statistics provide improved query planning by collecting cross-column statistics like n-distinct counts, functional dependencies, and most common value lists across multiple columns.
 

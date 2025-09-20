@@ -8,7 +8,10 @@ Subtracts a 16-bit integer from a 32-bit integer, returning a 32-bit result with
 
 ## Definition
 
-
+```c
+Datum
+int42mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements subtraction between a 32-bit integer (int4) and a 16-bit integer (int2), returning the result as a 32-bit integer. The function performs overflow checking using PostgreSQL's safe arithmetic operations to ensure that the subtraction does not exceed the range of a 32-bit signed integer. If overflow is detected, it raises an error with code ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE.
 

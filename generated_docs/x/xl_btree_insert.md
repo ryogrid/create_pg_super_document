@@ -8,7 +8,15 @@ The xl_btree_insert structure represents a WAL record for simple B-tree insert o
 
 ## Definition
 
+```c
+typedef struct xl_btree_insert
+{
+	OffsetNumber offnum;
 
+	/* POSTING SPLIT OFFSET FOLLOWS (INSERT_POST case) */
+	/* NEW TUPLE ALWAYS FOLLOWS AT THE END */
+} xl_btree_insert;
+```
 ## Detailed Description
 This structure is used to log simple insertions into B-tree pages during Write-Ahead Logging. It supports four different types of insert operations: INSERT_LEAF, INSERT_UPPER, INSERT_META, and INSERT_POST. The structure is designed to be minimal while providing enough information for crash recovery to replay the insertion operation.
 

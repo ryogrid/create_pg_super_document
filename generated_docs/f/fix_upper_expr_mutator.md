@@ -8,7 +8,10 @@ A recursive expression tree mutator that transforms variable references in upper
 
 ## Definition
 
-
+```c
+static Node *
+fix_upper_expr_mutator(Node *node, fix_upper_expr_context *context)
+```
 ## Detailed Description
 The  function is the core worker function called by  to perform the actual expression tree transformation. It recursively traverses expression trees and replaces variable references with appropriate references to the subplan's target list outputs. The function is specifically designed for upper-level (non-join) plan nodes.
 

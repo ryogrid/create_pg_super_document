@@ -8,7 +8,17 @@ A_Const represents a constant value in PostgreSQL's parse tree, used to store li
 
 ## Definition
 
+```c
+typedef struct A_Const
+{
+	pg_node_attr(custom_copy_equal, custom_read_write, custom_query_jumble)
 
+	NodeTag		type;
+	union ValUnion val;
+	bool		isnull;			/* SQL NULL constant */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} A_Const;
+```
 ## Detailed Description
 A_Const is a fundamental parse tree node that encapsulates constant values found in SQL statements. It serves as a container for various types of literal values including integers, floats, strings, booleans, and NULL values. The structure is designed to preserve both the value and its location in the original SQL text for error reporting and debugging purposes. The node includes custom attributes for copying, equality checking, and query jumbling operations.
 

@@ -8,7 +8,10 @@ ExecProjectSet is the main execution function for ProjectSet plan nodes that han
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecProjectSet(PlanState *pstate)
+```
 ## Detailed Description
 ExecProjectSet manages the execution of ProjectSet nodes, which are responsible for projecting tuples that contain set-returning functions. The function operates in two main modes:
 

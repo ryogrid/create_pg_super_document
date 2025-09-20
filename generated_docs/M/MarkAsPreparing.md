@@ -8,7 +8,10 @@ Reserves a Global Identifier (GID) for a two-phase commit transaction, transitio
 
 ## Definition
 
-
+```c
+struct and puts it into the active array.
+ * NOTE: this is also used when reloading a gxact after a crash;
+```
 ## Detailed Description
 MarkAsPreparing is a core function in PostgreSQL's two-phase commit protocol that manages the transition of a transaction to the preparing state. It performs several critical validations and setup tasks: validates the GID length and uniqueness, ensures the two-phase commit feature is enabled, registers the exit hook for cleanup, and allocates a GlobalTransaction structure from the free list. The function operates under exclusive lock protection to ensure thread safety and maintains the prepared transaction state in shared memory.
 

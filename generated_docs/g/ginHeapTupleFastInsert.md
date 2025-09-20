@@ -8,7 +8,10 @@ The main function responsible for inserting index tuples from a collector into G
 
 ## Definition
 
-
+```c
+void
+ginHeapTupleFastInsert(GinState *ginstate, GinTupleCollector *collector)
+```
 ## Detailed Description
 This function implements the core logic of GIN's fast insertion mechanism by adding collected index tuples to the pending list. It operates in two modes: direct insertion into the tail page when space permits, or creation of a separate sublist when the tuples exceed available space. The function manages concurrency through careful locking of metadata and buffer pages, handles WAL logging for crash recovery, checks for serializable conflicts, and triggers cleanup when the pending list grows too large. It ensures all tuples are inserted consecutively while preserving their order, making it essential for GIN's high-performance bulk insertion strategy.
 

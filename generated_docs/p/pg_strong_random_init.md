@@ -8,7 +8,10 @@ Initializes the cryptographically secure random number generator before any call
 
 ## Definition
 
-
+```c
+void
+pg_strong_random_init(void)
+```
 ## Detailed Description
 The pg_strong_random_init function initializes the cryptographically secure random number generator that will be used by pg_strong_random. The implementation varies depending on the available system facilities:
 

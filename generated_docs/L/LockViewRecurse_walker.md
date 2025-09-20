@@ -8,7 +8,10 @@ A tree walker function that recursively traverses view query trees to lock all u
 
 ## Definition
 
-
+```c
+static bool
+LockViewRecurse_walker(Node *node, LockViewRecurse_context *context)
+```
 ## Detailed Description
 LockViewRecurse_walker is a specialized tree walker that implements the deep locking semantics for views in PostgreSQL. When a view is locked, this function traverses its query tree structure to identify all referenced relations (tables and nested views) and applies the same lock mode to them. The function handles complex scenarios including self-referential views (preventing infinite recursion), permission checking with appropriate user context, and inheritance relationships. It uses PostgreSQL's query_tree_walker and expression_tree_walker infrastructure to systematically visit all nodes in the view's query definition.
 

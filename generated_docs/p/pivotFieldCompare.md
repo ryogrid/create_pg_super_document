@@ -8,7 +8,10 @@ A comparison function for pivot_field structures that compares their name values
 
 ## Definition
 
-
+```c
+static int
+pivotFieldCompare(const void *a, const void *b)
+```
 ## Detailed Description
 This function implements a three-way comparison for pivot_field structures used in PostgreSQL's psql \crosstabview feature. It serves as a comparator for deduplication and sorting operations. The comparison logic follows a specific hierarchy: null values are considered equal to each other, non-null values are always considered less than null values, and non-null values are compared lexicographically using strcmp().
 

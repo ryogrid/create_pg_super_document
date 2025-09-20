@@ -8,7 +8,10 @@ Compiles a regular expression string into a linked list of RegisNode structures 
 
 ## Definition
 
-
+```c
+void
+RS_compile(Regis *r, bool issuffix, const char *str)
+```
 ## Detailed Description
 RS_compile parses and compiles a simplified regular expression pattern into an internal representation using a finite state machine. The function processes the input string character by character, creating a linked list of RegisNode structures that represent the pattern components. It supports:
 - Individual alphabetic characters

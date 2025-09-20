@@ -8,7 +8,10 @@ Performs addition of the absolute values of two NumericVar operands, storing the
 
 ## Definition
 
-
+```c
+static void
+add_abs(const NumericVar *var1, const NumericVar *var2, NumericVar *result)
+```
 ## Detailed Description
 This function implements the core algorithm for adding absolute values of two numeric variables in PostgreSQL's internal NumericVar format. It performs unsigned addition at the lowest level, handling digit-by-digit addition with carry propagation across NBASE digits.
 

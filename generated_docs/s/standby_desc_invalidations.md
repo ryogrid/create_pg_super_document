@@ -8,7 +8,13 @@ A shared utility function that formats cache invalidation messages from WAL reco
 
 ## Definition
 
-
+```c
+void
+standby_desc_invalidations(StringInfo buf,
+						   int nmsgs, SharedInvalidationMessage *msgs,
+						   Oid dbId, Oid tsId,
+						   bool relcacheInitFileInval)
+```
 ## Detailed Description
 This function provides detailed formatting of cache invalidation messages found in WAL records. It's designed to be reusable and is called from both standby WAL record descriptions and transaction commit/prepare descriptions, avoiding code duplication.
 

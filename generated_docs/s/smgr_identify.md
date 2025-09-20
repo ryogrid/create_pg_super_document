@@ -8,7 +8,10 @@ Returns string identifiers for storage manager (SMGR) WAL record operation types
 
 ## Definition
 
-
+```c
+const char *
+smgr_identify(uint8 info)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL record identification system for storage manager operations. It takes a WAL record info byte and returns a constant string that identifies the specific SMGR operation type. This function is used primarily by WAL analysis and debugging tools to provide human-readable operation names instead of numeric codes.
 

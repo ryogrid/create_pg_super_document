@@ -8,7 +8,11 @@ Enlarges the subRE vector (sub-regular expression array) by reallocating memory 
 
 ## Definition
 
-
+```c
+static void
+moresubs(struct vars *v,
+		 int wanted)			/* want enough room for this one */
+```
 ## Detailed Description
 The  function dynamically expands the subRE (sub-regular expression) vector when more storage space is needed during regular expression compilation. It implements a growth strategy that allocates 1.5x the requested size plus one to minimize future reallocations. The function handles two scenarios: initial allocation from a small static array () and subsequent reallocations of an already-allocated dynamic array.
 

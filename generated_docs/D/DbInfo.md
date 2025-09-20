@@ -8,7 +8,16 @@ DbInfo is a comprehensive structure that encapsulates all essential information 
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	char	   *db_collate;
+	char	   *db_ctype;
+	char		db_collprovider;
+	char	   *db_locale;
+	int			db_encoding;
+} DbLocaleInfo;
+```
 ## Detailed Description
 DbInfo serves as the central repository for database-level information during PostgreSQL cluster upgrades. It consolidates database identity information (OID and name), storage configuration (default tablespace), and contains arrays of all user relations and logical replication slots associated with the database. This structure enables pg_upgrade to perform comprehensive database migration while preserving all associated objects and configurations.
 

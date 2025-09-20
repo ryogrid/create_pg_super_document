@@ -8,7 +8,10 @@ Forces logging of a standby snapshot to the WAL, enabling consistent point-in-ti
 
 ## Definition
 
-
+```c
+Datum
+pg_log_standby_snapshot(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a mechanism to explicitly log a standby snapshot to the Write-Ahead Log. This snapshot contains information about running transactions at a specific point in time, which is crucial for maintaining consistency on standby servers during replication and recovery operations.
 

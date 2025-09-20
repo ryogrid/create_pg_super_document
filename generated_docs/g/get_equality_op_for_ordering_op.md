@@ -8,7 +8,10 @@ Retrieves the OID of the datatype-specific btree equality operator associated wi
 
 ## Definition
 
-
+```c
+Oid
+get_equality_op_for_ordering_op(Oid opno, bool *reverse)
+```
 ## Detailed Description
 This function takes an ordering operator ("<" or ">") and finds its corresponding equality operator ("=") within the same btree operator family. It leverages get_ordering_op_properties to first identify the operator family and strategy, then uses get_opfamily_member to locate the equality operator with BTEqualStrategyNumber.
 

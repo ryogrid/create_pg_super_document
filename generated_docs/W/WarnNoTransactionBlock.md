@@ -8,7 +8,10 @@ WarnNoTransactionBlock issues warnings when commands that should ideally run wit
 
 ## Definition
 
-
+```c
+void
+WarnNoTransactionBlock(bool isTopLevel, const char *stmtType)
+```
 ## Detailed Description
 This function is a simple wrapper around CheckTransactionBlock that provides a mechanism for issuing warnings (rather than errors) when commands are executed outside transaction blocks. It's designed for commands that have no persistent effects beyond transaction end, making their execution outside a transaction block potentially unintended but not catastrophic.
 

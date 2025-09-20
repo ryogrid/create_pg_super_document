@@ -8,7 +8,10 @@ Performs an atomic write operation on a 64-bit unsigned integer with memory barr
 
 ## Definition
 
-
+```c
+static inline void
+pg_atomic_write_membarrier_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 val)
+```
 ## Detailed Description
 This function implements an atomic write operation with full memory barrier semantics for 64-bit unsigned integers. It achieves this by performing an atomic exchange operation, which writes the new value while providing the memory ordering guarantees necessary for multi-threaded synchronization. The exchange operation ensures that all memory operations that appear before this write in program order are completed before the write, and all memory operations that appear after are completed after the write.
 

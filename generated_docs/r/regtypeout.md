@@ -8,7 +8,10 @@ Converts a type OID to its corresponding textual type name representation for ou
 
 ## Definition
 
-
+```c
+Datum
+regtypeout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is PostgreSQL's output function for the regtype data type. It takes a type OID (Object Identifier) and converts it to a human-readable string representation of the type name. The function handles several special cases:
 

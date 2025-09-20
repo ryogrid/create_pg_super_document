@@ -8,7 +8,12 @@ Sets the authenticated user ID for the current session exactly once during conne
 
 ## Definition
 
-
+```c
+enumerate relations of a database or schema and run functions associated
+ * with each found relation.  The relation owner is the new user ID.  Set this
+ * as soon as possible after locking the relation.  Restore the old user ID as
+ * late as possible before closing the relation;
+```
 ## Detailed Description
 SetAuthenticatedUserId is a critical function in PostgreSQL's authentication system that establishes the authenticated user identity for a database session. This function can only be called once per session and sets both the global AuthenticatedUserId variable and the roleId field in the current process's PGPROC entry.
 

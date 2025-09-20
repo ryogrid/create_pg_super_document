@@ -8,7 +8,10 @@ Calculates the optimal merge order (number of input tapes) for the merge phase o
 
 ## Definition
 
-
+```c
+int
+tuplesort_merge_order(int64 allowedMem)
+```
 ## Detailed Description
 This function determines the number of input tapes to use during the merge phase of external sorting, which is a critical performance parameter. The merge order directly affects both memory usage and I/O efficiency during the balanced merge algorithm.
 

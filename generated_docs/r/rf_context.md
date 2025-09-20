@@ -8,7 +8,16 @@ A context structure used to validate columns in row filter expressions for Postg
 
 ## Definition
 
-
+```c
+typedef struct rf_context
+{
+	Bitmapset  *bms_replident;	/* bitset of replica identity columns */
+	bool		pubviaroot;		/* true if we are validating the parent
+								 * relation's row filter */
+	Oid			relid;			/* relid of the relation */
+	Oid			parentid;		/* relid of the parent relation */
+} rf_context;
+```
 ## Detailed Description
 The  structure serves as a validation context for row filter expressions in PostgreSQL's logical replication publication system. It is specifically designed to ensure that all columns referenced in a publication's row filter WHERE clause are part of the relation's REPLICA IDENTITY. This validation is critical for logical replication consistency, as only replica identity columns can be safely used for filtering changes that will be replicated to subscribers.
 

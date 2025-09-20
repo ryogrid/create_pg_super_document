@@ -8,7 +8,10 @@ PQescapeLiteral escapes a string for use as a SQL literal value in PostgreSQL qu
 
 ## Definition
 
-
+```c
+char *
+PQescapeLiteral(PGconn *conn, const char *str, size_t len)
+```
 ## Detailed Description
 PQescapeLiteral is a wrapper function that calls PQescapeInternal with the  parameter set to false, indicating that the string should be escaped as a literal value rather than an identifier. The function properly handles single quotes, backslashes, and multibyte characters according to the connection's client encoding. When backslashes are present, it uses PostgreSQL's escape string syntax (E'...') to ensure compatibility regardless of the standard_conforming_strings setting.
 

@@ -8,7 +8,10 @@ DecodeXLogRecordRequiredSpace computes the maximum possible buffer space require
 
 ## Definition
 
-
+```c
+struct. */
+	size += offsetof(DecodedXLogRecord, blocks[0]);
+```
 ## Detailed Description
 DecodeXLogRecordRequiredSpace calculates the worst-case buffer space needed to decode an XLog record into a DecodedXLogRecord structure. The function makes pessimistic assumptions about the number of blocks and required padding to ensure sufficient space is always allocated. The calculation includes space for the fixed portion of the decoded record structure, the maximum possible number of block references, all raw data, and potential alignment padding. This approach ensures that buffer allocation is always sufficient, though it may overestimate the actual requirements.
 

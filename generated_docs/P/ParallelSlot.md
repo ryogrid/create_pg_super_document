@@ -8,7 +8,31 @@ ParallelSlot is a struct that represents the private per-parallel-worker state i
 
 ## Definition
 
+```c
+struct ParallelSlot
+{
+	T_WorkerStatus workerStatus;	/* see enum above */
 
+	/* These fields are valid if workerStatus == WRKR_WORKING: */
+	ParallelCompletionPtr callback; /* function to call on completion */
+	void	   *callback_data;	/* passthrough data for it */
+
+	ArchiveHandle *AH;			/* Archive data worker is using */
+
+	int			pipeRead;		/* leader's end of the pipes */
+	int			pipeWrite;
+	int			pipeRevRead;	/* child's end of the pipes */
+	int			pipeRevWrite;
+
+	/* Child process/thread identity info: */
+#ifdef WIN32
+	uintptr_t	hThread;
+	unsigned int threadId;
+#else
+	pid_t		pid;
+#endif
+};
+```
 ## Detailed Description
 ParallelSlot serves as the central data structure for managing parallel worker processes in pg_dump operations. Each slot represents one worker and contains all necessary state information for coordinating between the leader process and worker processes/threads. The structure is designed with platform-specific considerations, using different mechanisms for process identification on Windows (threads) versus Unix-like systems (processes). Much of the structure's content is valid only in the leader process, except for the AH field which should only be accessed by worker processes.
 

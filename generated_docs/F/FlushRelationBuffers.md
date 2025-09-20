@@ -8,7 +8,10 @@ Writes all dirty pages of a specific relation to disk, ensuring the kernel has a
 
 ## Definition
 
-
+```c
+void
+FlushRelationBuffers(Relation rel)
+```
 ## Detailed Description
 This function ensures that all dirty (modified) pages belonging to a specific relation are written out to disk (or more precisely, to kernel disk buffers). It handles both local buffers (for temporary relations) and shared buffers (for permanent relations) appropriately. The function performs a sequential search through the appropriate buffer pool, identifying buffers that belong to the target relation and are both valid and dirty, then flushes them to storage.
 

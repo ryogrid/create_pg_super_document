@@ -8,7 +8,10 @@ Establishes a database connection for a background worker process using Object I
 
 ## Definition
 
-
+```c
+void
+BackgroundWorkerInitializeConnectionByOid(Oid dboid, Oid useroid, uint32 flags)
+```
 ## Detailed Description
 This function is the OID-based variant of BackgroundWorkerInitializeConnection. It initializes a database connection for a background worker process by calling InitPostgres() with database and user OIDs rather than names. This approach is more efficient when the OIDs are already known, as it avoids name lookup operations.
 

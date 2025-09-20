@@ -8,7 +8,13 @@ A static comparator function used by qsort for comparing floating-point values i
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	float8		low;
+	float8		high;
+} Range;
+```
 ## Detailed Description
 This function serves as a simple floating-point comparator for the qsort library function. It's specifically designed for use in geometric indexing operations where performance optimization is the primary concern rather than strict floating-point correctness. The function compares two float8 (double-precision floating-point) values and returns the standard comparison result expected by qsort.
 

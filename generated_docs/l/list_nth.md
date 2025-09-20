@@ -8,7 +8,10 @@ Returns the pointer value contained in the n-th element of a List, providing ind
 
 ## Definition
 
-
+```c
+static inline void *
+list_nth(const List *list, int n)
+```
 ## Detailed Description
 The `list_nth` function provides indexed access to PostgreSQL List elements, returning the void pointer stored at the specified position. It uses zero-based indexing, where the first element is at position 0. The function works by first obtaining the ListCell at position n using `list_nth_cell`, then extracting the pointer value using `lfirst`.
 

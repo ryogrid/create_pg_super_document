@@ -8,7 +8,12 @@ Retrieves the transformed types associated with a PostgreSQL function from its p
 
 ## Definition
 
-
+```c
+struct_array() since the array data is just going to look like
+		 * a C array of values.
+		 */
+		arr = DatumGetArrayTypeP(protrftypes);
+```
 ## Detailed Description
 This function extracts the protrftypes array from a function's pg_proc tuple, which contains the OIDs of data types that have been transformed for use with the function. Transformed types are used in PostgreSQL's type transformation system, where certain data types can be automatically converted or adapted when used as function arguments or return values.
 

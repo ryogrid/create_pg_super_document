@@ -8,7 +8,10 @@ Converts an inet value to its abbreviated text representation, showing only the 
 
 ## Definition
 
-
+```c
+Datum
+inet_abbrev(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The inet_abbrev function provides an abbreviated representation of an inet value by formatting it with only the significant bits specified by the netmask. Unlike network_show which always displays the full address, inet_abbrev uses pg_inet_net_ntop with the actual netmask length (ip_bits) rather than the maximum possible bits. This results in a more compact representation that omits trailing zero bits outside the network portion. For example, a /24 network might show "192.168.1.0/24" instead of the full host address.
 

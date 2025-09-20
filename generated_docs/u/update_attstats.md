@@ -8,7 +8,11 @@ Updates attribute statistics in the pg_statistic catalog table by inserting new 
 
 ## Definition
 
-
+```c
+struct a new pg_statistic tuple
+		 */
+		for (i = 0;
+```
 ## Detailed Description
 The update_attstats function persists computed statistics for table columns to the pg_statistic system catalog. It processes an array of VacAttrStats structures containing statistical data collected during table analysis and either inserts new pg_statistic rows or updates existing ones.
 

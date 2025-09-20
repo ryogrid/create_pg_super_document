@@ -8,7 +8,21 @@ ParamKind is an enumeration that specifies the different types of parameters use
 
 ## Definition
 
-
+```c
+typedef struct Param
+{
+	Expr		xpr;
+	ParamKind	paramkind;		/* kind of parameter. See above */
+	int			paramid;		/* numeric ID for parameter */
+	Oid			paramtype;		/* pg_type OID of parameter's datatype */
+	/* typmod value, if known */
+	int32		paramtypmod pg_node_attr(query_jumble_ignore);
+	/* OID of collation, or InvalidOid if none */
+	Oid			paramcollid pg_node_attr(query_jumble_ignore);
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} Param;
+```
 ## Detailed Description
 ParamKind defines four distinct parameter types used throughout PostgreSQL's query planning and execution phases:
 

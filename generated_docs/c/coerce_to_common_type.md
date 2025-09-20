@@ -8,7 +8,14 @@ Coerces an expression node to a specified target type, used after select_common_
 
 ## Definition
 
-
+```c
+struct, eg CASE */
+				 errmsg("%s could not convert type %s to %s",
+						context,
+						format_type_be(inputTypeId),
+						format_type_be(targetTypeId)),
+				 parser_errposition(pstate, exprLocation(node))));
+```
 ## Detailed Description
 This function performs type coercion on an expression node to convert it to a target type that was previously determined by select_common_type(). It first checks if the input type matches the target type, returning the node unchanged if they're the same. If coercion is needed, it uses can_coerce_type() to verify that implicit coercion is possible, then calls coerce_type() to perform the actual conversion. If coercion is not possible, it reports an error with a descriptive message including the context.
 

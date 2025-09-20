@@ -8,7 +8,25 @@ RT_RADIX_TREE is a macro that generates a type name for the main adaptive radix 
 
 ## Definition
 
+```c
+struct RT_RADIX_TREE
+{
+	MemoryContext context;
 
+	/* pointing to either local memory or DSA */
+	RT_RADIX_TREE_CONTROL *ctl;
+
+#ifdef RT_SHMEM
+	dsa_area   *dsa;
+#else
+	MemoryContextData *node_slabs[RT_NUM_SIZE_CLASSES];
+
+	/* leaf_context is used only for single-value leaves */
+	MemoryContextData *leaf_context;
+#endif
+	MemoryContextData *iter_context;
+};
+```
 ## Detailed Description
 RT_RADIX_TREE is the main entry point structure for PostgreSQL's adaptive radix tree implementation. This structure provides a high-level interface that abstracts away the differences between local memory and shared memory deployments, while managing memory allocation contexts for different components of the tree.
 

@@ -8,7 +8,10 @@ Extracts the attribute (column) number from a stored GIN index tuple, handling b
 
 ## Definition
 
-
+```c
+OffsetNumber
+gintuple_get_attrnum(GinState *ginstate, IndexTuple tuple)
+```
 ## Detailed Description
 This function determines which column (attribute) of the original table a GIN index tuple represents. For single-column indexes, the column number is implicitly known to be the first column. For multi-column indexes, the column number is explicitly stored as the first attribute in the index tuple as an INT16 value.
 

@@ -8,7 +8,10 @@ Creates a JsonPathGinNode structure to represent a simple entry datum in the JSO
 
 ## Definition
 
-
+```c
+static JsonPathGinNode *
+make_jsp_entry_node(Datum entry)
+```
 ## Detailed Description
 This function is a constructor utility that creates a JsonPathGinNode with type JSP_GIN_ENTRY to encapsulate a Datum value for use in JSONB GIN index operations. The function allocates memory for the base JsonPathGinNode structure without the args array (using offsetof to calculate the exact size needed), initializes the node type to JSP_GIN_ENTRY, and stores the provided Datum in the entryDatum field.
 

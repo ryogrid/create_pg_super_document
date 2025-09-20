@@ -8,7 +8,10 @@ Provides a default selectivity estimate for "<" (less than) join operations on s
 
 ## Definition
 
-
+```c
+Datum
+scalarltjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `scalarltjoinsel` function is a simple selectivity estimator for scalar less-than join operations. Rather than performing complex statistical analysis, it returns a constant default selectivity value defined by `DEFAULT_INEQ_SEL`. This approach is used when more sophisticated selectivity estimation methods are not available or appropriate for the specific data types involved.
 

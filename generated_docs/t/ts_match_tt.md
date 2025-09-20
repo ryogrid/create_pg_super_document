@@ -8,7 +8,10 @@ A convenience function that performs text search matching between two plain text
 
 ## Definition
 
-
+```c
+Datum
+ts_match_tt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a high-level interface for text search operations by accepting two plain text arguments and automatically performing the necessary conversions before matching. It converts the first argument to a tsvector using to_tsvector() and the second argument to a tsquery using plainto_tsquery(), then delegates to ts_match_vq for the actual matching logic.
 

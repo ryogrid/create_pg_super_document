@@ -8,7 +8,11 @@
 
 ## Definition
 
-
+```c
+static void
+unknown_attribute(ParseState *pstate, Node *relref, const char *attname,
+				  int location)
+```
 ## Detailed Description
  serves as a centralized error reporting mechanism for cases where column or attribute access fails during expression transformation. The function intelligently determines the appropriate error message based on the type and context of the expression being accessed. It distinguishes between range table entries (table/alias references) and arbitrary expression types, providing contextually relevant error messages. For range table entries, it reports missing columns with table/alias names. For complex types, it indicates the column doesn't exist in that data type. For record types, it provides a specific message about unidentifiable columns. For non-composite types, it explains that column notation cannot be applied to scalar types.
 

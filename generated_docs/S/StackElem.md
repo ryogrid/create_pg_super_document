@@ -8,7 +8,16 @@ StackElem is a struct that represents a single element in the variable expansion
 
 ## Definition
 
-
+```c
+typedef struct StackElem
+{
+	YY_BUFFER_STATE buf;		/* flex input control structure */
+	char	   *bufstring;		/* data actually being scanned by flex */
+	char	   *origstring;		/* copy of original data, if needed */
+	char	   *varname;		/* name of variable providing data, or NULL */
+	struct StackElem *next;
+} StackElem;
+```
 ## Detailed Description
 StackElem is a fundamental component of PostgreSQL's variable substitution mechanism in the psql command-line interface. It implements a stack-based approach to handle nested variable expansions, where each stack element contains the necessary information to manage a single variable's content during lexical scanning.
 

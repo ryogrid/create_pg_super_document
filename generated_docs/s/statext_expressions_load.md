@@ -8,7 +8,9 @@ Loads a specific pg_statistic record from stored expression statistics for a giv
 
 ## Definition
 
-
+```c
+struct_expanded_array(eah);
+```
 ## Detailed Description
 This function retrieves expression statistics that were previously stored for extended statistics objects. It looks up the statistics object by OID in the pg_statistic_ext_data system catalog, extracts the stxdexpr field (which contains serialized expression statistics), and returns the specific pg_statistic tuple for the requested expression index. The function uses PostgreSQL's expanded array infrastructure to efficiently access individual elements from the stored array of statistics tuples.
 

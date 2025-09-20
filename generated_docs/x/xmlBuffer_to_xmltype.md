@@ -8,7 +8,10 @@ Converts a libxml2 xmlBuffer into a PostgreSQL xmltype value, preserving the exa
 
 ## Definition
 
-
+```c
+static xmltype *
+xmlBuffer_to_xmltype(xmlBufferPtr buf)
+```
 ## Detailed Description
 The xmlBuffer_to_xmltype function converts libxml2's xmlBuffer data structure into PostgreSQL's xmltype. This function serves as a bridge between libxml2's memory management system and PostgreSQL's data type system, allowing XML data processed by libxml2 to be safely transferred into PostgreSQL's type system.
 

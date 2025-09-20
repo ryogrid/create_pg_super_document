@@ -8,7 +8,11 @@ Creates a new backup streamer that compresses data using gzip compression and wr
 
 ## Definition
 
-
+```c
+bbstreamer *
+bbstreamer_gzip_writer_new(char *pathname, FILE *file,
+						   pg_compress_specification *compress)
+```
 ## Detailed Description
 This function creates a bbstreamer instance specifically for gzip-compressed output during PostgreSQL base backup operations. The function handles two scenarios: creating a new compressed file from a pathname, or wrapping an existing file handle with gzip compression. It initializes the gzip compression parameters based on the provided compression specification and sets up the appropriate callback operations for content processing.
 

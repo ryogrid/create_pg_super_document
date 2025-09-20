@@ -8,7 +8,9 @@ Marks a Var node as nullable if the referenced RTE is made nullable by outer joi
 
 ## Definition
 
-
+```c
+union(var->varnullingrels, relids);
+```
 ## Detailed Description
 The `markNullableIfNeeded` function determines whether a Var node should be marked as nullable due to outer join semantics. When a table is referenced in an outer join, columns from that table may become nullable even if they are normally NOT NULL. This function examines the parse state's nulling relations to determine if the RTE referenced by the Var is affected by outer joins at the current query level.
 

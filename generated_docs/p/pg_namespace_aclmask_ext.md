@@ -8,7 +8,12 @@ This is an internal function that examines a user's privileges for a namespace (
 
 ## Definition
 
-
+```c
+static AclMode
+pg_namespace_aclmask_ext(Oid nsp_oid, Oid roleid,
+						 AclMode mask, AclMaskHow how,
+						 bool *is_missing)
+```
 ## Detailed Description
 The function performs comprehensive privilege checking for PostgreSQL namespaces (schemas). It handles several special cases including superuser bypass, temporary namespace permissions, and role-based access for pg_read_all_data/pg_write_all_data roles. The function retrieves the Access Control List (ACL) from pg_namespace system catalog and evaluates permissions against it. If the is_missing parameter is provided, the function can return gracefully when the namespace doesn't exist rather than throwing an error.
 

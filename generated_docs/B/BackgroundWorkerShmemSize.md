@@ -8,7 +8,10 @@ Calculates the amount of shared memory needed for the background worker infrastr
 
 ## Definition
 
-
+```c
+Size
+BackgroundWorkerShmemSize(void)
+```
 ## Detailed Description
 This function computes the total shared memory size required to allocate the background worker array structure. The calculation accounts for a variable-sized array of background worker slots, where the number of slots is determined by the  configuration parameter. The function uses PostgreSQL's safe arithmetic functions to prevent integer overflow when calculating memory sizes.
 

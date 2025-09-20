@@ -8,7 +8,10 @@ Checks whether a given node in a singly linked list has a following node in Post
 
 ## Definition
 
-
+```c
+static inline bool
+slist_has_next(const slist_head *head, const slist_node *node)
+```
 ## Detailed Description
 This function provides a safe way to determine if a node in a singly linked list has a subsequent node. It performs this check by examining the node's next pointer to see if it points to NULL (indicating the end of the list) or to another valid node. The function also validates the list integrity through slist_check() before performing the actual check.
 

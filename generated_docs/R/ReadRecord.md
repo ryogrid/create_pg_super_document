@@ -8,7 +8,11 @@ ReadRecord is the core function responsible for reading the next XLOG record dur
 
 ## Definition
 
-
+```c
+static XLogRecord *
+ReadRecord(XLogPrefetcher *xlogprefetcher, int emode,
+		   bool fetching_ckpt, TimeLineID replayTLI)
+```
 ## Detailed Description
 ReadRecord serves as the primary interface for reading WAL records during recovery operations. It wraps the XLogPrefetcher functionality and provides robust error handling, timeline validation, and recovery mode transitions. The function operates in an infinite loop, attempting to read valid records and handling various failure scenarios including corrupt records, timeline mismatches, and source exhaustion.
 

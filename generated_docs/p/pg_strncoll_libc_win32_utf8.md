@@ -8,7 +8,11 @@ A Windows-specific static function that performs locale-aware string collation f
 
 ## Definition
 
-
+```c
+static int
+pg_strncoll_libc_win32_utf8(const char *arg1, size_t len1, const char *arg2,
+							size_t len2, pg_locale_t locale)
+```
 ## Detailed Description
 This function implements UTF-8 string collation on Windows systems using the libc collation provider. Since Windows libc functions work with UTF-16 (wide characters), the function converts the input UTF-8 strings to UTF-16 using MultiByteToWideChar, then performs the collation using either wcscoll_l (with locale) or wcscoll (default locale). It handles buffer allocation efficiently using a stack buffer (TEXTBUFLEN) for small strings and dynamic allocation for larger ones. The function includes comprehensive error handling for UTF-8 to UTF-16 conversion failures and collation errors, and properly manages memory cleanup.
 

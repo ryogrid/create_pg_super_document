@@ -8,7 +8,10 @@ Converts a procedure name with arguments or numeric OID string to a regprocedure
 
 ## Definition
 
-
+```c
+Datum
+regprocedurein(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the input conversion function for PostgreSQL's  data type. It accepts either:
 

@@ -8,7 +8,10 @@ A support function for window frame range calculations with float8 (double preci
 
 ## Definition
 
-
+```c
+Datum
+in_range_float8_float8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL in_range support for float8 data types, used primarily in window functions with RANGE frames. It determines whether a value falls within a range defined by a base value plus or minus an offset. The function handles special floating-point cases including NaN and infinity values according to PostgreSQL's sorting semantics where NaN sorts after all non-NaN values.
 

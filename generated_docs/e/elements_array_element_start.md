@@ -8,7 +8,10 @@ A semantic action callback function invoked when the JSON parser encounters the 
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+elements_array_element_start(void *state, bool isnull)
+```
 ## Detailed Description
 This function serves as a semantic action callback in PostgreSQL's JSON parsing framework, specifically for handling the beginning of array elements. It is called by the JSON parser when it encounters the start of an array element at the top level (lex_level == 1). The function's primary responsibility is to mark the starting position of the element's value in the input stream for later extraction. It handles two different scenarios: for string tokens in text normalization mode, it sets a flag to indicate the next scalar should be processed specially, while for other cases it records the token start position for subsequent value extraction.
 

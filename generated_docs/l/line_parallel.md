@@ -8,7 +8,10 @@ Determines whether two LINE objects are parallel in PostgreSQL's geometric data 
 
 ## Definition
 
-
+```c
+Datum
+line_parallel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function checks if two LINE objects are parallel by negating the result of the intersection test. Two lines are considered parallel if they do not intersect (excluding the case where they are the same line). The function uses the internal  helper function and returns the logical NOT of its result - if the lines don't intersect, they are parallel.
 

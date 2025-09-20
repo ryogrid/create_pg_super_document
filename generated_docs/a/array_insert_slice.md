@@ -8,7 +8,20 @@ Inserts a slice from a source array into a destination array by replacing elemen
 
 ## Definition
 
-
+```c
+static void
+array_insert_slice(ArrayType *destArray,
+				   ArrayType *origArray,
+				   ArrayType *srcArray,
+				   int ndim,
+				   int *dim,
+				   int *lb,
+				   int *st,
+				   int *endp,
+				   int typlen,
+				   bool typbyval,
+				   char typalign)
+```
 ## Detailed Description
 This static function performs a slice insertion operation on PostgreSQL arrays. It constructs a new array by copying most elements from an original array, but replacing elements within a specified slice volume with consecutive elements from a source array. The function handles multi-dimensional arrays and properly manages null bitmaps for arrays that can contain NULL values.
 

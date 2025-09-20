@@ -8,7 +8,11 @@ Creates and populates a StatsBuildData structure containing evaluated expression
 
 ## Definition
 
-
+```c
+static StatsBuildData *
+make_build_data(Relation rel, StatExtEntry *stat, int numrows, HeapTuple *rows,
+				VacAttrStats **stats, int stattarget)
+```
 ## Detailed Description
 This function prepares data needed for building extended statistics by evaluating expressions and extracting column values from a sample of table rows. It creates a comprehensive data structure that holds both regular column values and computed expression results, which are then used to build various types of extended statistics (functional dependencies, N-distinct, MCV lists, etc.).
 

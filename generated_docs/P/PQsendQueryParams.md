@@ -8,7 +8,17 @@ PQsendQueryParams is a public API function that sends a SQL query with parameter
 
 ## Definition
 
-
+```c
+int
+PQsendQueryParams(PGconn *conn,
+				  const char *command,
+				  int nParams,
+				  const Oid *paramTypes,
+				  const char *const *paramValues,
+				  const int *paramLengths,
+				  const int *paramFormats,
+				  int resultFormat)
+```
 ## Detailed Description
 PQsendQueryParams provides the ability to execute parameterized queries asynchronously using the extended query protocol. Unlike the simple query protocol used by PQsendQuery, this function supports parameter binding, which provides better security against SQL injection attacks and improved performance for repeated queries with different parameter values.
 

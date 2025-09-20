@@ -8,7 +8,10 @@ Selects a PARAM_EXEC number to identify the given PlaceHolderVar as a parameter 
 
 ## Definition
 
-
+```c
+static int
+assign_param_for_placeholdervar(PlannerInfo *root, PlaceHolderVar *phv)
+```
 ## Detailed Description
 This function is analogous to assign_param_for_var but specifically handles PlaceHolderVar nodes instead of Var nodes. PlaceHolderVars are special constructs used in PostgreSQL's optimizer to represent expressions that need to be evaluated at specific query levels, particularly in complex joins and subqueries.
 

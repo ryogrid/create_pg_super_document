@@ -8,7 +8,11 @@ Opens a file handle for LZ4 compressed stream operations, supporting both file p
 
 ## Definition
 
-
+```c
+static bool
+LZ4Stream_open(const char *path, int fd, const char *mode,
+			   CompressFileHandle *CFH)
+```
 ## Detailed Description
 LZ4Stream_open initializes file access for LZ4 compression operations by opening a file handle using either a file path or an existing file descriptor. The function supports both modes of access: if a valid file descriptor (fd >= 0) is provided, it duplicates the descriptor and creates a FILE* using fdopen(); otherwise, it opens the file using the provided path with fopen(). This dual-mode approach provides flexibility for different use cases in pg_dump operations.
 

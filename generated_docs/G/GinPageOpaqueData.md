@@ -8,7 +8,16 @@ GinPageOpaqueData is the page opaque data structure used in GIN (Generalized Inv
 
 ## Definition
 
-
+```c
+typedef struct GinPageOpaqueData
+{
+	BlockNumber rightlink;		/* next page if any */
+	OffsetNumber maxoff;		/* number of PostingItems on GIN_DATA &
+								 * ~GIN_LEAF page. On GIN_LIST page, number of
+								 * heap tuples. */
+	uint16		flags;			/* see bit definitions below */
+} GinPageOpaqueData;
+```
 ## Detailed Description
 GinPageOpaqueData serves as the opaque data structure for GIN index pages, providing essential page-level metadata. Unlike other PostgreSQL index types, GIN does not include a page ID word in its opaque data, relying instead on the distinctive 8-byte size for identification. This structure enables page linking through the rightlink field and tracks the number of items or tuples stored on the page through maxoff. The flags field stores various page state information using bit flags defined elsewhere in the GIN implementation.
 

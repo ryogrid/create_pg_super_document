@@ -8,7 +8,11 @@ Generic output conversion function that converts a Python object to a PostgreSQL
 
 ## Definition
 
-
+```c
+static Datum
+PLyObject_ToScalar(PLyObToDatum *arg, PyObject *plrv,
+				   bool *isnull, bool inarray)
+```
 ## Detailed Description
 This function implements a two-stage conversion process for transforming Python objects into PostgreSQL scalar types. It serves as a generic fallback conversion mechanism that works with any PostgreSQL data type that has a text input function.
 

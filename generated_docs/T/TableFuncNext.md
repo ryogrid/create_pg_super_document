@@ -8,7 +8,10 @@ TableFuncNext is a static helper function that serves as the core tuple retrieva
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+TableFuncNext(TableFuncScanState *node)
+```
 ## Detailed Description
 TableFuncNext implements a lazy evaluation strategy for table function execution. On the first call, it triggers the execution of the entire table function via tfuncFetchRows(), storing all resulting tuples in a tuplestore. Subsequent calls simply retrieve the next tuple from this pre-populated tuplestore. This approach ensures that the table function is executed only once while allowing efficient sequential access to its results.
 

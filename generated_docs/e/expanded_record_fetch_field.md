@@ -8,7 +8,10 @@ Retrieves the value of a specific field from an expanded record by field number,
 
 ## Definition
 
-
+```c
+structed form */
+		deconstruct_expanded_record(erh);
+```
 ## Detailed Description
 This function serves as the backend implementation for field access in expanded records, handling cases that cannot be optimized by the inline expanded_record_get_field function. It provides comprehensive field access including edge cases and system columns.
 

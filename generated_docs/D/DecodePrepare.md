@@ -8,7 +8,11 @@ DecodePrepare processes PREPARE records in PostgreSQL's logical replication, han
 
 ## Definition
 
-
+```c
+static void
+DecodePrepare(LogicalDecodingContext *ctx, XLogRecordBuffer *buf,
+			  xl_xact_parsed_prepare *parsed)
+```
 ## Detailed Description
 DecodePrepare handles the first phase of two-phase commit protocol in logical replication. When a transaction is prepared (but not yet committed), this function processes the WAL record and manages the transaction state in the reorder buffer. Unlike DecodeCommit, it doesn't skip prepare records even when concurrent aborts are detected, because changes may have already been sent to subscribers and need proper cleanup through the prepare-rollback sequence.
 

@@ -8,7 +8,17 @@ TidScanState is an execution state structure that manages TID (Tuple Identifier)
 
 ## Definition
 
-
+```c
+typedef struct TidScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	List	   *tss_tidexprs;
+	bool		tss_isCurrentOf;
+	int			tss_NumTids;
+	int			tss_TidPtr;
+	ItemPointerData *tss_TidList;
+} TidScanState;
+```
 ## Detailed Description
 TidScanState extends ScanState to implement tuple identifier (TID) scans, which provide direct access to specific tuples using their physical storage locations (block number and tuple offset). This scan type is particularly useful for queries that specify exact tuple locations through CTID conditions or CURRENT OF cursor operations. The structure maintains a list of TID expressions that are evaluated to produce specific item pointers, then iterates through these locations to retrieve the corresponding tuples directly from the heap without requiring index access.
 

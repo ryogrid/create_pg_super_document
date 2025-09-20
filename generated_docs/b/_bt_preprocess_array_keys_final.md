@@ -8,7 +8,17 @@ Finalizes array scan key preprocessing by fixing up scan key references, setting
 
 ## Definition
 
-
+```c
+structure is protected
+	 * using a spinlock, so defensively limit its size.  In practice this can
+	 * only affect parallel scans that use an incomplete opfamily.
+	 */
+	if (scan->parallel_scan && so->numArrayKeys > INDEX_MAX_KEYS)
+		ereport(ERROR,
+				(errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+				 errmsg_internal("number of array scan keys left by preprocessing (%d) exceeds the maximum allowed by parallel btree index scans (%d)",
+								 so->numArrayKeys, INDEX_MAX_KEYS)));
+```
 ## Detailed Description
 This function performs the final phase of array scan key preprocessing after the main preprocessing steps are complete. It handles several critical finalization tasks:
 

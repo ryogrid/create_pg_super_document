@@ -8,7 +8,10 @@ Processes queued invalidation messages at the end of one command within a transa
 
 ## Definition
 
-
+```c
+void
+CommandEndInvalidationMessages(void)
+```
 ## Detailed Description
 This function is called during CommandCounterIncrement(), after the command ID has been advanced, to handle invalidation messages generated during the just-completed command. Unlike transaction-end processing, this function does not send messages to the shared invalidation queue since the transaction outcome is still unknown.
 

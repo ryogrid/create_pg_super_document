@@ -8,7 +8,10 @@ Validates and extracts the database name from the primary_conninfo configuration
 
 ## Definition
 
-
+```c
+char *
+CheckAndGetDbnameFromConninfo(void)
+```
 ## Detailed Description
 This function is a validation helper used in PostgreSQL's logical replication slot synchronization. It ensures that the  configuration parameter contains a valid  specification, which is required for establishing database connections during slot synchronization operations.
 

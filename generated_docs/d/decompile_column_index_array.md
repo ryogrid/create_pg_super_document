@@ -8,7 +8,10 @@ This utility function converts an array of column indices into a comma-separated
 
 ## Definition
 
-
+```c
+struct_array_builtin(DatumGetArrayTypeP(column_index_array), INT2OID,
+							  &keys, NULL, &nKeys);
+```
 ## Detailed Description
 decompile_column_index_array is a helper function that takes a PostgreSQL array containing column indices (stored as int16 values) and converts them into a human-readable, comma-separated list of column names. The function looks up each column index in the specified relation's attribute information and appends the properly quoted column names to the provided string buffer. This function is essential for constraint definition generation where column lists need to be displayed in readable SQL format.
 

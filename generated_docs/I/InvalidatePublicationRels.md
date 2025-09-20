@@ -8,7 +8,10 @@ InvalidatePublicationRels efficiently invalidates relation cache entries for a l
 
 ## Definition
 
-
+```c
+void
+InvalidatePublicationRels(List *relids)
+```
 ## Detailed Description
 InvalidatePublicationRels is a utility function that invalidates the relation cache for a specified list of relation OIDs. It implements an optimization strategy where individual cache invalidations are sent for small lists of relations, but a complete cache reset is performed when the list exceeds a threshold (MAX_RELCACHE_INVAL_MSGS). This approach balances performance by avoiding the overhead of sending many individual invalidation messages when it would be more efficient to simply reset the entire cache.
 

@@ -8,7 +8,10 @@ A helper function that determines whether updating the process title is necessar
 
 ## Definition
 
-
+```c
+static bool
+update_ps_display_precheck(void)
+```
 ## Detailed Description
 This internal function performs prerequisite checks before attempting to update the process status display. It validates three key conditions that must be met for process title updates to proceed:
 

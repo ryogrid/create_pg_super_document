@@ -8,7 +8,13 @@ OutputPluginOptions is a structure that defines configuration options set by log
 
 ## Definition
 
-
+```c
+typedef struct OutputPluginOptions
+{
+	OutputPluginOutputType output_type;
+	bool		receive_rewrites;
+} OutputPluginOptions;
+```
 ## Detailed Description
 OutputPluginOptions serves as a configuration structure that logical replication output plugins use to communicate their preferences and capabilities to the PostgreSQL logical decoding infrastructure. This structure is populated by output plugins during their startup callback function and instructs the logical decoding system how to format and deliver change data to the plugin.
 

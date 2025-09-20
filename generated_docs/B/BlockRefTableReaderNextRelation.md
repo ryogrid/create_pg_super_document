@@ -8,7 +8,13 @@ Reads the next relation fork entry from a block reference table file, advancing 
 
 ## Definition
 
-
+```c
+bool
+BlockRefTableReaderNextRelation(BlockRefTableReader *reader,
+								RelFileLocator *rlocator,
+								ForkNumber *forknum,
+								BlockNumber *limit_block)
+```
 ## Detailed Description
 BlockRefTableReaderNextRelation sequentially processes entries in a serialized block reference table file, extracting metadata for the next relation fork. The function reads a serialized entry, checks for the end-of-file sentinel (all zeros), and if found, validates the file's CRC checksum for integrity verification. For valid entries, it allocates and reads the chunk size array, sets up internal state for subsequent block data reading, and returns the relation information to the caller. The function enforces proper usage by requiring all chunks from the previous relation to be consumed before advancing.
 

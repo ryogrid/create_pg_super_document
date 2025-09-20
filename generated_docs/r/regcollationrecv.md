@@ -8,7 +8,10 @@ Converts external binary format data to regcollation type, serving as the binary
 
 ## Definition
 
-
+```c
+Datum
+regcollationrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the binary receive function for the regcollation data type. It handles the conversion of binary data received over the network or from storage into the internal regcollation representation. The function is a thin wrapper that delegates all processing to the  function, since regcollation internally uses the same binary format as the OID type.
 

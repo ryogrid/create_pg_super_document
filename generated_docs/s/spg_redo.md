@@ -8,7 +8,10 @@ The main entry point function for replaying SP-GiST (Space-Partitioned GiST) ind
 
 ## Definition
 
-
+```c
+void
+spg_redo(XLogReaderState *record)
+```
 ## Detailed Description
  is the central dispatcher function responsible for replaying SP-GiST index operations from WAL records during database recovery. It extracts the operation type from the WAL record and delegates to specific redo functions based on the operation type. The function operates within a dedicated memory context () to ensure proper memory management during recovery operations, switching to this context at the beginning and resetting it after processing to prevent memory leaks.
 

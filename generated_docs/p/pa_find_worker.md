@@ -8,7 +8,10 @@ Locates and returns the parallel apply worker assigned to a specific transaction
 
 ## Definition
 
-
+```c
+ParallelApplyWorkerInfo *
+pa_find_worker(TransactionId xid)
+```
 ## Detailed Description
 This function provides a lookup mechanism to find the parallel apply worker assigned to a given transaction. It implements a caching strategy by first checking if there's a cached worker (stream_apply_worker), then searching the hash table for the transaction-to-worker mapping. The function includes validation to ensure the transaction ID is valid and that the hash table exists before performing the lookup.
 

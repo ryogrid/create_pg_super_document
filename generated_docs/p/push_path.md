@@ -8,7 +8,9 @@ Prepares a new structure containing nested empty objects and arrays correspondin
 
 ## Definition
 
-
+```c
+enum jbvType *tpath = palloc0((path_len - level) * sizeof(enum jbvType));
+```
 ## Detailed Description
 The  function creates nested JSON structures (objects and arrays) based on a specified path and places a new value at the end of that path. For example, given a path [a][0][b] with value 1, it produces the structure {a: [{b: 1}]}. 
 

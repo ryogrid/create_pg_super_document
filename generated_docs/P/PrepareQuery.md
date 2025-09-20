@@ -8,7 +8,11 @@ Implements the 'PREPARE' utility statement, creating a named prepared statement 
 
 ## Definition
 
-
+```c
+void
+PrepareQuery(ParseState *pstate, PrepareStmt *stmt,
+			 int stmt_location, int stmt_len)
+```
 ## Detailed Description
 PrepareQuery processes a PREPARE SQL statement by creating a cached plan source that can be executed multiple times with different parameter values. The function validates the statement name, wraps the query in a RawStmt node, performs parse analysis and query rewriting, and stores the resulting prepared statement for future use. It handles parameter type resolution either from explicitly specified types or by inferring them from the query context.
 

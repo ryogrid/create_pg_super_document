@@ -8,7 +8,14 @@ A common worker function that extracts specific fields or array elements from JS
 
 ## Definition
 
-
+```c
+static text *
+get_worker(text *json,
+		   char **tpath,
+		   int *ipath,
+		   int npath,
+		   bool normalize_results)
+```
 ## Detailed Description
 The  function serves as the core implementation for all JSON getter functions in PostgreSQL. It parses a JSON object in text form and extracts values at specified paths, which can include both object field names and array indices. The function sets up a JSON lexical context and semantic actions, then uses the JSON parser to traverse the structure according to the provided path specifications. It supports both object field extraction via text paths and array element extraction via integer indices, with optional result normalization.
 

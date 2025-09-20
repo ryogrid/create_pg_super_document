@@ -8,7 +8,10 @@ A BIO read callback function that wraps PostgreSQL's secure_raw_read for use wit
 
 ## Definition
 
-
+```c
+static int
+my_sock_read(BIO *h, char *buf, int size)
+```
 ## Detailed Description
 This function serves as a custom BIO read method for PostgreSQL's OpenSSL integration. It acts as an adapter between OpenSSL's BIO interface and PostgreSQL's internal secure socket reading functionality. The function handles read operations on SSL-enabled connections by calling the underlying secure_raw_read function and properly managing BIO retry flags for non-blocking I/O scenarios.
 

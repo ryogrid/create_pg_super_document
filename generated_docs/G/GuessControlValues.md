@@ -8,7 +8,9 @@ GuessControlValues creates a completely default set of pg_control values when th
 
 ## Definition
 
-
+```c
+struct timeval tv;
+```
 ## Detailed Description
 This function is called when pg_resetwal cannot read a valid pg_control file and needs to construct reasonable default values from scratch. It initializes all critical PostgreSQL control file fields with safe, conservative defaults that will allow the database to start and operate.
 

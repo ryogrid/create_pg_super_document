@@ -8,7 +8,11 @@ Verifies the contents of a PostgreSQL control file buffer and copies it to a Con
 
 ## Definition
 
-
+```c
+static void
+digestControlFile(ControlFileData *ControlFile, const char *content,
+				  size_t size)
+```
 ## Detailed Description
 This function is used in pg_rewind to process control file data that has been read from either the source or target PostgreSQL cluster. It performs several critical validation steps:
 

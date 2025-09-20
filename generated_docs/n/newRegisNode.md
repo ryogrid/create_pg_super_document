@@ -8,7 +8,10 @@ Creates and initializes a new RegisNode structure for building linked lists of r
 
 ## Definition
 
-
+```c
+static RegisNode *
+newRegisNode(RegisNode *prev, int len)
+```
 ## Detailed Description
 newRegisNode is a utility function that allocates memory for a new RegisNode structure and optionally links it to a previous node in a linked list. It allocates memory using palloc0 (zero-initialized allocation) with space for the RegisNode header plus additional length for storing pattern data. If a previous node is provided, it updates the previous node's next pointer to maintain the linked list chain.
 

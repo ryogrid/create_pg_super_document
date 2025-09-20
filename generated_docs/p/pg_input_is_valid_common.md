@@ -8,7 +8,12 @@ A static utility function that validates whether a given text string can be succ
 
 ## Definition
 
-
+```c
+static bool
+pg_input_is_valid_common(FunctionCallInfo fcinfo,
+						 text *txt, text *typname,
+						 ErrorSaveContext *escontext)
+```
 ## Detailed Description
 This function serves as the common implementation for PostgreSQL input validation functions. It attempts to parse a text string using the input function of a specified data type, returning true if the conversion succeeds or false if it fails. The function implements an optimization by caching type information across multiple calls to avoid repeated lookups when the same data type is used consecutively.
 

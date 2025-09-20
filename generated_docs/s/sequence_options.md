@@ -8,7 +8,10 @@ Retrieves sequence parameters from the system catalog and formats them as a list
 
 ## Definition
 
-
+```c
+List *
+sequence_options(Oid relid)
+```
 ## Detailed Description
 The  function queries the pg_sequence system catalog to retrieve all parameters for a given sequence and converts them into a standardized list format. This function is essential for operations that need to reconstruct or display sequence options, such as table inheritance operations where sequence properties need to be copied.
 

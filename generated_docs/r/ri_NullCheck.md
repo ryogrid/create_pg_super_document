@@ -8,7 +8,12 @@ Analyzes the NULL state of all key values in a tuple to determine if foreign key
 
 ## Definition
 
-
+```c
+static int
+ri_NullCheck(TupleDesc tupDesc,
+			 TupleTableSlot *slot,
+			 const RI_ConstraintInfo *riinfo, bool rel_is_pk)
+```
 ## Detailed Description
 This function examines all key columns involved in a foreign key constraint to determine their collective NULL state. It returns one of three possible values indicating whether all keys are NULL, none are NULL, or some are NULL. This information is crucial for foreign key constraint enforcement, as foreign key semantics specify that if any part of a foreign key is NULL, the entire key is considered NULL and no constraint checking is required.
 

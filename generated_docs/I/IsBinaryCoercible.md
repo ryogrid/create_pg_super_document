@@ -8,7 +8,10 @@ Checks if a source type can be binary-coercible to a target type without requiri
 
 ## Definition
 
-
+```c
+bool
+IsBinaryCoercible(Oid srctype, Oid targettype)
+```
 ## Detailed Description
 IsBinaryCoercible determines whether one PostgreSQL data type can be directly converted to another without invoking a conversion function. This concept allows the system to optimize type conversions by directly exchanging values when it's safe to do so.
 

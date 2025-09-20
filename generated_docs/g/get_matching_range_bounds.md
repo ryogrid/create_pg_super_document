@@ -8,7 +8,12 @@ Determines the offsets of range bounds matching the specified values according t
 
 ## Definition
 
-
+```c
+static PruneStepResult *
+get_matching_range_bounds(PartitionPruneContext *context,
+						  StrategyNumber opstrategy, Datum *values, int nvalues,
+						  FmgrInfo *partsupfunc, Bitmapset *nullkeys)
+```
 ## Detailed Description
 This function is central to PostgreSQL's partition pruning mechanism for range-partitioned tables. It analyzes partition bounds and operator strategies to determine which partitions might contain data matching the given lookup values. The function handles different B-tree operator strategies (=, <, <=, >, >=) and uses binary search to efficiently locate relevant partition bounds.
 

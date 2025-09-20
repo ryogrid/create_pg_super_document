@@ -8,7 +8,10 @@ Compares two PostgreSQL Log Sequence Number (LSN) values for inequality, returni
 
 ## Definition
 
-
+```c
+Datum
+pg_lsn_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the inequality operator (!=) for the pg_lsn data type in PostgreSQL. It extracts two XLogRecPtr values from the function arguments and performs a direct comparison using the C inequality operator. The function is complementary to pg_lsn_eq and is essential for SQL operations that need to determine if two LSN values reference different positions in the transaction log.
 

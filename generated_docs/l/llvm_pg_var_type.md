@@ -8,7 +8,10 @@ Retrieves LLVM type definitions for PostgreSQL data structures by looking up glo
 
 ## Definition
 
-
+```c
+LLVMTypeRef
+llvm_pg_var_type(const char *varname)
+```
 ## Detailed Description
 This function provides a mechanism to maintain type consistency between PostgreSQL's C code and LLVM JIT-generated code. It looks up global variables in the llvm_types_module (which contains LLVM representations of PostgreSQL data structures) and returns their types. This approach ensures that JIT-compiled code uses the same type definitions as the main PostgreSQL codebase, preventing type mismatches that could lead to crashes or incorrect behavior.
 

@@ -8,7 +8,11 @@ Finds the optimal split point among candidate split points by selecting the one 
 
 ## Definition
 
-
+```c
+static OffsetNumber
+_bt_bestsplitloc(FindSplitData *state, int perfectpenalty,
+				 bool *newitemonleft, FindSplitStrat strategy)
+```
 ## Detailed Description
 This function evaluates all candidate split points within the acceptable split interval and selects the one with the lowest penalty score. The penalty calculation varies depending on whether splitting a leaf or internal page. The function includes special handling for the "many duplicates" strategy to avoid creating succession of right half pages with unusable free space during monotonically decreasing insertions.
 

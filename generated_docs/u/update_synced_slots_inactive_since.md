@@ -8,7 +8,10 @@ Updates the inactive_since timestamp for all synchronized replication slots duri
 
 ## Definition
 
-
+```c
+static void
+update_synced_slots_inactive_since(void)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's logical replication slot management during server transitions. It iterates through all replication slots and updates the inactive_since timestamp for synchronized slots when the slot sync machinery is being shut down. The function is specifically designed to handle the scenario where a standby server is being promoted to primary, ensuring that slot inactivity timestamps are properly set to reflect the current time rather than potentially stale synchronization times. This prevents synchronized slots from appearing inactive for extended periods after promotion if they haven't been recently synchronized.
 

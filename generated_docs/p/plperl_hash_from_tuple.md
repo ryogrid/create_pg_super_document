@@ -8,7 +8,10 @@ Converts a PostgreSQL tuple into a Perl hash reference, mapping column names to 
 
 ## Definition
 
-
+```c
+static SV  *
+plperl_hash_from_tuple(HeapTuple tuple, TupleDesc tupdesc, bool include_generated)
+```
 ## Detailed Description
 This function builds a Perl hash from all attributes of a given PostgreSQL tuple. It iterates through each attribute in the tuple descriptor, extracting values and converting them to appropriate Perl scalar values (SV). The function handles various PostgreSQL data types including:
 - NULL values (converted to Perl undef)

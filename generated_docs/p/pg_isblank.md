@@ -8,7 +8,10 @@ A portable implementation of the isblank() function that tests whether a charact
 
 ## Definition
 
-
+```c
+bool
+pg_isblank(const char c)
+```
 ## Detailed Description
 The pg_isblank function provides a custom implementation of the isblank() function from the ISO C99 specification. Since isblank() is not very portable across different systems, PostgreSQL provides its own version to ensure consistent behavior. The function checks if the given character is one of the common whitespace characters: space (' '), tab ('\t'), or carriage return ('\r').
 

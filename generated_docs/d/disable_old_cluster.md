@@ -8,7 +8,10 @@ Prevents accidental startup of the old PostgreSQL cluster after a successful upg
 
 ## Definition
 
-
+```c
+void
+disable_old_cluster(void)
+```
 ## Detailed Description
 The  function is a safety mechanism executed at the completion of a PostgreSQL upgrade process. It permanently disables the old cluster by renaming the critical  file, which is essential for PostgreSQL server startup.
 

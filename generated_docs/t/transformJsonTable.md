@@ -8,7 +8,10 @@ Transforms a raw JsonTable node into a TableFunc node, handling the transformati
 
 ## Definition
 
-
+```c
+ParseNamespaceItem *
+transformJsonTable(ParseState *pstate, JsonTable *jt)
+```
 ## Detailed Description
 The transformJsonTable function is the main entry point for processing JSON_TABLE expressions in PostgreSQL. It converts a raw JsonTable AST node into a TableFunc node that can be executed by the PostgreSQL execution engine. The function performs several key operations:
 

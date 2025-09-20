@@ -8,7 +8,14 @@ The  structure provides iterator state for safely traversing doubly-linked lists
 
 ## Definition
 
-
+```c
+typedef struct dlist_mutable_iter
+{
+	dlist_node *cur;			/* current element */
+	dlist_node *next;			/* next node we'll iterate to */
+	dlist_node *end;			/* last node we'll iterate to */
+} dlist_mutable_iter;
+```
 ## Detailed Description
 The  structure extends the basic iteration capabilities by allowing controlled modifications to the list during traversal. Unlike the read-only , this iterator supports deletion of the current node while maintaining safe iteration state.
 

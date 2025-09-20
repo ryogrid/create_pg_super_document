@@ -8,7 +8,14 @@ TypeInfo represents a PostgreSQL data type object in pg_dump, storing comprehens
 
 ## Definition
 
+```c
+typedef struct _shellTypeInfo
+{
+	DumpableObject dobj;
 
+	TypeInfo   *baseType;		/* back link to associated base type */
+} ShellTypeInfo;
+```
 ## Detailed Description
 TypeInfo extends DumpableObjectWithAcl to represent PostgreSQL data types during the dump and restore process. This includes all types: built-in types, user-defined types, domains, composite types, enumerated types, range types, and array types. The structure contains comprehensive metadata needed to recreate types and their dependencies.
 

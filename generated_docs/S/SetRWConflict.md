@@ -8,7 +8,10 @@ Creates and records a read-write conflict between two serializable transactions 
 
 ## Definition
 
-
+```c
+static void
+SetRWConflict(SERIALIZABLEXACT *reader, SERIALIZABLEXACT *writer)
+```
 ## Detailed Description
 This function establishes a new read-write conflict relationship between a reader transaction and a writer transaction. It allocates a conflict record from the RWConflictPool, initializes it with pointers to both transactions, and adds the conflict to the appropriate conflict lists of both transactions. The function includes safety checks to ensure the conflict doesn't already exist and that pool resources are available.
 

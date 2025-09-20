@@ -8,7 +8,10 @@ A tree walker function that recursively traverses expression nodes to identify a
 
 ## Definition
 
-
+```c
+static bool
+pull_exec_paramids_walker(Node *node, Bitmapset **context)
+```
 ## Detailed Description
 This function implements the core logic for traversing PostgreSQL expression trees to find execution parameters. It follows the standard walker pattern used throughout PostgreSQL's expression processing system. When it encounters a Param node with paramkind = PARAM_EXEC, it adds the parameter ID to the context Bitmapset. The function recursively processes child nodes using expression_tree_walker to ensure complete coverage of the expression tree.
 

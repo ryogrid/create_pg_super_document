@@ -8,7 +8,12 @@ Copies all outgoing arcs from one state to another state without removing arcs f
 
 ## Definition
 
-
+```c
+static void
+copyouts(struct nfa *nfa,
+		 struct state *oldState,
+		 struct state *newState)
+```
 ## Detailed Description
 The `copyouts` function creates copies of all outgoing arcs from an old state and adds them to a new state. Unlike `moveouts`, this function preserves the original arcs in the source state. The function is designed to work efficiently when the new state has no existing outgoing arcs (which is asserted). The implementation includes conditional compilation sections for more complex deduplication logic, but the active code path assumes the new state starts with no outgoing arcs, simplifying the operation to a straightforward copy process.
 

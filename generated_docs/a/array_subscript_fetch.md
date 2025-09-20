@@ -8,7 +8,12 @@ Evaluates a SubscriptingRef fetch operation for a single array element, extracti
 
 ## Definition
 
-
+```c
+static void
+array_subscript_fetch(ExprState *state,
+					  ExprEvalStep *op,
+					  ExprContext *econtext)
+```
 ## Detailed Description
 This function performs the actual array element retrieval during expression execution. It is called after subscripts have been validated and converted to integers by array_subscript_check_subscripts. The function operates on a non-NULL source array (enforced by setting fetch_strict to true) and uses the pre-computed subscripts stored in the workspace to extract a single element.
 

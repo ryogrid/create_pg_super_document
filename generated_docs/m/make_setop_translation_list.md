@@ -8,7 +8,11 @@ Builds translation lists that map parent query variables to child query variable
 
 ## Definition
 
-
+```c
+static void
+make_setop_translation_list(Query *query, int newvarno,
+							AppendRelInfo *appinfo)
+```
 ## Detailed Description
 This function constructs the variable translation mechanism required when optimizing UNION ALL operations through append relations. It creates two complementary data structures:
 

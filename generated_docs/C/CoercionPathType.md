@@ -8,7 +8,9 @@ CoercionPathType is an enumeration that defines result codes returned by the fin
 
 ## Definition
 
-
+```c
+structName);
+```
 ## Detailed Description
 CoercionPathType represents the different strategies PostgreSQL can use to convert values from one data type to another. The enum is primarily used by the type coercion system to communicate what kind of conversion mechanism should be employed when transforming data types. Each enum value corresponds to a specific coercion strategy:
 

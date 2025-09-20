@@ -8,7 +8,20 @@ Evaluates and potentially adds a merge join path to the joinrel's pathlist, hand
 
 ## Definition
 
-
+```c
+static void
+try_mergejoin_path(PlannerInfo *root,
+				   RelOptInfo *joinrel,
+				   Path *outer_path,
+				   Path *inner_path,
+				   List *pathkeys,
+				   List *mergeclauses,
+				   List *outersortkeys,
+				   List *innersortkeys,
+				   JoinType jointype,
+				   JoinPathExtraData *extra,
+				   bool is_partial)
+```
 ## Detailed Description
 This function serves as the main entry point for considering merge join strategies during query planning. It handles both regular and partial execution modes, delegating partial merge joins to try_partial_mergejoin_path when appropriate. The function performs validation checks specific to merge joins, including parameterization validation and sort key optimization.
 

@@ -8,7 +8,10 @@ Creates a standard ExprContext for expression evaluation within an EState, using
 
 ## Definition
 
-
+```c
+ExprContext *
+CreateExprContext(EState *estate)
+```
 ## Detailed Description
 CreateExprContext is a public interface function that creates a standard ExprContext for expression evaluation. It serves as a convenient wrapper around CreateExprContextInternal(), using default AllocSet memory management parameters (ALLOCSET_DEFAULT_SIZES). This function is typically used when creating ExprContexts for Plan nodes and per-output-tuple processing such as constraint checking.
 

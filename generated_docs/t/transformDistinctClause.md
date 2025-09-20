@@ -8,7 +8,10 @@ Transforms a DISTINCT clause in SQL queries by creating a list of SortGroupClaus
 
 ## Definition
 
-
+```c
+struction ensures we follow the rule
+	 * that sortClause and distinctClause match;
+```
 ## Detailed Description
 This function processes DISTINCT clauses in SQL SELECT statements and aggregate function calls. It creates a distinctClause that consists of all ORDER BY items followed by all other non-resjunk targetlist items. The function ensures that the sortClause will always be a prefix of the distinctClause, which allows PostgreSQL to absorb the sorting semantics of ORDER BY into the DISTINCT operation to avoid re-sorting.
 

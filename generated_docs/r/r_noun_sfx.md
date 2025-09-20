@@ -8,7 +8,11 @@ The r_noun_sfx function removes Irish noun suffixes during the stemming process,
 
 ## Definition
 
+```c
+}
 
+static int r_noun_sfx(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Irish language stemmer and is responsible for removing noun suffixes from Irish words. The function uses a lookup table (a_1 with 16 entries) to identify valid noun suffixes at the end of the word. Based on the suffix type found, it applies different removal strategies:
 

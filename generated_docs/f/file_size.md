@@ -8,7 +8,10 @@ A utility function that determines the size in bytes of a specified file.
 
 ## Definition
 
-
+```c
+static long
+file_size(const char *file)
+```
 ## Detailed Description
 The  function opens a file in read mode and returns its size in bytes. It uses standard C library functions to seek to the end of the file and retrieve the current position, which corresponds to the file size. If the file cannot be opened, it logs an error message and returns -1 to indicate failure.
 

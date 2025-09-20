@@ -8,7 +8,12 @@ The xl_hash_init_bitmap_page struct represents the WAL record data for hash inde
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_init_bitmap_page
+{
+	uint16		bmsize;
+} xl_hash_init_bitmap_page;
+```
 ## Detailed Description
 This structure contains the necessary information to perform or replay hash index bitmap page initialization operations during WAL recovery. Bitmap pages in hash indexes are used to track the allocation status of overflow pages, helping to efficiently manage space allocation and deallocation. The bitmap page initialization occurs during hash index creation or when new bitmap pages need to be added to accommodate more overflow pages.
 

@@ -8,7 +8,10 @@ Formats a list of publication names into a comma-separated string with proper qu
 
 ## Definition
 
-
+```c
+static void
+get_publications_str(List *publications, StringInfo dest, bool quote_literal)
+```
 ## Detailed Description
 This utility function converts a list of publication names into a properly formatted string representation. It iterates through the provided list of publications and concatenates them with comma separators, applying appropriate quoting based on the quote_literal parameter. When quote_literal is true, it uses PostgreSQL's quote_literal_cstr() function for SQL-safe literal quoting. When false, it simply wraps each publication name in double quotes.
 

@@ -8,7 +8,10 @@ Allocates a new subcolor for a specific character if necessary, working only wit
 
 ## Definition
 
-
+```c
+static color
+subcolor(struct colormap *cm, chr c)
+```
 ## Detailed Description
 The subcolor function is responsible for creating subcolors when needed for character-specific operations in the regular expression engine. It works exclusively with characters that fall within the "simple" character range (up to MAX_SIMPLE_CHR) and use the low color map (locolormap).
 

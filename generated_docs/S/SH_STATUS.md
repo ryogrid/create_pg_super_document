@@ -8,7 +8,14 @@ SH_STATUS is a macro that generates a type name for hash bucket status enumerati
 
 ## Definition
 
-
+```c
+typedef struct SH_ITERATOR
+{
+	uint32		cur;			/* current element */
+	uint32		end;
+	bool		done;			/* iterator exhausted? */
+}			SH_ITERATOR;
+```
 ## Detailed Description
 SH_STATUS is a preprocessor macro that is part of PostgreSQL's simple hash table template system defined in simplehash.h. This macro generates a prefixed name for a status enumeration type using the SH_MAKE_NAME helper macro. When expanded, it creates a unique type name based on the user-defined SH_PREFIX, allowing multiple specialized hash table implementations to coexist without naming conflicts.
 

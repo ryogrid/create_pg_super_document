@@ -8,7 +8,10 @@ This function constructs a SQL command for running amcheck verification on a hea
 
 ## Definition
 
-
+```c
+static void
+prepare_heap_command(PQExpBuffer sql, RelationInfo *rel, PGconn *conn)
+```
 ## Detailed Description
 The prepare_heap_command function creates a SQL query that invokes the verify_heapam() function from the amcheck extension to validate the integrity of a heap table. The function constructs a parameterized SQL command that:
 

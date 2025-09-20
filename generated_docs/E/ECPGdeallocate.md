@@ -8,7 +8,9 @@ The main public interface function for deallocating a named prepared statement i
 
 ## Definition
 
-
+```c
+struct connection *con;
+```
 ## Detailed Description
  serves as the primary entry point for deallocating prepared statements in ECPG applications. It implements the functionality behind the SQL DEALLOCATE PREPARE statement by locating the specified prepared statement by name within the given connection context and delegating the actual deallocation work to the  function. The function includes proper error handling for cases where the prepared statement cannot be found, with different behavior depending on the compatibility mode.
 

@@ -8,7 +8,14 @@ Gets the OID of the current default tablespace for creating new database objects
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	/* Array of OIDs to be passed to SetTempTablespaces() */
+	int			numSpcs;
+	Oid			tblSpcs[FLEXIBLE_ARRAY_MEMBER];
+} temp_tablespaces_extra;
+```
 ## Detailed Description
 This function determines the appropriate default tablespace for creating new database objects based on the relation persistence type and whether the object is partitioned. It handles three main cases:
 

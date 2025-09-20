@@ -8,7 +8,10 @@ Writes the last page of a node buffer to disk during GiST index construction, fl
 
 ## Definition
 
-
+```c
+static void
+gistUnloadNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer)
+```
 ## Detailed Description
 This function is responsible for persisting the buffered page data of a GiST node buffer to disk. It's called as part of the buffer management strategy during GiST index builds to free memory by writing accumulated index tuples to temporary storage. The function allocates a free block in the temporary file, writes the page buffer contents, and updates the node buffer's metadata to track the disk location.
 

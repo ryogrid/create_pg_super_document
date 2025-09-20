@@ -8,7 +8,10 @@ Converts a VARCHAR value to a C string for output purposes, leveraging the text-
 
 ## Definition
 
-
+```c
+Datum
+varcharout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the output function for the VARCHAR data type in PostgreSQL. It converts a VARCHAR datum to a null-terminated C string representation that can be displayed to users or used in string operations. The function internally uses  to perform the actual conversion, which is appropriate since VARCHAR and text are essentially equivalent types in PostgreSQL's implementation.
 

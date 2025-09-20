@@ -8,7 +8,10 @@ This function loads functional dependency statistics from the PostgreSQL system 
 
 ## Definition
 
-
+```c
+MVDependencies *
+statext_dependencies_load(Oid mvoid, bool inh)
+```
 ## Detailed Description
 The function retrieves functional dependency statistics from the  system catalog. It performs a cache lookup using the statistics object OID and inheritance flag, then deserializes the stored dependency data into an in-memory  structure. This enables PostgreSQL's query optimizer to account for statistical dependencies between columns when estimating selectivity and cardinality.
 

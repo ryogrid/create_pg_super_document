@@ -8,7 +8,10 @@ Constructs a PostgreSQL HeapTuple from a Perl hash reference, mapping hash keys 
 
 ## Definition
 
-
+```c
+static HeapTuple
+plperl_build_tuple_result(HV *perlhash, TupleDesc td)
+```
 ## Detailed Description
 This function converts a Perl hash into a PostgreSQL tuple by mapping hash keys to column names in the tuple descriptor. The function performs the following steps:
 

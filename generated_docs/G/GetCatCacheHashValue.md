@@ -8,7 +8,14 @@ Computes the hash value for a given set of search keys in a catalog cache, prima
 
 ## Definition
 
-
+```c
+uint32
+GetCatCacheHashValue(CatCache *cache,
+					 Datum v1,
+					 Datum v2,
+					 Datum v3,
+					 Datum v4)
+```
 ## Detailed Description
 GetCatCacheHashValue provides a public interface for computing hash values for catalog cache keys. While hash computation is normally done internally during cache operations, this function exposes the capability for external use, particularly in cache invalidation operations where the hash value must be computed outside the main cache lookup path.
 

@@ -8,7 +8,14 @@ RT_SIZE_CLASS_ELEM is a macro that generates a type name for a structure contain
 
 ## Definition
 
-
+```c
+typedef struct RT_SIZE_CLASS_ELEM
+{
+	const char *name;
+	int			fanout;
+	size_t		allocsize;
+}			RT_SIZE_CLASS_ELEM;
+```
 ## Detailed Description
 RT_SIZE_CLASS_ELEM is part of PostgreSQL's adaptive radix tree (ART) implementation and defines a structure that holds metadata for each of the different node size classes. The adaptive radix tree uses multiple node types (4, 16, 48, and 256 slots) to optimize memory usage and performance based on the number of children a node needs to store.
 

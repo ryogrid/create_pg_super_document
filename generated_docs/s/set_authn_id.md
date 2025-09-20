@@ -8,7 +8,9 @@ Sets the authenticated identity for the current user connection and stores it al
 
 ## Definition
 
-
+```c
+enumber));
+```
 ## Detailed Description
 The  function is responsible for recording the authenticated identity of a user once authentication has been successfully completed. This function stores the authentication identifier in the global  structure and associates it with the authentication method used.
 

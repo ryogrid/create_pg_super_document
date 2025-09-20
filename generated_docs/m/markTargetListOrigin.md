@@ -8,7 +8,11 @@ Marks a TargetEntry with the origin table and column information if the referenc
 
 ## Definition
 
-
+```c
+static void
+markTargetListOrigin(ParseState *pstate, TargetEntry *tle,
+					 Var *var, int levelsup)
+```
 ## Detailed Description
 This function analyzes a Var node to determine its origin table and column, then marks the corresponding TargetEntry with this provenance information. It handles various types of range table entries including base relations, subqueries, and CTEs (Common Table Expressions). The function does not drill down into views but reports the view as the column owner. For joins, it only processes merged JOIN USING columns and whole-row variables, not drilling down to constituent table columns.
 

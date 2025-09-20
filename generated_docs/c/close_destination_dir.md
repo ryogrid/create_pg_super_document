@@ -8,7 +8,9 @@ A utility function in pg_receivewal that safely closes a previously opened direc
 
 ## Definition
 
-
+```c
+struct dirent *dirent;
+```
 ## Detailed Description
 This is a simple wrapper function around the standard  system call that provides PostgreSQL-style error handling. The function ensures that directory resources are properly released and provides meaningful error messages if the close operation fails. It includes assertion checks to validate that both the directory handle and folder path are non-NULL before attempting the close operation.
 

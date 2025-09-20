@@ -8,7 +8,16 @@ A structure that holds arguments required for executing commands in parallel thr
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	DbInfoArr  *old_db_arr;
+	DbInfoArr  *new_db_arr;
+	char	   *old_pgdata;
+	char	   *new_pgdata;
+	char	   *old_tablespace;
+} transfer_thread_arg;
+```
 ## Detailed Description
 The  structure is used specifically in the  utility to facilitate parallel command execution on Windows platforms. This structure encapsulates the necessary parameters for thread-based command execution, allowing the upgrade process to run multiple operations concurrently for improved performance. The structure is part of PostgreSQL's parallel execution infrastructure within the upgrade utility, where it serves as a communication mechanism between the main thread and worker threads executing database upgrade commands.
 

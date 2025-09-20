@@ -8,7 +8,17 @@ A sophisticated string tokenization function that serves as a replacement for th
 
 ## Definition
 
-
+```c
+char *
+strtokx(const char *s,
+		const char *whitespace,
+		const char *delim,
+		const char *quote,
+		char escape,
+		bool e_strings,
+		bool del_quotes,
+		int encoding)
+```
 ## Detailed Description
 The strtokx function is a "poor man's flex" implementation that splits strings into tokens with much more sophistication than the standard strtok() function. It supports multiple types of separators, quote handling with escape sequences, and PostgreSQL-specific features like E-string syntax. The function maintains internal state between calls to continue tokenizing the same string, similar to strtok(), but with enhanced capabilities for parsing complex command-line arguments and SQL-like syntax.
 

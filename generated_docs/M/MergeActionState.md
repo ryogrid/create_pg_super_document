@@ -8,7 +8,17 @@ MergeActionState holds the executor state for a MERGE action, managing the execu
 
 ## Definition
 
+```c
+typedef struct MergeActionState
+{
+	NodeTag		type;
 
+	MergeAction *mas_action;	/* associated MergeAction node */
+	ProjectionInfo *mas_proj;	/* projection of the action's targetlist for
+								 * this rel */
+	ExprState  *mas_whenqual;	/* WHEN [NOT] MATCHED AND conditions */
+} MergeActionState;
+```
 ## Detailed Description
 MergeActionState represents the execution state for individual actions within a MERGE statement. MERGE statements can have multiple WHEN MATCHED and WHEN NOT MATCHED clauses, each with their own conditions and actions. This structure maintains the runtime state needed to evaluate and execute one specific MERGE action.
 

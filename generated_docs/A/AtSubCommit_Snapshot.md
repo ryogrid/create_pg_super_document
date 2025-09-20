@@ -8,7 +8,10 @@ Transfers ownership of active snapshots from a subtransaction to its parent tran
 
 ## Definition
 
-
+```c
+void
+AtSubCommit_Snapshot(int level)
+```
 ## Detailed Description
 This function is called during subtransaction commit to handle the transfer of snapshot ownership from the committing subtransaction to its parent. It iterates through the active snapshot stack and relabels all snapshots that belong to the current subtransaction level, changing their ownership to the parent subtransaction level.
 

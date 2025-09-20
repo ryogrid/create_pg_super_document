@@ -8,7 +8,10 @@ Restriction selectivity function for array containment operators (@>, &&, <@), e
 
 ## Definition
 
-
+```c
+Datum
+arraycontsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the main entry point for selectivity estimation of array containment operations in PostgreSQL's query planner. It handles three types of array operators:
 -  (contains): estimates probability that left array contains right array

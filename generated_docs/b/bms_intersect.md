@@ -8,7 +8,10 @@ Creates a new Bitmapset containing only members that exist in both input bitmaps
 
 ## Definition
 
-
+```c
+Bitmapset *
+bms_intersect(const Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 This function performs a bitwise intersection operation on two Bitmapsets, creating a new Bitmapset that contains only the bits that are set in both input sets. The function optimizes performance by copying the smaller input set first and then ANDing it with the larger set. It also performs important optimizations: it tracks the last non-zero word to trim trailing zeros, and it returns NULL if the intersection is empty (no common bits). Both input sets remain unmodified.
 

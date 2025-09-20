@@ -8,7 +8,10 @@ Imports a file from the filesystem into the database as a large object with a sp
 
 ## Definition
 
-
+```c
+Datum
+be_lo_import_with_oid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the backend functionality for the SQL  function, which allows importing external files into PostgreSQL as large objects while specifying the desired OID for the large object. Unlike  which auto-generates an OID, this function allows the caller to specify exactly which OID should be used for the imported large object.
 

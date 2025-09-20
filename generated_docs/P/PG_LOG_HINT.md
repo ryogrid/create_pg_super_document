@@ -8,7 +8,9 @@ PG_LOG_HINT is an enum value in the pg_log_part enumeration that represents hint
 
 ## Definition
 
-
+```c
+enum pg_log_level new_level);
+```
 ## Detailed Description
 PG_LOG_HINT is a member of the pg_log_part enumeration that identifies hint message components in PostgreSQL's frontend logging system. Hint messages provide suggestions or recommendations about how to resolve problems or improve situations, but these hints are explicitly not guaranteed to be correct. 
 

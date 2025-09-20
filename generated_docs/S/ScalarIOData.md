@@ -8,7 +8,13 @@ ScalarIOData is a structure that caches type input/output metadata required for 
 
 ## Definition
 
-
+```c
+typedef struct ScalarIOData
+{
+	Oid			typioparam;
+	FmgrInfo	typiofunc;
+} ScalarIOData;
+```
 ## Detailed Description
 ScalarIOData serves as a caching structure that stores precompiled type conversion information needed for the populate_scalar() function. This structure optimizes the performance of JSON-to-PostgreSQL type conversions by avoiding repeated lookups of type input/output functions and their parameters. It contains the essential metadata required to convert JSON scalar values (strings, numbers, booleans, null) into their corresponding PostgreSQL data types.
 

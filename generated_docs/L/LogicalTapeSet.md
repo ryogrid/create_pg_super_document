@@ -8,7 +8,42 @@ LogicalTapeSet represents a collection of related logical tapes sharing space in
 
 ## Definition
 
+```c
+struct LogicalTapeSet
+{
+	BufFile    *pfile;			/* underlying file for whole tape set */
+	SharedFileSet *fileset;
+	int			worker;			/* worker # if shared, -1 for leader/serial */
 
+	/*
+	 * File size tracking.  nBlocksWritten is the size of the underlying file,
+	 * in BLCKSZ blocks.  nBlocksAllocated is the number of blocks allocated
+	 * by ltsReleaseBlock(), and it is always greater than or equal to
+	 * nBlocksWritten.  Blocks between nBlocksAllocated and nBlocksWritten are
+	 * blocks that have been allocated for a tape, but have not been written
+	 * to the underlying file yet.  nHoleBlocks tracks the total number of
+	 * blocks that are in unused holes between worker spaces following BufFile
+	 * concatenation.
+	 */
+	int64		nBlocksAllocated;	/* # of blocks allocated */
+	int64		nBlocksWritten; /* # of blocks used in underlying file */
+	int64		nHoleBlocks;	/* # of "hole" blocks left */
+
+	/*
+	 * We store the numbers of recycled-and-available blocks in freeBlocks[].
+	 * When there are no such blocks, we extend the underlying file.
+	 *
+	 * If forgetFreeSpace is true then any freed blocks are simply forgotten
+	 * rather than being remembered in freeBlocks[].  See notes for
+	 * LogicalTapeSetForgetFreeSpace().
+	 */
+	bool		forgetFreeSpace;	/* are we remembering free blocks? */
+	int64	   *freeBlocks;		/* resizable array holding minheap */
+	int64		nFreeBlocks;	/* # of currently free blocks */
+	Size		freeBlocksLen;	/* current allocated length of freeBlocks[] */
+	bool		enable_prealloc;	/* preallocate write blocks? */
+};
+```
 ## Detailed Description
 LogicalTapeSet is the central management structure for PostgreSQL's external sorting system, coordinating multiple logical tapes within a single underlying file. It handles space allocation, block recycling, and provides the infrastructure for efficient disk-based operations when data exceeds available memory.
 

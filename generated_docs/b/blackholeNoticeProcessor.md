@@ -8,7 +8,10 @@ A notice processor function that suppresses all notice messages from PostgreSQL 
 
 ## Definition
 
-
+```c
+static void
+blackholeNoticeProcessor(void *arg, const char *message)
+```
 ## Detailed Description
 The  is a simple notice processor function designed to suppress all notice messages from PostgreSQL database connections. It serves as a "blackhole" processor that intentionally discards incoming notice messages by doing nothing with them. This function is used in the isolation test framework to prevent notice messages from the control connection (connection index 0) from appearing in test output, ensuring cleaner and more predictable test results.
 

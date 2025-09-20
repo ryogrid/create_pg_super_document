@@ -8,7 +8,12 @@ Creates a ForeignScan plan node for scanning a relation using a Foreign Data Wra
 
 ## Definition
 
-
+```c
+structures, so compute it here.
+	 */
+	scan_plan->fs_base_relids = bms_difference(scan_plan->fs_relids,
+											   root->outer_join_rels);
+```
 ## Detailed Description
 This function is responsible for creating a ForeignScan execution plan node from a ForeignPath. It coordinates with the Foreign Data Wrapper (FDW) to generate an optimized plan for accessing foreign data. The function handles multiple scenarios including base foreign table scans, foreign joins, and parameterized foreign scans. It ensures proper cost propagation, handles outer plan creation for complex foreign operations, and manages system column detection for base relations. The function also performs nestloop parameter replacement for parameterized scans and sets up relid information needed for proper execution planning.
 

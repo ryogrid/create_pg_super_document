@@ -8,7 +8,10 @@ fill_seq_with_data initializes a sequence relation with specified tuple data, ha
 
 ## Definition
 
-
+```c
+static void
+fill_seq_with_data(Relation rel, HeapTuple tuple)
+```
 ## Detailed Description
 fill_seq_with_data is a utility function that populates a sequence relation with initial or updated data. It handles the complexity of unlogged sequences which require data to be written to both the main fork and the init fork.
 

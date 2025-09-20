@@ -8,7 +8,13 @@ A structure that records lock information when a lock is persisted to the 2PC st
 
 ## Definition
 
-
+```c
+typedef struct TwoPhaseLockRecord
+{
+	LOCKTAG		locktag;
+	LOCKMODE	lockmode;
+} TwoPhaseLockRecord;
+```
 ## Detailed Description
 TwoPhaseLockRecord is a simple data structure used in PostgreSQL's two-phase commit (2PC) implementation to store lock information that needs to be persisted across transaction boundaries. When a prepared transaction holds locks that must survive until the transaction is either committed or aborted, the details of those locks are serialized using this structure and written to the 2PC state file. This ensures that locks can be properly restored during recovery or when resuming a prepared transaction.
 

@@ -8,7 +8,10 @@ A PostgreSQL built-in function that generates a series of timestamp with timezon
 
 ## Definition
 
-
+```c
+Datum
+generate_series_timestamptz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the public SQL-callable wrapper for generating timestamp series with timezone support. It delegates all actual work to the internal function generate_series_timestamptz_internal, using the session timezone for interval arithmetic operations. This function corresponds to the SQL function generate_series(timestamptz, timestamptz, interval) that can be called directly from SQL queries.
 

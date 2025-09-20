@@ -8,7 +8,10 @@ Returns the OID (Object Identifier) value contained in the n-th element of an Oi
 
 ## Definition
 
-
+```c
+static inline Oid
+list_nth_oid(const List *list, int n)
+```
 ## Detailed Description
 The `list_nth_oid` function is a specialized variant of `list_nth` designed specifically for OidList structures that store Object Identifier (OID) values. OIDs are fundamental identifiers used throughout PostgreSQL to uniquely identify database objects such as tables, functions, types, and other catalog entities.
 

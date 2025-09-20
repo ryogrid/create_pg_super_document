@@ -8,7 +8,10 @@ A simple utility function that converts a boolean value to its string representa
 
 ## Definition
 
-
+```c
+static const char *
+pset_bool_string(bool val)
+```
 ## Detailed Description
 The pset_bool_string function provides a standardized way to convert boolean values to their string representations within psql. It returns "on" for true values and "off" for false values, following PostgreSQL's conventional boolean string format used throughout the psql interface for various settings and options.
 

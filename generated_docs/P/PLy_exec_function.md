@@ -8,7 +8,10 @@ PLy_exec_function is the main entry point for executing PL/Python functions and 
 
 ## Definition
 
-
+```c
+Datum
+PLy_exec_function(FunctionCallInfo fcinfo, PLyProcedure *proc)
+```
 ## Detailed Description
 This function serves as the core execution handler for PL/Python functions and procedures. It manages the complete lifecycle of function execution including:
 

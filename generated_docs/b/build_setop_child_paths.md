@@ -8,7 +8,12 @@ Builds execution paths for a set operation child relation, creating both sorted 
 
 ## Definition
 
-
+```c
+static void
+build_setop_child_paths(PlannerInfo *root, RelOptInfo *rel,
+						bool trivial_tlist, List *child_tlist,
+						List *interesting_pathkeys, double *pNumGroups)
+```
 ## Detailed Description
  is responsible for generating all necessary execution paths for a subquery that participates in a set operation (UNION, INTERSECT, EXCEPT). This function bridges the gap between the subquery's internal paths and the paths needed by the outer set operation.
 

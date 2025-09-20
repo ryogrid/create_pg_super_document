@@ -8,7 +8,10 @@ Resets all statistics counters for the current database, providing a clean slate
 
 ## Definition
 
-
+```c
+void
+pgstat_reset_counters(void)
+```
 ## Detailed Description
 This function performs a comprehensive reset of all statistics counters that belong to the current database. It operates by using a filtering mechanism to identify and reset only the statistics entries that match the current database OID, ensuring that statistics for other databases remain unaffected.
 

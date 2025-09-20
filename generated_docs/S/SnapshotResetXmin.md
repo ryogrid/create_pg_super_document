@@ -8,7 +8,10 @@ Recomputes and potentially resets the current process's xmin value based on rema
 
 ## Definition
 
-
+```c
+static void
+SnapshotResetXmin(void)
+```
 ## Detailed Description
 This function manages the process's xmin value (PGPROC->xmin) which represents the oldest transaction ID that this process might still need to see. It serves as a critical optimization for PostgreSQL's MVCC system by allowing the process to advance its xmin when snapshots are no longer needed, thereby enabling more aggressive garbage collection.
 

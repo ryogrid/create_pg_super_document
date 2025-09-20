@@ -8,7 +8,18 @@ SlruFileName is a static inline function that converts a segment number to the c
 
 ## Definition
 
+```c
+structure remembers which files are open.
+ */
+#define MAX_WRITEALL_BUFFERS	16
 
+typedef struct SlruWriteAllData
+{
+	int			num_files;		/* # files actually open */
+	int			fd[MAX_WRITEALL_BUFFERS];	/* their FD's */
+	int64		segno[MAX_WRITEALL_BUFFERS];	/* their log seg#s */
+} SlruWriteAllData;
+```
 ## Detailed Description
 This function generates SLRU segment filenames based on the segment number and the control structure's configuration. It supports two naming schemes:
 

@@ -8,7 +8,18 @@ The  structure represents procedural language information in PostgreSQL's pg_dum
 
 ## Definition
 
-
+```c
+typedef struct _procLangInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
+	bool		lanpltrusted;
+	Oid			lanplcallfoid;
+	Oid			laninline;
+	Oid			lanvalidator;
+	const char *lanowner;
+} ProcLangInfo;
+```
 ## Detailed Description
 The  structure captures all essential information about procedural languages registered in PostgreSQL. This includes security settings (trusted/untrusted status), associated handler functions, and ownership information. The structure is used by pg_dump to preserve procedural language definitions during database backup and restoration operations.
 

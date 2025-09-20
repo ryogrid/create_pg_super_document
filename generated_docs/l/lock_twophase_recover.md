@@ -8,7 +8,11 @@ Re-acquires locks belonging to a prepared transaction during database startup or
 
 ## Definition
 
-
+```c
+void
+lock_twophase_recover(TransactionId xid, uint16 info,
+					  void *recdata, uint32 len)
+```
 ## Detailed Description
 The lock_twophase_recover function is a critical component of PostgreSQL's two-phase commit recovery mechanism. It is responsible for re-establishing locks that were held by prepared transactions when the database is restarted or during hot standby recovery. The function reconstructs the lock state from 2PC records stored during the PREPARE phase, ensuring that prepared transactions maintain their lock holdings across database restarts.
 

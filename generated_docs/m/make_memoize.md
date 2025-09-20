@@ -8,7 +8,12 @@ Creates a Memoize plan node that caches the results of its child plan based on p
 
 ## Definition
 
-
+```c
+static Memoize *
+make_memoize(Plan *lefttree, Oid *hashoperators, Oid *collations,
+			 List *param_exprs, bool singlerow, bool binary_mode,
+			 uint32 est_entries, Bitmapset *keyparamids)
+```
 ## Detailed Description
 This function constructs a Memoize plan node, which implements result caching for subplans that are executed multiple times with different parameter values. The Memoize node maintains a hash table where keys are formed from the parameter expressions and values are the cached results. This optimization is particularly effective for parameterized nested loop joins where the inner plan is repeatedly executed with different outer values.
 

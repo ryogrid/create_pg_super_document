@@ -8,7 +8,10 @@ Parses a complete ACL specification string into an AclItem structure, handling r
 
 ## Definition
 
-
+```c
+static const char *
+aclparse(const char *s, AclItem *aip, Node *escontext)
+```
 ## Detailed Description
 This function is the core parser for Access Control List specifications in PostgreSQL. It processes ACL strings of the format  where privileges are represented by single characters (r, w, a, etc.) and the asterisk (*) indicates grant option privileges.
 

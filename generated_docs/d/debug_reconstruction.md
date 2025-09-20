@@ -8,7 +8,10 @@ Performs post-reconstruction logging and sanity checks to validate the file reco
 
 ## Definition
 
-
+```c
+static void
+debug_reconstruction(int n_source, rfile **sources, bool dry_run)
+```
 ## Detailed Description
 This function is called after file reconstruction to provide debug logging and perform validation checks. It iterates through all source files that were involved in the reconstruction process, logging the number of blocks read from each source file. In dry-run mode, it performs additional validation by checking that each source file is actually long enough to satisfy the read operations that would have been performed during reconstruction.
 

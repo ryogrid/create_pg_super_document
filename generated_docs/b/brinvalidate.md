@@ -8,7 +8,10 @@ Validates a BRIN (Block Range Index) operator class by performing comprehensive 
 
 ## Definition
 
-
+```c
+bool
+brinvalidate(Oid opclassoid)
+```
 ## Detailed Description
 The  function serves as the validation routine for BRIN operator classes, implementing the  interface for the BRIN access method. It performs extensive validation to ensure that a BRIN operator class is properly constructed and contains all necessary components.
 

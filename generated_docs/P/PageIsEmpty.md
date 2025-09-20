@@ -8,7 +8,10 @@ PageIsEmpty is an inline function that determines whether a database page contai
 
 ## Definition
 
-
+```c
+static inline bool
+PageIsEmpty(Page page)
+```
 ## Detailed Description
 This function checks if a page is empty by examining the pd_lower field of the page header. The pd_lower field indicates the offset to the start of free space on the page. If pd_lower is less than or equal to SizeOfPageHeaderData (the size of the basic page header without line pointers), it means no item identifiers have been allocated, and the page is considered empty. This is a critical function for PostgreSQL's storage management, helping determine whether pages can be reused or need special handling during operations like VACUUM.
 

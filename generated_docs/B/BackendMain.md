@@ -8,7 +8,13 @@ BackendMain is the entry point for a new backend process that initializes the co
 
 ## Definition
 
-
+```c
+structures contain function pointers and cannot be passed through the
+	 * parameter file.
+	 *
+	 * If for some reason reload fails (maybe the user installed broken key
+	 * files), soldier on without SSL;
+```
 ## Detailed Description
 BackendMain serves as the main initialization function for PostgreSQL backend processes. It performs essential setup tasks including SSL reinitialization in EXEC_BACKEND builds, backend-specific initialization, shared memory setup, and finally transitions to the main PostgreSQL processing loop. The function ensures that all necessary infrastructure is in place before handing control over to PostgresMain for query processing.
 

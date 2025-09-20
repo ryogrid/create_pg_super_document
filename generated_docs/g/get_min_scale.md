@@ -8,7 +8,10 @@ A static helper function that calculates the minimum scale (number of decimal pl
 
 ## Definition
 
-
+```c
+static int
+get_min_scale(NumericVar *var)
+```
 ## Detailed Description
 The `get_min_scale` function determines the minimum number of decimal places needed to accurately represent a numeric value by finding the position of the last non-zero digit. It handles the internal PostgreSQL numeric representation where digits are stored in groups (NumericDigits) and accounts for trailing zeros within the last digit group. The function ensures that values like 1.2000 would return a minimum scale of 1 (for 1.2) rather than 4.
 

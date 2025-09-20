@@ -8,7 +8,12 @@ A simple struct that stores a magic number used for validating sequence page hea
 
 ## Definition
 
-
+```c
+typedef struct sequence_magic
+{
+	uint32		magic;
+} sequence_magic;
+```
 ## Detailed Description
 The  struct is a minimal data structure containing a single 32-bit unsigned integer field used as a magic number for sequence validation. This struct is part of PostgreSQL's sequence management system and serves as a header validation mechanism to ensure the integrity and correct identification of sequence data pages. The magic number helps verify that a page contains valid sequence data and hasn't been corrupted.
 

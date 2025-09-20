@@ -8,7 +8,10 @@ Tests whether two bitmap sets have any common members by checking if their inter
 
 ## Definition
 
-
+```c
+bool
+bms_overlap(const Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 This function determines if two bitmap sets have any bits in common by performing a bitwise AND operation on corresponding words and checking if any result is non-zero. The function handles NULL inputs by treating them as empty sets, which means any comparison involving a NULL set will return false (empty sets cannot overlap with anything). The implementation is optimized to only check the shorter of the two sets, since any bits beyond the shorter set's range cannot contribute to an overlap. The function returns immediately upon finding the first overlapping bit, making it efficient for cases where sets have early overlaps.
 

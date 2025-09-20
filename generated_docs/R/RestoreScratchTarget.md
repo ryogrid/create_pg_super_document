@@ -8,7 +8,10 @@ Re-inserts the dummy entry in the predicate lock target hash table, restoring a 
 
 ## Definition
 
-
+```c
+static void
+RestoreScratchTarget(bool lockheld)
+```
 ## Detailed Description
 RestoreScratchTarget is a static function in PostgreSQL's predicate locking system that re-inserts the dummy scratch target entry into the PredicateLockTargetHash. This function is part of the serializable snapshot isolation implementation and is used to restore the scratch target after it has been temporarily removed from the hash table during lock operations. The scratch target serves as a placeholder entry that allows safe manipulation of the predicate lock target hash table.
 

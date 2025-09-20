@@ -8,7 +8,10 @@ A Windows-specific implementation of the POSIX pthread_mutex_unlock function tha
 
 ## Definition
 
-
+```c
+int
+pthread_mutex_unlock(pthread_mutex_t *mp)
+```
 ## Detailed Description
 This function provides a Windows-compatible implementation of the standard POSIX pthread_mutex_unlock function. It is specifically designed for the ECPG library to enable thread-safe operations on Windows platforms where native POSIX threading is not available. The function releases a mutex lock by calling the Windows API LeaveCriticalSection function on the underlying Critical Section object.
 

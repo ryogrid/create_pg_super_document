@@ -8,7 +8,10 @@ Determines whether a given parse tree represents a transaction exit statement th
 
 ## Definition
 
-
+```c
+static bool
+IsTransactionExitStmt(Node *parsetree)
+```
 ## Detailed Description
 This function checks if a parse tree node represents one of the transaction exit statements that PostgreSQL allows to execute even when a transaction is in an aborted state. These statements include COMMIT, PREPARE, ROLLBACK, and ROLLBACK TO SAVEPOINT. The function first verifies that the node is a TransactionStmt, then checks the specific transaction statement kind against the allowed types. This is crucial for PostgreSQL's error recovery mechanism, as it allows clients to properly exit failed transactions.
 

@@ -8,7 +8,10 @@ Extended version of OpclassIsVisible that provides optional error handling for m
 
 ## Definition
 
-
+```c
+static bool
+OpclassIsVisibleExt(Oid opcid, bool *is_missing)
+```
 ## Detailed Description
 OpclassIsVisibleExt is the core implementation function for operator class visibility checking in PostgreSQL's namespace system. It determines whether an operator class is visible in the current search path by performing a comprehensive check that includes cache lookup, namespace path verification, and name resolution conflicts.
 

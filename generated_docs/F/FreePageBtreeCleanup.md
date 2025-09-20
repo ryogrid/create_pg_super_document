@@ -8,7 +8,10 @@ Attempts to reclaim space from the free-page B-tree by reducing tree depth and r
 
 ## Definition
 
-
+```c
+static Size
+FreePageBtreeCleanup(FreePageManager *fpm)
+```
 ## Detailed Description
 This function performs opportunistic cleanup and optimization of the free-page B-tree structure to reduce memory overhead and potentially create larger contiguous free ranges. The cleanup operates in two main phases:
 

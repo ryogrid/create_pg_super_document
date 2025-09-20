@@ -8,7 +8,10 @@ Initializes the hash table used for tracking file map entries in pg_rewind opera
 
 ## Definition
 
-
+```c
+void
+filehash_init(void)
+```
 ## Detailed Description
 The  function creates and initializes the global hash table () that stores file map entries during pg_rewind operations. This hash table is used to track information about files and their attributes in both the target and source data directories. The function sets up the initial hash table structure using the simplehash library with a predefined initial size.
 

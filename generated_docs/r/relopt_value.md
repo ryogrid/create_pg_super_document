@@ -8,7 +8,21 @@ relopt_value is a structure that holds a parsed relation option value, containin
 
 ## Definition
 
-
+```c
+typedef struct relopt_value
+{
+	relopt_gen *gen;
+	bool		isset;
+	union
+	{
+		bool		bool_val;
+		int			int_val;
+		double		real_val;
+		int			enum_val;
+		char	   *string_val; /* allocated separately */
+	}			values;
+} relopt_value;
+```
 ## Detailed Description
 The relopt_value structure represents a parsed and validated relation option value. It serves as a container that links the option definition (via the gen pointer) with its actual value stored in a type-safe union. This structure is used throughout the relation options parsing and processing pipeline to maintain both the metadata about an option and its concrete value.
 

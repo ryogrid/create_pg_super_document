@@ -8,7 +8,37 @@ The CState structure represents the complete state of a single client connection
 
 ## Definition
 
+```c
+typedef struct
+{
+	int			tid;			/* thread id */
+	THREAD_T	thread;			/* thread handle */
+	CState	   *state;			/* array of CState */
+	int			nstate;			/* length of state[] */
 
+	/*
+	 * Separate randomness for each thread. Each thread option uses its own
+	 * random state to make all of them independent of each other and
+	 * therefore deterministic at the thread level.
+	 */
+	pg_prng_state ts_choose_rs; /* random state for selecting a script */
+	pg_prng_state ts_throttle_rs;	/* random state for transaction throttling */
+	pg_prng_state ts_sample_rs; /* random state for log sampling */
+
+	int64		throttle_trigger;	/* previous/next throttling (us) */
+	FILE	   *logfile;		/* where to log, or NULL */
+
+	/* per thread collected stats in microseconds */
+	pg_time_usec_t create_time; /* thread creation time */
+	pg_time_usec_t started_time;	/* thread is running */
+	pg_time_usec_t bench_start; /* thread is benchmarking */
+	pg_time_usec_t conn_duration;	/* cumulated connection and disconnection
+									 * delays */
+
+	StatsData	stats;
+	int64		latency_late;	/* count executed but late transactions */
+} TState;
+```
 ## Detailed Description
 The CState structure serves as the comprehensive state container for individual pgbench clients, implementing a complete client execution context that tracks database connections, script execution progress, variable storage, timing measurements, and error handling capabilities.
 

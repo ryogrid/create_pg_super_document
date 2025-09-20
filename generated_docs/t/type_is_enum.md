@@ -8,7 +8,10 @@ Determines whether a PostgreSQL type is an enumerated type (enum) by checking it
 
 ## Definition
 
-
+```c
+bool
+type_is_enum(Oid typid)
+```
 ## Detailed Description
 This simple utility function provides a clean interface for identifying PostgreSQL enumerated types. Enumerated types in PostgreSQL are user-defined types that consist of a static, ordered set of values defined at creation time using CREATE TYPE ... AS ENUM (...).
 

@@ -8,7 +8,12 @@ Generates plausible SCRAM secret parameters for mock authentication when there i
 
 ## Definition
 
-
+```c
+static void
+mock_scram_secret(const char *username, pg_cryptohash_type *hash_type,
+				  int *iterations, int *key_length, char **salt,
+				  uint8 *stored_key, uint8 *server_key)
+```
 ## Detailed Description
 This function creates realistic-looking SCRAM authentication parameters for use in mock authentication scenarios. It is called when a user attempts to authenticate but no valid stored secret exists, helping to prevent timing attacks by ensuring the authentication process takes roughly the same amount of time regardless of whether a user exists or not.
 

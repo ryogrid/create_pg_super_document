@@ -8,7 +8,11 @@ Determines whether a given data type requires length coercion (type modifier adj
 
 ## Definition
 
-
+```c
+CoercionPathType
+find_typmod_coercion_function(Oid typeId,
+							  Oid *funcid)
+```
 ## Detailed Description
 find_typmod_coercion_function identifies types that need length coercion by looking for pg_cast entries where both source and target types are the same. This indicates that the type has a function to adjust its length or precision modifiers (typmod).
 

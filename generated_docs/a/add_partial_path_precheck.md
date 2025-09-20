@@ -8,7 +8,11 @@ Performs a preliminary check to determine whether a proposed partial path is wor
 
 ## Definition
 
-
+```c
+bool
+add_partial_path_precheck(RelOptInfo *parent_rel, Cost total_cost,
+						  List *pathkeys)
+```
 ## Detailed Description
 The  function serves as an optimization to avoid expensive path creation and evaluation when a proposed partial path is clearly inferior to existing alternatives. It performs a lightweight comparison against existing partial paths and non-parallel plans to determine if a path is worth pursuing.
 

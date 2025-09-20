@@ -8,7 +8,10 @@ Processes pending signals and interrupts received by the checkpointer process, h
 
 ## Definition
 
-
+```c
+static void
+HandleCheckpointerInterrupts(void)
+```
 ## Detailed Description
 HandleCheckpointerInterrupts is a critical function that processes various types of interrupts and signals that the checkpointer process may receive during its operation. The function handles several key scenarios:
 

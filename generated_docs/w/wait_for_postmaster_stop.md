@@ -8,7 +8,10 @@ Waits for the PostgreSQL postmaster process to stop completely, monitoring both 
 
 ## Definition
 
-
+```c
+static bool
+wait_for_postmaster_stop(void)
+```
 ## Detailed Description
 The  function implements a polling mechanism to monitor postmaster shutdown progress. It uses a dual-check approach to determine when the server has fully stopped:
 

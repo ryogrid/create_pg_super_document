@@ -8,7 +8,26 @@ A struct that represents a request to fetch a specific piece of a file from the 
 
 ## Definition
 
+```c
+typedef struct
+{
+	rewind_source common;		/* common interface functions */
 
+	PGconn	   *conn;
+
+	/*
+	 * Queue of chunks that have been requested with the queue_fetch_range()
+	 * function, but have not been fetched from the remote server yet.
+	 */
+	int			num_requests;
+	fetch_range_request request_queue[MAX_CHUNKS_PER_QUERY];
+
+	/* temporary space for process_queued_fetch_requests() */
+	StringInfoData paths;
+	StringInfoData offsets;
+	StringInfoData lengths;
+} libpq_source;
+```
 ## Detailed Description
 The `fetch_range_request` structure is a fundamental component of the libpq-based source implementation in pg_rewind. It encapsulates the information needed to request a specific range of bytes from a file on the remote PostgreSQL server. This structure is designed to support efficient batching of file retrieval operations by allowing multiple fetch requests to be queued and processed together.
 

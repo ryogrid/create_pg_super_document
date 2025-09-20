@@ -8,7 +8,10 @@ A public function that converts a list of TypeName structures into a comma-separ
 
 ## Definition
 
-
+```c
+char *
+TypeNameListToString(List *typenames)
+```
 ## Detailed Description
 This function processes a PostgreSQL List containing multiple TypeName structures and formats them into a single comma-separated string. It iterates through each TypeName in the list, using appendTypeNameToBuffer to format individual type names and inserting commas between them. The function builds the complete string in a StringInfo buffer and returns the final result.
 

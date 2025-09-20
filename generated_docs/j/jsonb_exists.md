@@ -8,7 +8,9 @@ Tests whether a top-level key exists in a JSONB object or a string value exists 
 
 ## Definition
 
-
+```c
+struct_array_builtin(keys, TEXTOID, &key_datums, &key_nulls, &elem_count);
+```
 ## Detailed Description
 The jsonb_exists function implements the PostgreSQL '?' operator for JSONB values. It checks for the existence of a specified key at the top level of a JSONB object, or for the existence of a string element in a JSONB array. The function only performs top-level matching and does not recurse into nested structures.
 

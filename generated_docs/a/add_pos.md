@@ -8,7 +8,12 @@ A static function that adds positions from a source TSVector word entry to a des
 
 ## Definition
 
-
+```c
+static int32
+add_pos(TSVector src, WordEntry *srcptr,
+		TSVector dest, WordEntry *destptr,
+		int32 maxpos)
+```
 ## Detailed Description
 The  function copies word position data from a source TSVector word entry to a destination word entry, applying a position offset. It's designed to handle TSVector concatenation operations where position values need to be adjusted to maintain proper ordering. The function includes overflow protection and position limits to ensure data integrity.
 

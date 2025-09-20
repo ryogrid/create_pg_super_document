@@ -8,7 +8,9 @@ Reads and validates the PostgreSQL server's process ID from the PID file, with c
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The  function is a critical component of pg_ctl that retrieves the PostgreSQL server's process ID by reading from the PID file. It performs extensive validation of the data directory and PID file to ensure they exist and contain valid data.
 

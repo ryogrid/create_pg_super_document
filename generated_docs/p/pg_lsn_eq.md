@@ -8,7 +8,10 @@ Compares two PostgreSQL Log Sequence Number (LSN) values for equality, returning
 
 ## Definition
 
-
+```c
+Datum
+pg_lsn_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the equality operator (=) for the pg_lsn data type in PostgreSQL. It extracts two XLogRecPtr values from the function arguments and performs a direct comparison using the C equality operator. The function is part of PostgreSQL's WAL management system and allows SQL queries to compare LSN values to determine if they reference the same position in the transaction log.
 

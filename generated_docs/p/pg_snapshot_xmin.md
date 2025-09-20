@@ -8,7 +8,10 @@ Extracts and returns the minimum transaction ID (xmin) from a PostgreSQL snapsho
 
 ## Definition
 
-
+```c
+Datum
+pg_snapshot_xmin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that extracts the  field from a snapshot. The  value represents the minimum transaction ID that was still running when the snapshot was created. This is a crucial component of PostgreSQL's snapshot isolation mechanism.
 

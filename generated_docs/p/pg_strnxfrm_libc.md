@@ -8,7 +8,11 @@ This static function transforms strings of specified length into sort keys using
 
 ## Definition
 
-
+```c
+static size_t
+pg_strnxfrm_libc(char *dest, const char *src, size_t srclen, size_t destsize,
+				 pg_locale_t locale)
+```
 ## Detailed Description
 pg_strnxfrm_libc is a wrapper function that enables string transformation on non-null-terminated strings by handling the null-termination requirement internally. It serves as an adapter between PostgreSQL's length-based string handling and libc's null-terminated string transformation functions.
 

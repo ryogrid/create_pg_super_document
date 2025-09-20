@@ -8,7 +8,10 @@ Marks a partition as pending detach in concurrent mode for ATExecDetachPartition
 
 ## Definition
 
-
+```c
+static void
+MarkInheritDetached(Relation child_rel, Relation parent_rel)
+```
 ## Detailed Description
 MarkInheritDetached is a utility function used by the concurrent partition detachment process. It scans all inheritance entries for a given parent table to find the specified child partition and sets its inhdetachpending flag to true in the pg_inherits catalog. During this process, it also validates that no other partition of the same parent table is already marked as pending detach, as PostgreSQL allows only one concurrent detach operation per partitioned table at a time. The function operates under a RowExclusiveLock on the pg_inherits catalog to ensure consistency during the concurrent operation.
 

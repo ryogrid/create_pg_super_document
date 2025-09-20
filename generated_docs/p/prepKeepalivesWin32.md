@@ -8,7 +8,10 @@ Prepares and configures TCP keepalive parameters for Windows systems by parsing 
 
 ## Definition
 
-
+```c
+static int
+prepKeepalivesWin32(PGconn *conn)
+```
 ## Detailed Description
 This function serves as a preparation and coordination layer for configuring TCP keepalives on Windows systems. It extracts keepalive configuration parameters from the PostgreSQL connection structure, parses and validates them, and then delegates the actual socket configuration to the pqSetKeepalivesWin32 function. 
 

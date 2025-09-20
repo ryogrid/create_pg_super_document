@@ -8,7 +8,10 @@ Attaches a parallel worker process to an existing SharedRecordTypmodRegistry tha
 
 ## Definition
 
-
+```c
+void
+SharedRecordTypmodRegistryAttach(SharedRecordTypmodRegistry *registry)
+```
 ## Detailed Description
 This function allows parallel worker processes to attach to a shared record typmod registry that was already initialized by the leader process via SharedRecordTypmodRegistryInit(). It establishes connection to the shared hash tables for record type management and sets up the session state needed for coordinated typmod assignment and tuple descriptor lookup across parallel backends.
 

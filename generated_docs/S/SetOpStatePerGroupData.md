@@ -8,7 +8,13 @@ SetOpStatePerGroupData is a per-group working state structure used in PostgreSQL
 
 ## Definition
 
-
+```c
+typedef struct SetOpStatePerGroupData
+{
+	long		numLeft;		/* number of left-input dups in group */
+	long		numRight;		/* number of right-input dups in group */
+}			SetOpStatePerGroupData;
+```
 ## Detailed Description
 SetOpStatePerGroupData represents the per-group working state that maintains counters for duplicate tuples from both left and right input sources during set operations (UNION, INTERSECT, EXCEPT). This structure is initialized at the start of processing an input tuple group and updated as each input tuple is processed.
 

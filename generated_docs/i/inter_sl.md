@@ -8,7 +8,10 @@ Tests whether a line segment intersects with an infinite line.
 
 ## Definition
 
-
+```c
+Datum
+inter_sl(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operator that determines if a line segment (LSEG) intersects with an infinite line (LINE). This function is part of the intersection testing family (inter_*) and serves as a SQL-callable wrapper for geometric intersection calculations. The function uses  with a NULL first parameter to perform a boolean intersection test without calculating the actual intersection point, returning true if the line segment and infinite line intersect anywhere.
 

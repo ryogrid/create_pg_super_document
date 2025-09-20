@@ -8,7 +8,11 @@ Performs the actual physical deletion of a tuple from a regular (non-foreign) ta
 
 ## Definition
 
-
+```c
+static TM_Result
+ExecDeleteAct(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+			  ItemPointer tupleid, bool changingPart)
+```
 ## Detailed Description
 ExecDeleteAct is a focused function that handles the core deletion operation for regular tables. It serves as a thin wrapper around the storage layer's table_tuple_delete function, providing the necessary execution context and parameters:
 

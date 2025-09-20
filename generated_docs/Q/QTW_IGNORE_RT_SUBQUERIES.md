@@ -8,7 +8,9 @@ A flag bit used by query_tree_walker and query_tree_mutator functions to control
 
 ## Definition
 
-
+```c
+#define QTW_IGNORE_RT_SUBQUERIES	0x01	/* subqueries in rtable */
+```
 ## Detailed Description
 QTW_IGNORE_RT_SUBQUERIES is a flag constant that controls the behavior of PostgreSQL's query tree traversal functions. When this flag is set, the tree walker and mutator functions will skip processing subqueries that are contained within range table entries (RTE_SUBQUERY type entries). This provides a mechanism to perform selective traversal of the query tree, allowing callers to avoid descending into subqueries within the range table when they are not relevant to the current operation.
 

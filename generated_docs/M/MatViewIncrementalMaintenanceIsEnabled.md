@@ -8,7 +8,10 @@ Tests whether the backend is currently in a context where DML statements are all
 
 ## Definition
 
-
+```c
+bool
+MatViewIncrementalMaintenanceIsEnabled(void)
+```
 ## Detailed Description
 This function serves as a security gate to distinguish between legitimate internal materialized view maintenance operations and arbitrary user-supplied DML operations. It prevents unauthorized modifications to materialized views while allowing the system's own refresh and maintenance processes to proceed.
 

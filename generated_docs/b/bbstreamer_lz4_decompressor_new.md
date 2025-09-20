@@ -8,7 +8,10 @@ Creates a new base backup streamer that performs LZ4 decompression of compressed
 
 ## Definition
 
-
+```c
+bbstreamer *
+bbstreamer_lz4_decompressor_new(bbstreamer *next)
+```
 ## Detailed Description
 This function initializes a new LZ4 decompression streamer for processing compressed PostgreSQL backup data. It creates and configures the LZ4 decompression context, sets up the decompressor operation table, and initializes internal buffers for handling compressed input data.
 

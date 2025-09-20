@@ -8,7 +8,13 @@ Generates a targetlist for a set-operation Append node, creating simple Var node
 
 ## Definition
 
-
+```c
+static List *
+generate_append_tlist(List *colTypes, List *colCollations,
+					  bool flag,
+					  List *input_tlists,
+					  List *refnames_tlist)
+```
 ## Detailed Description
 This function constructs a targetlist for Append plan nodes used in set operations by creating simple Var expressions that reference columns from the input subplans. Unlike generate_setop_tlist, this function creates Vars with varno 0 and focuses on determining the appropriate typmod for each column by examining all input targetlists. If all input subplans agree on both the datatype and typmod for a column, that typmod is used; otherwise, typmod is set to -1 to indicate unknown/variable precision.
 

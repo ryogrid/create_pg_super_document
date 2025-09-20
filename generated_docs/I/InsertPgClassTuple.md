@@ -8,7 +8,14 @@ Constructs and inserts a new tuple into the pg_class system catalog to register 
 
 ## Definition
 
-
+```c
+void
+InsertPgClassTuple(Relation pg_class_desc,
+				   Relation new_rel_desc,
+				   Oid new_rel_oid,
+				   Datum relacl,
+				   Datum reloptions)
+```
 ## Detailed Description
 InsertPgClassTuple is a low-level catalog management function that creates and inserts a pg_class tuple for a newly created relation. It extracts relation metadata from the relation descriptor's rd_rel field and constructs a complete pg_class tuple with all necessary fields properly formatted.
 

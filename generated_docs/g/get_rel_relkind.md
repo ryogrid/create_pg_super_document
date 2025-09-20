@@ -8,7 +8,10 @@ Returns the relkind (relation kind) character associated with a given relation, 
 
 ## Definition
 
-
+```c
+char
+get_rel_relkind(Oid relid)
+```
 ## Detailed Description
 This function retrieves the relation kind (relkind) for a specified relation from the system catalog. The relkind field is a single character that identifies the type of relation object in PostgreSQL's catalogs. Common relkind values include 'r' for regular tables, 'i' for indexes, 'v' for views, 'S' for sequences, 'f' for foreign tables, 'p' for partitioned tables, and others.
 

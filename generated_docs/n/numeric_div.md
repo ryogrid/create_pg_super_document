@@ -8,7 +8,10 @@ PostgreSQL function that performs division of two numeric values, implementing t
 
 ## Definition
 
-
+```c
+Datum
+numeric_div(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that divides one numeric value by another. It serves as the implementation for the SQL division operator (/) when applied to NUMERIC data types. This function is a thin wrapper around , providing the standard PostgreSQL function interface for numeric division operations.
 

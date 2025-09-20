@@ -8,7 +8,39 @@ ParallelApplyWorkerInfo is a management structure that coordinates communication
 
 ## Definition
 
+```c
+typedef struct ParallelApplyWorkerInfo
+{
+	/*
+	 * This queue is used to send changes from the leader apply worker to the
+	 * parallel apply worker.
+	 */
+	shm_mq_handle *mq_handle;
 
+	/*
+	 * This queue is used to transfer error messages from the parallel apply
+	 * worker to the leader apply worker.
+	 */
+	shm_mq_handle *error_mq_handle;
+
+	dsm_segment *dsm_seg;
+
+	/*
+	 * Indicates whether the leader apply worker needs to serialize the
+	 * remaining changes to a file due to timeout when attempting to send data
+	 * to the parallel apply worker via shared memory.
+	 */
+	bool		serialize_changes;
+
+	/*
+	 * True if the worker is being used to process a parallel apply
+	 * transaction. False indicates this worker is available for re-use.
+	 */
+	bool		in_use;
+
+	ParallelApplyWorkerShared *shared;
+} ParallelApplyWorkerInfo;
+```
 ## Detailed Description
 ParallelApplyWorkerInfo serves as the primary management interface for parallel apply workers from the leader worker's perspective. It encapsulates all the communication channels, memory management, and state tracking needed to coordinate with a parallel worker process. The structure manages shared memory queues for bidirectional communication, tracks worker availability, and handles fallback mechanisms when shared memory communication becomes inefficient due to timeouts or capacity issues.
 

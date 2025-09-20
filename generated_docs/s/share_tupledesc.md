@@ -8,7 +8,10 @@ Copies a tuple descriptor into shared memory with a specified typmod value and r
 
 ## Definition
 
-
+```c
+static dsa_pointer
+share_tupledesc(dsa_area *area, TupleDesc tupdesc, uint32 typmod)
+```
 ## Detailed Description
 The  function creates a copy of a tuple descriptor in shared memory managed by a dynamic shared area (DSA). It allocates space in the shared memory area sufficient to hold the tuple descriptor, copies the original descriptor using , and sets the typmod field to the specified value. The function returns a  that can be used to access the shared tuple descriptor from any process with access to the same DSA area.
 

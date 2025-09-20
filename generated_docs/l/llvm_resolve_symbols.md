@@ -8,7 +8,13 @@ LLVM ORC JIT callback function that resolves multiple undefined symbols simultan
 
 ## Definition
 
-
+```c
+static LLVMErrorRef
+llvm_resolve_symbols(LLVMOrcDefinitionGeneratorRef GeneratorObj, void *Ctx,
+					 LLVMOrcLookupStateRef *LookupState, LLVMOrcLookupKind Kind,
+					 LLVMOrcJITDylibRef JD, LLVMOrcJITDylibLookupFlags JDLookupFlags,
+					 LLVMOrcCLookupSet LookupSet, size_t LookupSetSize)
+```
 ## Detailed Description
 This function serves as a callback for LLVM's ORC (On-Request Compilation) JIT system when it needs to resolve multiple undefined symbols. It's part of LLVM's lazy compilation and symbol resolution mechanism, which allows the JIT to resolve symbols on-demand as they are needed.
 

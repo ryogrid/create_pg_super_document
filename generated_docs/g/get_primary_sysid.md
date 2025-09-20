@@ -8,7 +8,10 @@ Retrieves the system identifier from a PostgreSQL publisher database, which is u
 
 ## Definition
 
-
+```c
+static uint64
+get_primary_sysid(const char *conninfo)
+```
 ## Detailed Description
 The  function connects to a PostgreSQL publisher database and retrieves its system identifier by querying the  function. The system identifier is a unique 64-bit integer that PostgreSQL assigns to each database cluster during initialization (). This identifier is crucial for pg_createsubscriber to verify that the subscriber's data directory is indeed a physical copy (base backup) of the publisher database.
 

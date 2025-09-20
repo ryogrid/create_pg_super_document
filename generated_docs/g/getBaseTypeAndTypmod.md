@@ -8,7 +8,10 @@ Resolves the base type of a PostgreSQL type by unwinding domain type hierarchies
 
 ## Definition
 
-
+```c
+Oid
+getBaseTypeAndTypmod(Oid typid, int32 *typmod)
+```
 ## Detailed Description
 This function traverses the PostgreSQL domain type hierarchy to find the underlying base type. In PostgreSQL, domains are user-defined data types that are based on another data type (which can be another domain, creating a stack). The function iteratively follows the domain chain until it reaches a non-domain type, which is considered the base type.
 

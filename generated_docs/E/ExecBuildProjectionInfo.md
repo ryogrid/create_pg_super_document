@@ -8,7 +8,15 @@ Builds a ProjectionInfo node for evaluating a target list in a given expression 
 
 ## Definition
 
-
+```c
+structing a new tuple during UPDATE.
+ * The projection will be executed in the given econtext and the result will
+ * be stored into the given tuple slot.  (Caller must have ensured that tuple
+ * slot has a descriptor matching the target rel!)
+ *
+ * When evalTargetList is false, targetList contains the UPDATE ... SET
+ * expressions that have already been computed by a subplan node;
+```
 ## Detailed Description
 ExecBuildProjectionInfo creates a ProjectionInfo node that efficiently evaluates a list of target entries (projection expressions) and stores the results in a specified tuple slot. The function implements an optimized projection mechanism by:
 

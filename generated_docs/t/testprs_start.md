@@ -8,7 +8,10 @@ Initialize a parser state for parsing text input in PostgreSQL test parser modul
 
 ## Definition
 
-
+```c
+Datum
+testprs_start(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The testprs_start function is part of PostgreSQL's test parser module, designed to initialize and set up a parser state for text parsing operations. It creates and initializes a ParserState structure with the input text buffer and its length, setting the initial parsing position to 0. The function follows PostgreSQL's standard function interface pattern using PG_FUNCTION_ARGS and returns a Datum containing a pointer to the allocated parser state.
 

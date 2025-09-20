@@ -8,7 +8,11 @@ Formats command strings to send to parallel worker processes, specifying which t
 
 ## Definition
 
-
+```c
+static void
+buildWorkerCommand(ArchiveHandle *AH, TocEntry *te, T_Action act,
+				   char *buf, int buflen)
+```
 ## Detailed Description
 buildWorkerCommand constructs text-based command messages that the leader process sends to worker processes through inter-process communication channels. The function creates simple command strings that specify the action type (DUMP or RESTORE) and the dump ID of the table of contents entry to be processed. The command format is standardized across all archive formats, though the function design allows for future format-specific extensions. Commands are written to a caller-provided buffer with bounds checking.
 

@@ -8,7 +8,10 @@ Retrieves a row of data from the PostgreSQL backend during COPY OUT or COPY BOTH
 
 ## Definition
 
-
+```c
+int
+PQgetCopyData(PGconn *conn, char **buffer, int async)
+```
 ## Detailed Description
 PQgetCopyData reads data rows from the PostgreSQL server during COPY OUT operations. It acts as a high-level wrapper around the protocol-specific pqGetCopyData3 function, handling connection state validation and providing a consistent interface for both synchronous and asynchronous operation modes.
 

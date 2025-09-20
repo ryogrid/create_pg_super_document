@@ -8,7 +8,10 @@ Converts UTF-8 encoded text to KOI8-R (Russian Cyrillic) encoding within Postgre
 
 ## Definition
 
-
+```c
+Datum
+utf8_to_koi8r(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL conversion procedure that transforms UTF-8 encoded strings into KOI8-R encoding. KOI8-R is a character encoding designed for the Russian language using Cyrillic script. The function implements PostgreSQL's standard conversion procedure interface, accepting source and destination buffers along with conversion parameters. It utilizes the UtfToLocal utility function with a KOI8-R-specific Unicode conversion tree (koi8r_from_unicode_tree) to perform the actual character mapping from UTF-8 Unicode codepoints to KOI8-R byte sequences.
 

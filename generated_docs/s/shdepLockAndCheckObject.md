@@ -8,7 +8,10 @@ Locks a shared object and verifies it still exists before recording a dependency
 
 ## Definition
 
-
+```c
+void
+shdepLockAndCheckObject(Oid classId, Oid objectId)
+```
 ## Detailed Description
 This function provides essential synchronization for shared dependency tracking by acquiring an AccessShareLock on the target object and then verifying that the object hasn't been concurrently dropped. The function handles different types of shared objects (roles, tablespaces, databases) with appropriate existence checks.
 

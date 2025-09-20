@@ -8,7 +8,12 @@ Estimates join selectivity between two histogram distributions for inet network 
 
 ## Definition
 
-
+```c
+static Selectivity
+inet_hist_inclusion_join_sel(Datum *hist1_values, int hist1_nvalues,
+							 Datum *hist2_values, int hist2_nvalues,
+							 int opr_codenum)
+```
 ## Detailed Description
 This function performs selectivity estimation for join operations between two relations that both have histogram statistics for their inet columns. It uses a sampling-based approach to estimate how well the two distributions will match under the specified inclusion operator.
 

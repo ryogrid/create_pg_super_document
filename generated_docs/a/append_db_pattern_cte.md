@@ -8,7 +8,11 @@ Constructs a Common Table Expression (CTE) containing database name patterns ext
 
 ## Definition
 
-
+```c
+static bool
+append_db_pattern_cte(PQExpBuffer buf, const PatternInfoArray *pia,
+					  PGconn *conn, bool inclusive)
+```
 ## Detailed Description
 This function generates the body of a SQL CTE (Common Table Expression) that contains database patterns filtered from the input pattern array. The CTE produces two columns: `pattern_id` (index in the pattern array) and `rgx` (the database regular expression). The function provides flexibility in pattern inclusion based on the `inclusive` parameter - when false, it only includes patterns that specify only a database name, when true, it includes patterns that may also have schema and/or relation components.
 

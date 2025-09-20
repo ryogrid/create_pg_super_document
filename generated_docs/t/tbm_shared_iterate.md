@@ -8,7 +8,10 @@ Scans through the next page of a TIDBitmap using a shared iterator that can be s
 
 ## Definition
 
-
+```c
+TBMIterateResult *
+tbm_shared_iterate(TBMSharedIterator *iterator)
+```
 ## Detailed Description
 The  function provides the same core functionality as  but with multi-process safety through LWLock synchronization. Before accessing shared iterator state, it acquires an exclusive LWLock to prevent race conditions between concurrent processes.
 

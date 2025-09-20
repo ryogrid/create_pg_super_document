@@ -8,7 +8,10 @@ A callback function that evaluates the effectiveness of abbreviated key optimiza
 
 ## Definition
 
-
+```c
+static bool
+macaddr_abbrev_abort(int memtupcount, SortSupport ssup)
+```
 ## Detailed Description
 This function serves as a cardinality estimation callback for PostgreSQL's sort support system when sorting MAC addresses with abbreviated keys. It analyzes the effectiveness of the abbreviation optimization by examining the cardinality (number of distinct values) of abbreviated keys compared to the total input count. The function uses HyperLogLog estimation to determine if the abbreviated key optimization is providing sufficient benefit to justify its overhead.
 

@@ -8,7 +8,10 @@ Registers a cleanup handler to ensure proper archive connection cleanup when pg_
 
 ## Definition
 
-
+```c
+void
+on_exit_close_archive(Archive *AHX)
+```
 ## Detailed Description
 This function serves as a registration mechanism for cleanup operations in pg_dump and pg_restore utilities. It sets up an exit handler that will automatically close archive connections when the process terminates, either normally or abnormally.
 

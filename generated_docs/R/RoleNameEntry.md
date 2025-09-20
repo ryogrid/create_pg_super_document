@@ -8,7 +8,14 @@ RoleNameEntry is a structure used as the element type for a hash table that trac
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	uint32		status;
+	uint32		hashval;
+	char	   *rolename;
+} RoleNameEntry;
+```
 ## Detailed Description
 RoleNameEntry serves as the data structure for elements stored in a simple hash table (using PostgreSQL's simplehash.h framework) within the pg_dumpall utility. This hash table is specifically used in the dumpRoleMembership() function to track which roles have been processed as grantors during the dumping of role membership information. The structure is designed to work with PostgreSQL's generic hash table implementation, storing the role name as the key along with hash table metadata.
 

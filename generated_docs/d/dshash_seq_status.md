@@ -8,7 +8,18 @@ The dshash_seq_status struct maintains state information for sequential scanning
 
 ## Definition
 
-
+```c
+typedef struct dshash_seq_status
+{
+	dshash_table *hash_table;	/* dshash table working on */
+	int			curbucket;		/* bucket number we are at */
+	int			nbuckets;		/* total number of buckets in the dshash */
+	dshash_table_item *curitem; /* item we are currently at */
+	dsa_pointer pnextitem;		/* dsa-pointer to the next item */
+	int			curpartition;	/* partition number we are at */
+	bool		exclusive;		/* locking mode */
+} dshash_seq_status;
+```
 ## Detailed Description
 The dshash_seq_status structure encapsulates all state information needed to perform sequential scanning through a dynamic shared hash table. While the implementation details are exposed to allow users to know the storage size requirements, this structure should be treated as opaque by callers and only manipulated through the provided dshash sequential scan API functions. The structure tracks the current scanning position at multiple levels: partition, bucket, and individual item level, along with maintaining references to the hash table being scanned and the locking mode being used.
 

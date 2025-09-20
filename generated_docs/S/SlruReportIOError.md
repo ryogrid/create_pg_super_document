@@ -8,7 +8,10 @@ Reports I/O errors that occur during SLRU (Simple Least Recently Used) page oper
 
 ## Definition
 
-
+```c
+static void
+SlruReportIOError(SlruCtl ctl, int64 pageno, TransactionId xid)
+```
 ## Detailed Description
 SlruReportIOError is a static internal function that handles error reporting after SLRU physical page I/O operations fail. It constructs detailed error messages based on the specific type of I/O failure that occurred, including file operations like open, seek, read, write, fsync, and close. The function calculates the segment number and page offset from the given page number, constructs the file path, and reports an appropriate error message using PostgreSQL's error reporting system.
 

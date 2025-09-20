@@ -8,7 +8,30 @@ JoinTreeItem is an internal data structure used during PostgreSQL's query planni
 
 ## Definition
 
-
+```c
+typedef struct JoinTreeItem
+{
+	/* Fields filled during deconstruct_recurse: */
+	Node	   *jtnode;			/* jointree node to examine */
+	JoinDomain *jdomain;		/* join domain for its ON/WHERE clauses */
+	struct JoinTreeItem *jti_parent;	/* JoinTreeItem for this node's
+										 * parent, or NULL if it's the top */
+	Relids		qualscope;		/* base+OJ Relids syntactically included in
+								 * this jointree node */
+	Relids		inner_join_rels;	/* base+OJ Relids syntactically included
+									 * in inner joins appearing at or below
+									 * this jointree node */
+	Relids		left_rels;		/* if join node, Relids of the left side */
+	Relids		right_rels;		/* if join node, Relids of the right side */
+	Relids		nonnullable_rels;	/* if outer join, Relids of the
+									 * non-nullable side */
+	/* Fields filled during deconstruct_distribute: */
+	SpecialJoinInfo *sjinfo;	/* if outer join, its SpecialJoinInfo */
+	List	   *oj_joinclauses; /* outer join quals not yet distributed */
+	List	   *lateral_clauses;	/* quals postponed from children due to
+									 * lateral references */
+} JoinTreeItem;
+```
 ## Detailed Description
 JoinTreeItem serves as a temporary data structure that facilitates the multi-pass processing of join trees during query planning. The deconstruct_jointree function requires multiple passes because JoinDomains must be fully computed before qualification distribution begins. This structure enables efficient traversal and processing by storing both structural information about the join tree and metadata needed for qualification distribution.
 

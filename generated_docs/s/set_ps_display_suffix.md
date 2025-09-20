@@ -8,7 +8,10 @@ Appends a suffix string to the current process title with a space separator, all
 
 ## Definition
 
-
+```c
+void
+set_ps_display_suffix(const char *suffix)
+```
 ## Detailed Description
 This function modifies the current process title by appending a suffix string, separated by a space from the existing title. It handles buffer management carefully to ensure the suffix fits within the available space:
 

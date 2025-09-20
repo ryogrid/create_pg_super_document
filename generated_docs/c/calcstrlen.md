@@ -8,7 +8,10 @@ Recursively calculates the total string length needed to represent all operand v
 
 ## Definition
 
-
+```c
+static int32
+calcstrlen(NODE *node)
+```
 ## Detailed Description
 The `calcstrlen` function traverses a TSQuery tree and computes the total length of string data required to store all the operand values (search terms) contained within the tree. This calculation is essential for memory allocation when converting the tree structure back to a flat TSQuery representation.
 

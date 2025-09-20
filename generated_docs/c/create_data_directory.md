@@ -8,7 +8,10 @@ Creates or validates the PostgreSQL data directory (PGDATA) during database clus
 
 ## Definition
 
-
+```c
+void
+create_data_directory(void)
+```
 ## Detailed Description
 This function is responsible for setting up the PostgreSQL data directory during the initdb process. It performs comprehensive validation and creation logic based on the current state of the target directory:
 

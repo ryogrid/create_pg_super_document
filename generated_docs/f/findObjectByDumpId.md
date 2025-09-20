@@ -8,7 +8,10 @@ Retrieves a DumpableObject by its unique DumpId, providing safe lookup with boun
 
 ## Definition
 
-
+```c
+DumpableObject *
+findObjectByDumpId(DumpId dumpId)
+```
 ## Detailed Description
 This function performs a lookup operation to find a DumpableObject associated with a given DumpId. It uses the global dumpIdMap array to perform the lookup, with built-in bounds checking to ensure the DumpId is valid. The function returns NULL for invalid or out-of-range DumpIds, making it safe to use in situations where the existence of an object is uncertain. This is a critical function in pg_dump's object management system, enabling efficient retrieval of objects during dependency resolution, archive building, and dump output generation.
 

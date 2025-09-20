@@ -8,7 +8,18 @@ IndexBulkDeleteResult is a structure that holds statistics returned by ambulkdel
 
 ## Definition
 
-
+```c
+typedef struct IndexBulkDeleteResult
+{
+	BlockNumber num_pages;		/* pages remaining in index */
+	bool		estimated_count;	/* num_index_tuples is an estimate */
+	double		num_index_tuples;	/* tuples remaining */
+	double		tuples_removed; /* # removed during vacuum operation */
+	BlockNumber pages_newly_deleted;	/* # pages marked deleted by us  */
+	BlockNumber pages_deleted;	/* # pages marked deleted (could be by us) */
+	BlockNumber pages_free;		/* # pages available for reuse */
+} IndexBulkDeleteResult;
+```
 ## Detailed Description
 IndexBulkDeleteResult serves as the return structure for index vacuum operations, providing comprehensive statistics about the state of the index before and after vacuum operations. This structure is typically allocated by the first ambulkdelete call and then passed through subsequent calls until reaching amvacuumcleanup. However, amvacuumcleanup must be prepared to allocate it when no ambulkdelete calls were made (because no tuples needed deletion).
 

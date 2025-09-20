@@ -8,7 +8,11 @@ Adds a new state record for a subscription table to the pg_subscription_rel syst
 
 ## Definition
 
-
+```c
+void
+AddSubscriptionRelState(Oid subid, Oid relid, char state,
+						XLogRecPtr sublsn, bool retain_lock)
+```
 ## Detailed Description
 This function creates a new entry in the pg_subscription_rel catalog to track the replication state of a specific table within a logical replication subscription. It validates that the subscription-relation pair doesn't already exist, then inserts a new tuple with the provided state information. The function handles proper locking of both the subscription and the catalog relation, with an option to retain locks for binary upgrade scenarios.
 

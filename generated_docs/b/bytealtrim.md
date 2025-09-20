@@ -8,7 +8,10 @@ The  function removes bytes from the beginning (left side) of a bytea string, tr
 
 ## Definition
 
-
+```c
+Datum
+bytealtrim(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that implements left trimming for bytea (binary string) data types. It removes all leading bytes from the input string that match any byte present in the trim set. The function continues removing bytes from the beginning until it encounters a byte that is not in the trim set, then returns the remaining portion of the string.
 

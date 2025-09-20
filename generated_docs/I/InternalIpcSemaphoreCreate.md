@@ -8,7 +8,24 @@ InternalIpcSemaphoreCreate is a static function that attempts to create a new Sy
 
 ## Definition
 
-
+```c
+struction but
+		 * not gone yet.
+		 *
+		 * EINVAL is the key reason why we need the caller-level loop limit,
+		 * as it can also mean that the platform's SEMMSL is less than
+		 * numSems, and that condition can't be fixed by trying another key.
+		 */
+		if (retry_ok &&
+			(saved_errno == EEXIST
+			 || saved_errno == EACCES
+			 || saved_errno == EINVAL
+#ifdef EIDRM
+			 || saved_errno == EIDRM
+#endif
+			 ))
+			return -1;
+```
 ## Detailed Description
 This function serves as a low-level wrapper around the system  call with IPC_CREAT and IPC_EXCL flags to create a new semaphore set. It implements careful error handling to distinguish between recoverable errors (like collisions with existing semaphore sets) and fatal system errors. The function uses IPC_EXCL to ensure it only succeeds when creating a genuinely new semaphore set, preventing accidental reuse of existing semaphores.
 

@@ -8,7 +8,11 @@ A fallback split implementation that evenly distributes tuples when the user-def
 
 ## Definition
 
-
+```c
+union datums for each side
+	 */
+	evec = palloc(sizeof(GISTENTRY) * entryvec->n + GEVHDRSZ);
+```
 ## Detailed Description
 This function serves as a safety mechanism for when user-defined picksplit methods fail by putting all keys on the same side of a split, which would be ineffective for index structure. Rather than failing the operation, genericPickSplit implements a simple but reliable strategy:
 

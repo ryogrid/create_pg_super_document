@@ -8,7 +8,10 @@ Implements the PostgreSQL LOCK TABLE command, processing a list of relations to 
 
 ## Definition
 
-
+```c
+void
+LockTableCommand(LockStmt *lockstmt)
+```
 ## Detailed Description
 LockTableCommand is the main entry point for executing LOCK TABLE statements in PostgreSQL. It iterates through each relation specified in the LOCK statement and acquires the requested lock mode on them. The function handles both regular tables and views differently - for views it calls LockViewRecurse to lock underlying tables, while for regular tables with inheritance it calls LockTableRecurse to lock child tables as well. The function respects the NOWAIT option when specified, avoiding blocking on unavailable locks.
 

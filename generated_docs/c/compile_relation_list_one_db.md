@@ -8,7 +8,12 @@ Compiles a list of relations (tables and indexes) to check within the currently 
 
 ## Definition
 
-
+```c
+static void
+compile_relation_list_one_db(PGconn *conn, SimplePtrList *relations,
+							 const DatabaseInfo *dat,
+							 uint64 *pagecount)
+```
 ## Detailed Description
 This function is a core component of the PostgreSQL  utility that builds a comprehensive list of database relations to be checked by the amcheck extension. The function constructs a complex SQL query using Common Table Expressions (CTEs) to identify relations based on inclusion/exclusion patterns and various filtering options.
 

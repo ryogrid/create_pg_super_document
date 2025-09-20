@@ -8,7 +8,10 @@ Adds a new node to an existing inner tuple, either by in-place replacement or by
 
 ## Definition
 
-
+```c
+struct new inner tuple with additional node */
+	newInnerTuple = addNode(state, innerTuple, nodeLabel, nodeN);
+```
 ## Detailed Description
 The  function handles the "addNode" operation requested by the opclass choose function. It creates a new version of the inner tuple with an additional node inserted at the specified position. If the enlarged tuple fits on the current page, it performs in-place replacement. Otherwise, it allocates a new page, moves the tuple there, updates the parent's downlink, and replaces the original tuple with either a redirection tuple (during normal operation) or a placeholder (during index build) to maintain tuple offset stability for existing downlinks.
 

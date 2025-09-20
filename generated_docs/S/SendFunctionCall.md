@@ -8,7 +8,10 @@ SendFunctionCall is a wrapper function that calls a previously-looked-up datatyp
 
 ## Definition
 
-
+```c
+bytea *
+SendFunctionCall(FmgrInfo *flinfo, Datum val)
+```
 ## Detailed Description
 SendFunctionCall serves as a convenient wrapper around FunctionCall1 specifically for datatype binary-output functions. It takes a function manager info structure and a Datum value, then calls the underlying binary output function. The function guarantees that the returned bytea result is not toasted (compressed/stored externally), which is important for reliable data transmission and serialization. This function should not be called on NULL datums.
 

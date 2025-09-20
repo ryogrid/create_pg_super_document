@@ -8,7 +8,10 @@ Extracts result column numbers (resnos) from grouping columns in a SortGroupClau
 
 ## Definition
 
-
+```c
+AttrNumber *
+extract_grouping_cols(List *groupClause, List *tlist)
+```
 ## Detailed Description
 This utility function processes a list of SortGroupClause structures alongside a target list to extract the result column numbers (resnos) of the grouping columns. For each SortGroupClause, it locates the corresponding TargetEntry in the target list using get_sortgroupclause_tle(), then extracts the resno field from that TargetEntry. The function creates and returns a dynamically allocated array containing these column numbers in the same order as they appear in the input list.
 

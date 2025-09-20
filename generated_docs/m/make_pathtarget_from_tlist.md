@@ -8,7 +8,10 @@ Constructs a PathTarget data structure from a given targetlist, serving as a lig
 
 ## Definition
 
-
+```c
+PathTarget *
+make_pathtarget_from_tlist(List *tlist)
+```
 ## Detailed Description
 This function creates a PathTarget structure by extracting expressions and sort group references from a provided targetlist. The PathTarget is a streamlined version of a full targetlist that omits most TargetEntry decorations except for sortgroupref data, while adding placeholders for evaluation cost and output data width information. The function initializes the cost and width fields as zeroes, expecting callers to use create_pathtarget() if they need these fields properly computed.
 

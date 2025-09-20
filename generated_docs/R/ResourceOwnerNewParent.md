@@ -8,7 +8,11 @@ Reassigns a resource owner to have a new parent, properly maintaining the hierar
 
 ## Definition
 
-
+```c
+void
+ResourceOwnerNewParent(ResourceOwner owner,
+					   ResourceOwner newparent)
+```
 ## Detailed Description
 ResourceOwnerNewParent manages the reparenting of resource owners within the hierarchical ownership tree. This function is essential for maintaining the integrity of the resource owner hierarchy when ownership relationships change, such as during subtransaction operations or when unlinking owners before deletion.
 

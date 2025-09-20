@@ -8,7 +8,10 @@ initStringInfoFromString initializes a StringInfoData struct from an existing pa
 
 ## Definition
 
-
+```c
+static inline void
+initStringInfoFromString(StringInfo str, char *data, int len)
+```
 ## Detailed Description
 This function initializes a StringInfoData structure to work with an existing string buffer that can be extended and modified. Unlike initReadOnlyStringInfo, this function creates a mutable StringInfo that supports all append and modification operations. The key requirement is that the input buffer must be a valid palloc'd chunk of memory that can be safely reallocated using repalloc() when more space is needed.
 

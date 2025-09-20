@@ -8,7 +8,9 @@ A static utility function in initdb that constructs full file paths by combining
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The  function is a simple path construction utility used during PostgreSQL database cluster initialization. It takes a filename and creates a complete path by prepending the PostgreSQL share directory path (stored in the global variable ). The function uses  to format the path as "share_path/filename" and assigns the result to the destination pointer. This is primarily used to locate template files and configuration files needed during initdb operations.
 

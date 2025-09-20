@@ -8,7 +8,10 @@ Implements the logical OR operation between two TSQuery objects, combining them 
 
 ## Definition
 
-
+```c
+Datum
+tsquery_or(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `tsquery_or` function is a PostgreSQL built-in function that performs a logical OR operation on two TSQuery objects. It creates a new TSQuery that will match documents if they satisfy either of the input queries (or both). Like `tsquery_and`, it includes optimization logic: if either input query is empty (size == 0), it returns the other query since ORing with an empty query effectively means the non-empty query becomes the result. For non-empty queries, it uses the `join_tsqueries` helper function with the OP_OR operator to construct the combined query tree.
 

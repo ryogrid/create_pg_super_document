@@ -8,7 +8,14 @@ The buildDefaultACLCommands function generates ALTER DEFAULT PRIVILEGES SQL comm
 
 ## Definition
 
-
+```c
+bool
+buildDefaultACLCommands(const char *type, const char *nspname,
+						const char *acls, const char *acldefault,
+						const char *owner,
+						int remoteVersion,
+						PQExpBuffer sql)
+```
 ## Detailed Description
 This function is a specialized wrapper around buildACLCommands that specifically handles default ACL entries from the pg_default_acl system catalog. Default ACLs control what permissions are automatically granted to newly created objects of a specific type within a schema or globally.
 

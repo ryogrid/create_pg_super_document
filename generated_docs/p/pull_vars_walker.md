@@ -8,7 +8,10 @@ A tree walker callback function that identifies and collects Var and PlaceHolder
 
 ## Definition
 
-
+```c
+static bool
+pull_vars_walker(Node *node, pull_vars_context *context)
+```
 ## Detailed Description
 The  function serves as a callback for tree walking operations, specifically designed to identify and collect variable references (Var nodes) and placeholder variables (PlaceHolderVar nodes) that belong to a target query nesting level. This function implements the core logic for the variable extraction process used by .
 

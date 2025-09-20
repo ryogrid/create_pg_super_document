@@ -8,7 +8,10 @@ OidOutputFunctionCall is a convenience function that calls a datatype output fun
 
 ## Definition
 
-
+```c
+char *
+OidOutputFunctionCall(Oid functionId, Datum val)
+```
 ## Detailed Description
 OidOutputFunctionCall provides a simple interface for calling datatype output functions when you only have the function's OID rather than a pre-cached FmgrInfo structure. The function internally sets up the function manager info using fmgr_info() and then calls OutputFunctionCall() to perform the actual conversion from internal Datum format to string representation.
 

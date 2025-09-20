@@ -8,7 +8,10 @@ Looks up a schema by name and verifies that the current user has CREATE privileg
 
 ## Definition
 
-
+```c
+Oid
+LookupCreationNamespace(const char *nspname)
+```
 ## Detailed Description
 This function is the primary entry point for validating schema names when creating new database objects. It performs two main operations: locating the specified namespace by name and ensuring the current user has CREATE privileges on it. The function includes special handling for the "pg_temp" alias, which refers to the session's temporary namespace and may require initialization.
 

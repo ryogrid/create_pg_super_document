@@ -8,7 +8,12 @@ Extracts modified block numbers from the current relation fork in a block refere
 
 ## Definition
 
-
+```c
+unsigned
+BlockRefTableReaderGetBlocks(BlockRefTableReader *reader,
+							 BlockNumber *blocks,
+							 int nblocks)
+```
 ## Detailed Description
 BlockRefTableReaderGetBlocks retrieves block numbers of modified blocks from the relation fork currently selected by the most recent call to BlockRefTableReaderNextRelation. The function handles two different data formats: bitmap format (when chunk size equals MAX_ENTRIES_PER_CHUNK) where each bit represents a block, and offset list format where each entry is a 2-byte block offset. It processes chunks sequentially, reading chunk data on demand and maintaining position within the current chunk. The function continues until either the requested number of blocks is found or all chunks for the current relation are exhausted.
 

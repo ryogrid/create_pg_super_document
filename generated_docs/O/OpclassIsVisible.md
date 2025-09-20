@@ -8,7 +8,10 @@ Determines whether an operator class (identified by OID) is visible in the curre
 
 ## Definition
 
-
+```c
+bool
+OpclassIsVisible(Oid opcid)
+```
 ## Detailed Description
 OpclassIsVisible is a convenience function that checks if a given operator class is visible in the current PostgreSQL search path. It serves as a simple wrapper around OpclassIsVisibleExt, providing the standard visibility check without error handling for missing operator classes. The function is part of PostgreSQL's namespace resolution system, which determines which objects are accessible when referenced by unqualified names.
 

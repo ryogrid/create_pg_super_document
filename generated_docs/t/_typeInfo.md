@@ -8,7 +8,35 @@ The _typeInfo structure represents type information used by the PostgreSQL pg_du
 
 ## Definition
 
+```c
+typedef struct _typeInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
 
+	/*
+	 * Note: dobj.name is the raw pg_type.typname entry.  ftypname is the
+	 * result of format_type(), which will be quoted if needed, and might be
+	 * schema-qualified too.
+	 */
+	char	   *ftypname;
+	const char *rolname;
+	Oid			typelem;
+	Oid			typrelid;
+	char		typrelkind;		/* 'r', 'v', 'c', etc */
+	char		typtype;		/* 'b', 'c', etc */
+	bool		isArray;		/* true if auto-generated array type */
+	bool		isMultirange;	/* true if auto-generated multirange type */
+	bool		isDefined;		/* true if typisdefined */
+	/* If needed, we'll create a "shell type" entry for it; link that here: */
+	struct _shellTypeInfo *shellType;	/* shell-type entry, or NULL */
+	/* If it's a domain, its not-null constraint is here: */
+	struct _constraintInfo *notnull;
+	/* If it's a domain, we store links to its CHECK constraints here: */
+	int			nDomChecks;
+	struct _constraintInfo *domChecks;
+} TypeInfo;
+```
 ## Detailed Description
 The _typeInfo structure is a comprehensive data structure used by pg_dump to manage type information during database dumping operations. It extends the base DumpableObject and DumpableAcl structures to provide type-specific metadata. This structure handles various PostgreSQL type categories including base types, composite types, domains, arrays, and multirange types. It maintains both raw type names and formatted type names, supports shell type references for forward declarations, and includes specialized fields for domain constraints.
 

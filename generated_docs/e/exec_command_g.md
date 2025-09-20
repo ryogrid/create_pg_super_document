@@ -8,7 +8,10 @@ Implements the \g and \gx commands in psql, which send the current query buffer 
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_g(PsqlScanState scan_state, bool active_branch, const char *cmd)
+```
 ## Detailed Description
 This function handles both \g and \gx commands which execute the current query buffer. The commands support:
 - Optional pset formatting options specified in parentheses

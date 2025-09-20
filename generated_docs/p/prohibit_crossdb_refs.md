@@ -8,7 +8,10 @@ Verifies that the connected database name matches a given database name and term
 
 ## Definition
 
-
+```c
+static void
+prohibit_crossdb_refs(PGconn *conn, const char *dbname, const char *pattern)
+```
 ## Detailed Description
 This function is a safety mechanism in pg_dump that prevents cross-database references, which are not supported in PostgreSQL. It compares the name of the currently connected database (obtained via PQdb()) with a provided database name that was parsed from a user pattern. If the names don't match, it terminates the program with a fatal error message indicating that cross-database references are not implemented.
 

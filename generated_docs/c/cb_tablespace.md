@@ -8,7 +8,16 @@ A structure that represents tablespace information during pg_combinebackup opera
 
 ## Definition
 
-
+```c
+typedef struct cb_tablespace
+{
+	Oid			oid;
+	bool		in_place;
+	char		old_dir[MAXPGPATH];
+	char		new_dir[MAXPGPATH];
+	struct cb_tablespace *next;
+} cb_tablespace;
+```
 ## Detailed Description
 The  structure stores comprehensive information about tablespaces discovered during backup combination operations. It distinguishes between normal tablespaces that require directory mapping and in-place tablespaces that can remain in their original locations. This structure forms a linked list containing all tablespaces found in the backup sets being combined.
 

@@ -8,7 +8,41 @@ Handles collation assignment for hypothetical-set aggregates by unifying collati
 
 ## Definition
 
+```c
+structure like this, and a parse-time change of
+		 * collation ought to be signaled by a CollateExpr not a RelabelType
+		 * (the use of RelabelType for collation marking is supposed to be a
+		 * planner/executor thing only).  But we have no better alternative.
+		 * In particular, injecting a CollateExpr could result in the
+		 * expression being interpreted differently after dump/reload, since
+		 * we might be effectively promoting an implicit collation to
+		 * explicit.  This kluge is relying on ruleutils.c not printing a
+		 * COLLATE clause for a RelabelType, and probably on some other
+		 * fragile behaviors.
+		 */
+		if (OidIsValid(paircontext.collation) &&
+			paircontext.collation != exprCollation((Node *) s_tle->expr))
+		{
+			s_tle->expr = (Expr *)
+				makeRelabelType(s_tle->expr,
+								exprType((Node *) s_tle->expr),
+								exprTypmod((Node *) s_tle->expr),
+								paircontext.collation,
+								COERCE_IMPLICIT_CAST);
+		}
 
+		/*
+		 * If appropriate, merge this column's collation state up to the
+		 * aggregate function.
+		 */
+		if (merge_sort_collations)
+			merge_collation_state(paircontext.collation,
+								  paircontext.strength,
+								  paircontext.location,
+								  paircontext.collation2,
+								  paircontext.location2,
+								  loccontext);
+```
 ## Detailed Description
 This function implements the most complex collation assignment logic for hypothetical-set aggregates (AGGKIND_HYPOTHETICAL). These aggregates require special handling because:
 

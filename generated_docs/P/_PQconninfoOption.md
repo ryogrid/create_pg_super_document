@@ -8,7 +8,22 @@ The  struct represents a single connection parameter definition used by PostgreS
 
 ## Definition
 
-
+```c
+typedef struct _PQconninfoOption
+{
+	char	   *keyword;		/* The keyword of the option			*/
+	char	   *envvar;			/* Fallback environment variable name	*/
+	char	   *compiled;		/* Fallback compiled in default value	*/
+	char	   *val;			/* Option's current value, or NULL		 */
+	char	   *label;			/* Label for field in connect dialog	*/
+	char	   *dispchar;		/* Indicates how to display this field in a
+								 * connect dialog. Values are: "" Display
+								 * entered value as is "*" Password field -
+								 * hide value "D"  Debug option - don't show
+								 * by default */
+	int			dispsize;		/* Field size in characters for dialog	*/
+} PQconninfoOption;
+```
 ## Detailed Description
 The  structure defines the metadata for a single PostgreSQL connection parameter. It is used by functions like  and  to provide information about available connection options. Each instance describes one connection parameter including its keyword name, fallback mechanisms (environment variables and compiled defaults), current value, and display characteristics for GUI applications. The structure supports a hierarchical fallback system where values can come from explicit settings, environment variables, or compiled-in defaults.
 

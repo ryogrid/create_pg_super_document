@@ -8,7 +8,10 @@ Provides planner support for prefix matching operations (starts_with function) b
 
 ## Definition
 
-
+```c
+Datum
+text_starts_with_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as a planner support function for PostgreSQL's  function and similar prefix matching operations. It acts as a thin wrapper around the generic  function, specifically configured for prefix pattern matching. This function is called by the PostgreSQL query planner to optimize queries involving prefix matching operations, including selectivity estimation and index condition generation.
 

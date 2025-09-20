@@ -8,7 +8,13 @@ A static function that converts a JsonbValue structure into a complete Jsonb bin
 
 ## Definition
 
+```c
+struct must contain enough information to tell what kind
+	 * of value it is.
+	 */
 
+	res = (Jsonb *) buffer.data;
+```
 ## Detailed Description
 The `convertToJsonb` function is the primary converter that transforms in-memory JsonbValue representations into the final binary JSONB format used by PostgreSQL. It initializes a StringInfo buffer, reserves space for the varlena header (required for variable-length PostgreSQL data types), and then calls `convertJsonbValue` to recursively serialize the entire value tree. The function handles the critical task of setting up the proper JSONB structure, including discarding the root JEntry (since root containers must be self-describing) and setting the correct varlena size. The result is a palloc'd Jsonb structure ready for storage or transmission.
 

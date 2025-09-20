@@ -8,7 +8,10 @@ Changes the owner of an event trigger identified by name, implementing the ALTER
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterEventTriggerOwner(const char *name, Oid newOwnerId)
+```
 ## Detailed Description
 This function handles changing the ownership of an event trigger by looking up the trigger by name and delegating the actual ownership change to AlterEventTriggerOwner_internal(). It serves as the main entry point for the ALTER EVENT TRIGGER ... OWNER TO SQL command when the trigger is specified by name rather than OID.
 

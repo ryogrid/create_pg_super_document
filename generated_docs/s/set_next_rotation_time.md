@@ -8,7 +8,9 @@ Calculates and sets the next scheduled time for automatic log file rotation base
 
 ## Definition
 
-
+```c
+struct pg_tm *tm;
+```
 ## Detailed Description
 The  function determines when the next automatic log rotation should occur based on the  configuration parameter. It calculates the next time that is aligned to the configured rotation interval, using the local timezone rather than GMT for alignment. The function performs timezone-aware calculations to ensure consistent rotation times regardless of timezone changes or daylight saving time transitions. If time-based rotation is disabled (), the function returns early without setting a rotation time.
 

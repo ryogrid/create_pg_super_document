@@ -8,7 +8,13 @@ pg_GSS_checkauth validates that a GSSAPI-authenticated user is authorized to con
 
 ## Definition
 
-
+```c
+structively modify it here to remove the
+		 * realm. Then advance past the separator to check the realm.
+		 */
+		if (!port->hba->include_realm)
+			*cp = '\0';
+```
 ## Detailed Description
 pg_GSS_checkauth performs the final authorization phase of GSSAPI authentication after the security context has been successfully established. It extracts the authenticated principal name from the GSS context, validates the Kerberos realm against configured requirements, handles realm inclusion/exclusion based on HBA configuration, and performs user mapping to determine if the authenticated principal is authorized to connect as the requested PostgreSQL user. The function sets the authenticated identity and stores the original principal name for logging and display purposes.
 

@@ -8,7 +8,16 @@ Initializes an Append node executor state, setting up all subplans for execution
 
 ## Definition
 
-
+```c
+structure.  This also initializes the set of
+		 * subplans to initialize (validsubplans) by taking into account the
+		 * result of performing initial pruning if any.
+		 */
+		prunestate = ExecInitPartitionPruning(&appendstate->ps,
+											  list_length(node->appendplans),
+											  node->part_prune_info,
+											  &validsubplans);
+```
 ## Detailed Description
 ExecInitAppend is the initialization function for PostgreSQL's Append node executor. It creates and configures an AppendState structure that manages the execution of multiple subplans. The function handles several key aspects:
 

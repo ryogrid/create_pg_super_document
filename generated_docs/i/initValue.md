@@ -8,7 +8,10 @@ A static helper function that initializes a file-scoped structure with various f
 
 ## Definition
 
-
+```c
+static int
+initValue(long lng_val)
+```
 ## Detailed Description
 The `initValue` function initializes a static file-scoped structure called `value` that holds different representations and metadata of a long integer value. This structure is used by the `rfmtlong` function to perform complex numeric formatting with various format specifiers.
 

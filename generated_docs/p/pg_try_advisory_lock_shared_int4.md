@@ -8,7 +8,10 @@ Attempts to acquire a shared advisory lock on two int4 keys without waiting, ret
 
 ## Definition
 
-
+```c
+Datum
+pg_try_advisory_lock_shared_int4(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL advisory locking mechanism for shared locks on a pair of 32-bit integer keys. Unlike exclusive locks, shared locks allow multiple processes to hold the same lock simultaneously, making them useful for coordinating read access to shared resources. The "try" variant of this function is non-blocking - it returns immediately with success or failure status rather than waiting for the lock to become available. The lock is session-scoped, meaning it will be automatically released when the session ends or when explicitly unlocked.
 

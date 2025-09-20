@@ -8,7 +8,11 @@ Adds BRIN index tuples representing empty page ranges between specified boundari
 
 ## Definition
 
-
+```c
+static void
+brin_fill_empty_ranges(BrinBuildState *state,
+					   BlockNumber prevRange, BlockNumber nextRange)
+```
 ## Detailed Description
 The  function is responsible for filling gaps in BRIN index coverage by adding empty summary tuples for page ranges that don't have any existing index entries. This function is called during BRIN index construction and parallel merge operations to ensure complete coverage of the table's block ranges.
 

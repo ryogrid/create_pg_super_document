@@ -8,7 +8,11 @@ Searches for a non-Var/non-PlaceHolderVar expression in an indexed target list a
 
 ## Definition
 
-
+```c
+static Var *
+search_indexed_tlist_for_non_var(Expr *node,
+								 indexed_tlist *itlist, int newvarno)
+```
 ## Detailed Description
 This function searches through an indexed target list to find a non-Var, non-PlaceHolderVar expression that matches the provided node. When a match is found, it constructs and returns a new Var node that references the target list item containing the matching expression. The function uses tlist_member() to perform the matching.
 

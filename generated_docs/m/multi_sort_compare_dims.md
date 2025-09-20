@@ -8,7 +8,12 @@ Compares two SortItem structures across a specified range of dimensions, providi
 
 ## Definition
 
-
+```c
+int
+multi_sort_compare_dims(int start, int end,
+						const SortItem *a, const SortItem *b,
+						MultiSortSupport mss)
+```
 ## Detailed Description
 This function performs a lexicographic comparison between two SortItem structures, but only across a specified range of dimensions from 'start' to 'end' (inclusive). It iterates through the dimension range, applying the appropriate sort comparator for each dimension, and returns as soon as a non-zero comparison result is found. This selective comparison capability is particularly useful in dependency analysis where only a subset of columns needs to be compared to determine ordering relationships.
 

@@ -8,7 +8,9 @@ Generates C code for retrieving header information from an SQL descriptor, speci
 
 ## Definition
 
-
+```c
+struct assignment *results;
+```
 ## Detailed Description
 This function is part of the ECPG preprocessor that generates runtime C code for SQL descriptor operations. It processes assignments to retrieve header information from an SQL descriptor and outputs the corresponding ECPGget_desc_header function call. The function specifically handles the ECPGd_count descriptor header item, which represents the number of items in the descriptor.
 

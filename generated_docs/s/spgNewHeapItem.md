@@ -8,7 +8,37 @@ Creates a new SpGistSearchItem for a leaf tuple in an SP-GiST index scan, storin
 
 ## Definition
 
+```c
+structed value, copy it to queue cxt out of tmp
+	 * cxt.  Caution: the leaf_consistent method may not have supplied a value
+	 * if we didn't ask it to, and mildly-broken methods might supply one of
+	 * the wrong type.  The correct leafValue type is attType not leafType.
+	 */
+	if (so->want_itup)
+	{
+		item->value = isnull ? (Datum) 0 :
+			datumCopy(leafValue, so->state.attType.attbyval,
+					  so->state.attType.attlen);
 
+		/*
+		 * If we're going to need to reconstruct INCLUDE attributes, store the
+		 * whole leaf tuple so we can get the INCLUDE attributes out of it.
+		 */
+		if (so->state.leafTupDesc->natts > 1)
+		{
+			item->leafTuple = palloc(leafTuple->size);
+			memcpy(item->leafTuple, leafTuple, leafTuple->size);
+		}
+		else
+			item->leafTuple = NULL;
+	}
+	else
+	{
+		item->value = (Datum) 0;
+		item->leafTuple = NULL;
+	}
+	item->traversalValue = NULL;
+```
 ## Detailed Description
 This function constructs a SpGistSearchItem specifically for leaf tuples during SP-GiST index scanning. It serves as a constructor for search items that represent actual heap tuples found during the scan. The function handles the proper copying of leaf values and tuple data from temporary memory contexts to the queue context for safe storage throughout the scan process.
 

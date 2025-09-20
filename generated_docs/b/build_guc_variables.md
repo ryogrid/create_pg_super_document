@@ -8,7 +8,9 @@ Builds the GUC (Grand Unified Configuration) hash table by counting all built-in
 
 ## Definition
 
-
+```c
+struct config_bool *conf = &ConfigureNamesBool[i];
+```
 ## Detailed Description
 This function is responsible for initializing PostgreSQL's configuration variable system by creating and populating the main GUC hash table. It performs the following key operations:
 

@@ -8,7 +8,10 @@ Retrieves and caches complete text search configuration information, including t
 
 ## Definition
 
-
+```c
+TSConfigCacheEntry *
+lookup_ts_config_cache(Oid cfgId)
+```
 ## Detailed Description
 lookup_ts_config_cache is the most complex of the text search cache functions, responsible for building and caching complete text search configurations. Unlike parsers and dictionaries which are relatively simple objects, configurations require assembling information from multiple system catalogs (pg_ts_config and pg_ts_config_map) to create a comprehensive mapping structure.
 

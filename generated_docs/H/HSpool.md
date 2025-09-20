@@ -8,7 +8,23 @@ HSpool is a structure that maintains status information for the hash index spool
 
 ## Definition
 
+```c
+struct HSpool
+{
+	Tuplesortstate *sortstate;	/* state data for tuplesort.c */
+	Relation	index;
 
+	/*
+	 * We sort the hash keys based on the buckets they belong to, then by the
+	 * hash values themselves, to optimize insertions onto hash pages.  The
+	 * masks below are used in _hash_hashkey2bucket to determine the bucket of
+	 * a given hash key.
+	 */
+	uint32		high_mask;
+	uint32		low_mask;
+	uint32		max_buckets;
+};
+```
 ## Detailed Description
 The HSpool structure is a key component in PostgreSQL's hash index construction process, specifically designed to optimize the building of hash indexes through an efficient spooling and sorting mechanism. During index creation, hash keys are sorted based on their target buckets and hash values to minimize random I/O during the actual insertion phase. This structure encapsulates all the necessary state information required for this optimization process, including the underlying tuplesort state and bucket calculation parameters.
 

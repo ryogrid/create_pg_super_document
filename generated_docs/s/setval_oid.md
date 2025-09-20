@@ -8,7 +8,10 @@ Implements the 2-argument form of setval(), setting a sequence to a specific val
 
 ## Definition
 
-
+```c
+Datum
+setval_oid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The setval_oid function provides the PostgreSQL function interface for the 2-argument form of setval(sequence_oid, value). This is a thin wrapper around the internal do_setval function that automatically sets the iscalled parameter to true, meaning the sequence is marked as having been called. This implies that the next call to nextval() will return the set value plus the sequence's increment.
 

@@ -8,7 +8,10 @@ PQclosePortal closes a previously created portal in PostgreSQL, similar to PQclo
 
 ## Definition
 
-
+```c
+PGresult *
+PQclosePortal(PGconn *conn, const char *portal)
+```
 ## Detailed Description
 PQclosePortal provides a synchronous interface to close a portal that was previously created on the PostgreSQL server. While libpq doesn't directly expose portals to client applications in most cases, this function can be used to close portals created by SQL DECLARE CURSOR commands. The function follows the standard libpq execution pattern by calling PQexecStart, sending the close command via PQsendTypedCommand, and completing the operation with PQexecFinish.
 

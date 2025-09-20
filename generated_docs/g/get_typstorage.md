@@ -8,7 +8,15 @@ Retrieves the storage strategy for a specified PostgreSQL data type from the sys
 
 ## Definition
 
-
+```c
+struct fields. Must do it the hard way with
+	 * SysCacheGetAttr.
+	 */
+	datum = SysCacheGetAttr(TYPEOID,
+							typeTuple,
+							Anum_pg_type_typdefaultbin,
+							&isNull);
+```
 ## Detailed Description
 This function performs a system catalog lookup to retrieve the storage strategy for a given data type. The storage strategy determines how PostgreSQL handles the storage of values of this type, particularly for variable-length types that may be subject to compression or out-of-line storage (TOAST). The function queries the pg_type system catalog using the syscache mechanism for efficient access. If the type is not found in the catalog, it returns TYPSTORAGE_PLAIN as a default value, indicating plain storage without compression or external storage.
 

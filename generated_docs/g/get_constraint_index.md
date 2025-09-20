@@ -8,7 +8,10 @@ Returns the OID of the underlying index for a given unique, primary-key, or excl
 
 ## Definition
 
-
+```c
+Oid
+get_constraint_index(Oid conoid)
+```
 ## Detailed Description
 This function retrieves the index OID that is "owned" by a specified constraint. It specifically handles unique, primary-key, and exclusion constraints, which are the constraint types that have associated indexes. The function ensures that only constraints that own their indexes are processed by checking the constraint type (contype), as some pg_constraint entries (like foreign-key constraints) may reference indexes they don't own.
 

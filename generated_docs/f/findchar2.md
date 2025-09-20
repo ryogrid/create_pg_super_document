@@ -8,7 +8,10 @@ A multibyte-aware character search function that locates the first occurrence of
 
 ## Definition
 
-
+```c
+static char *
+findchar2(char *str, int c1, int c2)
+```
 ## Detailed Description
 The  function extends the functionality of  by searching for either of two target characters in a string. This function is particularly useful for case-insensitive searches where you need to find either the lowercase or uppercase version of a character. Like , it properly handles multibyte character encodings by using  to advance through the string and  for character comparison.
 

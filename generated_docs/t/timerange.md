@@ -8,7 +8,16 @@ The  struct represents a range of time periods and leap second information used 
 
 ## Definition
 
-
+```c
+struct timerange
+{
+	int			defaulttype;
+	ptrdiff_t	base,
+				count;
+	int			leapbase,
+				leapcount;
+};
+```
 ## Detailed Description
 The  structure is used in PostgreSQL's timezone compiler (zic.c) to define and manage time ranges for timezone data optimization. It encapsulates information about time periods, including a default timezone type, base indices, counts for regular time transitions, and separate handling for leap second data. This structure is primarily used during the timezone data compilation process to efficiently organize and limit the scope of timezone information that gets written to the final timezone files.
 

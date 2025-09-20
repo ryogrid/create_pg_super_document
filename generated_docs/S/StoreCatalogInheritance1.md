@@ -8,7 +8,12 @@ StoreCatalogInheritance1 creates a single inheritance relationship entry in the 
 
 ## Definition
 
-
+```c
+static void
+StoreCatalogInheritance1(Oid relationId, Oid parentOid,
+						 int32 seqNumber, Relation inhRelation,
+						 bool child_is_partition)
+```
 ## Detailed Description
 This function performs the atomic operation of recording a single inheritance relationship between a child and parent relation. It orchestrates several critical steps in inheritance setup:
 

@@ -8,7 +8,11 @@ PushTransaction creates a new subtransaction state entry and pushes it onto the 
 
 ## Definition
 
-
+```c
+structure */
+	if (s->name)
+		pfree(s->name);
+```
 ## Detailed Description
 PushTransaction is a static function responsible for creating and initializing a new subtransaction state node in PostgreSQL's transaction management system. The function performs the following operations:
 

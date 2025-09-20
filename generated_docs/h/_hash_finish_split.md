@@ -8,7 +8,11 @@ Completes a previously interrupted hash table bucket split operation by building
 
 ## Definition
 
-
+```c
+void
+_hash_finish_split(Relation rel, Buffer metabuf, Buffer obuf, Bucket obucket,
+				   uint32 maxbucket, uint32 highmask, uint32 lowmask)
+```
 ## Detailed Description
 This function is responsible for completing a bucket split operation that was previously interrupted. It works by:
 

@@ -8,7 +8,13 @@ Parses a function call or column reference, handling both syntactic forms and re
 
 ## Definition
 
-
+```c
+structs.  Don't do this if dealing with column syntax,
+	 * nor if we had WITHIN GROUP (because in that case it's critical to keep
+	 * the argument count unchanged).
+	 */
+	nargs = 0;
+```
 ## Detailed Description
 ParseFuncOrColumn is a central function in PostgreSQL's parser that handles the ambiguity between function calls and column references. PostgreSQL treats notations like 'tab.col' and 'col(tab)' as equivalent when possible - a single-argument function call with a complex type argument can be interpreted as column projection if the function name matches an attribute of the type.
 

@@ -8,7 +8,13 @@ A data structure that logs restore point information in the WAL, allowing users 
 
 ## Definition
 
-
+```c
+typedef struct xl_restore_point
+{
+	TimestampTz rp_time;
+	char		rp_name[MAXFNAMELEN];
+} xl_restore_point;
+```
 ## Detailed Description
 xl_restore_point is a WAL record structure used to log user-created restore points in the transaction log. Restore points are named markers in the WAL stream that can be used as recovery targets during point-in-time recovery (PITR). When a restore point is created using the pg_create_restore_point() function, this structure is written to the WAL with the XLOG_RESTORE_POINT record type (0x70).
 

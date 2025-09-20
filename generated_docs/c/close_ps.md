@@ -8,7 +8,10 @@ PostgreSQL SQL function that returns the closest point on a line segment to a gi
 
 ## Definition
 
-
+```c
+Datum
+close_ps(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the PostgreSQL SQL interface for finding the closest point on a line segment to a specified point. It takes a point and a line segment as arguments, allocates memory for the result point, and uses the internal lseg_closept_point function to perform the actual geometric calculation. The function handles potential NaN (Not a Number) results by returning NULL when the calculation is invalid.
 

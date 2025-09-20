@@ -8,7 +8,11 @@ Calculates the display dimensions and formatting size requirements for a multiby
 
 ## Definition
 
-
+```c
+void
+pg_wcssize(const unsigned char *pwcs, size_t len, int encoding,
+		   int *result_width, int *result_height, int *result_format_size)
+```
 ## Detailed Description
 pg_wcssize analyzes a multibyte character string and computes three key metrics needed for text display and formatting. It processes the string character by character, handling various control characters (newlines, tabs, carriage returns) and multibyte characters according to the specified encoding. The function is specifically designed to work in tandem with pg_wcsformat and must be kept synchronized with it.
 

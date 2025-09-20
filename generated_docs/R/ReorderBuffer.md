@@ -8,7 +8,9 @@ ReorderBuffer is the central management structure for PostgreSQL's logical repli
 
 ## Definition
 
-
+```c
+typedef struct ReorderBuffer ReorderBuffer;
+```
 ## Detailed Description
 ReorderBuffer serves as the central coordinator for PostgreSQL's logical replication system, managing the entire lifecycle of transaction processing from WAL record decoding through output plugin delivery. It maintains hash tables and ordered lists to efficiently track active transactions, provides comprehensive callback mechanisms for different transaction states (begin, commit, prepare, stream), implements sophisticated memory management with disk spilling capabilities for large transactions, and maintains detailed statistics about processing performance. The structure coordinates between multiple memory contexts for optimal resource management and supports advanced features like transaction streaming, two-phase commit protocols, and catalog change tracking.
 

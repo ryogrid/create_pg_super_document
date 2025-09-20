@@ -8,7 +8,10 @@ A PostgreSQL input function that converts string representations of timestamps i
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function implements the input conversion for the TIMESTAMP data type (without timezone). It parses string representations of timestamps and converts them to PostgreSQL's internal timestamp format. The function handles a wide variety of input formats including ISO 8601, SQL standard formats, and PostgreSQL-specific special values like 'epoch', 'infinity', and '-infinity'.
 

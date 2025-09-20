@@ -8,7 +8,9 @@ WindowStatePerAgg is a pointer type that maintains execution state and cached da
 
 ## Definition
 
-
+```c
+typedef struct WindowStatePerAggData *WindowStatePerAgg;
+```
 ## Detailed Description
 WindowStatePerAgg is a pointer to WindowStatePerAggData structure that manages the execution state for plain aggregate functions when they are used in window function contexts. This structure maintains all necessary information for incremental aggregate computation including transition functions, intermediate state values, type information, and memory management. It supports both forward and inverse transition functions for efficient sliding window computation, caching results for current frame boundaries, and managing the transition state throughout the window evaluation process.
 

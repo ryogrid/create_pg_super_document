@@ -8,7 +8,10 @@ StartLO initiates the archival process for a PostgreSQL Large Object (LO), signa
 
 ## Definition
 
-
+```c
+int
+StartLO(Archive *AHX, Oid oid)
+```
 ## Detailed Description
 StartLO is part of PostgreSQL's large object archival system that manages the dumping of binary large objects (BLOBs) stored in the database. This function serves as the entry point for beginning the output of a specific large object during the dump process. It acts as a format-agnostic interface that delegates the actual implementation to format-specific handlers.
 

@@ -8,7 +8,11 @@ Computes TSQuery selectivity using most-common-elements (MCELEM) statistics by b
 
 ## Definition
 
-
+```c
+static Selectivity
+mcelem_tsquery_selec(TSQuery query, Datum *mcelem, int nmcelem,
+					 float4 *numbers, int nnumbers)
+```
 ## Detailed Description
  processes PostgreSQL's most-common-elements statistics to estimate the selectivity of a TSQuery against a tsvector column. This function serves as a bridge between the raw statistical data stored in pg_statistic and the query analysis logic.
 

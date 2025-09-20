@@ -8,7 +8,12 @@ Sets visibility map bits for a previously pinned page, handling WAL logging and 
 
 ## Definition
 
-
+```c
+void
+visibilitymap_set(Relation rel, BlockNumber heapBlk, Buffer heapBuf,
+				  XLogRecPtr recptr, Buffer vmBuf, TransactionId cutoff_xid,
+				  uint8 flags)
+```
 ## Detailed Description
 The visibilitymap_set function completes the second phase of visibility map bit setting operations. It sets the specified visibility bits in a pre-pinned visibility map page, ensuring proper WAL logging for crash recovery and Hot Standby support. The function includes comprehensive validation to ensure data integrity and handles different scenarios for normal operation versus recovery.
 

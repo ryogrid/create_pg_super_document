@@ -8,7 +8,14 @@ Dumps comments associated with database objects by searching for matching pg_des
 
 ## Definition
 
-
+```c
+static void
+dumpCommentExtended(Archive *fout, const char *type,
+					const char *name, const char *namespace,
+					const char *owner, CatalogId catalogId,
+					int subid, DumpId dumpId,
+					const char *initdb_comment)
+```
 ## Detailed Description
 This function is responsible for dumping comments for database objects during a pg_dump operation. It searches the pg_description catalog for comments matching the specified catalogId and subid, then generates appropriate COMMENT ON SQL statements. The function handles special cases such as:
 

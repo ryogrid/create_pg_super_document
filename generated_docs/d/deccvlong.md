@@ -8,7 +8,10 @@ Converts a long integer value to a decimal data type, providing Informix-compati
 
 ## Definition
 
-
+```c
+int
+deccvlong(long lng, decimal *np)
+```
 ## Detailed Description
 The `deccvlong` function is part of the PostgreSQL ECPG Informix compatibility library that converts a long integer value to a decimal data type. It performs null input validation using the CLONGTYPE, creates a new numeric value using PostgreSQL's numeric functions, converts the long integer to numeric format, and then converts the numeric to decimal format. The function includes comprehensive error handling for memory allocation failures and conversion errors.
 

@@ -8,7 +8,10 @@ The reset function clears all output variables used in ECPG test cases by zeroin
 
 ## Definition
 
-
+```c
+*/
+void reset()
+```
 ## Detailed Description
 The reset function serves as a utility function in the ECPG test framework that initializes/clears the global output variables used for storing query results. It uses memset to zero out three global arrays (f1, f2, f3) that are used to store integer and character data retrieved from database queries during test execution. This function ensures a clean state before running each test case, preventing contamination from previous test results.
 

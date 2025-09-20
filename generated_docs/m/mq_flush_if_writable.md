@@ -8,7 +8,10 @@ A no-op function that serves as a placeholder implementation for the flush_if_wr
 
 ## Definition
 
-
+```c
+static int
+mq_flush_if_writable(void)
+```
 ## Detailed Description
 The mq_flush_if_writable function is part of the PqCommMqMethods structure that implements the PQcommMethods interface for shared memory message queue (shm_mq) communication in PostgreSQL. This function is designed to flush pending output data only if the connection is writable, but in the context of shared memory queues, there is no concept of writability checks or buffered data that needs flushing.
 

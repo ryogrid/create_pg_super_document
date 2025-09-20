@@ -8,7 +8,18 @@ GenerationBlock represents the fundamental unit of memory allocation in the gene
 
 ## Definition
 
-
+```c
+struct GenerationBlock
+{
+	dlist_node	node;			/* doubly-linked list of blocks */
+	GenerationContext *context; /* pointer back to the owning context */
+	Size		blksize;		/* allocated size of this block */
+	int			nchunks;		/* number of chunks in the block */
+	int			nfree;			/* number of free chunks */
+	char	   *freeptr;		/* start of free space in this block */
+	char	   *endptr;			/* end of space in this block */
+};
+```
 ## Detailed Description
 GenerationBlock is the header structure for memory blocks managed by the generation memory allocator. Each block is obtained from malloc() and contains zero or more MemoryChunks, which are the individual allocations requested by palloc() and freed by pfree(). The key design principle is that individual chunks cannot be returned to malloc() separately; instead, pfree() updates the free counter, and only when all chunks in a block are freed can the entire block be returned to malloc().
 

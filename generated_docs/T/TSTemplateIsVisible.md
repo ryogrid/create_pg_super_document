@@ -8,7 +8,10 @@ TSTemplateIsVisible determines whether a text search template is visible in the 
 
 ## Definition
 
-
+```c
+bool
+TSTemplateIsVisible(Oid tmplId)
+```
 ## Detailed Description
 This function provides a simple interface for checking the visibility of a text search template identified by its OID. It acts as a wrapper around the more comprehensive TSTemplateIsVisibleExt function, providing the standard visibility check without the extended error handling capabilities. The function determines whether the specified template would be found when searching for its unqualified name through the current namespace search path, following PostgreSQL's standard name resolution rules.
 

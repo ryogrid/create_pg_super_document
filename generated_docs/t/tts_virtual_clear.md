@@ -8,7 +8,10 @@ Clears the contents of a virtual tuple table slot, freeing any allocated memory 
 
 ## Definition
 
-
+```c
+static void
+tts_virtual_clear(TupleTableSlot *slot)
+```
 ## Detailed Description
 The  function is the clear callback for virtual tuple table slots in PostgreSQL. It is part of the  operations structure and is responsible for clearing the slot's contents while preserving the tuple descriptor.
 

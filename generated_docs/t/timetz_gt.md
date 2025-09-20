@@ -8,7 +8,13 @@ The timetz_gt function compares two time with time zone values and returns true 
 
 ## Definition
 
-
+```c
+struct, we figure the
+	 * field hashes separately and XOR them.
+	 */
+	thash = DatumGetUInt32(DirectFunctionCall1(hashint8,
+											   Int64GetDatumFast(key->time)));
+```
 ## Detailed Description
 This function implements the greater-than comparison operator for the TimeTzADT (time with time zone) data type. It extracts two TimeTzADT values from the function arguments and uses the internal comparison function timetz_cmp_internal to determine their relative ordering. The function returns true if the first time value is considered greater than the second.
 

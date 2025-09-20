@@ -8,7 +8,10 @@ Prepares a cache with function manager information for output functions of datat
 
 ## Definition
 
-
+```c
+static FmgrInfo *
+build_concat_foutcache(FunctionCallInfo fcinfo, int argidx)
+```
 ## Detailed Description
 This static function builds and caches FmgrInfo structures for the output functions of data types starting from a specified argument index. The cache is stored in the function's memory context (fn_mcxt) to survive across multiple function calls, providing performance optimization for concatenation operations that need to convert various data types to their string representations. The function allocates memory for all arguments but only populates entries starting from the specified .
 

@@ -8,7 +8,10 @@ Computes the sample variance using polymorphic aggregation with 128-bit integer 
 
 ## Definition
 
-
+```c
+Datum
+numeric_poly_var_samp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `numeric_poly_var_samp` function is a PostgreSQL aggregate function finalizer that calculates sample variance from accumulated numeric values using an optimized polymorphic approach. When 128-bit integer support is available (HAVE_INT128), it uses `PolyNumAggState` which stores accumulated values as 128-bit integers for better performance, then converts them via `numeric_poly_stddev_internal`. When 128-bit support is not available, it falls back to the standard `numeric_var_samp` function. The sample variance uses N-1 in the denominator rather than N (population variance).
 

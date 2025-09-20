@@ -8,7 +8,11 @@ A function that gracefully notifies the PostgreSQL server about the upcoming ter
 
 ## Definition
 
-
+```c
+static void
+prepareToTerminate(PGconn *conn, XLogRecPtr endpos, StreamStopReason reason,
+				   XLogRecPtr lsn)
+```
 ## Detailed Description
 The  function handles the graceful shutdown of a logical replication stream by notifying the server that the client is about to disconnect. It sends a copy end message to the server using  and flushes the connection to ensure the message is transmitted. The function also provides informative logging when verbose mode is enabled, displaying different messages based on the reason for termination (signal received, keepalive reached end position, or WAL record reached end position). The function is designed to be non-blocking and fault-tolerant - it doesn't wait for responses or retry on failures, as the primary goal is to attempt clean disconnection before termination.
 

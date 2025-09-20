@@ -8,7 +8,10 @@ A function that maps standby WAL record type identifiers to human-readable strin
 
 ## Definition
 
-
+```c
+const char *
+standby_identify(uint8 info)
+```
 ## Detailed Description
 This function takes a WAL record info byte and returns a corresponding human-readable string identifier for standby-related WAL record types. It serves as a simple lookup mechanism to convert numerical WAL record type codes into descriptive names that are easier to understand in log files, debugging output, and monitoring tools.
 

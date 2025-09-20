@@ -8,7 +8,14 @@ ActionList is a structure that maintains transaction-aware state for LISTEN/NOTI
 
 ## Definition
 
-
+```c
+typedef struct ActionList
+{
+	int			nestingLevel;	/* current transaction nesting depth */
+	List	   *actions;		/* list of ListenAction structs */
+	struct ActionList *upper;	/* details for upper transaction levels */
+} ActionList;
+```
 ## Detailed Description
 The ActionList structure implements a transaction-aware stack for managing LISTEN and UNLISTEN operations within PostgreSQL's asynchronous notification system. It supports nested transactions (subtransactions) by maintaining a linked list structure where each level corresponds to a transaction nesting level. This design enables proper rollback behavior - if a subtransaction is aborted, only the actions performed at that level are undone, while preserving actions from outer transaction levels. The actions field contains a list of ListenAction structures that represent the specific LISTEN/UNLISTEN operations performed at this transaction level.
 

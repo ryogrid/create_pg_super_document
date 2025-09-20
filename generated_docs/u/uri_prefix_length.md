@@ -8,7 +8,10 @@ This function checks if a connection string starts with a valid PostgreSQL URI p
 
 ## Definition
 
-
+```c
+static int
+uri_prefix_length(const char *connstr)
+```
 ## Detailed Description
 The  function is a utility that validates and measures the URI prefix portion of PostgreSQL connection strings. It recognizes two valid URI designators:
 1.  - the standard PostgreSQL URI prefix

@@ -8,7 +8,14 @@ BufferManagerRelation is a structure that provides a unified way to identify dat
 
 ## Definition
 
-
+```c
+typedef struct BufferManagerRelation
+{
+	Relation	rel;
+	struct SMgrRelationData *smgr;
+	char		relpersistence;
+} BufferManagerRelation;
+```
 ## Detailed Description
 BufferManagerRelation serves as a flexible container for relation identification in PostgreSQL's buffer management system. This structure allows buffer management functions to work with relations in two different modes: using a full Relation object during normal operation, or using just the storage manager (SMgrRelationData) and persistence information during recovery when full relation metadata may not be available.
 

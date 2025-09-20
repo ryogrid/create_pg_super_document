@@ -8,7 +8,10 @@ Retrieves the current activity entry for a specific backend process identified b
 
 ## Definition
 
-
+```c
+PgBackendStatus *
+pgstat_get_beentry_by_proc_number(ProcNumber procNumber)
+```
 ## Detailed Description
 This function serves as a support function for PostgreSQL's SQL-callable pgstat* functions (like pg_stat_get_backend_*). It returns the local copy of the current-activity entry for one backend session, or NULL if the given process number doesn't identify any known session. The function acts as a wrapper around pgstat_get_local_beentry_by_proc_number(), extracting the PgBackendStatus structure from the LocalPgBackendStatus wrapper.
 

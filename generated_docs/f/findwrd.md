@@ -8,7 +8,10 @@ Finds the next whitespace-delimited word within an input string, handling multib
 
 ## Definition
 
-
+```c
+static char *
+findwrd(char *in, char **end, uint16 *flags)
+```
 ## Detailed Description
 This function parses text to extract individual words separated by whitespace. It supports PostgreSQL's multibyte character handling and can detect prefix search operators (indicated by a trailing '*' character). The function skips leading whitespace, identifies word boundaries, and handles special cases for text search operations.
 

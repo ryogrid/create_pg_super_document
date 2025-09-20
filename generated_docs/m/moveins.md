@@ -8,7 +8,12 @@ Moves all incoming arcs from one NFA state to another state, with intelligent du
 
 ## Definition
 
-
+```c
+static void
+moveins(struct nfa *nfa,
+		struct state *oldState,
+		struct state *newState)
+```
 ## Detailed Description
 This function transfers all incoming arcs from oldState to newState with three different strategies depending on the circumstances:
 

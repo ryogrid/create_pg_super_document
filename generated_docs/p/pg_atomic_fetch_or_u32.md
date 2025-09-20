@@ -8,7 +8,10 @@ Atomically performs a bitwise OR operation on a 32-bit unsigned integer variable
 
 ## Definition
 
-
+```c
+static inline uint32
+pg_atomic_fetch_or_u32(volatile pg_atomic_uint32 *ptr, uint32 or_)
+```
 ## Detailed Description
 This function provides an atomic fetch-and-OR operation on a 32-bit unsigned integer. It atomically performs a bitwise OR operation between the value stored at the memory location pointed to by  and the value , then returns the original value that was stored at  before the operation. The function guarantees full memory barrier semantics, ensuring proper ordering of memory operations across threads.
 

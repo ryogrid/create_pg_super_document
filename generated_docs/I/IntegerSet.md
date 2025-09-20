@@ -8,7 +8,69 @@ The main data structure representing a compressed set of 64-bit integers in Post
 
 ## Definition
 
+```c
+struct IntegerSet
+{
+	/*
+	 * 'context' is the memory context holding this integer set and all its
+	 * tree nodes.
+	 *
+	 * 'mem_used' tracks the amount of memory used.  We don't do anything with
+	 * it in integerset.c itself, but the callers can ask for it with
+	 * intset_memory_usage().
+	 */
+	MemoryContext context;
+	uint64		mem_used;
 
+	uint64		num_entries;	/* total # of values in the set */
+	uint64		highest_value;	/* highest value stored in this set */
+
+	/*
+	 * B-tree to hold the packed values.
+	 *
+	 * 'rightmost_nodes' hold pointers to the rightmost node on each level.
+	 * rightmost_parent[0] is rightmost leaf, rightmost_parent[1] is its
+	 * parent, and so forth, all the way up to the root. These are needed when
+	 * adding new values. (Currently, we require that new values are added at
+	 * the end.)
+	 */
+	int			num_levels;		/* height of the tree */
+	intset_node *root;			/* root node */
+	intset_node *rightmost_nodes[MAX_TREE_LEVELS];
+	intset_leaf_node *leftmost_leaf;	/* leftmost leaf node */
+
+	/*
+	 * Holding area for new items that haven't been inserted to the tree yet.
+	 */
+	uint64		buffered_values[MAX_BUFFERED_VALUES];
+	int			num_buffered_values;
+
+	/*
+	 * Iterator support.
+	 *
+	 * 'iter_values' is an array of integers ready to be returned to the
+	 * caller; 'iter_num_values' is the length of that array, and
+	 * 'iter_valueno' is the next index.  'iter_node' and 'iter_itemno' point
+	 * to the leaf node, and item within the leaf node, to get the next batch
+	 * of values from.
+	 *
+	 * Normally, 'iter_values' points to 'iter_values_buf', which holds items
+	 * decoded from a leaf item.  But after we have scanned the whole B-tree,
+	 * we iterate through all the unbuffered values, too, by pointing
+	 * iter_values to 'buffered_values'.
+	 */
+	bool		iter_active;	/* is iteration in progress? */
+
+	const uint64 *iter_values;
+	int			iter_num_values;	/* number of elements in 'iter_values' */
+	int			iter_valueno;	/* next index into 'iter_values' */
+
+	intset_leaf_node *iter_node;	/* current leaf node */
+	int			iter_itemno;	/* next item in 'iter_node' to decode */
+
+	uint64		iter_values_buf[MAX_VALUES_PER_LEAF_ITEM];
+};
+```
 ## Detailed Description
 The IntegerSet structure is PostgreSQL's primary data structure for efficiently storing and managing large collections of 64-bit integers. It combines an in-memory B-tree with Simple-8b compression to minimize memory usage while maintaining fast lookup and insertion performance.
 

@@ -8,7 +8,15 @@ MVDependencies is a structure that represents multivariate functional dependenci
 
 ## Definition
 
-
+```c
+typedef struct MVDependencies
+{
+	uint32		magic;			/* magic constant marker */
+	uint32		type;			/* type of MV Dependencies (BASIC) */
+	uint32		ndeps;			/* number of dependencies */
+	MVDependency *deps[FLEXIBLE_ARRAY_MEMBER];	/* dependencies */
+} MVDependencies;
+```
 ## Detailed Description
 MVDependencies is the container structure for storing multivariate functional dependency statistics in PostgreSQL's extended statistics framework. Functional dependencies represent relationships where the values in one set of columns uniquely determine the values in another set of columns (e.g., if column A determines column B, then knowing A's value allows predicting B's value).
 

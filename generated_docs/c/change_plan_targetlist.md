@@ -8,7 +8,10 @@ A wrapper function that modifies a plan's target list, optimizing the process by
 
 ## Definition
 
-
+```c
+Plan *
+change_plan_targetlist(Plan *subplan, List *tlist, bool tlist_parallel_safe)
+```
 ## Detailed Description
 The  function serves as an externally available wrapper for , designed specifically for use by Foreign Data Wrapper (FDW) plan-generation functions. It allows modification of the target list computed by some subplan tree while maintaining optimization where possible.
 

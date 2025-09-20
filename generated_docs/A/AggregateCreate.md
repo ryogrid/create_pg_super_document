@@ -8,7 +8,41 @@ AggregateCreate is the core function responsible for creating new aggregate func
 
 ## Definition
 
-
+```c
+ObjectAddress
+AggregateCreate(const char *aggName,
+				Oid aggNamespace,
+				bool replace,
+				char aggKind,
+				int numArgs,
+				int numDirectArgs,
+				oidvector *parameterTypes,
+				Datum allParameterTypes,
+				Datum parameterModes,
+				Datum parameterNames,
+				List *parameterDefaults,
+				Oid variadicArgType,
+				List *aggtransfnName,
+				List *aggfinalfnName,
+				List *aggcombinefnName,
+				List *aggserialfnName,
+				List *aggdeserialfnName,
+				List *aggmtransfnName,
+				List *aggminvtransfnName,
+				List *aggmfinalfnName,
+				bool finalfnExtraArgs,
+				bool mfinalfnExtraArgs,
+				char finalfnModify,
+				char mfinalfnModify,
+				List *aggsortopName,
+				Oid aggTransType,
+				int32 aggTransSpace,
+				Oid aggmTransType,
+				int32 aggmTransSpace,
+				const char *agginitval,
+				const char *aggminitval,
+				char proparallel)
+```
 ## Detailed Description
 AggregateCreate is the central function for creating aggregate functions in PostgreSQL. It performs comprehensive validation of all aggregate components including transition functions, final functions, combine functions, and serialization/deserialization functions. The function handles different aggregate types (normal, ordered-set, hypothetical-set) and supports both single-phase and moving-aggregate implementations.
 

@@ -8,7 +8,15 @@ Prepares an UPDATE TargetEntry for assignment to a column in UPDATE statements a
 
 ## Definition
 
-
+```c
+void
+updateTargetListEntry(ParseState *pstate,
+					  TargetEntry *tle,
+					  char *colname,
+					  int attrno,
+					  List *indirection,
+					  int location)
+```
 ## Detailed Description
 This function is specifically designed for UPDATE statements (including ON CONFLICT DO UPDATE) to transform a TargetEntry for column assignment. It performs two main operations:
 

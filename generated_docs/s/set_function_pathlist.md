@@ -8,7 +8,10 @@ Builds the single access path for a function RTE (Range Table Entry), handling t
 
 ## Definition
 
-
+```c
+static void
+set_function_pathlist(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function is responsible for creating access paths for function RTEs in PostgreSQL's query optimizer. It handles the specific case where a function is used as a data source in a query (e.g., SELECT * FROM my_function()). The function determines the required outer relations for parameterization due to LATERAL references and optionally creates pathkeys for ordering when the ORDINALITY clause is used.
 

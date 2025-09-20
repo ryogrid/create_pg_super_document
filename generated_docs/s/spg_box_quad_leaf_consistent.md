@@ -8,7 +8,10 @@ A leaf consistency function for SP-GiST quadtree indexes on geometric box and po
 
 ## Definition
 
-
+```c
+Datum
+spg_box_quad_leaf_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the leaf consistency check for SP-GiST quadtree indexes on box and polygon geometries. It evaluates whether a stored leaf value satisfies the given search conditions by testing various spatial relationships (overlap, containment, position, etc.). The function supports all standard R-tree strategy numbers for 2D spatial queries and can handle distance-based ordering for nearest neighbor searches. All tests performed are exact matches with no need for rechecking, except when computing distances to polygons.
 

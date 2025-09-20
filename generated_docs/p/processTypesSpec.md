@@ -8,7 +8,10 @@ Processes explicit argument types used in ALTER ADD/DROP operator family command
 
 ## Definition
 
-
+```c
+static void
+processTypesSpec(List *args, Oid *lefttype, Oid *righttype)
+```
 ## Detailed Description
 This static function parses a list of type name arguments and converts them to their corresponding OIDs for use in operator family operations. It handles both unary and binary operators by extracting one or two type specifications. For unary operators (single argument), it sets both left and right types to the same value. For binary operators (two arguments), it processes each type separately. The function enforces that no more than two argument types can be specified.
 

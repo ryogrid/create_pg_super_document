@@ -8,7 +8,10 @@ A PostgreSQL backend function that reads and returns the entire content of a lar
 
 ## Definition
 
-
+```c
+Datum
+be_lo_get(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL backend function that retrieves the complete content of a large object identified by its OID. It serves as a wrapper around the internal  function, requesting the entire object by specifying an offset of 0 and length of -1 (indicating all remaining data). The function is part of PostgreSQL's large object support system, which allows storing and manipulating binary data that exceeds the normal size limits of regular data types.
 

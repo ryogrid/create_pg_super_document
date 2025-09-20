@@ -8,7 +8,10 @@ Transforms window definitions (WindowDef nodes) into WindowClause nodes, handlin
 
 ## Definition
 
-
+```c
+struction ensures we follow the rule
+	 * that sortClause and distinctClause match;
+```
 ## Detailed Description
 This function processes WINDOW clause definitions and inline window specifications from SQL queries. For each WindowDef in the input list, it creates a corresponding WindowClause node with transformed partition and order clauses. The function handles complex window inheritance rules from SQL:2008 standard: referenced windows copy partition clauses (which cannot be overridden), may copy order clauses (only if the referenced window has none), and cannot copy frame clauses (referenced windows with frame clauses cause errors). It validates window name uniqueness, resolves window references, transforms PARTITION BY clauses using transformGroupClause, and transforms ORDER BY clauses using transformSortClause. Special handling is provided for RANGE frame mode with offsets (requires exactly one ORDER BY column) and GROUPS frame mode (requires an ORDER BY clause). Frame offset expressions are processed through transformFrameOffset.
 

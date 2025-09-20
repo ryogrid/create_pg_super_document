@@ -8,7 +8,10 @@ Optimizes LLVM IR code in a module using the optimization flags set in the JIT c
 
 ## Definition
 
-
+```c
+static void
+llvm_optimize_module(LLVMJitContext *context, LLVMModuleRef module)
+```
 ## Detailed Description
 This function performs code optimization on an LLVM module using either the legacy pass manager (LLVM < 17) or the new pass manager (LLVM >= 17). The optimization strategy is determined by the flags set in the JIT context:
 

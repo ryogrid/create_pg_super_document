@@ -8,7 +8,11 @@ Detaches from a DSM segment, performing cleanup callbacks, unmapping memory, and
 
 ## Definition
 
-
+```c
+structures. */
+	if (seg->resowner != NULL)
+		ResourceOwnerForgetDSM(seg->resowner, seg);
+```
 ## Detailed Description
 The  function is the primary mechanism for cleanly disconnecting from a DSM segment. It performs a comprehensive cleanup process that ensures proper resource management and maintains system integrity. The function is designed to be robust and should never fail, as it's often called during error recovery scenarios.
 

@@ -8,7 +8,10 @@ get_ts_config_oid finds and returns the OID of a text search configuration by it
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &config_name);
+```
 ## Detailed Description
 This function resolves a text search configuration name to its corresponding OID in the PostgreSQL system catalogs. It supports both qualified names (schema.config) and unqualified names (config only). For unqualified names, it searches through the current namespace search path to find the first matching configuration. The function implements standard PostgreSQL namespace resolution semantics and provides flexible error handling through the missing_ok parameter.
 

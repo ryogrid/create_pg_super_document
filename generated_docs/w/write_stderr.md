@@ -8,7 +8,63 @@ A low-level error output function that writes formatted error messages to stderr
 
 ## Definition
 
+```c
+#endif
 
+
+static void write_stderr(const char *fmt,...) pg_attribute_printf(1, 2);
+static void do_advice(void);
+static void do_help(void);
+static void set_mode(char *modeopt);
+static void set_sig(char *signame);
+static void do_init(void);
+static void do_start(void);
+static void do_stop(void);
+static void do_restart(void);
+static void do_reload(void);
+static void do_status(void);
+static void do_promote(void);
+static void do_logrotate(void);
+static void do_kill(pid_t pid);
+static void print_msg(const char *msg);
+static void adjust_data_dir(void);
+
+#ifdef WIN32
+#include <versionhelpers.h>
+static bool pgwin32_IsInstalled(SC_HANDLE);
+static char *pgwin32_CommandLine(bool);
+static void pgwin32_doRegister(void);
+static void pgwin32_doUnregister(void);
+static void pgwin32_SetServiceStatus(DWORD);
+static void WINAPI pgwin32_ServiceHandler(DWORD);
+static void WINAPI pgwin32_ServiceMain(DWORD, LPTSTR *);
+static void pgwin32_doRunAsService(void);
+static int	CreateRestrictedProcess(char *cmd, PROCESS_INFORMATION *processInfo, bool as_service);
+static PTOKEN_PRIVILEGES GetPrivilegesToDelete(HANDLE hToken);
+#endif
+
+static pid_t get_pgpid(bool is_status_request);
+static char **readfile(const char *path, int *numlines);
+static void free_readfile(char **optlines);
+static pid_t start_postmaster(void);
+static void read_post_opts(void);
+
+static WaitPMResult wait_for_postmaster_start(pid_t pm_pid, bool do_checkpoint);
+static bool wait_for_postmaster_stop(void);
+static bool wait_for_postmaster_promote(void);
+static bool postmaster_is_alive(pid_t pid);
+
+#if defined(HAVE_GETRLIMIT)
+static void unlimit_core_size(void);
+#endif
+
+static DBState get_control_dbstate(void);
+
+
+#ifdef WIN32
+static void
+write_eventlog(int level, const char *line)
+```
 ## Detailed Description
 The  function provides a basic error output mechanism that can be used safely before PostgreSQL's full error reporting system (ereport/elog) is initialized. It handles platform-specific differences between Unix and Windows systems for error output.
 

@@ -8,7 +8,10 @@ PostgreSQL function that performs greater-than comparison between a float4 (sing
 
 ## Definition
 
-
+```c
+Datum
+float48gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `float48gt` function implements the greater-than comparison operator for mixed-precision floating point types in PostgreSQL. It takes a float4 (4-byte single precision float) as the first argument and a float8 (8-byte double precision float) as the second argument, then determines if the first value is greater than the second value.
 

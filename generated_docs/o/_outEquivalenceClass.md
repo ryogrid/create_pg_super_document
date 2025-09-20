@@ -8,7 +8,10 @@ Serializes an EquivalenceClass node to its string representation, following merg
 
 ## Definition
 
-
+```c
+static void
+_outEquivalenceClass(StringInfo str, const EquivalenceClass *node)
+```
 ## Detailed Description
 The  function serializes EquivalenceClass nodes, which are fundamental data structures in PostgreSQL's query optimization system for tracking sets of expressions that are known to be equal.
 

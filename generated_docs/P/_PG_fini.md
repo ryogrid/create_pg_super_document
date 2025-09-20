@@ -8,7 +8,10 @@ Module cleanup function for PostgreSQL extensions that is called when the module
 
 ## Definition
 
-
+```c
+void
+_PG_fini(void)
+```
 ## Detailed Description
 The _PG_fini function is a special function that PostgreSQL calls automatically when a dynamically loaded module is being unloaded from the server. This provides an opportunity for the module to perform cleanup operations such as deallocating resources, unhooking from system callbacks, or resetting global state.
 

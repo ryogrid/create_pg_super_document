@@ -8,7 +8,10 @@ A SQL function that determines and returns the type of the outermost JSON value 
 
 ## Definition
 
-
+```c
+Datum
+json_typeof(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL function json_typeof(json) -> text, which analyzes a JSON value and returns its type as a human-readable string. The function works by performing minimal parsing - it only needs to examine the first token of the JSON input to determine the overall type. This is efficient because JSON's syntax allows the type to be determined from the initial character(s). The function supports all standard JSON types: objects, arrays, strings, numbers, booleans, and null values. Since the input JSON has already been validated by json_in() or json_recv() when stored in the database, the function can assume well-formed input and only needs to handle the basic token types.
 

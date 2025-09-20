@@ -8,7 +8,15 @@ The xl_hash_delete struct represents the WAL record data for hash index tuple de
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_delete
+{
+	bool		clear_dead_marking; /* true if this operation clears
+									 * LH_PAGE_HAS_DEAD_TUPLES flag */
+	bool		is_primary_bucket_page; /* true if the operation is for
+										 * primary bucket page */
+} xl_hash_delete;
+```
 ## Detailed Description
 This structure contains the metadata necessary to perform or replay hash index tuple deletion operations during WAL recovery. The deletion operation removes index tuples from a hash index page and may also clear dead tuple markings. This is part of PostgreSQL's hash index maintenance operations, typically occurring during index cleanup or vacuum operations.
 

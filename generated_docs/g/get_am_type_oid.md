@@ -8,7 +8,10 @@ Internal worker function that looks up an access method by name and optionally v
 
 ## Definition
 
-
+```c
+static Oid
+get_am_type_oid(const char *amname, char amtype, bool missing_ok)
+```
 ## Detailed Description
 get_am_type_oid serves as a core utility function for access method OID lookups with optional type validation. It searches the pg_am system catalog for an access method by name and can enforce type constraints when specified. The function supports both strict mode (throwing errors for missing access methods) and lenient mode (returning InvalidOid), making it suitable for various use cases throughout the access method subsystem.
 

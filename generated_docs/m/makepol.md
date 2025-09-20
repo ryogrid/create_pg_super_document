@@ -8,7 +8,12 @@ The main function that converts tsquery expressions from infix notation to polis
 
 ## Definition
 
-
+```c
+static void
+makepol(TSQueryParserState state,
+		PushFunction pushval,
+		Datum opaque)
+```
 ## Detailed Description
 The makepol function is the core parser for converting tsquery expressions into polish (prefix) notation. It implements a recursive descent parser that processes tokens from the input stream, handling values, operators, and parentheses. The function maintains an operator stack to handle precedence and associativity rules, calling cleanOpStack and pushOpStack to manage operators properly. For nested expressions (parentheses), it recursively calls itself. The function works with a callback mechanism (pushval) to output parsed elements, allowing different consumers to process the parsed query structure. It includes comprehensive error handling for malformed queries and integrates with PostgreSQL's soft error reporting system.
 

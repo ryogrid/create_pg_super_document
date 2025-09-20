@@ -8,7 +8,10 @@ Establishes a secure SSL/TLS session with a client by negotiating encryption and
 
 ## Definition
 
-
+```c
+int
+secure_open_server(Port *port)
+```
 ## Detailed Description
 The `secure_open_server` function manages the server-side SSL/TLS handshake process and the critical transition from unencrypted to encrypted communication. It handles a complex scenario where some data may have already been buffered before the SSL negotiation begins, requiring careful management of unencrypted data that needs to be processed through the SSL layer.
 

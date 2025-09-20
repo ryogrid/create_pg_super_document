@@ -8,7 +8,14 @@ WALOpenSegment represents a WAL (Write Ahead Log) segment currently being read, 
 
 ## Definition
 
-
+```c
+typedef struct WALOpenSegment
+{
+	int			ws_file;		/* segment file descriptor */
+	XLogSegNo	ws_segno;		/* segment number */
+	TimeLineID	ws_tli;			/* timeline ID of the currently open file */
+} WALOpenSegment;
+```
 ## Detailed Description
 WALOpenSegment is a fundamental data structure in PostgreSQL's WAL reading infrastructure that encapsulates the state of an open WAL segment file. It serves as a handle that maintains the file descriptor, segment identifier, and timeline information necessary for reading WAL records from a specific segment. This structure is primarily used by the XLogReader system to track which WAL segment is currently open and accessible for reading operations.
 

@@ -8,7 +8,10 @@ Finds and returns the DumpableObject for a PostgreSQL namespace (schema) with th
 
 ## Definition
 
-
+```c
+NamespaceInfo *
+findNamespaceByOid(Oid oid)
+```
 ## Detailed Description
 This function is part of the pg_dump utility's object lookup system. It searches for a namespace (schema) object by its Object Identifier (OID) and returns the corresponding NamespaceInfo structure. The function works by creating a CatalogId structure with the namespace's OID and using the generic findObjectByCatalogId function to locate the object. It includes an assertion to verify that any found object is indeed of type DO_NAMESPACE, ensuring type safety in the dump process.
 

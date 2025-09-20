@@ -8,7 +8,11 @@ Extended version of relation_openrv that allows graceful handling of missing rel
 
 ## Definition
 
-
+```c
+Relation
+relation_openrv_extended(const RangeVar *relation, LOCKMODE lockmode,
+						 bool missing_ok)
+```
 ## Detailed Description
 The `relation_openrv_extended` function extends the functionality of `relation_openrv` by adding a `missing_ok` parameter that controls error handling behavior when a relation cannot be found. This provides callers with the flexibility to handle missing relations gracefully without exception handling. The function follows the same core process as `relation_openrv`:
 

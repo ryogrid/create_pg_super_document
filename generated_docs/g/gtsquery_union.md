@@ -8,7 +8,10 @@ gtsquery_union is a GiST union function that combines multiple TSQuerySign entri
 
 ## Definition
 
-
+```c
+Datum
+gtsquery_union(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of the GiST index support for TSQuery data types. It implements the union operation required by GiST for combining multiple index entries into a parent node entry. The function takes a vector of TSQuerySign entries and creates a unified signature that represents the union of all contained signatures.
 

@@ -8,7 +8,10 @@ PLy_function_build_args constructs a Python list of arguments from PostgreSQL fu
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_function_build_args(FunctionCallInfo fcinfo, PLyProcedure *proc)
+```
 ## Detailed Description
 This function is a helper that prepares function arguments for PL/Python function execution. It performs several critical tasks:
 

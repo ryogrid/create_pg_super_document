@@ -8,7 +8,10 @@ Implements equality comparison between two BPCHAR (blank-padded character) value
 
 ## Definition
 
-
+```c
+Datum
+bpchareq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares two BPCHAR values for equality. It implements an optimized comparison strategy that considers the collation settings. For C locale or deterministic collations, it performs a fast bitwise comparison using memcmp() after verifying the lengths are equal. For other collations, it uses the more comprehensive varstr_cmp() function to handle locale-specific comparison rules. The function properly handles detoasting of potentially compressed values and ensures memory cleanup to prevent leaks, which is crucial for btree index operations.
 

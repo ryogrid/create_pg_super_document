@@ -8,7 +8,10 @@ LockRelease releases one lock of a specified mode on a given lock tag, handling 
 
 ## Definition
 
-
+```c
+bool
+LockRelease(const LOCKTAG *locktag, LOCKMODE lockmode, bool sessionLock)
+```
 ## Detailed Description
 LockRelease is the primary function for releasing locks in PostgreSQL's lock management system. It performs a comprehensive release process that includes:
 

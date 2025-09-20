@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) check hook function that validates the max_s
 
 ## Definition
 
-
+```c
+bool
+check_max_stack_depth(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for the PostgreSQL configuration parameter max_stack_depth. It converts the proposed value from kilobytes to bytes and compares it against the system's stack depth limit obtained from get_stack_depth_rlimit(). The function ensures that the requested stack depth doesn't exceed the available system limit minus a safety margin (STACK_DEPTH_SLOP), preventing potential stack overflow conditions.
 

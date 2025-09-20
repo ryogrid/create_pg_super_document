@@ -8,7 +8,18 @@ The backslashResult enum defines the possible return codes from psql backslash c
 
 ## Definition
 
-
+```c
+typedef enum _backslashResult
+{
+	PSQL_CMD_UNKNOWN = 0,		/* not done parsing yet (internal only) */
+	PSQL_CMD_SEND,				/* query complete; send off */
+	PSQL_CMD_SKIP_LINE,			/* keep building query */
+	PSQL_CMD_TERMINATE,			/* quit program */
+	PSQL_CMD_NEWEDIT,			/* query buffer was changed (e.g., via \e) */
+	PSQL_CMD_ERROR,				/* the execution of the backslash command
+								 * resulted in an error */
+} backslashResult;
+```
 ## Detailed Description
 The backslashResult enumeration serves as a control flow mechanism for psql's command processing system. When a backslash command (such as \d, \q, \c, etc.) is processed by the HandleSlashCmds function, it returns one of these enum values to indicate what action the main command loop should take next. This design allows for clean separation between command parsing/execution and the overall program flow control.
 

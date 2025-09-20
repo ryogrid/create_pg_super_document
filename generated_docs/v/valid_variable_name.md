@@ -8,7 +8,10 @@ Validates whether a given variable name follows PostgreSQL's naming conventions 
 
 ## Definition
 
-
+```c
+static bool
+valid_variable_name(const char *name)
+```
 ## Detailed Description
 This function checks whether a variable name is allowed according to PostgreSQL's variable naming rules. It validates that the name contains only permitted characters and follows the structural requirements. The function allows any non-ASCII character, ASCII letters (both upper and lower case), digits, and underscore characters. However, it enforces that variable names cannot start with a digit, which distinguishes it from similar functions in other PostgreSQL components.
 

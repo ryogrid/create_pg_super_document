@@ -8,7 +8,10 @@ schema_does_not_exist_skipping is a helper function that determines whether a mi
 
 ## Definition
 
-
+```c
+static bool
+schema_does_not_exist_skipping(List *object, const char **msg, char **name)
+```
 ## Detailed Description
 This function is used when a schema-qualified object specification returns that the object doesn't exist. It checks whether the specified schema exists. If no schema was specified or the schema exists, it returns false (meaning the object itself is missing). If the specified schema doesn't exist, it sets appropriate error message and name parameters and returns true (indicating the missing object should be skipped because its schema is missing).
 

@@ -8,7 +8,9 @@ Determines whether a given path refers to a directory, using a robust approach t
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function checks if the specified path is a directory using a two-step approach for maximum compatibility:
 

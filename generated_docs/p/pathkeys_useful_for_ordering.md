@@ -8,7 +8,10 @@ Counts the number of pathkeys that are useful for meeting the query's requested 
 
 ## Definition
 
-
+```c
+static int
+pathkeys_useful_for_ordering(PlannerInfo *root, List *pathkeys)
+```
 ## Detailed Description
 This function evaluates how many pathkeys from a given list are useful for satisfying the query's ORDER BY requirements. The function leverages the incremental sort capability in PostgreSQL, where a prefix list of keys can potentially improve the performance of the requested ordering even if not all keys match exactly. 
 

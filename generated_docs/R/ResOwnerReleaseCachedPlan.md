@@ -8,7 +8,10 @@ A ResourceOwner callback function that releases a cached plan when the resource 
 
 ## Definition
 
-
+```c
+static void
+ResOwnerReleaseCachedPlan(Datum res)
+```
 ## Detailed Description
  is a static callback function used by PostgreSQL's ResourceOwner system to automatically release cached plans when resources are cleaned up. This function serves as a bridge between the ResourceOwner cleanup mechanism and the plan cache system. When a resource owner is being torn down (typically at transaction end or on error), this callback is invoked for each cached plan reference that was registered with the resource owner. The function extracts the  pointer from the Datum parameter and calls  to properly decrement reference counts and potentially free the cached plan memory.
 

@@ -8,7 +8,12 @@ This function builds a pathkey list representing a possible sort ordering that c
 
 ## Definition
 
-
+```c
+List *
+select_outer_pathkeys_for_merge(PlannerInfo *root,
+								List *mergeclauses,
+								RelOptInfo *joinrel)
+```
 ## Detailed Description
 The function creates an optimal pathkey ordering for the outer relation in a merge join, prioritizing query_pathkeys compatibility and equivalence class popularity. The algorithm works in several phases:
 

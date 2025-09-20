@@ -8,7 +8,10 @@ Writes manifest data chunks to a file during a base backup operation as part of 
 
 ## Definition
 
-
+```c
+static void
+bbsink_server_manifest_contents(bbsink *sink, size_t len)
+```
 ## Detailed Description
 This function is a callback implementation for the bbsink interface that handles writing manifest contents to a file during base backup operations. It writes data from the sink's buffer to the associated file, performs error checking for write operations, updates the file position, and forwards the manifest contents to any chained sinks in the pipeline.
 

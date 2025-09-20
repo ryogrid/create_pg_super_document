@@ -8,7 +8,14 @@ OprInfo is a structure used in pg_dump to represent operator metadata during dat
 
 ## Definition
 
-
+```c
+typedef struct _accessMethodInfo
+{
+	DumpableObject dobj;
+	char		amtype;
+	char	   *amhandler;
+} AccessMethodInfo;
+```
 ## Detailed Description
 OprInfo stores comprehensive metadata about PostgreSQL operators for the dump and restore process. It contains information about the operator's kind (binary, unary left, unary right), the types of its operands, and the function that implements the operator. This structure allows pg_dump to properly reconstruct operator definitions during database restoration, ensuring that custom operators are correctly recreated with their original specifications.
 

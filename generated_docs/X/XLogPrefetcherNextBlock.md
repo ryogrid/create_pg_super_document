@@ -8,7 +8,13 @@ A callback function that examines the next block reference in the WAL (Write-Ahe
 
 ## Definition
 
-
+```c
+enumber is reused.  It's also more efficient than
+					 * discovering that relations don't exist on disk yet with
+					 * ENOENT errors.
+					 */
+					XLogPrefetcherAddFilter(prefetcher, rlocator, 0, record->lsn);
+```
 ## Detailed Description
 This function is the core of PostgreSQL's WAL prefetcher system. It operates as a callback within the LSN Read Queue framework, examining upcoming WAL records to identify block references that should be prefetched before they are actually needed during WAL replay.
 

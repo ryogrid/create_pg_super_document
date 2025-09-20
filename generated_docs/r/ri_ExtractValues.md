@@ -8,7 +8,12 @@ Extracts field values from a tuple slot into Datum and nulls arrays for use in r
 
 ## Definition
 
-
+```c
+static void
+ri_ExtractValues(Relation rel, TupleTableSlot *slot,
+				 const RI_ConstraintInfo *riinfo, bool rel_is_pk,
+				 Datum *vals, char *nulls)
+```
 ## Detailed Description
 This utility function extracts attribute values from a tuple slot and stores them in arrays suitable for passing to SPI queries. It selects the appropriate attribute numbers based on whether the relation is the primary key or foreign key table, then extracts each value using slot_getattr and converts null indicators to the character format expected by SPI functions ('n' for null, ' ' for not null).
 

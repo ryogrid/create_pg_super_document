@@ -8,7 +8,9 @@ Implements the PostgreSQL psql \watch command functionality, repeatedly executin
 
 ## Definition
 
-
+```c
+struct itimerval interval;
+```
 ## Detailed Description
 The  function provides the core implementation for psql's \watch command, which repeatedly executes a SQL query at regular intervals. It handles cross-platform timing mechanisms, signal management for graceful interruption, and optional pager integration for output display.
 

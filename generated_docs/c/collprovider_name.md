@@ -8,7 +8,10 @@ A static inline utility function that converts collation provider character code
 
 ## Definition
 
-
+```c
+static inline const char *
+collprovider_name(char c)
+```
 ## Detailed Description
 The  function provides a simple mapping from single-character collation provider codes to their descriptive string names. PostgreSQL uses character codes internally to identify different collation providers, and this function translates those codes into readable names for display and debugging purposes. The function handles the three main collation providers supported by PostgreSQL: builtin, ICU, and libc.
 

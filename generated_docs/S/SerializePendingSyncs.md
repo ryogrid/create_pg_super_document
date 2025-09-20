@@ -8,7 +8,10 @@ SerializePendingSyncs serializes pending sync operations for parallel workers, a
 
 ## Definition
 
-
+```c
+void
+SerializePendingSyncs(Size maxSize, char *startAddress)
+```
 ## Detailed Description
 This function prepares pending synchronization operations for parallel workers by serializing the active RelFileLocator entries into a memory region. It creates a temporary hash table to collect all active relation file locators from the pending syncs, filters out any that are marked for deletion at commit, and writes the remaining locators to the provided memory address. The serialized data can then be used by parallel workers to inherit sync responsibilities from the main process.
 

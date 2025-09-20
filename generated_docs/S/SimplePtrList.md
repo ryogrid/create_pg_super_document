@@ -8,7 +8,13 @@ SimplePtrList is a simple linked list data structure for frontend code that stor
 
 ## Definition
 
-
+```c
+typedef struct SimplePtrList
+{
+	SimplePtrListCell *head;
+	SimplePtrListCell *tail;
+} SimplePtrList;
+```
 ## Detailed Description
 SimplePtrList is part of PostgreSQL's frontend utility simple list facilities designed for client-side code such as pg_dump and pg_amcheck. It provides a lightweight alternative to the backend's more sophisticated List data structure when only basic list operations are needed. The list maintains pointers to arbitrary data through void pointers, allowing storage of references to various data types without type-specific implementations.
 

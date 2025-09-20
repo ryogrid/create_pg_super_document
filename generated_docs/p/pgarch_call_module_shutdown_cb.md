@@ -8,7 +8,10 @@ A callback function that invokes the shutdown callback of the loaded archive mod
 
 ## Definition
 
-
+```c
+static void
+pgarch_call_module_shutdown_cb(int code, Datum arg)
+```
 ## Detailed Description
 pgarch_call_module_shutdown_cb is a shutdown callback function that is registered with PostgreSQL's process exit handling mechanism via . Its primary purpose is to ensure that any loaded archive module gets a chance to perform cleanup operations before the archiver process terminates.
 

@@ -8,7 +8,10 @@ The rgetmsg function is a stub implementation that provides Informix compatibili
 
 ## Definition
 
-
+```c
+int
+rgetmsg(int msgnum, char *s, int maxsize)
+```
 ## Detailed Description
 The rgetmsg function is part of PostgreSQL's ECPG Informix compatibility library. This is a stub implementation that mimics the signature of the Informix rgetmsg function, which would typically retrieve system or error messages by message number. However, the PostgreSQL implementation simply ignores all parameters and returns 0, indicating no message was retrieved.
 

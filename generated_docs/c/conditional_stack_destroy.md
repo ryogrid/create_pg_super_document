@@ -8,7 +8,10 @@ Completely destroys a conditional stack by clearing all its elements and dealloc
 
 ## Definition
 
-
+```c
+void
+conditional_stack_destroy(ConditionalStack cstack)
+```
 ## Detailed Description
 This function provides complete cleanup of a conditional stack by first clearing all stack elements using conditional_stack_reset and then freeing the stack structure itself using the standard free() function. This is the proper way to deallocate a conditional stack that was created with conditional_stack_create. The function ensures that all memory associated with the stack, both the individual stack elements and the stack structure itself, is properly released to prevent memory leaks.
 

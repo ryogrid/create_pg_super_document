@@ -8,7 +8,10 @@ Reports the current activity state and command string of a backend process, upda
 
 ## Definition
 
-
+```c
+void
+pgstat_report_activity(BackendState state, const char *cmd_str)
+```
 ## Detailed Description
 This function is the primary interface for reporting backend activity status to PostgreSQL's statistics collection system. It updates the backend's status entry in shared memory with the current state and command string being executed. The function handles state transitions, tracks timing information for different activity phases, and maintains consistency through a change-counting protocol.
 

@@ -8,7 +8,10 @@ Converts a string representation of a value to its internal PostgreSQL Datum rep
 
 ## Definition
 
-
+```c
+Datum
+stringTypeDatum(Type tp, char *string, int32 atttypmod)
+```
 ## Detailed Description
 The  function performs type input conversion by taking a string representation of a value and converting it to PostgreSQL's internal Datum format according to the specified type. This function is a key component of PostgreSQL's type system, enabling the conversion from human-readable text representations to the internal binary format used for storage and computation.
 

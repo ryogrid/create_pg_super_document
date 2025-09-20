@@ -8,7 +8,10 @@ PostgreSQL's Windows-specific wrapper function for the standard socket bind() sy
 
 ## Definition
 
-
+```c
+int
+pgwin32_bind(SOCKET s, struct sockaddr *addr, int addrlen)
+```
 ## Detailed Description
 pgwin32_bind is a thin wrapper around the standard Windows socket bind() function that provides PostgreSQL-specific error handling. It calls the native bind() function and translates any Windows socket errors into PostgreSQL's error handling system using TranslateSocketError(). This function is part of PostgreSQL's Windows socket emulation layer that ensures consistent behavior across different platforms and proper integration with PostgreSQL's signal handling system.
 

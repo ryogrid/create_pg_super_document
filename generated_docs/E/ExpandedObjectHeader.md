@@ -8,7 +8,9 @@ A fundamental header structure that must be contained in every expanded object, 
 
 ## Definition
 
-
+```c
+typedef struct ExpandedObjectHeader ExpandedObjectHeader;
+```
 ## Detailed Description
 The ExpandedObjectHeader structure serves as the mandatory foundation for PostgreSQL's expanded datum system, which provides an efficient way to handle large, complex data structures that can be expensive to repeatedly decompress and process. This header is typically embedded within larger, type-specific structures that add additional fields relevant to the particular data type.
 

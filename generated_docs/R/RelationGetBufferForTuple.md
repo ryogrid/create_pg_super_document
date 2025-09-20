@@ -8,7 +8,14 @@ RelationGetBufferForTuple finds and returns a pinned, exclusive-locked buffer co
 
 ## Definition
 
-
+```c
+Buffer
+RelationGetBufferForTuple(Relation relation, Size len,
+						  Buffer otherBuffer, int options,
+						  BulkInsertState bistate,
+						  Buffer *vmbuffer, Buffer *vmbuffer_other,
+						  int num_pages)
+```
 ## Detailed Description
 This is a comprehensive function responsible for obtaining a suitable buffer for heap tuple insertion. It implements sophisticated logic for:
 

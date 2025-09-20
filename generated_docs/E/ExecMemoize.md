@@ -8,7 +8,10 @@ ExecMemoize is the main execution function for the Memoize node that caches and 
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecMemoize(PlanState *pstate)
+```
 ## Detailed Description
 ExecMemoize implements a sophisticated caching mechanism for PostgreSQL's execution engine. It operates through a state machine with five distinct states:
 

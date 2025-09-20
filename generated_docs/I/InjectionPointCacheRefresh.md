@@ -8,7 +8,10 @@ A static function that serves as the core workhorse for injection point lookups,
 
 ## Definition
 
-
+```c
+static InjectionPointCacheEntry *
+InjectionPointCacheRefresh(const char *name)
+```
 ## Detailed Description
 This function implements the core logic for finding and caching injection points. It handles the complex synchronization between shared memory and local cache, dealing with concurrent modifications that can occur during lookup operations. The function performs several key operations:
 

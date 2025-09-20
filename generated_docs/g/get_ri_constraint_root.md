@@ -8,7 +8,10 @@ Returns the OID of the root parent constraint in a constraint inheritance hierar
 
 ## Definition
 
-
+```c
+static Oid
+get_ri_constraint_root(Oid constrOid)
+```
 ## Detailed Description
 This function traverses up the constraint inheritance hierarchy to find the root constraint. In PostgreSQL's partitioned table system, foreign key constraints can be inherited from parent to child partitions, creating a hierarchy of related constraints. This function:
 

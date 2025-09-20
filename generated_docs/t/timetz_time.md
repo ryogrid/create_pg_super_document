@@ -8,7 +8,10 @@ Extracts the time portion from a time with time zone (TimeTzADT) value, discardi
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function performs a conversion from a time with time zone data type to a plain time data type. It takes a TimeTzADT (time with timezone) input parameter and extracts only the time component, effectively "swallowing" or ignoring the timezone information. The function is straightforward - it simply accesses the time field of the TimeTzADT structure and returns it as a TimeADT value. This conversion is useful when timezone information is not needed and only the time portion is required for operations or display.
 

@@ -8,7 +8,20 @@ SerializeDestReceiver is a specialized DestReceiver implementation for PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct SerializeDestReceiver
+{
+	DestReceiver pub;
+	ExplainState *es;			/* this EXPLAIN statement's ExplainState */
+	int8		format;			/* text or binary, like pq wire protocol */
+	TupleDesc	attrinfo;		/* the output tuple desc */
+	int			nattrs;			/* current number of columns */
+	FmgrInfo   *finfos;			/* precomputed call info for output fns */
+	MemoryContext tmpcontext;	/* per-row temporary memory context */
+	StringInfoData buf;			/* buffer to hold the constructed message */
+	SerializeMetrics metrics;	/* collected metrics */
+} SerializeDestReceiver;
+```
 ## Detailed Description
 The SerializeDestReceiver structure extends the base DestReceiver functionality to provide a specialized destination for query tuples during EXPLAIN operations with the SERIALIZE option. Its primary purpose is to measure the overhead of deTOASTing (decompressing TOAST values) and datatype output/send functions without actually transmitting data over the network. This allows accurate performance analysis of serialization costs that are normally hidden within network transmission. The receiver processes each tuple by converting it to the wire protocol format (either text or binary), measuring the time spent and bytes generated, while collecting detailed buffer usage statistics through the embedded SerializeMetrics structure.
 

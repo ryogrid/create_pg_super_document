@@ -8,7 +8,13 @@ Determines whether a heap tuple should be frozen by checking if its transaction 
 
 ## Definition
 
-
+```c
+bool
+heap_tuple_should_freeze(HeapTupleHeader tuple,
+						 const struct VacuumCutoffs *cutoffs,
+						 TransactionId *NoFreezePageRelfrozenXid,
+						 MultiXactId *NoFreezePageRelminMxid)
+```
 ## Detailed Description
 This function serves as a sibling to heap_prepare_freeze_tuple and determines whether a tuple would (or should) force freezing of the heap page containing it. The function examines all transaction IDs and MultiXact IDs in the tuple header (xmin, xmax, xvac fields) against the provided freeze limits. If any XID/MXID is older than the corresponding cutoff (FreezeLimit/MultiXactCutoff), the function returns true indicating the tuple should be frozen.
 

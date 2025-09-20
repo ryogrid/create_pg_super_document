@@ -8,7 +8,12 @@ Copies a specified number of array elements from a source memory location to a d
 
 ## Definition
 
-
+```c
+static int
+array_copy(char *destptr, int nitems,
+		   char *srcptr, int offset, bits8 *nullbitmap,
+		   int typlen, bool typbyval, char typalign)
+```
 ## Detailed Description
 This function performs efficient copying of array elements from source to destination memory locations. It first calculates the total byte size of the elements to be copied using , then performs a bulk memory copy using . The function handles both fixed-length and variable-length data types and respects element alignment requirements. It's important to note that this function only copies the data elements themselves and does not handle the destination's null bitmap setup.
 

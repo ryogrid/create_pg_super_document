@@ -8,7 +8,10 @@ Computes ranges (sub-array dimensions) for an array slice by calculating the spa
 
 ## Definition
 
-
+```c
+void
+mda_get_range(int n, int *span, const int *st, const int *endp)
+```
 ## Detailed Description
 This utility function calculates the dimensions (spans) for each axis of a multidimensional array slice. It iterates through all dimensions and computes the range for each by subtracting the start index from the end index and adding 1. The function assumes that the caller has already validated the slice endpoints to prevent integer overflow.
 

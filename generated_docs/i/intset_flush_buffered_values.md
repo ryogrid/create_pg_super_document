@@ -8,7 +8,12 @@ A static internal function that transfers buffered integer values from memory in
 
 ## Definition
 
-
+```c
+struct the next leaf item, packing as many buffered values as
+		 * possible.
+		 */
+		item.first = values[num_packed];
+```
 ## Detailed Description
 The  function is responsible for converting buffered integer values into compressed leaf items within the IntegerSet's B-tree structure. This function implements the core compression logic by taking raw 64-bit integers and packing them using Simple-8b encoding.
 

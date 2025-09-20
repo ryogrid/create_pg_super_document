@@ -8,7 +8,10 @@ A shim function that implements binary logic consistency checking using a ternar
 
 ## Definition
 
-
+```c
+static bool
+shimBoolConsistentFn(GinScanKey key)
+```
 ## Detailed Description
 This function serves as an adapter that allows binary logic consistency checking using a ternary logic consistent function provided by the operator class. It calls the ternary consistent function and interprets the three-valued result (GIN_FALSE, GIN_MAYBE, GIN_TRUE) for binary logic use. The key behavior is that GIN_MAYBE results are converted to true with the recheckCurItem flag set, indicating that heap-level rechecking is required. This allows operator classes that only provide ternary consistent functions to be used in contexts that expect binary logic.
 

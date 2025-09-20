@@ -8,7 +8,9 @@ A utility function that counts the number of lines in a specified file by readin
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function opens a file in read mode and counts the number of lines by iterating through each character and incrementing a counter whenever a newline character ('\n') is encountered. The function reads the entire file character by character using  until EOF is reached. If the file cannot be opened, it logs an error message and returns -1 to indicate failure.
 

@@ -8,7 +8,18 @@ Creates and initializes an IndexOnlyScan plan node for the PostgreSQL query plan
 
 ## Definition
 
-
+```c
+static IndexOnlyScan *
+make_indexonlyscan(List *qptlist,
+				   List *qpqual,
+				   Index scanrelid,
+				   Oid indexid,
+				   List *indexqual,
+				   List *recheckqual,
+				   List *indexorderby,
+				   List *indextlist,
+				   ScanDirection indexscandir)
+```
 ## Detailed Description
 This function constructs an IndexOnlyScan plan node, which is an optimization that allows PostgreSQL to satisfy queries entirely from index data without needing to access the underlying heap table. This is particularly efficient when the index contains all the columns needed to answer the query. The function initializes all necessary fields of the IndexOnlyScan structure including scan qualifications, ordering specifications, and the target list that can be computed directly from the index.
 

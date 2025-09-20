@@ -8,7 +8,15 @@ EnumItem is a structure that represents a single enumeration value within Postgr
 
 ## Definition
 
-
+```c
+typedef struct TypeCacheEnumData
+{
+	Oid			bitmap_base;	/* OID corresponding to bit 0 of bitmapset */
+	Bitmapset  *sorted_values;	/* Set of OIDs known to be in order */
+	int			num_values;		/* total number of values in enum */
+	EnumItem	enum_values[FLEXIBLE_ARRAY_MEMBER];
+} TypeCacheEnumData;
+```
 ## Detailed Description
 EnumItem is a private data structure used within the PostgreSQL type cache system specifically for supporting efficient comparisons of enum values. It is part of the enum caching mechanism that allows PostgreSQL to perform fast ordering operations on user-defined enum types without repeatedly querying the system catalogs.
 

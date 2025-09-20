@@ -8,7 +8,10 @@ Converts a PostgreSQL composite/row datum into a Perl hash reference by extracti
 
 ## Definition
 
-
+```c
+structure */
+	tmptup.t_len = HeapTupleHeaderGetDatumLength(td);
+```
 ## Detailed Description
 This function serves as a conversion utility that transforms a PostgreSQL composite datum (representing a row or composite type) into a Perl hash reference. It extracts the tuple header information from the datum, determines the row type and type modifier, looks up the corresponding tuple descriptor, constructs a temporary HeapTuple structure, and then delegates the actual hash creation to plperl_hash_from_tuple. The function handles the proper acquisition and release of the tuple descriptor to ensure resource management.
 

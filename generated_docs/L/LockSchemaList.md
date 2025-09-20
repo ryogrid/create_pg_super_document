@@ -8,7 +8,10 @@ Locks schemas specified in a schema list with AccessShareLock to prevent concurr
 
 ## Definition
 
-
+```c
+static void
+LockSchemaList(List *schemalist)
+```
 ## Detailed Description
 LockSchemaList is a static function that ensures schema stability during publication operations by acquiring appropriate locks. The function performs the following operations:
 

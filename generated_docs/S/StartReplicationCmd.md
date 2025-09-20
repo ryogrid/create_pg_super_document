@@ -8,7 +8,17 @@ StartReplicationCmd is a command structure used to initiate WAL replication from
 
 ## Definition
 
-
+```c
+typedef struct StartReplicationCmd
+{
+	NodeTag		type;
+	ReplicationKind kind;
+	char	   *slotname;
+	TimeLineID	timeline;
+	XLogRecPtr	startpoint;
+	List	   *options;
+} StartReplicationCmd;
+```
 ## Detailed Description
 StartReplicationCmd represents the START_REPLICATION command used in PostgreSQL's streaming replication protocol. This structure encapsulates all the necessary information to begin streaming WAL (Write-Ahead Log) records from a primary server to a standby or logical replication subscriber. The command supports both physical replication (for standby servers) and logical replication (for selective data synchronization).
 

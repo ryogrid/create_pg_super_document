@@ -8,7 +8,10 @@ Determines whether a specific function argument is constant for the duration of 
 
 ## Definition
 
-
+```c
+bool
+get_fn_expr_arg_stable(FmgrInfo *flinfo, int argnum)
+```
 ## Detailed Description
 This function analyzes whether a particular argument to a function call remains constant throughout query execution. It serves as a wrapper around get_call_expr_arg_stable, providing a convenient interface when working with FmgrInfo structures that contain expression trees. The function is essential for optimization decisions, allowing the query planner and executor to determine if expensive computations can be cached or if certain optimizations are safe to apply.
 

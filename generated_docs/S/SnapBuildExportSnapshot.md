@@ -8,7 +8,10 @@ Exports a logical decoding snapshot so it can be imported and used in another se
 
 ## Definition
 
-
+```c
+const char *
+SnapBuildExportSnapshot(SnapBuild *builder)
+```
 ## Detailed Description
 This function creates an exportable snapshot from a logical decoding builder state. The exported snapshot can be used by other sessions to establish the same consistent view of the database. The function performs several key operations:
 

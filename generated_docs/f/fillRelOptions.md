@@ -8,7 +8,10 @@ A static function that fills a previously allocated relation options structure w
 
 ## Definition
 
-
+```c
+enum_val :
+							((relopt_enum *) options[i].gen)->default_val;
+```
 ## Detailed Description
 This function takes the output from parseRelOptions and fills a relation options structure that was previously allocated with allocateReloptStruct. It iterates through all provided options and matches them against a parsing table, then stores the values in the appropriate locations within the structure. The function handles different data types (bool, int, real, enum, string) and manages string storage by copying strings to the end of the structure and storing offsets. For string options, it supports both default values and custom fill callbacks.
 

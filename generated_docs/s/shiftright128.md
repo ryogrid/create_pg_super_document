@@ -8,7 +8,10 @@ Performs a right shift operation on a 128-bit integer represented as two 64-bit 
 
 ## Definition
 
-
+```c
+static inline uint64
+shiftright128(const uint64 lo, const uint64 hi, const uint32 dist)
+```
 ## Detailed Description
 The  function performs a right shift operation on a 128-bit value represented by two 64-bit integers (low and high parts). This function is part of the Ryu floating-point formatting algorithm and has two implementations depending on compiler intrinsic availability:
 

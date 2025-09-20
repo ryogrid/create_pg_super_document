@@ -8,7 +8,10 @@ Establishes an SSL/TLS connection with a client by performing the SSL handshake,
 
 ## Definition
 
-
+```c
+int
+be_tls_open_server(Port *port)
+```
 ## Detailed Description
 The  function performs the SSL/TLS server-side handshake with a connecting client. It creates an SSL connection object, associates it with the client socket, performs the handshake negotiation, and extracts client certificate information for authentication purposes.
 

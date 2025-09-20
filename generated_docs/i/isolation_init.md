@@ -8,7 +8,10 @@ Initializes the isolation testing framework by saving the executable path and se
 
 ## Definition
 
-
+```c
+static void
+isolation_init(int argc, char **argv)
+```
 ## Detailed Description
 This function performs essential initialization for the isolation testing framework. It saves a copy of argv[0] for later use in locating the isolationtester binary, since the binary lookup cannot be performed during initialization due to library search path constraints. The function also establishes the default regression database name that will be used for isolation tests. The delayed binary lookup strategy is necessary because regression_main() calls initialization functions before parsing command line arguments, which means the library search path hasn't been properly configured yet.
 

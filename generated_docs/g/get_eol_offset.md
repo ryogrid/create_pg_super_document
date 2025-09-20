@@ -8,7 +8,10 @@ A static utility function that finds the offset position of the next line in a S
 
 ## Definition
 
-
+```c
+static int
+get_eol_offset(StringInfo buf)
+```
 ## Detailed Description
 The  function scans through a StringInfo buffer starting from the current cursor position to find the next newline character ('\n'). When a newline is found, it returns the offset position immediately after the newline character (the start of the next line). If no newline character is found before reaching the end of the buffer, it returns the buffer's end position.
 

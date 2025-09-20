@@ -8,7 +8,10 @@ Restores a printQueryOpt structure from a previously saved copy, freeing the old
 
 ## Definition
 
-
+```c
+structures now belong to popt. */
+	free(save);
+```
 ## Detailed Description
 The restorePsetInfo function performs the reverse operation of savePsetInfo by restoring a printQueryOpt structure from a previously saved copy. It first frees all dynamically allocated string data in the current structure to prevent memory leaks, then performs a flat copy of the entire saved structure using memcpy. Finally, it frees the save structure itself while leaving the transferred string pointers intact in the restored structure.
 

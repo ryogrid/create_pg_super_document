@@ -8,7 +8,22 @@ A structure that defines mapping rules for transforming problematic locale names
 
 ## Definition
 
+```c
+struct locale_map
+{
+	/*
+	 * String in locale name to replace. Can be a single string (end is NULL),
+	 * or separate start and end strings. If two strings are given, the locale
+	 * name must contain both of them, and everything between them is
+	 * replaced. This is used for a poor-man's regexp search, allowing
+	 * replacement of "start.*end".
+	 */
+	const char *locale_name_start;
+	const char *locale_name_end;
 
+	const char *replacement;	/* string to replace the match with */
+};
+```
 ## Detailed Description
 The  structure is used to define transformation rules for locale names on Windows. It supports two types of string replacement patterns:
 

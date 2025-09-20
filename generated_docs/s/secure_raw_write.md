@@ -8,7 +8,10 @@ secure_raw_write performs low-level socket write operations for unencrypted conn
 
 ## Definition
 
-
+```c
+ssize_t
+secure_raw_write(Port *port, const void *ptr, size_t len)
+```
 ## Detailed Description
 The secure_raw_write function provides the lowest-level write interface for PostgreSQL client connections when no encryption is in use. It serves as the foundation for higher-level secure write operations by performing direct socket transmission using the standard POSIX send() system call.
 

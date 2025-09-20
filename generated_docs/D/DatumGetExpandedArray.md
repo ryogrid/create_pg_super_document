@@ -8,7 +8,10 @@ Retrieves a writable expanded array from an input Datum, creating one if necessa
 
 ## Definition
 
-
+```c
+ExpandedArrayHeader *
+DatumGetExpandedArray(Datum d)
+```
 ## Detailed Description
 This function provides a convenient interface for obtaining a writable expanded array representation from a Datum. It serves as a key entry point for array manipulation operations that need to modify array contents efficiently.
 

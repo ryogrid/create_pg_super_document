@@ -8,7 +8,10 @@ A utility function that determines whether the current archive restoration opera
 
 ## Definition
 
-
+```c
+static int
+RestoringToDB(ArchiveHandle *AH)
+```
 ## Detailed Description
 The  function serves as a centralized check to determine if the restoration process is writing directly to a database connection rather than to a file or other output target. It examines the restore options and connection state to make this determination, providing a single point of logic for this common conditional check throughout the archiver code.
 

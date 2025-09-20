@@ -8,7 +8,10 @@ DecodeTruncate is a function that parses XLOG_HEAP_TRUNCATE records from the wri
 
 ## Definition
 
-
+```c
+static void
+DecodeTruncate(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+```
 ## Detailed Description
 DecodeTruncate processes heap truncate operations recorded in the WAL during logical decoding. When a TRUNCATE statement is executed on a table, it generates an XLOG_HEAP_TRUNCATE WAL record. This function extracts the relevant information from that record and creates a corresponding change entry in the reorder buffer.
 

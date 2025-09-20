@@ -8,7 +8,10 @@ NewGUCNestLevel increments and returns the current GUC nesting level, used when 
 
 ## Definition
 
-
+```c
+int
+NewGUCNestLevel(void)
+```
 ## Detailed Description
 This function provides a safe mechanism for incrementing the GUC nesting level when entering contexts that require transactional configuration changes. It is designed to be error-free to ensure that subtransaction start and other critical operations can proceed safely. The function is used in various scenarios including subtransaction start, function execution with proconfig settings, and other situations requiring transient GUC variable modifications.
 

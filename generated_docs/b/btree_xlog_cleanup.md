@@ -8,7 +8,10 @@ Performs cleanup operations for the B-tree WAL (Write-Ahead Log) resource manage
 
 ## Definition
 
-
+```c
+void
+btree_xlog_cleanup(void)
+```
 ## Detailed Description
 This function is responsible for cleaning up resources allocated by the B-tree WAL resource manager during PostgreSQL shutdown or when the resource manager is no longer needed. It specifically handles the cleanup of the  memory context, which is used as working memory for B-tree WAL recovery operations.
 

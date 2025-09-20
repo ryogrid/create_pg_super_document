@@ -8,7 +8,10 @@ Negotiates GSSAPI transport encryption for a PostgreSQL connection, managing the
 
 ## Definition
 
-
+```c
+PostgresPollingStatusType
+pqsecure_open_gss(PGconn *conn)
+```
 ## Detailed Description
 This function implements the complete GSSAPI transport negotiation process for PostgreSQL connections. It manages a complex state machine that handles multiple phases: initial buffer allocation, credential delegation setup, GSS context initialization, packet exchange with the server, and final buffer resizing for normal operation. The function operates in a non-blocking manner, returning polling status codes to indicate when the caller should retry based on socket readiness.
 

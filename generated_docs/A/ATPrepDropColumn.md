@@ -8,7 +8,12 @@ ATPrepDropColumn is a preparation function for ALTER TABLE DROP COLUMN that hand
 
 ## Definition
 
-
+```c
+static void
+ATPrepDropColumn(List **wqueue, Relation rel, bool recurse, bool recursing,
+				 AlterTableCmd *cmd, LOCKMODE lockmode,
+				 AlterTableUtilityContext *context)
+```
 ## Detailed Description
 This function performs preparatory work for dropping a column from a table. It validates that the operation is allowed (preventing drops from typed tables unless recursing), handles special recursion for composite types through ATTypedTableRecursion, and sets up the recursion flag for inheritance hierarchies. Unlike normal ALTER TABLE operations, DROP COLUMN cannot use standard recursion mechanisms because inheritance count decisions must be made at runtime.
 

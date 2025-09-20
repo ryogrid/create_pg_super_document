@@ -8,7 +8,10 @@ Identifies the appropriate join level for derived quals belonging to a join doma
 
 ## Definition
 
-
+```c
+static Relids
+get_join_domain_min_rels(PlannerInfo *root, Relids domain_relids)
+```
 ## Detailed Description
 This function addresses a specific optimization challenge in PostgreSQL's query planner. When deriving pseudoconstant (Var-free) clauses from EquivalenceClasses, the ideal approach would be to apply these clauses at the top level of the EC's join domain. However, complications arise when outer joins inside that domain get commuted with joins outside it, making it difficult to find the correct placement for the clause.
 

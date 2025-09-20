@@ -8,7 +8,10 @@ A GiST picksplit function for TSQuery indexes that implements the node splitting
 
 ## Definition
 
-
+```c
+Datum
+gtsquery_picksplit(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The gtsquery_picksplit function implements the picksplit method for GiST (Generalized Search Tree) indexes on TSQuery data types. This function is responsible for splitting an overfull index node into two nodes when an insertion would exceed the node's capacity.
 

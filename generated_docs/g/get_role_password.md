@@ -8,7 +8,10 @@ Fetches the stored password for a user from the pg_authid system catalog for aut
 
 ## Definition
 
-
+```c
+char *
+get_role_password(const char *role, const char **logdetail)
+```
 ## Detailed Description
 This function retrieves a user's password from the PostgreSQL system catalog  and performs several validation checks. It searches for the specified role in the system cache and extracts both the password and password expiration date. The function also validates that the password has not expired by comparing the  timestamp with the current time. If any error occurs (role doesn't exist, no password assigned, or password expired), the function returns NULL and provides a detailed error message for logging purposes. The error details are specifically designed not to be sent to the client to avoid exposing sensitive user information.
 

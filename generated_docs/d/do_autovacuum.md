@@ -8,7 +8,10 @@ do_autovacuum is the main function that processes an entire database table-by-ta
 
 ## Definition
 
-
+```c
+static void
+do_autovacuum(void)
+```
 ## Detailed Description
 This function serves as the core engine of the PostgreSQL autovacuum worker process. It scans the pg_class system catalog to identify tables that require maintenance operations (vacuum or analyze) based on their statistics and configuration parameters. The function operates in two main phases:
 

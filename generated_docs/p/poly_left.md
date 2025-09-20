@@ -8,7 +8,10 @@ Determines if polygon A is strictly to the left of polygon B by comparing their 
 
 ## Definition
 
-
+```c
+Datum
+poly_left(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements a geometric comparison operator that checks whether one polygon is positioned strictly to the left of another polygon. It performs this check by comparing the bounding boxes of the two polygons - specifically, it returns true if the rightmost point (high.x) of polygon A is less than the leftmost point (low.x) of polygon B. This is an efficient O(1) operation that uses precomputed bounding box information rather than examining all vertices of the polygons.
 

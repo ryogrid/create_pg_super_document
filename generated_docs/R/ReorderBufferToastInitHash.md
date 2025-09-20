@@ -8,7 +8,10 @@ Initializes a hash table for TOAST (The Oversized-Attribute Storage Technique) c
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferToastInitHash(ReorderBuffer *rb, ReorderBufferTXN *txn)
+```
 ## Detailed Description
 This function creates a hash table specifically designed to handle TOAST data reassembly during logical replication. When PostgreSQL stores large column values (typically over 2KB), it uses TOAST to break them into smaller chunks stored in separate TOAST tables. During logical replication, these chunks need to be reassembled to reconstruct the original large values. The hash table uses OIDs as keys to track different TOAST entities and stores ReorderBufferToastEnt structures that maintain the state of chunk reassembly for each large value. The hash table is created in the reorder buffer's memory context to ensure proper memory management.
 

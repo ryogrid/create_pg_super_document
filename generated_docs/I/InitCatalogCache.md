@@ -8,7 +8,12 @@ Initializes PostgreSQL's system catalog cache infrastructure by allocating memor
 
 ## Definition
 
-
+```c
+enumeration value defined in syscache.h has been
+		 * populated in the cacheinfo array.
+		 */
+		Assert(OidIsValid(cacheinfo[cacheId].reloid));
+```
 ## Detailed Description
 InitCatalogCache is responsible for the initial setup of PostgreSQL's system catalog cache system. It iterates through all predefined cache configurations in the cacheinfo array and creates individual catalog caches using InitCatCache(). The function performs several critical tasks:
 

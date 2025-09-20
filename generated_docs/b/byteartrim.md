@@ -8,7 +8,10 @@ The  function removes bytes from the end (right side) of a bytea string, trimmin
 
 ## Definition
 
-
+```c
+Datum
+byteartrim(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that implements right trimming for bytea (binary string) data types. It removes all trailing bytes from the input string that match any byte present in the trim set. The function continues removing bytes from the end until it encounters a byte that is not in the trim set, then returns the remaining portion of the string.
 

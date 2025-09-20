@@ -8,7 +8,10 @@ AtSubCommit_childXids is a static function responsible for passing the current s
 
 ## Definition
 
-
+```c
+static void
+AtSubCommit_childXids(void)
+```
 ## Detailed Description
 This function handles the critical task of propagating transaction identifiers from a committing subtransaction to its parent transaction. When a subtransaction commits, it must transfer its own XID and all XIDs of its committed child subtransactions to the parent's childXids array. This maintains the hierarchical relationship and ensures that the parent transaction tracks all committed descendants.
 

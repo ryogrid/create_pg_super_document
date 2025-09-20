@@ -8,7 +8,10 @@ PLy_spi_prepare is a PL/Python function that prepares a SQL query for later exec
 
 ## Definition
 
-
+```c
+PyObject *
+PLy_spi_prepare(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 This function implements the  interface in PL/Python, enabling users to prepare SQL statements with optional parameter placeholders. It creates a PLyPlanObject that encapsulates the prepared statement, parameter types, and execution context. The function performs type validation for parameters, creates a dedicated memory context for the plan, and uses PostgreSQL's SPI (Server Programming Interface) to prepare the query for efficient repeated execution.
 

@@ -8,7 +8,19 @@ The  function is the core statistics computation routine for range and multirang
 
 ## Definition
 
-
+```c
+struct ranges from first and
+			 * last entries in lowers[] and uppers[] along with evenly-spaced
+			 * values in between. So the i'th value is a range of lowers[(i *
+			 * (nvals - 1)) / (num_hist - 1)] and uppers[(i * (nvals - 1)) /
+			 * (num_hist - 1)]. But computing that subscript directly risks
+			 * integer overflow when the stats target is more than a couple
+			 * thousand.  Instead we add (nvals - 1) / (num_hist - 1) to pos
+			 * at each step, tracking the integral and fractional parts of the
+			 * sum separately.
+			 */
+			delta = (non_empty_cnt - 1) / (num_hist - 1);
+```
 ## Detailed Description
 This function performs comprehensive statistical analysis on range or multirange column data. It processes a sample of the column's data to compute various statistics including:
 

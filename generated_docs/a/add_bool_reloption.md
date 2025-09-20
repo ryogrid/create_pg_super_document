@@ -8,7 +8,11 @@ Adds a new boolean reloption to the global reloption registry, making it availab
 
 ## Definition
 
-
+```c
+void
+add_bool_reloption(bits32 kinds, const char *name, const char *desc,
+				   bool default_val, LOCKMODE lockmode)
+```
 ## Detailed Description
 This public function creates and registers a new boolean reloption in the global reloption system. It combines the initialization of a boolean reloption structure through init_bool_reloption and its registration through add_reloption. This function is the main entry point for adding boolean-type reloptions that can be used by various relation types throughout PostgreSQL.
 

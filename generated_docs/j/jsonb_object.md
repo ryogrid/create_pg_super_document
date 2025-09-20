@@ -8,7 +8,9 @@ SQL function that constructs a JSONB object from a one or two dimensional text a
 
 ## Definition
 
-
+```c
+struct_array_builtin(in_array, TEXTOID, &in_datums, &in_nulls, &in_count);
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL function that takes either a one-dimensional array with an even number of elements (representing alternating keys and values) or a two-dimensional array with exactly two columns (first column for keys, second for values) and constructs a JSONB object. The function validates array dimensions and ensures proper key-value pairing while handling null values appropriately - null keys are rejected with an error, while null values are converted to JSON null values.
 

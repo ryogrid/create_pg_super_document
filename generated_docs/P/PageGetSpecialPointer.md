@@ -8,7 +8,10 @@ Returns a pointer to the special space area on a PostgreSQL page, which is used 
 
 ## Definition
 
-
+```c
+static inline char *
+PageGetSpecialPointer(Page page)
+```
 ## Detailed Description
 PageGetSpecialPointer is a static inline function that provides access to the special space area of a PostgreSQL page. The special space is a region at the end of each page that different access methods (B-tree, GIN, GiST, etc.) use to store their own metadata and structural information. This function calculates the location of the special space by adding the page's base address to the pd_special offset stored in the page header.
 

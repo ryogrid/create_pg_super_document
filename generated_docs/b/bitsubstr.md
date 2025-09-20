@@ -8,7 +8,10 @@ The bitsubstr function provides substring extraction functionality for bit strin
 
 ## Definition
 
-
+```c
+Datum
+bitsubstr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL standard bit string substring operation as specified in SQL draft 6.10 section 9. It extracts a substring from a bit string starting at a 1-based position with a specified length. The function acts as a thin wrapper around the more general bitsubstring function, passing the three required arguments (bit string, start position, length) and a false flag to indicate this is not a no-length variant.
 

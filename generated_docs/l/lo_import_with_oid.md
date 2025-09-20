@@ -8,7 +8,10 @@ Imports a file from the client filesystem into a PostgreSQL large object using a
 
 ## Definition
 
-
+```c
+Oid
+lo_import_with_oid(PGconn *conn, const char *filename, Oid lobjId)
+```
 ## Detailed Description
 The  function imports a file from the client's filesystem into a PostgreSQL large object, allowing the caller to specify the desired OID for the large object. This function provides more control over large object creation compared to , which automatically assigns a new OID. It is implemented as a wrapper around , passing the specified OID parameter.
 

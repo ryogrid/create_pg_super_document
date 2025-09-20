@@ -8,7 +8,9 @@ PG_LOG_OFF is an enum value in the pg_log_level enumeration that represents a sp
 
 ## Definition
 
-
+```c
+enum pg_log_level __pg_log_level;
+```
 ## Detailed Description
 PG_LOG_OFF serves as a special sentinel value within the pg_log_level enumeration to indicate that all logging should be disabled. It is explicitly not intended to be used as an actual message log level for individual log messages, but rather as a configuration value to completely suppress logging output. This enum value is part of the logging framework designed for PostgreSQL frontend programs.
 

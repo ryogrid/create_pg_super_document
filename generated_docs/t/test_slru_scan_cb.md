@@ -8,7 +8,10 @@ A callback function used by the SLRU test module to scan and delete all files in
 
 ## Definition
 
-
+```c
+static bool
+test_slru_scan_cb(SlruCtl ctl, char *filename, int64 segpage, void *data)
+```
 ## Detailed Description
 This function serves as a callback for SLRU directory scanning operations in the test module. It provides a simple wrapper around the  function, adding logging functionality to track when the callback is invoked. The function is designed to delete all files encountered during the scan operation, making it useful for cleanup operations in SLRU testing scenarios.
 

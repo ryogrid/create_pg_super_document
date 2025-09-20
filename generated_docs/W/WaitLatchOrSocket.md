@@ -8,7 +8,11 @@ WaitLatchOrSocket waits for one or more specified events to occur on a latch and
 
 ## Definition
 
-
+```c
+int
+WaitLatchOrSocket(Latch *latch, int wakeEvents, pgsocket sock,
+				  long timeout, uint32 wait_event_info)
+```
 ## Detailed Description
 WaitLatchOrSocket is a wrapper around the WaitEventSet API that provides a convenient interface for waiting on a combination of latch signals and socket events. The function creates a temporary WaitEventSet, adds the requested events, waits for one of them to occur, and then cleans up the event set. For frequent usage scenarios, the documentation recommends creating a longer-living WaitEventSet directly for better efficiency.
 

@@ -8,7 +8,16 @@ BTSpool is a status record structure used during the spooling and sorting phase 
 
 ## Definition
 
-
+```c
+typedef struct BTSpool
+{
+	Tuplesortstate *sortstate;	/* state data for tuplesort.c */
+	Relation	heap;
+	Relation	index;
+	bool		isunique;
+	bool		nulls_not_distinct;
+} BTSpool;
+```
 ## Detailed Description
 BTSpool serves as a wrapper structure that encapsulates all the necessary information required for sorting tuples during B-tree index construction. The structure is designed to handle both regular and unique index builds, with special provisions for handling dead tuples in unique indexes. During parallel index builds, multiple BTSpool instances may be created to coordinate work across different processes. The structure integrates with PostgreSQL's tuplesort module to provide efficient external sorting capabilities when memory constraints require spilling to disk.
 

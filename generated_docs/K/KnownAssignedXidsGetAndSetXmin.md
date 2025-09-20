@@ -8,7 +8,11 @@ KnownAssignedXidsGetAndSetXmin retrieves an array of known assigned transaction 
 
 ## Definition
 
-
+```c
+static int
+KnownAssignedXidsGetAndSetXmin(TransactionId *xarray, TransactionId *xmin,
+							   TransactionId xmax)
+```
 ## Detailed Description
 This function extends the functionality of KnownAssignedXidsGet by not only retrieving known assigned transaction IDs but also updating the provided xmin value to reflect the lowest transaction ID found during the scan. The function iterates through the KnownAssignedXids array, which is maintained in sorted order, and performs several key operations:
 

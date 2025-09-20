@@ -8,7 +8,9 @@ The  symbol is a nested struct definition that implements a variable-length char
 
 ## Definition
 
-
+```c
+struct varchar_4  { int len; char arr[ 50 ]; }  name ;
+```
 ## Detailed Description
 The  struct represents another variant of PostgreSQL's varchar data type implementation in C for embedded SQL applications. This structure is functionally identical to varchar_3, providing the same variable-length character string handling capabilities with length tracking. The struct is used as a nested type within the customer4 structure to represent customer name fields, demonstrating consistent varchar implementation patterns across different test scenarios.
 

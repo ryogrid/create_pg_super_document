@@ -8,7 +8,10 @@ Sets a socket to blocking mode, ensuring I/O operations will wait for completion
 
 ## Definition
 
-
+```c
+bool
+pg_set_block(pgsocket sock)
+```
 ## Detailed Description
 The `pg_set_block` function configures a socket to operate in blocking mode. In blocking mode, I/O operations on the socket will wait (block) until the operation can be completed, which is the default behavior for most socket operations. This function is typically used to restore normal blocking behavior after a socket has been set to non-blocking mode.
 

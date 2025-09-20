@@ -8,7 +8,10 @@ Returns a tuple slot for storing the NEW tuple values in trigger processing, cre
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+ExecGetTriggerNewSlot(EState *estate, ResultRelInfo *relInfo)
+```
 ## Detailed Description
 This function provides access to a specialized tuple slot used during trigger execution to hold the "NEW" version of a tuple (i.e., the tuple values after an INSERT or UPDATE operation). Like its counterpart ExecGetTriggerOldSlot, it implements lazy initialization - the slot is only created when first requested and stored in the ResultRelInfo structure for subsequent reuse.
 

@@ -8,7 +8,10 @@ Validates timezone file names for portability and compliance with safe naming co
 
 ## Definition
 
-
+```c
+static bool
+namecheck(const char *name)
+```
 ## Detailed Description
 The namecheck function performs comprehensive validation of timezone file names to ensure they are portable across different operating systems and filesystems. It validates both the overall filename and individual path components by:
 

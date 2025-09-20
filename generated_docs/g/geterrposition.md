@@ -8,7 +8,10 @@ Returns the currently set error cursor position (0 if none) for use in error cal
 
 ## Definition
 
-
+```c
+int
+geterrposition(void)
+```
 ## Detailed Description
 The  function is designed specifically for use within error callback subroutines to retrieve the current error cursor position. This position typically indicates where in a SQL statement or other text an error occurred. The function accesses the current error data context and returns the cursor position stored there. If no position has been set, it returns 0.
 

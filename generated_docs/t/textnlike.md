@@ -8,7 +8,10 @@ Implements the NOT LIKE operator for PostgreSQL's text data type, returning true
 
 ## Definition
 
-
+```c
+Datum
+textnlike(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `textnlike` function provides the implementation for PostgreSQL's NOT LIKE operator when applied to text data types. It takes two text arguments - the string to be tested and the pattern to match against - and uses the generic pattern matching functionality to determine if the text does NOT match the pattern. This is the inverse of the LIKE operation - it returns true when the pattern does not match the text, and false when it does match.
 

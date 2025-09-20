@@ -8,7 +8,10 @@ Binary receive function that converts external binary format data into PostgreSQ
 
 ## Definition
 
-
+```c
+Datum
+oidvectorrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a type receive function that handles the conversion from PostgreSQL's external binary protocol format to the internal oidvector data structure. This function is part of the binary I/O infrastructure used for network communication and binary data exchange.
 

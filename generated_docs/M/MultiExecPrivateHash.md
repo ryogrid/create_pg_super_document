@@ -8,7 +8,10 @@ MultiExecPrivateHash implements the single-backend hash table building algorithm
 
 ## Definition
 
-
+```c
+static void
+MultiExecPrivateHash(HashState *node)
+```
 ## Detailed Description
 MultiExecPrivateHash is the parallel-oblivious version of hash table building, designed for single-backend execution. It builds a complete hash table by consuming all tuples from the child plan node and inserting them using hash-based placement with several optimization strategies.
 

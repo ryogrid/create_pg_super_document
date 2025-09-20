@@ -8,7 +8,10 @@ Sends hot standby feedback messages to the primary server, communicating the old
 
 ## Definition
 
-
+```c
+struct the message and send it. */
+	resetStringInfo(&reply_message);
+```
 ## Detailed Description
 This function implements PostgreSQL's hot standby feedback mechanism, which allows read-only queries on standby servers to influence vacuum operations on the primary server. The function sends feedback messages containing the standby's xmin and catalog_xmin values to prevent the primary from removing tuples that are still needed by running queries on the standby.
 

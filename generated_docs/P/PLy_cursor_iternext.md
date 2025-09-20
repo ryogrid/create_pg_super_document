@@ -8,7 +8,10 @@ Implements the Python iterator protocol for PLyCursor objects, allowing cursors 
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_cursor_iternext(PyObject *self)
+```
 ## Detailed Description
 PLy_cursor_iternext is a static function that serves as the iterator's next method for PLyCursor objects in PostgreSQL's PL/Python extension. It implements Python's iterator protocol by fetching exactly one row from the database cursor each time it's called. When no more rows are available, it raises a Python StopIteration exception to signal the end of iteration, following standard Python iterator behavior.
 

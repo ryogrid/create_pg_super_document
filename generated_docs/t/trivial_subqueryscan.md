@@ -8,7 +8,10 @@ Determines whether a SubqueryScan node can be safely eliminated from the plan tr
 
 ## Definition
 
-
+```c
+bool
+trivial_subqueryscan(SubqueryScan *plan)
+```
 ## Detailed Description
  is a key optimization function that identifies SubqueryScan nodes that can be eliminated from the execution plan. A SubqueryScan is considered "trivial" when it serves no purpose other than wrapping its subplan - meaning it doesn't filter rows (no quals) and doesn't transform the output columns (targetlist just regurgitates subplan output).
 

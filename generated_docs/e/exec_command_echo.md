@@ -8,7 +8,10 @@ Implements the \echo, \qecho, and \warn commands in psql, which output text to d
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_echo(PsqlScanState scan_state, bool active_branch, const char *cmd)
+```
 ## Detailed Description
 This function handles three different echo-style commands in psql:
 - \echo: outputs to stdout

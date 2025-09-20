@@ -8,7 +8,14 @@ XactCallbackItem is a linked list node structure that manages transaction callba
 
 ## Definition
 
-
+```c
+typedef struct XactCallbackItem
+{
+	struct XactCallbackItem *next;
+	XactCallback callback;
+	void	   *arg;
+} XactCallbackItem;
+```
 ## Detailed Description
 XactCallbackItem implements a simple linked list to maintain transaction callback functions that need to be invoked at specific transaction lifecycle events. This mechanism allows various PostgreSQL subsystems and extensions to register cleanup functions, state management routines, or other operations that must be synchronized with transaction boundaries. The structure provides a lightweight and flexible way to extend transaction processing without modifying core transaction management code.
 

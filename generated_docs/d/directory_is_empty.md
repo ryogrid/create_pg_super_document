@@ -8,7 +8,9 @@ Checks if a directory is empty by iterating through its contents and returning t
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This utility function verifies whether a specified directory contains any files or subdirectories. It opens the directory using PostgreSQL's directory handling functions and reads through all entries, skipping the standard "." (current directory) and ".." (parent directory) entries. The function returns true if the directory contains no other entries, and false if any files or subdirectories are found. The function properly handles resource cleanup by ensuring the directory handle is freed in all code paths.
 

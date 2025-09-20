@@ -8,7 +8,10 @@ This PostgreSQL function implements the inequality operator (<>) for range types
 
 ## Definition
 
-
+```c
+Datum
+range_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the PostgreSQL built-in function that implements the inequality operator (<>) for range types. It acts as a wrapper around the internal  function, handling the PostgreSQL function calling convention and argument extraction. The function takes two range arguments from the PostgreSQL function argument structure, obtains the appropriate type cache information, and delegates the actual comparison logic to . This separation allows the core inequality logic to be reused by other internal functions while providing a clean interface for SQL operations.
 

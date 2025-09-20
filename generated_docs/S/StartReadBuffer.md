@@ -8,7 +8,13 @@ StartReadBuffer is a specialized single-block version of the asynchronous buffer
 
 ## Definition
 
-
+```c
+bool
+StartReadBuffer(ReadBuffersOperation *operation,
+				Buffer *buffer,
+				BlockNumber blocknum,
+				int flags)
+```
 ## Detailed Description
 StartReadBuffer is a convenience function that provides a streamlined interface for reading a single database block asynchronously. It's essentially a specialized wrapper around StartReadBuffersImpl that is optimized for the common case of reading exactly one block. The function eliminates the need for callers to manage the nblocks parameter when only one block is needed, making the API simpler and potentially saving a few CPU instructions when called from other translation units due to specialization. Like its multi-block counterpart, it pins the buffer and determines whether actual I/O is needed, returning true if WaitReadBuffers() must be called to complete the operation.
 

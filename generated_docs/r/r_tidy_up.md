@@ -8,7 +8,11 @@ The r_tidy_up function performs final cleanup operations in the Russian stemming
 
 ## Definition
 
+```c
+}
 
+static int r_tidy_up(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the final step of the Russian stemming algorithm for KOI8-R encoded text. It performs cleanup operations to handle remaining morphological patterns that need special processing after the main stemming steps.
 

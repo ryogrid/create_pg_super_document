@@ -8,7 +8,22 @@ A context structure for managing XML parsing errors and maintaining libxml error
 
 ## Definition
 
-
+```c
+struct PgXmlErrorContext
+{
+	int			magic;
+	/* strictness argument passed to pg_xml_init */
+	PgXmlStrictness strictness;
+	/* current error status and accumulated message, if any */
+	bool		err_occurred;
+	StringInfoData err_buf;
+	/* previous libxml error handling state (saved by pg_xml_init) */
+	xmlStructuredErrorFunc saved_errfunc;
+	void	   *saved_errcxt;
+	/* previous libxml entity handler (saved by pg_xml_init) */
+	xmlExternalEntityLoader saved_entityfunc;
+};
+```
 ## Detailed Description
 PgXmlErrorContext is a critical structure that manages error handling during XML operations in PostgreSQL. It serves as a bridge between PostgreSQL's error reporting system and libxml's error handling mechanisms. The structure maintains the current error state, accumulates error messages, and preserves the previous libxml error handling configuration to allow proper restoration after XML operations complete.
 

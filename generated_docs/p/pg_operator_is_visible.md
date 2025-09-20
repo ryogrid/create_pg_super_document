@@ -8,7 +8,10 @@ SQL-callable function that determines whether an operator is visible in the curr
 
 ## Definition
 
-
+```c
+Datum
+pg_operator_is_visible(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `pg_operator_is_visible` function is a SQL-callable wrapper around the internal `OperatorIsVisibleExt` function. It takes an OID of an operator and returns a boolean indicating whether that operator is visible in the current search path without requiring explicit schema qualification.
 

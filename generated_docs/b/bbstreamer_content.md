@@ -8,7 +8,12 @@ This function sends content data to a bbstreamer object through its content call
 
 ## Definition
 
-
+```c
+static inline void
+bbstreamer_content(bbstreamer *streamer, bbstreamer_member *member,
+				   const char *data, int len,
+				   bbstreamer_archive_context context)
+```
 ## Detailed Description
 bbstreamer_content is a static inline function that provides a standardized interface for sending data chunks to any bbstreamer implementation. It acts as a wrapper around the content callback function pointer in the bbstreamer's operations structure (bbs_ops->content). This function is central to the bbstreamer architecture, enabling data flow through various processing stages such as compression, decompression, archiving, and extraction.
 

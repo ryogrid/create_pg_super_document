@@ -8,7 +8,14 @@ A utility function in pg_waldump that displays a single row of statistical infor
 
 ## Definition
 
-
+```c
+static void
+XLogDumpStatsRow(const char *name,
+				 uint64 n, uint64 total_count,
+				 uint64 rec_len, uint64 total_rec_len,
+				 uint64 fpi_len, uint64 total_fpi_len,
+				 uint64 tot_len, uint64 total_len)
+```
 ## Detailed Description
 XLogDumpStatsRow formats and prints a single statistical row showing record counts and data sizes for WAL analysis. It calculates percentage values for each metric relative to the total and displays them in a formatted table row. The function handles division by zero cases by setting percentages to 0 when totals are zero. The output includes the name/identifier, record count with percentage, record length with percentage, full page image (FPI) length with percentage, and total length with percentage.
 

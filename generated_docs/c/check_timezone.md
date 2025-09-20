@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) validation hook function that parses and val
 
 ## Definition
 
-
+```c
+bool
+check_timezone(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 The  function serves as a GUC check hook that validates and processes the  configuration parameter in PostgreSQL. It supports three different input formats:
 

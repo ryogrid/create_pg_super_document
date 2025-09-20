@@ -8,7 +8,10 @@ Converts a signed 16-bit integer to its string representation and returns the le
 
 ## Definition
 
-
+```c
+int
+pg_itoa(int16 i, char *a)
+```
 ## Detailed Description
 The  function is a PostgreSQL utility function that converts a signed 16-bit integer () to its decimal string representation. The function is implemented as a simple wrapper around , casting the 16-bit integer to a 32-bit integer before conversion. This approach leverages the existing 32-bit conversion logic rather than implementing separate conversion code for 16-bit integers.
 

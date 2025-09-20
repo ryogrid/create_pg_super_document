@@ -8,7 +8,14 @@ DoState is a state structure used by the incremental JSON parser test module to 
 
 ## Definition
 
-
+```c
+typedef struct DoState
+{
+	JsonLexContext *lex;
+	bool		elem_is_first;
+	StringInfo	buf;
+} DoState;
+```
 ## Detailed Description
 The DoState structure serves as a container for state information passed to JSON semantic action functions during incremental JSON parsing. It is used specifically in the test_json_parser_incremental test module to maintain context across different parsing events (object start/end, array start/end, field processing, etc.). The structure enables the parser to format JSON output correctly by tracking element positioning and providing a reusable buffer for string processing.
 

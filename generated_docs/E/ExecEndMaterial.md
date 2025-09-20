@@ -8,7 +8,10 @@ ExecEndMaterial cleans up and releases resources used by a MaterialState node, i
 
 ## Definition
 
-
+```c
+void
+ExecEndMaterial(MaterialState *node)
+```
 ## Detailed Description
 ExecEndMaterial performs cleanup operations for a Material node when execution is complete. It releases the tuplestore resources if they were allocated and properly shuts down the child subplan node. This function ensures that all memory and resources associated with the Material node are properly freed to prevent resource leaks.
 

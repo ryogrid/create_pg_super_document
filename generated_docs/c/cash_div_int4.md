@@ -8,7 +8,10 @@ A PostgreSQL function that divides a Cash value by a 32-bit signed integer, prov
 
 ## Definition
 
-
+```c
+Datum
+cash_div_int4(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `cash_div_int4` function is a PostgreSQL built-in function that performs division of a Cash data type by a 32-bit signed integer (int4). This function serves as a wrapper around the internal `cash_div_int64` helper function, promoting the int4 divisor to int64 for consistent internal arithmetic handling. It ensures safe division operations with proper error handling for division by zero and maintains precision in monetary calculations.
 

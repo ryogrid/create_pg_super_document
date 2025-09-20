@@ -8,7 +8,10 @@ Opens all indices associated with a result relation and stores their descriptors
 
 ## Definition
 
-
+```c
+void
+ExecOpenIndices(ResultRelInfo *resultRelInfo, bool speculative)
+```
 ## Detailed Description
 The ExecOpenIndices function is a critical component of PostgreSQL's executor that prepares index relations for modification operations (INSERT, UPDATE, DELETE). It discovers all indices associated with a given result relation, opens each index with appropriate locking, and caches the index descriptors and metadata in the ResultRelInfo structure.
 

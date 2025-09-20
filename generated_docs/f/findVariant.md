@@ -8,7 +8,10 @@ Finds matching lexeme variants by coordinating substitution IDs across multiple 
 
 ## Definition
 
-
+```c
+static LexemeInfo *
+findVariant(LexemeInfo *in, LexemeInfo *stored, uint16 curpos, LexemeInfo **newin, int newn)
+```
 ## Detailed Description
 The  function implements a complex algorithm to find lexeme variants that match specific criteria for thesaurus substitution. It processes arrays of  pointers () to find entries with matching substitution IDs, positions, and variant counts. The function coordinates across multiple lexeme lists to ensure all input words have compatible substitution patterns. It builds a linked list of matching variants by linking them through the  field and returns the head of this list.
 

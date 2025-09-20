@@ -8,7 +8,10 @@ Updates the database-wide frozen transaction ID and minimum MultiXactId values i
 
 ## Definition
 
-
+```c
+void
+vac_update_datfrozenxid(void)
+```
 ## Detailed Description
 This function performs a critical database maintenance task by updating the datfrozenxid and datminmxid fields in the pg_database system catalog. The process involves:
 

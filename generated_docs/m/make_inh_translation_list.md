@@ -8,7 +8,12 @@ Builds the translation mapping between parent and child relation columns for inh
 
 ## Definition
 
-
+```c
+static void
+make_inh_translation_list(Relation oldrelation, Relation newrelation,
+						  Index newvarno,
+						  AppendRelInfo *appinfo)
+```
 ## Detailed Description
 This function constructs the essential column mapping infrastructure needed for inheritance processing. It creates a list of Var nodes that translate parent table references to child table references, and a reverse-mapping array that maps child columns back to their parent equivalents. The function handles column name matching, type validation, and deals with dropped columns and schema differences between parent and child relations. It performs type and collation verification to ensure inheritance consistency.
 

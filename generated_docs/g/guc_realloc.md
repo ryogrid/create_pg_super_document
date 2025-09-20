@@ -8,7 +8,10 @@ GUC-related memory reallocation function that resizes previously allocated memor
 
 ## Definition
 
-
+```c
+void *
+guc_realloc(int elevel, void *old, size_t size)
+```
 ## Detailed Description
  is a PostgreSQL-specific memory reallocation function designed for the GUC (Grand Unified Configuration) system. It provides functionality similar to the standard C library's  but operates within PostgreSQL's memory context system, specifically the . The function handles both resizing existing allocations and allocating new memory when the old pointer is NULL.
 

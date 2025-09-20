@@ -8,7 +8,10 @@ Tests the string-to-date parsing functionality by converting a string input to a
 
 ## Definition
 
-
+```c
+static void
+date_test_strdate(const char *input)
+```
 ## Detailed Description
 This function is part of the ECPG (Embedded SQL in C for PostgreSQL) test suite for Informix compatibility features. It validates the round-trip conversion of date strings: string → date structure → string. The function uses the  function to parse the input string into a date structure, then uses  to convert it back to a string format, printing the results or error information.
 

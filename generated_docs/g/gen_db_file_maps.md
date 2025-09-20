@@ -8,7 +8,12 @@ Generates a database mapping from an old database to a new database during Postg
 
 ## Definition
 
-
+```c
+FileNameMap *
+gen_db_file_maps(DbInfo *old_db, DbInfo *new_db,
+				 int *nmaps,
+				 const char *old_pgdata, const char *new_pgdata)
+```
 ## Detailed Description
 This function is a core component of pg_upgrade that creates mappings between relation files in the old and new PostgreSQL clusters. It compares the RelInfo arrays of both databases (which should be sorted by OID) and matches relations between the old and new versions. The function performs validation to ensure that relations with the same OID have matching names and handles cases where relations don't match properly.
 

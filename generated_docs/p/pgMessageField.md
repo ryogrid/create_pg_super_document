@@ -8,7 +8,14 @@ A linked list structure used to store individual fields from PostgreSQL error an
 
 ## Definition
 
-
+```c
+typedef struct pgMessageField
+{
+	struct pgMessageField *next;	/* list link */
+	char		code;			/* field code */
+	char		contents[FLEXIBLE_ARRAY_MEMBER];	/* value, nul-terminated */
+} PGMessageField;
+```
 ## Detailed Description
 The `pgMessageField` structure represents a single field within a PostgreSQL error or notice message. PostgreSQL messages are composed of multiple fields, each identified by a single-character code and containing a null-terminated string value. This structure forms a linked list to store all fields of a message.
 

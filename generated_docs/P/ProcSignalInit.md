@@ -8,7 +8,10 @@ Registers the current process in the ProcSignal array by claiming and initializi
 
 ## Definition
 
-
+```c
+void
+ProcSignalInit(void)
+```
 ## Detailed Description
 ProcSignalInit is called during process initialization to claim a process signal slot and register the current process in the shared memory process signaling infrastructure. The function validates that MyProcNumber is properly set and within valid bounds, then initializes the corresponding slot with the current process ID. It clears any leftover signal flags, initializes barrier synchronization state by reading the current barrier generation and clearing check mask bits, and sets up cleanup to be performed on process exit. The function includes careful memory barrier usage to ensure proper ordering of memory operations during initialization.
 

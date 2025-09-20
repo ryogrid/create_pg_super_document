@@ -8,7 +8,10 @@ Estimates the amount of shared memory required for parallel tuple sorting operat
 
 ## Definition
 
-
+```c
+Size
+tuplesort_estimate_shared(int nWorkers)
+```
 ## Detailed Description
 The `tuplesort_estimate_shared` function calculates the shared memory space needed to support parallel tuple sorting with a given number of worker processes. It computes the memory requirements for the shared tape system that enables coordination between multiple worker processes during parallel sort operations. The calculation includes space for `TapeShare` structures (one per worker) plus the base `Sharedsort` structure, with proper memory alignment considerations.
 

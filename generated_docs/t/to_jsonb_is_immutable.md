@@ -8,7 +8,10 @@ A function that determines whether a given PostgreSQL type is immutable when con
 
 ## Definition
 
-
+```c
+bool
+to_jsonb_is_immutable(Oid typoid)
+```
 ## Detailed Description
 The to_jsonb_is_immutable function evaluates whether a PostgreSQL data type produces deterministic (immutable) output when converted to JSONB format. This determination is crucial for the query optimizer to decide whether expressions involving JSONB conversion can be cached, precomputed, or moved around in the query plan. The function categorizes the input type using json_categorize_type and then applies specific immutability rules based on the JSON type category. Date/time types are considered mutable because they depend on timezone settings, while basic types like booleans and nulls are immutable.
 

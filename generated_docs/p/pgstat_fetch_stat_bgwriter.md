@@ -8,7 +8,10 @@ This function provides a way to access the background writer statistics for SQL-
 
 ## Definition
 
-
+```c
+PgStat_BgWriterStats *
+pgstat_fetch_stat_bgwriter(void)
+```
 ## Detailed Description
 The  function serves as a support function for PostgreSQL's SQL-callable pgstat* functions. It ensures that the latest background writer statistics are available by taking a snapshot of the fixed statistics data and then returns a pointer to the bgwriter statistics structure from the local statistics snapshot. This function is essential for providing current statistical information about the background writer process to various PostgreSQL monitoring functions.
 

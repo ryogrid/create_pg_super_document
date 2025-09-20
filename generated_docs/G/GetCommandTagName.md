@@ -8,7 +8,10 @@ Returns the textual name string associated with a given CommandTag enumeration v
 
 ## Definition
 
-
+```c
+const char *
+GetCommandTagName(CommandTag commandTag)
+```
 ## Detailed Description
 This function provides a simple lookup mechanism to retrieve the human-readable string representation of a PostgreSQL command tag. It accesses the static tag_behavior array, which contains CommandTagBehavior structures that map each CommandTag enum value to its corresponding textual name (e.g., "SELECT", "INSERT", "CREATE TABLE", etc.).
 

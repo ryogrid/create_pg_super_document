@@ -8,7 +8,11 @@ pg_wchar_tbl is a structure that defines the function pointers and properties fo
 
 ## Definition
 
-
+```c
+structures for conversions between UTF-8 and other encodings
+ * (UtfToLocal() and LocalToUtf()).  In these data structures, characters of
+ * either encoding are represented by uint32 words;
+```
 ## Detailed Description
 The pg_wchar_tbl structure serves as a function table that defines the encoding-specific operations for multibyte character handling in PostgreSQL. Each supported character encoding has its own entry in the pg_wchar_table array, containing function pointers that implement the character conversion, measurement, and validation operations specific to that encoding. This design provides a uniform interface for multibyte character operations while allowing encoding-specific optimizations and behaviors.
 

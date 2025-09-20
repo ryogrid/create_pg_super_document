@@ -8,7 +8,10 @@ Resets all I/O statistics across all backend types and updates the reset timesta
 
 ## Definition
 
-
+```c
+struct assignment due to better type safety */
+		*bktype_snap = *bktype_shstats;
+```
 ## Detailed Description
 This function serves as a callback to reset all I/O statistics stored in shared memory across all backend types. It iterates through each backend type, acquires the appropriate exclusive lock, and clears the statistics data using memset. The function also updates the statistics reset timestamp using the first backend type's lock for synchronization. This ensures that all I/O statistics are atomically reset and the reset time is properly recorded for reference.
 

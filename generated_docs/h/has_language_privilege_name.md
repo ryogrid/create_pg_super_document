@@ -8,7 +8,10 @@ This function checks whether the current user has a particular privilege on a la
 
 ## Definition
 
-
+```c
+Datum
+has_language_privilege_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a simplified variant of the has_language_privilege family that assumes the current user as the subject of the privilege check. It takes two arguments: a language name (text) and a privilege type (text), then returns a boolean indicating whether the current user has the requested privilege on the specified language. The function uses GetUserId() to automatically determine the current user's OID and performs the same privilege checking logic as other variants.
 

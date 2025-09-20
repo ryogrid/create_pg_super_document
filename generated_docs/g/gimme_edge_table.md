@@ -8,7 +8,11 @@ Constructs an edge table representing the set of explicit edges between points i
 
 ## Definition
 
-
+```c
+float
+gimme_edge_table(PlannerInfo *root, Gene *tour1, Gene *tour2,
+				 int num_gene, Edge *edge_table)
+```
 ## Detailed Description
 This function fills an edge table data structure that represents the set of explicit edges between points in two input genetic algorithm tours. It assumes circular tours and bidirectional edges, meaning each connection between adjacent cities is represented in both directions. The function processes both input tours, extracting their edge information and populating the edge table. Shared edges between the two tours are marked by gimme_edge() with negative values. The function returns the average number of edges per city, which ranges from 2.0 (homogeneous tours) to 4.0 (diverse tours), providing a measure of tour diversity.
 

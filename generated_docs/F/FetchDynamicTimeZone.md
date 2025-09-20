@@ -8,7 +8,9 @@ FetchDynamicTimeZone resolves dynamic timezone abbreviations by lazy-loading the
 
 ## Definition
 
-
+```c
+struct pg_itm_in itm_in;
+```
 ## Detailed Description
 This helper function handles the lazy resolution of dynamic timezone abbreviations. Dynamic abbreviations reference timezone names (like "America/New_York") rather than fixed UTC offsets, requiring runtime lookup of the actual timezone data.
 

@@ -8,7 +8,10 @@ Releases memory allocated for a bbstreamer_extractor instance, including its bas
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_extractor_free(bbstreamer *streamer)
+```
 ## Detailed Description
 This function serves as the memory cleanup callback for the bbstreamer_extractor type. It is the final phase of the bbstreamer lifecycle, called after finalization to properly deallocate all memory associated with the extractor instance. The function specifically handles two memory cleanup operations: freeing the basepath string that stores the base directory path for extraction, and freeing the extractor structure itself.
 

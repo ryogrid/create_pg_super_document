@@ -8,7 +8,11 @@ A callback function used during SP-GiST index construction to process individual
 
 ## Definition
 
-
+```c
+static void
+spgistBuildCallback(Relation index, ItemPointer tid, Datum *values,
+					bool *isnull, bool tupleIsAlive, void *state)
+```
 ## Detailed Description
 This static function serves as a callback for table_index_build_scan() during SP-GiST index building. It processes each heap tuple by attempting to insert it into the SP-GiST index using spgdoinsert(). The function implements retry logic to handle potential buffer-locking failures that might occur due to background writer or checkpointer activity. It works within a temporary memory context that gets reset after processing each tuple to prevent memory accumulation during the build process.
 

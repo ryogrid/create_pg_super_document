@@ -8,7 +8,10 @@ This function parses a MAC address from a string representation and converts it 
 
 ## Definition
 
-
+```c
+Datum
+macaddr_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the input function for PostgreSQL's macaddr data type. It accepts a string representation of a MAC address and converts it to the internal binary format. The function supports multiple common MAC address notations:
 

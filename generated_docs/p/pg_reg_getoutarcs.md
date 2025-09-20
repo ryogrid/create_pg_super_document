@@ -8,7 +8,9 @@ Extracts the outgoing NFA (Non-deterministic Finite Automaton) arcs from a speci
 
 ## Definition
 
-
+```c
+struct cnfa *cnfa;
+```
 ## Detailed Description
 This function retrieves the outgoing arcs from a specific state in a compiled regular expression's NFA. The function masks the existence of LACON (lookahead constraint) arcs from the caller by automatically traversing them and returning only the reachable regular arcs. This design choice is necessary because the output representation doesn't support arcs that consume no character when traversed.
 

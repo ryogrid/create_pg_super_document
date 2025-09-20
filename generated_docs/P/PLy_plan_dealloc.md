@@ -8,7 +8,10 @@ The destructor function for PLyPlan Python objects that performs proper cleanup 
 
 ## Definition
 
-
+```c
+static void
+PLy_plan_dealloc(PyObject *arg)
+```
 ## Detailed Description
 This function serves as the tp_dealloc callback for the PLy_PlanType Python type, automatically called by the Python interpreter during garbage collection of PLyPlan objects. It performs essential cleanup by freeing the associated PostgreSQL prepared plan using SPI_freeplan() and deleting any associated memory context. After cleaning up PostgreSQL-specific resources, it delegates to the standard Python object deallocation mechanism to free the Python object itself.
 

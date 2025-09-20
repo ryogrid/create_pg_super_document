@@ -8,7 +8,14 @@ Finds an existing PartitionScheme that matches a relation's partitioning charact
 
 ## Definition
 
-
+```c
+structs themselves for they might
+		 * be different across PartitionKey's, so just Assert for the function
+		 * OIDs.
+		 */
+#ifdef USE_ASSERT_CHECKING
+		for (i = 0;
+```
 ## Detailed Description
 This static function implements a caching mechanism for partition schemes by searching through existing schemes in the PlannerInfo's part_schemes list and returning a match if found, or creating and caching a new scheme if no match exists.
 

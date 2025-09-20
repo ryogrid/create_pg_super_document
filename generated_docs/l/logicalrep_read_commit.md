@@ -8,7 +8,10 @@ Reads and parses a COMMIT message from the logical replication input stream to e
 
 ## Definition
 
-
+```c
+void
+logicalrep_read_commit(StringInfo in, LogicalRepCommitData *commit_data)
+```
 ## Detailed Description
 This function deserializes a COMMIT message from the logical replication protocol stream. It extracts transaction completion metadata including the commit LSN, end LSN, and commit timestamp from the input buffer and populates a LogicalRepCommitData structure. The function includes validation for the flags field, ensuring that no unrecognized flags are present (currently all flags should be 0).
 

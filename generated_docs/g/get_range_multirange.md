@@ -8,7 +8,10 @@ Returns the multirange type corresponding to a given range type, enabling conver
 
 ## Definition
 
-
+```c
+Oid
+get_range_multirange(Oid rangeOid)
+```
 ## Detailed Description
 This function performs a lookup in the PostgreSQL system catalog to find the multirange type that corresponds to a given range type. Range types and multirange types are paired in PostgreSQL's type system - every range type has a corresponding multirange type that can hold multiple non-overlapping ranges of the same element type.
 

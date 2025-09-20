@@ -8,7 +8,10 @@ SPI_freetuptable is a function that safely deallocates a previously allocated SP
 
 ## Definition
 
-
+```c
+void
+SPI_freetuptable(SPITupleTable *tuptable)
+```
 ## Detailed Description
 This function provides a safe mechanism to deallocate SPITupleTable structures created by SPI query execution functions. It performs several important safety checks:
 

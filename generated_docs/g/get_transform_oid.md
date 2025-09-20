@@ -8,7 +8,10 @@ Looks up a transform OID based on a given type OID and language OID, providing c
 
 ## Definition
 
-
+```c
+Oid
+get_transform_oid(Oid type_id, Oid lang_id, bool missing_ok)
+```
 ## Detailed Description
 This function searches the PostgreSQL system catalog for a transform that matches the specified data type and procedural language combination. Transforms define how data types are converted between SQL and procedural language representations (such as PL/Python or PL/Perl). The function uses the system cache to efficiently look up the transform OID from the pg_transform catalog table using the TRFTYPELANG cache.
 

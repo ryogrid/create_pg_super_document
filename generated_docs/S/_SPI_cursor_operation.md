@@ -8,7 +8,11 @@
 
 ## Definition
 
-
+```c
+static void
+_SPI_cursor_operation(Portal portal, FetchDirection direction, long count,
+					  DestReceiver *dest)
+```
 ## Detailed Description
 This function implements the core logic for cursor operations (FETCH and MOVE) in the SPI framework. It manages the SPI call stack, validates the portal, executes the cursor operation via PortalRunFetch, and properly handles result processing. The function includes important safeguards against SPI stack corruption that can occur when the portal contains functions that themselves use SPI.
 

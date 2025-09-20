@@ -8,7 +8,35 @@ The  struct represents timezone transition rules that define when daylight savin
 
 ## Definition
 
+```c
+struct rule
+{
+	const char *r_filename;
+	lineno_t	r_linenum;
+	const char *r_name;
 
+	zic_t		r_loyear;		/* for example, 1986 */
+	zic_t		r_hiyear;		/* for example, 1986 */
+	bool		r_lowasnum;
+	bool		r_hiwasnum;
+
+	int			r_month;		/* 0..11 */
+
+	int			r_dycode;		/* see below */
+	int			r_dayofmonth;
+	int			r_wday;
+
+	zic_t		r_tod;			/* time from midnight */
+	bool		r_todisstd;		/* is r_tod standard time? */
+	bool		r_todisut;		/* is r_tod UT? */
+	bool		r_isdst;		/* is this daylight saving time? */
+	zic_t		r_save;			/* offset from standard time */
+	const char *r_abbrvar;		/* variable part of abbreviation */
+
+	bool		r_todo;			/* a rule to do (used in outzone) */
+	zic_t		r_temp;			/* used in outzone */
+};
+```
 ## Detailed Description
 The  structure is a core component of PostgreSQL's timezone handling system, specifically used in the localtime.c module for parsing and applying timezone transition rules. It stores the parameters that define when timezone transitions (such as daylight saving time changes) occur. This structure works in conjunction with timezone parsing functions to determine the exact moments when clocks should be adjusted forward or backward.
 

@@ -8,7 +8,21 @@ The pg_cancel structure stores all data necessary to send a cancel request to a 
 
 ## Definition
 
-
+```c
+struct pg_cancel
+{
+	SockAddr	raddr;			/* Remote address */
+	int			be_pid;			/* PID of to-be-canceled backend */
+	int			be_key;			/* cancel key of to-be-canceled backend */
+	int			pgtcp_user_timeout; /* tcp user timeout */
+	int			keepalives;		/* use TCP keepalives? */
+	int			keepalives_idle;	/* time between TCP keepalives */
+	int			keepalives_interval;	/* time between TCP keepalive
+										 * retransmits */
+	int			keepalives_count;	/* maximum number of TCP keepalive
+									 * retransmits */
+};
+```
 ## Detailed Description
 The pg_cancel structure is the backing struct for the opaque PGcancel type exposed through libpq-fe.h. It encapsulates all the information required to establish a connection to a PostgreSQL backend and send a query cancellation request. The structure contains the essential identification information (backend PID and cancel key) needed for the cancellation protocol, along with comprehensive TCP connection parameters that control timeout behavior and keepalive settings. This allows cancellation requests to be sent reliably even under various network conditions.
 

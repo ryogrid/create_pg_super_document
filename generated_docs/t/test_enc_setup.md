@@ -8,7 +8,10 @@ A PostgreSQL test function that validates the behavior of encoding-related funct
 
 ## Definition
 
-
+```c
+Datum
+test_enc_setup(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs comprehensive testing of PostgreSQL's character encoding infrastructure, specifically focusing on the behavior of invalid character sequences. The function iterates through all available encodings that support multibyte characters (those with maximum length > 1) and tests the following aspects:
 

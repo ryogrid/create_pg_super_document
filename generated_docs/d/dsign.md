@@ -8,7 +8,10 @@ The dsign function returns the sign of a double-precision floating-point number,
 
 ## Definition
 
-
+```c
+Datum
+dsign(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The dsign function implements the mathematical sign function for double-precision floating-point numbers (float8). It takes a single float8 argument and returns:
 - 1.0 if the argument is greater than zero

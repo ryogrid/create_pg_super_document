@@ -8,7 +8,14 @@ SecLabelItem is a structure used in pg_dump to represent security labels associa
 
 ## Definition
 
-
+```c
+typedef enum OidOptions
+{
+	zeroIsError = 1,
+	zeroAsStar = 2,
+	zeroAsNone = 4,
+} OidOptions;
+```
 ## Detailed Description
 SecLabelItem is a data structure used exclusively in pg_dump to manage security labels during database backup operations. Security labels are used by security-enhanced PostgreSQL installations to store security context information (such as SELinux labels) for database objects. This structure provides a way to organize and access security label information efficiently during the dump process.
 

@@ -8,7 +8,10 @@ Security validation function that prevents PostgreSQL server from running with a
 
 ## Definition
 
-
+```c
+static void
+check_root(const char *progname)
+```
 ## Detailed Description
 This function implements a critical security check that prevents PostgreSQL from running with elevated privileges. It performs platform-specific checks to ensure the server process is not executing with administrator or root privileges, which could pose significant security risks.
 

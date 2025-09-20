@@ -8,7 +8,10 @@ Releases and cleans up clone-local storage and state for an ArchiveHandle that w
 
 ## Definition
 
-
+```c
+void
+DeCloneArchive(ArchiveHandle *AH)
+```
 ## Detailed Description
 DeCloneArchive performs cleanup operations for an ArchiveHandle clone created by CloneArchive. The function ensures that the database connection has been properly closed, delegates format-specific cleanup to the DeClonePtr function pointer, destroys any SQL parsing buffers, and frees all connection-local state including user, schema, tablespace, table access method, and password information. Finally, it frees the ArchiveHandle structure itself.
 

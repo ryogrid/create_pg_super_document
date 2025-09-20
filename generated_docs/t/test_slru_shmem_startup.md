@@ -8,7 +8,10 @@ A shared memory startup hook function that initializes the test SLRU (Simple LRU
 
 ## Definition
 
-
+```c
+static void
+test_slru_shmem_startup(void)
+```
 ## Detailed Description
 This function serves as a shmem_startup_hook callback in the test_slru module, responsible for the complete initialization of the test SLRU system. It first calls any previously registered shared memory startup hook to maintain the hook chain. The function then creates the necessary SLRU directory ("pg_test_slru") if it doesn't exist, sets up LWLock tranches for synchronization, configures the SLRU control structure with the page precedence callback, and finally initializes the SLRU system using SimpleLruInit. The function specifically focuses on testing long segment names as indicated by the long_segment_names parameter set to true.
 

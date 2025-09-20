@@ -8,7 +8,10 @@ _bt_finish_split completes a previously incomplete page split operation that was
 
 ## Definition
 
-
+```c
+void
+_bt_finish_split(Relation rel, Relation heaprel, Buffer lbuf, BTStack stack)
+```
 ## Detailed Description
 This function is part of PostgreSQL's crash recovery and consistency maintenance mechanism for B-tree indexes. When a page split operation is interrupted (due to crash, failure, or other reasons), the split may be left in an incomplete state, marked by the BTP_INCOMPLETE_SPLIT flag on the left page.
 

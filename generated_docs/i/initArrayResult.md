@@ -8,7 +8,10 @@ Initializes an empty ArrayBuildState structure for accumulating array elements, 
 
 ## Definition
 
-
+```c
+ArrayBuildState *
+initArrayResult(Oid element_type, MemoryContext rcontext, bool subcontext)
+```
 ## Detailed Description
 This function creates and initializes an ArrayBuildState structure for building arrays incrementally. It serves as a wrapper around initArrayResultWithSize() with sensible default initial array sizes. The function supports two memory management strategies: using a separate memory context for each array build state, or allocating directly within the provided context.
 

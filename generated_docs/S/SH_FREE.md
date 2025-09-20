@@ -8,7 +8,10 @@ Deallocates memory previously allocated by SH_ALLOCATE in PostgreSQL's simplehas
 
 ## Definition
 
-
+```c
+static inline void
+SH_FREE(SH_TYPE * type, void *pointer)
+```
 ## Detailed Description
 This function serves as the memory deallocation counterpart to SH_ALLOCATE, providing proper cleanup of memory allocated for hash table data structures. The default implementation uses PostgreSQL's standard pfree() function, which works with memory allocated through the MemoryContext system.
 

@@ -8,7 +8,10 @@ Decompresses only the front portion (prefix) of a compressed varlena datum, opti
 
 ## Definition
 
-
+```c
+static struct varlena *
+toast_decompress_datum_slice(struct varlena *attr, int32 slicelength)
+```
 ## Detailed Description
 This function provides efficient partial decompression of compressed TOAST data by decompressing only the requested prefix rather than the entire datum. This is particularly useful for operations that only need to access the beginning portion of large compressed values, significantly reducing CPU overhead and memory usage.
 

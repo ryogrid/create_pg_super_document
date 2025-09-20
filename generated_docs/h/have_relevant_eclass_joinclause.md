@@ -8,7 +8,11 @@ Detects whether there exists an EquivalenceClass that could produce a join claus
 
 ## Definition
 
-
+```c
+bool
+have_relevant_eclass_joinclause(PlannerInfo *root,
+								RelOptInfo *rel1, RelOptInfo *rel2)
+```
 ## Detailed Description
 This function serves as a lightweight heuristic to determine whether two relations could potentially be joined via an equivalence class-derived join clause. It is essentially a simplified version of generate_join_implied_equalities() designed for quick decision-making during join planning. The function examines equivalence classes that mention both relations and checks if they have multiple members, which would indicate the potential for join clause generation.
 

@@ -8,7 +8,10 @@ Tests whether there is room to insert more notification messages into the asynch
 
 ## Definition
 
-
+```c
+static bool
+asyncQueueIsFull(void)
+```
 ## Detailed Description
 This function determines if the notification queue has reached its maximum capacity by calculating the number of occupied pages in the queue. It computes the difference between the head page position (where new notifications are inserted) and the tail page position (where old notifications are read/consumed). The queue is considered full when the number of occupied pages equals or exceeds the configured maximum.
 

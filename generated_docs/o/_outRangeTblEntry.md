@@ -8,7 +8,10 @@ Serializes a RangeTblEntry structure to string format, handling the complex unio
 
 ## Definition
 
-
+```c
+static void
+_outRangeTblEntry(StringInfo str, const RangeTblEntry *node)
+```
 ## Detailed Description
 The  function is responsible for serializing RangeTblEntry structures, which are fundamental components of PostgreSQL's query representation. Range table entries represent the various sources of tuples in a query, including base relations, subqueries, joins, functions, VALUES clauses, CTEs, and more.
 

@@ -8,7 +8,10 @@ A support function for MIN/MAX operations that returns the smaller of two networ
 
 ## Definition
 
-
+```c
+structure */
+	return hash_any((unsigned char *) VARDATA_ANY(addr), addrsize + 2);
+```
 ## Detailed Description
 The  function is a utility function designed to support MIN/MAX aggregate operations on network address types. It compares two network addresses using the internal comparison function and returns whichever network address is considered smaller according to PostgreSQL's network address ordering rules.
 

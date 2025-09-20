@@ -8,7 +8,10 @@ The debugStartup function prepares for debug output by displaying the schema inf
 
 ## Definition
 
-
+```c
+void
+debugStartup(DestReceiver *self, int operation, TupleDesc typeinfo)
+```
 ## Detailed Description
 The debugStartup function is a debugging utility that displays the structure of tuples before they are processed. It serves as a startup handler for DestReceiver operations in debug mode, providing developers with insight into the tuple descriptor that will be used for subsequent tuple processing.
 

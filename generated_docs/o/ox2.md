@@ -8,7 +8,10 @@ The ox2 function implements position crossover (OX2) operation for the Genetic Q
 
 ## Definition
 
-
+```c
+void
+ox2(PlannerInfo *root, Gene *tour1, Gene *tour2, Gene *offspring, int num_gene, City * city_table)
+```
 ## Detailed Description
 The ox2 function performs a position crossover operation, which is one of the genetic recombination techniques used in GEQO. This crossover method creates an offspring by inheriting cities from selected positions of tour1, while filling the remaining positions with cities from tour2 in their original order (skipping cities already selected from tour1). The function randomly selects a subset of positions (between num_gene/3 and 2*num_gene/3) from tour1 to inherit, then consolidates these selections and fills remaining positions from tour2.
 

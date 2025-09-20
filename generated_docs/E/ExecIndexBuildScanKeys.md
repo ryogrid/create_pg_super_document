@@ -8,7 +8,10 @@ ExecIndexBuildScanKeys builds index scan keys from index qualification expressio
 
 ## Definition
 
-
+```c
+structs: one per qual */
+	n_scan_keys = list_length(quals);
+```
 ## Detailed Description
 ExecIndexBuildScanKeys processes index qualification expressions and converts them into ScanKey arrays that index access methods can use for scanning. The function handles five different types of index qualifications:
 

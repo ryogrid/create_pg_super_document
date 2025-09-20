@@ -8,7 +8,10 @@ Converts object access type-specific argument structures to human-readable strin
 
 ## Definition
 
-
+```c
+static char *
+accesstype_arg_to_string(ObjectAccessType access, void *arg)
+```
 ## Detailed Description
 This function is part of PostgreSQL's test module for object access hooks (). It takes an  enumeration value and its corresponding argument structure, then generates a descriptive string representation of the access-specific information.
 

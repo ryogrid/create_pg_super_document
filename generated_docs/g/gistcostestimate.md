@@ -8,7 +8,13 @@ A cost estimation function for GiST (Generalized Search Tree) index access paths
 
 ## Definition
 
-
+```c
+void
+gistcostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+				 Cost *indexStartupCost, Cost *indexTotalCost,
+				 Selectivity *indexSelectivity, double *indexCorrelation,
+				 double *indexPages)
+```
 ## Detailed Description
 The  function provides specialized cost estimation for GiST index scans by building upon the generic cost estimation framework and adding GiST-specific tree traversal costs.
 

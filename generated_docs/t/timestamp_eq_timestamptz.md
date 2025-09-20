@@ -8,7 +8,10 @@ The timestamp_eq_timestamptz function tests equality between a timestamp (withou
 
 ## Definition
 
-
+```c
+Datum
+timestamp_eq_timestamptz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the equality operator (=) for cross-type comparisons between timestamp and timestamptz data types. It extracts both timestamp arguments from the function call information, then delegates to timestamp_cmp_timestamptz_internal to perform the actual comparison with proper timezone handling. The function returns true if the comparison result is 0 (indicating equality), and false otherwise. This enables SQL expressions like 'timestamp_col = timestamptz_col' to work correctly across different timestamp types.
 

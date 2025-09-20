@@ -8,7 +8,15 @@ findLoop performs recursive depth-first search to detect circular dependency loo
 
 ## Definition
 
-
+```c
+static int
+findLoop(DumpableObject *obj,
+		 DumpId startPoint,
+		 bool *processed,
+		 DumpId *searchFailed,
+		 DumpableObject **workspace,
+		 int depth)
+```
 ## Detailed Description
 findLoop implements a recursive depth-first search algorithm to detect dependency cycles in pg_dump's object dependency graph. The function searches for a path from the given starting object that eventually leads back to the startPoint, forming a circular dependency.
 

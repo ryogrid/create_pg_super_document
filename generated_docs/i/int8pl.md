@@ -8,7 +8,10 @@ The int8pl function implements addition operation for two 64-bit signed integers
 
 ## Definition
 
-
+```c
+Datum
+int8pl(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs addition of two 64-bit signed integer arguments. It extracts both input arguments using PostgreSQL's function argument macros, performs overflow-safe addition using the pg_add_s64_overflow utility function, and returns the result. If overflow is detected during the addition operation, the function reports an error with an appropriate error code. This function is part of PostgreSQL's arithmetic operators for the bigint data type and ensures mathematical correctness by preventing silent overflow conditions.
 

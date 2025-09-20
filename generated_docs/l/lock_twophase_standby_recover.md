@@ -8,7 +8,11 @@ Re-acquires locks belonging to prepared transactions when starting up into hot s
 
 ## Definition
 
-
+```c
+void
+lock_twophase_standby_recover(TransactionId xid, uint16 info,
+							  void *recdata, uint32 len)
+```
 ## Detailed Description
 The lock_twophase_standby_recover function is a specialized variant of the two-phase commit lock recovery mechanism designed specifically for hot standby mode initialization. Unlike the general lock_twophase_recover function, this function focuses on a critical subset of locks that require special handling during hot standby startup.
 

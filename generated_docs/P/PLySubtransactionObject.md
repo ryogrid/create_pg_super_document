@@ -8,7 +8,14 @@ PLySubtransactionObject is a Python object structure that represents a subtransa
 
 ## Definition
 
-
+```c
+typedef struct PLySubtransactionObject
+{
+	PyObject_HEAD
+	bool		started;
+	bool		exited;
+} PLySubtransactionObject;
+```
 ## Detailed Description
 PLySubtransactionObject is a Python extension type that provides a Python interface for PostgreSQL subtransactions within PL/Python functions. This structure inherits from Python's base object type (PyObject_HEAD) and maintains state information about the subtransaction lifecycle. It allows Python code to explicitly control subtransaction boundaries, enabling atomic execution of multiple SPI (Server Programming Interface) calls with controllable exception handling.
 

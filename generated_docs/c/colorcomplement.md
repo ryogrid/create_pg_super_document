@@ -8,7 +8,15 @@ Creates arcs for all complementary colors that are not matched by the output arc
 
 ## Definition
 
-
+```c
+static void
+colorcomplement(struct nfa *nfa,
+				struct colormap *cm,
+				int type,
+				struct state *of,
+				struct state *from,
+				struct state *to)
+```
 ## Detailed Description
 The colorcomplement function implements character class negation in regular expressions by creating arcs for all colors (character classes) that are NOT matched by the specified state's output arcs. This is essential for implementing constructs like [^abc] which matches any character except 'a', 'b', or 'c'.
 

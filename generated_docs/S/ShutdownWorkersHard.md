@@ -8,7 +8,10 @@ Forcibly shuts down any remaining workers in a parallel dump operation, waiting 
 
 ## Definition
 
-
+```c
+static void
+ShutdownWorkersHard(ParallelState *pstate)
+```
 ## Detailed Description
 ShutdownWorkersHard is a cleanup function used in emergency situations during pg_dump parallel operations. Unlike normal shutdown procedures, this function is specifically designed to handle forceful termination when the main process encounters a fatal error (pg_fatal() situations). The function performs a three-step shutdown process:
 

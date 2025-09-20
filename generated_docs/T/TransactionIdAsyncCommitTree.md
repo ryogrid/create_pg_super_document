@@ -8,7 +8,11 @@ TransactionIdAsyncCommitTree marks a top-level transaction and all its subtransa
 
 ## Definition
 
-
+```c
+void
+TransactionIdAsyncCommitTree(TransactionId xid, int nxids, TransactionId *xids,
+							 XLogRecPtr lsn)
+```
 ## Detailed Description
 TransactionIdAsyncCommitTree is the asynchronous commit variant of TransactionIdCommitTree. It handles the commitment of an entire transaction tree (top-level transaction plus subtransactions) for asynchronous commit operations.
 

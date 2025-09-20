@@ -8,7 +8,11 @@ This function performs the first stage of B-tree page deletion by determining th
 
 ## Definition
 
-
+```c
+static bool
+_bt_mark_page_halfdead(Relation rel, Relation heaprel, Buffer leafbuf,
+					   BTStack stack)
+```
 ## Detailed Description
 _bt_mark_page_halfdead implements the initial phase of B-tree page deletion, establishing the height of the subtree that needs to be deleted and preparing it for the unlinking phase. The function determines whether deletion can safely proceed by checking for rightmost child constraints and half-dead right siblings.
 

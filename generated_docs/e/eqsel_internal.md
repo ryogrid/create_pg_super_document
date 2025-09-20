@@ -8,7 +8,10 @@ The eqsel_internal function is the core implementation for selectivity estimatio
 
 ## Definition
 
-
+```c
+static double
+eqsel_internal(PG_FUNCTION_ARGS, bool negate)
+```
 ## Detailed Description
 The eqsel_internal function performs the actual selectivity estimation calculations for equality and inequality operations. It analyzes the query operator and operands to determine the most appropriate estimation method. The function handles two main scenarios:
 

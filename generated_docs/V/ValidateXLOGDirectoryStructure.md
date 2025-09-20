@@ -8,7 +8,9 @@ Validates the existence of essential WAL directory structures and recreates miss
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 This function ensures that the PostgreSQL WAL directory structure is properly configured during startup. It performs validation and automatic recovery of missing directory components that are essential for WAL operations.
 

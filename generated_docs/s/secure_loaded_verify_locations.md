@@ -8,7 +8,10 @@ Returns a boolean indicating whether PostgreSQL has successfully loaded root CA 
 
 ## Definition
 
-
+```c
+bool
+secure_loaded_verify_locations(void)
+```
 ## Detailed Description
 The `secure_loaded_verify_locations` function provides a way to query whether the server has loaded trusted root Certificate Authority (CA) certificates that can be used to verify client certificates during SSL/TLS authentication. This is crucial for SSL certificate-based authentication mechanisms where the server needs to validate that client certificates are signed by a trusted CA.
 

@@ -8,7 +8,10 @@ A simple utility function that searches for a given name in the context's path n
 
 ## Definition
 
-
+```c
+static bool
+LookupPathOrColumnName(JsonTableParseContext *cxt, char *name)
+```
 ## Detailed Description
 This function provides a straightforward string-based lookup mechanism for detecting whether a column or path name has already been used within a JSON_TABLE specification. It iterates through the pathNames list stored in the JsonTableParseContext and performs case-sensitive string comparison using strcmp. The function returns true if the name is found (indicating a duplicate), or false if the name is unique.
 

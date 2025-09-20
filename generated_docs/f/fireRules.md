@@ -8,7 +8,16 @@ Iterates through rule locks applying rules, handling both qualified and unqualif
 
 ## Definition
 
-
+```c
+static List *
+fireRules(Query *parsetree,
+		  int rt_index,
+		  CmdType event,
+		  List *locks,
+		  bool *instead_flag,
+		  bool *returning_flag,
+		  Query **qual_product)
+```
 ## Detailed Description
 fireRules is a core function in PostgreSQL's rule rewriting system that processes a list of rules and generates the appropriate rewritten queries. The function handles different types of rules with sophisticated logic:
 

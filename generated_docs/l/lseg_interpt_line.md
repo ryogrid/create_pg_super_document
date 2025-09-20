@@ -8,7 +8,9 @@ A static function that determines if a line segment intersects with a line and o
 
 ## Definition
 
-
+```c
+struct(&tmp, &lseg->p[0], lseg_sl(lseg));
+```
 ## Detailed Description
 This function calculates whether a line segment (LSEG) intersects with an infinite line (LINE) and can optionally return the intersection point. The algorithm works in two phases: first, it promotes the line segment to an infinite line and finds the intersection point between the two lines using . If an intersection exists, it then verifies that this intersection point actually lies within the bounds of the original line segment using . If both conditions are met, the function returns true and optionally sets the result point. The function includes special handling for endpoint matches to avoid floating-point precision issues.
 

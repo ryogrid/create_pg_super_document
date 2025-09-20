@@ -8,7 +8,10 @@ A static test function that validates PostgreSQL's Unicode case conversion imple
 
 ## Definition
 
-
+```c
+static void
+icu_test_simple(pg_wchar code)
+```
 ## Detailed Description
 This function performs a comparative test between PostgreSQL's internal Unicode case conversion functions and the ICU (International Components for Unicode) library's equivalent functions. It takes a single Unicode codepoint and converts it to lowercase, titlecase, and uppercase using both PostgreSQL's implementation and ICU's implementation, then compares the results. If any discrepancy is found, it prints detailed error information and terminates the program with exit code 1.
 

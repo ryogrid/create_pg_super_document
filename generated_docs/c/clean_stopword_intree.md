@@ -8,7 +8,10 @@ Recursively removes stopword nodes (QI_VALSTOP) from a TSQuery tree while proper
 
 ## Definition
 
-
+```c
+static NODE *
+clean_stopword_intree(NODE *node, int *ladd, int *radd)
+```
 ## Detailed Description
 The `clean_stopword_intree` function performs sophisticated cleanup of TSQuery trees by removing stopword nodes and handling the complex distance adjustments required for phrase operators. When stopwords are removed from phrase expressions, the distances between remaining words must be recalculated to preserve the original semantic meaning of the query.
 

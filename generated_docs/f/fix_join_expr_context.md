@@ -8,7 +8,17 @@ A context structure used during join expression fixing to provide access to oute
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PlannerInfo *root;
+	indexed_tlist *subplan_itlist;
+	int			newvarno;
+	int			rtoffset;
+	NullingRelsMatch nrm_match;
+	double		num_exec;
+} fix_upper_expr_context;
+```
 ## Detailed Description
 The  structure provides the context needed for fixing expressions at join nodes in PostgreSQL's query planner. This structure contains indexed target lists for both outer and inner relations participating in the join, allowing efficient lookup and replacement of variable references.
 

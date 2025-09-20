@@ -8,7 +8,10 @@ Processes individual calls in a multi-call function context to return token type
 
 ## Definition
 
-
+```c
+static Datum
+tt_process_call(FuncCallContext *funcctx)
+```
 ## Detailed Description
 This function handles subsequent calls (after the first call) in PostgreSQL multi-call functions that return token type information from text search parsers. It retrieves the next token type from the stored list in the function context and formats it as a tuple containing the token ID, alias, and description. The function manages iteration through the token type list and handles memory cleanup for dynamically allocated strings.
 

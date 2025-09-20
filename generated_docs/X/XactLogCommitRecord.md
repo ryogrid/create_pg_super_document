@@ -8,7 +8,17 @@ A comprehensive function that creates and writes transaction commit records to P
 
 ## Definition
 
-
+```c
+XLogRecPtr
+XactLogCommitRecord(TimestampTz commit_time,
+					int nsubxacts, TransactionId *subxacts,
+					int nrels, RelFileLocator *rels,
+					int ndroppedstats, xl_xact_stats_item *droppedstats,
+					int nmsgs, SharedInvalidationMessage *msgs,
+					bool relcacheInval,
+					int xactflags, TransactionId twophase_xid,
+					const char *twophase_gid)
+```
 ## Detailed Description
 XactLogCommitRecord is a critical function in PostgreSQL's transaction logging system that creates comprehensive WAL records for transaction commits. It handles both regular commits and two-phase commit prepared transactions, determining the record type based on whether a valid two-phase XID is provided. The function meticulously collects and organizes various types of transaction metadata including sub-transactions, relation file changes, dropped statistics, invalidation messages, and replication origin information. It constructs a complex WAL record structure with conditional components based on the transaction's characteristics, ensuring that all necessary information for transaction recovery and replication is properly logged. The function uses PostgreSQL's WAL insertion API to register multiple data segments in the proper order, creating a complete record that can be used for crash recovery, replication, and logical decoding.
 

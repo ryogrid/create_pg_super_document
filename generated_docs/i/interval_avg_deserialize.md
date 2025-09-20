@@ -8,7 +8,12 @@ Deserializes bytea back into IntervalAggState for interval aggregates, reconstru
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate),
+						   VARSIZE_ANY_EXHDR(sstate));
+```
 ## Detailed Description
 This function reconstructs an IntervalAggState structure from a serialized bytea format using PostgreSQL's binary protocol functions. It allocates memory for a new IntervalAggState structure and deserializes all fields in the same order they were serialized: the count of finite values (N), the summed interval components (time, day, month), and the counts of positive and negative infinity values. The function uses PostgreSQL's standard message reception infrastructure with a read-only StringInfo buffer initialized from the bytea input. It includes validation to ensure proper aggregate context and verifies complete message consumption.
 

@@ -8,7 +8,10 @@ Clears all dead tuple identifiers from the shared TidStore and recreates it with
 
 ## Definition
 
-
+```c
+void
+parallel_vacuum_reset_dead_items(ParallelVacuumState *pvs)
+```
 ## Detailed Description
 This function performs a complete reset of the shared dead items storage by:
 

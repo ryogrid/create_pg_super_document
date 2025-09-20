@@ -8,7 +8,12 @@ Determines whether the first range completely contains the second range by compa
 
 ## Definition
 
-
+```c
+static bool
+range_bounds_contains(TypeCacheEntry *typcache,
+					  RangeBound *lower1, RangeBound *upper1,
+					  RangeBound *lower2, RangeBound *upper2)
+```
 ## Detailed Description
 This function implements containment detection logic for range intervals using direct boundary comparisons. It checks if the first range (defined by lower1, upper1) completely contains the second range (defined by lower2, upper2). A range contains another if its lower bound is less than or equal to the contained range's lower bound, and its upper bound is greater than or equal to the contained range's upper bound. This provides an efficient way to test containment without constructing full range objects.
 

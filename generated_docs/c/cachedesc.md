@@ -8,7 +8,16 @@ The  struct defines the configuration information for a single system cache in P
 
 ## Definition
 
-
+```c
+struct cachedesc
+{
+	Oid			reloid;			/* OID of the relation being cached */
+	Oid			indoid;			/* OID of index relation for this cache */
+	int			nkeys;			/* # of keys needed for cache lookup */
+	int			key[4];			/* attribute numbers of key attrs */
+	int			nbuckets;		/* number of hash buckets for this cache */
+};
+```
 ## Detailed Description
 The  structure serves as a configuration template that describes how to set up a system catalog cache. Each instance of this struct defines the parameters needed to create a cache for a specific PostgreSQL system catalog relation. The struct is used during cache initialization to create  objects that provide fast lookup capabilities for frequently accessed catalog data.
 

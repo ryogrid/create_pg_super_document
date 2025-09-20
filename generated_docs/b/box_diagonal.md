@@ -8,7 +8,9 @@ Returns a line segment which represents the positive-slope diagonal of a box, co
 
 ## Definition
 
-
+```c
+struct(result, &box->high, &box->low);
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operation that constructs a line segment (LSEG) representing the diagonal of a BOX. The diagonal connects the box's high corner point (high.x, high.y) to its low corner point (low.x, low.y), creating what is referred to as the "positive-slope diagonal". The function allocates memory for a new LSEG structure and uses the  function to properly initialize the line segment with the two corner points.
 

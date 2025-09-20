@@ -8,7 +8,10 @@ Deletes a specific cell from a PostgreSQL list by reference, freeing the entire 
 
 ## Definition
 
-
+```c
+List *
+list_delete_cell(List *list, ListCell *cell)
+```
 ## Detailed Description
 This function removes a specific  from a  by calculating its position relative to the list's elements array and delegating to . It's a convenience function that allows deletion by cell reference rather than by index position. The function takes time proportional to the distance from the deleted cell to the end of the list, since all following entries must be moved to fill the gap.
 

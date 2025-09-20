@@ -8,7 +8,14 @@ Creates equivalence class-derived join clauses that are usable with a specific t
 
 ## Definition
 
-
+```c
+List *
+generate_implied_equalities_for_column(PlannerInfo *root,
+									   RelOptInfo *rel,
+									   ec_matches_callback_type callback,
+									   void *callback_arg,
+									   Relids prohibited_rels)
+```
 ## Detailed Description
 This function extracts potentially indexable join clauses from equivalence classes for a specific table column. It operates under the assumption that a given table/index column appears in only one equivalence class and returns a list of clauses equating the target column to other-relation values it is known to be equal to. The function is primarily used by indxpath.c for index path creation and by foreign data wrappers for similar optimization purposes.
 

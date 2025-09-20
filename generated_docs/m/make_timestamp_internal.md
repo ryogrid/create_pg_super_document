@@ -8,7 +8,9 @@ Internal workhorse function that constructs a Timestamp value from individual da
 
 ## Definition
 
-
+```c
+struct pg_tm tm;
+```
 ## Detailed Description
 The  function is the core implementation for creating PostgreSQL Timestamp values from separate date and time components. This static function serves as the foundation for both  and  functions.
 

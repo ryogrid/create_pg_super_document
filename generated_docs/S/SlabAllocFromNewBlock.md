@@ -8,7 +8,10 @@ SlabAllocFromNewBlock allocates memory from a new slab block when no existing bl
 
 ## Definition
 
-
+```c
+static void *
+SlabAllocFromNewBlock(MemoryContext context, Size size, int flags)
+```
 ## Detailed Description
 SlabAllocFromNewBlock is called when the slab allocator needs to obtain memory from a new block because all existing blocks are full. The function implements a two-tier strategy: first, it attempts to reuse an empty block from the emptyblocks list if available. If no empty blocks exist, it allocates a completely new block using malloc(). For reused empty blocks, it verifies the block state and retrieves the next free chunk. For new blocks, it initializes the block structure, sets up the first chunk for allocation, and properly initializes the unused chunk tracking. The function then places the block in the appropriate blocklist based on its free chunk count and calls SlabAllocSetupNewChunk to finalize the chunk setup.
 

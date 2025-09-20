@@ -8,7 +8,11 @@ Factory function that creates and initializes a new Snowball environment structu
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * english_ISO_8859_1_create_env(void)
+```
 ## Detailed Description
 This function serves as a language-specific wrapper around the generic Snowball environment creation function. It creates a new stemming environment pre-configured with the appropriate parameters for English language processing using the ISO-8859-1 character encoding. The function encapsulates the initialization details, providing a clean interface for clients who need to create English stemming contexts.
 

@@ -8,7 +8,12 @@ WALRead is a helper function that facilitates the implementation of XLogReaderRo
 
 ## Definition
 
-
+```c
+bool
+WALRead(XLogReaderState *state,
+		char *buf, XLogRecPtr startptr, Size count, TimeLineID tli,
+		WALReadError *errinfo)
+```
 ## Detailed Description
 WALRead provides a convenient abstraction for reading WAL data by handling segment management, file operations, and error reporting. The function automatically manages WAL segment files by opening and closing them as needed when reading data that spans multiple segments or timelines. It works in conjunction with caller-provided segment_open and segment_close callbacks to handle the underlying file operations. The function reads data in chunks, respecting segment boundaries, and provides detailed error information when failures occur.
 

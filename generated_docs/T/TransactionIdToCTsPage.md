@@ -8,7 +8,11 @@ Calculates the page number within the commit timestamp SLRU that contains the co
 
 ## Definition
 
-
+```c
+structures for CommitTs control
+ */
+static SlruCtlData CommitTsCtlData;
+```
 ## Detailed Description
 This function performs a simple mathematical calculation to determine which page in the commit timestamp Simple LRU (SLRU) buffer contains the commit timestamp data for a specified transaction ID. The function divides the transaction ID by the number of transaction entries that can fit in a single page (COMMIT_TS_XACTS_PER_PAGE) to obtain the page number. This is a core utility function used throughout the commit timestamp subsystem for page-based access to commit timestamp data.
 

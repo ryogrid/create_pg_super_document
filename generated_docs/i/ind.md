@@ -8,7 +8,15 @@ The  symbol is a struct typedef that serves as an indicator structure for NULL v
 
 ## Definition
 
-
+```c
+typedef  struct ind { 
+#line 19 "array_of_struct.pgc"
+ short name_ind ;
+ 
+#line 20 "array_of_struct.pgc"
+ short phone_ind ;
+ } cust_ind ;
+```
 ## Detailed Description
 The  struct is used in ECPG test files as an indicator structure that accompanies host variables to detect NULL values in database operations. This is a common pattern in embedded SQL where indicator variables are used to handle NULL values returned from or passed to SQL operations. Each member corresponds to a specific field and indicates whether that field contains a NULL value.
 

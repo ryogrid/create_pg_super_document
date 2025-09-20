@@ -8,7 +8,10 @@ This static function converts a timestamp with time zone (TimestampTz) to a loca
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is a core conversion utility that transforms a timestamptz value into a plain timestamp by extracting the local time components and discarding timezone information. The function handles both finite and non-finite timestamp values appropriately.
 

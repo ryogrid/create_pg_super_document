@@ -8,7 +8,10 @@ Sets a socket to non-blocking mode, allowing I/O operations to return immediatel
 
 ## Definition
 
-
+```c
+bool
+pg_set_noblock(pgsocket sock)
+```
 ## Detailed Description
 The  function configures a socket to operate in non-blocking mode. In non-blocking mode, I/O operations on the socket will return immediately rather than waiting for the operation to complete. This is essential for implementing asynchronous I/O and preventing the process from blocking on socket operations.
 

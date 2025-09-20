@@ -8,7 +8,10 @@ ExplainRestoreGroup re-establishes the grouping state that was previously saved 
 
 ## Definition
 
-
+```c
+static void
+ExplainRestoreGroup(ExplainState *es, int depth, int *state_save)
+```
 ## Detailed Description
 ExplainRestoreGroup completes the deferred output pattern by restoring formatting state that was previously saved with ExplainSaveGroup. This function:
 

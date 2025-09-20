@@ -8,7 +8,11 @@ Marks base relations that are nulled by an outer join by updating their nulling_
 
 ## Definition
 
-
+```c
+static void
+mark_rels_nulled_by_join(PlannerInfo *root, Index ojrelid,
+						 Relids lower_rels)
+```
 ## Detailed Description
 The  function processes relations that can be nulled by an outer join operation. It iterates through all relations specified in the  bitmap and marks each base relation by adding the outer join's relation ID to their  field. This information is crucial for the optimizer to understand which relations might produce NULL values due to outer join semantics.
 

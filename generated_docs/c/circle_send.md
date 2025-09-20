@@ -8,7 +8,10 @@ Serializes a CIRCLE structure into PostgreSQL's external binary format for effic
 
 ## Definition
 
-
+```c
+Datum
+circle_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `circle_send` function is the binary output conversion routine for PostgreSQL's CIRCLE geometric type. It takes a CIRCLE structure from the internal format and serializes it into a binary representation suitable for transmission over the network or storage in binary format. This function is used during binary protocol communications, such as when sending data to network clients using the binary wire format or when writing to binary-format dumps.
 

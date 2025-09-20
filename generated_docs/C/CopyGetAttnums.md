@@ -8,7 +8,10 @@ CopyGetAttnums builds an integer list of attribute numbers (column numbers) to b
 
 ## Definition
 
-
+```c
+List *
+CopyGetAttnums(TupleDesc tupDesc, Relation rel, List *attnamelist)
+```
 ## Detailed Description
 CopyGetAttnums is a utility function in PostgreSQL's COPY command implementation that determines which columns should be included in COPY operations. The function handles two scenarios:
 

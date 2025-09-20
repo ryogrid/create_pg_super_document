@@ -8,7 +8,10 @@ Returns the block number of the leftmost child page from a non-leaf GIN index pa
 
 ## Definition
 
-
+```c
+static BlockNumber
+entryGetLeftMostPage(GinBtree btree, Page page)
+```
 ## Detailed Description
 This function provides a simple and direct way to obtain the leftmost child page from a non-leaf page in a GIN index. It accesses the first index tuple on the page (at FirstOffsetNumber) and extracts its downlink, which points to the leftmost child page. This operation is commonly used during full index scans or when traversing to the leftmost branch of the index tree.
 

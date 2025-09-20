@@ -8,7 +8,10 @@ Handles statistics persistence during server shutdown by flushing pending statis
 
 ## Definition
 
-
+```c
+void
+pgstat_before_server_shutdown(int code, Datum arg)
+```
 ## Detailed Description
 This function is responsible for preserving PostgreSQL statistics data during server shutdown. It must be called by exactly one process during regular server shutdowns to prevent statistics loss. The function performs a two-phase operation: first flushing any pending statistics updates from the current process, then writing all statistics to the permanent statistics file.
 

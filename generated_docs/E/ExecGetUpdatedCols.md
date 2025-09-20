@@ -8,7 +8,10 @@ Returns a bitmap representing the columns being updated for a given result relat
 
 ## Definition
 
-
+```c
+union(ExecGetUpdatedCols(relinfo, estate),
+					ExecGetExtraUpdatedCols(relinfo, estate));
+```
 ## Detailed Description
 This function retrieves the bitmap of columns that are being updated during an UPDATE operation. It functions similarly to ExecGetInsertedCols but specifically handles updated columns. For regular tables, it returns the updated columns bitmap from the permission info. For child relations in partitioned table hierarchies, it performs attribute mapping to convert the root table's column bitmap to match the child table's column layout.
 

@@ -8,7 +8,9 @@ Determines whether two line segments intersect and optionally returns the inters
 
 ## Definition
 
-
+```c
+struct(&tmp, &l2->p[0], lseg_sl(l2));
+```
 ## Detailed Description
 This internal function calculates whether two line segments intersect. It works by first constructing a line from the second segment, then finding the intersection point between the first segment and this line. Finally, it verifies that the intersection point lies within the bounds of the second segment. If an intersection exists, the function optionally stores the intersection point in the result parameter. The function is designed to be symmetric with lseg_interpt_line() for comprehensive line-segment intersection handling.
 

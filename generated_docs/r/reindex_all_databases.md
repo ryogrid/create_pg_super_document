@@ -8,7 +8,15 @@ Reindexes all databases in a PostgreSQL cluster that allow connections, iteratin
 
 ## Definition
 
-
+```c
+static void
+reindex_all_databases(ConnParams *cparams,
+					  const char *progname, bool echo, bool quiet, bool verbose,
+					  bool concurrently, int concurrentCons,
+					  const char *tablespace, bool syscatalog,
+					  SimpleStringList *schemas, SimpleStringList *tables,
+					  SimpleStringList *indexes)
+```
 ## Detailed Description
 This function is part of the  command-line utility and handles the "--all" option to reindex all databases in a PostgreSQL cluster. It first connects to a maintenance database to query the system catalog for a list of all databases that allow connections (excluding template databases with datconnlimit = -2). For each database found, it performs the requested reindexing operations in a specific order: system catalogs first (if requested), then schemas, indexes, tables, and finally the entire database (if no specific objects were specified).
 

@@ -8,7 +8,12 @@ Validates whether a proposed function signature is safe according to PostgreSQL'
 
 ## Definition
 
-
+```c
+char *
+check_valid_internal_signature(Oid ret_type,
+							   const Oid *declared_arg_types,
+							   int nargs)
+```
 ## Detailed Description
 This function enforces safety rules for functions that return the INTERNAL pseudotype. The INTERNAL type is used internally by PostgreSQL for passing opaque data structures between functions and is not meant to be directly manipulated by SQL code.
 

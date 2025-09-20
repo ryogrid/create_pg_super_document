@@ -8,7 +8,10 @@ A utility function that appends a null-terminated string to a PQExpBuffer, autom
 
 ## Definition
 
-
+```c
+void
+appendPQExpBufferStr(PQExpBuffer str, const char *data)
+```
 ## Detailed Description
 The appendPQExpBufferStr function provides a convenient way to append string data to a PQExpBuffer object. It serves as a wrapper around appendBinaryPQExpBuffer, internally calculating the string length using strlen() and delegating the actual buffer management and data copying to the binary append function. This function is part of PostgreSQL's libpq interface for building dynamic SQL queries and other string content.
 

@@ -8,7 +8,45 @@ Appends all non-redundant PathKeys from a source list to a target list, ensuring
 
 ## Definition
 
+```c
+struct any
+ * non-canonical pathkeys.  (Note: the notion of a pathkey *list* being
+ * canonical includes the additional requirement of no redundant entries,
+ * which is exactly what we are checking for here.)
+ *
+ * Because the equivclass.c machinery forms only one copy of any EC per query,
+ * pointer comparison is enough to decide whether canonical ECs are the same.
+ */
+static bool
+pathkey_is_redundant(PathKey *new_pathkey, List *pathkeys)
+{
+	EquivalenceClass *new_ec = new_pathkey->pk_eclass;
+	ListCell   *lc;
 
+	/* Check for EC containing a constant --- unconditionally redundant */
+	if (EC_MUST_BE_REDUNDANT(new_ec))
+		return true;
+
+	/* If same EC already used in list, then redundant */
+	foreach(lc, pathkeys)
+	{
+		PathKey    *old_pathkey = (PathKey *) lfirst(lc);
+
+		if (new_ec == old_pathkey->pk_eclass)
+			return true;
+	}
+
+	return false;
+}
+
+/*
+ * make_pathkey_from_sortinfo
+ *	  Given an expression and sort-order information, create a PathKey.
+ *	  The result is always a "canonical" PathKey, but it might be redundant.
+ *
+ * If the PathKey is being generated from a SortGroupClause, sortref should be
+ * the SortGroupClause's SortGroupRef;
+```
 ## Detailed Description
 This function efficiently merges two lists of PathKeys by appending only the non-redundant PathKeys from the source list to the target list. It uses the  function to check each PathKey in the source list against the existing PathKeys in the target list, preventing the addition of duplicate or redundant ordering specifications.
 

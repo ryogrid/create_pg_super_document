@@ -8,7 +8,10 @@ ParallelSlotsGetIdle is a public function that returns an available parallel slo
 
 ## Definition
 
-
+```c
+ParallelSlot *
+ParallelSlotsGetIdle(ParallelSlotArray *sa, const char *dbname)
+```
 ## Detailed Description
 This function implements a four-tier strategy for obtaining an idle parallel slot. It first attempts to reuse an existing connection to the desired database, then tries to use an unconnected slot, followed by disconnecting and reconnecting a slot connected to a different database. As a last resort, it blocks until a busy slot becomes available. The function ensures optimal connection reuse while providing the flexibility to connect to different databases as needed. It includes comprehensive error handling and returns NULL if no slot can be obtained or if fatal errors occur.
 

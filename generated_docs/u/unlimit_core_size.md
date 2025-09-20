@@ -8,7 +8,9 @@ Increases the core file size limit to its maximum allowed value to enable full c
 
 ## Definition
 
-
+```c
+struct rlimit lim;
+```
 ## Detailed Description
 The  function modifies the process resource limits to maximize the size of core files that can be generated when the process crashes. This is essential for debugging PostgreSQL issues, as truncated core files may not contain enough information for effective analysis.
 

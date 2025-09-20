@@ -8,7 +8,10 @@ SimpleLruAutotuneBuffers automatically determines the optimal number of SLRU buf
 
 ## Definition
 
-
+```c
+int
+SimpleLruAutotuneBuffers(int divisor, int max)
+```
 ## Detailed Description
 This function provides an automatic tuning mechanism for SLRU buffer allocation by calculating an appropriate number of buffers relative to the main shared buffer pool (NBuffers). The algorithm follows these steps:
 

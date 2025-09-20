@@ -8,7 +8,10 @@ A PostgreSQL function that sets up sort support for 32-bit integer (int4) data t
 
 ## Definition
 
-
+```c
+Datum
+btint4sortsupport(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL internal function that configures sort support for 32-bit integer operations in B-tree indexes. It initializes a SortSupport structure by setting the comparator function to , which enables optimized sorting operations for int4 values during index operations and sorting queries.
 

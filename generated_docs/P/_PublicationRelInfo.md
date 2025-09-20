@@ -8,7 +8,16 @@ The  struct represents publication table mapping, used by pg_dump to store infor
 
 ## Definition
 
-
+```c
+typedef struct _PublicationRelInfo
+{
+	DumpableObject dobj;
+	PublicationInfo *publication;
+	TableInfo  *pubtable;
+	char	   *pubrelqual;
+	char	   *pubrattrs;
+} PublicationRelInfo;
+```
 ## Detailed Description
 This structure is part of PostgreSQL's pg_dump utility and is used to maintain the relationship between publications and the tables they contain. It stores metadata about how a specific table is included in a publication, including any row filters and column lists that may be applied. This information is essential for accurately recreating publication configurations during database dumps and restores.
 

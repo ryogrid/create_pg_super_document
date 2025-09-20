@@ -8,7 +8,10 @@ PostgreSQL function that converts binary data from external format (network byte
 
 ## Definition
 
-
+```c
+Datum
+float4recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The float4recv function is part of PostgreSQL's binary I/O system for the float4 data type. It receives binary data in a standardized external format (typically from network communication or binary file storage) and converts it to PostgreSQL's internal float4 representation. This function is the counterpart to float4send and is used in binary protocol operations, COPY BINARY operations, and other scenarios where float4 values need to be transmitted or stored in binary format.
 

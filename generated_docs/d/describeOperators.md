@@ -8,7 +8,12 @@ Implements the \do psql command to describe PostgreSQL operators, displaying the
 
 ## Definition
 
-
+```c
+bool
+describeOperators(const char *oper_pattern,
+				  char **arg_patterns, int num_arg_patterns,
+				  bool verbose, bool showSystem)
+```
 ## Detailed Description
 This function generates and executes a complex SQL query to retrieve operator information from PostgreSQL system catalogs. It constructs a detailed view of operators including their schema, name, left/right argument types, result type, and descriptions. The function supports pattern matching for both operator names and argument types, with special handling for prefix operators (when only one argument pattern is provided).
 

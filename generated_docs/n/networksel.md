@@ -8,7 +8,9 @@ Calculates selectivity estimation for network subnet inclusion/overlap operators
 
 ## Definition
 
-
+```c
+enum = inet_opr_codenum(operator);
+```
 ## Detailed Description
 The  function implements selectivity estimation for PostgreSQL's network data type operators (inet, cidr) when used in WHERE clauses with subnet inclusion and overlap operations. It analyzes column statistics to predict the fraction of rows that will satisfy conditions like  or .
 

@@ -8,7 +8,16 @@ A WAL record structure for logging the extension of a BRIN index's revmap (rever
 
 ## Definition
 
-
+```c
+typedef struct xl_brin_revmap_extend
+{
+	/*
+	 * XXX: This is actually redundant - the block number is stored as part of
+	 * backup block 1.
+	 */
+	BlockNumber targetBlk;
+} xl_brin_revmap_extend;
+```
 ## Detailed Description
 The  structure is used to log the extension of a BRIN index's revmap (reverse mapping) structure. The revmap is a critical component of BRIN indexes that maintains the mapping between heap block ranges and their corresponding index tuple locations. When a BRIN index grows and needs to track additional heap blocks, the revmap must be extended to accommodate these new mappings.
 

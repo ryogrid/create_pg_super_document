@@ -8,7 +8,10 @@ ExecEndBitmapAnd shuts down a BitmapAndState node by recursively ending all of i
 
 ## Definition
 
-
+```c
+void
+ExecEndBitmapAnd(BitmapAndState *node)
+```
 ## Detailed Description
 ExecEndBitmapAnd performs cleanup operations for BitmapAnd executor nodes during query termination or plan tree teardown. It iterates through all subplan states stored in the BitmapAndState structure and calls ExecEndNode on each initialized subplan to ensure proper resource cleanup.
 

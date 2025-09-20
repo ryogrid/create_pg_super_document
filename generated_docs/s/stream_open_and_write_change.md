@@ -8,7 +8,10 @@ A static function in PostgreSQL's logical replication worker that serializes a r
 
 ## Definition
 
-
+```c
+static void
+stream_open_and_write_change(TransactionId xid, char action, StringInfo s)
+```
 ## Detailed Description
 stream_open_and_write_change is a convenience function that combines file management operations with message writing for streamed transactions in logical replication. It serves as a wrapper around stream_write_change, automatically handling the opening of the target file (if not already open) before writing and closing it afterward. This function is specifically designed for non-streamed transactions (as indicated by the Assert(!in_streamed_transaction) check) and provides a complete write cycle in a single call.
 

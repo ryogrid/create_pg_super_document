@@ -8,7 +8,10 @@ A formatted print function that outputs text to the archive output stream, simil
 
 ## Definition
 
-
+```c
+int
+ahprintf(ArchiveHandle *AH, const char *fmt,...)
+```
 ## Detailed Description
 The  function provides formatted text output functionality for PostgreSQL's pg_dump archiver. It dynamically allocates a buffer to hold the formatted string, starting with an initial size of 128 bytes and expanding as needed. The function uses  for safe formatting and  to output the result to the archive stream. It preserves the original errno value and returns the number of characters written.
 

@@ -8,7 +8,16 @@ Evaluates and potentially adds a partial nestloop join path for parallel query e
 
 ## Definition
 
-
+```c
+static void
+try_partial_nestloop_path(PlannerInfo *root,
+						  RelOptInfo *joinrel,
+						  Path *outer_path,
+						  Path *inner_path,
+						  List *pathkeys,
+						  JoinType jointype,
+						  JoinPathExtraData *extra)
+```
 ## Detailed Description
 This function is specialized for creating partial nestloop join paths that can be executed in parallel. It performs validation specific to partial paths, including stricter parameterization requirements since parameterized partial paths are not supported. The function ensures that any inner path parameterization is fully satisfied by the outer path and validates that the path can be reparameterized if needed.
 

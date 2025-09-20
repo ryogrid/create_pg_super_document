@@ -8,7 +8,13 @@ Refreshes a subscription by synchronizing its table list with the publisher, add
 
 ## Definition
 
-
+```c
+typedef struct SubRemoveRels
+	{
+		Oid			relid;
+		char		state;
+	} SubRemoveRels;
+```
 ## Detailed Description
 This function performs a comprehensive refresh operation on a logical replication subscription. It connects to the publisher, fetches the current list of published tables, compares it with the local subscription's table list, and synchronizes the differences. New tables are added to the subscription with appropriate initial state (INIT or READY depending on copy_data), while tables no longer published are removed along with their associated replication slots and origins. The function ensures data consistency by using appropriate locking mechanisms and handles cleanup of replication infrastructure gracefully.
 

@@ -8,7 +8,10 @@ Windows-specific wrapper for the fseek() function that provides 64-bit file offs
 
 ## Definition
 
-
+```c
+int
+_pgfseeko64(FILE *stream, pgoff_t offset, int origin)
+```
 ## Detailed Description
 The  function is a PostgreSQL-specific wrapper around the standard fseek() function for Windows platforms. It addresses limitations of the standard fseek() function when dealing with non-seeking devices such as pipes or communication devices, where fseek() may not return proper error codes.
 

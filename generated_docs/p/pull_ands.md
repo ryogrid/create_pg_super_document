@@ -8,7 +8,10 @@ Recursively flattens nested AND clauses into a single flat list of AND arguments
 
 ## Definition
 
-
+```c
+static List *
+pull_ands(List *andlist)
+```
 ## Detailed Description
 The  function takes the argument list of an AND clause and recursively flattens any nested AND clauses within it. This transformation converts deeply nested AND structures like  into a flat list  that can be processed more efficiently.
 

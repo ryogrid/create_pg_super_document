@@ -8,7 +8,11 @@ This function extracts the i-th range from a multirange by constructing a comple
 
 ## Definition
 
-
+```c
+RangeType *
+multirange_get_range(TypeCacheEntry *rangetyp,
+					 const MultirangeType *multirange, int i)
+```
 ## Detailed Description
 The function reconstructs an individual range from the compressed multirange format. It first calculates the bounds offset using multirange_get_bounds_offset, then extracts the range flags and boundary values. The function carefully handles the variable-length nature of range bounds by walking through the data structure to determine the exact size needed, considering data alignment requirements for the element type.
 

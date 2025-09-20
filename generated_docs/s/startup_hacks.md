@@ -8,7 +8,10 @@ Platform-specific startup initialization function that configures the execution 
 
 ## Definition
 
-
+```c
+static void
+startup_hacks(const char *progname)
+```
 ## Detailed Description
 This function contains platform-specific initialization code that must be executed early in the launch of any new PostgreSQL server process. Currently, it primarily addresses Windows-specific issues but is designed to accommodate other platforms that require special startup handling.
 

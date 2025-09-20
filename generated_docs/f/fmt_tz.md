@@ -8,7 +8,13 @@ A structure used by PostgreSQL's formatting functions to store timezone informat
 
 ## Definition
 
-
+```c
+struct fmt_tz					/* do_to_timestamp's timezone info output */
+{
+	bool		has_tz;			/* was there any TZ/TZH/TZM field? */
+	int			gmtoffset;		/* GMT offset in seconds */
+};
+```
 ## Detailed Description
 The fmt_tz structure is a simple container used specifically by the do_to_timestamp function and related datetime parsing routines in PostgreSQL's formatting system. It serves as an output parameter to capture timezone-related information when parsing datetime strings that contain timezone specifications. The structure tracks whether any timezone fields were encountered during parsing and stores the calculated GMT offset in seconds.
 

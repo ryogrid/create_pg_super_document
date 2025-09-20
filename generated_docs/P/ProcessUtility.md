@@ -8,7 +8,17 @@ ProcessUtility is the main entry point and dispatcher for executing all utility 
 
 ## Definition
 
-
+```c
+void
+ProcessUtility(PlannedStmt *pstmt,
+			   const char *queryString,
+			   bool readOnlyTree,
+			   ProcessUtilityContext context,
+			   ParamListInfo params,
+			   QueryEnvironment *queryEnv,
+			   DestReceiver *dest,
+			   QueryCompletion *qc)
+```
 ## Detailed Description
 ProcessUtility serves as the central gateway for all utility command execution in PostgreSQL. It acts as both a validation layer and a plugin extensibility point. The function first performs essential parameter validation, ensuring that the incoming PlannedStmt is properly formed for a utility command and that required parameters are present.
 

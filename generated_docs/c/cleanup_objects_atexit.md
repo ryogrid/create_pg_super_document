@@ -8,7 +8,10 @@ Cleanup function that removes PostgreSQL objects (publications and replication s
 
 ## Definition
 
-
+```c
+static void
+cleanup_objects_atexit(void)
+```
 ## Detailed Description
 This function serves as an error handler registered with atexit() to perform cleanup operations when pg_createsubscriber fails. It attempts to remove publications and replication slots that were created on the primary server during the subscription setup process. The function operates differently depending on whether the target server has been promoted or not:
 

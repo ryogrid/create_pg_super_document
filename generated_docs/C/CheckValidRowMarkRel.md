@@ -8,7 +8,10 @@ Validates that a proposed rowmark target relation is a legal target for row lock
 
 ## Definition
 
-
+```c
+static void
+CheckValidRowMarkRel(Relation rel, RowMarkType markType)
+```
 ## Detailed Description
 CheckValidRowMarkRel performs runtime validation of row marking (locking) operations on different types of relations. While the parser and planner catch most invalid cases, this function provides a final safety check during execution. It examines the relation's kind and determines whether the specified row mark type is permitted, with special handling for foreign tables that require FDW support for row refetching.
 

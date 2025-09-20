@@ -8,7 +8,10 @@ Transition function for the jsonb_agg aggregate that accumulates values into a J
 
 ## Definition
 
-
+```c
+Datum
+jsonb_agg_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the transition function for PostgreSQL's  aggregate function. It acts as a simple wrapper around , passing  for the  parameter. This means that null input values will be included in the resulting JSONB array as JSON null values, rather than being omitted. The function handles the standard behavior of jsonb_agg where all input values (including nulls) are collected into a JSON array.
 

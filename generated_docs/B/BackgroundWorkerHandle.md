@@ -8,7 +8,13 @@ BackgroundWorkerHandle is a lightweight reference structure that provides safe a
 
 ## Definition
 
-
+```c
+struct BackgroundWorkerHandle
+{
+	int			slot;
+	uint64		generation;
+};
+```
 ## Detailed Description
 BackgroundWorkerHandle serves as an opaque handle that allows client code to safely reference dynamically registered background workers. The structure implements a generation-based approach to detect stale references when worker slots are recycled.
 

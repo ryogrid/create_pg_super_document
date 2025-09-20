@@ -8,7 +8,10 @@ Pauses WAL recovery and waits until the shared recoveryPauseState is set to RECO
 
 ## Definition
 
-
+```c
+static void
+recoveryPausesHere(bool endOfRecovery)
+```
 ## Detailed Description
 This function implements the core pause mechanism during PostgreSQL WAL recovery. It enters a waiting loop that continues until recovery is explicitly resumed by a user or administrator. The function provides different behavior and messaging depending on whether the pause occurs at the end of recovery (when recovery targets are reached) or during intermediate recovery steps.
 

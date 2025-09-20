@@ -8,7 +8,9 @@ ParamListInfo is a pointer typedef to ParamListInfoData struct that provides a f
 
 ## Definition
 
-
+```c
+typedef struct ParamListInfoData *ParamListInfo;
+```
 ## Detailed Description
 ParamListInfo serves as the primary interface for parameter management in PostgreSQL's query execution system. It abstracts parameter handling by providing both direct parameter storage and callback mechanisms for dynamic parameter resolution. This design allows for flexible parameter management across different execution contexts, from prepared statements to stored procedures and parallel query execution.
 

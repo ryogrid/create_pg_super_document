@@ -8,7 +8,10 @@ Parses a pgbench SQL command to replace parameter placeholders (:param) with Pos
 
 ## Definition
 
-
+```c
+static bool
+parseQuery(Command *cmd)
+```
 ## Detailed Description
 The parseQuery function processes SQL commands in pgbench by converting named parameter placeholders (e.g., :variable_name) to PostgreSQL's positional parameter format (e.g., , ). This transformation is essential for preparing SQL statements for execution with parameterized queries. The function modifies the command's SQL text in-place and builds an argument array containing the parameter names.
 

@@ -8,7 +8,10 @@ Completes WAL recovery by shutting down recovery components, determining the end
 
 ## Definition
 
-
+```c
+EndOfWalRecoveryInfo *
+FinishWalRecovery(void)
+```
 ## Detailed Description
 This function orchestrates the final phase of WAL recovery, transitioning the database from recovery mode to normal operation. It performs several critical shutdown and finalization tasks:
 

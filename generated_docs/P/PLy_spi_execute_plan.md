@@ -8,7 +8,10 @@ PLy_spi_execute_plan executes a previously prepared SQL plan with provided param
 
 ## Definition
 
-
+```c
+PyObject *
+PLy_spi_execute_plan(PyObject *ob, PyObject *list, long limit)
+```
 ## Detailed Description
 This function executes a prepared SQL plan (PLyPlanObject) with the provided parameter values. It performs comprehensive argument validation, ensuring the number of provided parameters matches the plan's expectations. The function creates a temporary memory context for parameter conversion, converts Python values to PostgreSQL Datum values using the type information stored in the plan, and executes the plan through SPI_execute_plan.
 

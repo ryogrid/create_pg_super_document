@@ -8,7 +8,10 @@ Determines the split interval for the default B-tree splitting strategy, which l
 
 ## Definition
 
-
+```c
+static int
+_bt_defaultinterval(FindSplitData *state)
+```
 ## Detailed Description
 This function calculates an acceptable range of split points (split interval) that have reasonably balanced leftfree and rightfree values. The split interval represents the number of candidate split points from the sorted splits array that should be considered for the final split decision. The function implements tolerance-based filtering where split points that divide free space too unevenly are excluded from consideration.
 

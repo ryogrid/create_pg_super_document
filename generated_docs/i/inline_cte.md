@@ -8,7 +8,9 @@ Converts all RTE_CTE (Range Table Entry for Common Table Expression) references 
 
 ## Definition
 
-
+```c
+struct inline_cte_walker_context context;
+```
 ## Detailed Description
 This function serves as the entry point for CTE inlining optimization in PostgreSQL's query planner. It prepares a walker context structure and initiates a tree traversal to replace all references to a specific CTE with inline subqueries. CTE inlining is a crucial optimization technique that can eliminate the materialization overhead of CTEs when they are referenced only once or when inlining would be beneficial for performance.
 

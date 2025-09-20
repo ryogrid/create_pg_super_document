@@ -8,7 +8,20 @@ RecordTransactionCommitPrepared records the commit of a previously prepared two-
 
 ## Definition
 
-
+```c
+static void
+RecordTransactionCommitPrepared(TransactionId xid,
+								int nchildren,
+								TransactionId *children,
+								int nrels,
+								RelFileLocator *rels,
+								int nstats,
+								xl_xact_stats_item *stats,
+								int ninvalmsgs,
+								SharedInvalidationMessage *invalmsgs,
+								bool initfileinval,
+								const char *gid)
+```
 ## Detailed Description
 RecordTransactionCommitPrepared is the final stage function for committing a prepared two-phase transaction. It writes a commit record to the WAL, marks the transaction as committed in the transaction status log (pg_xact), and handles all associated cleanup including relation file deletions, cache invalidation messages, and statistics updates. The function follows similar patterns to regular transaction commits but is specifically designed for two-phase transactions that have already been prepared. It includes special handling for replication origins when PostgreSQL is acting as a logical replication subscriber, and ensures proper synchronization with checkpointing and synchronous replication.
 

@@ -8,7 +8,10 @@ Prepares for AccessExclusive lock logging by ensuring the current transaction ha
 
 ## Definition
 
-
+```c
+void
+LogAccessExclusiveLockPrepare(void)
+```
 ## Detailed Description
 LogAccessExclusiveLockPrepare ensures that the current transaction has been assigned a TransactionId before an AccessExclusive lock is acquired and logged. This preparation step is crucial for proper lock release handling on standby servers and addresses two critical race conditions in the Hot Standby system.
 

@@ -8,7 +8,10 @@ Performs comprehensive validation of PostgreSQL's Unicode tables by comparing th
 
 ## Definition
 
-
+```c
+static void
+icu_test()
+```
 ## Detailed Description
 This static function conducts an exhaustive test of PostgreSQL's Unicode implementation by comparing it with ICU (International Components for Unicode) for every valid Unicode codepoint (0x000000 to 0x10FFFF). The test validates:
 

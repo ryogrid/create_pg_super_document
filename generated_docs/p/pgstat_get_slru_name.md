@@ -8,7 +8,10 @@ Returns the human-readable name of an SLRU (Simple LRU) buffer cache based on it
 
 ## Definition
 
-
+```c
+const char *
+pgstat_get_slru_name(int slru_idx)
+```
 ## Detailed Description
 This function provides a way to retrieve the descriptive name of an SLRU cache given its numeric index. It includes bounds checking to ensure the index is valid, returning NULL for invalid indices. This design allows calling code to iterate through SLRU indices without knowing the exact number of entries in advance. The function maps SLRU indices to their corresponding names from the slru_names array, which includes entries like "commit_timestamp", "multixact_member", "multixact_offset", "notify", "serializable", "subtransaction", "transaction", and "other".
 

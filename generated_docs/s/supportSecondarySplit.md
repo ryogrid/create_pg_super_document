@@ -8,7 +8,18 @@ Handles cleanup and optimization after a secondary split when the user-defined P
 
 ## Definition
 
-
+```c
+union, so we just choose swap
+		 * or not by lowest penalty for that side.  We can only get here if a
+		 * secondary split happened to have all NULLs in its column in the
+		 * tuples that the outer recursion level had assigned to one side.
+		 * (Note that the null checks in gistSplitByKey don't prevent the
+		 * case, because they'll only be checking tuples that were considered
+		 * don't-cares at the outer recursion level, not the tuples that went
+		 * into determining the passed-down left and right union keys.)
+		 */
+		penalty1 = gistpenalty(giststate, attno, entry1, false, &entrySL, false);
+```
 ## Detailed Description
 This function is called to clean up when a secondary split was performed but the user-defined PickSplit method didn't support it, evidenced by spl_ldatum_exists or spl_rdatum_exists flags still being true. The function performs two main tasks:
 

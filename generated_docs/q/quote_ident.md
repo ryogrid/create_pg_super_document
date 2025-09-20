@@ -8,7 +8,10 @@ Returns a properly quoted identifier for PostgreSQL, ensuring that identifiers t
 
 ## Definition
 
-
+```c
+Datum
+quote_ident(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that takes a text input and returns a properly quoted identifier string. It converts the input text to a C string, processes it through the  utility function to add quotes if necessary, and returns the result as a PostgreSQL text type. This function is essential for dynamically constructing SQL statements where identifier names might contain special characters or match reserved keywords.
 

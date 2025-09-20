@@ -8,7 +8,10 @@ ProcArrayInitRecovery initializes the recovery transaction ID management environ
 
 ## Definition
 
-
+```c
+void
+ProcArrayInitRecovery(TransactionId initializedUptoXID)
+```
 ## Detailed Description
 This function is called during recovery startup to establish the baseline for transaction ID tracking in a standby server. It sets the latestObservedXid variable to indicate how far the CLOG (commit log) and SUBTRANS (subtransaction) storage have been initialized. This information is crucial for ensuring gapless initialization of these storage systems as recovery progresses.
 

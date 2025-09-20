@@ -8,7 +8,10 @@ This static helper function determines whether a statistics entry matches a spec
 
 ## Definition
 
-
+```c
+static bool
+match_kind(PgStatShared_HashEntry *p, Datum match_data)
+```
 ## Detailed Description
 The function serves as a callback predicate for statistics entry filtering operations. It compares the  field of a statistics hash entry against a target kind value passed as a . This function is typically used with  to selectively reset statistics entries of a particular type.
 

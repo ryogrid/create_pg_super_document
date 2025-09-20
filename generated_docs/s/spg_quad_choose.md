@@ -8,7 +8,10 @@ SP-GiST quadtree choose function that determines which child node a new point sh
 
 ## Definition
 
-
+```c
+Datum
+spg_quad_choose(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the choose method for SP-GiST quadtree indexes. When inserting a new point into the index, this function determines which of the four quadrant child nodes the point should be routed to. It uses the node's centroid point (stored as the prefix) to determine the appropriate quadrant using the  function. The function handles the special case where all points in a node are identical (allTheSame) by indicating a match with the current node rather than descending further.
 

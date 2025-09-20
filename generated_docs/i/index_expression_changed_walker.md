@@ -8,7 +8,10 @@ A static recursive helper function that traverses index expressions to detect if
 
 ## Definition
 
-
+```c
+static bool
+index_expression_changed_walker(Node *node, Bitmapset *allUpdatedCols)
+```
 ## Detailed Description
 This function implements a specialized tree walker designed to analyze index expressions and determine if they reference any columns that have been updated in an UPDATE operation. It follows PostgreSQL's expression tree walker pattern, recursively traversing the abstract syntax tree of index expressions.
 

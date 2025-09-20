@@ -8,7 +8,10 @@ BeginInternalSubTransaction creates an internal subtransaction that can be safel
 
 ## Definition
 
-
+```c
+void
+BeginInternalSubTransaction(const char *name)
+```
 ## Detailed Description
 BeginInternalSubTransaction is a specialized version of DefineSavepoint designed for internal PostgreSQL operations that need subtransaction functionality. Unlike regular savepoints, it can be safely called from a wider range of transaction states including TBLOCK_STARTED, TBLOCK_IMPLICIT_INPROGRESS, TBLOCK_PARALLEL_INPROGRESS, TBLOCK_END, and TBLOCK_PREPARE.
 

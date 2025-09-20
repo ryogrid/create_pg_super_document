@@ -8,7 +8,13 @@ A context structure used during tree walking to detect whether PlaceHolderVars c
 
 ## Definition
 
-
+```c
+typedef struct contain_placeholder_references_context
+{
+	int			relid;
+	int			sublevels_up;
+} contain_placeholder_references_context;
+```
 ## Detailed Description
 This structure serves as a context parameter for the tree walker function  when searching for PlaceHolderVar references to a specific relation. It's used in the process of determining whether changing the nullability status of a relation might affect what a PlaceHolderVar computes. The structure maintains state during recursive traversal of expression trees and query trees to track the target relation ID and the current nesting level of subqueries.
 

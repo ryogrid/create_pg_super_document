@@ -8,7 +8,10 @@ Returns the current transaction snapshot as a pg_snapshot data type, containing 
 
 ## Definition
 
-
+```c
+Datum
+pg_current_snapshot(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The pg_current_snapshot function retrieves the active snapshot from the current backend and converts it into a pg_snapshot structure. This snapshot represents the state of all transactions at a specific point in time, containing the minimum and maximum transaction IDs and a list of currently active transaction IDs. The function ensures that only top-transaction XIDs are included in the snapshot, and the returned snapshot is sorted in ascending order with duplicates removed.
 

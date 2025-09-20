@@ -8,7 +8,10 @@ HeapTupleSatisfiesVacuumHorizon is the core work horse function that determines 
 
 ## Definition
 
-
+```c
+HTSV_Result
+HeapTupleSatisfiesVacuumHorizon(HeapTuple htup, Buffer buffer, TransactionId *dead_after)
+```
 ## Detailed Description
 This function serves as the foundation for vacuum operations by performing comprehensive tuple visibility analysis. Unlike higher-level vacuum functions, HeapTupleSatisfiesVacuumHorizon focuses on determining the base vacuum status while providing the critical *dead_after transaction ID that callers can use to perform horizon-specific comparisons.
 

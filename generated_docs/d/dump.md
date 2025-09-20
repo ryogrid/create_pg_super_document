@@ -8,7 +8,9 @@ A debugging function that dumps the internal structure of a compiled regular exp
 
 ## Definition
 
-
+```c
+struct guts *g;
+```
 ## Detailed Description
 The  function is a diagnostic utility within PostgreSQL's regex engine that outputs detailed information about a compiled regular expression's internal structure. It validates the regex structure's magic numbers, displays metadata, and recursively dumps various components including color maps, search NFAs, lookaround assertions, and the syntax tree. This function is primarily used for debugging and understanding regex compilation results.
 

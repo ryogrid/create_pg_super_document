@@ -8,7 +8,26 @@ A fundamental node representing entries in query target lists, used throughout P
 
 ## Definition
 
-
+```c
+typedef struct TargetEntry
+{
+	Expr		xpr;
+	/* expression to evaluate */
+	Expr	   *expr;
+	/* attribute number (see notes above) */
+	AttrNumber	resno;
+	/* name of the column (could be NULL) */
+	char	   *resname pg_node_attr(query_jumble_ignore);
+	/* nonzero if referenced by a sort/group clause */
+	Index		ressortgroupref;
+	/* OID of column's source table */
+	Oid			resorigtbl pg_node_attr(query_jumble_ignore);
+	/* column's number in source table */
+	AttrNumber	resorigcol pg_node_attr(query_jumble_ignore);
+	/* set to true to eliminate the attribute from final target list */
+	bool		resjunk pg_node_attr(query_jumble_ignore);
+} TargetEntry;
+```
 ## Detailed Description
 TargetEntry is one of PostgreSQL's most fundamental structures, representing individual items in query target lists. While technically not an expression node (since it cannot be evaluated by ExecEvalExpr), it is treated as one for convenience in processing entire target lists as expression trees.
 

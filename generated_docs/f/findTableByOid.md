@@ -8,7 +8,10 @@ Finds and returns the DumpableObject for a table with the specified OID, returni
 
 ## Definition
 
-
+```c
+TableInfo *
+findTableByOid(Oid oid)
+```
 ## Detailed Description
 This function serves as a specialized lookup utility for finding TableInfo objects by their database OID. It constructs a CatalogId structure using the provided OID and the RelationRelationId (which identifies the pg_class system catalog), then uses the generic findObjectByCatalogId function to locate the corresponding DumpableObject. The function includes an assertion to verify that any found object is indeed a table (DO_TABLE type) before casting and returning it as a TableInfo pointer.
 

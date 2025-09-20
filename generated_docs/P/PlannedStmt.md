@@ -8,7 +8,63 @@ PlannedStmt represents the output of PostgreSQL's planner, containing a Plan tre
 
 ## Definition
 
+```c
+typedef struct PlannedStmt
+{
+	pg_node_attr(no_equal, no_query_jumble)
 
+	NodeTag		type;
+
+	CmdType		commandType;	/* select|insert|update|delete|merge|utility */
+
+	uint64		queryId;		/* query identifier (copied from Query) */
+
+	bool		hasReturning;	/* is it insert|update|delete|merge RETURNING? */
+
+	bool		hasModifyingCTE;	/* has insert|update|delete|merge in WITH? */
+
+	bool		canSetTag;		/* do I set the command result tag? */
+
+	bool		transientPlan;	/* redo plan when TransactionXmin changes? */
+
+	bool		dependsOnRole;	/* is plan specific to current role? */
+
+	bool		parallelModeNeeded; /* parallel mode required to execute? */
+
+	int			jitFlags;		/* which forms of JIT should be performed */
+
+	struct Plan *planTree;		/* tree of Plan nodes */
+
+	List	   *rtable;			/* list of RangeTblEntry nodes */
+
+	List	   *permInfos;		/* list of RTEPermissionInfo nodes for rtable
+								 * entries needing one */
+
+	/* rtable indexes of target relations for INSERT/UPDATE/DELETE/MERGE */
+	List	   *resultRelations;	/* integer list of RT indexes, or NIL */
+
+	List	   *appendRelations;	/* list of AppendRelInfo nodes */
+
+	List	   *subplans;		/* Plan trees for SubPlan expressions; note
+								 * that some could be NULL */
+
+	Bitmapset  *rewindPlanIDs;	/* indices of subplans that require REWIND */
+
+	List	   *rowMarks;		/* a list of PlanRowMark's */
+
+	List	   *relationOids;	/* OIDs of relations the plan depends on */
+
+	List	   *invalItems;		/* other dependencies, as PlanInvalItems */
+
+	List	   *paramExecTypes; /* type OIDs for PARAM_EXEC Params */
+
+	Node	   *utilityStmt;	/* non-null if this is utility stmt */
+
+	/* statement location in source string (copied from Query) */
+	ParseLoc	stmt_location;	/* start location, or -1 if unknown */
+	ParseLoc	stmt_len;		/* length in bytes; 0 means "rest of string" */
+} PlannedStmt;
+```
 ## Detailed Description
 PlannedStmt is the top-level node that wraps the execution plan tree produced by PostgreSQL's planner. It serves as a container for both the actual Plan tree and all auxiliary information required for execution. For utility statements (non-DML commands like CREATE TABLE, ALTER TABLE, etc.), the structure acts as a wrapper with the actual utility statement stored in the utilityStmt field and commandType set to CMD_UTILITY.
 

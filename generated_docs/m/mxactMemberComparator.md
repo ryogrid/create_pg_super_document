@@ -8,7 +8,10 @@ A qsort comparison function used to sort MultiXactMember structures, providing a
 
 ## Definition
 
-
+```c
+static int
+mxactMemberComparator(const void *arg1, const void *arg2)
+```
 ## Detailed Description
 This function serves as a comparator for the standard library's qsort function when sorting arrays of MultiXactMember structures. The function implements a two-level comparison strategy: first by transaction ID (xid), then by status if the XIDs are equal. Importantly, it avoids using wraparound comparison for XIDs because wraparound comparison does not respect the triangle inequality required for proper sorting algorithms. Instead, it uses simple integer comparison which provides any valid sort order that qsort can work with reliably.
 

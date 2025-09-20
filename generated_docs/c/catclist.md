@@ -8,7 +8,31 @@ The catclist struct represents the result of a partial key search in PostgreSQL'
 
 ## Definition
 
+```c
+typedef struct catclist
+{
+	int			cl_magic;		/* for identifying CatCList entries */
+#define CL_MAGIC   0x52765103
 
+	uint32		hash_value;		/* hash value for lookup keys */
+
+	dlist_node	cache_elem;		/* list member of per-catcache list */
+
+	/*
+	 * Lookup keys for the entry, with the first nkeys elements being valid.
+	 * All by-reference are separately allocated.
+	 */
+	Datum		keys[CATCACHE_MAXKEYS];
+
+	int			refcount;		/* number of active references */
+	bool		dead;			/* dead but not yet removed? */
+	bool		ordered;		/* members listed in index order? */
+	short		nkeys;			/* number of lookup keys specified */
+	int			n_members;		/* number of member tuples */
+	CatCache   *my_cache;		/* link to owning catcache */
+	CatCTup    *members[FLEXIBLE_ARRAY_MEMBER]; /* members */
+} CatCList;
+```
 ## Detailed Description
 The catclist struct describes the result of a partial search in PostgreSQL's catalog cache system, where only the first K key columns of an N-key cache are used for lookup. It maintains a list of cache entries (CatCTup structures) that satisfy the partial key criteria. Unlike individual cache entries, CatCLists are not organized into hash buckets but are kept in a simple per-cache list. The structure supports reference counting for safe memory management and includes flags for tracking dead entries and whether member tuples are in index order.
 

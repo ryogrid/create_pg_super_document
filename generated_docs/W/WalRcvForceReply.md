@@ -8,7 +8,10 @@ Wakes up the WAL receiver process to trigger immediate sending of apply notifica
 
 ## Definition
 
-
+```c
+void
+WalRcvForceReply(void)
+```
 ## Detailed Description
 This function provides a mechanism for the startup process to signal the WAL receiver that it should immediately send a reply message to the primary server. This is particularly important for synchronous replication scenarios where the primary server may be waiting for confirmation that WAL records have been applied on the standby before completing operations like COMMIT with synchronous_commit = remote_apply.
 

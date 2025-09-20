@@ -8,7 +8,12 @@ Copies a file from source to destination using a buffered read-write operation w
 
 ## Definition
 
-
+```c
+void
+copy_file(const char *src, const char *dst,
+		  pg_checksum_context *checksum_ctx,
+		  CopyMethod copy_method, bool dry_run)
+```
 ## Detailed Description
 The  function performs a complete file copy operation using PostgreSQL's transient file management system. It reads data in 8-block chunks (COPY_BUF_SIZE = 8 * BLCKSZ) and periodically flushes the destination file to avoid overwhelming the system cache. The flush frequency is platform-dependent: every 1MB on most systems, but every 32MB on macOS due to APFS performance characteristics. The function includes comprehensive error handling and uses PostgreSQL's wait event reporting for monitoring I/O operations.
 

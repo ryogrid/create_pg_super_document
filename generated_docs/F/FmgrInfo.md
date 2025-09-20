@@ -8,7 +8,20 @@ FmgrInfo is a structure that holds system-catalog information required to call a
 
 ## Definition
 
-
+```c
+typedef struct FmgrInfo
+{
+	PGFunction	fn_addr;		/* pointer to function or handler to be called */
+	Oid			fn_oid;			/* OID of function (NOT of handler, if any) */
+	short		fn_nargs;		/* number of input args (0..FUNC_MAX_ARGS) */
+	bool		fn_strict;		/* function is "strict" (NULL in => NULL out) */
+	bool		fn_retset;		/* function returns a set */
+	unsigned char fn_stats;		/* collect stats if track_functions > this */
+	void	   *fn_extra;		/* extra space for use by handler */
+	MemoryContext fn_mcxt;		/* memory context to store fn_extra in */
+	fmNodePtr	fn_expr;		/* expression parse tree for call, or NULL */
+} FmgrInfo;
+```
 ## Detailed Description
 FmgrInfo is a critical structure in PostgreSQL's function manager system that caches function metadata to avoid repeated system catalog lookups. When a function needs to be called multiple times, the system can perform the expensive catalog lookup once and store the results in an FmgrInfo structure for reuse. This optimization is essential for performance, especially in expression evaluation and aggregate processing where functions are called repeatedly. The structure contains all necessary information to dispatch function calls, including the actual function address, argument count, strictness properties, and optional handler-specific data.
 

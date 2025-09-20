@@ -8,7 +8,13 @@ Parses and validates the optional parameters provided to the CREATE_REPLICATION_
 
 ## Definition
 
-
+```c
+static void
+parseCreateReplSlotOptions(CreateReplicationSlotCmd *cmd,
+						   bool *reserve_wal,
+						   CRSSnapshotAction *snapshot_action,
+						   bool *two_phase, bool *failover)
+```
 ## Detailed Description
 parseCreateReplSlotOptions processes the optional parameters list from a CREATE_REPLICATION_SLOT command and validates them according to PostgreSQL's replication slot creation rules. The function:
 

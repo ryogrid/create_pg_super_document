@@ -8,7 +8,10 @@ Retrieves LDAP diagnostic messages from an LDAP connection and adds them as erro
 
 ## Definition
 
-
+```c
+static int
+errdetail_for_ldap(LDAP *ldap)
+```
 ## Detailed Description
 The `errdetail_for_ldap` function enhances PostgreSQL's LDAP authentication error reporting by extracting diagnostic information from the LDAP connection and incorporating it into PostgreSQL's error reporting system. This function is called when LDAP operations fail to provide administrators with more detailed troubleshooting information.
 

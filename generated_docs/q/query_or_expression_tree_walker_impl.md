@@ -8,7 +8,13 @@ A hybrid tree walker function that intelligently chooses between query tree walk
 
 ## Definition
 
-
+```c
+bool
+query_or_expression_tree_walker_impl(Node *node,
+									 tree_walker_callback walker,
+									 void *context,
+									 int flags)
+```
 ## Detailed Description
 The  function provides a unified entry point for tree walking operations that can handle both Query nodes and expression nodes. It acts as a dispatcher that determines the appropriate walking strategy based on the input node type. If the node is a Query, it delegates to the specialized  function; otherwise, it directly applies the walker callback using the  macro.
 

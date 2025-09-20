@@ -8,7 +8,10 @@ Returns the maximal (last) IP address value for a given network by computing the
 
 ## Definition
 
-
+```c
+Datum
+network_scan_last(Datum in)
+```
 ## Detailed Description
 This function calculates the highest possible IP address within a network range for use by the PostgreSQL query planner in generating efficient index scan limits. It works by first obtaining the broadcast address of the network (the highest address in the range) and then setting the mask length to maximum (32 for IPv4, 128 for IPv6).
 

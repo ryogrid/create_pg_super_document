@@ -8,7 +8,9 @@ A single-argument wrapper function for pg_ls_dir that provides compatibility wit
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The  function is a simple wrapper around the main  function that accepts only one argument (the directory path). This wrapper exists specifically to satisfy PostgreSQL's opr_sanity checks, which require that all built-in SQL functions sharing the same implementing C function must take the same number of arguments.
 

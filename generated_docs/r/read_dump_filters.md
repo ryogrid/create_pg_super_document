@@ -8,7 +8,10 @@ Parses filter files to configure include/exclude patterns for PostgreSQL pg_dump
 
 ## Definition
 
-
+```c
+static void
+read_dump_filters(const char *filename, DumpOptions *dopt)
+```
 ## Detailed Description
 The  function reads and processes filter configuration from a specified file (or STDIN if filename is "-") to control which database objects are included or excluded during a pg_dump operation. The function parses filter commands that specify object types (tables, schemas, extensions, etc.) and object names or patterns, then populates the appropriate global include/exclude pattern lists.
 

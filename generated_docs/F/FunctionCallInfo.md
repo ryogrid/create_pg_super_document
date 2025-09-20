@@ -8,7 +8,9 @@ FunctionCallInfo is a typedef representing a pointer to FunctionCallInfoBaseData
 
 ## Definition
 
-
+```c
+typedef struct FunctionCallInfoBaseData *FunctionCallInfo;
+```
 ## Detailed Description
 FunctionCallInfo is the fundamental type used throughout PostgreSQL's function manager system to pass function call information between the system and user-defined functions. It points to a FunctionCallInfoBaseData structure that contains all necessary context for function execution, including function arguments, null flags, result information, and execution context. This design allows PostgreSQL functions to receive a standardized interface regardless of how they are called (directly, through SQL, via triggers, etc.). All functions that can be called directly by the function manager must accept a FunctionCallInfo parameter, making it the universal function signature for PostgreSQL's pluggable function system.
 

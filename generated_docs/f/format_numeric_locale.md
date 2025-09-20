@@ -8,7 +8,23 @@ Formats a numeric string according to the current LC_NUMERIC locale setting, add
 
 ## Definition
 
+```c
+struct separator sep, FILE *fout)
+{
+	if (sep.separator_zero)
+		fputc('\000', fout);
+	else if (sep.separator)
+		fputs(sep.separator, fout);
+}
 
+
+/*
+ * Return the list of explicitly-requested footers or, when applicable, the
+ * default "(xx rows)" footer.  Always omit the default footer when given
+ * non-default footers, "\pset footer off", or a specific instruction to that
+ * effect from a calling backslash command.  Vertical formats number each row,
+ * making the default footer redundant;
+```
 ## Detailed Description
 The  function transforms a numeric string to conform to locale-specific formatting rules. It first validates that the input string contains only numeric characters (digits, signs, decimal point, and scientific notation). The function then allocates a new string with sufficient space for locale formatting, processes the sign character, inserts thousands separators at appropriate positions in the integral part, replaces the decimal point with the locale-specific decimal point, and copies any remaining fractional digits or exponent notation. The function requires that  has been called previously to initialize the locale-specific formatting variables.
 

@@ -8,7 +8,10 @@ Internal function that provides the core mechanism for sending Unix signals to P
 
 ## Definition
 
-
+```c
+static int
+pg_signal_backend(int pid, int sig)
+```
 ## Detailed Description
 pg_signal_backend is a static helper function that implements the core logic for safely sending signals to PostgreSQL backend processes. It performs comprehensive validation including:
 

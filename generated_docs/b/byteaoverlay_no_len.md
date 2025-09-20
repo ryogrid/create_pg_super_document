@@ -8,7 +8,10 @@ A PostgreSQL function that implements a two-argument variant of the OVERLAY() op
 
 ## Definition
 
-
+```c
+Datum
+byteaoverlay_no_len(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `byteaoverlay_no_len` function provides a simplified interface to the OVERLAY() operation for bytea data types when no explicit replacement length is specified. Unlike the four-argument `byteaoverlay` function, this variant takes only three arguments: the target bytea, the replacement bytea, and the starting position. The length of the substring to replace is automatically determined by the length of the replacement bytea using `VARSIZE_ANY_EXHDR(t2)`. This corresponds to the SQL OVERLAY() function when called with three arguments instead of four.
 

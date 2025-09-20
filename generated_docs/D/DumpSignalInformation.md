@@ -8,7 +8,17 @@ DumpSignalInformation is a struct that maintains state information for signal ha
 
 ## Definition
 
-
+```c
+typedef struct DumpSignalInformation
+{
+	ArchiveHandle *myAH;		/* database connection to issue cancel for */
+	ParallelState *pstate;		/* parallel state, if any */
+	bool		handler_set;	/* signal handler set up in this process? */
+#ifndef WIN32
+	bool		am_worker;		/* am I a worker process? */
+#endif
+} DumpSignalInformation;
+```
 ## Detailed Description
 DumpSignalInformation serves as the central data structure for managing signal handling in pg_dump's parallel operations. The structure maintains critical state needed for proper cleanup and cancellation when signals (like SIGINT) are received. The design accounts for platform differences between Unix-like systems and Windows, with different semantics for connection management. On Unix systems, each process has its own connection that myAH points to, while on Windows, there's a single instance where myAH points to the leader connection and worker connections are accessed through the parallel state structure. The structure is used as a static volatile global variable (signal_info) to ensure signal handlers can access the necessary state for cleanup operations.
 

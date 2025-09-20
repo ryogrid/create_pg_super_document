@@ -8,7 +8,10 @@ A static function in pg_ctl that parses and sets the Windows service start type 
 
 ## Definition
 
-
+```c
+static void
+set_starttype(char *starttypeopt)
+```
 ## Detailed Description
 The  function processes start type options for Windows service registration functionality in pg_ctl. It accepts both short and long forms of start type specifications and configures the global  variable accordingly. This function is specifically used when registering PostgreSQL as a Windows service to determine how the service should be started.
 

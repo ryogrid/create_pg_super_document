@@ -8,7 +8,10 @@ Checks access permissions for a single relation, ensuring that the current user 
 
 ## Definition
 
-
+```c
+bool
+ExecCheckOneRelPerms(RTEPermissionInfo *perminfo)
+```
 ## Detailed Description
 This function performs comprehensive permission checking for a single relation by examining both relation-level and column-level permissions. It starts by checking if the user has the required permissions at the relation level using pg_class_aclmask(). If some permissions are missing at the relation level, it then checks if those permissions can be satisfied at the column level for SELECT, INSERT, and UPDATE operations.
 

@@ -8,7 +8,9 @@ Creates a hard link from a source relation file to a destination path, providing
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The linkFile function creates a hard link between two file paths using the POSIX  system call. A hard link creates a new directory entry that points to the same inode as the source file, effectively giving the same file data multiple names in the filesystem. This is the most efficient file "copying" method as no actual data duplication occurs.
 

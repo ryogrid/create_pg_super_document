@@ -8,7 +8,10 @@ is_load_via_partition_root is a detection function that determines whether a TAB
 
 ## Definition
 
-
+```c
+static bool
+is_load_via_partition_root(TocEntry *te)
+```
 ## Detailed Description
 This function implements a critical detection mechanism for PostgreSQL's partitioned table handling during restore operations. When dealing with partitioned tables, PostgreSQL sometimes redirects data loading to go through the partition root (parent table) rather than directly to individual partitions. This function detects such scenarios to prevent optimization conflicts.
 

@@ -8,7 +8,13 @@ Extracts individual elements and null markers from a PostgreSQL array structure 
 
 ## Definition
 
-
+```c
+void
+deconstruct_array(ArrayType *array,
+				  Oid elmtype,
+				  int elmlen, bool elmbyval, char elmalign,
+				  Datum **elemsp, bool **nullsp, int *nelemsp)
+```
 ## Detailed Description
 The  function is a fundamental utility for decomposing PostgreSQL array objects into their constituent elements. It extracts all array elements into a palloc'd array of Datum values and optionally creates a corresponding array of null indicators. The function handles the complex internal structure of PostgreSQL arrays, including null bitmaps, element alignment, and variable-length data types.
 

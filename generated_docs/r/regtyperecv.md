@@ -8,7 +8,10 @@ Converts external binary format data to regtype, serving as the binary input fun
 
 ## Definition
 
-
+```c
+Datum
+regtyperecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is PostgreSQL's binary receive function for the regtype data type. It is responsible for converting data from PostgreSQL's external binary format into an internal regtype value. The function is a simple wrapper that delegates all processing to the  function, since regtype is internally represented as an OID.
 

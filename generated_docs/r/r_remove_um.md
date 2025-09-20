@@ -8,7 +8,11 @@ Removes the specific Tamil "um" suffix pattern and replaces it with a standardiz
 
 ## Definition
 
+```c
+}
 
+static int r_remove_um(struct SN_env * z)
+```
 ## Detailed Description
 This function handles a specific Tamil morphological pattern involving the "um" suffix. The function:
 

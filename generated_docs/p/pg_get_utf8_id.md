@@ -8,7 +8,10 @@ A static utility function that returns the character encoding ID for UTF-8, cach
 
 ## Definition
 
-
+```c
+static int
+pg_get_utf8_id(void)
+```
 ## Detailed Description
 This function serves as a cached accessor for the UTF-8 character encoding ID in PostgreSQL's frontend utilities. It uses a static variable to store the encoding ID after the first lookup, implementing a simple memoization pattern. The function calls  only once and stores the result for subsequent calls, improving performance when UTF-8 encoding ID is needed multiple times.
 

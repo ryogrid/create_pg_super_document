@@ -8,7 +8,10 @@ Initializes a parallel worker process for incremental sort operations by attachi
 
 ## Definition
 
-
+```c
+void
+ExecIncrementalSortInitializeWorker(IncrementalSortState *node, ParallelWorkerContext *pwcxt)
+```
 ## Detailed Description
 This function is part of PostgreSQL's parallel query execution infrastructure, specifically for incremental sort operations. It prepares a worker process to participate in parallel incremental sorting by:
 

@@ -8,7 +8,10 @@ Initializes a process-local latch structure, setting up the necessary platform-s
 
 ## Definition
 
-
+```c
+void
+InitLatch(Latch *latch)
+```
 ## Detailed Description
 InitLatch initializes a process-local latch by setting up its basic state and platform-specific synchronization mechanisms. The function sets the latch as unset, marks it as not sleeping, assigns the current process PID as the owner, and indicates it's not shared between processes. Depending on the platform compilation flags, it either verifies that the self-pipe or signalfd mechanisms are properly initialized, or on Windows, creates a new event object for synchronization.
 

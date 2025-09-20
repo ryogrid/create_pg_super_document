@@ -8,7 +8,10 @@ Creates and initializes a libpq data source for the pg_rewind utility, establish
 
 ## Definition
 
-
+```c
+rewind_source *
+init_libpq_source(PGconn *conn)
+```
 ## Detailed Description
 The  function creates a new libpq-based data source used by pg_rewind to connect to and fetch data from a remote PostgreSQL server. It takes an already-established PostgreSQL connection and wraps it in a  structure that implements the generic  interface.
 

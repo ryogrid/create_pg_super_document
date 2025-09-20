@@ -8,7 +8,10 @@ SQL/XML function that converts data from an existing cursor into XML format, all
 
 ## Definition
 
-
+```c
+Datum
+cursor_to_xml(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `cursor_to_xml` function provides a cursor-based approach to XML generation, allowing conversion of result sets to XML format while maintaining cursor state for incremental processing. This function is particularly useful for handling large result sets where memory constraints require processing data in chunks rather than loading everything at once.
 

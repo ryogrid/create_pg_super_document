@@ -8,7 +8,10 @@ GenerationBlockFree is a static inline function that removes a memory block from
 
 ## Definition
 
-
+```c
+static inline void
+GenerationBlockFree(GenerationContext *set, GenerationBlock *block)
+```
 ## Detailed Description
 This function is responsible for safely removing and freeing memory blocks from a Generation memory context. It performs several safety checks before freeing the block:
 

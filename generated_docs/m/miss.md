@@ -8,7 +8,15 @@ The  function handles stateset cache misses in PostgreSQL's regular expression D
 
 ## Definition
 
-
+```c
+static struct sset *
+miss(struct vars *v,
+	 struct dfa *d,
+	 struct sset *css,
+	 color co,
+	 chr *cp,					/* next chr */
+	 chr *start)				/* where the attempt got started */
+```
 ## Detailed Description
 This function is the core workhorse of DFA state transitions. When a cached stateset transition is not available (a "cache miss"), this function computes what stateset would result from consuming a specific character from the current stateset.
 

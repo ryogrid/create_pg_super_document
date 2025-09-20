@@ -8,7 +8,10 @@ KnownAssignedXidsReset clears the KnownAssignedXids array by resetting all its m
 
 ## Definition
 
-
+```c
+static void
+KnownAssignedXidsReset(void)
+```
 ## Detailed Description
 This function provides a complete reset of the KnownAssignedXids data structure, effectively making it empty and ready for fresh population. The function performs a clean slate operation by:
 

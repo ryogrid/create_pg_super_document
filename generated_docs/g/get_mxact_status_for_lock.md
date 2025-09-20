@@ -8,7 +8,10 @@ get_mxact_status_for_lock is a static helper function that maps tuple lock modes
 
 ## Definition
 
-
+```c
+static MultiXactStatus
+get_mxact_status_for_lock(LockTupleMode mode, bool is_update)
+```
 ## Detailed Description
 This function serves as a translation layer between PostgreSQL's tuple locking modes and MultiXact status values. It consults the tupleLockExtraInfo array to determine the appropriate MultiXactStatus based on the lock mode and whether the operation is an update. The function validates the input parameters and throws an error if an invalid combination is provided.
 

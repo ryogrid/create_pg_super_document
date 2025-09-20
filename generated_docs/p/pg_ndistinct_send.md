@@ -8,7 +8,10 @@ A PostgreSQL binary output function for the pg_ndistinct data type that delegate
 
 ## Definition
 
-
+```c
+Datum
+pg_ndistinct_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The pg_ndistinct_send function serves as the binary output routine for the pg_ndistinct data type in PostgreSQL. Since n-distinct statistics are internally stored and serialized as bytea values, this function simply delegates the binary output operation to the standard byteasend function. This approach leverages the existing bytea serialization infrastructure, ensuring consistent and efficient binary representation of n-distinct statistics data for network transmission or storage.
 

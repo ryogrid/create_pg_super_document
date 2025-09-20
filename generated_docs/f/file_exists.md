@@ -8,7 +8,9 @@ A utility function that checks whether a specified file exists and can be opened
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function provides a simple way to test for file existence by attempting to open the file in read mode. If the file can be successfully opened, it immediately closes the file and returns true. If the file cannot be opened (either because it doesn't exist or due to permission issues), the function returns false.
 

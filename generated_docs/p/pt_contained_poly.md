@@ -8,7 +8,10 @@ PostgreSQL function that determines whether a point is contained within a polygo
 
 ## Definition
 
-
+```c
+Datum
+pt_contained_poly(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function tests whether a given point lies inside a polygon, using the same underlying algorithm as poly_contain_pt but with reversed argument order. It extracts a point and a polygon from the function arguments, then calls the point_inside function to perform the actual geometric computation. The function provides a different operator syntax for the same containment test - where pt_contained_poly tests "point @ polygon" while poly_contain_pt tests "polygon ~ point". Both functions utilize the same point_inside algorithm that works with the polygon's vertex array and vertex count.
 

@@ -8,7 +8,10 @@ Reads a single character from the PostgreSQL connection's input buffer.
 
 ## Definition
 
-
+```c
+int
+pqGetc(char *result, PGconn *conn)
+```
 ## Detailed Description
 pqGetc is a low-level function used internally by libpq to read a single character from the connection's input buffer. It operates on data that has already been received from the backend and stored in the connection's inBuffer. The function does not perform any network I/O; it simply extracts the next available character from the buffered data.
 

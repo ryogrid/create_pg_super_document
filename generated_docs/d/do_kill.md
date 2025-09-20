@@ -8,7 +8,10 @@ Sends a signal to a PostgreSQL process with error handling and proper exit statu
 
 ## Definition
 
-
+```c
+static void
+do_kill(pid_t pid)
+```
 ## Detailed Description
 This function is a wrapper around the system's kill() function that sends a signal to a specified process ID. The function uses the global variable  to determine which signal to send. Key features include:
 

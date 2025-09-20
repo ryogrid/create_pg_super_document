@@ -8,7 +8,11 @@ Checks whether a RestrictInfo condition is always true and can be safely removed
 
 ## Definition
 
-
+```c
+bool
+restriction_is_always_true(PlannerInfo *root,
+						   RestrictInfo *restrictinfo)
+```
 ## Detailed Description
 The function analyzes RestrictInfo clauses to determine if they are provably always true, enabling the query planner to eliminate redundant filtering operations. Currently supports two main patterns:
 

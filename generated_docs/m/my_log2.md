@@ -8,7 +8,10 @@ Calculates the ceiling of the base-2 logarithm of a given number, with platform-
 
 ## Definition
 
-
+```c
+int
+my_log2(long num)
+```
 ## Detailed Description
 This function computes the ceiling of the logarithm base 2 of the input number, which is equivalent to finding the minimum number of bits required to represent values from 0 to num-1. The function includes protection against excessively large inputs by capping the input at LONG_MAX/2 to prevent overflow in the underlying calculation functions.
 

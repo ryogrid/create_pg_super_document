@@ -8,7 +8,10 @@ Determines if two range bounds are "adjacent" where one is an upper bound and th
 
 ## Definition
 
-
+```c
+bool
+bounds_adjacent(TypeCacheEntry *typcache, RangeBound boundA, RangeBound boundB)
+```
 ## Detailed Description
 This function checks if two range bounds are adjacent, meaning that no subtype values exist that satisfy neither bound (gap between bounds) or both bounds (overlap). The function expects boundA to be an upper bound and boundB to be a lower bound.
 

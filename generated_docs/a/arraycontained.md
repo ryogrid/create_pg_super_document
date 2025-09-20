@@ -8,7 +8,10 @@ This function determines whether one array is contained within (is a subset of) 
 
 ## Definition
 
-
+```c
+Datum
+arraycontained(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the '<@' operator for arrays in PostgreSQL. It takes two arrays as input and returns a boolean indicating whether the first array is contained within the second array (i.e., all elements of the first array exist in the second array). The function delegates the actual comparison logic to  with the arrays in their natural order for containment checking. Like its counterpart , it handles memory management by freeing any toasted input arrays.
 

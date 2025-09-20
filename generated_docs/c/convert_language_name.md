@@ -8,7 +8,10 @@ Converts a procedural language name from text format to its corresponding OID in
 
 ## Definition
 
-
+```c
+static Oid
+convert_language_name(text *languagename)
+```
 ## Detailed Description
 This is a support function for the has_language_privilege family of functions. It takes a language name as a PostgreSQL text type and converts it to the corresponding language OID by looking up the language in the system catalogs. The function is static, indicating it's only used within the acl.c file. It uses PostgreSQL's standard text-to-cstring conversion and then calls get_language_oid to perform the actual lookup.
 

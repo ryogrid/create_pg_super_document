@@ -8,7 +8,15 @@ ExplainSerializeOption is an enumeration that controls how query output data is 
 
 ## Definition
 
-
+```c
+typedef enum ExplainFormat
+{
+	EXPLAIN_FORMAT_TEXT,
+	EXPLAIN_FORMAT_XML,
+	EXPLAIN_FORMAT_JSON,
+	EXPLAIN_FORMAT_YAML,
+} ExplainFormat;
+```
 ## Detailed Description
 This enumeration defines the serialization modes for query result data when using EXPLAIN with the ANALYZE option or other features that need to capture and serialize query output data. The serialization option determines how the actual query results are formatted and stored during query execution analysis.
 

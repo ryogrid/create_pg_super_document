@@ -8,7 +8,10 @@ A planner support function that provides row count estimates for the array_unnes
 
 ## Definition
 
-
+```c
+Datum
+array_unnest_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The array_unnest_support function is a specialized planner support function designed to assist PostgreSQL's query optimizer when dealing with array_unnest() operations. It analyzes the input array argument and attempts to estimate how many rows the unnest operation will produce. This information helps the planner choose optimal execution strategies, particularly for joins and other operations involving the unnested results.
 

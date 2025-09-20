@@ -8,7 +8,10 @@ Cleanly destroys a BTSpool structure and releases all associated resources inclu
 
 ## Definition
 
-
+```c
+static void
+_bt_spooldestroy(BTSpool *btspool)
+```
 ## Detailed Description
  is a cleanup function that properly deallocates a BTSpool structure used during B-tree index construction. The function performs two essential cleanup operations:
 

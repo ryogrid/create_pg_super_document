@@ -8,7 +8,14 @@ The  function builds expression trees for "scalar op ANY/ALL (array)" constructs
 
 ## Definition
 
-
+```c
+struct given operator name and arg types.
+ *
+ * Returns true if successful, false if the search_path overflowed
+ * (hence no caching is possible).
+ *
+ * pstate/location are used only to report the error position;
+```
 ## Detailed Description
 This function constructs ScalarArrayOpExpr nodes for SQL constructs like "value = ANY(array)" or "value <> ALL(array)". It performs comprehensive type checking to ensure the right-hand side is an array type and extracts the element type for operator resolution. The function validates that the operator returns a boolean result and doesn't return a set, as required for array operations.
 

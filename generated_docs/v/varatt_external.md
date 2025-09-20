@@ -8,7 +8,16 @@ A structure representing a traditional "TOAST pointer" that contains the informa
 
 ## Definition
 
-
+```c
+typedef struct varatt_external
+{
+	int32		va_rawsize;		/* Original data size (includes header) */
+	uint32		va_extinfo;		/* External saved size (without header) and
+								 * compression method */
+	Oid			va_valueid;		/* Unique ID of value within TOAST table */
+	Oid			va_toastrelid;	/* RelID of TOAST table containing it */
+}			varatt_external;
+```
 ## Detailed Description
 The varatt_external structure is a fundamental component of PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system. It serves as a pointer to data that has been stored out-of-line in a separate TOAST table due to its large size. The structure contains all the necessary information to locate and retrieve the original data from the TOAST table.
 

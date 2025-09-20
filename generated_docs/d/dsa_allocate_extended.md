@@ -8,7 +8,10 @@ Allocates memory in a dynamic shared memory area and returns a portable dsa_poin
 
 ## Definition
 
-
+```c
+dsa_pointer
+dsa_allocate_extended(dsa_area *area, size_t size, int flags)
+```
 ## Detailed Description
 This function allocates memory of the specified size within a dynamic shared memory (DSA) area. Unlike traditional memory allocation functions, it returns a  which is a portable reference that can be passed to other processes and converted to a local pointer using . The function supports various allocation strategies based on the provided flags:
 

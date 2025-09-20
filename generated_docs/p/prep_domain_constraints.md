@@ -8,7 +8,10 @@ Prepares domain constraints for execution by converting expression trees stored 
 
 ## Definition
 
-
+```c
+static List *
+prep_domain_constraints(List *constraints, MemoryContext execctx)
+```
 ## Detailed Description
 This static function is part of PostgreSQL's type cache system that handles domain constraint preparation. It takes a list of domain constraints represented as expression trees and converts them into executable form by creating expression state trees. The function operates within a specified memory context to ensure proper memory management for the prepared constraints.
 

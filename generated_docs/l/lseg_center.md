@@ -8,7 +8,9 @@ Calculates and returns the center point (midpoint) of a line segment.
 
 ## Definition
 
-
+```c
+struct(&tmp, &l2->p[0], lseg_sl(l2));
+```
 ## Detailed Description
 This function computes the geometric center point of a line segment by calculating the average of the x and y coordinates of the segment's two endpoints. The center point is calculated as ((x1 + x2) / 2, (y1 + y2) / 2) where (x1, y1) and (x2, y2) are the coordinates of the line segment's endpoints. The function allocates memory for a new Point structure to store the result.
 

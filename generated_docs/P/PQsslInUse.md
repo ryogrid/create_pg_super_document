@@ -8,7 +8,10 @@ Determines whether an SSL connection is currently in use for a PostgreSQL connec
 
 ## Definition
 
-
+```c
+int
+PQsslInUse(PGconn *conn)
+```
 ## Detailed Description
 PQsslInUse is a simple utility function that checks if SSL encryption is active on a given PostgreSQL connection. It provides a way for client applications to verify that their connection is secured with SSL/TLS encryption. The function simply returns the value of the  flag from the connection structure.
 

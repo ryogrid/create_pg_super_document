@@ -8,7 +8,10 @@ A simple utility function that checks whether a CopyMultiInsertInfo structure co
 
 ## Definition
 
-
+```c
+static inline bool
+CopyMultiInsertInfoIsEmpty(CopyMultiInsertInfo *miinfo)
+```
 ## Detailed Description
 This function provides a straightforward check to determine if a CopyMultiInsertInfo structure has any tuples currently buffered for insertion. It serves as an optimization check to avoid unnecessary processing when no tuples are waiting to be inserted. The function simply examines the bufferedTuples field of the CopyMultiInsertInfo structure to make this determination.
 

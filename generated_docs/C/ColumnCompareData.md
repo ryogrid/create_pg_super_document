@@ -8,7 +8,12 @@ A simple structure that caches metadata needed for record column comparison oper
 
 ## Definition
 
-
+```c
+typedef struct ColumnCompareData
+{
+	TypeCacheEntry *typentry;	/* has everything we need, actually */
+} ColumnCompareData;
+```
 ## Detailed Description
 ColumnCompareData is a lightweight wrapper structure designed to cache type comparison metadata for individual columns within records. The structure contains a single pointer to a TypeCacheEntry, which holds comprehensive type information including comparison functions, hash functions, and other type-specific metadata needed for comparison operations.
 

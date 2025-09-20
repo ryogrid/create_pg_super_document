@@ -8,7 +8,11 @@ This function determines whether I/O statistics should be tracked for a specific
 
 ## Definition
 
-
+```c
+bool
+pgstat_tracks_io_object(BackendType bktype, IOObject io_object,
+						IOContext io_context)
+```
 ## Detailed Description
 The `pgstat_tracks_io_object` function performs multi-layered validation to determine if I/O statistics should be tracked for a given combination of parameters. It implements several filtering rules:
 

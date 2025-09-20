@@ -8,7 +8,15 @@ SplitVar is a linked list structure used in PostgreSQL's text search spell check
 
 ## Definition
 
-
+```c
+typedef struct SplitVar
+{
+	int			nstem;
+	int			lenstem;
+	char	  **stem;
+	struct SplitVar *next;
+} SplitVar;
+```
 ## Detailed Description
 SplitVar represents a collection of word stems that result from splitting compound words or applying morphological rules during spell checking operations. It's used in the ISpell dictionary implementation to handle complex word forms that can be decomposed into multiple constituent parts. The structure maintains a dynamic array of stem strings and can be linked together to form chains of related stem collections.
 

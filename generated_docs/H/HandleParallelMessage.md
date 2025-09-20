@@ -8,7 +8,10 @@ Processes a single protocol message received from a specific parallel worker, ha
 
 ## Definition
 
-
+```c
+static void
+HandleParallelMessage(ParallelContext *pcxt, int i, StringInfo msg)
+```
 ## Detailed Description
 This static function is the core message dispatcher for individual parallel worker messages. It parses and handles different types of protocol messages sent from parallel workers to the main backend process. The function first tracks worker attachment status, then switches on the message type to perform appropriate handling.
 

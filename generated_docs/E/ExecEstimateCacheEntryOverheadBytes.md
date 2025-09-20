@@ -8,7 +8,10 @@ ExecEstimateCacheEntryOverheadBytes provides a memory estimation function for th
 
 ## Definition
 
-
+```c
+double
+ExecEstimateCacheEntryOverheadBytes(double ntuples)
+```
 ## Detailed Description
 ExecEstimateCacheEntryOverheadBytes is a utility function designed specifically for the query planner's cost estimation phase. It calculates the memory overhead associated with storing a single cache entry in the Memoize node's hash table. The calculation includes the fixed overhead of the cache entry structure itself (MemoizeEntry), the cache key storage (MemoizeKey), and the variable cost of storing the expected number of tuples (MemoizeTuple structures) that will be cached for each parameter combination. This estimation helps the planner make informed decisions about whether to use a Memoize node based on memory constraints and expected cache efficiency.
 

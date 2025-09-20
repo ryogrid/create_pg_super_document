@@ -8,7 +8,10 @@ Switches the active read pointer in a tuplestore to the specified pointer, handl
 
 ## Definition
 
-
+```c
+void
+tuplestore_select_read_pointer(Tuplestorestate *state, int ptr)
+```
 ## Detailed Description
 This function makes the specified read pointer active in the tuplestore. When multiple read pointers exist, this function allows switching between them while maintaining the correct file positions. The function handles three different tuplestore states:
 

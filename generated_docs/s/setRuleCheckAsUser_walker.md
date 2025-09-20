@@ -8,7 +8,10 @@ A static helper function that recursively traverses expression trees to set the 
 
 ## Definition
 
-
+```c
+static bool
+setRuleCheckAsUser_walker(Node *node, Oid *context)
+```
 ## Detailed Description
 This function implements a tree-walking algorithm that traverses PostgreSQL expression trees to modify permission checking behavior. It works in conjunction with setRuleCheckAsUser() to recursively scan query and expression trees, setting the checkAsUser field to a specified user ID in all RTEPermissionInfo structures. When it encounters a Query node, it delegates to setRuleCheckAsUser_Query() for specialized query handling. For all other node types, it continues the recursive traversal using the standard expression_tree_walker() mechanism.
 

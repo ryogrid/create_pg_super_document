@@ -8,7 +8,10 @@ Creates publications and replication slots in preparation for logical replicatio
 
 ## Definition
 
-
+```c
+static char *
+setup_publisher(struct LogicalRepInfo *dbinfo)
+```
 ## Detailed Description
 This function prepares the publisher side for logical replication by creating necessary publications and replication slots across multiple databases. It iterates through all configured databases, connects to each one, and performs the following operations:
 

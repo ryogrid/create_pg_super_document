@@ -8,7 +8,10 @@ Finds the ObjectAddress for a specific attribute (column) within a relation, ser
 
 ## Definition
 
-
+```c
+struct return value. */
+	attnum = get_attnum(reloid, attname);
+```
 ## Detailed Description
 This static function resolves a column reference into an ObjectAddress structure, which uniquely identifies database objects within PostgreSQL's catalog system. The function takes a qualified column name (relation.column), opens the specified relation, looks up the attribute number for the given column name, and constructs an ObjectAddress with the relation's OID as objectId and the attribute number as objectSubId. The function handles error cases gracefully when the column doesn't exist, either reporting an error or returning an invalid ObjectAddress based on the missing_ok parameter.
 

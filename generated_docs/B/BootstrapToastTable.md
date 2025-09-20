@@ -8,7 +8,10 @@ BootstrapToastTable is a specialized function for creating TOAST tables during t
 
 ## Definition
 
-
+```c
+void
+BootstrapToastTable(char *relName, Oid toastOid, Oid toastIndexOid)
+```
 ## Detailed Description
 This function is specifically designed for use during PostgreSQL's bootstrap process when the system catalogs are being initialized. Unlike the other TOAST table creation functions that automatically assign OIDs, this function requires pre-specified OIDs for both the TOAST table and its index. This is necessary during bootstrap because the system needs to create TOAST tables with predetermined OIDs that match the catalog definitions.
 

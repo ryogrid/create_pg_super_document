@@ -8,7 +8,10 @@ Determines the latest LSN that is eligible to be summarized by the WAL summarize
 
 ## Definition
 
-
+```c
+static XLogRecPtr
+GetLatestLSN(TimeLineID *tli)
+```
 ## Detailed Description
 This static function determines the highest LSN that the WAL summarizer can safely process, considering the current state of the database (normal operation vs. recovery). The function must ensure that it only summarizes WAL that has been safely flushed to disk and is stable.
 

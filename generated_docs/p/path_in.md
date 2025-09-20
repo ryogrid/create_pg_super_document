@@ -8,7 +8,10 @@ Parses a string representation of a geometric path and converts it into PostgreS
 
 ## Definition
 
-
+```c
+Datum
+path_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the input conversion routine for the PATH geometric data type in PostgreSQL. It parses various string representations of paths and creates the corresponding internal PATH structure. The function supports multiple input formats including both open paths (polylines) and closed paths (polygons).
 

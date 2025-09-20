@@ -8,7 +8,10 @@ Safely removes a node from a doubly-linked list while performing thorough cleanu
 
 ## Definition
 
-
+```c
+static inline void
+dlist_delete_from_thoroughly(dlist_head *head, dlist_node *node)
+```
 ## Detailed Description
 This function provides a safe way to remove a node from a doubly-linked list with comprehensive validation and cleanup. It combines the safety checks of membership verification with thorough deletion that nullifies the node's pointers. The function first validates that the specified node is actually a member of the given list using , then performs the deletion using . This ensures both correctness (the node must belong to the list) and completeness (the node is fully disconnected and marked as unlinked).
 

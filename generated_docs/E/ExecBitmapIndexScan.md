@@ -8,7 +8,10 @@ ExecBitmapIndexScan is a stub function that serves as a placeholder for pro form
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecBitmapIndexScan(PlanState *pstate)
+```
 ## Detailed Description
 This function is implemented as a deliberate stub that immediately throws an error when called. Unlike other executor node types that support the ExecProcNode call convention for tuple-by-tuple processing, BitmapIndexScan nodes operate differently - they are designed to collect all qualifying tuple identifiers (TIDs) at once during initialization rather than producing tuples one at a time. This design choice reflects the fundamental difference in how bitmap index scans work compared to regular sequential scans.
 

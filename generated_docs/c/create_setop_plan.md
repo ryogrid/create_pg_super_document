@@ -8,7 +8,10 @@ Creates a SetOp plan node for set operations (UNION, INTERSECT, EXCEPT) based on
 
 ## Definition
 
-
+```c
+static SetOp *
+create_setop_plan(PlannerInfo *root, SetOpPath *best_path, int flags)
+```
 ## Detailed Description
 This function is responsible for constructing a SetOp plan node that implements set operations in PostgreSQL's query execution. It takes a SetOpPath (which represents the chosen execution strategy for a set operation) and converts it into an executable plan. The function handles the creation of the subplan through recursive calls and properly configures the SetOp node with the necessary parameters for execution, including operation type, strategy, grouping information, and cardinality estimates.
 

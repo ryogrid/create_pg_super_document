@@ -8,7 +8,14 @@ A PostgreSQL function that computes a hash value for a tuple identifier (TID), e
 
 ## Definition
 
-
+```c
+struct ItemPointerData, we can at
+	 * least make this code work, by not using sizeof(ItemPointerData).
+	 * Instead rely on knowing the sizes of the component fields.
+	 */
+	return hash_any((unsigned char *) key,
+					sizeof(BlockIdData) + sizeof(OffsetNumber));
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that generates a hash value from an ItemPointer (TID). It takes a single ItemPointer argument and computes a hash using the  function. The implementation carefully avoids using  to prevent potential issues with compilers that might add padding to the struct. Instead, it explicitly calculates the size by adding the sizes of the component fields:  and . This ensures a consistent hash calculation regardless of compiler behavior and makes the function suitable for use in hash-based data structures and operations.
 

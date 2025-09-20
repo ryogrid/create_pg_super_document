@@ -8,7 +8,10 @@ A static function that performs binary search to locate a specific lexeme within
 
 ## Definition
 
-
+```c
+static int
+tsvector_bsearch(const TSVector tsv, char *lexeme, int lexeme_len)
+```
 ## Detailed Description
 The  function implements a classic binary search algorithm to efficiently locate a lexeme within a TSVector's word entry array. Since TSVector maintains its lexemes in alphabetical order, binary search provides O(log n) lookup performance. The function compares the search lexeme against entries in the middle of the current search range, progressively narrowing the range until the lexeme is found or determined to be absent.
 

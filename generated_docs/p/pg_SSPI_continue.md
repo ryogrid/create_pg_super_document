@@ -8,7 +8,11 @@ Continues SSPI authentication with the next token in a multi-step Windows authen
 
 ## Definition
 
-
+```c
+structure.
+		 */
+		inputbuf = malloc(payloadlen);
+```
 ## Detailed Description
 This function manages the continuation of SSPI (Security Support Provider Interface) authentication after the initial startup on Windows systems. It handles the multi-round token exchange required for Windows integrated authentication protocols like Kerberos and NTLM. The function performs these key operations:
 

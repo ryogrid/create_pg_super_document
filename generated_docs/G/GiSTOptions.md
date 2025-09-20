@@ -8,7 +8,14 @@ GiSTOptions is a storage structure for GiST index configuration options, contain
 
 ## Definition
 
-
+```c
+typedef struct GiSTOptions
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	int			fillfactor;		/* page fill factor in percent (0..100) */
+	GistOptBufferingMode buffering_mode;	/* buffering build mode */
+} GiSTOptions;
+```
 ## Detailed Description
 GiSTOptions serves as the storage type for GiST index reloptions (relation options), encapsulating configuration parameters that control various aspects of GiST index behavior. The structure follows PostgreSQL's varlena format, allowing it to be stored as variable-length data. The options control performance-related settings such as how full pages should be before splitting (fillfactor) and what buffering strategy to use during index construction (buffering_mode). These options can be specified when creating or altering GiST indexes.
 

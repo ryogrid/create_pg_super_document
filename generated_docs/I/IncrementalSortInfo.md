@@ -8,7 +8,13 @@ IncrementalSortInfo is a structure that holds instrumentation data for increment
 
 ## Definition
 
-
+```c
+typedef struct IncrementalSortInfo
+{
+	IncrementalSortGroupInfo fullsortGroupInfo;
+	IncrementalSortGroupInfo prefixsortGroupInfo;
+} IncrementalSortInfo;
+```
 ## Detailed Description
 This structure serves as a container for collecting and storing performance instrumentation data during incremental sort operations in PostgreSQL. Incremental sort is an optimization that can sort data in two phases: first by a prefix of the sort keys (prefix sort), then by the remaining keys (full sort). The IncrementalSortInfo structure captures metrics for both phases separately, allowing for detailed analysis of the incremental sort algorithm's performance characteristics.
 

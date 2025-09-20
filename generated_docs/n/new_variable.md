@@ -8,7 +8,10 @@ Creates and initializes a new variable structure in the ECPG preprocessor, addin
 
 ## Definition
 
-
+```c
+struct variable *
+new_variable(const char *name, struct ECPGtype *type, int brace_level)
+```
 ## Detailed Description
 The  function is a constructor for variable structures in the Embedded SQL C (ECPG) preprocessor. It allocates memory for a new variable structure, initializes its fields with the provided parameters, and adds it to the global linked list of all variables (). This function is essential for managing variable declarations and their associated type information during the preprocessing of embedded SQL statements in C code.
 

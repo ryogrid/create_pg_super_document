@@ -8,7 +8,10 @@ RememberConstraintForRebuilding records constraint information that needs to be 
 
 ## Definition
 
-
+```c
+static void
+RememberConstraintForRebuilding(Oid conoid, AlteredTableInfo *tab)
+```
 ## Detailed Description
 This function is responsible for capturing constraint information before it gets modified or dropped during table alterations. It performs several critical tasks:
 

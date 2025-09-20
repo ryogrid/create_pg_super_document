@@ -8,7 +8,10 @@ Renders table data in AsciiDoc table format, generating properly formatted Ascii
 
 ## Definition
 
-
+```c
+static void
+print_asciidoc_text(const printTableContent *cont, FILE *fout)
+```
 ## Detailed Description
 This function generates AsciiDoc table output from PostgreSQL query results stored in a printTableContent structure. It creates properly formatted AsciiDoc tables using the standard table block syntax with pipe delimiters and table attributes. The function handles the complete table lifecycle including table definition blocks, headers, data rows, and footers. It supports various border styles, column alignments, and formatting options. The function uses AsciiDoc-specific escaping for content and implements AsciiDoc's table formatting conventions including column specifications, frame options, and grid settings.
 

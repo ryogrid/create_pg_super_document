@@ -8,7 +8,10 @@ PLy_quote_literal is a Python C extension function that provides SQL literal quo
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_quote_literal(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 PLy_quote_literal wraps PostgreSQL's quote_literal_cstr function to provide safe SQL literal quoting from within Python code. This function takes a string argument and returns a properly quoted and escaped version that can be safely used as a literal value in SQL statements. It handles SQL injection prevention by properly escaping single quotes and other special characters according to SQL standards.
 

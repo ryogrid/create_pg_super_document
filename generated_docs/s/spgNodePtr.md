@@ -8,7 +8,14 @@
 
 ## Definition
 
-
+```c
+typedef struct spgNodePtr
+{
+	Datum		d;
+	int			i;
+	int16		c;
+} spgNodePtr;
+```
 ## Detailed Description
 The  struct is a helper data structure used within the  function to organize and sort text values during the node splitting process in SP-GiST text indexes. When building a radix tree (compressed trie) over text data, this struct facilitates the grouping of strings by their distinguishing characters after a common prefix has been identified.
 

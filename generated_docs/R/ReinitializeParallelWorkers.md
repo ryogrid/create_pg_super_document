@@ -8,7 +8,10 @@ Adjusts the number of parallel workers to be launched for an existing parallel c
 
 ## Definition
 
-
+```c
+void
+ReinitializeParallelWorkers(ParallelContext *pcxt, int nworkers_to_launch)
+```
 ## Detailed Description
 ReinitializeParallelWorkers provides a mechanism to change the number of workers that will be launched when reusing a parallel context. This function is essential for scenarios where the same parallel context and DSM segment need to be reused across multiple operations that may require different numbers of workers, such as parallel vacuum operations processing indexes of varying complexity or parallel query phases with different parallelization requirements.
 

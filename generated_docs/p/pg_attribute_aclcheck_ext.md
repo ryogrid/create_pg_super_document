@@ -8,7 +8,11 @@ This function checks a user's access privileges to a specific column of a table,
 
 ## Definition
 
-
+```c
+AclResult
+pg_attribute_aclcheck_ext(Oid table_oid, AttrNumber attnum,
+						  Oid roleid, AclMode mode, bool *is_missing)
+```
 ## Detailed Description
 The  function is an exported routine that verifies whether a specified user (role) has the requested access privileges to a particular column of a table. This is an extended version of the basic attribute ACL check that provides additional information about whether the attribute exists. The function internally uses  to perform the actual privilege checking and returns a simple ACLCHECK_OK or ACLCHECK_NO_PRIV result.
 

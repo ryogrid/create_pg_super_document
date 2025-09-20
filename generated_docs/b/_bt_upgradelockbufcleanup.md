@@ -8,7 +8,10 @@ _bt_upgradelockbufcleanup upgrades a standard B-tree buffer lock to a cleanup lo
 
 ## Definition
 
-
+```c
+void
+_bt_upgradelockbufcleanup(Relation rel, Buffer buf)
+```
 ## Detailed Description
 _bt_upgradelockbufcleanup performs a lock upgrade operation on a B-tree buffer that is already pinned and locked with a standard read/write lock. The function first validates that the buffer memory is properly accessible using Valgrind instrumentation, then releases the current lock and immediately acquires a cleanup lock.
 

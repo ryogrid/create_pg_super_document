@@ -8,7 +8,9 @@ This static helper function performs half-rounding on a PostgreSQL Numeric value
 
 ## Definition
 
-
+```c
+struct size_pretty_unit *unit;
+```
 ## Detailed Description
 The  function implements a specialized rounding operation that differs from standard mathematical rounding. It performs the following algorithm:
 1. If the input number is greater than or equal to zero, it adds 1 to the number

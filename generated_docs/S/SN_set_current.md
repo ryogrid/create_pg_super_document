@@ -8,7 +8,11 @@ Sets the current input string in a Snowball stemming environment, preparing it f
 
 ## Definition
 
+```c
+}
 
+extern int SN_set_current(struct SN_env * z, int size, const symbol * s)
+```
 ## Detailed Description
 This function initializes the working buffer of a Snowball stemming environment with input text that needs to be processed. It replaces the entire content of the environment's primary string buffer with the provided input string and resets the current position cursor to the beginning. This is typically the first operation performed before running any stemming algorithm on a word.
 

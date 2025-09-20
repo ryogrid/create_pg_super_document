@@ -8,7 +8,10 @@ Converts an operator name with argument types (in the format "oprname(args)") to
 
 ## Definition
 
-
+```c
+Datum
+to_regoperator(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that safely converts a textual representation of an operator to its internal OID representation. Unlike the direct  function, this function returns NULL instead of throwing an error when the operator cannot be found, making it suitable for cases where the existence of an operator is uncertain.
 

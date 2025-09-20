@@ -8,7 +8,17 @@ Executes a SQL command with parameters using PostgreSQL's extended query protoco
 
 ## Definition
 
-
+```c
+PGresult *
+PQexecParams(PGconn *conn,
+			 const char *command,
+			 int nParams,
+			 const Oid *paramTypes,
+			 const char *const *paramValues,
+			 const int *paramLengths,
+			 const int *paramFormats,
+			 int resultFormat)
+```
 ## Detailed Description
 PQexecParams provides a way to execute SQL commands with parameters using PostgreSQL's extended query protocol. Unlike PQexec, which requires manual escaping of parameter values, PQexecParams automatically handles parameter serialization and prevents SQL injection attacks. The function follows a synchronous execution model - it sends the query and waits for the complete result before returning.
 

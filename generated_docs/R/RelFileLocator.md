@@ -8,7 +8,14 @@ RelFileLocator is a struct that provides all the information needed to physicall
 
 ## Definition
 
-
+```c
+typedef struct RelFileLocator
+{
+	Oid			spcOid;			/* tablespace */
+	Oid			dbOid;			/* database */
+	RelFileNumber relNumber;	/* relation */
+} RelFileLocator;
+```
 ## Detailed Description
 The RelFileLocator struct serves as the primary mechanism for identifying the physical storage location of PostgreSQL relations on the filesystem. It uniquely identifies a relation through three key components: tablespace, database, and relation number.
 

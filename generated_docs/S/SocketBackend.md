@@ -8,7 +8,10 @@ A function that handles frontend-backend communication by reading and processing
 
 ## Definition
 
-
+```c
+static int
+SocketBackend(StringInfo inBuf)
+```
 ## Detailed Description
 The `SocketBackend` function is the core message reception handler for PostgreSQL's client-server communication. It implements the PostgreSQL frontend-backend protocol by reading message type codes from clients and loading the corresponding message body data into a buffer. 
 

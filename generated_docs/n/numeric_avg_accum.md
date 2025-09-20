@@ -8,7 +8,10 @@ A PostgreSQL aggregate transition function for numeric aggregates that only requ
 
 ## Definition
 
-
+```c
+Datum
+numeric_avg_accum(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for simpler numeric aggregate operations that only need to maintain the sum of values, not sum of squares. It's specifically designed for aggregates like AVG (average) and SUM that don't require variance or standard deviation calculations.
 

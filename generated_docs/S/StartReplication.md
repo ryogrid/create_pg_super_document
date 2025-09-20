@@ -8,7 +8,10 @@ Handles the START_REPLICATION command to initiate physical replication streaming
 
 ## Definition
 
-
+```c
+static void
+StartReplication(StartReplicationCmd *cmd)
+```
 ## Detailed Description
 StartReplication implements the core functionality for starting physical replication in PostgreSQL. The function performs several critical tasks:
 

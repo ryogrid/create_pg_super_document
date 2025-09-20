@@ -8,7 +8,10 @@ Converts a Perl hash reference to a PostgreSQL Datum representing a composite ty
 
 ## Definition
 
-
+```c
+static Datum
+plperl_hash_to_datum(SV *src, TupleDesc td)
+```
 ## Detailed Description
 This function serves as a high-level wrapper around plperl_build_tuple_result, specifically designed to convert Perl hash references into PostgreSQL Datum values. The function:
 

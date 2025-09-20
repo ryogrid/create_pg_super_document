@@ -8,7 +8,10 @@ Shuts down execution of a single execution_state node, performing cleanup operat
 
 ## Definition
 
-
+```c
+static void
+postquel_end(execution_state *es)
+```
 ## Detailed Description
 postquel_end is responsible for the orderly shutdown of query execution for a SQL function's execution state. It performs several critical cleanup operations: marks the execution status as done to prevent duplicate shutdown operations, conditionally calls ExecutorFinish and ExecutorEnd for non-utility commands, destroys the destination receiver, and frees the QueryDesc structure. This function ensures that all resources allocated during query execution are properly released and that the execution state is left in a clean, completed state.
 

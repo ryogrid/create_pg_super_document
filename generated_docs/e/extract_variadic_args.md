@@ -8,7 +8,11 @@ Extracts argument values, types, and NULL markers for functions that use VARIADI
 
 ## Definition
 
-
+```c
+struct_array(array_in, element_type, typlen, typbyval,
+						  typalign, &args_res, &nulls_res,
+						  &nargs);
+```
 ## Detailed Description
 This function processes arguments for PostgreSQL functions that accept VARIADIC parameters. It handles two distinct scenarios:
 

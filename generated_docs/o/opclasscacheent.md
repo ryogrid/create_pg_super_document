@@ -8,7 +8,17 @@ The  structure provides a specialized cache for operator class (opclass) related
 
 ## Definition
 
-
+```c
+typedef struct opclasscacheent
+{
+	Oid			opclassoid;		/* lookup key: OID of opclass */
+	bool		valid;			/* set true after successful fill-in */
+	StrategyNumber numSupport;	/* max # of support procs (from pg_am) */
+	Oid			opcfamily;		/* OID of opclass's family */
+	Oid			opcintype;		/* OID of opclass's declared input type */
+	RegProcedure *supportProcs; /* OIDs of support procedures */
+} OpClassCacheEnt;
+```
 ## Detailed Description
 The  structure serves as a cache entry in the operator class cache () within PostgreSQL's relation cache system. This cache is specifically designed to store opclass-related information to avoid repeated lookups in the system catalogs. The structure caches essential metadata about operator classes, including their family membership, input types, and associated support procedures. An important limitation is that only default support procedures are cached - specifically those where . This design decision optimizes for the most common case while keeping the cache structure manageable. The cache improves performance for operations that need to access operator class information, such as index operations and operator resolution.
 

@@ -8,7 +8,10 @@ Retrieves information about all logical replication publications from the Postgr
 
 ## Definition
 
-
+```c
+PublicationInfo *
+getPublications(Archive *fout, int *numPublications)
+```
 ## Detailed Description
 The `getPublications` function queries the `pg_publication` system catalog to gather information about all publications in the database. Publications are a key component of PostgreSQL's logical replication feature, defining which tables and what types of changes (INSERT, UPDATE, DELETE, TRUNCATE) should be replicated.
 

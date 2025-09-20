@@ -8,7 +8,9 @@ Processes and stores individual TOAST chunks during logical replication, maintai
 
 ## Definition
 
-
+```c
+structed = NULL;
+```
 ## Detailed Description
 This function handles the processing of individual TOAST chunks as they are encountered during logical replication. When PostgreSQL stores large column values using TOAST, it breaks them into smaller chunks with sequential numbering. This function extracts the chunk ID, sequence number, and data from the TOAST table tuple, then stores it in the transaction's toast hash table for later reconstruction. It performs validation to ensure chunks arrive in the correct sequence (starting from 0 and incrementing by 1), calculates the chunk size accounting for different varlena formats, and maintains metadata about the total size and number of chunks seen. The chunks are stored in a doubly-linked list within the hash entry, preserving their order for reconstruction.
 

@@ -8,7 +8,10 @@ A PostgreSQL system function that resets statistical counters for a single user-
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_reset_single_function_counters(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a targeted mechanism to reset statistical counters for a specific user-defined function identified by its OID (Object Identifier). Unlike table statistics which may be shared across databases, function statistics are always scoped to the current database context, as functions are database-specific objects.
 

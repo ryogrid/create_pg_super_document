@@ -8,7 +8,14 @@ The xl_heap_header struct stores the essential tuple header fields that must be 
 
 ## Definition
 
-
+```c
+typedef struct xl_heap_header
+{
+	uint16		t_infomask2;
+	uint16		t_infomask;
+	uint8		t_hoff;
+} xl_heap_header;
+```
 ## Detailed Description
 This structure represents a compressed version of the heap tuple header that gets stored in WAL records for insert and update operations. Rather than storing the complete HeapTupleHeaderData structure, PostgreSQL optimizes WAL space by only storing the fields that cannot be reconstructed from other information available during WAL replay. The three fields stored are critical for properly reconstructing the tuple's structure and visibility information during recovery.
 

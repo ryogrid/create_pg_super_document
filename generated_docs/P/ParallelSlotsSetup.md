@@ -8,7 +8,11 @@ ParallelSlotsSetup is a public function that creates and initializes a parallel 
 
 ## Definition
 
-
+```c
+ParallelSlotArray *
+ParallelSlotsSetup(int numslots, ConnParams *cparams, const char *progname,
+				   bool echo, const char *initcmd)
+```
 ## Detailed Description
 This function creates a new ParallelSlotArray structure and initializes it with the specified parameters. It allocates memory for the slot array structure plus space for the specified number of parallel slots. The function stores all connection parameters, program name, echo setting, and initialization command for later use when connections are actually established. All slots are initialized in an idle state with no active connections. The connection parameters and other strings must remain valid throughout the lifetime of the returned array since they are stored by reference.
 

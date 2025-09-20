@@ -8,7 +8,15 @@ The var_eq_const function calculates selectivity estimates for equality (and ine
 
 ## Definition
 
-
+```c
+struct just once.
+			 * Using FunctionCallInvoke directly also avoids failure if the
+			 * eqproc returns NULL, though really equality functions should
+			 * never do that.
+			 */
+			InitFunctionCallInfoData(*fcinfo, &eqproc, 2, collation,
+									 NULL, NULL);
+```
 ## Detailed Description
 The var_eq_const function is a sophisticated selectivity estimator that leverages PostgreSQL's column statistics to provide accurate estimates for variable-constant comparisons. The function employs multiple estimation strategies based on available statistical information:
 

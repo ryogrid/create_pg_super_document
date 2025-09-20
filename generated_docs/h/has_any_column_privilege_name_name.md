@@ -8,7 +8,10 @@ Checks if a specified user (by name) has any given privilege on any column of a 
 
 ## Definition
 
-
+```c
+Datum
+has_any_column_privilege_name_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of PostgreSQL's access control system and serves as a SQL-callable function to determine whether a user has a specified privilege on any column of a table. It takes three text arguments: a role name, table name, and privilege type, then performs hierarchical privilege checking.
 

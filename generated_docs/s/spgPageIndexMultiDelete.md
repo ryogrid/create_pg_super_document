@@ -8,7 +8,13 @@ Efficiently deletes multiple tuples from an SP-GiST index page while preserving 
 
 ## Definition
 
-
+```c
+void
+spgPageIndexMultiDelete(SpGistState *state, Page page,
+						OffsetNumber *itemnos, int nitems,
+						int firststate, int reststate,
+						BlockNumber blkno, OffsetNumber offnum)
+```
 ## Detailed Description
 This function performs a bulk deletion operation on an SP-GiST index page by replacing multiple tuples with dead tuples rather than physically removing them. This approach preserves the tuple offset numbering scheme which is crucial for SP-GiST index consistency. The function first sorts the offset numbers for efficiency, uses PageIndexMultiDelete to remove the original tuples, then inserts appropriately typed dead tuples (REDIRECT, DEAD, or PLACEHOLDER) in their place. The first tuple in the list gets the 'firststate' type while remaining tuples get the 'reststate' type. This function is designed to work safely during WAL replay and within critical sections.
 

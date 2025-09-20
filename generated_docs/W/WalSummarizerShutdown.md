@@ -8,7 +8,10 @@ A cleanup function that marks the WAL summarizer process as no longer running in
 
 ## Definition
 
-
+```c
+static void
+WalSummarizerShutdown(int code, Datum arg)
+```
 ## Detailed Description
 This is a static cleanup function designed to be registered as an exit callback for the WAL summarizer process. When the summarizer process terminates (whether normally or abnormally), this function ensures that the shared memory control structure is updated to reflect that the summarizer is no longer running. This prevents other processes from attempting to communicate with a non-existent summarizer process.
 

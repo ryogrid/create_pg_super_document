@@ -8,7 +8,10 @@ Converts an Oid (object identifier) value to a 64-bit signed integer (int8/bigin
 
 ## Definition
 
-
+```c
+Datum
+oidtoi8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that performs a type conversion from the Oid data type to int8 (bigint). It takes an Oid value as input and returns it as a 64-bit signed integer. The conversion is straightforward since both types are numeric, with Oid being an unsigned 32-bit integer that fits comfortably within the range of a 64-bit signed integer.
 

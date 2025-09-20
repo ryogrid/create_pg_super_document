@@ -8,7 +8,10 @@ TransactionIdCommitTree marks a top-level transaction and all its subtransaction
 
 ## Definition
 
-
+```c
+void
+TransactionIdCommitTree(TransactionId xid, int nxids, TransactionId *xids)
+```
 ## Detailed Description
 TransactionIdCommitTree is a high-level transaction management function that commits an entire transaction tree (a top-level transaction and all its subtransactions) atomically. It serves as a wrapper around the lower-level TransactionIdSetTreeStatus function, specifically for commit operations.
 

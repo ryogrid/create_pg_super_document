@@ -8,7 +8,10 @@ A GIN opclass support function that extracts indexable entries from a JSONB valu
 
 ## Definition
 
-
+```c
+structural items */
+				break;
+```
 ## Detailed Description
 This function implements the extract operation for the jsonb_ops GIN operator class. It takes a JSONB value and extracts all indexable components (keys, values, and array elements) into separate GIN index entries. The function uses a JsonbIterator to traverse the entire JSONB structure, processing each encountered element based on its type:
 

@@ -8,7 +8,13 @@ ReadBuffer_common is the central unified function that implements the common log
 
 ## Definition
 
-
+```c
+static pg_attribute_always_inline Buffer
+ReadBuffer_common(Relation rel, SMgrRelation smgr, char smgr_persistence,
+				  ForkNumber forkNum,
+				  BlockNumber blockNum, ReadBufferMode mode,
+				  BufferAccessStrategy strategy)
+```
 ## Detailed Description
 ReadBuffer_common serves as the core implementation for all buffer reading operations in PostgreSQL. It handles multiple read modes including extending relations with P_NEW blocks, zero-and-lock operations, and standard buffer reads with optional zero-on-error behavior. The function uses different code paths based on the requested mode: for P_NEW blocks it delegates to ExtendBufferedRel, for zero-and-lock modes it uses PinBufferForBlock followed by ZeroAndLockBuffer, and for standard reads it uses the asynchronous StartReadBuffer/WaitReadBuffers pattern. This unified approach ensures consistent behavior across all buffer reading operations while optimizing for different usage patterns.
 

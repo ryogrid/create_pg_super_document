@@ -8,7 +8,10 @@ Searches the postmaster's private list of background workers to find the Registe
 
 ## Definition
 
-
+```c
+static RegisteredBgWorker *
+FindRegisteredWorkerBySlotNumber(int slotno)
+```
 ## Detailed Description
 This static function performs a linear search through the postmaster's backend-private BackgroundWorkerList to locate the RegisteredBgWorker structure that maps to the specified shared memory slot number. Each registered worker maintains a correspondence between its entry in the private list and its assigned slot in shared memory through the rw_shmem_slot field. This mapping enables the postmaster to efficiently look up worker metadata when processing shared memory slot-based events or state changes.
 

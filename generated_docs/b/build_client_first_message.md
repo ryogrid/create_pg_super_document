@@ -8,7 +8,10 @@ Builds the first SCRAM authentication exchange message sent by the client to the
 
 ## Definition
 
-
+```c
+static char *
+build_client_first_message(fe_scram_state *state)
+```
 ## Detailed Description
 This function constructs the initial client message in the SCRAM (Salted Challenge Response Authentication Mechanism) authentication protocol. It generates a cryptographically secure random nonce, encodes it using base64, and builds a properly formatted SCRAM client-first message according to RFC 5802. The function handles channel binding information based on the connection's SSL status and the selected SCRAM mechanism variant.
 

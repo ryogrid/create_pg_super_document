@@ -8,7 +8,13 @@ Extracts the SQL function's return value from a single result row, handling both
 
 ## Definition
 
-
+```c
+static Datum
+postquel_get_single_result(TupleTableSlot *slot,
+						   FunctionCallInfo fcinfo,
+						   SQLFunctionCachePtr fcache,
+						   MemoryContext resultcontext)
+```
 ## Detailed Description
 postquel_get_single_result is responsible for extracting and properly formatting the return value from a SQL function's execution result. It handles two distinct return types: composite/tuple returns where the entire row is returned as a single Datum, and scalar returns where only the first column value is extracted. The function ensures proper memory management by allocating results in the specified result context rather than the query's temporary context, and performs necessary data copying for pass-by-reference types to ensure the data remains valid after the slot is cleared.
 

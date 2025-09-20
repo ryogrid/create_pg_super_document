@@ -8,7 +8,11 @@ Enhanced version of  that considers previous level centroid information to impro
 
 ## Definition
 
-
+```c
+static int
+adjacent_inner_consistent(TypeCacheEntry *typcache, const RangeBound *arg,
+						  const RangeBound *centroid, const RangeBound *prev)
+```
 ## Detailed Description
 This function extends  functionality by incorporating information from the previous traversal level to make more informed decisions about search direction. It addresses situations where the search has already moved in a specific direction at a previous level, potentially ruling out matches in certain directions at the current level.
 

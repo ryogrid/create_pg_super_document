@@ -8,7 +8,10 @@ Computes the values of mergejoinable expressions for the current outer tuple and
 
 ## Definition
 
-
+```c
+static MJEvalResult
+MJEvalOuterValues(MergeJoinState *mergestate)
+```
 ## Detailed Description
 This function evaluates the merge join expressions for the current outer tuple and performs several critical optimizations:
 

@@ -8,7 +8,10 @@ SPI_prepare parses and plans a SQL query with parameter placeholders, returning 
 
 ## Definition
 
-
+```c
+SPIPlanPtr
+SPI_prepare(const char *src, int nargs, Oid *argtypes)
+```
 ## Detailed Description
 SPI_prepare is a convenience wrapper around SPI_prepare_cursor that creates a prepared statement plan from a SQL query string. It parses the query, validates the parameter types, and creates an execution plan that can be reused multiple times with different parameter values. The function delegates to SPI_prepare_cursor with cursor_options set to 0 (no special cursor options).
 

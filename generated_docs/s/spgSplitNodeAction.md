@@ -8,7 +8,13 @@ Splits an inner tuple into prefix and postfix tuples according to opclass specif
 
 ## Definition
 
-
+```c
+struct new prefix tuple with requested number of nodes.  We'll fill
+	 * in the childNodeN'th node's downlink below.
+	 */
+	nodes = (SpGistNodeTuple *) palloc(sizeof(SpGistNodeTuple) *
+									   out->result.splitTuple.prefixNNodes);
+```
 ## Detailed Description
 The  function implements inner tuple splitting as requested by the opclass choose function. It constructs a new prefix tuple with the specified number of nodes and prefix information, and a postfix tuple containing all original nodes but with updated prefix data. The prefix tuple replaces the original tuple on the current page, while the postfix tuple may be placed on the same page (if space permits) or moved to a new page following triple parity rules. The function ensures proper downlink establishment from the prefix tuple's specified child node to the postfix tuple location.
 

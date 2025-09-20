@@ -8,7 +8,10 @@ Performs comprehensive memory integrity validation for a Generation memory conte
 
 ## Definition
 
-
+```c
+void
+GenerationCheck(MemoryContext context)
+```
 ## Detailed Description
 The  function is a debugging and validation routine that thoroughly examines the internal structure of a GenerationContext to detect memory corruption, inconsistencies, or other problems. It performs detailed validation by walking through all blocks in the context and examining each memory chunk within those blocks.
 

@@ -8,7 +8,10 @@ A static function that determines the appropriate hash function, equality functi
 
 ## Definition
 
-
+```c
+static void
+GetCCHashEqFuncs(Oid keytype, CCHashFN *hashfunc, RegProcedure *eqfunc, CCFastEqualFN *fasteqfunc)
+```
 ## Detailed Description
 The `GetCCHashEqFuncs` function serves as a central dispatcher that maps PostgreSQL data types to their corresponding optimized hash and equality functions for catalog cache operations. Given a type OID, it sets up three function pointers: a fast hash function, a fast equality function, and a standard equality procedure. The function uses a large switch statement to handle various built-in PostgreSQL types including booleans, characters, names, integers, text, OIDs, and OID vectors. For unsupported types, it raises a FATAL error since the catalog cache system requires these functions to operate correctly. This function is crucial for catalog cache performance as it enables type-specific optimizations for the most commonly used system catalog key types.
 

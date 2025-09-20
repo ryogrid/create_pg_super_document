@@ -8,7 +8,10 @@ Reconstructs an in-memory Datum from chunks stored in a TOAST relation, handling
 
 ## Definition
 
-
+```c
+static struct varlena *
+toast_fetch_datum(struct varlena *attr)
+```
 ## Detailed Description
 This function is responsible for reconstructing large variable-length data (Datum) that has been stored out-of-line in a TOAST (The Oversized-Attribute Storage Technique) table. When PostgreSQL encounters data that is too large to store directly in a table page, it stores the data in chunks in a separate TOAST table and leaves a pointer in the original location. This function takes that pointer and reconstructs the original data by fetching all the chunks from the TOAST table and reassembling them into a contiguous memory structure.
 

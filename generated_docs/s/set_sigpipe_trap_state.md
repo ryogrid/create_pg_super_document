@@ -8,7 +8,9 @@ Sets the trap state for SIGPIPE signal handling to determine whether SIGPIPE sho
 
 ## Definition
 
-
+```c
+struct winsize screen_size;
+```
 ## Detailed Description
 This function configures the global state for SIGPIPE signal handling by setting the  variable. It is used in conjunction with  to manage SIGPIPE signal handling in PostgreSQL frontend utilities. The function allows the application to specify whether SIGPIPE signals should be ignored during certain operations, which is particularly important when writing to pipes or sockets that might be closed by the receiving end.
 

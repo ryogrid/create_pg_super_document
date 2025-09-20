@@ -8,7 +8,10 @@ Efficiently adds a contiguous range of members from 'lower' to 'upper' (inclusiv
 
 ## Definition
 
-
+```c
+Bitmapset *
+bms_add_range(Bitmapset *a, int lower, int upper)
+```
 ## Detailed Description
 The bms_add_range function adds all integer members in the specified range [lower, upper] to the bitmap set. This function is optimized for adding large ranges of consecutive members by operating at the bitmapword level rather than setting individual bits. It handles memory allocation automatically, expanding the bitmap set if necessary to accommodate the upper bound.
 

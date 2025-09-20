@@ -8,7 +8,10 @@ check_search_path is a GUC (Grand Unified Configuration) validation hook that va
 
 ## Definition
 
-
+```c
+bool
+check_search_path(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for PostgreSQL's search_path configuration parameter. It implements a two-phase validation approach:
 

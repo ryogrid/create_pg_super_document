@@ -8,7 +8,12 @@ Analyzes a raw parse tree and transforms it into a Query node, with support for 
 
 ## Definition
 
-
+```c
+Query *
+parse_analyze_varparams(RawStmt *parseTree, const char *sourceText,
+						Oid **paramTypes, int *numParams,
+						QueryEnvironment *queryEnv)
+```
 ## Detailed Description
 This function is a variant of parse_analyze_fixedparams that provides more flexibility in handling parameters. Unlike the fixed parameter version, this function allows parameter types to be deduced from context during the analysis process. The paramTypes array can be modified or even enlarged using repalloc() to accommodate newly discovered parameters.
 

@@ -8,7 +8,14 @@ This function serves as a JSON parser callback that validates JSON structure whe
 
 ## Definition
 
-
+```c
+structure check */
+	if (_state->lex->lex_level == 0)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				 errmsg("cannot call %s on a non-array",
+						_state->function_name)));
+```
 ## Detailed Description
 The  function is a callback function used during JSON parsing to handle the start of JSON objects within array element processing contexts. Its primary purpose is to perform validation rather than processing - it ensures that when parsing JSON for array element extraction, objects are not encountered at the top level (lex_level == 0).
 

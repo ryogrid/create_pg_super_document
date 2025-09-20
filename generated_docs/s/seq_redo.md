@@ -8,7 +8,10 @@ Handles WAL (Write-Ahead Log) redo operations for sequence-related log records d
 
 ## Definition
 
-
+```c
+void
+seq_redo(XLogReaderState *record)
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's crash recovery system, specifically handling the replay of sequence-related WAL records. During database recovery or on standby servers, this function reconstructs sequence pages from logged information to maintain data consistency.
 

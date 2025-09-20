@@ -8,7 +8,12 @@ A headline selector function used when MaxFragments == 0, responsible for select
 
 ## Definition
 
-
+```c
+static void
+mark_hl_words(HeadlineParsedText *prs, TSQuery query, List *locations,
+			  bool highlightall,
+			  int shortword, int min_words, int max_words)
+```
 ## Detailed Description
 This function implements a headline selection algorithm for single-fragment mode (when MaxFragments is 0). It evaluates all possible query word covers and selects the best one based on a sophisticated scoring system that prioritizes: 1) coverage of the original query span, 2) number of interesting words, and 3) good endpoint quality.
 

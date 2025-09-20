@@ -8,7 +8,16 @@ Opens and processes an authentication configuration file that is included from a
 
 ## Definition
 
-
+```c
+static void
+tokenize_include_file(const char *outer_filename,
+					  const char *inc_filename,
+					  List **tok_lines,
+					  int elevel,
+					  int depth,
+					  bool missing_ok,
+					  char **err_msg)
+```
 ## Detailed Description
 This function handles the inclusion of authentication configuration files within PostgreSQL's HBA system. It's used when processing "include", "include_if_exists", or "include_dir" directives in authentication configuration files. The function resolves the included file path relative to the outer file, opens it, and processes its entire contents by calling tokenize_auth_file. All new tokens are allocated in the dedicated tokenize_context memory context. The function provides flexible error handling - it can either require the included file to exist or optionally skip missing files based on the missing_ok parameter.
 

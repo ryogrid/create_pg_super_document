@@ -8,7 +8,19 @@ PgStat_SLRUStats is a structure that tracks statistics for Simple Least Recently
 
 ## Definition
 
-
+```c
+typedef struct PgStat_SLRUStats
+{
+	PgStat_Counter blocks_zeroed;
+	PgStat_Counter blocks_hit;
+	PgStat_Counter blocks_read;
+	PgStat_Counter blocks_written;
+	PgStat_Counter blocks_exists;
+	PgStat_Counter flush;
+	PgStat_Counter truncate;
+	TimestampTz stat_reset_timestamp;
+} PgStat_SLRUStats;
+```
 ## Detailed Description
 PgStat_SLRUStats maintains performance statistics for PostgreSQL's SLRU (Simple Least Recently Used) buffer cache system. SLRU caches are used throughout PostgreSQL for various purposes including commit logs (CLOG), subtransaction logs (SUBTRANS), multixact members and offsets, and other internal data structures. This structure tracks various block-level operations and cache behavior, providing insights into the efficiency and activity of these critical internal cache systems.
 

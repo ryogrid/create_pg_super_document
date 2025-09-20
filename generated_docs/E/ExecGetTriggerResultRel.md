@@ -8,7 +8,11 @@ Retrieves or creates a ResultRelInfo for a trigger target relation, providing ef
 
 ## Definition
 
-
+```c
+ResultRelInfo *
+ExecGetTriggerResultRel(EState *estate, Oid relid,
+						ResultRelInfo *rootRelInfo)
+```
 ## Detailed Description
 ExecGetTriggerResultRel manages ResultRelInfo structures specifically for trigger execution contexts. It first searches existing result relations from the main query and tuple routing operations. If the target relation is not found among existing ResultRelInfo structures, it creates a new one and caches it in es_trig_target_relations for future reuse. This approach optimizes trigger performance by avoiding repeated relation opening and provides a mechanism for EXPLAIN ANALYZE to report trigger runtimes on relations not directly part of the query.
 

@@ -8,7 +8,18 @@ A state management structure for handling archive stream processing during base 
 
 ## Definition
 
-
+```c
+typedef struct ArchiveStreamState
+{
+	int			tablespacenum;
+	pg_compress_specification *compress;
+	bbstreamer *streamer;
+	bbstreamer *manifest_inject_streamer;
+	PQExpBuffer manifest_buffer;
+	char		manifest_filename[MAXPGPATH];
+	FILE	   *manifest_file;
+} ArchiveStreamState;
+```
 ## Detailed Description
 ArchiveStreamState is a comprehensive state management structure used in pg_basebackup to coordinate the processing of archive streams during base backup operations. This structure encapsulates all the necessary components for handling data streaming, compression, and manifest generation in a unified manner.
 

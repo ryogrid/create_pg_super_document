@@ -8,7 +8,10 @@ Reinitializes an existing parser state to parse a new input string while preserv
 
 ## Definition
 
-
+```c
+void
+reset_tsvector_parser(TSVectorParseState state, char *input)
+```
 ## Detailed Description
 This function allows reusing an existing TSVectorParseState object to parse a different input string without recreating the entire parser state. It only updates the parsing buffer pointer while keeping all other configuration settings (flags, error context, buffer allocations) intact. The bufstart field, which is used for error reporting, remains unchanged to preserve the original error context.
 

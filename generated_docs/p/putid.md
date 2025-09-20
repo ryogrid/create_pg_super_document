@@ -8,7 +8,10 @@ Formats a role name for output in ACL strings, automatically adding double quote
 
 ## Definition
 
-
+```c
+static void
+putid(char *p, const char *s)
+```
 ## Detailed Description
 This function converts an identifier (role name) into its proper ACL string representation. It determines whether the identifier needs to be quoted based on character safety rules and handles the formatting accordingly. For identifiers containing unsafe characters (including high-bit characters), it wraps the entire identifier in double quotes.
 

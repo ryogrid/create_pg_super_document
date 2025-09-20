@@ -8,7 +8,10 @@ A static function that formats running transaction information from write-ahead 
 
 ## Definition
 
-
+```c
+static void
+standby_desc_running_xacts(StringInfo buf, xl_running_xacts *xlrec)
+```
 ## Detailed Description
 This function takes a  WAL record and formats its contents into a human-readable string representation. It extracts and displays information about currently running transactions, including transaction IDs, completion status, and subtransaction details. The function is primarily used for WAL record description and debugging purposes in PostgreSQL's standby/replication functionality.
 

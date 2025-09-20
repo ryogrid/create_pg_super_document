@@ -8,7 +8,10 @@ Replays the initialization of a hash index bitmap page during WAL recovery, incl
 
 ## Definition
 
-
+```c
+static void
+hash_xlog_init_bitmap_page(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles WAL replay for bitmap page initialization in hash indexes. Hash indexes use bitmap pages to track which overflow pages are available for allocation. During recovery, this function reconstructs both the bitmap page itself and updates the metapage to include the new bitmap page in its bitmap registry.
 

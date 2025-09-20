@@ -8,7 +8,13 @@ PQEnvironmentOption is a structure type that defines mappings between PostgreSQL
 
 ## Definition
 
-
+```c
+typedef struct PQEnvironmentOption
+{
+	const char *envName,		/* name of an environment variable */
+			   *pgName;			/* name of corresponding SET variable */
+} PQEnvironmentOption;
+```
 ## Detailed Description
 The PQEnvironmentOption structure serves as a mapping template for libpq's automatic environment variable processing during connection establishment. It pairs environment variable names (such as PGDATESTYLE, PGTZ) with their corresponding PostgreSQL server configuration parameter names (like datestyle, timezone). This structure is primarily used in the EnvironmentOptions[] array in fe-connect.c to systematically process environment variables and convert them into appropriate SET commands sent to the server during connection startup.
 

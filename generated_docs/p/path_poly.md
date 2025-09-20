@@ -8,7 +8,10 @@ Converts a closed geometric path to a polygon by copying the path's points and c
 
 ## Definition
 
-
+```c
+Datum
+path_poly(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function converts a closed PATH geometric type to a POLYGON type. It validates that the input path is closed (not an open path), then allocates memory for a new polygon structure and copies all points from the path to the polygon. After copying the points, it computes and sets the bounding box for the polygon using . This function is part of PostgreSQL's geometric data type conversion system.
 

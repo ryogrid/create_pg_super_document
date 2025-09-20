@@ -8,7 +8,9 @@ Lists the contents of a directory and returns only the filenames as a set-return
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The  function is a PostgreSQL system function that provides directory listing functionality accessible from SQL. It reads the contents of a specified directory and returns the filenames as a result set. The function supports up to 3 arguments: the directory path (required), a missing_ok flag (optional), and an include_dot_dirs flag (optional).
 

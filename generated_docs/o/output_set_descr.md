@@ -8,7 +8,9 @@ Generates C code for setting descriptor items in ECPG (Embedded SQL in C for Pos
 
 ## Definition
 
-
+```c
+struct assignment *results;
+```
 ## Detailed Description
 The `output_set_descr` function is part of the ECPG preprocessor that handles SQL descriptor SET operations. It processes a global list of assignments and generates corresponding C code that calls the ECPGset_desc runtime function. The function validates descriptor items, ensuring that read-only items cannot be set and unimplemented items are properly flagged. For valid settable items (data, indicator, length, type), it generates appropriate type information and variable references in the output C code.
 

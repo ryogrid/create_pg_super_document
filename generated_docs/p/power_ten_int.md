@@ -8,7 +8,10 @@ Raises ten to the power of an integer exponent and stores the result in a Numeri
 
 ## Definition
 
-
+```c
+struct the result directly, starting from 10^0 = 1 */
+	set_var_from_var(&const_one, result);
+```
 ## Detailed Description
 This function computes 10^exp where exp is an integer, storing the exact result in the provided NumericVar structure. Unlike power_var_int(), this function performs no overflow/underflow checking or rounding, making it suitable for internal numeric calculations where exact powers of ten are needed. The function constructs the result directly by starting from 10^0 = 1 and then adjusting the weight and scale to represent the power of ten exactly in PostgreSQL's internal numeric format.
 

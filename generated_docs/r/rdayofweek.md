@@ -8,7 +8,10 @@ Returns the day of the week for a given date value in the ECPG Informix compatib
 
 ## Definition
 
-
+```c
+int
+rdayofweek(date d)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's ECPG (Embedded SQL in C) Informix compatibility layer. It takes a Julian date value and returns the corresponding day of the week as an integer. This function serves as a simple wrapper around PostgreSQL's internal  function, providing Informix-compatible access to day-of-week calculations.
 

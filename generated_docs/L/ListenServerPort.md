@@ -8,7 +8,10 @@ Creates and configures listening sockets for PostgreSQL server connections, supp
 
 ## Definition
 
-
+```c
+struct addrinfo *addrs = NULL,
+			   *addr;
+```
 ## Detailed Description
 The  function is responsible for creating and configuring listening sockets that the PostgreSQL postmaster uses to accept client connections. It supports multiple address families (IPv4, IPv6, and Unix domain sockets) and can create multiple listening sockets simultaneously.
 

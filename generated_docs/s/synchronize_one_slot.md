@@ -8,7 +8,10 @@ Synchronizes a single replication slot with remote slot data from the primary se
 
 ## Definition
 
-
+```c
+static bool
+synchronize_one_slot(RemoteSlot *remote_slot, Oid remote_dbid)
+```
 ## Detailed Description
 This function is the core logic for synchronizing individual replication slots in PostgreSQL's slot synchronization mechanism. It handles both creating new synchronized slots and updating existing ones based on data received from the primary server.
 

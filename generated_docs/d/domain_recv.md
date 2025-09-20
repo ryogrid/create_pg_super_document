@@ -8,7 +8,10 @@ Binary input routine for any domain type that converts binary data to the domain
 
 ## Definition
 
-
+```c
+Datum
+domain_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the universal binary input conversion function for all domain types in PostgreSQL. It is the binary equivalent of , handling binary format input instead of text format. The function follows the standard PostgreSQL binary type input function protocol.
 

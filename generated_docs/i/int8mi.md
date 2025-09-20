@@ -8,7 +8,10 @@ The int8mi function implements subtraction operation for two 64-bit signed integ
 
 ## Definition
 
-
+```c
+Datum
+int8mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs subtraction of two 64-bit signed integer arguments (arg1 - arg2). It extracts both input arguments using PostgreSQL's function argument macros, performs overflow-safe subtraction using the pg_sub_s64_overflow utility function, and returns the result. If overflow is detected during the subtraction operation, the function reports an error with an appropriate error code. This function is part of PostgreSQL's arithmetic operators for the bigint data type and ensures mathematical correctness by preventing silent overflow conditions that could occur when subtracting large negative numbers from large positive numbers.
 

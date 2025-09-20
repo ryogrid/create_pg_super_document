@@ -8,7 +8,16 @@ A structure that defines the line drawing characters used for formatting text ta
 
 ## Definition
 
-
+```c
+typedef struct printTextLineFormat
+{
+	/* Line drawing characters to be used in various contexts */
+	const char *hrule;			/* horizontal line character */
+	const char *leftvrule;		/* left vertical line (+horizontal) */
+	const char *midvrule;		/* intra-column vertical line (+horizontal) */
+	const char *rightvrule;		/* right vertical line (+horizontal) */
+} printTextLineFormat;
+```
 ## Detailed Description
 The printTextLineFormat structure encapsulates the character set used for drawing table borders and separators in text-based table output. This structure allows for customization of table appearance by defining different character sets for horizontal rules and various types of vertical rule intersections. It's particularly useful for creating ASCII art-style tables with consistent formatting across different parts of the table structure.
 

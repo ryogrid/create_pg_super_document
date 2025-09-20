@@ -8,7 +8,10 @@ Converts regclass type values to external binary format by delegating to the sta
 
 ## Definition
 
-
+```c
+Datum
+regclasssend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the binary output function for the  data type. It handles the conversion of internal regclass values to binary format data suitable for network transmission or binary storage.
 

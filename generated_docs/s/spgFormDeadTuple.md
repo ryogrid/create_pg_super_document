@@ -8,7 +8,11 @@ Constructs a "dead" tuple to replace a tuple being deleted in SP-GiST indexes, s
 
 ## Definition
 
-
+```c
+SpGistDeadTuple
+spgFormDeadTuple(SpGistState *state, int tupstate,
+				 BlockNumber blkno, OffsetNumber offnum)
+```
 ## Detailed Description
 The  function creates a special dead tuple that replaces existing tuples during deletion operations in SP-GiST indexes. This function supports three different tuple states:  (points to a new location),  (marks tuple as deleted), and  (temporary marker). For redirect tuples, it stores the target location and transaction ID, while other states use invalid pointers.
 

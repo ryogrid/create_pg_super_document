@@ -8,7 +8,10 @@ Extracts the serial number from the peer's X.509 certificate and converts it to 
 
 ## Definition
 
-
+```c
+void
+be_tls_get_peer_serial(Port *port, char *ptr, size_t len)
+```
 ## Detailed Description
 This function retrieves the serial number from the peer's X.509 certificate stored in the port structure and converts it to a decimal string format. The function uses OpenSSL APIs to extract the ASN.1 INTEGER serial number, convert it to a BIGNUM, and then to a decimal string representation. If no peer certificate is available, the output buffer is set to an empty string.
 

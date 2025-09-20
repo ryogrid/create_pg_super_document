@@ -8,7 +8,22 @@ A data structure representing a broken-down timestamp in PostgreSQL's internal t
 
 ## Definition
 
-
+```c
+struct pg_tm
+{
+	int			tm_sec;
+	int			tm_min;
+	int			tm_hour;
+	int			tm_mday;
+	int			tm_mon;			/* see above */
+	int			tm_year;		/* see above */
+	int			tm_wday;
+	int			tm_yday;
+	int			tm_isdst;
+	long int	tm_gmtoff;
+	const char *tm_zone;
+};
+```
 ## Detailed Description
 The  structure is PostgreSQL's internal representation of a broken-down timestamp, providing a way to work with date and time components separately. This structure is crucial for PostgreSQL's datetime processing and timezone handling functionality.
 

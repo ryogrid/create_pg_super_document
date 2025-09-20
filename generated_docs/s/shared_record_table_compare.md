@@ -8,7 +8,11 @@ A comparator function for SharedRecordTableKey structures that determines equali
 
 ## Definition
 
-
+```c
+static int
+shared_record_table_compare(const void *a, const void *b, size_t size,
+							void *arg)
+```
 ## Detailed Description
 This function serves as a comparison callback for hash table operations involving SharedRecordTableKey structures. It extracts TupleDesc pointers from two SharedRecordTableKey structures and uses the equalRowTypes function to determine if they represent equivalent row types. The function handles both shared (stored in dynamic shared memory) and local TupleDesc structures, properly dereferencing shared pointers using the provided DSA area.
 

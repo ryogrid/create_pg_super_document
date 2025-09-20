@@ -8,7 +8,10 @@ The checkmatchall_recurse function is a recursive helper function for checkmatch
 
 ## Definition
 
-
+```c
+static bool
+checkmatchall_recurse(struct nfa *nfa, struct state *s, bool **haspaths)
+```
 ## Detailed Description
 This function performs the core recursive analysis for matchall detection by exploring all possible RAINBOW (any-character) paths from a given state to the post state. It builds a comprehensive map of possible path lengths, handling various edge cases including loops and infinite path lengths.
 

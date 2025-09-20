@@ -8,7 +8,11 @@ Creates a file clone/reflink from a source file to a destination file, providing
 
 ## Definition
 
-
+```c
+void
+cloneFile(const char *src, const char *dst,
+		  const char *schemaName, const char *relName)
+```
 ## Detailed Description
 The cloneFile function implements efficient file cloning using platform-specific system calls. It attempts to create a copy-on-write clone of a file, which shares disk blocks between source and destination until either file is modified. This is significantly more efficient than traditional file copying for large relation files during pg_upgrade operations.
 

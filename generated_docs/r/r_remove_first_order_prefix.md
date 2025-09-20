@@ -8,7 +8,11 @@ Removes first-order prefixes from Indonesian words including 'di', 'ke', 'me', '
 
 ## Definition
 
+```c
+}
 
+static int r_remove_first_order_prefix(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the removal of Indonesian first-order prefixes as part of the Snowball stemming algorithm. It searches for prefixes defined in the  array and performs different transformations based on the matched prefix type. The function handles complex morphological rules including consonant restoration (adding 's' or 'p' characters), vowel-based conditional transformations, and proper morphological type tracking through  and word length adjustment through . Each case represents different morphological patterns: simple deletion, consonant restoration, or conditional vowel-based transformations.
 

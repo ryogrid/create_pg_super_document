@@ -8,7 +8,10 @@ Analyzes all paths for a relation and identifies the minimum-cost paths for star
 
 ## Definition
 
-
+```c
+structure of a Path,
+ *	  since much of it may be shared with other Paths or the query tree itself;
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's cost-based optimizer that processes all paths for a given relation and identifies the most cost-effective options. It maintains several categories of cheapest paths:
 

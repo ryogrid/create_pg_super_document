@@ -8,7 +8,13 @@ DistanceValue is a structure that represents the distance between two ranges in 
 
 ## Definition
 
-
+```c
+typedef struct DistanceValue
+{
+	int			index;
+	double		value;
+} DistanceValue;
+```
 ## Detailed Description
 DistanceValue is a lightweight data structure used within PostgreSQL's BRIN (Block Range Index) minmax_multi access method to facilitate range optimization operations. It stores a calculated distance metric between two ranges along with the index that identifies one of the ranges in an array of extended ranges. This structure is primarily used during range consolidation and compaction processes where the system needs to determine which ranges are closest to each other for merging or optimization purposes.
 

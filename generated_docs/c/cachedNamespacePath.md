@@ -8,7 +8,10 @@ Retrieves search path information from a cache, computing missing components if 
 
 ## Definition
 
-
+```c
+static const SearchPathCacheEntry *
+cachedNamespacePath(const char *searchPath, Oid roleid)
+```
 ## Detailed Description
 The cachedNamespacePath function implements a caching mechanism for PostgreSQL's namespace search path resolution. It first initializes the search path cache and attempts to retrieve an existing cache entry for the given search path and role ID. If the cache entry exists but is missing components (due to previous out-of-memory conditions), it computes the missing parts.
 

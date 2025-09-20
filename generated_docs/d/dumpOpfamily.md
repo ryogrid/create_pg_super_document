@@ -8,7 +8,10 @@ Writes out a single operator family definition along with any loose operator mem
 
 ## Definition
 
-
+```c
+static void
+dumpOpfamily(Archive *fout, const OpfamilyInfo *opfinfo)
+```
 ## Detailed Description
 The  function is responsible for generating SQL commands to recreate an operator family during database dumps. It constructs CREATE OPERATOR FAMILY and ALTER OPERATOR FAMILY statements to properly restore the operator family and its associated operators and support functions. The function queries the PostgreSQL catalog to fetch:
 

@@ -8,7 +8,16 @@ AsyncQueueEntry is a structure that represents an entry in the global notify que
 
 ## Definition
 
-
+```c
+typedef struct AsyncQueueEntry
+{
+	int			length;			/* total allocated length of entry */
+	Oid			dboid;			/* sender's database OID */
+	TransactionId xid;			/* sender's XID */
+	int32		srcPid;			/* sender's PID */
+	char		data[NAMEDATALEN + NOTIFY_PAYLOAD_MAX_LENGTH];
+} AsyncQueueEntry;
+```
 ## Detailed Description
 The AsyncQueueEntry structure represents a single notification entry in PostgreSQL's asynchronous notification queue system. This structure is designed with variable length - while the declaration shows the maximum possible size, actual queue entries only allocate enough space in the data area for the actual channel and payload strings (both null-terminated). The structure is carefully designed to ensure proper memory alignment, with the length field always rounded up to the next QUEUEALIGN multiple.
 

@@ -8,7 +8,10 @@ Attempts to retrieve system attributes from virtual tuple table slots, but throw
 
 ## Definition
 
-
+```c
+static Datum
+tts_virtual_getsysattr(TupleTableSlot *slot, int attnum, bool *isnull)
+```
 ## Detailed Description
 The  function is the getsysattr callback for virtual tuple table slots in PostgreSQL. This function is called when code attempts to access system attributes (like ctid, xmin, xmax, etc.) from a virtual tuple table slot.
 

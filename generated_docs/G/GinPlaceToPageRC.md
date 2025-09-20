@@ -8,7 +8,14 @@ GinPlaceToPageRC is an enumeration that defines return codes for the beginPlaceT
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	GPTP_NO_WORK,
+	GPTP_INSERT,
+	GPTP_SPLIT,
+} GinPlaceToPageRC;
+```
 ## Detailed Description
 GinPlaceToPageRC serves as a standardized set of return codes used by GIN B-tree operations to communicate the outcome of page placement operations. The enumeration provides three distinct states that indicate whether no action is needed, an insertion should proceed, or a page split is required. This return code system allows GIN B-tree algorithms to make appropriate decisions about how to proceed with data placement operations based on current page conditions.
 

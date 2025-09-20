@@ -8,7 +8,10 @@ A static utility function that parses a PostgreSQL Log Sequence Number (LSN) fro
 
 ## Definition
 
-
+```c
+static bool
+parse_lsn(char *s, char *e, XLogRecPtr *lsn, char **c)
+```
 ## Detailed Description
 The  function converts a textual LSN representation in the format "HI/LO" (where HI and LO are hexadecimal values) into a 64-bit XLogRecPtr value. PostgreSQL LSNs are displayed as two 32-bit hexadecimal values separated by a forward slash, representing the high and low portions of a 64-bit integer.
 

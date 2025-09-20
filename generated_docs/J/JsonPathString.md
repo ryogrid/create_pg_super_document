@@ -8,7 +8,14 @@ A utility structure used by the PostgreSQL jsonpath lexical scanner and parser t
 
 ## Definition
 
-
+```c
+typedef struct JsonPathString
+{
+	char	   *val;
+	int			len;
+	int			total;
+} JsonPathString;
+```
 ## Detailed Description
 JsonPathString is a fundamental data structure used internally by PostgreSQL's jsonpath implementation to handle dynamic string construction during the lexical analysis phase. This structure provides an efficient mechanism for building strings of unknown final length by maintaining both the current length and total allocated capacity, allowing for optimal memory management through exponential growth strategies.
 

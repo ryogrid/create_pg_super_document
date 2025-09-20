@@ -8,7 +8,17 @@ ECPGd_cardinality is an enumeration constant that represents the cardinality des
 
 ## Definition
 
-
+```c
+enum ECPG_statement_type
+{
+	ECPGst_normal,
+	ECPGst_execute,
+	ECPGst_exec_immediate,
+	ECPGst_prepnormal,
+	ECPGst_prepare,
+	ECPGst_exec_with_exprlist
+};
+```
 ## Detailed Description
 ECPGd_cardinality is the final enumeration value in the ECPGdtype enum, defined in src/interfaces/ecpg/include/ecpgtype.h:89. It represents the cardinality attribute of SQL descriptors in the ECPG system. Cardinality refers to the number of elements or rows that a particular descriptor item can contain or process.
 

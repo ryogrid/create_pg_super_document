@@ -8,7 +8,16 @@ Performs variable replacement throughout the query tree after subquery pullup, r
 
 ## Definition
 
-
+```c
+structure.  (This'd be a lot cleaner if we
+	 * could use query_tree_mutator.)  We have to use PHVs in the targetList,
+	 * returningList, and havingQual, since those are certainly above any
+	 * outer join.  replace_vars_in_jointree tracks its location in the
+	 * jointree and uses PHVs or not appropriately.
+	 */
+	parse->targetList = (List *)
+		pullup_replace_vars((Node *) parse->targetList, rvcontext);
+```
 ## Detailed Description
 This function is the main orchestrator for variable replacement after a subquery has been pulled up into the parent query. It systematically traverses various parts of the query tree (targetList, returningList, havingQual, jointree, etc.) and replaces all references to the pulled-up subquery's outputs with the appropriate replacement expressions.
 

@@ -8,7 +8,10 @@ equalTupleDescs performs comprehensive logical equality comparison between two T
 
 ## Definition
 
-
+```c
+bool
+equalTupleDescs(TupleDesc tupdesc1, TupleDesc tupdesc2)
+```
 ## Detailed Description
 This function implements deep equality comparison for TupleDesc structures, going beyond simple pointer comparison to check logical equivalence. The comparison process includes:
 

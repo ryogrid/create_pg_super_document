@@ -8,7 +8,10 @@ A static function that deserializes an A_Expr node from its string representatio
 
 ## Definition
 
-
+```c
+static A_Expr *
+_readA_Expr(void)
+```
 ## Detailed Description
 The  function reconstructs A_Expr nodes from their serialized format during PostgreSQL's node deserialization process. An A_Expr represents an expression in the parse tree, particularly binary and unary operators, comparison operations, and special SQL constructs.
 

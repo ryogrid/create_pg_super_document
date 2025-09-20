@@ -8,7 +8,10 @@ ExecInitBitmapOr initializes a BitmapOr executor node, setting up the state stru
 
 ## Definition
 
-
+```c
+BitmapOrState *
+ExecInitBitmapOr(BitmapOr *node, EState *estate, int eflags)
+```
 ## Detailed Description
 ExecInitBitmapOr is responsible for initializing a BitmapOr executor node during query plan initialization. The function creates a BitmapOrState structure, allocates an array to hold pointers to child plan states, and recursively initializes each child subplan through ExecInitNode. The function sets up the execution context but notably does not create expression contexts or tuple slots since BitmapOr nodes operate on bitmaps rather than tuples and do not evaluate expressions.
 

@@ -8,7 +8,10 @@ Re-enters all index tuples on a freshly initialized B-tree page during WAL repla
 
 ## Definition
 
-
+```c
+static void
+_bt_restore_page(Page page, char *from, int len)
+```
 ## Detailed Description
 This function is part of PostgreSQL's B-tree WAL (Write Ahead Logging) recovery mechanism. It takes a freshly initialized page and restores all the index tuples from a buffer containing the upper part of the original page (from pd_upper to pd_special). 
 

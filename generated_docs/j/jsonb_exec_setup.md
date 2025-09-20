@@ -8,7 +8,12 @@ Sets up execution state for a JSONB subscript operation, preparing workspace and
 
 ## Definition
 
-
+```c
+static void
+jsonb_exec_setup(const SubscriptingRef *sbsref,
+				 SubscriptingRefState *sbsrefstate,
+				 SubscriptExecSteps *methods)
+```
 ## Detailed Description
 This function initializes the execution state for JSONB subscript operations (e.g., ). Unlike array subscripting which has nesting limits, JSONB subscripting has no inherent nesting limitations since the JSONB type itself doesn't impose such restrictions.
 

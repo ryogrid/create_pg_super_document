@@ -8,7 +8,10 @@ Builds a snapshot for a specific fixed-numbered statistics kind by invoking its 
 
 ## Definition
 
-
+```c
+static void
+pgstat_build_snapshot_fixed(PgStat_Kind kind)
+```
 ## Detailed Description
 This function manages the snapshot building process for fixed-numbered statistics kinds that have a predetermined, fixed amount of statistics entries. It implements intelligent caching and validity tracking to avoid redundant snapshot building while ensuring data freshness based on the configured fetch consistency mode.
 

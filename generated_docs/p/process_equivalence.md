@@ -8,7 +8,12 @@ Processes equivalence clauses with mergejoinable operators to build or update Eq
 
 ## Definition
 
-
+```c
+bool
+process_equivalence(PlannerInfo *root,
+					RestrictInfo **p_restrictinfo,
+					JoinDomain *jdomain)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's query optimizer equivalence class system. It analyzes equality clauses (e.g., a.col = b.col) and determines if they can be represented as EquivalenceClasses, which enable the optimizer to understand that certain expressions are transitively equal and can be used interchangeably for optimization purposes.
 

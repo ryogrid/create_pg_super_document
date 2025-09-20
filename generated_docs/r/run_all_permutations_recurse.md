@@ -8,7 +8,11 @@ A recursive function that generates and executes all possible permutations of te
 
 ## Definition
 
-
+```c
+static void
+run_all_permutations_recurse(TestSpec *testspec, int *piles,
+							 int nsteps, PermutationStep **steps)
+```
 ## Detailed Description
 This function implements the core recursive logic for generating permutations of test steps in the isolation tester. It systematically explores all possible orderings of steps across different sessions by treating each session as a "pile" of steps. The function uses a backtracking approach where it picks one step from any available session, recurses to build the rest of the permutation, then backtracks to try the next possibility.
 

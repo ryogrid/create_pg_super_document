@@ -8,7 +8,12 @@ Initializes a SharedRecordTypmodRegistry in shared memory for parallel query exe
 
 ## Definition
 
-
+```c
+void
+SharedRecordTypmodRegistryInit(SharedRecordTypmodRegistry *registry,
+							   dsm_segment *segment,
+							   dsa_area *area)
+```
 ## Detailed Description
 This function initializes a shared record typmod registry that allows multiple parallel backends to coordinate and share non-anonymous record type definitions. It sets up two hash tables: one indexed by tuple descriptors themselves and another indexed by typmod numbers. The function migrates all existing record types from the current backend's private registry into the shared registry.
 

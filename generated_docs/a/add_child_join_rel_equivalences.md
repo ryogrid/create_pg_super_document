@@ -8,7 +8,14 @@ Creates equivalence class members for child joinrels by transforming expressions
 
 ## Definition
 
-
+```c
+structure after the GEQO context is reset.  This is
+	 * problematic since we'll leak memory across repeated GEQO cycles.  For
+	 * now, though, bloat is better than crash.  If it becomes a real issue
+	 * we'll have to do something to avoid generating duplicate EC members.
+	 */
+	oldcontext = MemoryContextSwitchTo(root->planner_cxt);
+```
 ## Detailed Description
 This function is responsible for propagating equivalence class information from parent joinrels to their child joinrels in partitioned table scenarios. It finds equivalence classes relevant to the top parent joinrel and generates transformed member expressions that reference the child joinrel instead. The function performs expression transformation using appendrel attribute adjustment, ensuring that equivalence relationships are maintained across the partition hierarchy.
 

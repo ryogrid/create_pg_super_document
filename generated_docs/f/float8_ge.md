@@ -8,7 +8,10 @@ Compares two double-precision floating-point numbers to determine if the first v
 
 ## Definition
 
-
+```c
+static inline bool
+float8_ge(const float8 val1, const float8 val2)
+```
 ## Detailed Description
 This inline function implements the greater-than-or-equal comparison operation for double-precision floating-point numbers (float8) with PostgreSQL's NaN handling semantics. Following SQL standards and IEEE 754 conventions used by PostgreSQL, any comparison involving NaN returns true when NaN is the first operand, implementing the behavior where NaN is considered greater than any non-NaN value including positive infinity.
 

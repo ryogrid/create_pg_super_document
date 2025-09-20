@@ -8,7 +8,21 @@ XLogRecord is the fundamental data structure that represents the fixed-size head
 
 ## Definition
 
+```c
+typedef struct XLogRecord
+{
+	uint32		xl_tot_len;		/* total len of entire record */
+	TransactionId xl_xid;		/* xact id */
+	XLogRecPtr	xl_prev;		/* ptr to previous record in log */
+	uint8		xl_info;		/* flag bits, see below */
+	RmgrId		xl_rmid;		/* resource manager for this record */
+	/* 2 bytes of padding here, initialize to zero */
+	pg_crc32c	xl_crc;			/* CRC for this record */
 
+	/* XLogRecordBlockHeaders and XLogRecordDataHeader follow, no padding */
+
+} XLogRecord;
+```
 ## Detailed Description
 XLogRecord serves as the header structure for every WAL record in PostgreSQL's transaction log. It provides critical metadata that enables the system to process, validate, and replay transaction records during normal operation, crash recovery, and replication. The structure is designed to be compact and efficient, as it appears at the beginning of every WAL record. The layout ensures proper alignment on MAXALIGN boundaries in WAL files, and the structure is followed by variable-length data including block headers, data headers, and the actual logged data.
 

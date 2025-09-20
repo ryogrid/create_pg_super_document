@@ -8,7 +8,9 @@ Manages the completion of multiple waiting isolation test steps by checking each
 
 ## Definition
 
-
+```c
+struct timeval start_time;
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's isolation testing framework that manages the execution and completion of test steps. It iterates through an array of waiting steps, attempting to complete each one using . The function implements a retry mechanism to handle blocker conditions - if any waiting steps have blockers and either step completions or NOTICEs occur, it repeats the completion check loop to ensure consistent timing behavior regardless of step ordering in the array.
 

@@ -8,7 +8,14 @@ CoercionMethod is an enumeration that defines the allowable methods for type cas
 
 ## Definition
 
-
+```c
+typedef enum CoercionMethod
+{
+	COERCION_METHOD_FUNCTION = 'f', /* use a function */
+	COERCION_METHOD_BINARY = 'b',	/* types are binary-compatible */
+	COERCION_METHOD_INOUT = 'i',	/* use input/output functions */
+}			CoercionMethod;
+```
 ## Detailed Description
 The CoercionMethod enum specifies the three distinct approaches PostgreSQL uses to convert values from one data type to another. This enum is used as the domain for the castmethod column in the pg_cast system catalog table. The values are deliberately chosen as ASCII characters ('f', 'b', 'i') for human readability when examining the catalog directly, since the castmethod field is stored as a char type.
 

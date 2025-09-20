@@ -8,7 +8,10 @@ RememberClusterOnForRebuilding records clustered index information when an index
 
 ## Definition
 
-
+```c
+static void
+RememberClusterOnForRebuilding(Oid indoid, AlteredTableInfo *tab)
+```
 ## Detailed Description
 This function is a utility subroutine used during ALTER TABLE operations that require rebuilding indexes. When an index is marked as clustered (meaning the table data is physically organized according to the index order), this function:
 

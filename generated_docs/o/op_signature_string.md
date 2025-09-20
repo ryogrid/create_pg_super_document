@@ -8,7 +8,10 @@ The  function builds a string representation of an operator name including its a
 
 ## Definition
 
-
+```c
+const char *
+op_signature_string(List *op, Oid arg1, Oid arg2)
+```
 ## Detailed Description
 This utility function constructs a human-readable string representation of an operator signature that includes both the operator name and its argument types. The resulting string follows the format "type1 operator type2" for binary operators or "operator type2" for unary operators. This function is primarily used in error reporting to provide clear and informative messages when operator lookups fail.
 

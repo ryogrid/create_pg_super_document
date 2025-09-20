@@ -8,7 +8,15 @@ The  function is a utility routine that generates appropriate error messages whe
 
 ## Definition
 
-
+```c
+struction.
+ *
+ * Transform operator expression ensuring type compatibility.
+ * This is where some type conversion happens.
+ *
+ * last_srf should be a copy of pstate->p_last_srf from just before we
+ * started transforming the operator's arguments;
+```
 ## Detailed Description
 This static function handles error reporting for unresolvable operators in PostgreSQL's parser. It analyzes the type of failure indicated by the  parameter and generates context-appropriate error messages. The function distinguishes between two main error scenarios: ambiguous operators (multiple matches found) and non-existent operators (no matches found).
 

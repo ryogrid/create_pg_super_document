@@ -8,7 +8,36 @@ The core function that constructs a snapshot containing information about curren
 
 ## Definition
 
+```c
+structs.)
+	 */
+	if (snapshot->xip == NULL)
+	{
+		/*
+		 * First call for this snapshot. Snapshot is same size whether or not
+		 * we are in recovery, see later comments.
+		 */
+		snapshot->xip = (TransactionId *)
+			malloc(GetMaxSnapshotXidCount() * sizeof(TransactionId));
+		if (snapshot->xip == NULL)
+			ereport(ERROR,
+					(errcode(ERRCODE_OUT_OF_MEMORY),
+					 errmsg("out of memory")));
+		Assert(snapshot->subxip == NULL);
+		snapshot->subxip = (TransactionId *)
+			malloc(GetMaxSnapshotSubxidCount() * sizeof(TransactionId));
+		if (snapshot->subxip == NULL)
+			ereport(ERROR,
+					(errcode(ERRCODE_OUT_OF_MEMORY),
+					 errmsg("out of memory")));
+	}
 
+	/*
+	 * It is sufficient to get shared lock on ProcArrayLock, even if we are
+	 * going to set MyProc->xmin.
+	 */
+	LWLockAcquire(ProcArrayLock, LW_SHARED);
+```
 ## Detailed Description
 GetSnapshotData creates a comprehensive snapshot that captures the state of all running transactions at a specific point in time. This snapshot is essential for MVCC, determining which tuples are visible to the current transaction.
 

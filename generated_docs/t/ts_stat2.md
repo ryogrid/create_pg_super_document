@@ -8,7 +8,10 @@ A PostgreSQL SQL function that provides statistical information about text searc
 
 ## Definition
 
-
+```c
+Datum
+ts_stat2(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a set-returning function (SRF) that analyzes tsvector data from a SQL query result and returns statistics about the lexemes found. It takes two arguments: a SQL query that returns tsvector columns and a weight specification string. The function executes the SQL query using SPI (Server Programming Interface), processes each tsvector result, and accumulates statistics about lexeme frequencies and weights.
 

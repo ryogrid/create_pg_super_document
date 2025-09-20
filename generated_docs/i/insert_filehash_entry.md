@@ -8,7 +8,10 @@ Looks up or creates a new file entry in the hash table for a given file path dur
 
 ## Definition
 
-
+```c
+static file_entry_t *
+insert_filehash_entry(const char *path)
+```
 ## Detailed Description
 The  function serves as a hash table insertion mechanism that either retrieves an existing file entry or creates a new one for the specified file path. When a new entry is created, the function initializes all fields of the  structure with default values, preparing it for subsequent processing during the pg_rewind operation.
 

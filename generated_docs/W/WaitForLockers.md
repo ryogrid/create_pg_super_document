@@ -8,7 +8,10 @@ WaitForLockers is a convenience wrapper function that waits until no transaction
 
 ## Definition
 
-
+```c
+void
+WaitForLockers(LOCKTAG heaplocktag, LOCKMODE lockmode, bool progress)
+```
 ## Detailed Description
 WaitForLockers is a simplified interface to WaitForLockersMultiple for cases where only a single lock tag needs to be waited on. It creates a single-element list containing the provided lock tag and delegates the actual waiting logic to WaitForLockersMultiple. This function is commonly used in index operations where the system needs to ensure no conflicting locks are held before proceeding with operations like index drops or creations.
 

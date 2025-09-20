@@ -8,7 +8,10 @@ Returns the name of an attribute given its attribute number in a tuple descripto
 
 ## Definition
 
-
+```c
+char *
+SPI_fname(TupleDesc tupdesc, int fnumber)
+```
 ## Detailed Description
 SPI_fname performs the reverse operation of SPI_fnumber: given an attribute number, it returns the corresponding attribute name. The function handles both regular user-defined attributes (positive numbers) and system attributes (negative numbers). For regular attributes, it uses 1-based indexing where 1 corresponds to the first attribute in the tuple descriptor. For system attributes, it uses the PostgreSQL system attribute numbering scheme.
 

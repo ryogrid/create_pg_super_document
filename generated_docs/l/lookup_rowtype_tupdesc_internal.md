@@ -8,7 +8,10 @@ Internal routine to lookup a row type's tuple descriptor, handling both named co
 
 ## Definition
 
-
+```c
+static TupleDesc
+lookup_rowtype_tupdesc_internal(Oid type_id, int32 typmod, bool noError)
+```
 ## Detailed Description
 This static function serves as the core implementation for row type tuple descriptor lookup in PostgreSQL's type cache system. It handles two distinct categories of row types:
 

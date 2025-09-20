@@ -8,7 +8,16 @@ PG_TLS1_3_VERSION is an enumeration constant that represents TLS version 1.3 in 
 
 ## Definition
 
-
+```c
+enum ssl_protocol_versions
+{
+	PG_TLS_ANY = 0,
+	PG_TLS1_VERSION,
+	PG_TLS1_1_VERSION,
+	PG_TLS1_2_VERSION,
+	PG_TLS1_3_VERSION,
+};
+```
 ## Detailed Description
 PG_TLS1_3_VERSION is part of PostgreSQL's SSL/TLS configuration infrastructure that allows administrators to specify minimum and maximum TLS protocol versions for secure connections. This enumeration value specifically represents TLS version 1.3, which is the most recent and secure version of the TLS protocol.
 

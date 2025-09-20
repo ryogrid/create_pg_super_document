@@ -8,7 +8,15 @@ A struct definition used in ECPG (Embedded SQL in C) test cases to represent bas
 
 ## Definition
 
-
+```c
+struct birthinfo { 
+#line 23 "variable.pgc"
+ long born ;
+ 
+#line 23 "variable.pgc"
+ short age ;
+ } ;
+```
 ## Detailed Description
 The  struct is a simple data structure defined in PostgreSQL's ECPG test suite. It serves as a test case for handling struct definitions in embedded SQL preprocessing. The struct contains two basic fields for storing personal temporal information - a birth year stored as a long integer and an age stored as a short integer.
 

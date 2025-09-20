@@ -8,7 +8,10 @@ Implements the ALTER DOMAIN SET/DROP NOT NULL statements, managing the NOT NULL 
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterDomainNotNull(List *names, bool notNull)
+```
 ## Detailed Description
 This function handles both setting and dropping NOT NULL constraints on domain types. When setting a NOT NULL constraint (notNull=true), it creates a new constraint node, adds it to the domain using domainAddNotNullConstraint, and validates existing data. When dropping the constraint (notNull=false), it finds the existing NOT NULL constraint and performs deletion. The function updates the pg_type catalog to reflect the new constraint state and returns the ObjectAddress of the modified domain.
 

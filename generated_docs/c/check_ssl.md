@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) check hook function that validates whether S
 
 ## Definition
 
-
+```c
+bool
+check_ssl(bool *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 The  function serves as a configuration validation hook for the SSL-related PostgreSQL configuration parameter. It performs a build-time check to ensure that SSL functionality is only enabled when PostgreSQL has been compiled with SSL support (USE_SSL macro defined). If a user attempts to enable SSL on a build that doesn't support it, the function generates an appropriate error message and prevents the invalid configuration.
 

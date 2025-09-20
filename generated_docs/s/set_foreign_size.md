@@ -8,7 +8,10 @@ Sets size estimates for a foreign table by calling the Foreign Data Wrapper's si
 
 ## Definition
 
-
+```c
+static void
+set_foreign_size(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function establishes size estimates for foreign tables by coordinating with the Foreign Data Wrapper (FDW). It first sets baseline estimates using PostgreSQL's standard estimation logic, then allows the FDW to provide more accurate estimates based on its knowledge of the foreign data source.
 

@@ -8,7 +8,28 @@ IndexOnlyScanState is an execution state structure that manages the runtime stat
 
 ## Definition
 
-
+```c
+typedef struct IndexOnlyScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	ExprState  *recheckqual;
+	struct ScanKeyData *ioss_ScanKeys;
+	int			ioss_NumScanKeys;
+	struct ScanKeyData *ioss_OrderByKeys;
+	int			ioss_NumOrderByKeys;
+	IndexRuntimeKeyInfo *ioss_RuntimeKeys;
+	int			ioss_NumRuntimeKeys;
+	bool		ioss_RuntimeKeysReady;
+	ExprContext *ioss_RuntimeContext;
+	Relation	ioss_RelationDesc;
+	struct IndexScanDescData *ioss_ScanDesc;
+	TupleTableSlot *ioss_TableSlot;
+	Buffer		ioss_VMBuffer;
+	Size		ioss_PscanLen;
+	AttrNumber *ioss_NameCStringAttNums;
+	int			ioss_NameCStringCount;
+} IndexOnlyScanState;
+```
 ## Detailed Description
 IndexOnlyScanState extends ScanState to provide specialized functionality for index-only scans, a PostgreSQL optimization that can return query results directly from index pages without accessing the underlying heap table. This optimization is particularly effective when the index contains all columns needed by the query and the visibility map indicates that all tuples on the index page are visible to all transactions. The structure manages scan keys for filtering and ordering, runtime key evaluation, visibility map buffers for tuple visibility checks, and parallel scan coordination.
 

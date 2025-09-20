@@ -8,7 +8,10 @@ Sets default authentication method to "trust" when no authentication method is e
 
 ## Definition
 
-
+```c
+static void
+check_authmethod_unspecified(const char **authmethod)
+```
 ## Detailed Description
 This function is part of initdb's authentication configuration validation system. It performs a simple but critical security check:
 

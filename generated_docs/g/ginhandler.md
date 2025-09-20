@@ -8,7 +8,10 @@ A PostgreSQL GIN (Generalized Inverted Index) access method handler function tha
 
 ## Definition
 
-
+```c
+Datum
+ginhandler(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the main entry point for the GIN access method in PostgreSQL. It creates and configures an  structure that defines the capabilities, limitations, and callback functions specific to GIN indexes. This function is called by PostgreSQL's index access method framework to obtain information about what the GIN access method can and cannot do, as well as pointers to the specific functions that implement various index operations like building, inserting, scanning, and maintenance.
 

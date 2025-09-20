@@ -8,7 +8,10 @@ Generates SQL commands to recreate a user-defined namespace (schema) in pg_dump 
 
 ## Definition
 
-
+```c
+static void
+dumpNamespace(Archive *fout, const NamespaceInfo *nspinfo)
+```
 ## Detailed Description
 The  function creates the necessary SQL statements to recreate a PostgreSQL schema during database restore. It handles both user-created schemas and system schemas that are created by initdb. The function generates CREATE SCHEMA and DROP SCHEMA statements, but provides special handling for schemas like 'public' that are created during database initialization.
 

@@ -8,7 +8,10 @@ DropSubscription removes a logical replication subscription, cleaning up all ass
 
 ## Definition
 
-
+```c
+void
+DropSubscription(DropSubscriptionStmt *stmt, bool isTopLevel)
+```
 ## Detailed Description
 DropSubscription is responsible for the complete removal of a logical replication subscription from the PostgreSQL system. It performs comprehensive cleanup operations in a specific order to ensure data consistency and proper resource management.
 

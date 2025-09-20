@@ -8,7 +8,10 @@ Parses a Unicode version string into an integer format for easy numerical compar
 
 ## Definition
 
-
+```c
+static int
+parse_unicode_version(const char *version)
+```
 ## Detailed Description
 This static function converts a Unicode version string (in the format "major.minor") into a single integer value that enables straightforward numerical comparisons. The function uses  to extract the major and minor version numbers from the input string and combines them using the formula: . This encoding assumes that minor version numbers are always less than 100, which is validated through an assertion.
 

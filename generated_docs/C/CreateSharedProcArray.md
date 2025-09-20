@@ -8,7 +8,15 @@ Initializes the shared PGPROC array during postmaster startup, setting up shared
 
 ## Definition
 
-
+```c
+structure */
+	procArray = (ProcArrayStruct *)
+		ShmemInitStruct("Proc Array",
+						add_size(offsetof(ProcArrayStruct, pgprocnos),
+								 mul_size(sizeof(int),
+										  PROCARRAY_MAXPROCS)),
+						&found);
+```
 ## Detailed Description
 CreateSharedProcArray is responsible for initializing the shared process array infrastructure during PostgreSQL postmaster startup. It creates or attaches to the shared memory structure that tracks all active backend processes in the system. The function sets up the main ProcArray structure with initial values and, if hot standby is enabled, also initializes the KnownAssignedXids tracking arrays for replication purposes.
 

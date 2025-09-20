@@ -8,7 +8,9 @@ Transforms a List of String nodes representing a filter clause (like WHEN tag IN
 
 ## Definition
 
-
+```c
+struct_array_builtin(data, l, TEXTOID));
+```
 ## Detailed Description
 This function is part of PostgreSQL's event trigger system and serves as a utility to convert parser representations into catalog-storable format. In the parser, filter clauses like "WHEN tag IN ('cmd1', 'cmd2')" are represented by DefElem structures whose values are Lists of String nodes. However, in the catalog, these lists need to be stored as text arrays.
 

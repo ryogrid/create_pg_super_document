@@ -8,7 +8,67 @@ SlruSharedData is a shared-memory structure that maintains the complete state in
 
 ## Definition
 
+```c
+typedef struct SlruSharedData
+{
+	/* Number of buffers managed by this SLRU structure */
+	int			num_slots;
 
+	/*
+	 * Arrays holding info for each buffer slot.  Page number is undefined
+	 * when status is EMPTY, as is page_lru_count.
+	 */
+	char	  **page_buffer;
+	SlruPageStatus *page_status;
+	bool	   *page_dirty;
+	int64	   *page_number;
+	int		   *page_lru_count;
+
+	/* The buffer_locks protects the I/O on each buffer slots */
+	LWLockPadded *buffer_locks;
+
+	/* Locks to protect the in memory buffer slot access in SLRU bank. */
+	LWLockPadded *bank_locks;
+
+	/*----------
+	 * A bank-wise LRU counter is maintained because we do a victim buffer
+	 * search within a bank. Furthermore, manipulating an individual bank
+	 * counter avoids frequent cache invalidation since we update it every time
+	 * we access the page.
+	 *
+	 * We mark a page "most recently used" by setting
+	 *		page_lru_count[slotno] = ++bank_cur_lru_count[bankno];
+	 * The oldest page in the bank is therefore the one with the highest value
+	 * of
+	 * 		bank_cur_lru_count[bankno] - page_lru_count[slotno]
+	 * The counts will eventually wrap around, but this calculation still
+	 * works as long as no page's age exceeds INT_MAX counts.
+	 *----------
+	 */
+	int		   *bank_cur_lru_count;
+
+	/*
+	 * Optional array of WAL flush LSNs associated with entries in the SLRU
+	 * pages.  If not zero/NULL, we must flush WAL before writing pages (true
+	 * for pg_xact, false for everything else).  group_lsn[] has
+	 * lsn_groups_per_page entries per buffer slot, each containing the
+	 * highest LSN known for a contiguous group of SLRU entries on that slot's
+	 * page.
+	 */
+	XLogRecPtr *group_lsn;
+	int			lsn_groups_per_page;
+
+	/*
+	 * latest_page_number is the page number of the current end of the log;
+	 * this is not critical data, since we use it only to avoid swapping out
+	 * the latest page.
+	 */
+	pg_atomic_uint64 latest_page_number;
+
+	/* SLRU's index for statistics purposes (might not be unique) */
+	int			slru_stats_idx;
+} SlruSharedData;
+```
 ## Detailed Description
 SlruSharedData serves as the central control structure for SLRU buffer pools in PostgreSQL's shared memory. It manages arrays of buffer slots, each containing metadata about cached pages, along with sophisticated locking and LRU tracking mechanisms. The structure implements a bank-based architecture where buffers are divided into banks, each protected by separate locks to reduce contention.
 

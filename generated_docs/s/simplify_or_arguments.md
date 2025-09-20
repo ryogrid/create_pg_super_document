@@ -8,7 +8,12 @@ A specialized function that processes and optimizes the arguments of OR boolean 
 
 ## Definition
 
-
+```c
+static List *
+simplify_or_arguments(List *args,
+					  eval_const_expressions_context *context,
+					  bool *haveNull, bool *forceTrue)
+```
 ## Detailed Description
 This function serves as a subroutine for  to optimize OR clause arguments through several key operations:
 

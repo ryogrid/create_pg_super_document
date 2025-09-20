@@ -8,7 +8,13 @@ Deserializes a compact varlena SerializedRanges value back into the in-memory Ra
 
 ## Definition
 
-
+```c
+struct the values into Datum array. We have to copy the
+	 * data because the serialized representation ignores alignment, and we
+	 * don't want to rely on it being kept around anyway.
+	 */
+	ptr = serialized->data;
+```
 ## Detailed Description
 This function performs the reverse operation of brin_range_serialize, taking a SerializedRanges structure and reconstructing the in-memory Ranges representation. The deserialization process handles different data types appropriately:
 

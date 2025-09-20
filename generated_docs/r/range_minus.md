@@ -8,7 +8,10 @@ The range_minus function computes the set difference between two range values, r
 
 ## Definition
 
-
+```c
+Datum
+range_minus(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The range_minus function is a PostgreSQL built-in function that implements the range difference operation (A - B). It takes two range arguments of the same type and returns a new range representing the elements that are in the first range but not in the second range. The function performs type validation to ensure both input ranges are of the same type, then delegates the actual computation to range_minus_internal. If the result would be empty, the function returns NULL.
 

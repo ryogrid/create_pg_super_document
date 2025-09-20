@@ -8,7 +8,13 @@ A preprocessor macro that provides a portable interface for specifying memory al
 
 ## Definition
 
-
+```c
+typedef unsigned PG_INT128_TYPE uint128
+#if defined(pg_attribute_aligned)
+			pg_attribute_aligned(MAXIMUM_ALIGNOF)
+#endif
+		   ;
+```
 ## Detailed Description
 This macro wraps GCC's  functionality to ensure that variables or structures are aligned to specific byte boundaries in memory. Memory alignment is crucial for performance optimization and ensuring proper access patterns, especially for atomic operations and I/O operations. The macro provides a consistent interface across different compiler environments while abstracting the underlying compiler-specific syntax.
 

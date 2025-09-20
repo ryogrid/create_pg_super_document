@@ -8,7 +8,11 @@ The main entry point function for the English stemming algorithm using the ISO-8
 
 ## Definition
 
+```c
+}
 
+extern int english_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete English stemming algorithm for words encoded in ISO-8859-1. It orchestrates the entire stemming process by calling various helper functions in a specific sequence designed to reduce English words to their morphological root forms. The algorithm follows the Porter stemming approach with several distinct phases:
 

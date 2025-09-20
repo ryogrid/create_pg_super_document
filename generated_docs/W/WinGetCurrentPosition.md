@@ -8,7 +8,10 @@ Returns the current row's zero-based position within the current partition durin
 
 ## Definition
 
-
+```c
+int64
+WinGetCurrentPosition(WindowObject winobj)
+```
 ## Detailed Description
 This function provides a simple interface for window functions to determine the current row's position within the partition being processed. It returns a zero-based index that represents the ordinal position of the row currently being evaluated by the window function. The position counter is maintained by the window aggregate state machinery and is automatically updated as the window function evaluation progresses through the partition. This is a fundamental building block for position-dependent window functions like ROW_NUMBER, RANK, and statistical functions that need to know their relative position within the partition.
 

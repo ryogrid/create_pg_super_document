@@ -8,7 +8,10 @@ Converts text from EUC-KR encoding to PostgreSQL's internal MULE encoding format
 
 ## Definition
 
-
+```c
+Datum
+euc_kr_to_mic(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL-callable wrapper for EUC-KR to MULE (Multi-byte Universal Language Environment) encoding conversion. It extracts the necessary parameters from PostgreSQL's function argument structure, validates the encoding conversion request, and delegates the actual conversion work to the euc_kr2mic function. The function is designed to be called from PostgreSQL's encoding conversion system when converting text data from EUC-KR (Extended Unix Code for Korean) to PostgreSQL's internal MULE representation.
 

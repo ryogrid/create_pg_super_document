@@ -8,7 +8,10 @@ A tree-walking function that searches for PARAM_EXTERN parameters within a query
 
 ## Definition
 
-
+```c
+static bool
+query_contains_extern_params_walker(Node *node, void *context)
+```
 ## Detailed Description
 This static function implements the actual tree traversal logic for detecting external parameters in a query tree. It follows the standard PostgreSQL walker pattern, examining each node to determine if it contains a Param node with paramkind set to PARAM_EXTERN.
 

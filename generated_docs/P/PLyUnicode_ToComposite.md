@@ -8,7 +8,10 @@ Converts a Python string to a PostgreSQL composite type by parsing it as a recor
 
 ## Definition
 
-
+```c
+static Datum
+PLyUnicode_ToComposite(PLyObToDatum *arg, PyObject *string, bool inarray)
+```
 ## Detailed Description
 This function handles the conversion of Python string objects into PostgreSQL composite types by interpreting the string as a record literal. It sets up and calls the built-in record_in function to perform the parsing. The function includes special error handling for array contexts to provide helpful hints when users inadvertently create malformed record literals due to changes in multi-dimensional array interpretation introduced in PostgreSQL 10.
 

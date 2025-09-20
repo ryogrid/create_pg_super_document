@@ -8,7 +8,11 @@ ATExecColumnDefault handles both SET DEFAULT and DROP DEFAULT operations for tab
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecColumnDefault(Relation rel, const char *colName,
+					Node *newDefault, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function implements the execution phase for ALTER TABLE ALTER COLUMN SET/DROP DEFAULT commands. It performs comprehensive validation and handles both setting new defaults and removing existing ones:
 

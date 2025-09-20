@@ -8,7 +8,14 @@ A context structure used during Common Table Expression (CTE) inlining to track 
 
 ## Definition
 
-
+```c
+typedef struct inline_cte_walker_context
+{
+	const char *ctename;		/* name and relative level of target CTE */
+	int			levelsup;
+	Query	   *ctequery;		/* query to substitute */
+} inline_cte_walker_context;
+```
 ## Detailed Description
 The  structure serves as a parameter context for the  function during the process of inlining Common Table Expressions (CTEs). This structure is used in PostgreSQL's query optimizer when converting RTE_CTE (Range Table Entry for CTE) references into RTE_SUBQUERY references, effectively replacing CTE references with their actual query definitions. The context maintains the identity of the CTE being inlined, tracks the current nesting level during traversal, and provides the replacement query. This transformation is part of PostgreSQL's CTE optimization strategy, where non-recursive CTEs can be inlined to enable better optimization opportunities.
 

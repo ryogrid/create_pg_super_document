@@ -8,7 +8,10 @@ TemporalSimplify optimizes temporal type length-coercion function calls by simpl
 
 ## Definition
 
-
+```c
+Node *
+TemporalSimplify(int32 max_precis, Node *node)
+```
 ## Detailed Description
 This function serves as common optimization code for temporal prosupport functions (time, timetz, timestamp, timestamptz). It analyzes function calls that perform precision coercion on temporal types and determines if the coercion can be simplified or eliminated entirely.
 

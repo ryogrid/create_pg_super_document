@@ -8,7 +8,10 @@ Core logic function that evaluates the parallel hazard level of a database objec
 
 ## Definition
 
-
+```c
+struct */
+			return true;
+```
 ## Detailed Description
 The  function implements the core logic for all parallel-hazard checks in PostgreSQL. It takes a parallel safety classification and a context structure, then determines whether to continue traversing an expression tree or stop due to reaching an unacceptable hazard level.
 

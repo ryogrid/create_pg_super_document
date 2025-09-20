@@ -8,7 +8,10 @@ An optimized expression evaluation function for assigning variables from virtual
 
 ## Definition
 
-
+```c
+static Datum
+ExecJustAssignOuterVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+```
 ## Detailed Description
 ExecJustAssignOuterVarVirt is a specialized assignment function optimized for virtual tuple slots, specifically designed to handle outer tuple variables in join operations. This function is part of PostgreSQL's expression evaluation infrastructure and represents an optimization where the expression compiler can determine at compilation time that only virtual slots will be used for outer tuple access.
 

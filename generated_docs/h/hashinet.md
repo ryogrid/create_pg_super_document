@@ -8,7 +8,10 @@ Provides hash function support for inet/cidr data types to enable hash indexing 
 
 ## Definition
 
-
+```c
+structure */
+	return hash_any((unsigned char *) VARDATA_ANY(addr), addrsize + 2);
+```
 ## Detailed Description
 This function serves as a support function for hash indexes on inet and cidr data types in PostgreSQL. It computes a hash value for network addresses by extracting the binary representation of the inet/cidr value and applying PostgreSQL's general-purpose hash_any function. The function assumes there are no padding bytes in the inet data structure when calculating the hash.
 

@@ -8,7 +8,10 @@ The dumpShellType function generates a CREATE TYPE statement for a shell type, w
 
 ## Definition
 
-
+```c
+static void
+dumpShellType(Archive *fout, const ShellTypeInfo *stinfo)
+```
 ## Detailed Description
 This function creates a shell type definition, which is an incomplete type declaration that reserves the type name before its full definition (including I/O functions) is available. Shell types are essential for handling circular dependencies in PostgreSQL type definitions, particularly when types need to reference each other.
 

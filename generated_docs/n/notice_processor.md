@@ -8,7 +8,10 @@ A simple notice handler function that processes PostgreSQL server notices by for
 
 ## Definition
 
-
+```c
+static void
+notice_processor(void *arg, const char *message)
+```
 ## Detailed Description
 This function serves as a callback handler for PostgreSQL notice messages. It acts as a bridge between PostgreSQL's notice system and the application's logging infrastructure. When PostgreSQL generates notices (informational messages that don't constitute errors), this function receives them and forwards them to the application's logging system using pg_log_info().
 

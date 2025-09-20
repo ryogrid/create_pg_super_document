@@ -8,7 +8,13 @@ Converts a sequence of bytes to dot-separated decimal notation, used as a utilit
 
 ## Definition
 
-
+```c
+struct
+	{
+		int			base,
+					len;
+	}			best, cur;
+```
 ## Detailed Description
 This static utility function converts a series of bytes from binary format to dot-separated decimal notation. Each byte is formatted as a decimal number (0-255) and separated by dots, except for the last byte which has no trailing dot. The function is designed to handle the conversion of byte sequences within IPv6 address formatting, where certain parts of the address may need to be represented in decimal notation rather than hexadecimal.
 

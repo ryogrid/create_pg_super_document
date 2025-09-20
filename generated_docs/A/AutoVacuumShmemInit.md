@@ -8,7 +8,10 @@ AutoVacuumShmemInit allocates and initializes the shared memory structures requi
 
 ## Definition
 
-
+```c
+void
+AutoVacuumShmemInit(void)
+```
 ## Detailed Description
 This function is responsible for setting up the autovacuum subsystem's shared memory region during PostgreSQL startup. It performs different operations depending on whether it's running in the postmaster process or a child process:
 

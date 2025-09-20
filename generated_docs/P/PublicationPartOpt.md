@@ -8,7 +8,14 @@ PublicationPartOpt is an enumeration that specifies partition handling options f
 
 ## Definition
 
-
+```c
+typedef enum PublicationPartOpt
+{
+	PUBLICATION_PART_ROOT,
+	PUBLICATION_PART_LEAF,
+	PUBLICATION_PART_ALL,
+} PublicationPartOpt;
+```
 ## Detailed Description
 PublicationPartOpt is a critical enumeration in PostgreSQL's logical replication system that controls how partitioned tables are handled when retrieving relations associated with a publication. This enum provides three distinct strategies for partition inclusion, allowing fine-grained control over which parts of a partitioned table hierarchy are considered for replication. It is primarily used as a parameter to various publication-related functions to specify the caller's expectations about partition visibility and inclusion in replication streams.
 

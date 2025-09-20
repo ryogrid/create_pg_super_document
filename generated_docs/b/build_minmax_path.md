@@ -8,7 +8,15 @@ Attempts to build an optimized index scan path for a single MIN/MAX aggregate by
 
 ## Definition
 
-
+```c
+struct what is effectively a sub-SELECT query, so
+	 * clone the current query level's state and adjust it to make it look
+	 * like a subquery.  Any outer references will now be one level higher
+	 * than before.  (This means that when we are done, there will be no Vars
+	 * of level 1, which is why the subquery can become an initplan.)
+	 */
+	subroot = (PlannerInfo *) palloc(sizeof(PlannerInfo));
+```
 ## Detailed Description
 This function constructs an optimized execution path for MIN/MAX aggregates by creating a modified subquery that can leverage index scans. The process involves:
 

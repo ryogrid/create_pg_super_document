@@ -8,7 +8,18 @@ The  structure represents a WAL (Write-Ahead Logging) record for GiST index tupl
 
 ## Definition
 
+```c
+typedef struct gistxlogDelete
+{
+	TransactionId snapshotConflictHorizon;
+	uint16		ntodelete;		/* number of deleted offsets */
+	bool		isCatalogRel;	/* to handle recovery conflict during logical
+								 * decoding on standby */
 
+	/* TODELETE OFFSET NUMBERS */
+	OffsetNumber offsets[FLEXIBLE_ARRAY_MEMBER];
+} gistxlogDelete;
+```
 ## Detailed Description
 This structure is used to log GiST index tuple deletion operations in the write-ahead log. It contains all the information necessary to replay the deletion during crash recovery or streaming replication. The structure includes a snapshot conflict horizon for handling recovery conflicts, the number of tuples to delete, a flag for catalog relations, and a flexible array of offset numbers identifying which tuples to delete from the target page.
 

@@ -8,7 +8,10 @@ Sets the required catalog xmin horizon for historic snapshots in the current rep
 
 ## Definition
 
-
+```c
+void
+LogicalIncreaseXminForSlot(XLogRecPtr current_lsn, TransactionId xmin)
+```
 ## Detailed Description
 This function manages the catalog xmin horizon for logical replication slots, which is critical for maintaining the visibility of historical data needed for logical decoding. The function implements a two-phase approach where xmin candidates are first proposed and then confirmed when the client acknowledges receipt of the corresponding LSN.
 

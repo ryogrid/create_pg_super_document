@@ -8,7 +8,11 @@ Callback function used during manifest parsing to extract and store the PostgreS
 
 ## Definition
 
-
+```c
+static void
+verifybackup_system_identifier(JsonManifestParseContext *context,
+							   uint64 manifest_system_identifier)
+```
 ## Detailed Description
 The verifybackup_system_identifier function serves as a callback function for the JSON manifest parser specifically for handling the system identifier information found in backup manifest files. When the parser encounters the system identifier field in the manifest, it calls this function to record the 64-bit system identifier value in the manifest_data structure.
 

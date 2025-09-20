@@ -8,7 +8,10 @@ Error context callback function that provides enhanced error reporting for SQL f
 
 ## Definition
 
-
+```c
+static void
+sql_function_parse_error_callback(void *arg)
+```
 ## Detailed Description
 This function serves as an error context callback specifically designed to handle and enhance error messages when parsing SQL function definitions fails. It is registered with PostgreSQL's error handling system to provide better error context when SQL function validation encounters problems.
 

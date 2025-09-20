@@ -8,7 +8,10 @@ Unlinks transaction statistics state from nontransactional state after a transac
 
 ## Definition
 
-
+```c
+void
+PostPrepare_PgStat_Relations(PgStat_SubXactStatus *xact_state)
+```
 ## Detailed Description
 This function performs cleanup after a transaction has been successfully prepared for two-phase commit. Its primary purpose is to unlink the transaction statistics state from the base table statistics state by setting the trans pointer to NULL in each affected table status entry.
 

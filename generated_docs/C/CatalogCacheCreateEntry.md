@@ -8,7 +8,11 @@ Creates a new catalog cache entry (CatCTup) from a HeapTuple or cache keys, hand
 
 ## Definition
 
-
+```c
+static CatCTup *
+CatalogCacheCreateEntry(CatCache *cache, HeapTuple ntp, Datum *arguments,
+						uint32 hashValue, Index hashIndex)
+```
 ## Detailed Description
 CatalogCacheCreateEntry is responsible for creating new entries in the catalog cache. It handles two types of entries: positive entries (from actual tuples found in system catalogs) and negative entries (recording that a search found no matching tuple).
 

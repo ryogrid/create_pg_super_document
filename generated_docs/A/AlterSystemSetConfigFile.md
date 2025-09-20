@@ -8,7 +8,9 @@ Executes the ALTER SYSTEM statement by updating PostgreSQL's automatic configura
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function implements the core functionality for the ALTER SYSTEM command, which allows dynamic modification of PostgreSQL configuration parameters by updating the postgresql.auto.conf file. The function handles various ALTER SYSTEM operations including setting new values, resetting parameters to defaults, and resetting all parameters.
 

@@ -8,7 +8,10 @@ Starts a new background worker process, handling resource allocation and fork op
 
 ## Definition
 
-
+```c
+static bool
+do_start_bgworker(RegisteredBgWorker *rw)
+```
 ## Detailed Description
 This function is responsible for actually starting a background worker process after timing conditions have been verified. It performs the complete startup sequence including:
 

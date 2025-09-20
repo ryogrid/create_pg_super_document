@@ -8,7 +8,10 @@ Replays GIN index page split operations during WAL recovery, restoring the split
 
 ## Definition
 
-
+```c
+static void
+ginRedoSplit(XLogReaderState *record)
+```
 ## Detailed Description
 ginRedoSplit is a WAL recovery function that replays GIN (Generalized Inverted Index) page split operations from transaction log records. Page splits occur when a GIN index page becomes too full and needs to be divided into two pages. This function handles the recovery of such splits by restoring the affected pages from full-page images stored in the WAL record.
 

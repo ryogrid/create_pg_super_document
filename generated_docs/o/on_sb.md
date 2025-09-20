@@ -8,7 +8,10 @@ Tests whether a line segment lies on or within a box boundary.
 
 ## Definition
 
-
+```c
+Datum
+on_sb(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operator that determines if a line segment (LSEG) is positioned on or within the boundaries of a box (BOX). This function serves as a SQL-callable wrapper that implements the "on" spatial relationship between line segments and boxes. The function leverages the existing  function to perform the actual geometric calculation, returning true if the line segment is contained within or lies on the box boundaries.
 

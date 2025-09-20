@@ -8,7 +8,13 @@ A shared memory structure that holds function execution statistics for PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct PgStatShared_Function
+{
+	PgStatShared_Common header;
+	PgStat_StatFuncEntry stats;
+} PgStatShared_Function;
+```
 ## Detailed Description
 PgStatShared_Function is a shared memory structure that maintains execution statistics for user-defined functions within PostgreSQL databases. This structure follows the established pattern for variable-amount statistics, beginning with a PgStatShared_Common header for validation and locking, followed by function-specific performance metrics.
 

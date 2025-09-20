@@ -8,7 +8,10 @@ CreateInheritance is a static function that handles the catalog manipulation por
 
 ## Definition
 
-
+```c
+static void
+CreateInheritance(Relation child_rel, Relation parent_rel, bool ispartition)
+```
 ## Detailed Description
 This function performs the core catalog operations needed to establish inheritance between two relations. It validates the inheritance relationship, ensures no duplicate inheritance exists, merges attributes and constraints between parent and child tables, and creates the necessary catalog entries in pg_inherits. The function is common to both ATExecAddInherit() (for ALTER TABLE INHERIT) and ATExecAttachPartition() (for partition attachment operations).
 

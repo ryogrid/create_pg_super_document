@@ -8,7 +8,10 @@ Checks if the current user has specific privileges on a role specified by OID, u
 
 ## Definition
 
-
+```c
+Datum
+pg_has_role_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is an OID-based variant of the pg_has_role privilege checking system that assumes the current user as the subject of the privilege check. It takes only the target role OID and privilege type as parameters, automatically using the current session's user ID for the privilege verification. This function is optimized for cases where the role OID is already known and no name resolution is needed, making it more efficient than name-based variants.
 

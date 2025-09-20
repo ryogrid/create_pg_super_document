@@ -8,7 +8,32 @@ Creates a HashJoin plan node from a HashPath, implementing hash joins where the 
 
 ## Definition
 
+```c
+structed into outer/inner expressions, so they can be computed
+	 * separately (inner expressions are used to build the hashtable via Hash,
+	 * outer expressions to perform lookups of tuples from HashJoin's outer
+	 * plan in the hashtable). Also collect operator information necessary to
+	 * build the hashtable.
+	 */
+	foreach(lc, hashclauses)
+	{
+		OpExpr	   *hclause = lfirst_node(OpExpr, lc);
 
+		hashoperators = lappend_oid(hashoperators, hclause->opno);
+		hashcollations = lappend_oid(hashcollations, hclause->inputcollid);
+		outer_hashkeys = lappend(outer_hashkeys, linitial(hclause->args));
+		inner_hashkeys = lappend(inner_hashkeys, lsecond(hclause->args));
+	}
+
+	/*
+	 * Build the hash node and hash join node.
+	 */
+	hash_plan = make_hash(inner_plan,
+						  inner_hashkeys,
+						  skewTable,
+						  skewColumn,
+						  skewInherit);
+```
 ## Detailed Description
 This function creates a HashJoin execution plan node from a HashPath. Hash joins are efficient when one relation (typically the smaller inner relation) can fit in a hash table built in memory, which is then probed by the outer relation to find matches. The function creates both a Hash node for building the hash table and a HashJoin node for the actual join operation. It handles hash key extraction from join clauses, sets up skew optimization for single-column joins when statistics are available, and manages batching for large datasets that don't fit in memory. The function also handles parallel execution by setting up shared hash table sizing information.
 

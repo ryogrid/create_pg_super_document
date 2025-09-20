@@ -8,7 +8,10 @@ Returns the substring that matches a regular expression pattern, providing full 
 
 ## Definition
 
-
+```c
+Datum
+regexp_substr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the main implementation for PostgreSQL's REGEXP_SUBSTR SQL function. It extracts and returns a substring from an input text that matches a specified regular expression pattern. The function supports up to 6 parameters:
 

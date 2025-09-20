@@ -8,7 +8,10 @@ process_pipe_input processes data received through the syslogger pipe, implement
 
 ## Definition
 
-
+```c
+static void
+process_pipe_input(char *logbuffer, int *bytes_in_logbuffer)
+```
 ## Detailed Description
 process_pipe_input is the core message processing function in PostgreSQL's logging system. It implements a sophisticated protocol for handling log data received from multiple backend processes through a shared pipe. The function addresses two critical logging problems:
 

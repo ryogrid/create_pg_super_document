@@ -8,7 +8,10 @@ Low-level function that performs the physical disk I/O operation to read a speci
 
 ## Definition
 
-
+```c
+static bool
+SlruPhysicalReadPage(SlruCtl ctl, int64 pageno, int slotno)
+```
 ## Detailed Description
 SlruPhysicalReadPage is a critical low-level function that handles the actual disk I/O for reading SLRU pages from persistent storage into shared memory buffers. The function implements sophisticated error handling and recovery logic to ensure system stability even under adverse conditions.
 

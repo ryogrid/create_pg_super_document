@@ -8,7 +8,10 @@ Converts network numbers from presentation format to network format, supporting 
 
 ## Definition
 
-
+```c
+int
+pg_inet_net_pton(int af, const char *src, void *dst, size_t size)
+```
 ## Detailed Description
 This function serves as a dispatcher that converts network addresses from human-readable string format to binary network format. It accepts various input formats including hexadecimal octets, hexadecimal strings, decimal octets, and CIDR notation (with /CIDR suffix). The function automatically detects the address family and delegates to the appropriate IPv4 or IPv6 conversion function based on the address family parameter and size argument.
 

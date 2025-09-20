@@ -8,7 +8,11 @@ A lower-level function that performs ALTER TYPE SET SCHEMA operations when the t
 
 ## Definition
 
-
+```c
+Oid
+AlterTypeNamespace_oid(Oid typeOid, Oid nspOid, bool ignoreDependent,
+					   ObjectAddresses *objsMoved)
+```
 ## Detailed Description
 AlterTypeNamespace_oid is an intermediate-level function that handles type namespace changes with pre-resolved OIDs. It performs ownership verification, prevents direct alteration of array types (directing users to alter the element type instead), and delegates the actual work to AlterTypeNamespaceInternal. The function includes a special mode for ignoring dependent types, which is useful when called from generic object namespace alteration routines.
 

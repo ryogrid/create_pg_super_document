@@ -8,7 +8,13 @@ Preconfigures dependency relationships for operators and support functions when 
 
 ## Definition
 
-
+```c
+void
+gistadjustmembers(Oid opfamilyoid,
+				  Oid opclassoid,
+				  List *operators,
+				  List *functions)
+```
 ## Detailed Description
 The  function is a prechecking function called during the process of adding operators and functions to a GiST operator family. It configures the dependency relationships that determine how these database objects depend on each other for purposes of DROP CASCADE operations and other dependency management.
 

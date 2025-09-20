@@ -8,7 +8,22 @@ IntoClause represents target information for SELECT INTO, CREATE TABLE AS, and C
 
 ## Definition
 
+```c
+typedef struct IntoClause
+{
+	NodeTag		type;
 
+	RangeVar   *rel;			/* target relation name */
+	List	   *colNames;		/* column names to assign, or NIL */
+	char	   *accessMethod;	/* table access method */
+	List	   *options;		/* options from WITH clause */
+	OnCommitAction onCommit;	/* what do we do at COMMIT? */
+	char	   *tableSpaceName; /* table space to use, or NULL */
+	/* materialized view's SELECT query */
+	Node	   *viewQuery pg_node_attr(query_jumble_ignore);
+	bool		skipData;		/* true for WITH NO DATA */
+} IntoClause;
+```
 ## Detailed Description
 IntoClause is a specialized node structure that encapsulates all the information needed to create a new table or materialized view from a SELECT statement. It serves as the bridge between query execution and table creation, supporting various SQL constructs including SELECT INTO, CREATE TABLE AS, and CREATE MATERIALIZED VIEW.
 

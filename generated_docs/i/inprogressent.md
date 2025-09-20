@@ -8,7 +8,13 @@ The  structure tracks ongoing  calls to handle concurrent index creation and ens
 
 ## Definition
 
-
+```c
+typedef struct inprogressent
+{
+	Oid			reloid;			/* OID of relation being built */
+	bool		invalidated;	/* whether an invalidation arrived for it */
+} InProgressEnt;
+```
 ## Detailed Description
 The  structure is used as part of PostgreSQL's relation cache invalidation system, specifically to handle the complex case of . This structure maintains a stack () of relations currently being built by . The key challenge it addresses is that  makes catalog changes under , and it critically relies on each backend absorbing those changes no later than the next transaction start. To ensure this,  loops until it finishes without accepting a relevant invalidation, unlike most other invalidation consumers. Each entry tracks both the relation being built and whether an invalidation message has arrived for it during the build process.
 

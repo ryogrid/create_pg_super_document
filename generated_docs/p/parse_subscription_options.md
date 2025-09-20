@@ -8,7 +8,11 @@ Parses and validates subscription options for CREATE and ALTER SUBSCRIPTION comm
 
 ## Definition
 
-
+```c
+static void
+parse_subscription_options(ParseState *pstate, List *stmt_options,
+						   bits32 supported_opts, SubOpts *opts)
+```
 ## Detailed Description
 This function serves as a common option parsing routine for both CREATE and ALTER SUBSCRIPTION commands. It takes a list of user-provided subscription options and processes them against a bitmask of supported options, populating a SubOpts structure with the parsed values. The function enforces mutual exclusivity rules between certain options and validates option values to prevent invalid subscription configurations.
 

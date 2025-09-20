@@ -8,7 +8,10 @@ Converts a timestamptz (timestamp with time zone) value to its external string r
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is responsible for converting PostgreSQL's internal timestamptz representation to a human-readable string format. This function handles both finite and infinite timestamp values, properly formatting them according to the current DateStyle setting while including timezone information. It serves as the output function for the timestamptz data type, called whenever a timestamptz value needs to be displayed or exported.
 

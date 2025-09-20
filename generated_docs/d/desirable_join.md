@@ -8,7 +8,11 @@ A heuristic function that determines whether two relations should be joined imme
 
 ## Definition
 
-
+```c
+static bool
+desirable_join(PlannerInfo *root,
+			   RelOptInfo *outer_rel, RelOptInfo *inner_rel)
+```
 ## Detailed Description
 The desirable_join function implements the core heuristic logic used by gimme_tree to decide when to join two relations during genetic query optimization. Rather than forcing all possible joins, this function applies intelligent criteria to determine which joins are beneficial to perform immediately versus those that should be postponed.
 

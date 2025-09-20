@@ -8,7 +8,11 @@ Saves data about an ALTER OPERATOR FAMILY ADD/DROP command being executed for ev
 
 ## Definition
 
-
+```c
+void
+EventTriggerCollectAlterOpFam(AlterOpFamilyStmt *stmt, Oid opfamoid,
+							  List *operators, List *procedures)
+```
 ## Detailed Description
 This function is part of PostgreSQL's event trigger system and is responsible for collecting information about ALTER OPERATOR FAMILY commands during their execution. It captures details about modifications made to operator families, including both ADD and DROP operations.
 

@@ -8,7 +8,9 @@ Reads and parses the backup_label file during recovery to determine the correct 
 
 ## Definition
 
-
+```c
+struct a valid data directory.")));
+```
 ## Detailed Description
 This function checks for the presence of a backup_label file and parses its contents during WAL recovery initialization. When a backup_label file exists, it indicates recovery from a backup dump, and the function extracts critical recovery parameters from the file rather than relying on pg_control. This prevents consistency issues that could arise if pg_control was archived after the backup started.
 

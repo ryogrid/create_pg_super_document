@@ -8,7 +8,10 @@ Cleans up shared memory state when a postmaster child process chooses not to re-
 
 ## Definition
 
-
+```c
+void
+PGSharedMemoryNoReAttach(void)
+```
 ## Detailed Description
 This function is the counterpart to PGSharedMemoryReAttach(), called when a postmaster child process in an EXEC_BACKEND configuration decides not to re-attach to the shared memory segment created by the postmaster. It performs necessary cleanup to ensure the process state is consistent and that any subsequent calls to PGSharedMemoryDetach() will be safe no-ops.
 

@@ -8,7 +8,10 @@ The cleanup function is a static utility function in the PostgreSQL bootstrap mo
 
 ## Definition
 
-
+```c
+static void
+cleanup(struct nfa *nfa)
+```
 ## Detailed Description
 The cleanup function serves as a simple cleanup routine specifically designed for the bootstrap mode of PostgreSQL. It checks if there's an active relation descriptor (boot_reldesc) and if so, calls closerel() to properly close it. This function ensures that any relation opened during bootstrap operations is properly closed, preventing resource leaks and maintaining system consistency.
 

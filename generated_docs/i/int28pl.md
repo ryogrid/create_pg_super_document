@@ -8,7 +8,10 @@ Adds a 16-bit integer (smallint) to a 64-bit integer (bigint) and returns the re
 
 ## Definition
 
-
+```c
+Datum
+int28pl(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements addition of a 2-byte integer with an 8-byte integer in PostgreSQL. The function performs safe addition by using PostgreSQL's overflow-checking arithmetic functions. The 16-bit argument is implicitly converted to 64-bit before the addition operation to ensure proper type compatibility.
 

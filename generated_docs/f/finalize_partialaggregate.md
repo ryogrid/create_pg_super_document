@@ -8,7 +8,13 @@ Computes the output value of one partial aggregate by optionally serializing the
 
 ## Definition
 
-
+```c
+static void
+finalize_partialaggregate(AggState *aggstate,
+						  AggStatePerAgg peragg,
+						  AggStatePerGroup pergroupstate,
+						  Datum *resultVal, bool *resultIsNull)
+```
 ## Detailed Description
 This function finalizes a partial aggregate by preparing its transition value for output. The key distinction from full aggregate finalization is that this function may apply a serialization function instead of a final function. If a serialization function is configured (serialfn_oid is valid), it serializes the transition value to create a portable representation. If no serialization function is needed, it simply returns the transition value as-is. The function operates in the output-tuple memory context to ensure proper memory management.
 

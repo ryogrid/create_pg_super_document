@@ -8,7 +8,10 @@ A callback function for allocating memory for hashtable elements in TID bitmaps,
 
 ## Definition
 
-
+```c
+static inline void *
+pagetable_allocate(pagetable_hash *pagetable, Size size)
+```
 ## Detailed Description
 This function serves as a memory allocation callback for pagetable hash structures in TID bitmaps. It implements a dual allocation strategy: when DSA (Dynamic Shared Area) is not available, it uses regular memory context allocation with huge and zero flags. When DSA is available, it allocates from the shared memory area, carefully managing the old pagetable reference to enable proper cleanup. The function wraps the allocated memory in a PTEntryArray structure and returns a pointer to the entry data.
 

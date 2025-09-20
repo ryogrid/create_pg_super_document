@@ -8,7 +8,10 @@ This function checks whether the current user has a particular privilege on a la
 
 ## Definition
 
-
+```c
+Datum
+has_language_privilege_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the most optimized variant of language privilege checking, combining the efficiency of OID-based language lookup with the convenience of assuming the current user. It takes only two arguments: a language OID and privilege type (text), then returns a boolean indicating whether the current user has the requested privilege. Like the name_id variant, it uses object_aclcheck_ext for explicit missing object detection and returns NULL when the language OID doesn't exist.
 

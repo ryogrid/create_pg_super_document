@@ -8,7 +8,10 @@ Compares two PostgreSQL Log Sequence Number (LSN) values to determine if the fir
 
 ## Definition
 
-
+```c
+Datum
+pg_lsn_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the greater-than operator (>) for the pg_lsn data type in PostgreSQL. It extracts two XLogRecPtr values from the function arguments and performs a direct numerical comparison to determine if the first LSN represents a later position in the WAL than the second LSN.
 

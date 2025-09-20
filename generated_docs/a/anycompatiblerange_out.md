@@ -8,7 +8,10 @@ A pseudotype output function that provides string representation for anycompatib
 
 ## Definition
 
-
+```c
+Datum
+anycompatiblerange_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a wrapper for the anycompatiblerange pseudotype, which represents any range type that is compatible with other types in a function call. It directly delegates the actual output formatting to the  function, which handles the conversion of range values to their string representation. This delegation pattern allows PostgreSQL's type system to work with generic range types while maintaining type safety and proper output formatting.
 

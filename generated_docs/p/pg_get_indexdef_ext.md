@@ -8,7 +8,10 @@ An extended SQL-callable function that returns either the complete CREATE INDEX 
 
 ## Definition
 
-
+```c
+Datum
+pg_get_indexdef_ext(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides an extended interface for retrieving index definitions from PostgreSQL's system catalogs with additional control over output format and content. Unlike the basic , this function accepts a column number parameter that allows retrieving either the complete index definition (when colno=0) or just the expression for a specific index column (when colno>0). It also accepts a pretty-printing flag to control output formatting. The function delegates the actual work to  with parameters derived from the input arguments.
 

@@ -8,7 +8,10 @@ EnableQueryId is a function that allows third-party plugins to request that Post
 
 ## Definition
 
-
+```c
+void
+EnableQueryId(void)
+```
 ## Detailed Description
 EnableQueryId provides a programmatic interface for third-party plugins to signal that they require query identifier computation to be enabled. The function checks the current compute_query_id configuration setting and only enables query ID generation if it's not explicitly set to OFF. This design allows plugins to request query ID computation while still respecting administrator configuration preferences.
 

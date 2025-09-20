@@ -8,7 +8,10 @@ Looks up a foreign server definition by name and returns the corresponding Forei
 
 ## Definition
 
-
+```c
+ForeignServer *
+GetForeignServerByName(const char *srvname, bool missing_ok)
+```
 ## Detailed Description
 GetForeignServerByName is a utility function that retrieves a foreign server object by its name. It serves as a wrapper around the lower-level functions, first converting the server name to an OID using get_foreign_server_oid(), then retrieving the full ForeignServer structure using GetForeignServer(). The function provides error handling based on the missing_ok parameter - if the server doesn't exist and missing_ok is false, an error will be raised; if missing_ok is true, NULL is returned instead.
 

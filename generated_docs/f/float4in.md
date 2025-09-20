@@ -8,7 +8,10 @@ A PostgreSQL input function that converts string representations of floating-poi
 
 ## Definition
 
-
+```c
+Datum
+float4in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the input conversion routine for PostgreSQL's float4 (real) data type, converting string representations of numbers into internal float4 format. The function is notable for its careful handling of precision during conversion to avoid double-rounding errors that can occur when converting decimal strings to floating-point values.
 

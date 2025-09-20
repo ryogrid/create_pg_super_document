@@ -8,7 +8,50 @@ OSAPerQueryState is a structure that holds per-query state data for ordered-set 
 
 ## Definition
 
+```c
+typedef struct OSAPerQueryState
+{
+	/* Representative Aggref for this aggregate: */
+	Aggref	   *aggref;
+	/* Memory context containing this struct and other per-query data: */
+	MemoryContext qcontext;
+	/* Context for expression evaluation */
+	ExprContext *econtext;
+	/* Do we expect multiple final-function calls within one group? */
+	bool		rescan_needed;
 
+	/* These fields are used only when accumulating tuples: */
+
+	/* Tuple descriptor for tuples inserted into sortstate: */
+	TupleDesc	tupdesc;
+	/* Tuple slot we can use for inserting/extracting tuples: */
+	TupleTableSlot *tupslot;
+	/* Per-sort-column sorting information */
+	int			numSortCols;
+	AttrNumber *sortColIdx;
+	Oid		   *sortOperators;
+	Oid		   *eqOperators;
+	Oid		   *sortCollations;
+	bool	   *sortNullsFirsts;
+	/* Equality operator call info, created only if needed: */
+	ExprState  *compareTuple;
+
+	/* These fields are used only when accumulating datums: */
+
+	/* Info about datatype of datums being sorted: */
+	Oid			sortColType;
+	int16		typLen;
+	bool		typByVal;
+	char		typAlign;
+	/* Info about sort ordering: */
+	Oid			sortOperator;
+	Oid			eqOperator;
+	Oid			sortCollation;
+	bool		sortNullsFirst;
+	/* Equality operator call info, created only if needed: */
+	FmgrInfo	equalfn;
+} OSAPerQueryState;
+```
 ## Detailed Description
 OSAPerQueryState is part of PostgreSQL's generic support for ordered-set aggregates. The structure is designed to optimize memory usage and performance by separating query-level state from group-level state. This per-query state contains information that remains constant across all groups within a single query execution, allowing for efficient resource sharing.
 

@@ -8,7 +8,10 @@ A recursive expression tree mutator function that fixes variable references in e
 
 ## Definition
 
-
+```c
+static Node *
+fix_join_expr_mutator(Node *node, fix_join_expr_context *context)
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's query plan reference fixing process. It transforms expressions in join nodes by replacing variable references with appropriate references to the target lists of child plans. The function operates as a tree walker that recursively processes expression nodes and performs the following key operations:
 

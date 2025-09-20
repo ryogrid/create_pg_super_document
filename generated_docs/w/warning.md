@@ -8,7 +8,10 @@ A warning message function used in the timezone compiler (zic) to display warnin
 
 ## Definition
 
-
+```c
+static void
+warning(const char *string,...)
+```
 ## Detailed Description
 This is a variadic function used throughout PostgreSQL's timezone compiler (zic) to issue warning messages. The function formats and displays warning messages to standard error, prefixed with "warning: ", and sets a global flag to indicate that warnings have been issued during compilation. It follows the standard warning pattern of accepting a format string and variable arguments, similar to printf-style functions.
 

@@ -8,7 +8,10 @@ Creates a phrase query by joining two tsquery operands with a default distance o
 
 ## Definition
 
-
+```c
+Datum
+tsquery_phrase(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that creates a phrase query from two tsquery operands. It acts as a wrapper around , hardcoding the distance parameter to 1. This function implements the  operator for text search queries, which requires that the left operand appears exactly one position before the right operand in the document.
 

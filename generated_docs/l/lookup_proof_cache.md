@@ -8,7 +8,10 @@ Retrieves and populates cache entries for operator proof relationships, analyzin
 
 ## Definition
 
-
+```c
+static OprProofCacheEntry *
+lookup_proof_cache(Oid pred_op, Oid clause_op, bool refute_it)
+```
 ## Detailed Description
 This function manages a hash-based cache for storing operator proof relationships. It searches for btree operator families containing both the predicate and clause operators, then uses strategy tables (BT_implies_table, BT_refutes_table, etc.) to determine logical relationships. For constant comparison cases, it identifies appropriate test operators and verifies their immutability.
 

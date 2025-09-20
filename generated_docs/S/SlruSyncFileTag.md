@@ -8,7 +8,10 @@ A common implementation function that performs file synchronization (fsync) oper
 
 ## Definition
 
-
+```c
+int
+SlruSyncFileTag(SlruCtl ctl, const FileTag *ftag, char *path)
+```
 ## Detailed Description
 SlruSyncFileTag is a shared implementation function used by individual SLRU subsystems (such as clog, commit timestamp, and multixact) to perform file synchronization operations. The function takes an SLRU control structure and a file tag, constructs the appropriate file path, opens the file, and performs an fsync operation to ensure data is written to disk. This common implementation allows different SLRU subsystems to delegate their sync operations while providing their specific SlruCtl context.
 

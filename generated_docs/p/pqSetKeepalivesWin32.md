@@ -8,7 +8,9 @@ Enables keepalives and configures keepalive values on Windows systems using the 
 
 ## Definition
 
-
+```c
+struct tcp_keepalive ka;
+```
 ## Detailed Description
 This function provides Windows-specific implementation for setting TCP keepalive parameters on a socket. Unlike Unix systems where keepalive parameters are set individually using separate socket options, Windows requires all keepalive parameters to be set together in a single batch operation using the WSAIoctl system call with the SIO_KEEPALIVE_VALS control code.
 

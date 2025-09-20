@@ -8,7 +8,12 @@ Copies all data and storage files from an existing relation to a new storage loc
 
 ## Definition
 
-
+```c
+enumber value will be caught in
+	 * RelationCreateStorage().
+	 */
+	dstrel = RelationCreateStorage(newrlocator, rel->rd_rel->relpersistence, true);
+```
 ## Detailed Description
 The  function performs a complete copy of relation storage from one location to another, preserving all data forks while maintaining data integrity and consistency. This function is primarily used during tablespace operations when moving relations between different storage locations.
 

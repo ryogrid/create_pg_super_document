@@ -8,7 +8,11 @@ Handles the \connect command in psql, establishing a new database connection wit
 
 ## Definition
 
-
+```c
+static bool
+do_connect(enum trivalue reuse_previous_specification,
+		   char *dbname, char *user, char *host, char *port)
+```
 ## Detailed Description
 The  function is the core handler for psql's \connect command, responsible for establishing database connections with specified parameters. It supports both traditional parameter-based connections and connection string formats. The function intelligently manages parameter reuse from previous connections and handles password authentication, including prompting for passwords when needed.
 

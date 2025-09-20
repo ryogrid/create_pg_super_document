@@ -8,7 +8,10 @@ Converts an integer value to a decimal data type, providing Informix-compatible 
 
 ## Definition
 
-
+```c
+int
+deccvint(int in, decimal *np)
+```
 ## Detailed Description
 The `deccvint` function is part of the PostgreSQL ECPG Informix compatibility library that converts an integer value to a decimal data type. It performs null input validation using the CINTTYPE, creates a new numeric value using PostgreSQL's numeric functions, converts the integer to numeric format, and then converts the numeric to decimal format. The function includes comprehensive error handling for memory allocation failures and conversion errors.
 

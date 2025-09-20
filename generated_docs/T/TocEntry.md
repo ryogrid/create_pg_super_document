@@ -8,7 +8,9 @@ TocEntry is a typedef for the table of contents entry structure that represents 
 
 ## Definition
 
-
+```c
+typedef struct _tocEntry TocEntry;
+```
 ## Detailed Description
 TocEntry serves as the fundamental unit for organizing and managing database objects during dump and restore operations in PostgreSQL. It is a typedef that points to the internal  structure, which contains comprehensive metadata about individual database objects such as tables, indexes, functions, views, and other schema elements.
 

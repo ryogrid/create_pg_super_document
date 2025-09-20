@@ -8,7 +8,10 @@ A PostgreSQL function that discards the current active statistics snapshot, forc
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_clear_snapshot(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a SQL-callable interface to clear PostgreSQL's statistics snapshot. The statistics system maintains cached snapshots of statistics data to provide consistent views during a transaction or query execution. By calling this function, users can force the statistics system to discard the current snapshot and fetch fresh statistics data from the statistics collector on the next access. This is useful when you need to see the most up-to-date statistics within a session, particularly after performing operations that would significantly change the statistics.
 

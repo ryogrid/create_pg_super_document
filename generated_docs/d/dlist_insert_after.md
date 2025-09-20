@@ -8,7 +8,10 @@ Inserts a new node after a specified node in a doubly-linked list, maintaining p
 
 ## Definition
 
-
+```c
+static inline void
+dlist_insert_after(dlist_node *after, dlist_node *node)
+```
 ## Detailed Description
 This function inserts a new node immediately after an existing node in a doubly-linked list. The function updates all necessary pointers to maintain the integrity of the doubly-linked list structure. It assumes that both nodes belong to the same list and that the 'after' node is already properly linked in the list.
 

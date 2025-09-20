@@ -8,7 +8,13 @@ Performs hash table operations (lookup, insertion, or removal) by computing the 
 
 ## Definition
 
-
+```c
+void *
+hash_search(HTAB *hashp,
+			const void *keyPtr,
+			HASHACTION action,
+			bool *foundPtr)
+```
 ## Detailed Description
 This is the primary interface for hash table operations in PostgreSQL. It provides a convenient wrapper that computes the hash value internally and then calls hash_search_with_hash_value to perform the actual operation. The function supports four types of operations: finding existing entries, inserting new entries (with or without error on memory exhaustion), and removing entries. The return value and foundPtr flag provide information about whether the operation succeeded and whether an existing entry was found.
 

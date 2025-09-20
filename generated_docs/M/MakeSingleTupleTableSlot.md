@@ -8,7 +8,11 @@ Creates and initializes a standalone TupleTableSlot for operations that need a s
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+MakeSingleTupleTableSlot(TupleDesc tupdesc,
+						 const TupleTableSlotOps *tts_ops)
+```
 ## Detailed Description
 MakeSingleTupleTableSlot is a convenience function that creates a single standalone TupleTableSlot. This function is designed for operations that need a TupleTableSlot independent of the main executor's tuple table system. The function simply wraps a call to MakeTupleTableSlot and returns the initialized slot.
 

@@ -8,7 +8,10 @@ Writes out a single text search configuration definition to the PostgreSQL dump 
 
 ## Definition
 
-
+```c
+static void
+dumpTSConfig(Archive *fout, const TSConfigInfo *cfginfo)
+```
 ## Detailed Description
 The  function is responsible for dumping text search configuration objects during a pg_dump operation. It generates the CREATE TEXT SEARCH CONFIGURATION statement with the associated parser, then queries the database to retrieve all token-to-dictionary mappings and generates corresponding ALTER TEXT SEARCH CONFIGURATION statements to recreate the complete configuration.
 

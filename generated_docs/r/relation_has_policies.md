@@ -8,7 +8,10 @@ Determines whether a given relation has any row-level security policies defined,
 
 ## Definition
 
-
+```c
+bool
+relation_has_policies(Relation rel)
+```
 ## Detailed Description
 The `relation_has_policies` function performs a system catalog scan to check if any row-level security policies are defined for a specific relation. It queries the `pg_policy` catalog table to determine policy existence. The function is designed as an efficient boolean check that avoids the overhead of loading policy details when only existence verification is needed.
 

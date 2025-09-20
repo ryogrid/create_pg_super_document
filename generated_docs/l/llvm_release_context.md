@@ -8,7 +8,10 @@ A static cleanup function responsible for releasing all resources associated wit
 
 ## Definition
 
-
+```c
+static void
+llvm_release_context(JitContext *context)
+```
 ## Detailed Description
 This function performs comprehensive cleanup of an LLVM JIT context, including disposing of LLVM modules, cleaning up JIT handles, and managing resource tracking. It implements version-specific cleanup logic for different LLVM versions (>11 vs ≤11) and includes safety measures to avoid cleanup during process exit to prevent potential reentrancy issues with LLVM's error handling.
 

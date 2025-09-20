@@ -8,7 +8,10 @@ Returns the next bucket after the current bucket in a PostgreSQL simple hash tab
 
 ## Definition
 
-
+```c
+static inline uint32
+SH_NEXT(SH_TYPE * tb, uint32 curelem, uint32 startelem)
+```
 ## Detailed Description
 SH_NEXT is a macro that generates a function name for advancing to the next bucket within PostgreSQL's simple hash table framework. The function implements linear probing by incrementing the current bucket index and wrapping around to the beginning of the table using bitwise AND with the size mask. It includes an assertion to ensure the probing doesn't return to the starting element, which would indicate a full table traversal. This function is essential for collision resolution in the hash table, allowing the search to continue when the ideal bucket is occupied.
 

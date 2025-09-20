@@ -8,7 +8,12 @@ Executes ALTER TABLE ENABLE/DISABLE TRIGGER commands by delegating to the trigge
 
 ## Definition
 
-
+```c
+static void
+ATExecEnableDisableTrigger(Relation rel, const char *trigname,
+						   char fires_when, bool skip_system, bool recurse,
+						   LOCKMODE lockmode)
+```
 ## Detailed Description
 The  function is the execution handler for ALTER TABLE ENABLE/DISABLE TRIGGER commands within the ALTER TABLE infrastructure. It serves as a thin wrapper that delegates the actual trigger manipulation to the specialized trigger subsystem while ensuring proper integration with the ALTER TABLE framework, including invoking necessary post-alter hooks for event triggers and dependency tracking.
 

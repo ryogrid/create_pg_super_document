@@ -8,7 +8,10 @@ Internal utility function that generates the closing XML tag for root elements i
 
 ## Definition
 
-
+```c
+static void
+xmldata_root_element_end(StringInfo result, const char *eltname)
+```
 ## Detailed Description
 The `xmldata_root_element_end` function is a simple utility function that generates properly formatted XML closing tags for root elements in PostgreSQL's SQL/XML functions. It works in conjunction with `xmldata_root_element_start` to create balanced XML tag pairs that ensure well-formed XML output.
 

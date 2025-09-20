@@ -8,7 +8,10 @@ Estimates the average width (in bytes) of values for a given PostgreSQL data typ
 
 ## Definition
 
-
+```c
+int32
+get_typavgwidth(Oid typid, int32 typmod)
+```
 ## Detailed Description
 This function provides width estimates for PostgreSQL data types to help the query planner make informed decisions about memory usage, disk I/O costs, and execution strategies. The function handles different categories of types with varying levels of precision:
 

@@ -8,7 +8,11 @@ Applies cached domain constraints to validate input values, executing NOT NULL a
 
 ## Definition
 
-
+```c
+static void
+domain_check_input(Datum value, bool isnull, DomainIOData *my_extra,
+				   Node *escontext)
+```
 ## Detailed Description
 The  function validates a value against all domain constraints defined for a domain type. This function is roughly similar to the handling of CoerceToDomain nodes in execExpr*.c, but executes each constraint separately rather than compiling them in-line within a larger expression.
 

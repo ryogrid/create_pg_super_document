@@ -8,7 +8,10 @@ Returns the greatest modulus value among all hash partitions in a hash-partition
 
 ## Definition
 
-
+```c
+int
+get_hash_partition_greatest_modulus(PartitionBoundInfo bound)
+```
 ## Detailed Description
 The  function is a utility function that extracts the greatest modulus value from hash partition bounds. In PostgreSQL's hash partitioning scheme, each partition is defined by a modulus and remainder pair. The greatest modulus among all partitions represents the total number of hash partitions in the partitioned table.
 

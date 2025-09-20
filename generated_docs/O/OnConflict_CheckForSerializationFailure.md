@@ -8,7 +8,15 @@ OnConflict_CheckForSerializationFailure detects dangerous dependency structures 
 
 ## Definition
 
-
+```c
+structure, so we must abort. (Since the writer
+	 * has already committed, we must be the reader)
+	 *------------------------------------------------------------------------
+	 */
+	if (SxactIsCommitted(writer)
+		&& (SxactHasConflictOut(writer) || SxactHasSummaryConflictOut(writer)))
+		failure = true;
+```
 ## Detailed Description
 This critical static function implements the core logic for detecting serialization failures in PostgreSQL's Serializable Snapshot Isolation (SSI). It analyzes dependency graphs to identify dangerous structures that could lead to serialization anomalies and takes corrective action by aborting appropriate transactions.
 

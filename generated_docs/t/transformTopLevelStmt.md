@@ -8,7 +8,10 @@ Transforms a raw parse tree into a Query tree, handling top-level statement proc
 
 ## Definition
 
-
+```c
+Query *
+transformTopLevelStmt(ParseState *pstate, RawStmt *parseTree)
+```
 ## Detailed Description
 This function serves as the entry point for transforming top-level SQL statements from their raw parsed form into fully analyzed Query structures. Despite its central role in the parsing pipeline, the function itself is relatively simple and primarily acts as a coordinator.
 

@@ -8,7 +8,11 @@ PopTransaction removes the current subtransaction from the transaction state sta
 
 ## Definition
 
-
+```c
+structure */
+	if (s->name)
+		pfree(s->name);
+```
 ## Detailed Description
 PopTransaction is a static function that pops the current subtransaction from the transaction state stack and restores the parent transaction context. The function performs the following operations:
 

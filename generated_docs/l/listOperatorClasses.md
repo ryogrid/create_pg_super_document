@@ -8,7 +8,11 @@ The  function implements the  psql command to display a formatted list of operat
 
 ## Definition
 
-
+```c
+bool
+listOperatorClasses(const char *access_method_pattern,
+					const char *type_pattern, bool verbose)
+```
 ## Detailed Description
 This function constructs and executes an SQL query to retrieve operator class information from PostgreSQL system catalogs. It displays operator classes with their associated access methods, input types, storage types (when different from input type), names, and default status. In verbose mode, it additionally shows the operator family and owner information. The function supports pattern matching for filtering results by access method name and type name, using PostgreSQL's standard pattern matching syntax.
 

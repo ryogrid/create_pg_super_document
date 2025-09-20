@@ -8,7 +8,13 @@ Handles the rollback of a prepared transaction in the pgoutput logical replicati
 
 ## Definition
 
-
+```c
+static void
+pgoutput_rollback_prepared_txn(LogicalDecodingContext *ctx,
+							   ReorderBufferTXN *txn,
+							   XLogRecPtr prepare_end_lsn,
+							   TimestampTz prepare_time)
+```
 ## Detailed Description
 This function is a callback handler for the ROLLBACK PREPARED operation in PostgreSQL's logical replication pgoutput plugin. When a prepared transaction is rolled back, this function is invoked to serialize the rollback information and send it to subscribers through the logical replication stream. The function follows the standard pattern of updating progress, preparing the output buffer, writing the rollback data using the logical replication protocol, and then committing the write operation.
 

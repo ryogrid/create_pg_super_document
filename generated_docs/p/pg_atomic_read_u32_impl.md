@@ -8,7 +8,10 @@ Provides a generic implementation for reading a 32-bit unsigned integer from an 
 
 ## Definition
 
-
+```c
+static inline uint32
+pg_atomic_read_u32_impl(volatile pg_atomic_uint32 *ptr)
+```
 ## Detailed Description
 This function serves as the fallback generic implementation for reading 32-bit atomic values when platform-specific atomic operations are not available. It performs a simple memory read from the atomic variable's value field without any memory barriers or synchronization primitives. This implementation is used when the system lacks native atomic read operations for 32-bit unsigned integers.
 

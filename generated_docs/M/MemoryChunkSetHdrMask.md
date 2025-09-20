@@ -8,7 +8,11 @@ Sets up the header mask of a MemoryChunk by encoding the block offset, value, an
 
 ## Definition
 
-
+```c
+static inline void
+MemoryChunkSetHdrMask(MemoryChunk *chunk, void *block,
+					  Size value, MemoryContextMethodID methodid)
+```
 ## Detailed Description
 MemoryChunkSetHdrMask is a core function in PostgreSQL's memory management system that initializes the hdrmask field of a MemoryChunk structure. This function packs three essential pieces of information into a single 64-bit value:
 - Block offset: The distance between the chunk and its containing memory block

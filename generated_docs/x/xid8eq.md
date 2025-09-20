@@ -8,7 +8,10 @@ The xid8eq function is a PostgreSQL built-in function that compares two 8-byte t
 
 ## Definition
 
-
+```c
+Datum
+xid8eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the equality comparison operator for the xid8 data type in PostgreSQL. It takes two FullTransactionId values as input arguments and returns a boolean result indicating whether they represent the same transaction ID. The function is part of PostgreSQL's transaction ID management system and is used internally by the database engine when comparing 8-byte transaction identifiers.
 

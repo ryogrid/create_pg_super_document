@@ -8,7 +8,15 @@ Computes join selectivity for normal inner joins (and LEFT/FULL outer joins) usi
 
 ## Definition
 
-
+```c
+struct just once. Using
+		 * FunctionCallInvoke directly also avoids failure if the eqproc
+		 * returns NULL, though really equality functions should never do
+		 * that.
+		 */
+		InitFunctionCallInfoData(*fcinfo, &eqproc, 2, collation,
+								 NULL, NULL);
+```
 ## Detailed Description
 This function implements the core logic for estimating equality join selectivity using two distinct approaches:
 

@@ -8,7 +8,10 @@ Launches the actual background worker processes for a parallel context, register
 
 ## Definition
 
-
+```c
+void
+LaunchParallelWorkers(ParallelContext *pcxt)
+```
 ## Detailed Description
 LaunchParallelWorkers is responsible for the actual creation and registration of background worker processes that will execute parallel work. This function configures BackgroundWorker structures with appropriate parameters, registers them with PostgreSQL's dynamic background worker system, and establishes the necessary communication infrastructure including message queue handles for error reporting.
 

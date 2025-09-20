@@ -8,7 +8,10 @@ Propagates key changes upward through the B-tree hierarchy when the first key of
 
 ## Definition
 
-
+```c
+static void
+FreePageBtreeAdjustAncestorKeys(FreePageManager *fpm, FreePageBtree *btp)
+```
 ## Detailed Description
 This function maintains the critical B-tree invariant that the first_page value stored at index zero in any non-root page must match the corresponding key in its parent page. When the first key on a page changes (due to insertions, deletions, or modifications), this function walks up the ancestor chain to update all affected parent keys.
 

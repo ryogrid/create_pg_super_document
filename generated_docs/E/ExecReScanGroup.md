@@ -8,7 +8,10 @@ ExecReScanGroup resets a Group plan node to its initial state for re-execution, 
 
 ## Definition
 
-
+```c
+void
+ExecReScanGroup(GroupState *node)
+```
 ## Detailed Description
 ExecReScanGroup implements the rescan operation for Group plan nodes, which is necessary when a Group node needs to be re-executed from the beginning. This typically occurs in nested loop joins where the inner side (containing the Group node) must be reset and re-executed for each outer tuple.
 

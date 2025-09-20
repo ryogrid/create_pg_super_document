@@ -8,7 +8,10 @@ Resets non-required array scan keys to their first element in the current scan d
 
 ## Definition
 
-
+```c
+static void
+_bt_rewind_nonrequired_arrays(IndexScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 This function handles a subtle but critical aspect of B-tree array key management during primitive index scans. It specifically targets non-required arrays (those without SK_BT_REQFWD or SK_BT_REQBKWD flags) and resets them to their starting position for the current scan direction.
 

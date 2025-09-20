@@ -8,7 +8,12 @@ A utility function that formats and prints array contents into a StringInfo buff
 
 ## Definition
 
-
+```c
+void
+array_desc(StringInfo buf, void *array, size_t elem_size, int count,
+		   void (*elem_desc) (StringInfo buf, void *elem, void *data),
+		   void *data)
+```
 ## Detailed Description
 The  function is a helper utility designed to format array contents for WAL (Write-Ahead Logging) record descriptions in a standardized format. It takes a generic array and uses a provided callback function to describe each element, outputting the results in a comma-separated list enclosed in square brackets. This function is part of the PostgreSQL resource manager description utilities that help format WAL records for debugging and logging purposes.
 

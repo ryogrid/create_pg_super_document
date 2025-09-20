@@ -8,7 +8,10 @@ A signal handler function that detects premature termination of background child
 
 ## Definition
 
-
+```c
+static void
+sigchld_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 This function serves as a SIGCHLD signal handler specifically designed to detect when a background child process (bgchild) terminates unexpectedly during a backup operation. When the background process exits prematurely, it raises a SIGCHLD signal which this handler catches and sets a flag to indicate the child has exited.
 

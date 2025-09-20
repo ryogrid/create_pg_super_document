@@ -8,7 +8,11 @@ Updates a linked list of configuration parameters by adding, replacing, or delet
 
 ## Definition
 
-
+```c
+static void
+replace_auto_config_value(ConfigVariable **head_p, ConfigVariable **tail_p,
+						  const char *name, const char *value)
+```
 ## Detailed Description
 This function manages updates to the automatic configuration parameter list by performing three types of operations: adding new parameters, replacing existing parameters, or deleting parameters (when value is NULL). The function first removes any existing entries that match the specified parameter name to avoid duplicates, then adds a new entry if a value is provided.
 

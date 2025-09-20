@@ -8,7 +8,10 @@ Preprocesses MIN/MAX aggregate functions to determine if they can be optimized v
 
 ## Definition
 
-
+```c
+void
+preprocess_minmax_aggregates(PlannerInfo *root)
+```
 ## Detailed Description
 This function analyzes queries containing MIN/MAX aggregate functions to determine if they can be optimized using index scans instead of full table scans. It performs several validation checks to ensure the query structure is compatible with the optimization:
 

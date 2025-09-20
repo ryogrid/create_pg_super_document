@@ -8,7 +8,10 @@ Performs case-independent comparison of two null-terminated strings, providing l
 
 ## Definition
 
-
+```c
+int
+pg_strcasecmp(const char *s1, const char *s2)
+```
 ## Detailed Description
 The  function compares two null-terminated strings character by character in a case-insensitive manner. It handles both ASCII characters (A-Z) and locale-specific extended characters with high-bit set. For ASCII characters, it performs direct case conversion by adding the offset between uppercase and lowercase letters. For extended characters (those with the high bit set), it uses the standard C library's  and  functions to handle locale-specific case conversions properly.
 

@@ -8,7 +8,12 @@
 
 ## Definition
 
-
+```c
+static void
+get_index_paths(PlannerInfo *root, RelOptInfo *rel,
+				IndexOptInfo *index, IndexClauseSet *clauses,
+				List **bitindexpaths)
+```
 ## Detailed Description
 This function serves as a frontend to  with the primary purpose of properly handling ScalarArrayOpExpr qualifiers. It creates IndexPaths in two phases:
 

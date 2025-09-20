@@ -8,7 +8,12 @@ Computes and reports comprehensive memory consumption statistics for a Generatio
 
 ## Definition
 
-
+```c
+void
+GenerationStats(MemoryContext context,
+				MemoryStatsPrintFunc printfunc, void *passthru,
+				MemoryContextCounters *totals, bool print_to_stderr)
+```
 ## Detailed Description
 The  function analyzes a GenerationContext and computes detailed memory usage statistics. It traverses all blocks in the context to collect metrics including the total number of blocks, allocated chunks, free chunks, total space, and free space. The function can optionally format these statistics into a human-readable string and add them to cumulative totals.
 

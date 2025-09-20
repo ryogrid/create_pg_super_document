@@ -8,7 +8,10 @@ pg_sprintf is PostgreSQL's portable implementation of sprintf that formats a str
 
 ## Definition
 
-
+```c
+int
+pg_sprintf(char *str, const char *fmt,...)
+```
 ## Detailed Description
 pg_sprintf provides a portable alternative to the standard sprintf function. It is a variadic wrapper around pg_vsprintf that accepts a variable number of arguments instead of a va_list. The function formats the format string `fmt` with the provided arguments and stores the result in the buffer `str`. Like pg_vsprintf, this function assumes the output buffer is large enough to hold the entire formatted string and performs no bounds checking. This function should only be used when you can guarantee the buffer is sufficiently large.
 

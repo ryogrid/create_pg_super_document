@@ -8,7 +8,10 @@ Initializes the initParam list in Gather or GatherMerge nodes to contain referen
 
 ## Definition
 
-
+```c
+static void
+set_param_references(PlannerInfo *root, Plan *plan)
+```
 ## Detailed Description
 This function is responsible for setting up parameter references in parallel execution nodes (Gather and GatherMerge). It identifies all initplan parameters that are being passed to the plan nodes below the parallel execution boundary and stores them in the node's initParam field. This ensures that worker processes in parallel execution have access to all necessary parameters that were computed by initplans in the main process.
 

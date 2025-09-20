@@ -8,7 +8,10 @@ PLy_spi_execute is a PL/Python dispatcher function that provides a unified inter
 
 ## Definition
 
-
+```c
+PyObject *
+PLy_spi_execute(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 This function serves as a polymorphic entry point for the  interface in PL/Python. It examines the provided arguments to determine whether the user is executing a raw SQL query string or a previously prepared plan object. Based on the argument types, it dispatches to the appropriate specialized execution function:
 

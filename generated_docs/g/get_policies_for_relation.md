@@ -8,7 +8,12 @@ This static function retrieves and categorizes row-level security policies (both
 
 ## Definition
 
-
+```c
+static void
+get_policies_for_relation(Relation relation, CmdType cmd, Oid user_id,
+						  List **permissive_policies,
+						  List **restrictive_policies)
+```
 ## Detailed Description
 The  function is responsible for collecting all applicable row-level security policies for a given relation and command type. It examines both built-in policies stored in the relation descriptor and extension-provided policies through hooks. The function separates policies into two categories:
 

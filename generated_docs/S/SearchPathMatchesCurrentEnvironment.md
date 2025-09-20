@@ -8,7 +8,10 @@ Determines whether a given SearchPathMatcher matches the current active search p
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(collname, &schemaname, &collation_name);
+```
 ## Detailed Description
 This function compares a SearchPathMatcher against the current active search path to determine if they represent the same namespace resolution environment. It's optimized for performance using a generation counter that allows quick validation when the search path hasn't changed. When the generation numbers don't match, it performs a detailed comparison of the namespace lists, temporary namespace flags, and catalog namespace inclusion. If the paths match, it updates the generation number for faster future comparisons.
 

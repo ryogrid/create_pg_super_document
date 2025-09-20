@@ -8,7 +8,10 @@ Returns a string identifier for test custom resource manager WAL record operatio
 
 ## Definition
 
-
+```c
+const char *
+testcustomrmgrs_identify(uint8 info)
+```
 ## Detailed Description
 The  function implements the identification callback for the test_custom_rmgrs custom WAL resource manager. This function is part of the RMGR API and is called to convert operation codes in WAL records into human-readable string identifiers.
 

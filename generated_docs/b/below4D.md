@@ -8,7 +8,10 @@ Determines if any rectangle from a RectBox can be positioned below a given query
 
 ## Definition
 
-
+```c
+static bool
+below4D(RectBox *rect_box, RangeBox *query)
+```
 ## Detailed Description
 This function is part of PostgreSQL's SP-GiST implementation for geometric box operations. It evaluates whether any rectangle within the provided RectBox structure could potentially be positioned entirely below the specified query boundary. Unlike the other 4D functions that work with x-axis relationships, this function operates on the y-axis by comparing the rectangle box's y-range (range_box_y) with the query's right boundary using the lower2D helper function.
 

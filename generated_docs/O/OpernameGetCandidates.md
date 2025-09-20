@@ -8,7 +8,10 @@ OpernameGetCandidates retrieves a list of all possible operator matches for a gi
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &opername);
+```
 ## Detailed Description
 This function performs comprehensive operator candidate lookup in the PostgreSQL catalog system. It returns all operators matching the specified name and kind, supporting both schema-qualified and unqualified searches. For schema-qualified names, it searches only within the specified schema. For unqualified names, it searches through all namespaces in the current search path. The function ensures that entries from earlier namespaces mask identical entries from later namespaces, preventing duplicates with identical argument lists. When oprkind is '\0', it returns all operators matching the name regardless of argument types.
 

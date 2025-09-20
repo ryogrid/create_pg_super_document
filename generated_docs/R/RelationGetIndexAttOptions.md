@@ -8,7 +8,10 @@ Retrieves and parses AM/opclass-specific options for an index into binary format
 
 ## Definition
 
-
+```c
+bytea	  **
+RelationGetIndexAttOptions(Relation relation, bool copy)
+```
 ## Detailed Description
 This function returns AM (Access Method) and opclass-specific options for an index relation in a parsed binary format. It implements a caching mechanism to avoid repeated parsing of the same options. The function first checks if cached options are available in the relation's rd_opcoptions field. If not available, it retrieves the raw option text using get_attoptions() for each attribute and parses them using index_opclass_options(). The parsed options are then cached in the relation's index context for future access.
 

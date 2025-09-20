@@ -8,7 +8,10 @@ DecodeDelete processes HEAP_DELETE WAL records in PostgreSQL's logical replicati
 
 ## Definition
 
-
+```c
+static void
+DecodeDelete(LogicalDecodingContext *ctx, XLogRecordBuffer *buf)
+```
 ## Detailed Description
 DecodeDelete handles the decoding of heap delete operations from WAL records for logical replication. It processes XLOG_HEAP_DELETE records and creates ReorderBufferChange structures for logical decoding output plugins. The function distinguishes between regular deletes and super deletes (speculative delete aborts).
 

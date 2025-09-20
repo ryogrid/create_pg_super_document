@@ -8,7 +8,10 @@ Adds a specified member to a bitmapset, automatically expanding the set's storag
 
 ## Definition
 
-
+```c
+Bitmapset *
+bms_add_member(Bitmapset *a, int x)
+```
 ## Detailed Description
 The  function adds a specified integer member  to bitmapset . If the input set is NULL, it creates a new singleton set. If the member being added requires more storage space than currently allocated, the function automatically expands the bitmapset using . The function follows PostgreSQL's memory management pattern by recycling the input bitmapset when possible, returning the potentially modified bitmapset pointer.
 

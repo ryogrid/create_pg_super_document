@@ -8,7 +8,11 @@ Reports autovacuum work item processing activity to PostgreSQL's statistics syst
 
 ## Definition
 
-
+```c
+static void
+autovac_report_workitem(AutoVacuumWorkItem *workitem,
+						const char *nspname, const char *relname)
+```
 ## Detailed Description
 This function provides visibility into autovacuum work item operations by reporting activity to PostgreSQL's statistics collector. It formats descriptive activity strings based on the work item type and updates the process status that appears in pg_stat_activity views.
 

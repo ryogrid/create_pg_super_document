@@ -8,7 +8,10 @@ Returns the physical byte length of a text value, excluding the variable-length 
 
 ## Definition
 
-
+```c
+Datum
+textoctetlen(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function calculates and returns the actual number of bytes occupied by the text data portion of a PostgreSQL text value, excluding the VARHDRSZ (variable-length header size). This function provides an efficient way to determine the storage size of text data without needing to decompress or detoast the input value.
 

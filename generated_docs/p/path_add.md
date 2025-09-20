@@ -8,7 +8,10 @@ Concatenates two open paths into a single path by joining all points from both p
 
 ## Definition
 
-
+```c
+Datum
+path_add(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs path concatenation on two PATH objects, combining their points into a single new path. This operation is only valid for open paths - if either input path is closed, the function returns NULL. The function creates a new PATH structure containing all points from the first path followed by all points from the second path, maintaining the original coordinate order.
 

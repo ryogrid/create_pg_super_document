@@ -8,7 +8,10 @@ Handles TRUNCATE message processing in PostgreSQL's logical replication worker, 
 
 ## Definition
 
-
+```c
+static void
+apply_handle_truncate(StringInfo s)
+```
 ## Detailed Description
 This function processes TRUNCATE messages received from the publisher in logical replication. It handles the complete truncation workflow including:
 

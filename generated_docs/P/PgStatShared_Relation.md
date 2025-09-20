@@ -8,7 +8,13 @@ A shared memory structure that holds comprehensive table and index statistics fo
 
 ## Definition
 
-
+```c
+typedef struct PgStatShared_Relation
+{
+	PgStatShared_Common header;
+	PgStat_StatTabEntry stats;
+} PgStatShared_Relation;
+```
 ## Detailed Description
 PgStatShared_Relation is a shared memory structure that maintains detailed statistics for individual relations (tables and indexes) within PostgreSQL databases. This structure follows the established pattern for variable-amount statistics, beginning with a PgStatShared_Common header for validation and locking, followed by relation-specific statistical data.
 

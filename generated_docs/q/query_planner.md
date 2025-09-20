@@ -8,7 +8,17 @@ The main entry point for generating a simplified execution path for a basic quer
 
 ## Definition
 
-
+```c
+struct RelOptInfo nodes for all base relations used in the query.
+	 * Appendrel member relations ("other rels") will be added later.
+	 *
+	 * Note: the reason we find the baserels by searching the jointree, rather
+	 * than scanning the rangetable, is that the rangetable may contain RTEs
+	 * for rels not actively part of the query, for example views.  We don't
+	 * want to make RelOptInfos for them.
+	 */
+	add_base_rels_to_query(root, (Node *) parse->jointree);
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's query optimizer responsible for generating access paths for basic query execution. Located at , it serves as the foundation for query planning by handling the core join planning phase.
 

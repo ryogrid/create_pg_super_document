@@ -8,7 +8,10 @@ Implements the \z and \dp psql commands to display access privileges (grants and
 
 ## Definition
 
-
+```c
+bool
+permissionsList(const char *pattern, bool showSystem)
+```
 ## Detailed Description
 This function constructs and executes a comprehensive SQL query to retrieve access control information from PostgreSQL system catalogs. It displays detailed privilege information including table-level permissions, column-level privileges, and row-level security policies. The output includes schema name, object name, object type, access privileges, column privileges, and policies (when supported by the server version).
 

@@ -8,7 +8,10 @@ B-tree comparison function for single-precision floating-point numbers (float4) 
 
 ## Definition
 
-
+```c
+Datum
+btfloat4cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the B-tree operator class comparison function for float4 (single-precision floating-point) data types. It extracts two float4 arguments from the function call context and delegates the actual comparison logic to the internal  function. The function returns an integer indicating the comparison result: negative if the first argument is less than the second, zero if they are equal, and positive if the first argument is greater than the second. This three-way comparison is essential for B-tree index operations including searching, insertion, and maintenance.
 

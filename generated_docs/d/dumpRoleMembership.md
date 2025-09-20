@@ -8,7 +8,10 @@ The dumpRoleMembership function generates SQL GRANT statements for role membersh
 
 ## Definition
 
-
+```c
+static void
+dumpRoleMembership(PGconn *conn)
+```
 ## Detailed Description
 The dumpRoleMembership function is a sophisticated component of PostgreSQL's pg_dumpall utility that handles the complex task of dumping role membership relationships while maintaining proper dependency ordering. It must ensure that GRANT statements are emitted in an order where grantors have the necessary ADMIN OPTION privileges before they can grant roles to other users.
 

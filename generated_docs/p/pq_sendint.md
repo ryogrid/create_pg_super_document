@@ -8,7 +8,10 @@ A deprecated inline function that appends a binary integer to a StringInfo buffe
 
 ## Definition
 
-
+```c
+static inline void
+pq_sendint(StringInfo buf, uint32 i, int b)
+```
 ## Detailed Description
 The  function is a utility function that appends binary integer data to a StringInfo buffer. It acts as a dispatcher that calls the appropriate type-specific function based on the requested byte width. The function supports 1-byte, 2-byte, and 4-byte integer serialization.
 

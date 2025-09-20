@@ -8,7 +8,10 @@ A fast comparison function for variable-length string types optimized for C loca
 
 ## Definition
 
-
+```c
+static int
+varstrfastcmp_c(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 The `varstrfastcmp_c` function provides an optimized comparison implementation for variable-length string data types when using C locale collation. It bypasses expensive locale-aware string comparison functions by using the highly efficient memcmp() system call to compare the raw bytes of two strings. The function handles variable-length strings by extracting the actual data portion and comparing only up to the length of the shorter string, then using length as a tiebreaker if the common prefix is identical. This approach provides significant performance improvements over strcoll()-based comparisons when locale-specific ordering is not required.
 

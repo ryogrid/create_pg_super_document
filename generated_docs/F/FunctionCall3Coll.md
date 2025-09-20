@@ -8,7 +8,11 @@ FunctionCall3Coll is a utility function that invokes a previously-looked-up Post
 
 ## Definition
 
-
+```c
+Datum
+FunctionCall3Coll(FmgrInfo *flinfo, Oid collation, Datum arg1, Datum arg2,
+				  Datum arg3)
+```
 ## Detailed Description
 This function is part of PostgreSQL's function manager (fmgr) system that provides a high-level interface for calling database functions. FunctionCall3Coll handles the case where a function needs to be called with exactly three arguments and a specific collation context. The function sets up the necessary function call information structure, populates all three arguments, invokes the target function, and performs error checking to ensure the result is not NULL.
 

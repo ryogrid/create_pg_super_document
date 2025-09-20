@@ -8,7 +8,12 @@ Extracts index entries from a single indexable item and adds them to the BuildAc
 
 ## Definition
 
-
+```c
+static void
+ginHeapTupleBulkInsert(GinBuildState *buildstate, OffsetNumber attnum,
+					   Datum value, bool isNull,
+					   ItemPointer heapptr)
+```
 ## Detailed Description
 This function is specifically designed for use during initial index creation (bulk operations). It processes a single heap tuple attribute by:
 

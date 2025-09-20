@@ -8,7 +8,10 @@ The  function reverses the character order of a text string while properly handl
 
 ## Definition
 
-
+```c
+Datum
+text_reverse(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's  SQL function for text data types. It creates a new text object containing the input string with its characters in reverse order. The implementation includes optimizations for both single-byte and multibyte character encodings:
 

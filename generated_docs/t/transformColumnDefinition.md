@@ -8,7 +8,10 @@ Transforms a single ColumnDef within CREATE TABLE or ALTER TABLE ADD COLUMN stat
 
 ## Definition
 
-
+```c
+static void
+transformColumnDefinition(CreateStmtContext *cxt, ColumnDef *column)
+```
 ## Detailed Description
 transformColumnDefinition processes individual column definitions during table creation or alteration. It handles the complete transformation of column specifications including:
 

@@ -8,7 +8,10 @@ Sets the size estimates (rows and widths) for each base-relation entry and deter
 
 ## Definition
 
-
+```c
+static void
+set_base_rel_sizes(PlannerInfo *root)
+```
 ## Detailed Description
 This function performs a separate pass over all base relations to establish size estimates and parallel processing flags before path generation begins. It ensures that rowcount estimates are available for parameterized path generation and that each relation's consider_parallel flag is correctly set. 
 

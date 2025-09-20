@@ -8,7 +8,12 @@ ApplySortAbbrevFullComparator is an inline function that applies a sort comparat
 
 ## Definition
 
-
+```c
+static inline int
+ApplySortAbbrevFullComparator(Datum datum1, bool isNull1,
+							  Datum datum2, bool isNull2,
+							  SortSupport ssup)
+```
 ## Detailed Description
 This function provides a comparison interface specifically designed for abbreviated sorting scenarios where a full comparison is needed. Unlike the basic ApplySortComparator which uses the regular comparator function pointer, this function uses the abbrev_full_comparator function pointer from the SortSupport structure.
 

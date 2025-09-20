@@ -8,7 +8,10 @@ Determines whether the autovacuum system should be active by checking essential 
 
 ## Definition
 
-
+```c
+bool
+AutoVacuumingActive(void)
+```
 ## Detailed Description
 This function serves as a centralized check to determine if the autovacuum system should be operational. It validates two critical prerequisites for autovacuum functionality:
 

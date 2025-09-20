@@ -8,7 +8,10 @@ MergeAttributesIntoExisting is a static function that validates attribute compat
 
 ## Definition
 
-
+```c
+static void
+MergeAttributesIntoExisting(Relation child_rel, Relation parent_rel, bool ispartition)
+```
 ## Detailed Description
 This function performs comprehensive attribute validation when establishing inheritance relationships between tables. It ensures that all parent columns exist in the child table with compatible properties, then updates the inheritance counts accordingly. The function enforces strict compatibility requirements: data types must match exactly, collations must be identical, NOT NULL constraints must be preserved, and generated column status must be consistent.
 

@@ -8,7 +8,10 @@ This static utility function checks whether a given filename ends with a specifi
 
 ## Definition
 
-
+```c
+static int
+hasSuffix(const char *filename, const char *suffix)
+```
 ## Detailed Description
 The `hasSuffix` function performs a suffix check on a filename string by comparing the end portion of the filename with the provided suffix. It uses string length calculations to determine the appropriate starting position for comparison and then performs a byte-wise comparison using memcmp. The function returns 1 if the filename ends with the suffix, and 0 otherwise.
 

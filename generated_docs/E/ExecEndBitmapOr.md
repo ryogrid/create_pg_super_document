@@ -8,7 +8,10 @@ ExecEndBitmapOr performs cleanup operations for a BitmapOr node by shutting down
 
 ## Definition
 
-
+```c
+void
+ExecEndBitmapOr(BitmapOrState *node)
+```
 ## Detailed Description
 ExecEndBitmapOr is responsible for the cleanup phase of BitmapOr node execution. The function iterates through all child subplan states stored in the BitmapOrState structure and calls ExecEndNode on each initialized subplan to perform proper resource cleanup and finalization.
 

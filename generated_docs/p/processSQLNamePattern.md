@@ -8,7 +8,14 @@ Processes wildcard-pattern strings and generates appropriate WHERE clauses to li
 
 ## Definition
 
-
+```c
+bool
+processSQLNamePattern(PGconn *conn, PQExpBuffer buf, const char *pattern,
+					  bool have_where, bool force_escape,
+					  const char *schemavar, const char *namevar,
+					  const char *altnamevar, const char *visibilityrule,
+					  PQExpBuffer dbnamebuf, int *dotcnt)
+```
 ## Detailed Description
 This function is a core utility in PostgreSQL's frontend tools for handling user-specified patterns when querying database objects. It converts shell-style patterns (with wildcards like * and ?) into SQL WHERE clauses using regular expression matching.
 

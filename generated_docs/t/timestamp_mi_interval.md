@@ -8,7 +8,10 @@ Subtracts an interval from a timestamp by negating the interval and then using t
 
 ## Definition
 
-
+```c
+Datum
+timestamp_mi_interval(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements timestamp-interval subtraction by leveraging the existing timestamp_pl_interval function. It follows a simple but effective approach:
 

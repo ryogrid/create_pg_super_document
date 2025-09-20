@@ -8,7 +8,10 @@ Read callback function for WAL summary file operations that performs file I/O wi
 
 ## Definition
 
-
+```c
+int
+walsummary_read_callback(void *callback_arg, void *data, int length)
+```
 ## Detailed Description
 This callback function handles reading data from WAL summary files through a standardized interface. It receives a ws_file_info structure containing file descriptor and filename, then performs a read operation to fill the provided buffer with the requested number of bytes. If the read operation fails, it terminates the program with a fatal error message including the filename and system error details. The function returns the actual number of bytes read, which may be less than requested if end-of-file is reached or fewer bytes are available.
 

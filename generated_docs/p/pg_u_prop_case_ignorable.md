@@ -8,7 +8,10 @@ Determines whether a Unicode code point has the Case_Ignorable property, which i
 
 ## Definition
 
-
+```c
+bool
+pg_u_prop_case_ignorable(pg_wchar code)
+```
 ## Detailed Description
 This function checks if a given Unicode code point has the Case_Ignorable property according to the Unicode Standard. Characters with this property are typically modifiers, combining marks, or format characters that don't affect case operations and should be ignored during case folding, case mapping, or case-sensitive comparisons.
 

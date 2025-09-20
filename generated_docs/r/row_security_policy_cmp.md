@@ -8,7 +8,10 @@ This static comparison function enables sorting of RowSecurityPolicy structures 
 
 ## Definition
 
-
+```c
+static int
+row_security_policy_cmp(const ListCell *a, const ListCell *b)
+```
 ## Detailed Description
 The  function serves as a comparator for the  function when sorting row-level security policies by name. It extracts RowSecurityPolicy structures from ListCell containers and compares their policy names using standard string comparison. The function includes defensive programming by handling the edge case where extension-provided policies might have NULL policy names.
 

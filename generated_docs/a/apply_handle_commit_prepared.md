@@ -8,7 +8,10 @@ Handles the commit phase of a previously prepared two-phase transaction in Postg
 
 ## Definition
 
-
+```c
+static void
+apply_handle_commit_prepared(StringInfo s)
+```
 ## Detailed Description
 apply_handle_commit_prepared processes a COMMIT PREPARED message received from the publisher during logical replication. This function is part of PostgreSQL's two-phase commit protocol implementation in logical replication workers. It reads the commit prepared transaction data, constructs the global transaction identifier (GID), and calls FinishPreparedTransaction to commit the previously prepared transaction.
 

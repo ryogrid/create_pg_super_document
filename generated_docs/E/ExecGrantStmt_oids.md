@@ -8,7 +8,10 @@ Internal dispatcher function that routes privilege grant/revoke operations to th
 
 ## Definition
 
-
+```c
+static void
+ExecGrantStmt_oids(InternalGrant *istmt)
+```
 ## Detailed Description
 This static function serves as a central dispatch mechanism for PostgreSQL's internal privilege management system. After the initial parsing and validation has been completed by ExecuteGrantStmt(), this function routes the privilege operation to the appropriate specialized handler based on the object type. It uses a comprehensive switch statement to map each object type to its corresponding execution function - tables and sequences use ExecGrant_Relation(), large objects use ExecGrant_Largeobject(), parameters use ExecGrant_Parameter(), while most other object types use the generic ExecGrant_common() with object-specific parameters including catalog relation ID, privilege mask, and optional validation callback functions. After the privilege changes are successfully applied, the function triggers event notification through the event trigger system if the object type supports it, allowing extensions and logging systems to capture privilege change events.
 

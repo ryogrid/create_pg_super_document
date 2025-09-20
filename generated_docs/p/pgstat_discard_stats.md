@@ -8,7 +8,10 @@ Removes the PostgreSQL statistics file from disk and resets all statistics conte
 
 ## Definition
 
-
+```c
+void
+pgstat_discard_stats(void)
+```
 ## Detailed Description
 This function performs a complete cleanup of PostgreSQL statistics data both on disk and in memory. It first attempts to remove the permanent statistics file from the filesystem using the  system call. After file removal, it resets all statistics contents in shared memory to ensure a clean state.
 

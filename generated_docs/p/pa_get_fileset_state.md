@@ -8,7 +8,10 @@ pa_get_fileset_state retrieves the current fileset state for a parallel apply wo
 
 ## Definition
 
-
+```c
+static PartialFileSetState
+pa_get_fileset_state(void)
+```
 ## Detailed Description
 This static function provides a thread-safe mechanism for parallel apply workers to query the current state of the fileset in PostgreSQL's logical replication system. It accesses the shared memory structure containing the fileset state and returns the current value while ensuring atomicity through spinlock protection.
 

@@ -8,7 +8,11 @@ Updates the item pointer (downlink) in a specific node entry within an SP-GiST i
 
 ## Definition
 
-
+```c
+void
+spgUpdateNodeLink(SpGistInnerTuple tup, int nodeN,
+				  BlockNumber blkno, OffsetNumber offset)
+```
 ## Detailed Description
 This function modifies the item pointer (t_tid) of the nodeN'th entry in an SP-GiST inner tuple. It's a critical utility function used during tree maintenance operations when nodes are moved or split, requiring parent inner tuples to update their downlinks to point to the new locations of child nodes. The function iterates through the nodes in the inner tuple using the SGITITERATE macro until it finds the target node, then updates its item pointer with the new block number and offset.
 

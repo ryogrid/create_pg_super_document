@@ -8,7 +8,10 @@ Reads a stop-word file and populates a StopList structure with the words, option
 
 ## Definition
 
-
+```c
+void
+readstoplist(const char *fname, StopList *s, char *(*wordop) (const char *))
+```
 ## Detailed Description
 This function loads stop words from a specified file into a StopList structure. It handles the complete process of opening the stop-word file (with ".stop" extension), reading each line, processing the words, and storing them in a dynamically allocated array. The function supports optional word preprocessing through a user-supplied function pointer.
 

@@ -8,7 +8,10 @@ Acquires a snapshot that can be used for the current serializable transaction, e
 
 ## Definition
 
-
+```c
+Snapshot
+GetSerializableTransactionSnapshot(Snapshot snapshot)
+```
 ## Detailed Description
 This function is the main entry point for acquiring snapshots in serializable isolation level transactions. It ensures that the calling process has a proper SERIALIZABLEXACT reference in MySerializableXact and that it's contained in PredXact (the predicate lock manager's transaction table). 
 

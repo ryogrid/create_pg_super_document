@@ -8,7 +8,9 @@ Tests whether all specified keys exist in a JSONB object or all specified string
 
 ## Definition
 
-
+```c
+struct_array_builtin(keys, TEXTOID, &key_datums, &key_nulls, &elem_count);
+```
 ## Detailed Description
 The jsonb_exists_all function implements the PostgreSQL '?&' operator for JSONB values. It checks whether all keys from a provided array of text values exist at the top level of a JSONB object, or whether all of the specified string values exist as elements in a JSONB array. The function returns false as soon as it fails to find a match for any of the provided keys/values.
 

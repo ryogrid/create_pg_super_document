@@ -8,7 +8,10 @@ The  function is a specialized type analysis function for multirange columns in 
 
 ## Definition
 
-
+```c
+Datum
+multirange_typanalyze(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the type-specific analysis setup routine for multirange columns. It performs the same analysis approach as range types, but operates on the smallest range that completely includes the multirange. The function configures the statistics collection framework to analyze multirange data by treating it as equivalent to a single encompassing range.
 

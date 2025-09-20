@@ -8,7 +8,10 @@ Detaches a typed table from its originating type by clearing the relationship me
 
 ## Definition
 
-
+```c
+static void
+ATExecDropOf(Relation rel, LOCKMODE lockmode)
+```
 ## Detailed Description
 ATExecDropOf implements the  SQL command functionality. When a table is created with , it establishes a typed table relationship where the table's structure is tied to a composite type. This function reverses that relationship by:
 

@@ -8,7 +8,10 @@ Cleanup function that frees the LZ4 compression context to prevent memory leaks 
 
 ## Definition
 
-
+```c
+static void
+bbsink_lz4_cleanup(bbsink *sink)
+```
 ## Detailed Description
 The `bbsink_lz4_cleanup` function is a cleanup handler specifically designed for LZ4-compressed basebackup sinks. It serves as a safeguard to ensure that memory allocated for the LZ4 compression context is properly released in case the backup operation fails or needs to be terminated prematurely. The function casts the generic `bbsink` pointer to the specific `bbsink_lz4` type and checks if a compression context exists before freeing it using the LZ4F library function `LZ4F_freeCompressionContext()`. After freeing the context, it sets the pointer to NULL to prevent double-free errors.
 

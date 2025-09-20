@@ -8,7 +8,14 @@ ParserState is a structure used in PostgreSQL's test parser module to maintain t
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			lexid;
+	char	   *alias;
+	char	   *descr;
+} LexDescr;
+```
 ## Detailed Description
 ParserState is a simple state management structure used by PostgreSQL's test text search parser implementation. It serves as a context object that maintains parsing state across multiple function calls during text analysis operations. The structure is designed to support incremental parsing by tracking the current position within a text buffer, allowing the parser to process text token by token while maintaining state between calls.
 

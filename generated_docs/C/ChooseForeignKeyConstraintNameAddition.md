@@ -8,7 +8,10 @@ ChooseForeignKeyConstraintNameAddition generates the column-name portion of fore
 
 ## Definition
 
-
+```c
+static char *
+ChooseForeignKeyConstraintNameAddition(List *colnames)
+```
 ## Detailed Description
 This utility function creates a string representation of column names for use in automatically generated foreign key constraint names. It takes a list of column names that reference the foreign table and concatenates them with underscore separators. The resulting string is designed to be used with ChooseConstraintName along with the table name and "fkey" suffix to create a complete, descriptive constraint name.
 

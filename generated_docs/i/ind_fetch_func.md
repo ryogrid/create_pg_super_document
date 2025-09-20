@@ -8,7 +8,13 @@ A static function that serves as a data fetch callback for analyzing index expre
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			count;			/* # of duplicates */
+	int			first;			/* values[] index of first occurrence */
+} ScalarMCVItem;
+```
 ## Detailed Description
 The  function is a specialized fetch function used during index analysis operations. It provides an efficient way to access expression values for statistical analysis without the overhead of constructing complete index tuples. The function operates on pre-computed arrays of Datum values and null indicators that are stored in the  structure. This approach optimizes memory usage and performance during the ANALYZE operation on index expressions.
 

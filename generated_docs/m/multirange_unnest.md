@@ -8,7 +8,14 @@ Converts a multirange into a set of individual ranges, returning each range as a
 
 ## Definition
 
-
+```c
+typedef struct
+	{
+		MultirangeType *mr;
+		TypeCacheEntry *typcache;
+		int			index;
+	} multirange_unnest_fctx;
+```
 ## Detailed Description
 The `multirange_unnest` function is a set-returning function (SRF) that takes a multirange as input and returns each individual range within that multirange as separate result rows. This function implements the PostgreSQL SQL function `unnest()` for multirange types.
 

@@ -8,7 +8,12 @@ Point is a fundamental geometric data type in PostgreSQL that represents a 2D po
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	Point		p[2];
+} LSEG;
+```
 ## Detailed Description
 Point is the most basic geometric data type in PostgreSQL's geometric type system. It stores a single point in 2D space using two  (double precision) values for the x and y coordinates. This type serves as the foundation for more complex geometric types like LSEG (line segment), BOX, PATH, POLYGON, and CIRCLE, which all use Point structures internally.
 

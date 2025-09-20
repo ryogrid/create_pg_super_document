@@ -8,7 +8,9 @@ scram_state_enum is an enumeration that tracks the state of a SCRAM-SHA-256 auth
 
 ## Definition
 
-
+```c
+enum;
+```
 ## Detailed Description
 This enumeration defines the three distinct phases of the SCRAM (Salted Challenge Response Authentication Mechanism) authentication process in PostgreSQL. The enum is used internally within the auth-scram.c module to maintain state during the multi-step SASL SCRAM-SHA-256 authentication protocol between client and server. Each value represents a specific stage in the authentication handshake, ensuring that messages are processed in the correct order and that the authentication protocol flows properly from initialization through completion.
 

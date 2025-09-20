@@ -8,7 +8,11 @@ Sets the next MultiXact ID and offset values to be assigned, typically used duri
 
 ## Definition
 
-
+```c
+void
+MultiXactSetNextMXact(MultiXactId nextMulti,
+					  MultiXactOffset nextMultiOffset)
+```
 ## Detailed Description
 MultiXactSetNextMXact is responsible for setting the next MultiXact ID and corresponding offset that will be assigned when new MultiXacts are created. This function is primarily used during system bootstrap and WAL replay operations where the exact next values can be determined from checkpoint records or other authoritative sources.
 

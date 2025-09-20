@@ -8,7 +8,9 @@ A PostgreSQL system function that retrieves the current value of a configuration
 
 ## Definition
 
-
+```c
+struct config_generic **guc_vars;
+```
 ## Detailed Description
 This function provides a more flexible version of show_config_by_name() that can gracefully handle requests for non-existent configuration parameters. It takes both a configuration parameter name and a boolean flag indicating whether to suppress errors for missing parameters. When missing_ok is true and the parameter doesn't exist, the function returns NULL instead of raising an error, making it suitable for conditional configuration queries where parameter existence is uncertain.
 

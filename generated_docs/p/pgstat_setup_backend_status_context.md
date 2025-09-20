@@ -8,7 +8,10 @@ Creates and initializes a memory context specifically for storing backend status
 
 ## Definition
 
-
+```c
+static void
+pgstat_setup_backend_status_context(void)
+```
 ## Detailed Description
 This static function ensures that a dedicated memory context exists for backend status snapshots. It performs a lazy initialization pattern - only creating the memory context when it's actually needed and if it hasn't been created already. The function creates a memory context using the AllocSet allocator with small size parameters, which is optimized for storing the backend status information that is typically small and frequently accessed.
 

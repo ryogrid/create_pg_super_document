@@ -8,7 +8,14 @@ A structure that serves as a hash key for tracking references to invalid pages d
 
 ## Definition
 
-
+```c
+typedef struct xl_invalid_page_key
+{
+	RelFileLocator locator;		/* the relation */
+	ForkNumber	forkno;			/* the fork number */
+	BlockNumber blkno;			/* the page */
+} xl_invalid_page_key;
+```
 ## Detailed Description
 The  structure is used during XLOG replay to identify pages that may no longer exist due to relation drops or truncations. This mechanism is particularly important when  is OFF, as incremental updates to non-existent pages can occur. Rather than ignoring such references, PostgreSQL tracks them and validates that appropriate drop or truncate operations are found later in the replay sequence.
 

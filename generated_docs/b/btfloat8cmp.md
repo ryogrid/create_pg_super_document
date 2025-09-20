@@ -8,7 +8,10 @@ PostgreSQL function that provides a three-way comparison between two double-prec
 
 ## Definition
 
-
+```c
+Datum
+btfloat8cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL SQL-callable wrapper around the internal float8_cmp_internal function. It extracts two double-precision floating-point arguments from the PostgreSQL function call interface and performs a three-way comparison (returning -1, 0, or 1 for less than, equal to, or greater than comparisons respectively). The function is specifically designed for use by B-tree indexes to support ordering and sorting operations on double-precision columns.
 

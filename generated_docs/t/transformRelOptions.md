@@ -8,7 +8,9 @@ Transforms a list of relation option definitions (DefElem) into a text array for
 
 ## Definition
 
-
+```c
+struct_array_builtin(array, TEXTOID, &oldoptions, NULL, &noldoptions);
+```
 ## Detailed Description
 This function is the core transformation engine for PostgreSQL relation options. It processes a list of option definitions and converts them into the standardized text array format used internally by PostgreSQL. The function handles three main scenarios: CREATE TABLE/INDEX (building from scratch), ALTER TABLE SET (adding/modifying options), and ALTER TABLE RESET (removing options). It performs namespace validation, merges new options with existing ones, and formats each option as 'name=value' strings. The function also includes special handling for deprecated OIDS options and validates that option names don't contain '=' characters.
 

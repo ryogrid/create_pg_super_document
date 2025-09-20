@@ -8,7 +8,17 @@ Creates a Unique plan node for eliminating duplicate rows from a subplan, either
 
 ## Definition
 
-
+```c
+structed, the subplan has a "flat" tlist containing just the Vars
+	 * needed here and at upper levels.  The values we are supposed to
+	 * unique-ify may be expressions in these variables.  We have to add any
+	 * such expressions to the subplan's tlist.
+	 *
+	 * The subplan may have a "physical" tlist if it is a simple scan plan. If
+	 * we're going to sort, this should be reduced to the regular tlist, so
+	 * that we don't sort more data than we need to.  For hashing, the tlist
+	 * should be left as-is if we don't need to add any expressions;
+```
 ## Detailed Description
 The  function generates a plan node that eliminates duplicate rows from its subplan based on the unique expressions specified in the . The function supports two uniquification methods:
 

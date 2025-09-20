@@ -8,7 +8,10 @@ Converts PostgreSQL arrays from internal ArrayType representation to external bi
 
 ## Definition
 
-
+```c
+Datum
+array_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 array_send is the binary send function for PostgreSQL arrays, responsible for serializing internal ArrayType structures into binary format suitable for network transmission or storage. The function uses PostgreSQL's standard binary protocol format, which includes array metadata (dimensions, bounds, null flags) followed by individual element data. It employs a caching mechanism (ArrayMetaState) to optimize performance across multiple function calls with the same element type.
 

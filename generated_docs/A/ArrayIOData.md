@@ -8,7 +8,14 @@ ArrayIOData is a structure used to cache metadata needed for populating arrays d
 
 ## Definition
 
-
+```c
+typedef struct ArrayIOData
+{
+	ColumnIOData *element_info; /* metadata cache */
+	Oid			element_type;	/* array element type id */
+	int32		element_typmod; /* array element type modifier */
+} ArrayIOData;
+```
 ## Detailed Description
 ArrayIOData serves as a metadata cache structure specifically designed to optimize array population operations in JSON functions. It stores essential type information about array elements, including a pointer to cached column I/O data, the element's type OID, and type modifier. This caching mechanism helps avoid repeated type lookups during array processing, improving performance when dealing with JSON-to-PostgreSQL array conversions.
 

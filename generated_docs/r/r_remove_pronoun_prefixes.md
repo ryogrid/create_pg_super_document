@@ -8,7 +8,11 @@ Removes Tamil pronoun prefixes from words as part of the Tamil language stemming
 
 ## Definition
 
+```c
+}
 
+static int r_remove_pronoun_prefixes(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Tamil stemmer implementation that removes specific pronoun prefixes from Tamil words. It operates by:
 1. Setting up the stemming environment by initializing I[1] to 0 and positioning the backward cursor

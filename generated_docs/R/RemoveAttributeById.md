@@ -8,7 +8,10 @@ RemoveAttributeById is the core function for ALTER TABLE DROP COLUMN operations 
 
 ## Definition
 
-
+```c
+void
+RemoveAttributeById(Oid relid, AttrNumber attnum)
+```
 ## Detailed Description
 This function implements the guts of ALTER TABLE DROP COLUMN by actually marking the specified attribute as deleted in pg_attribute. It performs several critical operations: acquiring an exclusive lock on the target relation, marking the attribute as dropped, invalidating the type OID, removing not-null constraints, clearing generated column information, renaming the column to avoid conflicts, clearing missing values, and removing statistical data. The function ensures that the attribute becomes inaccessible while preserving essential type information (typlen and typalign) needed for tuple processing. Other cleanup tasks like removing pg_attrdef entries are handled by the dependency system.
 

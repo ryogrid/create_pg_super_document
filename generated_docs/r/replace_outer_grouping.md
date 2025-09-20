@@ -8,7 +8,10 @@ Generates a Param node to replace a GroupingFunc expression that references an o
 
 ## Definition
 
-
+```c
+Param *
+replace_outer_grouping(PlannerInfo *root, GroupingFunc *grp)
+```
 ## Detailed Description
 This function is part of PostgreSQL's parameter assignment mechanism for handling GroupingFunc expressions that reference outer query levels (agglevelsup > 0). When the optimizer encounters a GroupingFunc that needs to be evaluated at a higher query level, this function creates a parameter placeholder (Param node) to represent it in the current query level.
 

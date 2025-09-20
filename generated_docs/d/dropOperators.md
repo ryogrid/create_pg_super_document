@@ -8,7 +8,11 @@ Removes operator entries from an operator family by deleting their corresponding
 
 ## Definition
 
-
+```c
+static void
+dropOperators(List *opfamilyname, Oid amoid, Oid opfamilyoid,
+			  List *operators)
+```
 ## Detailed Description
 This function handles the removal of operator entries from an existing operator family during ALTER OPERATOR FAMILY DROP operations. It processes a list of OpFamilyMember structures representing operators to be removed, validates their existence in the pg_amop catalog, and performs their deletion. The function uses RESTRICT behavior, meaning it only allows removal of "loose" members that can be safely deleted without cascading effects. Each operator is identified by its strategy number and operand types within the specified operator family, and proper error reporting is provided if an operator doesn't exist.
 

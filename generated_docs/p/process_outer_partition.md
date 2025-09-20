@@ -8,7 +8,18 @@ Attempts to assign a given outer partition a merged partition during partitionwi
 
 ## Definition
 
-
+```c
+static int
+process_outer_partition(PartitionMap *outer_map,
+						PartitionMap *inner_map,
+						bool outer_has_default,
+						bool inner_has_default,
+						int outer_index,
+						int inner_default,
+						JoinType jointype,
+						int *next_index,
+						int *default_index)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's partitionwise join optimization. It processes an outer partition and attempts to merge it with an appropriate partition from the inner side of a join. The function handles two main scenarios:
 

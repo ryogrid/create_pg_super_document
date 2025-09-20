@@ -8,7 +8,10 @@ Configures the TCP user timeout parameter for a PostgreSQL connection socket, co
 
 ## Definition
 
-
+```c
+static int
+setTCPUserTimeout(PGconn *conn)
+```
 ## Detailed Description
 This function sets the TCP user timeout parameter on a PostgreSQL connection socket using the TCP_USER_TIMEOUT socket option. The TCP user timeout specifies the maximum amount of time that transmitted data may remain unacknowledged before the TCP stack considers the connection broken. This timeout encompasses both the time for retransmissions and the time waiting for acknowledgments.
 

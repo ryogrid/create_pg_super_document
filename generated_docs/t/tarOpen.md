@@ -8,7 +8,10 @@ Opens a file within a tar archive for reading or writing, creating a TAR_MEMBER 
 
 ## Definition
 
-
+```c
+static TAR_MEMBER *
+tarOpen(ArchiveHandle *AH, const char *filename, char mode)
+```
 ## Detailed Description
 The tarOpen function is a core component of PostgreSQL's tar-based backup format handling. It provides a unified interface for opening files within tar archives for both reading and writing operations. When opening for reading (mode 'r'), it locates the specified file within the archive using _tarPositionTo. When opening for writing (mode 'w'), it creates a temporary file that will later be written to the tar archive.
 

@@ -8,7 +8,10 @@ ExecParallelCreateReaders creates TupleQueueReader objects for each launched par
 
 ## Definition
 
-
+```c
+void
+ExecParallelCreateReaders(ParallelExecutorInfo *pei)
+```
 ## Detailed Description
 This function completes the setup of the tuple communication infrastructure for parallel query execution by creating reader objects that allow the coordinator process to consume results from worker processes. It is designed to be called after workers have been launched and are potentially already executing, making it separate from the initial plan setup.
 

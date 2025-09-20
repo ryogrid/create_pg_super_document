@@ -8,7 +8,12 @@ A pattern matching function used in PostgreSQL's psql tab completion system to d
 
 ## Definition
 
-
+```c
+static bool
+word_matches(const char *pattern,
+			 const char *word,
+			 bool case_sensitive)
+```
 ## Detailed Description
 The `word_matches` function implements a flexible pattern matching algorithm that supports multiple features essential for tab completion. It can match exact strings, wildcard patterns (using '*'), alternative patterns (using '|'), and negated patterns (using '\!' prefix). The function is case-sensitive or case-insensitive based on the `case_sensitive` parameter. It uses a loop to process alternative patterns separated by '|' characters, and for each alternative, it checks for wildcards and performs appropriate string matching using either standard `strncmp` or PostgreSQL's case-insensitive `pg_strncasecmp`.
 

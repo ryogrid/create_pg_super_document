@@ -8,7 +8,10 @@ Converts PostgreSQL's internal TimeADT representation to external binary format 
 
 ## Definition
 
-
+```c
+Datum
+time_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL output function that serializes time values to their binary external representation. It takes a TimeADT value (representing microseconds since midnight) and converts it to a bytea value containing the binary representation in network byte order. This function is part of PostgreSQL's binary I/O system for the time data type and is the complement to .
 

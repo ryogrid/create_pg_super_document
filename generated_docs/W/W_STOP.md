@@ -8,7 +8,14 @@ W_STOP is an enumeration value in the WHEN_TYPE enum that represents a stop acti
 
 ## Definition
 
-
+```c
+struct when
+{
+	enum WHEN_TYPE code;
+	char	   *command;
+	char	   *str;
+};
+```
 ## Detailed Description
 W_STOP is one of the enumeration values in the WHEN_TYPE enum used by the ECPG preprocessor to handle different types of actions in SQL exception handling statements. When W_STOP is encountered, it generates C code that calls "exit(1)" to terminate the program with an error status. This is typically used in WHENEVER statements to stop program execution when a specific SQL condition (like SQLERROR or SQLWARNING) occurs.
 

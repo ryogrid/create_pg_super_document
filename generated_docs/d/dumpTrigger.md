@@ -8,7 +8,10 @@ Writes the SQL declaration of one user-defined table trigger, including special 
 
 ## Definition
 
-
+```c
+static void
+dumpTrigger(Archive *fout, const TriggerInfo *tginfo)
+```
 ## Detailed Description
 The  function generates SQL CREATE TRIGGER statements and associated ALTER TRIGGER commands to restore trigger definitions and their enabled states. It handles regular triggers by using the stored trigger definition (), and processes partition triggers specially by generating ALTER TABLE statements to modify the trigger's enabled state rather than recreating it. The function also manages trigger dependencies on extensions and generates appropriate DROP TRIGGER statements for cleanup. For triggers that are not in the default enabled state ('t' or 'O'), it appends ALTER TABLE commands to set the correct enabled state (DISABLE, ENABLE ALWAYS, ENABLE REPLICA).
 

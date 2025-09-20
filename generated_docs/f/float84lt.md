@@ -8,7 +8,10 @@ Function that compares a float8 (double precision) value with a float4 (single p
 
 ## Definition
 
-
+```c
+Datum
+float84lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The float84lt function implements the less-than comparison operator between a float8 (double precision floating point) value and a float4 (single precision floating point) value. It extracts the float8 argument from the first position and the float4 argument from the second position, then delegates the actual comparison to the float8_lt function after casting the float4 argument to float8. This function is typically used by PostgreSQL's operator system to handle mixed-precision floating point comparisons.
 

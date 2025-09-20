@@ -8,7 +8,20 @@ PgStat_StatReplSlotEntry is a structure that tracks statistics for logical repli
 
 ## Definition
 
-
+```c
+typedef struct PgStat_StatReplSlotEntry
+{
+	PgStat_Counter spill_txns;
+	PgStat_Counter spill_count;
+	PgStat_Counter spill_bytes;
+	PgStat_Counter stream_txns;
+	PgStat_Counter stream_count;
+	PgStat_Counter stream_bytes;
+	PgStat_Counter total_txns;
+	PgStat_Counter total_bytes;
+	TimestampTz stat_reset_timestamp;
+} PgStat_StatReplSlotEntry;
+```
 ## Detailed Description
 PgStat_StatReplSlotEntry maintains comprehensive statistics for logical replication slots, which are essential components of PostgreSQL's logical replication system. This structure tracks both spill operations (when transaction data is written to disk due to memory constraints) and stream operations (when data is streamed directly to consumers), along with overall transaction statistics. These metrics are crucial for monitoring replication slot performance, identifying bottlenecks, and understanding the behavior of logical decoding processes.
 

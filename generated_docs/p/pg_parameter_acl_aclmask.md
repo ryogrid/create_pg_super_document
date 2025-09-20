@@ -8,7 +8,10 @@ A function that examines a user's privileges for PostgreSQL configuration parame
 
 ## Definition
 
-
+```c
+static AclMode
+pg_parameter_acl_aclmask(Oid acl_oid, Oid roleid, AclMode mask, AclMaskHow how)
+```
 ## Detailed Description
 This function provides privilege checking for PostgreSQL configuration parameters when the parameter is identified by its pg_parameter_acl catalog entry OID rather than by name. It serves as a complementary function to , offering a more direct lookup mechanism when the OID is already known.
 

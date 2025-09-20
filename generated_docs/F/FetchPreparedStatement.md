@@ -8,7 +8,10 @@ Retrieves an existing prepared statement from the hash table by name, with optio
 
 ## Definition
 
-
+```c
+PreparedStatement *
+FetchPreparedStatement(const char *stmt_name, bool throwError)
+```
 ## Detailed Description
 FetchPreparedStatement is a utility function that looks up a prepared statement in the global prepared_queries hash table. The function provides flexible error handling: it can either throw an ERROR when a statement is not found (if throwError is true) or return NULL silently. The function is designed to be efficient by first checking if the hash table exists before attempting a lookup. Note that this function does not validate the referenced plancache entry, leaving that responsibility to the caller when needed.
 

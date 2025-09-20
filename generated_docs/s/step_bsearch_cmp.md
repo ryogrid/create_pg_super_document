@@ -8,7 +8,10 @@ A comparison function used for binary searching Step objects by name, designed f
 
 ## Definition
 
-
+```c
+static int
+step_bsearch_cmp(const void *a, const void *b)
+```
 ## Detailed Description
 This function implements a comparison callback for binary searching through a sorted array of Step pointers using the bsearch() function from the C standard library. Unlike  which compares two Step objects, this function compares a search key (step name string) against a Step object's name field. It follows the standard bsearch comparison contract: returning a negative value if the search key comes before the step's name alphabetically, zero if they match, and a positive value if the search key comes after.
 

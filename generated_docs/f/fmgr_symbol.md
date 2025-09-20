@@ -8,7 +8,10 @@ This function returns the module and C function name that provides the implement
 
 ## Definition
 
-
+```c
+void
+fmgr_symbol(Oid functionId, char **mod, char **fn)
+```
 ## Detailed Description
 fmgr_symbol queries the PostgreSQL system catalog (pg_proc) to determine how a function with the given OID is implemented. It returns pointers to the module name and function name through output parameters. The function handles different language implementations:
 

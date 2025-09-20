@@ -8,7 +8,10 @@ PrepareRedoRemove removes a global transaction entry from shared memory during W
 
 ## Definition
 
-
+```c
+void
+PrepareRedoRemove(TransactionId xid, bool giveWarning)
+```
 ## Detailed Description
 PrepareRedoRemove is the cleanup counterpart to PrepareRedoAdd, responsible for removing global transaction entries from the TwoPhaseState shared memory structure during WAL replay. The function searches through the active prepared transactions array to find the entry matching the specified transaction ID, then removes both the in-memory state and any corresponding disk files if they exist. This function is typically called during recovery when processing COMMIT PREPARED or ROLLBACK PREPARED WAL records, or when cleaning up stale transaction state that was already committed or aborted. It handles both scenarios where the transaction state exists only in memory and where it was previously checkpointed to disk.
 

@@ -8,7 +8,10 @@ Returns the string representation of a JSON path operation based on its JsonPath
 
 ## Definition
 
-
+```c
+const char *
+jspOperationName(JsonPathItemType type)
+```
 ## Detailed Description
 This function provides a mapping from JsonPathItemType enumeration values to their corresponding string representations. It serves as a utility function primarily used for debugging, error messages, and display purposes when working with JSON path expressions. The function handles all the various operation types supported in PostgreSQL's JSON path implementation, including arithmetic operations (+, -, *, /, %), comparison operations (==, \!=, <, >, <=, >=), logical operations (&&, ||), and various built-in functions and type conversion operations.
 

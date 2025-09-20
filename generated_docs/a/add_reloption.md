@@ -8,7 +8,10 @@ The add_reloption function adds an already-created custom relation option to the
 
 ## Definition
 
-
+```c
+static void
+add_reloption(relopt_gen *newoption)
+```
 ## Detailed Description
 This static function manages the dynamic growth of the custom_options array, which stores pointers to user-defined relation options. The function implements a simple array expansion strategy, starting with an initial capacity of 8 elements and doubling the size when more space is needed.
 

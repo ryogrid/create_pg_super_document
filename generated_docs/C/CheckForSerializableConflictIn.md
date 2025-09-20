@@ -8,7 +8,10 @@ CheckForSerializableConflictIn detects serializable conflicts when performing wr
 
 ## Definition
 
-
+```c
+void
+CheckForSerializableConflictIn(Relation relation, ItemPointer tid, BlockNumber blkno)
+```
 ## Detailed Description
 This function is the main entry point for checking serializable conflicts during write operations in PostgreSQL's serializable snapshot isolation. When a transaction performs a tuple update or delete, this function checks if there are existing predicate locks (SIREAD locks) that would create read-write conflicts with other serializable transactions.
 

@@ -8,7 +8,11 @@ The r_case function handles Hungarian case endings by removing various grammatic
 
 ## Definition
 
+```c
+}
 
+static int r_case(struct SN_env * z)
+```
 ## Detailed Description
 This function is a core component of the Hungarian stemmer that processes case endings. Hungarian has an extensive case system with multiple forms, and this function handles the removal of 44 different case suffix patterns including:
 

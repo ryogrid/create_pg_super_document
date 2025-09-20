@@ -8,7 +8,11 @@ The main stemming function for Indonesian text using UTF-8 encoding that impleme
 
 ## Definition
 
+```c
+}
 
+extern int indonesian_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete Indonesian stemming algorithm as part of the Snowball stemmer library. It processes Indonesian words by:
 

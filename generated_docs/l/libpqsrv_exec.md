@@ -8,7 +8,10 @@ A PQexec() wrapper function that processes interrupts while executing SQL querie
 
 ## Definition
 
-
+```c
+static inline PGresult *
+libpqsrv_exec(PGconn *conn, const char *query, uint32 wait_event_info)
+```
 ## Detailed Description
 This function serves as a wrapper around PostgreSQL's PQexec() functionality but with enhanced interrupt handling capabilities. It combines PQsendQuery() to initiate the query and libpqsrv_get_result_last() to retrieve results while properly handling interrupts. The function follows the preconditions of PQsendQuery() rather than PQexec(), meaning it doesn't automatically discard prior query results. For queries with long strings relative to TCP buffer size, consider using PQsetnonblocking(conn, 1) to enable interrupt processing during query text transmission.
 

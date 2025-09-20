@@ -8,7 +8,16 @@ Creates a pathnode that represents performing GROUPING SETS aggregation with one
 
 ## Definition
 
-
+```c
+GroupingSetsPath *
+create_groupingsets_path(PlannerInfo *root,
+						 RelOptInfo *rel,
+						 Path *subpath,
+						 List *having_qual,
+						 AggStrategy aggstrategy,
+						 List *rollups,
+						 const AggClauseCosts *agg_costs)
+```
 ## Detailed Description
 This function creates a GroupingSetsPath node that represents sorted grouping with one or more grouping sets. The function handles different aggregation strategies (AGG_SORTED, AGG_PLAIN, AGG_HASHED, AGG_MIXED) and can simplify them when appropriate. It calculates the total cost by iterating through each rollup operation, considering whether each rollup is hashed or sorted, and accounting for sorting costs when necessary. The output will be in sorted order by group_pathkeys only if there is a single rollup operation on a non-empty list of grouping expressions.
 

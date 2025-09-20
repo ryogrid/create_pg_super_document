@@ -8,7 +8,10 @@ Converts IPv6 network addresses from presentation format to network format, hand
 
 ## Definition
 
-
+```c
+static int
+inet_cidr_pton_ipv6(const char *src, u_char *dst, size_t size)
+```
 ## Detailed Description
 This function is the core IPv6 address parser that converts IPv6 network addresses from human-readable presentation format into binary network format. It supports full IPv6 syntax including:
 

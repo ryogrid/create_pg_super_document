@@ -8,7 +8,11 @@ Implements the \getenv command in psql, which retrieves a value from an environm
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_getenv(PsqlScanState scan_state, bool active_branch,
+					const char *cmd)
+```
 ## Detailed Description
 This function handles the \getenv backslash command which takes two arguments: a psql variable name and an environment variable name. It reads the value from the specified environment variable and assigns it to the psql variable. If the environment variable doesn't exist, the psql variable is not set. The function performs argument validation and provides error messages for missing required arguments.
 

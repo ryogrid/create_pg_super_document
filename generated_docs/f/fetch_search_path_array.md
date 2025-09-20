@@ -8,7 +8,10 @@ Fetches the active search path into a caller-allocated array of OIDs, excluding 
 
 ## Definition
 
-
+```c
+int
+fetch_search_path_array(Oid *sarray, int sarray_len)
+```
 ## Detailed Description
 This function provides an efficient way to retrieve the active search path by copying namespace OIDs directly into a caller-provided array. Unlike fetch_search_path(), this function always excludes the temporary namespace and always includes implicitly-prepended namespaces, making it suitable for existing code that would want to ignore temporary namespaces anyway. The function returns the total count of namespaces in the path, which may exceed the array length if the provided buffer is too small.
 

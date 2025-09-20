@@ -8,7 +8,9 @@ Converts a list of arbitrary ranges into a sorted and merged list, processing an
 
 ## Definition
 
-
+```c
+union_internal(rangetyp, lastRange, currentRange, false);
+```
 ## Detailed Description
 This function takes an array of ranges and transforms it into a canonical form by:
 1. Sorting the ranges using the range comparison function

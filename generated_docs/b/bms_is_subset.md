@@ -8,7 +8,10 @@ Tests whether one bitmap set is a subset of another, returning true if all bits 
 
 ## Definition
 
-
+```c
+bool
+bms_is_subset(const Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 The function determines if bitmap set  is a subset of bitmap set  by checking that every bit position that is set in  is also set in . The implementation handles NULL input cases appropriately: a NULL set (empty set) is considered a subset of any set, while any non-empty set cannot be a subset of NULL. The function performs an early optimization by checking if  has more words than , which would immediately indicate that  cannot be a subset of . The core comparison uses bitwise AND operations with complement to efficiently detect any bits that are set in  but not in .
 

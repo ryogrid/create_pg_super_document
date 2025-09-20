@@ -8,7 +8,10 @@ Creates space for a new tail cell at the end of an existing PostgreSQL list by e
 
 ## Definition
 
-
+```c
+structively
+ * modify the list;
+```
 ## Detailed Description
 The new_tail_cell function is a static utility function that prepares an existing list for insertion of a new element at the tail (end) of the list. Unlike new_head_cell which must shift existing elements, new_tail_cell simply extends the list's capacity if needed and increments the length counter. This creates an empty slot at the end of the list where the new tail element can be inserted.
 

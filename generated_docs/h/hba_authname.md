@@ -8,7 +8,10 @@ Returns the human-readable string name corresponding to a UserAuth enumeration v
 
 ## Definition
 
-
+```c
+const char *
+hba_authname(UserAuth auth_method)
+```
 ## Detailed Description
 The `hba_authname` function is a simple lookup utility that converts UserAuth enumeration values into their corresponding human-readable string representations. It serves as the standard interface for obtaining authentication method names throughout PostgreSQL's authentication system.
 

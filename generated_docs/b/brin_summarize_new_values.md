@@ -8,7 +8,10 @@ A SQL-callable function that scans through a BRIN index and summarizes all block
 
 ## Definition
 
-
+```c
+Datum
+brin_summarize_new_values(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a wrapper that calls  with a special argument to process all block ranges in the index. It is designed to be called from SQL to update index summaries for ranges that have been modified since the last summarization. The function uses  (which is ) to indicate that all ranges should be processed, not just a specific range.
 

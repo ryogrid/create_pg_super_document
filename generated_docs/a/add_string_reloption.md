@@ -8,7 +8,12 @@ Adds a new string-type reloption (relation option) to the PostgreSQL system, all
 
 ## Definition
 
-
+```c
+void
+add_string_reloption(bits32 kinds, const char *name, const char *desc,
+					 const char *default_val, validate_string_relopt validator,
+					 LOCKMODE lockmode)
+```
 ## Detailed Description
 This function registers a new string-type reloption in PostgreSQL's reloption system. Reloptions are configuration parameters that can be specified when creating or altering database relations (tables, indexes, etc.). This particular function handles string-valued options and provides optional validation through a callback function. The function internally uses  to create the option structure and  to register it with the system.
 

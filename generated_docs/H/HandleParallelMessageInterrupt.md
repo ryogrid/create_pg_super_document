@@ -8,7 +8,10 @@ Handles receipt of an interrupt indicating a parallel worker message by setting 
 
 ## Definition
 
-
+```c
+void
+HandleParallelMessageInterrupt(void)
+```
 ## Detailed Description
 This function is a signal handler that responds to interrupts indicating that parallel worker messages are available for processing. Since it operates within a signal handler context, it has severe restrictions on what operations it can safely perform. The function's primary responsibility is to set appropriate flags that will cause the main execution thread to process parallel messages during its next CHECK_FOR_INTERRUPTS() call.
 

@@ -8,7 +8,18 @@ The leaf_item structure is a fundamental storage unit in PostgreSQL's IntegerSet
 
 ## Definition
 
+```c
+struct intset_leaf_node
+{
+	/* common header, must match intset_node */
+	uint16		level;			/* 0 on leafs */
+	uint16		num_items;
 
+	intset_leaf_node *next;		/* right sibling, if any */
+
+	leaf_item	items[MAX_LEAF_ITEMS];
+};
+```
 ## Detailed Description
 The leaf_item structure serves as a basic storage element in the leaf nodes of PostgreSQL's IntegerSet B-tree. Each leaf_item can store between 1 and 241 integers using a hybrid storage approach: the first integer is stored directly in plain format, while up to 240 additional integers are stored as differences from the first integer, compressed using the Simple-8b encoding algorithm.
 

@@ -8,7 +8,11 @@ An extended version of  that provides comprehensive privilege checking for table
 
 ## Definition
 
-
+```c
+static AclMode
+pg_class_aclmask_ext(Oid table_oid, Oid roleid, AclMode mask,
+					 AclMaskHow how, bool *is_missing)
+```
 ## Detailed Description
 This function implements the core logic for checking user privileges on PostgreSQL relations (tables, views, sequences, etc.). It performs several layers of access control checking:
 

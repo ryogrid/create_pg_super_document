@@ -8,7 +8,10 @@ Converts a PostgreSQL Interval data type to a human-readable interval time struc
 
 ## Definition
 
-
+```c
+void
+interval2itm(Interval span, struct pg_itm *itm)
+```
 ## Detailed Description
 The  function decomposes a PostgreSQL interval into its constituent time components for easier manipulation and display. The conversion process involves:
 

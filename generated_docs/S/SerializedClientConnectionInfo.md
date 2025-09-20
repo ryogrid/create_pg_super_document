@@ -8,7 +8,13 @@ A struct used as an intermediate representation of ClientConnectionInfo for easi
 
 ## Definition
 
-
+```c
+typedef struct SerializedClientConnectionInfo
+{
+	int32		authn_id_len;	/* strlen(authn_id), or -1 if NULL */
+	UserAuth	auth_method;
+} SerializedClientConnectionInfo;
+```
 ## Detailed Description
 SerializedClientConnectionInfo provides a compact, serializable format for storing client connection authentication information. It serves as a binary-safe representation that can be easily transmitted between processes, especially when spawning parallel workers that need access to the original client's authentication context. The struct uses a fixed-size header followed by variable-length data, where string fields are stored immediately after the struct in memory.
 

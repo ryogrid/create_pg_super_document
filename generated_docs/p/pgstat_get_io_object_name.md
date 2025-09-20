@@ -8,7 +8,10 @@ Returns a human-readable string representation of PostgreSQL I/O object enumerat
 
 ## Definition
 
-
+```c
+const char *
+pgstat_get_io_object_name(IOObject io_object)
+```
 ## Detailed Description
 This function provides a mapping from internal IOObject enumeration values to their corresponding string representations for display purposes. It uses a switch statement to convert each IOObject enum value to its descriptive string name. The function handles the defined I/O object types including regular relations and temporary relations. If an unrecognized IOObject value is passed, the function logs an error and calls pg_unreachable() to indicate this should never happen in correct operation.
 

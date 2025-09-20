@@ -8,7 +8,10 @@ PosixSemaphoreCreate is a static internal function that creates a new POSIX name
 
 ## Definition
 
-
+```c
+static sem_t *
+PosixSemaphoreCreate(void)
+```
 ## Detailed Description
 This function implements the core semaphore creation logic for PostgreSQL's POSIX semaphore implementation. It generates unique semaphore names using an incrementing key and attempts to create named semaphores with exclusive access. The function includes robust error handling and automatic retry logic for name collisions.
 

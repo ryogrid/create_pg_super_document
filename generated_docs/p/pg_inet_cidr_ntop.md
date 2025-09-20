@@ -8,7 +8,10 @@ Converts a network number from binary format to presentation format with CIDR-st
 
 ## Definition
 
-
+```c
+char *
+pg_inet_cidr_ntop(int af, const void *src, int bits, char *dst, size_t size)
+```
 ## Detailed Description
 This function is a generic wrapper that converts network addresses from their binary representation to a human-readable CIDR format string. It automatically determines which IP version-specific conversion function to call based on the address family parameter. The function always generates CIDR-style output (e.g., "192.168.1.0/24" or "2001:db8::/32") regardless of the input format.
 

@@ -8,7 +8,10 @@ PLy_procedure_delete is a cleanup function that deallocates memory and resources
 
 ## Definition
 
-
+```c
+void
+PLy_procedure_delete(PLyProcedure *proc)
+```
 ## Detailed Description
 This function performs comprehensive cleanup of a PLyProcedure structure by releasing all Python objects and memory contexts associated with it. It uses Python's reference counting mechanism (Py_XDECREF) to safely decrement reference counts for Python objects, which may trigger their garbage collection. The function also deletes the memory context that was allocated for the procedure, ensuring no memory leaks occur when a PL/Python procedure is no longer needed.
 

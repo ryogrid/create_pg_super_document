@@ -8,7 +8,9 @@ A Windows-specific replacement for the Unix pipe(2) system call that creates soc
 
 ## Definition
 
-
+```c
+struct sockaddr_in serv_addr;
+```
 ## Detailed Description
  is a platform-specific function designed to address limitations of the standard Windows pipe implementation. Unlike Unix pipes, Windows pipes cannot be used with the select() function for non-blocking I/O operations. This function creates a pair of connected TCP sockets over the loopback interface to emulate pipe behavior while maintaining compatibility with select().
 

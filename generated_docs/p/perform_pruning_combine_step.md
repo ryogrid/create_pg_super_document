@@ -8,7 +8,12 @@ Combines the results of multiple partition pruning steps using union or intersec
 
 ## Definition
 
-
+```c
+static PruneStepResult *
+perform_pruning_combine_step(PartitionPruneContext *context,
+							 PartitionPruneStepCombine *cstep,
+							 PruneStepResult **step_results)
+```
 ## Detailed Description
 This function processes a PartitionPruneStepCombine node to combine the results from multiple source pruning steps. It supports two combination operations:
 

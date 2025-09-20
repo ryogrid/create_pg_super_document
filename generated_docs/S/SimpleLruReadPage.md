@@ -8,7 +8,11 @@ Finds a page in the SLRU shared buffer pool, reading it from disk if necessary, 
 
 ## Definition
 
-
+```c
+int
+SimpleLruReadPage(SlruCtl ctl, int64 pageno, bool write_ok,
+				  TransactionId xid)
+```
 ## Detailed Description
 SimpleLruReadPage is the core function for accessing SLRU pages in PostgreSQL's buffer management system. It implements a sophisticated page lookup and loading mechanism that handles concurrent access, I/O operations, and error conditions. The function first searches for the requested page in the shared buffer pool, and if not found, selects a victim page using LRU policy and reads the required page from disk.
 

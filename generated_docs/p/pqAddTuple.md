@@ -8,7 +8,17 @@ pqAddTuple is a private utility function that adds a row pointer to a PGresult s
 
 ## Definition
 
-
+```c
+structure is
+		 * okay. Note that the first time through, res->tuples is NULL. While
+		 * ANSI says that realloc() should act like malloc() in that case,
+		 * some old C libraries (like SunOS 4.1.x) coredump instead. On
+		 * failure realloc is supposed to return NULL without damaging the
+		 * existing allocation. Note that the positions beyond res->ntups are
+		 * garbage, not necessarily NULL.
+		 */
+		int			newSize;
+```
 ## Detailed Description
 This function manages the dynamic growth of the tuple array within a PGresult structure. When adding a new tuple would exceed the current array capacity, it automatically reallocates memory to double the array size (or sets it to 128 for the initial allocation). The function implements several safety checks including overflow protection for both row count limits (INT_MAX) and memory size limits (SIZE_MAX on 32-bit platforms).
 

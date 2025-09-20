@@ -8,7 +8,10 @@ Calculates the shared memory size required for XLog prefetch statistics storage.
 
 ## Definition
 
-
+```c
+size_t
+XLogPrefetchShmemSize(void)
+```
 ## Detailed Description
 This function provides the memory allocation size calculation for the XLog prefetcher's shared memory segment. It returns the size needed to store XLog prefetch statistics in shared memory, which is used during PostgreSQL's shared memory initialization process. The function is straightforward and simply returns the size of the XLogPrefetchStats structure.
 

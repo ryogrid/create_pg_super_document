@@ -8,7 +8,14 @@ Computes a snapshot conflict horizon for index tuples being deleted by consultin
 
 ## Definition
 
-
+```c
+TransactionId
+index_compute_xid_horizon_for_tuples(Relation irel,
+									 Relation hrel,
+									 Buffer ibuf,
+									 OffsetNumber *itemnos,
+									 int nitems)
+```
 ## Detailed Description
 index_compute_xid_horizon_for_tuples is a generic helper function that provides index access methods with a standardized way to obtain snapshot conflict horizon values when deleting index tuples. The function serves as a shim around table_index_delete_tuples(), providing the table access method with information about index tuples to be deleted and receiving back the appropriate snapshotConflictHorizon value for use in deletion WAL records.
 

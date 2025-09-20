@@ -8,7 +8,11 @@ Displays the sort keys for an IncrementalSort node during query execution plan e
 
 ## Definition
 
-
+```c
+static void
+show_incremental_sort_keys(IncrementalSortState *incrsortstate,
+						   List *ancestors, ExplainState *es)
+```
 ## Detailed Description
 This function is responsible for showing the sort keys used by an IncrementalSort plan node during EXPLAIN command output. IncrementalSort is an optimization that builds upon existing sorted data by performing additional sorting only on the remaining columns. The function extracts the sort key information from the IncrementalSort plan and delegates to  to format and display the sorting information, including both presorted columns and additional sort columns.
 

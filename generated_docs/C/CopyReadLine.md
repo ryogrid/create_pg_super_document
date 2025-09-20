@@ -8,7 +8,10 @@ CopyReadLine reads the next complete input line from a COPY FROM operation and s
 
 ## Definition
 
-
+```c
+static bool
+CopyReadLine(CopyFromState cstate)
+```
 ## Detailed Description
 This static function is responsible for reading a complete line of input data during COPY FROM operations. It acts as a high-level wrapper around CopyReadLineText, providing additional processing for end-of-line handling and protocol-specific EOF behavior. The function first resets the line buffer and reads the raw line data, then processes the result based on whether EOF was encountered or a newline terminated the read. For non-EOF cases, it strips the appropriate end-of-line marker(s) based on the detected EOL type (NL, CR, or CRNL). For frontend protocol connections, it handles special EOF processing by consuming any remaining data after the EOF marker.
 

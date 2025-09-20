@@ -8,7 +8,10 @@ A PostgreSQL function that converts a vector (array) of type OIDs into a comma-s
 
 ## Definition
 
-
+```c
+Datum
+oidvectortypes(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL system function that takes an  containing type OIDs and transforms it into a formatted text string where each OID is converted to its corresponding type name and joined with commas and spaces. This function is particularly useful for displaying function parameter types, operator argument types, and other scenarios where multiple type OIDs need to be presented in a user-friendly format.
 

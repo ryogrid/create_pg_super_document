@@ -8,7 +8,9 @@ Returns a set of database OIDs that have objects stored in a specified tablespac
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This function takes a tablespace OID as input and returns a set of database OIDs that actually use storage space in that tablespace. It works by:
 

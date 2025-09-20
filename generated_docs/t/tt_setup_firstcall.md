@@ -8,7 +8,11 @@ Initializes function context and retrieves token type information for PostgreSQL
 
 ## Definition
 
-
+```c
+static void
+tt_setup_firstcall(FuncCallContext *funcctx, FunctionCallInfo fcinfo,
+				   Oid prsid)
+```
 ## Detailed Description
 This function sets up the necessary data structures and context for PostgreSQL text search parser functions that return token type information. It is called during the first invocation of functions like  and  to initialize the function context with token type data from the specified parser. The function operates in the multi-call context memory to persist data across multiple function calls.
 

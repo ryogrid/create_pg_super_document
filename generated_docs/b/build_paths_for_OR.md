@@ -8,7 +8,15 @@
 
 ## Definition
 
-
+```c
+struct paths if possible.
+		 */
+		indexpaths = build_index_paths(root, rel,
+									   index, &clauseset,
+									   useful_predicate,
+									   ST_BITMAPSCAN,
+									   NULL);
+```
 ## Detailed Description
 This function builds IndexPaths specifically for OR clause processing by examining all indexes on a relation and determining which can contribute to a bitmap OR tree. It implements a sophisticated clause matching strategy that distinguishes between "current" and "other" clauses:
 

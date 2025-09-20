@@ -8,7 +8,10 @@ pg_snprintf is PostgreSQL's portable implementation of the snprintf function tha
 
 ## Definition
 
-
+```c
+int
+pg_snprintf(char *str, size_t count, const char *fmt,...)
+```
 ## Detailed Description
 pg_snprintf provides a safe, portable alternative to the standard snprintf function. It is a variadic wrapper around pg_vsnprintf that accepts a variable number of arguments instead of a va_list. The function formats the format string `fmt` with the provided arguments and stores the result in the buffer `str`, ensuring proper null-termination and buffer bounds checking. This function serves as the main entry point for PostgreSQL's printf-style string formatting when you have direct arguments rather than a va_list.
 

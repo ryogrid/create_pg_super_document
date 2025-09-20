@@ -8,7 +8,11 @@ Serves as the main entry point for extracting GIN index entries from jsonpath qu
 
 ## Definition
 
-
+```c
+static Datum *
+extract_jsp_query(JsonPath *jp, StrategyNumber strat, bool pathOps,
+				  int32 *nentries, Pointer **extra_data)
+```
 ## Detailed Description
 This function orchestrates the complete jsonpath-to-GIN query extraction process. It first initializes the extraction context based on the specified operator class (jsonb_ops vs jsonb_path_ops), then parses the jsonpath and determines the appropriate extraction strategy based on the query type.
 

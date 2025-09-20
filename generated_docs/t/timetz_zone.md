@@ -8,7 +8,9 @@ Converts a time with time zone to a different time zone, applying appropriate DS
 
 ## Definition
 
-
+```c
+struct pg_tm tm;
+```
 ## Detailed Description
 `timetz_zone` is a PostgreSQL built-in function that converts a time with time zone (TIMETZ) value to a different time zone. The function takes a timezone specification (as text) and a TIMETZ value, then returns a new TIMETZ value adjusted to the specified timezone. It handles three types of timezone specifications: fixed-offset abbreviations (e.g., '+05:00'), dynamic-offset abbreviations that change based on DST rules, and named timezones (e.g., 'America/New_York').
 

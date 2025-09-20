@@ -8,7 +8,10 @@ _bt_split splits a B-tree page when insufficient space exists for a new tuple, c
 
 ## Definition
 
-
+```c
+enumber,
+				rightpagenumber;
+```
 ## Detailed Description
 This function performs the complex operation of splitting a B-tree page into two pages. The process involves several critical steps:
 

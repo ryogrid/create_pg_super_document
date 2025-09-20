@@ -8,7 +8,10 @@ Initializes the shared memory structure for XLog prefetch statistics, creating a
 
 ## Definition
 
-
+```c
+void
+XLogPrefetchShmemInit(void)
+```
 ## Detailed Description
 This function is responsible for setting up the XLog prefetch statistics in shared memory during PostgreSQL server initialization. It uses the PostgreSQL shared memory infrastructure to either create or attach to an existing shared memory segment named "XLogPrefetchStats".
 

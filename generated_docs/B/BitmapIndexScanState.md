@@ -8,7 +8,23 @@ BitmapIndexScanState is an execution state structure that manages bitmap index s
 
 ## Definition
 
-
+```c
+typedef struct BitmapIndexScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	TIDBitmap  *biss_result;
+	struct ScanKeyData *biss_ScanKeys;
+	int			biss_NumScanKeys;
+	IndexRuntimeKeyInfo *biss_RuntimeKeys;
+	int			biss_NumRuntimeKeys;
+	IndexArrayKeyInfo *biss_ArrayKeys;
+	int			biss_NumArrayKeys;
+	bool		biss_RuntimeKeysReady;
+	ExprContext *biss_RuntimeContext;
+	Relation	biss_RelationDesc;
+	struct IndexScanDescData *biss_ScanDesc;
+} BitmapIndexScanState;
+```
 ## Detailed Description
 BitmapIndexScanState extends ScanState to implement bitmap index scanning, a key component of PostgreSQL's bitmap scan strategy. Unlike regular index scans that return tuples directly, bitmap index scans create a compact bitmap representation of tuple identifiers (TIDs) that match the scan conditions. This bitmap can then be used by BitmapHeapScan nodes to efficiently retrieve the actual tuples from the heap in physical storage order, reducing random I/O. The structure supports complex scan conditions including runtime-evaluated keys and array-based conditions from ScalarArrayOpExprs.
 

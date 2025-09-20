@@ -8,7 +8,13 @@ Estimates the number of groups produced by grouping clauses in a query, returnin
 
 ## Definition
 
-
+```c
+static double
+get_number_of_groups(PlannerInfo *root,
+					 double path_rows,
+					 grouping_sets_data *gd,
+					 List *target_list)
+```
 ## Detailed Description
 This function calculates the estimated number of distinct groups that will be produced by GROUP BY clauses in a query. It handles multiple scenarios including plain GROUP BY, GROUPING SETS, empty grouping sets, and aggregation without grouping. For grouping sets, it also annotates the grouping sets data with estimates for each set and rollup list to help determine if some combination could be hashed instead of sorted.
 

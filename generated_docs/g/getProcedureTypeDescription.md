@@ -8,7 +8,11 @@ A static helper function that appends a human-readable description of a procedur
 
 ## Definition
 
-
+```c
+static void
+getProcedureTypeDescription(StringInfo buffer, Oid procid,
+							bool missing_ok)
+```
 ## Detailed Description
 This function serves as a subroutine for getObjectTypeDescription to provide accurate type descriptions for procedure-like objects in PostgreSQL. It looks up the procedure in the pg_proc system catalog using the provided OID and examines the prokind field to determine whether the object is an aggregate function, a stored procedure, or a regular function (including window functions). The appropriate type string is then appended to the provided StringInfo buffer.
 

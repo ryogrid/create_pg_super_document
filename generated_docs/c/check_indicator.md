@@ -8,7 +8,10 @@ Validates that a given variable is a valid indicator variable by checking its ty
 
 ## Definition
 
-
+```c
+void
+check_indicator(struct ECPGtype *var)
+```
 ## Detailed Description
 The  function performs recursive validation of ECPG variable types to ensure they are suitable for use as indicator variables in embedded SQL contexts. Indicator variables in ECPG must have integer types to properly indicate NULL values or error conditions. The function traverses complex data structures (structs, unions, arrays) recursively to validate each component.
 

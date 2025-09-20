@@ -8,7 +8,10 @@ A callback function that formats OffsetNumber values as unsigned integers for us
 
 ## Definition
 
-
+```c
+void
+offset_elem_desc(StringInfo buf, void *offset, void *data)
+```
 ## Detailed Description
 The  function is a specialized element description callback designed to work with the  utility function. It formats OffsetNumber values (which represent tuple positions within a page) as unsigned integers in the output buffer. This function follows the standard callback signature expected by  and is commonly used when describing arrays of offset numbers in WAL record descriptions.
 

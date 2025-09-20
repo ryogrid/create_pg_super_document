@@ -8,7 +8,10 @@ A static function that imports a file from the Unix filesystem into the PostgreS
 
 ## Definition
 
-
+```c
+static Oid
+importFile(PGconn *conn, char *filename)
+```
 ## Detailed Description
 The  function provides functionality to import external files into PostgreSQL as large objects (LOBs). It opens a specified Unix file, creates a new large object in the database, and copies the file's contents into the large object using a buffered read/write approach. The function handles the complete lifecycle of large object creation including opening, writing data in chunks, and proper cleanup of file descriptors.
 

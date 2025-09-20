@@ -8,7 +8,11 @@ set_desc_attr is a static helper function that sets attributes of a descriptor i
 
 ## Definition
 
-
+```c
+static void
+set_desc_attr(struct descriptor_item *desc_item, struct variable *var,
+			  char *tobeinserted)
+```
 ## Detailed Description
 set_desc_attr configures a descriptor item's attributes based on the input variable's type and the data to be stored. The function handles two main cases: binary data (bytea type) and non-binary data. For binary data, it extracts the length information from the ECPGgeneric_bytea structure and marks the descriptor item as binary. For all other data types, it marks the item as non-binary.
 

@@ -8,7 +8,12 @@ ATParseTransformCmd performs parse transformation for ALTER TABLE subcommands, c
 
 ## Definition
 
-
+```c
+static AlterTableCmd *
+ATParseTransformCmd(List **wqueue, AlteredTableInfo *tab, Relation rel,
+					AlterTableCmd *cmd, bool recurse, LOCKMODE lockmode,
+					AlterTablePass cur_pass, AlterTableUtilityContext *context)
+```
 ## Detailed Description
 ATParseTransformCmd serves as a critical transformation layer in PostgreSQL's ALTER TABLE processing pipeline. It takes a single ALTER TABLE subcommand and runs it through the parser's transformation phase, which may generate additional subcommands and utility statements. The function creates a temporary AlterTableStmt containing just the single subcommand, then calls transformAlterTableStmt to perform semantic analysis and generate any necessary additional operations.
 

@@ -8,7 +8,16 @@ Dumps the complete database definition including creation statement, properties,
 
 ## Definition
 
-
+```c
+struct a DATABASE PROPERTIES archive entry to restore any
+	 * non-default database-level properties.  (The reason this must be
+	 * separate is that we cannot put any additional commands into the TOC
+	 * entry that has CREATE DATABASE.  pg_restore would execute such a group
+	 * in an implicit transaction block, and the backend won't allow CREATE
+	 * DATABASE in that context.)
+	 */
+	resetPQExpBuffer(creaQry);
+```
 ## Detailed Description
 This comprehensive function handles dumping all aspects of a database definition for pg_dump. It queries the current database's metadata from pg_database and related system catalogs, then generates appropriate CREATE DATABASE and ALTER DATABASE statements. The function handles version-specific features like locale providers, ICU locales, collation versions, and encoding settings. It creates separate archive entries for the database creation, comments, security labels, ACLs, and properties. For binary upgrades, it preserves OIDs, frozen transaction IDs, and large object metadata to ensure exact reproduction of the source database.
 

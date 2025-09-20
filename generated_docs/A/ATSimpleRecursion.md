@@ -8,7 +8,12 @@ A table inheritance recursion function that applies ALTER TABLE commands to all 
 
 ## Definition
 
-
+```c
+static void
+ATSimpleRecursion(List **wqueue, Relation rel,
+				  AlterTableCmd *cmd, bool recurse, LOCKMODE lockmode,
+				  AlterTableUtilityContext *context)
+```
 ## Detailed Description
 ATSimpleRecursion implements the standard recursion pattern for ALTER TABLE operations that need to be propagated down inheritance hierarchies. When recursion is enabled and the target relation has child tables, it uses find_all_inheritors to discover all relations in the inheritance tree, then processes each child by adding the ALTER command to the work queue via ATPrepCmd. The function ensures that each child table is visited exactly once, even if it inherits from the parent through multiple inheritance paths. It performs safety checks on each child relation before processing and maintains proper locking throughout the operation.
 

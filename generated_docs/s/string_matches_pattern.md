@@ -8,7 +8,10 @@ Performs pattern matching for strings using a simplified regex implementation th
 
 ## Definition
 
-
+```c
+static bool
+string_matches_pattern(const char *str, const char *pattern)
+```
 ## Detailed Description
 This function implements a simplified pattern matching algorithm that mimics the behavior of the original shell script's expr(1) usage. It supports two metacharacters: "." (single character wildcard) and ".*" (zero or more characters wildcard). The pattern matching assumes an implicit "^" at the start of the pattern (must match from beginning of string) but no implicit "$" at the end (pattern can match partial string). The implementation uses recursion for handling ".*" patterns with optimization to prevent unnecessary recursive calls. It's specifically designed for use with result mapping in regression tests.
 

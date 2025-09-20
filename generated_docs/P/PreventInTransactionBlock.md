@@ -8,7 +8,10 @@ PreventInTransactionBlock ensures that specific SQL statements that cannot run s
 
 ## Definition
 
-
+```c
+void
+PreventInTransactionBlock(bool isTopLevel, const char *stmtType)
+```
 ## Detailed Description
 This function serves as a critical safety mechanism for PostgreSQL statements that have non-rollback-able side effects or perform internal commits. It performs comprehensive checks to ensure the statement is not running in contexts where its effects could not be properly managed within the transaction system.
 

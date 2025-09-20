@@ -8,7 +8,10 @@ owningrel_does_not_exist_skipping is a helper function that determines whether a
 
 ## Definition
 
-
+```c
+static bool
+owningrel_does_not_exist_skipping(List *object, const char **msg, char **name)
+```
 ## Detailed Description
 This function is used when a rule or trigger specification returns that the object doesn't exist. It checks whether the owning relation and its schema exist. If the owning relation or schema don't exist, it sets appropriate error message and name parameters and returns true (indicating the missing object should be skipped). If the owning relation exists, it returns false, meaning the rule/trigger itself is genuinely missing.
 

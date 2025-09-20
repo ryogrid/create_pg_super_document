@@ -8,7 +8,17 @@ The _oprInfo structure represents operator metadata used by PostgreSQL's pg_dump
 
 ## Definition
 
-
+```c
+typedef struct _oprInfo
+{
+	DumpableObject dobj;
+	const char *rolname;
+	char		oprkind;
+	Oid			oprleft;
+	Oid			oprright;
+	Oid			oprcode;
+} OprInfo;
+```
 ## Detailed Description
 The _oprInfo structure is used by pg_dump to manage operator information during database dumping operations. It extends the base DumpableObject structure with operator-specific metadata including the operator's owner, kind (binary, unary left, unary right), operand types, and the implementing function. This structure captures the essential information needed to recreate operators in the target database, including their signatures and implementation details.
 

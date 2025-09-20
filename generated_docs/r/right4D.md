@@ -8,7 +8,10 @@ Determines if any rectangle from a RectBox can be positioned to the right of a g
 
 ## Definition
 
-
+```c
+static bool
+right4D(RectBox *rect_box, RangeBox *query)
+```
 ## Detailed Description
 This function is part of PostgreSQL's SP-GiST implementation for geometric box operations. It evaluates whether any rectangle within the provided RectBox structure could potentially be positioned entirely to the right of the specified query boundary. The function operates by comparing the x-axis range of the rectangle box with the left boundary of the query range using the higher2D helper function, which checks if the rectangle's x-range can be higher than the query's left boundary.
 

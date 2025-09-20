@@ -8,7 +8,10 @@ Updates the modification time of all PostgreSQL socket files to prevent them fro
 
 ## Definition
 
-
+```c
+void
+TouchSocketFiles(void)
+```
 ## Detailed Description
 This function iterates through all PostgreSQL socket files and updates their modification time using the utime() system call. This maintenance operation is necessary because normal socket operations typically don't update the file's modification time, which can lead to automatic cleanup daemons (such as /tmp directory cleaners) removing the socket files due to their apparent inactivity.
 

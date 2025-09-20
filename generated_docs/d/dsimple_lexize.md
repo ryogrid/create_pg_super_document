@@ -8,7 +8,10 @@ Performs lexical analysis on input text using a simple dictionary by converting 
 
 ## Definition
 
-
+```c
+Datum
+dsimple_lexize(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the core lexical analysis routine for PostgreSQL's simple dictionary. It takes an input word, converts it to lowercase, and applies the dictionary's rules to determine the appropriate lexical output. The function implements a three-stage decision process: first checking if the word is empty or matches a stopword (in which case it returns an empty lexeme array to indicate rejection), then checking if the dictionary is configured to accept words (returning the lowercase word as a lexeme), or finally reporting the word as unrecognized by returning NULL. This function is essential for text search operations, as it determines which words are indexed and how they are normalized.
 

@@ -8,7 +8,10 @@ Removes all channels from the backend's listen list during the commit phase of a
 
 ## Definition
 
-
+```c
+static void
+Exec_UnlistenAllCommit(void)
+```
 ## Detailed Description
 This function is called to completely clear the backend's list of listened channels. It is used during the commit phase of an "UNLISTEN *" command or during backend process cleanup. The function performs the following operations:
 

@@ -8,7 +8,10 @@ Extracts equality operator OIDs from a SortGroupClause list and returns them as 
 
 ## Definition
 
-
+```c
+Oid *
+extract_grouping_ops(List *groupClause)
+```
 ## Detailed Description
 This utility function processes a list of SortGroupClause structures and extracts the equality operator OIDs (eqop field) from each clause. It creates and returns a dynamically allocated array containing these operator OIDs in the same order as they appear in the input list. The function is primarily used during query planning to prepare operator information needed for grouping operations.
 

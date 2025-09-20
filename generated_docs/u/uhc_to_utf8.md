@@ -8,7 +8,10 @@ A PostgreSQL encoding conversion function that converts text from UHC (Unified H
 
 ## Definition
 
-
+```c
+Datum
+uhc_to_utf8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL conversion procedure that transforms character strings from UHC encoding to UTF-8 encoding. UHC is a Korean character encoding standard that extends the EUC-KR encoding to include additional Hangul syllables and symbols. The function follows PostgreSQL's standard conversion procedure interface, accepting source and destination buffers along with conversion parameters, and returns the number of bytes successfully converted.
 

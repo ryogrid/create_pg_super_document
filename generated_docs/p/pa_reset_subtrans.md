@@ -8,7 +8,10 @@ pa_reset_subtrans is a utility function in PostgreSQL's logical replication para
 
 ## Definition
 
-
+```c
+void
+pa_reset_subtrans(void)
+```
 ## Detailed Description
 This function provides a simple mechanism to reset the subtransaction tracking list (subxactlist) by setting it to NIL. It is specifically designed for use in parallel apply workers during logical replication operations. The function relies on PostgreSQL's transaction-scoped memory management, where the memory allocated for the subtransaction list will be automatically freed when the current transaction ends, eliminating the need for explicit memory deallocation.
 

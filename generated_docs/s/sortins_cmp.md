@@ -8,7 +8,9 @@ A static comparison function used for sorting arc pointers in PostgreSQL's regex
 
 ## Definition
 
-
+```c
+struct arc *aa = *((const struct arc *const *) a);
+```
 ## Detailed Description
 This function compares two arc pointers for sorting purposes in the regex engine's NFA operations. It implements a three-level comparison strategy to establish a consistent ordering of arcs:
 

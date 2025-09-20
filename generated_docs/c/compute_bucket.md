@@ -8,7 +8,11 @@ Calculates the bucket number for histogram bucket operations by determining whic
 
 ## Definition
 
-
+```c
+struct
+		 */
+		nss->buf = palloc(VARATT_SHORT_MAX + VARHDRSZ + 1);
+```
 ## Detailed Description
 The  function is a core computational component for PostgreSQL's  functionality. It performs the mathematical operations to determine which histogram bucket a given numeric value should be placed in. The function implements the bucket calculation algorithm specified in the SQL2003 standard.
 

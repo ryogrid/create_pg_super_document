@@ -8,7 +8,10 @@ Adds a dependency link to a DumpableObject, establishing that one object depends
 
 ## Definition
 
-
+```c
+void
+addObjectDependency(DumpableObject *dobj, DumpId refId)
+```
 ## Detailed Description
 This function manages the dependency relationships between database objects in pg_dump by adding a reference ID to a DumpableObject's dependency list. The function implements dynamic memory management for the dependencies array, starting with an initial allocation of 16 DumpId slots and doubling the allocation size whenever more space is needed. This approach ensures efficient memory usage while accommodating objects with varying numbers of dependencies.
 

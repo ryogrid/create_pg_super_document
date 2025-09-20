@@ -8,7 +8,10 @@ MaintainLatestCompletedXidRecovery is the recovery-specific version of MaintainL
 
 ## Definition
 
-
+```c
+static void
+MaintainLatestCompletedXidRecovery(TransactionId latestXid)
+```
 ## Detailed Description
 This function serves the same purpose as MaintainLatestCompletedXid but is specifically designed for use during WAL (Write-Ahead Log) replay in recovery mode. It updates TransamVariables->latestCompletedXid when the provided transaction ID is newer than the current value.
 

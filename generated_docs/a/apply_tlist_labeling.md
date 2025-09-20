@@ -8,7 +8,10 @@ Applies the labeling attributes from a source target list to a destination targe
 
 ## Definition
 
-
+```c
+void
+apply_tlist_labeling(List *dest_tlist, List *src_tlist)
+```
 ## Detailed Description
 This function transfers the labeling metadata from one target list to another target list that contains equivalent expressions but potentially lacks proper labeling. It's particularly useful for reattaching column names and other metadata to a plan's final output target list after optimizations that may have stripped or altered the labeling information.
 

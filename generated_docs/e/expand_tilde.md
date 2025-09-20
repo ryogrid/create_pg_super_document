@@ -8,7 +8,9 @@ This function expands tilde (~) characters in file paths to their corresponding 
 
 ## Definition
 
-
+```c
+struct passwd *pw;
+```
 ## Detailed Description
 The  function performs Unix-style tilde expansion on file paths. It substitutes '~' at the beginning of a path with the user's home directory, and '~username' with the specified user's home directory. This functionality is commonly found in Unix shells and provides a convenient way to reference home directories in file paths.
 

@@ -8,7 +8,10 @@ Union operation for BRIN minmax-multi operator class that merges two BrinValues 
 
 ## Definition
 
-
+```c
+Datum
+brin_minmax_multi_union(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the union operation for BRIN minmax-multi operator class, which is used during index maintenance operations like VACUUM to combine multiple summary values. The function takes two BrinValues containing serialized range summaries and merges them into a single consolidated summary in the first BrinValues structure.
 

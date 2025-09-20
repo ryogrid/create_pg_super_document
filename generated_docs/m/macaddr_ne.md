@@ -8,7 +8,10 @@ The  function compares two MAC addresses and returns true if they are not equal.
 
 ## Definition
 
-
+```c
+Datum
+macaddr_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the not-equal comparison operator (!=) for the  data type in PostgreSQL. It extracts two MAC address arguments from the function call context and uses the internal comparison function  to determine if they are different. The function returns a boolean value indicating whether the two MAC addresses are not equal.
 

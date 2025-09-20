@@ -8,7 +8,10 @@ A simple utility function that checks whether a PostgreSQL reloptions array stri
 
 ## Definition
 
-
+```c
+static bool
+nonemptyReloptions(const char *reloptions)
+```
 ## Detailed Description
 This function determines if a reloptions (relation options) string contains actual option values. PostgreSQL stores relation options as array strings, where an empty options array is represented as "{}". The function returns true only if the string is not NULL and has more than 2 characters, effectively filtering out NULL values and empty "{}" arrays while accepting any string that contains actual option data.
 

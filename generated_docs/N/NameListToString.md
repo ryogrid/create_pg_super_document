@@ -8,7 +8,10 @@ Utility function that converts a qualified-name list into a string representatio
 
 ## Definition
 
-
+```c
+char *
+NameListToString(const List *names)
+```
 ## Detailed Description
 The NameListToString function takes a List of name components and converts them into a dot-separated string representation. It is specifically designed for creating human-readable output, particularly for error messages, and therefore does not quote the list elements to maintain legibility. The function handles two types of nodes within the name list: String values (which represent regular name components) and A_Star values (which represent asterisk wildcards, commonly used in ColumnRef processing).
 

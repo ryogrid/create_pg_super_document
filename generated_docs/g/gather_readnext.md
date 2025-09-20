@@ -8,7 +8,10 @@ Implements the worker tuple reading logic for Gather nodes, managing round-robin
 
 ## Definition
 
-
+```c
+static MinimalTuple
+gather_readnext(GatherState *gatherstate)
+```
 ## Detailed Description
 gather_readnext manages the complex task of reading tuples from multiple parallel worker processes in a fair and efficient manner. It implements a round-robin strategy that reads from worker tuple queues, handling worker failures gracefully and managing the dynamic removal of completed workers from the active reader array. The function uses non-blocking reads to avoid getting stuck on slow workers, and when no tuples are immediately available from any worker, it either returns NULL (to allow local execution) or blocks using WaitLatch.
 

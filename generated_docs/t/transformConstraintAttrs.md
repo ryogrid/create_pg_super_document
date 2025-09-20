@@ -8,7 +8,10 @@ Preprocesses a list of column constraint clauses to attach constraint attributes
 
 ## Definition
 
-
+```c
+static void
+transformConstraintAttrs(CreateStmtContext *cxt, List *constraintList)
+```
 ## Detailed Description
 The  function processes constraint attribute clauses (DEFERRABLE, NOT DEFERRABLE, INITIALLY DEFERRED, INITIALLY IMMEDIATE) and associates them with the appropriate primary constraint nodes. It performs validation to ensure that these attributes are only applied to supported constraint types and that conflicting or duplicate attributes are properly detected and reported as errors.
 

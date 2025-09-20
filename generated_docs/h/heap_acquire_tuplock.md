@@ -8,7 +8,11 @@ heap_acquire_tuplock acquires a heavyweight lock on a specific tuple in preparat
 
 ## Definition
 
-
+```c
+static bool
+heap_acquire_tuplock(Relation relation, ItemPointer tid, LockTupleMode mode,
+					 LockWaitPolicy wait_policy, bool *have_tuple_lock)
+```
 ## Detailed Description
 This static function serves as a preparatory step before acquiring tuple locks by first obtaining a heavyweight lock on the target tuple. The function implements three different wait policies: blocking until the lock is available, skipping if the lock cannot be immediately acquired, or throwing an error if the lock is unavailable. 
 

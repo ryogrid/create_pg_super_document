@@ -8,7 +8,14 @@ A structure definition used in PostgreSQL's pg_dump utility to represent access 
 
 ## Definition
 
-
+```c
+typedef struct _accessMethodInfo
+{
+	DumpableObject dobj;
+	char		amtype;
+	char	   *amhandler;
+} AccessMethodInfo;
+```
 ## Detailed Description
 The  structure is part of PostgreSQL's pg_dump utility framework, designed to store metadata about access methods during database backup operations. This structure extends the base  to include access method-specific information, allowing pg_dump to properly serialize and restore access method definitions. Access methods in PostgreSQL define how data is stored and accessed in indexes and tables.
 

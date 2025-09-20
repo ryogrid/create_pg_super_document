@@ -8,7 +8,9 @@ fmNodePtr is a typedef that represents a pointer to a Node structure, used as a 
 
 ## Definition
 
-
+```c
+typedef struct Node *fmNodePtr;
+```
 ## Detailed Description
 fmNodePtr is a forward declaration typedef defined in fmgr.h that creates a pointer type to the Node structure without requiring the full definition of Node. This design pattern is used to avoid circular dependencies and reduce compilation overhead by not including primnodes.h in the function manager header. The Node structure is a fundamental part of PostgreSQL's parse tree and expression evaluation system, and fmNodePtr allows the function manager to reference nodes without exposing the full node implementation details.
 

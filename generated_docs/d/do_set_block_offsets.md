@@ -8,7 +8,10 @@ A PostgreSQL test function that sets TID (tuple identifier) entries for a given 
 
 ## Definition
 
-
+```c
+Datum
+do_set_block_offsets(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of the test_tidstore module, designed to test TidStore functionality. It takes a block number and an array of offsets, then stores the corresponding TIDs both in the actual TidStore and in a verification array for testing purposes. The function performs exclusive locking during the TidStore operation to ensure thread safety and maintains parallel data structures for verification.
 

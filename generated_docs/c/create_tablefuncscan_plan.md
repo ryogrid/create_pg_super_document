@@ -8,7 +8,11 @@ Creates a table function scan plan for scanning table functions such as XMLTABLE
 
 ## Definition
 
-
+```c
+static TableFuncScan *
+create_tablefuncscan_plan(PlannerInfo *root, Path *best_path,
+						  List *tlist, List *scan_clauses)
+```
 ## Detailed Description
 The  function constructs a TableFuncScan execution plan node for scanning the output of table functions. Table functions are specialized functions that parse structured data (like XML or JSON) and present it in a tabular format. Unlike regular function scans, table functions have more complex internal structure with column definitions, namespaces, and parsing instructions.
 

@@ -8,7 +8,10 @@ Determines if two line segments are equal by comparing their corresponding endpo
 
 ## Definition
 
-
+```c
+Datum
+lseg_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function tests whether two line segments are equal. Two line segments are considered equal if their corresponding endpoints are equal. The function compares the first point of the first segment with the first point of the second segment, and the second point of the first segment with the second point of the second segment. Both point comparisons must be true for the segments to be considered equal.
 

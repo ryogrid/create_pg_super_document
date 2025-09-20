@@ -8,7 +8,11 @@ JsonbHashScalarValueExtended computes a 64-bit hash value for a PostgreSQL JSONB
 
 ## Definition
 
-
+```c
+void
+JsonbHashScalarValueExtended(const JsonbValue *scalarVal, uint64 *hash,
+							 uint64 seed)
+```
 ## Detailed Description
 This function is an extended version of JsonbHashScalarValue that produces 64-bit hash values instead of 32-bit ones and incorporates a seed value for better hash distribution. It handles the same JSONB scalar types (null, string, numeric, boolean) but uses extended hash functions that support seeding. For null values, it adds the seed to a constant base value (0x01). String and numeric values use their respective extended hash functions with the provided seed. Boolean values have conditional behavior: when a seed is provided, they use hashcharextended; otherwise, they fall back to simple constants like the non-extended version.
 

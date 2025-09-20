@@ -8,7 +8,11 @@ Records a line pointer that should be marked as dead during heap pruning, tracki
 
 ## Definition
 
-
+```c
+static void
+heap_prune_record_dead(PruneState *prstate, OffsetNumber offnum,
+					   bool was_normal)
+```
 ## Detailed Description
 This function records that a line pointer at the specified offset should be marked as dead during the heap pruning operation. Dead tuples are those that are no longer visible to any active transaction and can potentially be removed by VACUUM. The function updates multiple tracking arrays in the pruning state to handle the dead tuple appropriately, including maintaining statistics and preparing information for future vacuum operations.
 

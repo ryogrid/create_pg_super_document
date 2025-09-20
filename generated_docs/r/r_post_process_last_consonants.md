@@ -8,7 +8,11 @@ Performs post-processing of last consonants in Turkish words by applying consona
 
 ## Definition
 
+```c
+}
 
+static int r_post_process_last_consonants(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish Snowball stemmer that handles post-processing of final consonants in Turkish words. It uses backward matching to find specific consonant patterns at the end of words and replaces them according to Turkish phonological rules. The function works by:
 

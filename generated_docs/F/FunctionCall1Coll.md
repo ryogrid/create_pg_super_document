@@ -8,7 +8,10 @@ FunctionCall1Coll is a utility function that invokes a previously-looked-up Post
 
 ## Definition
 
-
+```c
+Datum
+FunctionCall1Coll(FmgrInfo *flinfo, Oid collation, Datum arg1)
+```
 ## Detailed Description
 This function is part of PostgreSQL's function manager (fmgr) system that provides a high-level interface for calling database functions. FunctionCall1Coll handles the case where a function needs to be called with exactly one argument and a specific collation context. The function sets up the necessary function call information structure, populates the single argument, invokes the target function, and performs error checking to ensure the result is not NULL.
 

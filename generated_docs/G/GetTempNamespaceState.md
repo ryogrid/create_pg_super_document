@@ -8,7 +8,10 @@ Fetches the status of the session's temporary namespace, specifically designed f
 
 ## Definition
 
-
+```c
+structure is allocated in the specified memory context
+ * (which might or might not be equal to CurrentMemoryContext);
+```
 ## Detailed Description
 This function retrieves the OIDs of the current session's temporary namespace and its associated toast namespace. It's primarily intended for internal use in parallel processing scenarios where worker processes need access to the main session's temporary namespace information. The function directly accesses the global variables  and  to return their current values.
 

@@ -8,7 +8,10 @@ Sets the replication state for the current WAL sender process, managing state tr
 
 ## Definition
 
-
+```c
+void
+WalSndSetState(WalSndState state)
+```
 ## Detailed Description
 WalSndSetState is a function used within the WAL sender process to update its current replication state. The function operates on the global MyWalSnd structure, which represents the current WAL sender's shared memory slot. It uses spinlock synchronization to ensure atomic state updates that can be safely read by other processes. The function includes an optimization to avoid unnecessary work if the requested state is already the current state.
 

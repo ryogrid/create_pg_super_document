@@ -8,7 +8,10 @@ Checks whether a doubly-linked list is empty by examining the head node's next p
 
 ## Definition
 
-
+```c
+static inline bool
+dlist_is_empty(const dlist_head *head)
+```
 ## Detailed Description
 The  function determines if a doubly-linked list contains any elements by checking two possible empty states: either the head's next pointer is NULL (uninitialized state) or it points to itself (properly initialized empty list). This dual check accommodates both uninitialized lists and lists that have been properly initialized with . The function includes a  call for debugging builds to validate list integrity before performing the emptiness test. This design allows the function to work reliably regardless of whether the list was initialized or is in an uninitialized state.
 

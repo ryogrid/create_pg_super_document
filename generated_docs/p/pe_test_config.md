@@ -8,7 +8,18 @@ A configuration structure that manages test execution parameters and state for t
 
 ## Definition
 
+```c
+typedef struct pe_test_config
+{
+	int			verbosity;
+	bool		force_unsupported;
+	const char *conninfo;
+	PGconn	   *conn;
 
+	int			test_count;
+	int			failure_count;
+} pe_test_config;
+```
 ## Detailed Description
 The  structure serves as the central configuration and state management object for the test_escape module. It encapsulates both test execution parameters (verbosity level, connection information) and runtime state (test counts, failure tracking). This structure is passed to various test functions to maintain consistent configuration and accumulate test results across different test scenarios.
 

@@ -8,7 +8,10 @@ Implements in-order (left-to-right) traversal logic for Red-Black tree iteration
 
 ## Definition
 
-
+```c
+static RBTNode *
+rbt_left_right_iterator(RBTreeIterator *iter)
+```
 ## Detailed Description
 This function provides the core logic for in-order traversal of a Red-Black tree, which visits nodes in ascending order of their keys. The algorithm implements the standard in-order traversal pattern: visit left subtree, process current node, then visit right subtree. The function maintains state through the iterator structure, allowing for step-by-step traversal without recursion.
 

@@ -8,7 +8,25 @@ ParamListInfoData is the concrete struct definition that implements the paramete
 
 ## Definition
 
+```c
+typedef struct ParamListInfoData
+{
+	ParamFetchHook paramFetch;	/* parameter fetch hook */
+	void	   *paramFetchArg;
+	ParamCompileHook paramCompile;	/* parameter compile hook */
+	void	   *paramCompileArg;
+	ParserSetupHook parserSetup;	/* parser setup hook */
+	void	   *parserSetupArg;
+	char	   *paramValuesStr; /* params as a single string for errors */
+	int			numParams;		/* nominal/maximum # of Params represented */
 
+	/*
+	 * params[] may be of length zero if paramFetch is supplied; otherwise it
+	 * must be of length numParams.
+	 */
+	ParamExternData params[FLEXIBLE_ARRAY_MEMBER];
+}			ParamListInfoData;
+```
 ## Detailed Description
 ParamListInfoData is the actual struct that stores parameter information and management hooks used throughout PostgreSQL's query execution system. It provides a flexible architecture that supports both pre-populated parameter arrays and dynamic parameter resolution through callback functions.
 

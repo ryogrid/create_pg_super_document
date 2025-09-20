@@ -8,7 +8,10 @@ PostgreSQL SQL-callable function that calculates the distance from a point to a 
 
 ## Definition
 
-
+```c
+Datum
+dist_ppoly(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL SQL-callable wrapper for point-to-polygon distance calculations. It extracts the point and polygon arguments from the PostgreSQL function call interface and delegates the actual computation to the internal  function. This function is fundamental to other distance calculations in the geometric system, as it provides the building block for more complex geometries like circle-to-polygon distance calculations.
 

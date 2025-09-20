@@ -8,7 +8,10 @@ Establishes a GSSAPI-encrypted connection by performing the complete GSSAPI auth
 
 ## Definition
 
-
+```c
+ssize_t
+secure_open_gssapi(Port *port)
+```
 ## Detailed Description
 The  function performs the complete GSSAPI authentication and encryption setup process for a PostgreSQL backend connection. This is a blocking function that handles the multi-round handshake protocol required to establish a secure GSSAPI session.
 

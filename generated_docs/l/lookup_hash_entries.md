@@ -8,7 +8,10 @@ Looks up hash entries for the current tuple across all hashed grouping sets, han
 
 ## Definition
 
-
+```c
+static void
+lookup_hash_entries(AggState *aggstate)
+```
 ## Detailed Description
 This function processes the current input tuple by looking it up in hash tables for all active grouping sets. For each grouping set, it prepares the hash key, searches the corresponding hash table, and either finds an existing entry or creates a new one (if not in spill mode). When the hash table has been spilled to disk, new entries are not created; instead, the tuple is written to the appropriate spill partition. The function handles the complexity of multiple grouping sets where the same tuple may belong to different groups in each set - some groups may be in memory while others may have been spilled. This design allows for efficient partitioned processing during hash table refill operations.
 

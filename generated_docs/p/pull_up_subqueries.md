@@ -8,7 +8,14 @@ Entry point function that identifies and pulls up subqueries from the range tabl
 
 ## Definition
 
-
+```c
+structure while recursing, in the following sense:
+ * whenever we recurse, all qual expressions in the tree must be reachable
+ * from the top level, in case the recursive call needs to modify them.
+ *
+ * Notice also that we can't turn pullup_replace_vars loose on the whole
+ * jointree, because it'd return a mutated copy of the tree;
+```
 ## Detailed Description
 This function serves as the main entry point for the subquery pull-up optimization process. It examines subqueries in the range table and attempts to merge them directly into the parent query's join tree when beneficial and safe to do so.
 

@@ -8,7 +8,12 @@ A static inline function that efficiently compares cached tuple key values again
 
 ## Definition
 
-
+```c
+static inline bool
+CatalogCacheCompareTuple(const CatCache *cache, int nkeys,
+						 const Datum *cachekeys,
+						 const Datum *searchkeys)
+```
 ## Detailed Description
 The `CatalogCacheCompareTuple` function performs optimized key-by-key comparison between cached tuple keys and search keys during catalog cache lookups. It iterates through each key position and uses the corresponding fast equality function from the cache's `cc_fastequal` array to compare the values. The function returns `true` only if all key pairs match, and `false` as soon as any mismatch is found (short-circuit evaluation). This function is critical for catalog cache performance as it's called during every cache search operation. The use of fast equality functions (set up by `GetCCHashEqFuncs`) provides type-specific optimizations that are much faster than the general-purpose PostgreSQL equality operators.
 

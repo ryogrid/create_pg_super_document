@@ -8,7 +8,10 @@ Modifies the Discretionary Access Control List (DACL) of a Windows security toke
 
 ## Definition
 
-
+```c
+BOOL
+AddUserToTokenDacl(HANDLE hToken)
+```
 ## Detailed Description
 This Windows-specific function addresses security changes introduced in Windows XP/2003 patches and Vista/2008 that modify default DACL behavior. When PostgreSQL creates restricted processes by stripping Administrator privileges, the resulting token may only contain System permissions, leading to access denied errors for subsequent CreatePipe() and CreateProcess() calls. The function rebuilds the token's DACL by copying existing Access Control Entries (ACEs) and adding a new ACE that grants GENERIC_ALL access to the current user's SID, maintaining security while ensuring proper functionality.
 

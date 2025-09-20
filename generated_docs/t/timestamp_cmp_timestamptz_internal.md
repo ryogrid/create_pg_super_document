@@ -8,7 +8,10 @@ The timestamp_cmp_timestamptz_internal function performs cross-type comparison b
 
 ## Definition
 
-
+```c
+int32
+timestamp_cmp_timestamptz_internal(Timestamp timestampVal, TimestampTz dt2)
+```
 ## Detailed Description
 This internal function implements the core logic for comparing timestamp (without timezone) values with timestamptz (with timezone) values. It first converts the timestamp to timestamptz using the session's timezone setting, handling potential overflow conditions. The function handles special cases for infinite timestamps (+/-infinity) and delegates to timestamptz_cmp_internal for the actual comparison once both values are in the same timezone representation. This function is crucial for PostgreSQL's cross-type comparison operations between timestamp types.
 

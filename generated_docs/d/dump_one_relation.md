@@ -8,7 +8,12 @@ Dumps detailed block information for a single relation (table or index) from WAL
 
 ## Definition
 
-
+```c
+static void
+dump_one_relation(ws_options *opt, RelFileLocator *rlocator,
+				  ForkNumber forknum, BlockNumber limit_block,
+				  BlockRefTableReader *reader)
+```
 ## Detailed Description
 This function extracts and displays block reference information for a specific relation from WAL summary data. It dynamically allocates and resizes a buffer to hold block numbers, sorts them for proper display, and formats the output as either individual blocks or block ranges depending on user options. The function handles memory management efficiently by doubling buffer size when needed and includes overflow protection. When not in quiet mode, it outputs formatted information showing tablespace, database, relation, fork, and block details.
 

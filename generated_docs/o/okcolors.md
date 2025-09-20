@@ -8,7 +8,11 @@ The  function promotes subcolors to full colors during regular expression compil
 
 ## Definition
 
-
+```c
+static void
+okcolors(struct nfa *nfa,
+		 struct colormap *cm)
+```
 ## Detailed Description
 This function performs the final phase of color processing in regular expression compilation by promoting subcolors to full colors. It iterates through all colors in the colormap and handles three main scenarios: unused colors, colors that are already subcolors, and colors that have subcolors but are now empty of characters.
 

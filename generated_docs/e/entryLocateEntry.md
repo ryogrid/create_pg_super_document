@@ -8,7 +8,10 @@ Finds the correct tuple in a non-leaf GIN index page using binary search to loca
 
 ## Definition
 
-
+```c
+static BlockNumber
+entryLocateEntry(GinBtree btree, GinBtreeStack *stack)
+```
 ## Detailed Description
 This function performs a binary search on a non-leaf GIN index page to find the correct child page to descend to during index traversal. It operates on the assumption that the page has been correctly chosen and that the searching value should be present on the page. The function handles both full scan operations and targeted searches, comparing attribute entries using the GIN comparison functions to determine the correct downlink to follow.
 

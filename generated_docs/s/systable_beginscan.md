@@ -8,7 +8,14 @@ Initiates a flexible catalog scan that can use either heap scan or index scan de
 
 ## Definition
 
-
+```c
+SysScanDesc
+systable_beginscan(Relation heapRelation,
+				   Oid indexId,
+				   bool indexOK,
+				   Snapshot snapshot,
+				   int nkeys, ScanKey key)
+```
 ## Detailed Description
 systable_beginscan is a high-level interface for scanning PostgreSQL system catalogs that provides automatic fallback between index and heap scans. The function intelligently chooses between using an index scan (when indexes are available and safe) or a heap scan (when indexes are unavailable, being rebuilt, or explicitly disabled). This capability is crucial for system catalog access during bootstrap, recovery, and reindexing operations when normal indexes may not be accessible.
 

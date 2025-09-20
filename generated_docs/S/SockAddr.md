@@ -8,7 +8,13 @@ A structure that wraps BSD socket address information with its length, providing
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			family;
+	SockAddr	addr;
+} AddrInfo;
+```
 ## Detailed Description
 SockAddr is a wrapper structure that combines a BSD socket address with its associated length information. It uses sockaddr_storage as the underlying storage type, which provides sufficient space to hold any type of socket address (IPv4, IPv6, Unix domain sockets, etc.) while maintaining proper alignment requirements.
 

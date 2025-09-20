@@ -8,7 +8,10 @@ Cleanly terminates all database connections in a parallel slots array, closing e
 
 ## Definition
 
-
+```c
+void
+ParallelSlotsTerminate(ParallelSlotArray *sa)
+```
 ## Detailed Description
 ParallelSlotsTerminate performs cleanup of a parallel slots array by iterating through all slots and terminating any active database connections. This function is typically called at the end of parallel operations or during error cleanup to ensure all connections are properly closed and resources are freed.
 

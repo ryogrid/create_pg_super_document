@@ -8,7 +8,10 @@ Gets a new buffer at the end of the index by extending the relation, handling bo
 
 ## Definition
 
-
+```c
+Buffer
+_hash_getnewbuf(Relation rel, BlockNumber blkno, ForkNumber forkNum)
+```
 ## Detailed Description
 This function is responsible for extending a hash index by adding new pages at the end of the relation. Unlike other buffer functions that work with existing pages, _hash_getnewbuf specifically handles index growth and must deal with the complexities of filesystem extension.
 

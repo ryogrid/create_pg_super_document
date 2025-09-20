@@ -8,7 +8,10 @@ Writes a minimal tuple from a heap sort operation to a logical tape during the e
 
 ## Definition
 
-
+```c
+static void
+writetup_heap(Tuplestorestate *state, void *tup)
+```
 ## Detailed Description
 This function is responsible for serializing and writing heap tuples to a logical tape during external sorting operations. It extracts the minimal tuple data from a SortTuple structure, calculates the appropriate lengths, and writes the tuple data to the specified logical tape. The function handles both normal writing and random access scenarios where trailing length information is required.
 

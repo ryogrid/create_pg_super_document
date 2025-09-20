@@ -8,7 +8,11 @@ LogLogicalMessage writes logical decoding messages into the transaction log (XLo
 
 ## Definition
 
-
+```c
+XLogRecPtr
+LogLogicalMessage(const char *prefix, const char *message, size_t size,
+				  bool transactional, bool flush)
+```
 ## Detailed Description
 This function creates and logs a logical message record in the write-ahead log (WAL). It supports both transactional and non-transactional messages. Transactional messages are included in the transaction's commit record and are replayed only if the transaction commits, while non-transactional messages are immediately visible to logical decoding plugins regardless of transaction state. The function constructs an xl_logical_message record containing the database ID, message metadata, prefix, and message content, then inserts it into the XLog using the XLOG_LOGICAL_MESSAGE operation code.
 

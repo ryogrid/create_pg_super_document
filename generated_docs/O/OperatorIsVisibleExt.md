@@ -8,7 +8,10 @@ OperatorIsVisibleExt determines whether an operator is visible in the current se
 
 ## Definition
 
-
+```c
+static bool
+OperatorIsVisibleExt(Oid oprid, bool *is_missing)
+```
 ## Detailed Description
 This function provides extended operator visibility checking with enhanced error handling capabilities. It performs a comprehensive visibility test by first checking if the operator's namespace is in the current search path, then verifying that this specific operator would be found by name resolution (not masked by another operator with the same name and arguments earlier in the path). The function supports graceful handling of missing operators through the is_missing parameter, allowing callers to distinguish between invisible and non-existent operators.
 

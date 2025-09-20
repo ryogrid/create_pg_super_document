@@ -8,7 +8,10 @@ The regrolerecv function converts external binary format data to the regrole dat
 
 ## Definition
 
-
+```c
+Datum
+regrolerecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL input/output function that handles the conversion of binary format data to the regrole data type. The regrole type is a special object identifier (OID) type that specifically references database roles. The function is implemented as a simple wrapper that delegates all processing to the oidrecv function, since regrole values are internally stored as OIDs and the binary representation is identical.
 

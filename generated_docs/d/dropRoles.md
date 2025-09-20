@@ -8,7 +8,10 @@ The dropRoles function generates SQL DROP ROLE statements for all non-system rol
 
 ## Definition
 
-
+```c
+static void
+dropRoles(PGconn *conn)
+```
 ## Detailed Description
 The dropRoles function is part of PostgreSQL's pg_dumpall utility and generates SQL statements to drop existing database roles. It queries the system catalogs to retrieve all role names (excluding PostgreSQL system roles starting with 'pg_' for server versions 9.6 and later), then outputs DROP ROLE statements for each found role.
 

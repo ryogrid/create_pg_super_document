@@ -8,7 +8,10 @@ Formats and prints a PostgreSQL query result set to stdout with headers and alig
 
 ## Definition
 
-
+```c
+static void
+printResultSet(PGresult *res)
+```
 ## Detailed Description
 This utility function provides standardized formatting for displaying PostgreSQL query results in isolation tests. It configures the libpq PQprint function to display results in a table format with headers, aligned columns, and pipe (|) separators between fields. This creates consistent, readable output for test results that can be easily compared across test runs.
 

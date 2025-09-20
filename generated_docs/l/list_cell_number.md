@@ -8,7 +8,10 @@ Returns the zero-based index position of a given ListCell within its containing 
 
 ## Definition
 
-
+```c
+static inline int
+list_cell_number(const List *l, const ListCell *c)
+```
 ## Detailed Description
 The `list_cell_number` function performs pointer arithmetic to determine the index position of a specific ListCell within its containing List. It calculates the index by subtracting the base address of the list's elements array from the given cell pointer, effectively performing reverse indexing.
 

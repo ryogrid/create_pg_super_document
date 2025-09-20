@@ -8,7 +8,11 @@ Attempts to merge given outer and inner partitions and returns the index of the 
 
 ## Definition
 
-
+```c
+static int
+merge_matching_partitions(PartitionMap *outer_map, PartitionMap *inner_map,
+						  int outer_index, int inner_index, int *next_index)
+```
 ## Detailed Description
 This function handles the complex logic of merging partitions from outer and inner relations during partitioned join operations. It manages several scenarios:
 

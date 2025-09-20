@@ -8,7 +8,9 @@ Creates a shared memory segment of specified size with proper initialization, de
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This is the main function for creating PostgreSQL's shared memory segment. It supports both System V shared memory and anonymous mmap-based memory, with the choice determined by the  configuration. The function uses the data directory's inode and device numbers to identify and potentially recycle dead segments from crashed processes.
 

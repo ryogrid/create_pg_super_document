@@ -8,7 +8,10 @@ The  function is a comparison function for sorting RangeBound structures, used d
 
 ## Definition
 
-
+```c
+static int
+range_bound_qsort_cmp(const void *a1, const void *a2, void *arg)
+```
 ## Detailed Description
 This function serves as an adapter between the standard qsort interface and PostgreSQL's internal range boundary comparison logic. It wraps the  function to provide a qsort-compatible interface for sorting arrays of RangeBound structures.
 

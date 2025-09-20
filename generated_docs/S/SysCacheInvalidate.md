@@ -8,7 +8,10 @@ Invalidates entries in a specified system catalog cache using a hash value to ta
 
 ## Definition
 
-
+```c
+void
+SysCacheInvalidate(int cacheId, uint32 hashValue)
+```
 ## Detailed Description
 SysCacheInvalidate removes cached entries from a system catalog cache that match the provided hash value. This function is part of PostgreSQL's cache invalidation mechanism and is designed to be called primarily by the invalidation subsystem (inval.c). The function performs validation on the cache ID and safely handles cases where the cache hasn't been initialized yet. It delegates the actual invalidation work to the underlying catalog cache system.
 

@@ -8,7 +8,9 @@ A utility function that checks whether a specified path exists and is a director
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function uses the POSIX  system call to retrieve file system information about the specified path and then checks if the path corresponds to a directory. The function first attempts to get the file status information using . If this call fails (indicating the path doesn't exist or cannot be accessed), the function returns false. If the stat call succeeds, it uses the  macro to test whether the file mode indicates a directory.
 

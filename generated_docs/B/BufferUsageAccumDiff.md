@@ -8,7 +8,12 @@ A utility function that accumulates buffer usage statistics by computing the dif
 
 ## Definition
 
-
+```c
+void
+BufferUsageAccumDiff(BufferUsage *dst,
+					 const BufferUsage *add,
+					 const BufferUsage *sub)
+```
 ## Detailed Description
 BufferUsageAccumDiff is a public function that calculates the incremental buffer usage statistics between two points in time and accumulates those differences into a destination structure. It performs the operation dst += (add - sub) for all buffer usage counters and timing measurements.
 

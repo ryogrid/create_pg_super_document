@@ -8,7 +8,9 @@ Reads the entire contents of a file into memory as a single null-terminated stri
 
 ## Definition
 
-
+```c
+struct stat fst;
+```
 ## Detailed Description
 This utility function provides a complete file reading operation that loads an entire file into a single memory buffer. It performs several safety checks including file size validation against PostgreSQL's maximum allocation limits, and handles file I/O errors comprehensively. The function allocates memory using PostgreSQL's memory management system (palloc) and adds a null terminator for string convenience, making it suitable for reading text-based configuration and script files.
 

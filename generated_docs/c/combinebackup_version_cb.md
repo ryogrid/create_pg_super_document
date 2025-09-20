@@ -8,7 +8,11 @@ A callback function that validates the backup manifest version number to ensure 
 
 ## Definition
 
-
+```c
+static void
+combinebackup_version_cb(JsonManifestParseContext *context,
+						 int manifest_version)
+```
 ## Detailed Description
 This function serves as a version validation callback during manifest parsing for the pg_combinebackup utility. It specifically checks that the manifest version supports incremental backup functionality. The function enforces that only manifest version 2 or later can be used with pg_combinebackup, as version 1 manifests lack the necessary metadata for incremental backup operations.
 

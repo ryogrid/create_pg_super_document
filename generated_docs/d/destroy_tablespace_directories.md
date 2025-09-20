@@ -8,7 +8,9 @@ Removes the filesystem infrastructure of a tablespace by deleting database subdi
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 destroy_tablespace_directories performs the physical removal of tablespace filesystem infrastructure, implementing a comprehensive cleanup process that handles both normal operations and WAL replay scenarios. The function systematically removes database subdirectories, the version directory, and the symlink while providing appropriate error handling based on the operational context.
 

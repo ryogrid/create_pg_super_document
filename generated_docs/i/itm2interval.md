@@ -8,7 +8,10 @@ Converts a human-readable interval time structure (struct pg_itm) back to a Post
 
 ## Definition
 
-
+```c
+int
+itm2interval(struct pg_itm *itm, Interval *span)
+```
 ## Detailed Description
 The  function reconstructs a PostgreSQL interval from its component parts stored in a pg_itm structure. The conversion process includes:
 

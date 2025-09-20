@@ -8,7 +8,10 @@ Calculates the complete memory size required for a compatibility-mode SQLDA stru
 
 ## Definition
 
-
+```c
+static long
+sqlda_compat_total_size(const PGresult *res, int row, enum COMPAT_MODE compat)
+```
 ## Detailed Description
 This function serves as a high-level wrapper that combines the calculation of empty SQLDA structure size with the data storage requirements for a specific row. It first calculates the base size needed for the SQLDA metadata (structure, field descriptors, field names) using sqlda_compat_empty_size, then adds the space required for storing the actual data values using sqlda_common_total_size. If a negative row index is provided, it returns only the empty structure size, allowing for metadata-only allocations.
 

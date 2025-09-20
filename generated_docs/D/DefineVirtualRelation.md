@@ -8,7 +8,53 @@ DefineVirtualRelation creates a view relation and uses the rules system to store
 
 ## Definition
 
+```c
+structure for this.
+		 *
+		 * Note that we must do this before updating the query for the view,
+		 * since the rules system requires that the correct view columns be in
+		 * place when defining the new rules.
+		 *
+		 * Also note that ALTER TABLE doesn't run parse transformation on
+		 * AT_AddColumnToView commands.  The ColumnDef we supply must be ready
+		 * to execute as-is.
+		 */
+		if (list_length(attrList) > rel->rd_att->natts)
+		{
+			ListCell   *c;
+			int			skip = rel->rd_att->natts;
 
+			foreach(c, attrList)
+			{
+				if (skip > 0)
+				{
+					skip--;
+					continue;
+				}
+				atcmd = makeNode(AlterTableCmd);
+				atcmd->subtype = AT_AddColumnToView;
+				atcmd->def = (Node *) lfirst(c);
+				atcmds = lappend(atcmds, atcmd);
+			}
+
+			/* EventTriggerAlterTableStart called by ProcessUtilitySlow */
+			AlterTableInternal(viewOid, atcmds, true);
+
+			/* Make the new view columns visible */
+			CommandCounterIncrement();
+		}
+
+		/*
+		 * Update the query for the view.
+		 *
+		 * Note that we must do this before updating the view options, because
+		 * the new options may not be compatible with the old view query (for
+		 * example if we attempt to add the WITH CHECK OPTION, we require that
+		 * the new view be automatically updatable, but the old view may not
+		 * have been).
+		 */
+		StoreViewQuery(viewOid, viewParse, replace);
+```
 ## Detailed Description
 DefineVirtualRelation is an internal function that handles the core mechanics of view creation in PostgreSQL. It performs two primary operations depending on whether it's creating a new view or replacing an existing one:
 

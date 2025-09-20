@@ -8,7 +8,16 @@ Evaluates and potentially adds a hash join path to the joinrel's pathlist, perfo
 
 ## Definition
 
-
+```c
+static void
+try_hashjoin_path(PlannerInfo *root,
+				  RelOptInfo *joinrel,
+				  Path *outer_path,
+				  Path *inner_path,
+				  List *hashclauses,
+				  JoinType jointype,
+				  JoinPathExtraData *extra)
+```
 ## Detailed Description
 This function is the main entry point for considering hash join strategies during query planning. It performs validation checks specific to hash joins, including parameterization validation using calc_non_nestloop_required_outer, and ensures that outer join parameterization constraints are met. The function implements the standard two-phase optimization approach with initial cost estimation followed by full path creation only for promising candidates.
 

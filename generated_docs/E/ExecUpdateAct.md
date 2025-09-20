@@ -8,7 +8,12 @@ ExecUpdateAct is a subroutine for ExecUpdate that performs the actual tuple upda
 
 ## Definition
 
-
+```c
+static TM_Result
+ExecUpdateAct(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+			  ItemPointer tupleid, HeapTuple oldtuple, TupleTableSlot *slot,
+			  bool canSetTag, UpdateContext *updateCxt)
+```
 ## Detailed Description
 ExecUpdateAct is responsible for the core logic of updating a tuple in a PostgreSQL table. The function handles several critical aspects of the update operation:
 

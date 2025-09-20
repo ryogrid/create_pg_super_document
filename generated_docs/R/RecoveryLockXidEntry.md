@@ -8,7 +8,13 @@ A structure that serves as the entry point for tracking all exclusive locks belo
 
 ## Definition
 
-
+```c
+typedef struct RecoveryLockXidEntry
+{
+	TransactionId xid;			/* hash key -- must be first */
+	struct RecoveryLockEntry *head; /* chain head */
+} RecoveryLockXidEntry;
+```
 ## Detailed Description
  is a data structure used in PostgreSQL's standby recovery system to organize and manage all exclusive locks owned by a single original transaction. This structure acts as the entry point in the  hash table, where each entry corresponds to one transaction that holds exclusive locks. The structure maintains a pointer to the head of a linked list of  structures, allowing efficient access to all locks belonging to a specific transaction.
 

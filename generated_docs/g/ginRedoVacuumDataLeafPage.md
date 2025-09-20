@@ -8,7 +8,10 @@ Replays GIN data leaf page vacuum operations during WAL recovery, recompressing 
 
 ## Definition
 
-
+```c
+static void
+ginRedoVacuumDataLeafPage(XLogReaderState *record)
+```
 ## Detailed Description
 ginRedoVacuumDataLeafPage is a WAL recovery function that replays GIN (Generalized Inverted Index) data leaf page vacuum operations from transaction log records. This function specifically handles the recovery of vacuum operations on data leaf pages, which store the actual posting lists (item pointer arrays) in compressed form.
 

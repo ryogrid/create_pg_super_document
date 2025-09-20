@@ -8,7 +8,10 @@ initialize_revoke_actions creates and initializes an array of RevokeRoleGrantAct
 
 ## Definition
 
-
+```c
+static RevokeRoleGrantAction *
+initialize_revoke_actions(CatCList *memlist)
+```
 ## Detailed Description
 This utility function initializes the action planning infrastructure for role membership revocation operations. It creates an array that parallels the membership list (memlist) and initializes all actions to RRG_NOOP, indicating that no actions are initially planned for any of the role memberships.
 

@@ -8,7 +8,11 @@ Allocates space for hash join tuples in shared memory for parallel hash operatio
 
 ## Definition
 
-
+```c
+static HashJoinTuple
+ExecParallelHashTupleAlloc(HashJoinTable hashtable, size_t size,
+						   dsa_pointer *shared)
+```
 ## Detailed Description
  is the parallel equivalent of , designed specifically for parallel hash joins using shared memory. This function manages tuple allocation across multiple parallel workers while handling complex coordination scenarios including memory pressure, load factor management, and dynamic hash table growth.
 

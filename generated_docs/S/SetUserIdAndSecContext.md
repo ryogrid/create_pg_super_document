@@ -8,7 +8,10 @@ Sets both the current effective user ID and the security restriction context fla
 
 ## Definition
 
-
+```c
+void
+SetUserIdAndSecContext(Oid userid, int sec_context)
+```
 ## Detailed Description
 SetUserIdAndSecContext is a low-level function that directly updates two critical global variables: CurrentUserId (the effective user ID for database operations) and SecurityRestrictionContext (bit flags indicating security restrictions). This function is designed to be used primarily for saving and restoring user context during transaction operations.
 

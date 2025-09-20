@@ -8,7 +8,10 @@ Retrieves the actual type OID of a specific function argument from a calling exp
 
 ## Definition
 
-
+```c
+Oid
+get_call_expr_argtype(Node *expr, int argnum)
+```
 ## Detailed Description
 This function extracts the actual data type OID of a function argument at a specified position by analyzing the calling expression tree directly. Unlike similar functions that work with FmgrInfo structures, this function operates on the expression tree itself, making it useful during query planning and optimization phases when the actual function call structure is being analyzed.
 

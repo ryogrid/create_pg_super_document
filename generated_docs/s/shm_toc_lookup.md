@@ -8,7 +8,10 @@ Searches for and retrieves a data chunk from a shared memory table of contents (
 
 ## Definition
 
-
+```c
+void *
+shm_toc_lookup(shm_toc *toc, uint64 key, bool noError)
+```
 ## Detailed Description
 This function performs a lookup operation in a shared memory table of contents structure without acquiring locks, using memory barriers for synchronization. It iterates through the TOC entries to find a matching key and returns a pointer to the corresponding data chunk in shared memory. The function is designed for high-concurrency scenarios where multiple worker processes might need to read TOC entries simultaneously. If the key is not found, the function either returns NULL (when noError is true) or throws an ERROR-level log message (when noError is false).
 

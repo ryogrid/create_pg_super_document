@@ -8,7 +8,10 @@ Removes a BumpBlock from a BumpContext and releases all memory consumed by the b
 
 ## Definition
 
-
+```c
+static inline void
+BumpBlockFree(BumpContext *set, BumpBlock *block)
+```
 ## Detailed Description
 BumpBlockFree is a static inline function that safely removes and deallocates a memory block from a bump memory context. The function performs several critical operations: it validates that the block being freed is not a keeper block (which has special lifecycle management), removes the block from the doubly-linked list of blocks, updates the memory accounting statistics, optionally wipes the memory contents for debugging purposes, and finally releases the memory back to the system using free(). This function is essential for proper memory management within the bump allocator.
 

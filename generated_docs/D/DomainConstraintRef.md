@@ -8,7 +8,19 @@ DomainConstraintRef is a structure that maintains a long-lived reference to a do
 
 ## Definition
 
+```c
+typedef struct DomainConstraintRef
+{
+	List	   *constraints;	/* list of DomainConstraintState nodes */
+	MemoryContext refctx;		/* context holding DomainConstraintRef */
+	TypeCacheEntry *tcache;		/* typcache entry for domain type */
+	bool		need_exprstate; /* does caller need check_exprstate? */
 
+	/* Management data --- treat these fields as private to typcache.c */
+	DomainConstraintCache *dcc; /* current constraints, or NULL if none */
+	MemoryContextCallback callback; /* used to release refcount when done */
+} DomainConstraintRef;
+```
 ## Detailed Description
 DomainConstraintRef serves as a reference-counted wrapper for maintaining access to domain constraint information over extended periods. This structure is essential for PostgreSQL's domain type system, where constraints must be validated whenever values of the domain type are processed.
 

@@ -8,7 +8,10 @@ Provides plan nodes a final execution opportunity before shutdown, ensuring auxi
 
 ## Definition
 
-
+```c
+static void
+ExecPostprocessPlan(EState *estate)
+```
 ## Detailed Description
 ExecPostprocessPlan performs final cleanup and completion tasks during executor shutdown. It specifically handles auxiliary ModifyTable nodes (stored in es_auxmodifytables) by running them to completion, ensuring all planned modifications are executed even if the main query didn't fetch all tuples. This is crucial for maintaining data consistency and predictable side effects, particularly when ModifyTable operations have been set up as auxiliary operations that might not be driven by the main query's tuple consumption.
 

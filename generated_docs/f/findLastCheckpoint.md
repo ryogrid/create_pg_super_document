@@ -8,7 +8,12 @@ Searches backwards through WAL records from a given fork point to find the last 
 
 ## Definition
 
-
+```c
+void
+findLastCheckpoint(const char *datadir, XLogRecPtr forkptr, int tliIndex,
+				   XLogRecPtr *lastchkptrec, TimeLineID *lastchkpttli,
+				   XLogRecPtr *lastchkptredo, const char *restoreCommand)
+```
 ## Detailed Description
 This function implements a critical part of pg_rewind's WAL analysis by walking backwards through WAL records to locate the most recent checkpoint that occurred before the WAL fork point. The checkpoint found serves as the safe starting point for data synchronization between the source and target PostgreSQL instances.
 

@@ -8,7 +8,10 @@ Retrieves a LocalPgBackendStatus entry by process number, providing access to ba
 
 ## Definition
 
-
+```c
+LocalPgBackendStatus *
+pgstat_get_local_beentry_by_proc_number(ProcNumber procNumber)
+```
 ## Detailed Description
 This function is similar to pgstat_get_beentry_by_proc_number() but returns the full LocalPgBackendStatus structure instead of just the embedded PgBackendStatus. The LocalPgBackendStatus includes locally computed additions such as transaction IDs (xid) and xmin values of the backend process. The function uses binary search (bsearch()) to efficiently locate the desired entry in the sorted localBackendStatusTable array, taking advantage of the fact that entries are ordered by proc_number.
 

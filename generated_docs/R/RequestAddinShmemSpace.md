@@ -8,7 +8,10 @@ Allows loadable modules to request additional shared memory space during Postgre
 
 ## Definition
 
-
+```c
+void
+RequestAddinShmemSpace(Size size)
+```
 ## Detailed Description
 RequestAddinShmemSpace is a critical function that enables PostgreSQL extensions and loadable modules to request additional shared memory space beyond the core system requirements. This function can only be called during a specific phase of PostgreSQL startup - specifically from within the shmem_request_hook callback of libraries loaded via shared_preload_libraries. The function maintains a running total of all additional shared memory requests in the global variable total_addin_request, which is later used during shared memory allocation to ensure sufficient space is allocated for all extensions.
 

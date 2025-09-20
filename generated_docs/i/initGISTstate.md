@@ -8,7 +8,11 @@ Initializes and populates a GISTSTATE structure with cached access method inform
 
 ## Definition
 
-
+```c
+unionFn[i]),
+					   index_getprocinfo(index, i + 1, GIST_UNION_PROC),
+					   scanCxt);
+```
 ## Detailed Description
 initGISTstate creates and initializes a comprehensive GISTSTATE structure that serves as a performance optimization cache for GiST index operations. The function establishes a dedicated memory context for the GISTSTATE and systematically populates it with cached function manager information for all index access method support procedures.
 

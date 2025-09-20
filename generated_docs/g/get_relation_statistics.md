@@ -8,7 +8,10 @@ Retrieves extended statistics metadata defined on a table and prepares Statistic
 
 ## Definition
 
-
+```c
+static List *
+get_relation_statistics(RelOptInfo *rel, Relation relation)
+```
 ## Detailed Description
 The  function discovers and processes extended statistics objects defined on a relation, creating  structures that contain metadata needed by the query optimizer. The function does not load the actual statistics data but focuses on preparing the identifying information and expression processing.
 

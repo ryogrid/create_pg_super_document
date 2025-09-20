@@ -8,7 +8,10 @@ Releases and cleans up all current scan keys and associated resources in a GIN i
 
 ## Definition
 
-
+```c
+void
+ginFreeScanKeys(GinScanOpaque so)
+```
 ## Detailed Description
 The  function performs comprehensive cleanup of all scan-related resources in a GIN index scan. It iterates through all scan entries and releases buffers, frees item pointer lists, ends TID bitmap iterations, and frees TID bitmaps. After cleaning up individual entries, it resets the key memory context and clears all scan key references.
 

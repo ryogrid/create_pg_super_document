@@ -8,7 +8,12 @@ Estimates the costs of rescanning a path after the first scan, accounting for pl
 
 ## Definition
 
-
+```c
+static void
+cost_rescan(PlannerInfo *root, Path *path,
+			Cost *rescan_startup_cost,	/* output parameters */
+			Cost *rescan_total_cost)
+```
 ## Detailed Description
 The  function calculates revised cost estimates for rescanning various PostgreSQL plan node types. Unlike initial scans, rescans can be significantly cheaper for certain plan types that cache intermediate results or avoid repeating expensive startup operations. The function analyzes the path type and applies specialized cost calculations based on the execution characteristics of each plan node type.
 

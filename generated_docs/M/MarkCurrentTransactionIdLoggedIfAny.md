@@ -8,7 +8,10 @@ Marks the current transaction ID as having been logged to the Write-Ahead Log (W
 
 ## Definition
 
-
+```c
+void
+MarkCurrentTransactionIdLoggedIfAny(void)
+```
 ## Detailed Description
 This function serves as a transaction state management utility that tracks whether the current transaction's ID has been written to the WAL. It conditionally sets the  flag in the current transaction state only if a valid transaction ID has already been assigned. This is crucial for PostgreSQL's ACID compliance, as it ensures proper tracking of which transaction IDs have been durably recorded in the WAL before any data modifications are committed.
 

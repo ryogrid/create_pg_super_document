@@ -8,7 +8,22 @@ TidStoreIter is an iterator structure that provides sequential access to tuple i
 
 ## Definition
 
+```c
+struct TidStoreIter
+{
+	TidStore   *ts;
 
+	/* iterator of radix tree. Use either one depending on TidStoreIsShared() */
+	union
+	{
+		shared_ts_iter *shared;
+		local_ts_iter *local;
+	}			tree_iter;
+
+	/* output for the caller */
+	TidStoreIterResult output;
+};
+```
 ## Detailed Description
 TidStoreIter provides a standardized interface for iterating through all tuple identifiers stored in a TidStore. The iterator abstracts away the underlying storage details (local vs shared memory) and presents a uniform API for sequential access to TIDs. It maintains state for the current iteration position within the radix tree structure and provides results through the TidStoreIterResult output structure. The iterator is designed to handle both sparse and dense TID distributions efficiently, working in conjunction with the BlocktableEntry structures to extract TIDs from their optimized storage formats. This design enables efficient traversal of large TID collections while maintaining good performance characteristics regardless of the underlying storage mode.
 

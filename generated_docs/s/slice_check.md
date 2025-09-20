@@ -8,7 +8,11 @@ Validates the consistency and bounds of slice operation parameters in a Snowball
 
 ## Definition
 
+```c
+}
 
+static int slice_check(struct SN_env * z)
+```
 ## Detailed Description
 The `slice_check` function is a validation utility that verifies the integrity of slice operation parameters in PostgreSQL's Snowball stemming environment. It checks that the bracket positions (`bra` and `ket`) are within valid bounds, that the string buffer exists, and that the current string length does not exceed the buffer size. The function includes comprehensive boundary checking to prevent buffer overruns and invalid slice operations. When compiled with debugging enabled, it can output diagnostic information about faulty slice operations.
 

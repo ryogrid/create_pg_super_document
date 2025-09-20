@@ -8,7 +8,12 @@ Builds a specialized ProjectionInfo node for constructing new tuples during UPDA
 
 ## Definition
 
-
+```c
+structed.  The scan tuple must be deconstructed at
+	 * least as far as the last old column we need.
+	 */
+	for (int attnum = relDesc->natts;
+```
 ## Detailed Description
 ExecBuildUpdateProjection creates a specialized ProjectionInfo for UPDATE operations that efficiently constructs new tuples by:
 

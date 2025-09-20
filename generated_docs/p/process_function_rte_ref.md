@@ -8,7 +8,11 @@ Handles dependency tracking for column references to function-returning range ta
 
 ## Definition
 
-
+```c
+static void
+process_function_rte_ref(RangeTblEntry *rte, AttrNumber attnum,
+						 find_expr_references_context *context)
+```
 ## Detailed Description
 This specialized function processes Variable references to RTE_FUNCTION range table entries when the function returns a composite type. It determines which specific RangeTblFunction within the RTE produces the referenced column and creates appropriate dependencies.
 

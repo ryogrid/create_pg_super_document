@@ -8,7 +8,10 @@ ExecInitCheck prepares a check constraint for execution by ExecCheck, treating N
 
 ## Definition
 
-
+```c
+ExprState *
+ExecInitCheck(List *qual, PlanState *parent)
+```
 ## Detailed Description
 ExecInitCheck is a specialized variant of expression compilation designed specifically for CHECK constraints. The key difference from ExecInitQual is the handling of NULL results: while ExecInitQual treats NULL as FALSE (appropriate for WHERE clauses), ExecInitCheck treats NULL as TRUE, which matches SQL's specification that NULL constraint conditions are not constraint violations.
 

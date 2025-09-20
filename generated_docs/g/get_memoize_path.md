@@ -8,7 +8,13 @@ Creates a Memoize path node to cache results of parameterized inner scans in nes
 
 ## Definition
 
-
+```c
+static Path *
+get_memoize_path(PlannerInfo *root, RelOptInfo *innerrel,
+				 RelOptInfo *outerrel, Path *inner_path,
+				 Path *outer_path, JoinType jointype,
+				 JoinPathExtraData *extra)
+```
 ## Detailed Description
 This function determines whether it's beneficial to add a Memoize node above an inner path in a nested loop join. The Memoize node caches the results of inner scans based on parameter values, avoiding repeated execution when the same parameters are encountered from different outer tuples.
 

@@ -8,7 +8,10 @@ Creates a new PostgreSQL connection with the same connection parameters as an ex
 
 ## Definition
 
-
+```c
+static PGconn *
+copy_connection(PGconn *conn)
+```
 ## Detailed Description
 The  function creates a new database connection by copying all connection parameters from an existing  object. It uses the libpq  function to extract the connection information from the source connection, then reconstructs the parameters into keyword-value arrays and establishes a new connection using . This function is particularly useful in testing scenarios where multiple connections with identical parameters are needed.
 

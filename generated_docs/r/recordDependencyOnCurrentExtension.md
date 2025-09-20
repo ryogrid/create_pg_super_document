@@ -8,7 +8,11 @@ Records a dependency between an object and the currently executing extension, en
 
 ## Definition
 
-
+```c
+void
+recordDependencyOnCurrentExtension(const ObjectAddress *object,
+								   bool isReplace)
+```
 ## Detailed Description
 This function manages the relationship between database objects and PostgreSQL extensions during extension creation. It ensures that objects created within a CREATE EXTENSION context are properly marked as members of that extension. The function handles two scenarios: creation of new objects (isReplace=false) and replacement of existing objects (isReplace=true). For replacements, it performs strict validation to ensure security by preventing extensions from accidentally or maliciously taking ownership of free-standing objects. The function only operates when creating_extension is true, otherwise it does nothing.
 

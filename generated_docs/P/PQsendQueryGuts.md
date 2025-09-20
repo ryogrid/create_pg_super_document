@@ -8,7 +8,13 @@ PQsendQueryGuts is a static function that implements the common code for sending
 
 ## Definition
 
-
+```c
+struct the Parse message */
+		if (pqPutMsgStart(PqMsg_Parse, conn) < 0 ||
+			pqPuts(stmtName, conn) < 0 ||
+			pqPuts(command, conn) < 0)
+			goto sendFailed;
+```
 ## Detailed Description
 PQsendQueryGuts is the core implementation function for PostgreSQL's extended query protocol. It constructs and sends a sequence of protocol messages to execute a parameterized query or prepared statement. The function handles both cases where a new statement needs to be parsed (when command is provided) and when an already-prepared statement is executed (when command is NULL).
 

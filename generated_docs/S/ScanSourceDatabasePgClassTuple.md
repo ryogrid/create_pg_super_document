@@ -8,7 +8,9 @@ ScanSourceDatabasePgClassTuple examines a pg_class tuple to determine if it repr
 
 ## Definition
 
-
+```c
+enumber = InvalidRelFileNumber;
+```
 ## Detailed Description
 This function analyzes the contents of a pg_class tuple to make decisions about whether the corresponding relation needs to be copied to the destination database. The function performs several filtering checks:
 

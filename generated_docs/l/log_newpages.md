@@ -8,7 +8,11 @@ log_newpages efficiently writes WAL records for multiple page images in batches,
 
 ## Definition
 
-
+```c
+void
+log_newpages(RelFileLocator *rlocator, ForkNumber forknum, int num_pages,
+			 BlockNumber *blknos, Page *pages, bool page_std)
+```
 ## Detailed Description
 log_newpages provides an efficient way to log multiple full-page images to WAL in a single operation. It processes pages in batches limited by XLR_MAX_BLOCK_ID, creating one WAL record per batch to minimize WAL record overhead. This is significantly more efficient than calling log_newpage() for each page individually when dealing with multiple pages. The function forces full-page images for all pages and supports standard page layout optimization. After writing each batch, it updates the LSN for all non-uninitialized pages in that batch. The caller remains responsible for writing the actual pages to disk.
 

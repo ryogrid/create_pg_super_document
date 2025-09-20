@@ -8,7 +8,17 @@ ExtendBufferedRelCommon provides shared logic for relation extension operations,
 
 ## Definition
 
-
+```c
+static BlockNumber
+ExtendBufferedRelCommon(BufferManagerRelation bmr,
+						ForkNumber fork,
+						BufferAccessStrategy strategy,
+						uint32 flags,
+						uint32 extend_by,
+						BlockNumber extend_upto,
+						Buffer *buffers,
+						uint32 *extended_by)
+```
 ## Detailed Description
 ExtendBufferedRelCommon serves as a central dispatcher for relation extension operations in PostgreSQL's buffer manager. It determines whether a relation is temporary or shared and delegates to the appropriate extension function (ExtendBufferedRelLocal for temporary relations, ExtendBufferedRelShared for persistent relations). 
 

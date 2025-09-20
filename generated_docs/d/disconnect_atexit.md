@@ -8,7 +8,10 @@ The disconnect_atexit function is an atexit handler that ensures proper cleanup 
 
 ## Definition
 
-
+```c
+static void
+disconnect_atexit(void)
+```
 ## Detailed Description
 This is a simple cleanup function designed to be registered with the atexit() system call. It ensures that any active PostgreSQL connection is properly closed when the program exits, whether through normal termination or due to an error condition. The function checks if a global connection handle exists and calls PQfinish() to cleanly close the connection and free associated resources.
 

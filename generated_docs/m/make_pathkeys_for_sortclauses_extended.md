@@ -8,7 +8,12 @@ The extended version of pathkey generation that converts SortGroupClauses to pat
 
 ## Definition
 
-
+```c
+structed from a WHERE clause, i.e.
+			 * it doesn't have a target reference at all.
+			 */
+			pathkey->pk_eclass->ec_sortref = sortcl->tleSortGroupRef;
+```
 ## Detailed Description
 The `make_pathkeys_for_sortclauses_extended` function provides comprehensive pathkey generation from SortGroupClause lists with advanced control options. It processes each sort clause to create corresponding PathKey objects, handling cases where sort operators are invalid (unsortable clauses). The function can optionally remove redundant sort clauses from the input list and set equivalence class sort references. 
 

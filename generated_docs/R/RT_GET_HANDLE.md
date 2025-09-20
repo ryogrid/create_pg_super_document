@@ -8,7 +8,10 @@ RT_GET_HANDLE is a macro that generates a function name for retrieving a handle 
 
 ## Definition
 
-
+```c
+RT_SCOPE	RT_HANDLE
+RT_GET_HANDLE(RT_RADIX_TREE * tree)
+```
 ## Detailed Description
 RT_GET_HANDLE is part of PostgreSQL's generic radix tree implementation for shared memory usage. This macro uses the RT_MAKE_NAME helper to generate a prefixed function name that retrieves a handle (dsa_pointer) to a shared memory radix tree. The actual function signature generated would be:
 

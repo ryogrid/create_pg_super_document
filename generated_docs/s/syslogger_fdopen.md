@@ -8,7 +8,10 @@ syslogger_fdopen is a utility wrapper that re-opens error output files from file
 
 ## Definition
 
-
+```c
+static FILE *
+syslogger_fdopen(int fd)
+```
 ## Detailed Description
 syslogger_fdopen provides a cross-platform method for converting file descriptors back into FILE streams within the syslogger process. This function is specifically used in EXEC_BACKEND builds where file descriptors are passed from the postmaster to the syslogger child process via startup data, and need to be converted back into usable FILE pointers.
 

@@ -8,7 +8,10 @@ A static utility function in PostgreSQL's GUC (Grand Unified Configuration) syst
 
 ## Definition
 
-
+```c
+static void
+set_string_field(struct config_string *conf, char **field, char *newval)
+```
 ## Detailed Description
 The  function provides a memory-safe way to update string fields within PostgreSQL's configuration management system. It performs assignment of a new string value to a specified field pointer while ensuring proper cleanup of the previous value. The function checks if the old value is still referenced elsewhere in the configuration structure (including stacked states) before freeing it, preventing memory leaks while avoiding premature deallocation of shared string values.
 

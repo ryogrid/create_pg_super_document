@@ -8,7 +8,10 @@ A common input parsing function for INET and CIDR data types that converts strin
 
 ## Definition
 
-
+```c
+static inet *
+network_in(char *src, bool is_cidr, Node *escontext)
+```
 ## Detailed Description
 This function serves as the core parsing routine for both INET and CIDR data types in PostgreSQL. It takes a string representation of an IP address (with optional network mask) and converts it into PostgreSQL's internal inet structure. The function automatically detects whether the input is an IPv4 or IPv6 address by checking for the presence of colons, then uses the appropriate parsing logic. For CIDR inputs, it performs additional validation to ensure no bits are set beyond the network mask.
 

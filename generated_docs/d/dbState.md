@@ -8,7 +8,12 @@ The  function converts a  enumeration value into a human-readable localized stri
 
 ## Definition
 
-
+```c
+struct option long_options[] = {
+		{"pgdata", required_argument, NULL, 'D'},
+		{NULL, 0, NULL, 0}
+	};
+```
 ## Detailed Description
 This function serves as a utility to translate database state enumeration values into descriptive text strings for user display. It handles all possible database states that can be encountered in PostgreSQL, from startup phases through normal operation to shutdown states. The function uses internationalized strings to provide localized descriptions of each database state.
 

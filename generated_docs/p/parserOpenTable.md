@@ -8,7 +8,11 @@ Opens a table during parse analysis with enhanced error reporting that includes 
 
 ## Definition
 
-
+```c
+struct and return a ParseNamespaceItem for the new RTE.
+ *
+ * We do not link the ParseNamespaceItem into the pstate here;
+```
 ## Detailed Description
 This function is a parser-specific wrapper around table_openrv_extended() that enhances error reporting during query parsing. It sets up error position callbacks to include the RangeVar's parse location in any resulting errors, making diagnostics more helpful. The function provides specialized error messages for different scenarios: qualified vs unqualified relation names, and specifically detects references to forward-declared CTEs that aren't yet in scope, offering targeted hints for resolution.
 

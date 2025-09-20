@@ -8,7 +8,41 @@ GinState is a working data structure that describes the index being operated on,
 
 ## Definition
 
+```c
+typedef struct GinState
+{
+	Relation	index;
+	bool		oneCol;			/* true if single-column index */
 
+	/*
+	 * origTupdesc is the nominal tuple descriptor of the index, ie, the i'th
+	 * attribute shows the key type (not the input data type!) of the i'th
+	 * index column.  In a single-column index this describes the actual leaf
+	 * index tuples.  In a multi-column index, the actual leaf tuples contain
+	 * a smallint column number followed by a key datum of the appropriate
+	 * type for that column.  We set up tupdesc[i] to describe the actual
+	 * rowtype of the index tuples for the i'th column, ie, (int2, keytype).
+	 * Note that in any case, leaf tuples contain more data than is known to
+	 * the TupleDesc; see access/gin/README for details.
+	 */
+	TupleDesc	origTupdesc;
+	TupleDesc	tupdesc[INDEX_MAX_KEYS];
+
+	/*
+	 * Per-index-column opclass support functions
+	 */
+	FmgrInfo	compareFn[INDEX_MAX_KEYS];
+	FmgrInfo	extractValueFn[INDEX_MAX_KEYS];
+	FmgrInfo	extractQueryFn[INDEX_MAX_KEYS];
+	FmgrInfo	consistentFn[INDEX_MAX_KEYS];
+	FmgrInfo	triConsistentFn[INDEX_MAX_KEYS];
+	FmgrInfo	comparePartialFn[INDEX_MAX_KEYS];	/* optional method */
+	/* canPartialMatch[i] is true if comparePartialFn[i] is valid */
+	bool		canPartialMatch[INDEX_MAX_KEYS];
+	/* Collations to pass to the support functions */
+	Oid			supportCollation[INDEX_MAX_KEYS];
+} GinState;
+```
 ## Detailed Description
 GinState serves as the central working structure for GIN index operations, encapsulating all necessary information about the index being processed. It handles both single-column and multi-column indexes, maintaining tuple descriptors and operator class support functions. For multi-column indexes, it manages the complexity of storing different data types by maintaining separate tuple descriptors for each column. The structure also tracks which optional support functions are available for each column.
 

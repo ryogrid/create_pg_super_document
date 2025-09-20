@@ -8,7 +8,9 @@ This static helper function converts a PostgreSQL List of extension names (as C 
 
 ## Definition
 
-
+```c
+struct_array_builtin(datums, ndatums, NAMEOID);
+```
 ## Detailed Description
 The convert_requires_to_datum function takes a List containing extension name strings and converts it into a PostgreSQL array datum of type name[]. This conversion is necessary when returning extension dependency information through the pg_available_extension_versions system view.
 

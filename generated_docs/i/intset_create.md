@@ -8,7 +8,10 @@ Creates a new, initially empty IntegerSet data structure for storing compressed 
 
 ## Definition
 
-
+```c
+IntegerSet *
+intset_create(void)
+```
 ## Detailed Description
 The  function allocates and initializes a new IntegerSet structure in the current memory context. The function sets up an empty B-tree-like structure with all fields initialized to their default values. All subsequent memory allocations for this IntegerSet will be performed in the same memory context that was current when this function was called, regardless of which memory context is active when new integers are added to the set.
 

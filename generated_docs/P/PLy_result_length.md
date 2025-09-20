@@ -8,7 +8,10 @@ Implements the Python sequence/mapping length operation for PLython result objec
 
 ## Definition
 
-
+```c
+static Py_ssize_t
+PLy_result_length(PyObject *arg)
+```
 ## Detailed Description
 This function provides the implementation for Python's len() builtin function when called on a PLython result object. It serves as both a sequence length function (sq_length) and mapping length function (mp_length) in the Python type structure. The function simply delegates to PyList_Size() to get the number of rows stored in the result object's internal rows list, enabling natural Python idioms like len(result) to work with PLython result objects.
 

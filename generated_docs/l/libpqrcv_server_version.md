@@ -8,7 +8,10 @@ A thin wrapper function that retrieves the server version number from a PostgreS
 
 ## Definition
 
-
+```c
+static int
+libpqrcv_server_version(WalReceiverConn *conn)
+```
 ## Detailed Description
 This function provides a simple interface to obtain the version number of the PostgreSQL server that the WAL receiver is connected to. It acts as a wrapper around the libpq library's PQserverVersion function, maintaining consistency with the libpqwalreceiver module's API design. The version information is crucial for determining compatibility and enabling version-specific features during replication setup and operation.
 

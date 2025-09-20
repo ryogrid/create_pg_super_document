@@ -8,7 +8,10 @@ Sets the column attribute descriptors for a PGresult, including column names, ty
 
 ## Definition
 
-
+```c
+int
+PQsetResultAttrs(PGresult *res, int numAttributes, PGresAttDesc *attDescs)
+```
 ## Detailed Description
 PQsetResultAttrs configures the column metadata for a PGresult by copying the provided attribute descriptors. The function performs several validation checks: it ensures the result is valid (not NULL or OOM_result), prevents overwriting existing attributes, and handles no-op cases gracefully. When setting attributes, it allocates memory for the descriptors, performs a deep copy of the attribute names to ensure memory ownership, and determines the overall result format (binary vs text) based on individual column formats.
 

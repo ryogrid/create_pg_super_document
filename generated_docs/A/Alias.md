@@ -8,7 +8,14 @@ The Alias struct specifies an alias for a range variable and optionally provides
 
 ## Definition
 
-
+```c
+typedef struct Alias
+{
+	NodeTag		type;
+	char	   *aliasname;		/* aliased rel name (never qualified) */
+	List	   *colnames;		/* optional list of column aliases */
+} Alias;
+```
 ## Detailed Description
 The Alias struct is a fundamental node type in PostgreSQL's parser that represents table and column aliases in SQL queries. It serves as a container for alias information that can be applied to relations, subqueries, functions, and other range variables. The struct is designed to handle both simple table aliasing (AS alias_name) and column renaming scenarios (AS alias_name(col1, col2, ...)).
 

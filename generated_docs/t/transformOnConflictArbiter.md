@@ -8,7 +8,13 @@ Transforms ON CONFLICT arbiter specifications into the internal representation u
 
 ## Definition
 
-
+```c
+void
+transformOnConflictArbiter(ParseState *pstate,
+						   OnConflictClause *onConflictClause,
+						   List **arbiterExpr, Node **arbiterWhere,
+						   Oid *constraint)
+```
 ## Detailed Description
 This function is the main entry point for transforming ON CONFLICT clauses in INSERT statements with UPSERT functionality. It processes the arbiter specification that tells PostgreSQL which unique constraint or index should be used to detect conflicts. The function handles three main forms of arbiters: explicit column/expression lists, constraint names, and WHERE clauses for partial unique indexes.
 

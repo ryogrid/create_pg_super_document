@@ -8,7 +8,10 @@ Converts a double-precision floating-point number to its shortest decimal repres
 
 ## Definition
 
-
+```c
+char *
+double_to_shortest_decimal(double f)
+```
 ## Detailed Description
 This function provides the highest-level interface for double-to-decimal conversion in PostgreSQL. It handles memory allocation automatically, using `palloc` in the backend (or `malloc` outside the backend) to create a properly sized buffer, then delegates the actual conversion to `double_to_shortest_decimal_buf`. 
 

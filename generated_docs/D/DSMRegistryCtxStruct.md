@@ -8,7 +8,13 @@ DSMRegistryCtxStruct represents the shared memory context for the dynamic shared
 
 ## Definition
 
-
+```c
+typedef struct DSMRegistryCtxStruct
+{
+	dsa_handle	dsah;
+	dshash_table_handle dshh;
+} DSMRegistryCtxStruct;
+```
 ## Detailed Description
 This structure serves as the core context for PostgreSQL's dynamic shared memory registry system. The registry provides a way for libraries to use shared memory without needing to request it at startup time via a shmem_request_hook. The DSMRegistryCtxStruct maintains the necessary handles to access both the underlying dynamic shared area (DSA) and the distributed hash table that stores the actual registry entries keyed by library-specified strings.
 

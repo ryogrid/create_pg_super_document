@@ -8,7 +8,10 @@ Formats and outputs a property that consists of a list of unlabeled items (such 
 
 ## Definition
 
-
+```c
+void
+ExplainPropertyList(const char *qlabel, List *data, ExplainState *es)
+```
 ## Detailed Description
 This function handles the formatting of list-type properties in EXPLAIN output across all supported output formats (TEXT, XML, JSON, YAML). It takes a list of C strings and formats them appropriately for each output mode:
 

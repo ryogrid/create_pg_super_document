@@ -8,7 +8,10 @@ Converts a StringInfo buffer containing XML data into a PostgreSQL xmltype value
 
 ## Definition
 
-
+```c
+static xmltype *
+stringinfo_to_xmltype(StringInfo buf)
+```
 ## Detailed Description
 The stringinfo_to_xmltype function is a utility function that converts the contents of a StringInfo buffer into a PostgreSQL xmltype value. This function serves as a bridge between PostgreSQL's string building infrastructure and the XML data type system.
 

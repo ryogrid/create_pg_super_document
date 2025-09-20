@@ -8,7 +8,10 @@ Returns the authenticated user ID (OID) that was established during connection a
 
 ## Definition
 
-
+```c
+Oid
+GetAuthenticatedUserId(void)
+```
 ## Detailed Description
 GetAuthenticatedUserId is a simple accessor function that returns the OID of the user who was authenticated when the database connection was first established. This user ID represents the original authenticated identity and never changes during the session, regardless of any subsequent SET SESSION AUTHORIZATION or SET ROLE commands.
 

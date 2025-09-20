@@ -8,7 +8,11 @@ Computes the distances (gaps) between consecutive expanded ranges in a BRIN minm
 
 ## Definition
 
-
+```c
+static DistanceValue *
+build_distances(FmgrInfo *distanceFn, Oid colloid,
+				ExpandedRange *eranges, int neranges)
+```
 ## Detailed Description
 This function analyzes an array of expanded ranges and calculates the size of gaps between each consecutive pair of ranges. For n ranges, it computes (n-1) gap distances. The function uses a provided distance function to calculate the difference between the maximum value of one range and the minimum value of the next range. These distance calculations are used later by the range merging logic to determine which ranges should be combined to optimize storage efficiency in BRIN indexes.
 

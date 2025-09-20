@@ -8,7 +8,11 @@ Copies the state of one read pointer to another read pointer within a tuplestore
 
 ## Definition
 
-
+```c
+void
+tuplestore_copy_read_pointer(Tuplestorestate *state,
+							 int srcptr, int destptr)
+```
 ## Detailed Description
 This function copies all the state information from a source read pointer to a destination read pointer within the same tuplestore. The operation handles different tuplestore states (in-memory, writing to file, reading from file) appropriately. When copying pointers in file-based mode, it must carefully manage file seek positions since the active read pointer's position corresponds to the actual file seek point rather than just the stored variables. The function also recomputes the overall eflags if the destination pointer's flags differ from the source.
 

@@ -8,7 +8,10 @@ A global function that invalidates all cached plans and expressions in the plan 
 
 ## Definition
 
-
+```c
+void
+ResetPlanCache(void)
+```
 ## Detailed Description
 ResetPlanCache is a public function that performs a complete invalidation of all cached query plans and expressions. It iterates through both the saved_plan_list and cached_expression_list, marking all entries as invalid. This function is used when a system-wide change requires all cached plans to be discarded.
 

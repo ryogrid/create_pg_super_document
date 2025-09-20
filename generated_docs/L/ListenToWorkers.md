@@ -8,7 +8,10 @@ Collects status messages from worker processes in pg_dump's parallel processing 
 
 ## Definition
 
-
+```c
+static bool
+ListenToWorkers(ArchiveHandle *AH, ParallelState *pstate, bool do_wait)
+```
 ## Detailed Description
 This function serves as the communication hub between the leader process and worker processes in pg_dump's parallel architecture. It handles incoming status messages from workers and manages the lifecycle of parallel operations by:
 

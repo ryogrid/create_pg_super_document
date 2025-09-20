@@ -8,7 +8,10 @@ makeArrayTypeName generates a unique array type name for a given base type by fo
 
 ## Definition
 
-
+```c
+char *
+makeArrayTypeName(const char *typeName, Oid typeNamespace)
+```
 ## Detailed Description
 makeArrayTypeName implements PostgreSQL's traditional naming convention for array types, which prepends an underscore to the base type name (e.g., "int4" becomes "_int4"). The function handles the complexities that arise when this simple rule encounters practical constraints.
 

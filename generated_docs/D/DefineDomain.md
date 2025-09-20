@@ -8,7 +8,11 @@ DefineDomain creates a new domain type, which is a specialized type that inherit
 
 ## Definition
 
-
+```c
+enum or a range type.  Domains over pseudotypes would create a
+	 * security hole.  (It would be shorter to code this to just check for
+	 * pseudotypes;
+```
 ## Detailed Description
 DefineDomain implements PostgreSQL's CREATE DOMAIN command by creating a new domain type that acts as a constrained version of an existing base type. Domains allow users to define commonly-used data types with specific constraints that are automatically applied wherever the domain is used.
 

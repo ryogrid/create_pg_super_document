@@ -8,7 +8,10 @@ The adjleap function processes and validates leap second data by propagating lea
 
 ## Definition
 
-
+```c
+static void
+adjleap(void)
+```
 ## Detailed Description
 The adjleap function performs post-processing of leap second data within PostgreSQL's timezone compiler. It propagates cumulative leap second corrections forward through all leap second entries, ensuring proper temporal relationships and validating minimum spacing between leap seconds. The function also handles leap second expiration times, checking for consistency between the last leap second and any specified expiration date. Additionally, it adjusts the global time boundaries based on leap second expiration constraints to maintain temporal integrity.
 

@@ -8,7 +8,10 @@ ginCompareItemPointers is an inline function that compares two ItemPointer value
 
 ## Definition
 
-
+```c
+static inline int
+ginCompareItemPointers(ItemPointer a, ItemPointer b)
+```
 ## Detailed Description
 This function performs a total ordering comparison between two ItemPointer values by combining their block number and offset number components into 64-bit integers. The comparison is designed to be highly efficient since merging results from multiple GIN scans requires extensive item pointer comparisons. The function is marked as inline to eliminate function call overhead in performance-critical code paths.
 

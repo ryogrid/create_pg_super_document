@@ -8,7 +8,16 @@ PGNoticeHooks is a structure that encapsulates callback procedures for handling 
 
 ## Definition
 
-
+```c
+typedef struct PGEvent
+{
+	PGEventProc proc;			/* the function to call on events */
+	char	   *name;			/* used only for error messages */
+	void	   *passThrough;	/* pointer supplied at registration time */
+	void	   *data;			/* optional state (instance) data */
+	bool		resultInitialized;	/* T if RESULTCREATE/COPY succeeded */
+} PGEvent;
+```
 ## Detailed Description
 PGNoticeHooks is a fundamental structure in PostgreSQL's libpq client library that manages notice message handling. It stores function pointers and associated arguments for two types of notice processing: a notice receiver that handles structured notice messages (PGresult objects), and a notice processor that handles simple string-based notice messages.
 

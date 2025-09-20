@@ -8,7 +8,10 @@ SetCurrentRoleId changes the current role ID during runtime, implementing the ba
 
 ## Definition
 
-
+```c
+void
+SetCurrentRoleId(Oid roleid, bool is_superuser)
+```
 ## Detailed Description
 This function changes the role ID while PostgreSQL is running, implementing the SET ROLE functionality. It handles two main scenarios: when roleid is InvalidOid (equivalent to 'SET ROLE NONE'), it reverts to the session user authorization; when roleid is valid, it sets the specified role as active. The function is designed to work correctly even in failed transactions to restore prior ROLE GUC variable values. It updates the global SetRoleIsActive flag and delegates the actual user ID change to SetOuterUserId. The function includes safeguards for early GUC initialization when SessionUserId hasn't been set yet.
 

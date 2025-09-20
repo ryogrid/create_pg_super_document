@@ -8,7 +8,9 @@ Adds a notification event to an existing pendingNotifies list and maintains an o
 
 ## Definition
 
-
+```c
+struct NotificationHash);
+```
 ## Detailed Description
 This function is responsible for adding a notification event to the pending notifications list in PostgreSQL's asynchronous notification system. The function implements a performance optimization by creating a hash table when the number of pending notifications exceeds MIN_HASHABLE_NOTIFIES threshold (typically for lists with many entries). 
 

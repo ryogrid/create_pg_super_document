@@ -8,7 +8,10 @@ IsThereCollationInNamespace checks for name conflicts when renaming or moving co
 
 ## Definition
 
-
+```c
+void
+IsThereCollationInNamespace(const char *collname, Oid nspOid)
+```
 ## Detailed Description
 This utility function performs duplicate name checking for collation operations like ALTER COLLATION RENAME and ALTER COLLATION SET SCHEMA. It searches the system catalog to verify that no collation with the same name already exists in the specified namespace. The function performs two separate checks:
 1. Checks for collations with the same name and current database encoding

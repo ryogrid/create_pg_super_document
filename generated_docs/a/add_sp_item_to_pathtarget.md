@@ -8,7 +8,10 @@ Adds a split_pathtarget_item to a PathTarget, unless a matching item is already 
 
 ## Definition
 
-
+```c
+static void
+add_sp_item_to_pathtarget(PathTarget *target, split_pathtarget_item *item)
+```
 ## Detailed Description
 This function is a specialized version of add_new_column_to_pathtarget designed to work with split_pathtarget_item structures. It intelligently merges items based on expression equality while handling sortgrouprefs appropriately. The function implements a merging strategy where an item with zero sortgroupref can be merged with one that has a sortgroupref, acquiring the latter's sortgroupref value.
 

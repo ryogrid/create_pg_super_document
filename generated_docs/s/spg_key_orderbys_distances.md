@@ -8,7 +8,11 @@ Calculates distances from a given key (point or box) to an array of ordering sca
 
 ## Definition
 
-
+```c
+double *
+spg_key_orderbys_distances(Datum key, bool isLeaf,
+						   ScanKey orderbys, int norderbys)
+```
 ## Detailed Description
 This function computes distance values for SP-GiST (Space-Partitioned Generalized Search Tree) ordering operations, which are essential for nearest-neighbor searches in spatial indexing. The function behaves differently based on whether the key represents a leaf node or internal node:
 - For leaf nodes (isLeaf=true): Treats the key as a Point and calculates point-to-point distances

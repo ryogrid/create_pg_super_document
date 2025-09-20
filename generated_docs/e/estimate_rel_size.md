@@ -8,7 +8,20 @@ Estimates the number of pages and tuples in a table or index, along with the fra
 
 ## Definition
 
+```c
+structure.  Currently it's OK for btree, hash, and GIN indexes but
+		 * suspect for GiST indexes.
+		 */
+		if (relpages > 0)
+		{
+			curpages--;
+			relpages--;
+		}
 
+		/* estimate number of tuples from previous tuple density */
+		if (reltuples >= 0 && relpages > 0)
+			density = reltuples / (double) relpages;
+```
 ## Detailed Description
 This function provides size estimates for relations by analyzing their storage characteristics and statistical metadata. It handles different relation types with specialized logic:
 

@@ -8,7 +8,11 @@ Executes an ALTER OBJECT SET SCHEMA statement by dispatching to the appropriate 
 
 ## Definition
 
-
+```c
+ObjectAddress
+ExecAlterObjectSchemaStmt(AlterObjectSchemaStmt *stmt,
+						  ObjectAddress *oldSchemaAddr)
+```
 ## Detailed Description
 ExecAlterObjectSchemaStmt serves as the central dispatcher for ALTER OBJECT SET SCHEMA statements in PostgreSQL. It examines the object type specified in the statement and routes the operation to the appropriate specialized function for handling that particular object type. The function supports moving various database objects between schemas, including tables, functions, types, operators, and many others.
 

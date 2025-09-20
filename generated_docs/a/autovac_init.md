@@ -8,7 +8,11 @@ The autovac_init function performs initialization checks for the autovacuum subs
 
 ## Definition
 
-
+```c
+struct and the array of WorkerInfoData.
+	 */
+	size = sizeof(AutoVacuumShmemStruct);
+```
 ## Detailed Description
 This function is called during postmaster initialization to validate autovacuum configuration. It performs a simple but critical check: if the autovacuum daemon is configured to start (autovacuum_start_daemon is true) but statistics tracking is disabled (pgstat_track_counts is false), it issues a warning message explaining that autovacuum cannot function properly without statistics tracking enabled.
 

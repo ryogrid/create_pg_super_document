@@ -8,7 +8,10 @@ SQL-callable function that generates an XML Schema Definition (XSD) based on the
 
 ## Definition
 
-
+```c
+Datum
+query_to_xmlschema(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function executes a SQL query and generates an XML Schema Definition that describes the structure of the query's result set. Unlike table_to_xmlschema which works with existing tables, this function can generate schemas for arbitrary SELECT queries, joins, computed columns, and complex result sets. It uses PostgreSQL's cursor mechanism to analyze the query result structure without actually fetching the data, making it efficient for schema generation purposes.
 

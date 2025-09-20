@@ -8,7 +8,11 @@ A decision function that records a line pointer as either dead or unused based o
 
 ## Definition
 
-
+```c
+static void
+heap_prune_record_dead_or_unused(PruneState *prstate, OffsetNumber offnum,
+								 bool was_normal)
+```
 ## Detailed Description
 This function serves as a dispatcher that decides whether to mark a line pointer as LP_DEAD or LP_UNUSED based on the `mark_unused_now` flag in the pruning state. When `mark_unused_now` is true, dead tuples can be immediately removed during pruning by setting their line pointers to LP_UNUSED, which frees up space immediately. When false, the line pointers are marked as LP_DEAD, leaving the actual removal for a later VACUUM operation.
 

@@ -8,7 +8,10 @@ This function provides an extended interface for retrieving the SQL definition o
 
 ## Definition
 
-
+```c
+Datum
+pg_get_constraintdef_ext(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 pg_get_constraintdef_ext is a PostgreSQL built-in function that returns the SQL definition text for a specified constraint. It extends the basic constraint definition retrieval by allowing the caller to control whether the output should be formatted for readability (pretty-printed) or kept in a compact form. This function serves as a wrapper around pg_get_constraintdef_worker, providing a user-accessible interface with formatting options.
 

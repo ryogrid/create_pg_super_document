@@ -8,7 +8,12 @@ A static function that extracts and validates the record type from the first arg
 
 ## Definition
 
-
+```c
+static void
+get_record_type_from_argument(FunctionCallInfo fcinfo,
+							  const char *funcname,
+							  PopulateRecordCache *cache)
+```
 ## Detailed Description
 This function performs type setup and validation for JSON populate record functions. It extracts the type information from the first function argument and prepares the column cache for efficient type handling. The function ensures that the provided argument is a valid row type (composite type or composite domain), throwing an error if the type is incompatible.
 

@@ -8,7 +8,22 @@ Enum type that defines the possible status states for parallel worker processes 
 
 ## Definition
 
+```c
+WRKR_TERMINATED,
+} T_WorkerStatus;
 
+#define WORKER_IS_RUNNING(workerStatus) \
+	((workerStatus) == WRKR_IDLE || (workerStatus) == WRKR_WORKING)
+
+/*
+ * Private per-parallel-worker state (typedef for this is in parallel.h).
+ *
+ * Much of this is valid only in the leader process (or, on Windows, should
+ * be touched only by the leader thread).  But the AH field should be touched
+ * only by workers.  The pipe descriptors are valid everywhere.
+ */
+struct ParallelSlot
+```
 ## Detailed Description
 T_WorkerStatus is an enumeration that tracks the lifecycle states of worker processes in pg_dump's parallel dumping functionality. This enum provides a clear state machine for managing worker processes, allowing the leader process to understand what each worker is currently doing and coordinate work distribution accordingly. The enum is used in conjunction with the WORKER_IS_RUNNING macro to determine if a worker is available for new tasks.
 

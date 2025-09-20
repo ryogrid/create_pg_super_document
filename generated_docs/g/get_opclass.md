@@ -8,7 +8,10 @@ Fetches the qualified name of an index operator class, returning NIL if the oper
 
 ## Definition
 
-
+```c
+static List *
+get_opclass(Oid opclass, Oid actual_datatype)
+```
 ## Detailed Description
 The  function retrieves the qualified name (schema and name) of an index operator class identified by its OID. The function performs an optimization by checking if the specified operator class is the default for the given data type - if it is, the function returns NIL to indicate that no explicit operator class specification is needed. This is used during index creation and constraint transformation to determine whether an operator class needs to be explicitly specified in the generated SQL.
 

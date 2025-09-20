@@ -8,7 +8,10 @@ Allocates an entire dedicated block for a single large chunk in a Generation mem
 
 ## Definition
 
-
+```c
+static void *
+GenerationAllocLarge(MemoryContext context, Size size, int flags)
+```
 ## Detailed Description
 GenerationAllocLarge is a specialized allocation function that handles large memory requests by creating a dedicated block containing a single chunk. This function is called when the requested allocation size exceeds the context's allocChunkLimit, making it inefficient to allocate from regular blocks that contain multiple smaller chunks.
 

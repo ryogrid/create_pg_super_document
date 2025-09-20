@@ -8,7 +8,9 @@ DataDirSyncMethod is an enumeration that specifies different methods for synchro
 
 ## Definition
 
-
+```c
+struct iovec;
+```
 ## Detailed Description
 The DataDirSyncMethod enumeration defines synchronization strategies used by PostgreSQL utilities and operations to ensure data durability by forcing writes to persistent storage. This is critical for backup operations, base backup creation, and data directory synchronization. The enum provides platform-specific sync methods with fsync being the traditional approach and syncfs being a more efficient Linux-specific alternative when available.
 

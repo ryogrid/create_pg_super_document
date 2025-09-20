@@ -8,7 +8,10 @@ Frees the memory allocated for a HeapTuple structure by calling pfree() on the t
 
 ## Definition
 
-
+```c
+void
+heap_freetuple(HeapTuple htup)
+```
 ## Detailed Description
 The  function is a simple wrapper around PostgreSQL's memory management system that deallocates the memory occupied by a HeapTuple. This function is essential for preventing memory leaks when heap tuples are no longer needed. It simply calls  on the provided HeapTuple pointer, which releases the memory back to PostgreSQL's memory context system.
 

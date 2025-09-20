@@ -8,7 +8,10 @@ A convenience function for sending messages with no body content to PostgreSQL c
 
 ## Definition
 
-
+```c
+void
+pq_putemptymessage(char msgtype)
+```
 ## Detailed Description
 The  function provides a simple and convenient way to send messages that consist only of a message type with no additional data payload. It is essentially a wrapper around  that specifically handles the common case of zero-length messages by passing NULL for the data pointer and 0 for the length.
 

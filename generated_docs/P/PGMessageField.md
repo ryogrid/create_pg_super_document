@@ -8,7 +8,15 @@ A typedef alias for the `pgMessageField` structure, used to store individual fie
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PQnoticeReceiver noticeRec; /* notice message receiver */
+	void	   *noticeRecArg;
+	PQnoticeProcessor noticeProc;	/* notice message processor */
+	void	   *noticeProcArg;
+} PGNoticeHooks;
+```
 ## Detailed Description
 `PGMessageField` is the typedef name for the `pgMessageField` structure. This alias follows PostgreSQL's naming convention where internal structures often have both a lowercase struct name and a capitalized typedef alias. The structure represents a single field within a PostgreSQL error or notice message and forms part of a linked list to store all message fields.
 

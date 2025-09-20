@@ -8,7 +8,11 @@ Extracts the stored datum (key value) and its null category from a GIN index tup
 
 ## Definition
 
-
+```c
+Datum
+gintuple_get_key(GinState *ginstate, IndexTuple tuple,
+				 GinNullCategory *category)
+```
 ## Detailed Description
 This function extracts the actual key value stored in a GIN index tuple and determines its null category. The extraction process differs between single-column and multi-column indexes due to their different internal storage formats.
 

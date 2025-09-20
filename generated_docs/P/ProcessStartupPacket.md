@@ -8,7 +8,11 @@ ProcessStartupPacket reads and processes a client's startup packet, handling pro
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	oldcontext = MemoryContextSwitchTo(TopMemoryContext);
+```
 ## Detailed Description
 ProcessStartupPacket handles the complex process of reading and interpreting PostgreSQL startup packets from clients. It supports multiple packet types including regular startup packets (protocol version 3), SSL/GSSAPI negotiation requests, and cancel requests. The function validates protocol versions, extracts connection parameters (database name, user name, options), handles encryption layer negotiation, and ensures proper packet formatting. It implements security measures against man-in-the-middle attacks and supports both streaming and logical replication connections.
 

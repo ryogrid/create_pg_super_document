@@ -8,7 +8,10 @@ Initializes or reinitializes a SLRU page to zeroes in shared memory without writ
 
 ## Definition
 
-
+```c
+int
+SimpleLruZeroPage(SlruCtl ctl, int64 pageno)
+```
 ## Detailed Description
 SimpleLruZeroPage creates a new SLRU (Simple Least Recently Used) page filled with zeros in the shared buffer pool. This function is used when a new page needs to be allocated in various PostgreSQL subsystems like CLOG, commit timestamp, multixact, and subtrans systems. The page is marked as valid and dirty in memory but is not immediately written to disk. The function ensures proper synchronization by requiring the caller to hold the appropriate bank lock in exclusive mode.
 

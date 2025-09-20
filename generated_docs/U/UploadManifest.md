@@ -8,7 +8,10 @@ Handles the UPLOAD_MANIFEST replication command by receiving incremental backup 
 
 ## Definition
 
-
+```c
+static void
+UploadManifest(void)
+```
 ## Detailed Description
 UploadManifest implements the server-side handling of the UPLOAD_MANIFEST replication command, which is part of PostgreSQL's incremental backup functionality. The function:
 

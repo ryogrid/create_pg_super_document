@@ -8,7 +8,10 @@ PostgreSQL conversion function that converts UTF-8 encoded text to GB18030 encod
 
 ## Definition
 
-
+```c
+Datum
+utf8_to_gb18030(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `utf8_to_gb18030` function is a PostgreSQL conversion procedure that transforms UTF-8 encoded text into GB18030 encoding. GB18030 is a Chinese national standard character encoding that is backward compatible with GBK and GB2312, capable of representing all Unicode code points.
 

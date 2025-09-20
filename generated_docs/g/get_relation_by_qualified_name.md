@@ -8,7 +8,12 @@ Locates a relation by qualified name and validates that the relation matches the
 
 ## Definition
 
-
+```c
+static ObjectAddress
+get_relation_by_qualified_name(ObjectType objtype, List *object,
+							   Relation *relp, LOCKMODE lockmode,
+							   bool missing_ok)
+```
 ## Detailed Description
 The  function is a static helper function that handles object address resolution specifically for relation-type objects in PostgreSQL. It takes a qualified name list and attempts to open the corresponding relation, then validates that the relation's kind matches the expected object type.
 

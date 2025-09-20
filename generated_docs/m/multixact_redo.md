@@ -8,7 +8,14 @@ multixact_redo is the resource manager's redo function that replays multixact-re
 
 ## Definition
 
-
+```c
+typedef struct
+	{
+		MultiXactMember *members;
+		int			nmembers;
+		int			iter;
+	} mxact;
+```
 ## Detailed Description
 This function serves as the main redo handler for the MULTIXACT resource manager during xlog replay. It processes different types of multixact operations based on the xlog record info field:
 - XLOG_MULTIXACT_ZERO_OFF_PAGE: Zeros out a page in the multixact offsets SLRU

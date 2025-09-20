@@ -8,7 +8,9 @@ Checks the status and validity of a named database connection in ECPG applicatio
 
 ## Definition
 
-
+```c
+struct connection *con = ecpg_get_connection(connection_name);
+```
 ## Detailed Description
 The  function verifies that a specified database connection is valid and active. It performs a comprehensive check that includes both ECPG initialization validation and actual connection status verification. The function first retrieves the connection object by name, then calls  to ensure proper SQLCA setup and basic connection validation, and finally verifies that the underlying database connection is active.
 

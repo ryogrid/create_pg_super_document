@@ -8,7 +8,10 @@ The  function implements the  psql command for displaying text search parser inf
 
 ## Definition
 
-
+```c
+bool
+listTSParsers(const char *pattern, bool verbose)
+```
 ## Detailed Description
 This function queries the  system catalog to retrieve and display information about text search parsers defined in the database. Text search parsers are components of PostgreSQL's full-text search functionality that break documents into tokens for indexing and searching. Each parser defines how to recognize and classify different types of text elements.
 

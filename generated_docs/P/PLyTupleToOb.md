@@ -8,7 +8,19 @@ PLyTupleToOb is a struct that contains conversion information for transforming P
 
 ## Definition
 
-
+```c
+typedef struct PLyTupleToOb
+{
+	/* If we're dealing with a RECORD type, actual descriptor is here: */
+	TupleDesc	recdesc;
+	/* If we're dealing with a named composite type, these fields are set: */
+	TypeCacheEntry *typentry;	/* typcache entry for type */
+	uint64		tupdescid;		/* last tupdesc identifier seen in typcache */
+	/* These fields are NULL/0 if not yet set: */
+	PLyDatumToOb *atts;			/* array of per-column conversion info */
+	int			natts;			/* length of array */
+} PLyTupleToOb;
+```
 ## Detailed Description
 PLyTupleToOb manages the conversion of PostgreSQL composite types and records to Python dictionaries. It handles both anonymous RECORD types and named composite types, caching conversion information for each column/attribute. The struct supports efficient conversion by maintaining type cache entries and column-specific conversion data.
 

@@ -8,7 +8,14 @@ Creates a range table entry for a subquery and adds it to the parser state, retu
 
 ## Definition
 
-
+```c
+ParseNamespaceItem *
+addRangeTableEntryForSubquery(ParseState *pstate,
+							  Query *subquery,
+							  Alias *alias,
+							  bool lateral,
+							  bool inFromCl)
+```
 ## Detailed Description
 The  function creates a range table entry for subqueries appearing in FROM clauses, WITH clauses, or other contexts where a query result is treated as a relation. This function handles the complex process of:
 

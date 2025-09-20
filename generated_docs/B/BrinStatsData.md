@@ -8,7 +8,13 @@ BrinStatsData is a PostgreSQL data structure that holds statistical information 
 
 ## Definition
 
-
+```c
+typedef struct BrinStatsData
+{
+	BlockNumber pagesPerRange;
+	BlockNumber revmapNumPages;
+} BrinStatsData;
+```
 ## Detailed Description
 BrinStatsData encapsulates essential statistical information about BRIN (Block Range Index) structures that the PostgreSQL query planner needs for accurate cost estimation. This structure is populated by reading metadata from BRIN indexes and is used primarily in the brincostestimate() function to calculate the cost of using a BRIN index for query execution.
 

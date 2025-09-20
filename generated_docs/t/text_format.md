@@ -8,7 +8,10 @@ The  function implements PostgreSQL's  SQL function, providing sprintf-like stri
 
 ## Definition
 
-
+```c
+struct_array(arr, element_type, elmlen, elmbyval, elmalign,
+							  &elements, &nulls, &nitems);
+```
 ## Detailed Description
 This function provides a comprehensive string formatting facility similar to sprintf in C or printf-style functions. It processes a format string containing conversion specifiers and substitutes them with formatted representations of the provided arguments. Key features include:
 

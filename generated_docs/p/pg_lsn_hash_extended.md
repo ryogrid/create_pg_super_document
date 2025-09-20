@@ -8,7 +8,10 @@ The pg_lsn_hash_extended function computes an extended hash value for a PostgreS
 
 ## Definition
 
-
+```c
+Datum
+pg_lsn_hash_extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a wrapper around the hashint8extended function to provide extended hashing capabilities for the pg_lsn data type. Since LSN values are internally represented as 64-bit integers, this function leverages the existing 64-bit integer extended hash implementation. The extended hash variant accepts an additional seed parameter that can be used to randomize hash values, which is important for security and performance in hash-based data structures.
 

@@ -8,7 +8,10 @@ This function resets statistics for all entries of a specified statistics kind w
 
 ## Definition
 
-
+```c
+void
+pgstat_reset_of_kind(PgStat_Kind kind)
+```
 ## Detailed Description
 The  function provides a mechanism to reset statistics for all entries belonging to a specific statistics kind. It operates by first retrieving the kind information for the specified statistics type, then calling the appropriate reset mechanism based on whether the kind has a fixed amount of entries or a variable amount.
 

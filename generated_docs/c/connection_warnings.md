@@ -8,7 +8,10 @@ Displays version information and compatibility warnings for the psql client-serv
 
 ## Definition
 
-
+```c
+void
+connection_warnings(bool in_startup)
+```
 ## Detailed Description
 The  function provides user feedback about the established database connection, focusing on version compatibility and security status. It displays psql's version banner and warns users about potential compatibility issues when client and server versions don't match.
 

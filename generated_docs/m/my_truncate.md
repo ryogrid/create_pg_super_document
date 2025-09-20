@@ -8,7 +8,10 @@ A static function that truncates a PostgreSQL large object to a specified 64-bit
 
 ## Definition
 
-
+```c
+static void
+my_truncate(PGconn *conn, Oid lobjId, pg_int64 len)
+```
 ## Detailed Description
 The  function provides functionality to truncate a PostgreSQL large object to a specific size using the 64-bit large object interface. It opens the large object with both read and write permissions, performs the truncation operation using , and properly closes the large object. This function is specifically designed to work with large objects that may exceed 32-bit size limitations by using the 64-bit API variants.
 

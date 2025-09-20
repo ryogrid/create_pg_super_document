@@ -8,7 +8,10 @@ A callback wrapper function for  designed to be used with PostgreSQL's error cle
 
 ## Definition
 
-
+```c
+void
+_bt_end_vacuum_callback(int code, Datum arg)
+```
 ## Detailed Description
 This function serves as an adapter that wraps  in the standard PostgreSQL callback interface. It is specifically designed to be used with PostgreSQL's error cleanup system, particularly with  macro, to ensure that VACUUM tracking resources are properly cleaned up even when errors or FATAL conditions occur.
 

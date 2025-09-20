@@ -8,7 +8,9 @@ Returns the RESET value associated with a specified PostgreSQL configuration opt
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function retrieves the reset value (default value) of a PostgreSQL configuration parameter identified by name. The reset value represents the value that the parameter would have if it were reset to its default state, either through RESET statement or server restart. The function handles different parameter types (boolean, integer, real, string, enum) and converts their reset values to appropriate string representations.
 

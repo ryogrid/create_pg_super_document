@@ -8,7 +8,12 @@ The pg_popcount function counts the number of 1-bits (population count) in a buf
 
 ## Definition
 
-
+```c
+structions in the optimized version.
+	 */
+#if SIZEOF_VOID_P >= 8
+	int			threshold = 8;
+```
 ## Detailed Description
 pg_popcount implements an efficient bit counting algorithm that adapts its strategy based on the size of the input buffer. For small buffers (less than 4 or 8 bytes depending on pointer size), it uses a simple loop with lookup table access via pg_number_of_ones. For larger buffers, it delegates to pg_popcount_optimized which can leverage specialized CPU instructions or other optimizations to achieve better performance. The threshold is set to the point where the function call overhead is justified by the performance gains of the optimized version.
 

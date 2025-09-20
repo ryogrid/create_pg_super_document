@@ -8,7 +8,10 @@ Returns a string identifier for XLOG (transaction log) record types based on the
 
 ## Definition
 
-
+```c
+const char *
+xlog_identify(uint8 info)
+```
 ## Detailed Description
 This function is a resource manager identify function specifically for XLOG records. It takes the info field from a WAL record and returns a human-readable string identifier that corresponds to the specific XLOG record type. The function uses a switch statement to map numeric XLOG record type constants to their corresponding string names.
 

@@ -8,7 +8,10 @@ Internal helper function that frees all memory associated with a list, with an o
 
 ## Definition
 
-
+```c
+static void
+list_free_private(List *list, bool deep)
+```
 ## Detailed Description
 This is a private static function that serves as the common implementation for both `list_free()` and `list_free_deep()`. It handles the memory deallocation of a PostgreSQL List structure and optionally the elements it contains. The function first checks if the list is NIL (null) and returns early if so. It then validates the list structure using invariant checks.
 

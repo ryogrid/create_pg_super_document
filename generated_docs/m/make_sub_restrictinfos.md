@@ -8,7 +8,19 @@ Recursively inserts RestrictInfo nodes into boolean expressions, handling the pr
 
 ## Definition
 
-
+```c
+static Expr *
+make_sub_restrictinfos(PlannerInfo *root,
+					   Expr *clause,
+					   bool is_pushed_down,
+					   bool has_clone,
+					   bool is_clone,
+					   bool pseudoconstant,
+					   Index security_level,
+					   Relids required_relids,
+					   Relids incompatible_relids,
+					   Relids outer_relids)
+```
 ## Detailed Description
 This static function implements the recursive logic for inserting RestrictInfo nodes at appropriate locations within complex boolean expressions. It follows PostgreSQL's design principle of using implicit-AND lists at the top level, placing RestrictInfo nodes above simple (non-AND/OR) clauses and above sub-OR clauses, but not above sub-AND clauses. For OR clauses, it recursively processes each argument and creates a RestrictInfo containing both the original clause and a reconstructed OR clause with RestrictInfo-wrapped arguments. For AND clauses, it recursively processes arguments but returns the AND clause directly without wrapping. For simple clauses, it creates a RestrictInfo directly.
 

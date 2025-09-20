@@ -8,7 +8,10 @@ The cluster function is the main entry point for the PostgreSQL CLUSTER command,
 
 ## Definition
 
-
+```c
+void
+cluster(ParseState *pstate, ClusterStmt *stmt, bool isTopLevel)
+```
 ## Detailed Description
 The cluster function implements the CLUSTER SQL command that physically reorders heap tuples in a table to match the order of a specified index. This operation can improve query performance by reducing disk I/O when accessing data in index order. The function supports both single-table and multi-table clustering operations.
 

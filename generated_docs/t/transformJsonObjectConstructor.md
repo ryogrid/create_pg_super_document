@@ -8,7 +8,10 @@ Transforms JSON_OBJECT() constructor expressions into JsonConstructorExpr nodes 
 
 ## Definition
 
-
+```c
+static Node *
+transformJsonObjectConstructor(ParseState *pstate, JsonObjectConstructor *ctor)
+```
 ## Detailed Description
 This function is responsible for transforming JSON_OBJECT() constructor syntax into PostgreSQL's internal representation as a JsonConstructorExpr node with type JSCTOR_JSON_OBJECT. The function processes key-value pairs from the constructor expression, transforms each key and value through appropriate transformation functions, and creates the final JSON constructor expression with proper formatting and output coercion.
 

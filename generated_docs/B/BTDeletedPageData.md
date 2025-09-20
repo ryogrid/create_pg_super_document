@@ -8,7 +8,12 @@ BTDeletedPageData is a simple structure that defines the contents of a deleted B
 
 ## Definition
 
-
+```c
+typedef struct BTDeletedPageData
+{
+	FullTransactionId safexid;	/* See BTPageIsRecyclable() */
+} BTDeletedPageData;
+```
 ## Detailed Description
 BTDeletedPageData represents the minimal contents stored in a B-tree page that has been marked as deleted. When a B-tree page is deleted, instead of immediately recycling it, PostgreSQL stores this structure in the page's tuple area to track when the page can be safely reused.
 

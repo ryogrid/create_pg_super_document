@@ -8,7 +8,10 @@ Converts a timestamp to timestamptz with optional overflow handling, providing c
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function converts a timestamp (without timezone) to a timestamptz (with timezone) while providing optional overflow handling. The conversion process interprets the input timestamp as being in the current session timezone and converts it to UTC. The function offers two modes of operation based on the overflow parameter:
 

@@ -8,7 +8,10 @@ A convenience wrapper function that checks if the current character in the parse
 
 ## Definition
 
-
+```c
+static int
+p_iseqC(TParser *prs)
+```
 ## Detailed Description
 The  function is a simple wrapper around the  function that compares the current character at the parser's position with the character stored in the parser's  field. This function is part of PostgreSQL's text search parser infrastructure and is used extensively in the state machine transitions for tokenizing text. It provides a convenient way to check if the current character matches the expected character without having to explicitly pass the character value.
 

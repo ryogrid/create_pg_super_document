@@ -8,7 +8,11 @@ Frees all dynamically allocated substructures within a vars struct and optionall
 
 ## Definition
 
-
+```c
+static int
+freev(struct vars *v,
+	  int err)
+```
 ## Detailed Description
 The  function performs comprehensive cleanup of a vars structure used during regular expression compilation. It systematically deallocates all dynamically allocated substructures including the compiled regex, subRE arrays, NFAs, parse trees, character vectors, and lookahead/lookbehind constraints. The function is designed to be safe to call multiple times and with partially initialized structures, as it checks each pointer before attempting to free it.
 

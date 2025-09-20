@@ -8,7 +8,10 @@ Constructs a SCRAM-SHA-256 secret from a plain text password for storage in pg_a
 
 ## Definition
 
-
+```c
+char *
+pg_be_scram_build_secret(const char *password)
+```
 ## Detailed Description
 This function creates a SCRAM-SHA-256 authentication secret from a plain text password that can be stored in the PostgreSQL system catalog. The process involves normalizing the password using SASLprep (if possible), generating a cryptographically secure random salt, and computing the SCRAM secret using the configured iteration count. The function handles password normalization failures gracefully by using the original password if SASLprep normalization is not possible (due to invalid UTF-8 or prohibited characters).
 

@@ -8,7 +8,10 @@ Validates whether a wildcard certificate pattern matches a given hostname string
 
 ## Definition
 
-
+```c
+static bool
+wildcard_certificate_match(const char *pattern, const char *string)
+```
 ## Detailed Description
 This function implements wildcard matching for SSL/TLS certificate hostname verification in PostgreSQL's libpq client library. It follows a conservative interpretation of RFC2818 wildcard certificate matching rules, prioritizing security over compatibility with some browser implementations.
 

@@ -8,7 +8,15 @@ Builds a PartitionPruneInfo structure that enables additional partition pruning 
 
 ## Definition
 
-
+```c
+struct a temporary array to map from partition-child-relation
+	 * relid to the index in 'subpaths' of the scan plan for that partition.
+	 * (Use of "subplan" rather than "subpath" is a bit of a misnomer, but
+	 * we'll let it stand.)  For convenience, we use 1-based indexes here, so
+	 * that zero can represent an un-filled array entry.
+	 */
+	allpartrelids = NIL;
+```
 ## Detailed Description
 This function constructs a PartitionPruneInfo data structure that the executor can use to perform runtime partition pruning. It analyzes the provided subpaths to identify partition child relations and their parent partitioned relations, then builds pruning information for each relevant partition hierarchy.
 

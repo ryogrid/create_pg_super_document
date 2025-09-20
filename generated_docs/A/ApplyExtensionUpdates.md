@@ -8,7 +8,16 @@ Applies a series of update scripts sequentially to upgrade an extension through 
 
 ## Definition
 
-
+```c
+static void
+ApplyExtensionUpdates(Oid extensionOid,
+					  ExtensionControlFile *pcontrol,
+					  const char *initialVersion,
+					  List *updateVersions,
+					  char *origSchemaName,
+					  bool cascade,
+					  bool is_create)
+```
 ## Detailed Description
 This function manages the complex process of updating PostgreSQL extensions through multiple version increments. It iterates through a list of target versions, applying each update script in sequence while maintaining proper metadata and dependency tracking. For each version update, it:
 

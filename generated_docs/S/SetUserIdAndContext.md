@@ -8,7 +8,10 @@ Sets the current user ID and security context flags for role-based operations, p
 
 ## Definition
 
-
+```c
+void
+SetUserIdAndContext(Oid userid, bool sec_def_context)
+```
 ## Detailed Description
 This function modifies the current user ID (CurrentUserId) and updates the security restriction context based on whether the operation is a security definer context change. It includes a security check to prevent user ID changes within security-restricted operations, throwing the same error that SET ROLE would produce. The function manipulates the SecurityRestrictionContext flags to track whether a local user ID change has occurred.
 

@@ -8,7 +8,13 @@ ConsiderSplitContext is a structure used in PostgreSQL's GiST (Generalized Searc
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	float8		lower,
+				upper;
+} SplitInterval;
+```
 ## Detailed Description
 ConsiderSplitContext serves as a context structure for the  function, which is part of PostgreSQL's optimized GiST index page splitting algorithm for geometric data types. This structure maintains information about the current best split candidate during the double sorting-based node splitting process described in "A new double sorting-based node splitting algorithm for R-tree" by A. Korotkov.
 

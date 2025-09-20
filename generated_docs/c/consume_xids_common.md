@@ -8,7 +8,10 @@ A static helper function that provides common XID consumption functionality for 
 
 ## Definition
 
-
+```c
+static FullTransactionId
+consume_xids_common(FullTransactionId untilxid, uint64 nxids)
+```
 ## Detailed Description
 The  function serves as the core implementation for consuming (allocating) transaction IDs in PostgreSQL's XID wraparound testing module. It supports two consumption modes: consuming a specific number of XIDs or consuming XIDs until reaching a target XID value. The function employs both a fast shortcut method (direct counter manipulation) and a slow path (individual XID allocation via GetNewTransactionId) to efficiently consume large numbers of transaction IDs for testing purposes.
 

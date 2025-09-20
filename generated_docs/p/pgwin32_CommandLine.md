@@ -8,7 +8,10 @@ Constructs a properly formatted command line string for PostgreSQL processes on 
 
 ## Definition
 
-
+```c
+static char *
+pgwin32_CommandLine(bool registration)
+```
 ## Detailed Description
 This function builds a complete command line string for executing PostgreSQL processes on Windows. It handles two distinct modes:
 

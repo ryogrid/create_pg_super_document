@@ -8,7 +8,10 @@ decompile_conbin is a static utility function that converts the binary represent
 
 ## Definition
 
-
+```c
+static char *
+decompile_conbin(HeapTuple contup, TupleDesc tupdesc)
+```
 ## Detailed Description
 This function takes a pg_constraint tuple containing a check constraint and extracts the constraint expression from its binary form (stored in the conbin column) back to readable source text. It uses the pg_get_expr system function to perform the decompilation, which requires both the binary expression data and the relation OID for proper context resolution. The function is essential for constraint comparison operations where the textual representation of constraints needs to be analyzed.
 

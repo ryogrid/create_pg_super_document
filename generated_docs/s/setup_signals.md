@@ -8,7 +8,10 @@ Configures signal handlers for the initdb process to ensure proper cleanup and g
 
 ## Definition
 
-
+```c
+void
+setup_signals(void)
+```
 ## Detailed Description
 This function establishes signal handling behavior for the initdb utility. It sets up handlers for various UNIX signals to ensure that the initialization process can be interrupted cleanly and perform necessary cleanup operations. The function handles platform differences by using conditional compilation directives, as some signals are not available on all operating systems (particularly Windows).
 

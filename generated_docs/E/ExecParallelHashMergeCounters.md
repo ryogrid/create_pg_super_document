@@ -8,7 +8,10 @@ ExecParallelHashMergeCounters transfers backend-local per-batch counters to the 
 
 ## Definition
 
-
+```c
+static void
+ExecParallelHashMergeCounters(HashJoinTable hashtable)
+```
 ## Detailed Description
 This function consolidates batch statistics that have been maintained locally by each parallel worker into the shared parallel state. Each worker maintains local counters for efficiency during normal operation to avoid lock contention, but at certain synchronization points (such as during batch repartitioning), these local counters need to be merged into the shared state so all workers have a consistent view of the hash table statistics.
 

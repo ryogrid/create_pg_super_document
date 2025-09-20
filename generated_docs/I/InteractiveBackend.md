@@ -8,7 +8,10 @@ A function that handles interactive user input in PostgreSQL's backend process, 
 
 ## Definition
 
-
+```c
+static int
+InteractiveBackend(StringInfo inBuf)
+```
 ## Detailed Description
 The `InteractiveBackend` function is responsible for handling interactive user connections in PostgreSQL's backend. It displays a prompt to the user ("backend> "), reads input from stdin character by character, and processes the input to form complete SQL commands. The function supports two different input modes:
 

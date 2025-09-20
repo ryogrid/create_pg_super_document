@@ -8,7 +8,12 @@ A struct that serves as input parameter for the SP-GiST opclass config method, c
 
 ## Definition
 
-
+```c
+typedef struct spgConfigIn
+{
+	Oid			attType;		/* Data type to be indexed */
+} spgConfigIn;
+```
 ## Detailed Description
 spgConfigIn is a simple input structure used in the SP-GiST (Space-Partitioned Generalized Search Tree) index access method. It is passed to the opclass config method to provide information about the data type that will be indexed. The config method uses this information to determine appropriate configuration parameters for the index, which are returned in the corresponding spgConfigOut structure.
 

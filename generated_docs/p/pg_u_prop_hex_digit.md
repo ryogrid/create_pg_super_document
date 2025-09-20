@@ -8,7 +8,10 @@ Determines whether a Unicode code point has the Hex_Digit property, identifying 
 
 ## Definition
 
-
+```c
+bool
+pg_u_prop_hex_digit(pg_wchar code)
+```
 ## Detailed Description
 This function checks if a given Unicode code point has the Hex_Digit property according to the Unicode Standard. Characters with this property are those that can legitimately be used as hexadecimal digits in numeric literals. This includes the standard ASCII digits 0-9 and letters A-F (both uppercase and lowercase), as well as any fullwidth variants or other Unicode characters designated as hex digits.
 

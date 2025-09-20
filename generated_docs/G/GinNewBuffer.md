@@ -8,7 +8,10 @@ Allocates a new buffer page for a GIN index by either recycling a free page or e
 
 ## Definition
 
-
+```c
+Buffer
+GinNewBuffer(Relation index)
+```
 ## Detailed Description
 The  function is responsible for obtaining a new page for use in a GIN index. It follows a two-phase allocation strategy:
 

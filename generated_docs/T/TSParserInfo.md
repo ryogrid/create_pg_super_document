@@ -8,7 +8,15 @@ TSParserInfo is a structure used in pg_dump to represent a PostgreSQL text searc
 
 ## Definition
 
-
+```c
+typedef struct _dictInfo
+{
+	DumpableObject dobj;
+	const char *rolname;
+	Oid			dicttemplate;
+	char	   *dictinitoption;
+} TSDictInfo;
+```
 ## Detailed Description
 TSParserInfo is part of pg_dump's internal representation of PostgreSQL database objects that need to be dumped and restored. It specifically handles text search parsers, which are components of PostgreSQL's full-text search system. The structure stores the OIDs of the five functions that make up a text search parser: start, token, end, headline, and lextype functions. This information is retrieved from the pg_ts_parser system catalog and used to generate CREATE TEXT SEARCH PARSER statements during database dumps.
 

@@ -8,7 +8,10 @@ Sets up a replication origin in shared memory for tracking replication progress 
 
 ## Definition
 
-
+```c
+void
+replorigin_session_setup(RepOriginId node, int acquired_by)
+```
 ## Detailed Description
 This function establishes a replication origin session by either finding an existing slot for the specified origin or creating a new one in the shared memory replication state array. It performs exclusive locking to ensure thread safety during the setup process.
 

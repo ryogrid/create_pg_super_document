@@ -8,7 +8,13 @@ A private state structure used to store JIT compilation context and function nam
 
 ## Definition
 
-
+```c
+typedef struct CompiledExprState
+{
+	LLVMJitContext *context;
+	const char *funcname;
+} CompiledExprState;
+```
 ## Detailed Description
  serves as a bridge between the high-level expression state () and the low-level LLVM JIT compilation infrastructure. This structure is stored in the  field of  when an expression has been successfully compiled with LLVM JIT.
 

@@ -8,7 +8,10 @@ Converts external binary format data to PostgreSQL's internal int8 (bigint) repr
 
 ## Definition
 
-
+```c
+Datum
+int8recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the binary input conversion routine for PostgreSQL's int8 data type (bigint). It takes binary data from the PostgreSQL wire protocol format and converts it to the internal Datum representation. This function is part of the PostgreSQL type system's binary input/output infrastructure and is used when receiving int8 values in binary format during client-server communication, particularly in prepared statements and binary result sets.
 

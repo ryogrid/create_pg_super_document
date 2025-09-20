@@ -8,7 +8,10 @@ CreateOptsFile is a static function that creates a "postmaster.opts" file contai
 
 ## Definition
 
-
+```c
+static bool
+CreateOptsFile(int argc, char *argv[], char *fullprogname)
+```
 ## Detailed Description
 CreateOptsFile generates a persistent record of the postmaster's startup parameters by writing them to a file named "postmaster.opts" in the data directory. This file serves as a reference for how the postmaster was originally invoked, which can be useful for debugging, monitoring, and potentially for restart scenarios. The function writes the full program name followed by all command-line arguments, properly quoted to handle arguments containing spaces.
 

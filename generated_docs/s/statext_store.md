@@ -8,7 +8,44 @@ Serializes computed extended statistics data and stores it into the pg_statistic
 
 ## Definition
 
+```c
+struct a new pg_statistic_ext_data tuple, replacing the calculated
+	 * stats.
+	 */
+	if (ndistinct != NULL)
+	{
+		bytea	   *data = statext_ndistinct_serialize(ndistinct);
 
+		nulls[Anum_pg_statistic_ext_data_stxdndistinct - 1] = (data == NULL);
+		values[Anum_pg_statistic_ext_data_stxdndistinct - 1] = PointerGetDatum(data);
+	}
+
+	if (dependencies != NULL)
+	{
+		bytea	   *data = statext_dependencies_serialize(dependencies);
+
+		nulls[Anum_pg_statistic_ext_data_stxddependencies - 1] = (data == NULL);
+		values[Anum_pg_statistic_ext_data_stxddependencies - 1] = PointerGetDatum(data);
+	}
+	if (mcv != NULL)
+	{
+		bytea	   *data = statext_mcv_serialize(mcv, stats);
+
+		nulls[Anum_pg_statistic_ext_data_stxdmcv - 1] = (data == NULL);
+		values[Anum_pg_statistic_ext_data_stxdmcv - 1] = PointerGetDatum(data);
+	}
+	if (exprs != (Datum) 0)
+	{
+		nulls[Anum_pg_statistic_ext_data_stxdexpr - 1] = false;
+		values[Anum_pg_statistic_ext_data_stxdexpr - 1] = exprs;
+	}
+
+	/*
+	 * Delete the old tuple if it exists, and insert a new one. It's easier
+	 * than trying to update or insert, based on various conditions.
+	 */
+	RemoveStatisticsDataById(statOid, inh);
+```
 ## Detailed Description
 The statext_store function is responsible for the final step in PostgreSQL's extended statistics computation process - persisting the calculated statistical data to the system catalog. It handles the serialization and storage of various types of extended statistics that have been computed for a statistics object.
 

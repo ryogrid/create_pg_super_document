@@ -8,7 +8,10 @@ Checks whether the ObjectProperty table contains useful data for a given object 
 
 ## Definition
 
-
+```c
+bool
+is_objectclass_supported(Oid class_id)
+```
 ## Detailed Description
 This function determines if PostgreSQL has metadata support for a specific object class by searching through the ObjectProperty table. The ObjectProperty table contains information about various database object types such as tables, indexes, functions, etc. The function performs a linear search through the ObjectProperty array to find a matching class_oid.
 

@@ -8,7 +8,10 @@ Sets the TCP keepalive interval value (time between keepalive probes) for a give
 
 ## Definition
 
-
+```c
+int
+pq_setkeepalivesinterval(int interval, Port *port)
+```
 ## Detailed Description
 This function configures the TCP keepalive interval for a port connection. The interval determines the time between successive keepalive probes after the first probe is sent. On Unix/Linux systems, it uses setsockopt() with TCP_KEEPINTVL. On Windows, it delegates to pq_setkeepaliveswin32() with the current idle setting. The function handles value validation, retrieves system defaults when needed, and gracefully handles platforms that don't support keepalive interval configuration. A value of 0 uses the system default.
 

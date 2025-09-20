@@ -8,7 +8,10 @@ Extracts a single byte from a message buffer and advances the cursor position.
 
 ## Definition
 
-
+```c
+int
+pq_getmsgbyte(StringInfo msg)
+```
 ## Detailed Description
 The  function is a fundamental message parsing utility in PostgreSQL's libpq communication protocol. It reads one raw byte from a message buffer (StringInfo) at the current cursor position and automatically advances the cursor for subsequent reads. The function includes bounds checking to ensure data integrity during message parsing operations. If the cursor has reached or exceeded the message length, it raises a protocol violation error rather than allowing buffer overruns.
 

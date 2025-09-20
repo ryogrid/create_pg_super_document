@@ -8,7 +8,10 @@ The parse function is the top-level parser for regular expressions in PostgreSQL
 
 ## Definition
 
-
+```c
+void
+parse(int tk) /* tk: the code for the construct scanned */
+```
 ## Detailed Description
 The parse function serves as the top-level parser in PostgreSQL's regular expression compilation system. It processes a regular expression by parsing multiple branches that are connected with the '|' alternation operator. When multiple branches exist, they are represented in the parse tree as children of a '|' subre (sub-regular expression) node.
 

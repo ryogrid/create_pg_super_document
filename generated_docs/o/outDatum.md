@@ -8,7 +8,10 @@ Serializes a Datum value to a string representation by printing its raw byte con
 
 ## Definition
 
-
+```c
+void
+outDatum(StringInfo str, Datum value, int typlen, bool typbyval)
+```
 ## Detailed Description
 The  function is a core utility in PostgreSQL's node serialization system that converts a Datum (PostgreSQL's universal data container) into a human-readable string format. It handles the fundamental distinction between pass-by-value and pass-by-reference data types in PostgreSQL's type system.
 

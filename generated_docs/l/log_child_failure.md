@@ -8,7 +8,10 @@ Reports detailed diagnostic information about failed test processes, including e
 
 ## Definition
 
-
+```c
+static void
+log_child_failure(int exitstatus)
+```
 ## Detailed Description
 This function provides comprehensive error reporting for failed test processes in PostgreSQL's regression testing framework. It analyzes the exit status from a child process and generates appropriate diagnostic messages based on how the process terminated. The function distinguishes between normal exits with non-zero status codes, signal-based terminations, and unrecognized failure modes. On Unix/Linux systems, it provides human-readable signal names and descriptions, while on Windows it reports exception codes. This detailed reporting helps developers understand why tests failed and aids in debugging test infrastructure issues.
 

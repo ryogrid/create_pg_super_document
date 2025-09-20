@@ -8,7 +8,10 @@ Returns the default collation OID (typcollation) associated with a PostgreSQL da
 
 ## Definition
 
-
+```c
+Oid
+typeTypeCollation(Type typ)
+```
 ## Detailed Description
 The  function extracts the  attribute from a PostgreSQL type structure. The  field contains the OID of the default collation for this data type. Collations define the rules for comparing and sorting text data, including locale-specific behaviors for character ordering, case sensitivity, and accent sensitivity.
 

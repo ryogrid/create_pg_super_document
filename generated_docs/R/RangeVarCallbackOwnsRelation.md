@@ -8,7 +8,11 @@ A callback function for RangeVarGetRelidExtended() that verifies the current use
 
 ## Definition
 
-
+```c
+void
+RangeVarCallbackOwnsRelation(const RangeVar *relation,
+							 Oid relId, Oid oldRelId, void *arg)
+```
 ## Detailed Description
 This function serves as a security callback that enforces ownership requirements for database relations. It is designed to be used with RangeVarGetRelidExtended() to perform authorization checks during relation lookups. The function performs comprehensive ownership verification by checking both user privileges and system catalog restrictions.
 

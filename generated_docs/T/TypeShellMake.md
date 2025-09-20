@@ -8,7 +8,10 @@ TypeShellMake creates a "shell" type tuple in the pg_type system catalog with pl
 
 ## Definition
 
-
+```c
+ObjectAddress
+TypeShellMake(const char *typeName, Oid typeNamespace, Oid ownerId)
+```
 ## Detailed Description
 TypeShellMake is a critical function in PostgreSQL's type system that creates an incomplete "shell" type entry in the pg_type catalog. This shell type serves as a placeholder during the type creation process, particularly important for handling forward references and circular dependencies between types.
 

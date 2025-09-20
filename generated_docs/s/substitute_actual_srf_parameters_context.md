@@ -8,7 +8,13 @@ A context structure used during parameter substitution in Set-Returning Function
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	char	   *proname;
+	char	   *prosrc;
+} inline_error_callback_arg;
+```
 ## Detailed Description
 The substitute_actual_srf_parameters_context structure provides specialized context for parameter substitution in Set-Returning Function scenarios, particularly when dealing with subqueries. Unlike the standard parameter substitution context, this structure includes sublevel tracking to properly handle variable scoping when parameters are substituted into nested query structures. The context ensures that parameter substitution correctly adjusts variable reference levels as the mutation process traverses through different query nesting levels.
 

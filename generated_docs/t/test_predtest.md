@@ -8,7 +8,10 @@ A PostgreSQL testing function that validates the correctness of predicate testin
 
 ## Definition
 
-
+```c
+Datum
+test_predtest(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a comprehensive testing utility designed to validate PostgreSQL's predicate testing functionality in . It takes a SQL query string containing two boolean expressions and performs both empirical testing (by executing the query) and theoretical analysis (using predicate proof functions) to verify the correctness of implication and refutation logic.
 

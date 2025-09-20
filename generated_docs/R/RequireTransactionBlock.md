@@ -8,7 +8,10 @@ RequireTransactionBlock enforces that certain commands must execute within trans
 
 ## Definition
 
-
+```c
+void
+RequireTransactionBlock(bool isTopLevel, const char *stmtType)
+```
 ## Detailed Description
 This function is a simple wrapper around CheckTransactionBlock that enforces strict transaction block requirements for commands that must execute within a transactional context. Unlike WarnNoTransactionBlock which issues warnings, this function raises errors when commands are executed outside transaction blocks.
 

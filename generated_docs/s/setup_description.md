@@ -8,7 +8,10 @@ The  function populates the PostgreSQL description system with default descripti
 
 ## Definition
 
-
+```c
+static void
+setup_description(FILE *cmdfd)
+```
 ## Detailed Description
 This function is responsible for enhancing PostgreSQL's self-documentation system by automatically generating descriptions for operator implementation functions. It executes a complex SQL statement that identifies operator implementation functions that do not have existing descriptions and creates standardized descriptions for them.
 

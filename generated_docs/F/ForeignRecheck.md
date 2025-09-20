@@ -8,7 +8,10 @@ ForeignRecheck is a static function that validates whether a tuple still meets t
 
 ## Definition
 
-
+```c
+static bool
+ForeignRecheck(ForeignScanState *node, TupleTableSlot *slot)
+```
 ## Detailed Description
 ForeignRecheck serves as the access method routine for rechecking tuples during EvalPlanQual processing in foreign scans. EvalPlanQual is PostgreSQL's mechanism for handling concurrent updates in READ COMMITTED isolation level, requiring re-evaluation of tuples that may have been modified by other transactions.
 

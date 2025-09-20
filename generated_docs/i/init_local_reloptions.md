@@ -8,7 +8,10 @@ The init_local_reloptions function initializes a local_relopts structure for par
 
 ## Definition
 
-
+```c
+void
+init_local_reloptions(local_relopts *relopts, Size relopt_struct_size)
+```
 ## Detailed Description
 This function prepares a local_relopts structure for use in parsing and validating relation options. It initializes the structure with empty lists for options and validators, and sets the target structure size for the eventual bytea representation.
 

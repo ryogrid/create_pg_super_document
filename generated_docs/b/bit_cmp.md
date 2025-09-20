@@ -8,7 +8,10 @@ Internal comparison function for bit string types that performs lexicographic co
 
 ## Definition
 
-
+```c
+static int32
+bit_cmp(VarBit *arg1, VarBit *arg2)
+```
 ## Detailed Description
 The  function is a core comparison routine used by all bit string comparison operators in PostgreSQL. It performs a comprehensive comparison between two bit strings, taking into account both the bit content and the actual length of the strings. The function implements lexicographic ordering where strings are compared byte-by-byte first, and if the common prefix is identical, the shorter string is considered smaller.
 

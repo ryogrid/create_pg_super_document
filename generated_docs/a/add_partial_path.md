@@ -8,7 +8,10 @@ Manages partial paths for parallel query execution by maintaining an ordered lis
 
 ## Definition
 
-
+```c
+void
+add_partial_path(RelOptInfo *parent_rel, Path *new_path)
+```
 ## Detailed Description
 The  function is responsible for maintaining the  of a relation by adding new partial paths while removing dominated ones. Unlike regular paths, partial paths are designed for parallel execution where multiple workers can execute portions of the path simultaneously, each generating a subset of the overall result.
 

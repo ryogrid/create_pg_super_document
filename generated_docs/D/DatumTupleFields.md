@@ -8,7 +8,26 @@ DatumTupleFields is a structure that represents the metadata fields for tuple da
 
 ## Definition
 
+```c
+typedef struct DatumTupleFields
+{
+	int32		datum_len_;		/* varlena header (do not touch directly!) */
 
+	int32		datum_typmod;	/* -1, or identifier of a record type */
+
+	Oid			datum_typeid;	/* composite type OID, or RECORDOID */
+
+	/*
+	 * datum_typeid cannot be a domain over composite, only plain composite,
+	 * even if the datum is meant as a value of a domain-over-composite type.
+	 * This is in line with the general principle that CoerceToDomain does not
+	 * change the physical representation of the base type value.
+	 *
+	 * Note: field ordering is chosen with thought that Oid might someday
+	 * widen to 64 bits.
+	 */
+} DatumTupleFields;
+```
 ## Detailed Description
 DatumTupleFields serves as a header structure for tuple datums that need to carry type information along with the actual data. This structure is used when PostgreSQL needs to store composite type values as datums, providing essential metadata about the type system information. The structure ensures that composite type values can be properly identified and processed throughout the system.
 

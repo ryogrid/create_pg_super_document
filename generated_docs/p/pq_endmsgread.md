@@ -8,7 +8,10 @@ Completes the message reading process by resetting the global message reading st
 
 ## Definition
 
-
+```c
+void
+pq_endmsgread(void)
+```
 ## Detailed Description
  is the counterpart to  and must be called after successfully reading a complete message using  and related functions. This function serves as a protocol state cleanup mechanism that marks the end of a message reading operation.
 

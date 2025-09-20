@@ -8,7 +8,10 @@ The main entry point and event loop for the logical replication launcher backgro
 
 ## Definition
 
-
+```c
+void
+ApplyLauncherMain(Datum main_arg)
+```
 ## Detailed Description
 This function implements the main event loop for the logical replication launcher process, which is responsible for starting and managing apply worker processes for logical replication subscriptions. The launcher runs as a background worker and continuously monitors enabled subscriptions, launching apply workers as needed while respecting restart throttling limits. The function establishes signal handlers, connects to the database to access the pg_subscription catalog, and enters an infinite loop where it periodically checks subscription status and launches workers. It uses a memory context per iteration to prevent memory leaks and implements intelligent wait timing to minimize CPU usage while ensuring responsive worker management.
 

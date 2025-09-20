@@ -8,7 +8,10 @@ Parses a date string according to a specified format and stores the result in a 
 
 ## Definition
 
-
+```c
+int
+rdefmtdate(date * d, const char *fmt, const char *str)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's ECPG Informix compatibility library. It parses a date string () according to the specified format () and stores the resulting date value in the provided date pointer (). The function acts as a wrapper around PostgreSQL's internal  function, translating PostgreSQL-specific error codes to Informix-compatible error codes.
 

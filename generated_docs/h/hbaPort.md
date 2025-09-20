@@ -8,7 +8,9 @@ hbaPort is a type alias for the Port structure, providing a clean interface for 
 
 ## Definition
 
-
+```c
+typedef struct Port hbaPort;
+```
 ## Detailed Description
 hbaPort is a typedef alias that represents the Port structure specifically in the context of host-based authentication operations. This typedef serves as an abstraction layer that allows HBA-related functions to work with Port structures without requiring the inclusion of the full libpq/libpq-be.h header file. The Port structure contains comprehensive information about a client connection, including network details, authentication state, and session parameters. By using this alias, the HBA subsystem can maintain clean module boundaries while still accessing the necessary connection information for authentication decisions. The typedef is described as a "kluge" (a workaround) to avoid circular dependencies and keep header file inclusions manageable.
 

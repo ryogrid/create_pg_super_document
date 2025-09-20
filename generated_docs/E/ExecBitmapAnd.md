@@ -8,7 +8,10 @@ ExecBitmapAnd is a stub function that exists for pro forma compliance with the P
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecBitmapAnd(PlanState *pstate)
+```
 ## Detailed Description
 ExecBitmapAnd serves as a placeholder function that implements the standard ExecProcNode interface for BitmapAnd nodes, but it is not actually used during query execution. Instead of processing tuples like other executor nodes, BitmapAnd nodes use the MultiExecProcNode interface through MultiExecBitmapAnd to produce bitmap results.
 

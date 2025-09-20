@@ -8,7 +8,10 @@ Applies throttling to archive contents data transfer and forwards the data to th
 
 ## Definition
 
-
+```c
+static void
+bbsink_throttle_archive_contents(bbsink *sink, size_t len)
+```
 ## Detailed Description
 The  function is responsible for handling archive contents data transfer while applying bandwidth throttling. It operates in two sequential steps: first applying the throttling mechanism to control the transfer rate based on the specified data length, then forwarding the archive contents to the next sink in the pipeline.
 

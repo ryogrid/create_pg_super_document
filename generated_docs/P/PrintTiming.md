@@ -8,7 +8,10 @@ PrintTiming is a static helper function in psql that formats and displays elapse
 
 ## Definition
 
-
+```c
+static void
+PrintTiming(double elapsed_msec)
+```
 ## Detailed Description
 PrintTiming formats and prints execution timing information to stdout. The function takes elapsed time in milliseconds and displays it in different formats depending on the duration:
 

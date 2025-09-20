@@ -8,7 +8,10 @@ A debugging function that verifies the integrity of LP_REDIRECT line pointer ite
 
 ## Definition
 
-
+```c
+static void
+page_verify_redirects(Page page)
+```
 ## Detailed Description
 This function is compiled only when assertions are enabled (USE_ASSERT_CHECKING) and serves as a verification tool for HOT (Heap Only Tuples) pruning operations. It iterates through all line pointers on a page and validates that any LP_REDIRECT items correctly point to valid heap-only tuples.
 

@@ -8,7 +8,11 @@ Initializes column list filtering for a relation in the pgoutput logical replica
 
 ## Definition
 
-
+```c
+static void
+pgoutput_column_list_init(PGOutputData *data, List *publications,
+						  RelationSyncEntry *entry)
+```
 ## Detailed Description
 This function processes column list definitions from multiple publications for a specific relation and creates a unified column bitmap for logical replication filtering. It examines each publication to find column list specifications and ensures consistency across publications - if different publications specify different column lists for the same table, an error is raised. The function handles special cases where "FOR ALL TABLES" or schema-based publications disable column filtering. When a column list includes all live (non-dropped, non-generated) columns, it optimizes by setting the column list to NULL, effectively disabling column filtering for that relation.
 

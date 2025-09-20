@@ -8,7 +8,10 @@ A utility function that determines whether a character is considered whitespace 
 
 ## Definition
 
-
+```c
+bool
+scanner_isspace(char ch)
+```
 ## Detailed Description
 This function provides a precise definition of whitespace characters that matches PostgreSQL's flex-based lexical scanner (scan.l). Unlike the standard library's  function, which can be locale-dependent and may include additional characters,  provides a fixed, predictable set of whitespace characters that exactly matches what the SQL parser considers as whitespace.
 

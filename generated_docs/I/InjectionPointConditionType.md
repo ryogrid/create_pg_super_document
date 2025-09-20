@@ -8,7 +8,16 @@ An enumerated type that defines the different types of runtime conditions that c
 
 ## Definition
 
+```c
+typedef struct InjectionPointCondition
+{
+	/* Type of the condition */
+	InjectionPointConditionType type;
 
+	/* ID of the process where the injection point is allowed to run */
+	int			pid;
+} InjectionPointCondition;
+```
 ## Detailed Description
  is an enumeration that specifies the types of conditions under which injection points can be triggered. This enum is part of PostgreSQL's injection point testing infrastructure, which allows developers to inject user-defined callbacks at predetermined code paths for testing purposes. The enum currently supports two condition types: unconditional execution and PID-based restrictions.
 

@@ -8,7 +8,14 @@ TableInfo represents table, view, sequence, and other relation objects in Postgr
 
 ## Definition
 
-
+```c
+typedef struct _tableAttachInfo
+{
+	DumpableObject dobj;
+	TableInfo  *parentTbl;		/* link to partitioned table */
+	TableInfo  *partitionTbl;	/* link to partition */
+} TableAttachInfo;
+```
 ## Detailed Description
 TableInfo is the most comprehensive structure in pg_dump, representing all types of relations including tables, views, materialized views, sequences, and foreign tables. It contains extensive metadata about the relation's structure, attributes, constraints, indexes, triggers, and various PostgreSQL-specific properties. The structure is designed with a two-phase approach: basic information is collected for all relations, while detailed attribute and dependency information is gathered only for "interesting" relations that need to be dumped or are parents of dumpable objects.
 

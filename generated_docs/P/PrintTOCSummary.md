@@ -8,7 +8,10 @@ PrintTOCSummary generates a comprehensive summary report of the archive's table 
 
 ## Definition
 
-
+```c
+void
+PrintTOCSummary(Archive *AHX)
+```
 ## Detailed Description
 PrintTOCSummary creates a human-readable summary of a PostgreSQL dump archive's contents and metadata. The function serves multiple purposes: it provides archive diagnostics information, lists all objects that would be restored based on current filter settings, and displays dependency relationships between objects when verbose mode is enabled.
 

@@ -8,7 +8,10 @@ The  function is a PostgreSQL output function for the jsonpath data type, respon
 
 ## Definition
 
-
+```c
+Datum
+jsonpath_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  serves as the standard output conversion function for PostgreSQL's jsonpath data type. When a jsonpath value needs to be displayed as text (such as in query results, COPY operations, or casting to text), this function is automatically called to convert the internal binary representation back to its human-readable string format. The function acts as a simple wrapper that extracts the jsonpath argument and delegates the actual conversion work to .
 

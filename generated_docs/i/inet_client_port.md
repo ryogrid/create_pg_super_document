@@ -8,7 +8,10 @@ Returns the port number that the client is connecting from, or NULL if the conne
 
 ## Definition
 
-
+```c
+Datum
+inet_client_port(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the source port number of the client that established the current database connection. It's a PostgreSQL built-in function that can be called from SQL to determine the network port used by the connecting client.
 

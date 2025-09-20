@@ -8,7 +8,13 @@ Attempts to match a given clause with a specified partition key and determines h
 
 ## Definition
 
-
+```c
+struct_array(arrval,
+							  ARR_ELEMTYPE(arrval),
+							  elemlen, elembyval, elemalign,
+							  &elem_values, &elem_nulls,
+							  &num_elems);
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's partition pruning mechanism. It analyzes various types of SQL clauses (WHERE conditions, JOIN conditions, etc.) to determine if they can be used to eliminate irrelevant partitions during query execution. The function supports multiple clause types including:
 

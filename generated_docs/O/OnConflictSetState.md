@@ -8,7 +8,17 @@ OnConflictSetState holds the executor state for an ON CONFLICT DO UPDATE operati
 
 ## Definition
 
+```c
+typedef struct OnConflictSetState
+{
+	NodeTag		type;
 
+	TupleTableSlot *oc_Existing;	/* slot to store existing target tuple in */
+	TupleTableSlot *oc_ProjSlot;	/* CONFLICT ... SET ... projection target */
+	ProjectionInfo *oc_ProjInfo;	/* for ON CONFLICT DO UPDATE SET */
+	ExprState  *oc_WhereClause; /* state for the WHERE clause */
+} OnConflictSetState;
+```
 ## Detailed Description
 OnConflictSetState manages the execution state for PostgreSQL's ON CONFLICT DO UPDATE functionality (also known as UPSERT). When an INSERT statement encounters a conflict with existing data, this structure provides the necessary state to perform the UPDATE portion of the operation.
 

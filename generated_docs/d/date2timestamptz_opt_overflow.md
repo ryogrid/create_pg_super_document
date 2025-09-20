@@ -8,7 +8,10 @@ Converts a DateADT value to a TimestampTz (timestamp with time zone) with option
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function promotes a PostgreSQL date to a timestamp with time zone, incorporating timezone offset calculations. Unlike the regular timestamp conversion, this function must consider the session timezone to determine the appropriate UTC offset. It converts the date to a broken-down time structure, determines the timezone offset for midnight on that date, and adjusts the final timestamp accordingly. The function includes comprehensive overflow checking both before and after timezone adjustment, since timezone offsets can push values beyond valid timestamp ranges.
 

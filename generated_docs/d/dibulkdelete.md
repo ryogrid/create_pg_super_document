@@ -8,7 +8,11 @@ A stub implementation of bulk deletion for the dummy index access method used in
 
 ## Definition
 
-
+```c
+static IndexBulkDeleteResult *
+dibulkdelete(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+			 IndexBulkDeleteCallback callback, void *callback_state)
+```
 ## Detailed Description
 The  function is a minimal implementation of the bulk delete interface for the dummy index access method. As part of the PostgreSQL test framework, it simulates an index access method that doesn't actually perform any operations. The function immediately returns NULL, indicating that there are no index entries to delete and no statistics to pass to the cleanup phase.
 

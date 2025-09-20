@@ -8,7 +8,10 @@ Retrieves a writable expanded record from an input Datum, returning either the e
 
 ## Definition
 
-
+```c
+ExpandedRecordHeader *
+DatumGetExpandedRecord(Datum d)
+```
 ## Detailed Description
 This function provides a safe way to obtain a writable expanded record from a Datum input. It first checks if the input Datum is already a writable expanded record using the VARATT_IS_EXTERNAL_EXPANDED_RW macro. If it is, the function simply returns the existing expanded record header after validating its magic number. If the input is not already a writable expanded record (e.g., it's a regular composite value or a read-only expanded record), the function calls make_expanded_record_from_datum to create a new expanded record in the current memory context.
 

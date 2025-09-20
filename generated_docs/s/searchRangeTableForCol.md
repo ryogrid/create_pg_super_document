@@ -8,7 +8,9 @@ Searches all range table entries for a given column name to find the best match 
 
 ## Definition
 
-
+```c
+union(var->varnullingrels, relids);
+```
 ## Detailed Description
 The `searchRangeTableForCol` function performs a comprehensive search through all range table entries in the parser state hierarchy, unlike `colNameToVar` which only considers currently visible namespace items. This function is specifically designed for error reporting and diagnostic purposes, not for normal column resolution. It violates SQL spec behavior by considering all range table entries regardless of visibility rules.
 

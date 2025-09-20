@@ -8,7 +8,30 @@ IncrementalSortState is the execution state structure for incremental sort opera
 
 ## Definition
 
+```c
+typedef struct IncrementalSortState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	bool		bounded;		/* is the result set bounded? */
+	int64		bound;			/* if bounded, how many tuples are needed */
+	bool		outerNodeDone;	/* finished fetching tuples from outer node */
+	int64		bound_Done;		/* value of bound we did the sort with */
+	IncrementalSortExecutionStatus execution_status;
+	int64		n_fullsort_remaining;
+	Tuplesortstate *fullsort_state; /* private state of tuplesort.c */
+	Tuplesortstate *prefixsort_state;	/* private state of tuplesort.c */
+	/* the keys by which the input path is already sorted */
+	PresortedKeyData *presorted_keys;
 
+	IncrementalSortInfo incsort_info;
+
+	/* slot for pivot tuple defining values of presorted keys within group */
+	TupleTableSlot *group_pivot;
+	TupleTableSlot *transfer_tuple;
+	bool		am_worker;		/* are we a worker? */
+	SharedIncrementalSortInfo *shared_info; /* one entry per worker */
+} IncrementalSortState;
+```
 ## Detailed Description
 IncrementalSortState is the primary execution state structure for incremental sort operations in PostgreSQL. Incremental sort is an optimization that takes advantage of pre-existing sort order in the input data. When the input is already sorted by a prefix of the required sort keys, incremental sort can process the data more efficiently by performing separate sorts within groups that share the same prefix key values.
 

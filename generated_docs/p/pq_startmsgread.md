@@ -8,7 +8,10 @@ Initiates the process of reading a message from the client by setting the global
 
 ## Definition
 
-
+```c
+void
+pq_startmsgread(void)
+```
 ## Detailed Description
  is a critical function that must be called before any of the  functions can be used to read data from a client connection. It serves as a protocol state management function that ensures proper synchronization between the server and client communication.
 

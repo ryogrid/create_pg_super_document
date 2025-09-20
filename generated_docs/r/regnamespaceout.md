@@ -8,7 +8,10 @@ The regnamespaceout function converts regnamespace OID values to their correspon
 
 ## Definition
 
-
+```c
+Datum
+regnamespaceout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL output function that handles the conversion of regnamespace OID values to human-readable namespace names. It serves as the counterpart to regnamespacein, providing the text representation of namespace references stored as OIDs. The function implements multiple output strategies to handle different cases gracefully.
 

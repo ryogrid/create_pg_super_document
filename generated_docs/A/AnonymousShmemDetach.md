@@ -8,7 +8,9 @@ Detaches from an anonymous memory-mapped shared memory block, serving as a clean
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function serves as a cleanup callback registered with the on_shmem_exit system to properly detach from anonymous shared memory segments when a PostgreSQL process terminates. It checks if an anonymous shared memory block is currently mapped (AnonymousShmem != NULL) and calls munmap() to release it. If the munmap() call fails, it logs an error message but continues execution since this is cleanup code that shouldn't cause process termination.
 

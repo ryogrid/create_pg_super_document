@@ -8,7 +8,14 @@ Recursively flattens nested UNION operations with identical properties into a si
 
 ## Definition
 
-
+```c
+static List *
+plan_union_children(PlannerInfo *root,
+					SetOperationStmt *top_union,
+					List *refnames_tlist,
+					List **tlist_list,
+					List **istrivial_tlist)
+```
 ## Detailed Description
 This function implements an optimization for nested UNION operations by flattening identical UNIONs into a single multi-way operation. The process involves:
 

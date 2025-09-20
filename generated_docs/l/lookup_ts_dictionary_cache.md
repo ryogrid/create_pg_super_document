@@ -8,7 +8,10 @@ Retrieves and caches text search dictionary configuration information, managing 
 
 ## Definition
 
-
+```c
+TSDictionaryCacheEntry *
+lookup_ts_dictionary_cache(Oid dictId)
+```
 ## Detailed Description
 lookup_ts_dictionary_cache manages the caching and initialization of text search dictionaries in PostgreSQL. Unlike parser caching, dictionary caching is more complex because dictionaries have initialization requirements and private data that must persist across calls. The function implements a two-level caching strategy similar to parser caching but adds sophisticated memory management for dictionary-specific contexts.
 

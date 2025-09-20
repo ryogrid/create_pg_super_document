@@ -8,7 +8,10 @@ A signal handler function that performs cleanup of temporary socket directories 
 
 ## Definition
 
-
+```c
+static void
+signal_remove_temp(SIGNAL_ARGS)
+```
 ## Detailed Description
 This function serves as a signal handler for various termination signals during pg_regress execution. When a signal is received, it first calls remove_temp() to clean up the temporary socket directory and associated files, then restores the default signal handler and re-raises the same signal to maintain proper signal handling semantics. This ensures that temporary directories are cleaned up even when the program is terminated unexpectedly by signals.
 

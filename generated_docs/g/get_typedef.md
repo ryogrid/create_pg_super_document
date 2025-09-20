@@ -8,7 +8,10 @@ Searches the global typedef list to find and return a typedef structure by name,
 
 ## Definition
 
-
+```c
+struct typedefs *
+get_typedef(const char *name, bool noerror)
+```
 ## Detailed Description
 The `get_typedef` function performs a linear search through the global linked list of typedef definitions (`types`) to locate a typedef structure matching the specified name. This function is essential for type resolution in the ECPG preprocessor, allowing the system to resolve user-defined type names during SQL statement preprocessing.
 

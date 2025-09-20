@@ -8,7 +8,12 @@ A static helper function that formats an unescaped string as a properly quoted P
 
 ## Definition
 
-
+```c
+static bool
+escape_fmt_id(PGconn *conn, PQExpBuffer target,
+			  const char *unescaped, size_t unescaped_len,
+			  PQExpBuffer escape_err)
+```
 ## Detailed Description
 This function formats an unescaped string as a properly quoted PostgreSQL identifier by setting the appropriate encoding context and using the  function. It first sets the formatting encoding to match the client connection's encoding, then applies PostgreSQL's identifier quoting rules to ensure the identifier is properly escaped for safe use in SQL statements. The function always returns , indicating successful operation.
 

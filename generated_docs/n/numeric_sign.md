@@ -8,7 +8,10 @@ The numeric_sign function implements PostgreSQL's SIGN() SQL function for NUMERI
 
 ## Definition
 
-
+```c
+Datum
+numeric_sign(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL-accessible interface for determining the sign of NUMERIC values in PostgreSQL. It handles all special cases including NaN (Not a Number) and infinities, returning appropriate NUMERIC results rather than simple integer values. The function serves as a wrapper around the internal numeric_sign_internal function, converting its integer result into proper NUMERIC return values.
 

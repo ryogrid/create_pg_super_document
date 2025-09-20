@@ -8,7 +8,10 @@ Input routine for any domain type that converts string input to the domain's int
 
 ## Definition
 
-
+```c
+Datum
+domain_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the universal text input conversion function for all domain types in PostgreSQL. It follows the standard PostgreSQL type input function protocol, taking a string representation and converting it to the domain's internal Datum format.
 

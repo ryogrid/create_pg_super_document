@@ -8,7 +8,10 @@ A static helper function in PostgreSQL's test_regex module that builds an output
 
 ## Definition
 
-
+```c
+struct_md_array(elems, nulls, 1, dims, lbs,
+							  TEXTOID, -1, false, TYPALIGN_INT);
+```
 ## Detailed Description
 The  function constructs a PostgreSQL array containing the results of a regular expression match operation. The function operates in two modes based on the  flag in the match context:
 

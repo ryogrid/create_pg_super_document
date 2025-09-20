@@ -8,7 +8,26 @@ The _avl_node structure represents a node in an AVL (Adelson-Velsky and Landis) 
 
 ## Definition
 
+```c
+typedef struct _avl_node
+{
+	/* Node contents */
+	pivot_field field;
 
+	/*
+	 * Height of this node in the tree (number of nodes on the longest path to
+	 * a leaf).
+	 */
+	int			height;
+
+	/*
+	 * Child nodes. [0] points to left subtree, [1] to right subtree. Never
+	 * NULL, points to the empty node avl_tree.end when no left or right
+	 * value.
+	 */
+	struct _avl_node *children[2];
+} avl_node;
+```
 ## Detailed Description
 The _avl_node structure is the fundamental building block of an AVL tree implementation used specifically for managing pivot fields in PostgreSQL's psql crosstabview feature. AVL trees are self-balancing binary search trees that maintain logarithmic time complexity for insertion, deletion, and search operations by ensuring the tree remains balanced.
 

@@ -8,7 +8,10 @@ Retrieves the storage length of a PostgreSQL data type given its OID, providing 
 
 ## Definition
 
-
+```c
+int16
+get_typlen(Oid typid)
+```
 ## Detailed Description
 The  function is a utility function that looks up the storage length () of a PostgreSQL data type in the system catalog. It performs a system cache lookup on the  catalog to retrieve the type's length information. The function returns the  field from the type's catalog entry, which indicates how many bytes the type occupies in storage. For variable-length types, this returns -1, while fixed-length types return their actual byte size.
 

@@ -8,7 +8,10 @@ Acquires a shared lock on a TidStore to enable safe concurrent read access in mu
 
 ## Definition
 
-
+```c
+void
+TidStoreLockShare(TidStore *ts)
+```
 ## Detailed Description
 TidStoreLockShare is a locking function that acquires a shared (read) lock on a TidStore object when it is configured for shared memory usage across multiple processes. The function checks if the TidStore is shared using the TidStoreIsShared() macro and only performs locking if necessary. For shared TidStores, it calls the internally generated shared_ts_lock_share() function from the radix tree implementation. This enables multiple processes to safely read from the TidStore concurrently while preventing conflicts with exclusive write operations.
 

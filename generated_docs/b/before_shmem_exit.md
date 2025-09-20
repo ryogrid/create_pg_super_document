@@ -8,7 +8,10 @@ Registers early cleanup callbacks to perform user-level cleanup operations (such
 
 ## Definition
 
-
+```c
+void
+before_shmem_exit(pg_on_exit_callback function, Datum arg)
+```
 ## Detailed Description
 The  function allows PostgreSQL components to register cleanup callbacks that need to execute before shared memory and other low-level subsystems are torn down during process exit. This is particularly important for maintaining data consistency and proper cleanup of higher-level operations like transactions, namespace cleanup, and replication state.
 

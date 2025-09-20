@@ -8,7 +8,10 @@ A static function that overwrites a specified portion of a PostgreSQL large obje
 
 ## Definition
 
-
+```c
+static void
+overwrite(PGconn *conn, Oid lobjId, pg_int64 start, int len)
+```
 ## Detailed Description
 The  function provides functionality to overwrite a specific segment of data in a PostgreSQL large object. It opens the large object in write mode, seeks to the specified starting position, creates a buffer filled with 'X' characters, and writes this pattern to the large object. The function handles partial writes by continuing to write until the entire buffer has been written or an error occurs.
 

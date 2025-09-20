@@ -8,7 +8,10 @@ Sort support initialization function for single-precision floating-point numbers
 
 ## Definition
 
-
+```c
+Datum
+btfloat4sortsupport(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the sort support initialization routine for float4 data types in PostgreSQL's B-tree operator class system. When called, it receives a SortSupport structure pointer and configures it with an optimized comparison function () for high-performance sorting operations. This is part of PostgreSQL's sort support infrastructure that allows data types to provide specialized, fast comparison functions that bypass the overhead of the standard PostgreSQL function calling conventions during sorting. The function is typically invoked by the query planner when setting up sort operations involving float4 columns.
 

@@ -8,7 +8,10 @@ Verifies that the authentication request from the server matches the client's se
 
 ## Definition
 
-
+```c
+static bool
+check_expected_areq(AuthRequest areq, PGconn *conn)
+```
 ## Detailed Description
 The  function performs comprehensive validation of authentication requests from the PostgreSQL server to ensure they comply with the client's security requirements. It enforces several security policies including SSL certificate requirements, allowed authentication methods, and channel binding requirements.
 

@@ -8,7 +8,10 @@ Internal utility function used for creating the physical relation definition for
 
 ## Definition
 
-
+```c
+static ObjectAddress
+create_ctas_internal(List *attrList, IntoClause *into)
+```
 ## Detailed Description
 The  function serves as a core utility for implementing CREATE TABLE AS and CREATE MATERIALIZED VIEW operations. It constructs the physical relation by creating a synthetic  node and delegating to  for the actual table creation. The function handles the setup of table attributes, relation options, and determines the appropriate relation kind (regular table or materialized view) based on the presence of a view query in the .
 

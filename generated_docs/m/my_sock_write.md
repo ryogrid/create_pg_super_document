@@ -8,7 +8,10 @@ A BIO write callback function that wraps PostgreSQL's secure_raw_write for use w
 
 ## Definition
 
-
+```c
+static int
+my_sock_write(BIO *h, const char *buf, int size)
+```
 ## Detailed Description
 This function serves as a custom BIO write method for PostgreSQL's OpenSSL integration. It acts as an adapter between OpenSSL's BIO interface and PostgreSQL's internal secure socket writing functionality. The function handles write operations on SSL-enabled connections by calling the underlying secure_raw_write function and properly managing BIO retry flags for non-blocking I/O scenarios.
 

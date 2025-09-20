@@ -8,7 +8,10 @@ Generates a fake join tuple with NULLs for the inner tuple columns to handle unm
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+MJFillOuter(MergeJoinState *node)
+```
 ## Detailed Description
 This function implements the outer join logic for merge joins by creating result tuples when an outer tuple has no matching inner tuples. The function:
 

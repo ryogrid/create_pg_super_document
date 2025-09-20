@@ -8,7 +8,10 @@ Records an unused line pointer that remains unchanged during heap page pruning, 
 
 ## Definition
 
-
+```c
+static void
+heap_prune_record_unchanged_lp_unused(Page page, PruneState *prstate, OffsetNumber offnum)
+```
 ## Detailed Description
 This function is part of the heap page pruning mechanism in PostgreSQL. It handles unused line pointers that do not need to be modified during the pruning process. The function's primary responsibility is to mark the line pointer at the specified offset as processed in the pruning state, ensuring that the pruning algorithm correctly tracks which line pointers have been handled.
 

@@ -8,7 +8,10 @@ PrepareTransactionBlock implements the SQL PREPARE TRANSACTION command by initia
 
 ## Definition
 
-
+```c
+bool
+PrepareTransactionBlock(const char *gid)
+```
 ## Detailed Description
 This function handles the execution of a PREPARE TRANSACTION command, which is part of PostgreSQL's two-phase commit protocol. It first calls EndTransactionBlock(false) to end the current transaction block, then if successful, transitions the outermost transaction state to TBLOCK_PREPARE. The function stores the global transaction identifier (GID) in TopTransactionContext for later retrieval by PrepareTransaction(). The design separates the block state management from the actual prepare work to avoid memory context and resource owner complications during Portal execution. The function returns true if the prepare will proceed, false if it was rolled back or not applicable.
 

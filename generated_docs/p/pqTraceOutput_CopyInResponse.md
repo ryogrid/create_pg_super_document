@@ -8,7 +8,10 @@ Outputs formatted trace information for PostgreSQL CopyInResponse messages, disp
 
 ## Definition
 
-
+```c
+static void
+pqTraceOutput_CopyInResponse(FILE *f, const char *message, int *cursor)
+```
 ## Detailed Description
 This function parses and outputs trace information for CopyInResponse messages in the PostgreSQL frontend protocol. CopyInResponse messages are sent by the server to indicate that it is ready to receive COPY data from the client. The function extracts and displays the overall format of the copy operation (text or binary) and the format codes for each column being copied.
 

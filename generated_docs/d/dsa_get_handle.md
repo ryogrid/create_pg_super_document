@@ -8,7 +8,10 @@ Retrieves a handle that can be passed to other processes to allow them to attach
 
 ## Definition
 
-
+```c
+dsa_handle
+dsa_get_handle(dsa_area *area)
+```
 ## Detailed Description
 This function extracts the DSA handle from a DSA area's control structure, providing a mechanism for inter-process communication and shared memory access. The handle serves as a portable identifier that other processes can use with dsa_attach() to gain access to the same shared memory area. The function includes an assertion to ensure that the area has a valid handle, which means it cannot be used with areas created using dsa_create_in_place() since those areas use DSA_HANDLE_INVALID.
 

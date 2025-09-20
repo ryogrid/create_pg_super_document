@@ -8,7 +8,16 @@ HeapTupleData is PostgreSQL's primary in-memory data structure that serves as a 
 
 ## Definition
 
-
+```c
+typedef struct HeapTupleData
+{
+	uint32		t_len;			/* length of *t_data */
+	ItemPointerData t_self;		/* SelfItemPointer */
+	Oid			t_tableOid;		/* table the tuple came from */
+#define FIELDNO_HEAPTUPLEDATA_DATA 3
+	HeapTupleHeader t_data;		/* -> tuple header and data */
+} HeapTupleData;
+```
 ## Detailed Description
 HeapTupleData is the fundamental in-memory tuple representation in PostgreSQL, acting as a versatile pointer structure that can reference tuples in multiple formats and storage locations. Unlike HeapTupleHeaderData which is the actual tuple header stored on disk, HeapTupleData serves as a lightweight wrapper providing access to tuple data regardless of its storage format.
 

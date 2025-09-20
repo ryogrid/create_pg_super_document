@@ -8,7 +8,10 @@ Builds a Python dictionary containing trigger-related information and arguments 
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_trigger_build_args(FunctionCallInfo fcinfo, PLyProcedure *proc, HeapTuple *rv)
+```
 ## Detailed Description
 This function constructs a comprehensive Python dictionary that contains all the information needed by a PL/Python trigger function. It extracts trigger metadata from the TriggerData structure and converts PostgreSQL data types to their Python equivalents. The function handles different trigger types (BEFORE/AFTER/INSTEAD OF), trigger levels (ROW/STATEMENT), and trigger events (INSERT/DELETE/UPDATE/TRUNCATE). For row-level triggers, it converts the old and new tuples to Python objects, while for statement-level triggers, it sets these to None. The function also handles trigger arguments and provides table metadata such as relation ID, table name, and schema name.
 

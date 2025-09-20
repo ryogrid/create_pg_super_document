@@ -8,7 +8,10 @@ A numerically stable implementation of the hypotenuse function that computes sqr
 
 ## Definition
 
-
+```c
+float8
+pg_hypot(float8 x, float8 y)
+```
 ## Detailed Description
 This function implements a numerically stable algorithm to compute the hypotenuse of a right triangle with sides x and y. Instead of the naive formula sqrt(x² + y²), it uses a rearranged formula that factors out the larger value to prevent overflow and improve precision:
 

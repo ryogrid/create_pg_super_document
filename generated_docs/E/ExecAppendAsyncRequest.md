@@ -8,7 +8,10 @@ Processes asynchronous tuple requests for Append nodes, either returning already
 
 ## Definition
 
-
+```c
+static bool
+ExecAppendAsyncRequest(AppendState *node, TupleTableSlot **result)
+```
 ## Detailed Description
 This function serves as the central coordinator for asynchronous tuple retrieval in Append nodes, implementing a two-phase approach to maximize efficiency and minimize latency. It handles both the consumption of previously completed async results and the initiation of new async operations when needed.
 

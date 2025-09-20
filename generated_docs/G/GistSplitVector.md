@@ -8,7 +8,23 @@ GistSplitVector is a working state structure used during GiST index page splitti
 
 ## Definition
 
+```c
+typedef struct GistSplitVector
+{
+	GIST_SPLITVEC splitVector;	/* passed to/from user PickSplit method */
 
+	Datum		spl_lattr[INDEX_MAX_KEYS];	/* Union of subkeys in
+											 * splitVector.spl_left */
+	bool		spl_lisnull[INDEX_MAX_KEYS];
+
+	Datum		spl_rattr[INDEX_MAX_KEYS];	/* Union of subkeys in
+											 * splitVector.spl_right */
+	bool		spl_risnull[INDEX_MAX_KEYS];
+
+	bool	   *spl_dontcare;	/* flags tuples which could go to either side
+								 * of the split for zero penalty */
+} GistSplitVector;
+```
 ## Detailed Description
 GistSplitVector serves as the working state container for complex page splitting operations in GiST indexes. It extends the basic GIST_SPLITVEC interface by providing additional bookkeeping for multi-column indexes. The structure manages the union keys (bounding boxes) for both sides of the split and tracks tuples that could be placed on either side without penalty, enabling optimization of the split quality. This structure is particularly important for composite indexes where multiple attributes contribute to the index key.
 

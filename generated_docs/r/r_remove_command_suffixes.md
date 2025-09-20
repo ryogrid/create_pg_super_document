@@ -8,7 +8,11 @@ Removes Tamil imperative/command suffixes from words after validating minimum le
 
 ## Definition
 
+```c
+}
 
+static int r_remove_command_suffixes(struct SN_env * z)
+```
 ## Detailed Description
 This function handles the removal of Tamil imperative or command suffixes from verbs. The process involves:
 

@@ -8,7 +8,10 @@ Returns the IP address of the client connecting to the PostgreSQL server, or NUL
 
 ## Definition
 
-
+```c
+Datum
+inet_client_addr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the IP address of the client that established the current database connection. It's a PostgreSQL built-in function that can be called from SQL to determine the network address of the connecting client.
 

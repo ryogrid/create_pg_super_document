@@ -8,7 +8,13 @@ FixedParamState is a structure used to store parameter type information for SQL 
 
 ## Definition
 
-
+```c
+typedef struct FixedParamState
+{
+	const Oid  *paramTypes;		/* array of parameter type OIDs */
+	int			numParams;		/* number of array entries */
+} FixedParamState;
+```
 ## Detailed Description
 FixedParamState is used in PostgreSQL's parser to handle parameter references in prepared statements and other queries where the parameter types and count are known in advance. This structure maintains a read-only array of parameter type OIDs and the count of parameters. It is used as part of the parameter reference hook mechanism in the parser state to validate and type-check parameter references during query parsing.
 

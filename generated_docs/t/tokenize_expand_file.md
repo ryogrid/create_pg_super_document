@@ -8,7 +8,15 @@ Expands a file referenced by '@' directive within an HBA configuration field int
 
 ## Definition
 
-
+```c
+static List *
+tokenize_expand_file(List *tokens,
+					 const char *outer_filename,
+					 const char *inc_filename,
+					 int elevel,
+					 int depth,
+					 char **err_msg)
+```
 ## Detailed Description
 This function handles file expansion within HBA configuration fields when a token beginning with '@' is encountered. Unlike tokenize_include_file which processes entire include directives, this function processes a file referenced within a field and flattens all its tokens into the current field's token list. It opens the referenced file, tokenizes its entire contents, and then extracts all individual tokens from every line and field, appending them to the existing tokens list. This enables constructs like "foo,bar,@filename" to work as expected, where @filename expands to multiple comma-separated values. The function handles recursive expansion, proper memory context management, and comprehensive error propagation.
 

@@ -8,7 +8,11 @@ Adjusts an interval value for specified precision constraints in both YEAR to SE
 
 ## Definition
 
-
+```c
+static bool
+AdjustIntervalForTypmod(Interval *interval, int32 typmod,
+						Node *escontext)
+```
 ## Detailed Description
 This static function modifies an interval value to conform to type modifier constraints specified in PostgreSQL's INTERVAL type declarations. It handles two main aspects of interval adjustment:
 

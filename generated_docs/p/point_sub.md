@@ -8,7 +8,13 @@ A PostgreSQL function that provides the SQL-callable interface for subtracting o
 
 ## Definition
 
-
+```c
+struct(result,
+					float8_mi(float8_mul(pt1->x, pt2->x),
+							  float8_mul(pt1->y, pt2->y)),
+					float8_pl(float8_mul(pt1->x, pt2->y),
+							  float8_mul(pt1->y, pt2->x)));
+```
 ## Detailed Description
 This function serves as the PostgreSQL SQL function interface for point subtraction operations. It extracts two Point arguments from the function call arguments using PostgreSQL's function calling convention, allocates memory for the result, delegates the actual computation to point_sub_point, and returns the result in PostgreSQL's Datum format. This function enables the '-' operator for point data types in SQL queries.
 

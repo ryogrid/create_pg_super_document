@@ -8,7 +8,10 @@ Transfers a contiguous run of pages to the free page manager, making them availa
 
 ## Definition
 
-
+```c
+void
+FreePageManagerPut(FreePageManager *fpm, Size first_page, Size npages)
+```
 ## Detailed Description
 This function adds a contiguous range of pages to the free page manager's internal data structures. It handles the complex task of inserting the new pages while maintaining optimal organization of free space and potentially consolidating adjacent free ranges.
 

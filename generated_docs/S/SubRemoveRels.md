@@ -8,7 +8,13 @@ SubRemoveRels is a local structure used within the  function to track relations 
 
 ## Definition
 
-
+```c
+typedef struct SubRemoveRels
+	{
+		Oid			relid;
+		char		state;
+	} SubRemoveRels;
+```
 ## Detailed Description
 The SubRemoveRels structure is a temporary data structure used internally during subscription refresh operations to maintain information about relations that are being removed from a subscription. It stores both the relation identifier and its last known subscription state, which is crucial for proper cleanup operations. The structure is used within  function to handle the removal of tables that are no longer part of the subscription's publication set, ensuring that associated replication workers are stopped and cleanup operations (like dropping tablesync origins) are performed based on the relation's state.
 

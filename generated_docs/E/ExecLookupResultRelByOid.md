@@ -8,7 +8,11 @@ Locates a ResultRelInfo structure for a specific table OID among the result rela
 
 ## Definition
 
-
+```c
+structure
+	 */
+	mtstate = makeNode(ModifyTableState);
+```
 ## Detailed Description
 This function searches for a ResultRelInfo structure corresponding to a given table OID within the result relations of a ModifyTable node. It employs two different search strategies based on the number of target relations: a hash table for efficient lookup when many relations are involved, or a simple linear search for fewer relations. The function also provides caching capabilities to optimize repeated lookups of the same relation.
 

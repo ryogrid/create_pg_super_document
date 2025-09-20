@@ -8,7 +8,10 @@ Returns the position of the least significant set bit in a 64-bit word, providin
 
 ## Definition
 
-
+```c
+static inline int
+pg_rightmost_one_pos64(uint64 word)
+```
 ## Detailed Description
 This function finds the position of the rightmost (least significant) set bit in a 64-bit unsigned integer, serving as the 64-bit version of pg_rightmost_one_pos32. It counts trailing zeros in 64-bit values, which is essential for large-scale bit manipulation operations.
 

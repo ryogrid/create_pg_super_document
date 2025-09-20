@@ -8,7 +8,9 @@ JitProviderCallbacks defines the interface structure that JIT provider implement
 
 ## Definition
 
-
+```c
+typedef struct JitProviderCallbacks JitProviderCallbacks;
+```
 ## Detailed Description
 JitProviderCallbacks serves as the plugin interface for JIT compilation providers in PostgreSQL. It defines a set of function pointers that concrete JIT implementations (such as the LLVM provider) must implement to provide JIT compilation services. This structure enables PostgreSQL to support multiple JIT backends through a common interface, allowing the core system to remain provider-agnostic while delegating the actual JIT compilation work to specialized implementations.
 

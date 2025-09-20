@@ -8,7 +8,16 @@ Generates a list of PartitionPruneStepOps based on given partition key clauses a
 
 ## Definition
 
-
+```c
+static List *
+get_steps_using_prefix(GeneratePruningStepsContext *context,
+					   StrategyNumber step_opstrategy,
+					   bool step_op_is_ne,
+					   Expr *step_lastexpr,
+					   Oid step_lastcmpfn,
+					   Bitmapset *step_nullkeys,
+					   List *prefix)
+```
 ## Detailed Description
 This function serves as the entry point for generating partition pruning steps when multiple partition keys are involved. It takes a prefix of PartClauseInfos for earlier partition keys and combines them with a final expression to create all valid combinations of pruning steps. The function handles different partitioning strategies (LIST, RANGE, HASH) with specific requirements for each:
 

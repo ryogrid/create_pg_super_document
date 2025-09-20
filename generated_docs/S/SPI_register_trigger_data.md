@@ -8,7 +8,10 @@ Registers transient relations from trigger data using the current SPI connection
 
 ## Definition
 
-
+```c
+int
+SPI_register_trigger_data(TriggerData *tdata)
+```
 ## Detailed Description
 This function is designed for use by procedural language (PL) implementations' trigger handlers. It extracts transition tables (NEW and OLD tables) from TriggerData and registers them as ephemeral named relations so they can be referenced in SQL queries executed within the trigger context. The function handles both tg_newtable and tg_oldtable if they exist, creating EphemeralNamedRelation structures for each and registering them using SPI_register_relation. Each relation is configured as a named tuplestore with metadata extracted from the trigger data.
 

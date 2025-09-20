@@ -8,7 +8,10 @@ SQL/XML function that executes an arbitrary SQL query and converts the result se
 
 ## Definition
 
-
+```c
+Datum
+query_to_xml(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `query_to_xml` function implements SQL/XML functionality for converting the result of any SQL query into XML format. It serves as a wrapper around `query_to_xml_internal`, extracting function arguments and delegating the XML generation process. The function executes the provided SQL query using the Server Programming Interface (SPI) and transforms each result row into XML elements.
 

@@ -8,7 +8,10 @@ A helper function that calculates the next block number to scan during heap tabl
 
 ## Definition
 
-
+```c
+static inline BlockNumber
+heapgettup_advance_block(HeapScanDesc scan, BlockNumber block, ScanDirection dir)
+```
 ## Detailed Description
 This function advances the block number for heap scanning based on the current block and scan direction. For forward scans, it increments the block number and wraps back to block 0 when reaching the end of the heap. For backward scans, it decrements the block number and wraps to the end when reaching block 0. The function handles scan termination conditions, reports scan position for synchronization when allowed, and enforces limits imposed by heap_setscanlimits(). It should only be called for subsequent blocks, not to determine the initial block number.
 

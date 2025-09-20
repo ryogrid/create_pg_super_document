@@ -8,7 +8,10 @@ Helper function that frees the memory of a child JsonbIterator and returns its p
 
 ## Definition
 
-
+```c
+static JsonbIterator *
+freeAndGetParent(JsonbIterator *it)
+```
 ## Detailed Description
 freeAndGetParent is a simple but critical memory management utility function used internally by JsonbIteratorNext. When a child iterator has finished processing all elements in its container (array or object), this function ensures proper cleanup by freeing the child iterator's allocated memory and returning control to the parent iterator. This mechanism is essential for preventing memory leaks during traversal of nested JSONB structures.
 

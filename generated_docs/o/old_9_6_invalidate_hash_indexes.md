@@ -8,7 +8,9 @@ A PostgreSQL upgrade utility function that handles hash index incompatibility be
 
 ## Definition
 
-
+```c
+structions.");
+```
 ## Detailed Description
 This function addresses a critical compatibility issue during PostgreSQL upgrades from version 9.6 to 10.0, where the internal binary format of hash indexes changed significantly. The function performs a two-phase operation: first, it scans all databases in the cluster to identify hash indexes, and second, it either reports the issue (in check mode) or takes corrective action by invalidating the indexes and generating a reindex script.
 

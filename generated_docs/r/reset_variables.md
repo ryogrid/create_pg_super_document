@@ -8,7 +8,10 @@ Resets the global variables that track argument lists for SQL statement paramete
 
 ## Definition
 
-
+```c
+void
+reset_variables(void)
+```
 ## Detailed Description
 The  function initializes the global argument list variables  and  to NULL. These global variables are used by the ECPG preprocessor to maintain lists of variables that serve as parameters for SQL INSERT statements () and variables that receive results from SQL queries (). This function is typically called to clean up or reset the state between processing different SQL statements.
 

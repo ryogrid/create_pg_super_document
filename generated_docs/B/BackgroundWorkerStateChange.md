@@ -8,7 +8,10 @@ Processes changes to background worker state in shared memory, handling new work
 
 ## Definition
 
-
+```c
+void
+BackgroundWorkerStateChange(bool allow_new_workers)
+```
 ## Detailed Description
 This critical function runs in the postmaster process to synchronize the postmaster's private worker list with changes made to shared memory by other backends. It iterates through all worker slots in shared memory, detecting newly registered workers or workers marked for termination. The function employs defensive programming practices to handle potentially corrupted shared memory safely, as a rogue backend could compromise the postmaster if trust is placed in shared memory contents. For new workers, it validates and copies registration data to the postmaster's private list using safe string copying functions. For terminated workers, it handles cleanup and notification procedures.
 

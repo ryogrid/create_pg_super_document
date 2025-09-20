@@ -8,7 +8,10 @@ Decodes multiple compressed GIN posting list segments into a single array of ite
 
 ## Definition
 
-
+```c
+ItemPointer
+ginPostingListDecodeAllSegments(GinPostingList *segment, int len, int *ndecoded_out)
+```
 ## Detailed Description
 This function is the core decoder for GIN posting lists, capable of processing multiple consecutive segments within a given byte length. It handles the complex task of decoding variable-byte encoded deltas back into absolute ItemPointer values while managing dynamic memory allocation for the output array.
 

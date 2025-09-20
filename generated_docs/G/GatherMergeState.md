@@ -8,7 +8,29 @@ GatherMergeState is a structure that manages the execution state for PostgreSQL'
 
 ## Definition
 
-
+```c
+typedef struct GatherMergeState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	bool		initialized;	/* workers launched? */
+	bool		gm_initialized; /* gather_merge_init() done? */
+	bool		need_to_scan_locally;	/* need to read from local plan? */
+	int64		tuples_needed;	/* tuple bound, see ExecSetTupleBound */
+	/* these fields are set up once: */
+	TupleDesc	tupDesc;		/* descriptor for subplan result tuples */
+	int			gm_nkeys;		/* number of sort columns */
+	SortSupport gm_sortkeys;	/* array of length gm_nkeys */
+	struct ParallelExecutorInfo *pei;
+	/* all remaining fields are reinitialized during a rescan */
+	/* (but the arrays are not reallocated, just cleared) */
+	int			nworkers_launched;	/* original number of workers */
+	int			nreaders;		/* number of active workers */
+	TupleTableSlot **gm_slots;	/* array with nreaders+1 entries */
+	struct TupleQueueReader **reader;	/* array with nreaders active entries */
+	struct GMReaderTupleBuffer *gm_tuple_buffers;	/* nreaders tuple buffers */
+	struct binaryheap *gm_heap; /* binary heap of slot indices */
+} GatherMergeState;
+```
 ## Detailed Description
 GatherMergeState extends the concept of parallel execution beyond simple gathering to include merge functionality. It launches multiple parallel workers that each produce sorted output according to specified sort keys, then uses a binary heap-based merge algorithm to combine these sorted streams into a single globally sorted result stream. This enables efficient parallel execution of operations that require sorted output, such as ORDER BY clauses and merge joins.
 

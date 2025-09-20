@@ -8,7 +8,10 @@ A static utility function in PostgreSQL's GUC system that safely discards values
 
 ## Definition
 
-
+```c
+static void
+discard_stack_value(struct config_generic *gconf, config_var_value *val)
+```
 ## Detailed Description
 The  function is responsible for properly cleaning up values stored in GUC configuration stack entries that are no longer needed. This function is essential for PostgreSQL's configuration stack management, ensuring that memory is properly freed when stack entries are discarded during transaction rollbacks, scope exits, or other configuration cleanup operations.
 

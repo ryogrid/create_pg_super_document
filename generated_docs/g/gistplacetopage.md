@@ -8,7 +8,56 @@ A complex core function that places tuples on a GiST page, handling page splits 
 
 ## Definition
 
+```c
+struct the new root page with the
+		 * downlinks here directly, instead of requiring the caller to insert
+		 * them. Add the new root page to the list along with the child pages.
+		 */
+		if (is_rootsplit)
+		{
+			IndexTuple *downlinks;
+			int			ndownlinks = 0;
+			int			i;
 
+			rootpg.buffer = buffer;
+			rootpg.page = PageGetTempPageCopySpecial(BufferGetPage(rootpg.buffer));
+			GistPageGetOpaque(rootpg.page)->flags = 0;
+
+			/* Prepare a vector of all the downlinks */
+			for (ptr = dist; ptr; ptr = ptr->next)
+				ndownlinks++;
+			downlinks = palloc(sizeof(IndexTuple) * ndownlinks);
+			for (i = 0, ptr = dist; ptr; ptr = ptr->next)
+				downlinks[i++] = ptr->itup;
+
+			rootpg.block.blkno = GIST_ROOT_BLKNO;
+			rootpg.block.num = ndownlinks;
+			rootpg.list = gistfillitupvec(downlinks, ndownlinks,
+										  &(rootpg.lenlist));
+			rootpg.itup = NULL;
+
+			rootpg.next = dist;
+			dist = &rootpg;
+		}
+		else
+		{
+			/* Prepare split-info to be returned to caller */
+			for (ptr = dist; ptr; ptr = ptr->next)
+			{
+				GISTPageSplitInfo *si = palloc(sizeof(GISTPageSplitInfo));
+
+				si->buf = ptr->buffer;
+				si->downlink = ptr->itup;
+				*splitinfo = lappend(*splitinfo, si);
+			}
+		}
+
+		/*
+		 * Fill all pages. All the pages are new, ie. freshly allocated empty
+		 * pages, or a temporary copy of the old page.
+		 */
+		for (ptr = dist;
+```
 ## Detailed Description
 This function is the central workhorse for placing tuples onto GiST pages. It handles both simple insertion when there's sufficient space and complex page splitting when the page is full. The function manages several critical aspects of GiST operation:
 

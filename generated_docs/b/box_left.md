@@ -8,7 +8,10 @@ The box_left function determines if one box is strictly to the left of another b
 
 ## Definition
 
-
+```c
+Datum
+box_left(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a geometric comparison operation that checks whether box1 is positioned entirely to the left of box2. The comparison is performed by checking if the highest x-coordinate of box1 is less than the lowest x-coordinate of box2. This ensures that there is no horizontal overlap between the boxes, with box1 being completely to the left of box2.
 

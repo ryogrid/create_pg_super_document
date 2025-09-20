@@ -8,7 +8,9 @@ GinBtree is a typedef that creates a pointer type to GinBtreeData structure, ser
 
 ## Definition
 
-
+```c
+typedef struct GinBtreeData *GinBtree;
+```
 ## Detailed Description
 GinBtree represents a handle to a GIN B-tree operational context through a pointer to GinBtreeData. This design pattern allows for polymorphic behavior where different B-tree types (entry trees vs data/posting trees) can implement the same interface through function pointers stored in the GinBtreeData structure. The typedef provides a clean abstraction layer for B-tree operations while hiding the implementation details of the underlying data structure.
 

@@ -8,7 +8,15 @@ RoleSpec represents a role specification in PostgreSQL's parse tree, used to ide
 
 ## Definition
 
-
+```c
+typedef struct RoleSpec
+{
+	NodeTag		type;
+	RoleSpecType roletype;		/* Type of this rolespec */
+	char	   *rolename;		/* filled only for ROLESPEC_CSTRING */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} RoleSpec;
+```
 ## Detailed Description
 RoleSpec is a parse tree node that represents role specifications in SQL statements. It provides a flexible way to reference database roles, supporting different methods of role identification including explicit role names, current user references, session user references, and public role references. This abstraction allows PostgreSQL to handle various role reference patterns uniformly across different SQL contexts such as GRANT statements, role creation, ownership changes, and access control operations.
 

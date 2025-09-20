@@ -8,7 +8,10 @@ Looks up the Object Identifier (OID) for a PostgreSQL extension given its name, 
 
 ## Definition
 
-
+```c
+Oid
+get_extension_oid(const char *extname, bool missing_ok)
+```
 ## Detailed Description
 This function performs a catalog lookup in the pg_extension system catalog to find the OID corresponding to a given extension name. It uses the system catalog scanning interface to search for the extension by name using the ExtensionNameIndexId index for efficient lookups. The function provides flexibility in error handling - it can either throw an error when an extension is not found or return InvalidOid based on the missing_ok parameter.
 

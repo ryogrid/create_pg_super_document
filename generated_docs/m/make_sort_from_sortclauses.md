@@ -8,7 +8,10 @@ Creates a Sort plan node to sort input tuples according to given sort clauses, c
 
 ## Definition
 
-
+```c
+Sort *
+make_sort_from_sortclauses(List *sortcls, Plan *lefttree)
+```
 ## Detailed Description
 This function constructs a Sort plan node from a list of SortGroupClauses. It performs the crucial task of transforming the list-based sort specification used during planning into the array-based format that the PostgreSQL executor expects. The function extracts sorting information including column indices, sort operators, collations, and null handling preferences from each SortGroupClause, then delegates to make_sort() to create the actual Sort node.
 

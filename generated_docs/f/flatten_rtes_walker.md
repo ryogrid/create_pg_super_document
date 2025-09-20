@@ -8,7 +8,10 @@ A tree walker callback function that recursively traverses query parse trees to 
 
 ## Definition
 
-
+```c
+structure pointers that are not
+ * needed by the executor;
+```
 ## Detailed Description
 The  function serves as a callback for PostgreSQL's tree walker mechanism, specifically designed to traverse parse tree nodes and extract RangeTblEntries for flattening. The function handles three main types of nodes:
 

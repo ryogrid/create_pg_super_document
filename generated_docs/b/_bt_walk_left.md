@@ -8,7 +8,10 @@ Steps left one page in a B-tree index structure, handling various edge cases suc
 
 ## Definition
 
-
+```c
+static Buffer
+_bt_walk_left(Relation rel, Buffer buf)
+```
 ## Detailed Description
 This function performs a leftward traversal in a B-tree index, moving from the current page to its left sibling. It implements sophisticated logic to handle concurrent operations that may occur during traversal, including page deletions and splits. The function uses a robust recovery mechanism when the expected left sibling is not found, implementing a limited rightward search to locate the correct page.
 

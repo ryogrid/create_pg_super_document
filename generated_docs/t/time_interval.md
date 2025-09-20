@@ -8,7 +8,10 @@ Converts a time value to an interval data type, creating an interval that repres
 
 ## Definition
 
-
+```c
+Datum
+time_interval(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that converts a TimeADT (time) value into an Interval data type. The resulting interval represents the same duration as the time value, measured from midnight (00:00:00). The function creates a new Interval structure with the time component set to the input time value, while the day and month components are set to zero, indicating that this interval represents only a time duration without any date-based components.
 

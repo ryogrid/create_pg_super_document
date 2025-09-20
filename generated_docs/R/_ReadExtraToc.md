@@ -8,7 +8,10 @@ _ReadExtraToc is a callback function that reads format-specific TOC entry data f
 
 ## Definition
 
-
+```c
+static void
+_ReadExtraToc(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function serves as the counterpart to _WriteExtraToc, reading back the format-specific data that was previously written to the archive. It's called by the PostgreSQL archiver during the archive loading process to restore the data position and state information for each Table of Contents (TOC) entry.
 

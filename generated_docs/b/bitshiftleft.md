@@ -8,7 +8,10 @@ Performs a left bit shift operation on a variable-length bit string, shifting bi
 
 ## Definition
 
-
+```c
+Datum
+bitshiftleft(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements left bit shifting for PostgreSQL's variable-length bit string data type (varbit). It takes a bit string and an integer shift amount, and returns a new bit string with all bits shifted left by the specified number of positions. The function handles both byte-aligned and bit-aligned shifts efficiently.
 

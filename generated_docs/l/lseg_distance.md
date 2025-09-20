@@ -8,7 +8,9 @@ Calculates the minimum distance between two line segments in PostgreSQL's geomet
 
 ## Definition
 
-
+```c
+struct(&tmp, &l2->p[0], lseg_sl(l2));
+```
 ## Detailed Description
 The  function computes the shortest distance between two line segments (LSEG data type). This function handles the complex geometry of finding the minimum distance between two line segments, which can occur in several scenarios:
 

@@ -8,7 +8,11 @@ Initializes the after-trigger system state at the beginning of a transaction, se
 
 ## Definition
 
-
+```c
+structure to empty
+	 */
+	afterTriggers.firing_counter = (CommandId) 1;
+```
 ## Detailed Description
 AfterTriggerBeginXact is called at transaction start (either explicit BEGIN or implicit for single statements outside transaction blocks) to initialize the after-trigger state structure. This function sets up the firing counter and query depth, and performs assertions to verify that no leftover state exists from previous transactions.
 

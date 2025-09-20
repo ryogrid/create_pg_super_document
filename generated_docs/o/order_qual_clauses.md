@@ -8,7 +8,14 @@ This function sorts a list of qualification clauses into the optimal order for r
 
 ## Definition
 
-
+```c
+typedef struct
+	{
+		Node	   *clause;
+		Cost		cost;
+		Index		security_level;
+	} QualItem;
+```
 ## Detailed Description
  is a critical optimization function in PostgreSQL's query planner that determines the order in which qualification clauses (WHERE conditions) should be evaluated at runtime. The function implements a sophisticated sorting algorithm that considers both security barriers and execution costs to maximize query performance while maintaining security guarantees.
 

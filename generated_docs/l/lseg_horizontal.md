@@ -8,7 +8,10 @@ Determines if a line segment is horizontal by checking if both endpoints have th
 
 ## Definition
 
-
+```c
+Datum
+lseg_horizontal(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function tests whether a line segment is horizontal. A line segment is considered horizontal if both of its endpoints have the same y-coordinate, meaning the segment runs parallel to the x-axis. The function compares the y-coordinates of the two points that define the line segment using floating-point equality comparison.
 

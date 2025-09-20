@@ -8,7 +8,13 @@ PrefetchBufferResult is a structure that represents the result of a buffer prefe
 
 ## Definition
 
-
+```c
+typedef struct PrefetchBufferResult
+{
+	Buffer		recent_buffer;	/* If valid, a hit (recheck needed!) */
+	bool		initiated_io;	/* If true, a miss resulting in async I/O */
+} PrefetchBufferResult;
+```
 ## Detailed Description
 PrefetchBufferResult encapsulates the outcome of a PrefetchBuffer() operation, which attempts to initiate asynchronous reading of a block without actually allocating a buffer. This structure allows the caller to understand what happened during the prefetch attempt and take appropriate action. The structure supports PostgreSQL's buffer prefetching mechanism, which aims to reduce I/O delays for future ReadBuffer operations by starting disk reads early.
 

@@ -8,7 +8,12 @@ Estimates join selectivity between two Most Common Values (MCV) lists for inet n
 
 ## Definition
 
-
+```c
+static Selectivity
+inet_mcv_join_sel(Datum *mcv1_values, float4 *mcv1_numbers, int mcv1_nvalues,
+				  Datum *mcv2_values, float4 *mcv2_numbers, int mcv2_nvalues,
+				  Oid operator)
+```
 ## Detailed Description
 This function performs selectivity estimation for join operations between two relations based on their Most Common Values (MCV) statistics. It uses a straightforward approach by testing every combination of values from both MCV lists using the specified operator.
 

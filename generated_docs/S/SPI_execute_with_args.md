@@ -8,7 +8,13 @@ SPI_execute_with_args plans and executes a query with supplied arguments in a si
 
 ## Definition
 
-
+```c
+int
+SPI_execute_with_args(const char *src,
+					  int nargs, Oid *argtypes,
+					  Datum *Values, const char *Nulls,
+					  bool read_only, long tcount)
+```
 ## Detailed Description
 SPI_execute_with_args is functionally equivalent to calling SPI_prepare followed by SPI_execute_plan, but performs both operations in a single function call. It creates a temporary plan structure, prepares a one-shot plan from the provided SQL source, converts the parameters, and executes the plan. This function is useful for executing parameterized queries that don't need to be reused, avoiding the overhead of managing separate prepare and execute phases.
 

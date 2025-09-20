@@ -8,7 +8,10 @@ Utility function that computes executor flags needed for CREATE TABLE AS operati
 
 ## Definition
 
-
+```c
+int
+GetIntoRelEFlags(IntoClause *intoClause)
+```
 ## Detailed Description
 The  function is a simple utility that translates  options into appropriate executor flags for CREATE TABLE AS operations. Currently, it primarily handles the  flag by setting the  executor flag when data population should be skipped.
 

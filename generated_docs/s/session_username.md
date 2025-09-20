@@ -8,7 +8,9 @@ This function retrieves the session username for the current PostgreSQL connecti
 
 ## Definition
 
-
+```c
+struct passwd *pw;
+```
 ## Detailed Description
 The  function is a utility function in psql that returns the username associated with the current database session. It first attempts to get the session authorization username by querying the server's  parameter. If no session authorization is set (i.e., the parameter returns NULL), it falls back to returning the connection username obtained via .
 

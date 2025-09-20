@@ -8,7 +8,11 @@ A utility function that extracts the type OID and type modifier from a TypeName 
 
 ## Definition
 
-
+```c
+void
+typenameTypeIdAndMod(ParseState *pstate, const TypeName *typeName,
+					 Oid *typeid_p, int32 *typmod_p)
+```
 ## Detailed Description
 This function serves as a wrapper around  that simplifies access to just the type OID and type modifier information. It internally calls  to perform the full type lookup and validation, then extracts only the OID and typmod values from the returned syscache entry before releasing it. This approach is more efficient when the caller only needs the basic type identification information rather than the complete type tuple.
 

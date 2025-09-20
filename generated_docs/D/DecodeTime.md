@@ -8,7 +8,10 @@ DecodeTime is a function that parses time strings with delimiters and converts t
 
 ## Definition
 
-
+```c
+int
+DecodeTime(char *str, int *tmask, struct tm *tm, fsec_t *fsec)
+```
 ## Detailed Description
 DecodeTime is specifically designed for timestamp processing and serves as a wrapper around DecodeTimeCommon. It parses time strings that include delimiters (like colons) and extracts hour, minute, second, and microsecond components. The function validates that the hour value fits within integer range and populates the provided pg_tm structure with the decoded time components. On success, it returns 0; on error, it returns a DTERR error code.
 

@@ -8,7 +8,23 @@ EquivalenceMember represents one member expression of an EquivalenceClass in Pos
 
 ## Definition
 
+```c
+typedef struct EquivalenceMember
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+
+	Expr	   *em_expr;		/* the expression represented */
+	Relids		em_relids;		/* all relids appearing in em_expr */
+	bool		em_is_const;	/* expression is pseudoconstant? */
+	bool		em_is_child;	/* derived version for a child relation? */
+	Oid			em_datatype;	/* the "nominal type" used by the opfamily */
+	JoinDomain *em_jdomain;		/* join domain containing the source clause */
+	/* if em_is_child is true, this links to corresponding EM for top parent */
+	struct EquivalenceMember *em_parent pg_node_attr(read_write_ignore);
+} EquivalenceMember;
+```
 ## Detailed Description
 EquivalenceMember is a fundamental structure in PostgreSQL's query optimizer that represents individual expressions within an EquivalenceClass. An EquivalenceClass groups expressions that are known to be equal due to equality constraints (e.g., WHERE clauses or JOIN conditions), allowing the optimizer to substitute equivalent expressions during planning.
 

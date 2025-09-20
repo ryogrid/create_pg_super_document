@@ -8,7 +8,10 @@ Returns a pointer to an SSL-related structure by name, providing a generic inter
 
 ## Definition
 
-
+```c
+void *
+PQsslStruct(PGconn *conn, const char *struct_name)
+```
 ## Detailed Description
 PQsslStruct is a public API function in PostgreSQL's libpq library that provides a generic mechanism for accessing SSL implementation-specific structures. Unlike PQgetssl which directly returns the SSL object, this function allows for extensibility by accepting a structure name parameter.
 

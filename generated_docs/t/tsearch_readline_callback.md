@@ -8,7 +8,10 @@ An error context callback function that provides detailed error location informa
 
 ## Definition
 
-
+```c
+static void
+tsearch_readline_callback(void *arg)
+```
 ## Detailed Description
 This static function serves as an error context callback that is registered with PostgreSQL's error reporting system when reading text search configuration files. When an error occurs during file processing, this callback automatically adds contextual information to the error message, including the filename and line number where the error occurred.
 

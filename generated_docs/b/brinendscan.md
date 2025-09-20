@@ -8,7 +8,10 @@ Closes down a BRIN index scan by cleaning up allocated resources including the r
 
 ## Definition
 
-
+```c
+void
+brinendscan(IndexScanDesc scan)
+```
 ## Detailed Description
 The brinendscan function is responsible for properly terminating a BRIN index scan and freeing all associated resources. This is part of the standard PostgreSQL index access method interface and is called when a scan is complete or being aborted.
 

@@ -8,7 +8,10 @@ Converts a string representation of a 2D point into PostgreSQL's internal Point 
 
 ## Definition
 
-
+```c
+Datum
+point_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for parsing string input and converting it into PostgreSQL's internal Point data type. It accepts two external string formats:
 - "(x,y)" - parenthesized format

@@ -8,7 +8,9 @@ Updates the localization cache for time-related locale data by extracting locali
 
 ## Definition
 
-
+```c
+struct tm  *timeinfo;
+```
 ## Detailed Description
 The  function is responsible for populating PostgreSQL's internal cache of localized time strings (day and month names in both abbreviated and full forms). This function is critical for performance of date/time formatting operations, as it avoids repeatedly calling expensive locale functions.
 

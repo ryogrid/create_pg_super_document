@@ -8,7 +8,12 @@ Analyzes a restriction list to determine if it contains constant FALSE condition
 
 ## Definition
 
-
+```c
+static bool
+restriction_is_constant_false(List *restrictlist,
+							  RelOptInfo *joinrel,
+							  bool only_pushed_down)
+```
 ## Detailed Description
 This function examines a list of restriction clauses to identify cases where the restrictions are provably constant FALSE. This detection is crucial for optimization in outer join scenarios where the presence of FALSE conditions would mean that no outer row can find a match, making cartesian product computation wasteful.
 

@@ -8,7 +8,10 @@ Compiles an optimized LLVM function that efficiently deforms (unpacks) tuple dat
 
 ## Definition
 
-
+```c
+struct_gep(b, StructTupleTableSlot, v_slot, FIELDNO_TUPLETABLESLOT_VALUES,
+						  "tts_values");
+```
 ## Detailed Description
 This function generates optimized LLVM IR code for tuple deformation, which is the process of extracting column values from a heap tuple's binary storage format into the slot's values and nulls arrays. The generated code handles:
 

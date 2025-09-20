@@ -8,7 +8,9 @@ Returns the total number of colors defined in a compiled regular expression's ch
 
 ## Definition
 
-
+```c
+struct colormap *cm;
+```
 ## Detailed Description
 This function retrieves the total number of colors from a compiled regular expression's colormap. In the regex engine, characters are grouped into "colors" - equivalence classes of characters that are treated identically by the regular expression. This optimization reduces the size of the NFA by grouping characters that have the same behavior in the regex.
 

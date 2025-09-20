@@ -8,7 +8,10 @@ A crash-safe wrapper around the rename(2) system call that ensures the rename op
 
 ## Definition
 
-
+```c
+int
+durable_rename(const char *oldfile, const char *newfile)
+```
 ## Detailed Description
  provides ACID-compliant file renaming by ensuring that both the source and destination files, as well as the parent directory metadata, are synchronized to persistent storage before and after the rename operation. The function follows a careful sequence: it first fsyncs the old file and any existing target file, performs the actual rename, then fsyncs the renamed file and its parent directory. This guarantees that in case of a crash, either the old file exists in its original location or the new file exists in the target location, with no possibility of data loss or corruption. The function cannot rename across different filesystems since rename(2) doesn't support cross-filesystem operations.
 

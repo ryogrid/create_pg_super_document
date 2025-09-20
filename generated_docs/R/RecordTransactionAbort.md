@@ -8,7 +8,10 @@ RecordTransactionAbort handles the recording of transaction abort operations by 
 
 ## Definition
 
-
+```c
+static TransactionId
+RecordTransactionAbort(bool isSubXact)
+```
 ## Detailed Description
 This function orchestrates the complete process of recording a transaction abort in PostgreSQL's transaction management system. It writes an ABORT record to the Write-Ahead Log (WAL), marks the transaction and its children as aborted in the commit log (clog), and performs necessary cleanup operations.
 

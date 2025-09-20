@@ -8,7 +8,10 @@ Core throttling function that controls data transfer rate by incrementing a coun
 
 ## Definition
 
-
+```c
+static void
+throttle(bbsink_throttle *sink, size_t increment)
+```
 ## Detailed Description
 The  function implements the core bandwidth throttling mechanism for basebackup operations. It maintains a running counter of transferred data and enforces rate limiting by introducing deliberate delays when the transfer rate exceeds configured limits.
 

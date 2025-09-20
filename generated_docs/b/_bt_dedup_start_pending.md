@@ -8,7 +8,11 @@ Initializes a new pending posting list tuple based on a base tuple, setting up t
 
 ## Definition
 
-
+```c
+void
+_bt_dedup_start_pending(BTDedupState state, IndexTuple base,
+						OffsetNumber baseoff)
+```
 ## Detailed Description
 This function serves as the initialization step for creating a new posting list during deduplication. Every tuple processed during deduplication either becomes the base tuple for a posting list or gets its heap TIDs merged into an existing pending posting list.
 

@@ -8,7 +8,10 @@ Internal static function that implements the core logic for determining whether 
 
 ## Definition
 
-
+```c
+static bool
+box_ov(BOX *box1, BOX *box2)
+```
 ## Detailed Description
 The `box_ov` function implements the fundamental overlap detection algorithm for BOX structures. It determines overlap by checking if the boxes intersect in both the x and y dimensions using four boundary comparisons. Two boxes overlap if and only if they overlap in both dimensions simultaneously. The function uses PostgreSQL's floating-point comparison macro `FPle` (floating-point less-than-or-equal) to handle potential floating-point precision issues correctly.
 

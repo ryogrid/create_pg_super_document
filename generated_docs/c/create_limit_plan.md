@@ -8,7 +8,10 @@ Creates a Limit plan node for implementing LIMIT and OFFSET clauses, including s
 
 ## Definition
 
-
+```c
+static Limit *
+create_limit_plan(PlannerInfo *root, LimitPath *best_path, int flags)
+```
 ## Detailed Description
 This function constructs a Limit plan node that implements SQL's LIMIT and OFFSET functionality for restricting the number of rows returned by a query. The function handles both simple LIMIT operations and the more complex LIMIT WITH TIES variant. For WITH TIES operations, it extracts sorting information from the query's ORDER BY clause to determine which rows are considered "tied" with the last row that would normally be returned by the LIMIT. This requires building arrays of column indices, equality operators, and collations to properly compare rows during execution.
 

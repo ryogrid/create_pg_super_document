@@ -8,7 +8,10 @@ Parses PostgreSQL external symbol names and splits them into separate module and
 
 ## Definition
 
-
+```c
+void
+llvm_split_symbol_name(const char *name, char **modname, char **funcname)
+```
 ## Detailed Description
 This function analyzes symbol names to determine whether they represent functions from external modules or functions from the main binary/external libraries. It follows PostgreSQL's naming convention for external module functions, which use the format .
 

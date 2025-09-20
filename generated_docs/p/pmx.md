@@ -8,7 +8,10 @@ The  function implements the Partially Matched Crossover (PMX) genetic algorithm
 
 ## Definition
 
-
+```c
+void
+pmx(PlannerInfo *root, Gene *tour1, Gene *tour2, Gene *offspring, int num_gene)
+```
 ## Detailed Description
 The PMX (Partially Matched Crossover) function is a sophisticated genetic crossover operator that creates a new offspring tour by combining genetic material from two parent tours while maintaining the validity of the solution. This algorithm is specifically designed for permutation-based genetic algorithms where each gene must appear exactly once in the solution.
 

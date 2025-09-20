@@ -8,7 +8,10 @@ Finds the ObjectAddress for objects that are attached to a relation, such as rul
 
 ## Definition
 
-
+```c
+struct return value. */
+	attnum = get_attnum(reloid, attname);
+```
 ## Detailed Description
 The  function handles object address resolution for database objects that are dependent on or attached to relations. These include rules, triggers, table constraints, and row-level security policies. The function takes a qualified name where the last component is the dependent object name and the preceding components form the relation name.
 

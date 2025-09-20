@@ -8,7 +8,10 @@ Allocates and initializes a new ParseState structure for SQL parsing operations,
 
 ## Definition
 
-
+```c
+ParseState *
+make_parsestate(ParseState *parentParseState)
+```
 ## Detailed Description
 The  function creates a new ParseState structure that serves as the central context for SQL parsing operations in PostgreSQL. It allocates memory using  to ensure all fields start with zero/null values, then initializes critical fields and optionally inherits configuration from a parent ParseState.
 

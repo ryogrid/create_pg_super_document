@@ -8,7 +8,10 @@ Computes the optimal hash table size for a PostgreSQL simple hash table, roundin
 
 ## Definition
 
-
+```c
+static inline uint64
+SH_COMPUTE_SIZE(uint64 newsize)
+```
 ## Detailed Description
 SH_COMPUTE_SIZE is a macro that generates a function name for computing optimal hash table sizes within PostgreSQL's simple hash table framework. The actual implementation rounds up the requested size to the next power of 2, ensures a minimum size of 2, and validates that the resulting allocation would not exceed platform memory limits. This function is critical for maintaining the hash table's performance characteristics, as power-of-2 sizing enables efficient modulo operations using bitwise AND with a size mask.
 

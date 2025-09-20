@@ -8,7 +8,10 @@ A static function that sorts an array of ParsedWord structures, removes duplicat
 
 ## Definition
 
-
+```c
+static int
+uniqueWORD(ParsedWord *a, int32 l)
+```
 ## Detailed Description
  performs deduplication and position consolidation on an array of ParsedWord structures. The function implements the following algorithm:
 

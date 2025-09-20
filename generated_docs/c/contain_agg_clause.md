@@ -8,7 +8,10 @@ Recursively searches for aggregate function nodes (Aggref/GroupingFunc) within a
 
 ## Definition
 
-
+```c
+bool
+contain_agg_clause(Node *clause)
+```
 ## Detailed Description
 This function provides a convenient wrapper around  to detect the presence of aggregate functions or grouping functions within a given expression clause. It performs a recursive traversal of the node tree to identify Aggref and GroupingFunc nodes. The function is designed to work after sublink reduction to subplans and assumes no subqueries or outer-aggregate references are present in the clause being examined.
 

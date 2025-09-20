@@ -8,7 +8,14 @@ Creates the referencing-side "check" triggers that implement foreign key constra
 
 ## Definition
 
-
+```c
+static void
+createForeignKeyCheckTriggers(Oid myRelOid, Oid refRelOid,
+							  Constraint *fkconstraint, Oid constraintOid,
+							  Oid indexOid,
+							  Oid parentInsTrigger, Oid parentUpdTrigger,
+							  Oid *insertTrigOid, Oid *updateTrigOid)
+```
 ## Detailed Description
 This function creates two check triggers on the referencing table that validate foreign key constraints when rows are inserted or updated. It acts as a wrapper around CreateFKCheckTrigger, calling it twice to create separate triggers for INSERT and UPDATE events. These triggers ensure that foreign key values in the referencing table correspond to valid primary key values in the referenced table.
 

@@ -8,7 +8,10 @@ AlterObjectTypeCommandTag is a static helper function that maps PostgreSQL objec
 
 ## Definition
 
-
+```c
+static CommandTag
+AlterObjectTypeCommandTag(ObjectType objtype)
+```
 ## Detailed Description
 This function serves as a centralized mapping utility within PostgreSQL's utility command processing system. It takes an ObjectType enumeration value and returns the appropriate CommandTag that represents the ALTER operation for that specific object type. The function covers most database objects that support ALTER operations, providing a systematic way to generate consistent command tags for logging, auditing, and command completion tracking.
 

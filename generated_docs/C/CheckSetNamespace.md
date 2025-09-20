@@ -8,7 +8,10 @@ Validates that namespace transitions are allowed by checking restrictions on tem
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, objname_p);
+```
 ## Detailed Description
 This function enforces PostgreSQL's restrictions on moving database objects between certain special namespaces. It serves as a common validation point for ALTER ... SET SCHEMA operations, preventing potentially problematic namespace transitions that could break system invariants or cause operational issues.
 

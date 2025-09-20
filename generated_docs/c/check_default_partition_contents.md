@@ -8,7 +8,11 @@ This function validates that adding a new partition will not violate constraints
 
 ## Definition
 
-
+```c
+void
+check_default_partition_contents(Relation parent, Relation default_rel,
+								 PartitionBoundSpec *new_spec)
+```
 ## Detailed Description
 The  function performs a critical validation step during partition creation. When a new partition is being added to a partitioned table that has a default partition, this function ensures that no existing rows in the default partition would belong to the new partition's range or list values. If such rows are found, it throws an error to prevent constraint violations.
 

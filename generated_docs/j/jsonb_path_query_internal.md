@@ -8,7 +8,10 @@ Internal implementation function that executes a JSONPath expression against a J
 
 ## Definition
 
-
+```c
+static Datum
+jsonb_path_query_internal(FunctionCallInfo fcinfo, bool tz)
+```
 ## Detailed Description
 `jsonb_path_query_internal` is the core implementation function for JSONPath query operations that return multiple results. Unlike the predicate matching functions, this function executes a JSONPath expression and returns all matching values as a rowset using PostgreSQL's set-returning function (SRF) mechanism.
 

@@ -8,7 +8,11 @@ Processes WAL record data to update posting list tuples on a B-tree page by remo
 
 ## Definition
 
-
+```c
+static void
+btree_xlog_updates(Page page, OffsetNumber *updatedoffsets,
+				   xl_btree_update *updates, int nupdated)
+```
 ## Detailed Description
 This function applies updates to posting list tuples on a B-tree page during WAL recovery. It processes an array of update operations, where each operation removes specific heap TIDs from a posting list tuple. This is typically used during vacuum operations to remove dead heap TIDs from index tuples.
 

@@ -8,7 +8,39 @@ A structure that defines the interface and capabilities of PostgreSQL escape fun
 
 ## Definition
 
+```c
+typedef struct pe_test_escape_func
+{
+	const char *name;
 
+	/*
+	 * Can the escape method report errors? If so, we validate that it does in
+	 * case of various invalid inputs.
+	 */
+	bool		reports_errors;
+
+	/*
+	 * Is the escape method known to not handle invalidly encoded input? If
+	 * so, we don't run the test unless --force-unsupported is used.
+	 */
+	bool		supports_only_valid;
+
+	/*
+	 * Is the escape method known to only handle encodings where no byte in a
+	 * multi-byte characters are valid ascii.
+	 */
+	bool		supports_only_ascii_overlap;
+
+	/*
+	 * Does the escape function have a length input?
+	 */
+	bool		supports_input_length;
+
+	bool		(*escape) (PGconn *conn, PQExpBuffer target,
+						   const char *unescaped, size_t unescaped_len,
+						   PQExpBuffer escape_err);
+} pe_test_escape_func;
+```
 ## Detailed Description
 The  structure encapsulates metadata and function pointer for different PostgreSQL escape functions that need to be tested. It serves as a standardized interface that allows the test framework to understand the capabilities and limitations of each escape function, enabling appropriate test case selection and validation. The structure includes capability flags that inform the test framework about what types of input the escape function can handle and what behavior to expect.
 

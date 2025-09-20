@@ -8,7 +8,10 @@ A utility function that creates a null-terminated string copy from an input stri
 
 ## Definition
 
-
+```c
+char *
+pnstrdup(const char *in, Size len)
+```
 ## Detailed Description
 pnstrdup extends the functionality of pstrdup by handling strings that are not necessarily null-terminated. It creates a new null-terminated string copy from an input buffer, copying at most 'len' characters or until a null terminator is encountered (whichever comes first). The function ensures the result is always null-terminated by appending a null byte.
 

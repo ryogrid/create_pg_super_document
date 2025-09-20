@@ -8,7 +8,10 @@ Creates a list of all Vars (and PlaceHolderVars) referencing the specified query
 
 ## Definition
 
-
+```c
+List *
+pull_vars_of_level(Node *node, int levelsup)
+```
 ## Detailed Description
 The  function traverses a parse tree or expression tree to collect all variable references (Var nodes and PlaceHolderVar nodes) that reference a specific query nesting level. This function is commonly used in PostgreSQL's query optimizer to analyze variable dependencies across different query levels, particularly for handling subqueries and lateral references.
 

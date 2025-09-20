@@ -8,7 +8,12 @@ This function checks whether the right sibling leaf page of a target page is mar
 
 ## Definition
 
-
+```c
+structure, removing all
+ * pointers leading to it --- but not touching its own left and right links.
+ * The page cannot be physically reclaimed right away, since other processes
+ * may currently be trying to follow links leading to the page;
+```
 ## Detailed Description
 _bt_rightsib_halfdeadflag is a safety check function used during B-tree page deletion to ensure that the right sibling leaf page is not currently in a half-dead state. This prevents deletion operations from proceeding when they would encounter complications due to concurrent or interrupted VACUUM operations.
 

@@ -8,7 +8,20 @@ ItemPointerData is a fundamental PostgreSQL data structure that serves as a poin
 
 ## Definition
 
+```c
+typedef struct ItemPointerData
+{
+	BlockIdData ip_blkid;
+	OffsetNumber ip_posid;
+}
 
+/* If compiler understands packed and aligned pragmas, use those */
+#if defined(pg_attribute_packed) && defined(pg_attribute_aligned)
+			pg_attribute_packed()
+			pg_attribute_aligned(2)
+#endif
+ItemPointerData;
+```
 ## Detailed Description
 ItemPointerData represents a physical location of a tuple within PostgreSQL's storage system. It consists of two components: a block identifier (ip_blkid) that specifies which disk block contains the item, and a position identifier (ip_posid) that indicates which entry in the line pointer (ItemIdData) array within that block points to the desired item.
 

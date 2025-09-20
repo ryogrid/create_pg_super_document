@@ -8,7 +8,57 @@ BrinShared is a structure that stores status information for BRIN index builds p
 
 ## Definition
 
+```c
+typedef struct BrinShared
+{
+	/*
+	 * These fields are not modified during the build.  They primarily exist
+	 * for the benefit of worker processes that need to create state
+	 * corresponding to that used by the leader.
+	 */
+	Oid			heaprelid;
+	Oid			indexrelid;
+	bool		isconcurrent;
+	BlockNumber pagesPerRange;
+	int			scantuplesortstates;
 
+	/*
+	 * workersdonecv is used to monitor the progress of workers.  All parallel
+	 * participants must indicate that they are done before leader can use
+	 * results built by the workers (and before leader can write the data into
+	 * the index).
+	 */
+	ConditionVariable workersdonecv;
+
+	/*
+	 * mutex protects all fields before heapdesc.
+	 *
+	 * These fields contain status information of interest to BRIN index
+	 * builds that must work just the same when an index is built in parallel.
+	 */
+	slock_t		mutex;
+
+	/*
+	 * Mutable state that is maintained by workers, and reported back to
+	 * leader at end of the scans.
+	 *
+	 * nparticipantsdone is number of worker processes finished.
+	 *
+	 * reltuples is the total number of input heap tuples.
+	 *
+	 * indtuples is the total number of tuples that made it into the index.
+	 */
+	int			nparticipantsdone;
+	double		reltuples;
+	double		indtuples;
+
+	/*
+	 * ParallelTableScanDescData data follows. Can't directly embed here, as
+	 * implementations of the parallel table scan desc interface might need
+	 * stronger alignment.
+	 */
+} BrinShared;
+```
 ## Detailed Description
 BrinShared serves as the central coordination structure for parallel BRIN index builds. It contains both immutable configuration data that worker processes need to replicate the leader's state, and mutable status fields that track the progress of the parallel build operation. The structure is designed to be allocated in dynamic shared memory, allowing multiple processes to coordinate their work on building a BRIN index.
 

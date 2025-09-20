@@ -8,7 +8,13 @@ Extracts a binary integer of specified byte size from a message buffer, handling
 
 ## Definition
 
-
+```c
+union
+	{
+		float4		f;
+		uint32		i;
+	}			swap;
+```
 ## Detailed Description
 The `pq_getmsgint` function reads a binary integer from a message buffer with automatic network-to-host byte order conversion. It supports 1, 2, and 4-byte integers, treating all values as unsigned. The function uses appropriate byte-swapping operations (pg_ntoh16, pg_ntoh32) to convert from network byte order to host byte order, ensuring correct interpretation across different machine architectures. This is essential for PostgreSQL's cross-platform binary protocol communication.
 

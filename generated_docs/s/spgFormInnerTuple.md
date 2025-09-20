@@ -8,7 +8,15 @@ Constructs an SP-GiST inner tuple containing the given prefix and node array, us
 
 ## Definition
 
-
+```c
+struct a "dead" tuple to replace a tuple being deleted.
+ *
+ * The state can be SPGIST_REDIRECT, SPGIST_DEAD, or SPGIST_PLACEHOLDER.
+ * For a REDIRECT tuple, a pointer (blkno+offset) must be supplied, and
+ * the xid field is filled in automatically.
+ *
+ * This is called in critical sections, so we don't use palloc;
+```
 ## Detailed Description
 The  function creates an SP-GiST inner tuple that represents an internal node in the SP-GiST index tree. It combines a prefix value (if present) with an array of child node tuples into a single, properly formatted tuple structure. The function carefully calculates the required size, validates constraints, and assembles the components into a contiguous memory layout that can be stored on disk pages.
 

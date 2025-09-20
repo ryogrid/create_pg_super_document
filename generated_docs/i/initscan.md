@@ -8,7 +8,10 @@ A core initialization function that sets up the scan state and determines scanni
 
 ## Definition
 
-
+```c
+static void
+initscan(HeapScanDesc scan, ScanKey key, bool keep_startblock)
+```
 ## Detailed Description
 initscan is a central function that initializes heap scan state and determines the optimal scanning strategy based on table size, system configuration, and scan parameters. It handles both initial scans and rescans, making strategic decisions about buffer access patterns, synchronization, and parallel processing.
 

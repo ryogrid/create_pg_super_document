@@ -8,7 +8,22 @@ PGShmemHeader is a standard header structure that defines the metadata for all P
 
 ## Definition
 
-
+```c
+typedef struct PGShmemHeader	/* standard header for all Postgres shmem */
+{
+	int32		magic;			/* magic # to identify Postgres segments */
+#define PGShmemMagic  679834894
+	pid_t		creatorPID;		/* PID of creating process (set but unread) */
+	Size		totalsize;		/* total size of segment */
+	Size		freeoffset;		/* offset to first free space */
+	dsm_handle	dsm_control;	/* ID of dynamic shared memory control seg */
+	void	   *index;			/* pointer to ShmemIndex table */
+#ifndef WIN32					/* Windows doesn't have useful inode#s */
+	dev_t		device;			/* device data directory is on */
+	ino_t		inode;			/* inode number of data directory */
+#endif
+} PGShmemHeader;
+```
 ## Detailed Description
 PGShmemHeader serves as a standardized header structure placed at the beginning of every PostgreSQL shared memory segment. This structure provides crucial metadata that enables PostgreSQL processes to identify, validate, and manage shared memory segments. The header includes a magic number for validation, process identification, size information, and platform-specific filesystem metadata for additional validation on Unix-like systems.
 

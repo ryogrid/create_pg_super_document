@@ -8,7 +8,10 @@ A function in pgbench that resets a socket set to an empty state, allowing it to
 
 ## Definition
 
-
+```c
+static void
+clear_socket_set(socket_set *sa)
+```
 ## Detailed Description
 This function provides a platform-specific implementation for clearing socket sets, with different behaviors depending on whether ppoll() or select() is used for socket monitoring:
 

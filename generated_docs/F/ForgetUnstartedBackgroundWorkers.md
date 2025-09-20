@@ -8,7 +8,10 @@ Cancels all not-yet-started background worker requests that have waiting process
 
 ## Definition
 
-
+```c
+void
+ForgetUnstartedBackgroundWorkers(void)
+```
 ## Detailed Description
 This function is called during normal ("smart" or "fast") database shutdown to handle background workers that were registered but never started. It iterates through all registered background workers and identifies those that haven't been started yet (slot->pid == InvalidPid) and have processes waiting for them (bgw_notify_pid != 0). For each such worker, it completely removes the registration and sends a SIGUSR1 signal to notify the waiting process. This prevents processes from waiting indefinitely for background workers that will never start due to shutdown. The approach of canceling registrations entirely is considered acceptable during shutdown since the server is terminating anyway.
 

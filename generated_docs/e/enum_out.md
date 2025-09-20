@@ -8,7 +8,10 @@ Converts an internal enum OID value to its string representation for display and
 
 ## Definition
 
-
+```c
+Datum
+enum_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the output conversion for PostgreSQL enum types, transforming internal OID values back into their corresponding human-readable enum labels. It serves as the standard output function for enum types, handling the reverse conversion of what enum_in performs.
 

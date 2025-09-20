@@ -8,7 +8,12 @@ Evaluates a window function's argument expression on a specified row within the 
 
 ## Definition
 
-
+```c
+Datum
+WinGetFuncArgInPartition(WindowObject winobj, int argno,
+						 int relpos, int seektype, bool set_mark,
+						 bool *isnull, bool *isout)
+```
 ## Detailed Description
 This function provides flexible row positioning and argument evaluation capabilities for window functions. It can locate rows relative to the current position, partition head, or partition tail, then evaluate a specified argument expression on that row.
 

@@ -8,7 +8,10 @@ Extracts a counted text string from a message buffer with optional character enc
 
 ## Definition
 
-
+```c
+char *
+pq_getmsgtext(StringInfo msg, int rawbytes, int *nbytes)
+```
 ## Detailed Description
 The  function retrieves a text string of specified length from a PostgreSQL message buffer and performs character encoding conversion from client encoding to server encoding if necessary. It always returns a pointer to a freshly 'd result that is null-terminated. The function also returns the actual byte length of the converted string through the  output parameter. If no conversion is needed, it creates a copy of the original data with a null terminator added.
 

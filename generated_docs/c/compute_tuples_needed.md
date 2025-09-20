@@ -8,7 +8,10 @@ compute_tuples_needed calculates the maximum number of tuples that a Limit node 
 
 ## Definition
 
-
+```c
+static int64
+compute_tuples_needed(LimitState *node)
+```
 ## Detailed Description
 This function determines the optimal tuple bound that should be communicated to the child plan node for performance optimization. It calculates the total number of tuples needed by adding the OFFSET value to the LIMIT count. However, it returns -1 (indicating unlimited) in cases where the exact requirement cannot be determined in advance.
 

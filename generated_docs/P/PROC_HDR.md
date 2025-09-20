@@ -8,7 +8,51 @@ PROC_HDR is the central shared memory header structure that manages the global p
 
 ## Definition
 
+```c
+typedef struct PROC_HDR
+{
+	/* Array of PGPROC structures (not including dummies for prepared txns) */
+	PGPROC	   *allProcs;
 
+	/* Array mirroring PGPROC.xid for each PGPROC currently in the procarray */
+	TransactionId *xids;
+
+	/*
+	 * Array mirroring PGPROC.subxidStatus for each PGPROC currently in the
+	 * procarray.
+	 */
+	XidCacheStatus *subxidStates;
+
+	/*
+	 * Array mirroring PGPROC.statusFlags for each PGPROC currently in the
+	 * procarray.
+	 */
+	uint8	   *statusFlags;
+
+	/* Length of allProcs array */
+	uint32		allProcCount;
+	/* Head of list of free PGPROC structures */
+	dlist_head	freeProcs;
+	/* Head of list of autovacuum & special worker free PGPROC structures */
+	dlist_head	autovacFreeProcs;
+	/* Head of list of bgworker free PGPROC structures */
+	dlist_head	bgworkerFreeProcs;
+	/* Head of list of walsender free PGPROC structures */
+	dlist_head	walsenderFreeProcs;
+	/* First pgproc waiting for group XID clear */
+	pg_atomic_uint32 procArrayGroupFirst;
+	/* First pgproc waiting for group transaction status update */
+	pg_atomic_uint32 clogGroupFirst;
+	/* WALWriter process's latch */
+	Latch	   *walwriterLatch;
+	/* Checkpointer process's latch */
+	Latch	   *checkpointerLatch;
+	/* Current shared estimate of appropriate spins_per_delay value */
+	int			spins_per_delay;
+	/* Buffer id of the buffer that Startup process waits for pin on, or -1 */
+	int			startupBufferPinWaitBufId;
+} PROC_HDR;
+```
 ## Detailed Description
 PROC_HDR serves as the global control structure for PostgreSQL's process management system. There is one ProcGlobal structure (of type PROC_HDR) for the entire database cluster, managing all backend processes and maintaining critical performance optimizations.
 

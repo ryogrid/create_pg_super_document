@@ -8,7 +8,10 @@ Sets the size estimates for a base relation that represents a function call, cal
 
 ## Definition
 
-
+```c
+void
+set_function_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function estimates the cardinality (number of rows) for a relation that represents a function call in the FROM clause of a query. It handles functions that return sets (table-valued functions) by analyzing each function in the RTE_FUNCTION range table entry and determining the maximum row count among all functions. The function operates specifically on base relations where the range table entry kind is RTE_FUNCTION.
 

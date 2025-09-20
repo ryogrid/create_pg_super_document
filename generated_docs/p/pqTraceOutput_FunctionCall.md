@@ -8,7 +8,10 @@ Outputs formatted trace information for PostgreSQL FunctionCall messages, parsin
 
 ## Definition
 
-
+```c
+static void
+pqTraceOutput_FunctionCall(FILE *f, const char *message, int *cursor, bool regress)
+```
 ## Detailed Description
 This function parses and outputs trace information for FunctionCall messages in the PostgreSQL frontend protocol. It processes the binary message data to extract function parameters, parameter values, and result format specifications. The function handles variable-length parameter data and formats the output for debugging and protocol analysis purposes.
 

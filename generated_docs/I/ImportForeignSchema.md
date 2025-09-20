@@ -8,7 +8,10 @@ ImportForeignSchema implements the SQL IMPORT FOREIGN SCHEMA command, which allo
 
 ## Definition
 
-
+```c
+void
+ImportForeignSchema(ImportForeignSchemaStmt *stmt)
+```
 ## Detailed Description
 This function is the main entry point for executing IMPORT FOREIGN SCHEMA statements. It validates permissions, retrieves foreign data wrapper (FDW) information, calls the FDW's ImportForeignSchema routine to generate CREATE FOREIGN TABLE commands, and then executes those commands to create the foreign tables in the local schema.
 

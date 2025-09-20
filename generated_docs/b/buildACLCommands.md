@@ -8,7 +8,13 @@ The buildACLCommands function generates GRANT and REVOKE SQL commands for Postgr
 
 ## Definition
 
-
+```c
+bool
+buildACLCommands(const char *name, const char *subname, const char *nspname,
+				 const char *type, const char *acls, const char *baseacls,
+				 const char *owner, const char *prefix, int remoteVersion,
+				 PQExpBuffer sql)
+```
 ## Detailed Description
 This function is the core ACL command builder in pg_dump utilities. It takes an object's current ACL string and compares it with the base (default) ACL to determine what GRANT and REVOKE commands need to be generated to recreate the object's permissions in a restored database.
 

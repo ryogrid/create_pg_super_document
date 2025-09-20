@@ -8,7 +8,9 @@ DropErrorMsgWrongType generates specific error messages when a DROP command is i
 
 ## Definition
 
-
+```c
+struct dropmsgstrings *rentry;
+```
 ## Detailed Description
 DropErrorMsgWrongType is a static helper function that produces informative error messages when users attempt to drop a relation using the wrong DROP command variant (e.g., using DROP TABLE on a view, or DROP INDEX on a table). The function looks up both the expected relation type (rightkind) and the actual relation type (wrongkind) in the dropmsgstringarray to construct an error message that explains what the relation actually is and provides a hint about the correct DROP command to use.
 

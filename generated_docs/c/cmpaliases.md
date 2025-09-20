@@ -8,7 +8,10 @@ A comparison function used as a qsort comparator for CollAliasData items, enabli
 
 ## Definition
 
-
+```c
+static int
+cmpaliases(const void *a, const void *b)
+```
 ## Detailed Description
 The cmpaliases function serves as a comparison callback for the qsort() library function to sort arrays of CollAliasData structures. It performs a lexicographic comparison of the localename field between two CollAliasData items, which is sufficient for ordering because other fields (alias and encoding) are derived from the locale name. This function is essential for organizing locale data in a predictable order during collation import operations.
 

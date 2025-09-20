@@ -8,7 +8,10 @@ Generates the SQL statements to recreate a Row-Level Security policy or RLS enab
 
 ## Definition
 
-
+```c
+static void
+dumpPolicy(Archive *fout, const PolicyInfo *polinfo)
+```
 ## Detailed Description
 The `dumpPolicy` function creates the SQL DDL statements needed to recreate security policies during database restoration. It handles two distinct cases:
 

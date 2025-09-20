@@ -8,7 +8,15 @@ Converts a list of object names of a specified type into a list of corresponding
 
 ## Definition
 
-
+```c
+structure that
+				 * expects to use OIDs for object identities.)  However, if
+				 * this is a REVOKE, we can instead just ignore any GUCs that
+				 * don't have such an entry, as they must not have any
+				 * privileges needing removal.
+				 */
+				char	   *parameter = strVal(lfirst(cell));
+```
 ## Detailed Description
 This static function performs comprehensive name-to-OID resolution for all PostgreSQL object types that support ACL-based permissions. It takes a list of object names and resolves each one to its corresponding OID through type-specific lookup functions. For most object types, the function performs straightforward catalog lookups using dedicated functions like get_database_oid() or get_namespace_oid(). More complex cases include: tables/sequences which use RangeVarGetRelid() to handle schema-qualified names; functions/procedures/routines which use LookupFuncWithArgs() to handle overloaded signatures; types/domains which use typenameTypeId() with type name parsing; large objects which parse OID strings directly and validate existence; and configuration parameters which have special logic to create pg_parameter_acl entries for GRANT operations while ignoring non-existent parameters during REVOKE operations. The function includes a notable limitation where it doesn't acquire locks on resolved objects, making it potentially vulnerable to concurrent DDL operations.
 

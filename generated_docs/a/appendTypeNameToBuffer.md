@@ -8,7 +8,10 @@ A static utility function that formats a TypeName structure into a human-readabl
 
 ## Definition
 
-
+```c
+static void
+appendTypeNameToBuffer(const TypeName *typeName, StringInfo string)
+```
 ## Detailed Description
 This function converts a TypeName structure into its string representation by handling different forms of type specifications. It can process both user-specified type names (with possible schema qualification) and internally-specified types (identified by OID). The function also handles special type decorations like %TYPE for row types and array brackets for array types.
 

@@ -8,7 +8,11 @@ ProcessKeepaliveMsg processes keepalive messages from a PostgreSQL streaming rep
 
 ## Definition
 
-
+```c
+static bool
+ProcessKeepaliveMsg(PGconn *conn, StreamCtl *stream, char *copybuf, int len,
+					XLogRecPtr blockpos, TimestampTz *last_status)
+```
 ## Detailed Description
 This function handles keepalive messages that are sent by the PostgreSQL server during streaming replication to maintain the connection and request status updates from the client. The function parses the keepalive message format, extracting the reply request flag while skipping other fields like walEnd and sendTime. When the server requests an immediate reply, the function sends a feedback message containing the current replication position. If flush position reporting is enabled and the current position has advanced, it synchronizes the current WAL file to ensure accurate flush position reporting. This mechanism is crucial for monitoring replication lag and ensuring data durability.
 

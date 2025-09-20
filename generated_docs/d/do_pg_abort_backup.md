@@ -8,7 +8,10 @@ Aborts a running backup operation by taking the system out of backup mode, provi
 
 ## Definition
 
-
+```c
+void
+do_pg_abort_backup(int code, Datum arg)
+```
 ## Detailed Description
 This function performs essential cleanup when a backup operation needs to be aborted, either due to errors during backup setup or backend process termination. It safely decrements the running backup counter and resets the session backup state. The function is designed to be called from error handlers and cleanup routines, making it much safer than calling the full do_pg_backup_stop() function in error conditions.
 

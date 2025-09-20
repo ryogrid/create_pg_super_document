@@ -8,7 +8,11 @@ Iterates over jsonb values or elements according to specified flags and passes t
 
 ## Definition
 
-
+```c
+void
+iterate_jsonb_values(Jsonb *jb, uint32 flags, void *state,
+					 JsonIterateStringValuesAction action)
+```
 ## Detailed Description
 This function provides a generic mechanism for traversing a JSONB structure and applying a callback function to selected types of values. It uses the JSONB iterator infrastructure to walk through the entire JSONB structure, examining each token type and value type. Based on the provided flags, it selectively calls the action callback for keys, strings, numeric values, and boolean values. The function handles type conversion for numeric values (converting to string representation) and boolean values (converting to "true"/"false" strings) before passing them to the callback.
 

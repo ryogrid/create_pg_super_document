@@ -8,7 +8,10 @@ Performs a logical NOT operation on a single bit string, returning a new bit str
 
 ## Definition
 
-
+```c
+Datum
+bitnot(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `bitnot` function implements bitwise logical NOT operation on a single variable-length bit string (`VarBit`). This unary operation flips every bit in the input string: 0 becomes 1 and 1 becomes 0. Unlike the binary bitwise operations, this function works on a single input and creates a result of the same length. The function includes special padding handling to ensure that any unused bits in the final byte are properly zeroed, since the NOT operation would set them to 1.
 

@@ -8,7 +8,18 @@ LLVMJitHandle is a structure that represents a compiled module handle emitted vi
 
 ## Definition
 
-
+```c
+typedef struct LLVMJitHandle
+{
+#if LLVM_VERSION_MAJOR > 11
+	LLVMOrcLLJITRef lljit;
+	LLVMOrcResourceTrackerRef resource_tracker;
+#else
+	LLVMOrcJITStackRef stack;
+	LLVMOrcModuleHandle orc_handle;
+#endif
+} LLVMJitHandle;
+```
 ## Detailed Description
 LLVMJitHandle serves as a version-agnostic wrapper for managing compiled LLVM modules within PostgreSQL's JIT compilation system. The structure contains different member variables depending on the LLVM version being used, reflecting the evolution of LLVM's ORC JIT API between major versions.
 

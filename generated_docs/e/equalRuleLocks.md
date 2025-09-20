@@ -8,7 +8,10 @@ Determines whether two RuleLock structures are equivalent by comparing their rul
 
 ## Definition
 
-
+```c
+static bool
+equalRuleLocks(RuleLock *rlock1, RuleLock *rlock2)
+```
 ## Detailed Description
 This function performs a deep comparison of two RuleLock structures to determine if they contain equivalent rule sets. It assumes that rule ordering is repeatable (since PostgreSQL 7.3) because RelationBuildRuleLock reads rules in a consistent order, allowing direct slot-by-slot comparison.
 

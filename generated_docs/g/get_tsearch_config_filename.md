@@ -8,7 +8,11 @@ Constructs the full path name for a text search configuration file given its bas
 
 ## Definition
 
-
+```c
+char *
+get_tsearch_config_filename(const char *basename,
+							const char *extension)
+```
 ## Detailed Description
 This function takes a user-supplied base filename and a safe extension, validates the base name for security, and constructs the full path to a text search configuration file within the PostgreSQL installation's tsearch_data directory. The function implements strict security measures by limiting the basename to contain only lowercase letters (a-z), digits (0-9), and underscores to prevent directory traversal attacks and ensure cross-platform compatibility.
 

@@ -8,7 +8,16 @@ HashAggBatch represents work to be done for one pass of hash aggregation with a 
 
 ## Definition
 
-
+```c
+typedef struct HashAggBatch
+{
+	int			setno;			/* grouping set */
+	int			used_bits;		/* number of bits of hash already used */
+	LogicalTape *input_tape;	/* input partition tape */
+	int64		input_tuples;	/* number of tuples in this batch */
+	double		input_card;		/* estimated group cardinality */
+} HashAggBatch;
+```
 ## Detailed Description
 HashAggBatch is a fundamental structure in PostgreSQL's multi-pass hash aggregation algorithm. Each batch represents a unit of work for processing spilled aggregation data. The structure tracks which bits of the hash value have already been consumed by previous partitioning levels through the used_bits field. This enables recursive partitioning where each level uses different bit ranges of the hash values. When all hash bits are exhausted, the batch will not perform further partitioning and any spilled data will be written to a single output tape. The structure encapsulates both the input source (tape) and metadata needed for processing decisions (tuple count, cardinality estimates).
 

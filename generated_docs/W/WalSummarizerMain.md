@@ -8,7 +8,12 @@ The main entry point function for the WAL summarizer background process that con
 
 ## Definition
 
-
+```c
+structure contents are
+		 * undefined.
+		 */
+		*summarized_tli = 0;
+```
 ## Detailed Description
 WalSummarizerMain is the core function that implements the WAL summarizer background process. It sets up signal handlers, initializes memory contexts, and runs an infinite loop that continuously reads WAL records and creates summary files. The function handles timeline switches, manages progress tracking in shared memory, and coordinates with other processes through condition variables. It implements error recovery with a 10-second retry delay and maintains state about the current summarization position (LSN and timeline).
 

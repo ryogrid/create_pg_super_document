@@ -8,7 +8,12 @@ The var_eq_non_const function estimates selectivity for equality (and inequality
 
 ## Definition
 
-
+```c
+double
+var_eq_non_const(VariableStatData *vardata, Oid oproid, Oid collation,
+				 Node *other,
+				 bool varonleft, bool negate)
+```
 ## Detailed Description
 The var_eq_non_const function handles selectivity estimation when comparing a column variable against non-constant expressions like other columns, function calls, or complex expressions. Since the comparison value is unknown at planning time, the function uses statistical assumptions to estimate selectivity:
 

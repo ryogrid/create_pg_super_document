@@ -8,7 +8,10 @@ Extracts the host portion from a network datatype (inet/cidr), returning it as a
 
 ## Definition
 
-
+```c
+Datum
+network_host(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The network_host function is a PostgreSQL built-in function that takes an inet or cidr value and returns only the host address portion as text. It strips away any netmask information that may be present in the original value. The function uses pg_inet_net_ntop to format the address with maximum bit precision, then removes any trailing netmask notation (e.g., "/24") if present. This is useful when you need just the IP address without network information.
 

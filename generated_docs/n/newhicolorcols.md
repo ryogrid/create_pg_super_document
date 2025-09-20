@@ -8,7 +8,54 @@ Extends the hicolormap 2D array horizontally by duplicating existing columns, ef
 
 ## Definition
 
+```c
+struct colormap *cm)
+{
+	color	   *newarray;
+	int			r,
+				c;
 
+	if (cm->hiarraycols >= INT_MAX / (cm->maxarrayrows * 2))
+	{
+		CERR(REG_ESPACE);
+		return;
+	}
+	newarray = (color *) REALLOC(cm->hicolormap,
+								 cm->maxarrayrows *
+								 cm->hiarraycols * 2 * sizeof(color));
+	if (newarray == NULL)
+	{
+		CERR(REG_ESPACE);
+		return;
+	}
+	cm->hicolormap = newarray;
+
+	/* Duplicate existing columns to the right, and increase ref counts */
+	/* Must work backwards in the array because we realloc'd in place */
+	for (r = cm->hiarrayrows - 1; r >= 0; r--)
+	{
+		color	   *oldrowptr = &newarray[r * cm->hiarraycols];
+		color	   *newrowptr = &newarray[r * cm->hiarraycols * 2];
+		color	   *newrowptr2 = newrowptr + cm->hiarraycols;
+
+		for (c = 0; c < cm->hiarraycols; c++)
+		{
+			color		co = oldrowptr[c];
+
+			newrowptr[c] = newrowptr2[c] = co;
+			cm->cd[co].nuchrs++;
+		}
+	}
+
+	cm->hiarraycols *= 2;
+}
+
+/*
+ * subcolorcvec - allocate new subcolors to cvec members, fill in arcs
+ *
+ * For each chr "c" represented by the cvec, do the equivalent of
+ * newarc(v->nfa, PLAIN, subcolor(v->cm, c), lp, rp);
+```
 ## Detailed Description
 The  function is responsible for expanding the hicolormap array horizontally. It creates a new set of columns by copying the existing columns to the right, essentially doubling the width of the 2D color mapping array. The function performs in-place reallocation and works backwards through the rows to avoid overwriting data during the duplication process. After copying, it updates the reference counts for all colors to maintain proper bookkeeping.
 

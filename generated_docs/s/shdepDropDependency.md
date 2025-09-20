@@ -8,7 +8,14 @@ Internal workhorse function for deleting shared dependency entries from the pg_s
 
 ## Definition
 
-
+```c
+static void
+shdepDropDependency(Relation sdepRel,
+					Oid classId, Oid objectId, int32 objsubId,
+					bool drop_subobjects,
+					Oid refclassId, Oid refobjId,
+					SharedDependencyType deptype)
+```
 ## Detailed Description
 This function provides flexible deletion of shared dependency records from the pg_shdepend catalog table. It performs systematic scanning and filtering to identify and remove dependency entries that match specified criteria. The function supports various filtering modes including dropping all subobject dependencies and filtering by reference object properties.
 

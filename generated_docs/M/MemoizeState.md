@@ -8,7 +8,41 @@ MemoizeState is a structure that represents the execution state of a Memoize nod
 
 ## Definition
 
-
+```c
+typedef struct MemoizeState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	int			mstatus;		/* value of ExecMemoize state machine */
+	int			nkeys;			/* number of cache keys */
+	struct memoize_hash *hashtable; /* hash table for cache entries */
+	TupleDesc	hashkeydesc;	/* tuple descriptor for cache keys */
+	TupleTableSlot *tableslot;	/* min tuple slot for existing cache entries */
+	TupleTableSlot *probeslot;	/* virtual slot used for hash lookups */
+	ExprState  *cache_eq_expr;	/* Compare exec params to hash key */
+	ExprState **param_exprs;	/* exprs containing the parameters to this
+								 * node */
+	FmgrInfo   *hashfunctions;	/* lookup data for hash funcs nkeys in size */
+	Oid		   *collations;		/* collation for comparisons nkeys in size */
+	uint64		mem_used;		/* bytes of memory used by cache */
+	uint64		mem_limit;		/* memory limit in bytes for the cache */
+	MemoryContext tableContext; /* memory context to store cache data */
+	dlist_head	lru_list;		/* least recently used entry list */
+	struct MemoizeTuple *last_tuple;	/* Used to point to the last tuple
+										 * returned during a cache hit and the
+										 * tuple we last stored when
+										 * populating the cache. */
+	struct MemoizeEntry *entry; /* the entry that 'last_tuple' belongs to or
+								 * NULL if 'last_tuple' is NULL. */
+	bool		singlerow;		/* true if the cache entry is to be marked as
+								 * complete after caching the first tuple. */
+	bool		binary_mode;	/* true when cache key should be compared bit
+								 * by bit, false when using hash equality ops */
+	MemoizeInstrumentation stats;	/* execution statistics */
+	SharedMemoizeInfo *shared_info; /* statistics for parallel workers */
+	Bitmapset  *keyparamids;	/* Param->paramids of expressions belonging to
+								 * param_exprs */
+} MemoizeState;
+```
 ## Detailed Description
 MemoizeState maintains the runtime state for PostgreSQL's Memoize execution node, which implements a cache for parameterized scans. The memoize node is designed to cache results from subplans that are repeatedly executed with similar parameter values, significantly improving performance for queries with nested loops or correlated subqueries. The structure manages a hash table-based cache with LRU (Least Recently Used) eviction policy and memory limit enforcement.
 

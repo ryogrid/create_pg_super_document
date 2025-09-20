@@ -8,7 +8,10 @@ A static utility function that accumulates buffer usage statistics by adding all
 
 ## Definition
 
-
+```c
+static void
+BufferUsageAdd(BufferUsage *dst, const BufferUsage *add)
+```
 ## Detailed Description
 BufferUsageAdd is a helper function used to aggregate buffer usage statistics in PostgreSQL's instrumentation system. It performs element-wise addition of all buffer usage counters and timing information from the  parameter to the  parameter. This function is essential for accumulating statistics across multiple operations or parallel workers.
 

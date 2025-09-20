@@ -8,7 +8,23 @@ GatherState is a structure that manages the execution state for PostgreSQL's GAT
 
 ## Definition
 
-
+```c
+typedef struct GatherState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	bool		initialized;	/* workers launched? */
+	bool		need_to_scan_locally;	/* need to read from local plan? */
+	int64		tuples_needed;	/* tuple bound, see ExecSetTupleBound */
+	/* these fields are set up once: */
+	TupleTableSlot *funnel_slot;
+	struct ParallelExecutorInfo *pei;
+	/* all remaining fields are reinitialized during a rescan: */
+	int			nworkers_launched;	/* original number of workers */
+	int			nreaders;		/* number of still-active workers */
+	int			nextreader;		/* next one to try to read from */
+	struct TupleQueueReader **reader;	/* array with nreaders active entries */
+} GatherState;
+```
 ## Detailed Description
 GatherState maintains the execution state for Gather nodes, which implement PostgreSQL's parallel query execution by launching one or more parallel workers to run a subplan and collecting the results. The structure manages both the parallel workers and the coordination required to gather results from multiple sources into a single stream. It handles worker lifecycle, tuple collection, and round-robin reading from active workers.
 

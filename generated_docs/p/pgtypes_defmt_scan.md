@@ -8,7 +8,10 @@ A static helper function that parses and extracts typed values from string input
 
 ## Definition
 
-
+```c
+static int
+pgtypes_defmt_scan(union un_fmt_comb *scan_val, int scan_type, char **pstr, char *pfmt)
+```
 ## Detailed Description
 This function performs the core parsing work for date/time format string processing in the ECPG pgtypes library. It extracts a token from the input string based on the format specification and converts it to the appropriate data type. The function uses the find_end_token helper to determine token boundaries, then performs type-specific parsing and conversion.
 

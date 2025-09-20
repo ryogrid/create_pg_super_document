@@ -8,7 +8,50 @@ An enumeration that defines the different states of recovery pause functionality
 
 ## Definition
 
+```c
+typedef struct
+{
+	/*
+	 * Information about the last valid or applied record, after which new WAL
+	 * can be appended.  'lastRec' is the position where the last record
+	 * starts, and 'endOfLog' is its end.  'lastPage' is a copy of the last
+	 * partial page that contains endOfLog (or NULL if endOfLog is exactly at
+	 * page boundary).  'lastPageBeginPtr' is the position where the last page
+	 * begins.
+	 *
+	 * endOfLogTLI is the TLI in the filename of the XLOG segment containing
+	 * the last applied record.  It could be different from lastRecTLI, if
+	 * there was a timeline switch in that segment, and we were reading the
+	 * old WAL from a segment belonging to a higher timeline.
+	 */
+	XLogRecPtr	lastRec;		/* start of last valid or applied record */
+	TimeLineID	lastRecTLI;
+	XLogRecPtr	endOfLog;		/* end of last valid or applied record */
+	TimeLineID	endOfLogTLI;
 
+	XLogRecPtr	lastPageBeginPtr;	/* LSN of page that contains endOfLog */
+	char	   *lastPage;		/* copy of the last page, up to endOfLog */
+
+	/*
+	 * abortedRecPtr is the start pointer of a broken record at end of WAL
+	 * when recovery completes; missingContrecPtr is the location of the first
+	 * contrecord that went missing.  See CreateOverwriteContrecordRecord for
+	 * details.
+	 */
+	XLogRecPtr	abortedRecPtr;
+	XLogRecPtr	missingContrecPtr;
+
+	/* short human-readable string describing why recovery ended */
+	char	   *recoveryStopReason;
+
+	/*
+	 * If standby or recovery signal file was found, these flags are set
+	 * accordingly.
+	 */
+	bool		standby_signal_file_found;
+	bool		recovery_signal_file_found;
+} EndOfWalRecoveryInfo;
+```
 ## Detailed Description
 The RecoveryPauseState enum represents the three possible states during WAL recovery pause operations. This mechanism allows administrators to temporarily halt recovery processing for maintenance, debugging, or other operational purposes. The enum provides a state machine with three distinct phases: normal operation, pause transition, and paused state.
 

@@ -8,7 +8,10 @@ Finalizes the writing phase for a participant by flushing any remaining data and
 
 ## Definition
 
-
+```c
+void
+sts_end_write(SharedTuplestoreAccessor *accessor)
+```
 ## Detailed Description
 The  function must be called by all participants that have written data to the SharedTuplestore before any participant begins reading. It performs cleanup of the write state by flushing any remaining data in the write chunk buffer to the backing file, closing the write file handle, freeing the write chunk buffer memory, and marking the participant as no longer writing.
 

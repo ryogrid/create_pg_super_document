@@ -8,7 +8,10 @@ A callback function that processes individual file entries from backup manifests
 
 ## Definition
 
-
+```c
+struct describing this WAL range. */
+	range = palloc(sizeof(manifest_wal_range));
+```
 ## Detailed Description
 This function serves as a per-file callback during JSON manifest parsing, processing each file entry found in the backup manifest. It creates a new entry in the manifest's hash table for efficient file lookup and stores all relevant file metadata including the pathname, file size, checksum type, and checksum data.
 

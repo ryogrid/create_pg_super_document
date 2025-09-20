@@ -8,7 +8,10 @@ Initializes a SpecialJoinInfo structure for a plain inner join between two speci
 
 ## Definition
 
-
+```c
+struct Relids set that identifies the joinrel (without OJ as yet). */
+	joinrelids = bms_union(rel1->relids, rel2->relids);
+```
 ## Detailed Description
 The  function creates a minimal SpecialJoinInfo structure for inner joins. While inner joins normally don't require SpecialJoinInfo nodes (which are primarily used for outer joins, semijoins, and antijoins), some join planning functions need at least basic information about which relations are being joined.
 

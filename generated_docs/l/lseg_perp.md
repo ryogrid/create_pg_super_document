@@ -8,7 +8,10 @@ Determines if two line segments are perpendicular by comparing their slopes.
 
 ## Definition
 
-
+```c
+Datum
+lseg_perp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function tests whether two line segments are perpendicular to each other. Two line segments are considered perpendicular if the slope of one segment equals the inverse (negative reciprocal) of the slope of the other segment. The function implements this by comparing the slope of the first segment with the inverse slope of the second segment using floating-point equality comparison.
 

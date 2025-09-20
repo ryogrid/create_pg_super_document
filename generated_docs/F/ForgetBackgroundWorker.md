@@ -8,7 +8,10 @@ Removes a background worker from the postmaster's private list and marks its sha
 
 ## Definition
 
-
+```c
+void
+ForgetBackgroundWorker(slist_mutable_iter *cur)
+```
 ## Detailed Description
 This function performs the final cleanup steps when a background worker is no longer needed. It removes the worker from the postmaster's private BackgroundWorkerList and marks the corresponding shared memory slot as available for reuse. The function uses a mutable iterator parameter to enable efficient deletion during list traversal without requiring additional searches. It handles parallel worker accounting by incrementing the parallel_terminate_count for parallel workers, and uses memory barriers to ensure proper ordering of shared memory updates. The caller is responsible for any necessary notification to bgw_notify_pid processes.
 

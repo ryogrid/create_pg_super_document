@@ -8,7 +8,10 @@ TwoPhaseGetGXact retrieves the GlobalTransaction structure for a prepared transa
 
 ## Definition
 
-
+```c
+static GlobalTransaction
+TwoPhaseGetGXact(TransactionId xid, bool lock_held)
+```
 ## Detailed Description
 TwoPhaseGetGXact is a static function that searches for and returns the GlobalTransaction structure corresponding to a given transaction ID. The function implements a simple caching mechanism to optimize repeated lookups of the same XID, which is common during recovery, COMMIT PREPARED, and ABORT PREPARED operations. It can operate with or without acquiring TwoPhaseStateLock, depending on whether the caller already holds the lock. The function performs a linear search through the prepared transactions array and throws an error if the requested XID is not found.
 

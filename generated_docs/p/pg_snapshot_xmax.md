@@ -8,7 +8,10 @@ Extracts and returns the maximum transaction ID (xmax) from a PostgreSQL snapsho
 
 ## Definition
 
-
+```c
+Datum
+pg_snapshot_xmax(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that extracts the  field from a snapshot. The  value represents the first transaction ID that was not yet assigned when the snapshot was created, establishing the upper bound of the transaction visibility window.
 

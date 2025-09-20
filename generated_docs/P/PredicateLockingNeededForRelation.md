@@ -8,7 +8,10 @@ Determines whether a given relation should participate in predicate locking as p
 
 ## Definition
 
-
+```c
+static inline bool
+PredicateLockingNeededForRelation(Relation relation)
+```
 ## Detailed Description
 This function serves as a gatekeeper for predicate locking by checking whether a relation requires predicate locks for serializable transaction isolation. It implements an optimization by excluding temporary relations and system catalogs from predicate locking, as these typically don't require the overhead of serialization conflict detection.
 

@@ -8,7 +8,10 @@ A comparison function used by the hash table that stores RecordCacheEntry struct
 
 ## Definition
 
-
+```c
+static int
+record_type_typmod_compare(const void *a, const void *b, size_t size)
+```
 ## Detailed Description
 This function serves as the key comparison function for PostgreSQL's internal hash table that manages RecordCacheEntry structures. It extracts the TupleDesc from both RecordCacheEntry parameters and delegates to equalRowTypes() to determine if they represent equivalent row types.
 

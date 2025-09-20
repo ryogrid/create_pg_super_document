@@ -8,7 +8,19 @@ An enumeration that defines the possible values for controlling index cleanup be
 
 ## Definition
 
-
+```c
+typedef struct StdRdOptions
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	int			fillfactor;		/* page fill factor in percent (0..100) */
+	int			toast_tuple_target; /* target for tuple toasting */
+	AutoVacOpts autovacuum;		/* autovacuum-related options */
+	bool		user_catalog_table; /* use as an additional catalog relation */
+	int			parallel_workers;	/* max number of parallel workers */
+	StdRdOptIndexCleanup vacuum_index_cleanup;	/* controls index vacuuming */
+	bool		vacuum_truncate;	/* enables vacuum to truncate a relation */
+} StdRdOptions;
+```
 ## Detailed Description
 This enum is used as part of the StdRdOptions structure to control index vacuuming and cleanup behavior for table relations. It provides three distinct modes for index cleanup during VACUUM operations:
 

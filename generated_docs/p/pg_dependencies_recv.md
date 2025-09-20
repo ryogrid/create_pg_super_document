@@ -8,7 +8,10 @@ This function serves as the binary input routine for the pg_dependencies data ty
 
 ## Definition
 
-
+```c
+Datum
+pg_dependencies_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The function is the binary input counterpart to pg_dependencies_in, designed to handle binary protocol input for the pg_dependencies type. Like its text input counterpart, it intentionally disallows input by raising an error with ERRCODE_FEATURE_NOT_SUPPORTED.
 

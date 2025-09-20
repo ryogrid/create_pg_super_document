@@ -8,7 +8,10 @@ ExecResultMarkPos marks the current position in a Result node for potential rest
 
 ## Definition
 
-
+```c
+void
+ExecResultMarkPos(ResultState *node)
+```
 ## Detailed Description
 ExecResultMarkPos implements the mark/restore functionality for Result plan nodes. This function is part of PostgreSQL's position marking mechanism that allows certain plan nodes to remember their current execution position and restore it later.
 

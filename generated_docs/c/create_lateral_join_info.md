@@ -8,7 +8,10 @@ Analyzes and establishes lateral dependency relationships between base relations
 
 ## Definition
 
-
+```c
+void
+create_lateral_join_info(PlannerInfo *root)
+```
 ## Detailed Description
 This function is responsible for building the complete picture of lateral dependencies in a query by examining all base relations and establishing three key sets for each relation:
 - **direct_lateral_relids**: Relations directly referenced by LATERAL constructs

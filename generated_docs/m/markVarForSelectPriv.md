@@ -8,7 +8,10 @@ Marks the range table entry referenced by a Var node as requiring SELECT privile
 
 ## Definition
 
-
+```c
+void
+markVarForSelectPriv(ParseState *pstate, Var *var)
+```
 ## Detailed Description
 The `markVarForSelectPriv` function serves as a wrapper around `markRTEForSelectPriv` that handles Var nodes specifically. It extracts the necessary information from a Var node (relation index and column attribute number) and delegates the actual privilege marking to `markRTEForSelectPriv`. The function also handles multi-level query nesting by traversing parent parse states when the Var references an outer query level.
 

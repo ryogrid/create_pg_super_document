@@ -8,7 +8,10 @@ A comparison function used for sorting and searching EnumItem structures by thei
 
 ## Definition
 
-
+```c
+static int
+enum_oid_cmp(const void *left, const void *right)
+```
 ## Detailed Description
 The  function is a standard comparison function designed for use with sorting and searching algorithms like qsort and bsearch. It compares two EnumItem structures based on their enum_oid fields using PostgreSQL's  utility function. The function follows the standard C library comparison convention, returning a negative value if the left OID is smaller, zero if they are equal, and a positive value if the left OID is larger.
 

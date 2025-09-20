@@ -8,7 +8,10 @@ Retrieves the value of the restore_command GUC parameter from the target Postgre
 
 ## Definition
 
-
+```c
+static void
+getRestoreCommand(const char *argv0)
+```
 ## Detailed Description
 This function is part of pg_rewind's WAL restoration mechanism. It dynamically retrieves the restore_command configuration parameter from the target cluster by:
 

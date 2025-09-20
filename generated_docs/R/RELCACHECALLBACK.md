@@ -8,7 +8,13 @@ RELCACHECALLBACK is a structure that defines an entry in the relation cache call
 
 ## Definition
 
-
+```c
+struct RELCACHECALLBACK
+{
+	RelcacheCallbackFunction function;
+	Datum		arg;
+}			relcache_callback_list[MAX_RELCACHE_CALLBACKS];
+```
 ## Detailed Description
 The RELCACHECALLBACK structure is part of PostgreSQL's relation cache invalidation system. It maintains a static array of callback entries that are executed when relation cache entries need to be invalidated. Unlike SYSCACHECALLBACK, this structure is simpler and doesn't use a linked list organization since relation cache callbacks are processed sequentially. The structure stores callback functions that are invoked when specific relations are invalidated or when the entire relation cache is flushed. The maximum number of callbacks is limited by MAX_RELCACHE_CALLBACKS (10).
 

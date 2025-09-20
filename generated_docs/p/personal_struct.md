@@ -8,7 +8,15 @@ A struct definition in ECPG test cases that represents a complete personal recor
 
 ## Definition
 
-
+```c
+struct personal_struct { 
+#line 25 "variable.pgc"
+  struct varchar_1  { int len; char arr[ BUFFERSIZ ]; }  name ;
+ 
+#line 26 "variable.pgc"
+ struct birthinfo birth ;
+ } personal , * p ;
+```
 ## Detailed Description
 The  is a composite data structure used in PostgreSQL's ECPG (Embedded SQL in C) test infrastructure. This struct demonstrates how the ECPG preprocessor handles complex nested structures that combine different data types. It contains both a variable-length string structure (varchar_1) for storing names and a birthinfo struct for storing temporal information.
 

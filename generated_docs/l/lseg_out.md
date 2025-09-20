@@ -8,7 +8,10 @@ Converts a line segment (LSEG) data type to its external string representation f
 
 ## Definition
 
-
+```c
+Datum
+lseg_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL output function that converts an internal line segment representation to a human-readable string format. It extracts the LSEG parameter from the function arguments and uses the  function to format it as an open path with 2 points, representing the start and end points of the line segment. The resulting string follows PostgreSQL's standard format for line segments: .
 

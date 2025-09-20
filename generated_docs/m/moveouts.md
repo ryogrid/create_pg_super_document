@@ -8,7 +8,12 @@ Moves all outgoing arcs from one state to another state, transferring ownership 
 
 ## Definition
 
-
+```c
+static void
+moveouts(struct nfa *nfa,
+		 struct state *oldState,
+		 struct state *newState)
+```
 ## Detailed Description
 The `moveouts` function transfers all outgoing arcs from an old state to a new state. It employs different strategies based on the number of arcs involved: for small numbers of arcs, it processes them individually; for larger numbers, it uses a sort-merge approach to efficiently handle duplicates. When the new state has no existing outgoing arcs, it can directly transfer arcs without deduplication. The function ensures that duplicate arcs are eliminated during the transfer process, and after completion, the old state will have no outgoing arcs remaining.
 

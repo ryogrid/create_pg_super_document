@@ -8,7 +8,27 @@ BulkWriteState is a structure that maintains state for bulk write operations on 
 
 ## Definition
 
+```c
+struct BulkWriteState
+{
+	/* Information about the target relation we're writing */
+	SMgrRelation smgr;
+	ForkNumber	forknum;
+	bool		use_wal;
 
+	/* We keep several writes queued, and WAL-log them in batches */
+	int			npending;
+	PendingWrite pending_writes[MAX_PENDING_WRITES];
+
+	/* Current size of the relation */
+	BlockNumber relsize;
+
+	/* The RedoRecPtr at the time that the bulk operation started */
+	XLogRecPtr	start_RedoRecPtr;
+
+	MemoryContext memcxt;
+};
+```
 ## Detailed Description
 BulkWriteState is a core data structure in PostgreSQL's bulk write optimization system, designed to efficiently handle large-scale write operations to relation files. The structure batches multiple pending writes together before committing them to storage and WAL, which significantly improves performance during bulk operations like index builds, table rewrites, and large data loads.
 

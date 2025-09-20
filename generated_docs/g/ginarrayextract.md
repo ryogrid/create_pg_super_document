@@ -8,7 +8,12 @@ This is a PostgreSQL GIN (Generalized Inverted Index) support function that extr
 
 ## Definition
 
-
+```c
+struct_array(array,
+					  ARR_ELEMTYPE(array),
+					  elmlen, elmbyval, elmalign,
+					  &elems, &nulls, &nelems);
+```
 ## Detailed Description
 The  function serves as an extractValue support function for GIN indexes on arrays. It takes an input array and decomposes it into its constituent elements, which can then be individually indexed by the GIN access method. This function is fundamental to how PostgreSQL creates GIN indexes on array columns, as it breaks down complex array structures into indexable components.
 

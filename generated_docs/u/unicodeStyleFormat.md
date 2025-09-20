@@ -8,7 +8,21 @@ A comprehensive structure that combines all Unicode/UTF-8 table formatting eleme
 
 ## Definition
 
-
+```c
+typedef struct unicodeStyleFormat
+{
+	unicodeStyleRowFormat row_style[2];
+	unicodeStyleColumnFormat column_style[2];
+	unicodeStyleBorderFormat border_style[2];
+	const char *header_nl_left;
+	const char *header_nl_right;
+	const char *nl_left;
+	const char *nl_right;
+	const char *wrap_left;
+	const char *wrap_right;
+	bool		wrap_right_border;
+} unicodeStyleFormat;
+```
 ## Detailed Description
 This structure serves as the master container for all Unicode table formatting styles in PostgreSQL's frontend utilities. It aggregates row, column, and border formatting structures along with additional formatting elements for headers, newlines, and text wrapping. The structure supports dual styling options (indicated by the array size of 2) for different formatting contexts and includes comprehensive control over table appearance in terminal output.
 

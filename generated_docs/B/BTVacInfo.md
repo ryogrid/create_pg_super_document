@@ -8,7 +8,15 @@ BTVacInfo is the main shared memory structure that manages vacuum cycle coordina
 
 ## Definition
 
-
+```c
+typedef struct BTVacInfo
+{
+	BTCycleId	cycle_ctr;		/* cycle ID most recently assigned */
+	int			num_vacuums;	/* number of currently active VACUUMs */
+	int			max_vacuums;	/* allocated length of vacuums[] array */
+	BTOneVacInfo vacuums[FLEXIBLE_ARRAY_MEMBER];
+} BTVacInfo;
+```
 ## Detailed Description
 This structure serves as the central coordination mechanism for B-tree vacuum operations in shared memory. It maintains a global cycle counter for assigning unique identifiers to vacuum operations, tracks the number of currently active vacuums, and contains an array of BTOneVacInfo entries that store details about each active vacuum. The structure is protected by BtreeVacuumLock and is used to prevent multiple concurrent vacuum operations on the same index while enabling coordination between vacuum processes and other B-tree operations that might be affected by ongoing maintenance.
 

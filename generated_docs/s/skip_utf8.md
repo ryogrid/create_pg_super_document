@@ -8,7 +8,11 @@ Advances a position pointer forward by n UTF-8 characters within a symbol buffer
 
 ## Definition
 
+```c
+*/
 
+extern int skip_utf8(const symbol * p, int c, int limit, int n)
+```
 ## Detailed Description
 The  function is a critical UTF-8 text processing utility in PostgreSQL's Snowball stemming library. It advances a character position forward by exactly n UTF-8 characters, correctly handling multi-byte character sequences. This function is essential for proper text navigation in languages that use non-ASCII characters, ensuring that character boundaries are respected rather than just advancing byte positions. It implements the logic for UTF-8 character skipping used by the 'hop' and 'next' operations in UTF-8 stemming algorithms.
 

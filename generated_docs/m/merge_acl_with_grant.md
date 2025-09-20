@@ -8,7 +8,13 @@ Merges ACL (Access Control List) entries by either adding or removing specified 
 
 ## Definition
 
-
+```c
+static Acl *
+merge_acl_with_grant(Acl *old_acl, bool is_grant,
+					 bool grant_option, DropBehavior behavior,
+					 List *grantees, AclMode privileges,
+					 Oid grantorId, Oid ownerId)
+```
 ## Detailed Description
 This static function performs the core ACL modification logic for PostgreSQL's GRANT and REVOKE operations. It takes an existing ACL and either adds privileges (when is_grant is true) or removes privileges (when is_grant is false) for a list of grantees. The function iterates through each grantee in the list, creates an AclItem structure for each one, and calls aclupdate() to perform the actual ACL modification. The function handles the asymmetric semantics between GRANT and REVOKE operations as specified by SQL standards - GRANT WITH GRANT OPTION grants both basic privileges and grant options, while REVOKE removes both unless specifically revoking only the grant option. The original old_acl is freed to prevent memory leaks.
 

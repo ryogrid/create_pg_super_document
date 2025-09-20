@@ -8,7 +8,17 @@ Executes BEFORE ROW UPDATE triggers for a new tuple, handling concurrent updates
 
 ## Definition
 
-
+```c
+bool
+ExecBRUpdateTriggersNew(EState *estate, EPQState *epqstate,
+						ResultRelInfo *relinfo,
+						ItemPointer tupleid,
+						HeapTuple fdw_trigtuple,
+						TupleTableSlot *newslot,
+						TM_Result *tmresult,
+						TM_FailureData *tmfd,
+						bool is_merge_update)
+```
 ## Detailed Description
 This function executes BEFORE ROW UPDATE triggers for update operations, providing robust handling of concurrent updates through EPQ (EvalPlanQual) mechanisms. It retrieves the old tuple either from disk (using tupleid) or from FDW-supplied data (fdw_trigtuple), prepares trigger data structures, and iterates through all applicable BEFORE UPDATE triggers. The function handles memory management carefully, materializing slots when necessary to prevent dangling references, and supports both regular UPDATE and MERGE UPDATE operations with different EPQ behaviors.
 

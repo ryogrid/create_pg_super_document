@@ -8,7 +8,10 @@ Extracts the relation number (RelFileNumber) from a BufferTag structure for buff
 
 ## Definition
 
-
+```c
+static inline RelFileNumber
+BufTagGetRelNumber(const BufferTag *tag)
+```
 ## Detailed Description
 BufTagGetRelNumber is a simple inline accessor function that retrieves the relation number component from a BufferTag structure. The relation number is a key identifier used in PostgreSQL's buffer management system to identify specific relations (tables, indexes, etc.) within the buffer pool. This function provides a clean interface for accessing the relNumber field of the BufferTag structure while maintaining encapsulation.
 

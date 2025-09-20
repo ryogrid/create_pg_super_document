@@ -8,7 +8,11 @@ AlterPublicationSchemas handles adding, removing, or replacing schemas in a publ
 
 ## Definition
 
-
+```c
+static void
+AlterPublicationSchemas(AlterPublicationStmt *stmt,
+						HeapTuple tup, List *schemaidlist)
+```
 ## Detailed Description
 AlterPublicationSchemas is a static function that manages schema membership in publications based on the specified action (ADD, DROP, or SET). The function enforces the important constraint that schemas cannot be added to publications that already contain tables with column lists, as this combination is not supported. For ADD operations, it validates existing table configurations before adding schemas. For DROP operations, it removes specified schemas. For SET operations, it calculates the difference between existing and new schema lists and performs the necessary additions and removals.
 

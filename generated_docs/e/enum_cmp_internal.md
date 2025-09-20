@@ -8,7 +8,10 @@ Internal comparison engine for PostgreSQL enum values that handles the core logi
 
 ## Definition
 
-
+```c
+static int
+enum_cmp_internal(Oid arg1, Oid arg2, FunctionCallInfo fcinfo)
+```
 ## Detailed Description
 The function serves as the common comparison engine for all visible enum comparison functions (except enum_eq and enum_ne which can directly compare OIDs). It implements a three-tier comparison strategy:
 

@@ -8,7 +8,15 @@ PartitionSpec is a parse-time representation of a partition key specification th
 
 ## Definition
 
-
+```c
+typedef struct PartitionSpec
+{
+	NodeTag		type;
+	PartitionStrategy strategy;
+	List	   *partParams;		/* List of PartitionElems */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} PartitionSpec;
+```
 ## Detailed Description
 PartitionSpec serves as the intermediate representation during SQL parsing phase for partition key specifications. When a CREATE TABLE statement includes a PARTITION BY clause, the parser creates a PartitionSpec structure to capture the partitioning strategy and the list of partitioning columns or expressions. This structure is used during the table creation process to set up the actual partitioning metadata in the system catalogs.
 

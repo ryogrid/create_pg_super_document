@@ -8,7 +8,9 @@ SnapBuildSnapshotExists checks whether a serialized logical snapshot exists at a
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 This function determines if a logical snapshot has been previously serialized to disk at the given Log Sequence Number (LSN). It constructs the expected file path for the snapshot file based on the LSN and uses the  system call to check for its existence. The function is part of PostgreSQL's snapshot building mechanism for logical replication, which allows logical decoding processes to restore consistent snapshots from persistent storage.
 

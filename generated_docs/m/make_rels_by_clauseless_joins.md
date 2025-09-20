@@ -8,7 +8,12 @@ Creates Cartesian product join relations between a given relation and a list of 
 
 ## Definition
 
-
+```c
+static void
+make_rels_by_clauseless_joins(PlannerInfo *root,
+							  RelOptInfo *old_rel,
+							  List *other_rels)
+```
 ## Detailed Description
 The  function generates Cartesian product joins between a specified relation () and all compatible relations in a candidate list (). Unlike , this function does not require join clauses or join-order restrictions—it creates joins based purely on the absence of relation overlap.
 

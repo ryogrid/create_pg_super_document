@@ -8,7 +8,13 @@ HashScanPosItem is a structure that stores information about individual matched 
 
 ## Definition
 
-
+```c
+typedef struct HashScanPosItem	/* what we remember about each match */
+{
+	ItemPointerData heapTid;	/* TID of referenced heap item */
+	OffsetNumber indexOffset;	/* index item's location within page */
+} HashScanPosItem;
+```
 ## Detailed Description
 HashScanPosItem represents a single match found during a hash index scan operation. This structure is essential for maintaining the relationship between index entries and their corresponding heap tuples, while also tracking the precise location of index items within pages. This dual tracking capability is crucial for operations that need to revisit or modify index entries, such as killing dead tuples or handling concurrent updates.
 

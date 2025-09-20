@@ -8,7 +8,9 @@ A pointer type definition that provides convenient access to RWConflictPoolHeade
 
 ## Definition
 
-
+```c
+typedef struct RWConflictPoolHeaderData *RWConflictPoolHeader;
+```
 ## Detailed Description
 RWConflictPoolHeader is a typedef that creates a pointer type for RWConflictPoolHeaderData structures. This type alias provides a cleaner, more convenient way to work with pointers to conflict pool headers throughout the PostgreSQL serializable isolation implementation. By using this typedef, the code becomes more readable and maintainable, as developers can use RWConflictPoolHeader instead of the more verbose 'struct RWConflictPoolHeaderData *' syntax. This pattern is commonly used in PostgreSQL's codebase to create convenient handle types for complex data structures.
 

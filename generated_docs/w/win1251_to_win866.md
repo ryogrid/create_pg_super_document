@@ -8,7 +8,10 @@ Converts a string from WIN1251 (Windows Cyrillic) encoding to WIN866 (IBM/MS-DOS
 
 ## Definition
 
-
+```c
+Datum
+win1251_to_win866(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs character encoding conversion from WIN1251 to WIN866, providing the reverse conversion of win866_to_win1251. It converts from WIN1251 (the Windows Cyrillic code page) to WIN866 (the MS-DOS/IBM PC Cyrillic code page) using a predefined character mapping table. The function utilizes the local2local conversion utility function with the win12512win866 mapping table.
 

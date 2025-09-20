@@ -8,7 +8,10 @@ Updates the minimum recovery point in the control file to ensure database consis
 
 ## Definition
 
-
+```c
+static void
+UpdateMinRecoveryPoint(XLogRecPtr lsn, bool force)
+```
 ## Detailed Description
 UpdateMinRecoveryPoint is a critical function in PostgreSQL's WAL (Write-Ahead Log) recovery mechanism that manages the minimum recovery point stored in the control file. This point represents the WAL location that must be reached during recovery before the database can be considered consistent and safe to use.
 

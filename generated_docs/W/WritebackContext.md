@@ -8,7 +8,19 @@ The  structure manages the batching and coordination of pending writeback reques
 
 ## Definition
 
+```c
+typedef struct WritebackContext
+{
+	/* pointer to the max number of writeback requests to coalesce */
+	int		   *max_pending;
 
+	/* current number of pending writeback requests */
+	int			nr_pending;
+
+	/* pending requests */
+	PendingWriteback pending_writebacks[WRITEBACK_MAX_PENDING_FLUSHES];
+} WritebackContext;
+```
 ## Detailed Description
 The  structure serves as the central coordination mechanism for PostgreSQL's writeback optimization system. It manages a collection of pending writeback requests, allowing the system to batch and coalesce multiple flush operations for improved I/O performance.
 

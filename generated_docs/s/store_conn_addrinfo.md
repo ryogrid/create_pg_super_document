@@ -8,7 +8,10 @@ Copies network address information from a system addrinfo linked list into a PGc
 
 ## Definition
 
-
+```c
+static int
+store_conn_addrinfo(PGconn *conn, struct addrinfo *addrlist)
+```
 ## Detailed Description
 The  function is responsible for converting and storing network address information from the system's  linked list format into libpq's internal  array format within a PGconn structure. This conversion is necessary to allow libpq to manage and manipulate connection address data independently of the system's address resolution results.
 

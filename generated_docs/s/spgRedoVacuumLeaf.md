@@ -8,7 +8,10 @@ Replays a vacuum leaf operation from the WAL for SP-GiST indexes, reconstructing
 
 ## Definition
 
-
+```c
+static void
+spgRedoVacuumLeaf(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the replay of SP-GiST leaf page vacuum operations, which clean up dead tuples and reorganize the page layout for better space utilization. The vacuum process involves several distinct operations:
 

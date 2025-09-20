@@ -8,7 +8,11 @@ LookupTypeName is a wrapper function that provides a simplified interface for th
 
 ## Definition
 
-
+```c
+Type
+LookupTypeName(ParseState *pstate, const TypeName *typeName,
+			   int32 *typmod_p, bool missing_ok)
+```
 ## Detailed Description
 LookupTypeName serves as a convenience wrapper around LookupTypeNameExtended, providing the most commonly used interface for type name resolution in PostgreSQL's parser. It delegates to LookupTypeNameExtended with the 'temp_ok' parameter set to true, allowing temporary types to be found during the lookup process. This function is part of the type resolution system that converts textual type names into internal Type structures during SQL parsing.
 

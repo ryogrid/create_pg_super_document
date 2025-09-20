@@ -8,7 +8,10 @@ Returns a tuple slot for storing the OLD tuple values in trigger processing, cre
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+ExecGetTriggerOldSlot(EState *estate, ResultRelInfo *relInfo)
+```
 ## Detailed Description
 This function provides access to a specialized tuple slot used during trigger execution to hold the "OLD" version of a tuple (i.e., the tuple values before an UPDATE or DELETE operation). The function implements lazy initialization - it only creates the slot when first requested and stores it in the ResultRelInfo structure for subsequent reuse.
 

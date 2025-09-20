@@ -8,7 +8,10 @@ ExecHashJoinImpl implements the core Hybrid Hash Join algorithm for PostgreSQL, 
 
 ## Definition
 
-
+```c
+static pg_attribute_always_inline TupleTableSlot *
+ExecHashJoinImpl(PlanState *pstate, bool parallel)
+```
 ## Detailed Description
 ExecHashJoinImpl is the heart of PostgreSQL's hash join execution engine, implementing the Hybrid Hash Join algorithm through a comprehensive state machine. The function is marked with  to allow compilers to create specialized versions for parallel and non-parallel execution, optimizing away unnecessary branches.
 

@@ -8,7 +8,11 @@ A wrapper function that handles progress updates during logical replication tran
 
 ## Definition
 
-
+```c
+static void
+update_progress_txn_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+							   XLogRecPtr lsn)
+```
 ## Detailed Description
 This function serves as a wrapper for updating progress during logical replication transaction processing. Unlike other callback wrappers, this function doesn't delegate to a plugin-specific callback but instead calls the core OutputPluginUpdateProgress function to notify clients about replication progress.
 

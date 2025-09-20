@@ -8,7 +8,10 @@ Initializes the zstd compression context and configures compression parameters f
 
 ## Definition
 
-
+```c
+static void
+bbsink_zstd_begin_backup(bbsink *sink)
+```
 ## Detailed Description
 This function initializes the zstd compression context for a basebackup sink. It creates a zstd compression context, configures compression parameters based on the compression specification (level, workers, long-distance matching), allocates necessary buffers, and calculates the required output buffer size to accommodate compressed data. The function ensures the next sink in the chain has sufficient buffer space by calculating the compression bound and rounding up to BLCKSZ alignment.
 

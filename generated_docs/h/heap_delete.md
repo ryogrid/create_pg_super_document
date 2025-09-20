@@ -8,7 +8,12 @@ heap_delete is the core function responsible for deleting a tuple from a heap ta
 
 ## Definition
 
-
+```c
+TM_Result
+heap_delete(Relation relation, ItemPointer tid,
+			CommandId cid, Snapshot crosscheck, bool wait,
+			TM_FailureData *tmfd, bool changingPart)
+```
 ## Detailed Description
 heap_delete performs the low-level deletion of a heap tuple with comprehensive transaction safety and concurrency control. The function follows PostgreSQL's multi-version concurrency control (MVCC) model, ensuring that concurrent transactions can safely access the same data without blocking each other inappropriately.
 

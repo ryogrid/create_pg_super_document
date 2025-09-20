@@ -8,7 +8,10 @@ Sets the value of a specific field in a PGresult tuple, with support for creatin
 
 ## Definition
 
-
+```c
+int
+PQsetvalue(PGresult *res, int tup_num, int field_num, char *value, int len)
+```
 ## Detailed Description
 PQsetvalue allows modification of field values within a PGresult, supporting both existing tuple modification and new tuple creation. When the specified tuple number equals the current tuple count, the function automatically creates a new tuple with all fields initialized to NULL. For existing tuples, it updates the specified field with the provided value.
 

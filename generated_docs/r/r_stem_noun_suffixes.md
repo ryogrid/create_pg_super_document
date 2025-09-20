@@ -8,7 +8,11 @@ Comprehensive function for identifying and removing Turkish noun suffixes, handl
 
 ## Definition
 
+```c
+}
 
+static int r_stem_noun_suffixes(struct SN_env * z)
+```
 ## Detailed Description
 This function is the primary component for processing noun suffixes in Turkish morphological analysis. It implements an extensive branching algorithm that handles the full spectrum of Turkish noun inflection patterns, including:
 

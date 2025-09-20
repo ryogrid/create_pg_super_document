@@ -8,7 +8,10 @@ Adds a channel name to the list of channels the backend process is actively list
 
 ## Definition
 
-
+```c
+static void
+Exec_ListenCommit(const char *channel)
+```
 ## Detailed Description
 This function is called during the commit phase of a LISTEN command to officially register a channel name in the backend's list of listened channels. The function performs the following operations:
 

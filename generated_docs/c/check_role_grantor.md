@@ -8,7 +8,9 @@ check_role_grantor validates and infers the grantor for role membership operatio
 
 ## Definition
 
-
+```c
+structs an array indicating that no actions are to be performed;
+```
 ## Detailed Description
 This function implements the grantor validation and inference logic for PostgreSQL's role membership system. It ensures that the grantor recorded for a role membership grant has the necessary admin option privileges on the target role. The function serves dual purposes: validating explicitly specified grantors and automatically selecting appropriate grantors when none is specified.
 

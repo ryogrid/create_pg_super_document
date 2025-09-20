@@ -8,7 +8,10 @@ Checks whether a specific user (identified by role OID) has the specified privil
 
 ## Definition
 
-
+```c
+Datum
+has_language_privilege_id_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL internal function that performs privilege checking for procedural languages. It takes three arguments: a role OID, a language OID, and a privilege string, then determines whether the specified role has the requested privileges on the given language. The function uses PostgreSQL's standard access control mechanisms through  to perform the actual privilege verification. If the language object is missing from the system catalogs, the function returns NULL to indicate an undefined state.
 

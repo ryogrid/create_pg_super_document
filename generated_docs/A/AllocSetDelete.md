@@ -8,7 +8,10 @@ Completely destroys an AllocSet memory context by freeing all allocated memory, 
 
 ## Definition
 
-
+```c
+void
+AllocSetDelete(MemoryContext context)
+```
 ## Detailed Description
 AllocSetDelete provides complete destruction of an AllocSet memory context, ensuring all memory resources are properly freed. Unlike AllocSetReset which preserves the keeper block, this function must free all memory associated with the context.
 

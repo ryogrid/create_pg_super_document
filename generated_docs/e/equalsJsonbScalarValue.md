@@ -8,7 +8,10 @@ equalsJsonbScalarValue determines whether two JsonbValue scalar values of the sa
 
 ## Definition
 
-
+```c
+static bool
+equalsJsonbScalarValue(JsonbValue *a, JsonbValue *b)
+```
 ## Detailed Description
 This static function performs equality comparison between two JsonbValue scalar values, requiring that both values have the same type before comparison. It implements type-specific equality logic: null values are always equal to other nulls, string values are compared using lengthCompareJsonbStringValue, numeric values use PostgreSQL's numeric_eq function to ensure mathematical equality, and boolean values are compared directly. The function enforces type safety by generating errors for mismatched types or invalid scalar types, making it suitable for use in JSONB containment and search operations.
 

@@ -8,7 +8,14 @@ BTScanPosItem is a structure that stores information about each matching item fo
 
 ## Definition
 
-
+```c
+typedef struct BTScanPosItem	/* what we remember about each match */
+{
+	ItemPointerData heapTid;	/* TID of referenced heap item */
+	OffsetNumber indexOffset;	/* index item's location within page */
+	LocationIndex tupleOffset;	/* IndexTuple's offset in workspace, if any */
+} BTScanPosItem;
+```
 ## Detailed Description
 This structure represents what the B-tree access method remembers about each matching item during an index scan. It is part of the page-at-a-time scanning approach where the system pins and read-locks a page, identifies all matching items, saves them in BTScanPosItem structures, then releases the read-lock while returning items to the caller. This minimizes lock/unlock traffic while maintaining necessary synchronization for VACUUM operations.
 

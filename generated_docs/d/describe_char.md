@@ -8,7 +8,10 @@ A utility function that displays detailed character classification information f
 
 ## Definition
 
-
+```c
+void
+describe_char(int c)
+```
 ## Detailed Description
 The  function is part of the PostgreSQL locale testing framework. It takes a character value and prints a comprehensive analysis of its properties according to the C library's character classification functions (ctype.h). The function displays:
 

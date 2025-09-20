@@ -8,7 +8,30 @@ A structure that extends the core scanner's YY_EXTRA data to support one-token l
 
 ## Definition
 
+```c
+typedef struct base_yy_extra_type
+{
+	/*
+	 * Fields used by the core scanner.
+	 */
+	core_yy_extra_type core_yy_extra;
 
+	/*
+	 * State variables for base_yylex().
+	 */
+	bool		have_lookahead; /* is lookahead info valid? */
+	int			lookahead_token;	/* one-token lookahead */
+	core_YYSTYPE lookahead_yylval;	/* yylval for lookahead token */
+	YYLTYPE		lookahead_yylloc;	/* yylloc for lookahead token */
+	char	   *lookahead_end;	/* end of current token */
+	char		lookahead_hold_char;	/* to be put back at *lookahead_end */
+
+	/*
+	 * State variables that belong to the grammar.
+	 */
+	List	   *parsetree;		/* final parse result is delivered here */
+} base_yy_extra_type;
+```
 ## Detailed Description
 The  structure serves as an extended version of the flex scanner's YY_EXTRA data, specifically designed for PostgreSQL's base parser functionality. It builds upon the  by adding lookahead capabilities and grammar-specific state management. This structure enables the parser to implement one-token lookahead, which is essential for resolving certain parsing ambiguities in SQL syntax. The structure maintains both the core scanning functionality and additional state needed for advanced parsing operations, including storing the final parse tree result.
 

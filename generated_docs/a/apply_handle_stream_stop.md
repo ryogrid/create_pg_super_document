@@ -8,7 +8,10 @@ Handles the STREAM STOP message in logical replication, finalizing a streaming t
 
 ## Definition
 
-
+```c
+static void
+apply_handle_stream_stop(StringInfo s)
+```
 ## Detailed Description
 This function processes STREAM STOP messages during logical replication, which signal the end of a streaming transaction. It performs different actions based on the current transaction apply strategy:
 

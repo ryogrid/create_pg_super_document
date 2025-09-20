@@ -8,7 +8,10 @@ choose_custom_plan implements the policy logic for deciding whether GetCachedPla
 
 ## Definition
 
-
+```c
+static bool
+choose_custom_plan(CachedPlanSource *plansource, ParamListInfo boundParams)
+```
 ## Detailed Description
 choose_custom_plan is the decision engine for PostgreSQL's adaptive planning system that balances between generic plans (reusable across different parameter values) and custom plans (optimized for specific parameter values). The function implements a sophisticated cost-based heuristic that considers planning overhead, execution costs, and various configuration overrides.
 

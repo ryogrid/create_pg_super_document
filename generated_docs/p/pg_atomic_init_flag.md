@@ -8,7 +8,10 @@ Initializes an atomic flag structure for thread-safe boolean operations with no 
 
 ## Definition
 
-
+```c
+static inline void
+pg_atomic_init_flag(volatile pg_atomic_flag *ptr)
+```
 ## Detailed Description
 The  function is a static inline wrapper that initializes a PostgreSQL atomic flag structure. It provides a platform-independent interface for initializing atomic boolean flags that can be safely accessed from multiple threads or processes. The function delegates the actual initialization work to , which handles platform-specific initialization details including spinlock or semaphore setup depending on the compilation configuration.
 

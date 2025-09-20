@@ -8,7 +8,10 @@ Truncates a MAC address to keep only the manufacturer identifier (first 3 bytes)
 
 ## Definition
 
-
+```c
+Datum
+macaddr_trunc(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements MAC address truncation for PostgreSQL's  data type. It extracts the manufacturer identifier from a MAC address by preserving the first three bytes (a, b, c) which represent the Organizationally Unique Identifier (OUI) assigned by IEEE, and zeroing out the last three bytes (d, e, f) which represent the device-specific portion. This function was implemented based on a suggestion by Alex Pilosov and is commonly used for comparing MAC addresses by manufacturer rather than individual device.
 

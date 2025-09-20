@@ -8,7 +8,14 @@ Creates a range table entry for table functions (XMLTABLE and JSON_TABLE) and ad
 
 ## Definition
 
-
+```c
+ParseNamespaceItem *
+addRangeTableEntryForTableFunc(ParseState *pstate,
+							   TableFunc *tf,
+							   Alias *alias,
+							   bool lateral,
+							   bool inFromCl)
+```
 ## Detailed Description
 The  function creates range table entries specifically for PostgreSQL's table functions like XMLTABLE and JSON_TABLE. These functions transform structured data (XML or JSON) into relational table format with predefined columns and types.
 

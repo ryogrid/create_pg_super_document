@@ -8,7 +8,10 @@ Removes a node from a doubly-linked counted list and sets the node's next/prev p
 
 ## Definition
 
-
+```c
+static inline void
+dclist_delete_from_thoroughly(dclist_head *head, dlist_node *node)
+```
 ## Detailed Description
 This function extends the functionality of  by not only removing a node from the doubly-linked counted list but also nullifying the node's next and previous pointers. This provides a clear signal that the node is not currently part of any list, which can be useful for debugging and preventing accidental reuse of nodes that are meant to be detached.
 

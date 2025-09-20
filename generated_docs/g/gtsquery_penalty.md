@@ -8,7 +8,13 @@ A GiST penalty function for TSQuery indexes that calculates the cost of insertin
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	OffsetNumber pos;
+	int32		cost;
+} SPLITCOST;
+```
 ## Detailed Description
 The gtsquery_penalty function implements the penalty method for GiST (Generalized Search Tree) indexes on TSQuery data types. It calculates the penalty (cost) of inserting a new TSQuery signature into an existing index node by computing the Hamming distance between the original signature and the new signature.
 

@@ -8,7 +8,10 @@ Retrieves and formats the AS clause definition for a view or materialized view, 
 
 ## Definition
 
-
+```c
+static PQExpBuffer
+createViewAsClause(Archive *fout, const TableInfo *tbinfo)
+```
 ## Detailed Description
 This utility function extracts the complete view definition from the database using the pg_get_viewdef() system function and formats it for use in CREATE VIEW or CREATE MATERIALIZED VIEW statements. The function specifically removes the trailing semicolon from the view definition to enable additional SQL clauses to be appended, such as WITH NO DATA for materialized views or other modifiers.
 

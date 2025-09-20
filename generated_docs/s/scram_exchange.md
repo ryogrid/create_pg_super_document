@@ -8,7 +8,11 @@ Handles the SCRAM authentication message exchange between client and server, pro
 
 ## Definition
 
-
+```c
+static int
+scram_exchange(void *opaq, const char *input, int inputlen,
+			   char **output, int *outputlen, const char **logdetail)
+```
 ## Detailed Description
 This function implements the core SCRAM authentication protocol exchange, managing the multi-step authentication handshake between client and server. It operates as a state machine with three main phases:
 

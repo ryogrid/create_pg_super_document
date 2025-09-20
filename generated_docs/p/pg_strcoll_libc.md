@@ -8,7 +8,10 @@ Performs locale-aware string collation using the system's libc implementation, h
 
 ## Definition
 
-
+```c
+static int
+pg_strcoll_libc(const char *arg1, const char *arg2, pg_locale_t locale)
+```
 ## Detailed Description
 The  function provides a unified interface for string collation using the operating system's standard C library functions. It intelligently selects the appropriate collation function based on the platform (Windows vs. other systems), database encoding, and locale configuration. On Windows systems with UTF-8 encoding, it delegates to a specialized UTF-8 handling function. For other cases, it uses either locale-specific  or the default  function depending on whether a specific locale is provided.
 

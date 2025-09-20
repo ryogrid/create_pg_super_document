@@ -8,7 +8,10 @@ A SQL-callable function that returns sequence parameters as a composite tuple, p
 
 ## Definition
 
-
+```c
+Datum
+pg_sequence_parameters(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that provides programmatic access to sequence parameters stored in the pg_sequence system catalog. It performs permission checks and returns all sequence parameters as a structured tuple that can be used in SQL queries.
 

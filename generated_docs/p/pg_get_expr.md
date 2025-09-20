@@ -8,7 +8,10 @@ This function decompiles stored expression trees back into human-readable SQL ex
 
 ## Definition
 
-
+```c
+Datum
+pg_get_expr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 pg_get_expr is a PostgreSQL built-in function that converts stored expression trees (in nodeToString format) back into readable SQL text. It serves as the primary interface for decompiling expressions that are stored in various system catalog columns as pg_node_tree data. The function is designed to handle expressions that reference at most one relation, making it suitable for partial index expressions, column default values, check constraints, and other single-relation expressions.
 

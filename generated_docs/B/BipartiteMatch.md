@@ -8,7 +8,11 @@ BipartiteMatch implements the Hopcroft-Karp algorithm to find maximum matching i
 
 ## Definition
 
-
+```c
+*/
+BipartiteMatchState *
+BipartiteMatch(int u_size, int v_size, short **adjacency)
+```
 ## Detailed Description
 This function performs maximum bipartite matching using the Hopcroft-Karp algorithm. It takes two sets U and V of specified sizes and an adjacency list representation of the bipartite graph. The algorithm works by repeatedly finding augmenting paths using breadth-first search (BFS) to build level structures and depth-first search (DFS) to find actual augmenting paths. The function allocates and initializes a BipartiteMatchState structure to track the matching process and returns it with the final matching results.
 

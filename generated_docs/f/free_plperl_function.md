@@ -8,7 +8,10 @@ Frees all resources associated with a PL/Perl function descriptor including Perl
 
 ## Definition
 
-
+```c
+static void
+free_plperl_function(plperl_proc_desc *prodesc)
+```
 ## Detailed Description
 This function is responsible for the complete cleanup of a PL/Perl function descriptor when its reference count reaches zero. It properly manages both Perl-side and PostgreSQL-side resources. The function activates the appropriate Perl interpreter to safely decrement the Perl code reference, then restores the previous interpreter state. Finally, it deletes the entire memory context associated with the function, which frees all PostgreSQL-allocated memory for the function descriptor.
 

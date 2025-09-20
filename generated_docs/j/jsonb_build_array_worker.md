@@ -8,7 +8,11 @@ A core PostgreSQL function that constructs a JSONB array from an array of argume
 
 ## Definition
 
-
+```c
+Datum
+jsonb_build_array_worker(int nargs, const Datum *args, const bool *nulls, const Oid *types,
+						 bool absent_on_null)
+```
 ## Detailed Description
 This function is the workhorse for JSONB array construction in PostgreSQL. It takes an array of arguments along with their nullness indicators and types, and constructs a JSONB array. The function supports an  flag that allows null values to be omitted from the resulting array rather than being included as JSON null values. This function is used by both the SQL  function and internal PostgreSQL execution routines for JSON constructor expressions.
 

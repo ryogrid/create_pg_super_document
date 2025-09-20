@@ -8,7 +8,10 @@ Converts a variable's string value to its appropriate typed representation (null
 
 ## Definition
 
-
+```c
+static bool
+makeVariableValue(Variable *var)
+```
 ## Detailed Description
 The  function performs type inference and conversion on a variable that currently only has a string representation. It analyzes the string content to determine the most appropriate data type and converts the value accordingly. The function supports conversion to NULL, boolean (with flexible true/false representations), 64-bit integers, and double-precision floating point numbers. If conversion fails due to malformed input, it returns false and logs an error message. This function is essential for pgbench's dynamic typing system where variables can be assigned as strings but need to be used as typed values in expressions.
 

@@ -8,7 +8,10 @@ Creates a dummy AS clause for a PostgreSQL view definition used when the real vi
 
 ## Definition
 
-
+```c
+static PQExpBuffer
+createDummyViewAsClause(Archive *fout, const TableInfo *tbinfo)
+```
 ## Detailed Description
 This function generates a placeholder SELECT statement for a view that maintains the view's external properties (column names, types, and collations) while using NULL values for all columns. This is essential in pg_dump when circular dependencies prevent the immediate creation of a view with its actual definition. The dummy view preserves the schema structure so that dependent objects can reference it correctly, and it can later be replaced with the real view definition using CREATE OR REPLACE VIEW.
 

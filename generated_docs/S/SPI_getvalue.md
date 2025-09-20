@@ -8,7 +8,10 @@ Extracts a specific attribute value from a tuple and converts it to its string r
 
 ## Definition
 
-
+```c
+char *
+SPI_getvalue(HeapTuple tuple, TupleDesc tupdesc, int fnumber)
+```
 ## Detailed Description
 SPI_getvalue retrieves the value of a specific attribute from a tuple and converts it to a human-readable string representation. The function handles the complete process of extracting the raw Datum value, checking for NULL values, determining the appropriate data type, and calling the corresponding output function to convert the value to a string. This function is essential for displaying tuple data in a readable format or for converting values for external interfaces.
 

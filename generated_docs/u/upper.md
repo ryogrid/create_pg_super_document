@@ -8,7 +8,10 @@ The  function converts all letters in a text string to uppercase, providing case
 
 ## Definition
 
-
+```c
+Datum
+upper(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that takes a text input and returns a new text value with all alphabetic characters converted to uppercase. It utilizes the database's collation settings to ensure proper case conversion for different locales and character sets. The function is implemented as part of the Oracle compatibility module, following PostgreSQL's function call conventions with proper memory management.
 

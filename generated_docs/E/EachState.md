@@ -8,7 +8,19 @@ EachState is a structure that maintains state information for the json_each func
 
 ## Definition
 
-
+```c
+typedef struct EachState
+{
+	JsonLexContext *lex;
+	Tuplestorestate *tuple_store;
+	TupleDesc	ret_tdesc;
+	MemoryContext tmp_cxt;
+	const char *result_start;
+	bool		normalize_results;
+	bool		next_scalar;
+	char	   *normalized_scalar;
+} EachState;
+```
 ## Detailed Description
 EachState serves as a context structure for PostgreSQL's JSON each functionality. It encapsulates all the necessary state information required to process JSON data and convert it into a tabular format with key-value pairs. The structure coordinates JSON lexical parsing, tuple storage, memory management, and result normalization during the decomposition process.
 

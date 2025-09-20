@@ -8,7 +8,32 @@ TParser is the main structure that encapsulates the complete state and context o
 
 ## Definition
 
+```c
+typedef struct TParser
+{
+	/* string and position information */
+	char	   *str;			/* multibyte string */
+	int			lenstr;			/* length of mbstring */
+	wchar_t    *wstr;			/* wide character string */
+	pg_wchar   *pgwstr;			/* wide character string for C-locale */
+	bool		usewide;
 
+	/* State of parse */
+	int			charmaxlen;
+	TParserPosition *state;
+	bool		ignore;
+	bool		wanthost;
+
+	/* silly char */
+	char		c;
+
+	/* out */
+	char	   *token;
+	int			lenbytetoken;
+	int			lenchartoken;
+	int			type;
+} TParser;
+```
 ## Detailed Description
 TParser serves as the central data structure for PostgreSQL's text search word parser. It manages the complete parsing context including the input text in multiple character encodings, the current parser state stack, and output token information. The parser supports both single-byte and wide character processing to handle various character encodings correctly.
 

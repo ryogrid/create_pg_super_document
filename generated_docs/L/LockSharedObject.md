@@ -8,7 +8,11 @@ LockSharedObject obtains a lock on objects that are shared across all databases 
 
 ## Definition
 
-
+```c
+void
+LockSharedObject(Oid classid, Oid objid, uint16 objsubid,
+				 LOCKMODE lockmode)
+```
 ## Detailed Description
 LockSharedObject is used to acquire locks on objects that are shared across all databases in a PostgreSQL cluster, rather than being scoped to a single database. These include system-wide objects such as roles (users), tablespaces, databases themselves, replication origins, and subscriptions.
 

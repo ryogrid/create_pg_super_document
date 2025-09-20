@@ -8,7 +8,11 @@ A specialized comparison function for B-tree index sorting that performs tiebrea
 
 ## Definition
 
-
+```c
+static int
+comparetup_index_btree_tiebreak(const SortTuple *a, const SortTuple *b,
+								Tuplesortstate *state)
+```
 ## Detailed Description
 This function serves as a tiebreaker comparison routine for B-tree index tuple sorting. It performs a comprehensive comparison when initial sort keys are equal, handling:
 

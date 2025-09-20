@@ -8,7 +8,11 @@ Processes and sends decoded DML (Data Manipulation Language) operations over the
 
 ## Definition
 
-
+```c
+static void
+pgoutput_change(LogicalDecodingContext *ctx, ReorderBufferTXN *txn,
+				Relation relation, ReorderBufferChange *change)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's logical replication output plugin. It handles the transmission of INSERT, UPDATE, and DELETE operations from the publisher to subscribers. The function performs several critical operations:
 

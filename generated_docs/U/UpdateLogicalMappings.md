@@ -8,7 +8,9 @@ UpdateLogicalMappings applies existing logical remapping files that are targeted
 
 ## Definition
 
-
+```c
+struct dirent *mapping_de;
+```
 ## Detailed Description
 UpdateLogicalMappings is responsible for discovering and applying logical tuple remapping files that were created during heap rewrite operations (such as CLUSTER, VACUUM FULL, or ALTER TABLE operations that require table rewrites). These mapping files contain information about how tuple identities changed during the rewrite process, which is essential for logical replication to correctly track changes.
 

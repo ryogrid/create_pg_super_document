@@ -8,7 +8,12 @@ A specialized helper function that walks through a list of SubPlan or initPlan n
 
 ## Definition
 
-
+```c
+static bool
+planstate_walk_subplans(List *plans,
+						planstate_tree_walker_callback walker,
+						void *context)
+```
 ## Detailed Description
 The  function is a static helper within the planstate tree walking infrastructure that handles traversal of SubPlan lists. SubPlans represent subqueries that have been planned and are embedded within a larger query plan. This function iterates through a list of SubPlanState nodes and recursively walks each subplan's planstate using the  macro.
 

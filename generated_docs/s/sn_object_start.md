@@ -8,7 +8,10 @@ This function handles the start of JSON objects during null-stripping operations
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+sn_object_start(void *state)
+```
 ## Detailed Description
 The `sn_object_start` function is a callback handler used by the JSON null-stripping functionality (`json_strip_nulls`). It serves as a semantic action that processes the beginning of JSON objects during parsing.
 

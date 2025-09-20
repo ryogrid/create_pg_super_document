@@ -8,7 +8,9 @@ Determines whether a client's IP address matches the server's network interfaces
 
 ## Definition
 
-
+```c
+enumerating network interfaces: %m")));
+```
 ## Detailed Description
 The  function implements PostgreSQL's 'samehost' and 'samenet' matching capabilities for host-based authentication. It serves as the high-level coordinator that uses the system's network interface enumeration to determine if a client connection should be allowed based on network proximity.
 

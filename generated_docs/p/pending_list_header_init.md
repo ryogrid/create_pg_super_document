@@ -8,7 +8,10 @@ Initializes the header of a pending-items list, creating a circular doubly-linke
 
 ## Definition
 
-
+```c
+static void
+pending_list_header_init(TocEntry *l)
+```
 ## Detailed Description
 This function initializes a TocEntry to serve as the header of a pending-items list. The pending list is implemented as a circular doubly-linked list with a dummy header node, similar to the main TOC list structure used in pg_dump. The function sets up the circular linkage by making the header node point to itself in both directions (prev and next).
 

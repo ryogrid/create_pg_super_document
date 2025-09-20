@@ -8,7 +8,10 @@ CheckRestrictedOperation is a security validation function that prevents executi
 
 ## Definition
 
-
+```c
+static void
+CheckRestrictedOperation(const char *cmdname)
+```
 ## Detailed Description
 This function serves as a security gate within PostgreSQL's utility command processing pipeline. It checks whether the current execution context is operating under security restrictions and blocks potentially dangerous commands from executing in such contexts. The function is designed to protect session-local state and resources for which there are no better-defined protection mechanisms beyond basic ownership checks.
 

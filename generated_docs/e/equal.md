@@ -8,7 +8,10 @@ The  function is PostgreSQL's primary node comparison function that determines w
 
 ## Definition
 
-
+```c
+bool
+equal(const void *a, const void *b)
+```
 ## Detailed Description
 The  function provides deep structural comparison of PostgreSQL parse tree nodes, implementing the core equality semantics used throughout the query processing system. It performs a comprehensive comparison that checks not only the node types but also recursively compares all significant fields within the nodes.
 

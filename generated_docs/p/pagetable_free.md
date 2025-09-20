@@ -8,7 +8,10 @@ A callback function for freeing hash table elements in TID bitmaps, handling bot
 
 ## Definition
 
-
+```c
+static inline void
+pagetable_free(pagetable_hash *pagetable, void *pointer)
+```
 ## Detailed Description
 This function serves as a memory deallocation callback for pagetable hash structures in TID bitmaps. It implements a dual deallocation strategy based on whether DSA (Dynamic Shared Area) is being used. For regular memory contexts, it directly frees the provided pointer using pfree. For DSA-based allocations, it frees the old pagetable reference (dsapagetableold) that was saved during the previous allocation, then resets the old pointer to invalid. This approach ensures proper cleanup of both current and previous allocations in shared memory scenarios.
 

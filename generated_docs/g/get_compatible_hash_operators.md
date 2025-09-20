@@ -8,7 +8,11 @@ Retrieves hash equality operators compatible with a given operator, operating on
 
 ## Definition
 
-
+```c
+bool
+get_compatible_hash_operators(Oid opno,
+							  Oid *lhs_opno, Oid *rhs_opno)
+```
 ## Detailed Description
 This function finds hash equality operators that are compatible with the input operator but operate on specific datatypes. It's particularly useful for cross-type operators where the left and right operand types differ, requiring separate single-type hash operators for each side.
 

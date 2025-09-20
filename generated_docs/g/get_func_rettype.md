@@ -8,7 +8,9 @@ Returns the result type OID of a given function by looking up the function's ret
 
 ## Definition
 
-
+```c
+struct;
+```
 ## Detailed Description
 This function retrieves the return type OID for a specified function by performing a system cache lookup on the pg_proc table. It extracts the prorettype field from the function's catalog entry, which contains the OID of the function's return type. Unlike get_func_namespace, this function throws an error if the function is not found rather than returning InvalidOid, making it more strict about function existence.
 

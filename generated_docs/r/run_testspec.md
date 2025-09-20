@@ -8,7 +8,10 @@ Executes the permutations specified in the test specification, choosing between 
 
 ## Definition
 
-
+```c
+static void
+run_testspec(TestSpec *testspec)
+```
 ## Detailed Description
 The  function serves as a dispatcher that determines the execution strategy for an isolation test based on the test specification configuration. It implements a simple branching logic:
 

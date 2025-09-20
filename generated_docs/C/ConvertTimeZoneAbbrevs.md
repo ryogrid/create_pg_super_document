@@ -8,7 +8,10 @@ ConvertTimeZoneAbbrevs converts a sorted array of timezone abbreviation entries 
 
 ## Definition
 
-
+```c
+TimeZoneAbbrevTable *
+ConvertTimeZoneAbbrevs(struct tzEntry *abbrevs, int n)
+```
 ## Detailed Description
 This function is called during timezone configuration file loading or reloading to create the runtime timezone abbreviation table. It processes a pre-sorted array of tzEntry structures and builds a single, contiguously allocated TimeZoneAbbrevTable.
 

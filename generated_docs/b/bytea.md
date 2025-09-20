@@ -8,7 +8,9 @@ The  type is PostgreSQL's binary data type, implemented as a typedef of the  str
 
 ## Definition
 
-
+```c
+typedef struct varlena bytea;
+```
 ## Detailed Description
 The  type is one of PostgreSQL's core binary data types, built directly on top of the  structure. It provides a way to store arbitrary sequences of bytes without any interpretation, encoding, or null-termination requirements. Unlike text types,  can safely store binary data including null bytes, making it suitable for storing images, documents, encrypted data, and other binary content.
 

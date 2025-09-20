@@ -8,7 +8,10 @@ Converts a regproc value to external binary format, serving as the binary output
 
 ## Definition
 
-
+```c
+Datum
+regprocsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The regprocsend function is the binary output conversion function for PostgreSQL's regproc data type. It handles the conversion of internal regproc values to binary format suitable for external transmission (such as network protocols, file storage, or client libraries).
 

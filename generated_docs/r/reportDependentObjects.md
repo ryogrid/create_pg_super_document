@@ -8,7 +8,13 @@ Validates deletion operations, reports cascading deletions to users, and enforce
 
 ## Definition
 
-
+```c
+static void
+reportDependentObjects(const ObjectAddresses *targetObjects,
+					   DropBehavior behavior,
+					   int flags,
+					   const ObjectAddress *origObject)
+```
 ## Detailed Description
 reportDependentObjects serves as both a validation and reporting function in PostgreSQL's dependency deletion system. It performs several critical functions:
 

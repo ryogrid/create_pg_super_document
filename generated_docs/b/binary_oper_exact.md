@@ -8,7 +8,10 @@ A static helper function that searches for an exact operator match given specifi
 
 ## Definition
 
-
+```c
+static Oid
+binary_oper_exact(List *opname, Oid arg1, Oid arg2)
+```
 ## Detailed Description
 The  function performs an "exact" match search for binary operators based on the specified operand types. It implements intelligent type resolution by treating unknown literals as having the same type as the other operand when one operand type is unknown. Additionally, it considers domain types that may need to be reduced to their base types to find an exact match. The function first attempts a direct operator lookup, and if that fails with unknown types involved, it tries again using base types.
 

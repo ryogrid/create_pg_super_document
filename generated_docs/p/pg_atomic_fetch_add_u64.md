@@ -8,7 +8,10 @@ Atomically adds a value to a 64-bit unsigned integer and returns the original va
 
 ## Definition
 
-
+```c
+static inline uint64
+pg_atomic_fetch_add_u64(volatile pg_atomic_uint64 *ptr, int64 add_)
+```
 ## Detailed Description
 This function provides an atomic fetch-and-add operation for 64-bit unsigned integers. It atomically adds the specified value to the target variable and returns the original value that was present before the addition. The operation is thread-safe and ensures that no other thread can interfere with the read-modify-write sequence.
 

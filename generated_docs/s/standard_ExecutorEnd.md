@@ -8,7 +8,10 @@ Performs comprehensive cleanup and resource deallocation at the end of query exe
 
 ## Definition
 
-
+```c
+void
+standard_ExecutorEnd(QueryDesc *queryDesc)
+```
 ## Detailed Description
 The  function is responsible for the complete teardown of the executor environment after query execution. It performs a systematic cleanup process that includes terminating the execution plan, unregistering snapshots, and releasing all executor-allocated memory through the EState structure. This function ensures that all resources are properly freed and that the QueryDesc is reset to a safe state.
 

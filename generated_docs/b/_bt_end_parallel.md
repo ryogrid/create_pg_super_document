@@ -8,7 +8,10 @@ Cleanly terminates parallel B-tree index construction by shutting down worker pr
 
 ## Definition
 
-
+```c
+static void
+_bt_end_parallel(BTLeader *btleader)
+```
 ## Detailed Description
 This function performs the orderly shutdown of a parallel B-tree index build operation. It ensures all worker processes complete their work, collects and accumulates performance monitoring data (WAL and buffer usage statistics) from all workers, and properly releases all parallel execution resources.
 

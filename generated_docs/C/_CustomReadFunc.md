@@ -8,7 +8,10 @@ A callback function used by the PostgreSQL pg_dump custom format archive reader 
 
 ## Definition
 
-
+```c
+static size_t
+_CustomReadFunc(ArchiveHandle *AH, char **buf, size_t *buflen)
+```
 ## Detailed Description
 The  function serves as a callback for the archive reading mechanism in PostgreSQL's custom backup format. It implements a simple reading strategy where one compressed block is read at a time. The function is designed to work with the compression system, providing data to decompressors during the restoration process.
 

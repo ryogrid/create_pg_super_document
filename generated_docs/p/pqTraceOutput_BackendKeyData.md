@@ -8,7 +8,10 @@ Outputs formatted trace information for PostgreSQL BackendKeyData messages, disp
 
 ## Definition
 
-
+```c
+static void
+pqTraceOutput_BackendKeyData(FILE *f, const char *message, int *cursor, bool regress)
+```
 ## Detailed Description
 This function parses and outputs trace information for BackendKeyData messages in the PostgreSQL frontend protocol. BackendKeyData messages are sent by the server during connection establishment to provide the client with a process ID and secret key. These values are used later if the client needs to send a cancellation request to interrupt a running query or operation on this connection.
 

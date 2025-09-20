@@ -8,7 +8,13 @@ IOOp is an enumeration that defines the different types of I/O operations that c
 
 ## Definition
 
-
+```c
+typedef struct PgStat_BktypeIO
+{
+	PgStat_Counter counts[IOOBJECT_NUM_TYPES][IOCONTEXT_NUM_TYPES][IOOP_NUM_TYPES];
+	PgStat_Counter times[IOOBJECT_NUM_TYPES][IOCONTEXT_NUM_TYPES][IOOP_NUM_TYPES];
+} PgStat_BktypeIO;
+```
 ## Detailed Description
 IOOp categorizes the fundamental I/O operations that PostgreSQL performs during database operations. This enumeration is essential for detailed performance monitoring, allowing the database to track and analyze different types of I/O activities separately. Each operation type has distinct performance characteristics and resource implications, making this granular tracking valuable for identifying bottlenecks and optimizing database performance.
 

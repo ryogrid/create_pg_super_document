@@ -8,7 +8,10 @@ Initializes the opaque context for JSON_TABLE processing by setting up execution
 
 ## Definition
 
-
+```c
+static void
+JsonTableInitOpaque(TableFuncScanState *state, int natts)
+```
 ## Detailed Description
 JsonTableInitOpaque is a static function responsible for filling in the TableFuncScanState->opaque field when processing JSON_TABLE operations. It performs several key initialization tasks:
 

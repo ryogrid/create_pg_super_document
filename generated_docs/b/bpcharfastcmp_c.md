@@ -8,7 +8,10 @@ A specialized fast comparison function for BpChar (blank-padded character) data 
 
 ## Definition
 
-
+```c
+static int
+bpcharfastcmp_c(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 The `bpcharfastcmp_c` function provides optimized comparison functionality specifically for BpChar data types when using C locale collation. BpChar is PostgreSQL's CHAR(n) type that pads values with spaces to a fixed length. This function implements the BpChar semantics by using bpchartruelen() to determine the actual length of each string excluding trailing spaces, then performs a fast byte-wise comparison using memcmp(). This specialization is crucial for BpChar types because trailing spaces should not affect comparison results, requiring the true length calculation before comparison.
 

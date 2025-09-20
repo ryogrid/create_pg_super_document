@@ -8,7 +8,11 @@ The french_ISO_8859_1_create_env function creates and initializes a Snowball env
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * french_ISO_8859_1_create_env(void)
+```
 ## Detailed Description
 This function serves as a factory method for creating a Snowball environment tailored to French stemming operations. It calls the generic SN_create_env function with parameters specific to the French language stemmer:
 - 0 string slots (S_size = 0): French stemmer doesn't require additional string storage

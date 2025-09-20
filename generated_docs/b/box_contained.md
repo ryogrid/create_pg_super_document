@@ -8,7 +8,10 @@ Tests whether the first box is completely contained within the second box in Pos
 
 ## Definition
 
-
+```c
+Datum
+box_contained(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements a geometric containment test that determines if one box (box1) is completely contained within another box (box2). This function serves as a wrapper that calls the internal  function with the arguments reversed - it checks if box2 contains box1 by calling .
 

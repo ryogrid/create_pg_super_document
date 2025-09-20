@@ -8,7 +8,9 @@ PostgreSQL SQL function that encodes binary data (bytea) into a text representat
 
 ## Definition
 
-
+```c
+struct pg_encoding *enc;
+```
 ## Detailed Description
 The  function is a SQL-callable function that converts binary data from a  input into an encoded text format. It supports various encoding schemes like base64, hex, and escape formats. The function takes two arguments: the binary data to encode and the name of the encoding method to use.
 

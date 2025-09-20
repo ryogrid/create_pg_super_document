@@ -8,7 +8,10 @@ Implements the SQL window function FIRST_VALUE(), which returns the value of the
 
 ## Definition
 
-
+```c
+Datum
+window_first_value(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the backend implementation of PostgreSQL's FIRST_VALUE() window function. It retrieves and returns the value of the first argument (the value expression) evaluated on the first row within the current window frame. This function follows the SQL standard specification for window functions.
 

@@ -8,7 +8,10 @@ Fetches the pos'th tuple of the current partition into the specified slot using 
 
 ## Definition
 
-
+```c
+static bool
+window_gettupleslot(WindowObject winobj, int64 pos, TupleTableSlot *slot)
+```
 ## Detailed Description
 This function is a core utility for window function processing that retrieves a specific tuple from the current partition based on its position. It manages tuple access through a tuplestore buffer system and maintains position tracking through the WindowObject's read pointer. The function handles efficient seeking by positioning the read pointer close to the target position and then making minimal forward or backward movements to reach the exact tuple. It ensures that fetched tuples are physically copied to maintain validity across tuplestore manipulations.
 

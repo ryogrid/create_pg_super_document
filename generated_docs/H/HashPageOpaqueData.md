@@ -8,7 +8,16 @@ HashPageOpaqueData is a structure that stores metadata in the opaque area of has
 
 ## Definition
 
-
+```c
+typedef struct HashPageOpaqueData
+{
+	BlockNumber hasho_prevblkno;	/* see above */
+	BlockNumber hasho_nextblkno;	/* see above */
+	Bucket		hasho_bucket;	/* bucket number this pg belongs to */
+	uint16		hasho_flag;		/* page type code + flag bits, see above */
+	uint16		hasho_page_id;	/* for identification of hash indexes */
+} HashPageOpaqueData;
+```
 ## Detailed Description
 HashPageOpaqueData defines the structure of the opaque area in hash index pages. This structure maintains critical metadata for bucket chain navigation and page identification. The structure supports the linked-list organization of hash bucket pages, where overflow pages can be chained together when a bucket needs to store more items than fit on a single page.
 

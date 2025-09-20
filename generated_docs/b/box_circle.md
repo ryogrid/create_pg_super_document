@@ -8,7 +8,10 @@ Converts a rectangular box to its circumscribed circle (the smallest circle that
 
 ## Definition
 
-
+```c
+Datum
+box_circle(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs a geometric conversion from a BOX (rectangular) data type to a CIRCLE. It creates the circumscribed circle of the input box - the smallest circle that completely contains the rectangle. The function calculates the center of the circle as the midpoint of the box, and sets the radius as the distance from the center to any corner of the box (specifically the high corner). This ensures that all corners of the original box lie on or within the resulting circle.
 

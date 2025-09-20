@@ -8,7 +8,16 @@ The  structure represents transform information in PostgreSQL's pg_dump utility,
 
 ## Definition
 
-
+```c
+typedef struct _transformInfo
+{
+	DumpableObject dobj;
+	Oid			trftype;
+	Oid			trflang;
+	Oid			trffromsql;
+	Oid			trftosql;
+} TransformInfo;
+```
 ## Detailed Description
 The  structure captures the definition of transforms, which are special functions that define how a data type should be converted when passing between SQL and a procedural language. Transforms enable custom data types to work seamlessly with procedural languages by providing explicit conversion routines in both directions (SQL to language and language to SQL).
 

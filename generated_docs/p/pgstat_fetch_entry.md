@@ -8,7 +8,9 @@ This function fetches statistics data for a specific database object identified 
 
 ## Definition
 
-
+```c
+struct PgStat_HashKey));
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's statistics fetching infrastructure that retrieves statistics data for individual database objects. It supports different consistency models ranging from no caching to full snapshot consistency, and handles memory management appropriately for each mode.
 

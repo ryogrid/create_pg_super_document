@@ -8,7 +8,13 @@ HashOptions is a configuration structure that stores index-level options for Pos
 
 ## Definition
 
-
+```c
+typedef struct HashOptions
+{
+	int32		varlena_header_;	/* varlena header (do not touch directly!) */
+	int			fillfactor;		/* page fill factor in percent (0..100) */
+} HashOptions;
+```
 ## Detailed Description
 HashOptions is a structure used to store reloptions (relation options) specific to hash indexes. It follows PostgreSQL's standard pattern for storing index options by including a varlena header and configuration parameters. The structure is used to customize the behavior of hash indexes at creation time through the WITH clause in CREATE INDEX statements.
 

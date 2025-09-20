@@ -8,7 +8,10 @@ This function serves as the input routine for the pg_dependencies data type but 
 
 ## Definition
 
-
+```c
+Datum
+pg_dependencies_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The function is part of PostgreSQL's type system infrastructure for the pg_dependencies pseudo-type, which stores functional dependency statistics. However, it intentionally disallows text input parsing since pg_dependencies data is meant to be stored and manipulated only in binary form. The type exists primarily to support storage of dependency statistics in system catalogs, not for user input/output operations.
 

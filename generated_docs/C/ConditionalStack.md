@@ -8,7 +8,9 @@ ConditionalStack is a type alias for ConditionalStackData pointer that provides 
 
 ## Definition
 
-
+```c
+typedef struct ConditionalStackData *ConditionalStack;
+```
 ## Detailed Description
 ConditionalStack serves as the main public interface for conditional processing in PostgreSQL command-line tools like psql and pgbench. It is a pointer type that encapsulates a ConditionalStackData structure, providing a clean abstraction for managing nested \if...\endif blocks. The type comes with a comprehensive API that handles stack operations, state management, and query buffer coordination necessary for proper conditional execution.
 

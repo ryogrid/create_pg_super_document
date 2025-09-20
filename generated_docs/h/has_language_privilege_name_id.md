@@ -8,7 +8,10 @@ This function checks whether a specified user has a particular privilege on a la
 
 ## Definition
 
-
+```c
+Datum
+has_language_privilege_name_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides an optimized variant of privilege checking where the language is specified by its OID rather than name, avoiding the need for name-to-OID conversion. It takes a username (Name type), language OID, and privilege type (text), then returns a boolean indicating whether the user has the requested privilege. This variant uses object_aclcheck_ext which provides explicit missing object detection, returning NULL when the language OID doesn't exist.
 

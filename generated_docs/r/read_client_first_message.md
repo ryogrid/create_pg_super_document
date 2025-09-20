@@ -8,7 +8,10 @@ A comprehensive parser for the initial client message in the SCRAM-SHA-256 authe
 
 ## Definition
 
-
+```c
+static void
+read_client_first_message(scram_state *state, const char *input)
+```
 ## Detailed Description
 The `read_client_first_message` function implements the complete parsing logic for the client-first-message as defined in RFC 5802 (SCRAM protocol specification). It performs rigorous validation of the message structure, including the GS2 header format, channel binding flags, and authentication attributes.
 

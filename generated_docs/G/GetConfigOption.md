@@ -8,7 +8,9 @@ Retrieves the current value of a configuration option as a string with optional 
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function provides a public interface to retrieve the current value of any PostgreSQL configuration parameter as a string representation. It handles all GUC parameter types (boolean, integer, real, string, enum) and converts them to appropriate string formats. The function includes security features to restrict access to privileged parameters and provides flexible error handling for missing parameters.
 

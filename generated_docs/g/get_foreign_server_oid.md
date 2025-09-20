@@ -8,7 +8,10 @@ Looks up the OID (Object Identifier) of a foreign server given its name, with op
 
 ## Definition
 
-
+```c
+Oid
+get_foreign_server_oid(const char *servername, bool missing_ok)
+```
 ## Detailed Description
 The `get_foreign_server_oid` function performs a lookup operation to find the OID of a foreign server based on its name. It uses PostgreSQL's system cache mechanism to efficiently retrieve the OID from the `pg_foreign_server` catalog table.
 

@@ -8,7 +8,10 @@ The  function checks if the first BOX geometry has an area less than or equal to
 
 ## Definition
 
-
+```c
+Datum
+box_le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the less-than-or-equal-to operator for BOX data types in PostgreSQL. It compares two boxes by their areas, returning true if the area of the first box is less than or equal to the area of the second box. The comparison is performed using PostgreSQL's floating-point less-than-or-equal function  on the areas calculated by the  function.
 

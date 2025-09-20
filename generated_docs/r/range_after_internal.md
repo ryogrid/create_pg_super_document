@@ -8,7 +8,10 @@ The  function determines whether one range is strictly positioned after (to the 
 
 ## Definition
 
-
+```c
+bool
+range_after_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2)
+```
 ## Detailed Description
 This function implements the internal logic for determining if one range is strictly after another range. A range r1 is considered "after" r2 if the lower bound of r1 is greater than the upper bound of r2, meaning there is no overlap and r1 is positioned entirely to the right of r2 on the value axis.
 

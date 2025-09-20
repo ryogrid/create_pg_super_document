@@ -8,7 +8,10 @@ A utility function that looks up a NamespaceInfo structure by OID, providing err
 
 ## Definition
 
-
+```c
+static NamespaceInfo *
+findNamespace(Oid nsoid)
+```
 ## Detailed Description
 This is a simple wrapper function around findNamespaceByOid that adds error handling. It ensures that when a namespace is looked up by OID, the operation either succeeds or fails with a clear error message. This function is used throughout pg_dump when processing database objects that reference namespaces, ensuring that all namespace references can be resolved to valid NamespaceInfo structures.
 

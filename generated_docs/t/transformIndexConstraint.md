@@ -8,7 +8,10 @@ Transforms a single UNIQUE, PRIMARY KEY, or EXCLUDE constraint into an IndexStmt
 
 ## Definition
 
-
+```c
+static IndexStmt *
+transformIndexConstraint(Constraint *constraint, CreateStmtContext *cxt)
+```
 ## Detailed Description
 The  function converts individual constraint definitions into corresponding index creation statements. This is a complex function that handles several distinct scenarios:
 

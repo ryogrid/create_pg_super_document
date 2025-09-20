@@ -8,7 +8,14 @@ Builds transition/combine function invocation for a single transition value in P
 
 ## Definition
 
-
+```c
+static void
+ExecBuildAggTransCall(ExprState *state, AggState *aggstate,
+					  ExprEvalStep *scratch,
+					  FunctionCallInfo fcinfo, AggStatePerTrans pertrans,
+					  int transno, int setno, int setoff, bool ishash,
+					  bool nullcheck)
+```
 ## Detailed Description
 ExecBuildAggTransCall constructs the appropriate expression evaluation steps for executing aggregate transition functions. The function intelligently selects different execution opcodes based on the characteristics of the aggregate function:
 

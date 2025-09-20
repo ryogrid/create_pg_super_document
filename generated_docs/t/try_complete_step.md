@@ -8,7 +8,9 @@ Attempts to complete a single isolation test step by waiting for its associated 
 
 ## Definition
 
-
+```c
+struct timeval start_time;
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's isolation testing framework that manages the execution lifecycle of individual test steps. It waits for a database query (already sent by the caller) to complete while handling various blocking scenarios including lock waits, blocker conditions, and timeouts.
 

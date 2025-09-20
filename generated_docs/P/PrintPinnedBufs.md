@@ -8,7 +8,10 @@ A debugging function that prints detailed information about only the currently p
 
 ## Definition
 
-
+```c
+void
+PrintPinnedBufs(void)
+```
 ## Detailed Description
 This function provides a focused diagnostic view of the shared buffer pool by examining only buffers that are currently pinned by the local process. It iterates through all buffer descriptors but only logs information for buffers that have a positive private reference count, indicating they are actively pinned by the current backend process. This selective approach makes it particularly useful for debugging buffer pin/unpin issues, memory leaks, or understanding which buffers a process is currently holding.
 

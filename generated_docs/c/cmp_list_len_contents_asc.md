@@ -8,7 +8,10 @@ A two-level comparator function that sorts lists first by length and then by con
 
 ## Definition
 
-
+```c
+static int
+cmp_list_len_contents_asc(const ListCell *a, const ListCell *b)
+```
 ## Detailed Description
 This function implements a hierarchical comparison strategy for lists of integers:
 

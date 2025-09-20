@@ -8,7 +8,10 @@ Initializes qualifier (WHERE clause) expressions for execution outside a normal 
 
 ## Definition
 
-
+```c
+ExprState *
+ExecPrepareQual(List *qual, EState *estate)
+```
 ## Detailed Description
 ExecPrepareQual is a specialized function that prepares standalone qualifier expressions for execution outside the normal query planning and execution pipeline. It is specifically designed for boolean expressions that serve as filters or constraints, similar to WHERE clauses but used in contexts outside regular query execution.
 

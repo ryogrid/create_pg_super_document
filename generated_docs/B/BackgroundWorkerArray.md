@@ -8,7 +8,15 @@ BackgroundWorkerArray is a shared memory structure that manages an array of back
 
 ## Definition
 
-
+```c
+typedef struct BackgroundWorkerArray
+{
+	int			total_slots;
+	uint32		parallel_register_count;
+	uint32		parallel_terminate_count;
+	BackgroundWorkerSlot slot[FLEXIBLE_ARRAY_MEMBER];
+} BackgroundWorkerArray;
+```
 ## Detailed Description
 BackgroundWorkerArray serves as the central registry for all background worker processes in PostgreSQL's shared memory. It implements a dual-counter system to track parallel worker limits without requiring locks that could compromise postmaster stability.
 

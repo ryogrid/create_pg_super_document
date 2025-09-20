@@ -8,7 +8,15 @@ Extracts string data from a JsonPathItem structure, returning a pointer to the s
 
 ## Definition
 
-
+```c
+enum JsonPathDatatypeStatus
+{
+	jpdsNonDateTime,			/* null, bool, numeric, string, array, object */
+	jpdsUnknownDateTime,		/* unknown datetime type */
+	jpdsDateTimeZoned,			/* timetz, timestamptz */
+	jpdsDateTimeNonZoned,		/* time, timestamp, date */
+};
+```
 ## Detailed Description
 This function is a utility accessor that extracts string data from JsonPathItem structures. It works specifically with JsonPathItem types that contain string data: keys (jpiKey), string literals (jpiString), and variables (jpiVariable). The function provides direct access to the internal string data without copying, making it efficient for read-only operations.
 

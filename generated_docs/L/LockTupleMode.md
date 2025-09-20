@@ -8,7 +8,19 @@ LockTupleMode is an enumeration that defines the different locking modes availab
 
 ## Definition
 
-
+```c
+typedef enum LockTupleMode
+{
+	/* SELECT FOR KEY SHARE */
+	LockTupleKeyShare,
+	/* SELECT FOR SHARE */
+	LockTupleShare,
+	/* SELECT FOR NO KEY UPDATE, and UPDATEs that don't modify key columns */
+	LockTupleNoKeyExclusive,
+	/* SELECT FOR UPDATE, UPDATEs that modify key columns, and DELETE */
+	LockTupleExclusive,
+} LockTupleMode;
+```
 ## Detailed Description
 LockTupleMode defines the hierarchy of tuple-level locking modes in PostgreSQL's concurrency control system. These modes correspond directly to SQL locking clauses and determine the level of protection and conflict detection for individual table rows. The enum values are ordered from weakest to strongest locking mode, with each stronger mode conflicting with more operations than weaker modes.
 

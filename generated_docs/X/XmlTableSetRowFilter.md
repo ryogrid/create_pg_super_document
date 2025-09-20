@@ -8,7 +8,10 @@ Installs the row-filter XPath expression for XML table processing, compiling and
 
 ## Definition
 
-
+```c
+static void
+XmlTableSetRowFilter(TableFuncScanState *state, const char *path)
+```
 ## Detailed Description
 XmlTableSetRowFilter is a static function that sets up row filtering for XML table operations by compiling an XPath expression. The function validates that the provided path is not empty, converts it to libxml2's xmlChar format, and compiles it into an XPath expression using the existing XPath context. This compiled expression will later be used to filter which rows from the XML document should be included in the table scan results.
 

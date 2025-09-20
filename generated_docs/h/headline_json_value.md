@@ -8,7 +8,10 @@ A static helper function that generates text search headlines from JSON/JSONB el
 
 ## Definition
 
-
+```c
+static text *
+headline_json_value(void *_state, char *elem_value, int elem_len)
+```
 ## Detailed Description
 The  function serves as a callback handler for processing individual JSON/JSONB element values during text search headline generation. It takes a JSON element's string value and transforms it into a formatted headline text that highlights words matching a given TSQuery. The function operates within the context of a  structure that contains all necessary configuration and state information for the headline generation process.
 

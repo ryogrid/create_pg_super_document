@@ -8,7 +8,10 @@ Converts a box datum to an abbreviated Z-order value for efficient spatial sorti
 
 ## Definition
 
-
+```c
+static Datum
+gist_bbox_zorder_abbrev_convert(Datum original, SortSupport ssup)
+```
 ## Detailed Description
 This function implements an abbreviated conversion for Z-order comparison of bounding boxes in GiST spatial indexing. It extracts the lower-left point from a box and computes its Z-order (Morton order) value, which interleaves the X and Y coordinates to create a single value that preserves spatial locality. The Z-order value enables efficient spatial sorting by mapping 2D coordinates to a 1D space while maintaining proximity relationships.
 

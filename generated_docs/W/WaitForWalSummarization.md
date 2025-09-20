@@ -8,7 +8,10 @@ Waits until WAL summarization reaches a specified LSN with timeout and error han
 
 ## Definition
 
-
+```c
+void
+WaitForWalSummarization(XLogRecPtr lsn)
+```
 ## Detailed Description
 This function blocks until the WAL summarizer has processed and summarized WAL records up to the specified LSN. It implements a polling mechanism with timeout cycles, progress monitoring, and intelligent error reporting. The function includes safeguards against hanging indefinitely by detecting when the summarizer is not making progress and reporting detailed status information.
 

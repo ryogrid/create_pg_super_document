@@ -8,7 +8,13 @@ VirtualTransactionId is a structure that uniquely identifies a virtual transacti
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	ProcNumber	procNumber;		/* proc number of the PGPROC */
+	LocalTransactionId localTransactionId;	/* lxid from PGPROC */
+} VirtualTransactionId;
+```
 ## Detailed Description
 The VirtualTransactionId structure provides a lightweight way to identify transactions across the PostgreSQL system. Unlike regular transaction IDs (XIDs), virtual transaction IDs are assigned locally by each backend process and do not require global coordination. This makes them suitable for identifying transactions that may not need to persist (such as read-only transactions) or for internal tracking purposes.
 

@@ -8,7 +8,18 @@ ParallelBitmapHeapState is a shared state structure that coordinates parallel bi
 
 ## Definition
 
-
+```c
+typedef struct ParallelBitmapHeapState
+{
+	dsa_pointer tbmiterator;
+	dsa_pointer prefetch_iterator;
+	slock_t		mutex;
+	int			prefetch_pages;
+	int			prefetch_target;
+	SharedBitmapState state;
+	ConditionVariable cv;
+} ParallelBitmapHeapState;
+```
 ## Detailed Description
 ParallelBitmapHeapState manages the coordination of parallel bitmap heap scan operations where multiple worker processes collaborate to scan heap pages identified by a shared TID bitmap. The structure maintains shared iterators for both current scanning and prefetch operations, ensuring that worker processes don't duplicate work while maximizing I/O efficiency through coordinated prefetching. It uses dynamic shared area (DSA) pointers to reference shared bitmap iterators, mutual exclusion mechanisms to coordinate access, and condition variables for worker synchronization.
 

@@ -8,7 +8,9 @@ The interpt_pp function finds the intersection point between two paths (polygona
 
 ## Definition
 
-
+```c
+struct(&seg1, &p1->p[i], &p1->p[i + 1]);
+```
 ## Detailed Description
 This function takes two PATH objects as input and determines if any line segments from the first path intersect with any line segments from the second path. It uses a nested loop approach to check all possible combinations of line segments between the two paths. When an intersection is found, it returns the exact intersection point using the lseg_interpt function. If no intersection exists, the function returns NULL.
 

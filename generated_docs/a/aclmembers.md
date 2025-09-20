@@ -8,7 +8,10 @@ Extracts all role IDs mentioned in an Access Control List, returning them as a s
 
 ## Definition
 
-
+```c
+int
+aclmembers(const Acl *acl, Oid **roleids)
+```
 ## Detailed Description
 The  function analyzes an ACL to collect all role IDs that appear in any capacity - either as grantees (recipients of privileges) or grantors (those who granted privileges). The function does not distinguish between these roles, simply collecting all mentioned role OIDs.
 

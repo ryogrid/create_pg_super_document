@@ -8,7 +8,10 @@ A static function that translates a list of token type names into a list of uniq
 
 ## Definition
 
-
+```c
+static List *
+getTokenTypes(Oid prsId, List *tokennames)
+```
 ## Detailed Description
 This function converts string-based token type names into structured TSTokenTypeItem objects by looking up their corresponding lexical identifiers from a text search parser. It first retrieves the parser's cache entry and calls the parser's lextype method to get the available token types. For each input token name, it searches through the parser's lexical descriptor list to find matching aliases. The function automatically removes duplicates by using tstoken_list_member to check if a token is already in the result list. If a token name is not found in the parser's lexical types, it raises an error with ERRCODE_INVALID_PARAMETER_VALUE.
 

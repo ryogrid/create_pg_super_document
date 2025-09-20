@@ -8,7 +8,10 @@ This function unlocks a B-tree buffer and conditionally releases the buffer pin 
 
 ## Definition
 
-
+```c
+static void
+_bt_drop_lock_and_maybe_pin(IndexScanDesc scan, BTScanPos sp)
+```
 ## Detailed Description
 _bt_drop_lock_and_maybe_pin is a static utility function that implements a two-phase buffer management strategy for B-tree scans. It first unconditionally unlocks the buffer, then conditionally releases the buffer pin based on specific conditions. This approach helps prevent vacuum operations from being blocked when cursors are positioned on pages, which is critical for maintaining good vacuum performance and avoiding deadlocks in concurrent scenarios.
 

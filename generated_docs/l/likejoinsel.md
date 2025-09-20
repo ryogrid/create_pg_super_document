@@ -8,7 +8,10 @@ A selectivity estimation function for LIKE pattern matching join operations in P
 
 ## Definition
 
-
+```c
+Datum
+likejoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a join selectivity estimation function that provides selectivity estimates for LIKE pattern matching operations in join conditions. It serves as a wrapper function that delegates the actual selectivity calculation to the generic  function, specifying the pattern type as case-sensitive LIKE pattern () and indicating that this is not a negated match (false).
 

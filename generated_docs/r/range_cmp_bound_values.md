@@ -8,7 +8,11 @@ Compares the values of two range boundary points, ignoring inclusive/exclusive f
 
 ## Definition
 
-
+```c
+int
+range_cmp_bound_values(TypeCacheEntry *typcache, const RangeBound *b1,
+					   const RangeBound *b2)
+```
 ## Detailed Description
 The `range_cmp_bound_values` function provides a simplified comparison between two range boundary points that focuses purely on the values they contain, ignoring the inclusive/exclusive flags that are considered in `range_cmp_bounds`. This function is useful when you need to compare just the actual boundary values without the complex semantics of boundary inclusiveness. For infinite bounds, the lower/upper flag determines whether the infinity represents minus infinity (lower) or plus infinity (upper). For finite bounds, it performs a direct value comparison using the range type's comparison function.
 

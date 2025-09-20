@@ -8,7 +8,10 @@ Creates a deep copy of an array of index attribute options, ensuring each bytea 
 
 ## Definition
 
-
+```c
+static bytea **
+CopyIndexAttOptions(bytea **srcopts, int natts)
+```
 ## Detailed Description
 This is a static utility function that creates a complete copy of an array of index attribute options. Each element in the source array is a  pointer that contains attribute-specific options for index columns.
 

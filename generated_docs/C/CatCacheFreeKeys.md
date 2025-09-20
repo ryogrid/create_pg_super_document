@@ -8,7 +8,10 @@ Helper function that frees dynamically allocated memory for cache keys stored in
 
 ## Definition
 
-
+```c
+static void
+CatCacheFreeKeys(TupleDesc tupdesc, int nkeys, int *attnos, Datum *keys)
+```
 ## Detailed Description
 CatCacheFreeKeys is a utility function that properly deallocates memory for cache key values that are stored by reference (not by value). It iterates through each key in the provided array and checks the corresponding attribute's storage characteristics using the tuple descriptor. For attributes that are stored by reference (attbyval = false), it calls pfree() to deallocate the memory pointed to by the Datum.
 

@@ -8,7 +8,11 @@ ExplainCloseGroup closes a group of related objects in EXPLAIN output, providing
 
 ## Definition
 
-
+```c
+void
+ExplainCloseGroup(const char *objtype, const char *labelname,
+				  bool labeled, ExplainState *es)
+```
 ## Detailed Description
 ExplainCloseGroup is responsible for properly terminating a group of related objects that were previously opened by ExplainOpenGroup. The function handles format-specific closing syntax:
 

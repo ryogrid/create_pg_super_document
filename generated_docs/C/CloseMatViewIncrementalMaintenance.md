@@ -8,7 +8,10 @@ Decrements the materialized view incremental maintenance depth counter to mark t
 
 ## Definition
 
-
+```c
+static void
+CloseMatViewIncrementalMaintenance(void)
+```
 ## Detailed Description
  is a static function that manages the nesting level of materialized view incremental maintenance operations. It decrements the global counter  and includes an assertion to ensure the counter never goes below zero.
 

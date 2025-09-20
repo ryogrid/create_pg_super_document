@@ -8,7 +8,11 @@ Completes an incomplete GiST page split by recursively inserting and updating do
 
 ## Definition
 
-
+```c
+static void
+gistfinishsplit(GISTInsertState *state, GISTInsertStack *stack,
+				GISTSTATE *giststate, List *splitinfo, bool unlockbuf)
+```
 ## Detailed Description
 gistfinishsplit handles the critical post-split phase of GiST page splitting by managing the recursive propagation of downlink updates up the tree. When a page is split into multiple child pages, their parent must be updated to contain appropriate downlinks for each new page.
 

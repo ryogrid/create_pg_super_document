@@ -8,7 +8,10 @@ Validates that the user-specified encoding is compatible with the encoding requi
 
 ## Definition
 
-
+```c
+static bool
+check_locale_encoding(const char *locale, int user_enc)
+```
 ## Detailed Description
 This function ensures compatibility between a user-specified character encoding and the encoding naturally used by a system locale. It prevents encoding mismatches that would lead to incorrect character string processing and data corruption in PostgreSQL. The function implements the same validation logic as the backend createdb() function to maintain consistency across PostgreSQL components.
 

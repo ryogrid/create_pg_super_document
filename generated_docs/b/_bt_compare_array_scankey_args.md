@@ -8,7 +8,12 @@ Compares an array scan key against a scalar scan key to eliminate contradictory 
 
 ## Definition
 
-
+```c
+static bool
+_bt_compare_array_scankey_args(IndexScanDesc scan, ScanKey arraysk, ScanKey skey,
+							   FmgrInfo *orderproc, BTArrayKeyInfo *array,
+							   bool *qual_ok)
+```
 ## Detailed Description
 This function implements scan key optimization by comparing array scan keys with scalar scan keys on the same index attribute. It eliminates array elements that are contradicted by scalar constraints, potentially making the scalar scan key redundant. For example, with a query "WHERE a IN (1, 2, 3) AND a < 2", it eliminates array elements 2 and 3, keeping only 1, and marks the "< 2" condition as redundant.
 

@@ -8,7 +8,10 @@ This function implements the "less than or equal to" comparison operator (<=) fo
 
 ## Definition
 
-
+```c
+Datum
+bpcharle(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function compares two BpChar values and returns true if the first argument is less than or equal to the second argument. It performs a collation-aware string comparison after determining the true length of both strings (excluding trailing spaces). The function uses PostgreSQL's standard variable-length string comparison logic while respecting the current collation settings.
 

@@ -8,7 +8,9 @@ Generates C code for retrieving individual item values from an SQL descriptor at
 
 ## Definition
 
-
+```c
+struct assignment *results;
+```
 ## Detailed Description
 This function is part of the ECPG preprocessor that generates runtime C code for SQL descriptor item operations. It processes assignments to retrieve specific descriptor item values and outputs the corresponding ECPGget_desc function call. The function handles various descriptor item types and generates appropriate type information for each variable assignment.
 

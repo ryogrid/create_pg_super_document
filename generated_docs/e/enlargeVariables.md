@@ -8,7 +8,10 @@ Ensures sufficient capacity in the Variables array to accommodate additional var
 
 ## Definition
 
-
+```c
+static void
+enlargeVariables(Variables *variables, int needed)
+```
 ## Detailed Description
 The  function manages the dynamic growth of the Variables array structure. When the current capacity is insufficient to hold the requested number of additional variables, it reallocates the array with extra margin space to minimize future reallocations. The function calculates the total required capacity by adding the requested count to the current variable count, and if this exceeds the current maximum capacity, it reallocates the array with additional margin space defined by VARIABLES_ALLOC_MARGIN. This approach balances memory efficiency with performance by reducing the frequency of expensive reallocation operations.
 

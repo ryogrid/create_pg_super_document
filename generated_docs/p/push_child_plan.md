@@ -8,7 +8,11 @@ A static function that temporarily transfers deparsing attention to a child plan
 
 ## Definition
 
-
+```c
+static void
+push_child_plan(deparse_namespace *dpns, Plan *plan,
+				deparse_namespace *save_dpns)
+```
 ## Detailed Description
 The  function is used during the deparsing process to temporarily shift focus to a child plan node. This is essential when expanding OUTER_VAR or INNER_VAR references in PostgreSQL's query deparsing functionality. When these variable references are encountered, the deparse context must be adjusted to properly handle cases where the referenced expression itself contains OUTER_VAR/INNER_VAR references.
 

@@ -8,7 +8,10 @@ The primary function responsible for flushing pending statistics updates from ba
 
 ## Definition
 
-
+```c
+long
+pgstat_report_stat(bool force)
+```
 ## Detailed Description
 This function serves as the central coordinator for statistics reporting in PostgreSQL. It manages the periodic flushing of various types of statistics (database, relation, function, I/O, WAL, and SLRU stats) from backend processes to shared memory where they can be accessed by other processes.
 

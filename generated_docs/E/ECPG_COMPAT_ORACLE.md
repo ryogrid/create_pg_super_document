@@ -8,7 +8,9 @@ ECPG_COMPAT_ORACLE is an enumeration constant that represents Oracle compatibili
 
 ## Definition
 
-
+```c
+enum COMPAT_MODE compat;
+```
 ## Detailed Description
 ECPG_COMPAT_ORACLE is a member of the COMPAT_MODE enumeration that enables Oracle compatibility mode in the ECPG preprocessor. When this mode is active, the ECPG preprocessor modifies its behavior to be more compatible with Oracle's embedded SQL syntax and semantics. This allows developers to port Oracle-based embedded SQL applications to PostgreSQL with minimal code changes.
 

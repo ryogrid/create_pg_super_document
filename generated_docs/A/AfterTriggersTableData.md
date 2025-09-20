@@ -8,7 +8,36 @@ AfterTriggersTableData is a structure that maintains per-table state for managin
 
 ## Definition
 
+```c
+struct AfterTriggersTableData
+{
+	/* relid + cmdType form the lookup key for these structs: */
+	Oid			relid;			/* target table's OID */
+	CmdType		cmdType;		/* event type, CMD_INSERT/UPDATE/DELETE */
+	bool		closed;			/* true when no longer OK to add tuples */
+	bool		before_trig_done;	/* did we already queue BS triggers? */
+	bool		after_trig_done;	/* did we already queue AS triggers? */
+	AfterTriggerEventList after_trig_events;	/* if so, saved list pointer */
 
+	/*
+	 * We maintain separate transition tables for UPDATE/INSERT/DELETE since
+	 * MERGE can run all three actions in a single statement. Note that UPDATE
+	 * needs both old and new transition tables whereas INSERT needs only new,
+	 * and DELETE needs only old.
+	 */
+
+	/* "old" transition table for UPDATE, if any */
+	Tuplestorestate *old_upd_tuplestore;
+	/* "new" transition table for UPDATE, if any */
+	Tuplestorestate *new_upd_tuplestore;
+	/* "old" transition table for DELETE, if any */
+	Tuplestorestate *old_del_tuplestore;
+	/* "new" transition table for INSERT, if any */
+	Tuplestorestate *new_ins_tuplestore;
+
+	TupleTableSlot *storeslot;	/* for converting to tuplestore's format */
+};
+```
 ## Detailed Description
 AfterTriggersTableData serves as the central data structure for managing after-trigger execution and transition table maintenance on a per-table, per-operation basis. Each instance represents a unique combination of table (relid) and command type (INSERT/UPDATE/DELETE), providing isolated storage for trigger events and transition tables.
 

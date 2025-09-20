@@ -8,7 +8,10 @@ Displays hash join statistics for EXPLAIN ANALYZE output, including bucket count
 
 ## Definition
 
-
+```c
+static void
+show_hash_info(HashState *hashstate, ExplainState *es)
+```
 ## Detailed Description
 This function is responsible for collecting and displaying comprehensive hash join execution statistics during EXPLAIN ANALYZE operations. It handles the complexity of parallel hash joins by aggregating instrumentation data from all participating processes (leader and workers).
 

@@ -8,7 +8,10 @@ Converts a collation name string (or numeric OID) to its corresponding collation
 
 ## Definition
 
-
+```c
+Datum
+regcollationin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the text input function for the  data type. It converts various string representations of collations into their internal OID representation. The function handles multiple input formats to provide flexibility in referencing collations.
 

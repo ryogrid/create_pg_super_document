@@ -8,7 +8,37 @@ XLogPrefetcher is a mechanism that wraps an XLogReader to prefetch blocks that w
 
 ## Definition
 
+```c
+struct XLogPrefetcher
+{
+	/* WAL reader and current reading state. */
+	XLogReaderState *reader;
+	DecodedXLogRecord *record;
+	int			next_block_id;
 
+	/* When to publish stats. */
+	XLogRecPtr	next_stats_shm_lsn;
+
+	/* Book-keeping to avoid accessing blocks that don't exist yet. */
+	HTAB	   *filter_table;
+	dlist_head	filter_queue;
+
+	/* Book-keeping to avoid repeat prefetches. */
+	RelFileLocator recent_rlocator[XLOGPREFETCHER_SEQ_WINDOW_SIZE];
+	BlockNumber recent_block[XLOGPREFETCHER_SEQ_WINDOW_SIZE];
+	int			recent_idx;
+
+	/* Book-keeping to disable prefetching temporarily. */
+	XLogRecPtr	no_readahead_until;
+
+	/* IO depth manager. */
+	LsnReadQueue *streaming_read;
+
+	XLogRecPtr	begin_ptr;
+
+	int			reconfigure_count;
+};
+```
 ## Detailed Description
 The XLogPrefetcher serves as an intelligent WAL prefetching system that wraps around an XLogReaderState to predict and pre-load database blocks that will be needed during WAL replay. It maintains sophisticated book-keeping mechanisms to avoid duplicate prefetches, manage IO depth, filter out blocks that don't exist yet, and temporarily disable prefetching when appropriate. The prefetcher uses a combination of hash tables, circular buffers, and queues to efficiently manage prefetch operations and track performance statistics.
 

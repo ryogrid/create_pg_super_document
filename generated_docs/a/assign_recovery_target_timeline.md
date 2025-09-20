@@ -8,7 +8,10 @@ A GUC assign hook function that sets the recovery target timeline goal and speci
 
 ## Definition
 
-
+```c
+void
+assign_recovery_target_timeline(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as a GUC assign hook for the  parameter. It receives the validated timeline goal type from the check hook via the  parameter and sets the global  variable accordingly. For numeric timeline specifications, it also parses and stores the specific timeline ID in . For non-numeric goals ("current" or "latest"), the requested timeline ID is set to 0, indicating that the actual timeline will be determined dynamically during recovery.
 

@@ -8,7 +8,10 @@ Validates and sanitizes multibyte character strings by removing invalid byte seq
 
 ## Definition
 
-
+```c
+unsigned char *
+mbvalidate(unsigned char *pwcs, int encoding)
+```
 ## Detailed Description
 mbvalidate provides encoding validation for multibyte character strings, removing any characters that are not valid according to the specified encoding rules. Currently, the function specifically handles UTF-8 encoding validation through the mb_utf_validate function. For other encodings, the function serves as a framework where additional validation routines can be added as needed.
 

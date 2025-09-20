@@ -8,7 +8,10 @@ Flattens out parenthesized sublists in grouping lists and handles nested groupin
 
 ## Definition
 
-
+```c
+static Node *
+flatten_grouping_sets(Node *expr, bool toplevel, bool *hasGroupingSets)
+```
 ## Detailed Description
 This function performs syntax transformations on grouping set expressions to normalize their structure while maintaining compliance with SQL specifications. It handles several key transformations:
 

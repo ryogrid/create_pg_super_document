@@ -8,7 +8,10 @@ Converts a timestamp with time zone (timestamptz) value to a time-only value, ex
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that extracts the time component from a timestamptz (timestamp with timezone) value. It converts the input timestamp to the local time representation and then calculates the time of day in microseconds since midnight. The function handles timezone conversions by using the  function to decompose the timestamp into its constituent parts, then reconstructs just the time portion as a TimeADT value.
 

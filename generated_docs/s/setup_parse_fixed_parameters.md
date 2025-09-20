@@ -8,7 +8,11 @@ Configures a ParseState structure to handle references to fixed parameters durin
 
 ## Definition
 
-
+```c
+void
+setup_parse_fixed_parameters(ParseState *pstate,
+							 const Oid *paramTypes, int numParams)
+```
 ## Detailed Description
 This function initializes the parameter reference handling mechanism for queries that contain fixed parameters (parameters with known types and count). It allocates and configures a FixedParamState structure that stores the parameter type information, then installs the fixed_paramref_hook as the parameter reference callback in the ParseState. This setup allows the parser to properly validate and handle parameter references (, , etc.) during query analysis when the parameter types are known in advance.
 

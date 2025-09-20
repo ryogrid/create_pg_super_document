@@ -8,7 +8,12 @@ Completes all queued file fetch operations by processing any remaining requests 
 
 ## Definition
 
-
+```c
+struct
+	 * the string representations of them.
+	 */
+	resetStringInfo(&src->paths);
+```
 ## Detailed Description
 This function serves as a cleanup and completion mechanism for the libpq-based file fetching system in pg_rewind. It ensures that any remaining fetch requests that have been queued but not yet processed are executed before the rewind operation concludes.
 

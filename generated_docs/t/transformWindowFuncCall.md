@@ -8,7 +8,12 @@ Completes the initial transformation of a window function call after parse_func.
 
 ## Definition
 
-
+```c
+struct, eg GROUP BY */
+				 errmsg("window functions are not allowed in %s",
+						ParseExprKindName(pstate->p_expr_kind)),
+				 parser_errposition(pstate, wfunc->location)));
+```
 ## Detailed Description
 This function performs the final stage of window function transformation by:
 

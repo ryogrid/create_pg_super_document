@@ -8,7 +8,10 @@ Generates and executes all possible permutations of test steps across all sessio
 
 ## Definition
 
-
+```c
+static void
+run_all_permutations(TestSpec *testspec)
+```
 ## Detailed Description
 The  function implements an exhaustive permutation generation algorithm for PostgreSQL's isolation testing framework. This function is responsible for:
 

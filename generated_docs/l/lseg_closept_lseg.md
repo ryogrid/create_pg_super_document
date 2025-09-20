@@ -8,7 +8,10 @@ Calculates the closest point between two line segments and returns the minimum d
 
 ## Definition
 
-
+```c
+static float8
+lseg_closept_lseg(Point *result, LSEG *on_lseg, LSEG *to_lseg)
+```
 ## Detailed Description
 This static function determines the closest point between two line segments using a comprehensive algorithm. It first checks if the line segments intersect (in which case the distance is 0). If they don't intersect, it systematically compares distances from all endpoints of one segment to the other segment to find the minimum distance. The algorithm ensures that all possible closest point configurations are considered: endpoints of either segment to the other segment.
 

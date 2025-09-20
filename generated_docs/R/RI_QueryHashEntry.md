@@ -8,7 +8,13 @@ RI_QueryHashEntry is a hash table entry structure that stores prepared SPI query
 
 ## Definition
 
-
+```c
+typedef struct RI_QueryHashEntry
+{
+	RI_QueryKey key;
+	SPIPlanPtr	plan;
+} RI_QueryHashEntry;
+```
 ## Detailed Description
 RI_QueryHashEntry represents an entry in the referential integrity query plan cache hash table. Each entry associates a specific query key (identifying a constraint and operation type) with its corresponding prepared SPI plan. This structure enables PostgreSQL to cache and reuse SQL execution plans for foreign key constraint operations, significantly improving performance by avoiding the overhead of repeatedly parsing and planning the same types of queries.
 

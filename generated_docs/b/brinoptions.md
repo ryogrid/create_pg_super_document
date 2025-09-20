@@ -8,7 +8,10 @@ Processes and validates relation options (reloptions) specific to BRIN indexes, 
 
 ## Definition
 
-
+```c
+bytea *
+brinoptions(Datum reloptions, bool validate)
+```
 ## Detailed Description
  is the reloptions processor function for BRIN indexes, responsible for parsing and validating index-specific options that can be specified during index creation or alteration. The function handles two key BRIN-specific options:
 

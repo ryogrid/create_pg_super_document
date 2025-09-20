@@ -8,7 +8,13 @@ Shortens a given pathkey list to only include the useful pathkeys by evaluating 
 
 ## Definition
 
-
+```c
+structively, but we can avoid
+	 * copying the list if we're not actually going to change it
+	 */
+	if (nuseful == 0)
+		return NIL;
+```
 ## Detailed Description
 This function optimizes pathkey lists by truncating them to retain only the pathkeys that provide value for query execution. It evaluates the usefulness of pathkeys across four different optimization contexts:
 

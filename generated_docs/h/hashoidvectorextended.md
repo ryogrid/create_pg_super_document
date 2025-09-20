@@ -8,7 +8,10 @@ Computes a 64-bit extended hash value for an oidvector data structure using a pr
 
 ## Definition
 
-
+```c
+Datum
+hashoidvectorextended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the extended version of hashoidvector that accepts an additional seed parameter for hash computation. It generates a seeded hash value for an oidvector by hashing its entire array of OID values using the generic hash_any_extended function. This allows for hash table implementations that require seeded hashing for better distribution or security.
 

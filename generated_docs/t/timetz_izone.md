@@ -8,7 +8,10 @@ Converts a time with time zone to a different time zone specified by an interval
 
 ## Definition
 
-
+```c
+Datum
+timetz_izone(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `timetz_izone` is a PostgreSQL built-in function that converts a time with time zone (TIMETZ) value using an interval as the timezone specification. Unlike `timetz_zone` which accepts text-based timezone names, this function takes a PostgreSQL interval value representing the timezone offset. The interval must contain only a time component (hours, minutes, seconds) and cannot include months or days. The function performs the same timezone conversion logic as `timetz_zone` but provides a more programmatic interface for precise timezone offset calculations.
 

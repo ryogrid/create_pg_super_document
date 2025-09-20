@@ -8,7 +8,9 @@ Converts an integer number to its Roman numeral representation as a string.
 
 ## Definition
 
-
+```c
+struct lconv *lconv;
+```
 ## Detailed Description
 This function converts a positive integer (1-3999) into its Roman numeral equivalent. The function uses predefined arrays , , and  containing Roman numeral patterns for units, tens, and hundreds respectively. Numbers above 3999 or below 1 are considered invalid and result in a string of '#' characters.
 

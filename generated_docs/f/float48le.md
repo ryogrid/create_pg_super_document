@@ -8,7 +8,10 @@ PostgreSQL function that performs less-than-or-equal comparison between a float4
 
 ## Definition
 
-
+```c
+Datum
+float48le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the less-than-or-equal comparison operator for mixed-precision floating point types in PostgreSQL. It takes a float4 (4-byte single precision float) as the first argument and a float8 (8-byte double precision float) as the second argument, then determines if the first value is less than or equal to the second value.
 

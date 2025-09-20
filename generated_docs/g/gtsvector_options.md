@@ -8,7 +8,10 @@ Defines configuration options for GiST indexes on tsvector data types, specifica
 
 ## Definition
 
-
+```c
+Datum
+gtsvector_options(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function initializes the reloption (relation option) system for GiST tsvector indexes, allowing users to customize index behavior through storage parameters. Currently, it supports one configurable parameter: the signature length (siglen).
 

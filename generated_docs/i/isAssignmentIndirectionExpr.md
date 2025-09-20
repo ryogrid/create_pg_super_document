@@ -8,7 +8,10 @@ Determines if an expression is a nested assignment indirection that requires the
 
 ## Definition
 
-
+```c
+static bool
+isAssignmentIndirectionExpr(Expr *expr)
+```
 ## Detailed Description
 isAssignmentIndirectionExpr analyzes expressions to identify nested assignment situations where the replacement expression needs access to the current/old value being replaced. This occurs in complex assignment patterns where FieldStore or SubscriptingRef expressions contain CaseTestExpr nodes, indicating they need the previous value to compute the new value.
 

@@ -8,7 +8,10 @@ Converts a 32-bit integer (int4) to a 64-bit integer (int8) with sign extension.
 
 ## Definition
 
-
+```c
+Datum
+int48(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int48 function implements type conversion from PostgreSQL's 4-byte integer type (int4/integer) to 8-byte integer type (int8/bigint). This is a widening conversion that preserves the original value by extending the sign bit from 32 bits to 64 bits. The conversion is lossless, as all int4 values can be exactly represented as int8 values.
 

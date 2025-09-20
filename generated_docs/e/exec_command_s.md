@@ -8,7 +8,10 @@ Implements the psql \s backslash command that saves command history to a file or
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_s(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 The  function handles the execution of the \s backslash command in psql, which manages command history display and saving. The command can operate in two modes: if no filename is provided, it displays the command history on screen (potentially using a pager); if a filename is provided, it saves the history to that file.
 

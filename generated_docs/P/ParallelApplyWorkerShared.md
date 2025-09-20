@@ -8,7 +8,54 @@ ParallelApplyWorkerShared is a shared memory structure that facilitates communic
 
 ## Definition
 
+```c
+typedef struct ParallelApplyWorkerShared
+{
+	slock_t		mutex;
 
+	TransactionId xid;
+
+	/*
+	 * State used to ensure commit ordering.
+	 *
+	 * The parallel apply worker will set it to PARALLEL_TRANS_FINISHED after
+	 * handling the transaction finish commands while the apply leader will
+	 * wait for it to become PARALLEL_TRANS_FINISHED before proceeding in
+	 * transaction finish commands (e.g. STREAM_COMMIT/STREAM_PREPARE/
+	 * STREAM_ABORT).
+	 */
+	ParallelTransState xact_state;
+
+	/* Information from the corresponding LogicalRepWorker slot. */
+	uint16		logicalrep_worker_generation;
+	int			logicalrep_worker_slot_no;
+
+	/*
+	 * Indicates whether there are pending streaming blocks in the queue. The
+	 * parallel apply worker will check it before starting to wait.
+	 */
+	pg_atomic_uint32 pending_stream_count;
+
+	/*
+	 * XactLastCommitEnd from the parallel apply worker. This is required by
+	 * the leader worker so it can update the lsn_mappings.
+	 */
+	XLogRecPtr	last_commit_end;
+
+	/*
+	 * After entering PARTIAL_SERIALIZE mode, the leader apply worker will
+	 * serialize changes to the file, and share the fileset with the parallel
+	 * apply worker when processing the transaction finish command. Then the
+	 * parallel apply worker will apply all the spooled messages.
+	 *
+	 * FileSet is used here instead of SharedFileSet because we need it to
+	 * survive after releasing the shared memory so that the leader apply
+	 * worker can re-use the same fileset for the next streaming transaction.
+	 */
+	PartialFileSetState fileset_state;
+	FileSet		fileset;
+} ParallelApplyWorkerShared;
+```
 ## Detailed Description
 ParallelApplyWorkerShared serves as the primary communication mechanism between leader and parallel apply workers in PostgreSQL's parallel logical replication system. It maintains transaction state information, coordinates commit ordering through the xact_state field, and manages file-based serialization of transaction data when memory limits are exceeded. The structure ensures proper synchronization and ordering of parallel transaction processing while allowing for efficient data sharing between worker processes.
 

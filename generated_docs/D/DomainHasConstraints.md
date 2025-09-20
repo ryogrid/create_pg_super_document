@@ -8,7 +8,10 @@ A utility routine that checks whether a given domain type has any associated con
 
 ## Definition
 
-
+```c
+bool
+DomainHasConstraints(Oid type_id)
+```
 ## Detailed Description
 This function provides a simple boolean check to determine if a domain type has any constraints defined. It serves as a safe utility that can be called on any type identifier without risking errors for non-domain types. The function works by looking up the type cache entry with domain constraint information and checking if domain data exists.
 

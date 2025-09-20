@@ -8,7 +8,10 @@ Computes the normalized distance between two inet values for BRIN minmax multi-c
 
 ## Definition
 
-
+```c
+Datum
+brin_minmax_multi_distance_inet(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function calculates the distance between two inet (IP address) values by converting the difference between their binary representations to a normalized floating-point value in the range [0,1]. The function is specifically designed for BRIN (Block Range Index) minmax multi-column operations where understanding data correlation is crucial for index effectiveness.
 

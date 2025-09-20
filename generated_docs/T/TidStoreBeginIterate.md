@@ -8,7 +8,10 @@ Prepares to iterate through a TidStore by creating and initializing a TidStoreIt
 
 ## Definition
 
-
+```c
+TidStoreIter *
+TidStoreBeginIterate(TidStore *ts)
+```
 ## Detailed Description
 This function initializes the iteration process for a TidStore, creating a TidStoreIter structure that maintains the state needed to traverse all tuple identifiers stored in the TidStore. The function allocates memory for the iterator structure and its associated output buffer, and sets up the appropriate iterator based on whether the TidStore is shared (multi-process) or local (single-process).
 

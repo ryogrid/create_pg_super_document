@@ -8,7 +8,10 @@ The getOwnedSeqs function identifies sequences that are owned by table columns a
 
 ## Definition
 
-
+```c
+void
+getOwnedSeqs(Archive *fout, TableInfo tblinfo[], int numTables)
+```
 ## Detailed Description
 This function processes the relationship between sequences and their owning tables, implementing different dump component inheritance strategies based on sequence type. It was moved out of getTables() to execute after the table lookup index is established, allowing efficient use of findTableByOid() for locating owning tables.
 

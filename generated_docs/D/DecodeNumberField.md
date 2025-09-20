@@ -8,7 +8,11 @@ DecodeNumberField interprets a numeric string as a concatenated date or time fie
 
 ## Definition
 
-
+```c
+static int
+DecodeNumberField(int len, char *str, int fmask,
+				  int *tmask, struct tm *tm, fsec_t *fsec, bool *is2digits)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's datetime parsing system that handles numeric fields in datetime strings. It can interpret numeric strings as either concatenated date fields (YYYYMMDD format) or time fields (HHMMSS or HHMM format), depending on the length of the input and what fields have already been parsed.
 

@@ -8,7 +8,10 @@ Retrieves information about foreign key constraints on dumpable tables and creat
 
 ## Definition
 
-
+```c
+void
+getConstraints(Archive *fout, TableInfo tblinfo[], int numTables)
+```
 ## Detailed Description
 The getConstraints function focuses specifically on foreign key constraints, as other constraint types are handled elsewhere in the pg_dump process (unique/primary key constraints are managed with indexes, and check constraints are processed in getTableAttrs). The function constructs an optimized SQL query against pg_constraint using an OID array to limit results to tables of interest and having appropriate locks. It handles version-specific features like conindid column availability (PostgreSQL 11+) and conparentid filtering for inherited constraints. For each foreign key constraint found, it creates a ConstraintInfo structure with complete metadata and establishes proper dependencies. Special handling is implemented for foreign keys referencing partitioned tables, where the constraint must depend on partition index attach objects to ensure correct restoration order during database recovery.
 

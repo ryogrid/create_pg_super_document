@@ -8,7 +8,10 @@ Executes specific named permutations that are explicitly defined in the test spe
 
 ## Definition
 
-
+```c
+static void
+run_named_permutations(TestSpec *testspec)
+```
 ## Detailed Description
 This function runs predefined permutations that are explicitly specified in the test configuration. Unlike  which generates all possible step orderings automatically, this function executes only the specific permutations that have been manually defined in the test specification. This allows test writers to focus on particular scenarios or problematic interleavings without running the full combinatorial explosion of all possibilities.
 

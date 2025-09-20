@@ -8,7 +8,10 @@ Backend function that formats PostgreSQL type names while explicitly including t
 
 ## Definition
 
-
+```c
+char *
+format_type_with_typemod(Oid type_oid, int32 typemod)
+```
 ## Detailed Description
  is a specialized formatting function that ensures type modifier information is included in the formatted type name output. Unlike other formatting functions that may ignore or suppress typemod information, this function explicitly requests that the typemod be processed and displayed using the  flag.
 

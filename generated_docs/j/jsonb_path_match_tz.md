@@ -8,7 +8,10 @@ SQL function wrapper that evaluates a JSONPath predicate expression against a JS
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_match_tz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `jsonb_path_match_tz` is a PostgreSQL SQL function wrapper that provides timezone-aware evaluation of JSONPath predicate expressions against JSONB data. This function is similar to `jsonb_path_match` but enables timezone handling for datetime operations within the JSONPath expression. It delegates the actual work to `jsonb_path_match_internal` with timezone handling enabled (true parameter).
 

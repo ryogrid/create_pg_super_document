@@ -8,7 +8,10 @@ A PostgreSQL built-in function that converts a formatted text string to a numeri
 
 ## Definition
 
-
+```c
+Datum
+numeric_to_number(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's TO_NUMBER functionality for converting formatted text strings into numeric values. It takes a text string containing a formatted number and a format pattern, then parses the string according to the pattern to extract the underlying numeric value.
 

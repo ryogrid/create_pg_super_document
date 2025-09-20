@@ -8,7 +8,10 @@ Calculates the byte offset within a page where the flag word for a specific memb
 
 ## Definition
 
-
+```c
+static inline int
+MXOffsetToFlagsOffset(MultiXactOffset offset)
+```
 ## Detailed Description
 This function computes the location of the flag word for a member group within a MultiXact member page. MultiXact members are organized into groups on pages, and each group has an associated flag word that contains status information. The function takes a MultiXact offset (which identifies a specific member) and returns the byte offset within the page where the corresponding group's flag word is stored.
 

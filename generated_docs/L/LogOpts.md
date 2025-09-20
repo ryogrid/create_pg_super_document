@@ -8,7 +8,17 @@ LogOpts is a configuration structure that manages logging and output options for
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	bool		check;			/* check clusters only, don't change any data */
+	bool		do_sync;		/* flush changes to disk */
+	transferMode transfer_mode; /* copy files or link them? */
+	int			jobs;			/* number of processes/threads to use */
+	char	   *socketdir;		/* directory to use for Unix sockets */
+	char	   *sync_method;
+} UserOpts;
+```
 ## Detailed Description
 LogOpts centralizes all logging and output configuration for the pg_upgrade process. It manages both the behavioral aspects of logging (verbosity levels, log retention) and the organizational structure of output files through a hierarchy of directories. The structure enables pg_upgrade to provide comprehensive logging while maintaining organized output for debugging and audit purposes.
 

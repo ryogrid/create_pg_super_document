@@ -8,7 +8,16 @@ A generic single byte charset encoding conversion function between two ASCII-sup
 
 ## Definition
 
-
+```c
+int
+local2local(const unsigned char *l,
+			unsigned char *p,
+			int len,
+			int src_encoding,
+			int dest_encoding,
+			const unsigned char *tab,
+			bool noError)
+```
 ## Detailed Description
 The  function performs character set conversion between two single-byte ASCII-superset encodings using a translation table. It processes each byte in the source string, copying ASCII characters (0x00-0x7F) directly and converting high-bit characters (0x80-0xFF) using the provided lookup table. The function handles conversion errors by either reporting them or gracefully stopping conversion based on the  parameter. This is a fundamental building block for PostgreSQL's character encoding conversion system.
 

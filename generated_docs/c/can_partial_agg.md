@@ -8,7 +8,10 @@ Determines whether partial grouping and/or aggregation operations can be safely 
 
 ## Definition
 
-
+```c
+static bool
+can_partial_agg(PlannerInfo *root)
+```
 ## Detailed Description
 This function serves as a gatekeeper for parallel aggregation by performing essential feasibility checks. It validates several critical conditions that must be met for safe parallel execution:
 

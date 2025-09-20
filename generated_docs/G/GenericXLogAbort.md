@@ -8,7 +8,10 @@ Aborts a generic transaction log operation by discarding all pending changes wit
 
 ## Definition
 
-
+```c
+void
+GenericXLogAbort(GenericXLogState *state)
+```
 ## Detailed Description
 GenericXLogAbort provides a clean way to cancel a generic WAL operation that was started but should not be completed. It simply frees the memory associated with the GenericXLogState without applying any of the pending changes to the actual database buffers. This function is typically called when an error occurs during a transaction or when the operation needs to be rolled back before completion.
 

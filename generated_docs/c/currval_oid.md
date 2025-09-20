@@ -8,7 +8,10 @@ Returns the current value of a sequence identified by its OID, ensuring proper p
 
 ## Definition
 
-
+```c
+Datum
+currval_oid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The currval_oid function retrieves the current value of a sequence specified by its object identifier (OID). This function is the backend implementation for the SQL currval() function when called with a sequence OID. It performs security checks to ensure the user has appropriate permissions (SELECT or USAGE) on the sequence and validates that the sequence has been accessed in the current session via nextval() or setval().
 

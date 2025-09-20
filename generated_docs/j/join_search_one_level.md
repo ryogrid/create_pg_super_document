@@ -8,7 +8,10 @@ A core function in PostgreSQL's dynamic programming join search algorithm that c
 
 ## Definition
 
-
+```c
+void
+join_search_one_level(PlannerInfo *root, int level)
+```
 ## Detailed Description
 The  function is a fundamental component of PostgreSQL's standard join search algorithm. It implements one step of the dynamic programming method used to find optimal join orders. The function systematically generates all feasible join combinations at a specific level by:
 

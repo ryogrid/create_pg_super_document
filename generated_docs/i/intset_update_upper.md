@@ -8,7 +8,11 @@ A recursive static function that manages the insertion of downlinks into parent 
 
 ## Definition
 
-
+```c
+static void
+intset_update_upper(IntegerSet *intset, int level, intset_node *child,
+					uint64 child_key)
+```
 ## Detailed Description
 The  function is a critical component of the IntegerSet B-tree maintenance system. It handles the upward propagation of changes when new nodes are created at lower levels of the tree. This function ensures the B-tree remains balanced and maintains its structural integrity.
 

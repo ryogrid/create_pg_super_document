@@ -8,7 +8,10 @@ A static comparison function that determines if two ExtensibleNode instances are
 
 ## Definition
 
-
+```c
+static bool
+_equalExtensibleNode(const ExtensibleNode *a, const ExtensibleNode *b)
+```
 ## Detailed Description
 The  function provides equality comparison for PostgreSQL's extensible node framework. Extensible nodes allow extensions to define custom node types that integrate seamlessly with PostgreSQL's node infrastructure. 
 

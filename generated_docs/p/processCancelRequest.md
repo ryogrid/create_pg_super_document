@@ -8,7 +8,10 @@ Processes client cancel requests by locating the target backend process and send
 
 ## Definition
 
-
+```c
+void
+processCancelRequest(int backendPID, int32 cancelAuthCode)
+```
 ## Detailed Description
 processCancelRequest handles PostgreSQL's query cancellation mechanism, which allows clients to request the termination of long-running queries. The function implements a secure two-factor authentication system using both process ID and a secret cancellation key:
 

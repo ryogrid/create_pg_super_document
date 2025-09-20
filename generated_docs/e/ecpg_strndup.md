@@ -8,7 +8,10 @@ A static utility function that creates a null-terminated duplicate of a string w
 
 ## Definition
 
-
+```c
+static char *
+ecpg_strndup(const char *str, size_t len)
+```
 ## Detailed Description
 The  function is a PostgreSQL ECPG (Embedded SQL in C) compatibility library utility that duplicates a string while enforcing a maximum length constraint. It calculates the minimum between the actual string length and the specified maximum length, then allocates memory for a new string copy. The function ensures proper null-termination and handles memory allocation failures by setting errno to ENOMEM.
 

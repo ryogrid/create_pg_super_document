@@ -8,7 +8,10 @@ Returns the pg_namespace OID associated with a given relation, providing namespa
 
 ## Definition
 
-
+```c
+Oid
+get_rel_namespace(Oid relid)
+```
 ## Detailed Description
 This function retrieves the namespace (schema) OID for a specified relation from the system catalog. It performs a system cache lookup on the pg_class catalog using the relation OID, extracts the relnamespace field from the relation tuple, and returns the namespace OID. If the relation is not found, it returns InvalidOid.
 

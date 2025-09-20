@@ -8,7 +8,10 @@ Writes out a user-defined index to the dump archive, handling both standalone in
 
 ## Definition
 
-
+```c
+static void
+dumpIndex(Archive *fout, const IndxInfo *indxinfo)
+```
 ## Detailed Description
 The  function is responsible for dumping user-defined indexes in pg_dump. It generates the necessary SQL statements to recreate the index, including:
 

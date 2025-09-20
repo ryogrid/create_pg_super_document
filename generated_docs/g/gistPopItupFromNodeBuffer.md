@@ -8,7 +8,11 @@ Removes one index tuple from a GiST node buffer during index construction, manag
 
 ## Definition
 
-
+```c
+bool
+gistPopItupFromNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer,
+						  IndexTuple *itup)
+```
 ## Detailed Description
 This function is a core component of GiST index construction that removes index tuples from node buffers. It handles the complex logic of managing buffered pages during the build process, including loading pages from temporary files when needed, extracting tuples, and cleaning up empty pages. The function maintains the integrity of the buffer chain by properly handling page transitions and memory management.
 

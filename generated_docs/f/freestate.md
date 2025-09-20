@@ -8,7 +8,11 @@ Deallocates a state that has no incoming or outgoing arcs by removing it from th
 
 ## Definition
 
-
+```c
+static void
+freestate(struct nfa *nfa,
+		  struct state *s)
+```
 ## Detailed Description
 The  function performs controlled deallocation of an NFA state that must have no connected arcs. It first verifies the state has no incoming or outgoing arcs through assertions. The function then removes the state from the NFA's doubly-linked state list by updating the prev/next pointers of neighboring states, and adjusts the NFA's states and slast pointers if necessary. Rather than immediately freeing the memory, it adds the state to the NFA's freestates list for efficient reuse by future  calls.
 

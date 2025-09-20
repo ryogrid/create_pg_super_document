@@ -8,7 +8,10 @@ Processes a NegotiateProtocolVersion message from the PostgreSQL server during c
 
 ## Definition
 
-
+```c
+int
+pqGetNegotiateProtocolVersion3(PGconn *conn)
+```
 ## Detailed Description
 This function handles the NegotiateProtocolVersion message ('v') that the server sends when there's a protocol version mismatch or when the client requests protocol extensions that the server doesn't support. The message contains the server's supported protocol version and a list of unrecognized protocol extensions.
 

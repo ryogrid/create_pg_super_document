@@ -8,7 +8,25 @@ SetOpState is the execution state structure for SetOp nodes in PostgreSQL's exec
 
 ## Definition
 
-
+```c
+typedef struct SetOpState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	ExprState  *eqfunction;		/* equality comparator */
+	Oid		   *eqfuncoids;		/* per-grouping-field equality fns */
+	FmgrInfo   *hashfunctions;	/* per-grouping-field hash fns */
+	bool		setop_done;		/* indicates completion of output scan */
+	long		numOutput;		/* number of dups left to output */
+	/* these fields are used in SETOP_SORTED mode: */
+	SetOpStatePerGroup pergroup;	/* per-group working state */
+	HeapTuple	grp_firstTuple; /* copy of first tuple of current group */
+	/* these fields are used in SETOP_HASHED mode: */
+	TupleHashTable hashtable;	/* hash table with one entry per group */
+	MemoryContext tableContext; /* memory context containing hash table */
+	bool		table_filled;	/* hash table filled yet? */
+	TupleHashIterator hashiter; /* for iterating through hash table */
+} SetOpState;
+```
 ## Detailed Description
 SetOpState maintains the execution state for SetOp nodes, which implement SQL set operations (UNION, INTERSECT, EXCEPT). The structure supports two execution strategies: sorted mode for pre-sorted input and hashed mode for unsorted input. It handles duplicate detection and counting, which is essential for implementing set operation semantics correctly. The state tracks progress through the operation and maintains the necessary data structures for both execution modes.
 

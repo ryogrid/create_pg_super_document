@@ -8,7 +8,10 @@ PostgreSQL function that tests equality between two double-precision floating-po
 
 ## Definition
 
-
+```c
+Datum
+float8eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL-callable equality comparison operator for double-precision floating-point numbers in PostgreSQL. It extracts two float8 arguments from the function call context and delegates the actual equality testing to the internal  function. The function returns a PostgreSQL boolean Datum indicating whether the two values are equal. This function serves as the implementation for the  operator when applied to float8 values in SQL queries, handling special floating-point cases such as NaN comparisons according to IEEE 754 standards through the underlying  function.
 

@@ -8,7 +8,10 @@ Performs the core checkpoint work by systematically flushing all dirty data from
 
 ## Definition
 
-
+```c
+static void
+CheckPointGuts(XLogRecPtr checkPointRedo, int flags)
+```
 ## Detailed Description
 CheckPointGuts contains the essential data flushing logic shared between regular checkpoints and recovery restartpoints. The function orchestrates a comprehensive flush of all dirty data structures in PostgreSQL, ensuring data durability across multiple subsystems.
 

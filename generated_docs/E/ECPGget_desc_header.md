@@ -8,7 +8,9 @@ Retrieves the header information (field count) from an SQL descriptor in ECPG, p
 
 ## Definition
 
-
+```c
+struct sqlca_t *sqlca = ECPGget_sqlca();
+```
 ## Detailed Description
 This function is part of the ECPG (Embedded SQL in C for PostgreSQL) library's dynamic descriptor interface. It retrieves header information from a named SQL descriptor, specifically returning the number of fields/columns available in the descriptor's associated result set. The function handles proper SQLCA initialization, error management, and logging as part of ECPG's comprehensive embedded SQL implementation.
 

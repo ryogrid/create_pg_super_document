@@ -8,7 +8,15 @@ QueueBackendStatus is a structure that tracks the status and queue reading posit
 
 ## Definition
 
-
+```c
+typedef struct QueueBackendStatus
+{
+	int32		pid;			/* either a PID or InvalidPid */
+	Oid			dboid;			/* backend's database OID, or InvalidOid */
+	ProcNumber	nextListener;	/* id of next listener, or INVALID_PROC_NUMBER */
+	QueuePosition pos;			/* backend has read queue up to here */
+} QueueBackendStatus;
+```
 ## Detailed Description
 The QueueBackendStatus structure maintains the state of a backend process that is participating in PostgreSQL's asynchronous notification system. It tracks which backend process is listening (identified by PID and database), maintains a linked list of listeners through the nextListener field, and critically tracks how far through the notification queue this particular backend has read. This allows the system to manage multiple listeners efficiently, ensuring that notifications are not discarded until all interested backends have processed them.
 

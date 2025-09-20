@@ -8,7 +8,10 @@ gistkillitems is a static function that marks index tuples as dead (LP_DEAD stat
 
 ## Definition
 
-
+```c
+static void
+gistkillitems(IndexScanDesc scan)
+```
 ## Detailed Description
 This function implements a performance optimization for GiST index scans by marking tuples as dead when the scan caller indicates they are no longer needed. The function performs several important safety checks:
 

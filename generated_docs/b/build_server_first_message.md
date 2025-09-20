@@ -8,7 +8,10 @@ Builds the first server-side message sent to the client in a SCRAM authenticatio
 
 ## Definition
 
-
+```c
+static char *
+build_server_first_message(scram_state *state)
+```
 ## Detailed Description
 This function constructs the server-first-message as part of the SCRAM (Salted Challenge Response Authentication Mechanism) protocol implementation. The message follows RFC 5802 syntax and contains:
 

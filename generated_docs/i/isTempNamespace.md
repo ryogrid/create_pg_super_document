@@ -8,7 +8,10 @@ Determines whether a given namespace OID corresponds to the current session's te
 
 ## Definition
 
-
+```c
+bool
+isTempNamespace(Oid namespaceId)
+```
 ## Detailed Description
 The isTempNamespace function checks if the provided namespace OID matches the current session's temporary table namespace. In PostgreSQL, each session can have its own temporary namespace where temporary tables, indexes, and other temporary objects are created. This function provides a way to identify whether a given namespace is the calling session's temporary namespace by comparing the input OID with the global variable myTempNamespace.
 

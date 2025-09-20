@@ -8,7 +8,9 @@ This function provides a set-returning function (SRF) that lists all available P
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 The pg_available_extensions function scans the extension control directory (typically ) and returns information about all available extensions. For each primary control file found (files ending in ), it parses the control file and extracts key metadata including the extension name, default version, and comment.
 

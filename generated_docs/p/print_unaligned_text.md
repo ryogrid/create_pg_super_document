@@ -8,7 +8,10 @@ Prints table data in unaligned text format where fields are separated by configu
 
 ## Definition
 
-
+```c
+static void
+print_unaligned_text(const printTableContent *cont, FILE *fout)
+```
 ## Detailed Description
 This function renders tabular data in a simple unaligned text format, primarily used for machine-readable output or when visual alignment is not required. The function processes the table content sequentially, printing the title, headers, data cells, and footers separated by configurable field and record separators. It supports both human-readable and machine-readable output modes through the tuples_only option, and handles special cases like zero-byte record separators for compatibility with Unix tools like find -print0 and xargs.
 

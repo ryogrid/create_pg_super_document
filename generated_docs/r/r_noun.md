@@ -8,7 +8,11 @@ The r_noun function removes nominal (noun) endings from Russian words during the
 
 ## Definition
 
+```c
+}
 
+static int r_noun(struct SN_env * z)
+```
 ## Detailed Description
 This function implements step 3 of the Russian stemming algorithm for KOI8-R encoded text. It handles the removal of various nominal suffixes from Russian nouns using pattern matching against 36 different noun ending patterns defined in the a_5 array.
 

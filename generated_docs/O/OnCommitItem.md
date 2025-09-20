@@ -8,7 +8,23 @@ OnCommitItem is a structure that manages ON COMMIT actions for temporary tables 
 
 ## Definition
 
+```c
+typedef struct OnCommitItem
+{
+	Oid			relid;			/* relid of relation */
+	OnCommitAction oncommit;	/* what to do at end of xact */
 
+	/*
+	 * If this entry was created during the current transaction,
+	 * creating_subid is the ID of the creating subxact; if created in a prior
+	 * transaction, creating_subid is zero.  If deleted during the current
+	 * transaction, deleting_subid is the ID of the deleting subxact; if no
+	 * deletion request is pending, deleting_subid is zero.
+	 */
+	SubTransactionId creating_subid;
+	SubTransactionId deleting_subid;
+} OnCommitItem;
+```
 ## Detailed Description
 The OnCommitItem structure is used to maintain a list of ON COMMIT actions that need to be executed at the end of a transaction. This is primarily used for temporary tables that have been created with specific ON COMMIT behavior (such as DELETE ROWS, DROP, or PRESERVE ROWS). The structure tracks both the action to be performed and the subtransaction context in which the item was created or marked for deletion, enabling proper cleanup in case of subtransaction rollback.
 

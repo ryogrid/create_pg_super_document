@@ -8,7 +8,14 @@ Fixes variable references in RETURNING targetlists for queries involving multipl
 
 ## Definition
 
-
+```c
+static List *
+set_returning_clause_references(PlannerInfo *root,
+								List *rlist,
+								Plan *topplan,
+								Index resultRelation,
+								int rtoffset)
+```
 ## Detailed Description
 The  function performs reference fixing specifically for RETURNING clauses in SQL statements that modify data (INSERT, UPDATE, DELETE). This function is critical for handling complex queries where the RETURNING clause references both the target table and other tables involved in the query.
 

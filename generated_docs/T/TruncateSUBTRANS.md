@@ -8,7 +8,10 @@ Removes all SUBTRANS segments before the one containing the oldest active transa
 
 ## Definition
 
-
+```c
+void
+TruncateSUBTRANS(TransactionId oldestXact)
+```
 ## Detailed Description
 TruncateSUBTRANS performs garbage collection for the SUBTRANS system by removing old, no longer needed subtransaction status pages. It's called only during checkpoint operations to ensure that pages are only removed when it's safe to do so.
 

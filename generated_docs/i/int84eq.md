@@ -8,7 +8,10 @@ Compares a 64-bit integer with a 32-bit integer for equality, returning true if 
 
 ## Definition
 
-
+```c
+Datum
+int84eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the equality comparison operator between an 8-byte (64-bit) integer and a 4-byte (32-bit) integer. It follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS macro. The function extracts both integer arguments, compares them for equality, and returns a boolean result wrapped in PostgreSQL's Datum type.
 

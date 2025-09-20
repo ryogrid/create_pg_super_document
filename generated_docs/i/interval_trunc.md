@@ -8,7 +8,10 @@ Truncates an interval value to specified units by zeroing out all more precise c
 
 ## Definition
 
-
+```c
+struct pg_itm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function truncates an interval to the specified time unit precision. It converts the interval to an internal time structure (pg_itm), then systematically zeros out all time components that are more precise than the specified unit. For example, truncating to 'hour' will zero out minutes, seconds, and microseconds while preserving years, months, days, and hours. The function uses a cascading switch statement with fall-through behavior to implement the truncation logic efficiently. Special handling is provided for units like quarter (rounds to nearest 3-month boundary) and millisecond precision.
 

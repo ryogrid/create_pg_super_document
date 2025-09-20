@@ -8,7 +8,31 @@ A structure that represents the type of GiST index key used for tsvector indexin
 
 ## Definition
 
+```c
+char		data[FLEXIBLE_ARRAY_MEMBER];
+} SignTSVector;
 
+#define ARRKEY		0x01
+#define SIGNKEY		0x02
+#define ALLISTRUE	0x04
+
+#define ISARRKEY(x) ( ((SignTSVector*)(x))->flag & ARRKEY )
+#define ISSIGNKEY(x)	( ((SignTSVector*)(x))->flag & SIGNKEY )
+#define ISALLTRUE(x)	( ((SignTSVector*)(x))->flag & ALLISTRUE )
+
+#define GTHDRSIZE	( VARHDRSZ + sizeof(int32) )
+#define CALCGTSIZE(flag, len) ( GTHDRSIZE + ( ( (flag) & ARRKEY ) ? ((len)*sizeof(int32)) : (((flag) & ALLISTRUE) ? 0 : (len)) ) )
+
+#define GETSIGN(x)	( (BITVECP)( (char*)(x)+GTHDRSIZE ) )
+#define GETSIGLEN(x)( VARSIZE(x) - GTHDRSIZE )
+#define GETARR(x)	( (int32*)( (char*)(x)+GTHDRSIZE ) )
+#define ARRNELEM(x) ( ( VARSIZE(x) - GTHDRSIZE )/sizeof(int32) )
+
+static int32 sizebitvec(BITVECP sign, int siglen);
+
+Datum
+gtsvectorin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `SignTSVector` is a flexible data structure used as the fundamental building block for GiST index keys in PostgreSQL's full-text search system. It can represent three different types of index keys based on the flag value: array keys (ARRKEY), signature keys (SIGNKEY), and all-true keys (ALLISTRUE). The structure uses a flexible array member to store variable-length data depending on the key type.
 

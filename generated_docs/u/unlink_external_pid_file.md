@@ -8,7 +8,10 @@ unlink_external_pid_file is an on_proc_exit callback function that removes the e
 
 ## Definition
 
-
+```c
+static void
+unlink_external_pid_file(int status, Datum arg)
+```
 ## Detailed Description
 This simple cleanup function ensures that external PID files are properly removed when the postmaster terminates. External PID files are created when PostgreSQL is started with the --external-pid-file command-line option, which allows system administrators or service management tools to track the postmaster's process ID in a custom location outside the data directory.
 

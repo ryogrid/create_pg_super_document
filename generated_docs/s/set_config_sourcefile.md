@@ -8,7 +8,9 @@ Sets the source file and line number information for a configuration parameter t
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This internal function updates the source file and line number metadata for a configuration parameter. It's used to track the origin of configuration settings, particularly when reading from configuration files. The function helps with debugging and auditing by maintaining information about where each configuration value was set. It handles memory management by duplicating the source file string and freeing any previously stored source file information.
 

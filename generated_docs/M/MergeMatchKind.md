@@ -8,7 +8,20 @@ An enumeration type that defines the different match conditions for WHEN clauses
 
 ## Definition
 
-
+```c
+typedef struct MergeAction
+{
+	NodeTag		type;
+	MergeMatchKind matchKind;	/* MATCHED/NOT MATCHED BY SOURCE/TARGET */
+	CmdType		commandType;	/* INSERT/UPDATE/DELETE/DO NOTHING */
+	/* OVERRIDING clause */
+	OverridingKind override pg_node_attr(query_jumble_ignore);
+	Node	   *qual;			/* transformed WHEN conditions */
+	List	   *targetList;		/* the target list (of TargetEntry) */
+	/* target attribute numbers of an UPDATE */
+	List	   *updateColnos pg_node_attr(query_jumble_ignore);
+} MergeAction;
+```
 ## Detailed Description
 MergeMatchKind is a fundamental enumeration used in PostgreSQL's MERGE statement implementation to categorize the three distinct matching scenarios that can occur when merging data from a source table into a target table. This enum is used throughout both the parser and execution phases to distinguish between different WHEN clause conditions.
 

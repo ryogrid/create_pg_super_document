@@ -8,7 +8,10 @@ A low-level string comparison function that compares two strings by length first
 
 ## Definition
 
-
+```c
+static int
+lengthCompareJsonbString(const char *val1, int len1, const char *val2, int len2)
+```
 ## Detailed Description
 The  function implements the fundamental comparison logic used throughout the JSONB system for string comparisons. It uses a two-stage comparison approach:
 

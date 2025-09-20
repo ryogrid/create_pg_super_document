@@ -8,7 +8,10 @@ Processes reply messages from standby servers that report their current WAL posi
 
 ## Definition
 
-
+```c
+static void
+ProcessStandbyReplyMessage(void)
+```
 ## Detailed Description
 This function handles regular status updates from standby servers (walreceivers) that report their progress in receiving, flushing, and applying WAL data. The function parses the incoming message to extract write, flush, and apply positions along with timing information, then updates the shared state to reflect the standby's current status.
 

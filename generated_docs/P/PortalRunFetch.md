@@ -8,7 +8,13 @@ A variant form of PortalRun that supports SQL FETCH directions, enabling cursor-
 
 ## Definition
 
-
+```c
+uint64
+PortalRunFetch(Portal portal,
+			   FetchDirection fdirection,
+			   long count,
+			   DestReceiver *dest)
+```
 ## Detailed Description
 PortalRunFetch provides cursor-style access to portal results, supporting SQL FETCH operations with directional control (forward, backward, absolute, relative). The function handles different portal strategies by either delegating directly to DoPortalRunFetch for PORTAL_ONE_SELECT, or first ensuring results are stored via FillPortalStore for other strategies before fetching. It maintains proper portal state management, resource ownership context, and error handling with cleanup. The function returns the number of rows processed and supports special count values like FETCH_ALL. It includes comprehensive error handling that properly marks portals as failed and restores global state on exceptions.
 

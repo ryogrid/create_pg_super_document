@@ -8,7 +8,10 @@ mdnblocks retrieves the total number of blocks stored in a PostgreSQL relation, 
 
 ## Definition
 
-
+```c
+BlockNumber
+mdnblocks(SMgrRelation reln, ForkNumber forknum)
+```
 ## Detailed Description
 mdnblocks calculates and returns the total number of blocks in a specified fork of a PostgreSQL relation. The function has a crucial side effect: it ensures that all active segments of the relation are opened and added to the md_seg_fds array. This is important because normally only segments up to the last one actually accessed are kept open.
 

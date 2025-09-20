@@ -8,7 +8,11 @@ The smgrwritev function performs vectorized write operations on existing blocks 
 
 ## Definition
 
-
+```c
+void
+smgrwritev(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+		   const void **buffers, BlockNumber nblocks, bool skipFsync)
+```
 ## Detailed Description
 The smgrwritev function is a storage manager interface for performing vectorized write operations on relation files. It writes multiple buffers to consecutive blocks starting from a specified block number in a single call. This function is specifically designed for updating already-existing blocks of a relation (those before the current EOF) and should not be used for extending relations - use smgrextend() for that purpose. The writes are asynchronous and not immediately synchronized to disk, but provisions are made to fsync before the next checkpoint. The function includes mechanisms to prevent race conditions with concurrent checkpoints through buffer locking or redo pointer checking.
 

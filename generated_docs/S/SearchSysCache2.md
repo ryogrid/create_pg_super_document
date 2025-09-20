@@ -8,7 +8,11 @@ A specialized wrapper around SearchCatCache2 optimized for system catalog caches
 
 ## Definition
 
-
+```c
+HeapTuple
+SearchSysCache2(int cacheId,
+				Datum key1, Datum key2)
+```
 ## Detailed Description
 SearchSysCache2 is a type-safe convenience function that provides access to system catalog caches that are indexed by exactly two keys. It serves as a specialized version of SearchSysCache, but with compile-time enforcement that the target cache uses exactly two search keys.
 

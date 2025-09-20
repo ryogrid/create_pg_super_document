@@ -8,7 +8,11 @@ A static function that deletes pending list pages up to a specified head page, u
 
 ## Definition
 
-
+```c
+static void
+shiftList(Relation index, Buffer metabuffer, BlockNumber newHead,
+		  bool fill_fsm, IndexBulkDeleteResult *stats)
+```
 ## Detailed Description
 This function is responsible for removing processed pages from GIN's pending list during cleanup operations. It operates by traversing the linked list of pending pages from the current head up to (but not including) the newHead page, deleting pages in batches of GIN_NDELETE_AT_ONCE for efficiency. The function maintains metadata consistency by updating page counts and heap tuple counts, handles WAL logging for crash recovery, marks deleted pages with GIN_DELETED flag, and optionally records freed pages in the free space map for reuse. When newHead is InvalidBlockNumber, it deletes the entire pending list and resets all metadata counters to zero.
 

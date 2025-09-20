@@ -8,7 +8,11 @@ Efficiently copies a relation file from source to destination using the Linux co
 
 ## Definition
 
-
+```c
+void
+copyFileByRange(const char *src, const char *dst,
+				const char *schemaName, const char *relName)
+```
 ## Detailed Description
 The copyFileByRange function implements efficient file copying using the Linux-specific  system call. This system call allows the kernel to copy data between file descriptors without transferring data to user space, potentially enabling optimizations such as copy-on-write or server-side copying for network filesystems.
 

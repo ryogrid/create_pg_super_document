@@ -8,7 +8,10 @@ Initiates a sequential scan on a catalog (system) table using a catalog-appropri
 
 ## Definition
 
-
+```c
+TableScanDesc
+table_beginscan_catalog(Relation relation, int nkeys, struct ScanKeyData *key)
+```
 ## Detailed Description
 This function is specifically designed for scanning PostgreSQL system catalog tables. It sets up a table scan with parameters and options that are appropriate for catalog access:
 

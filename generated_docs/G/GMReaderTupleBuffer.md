@@ -8,7 +8,15 @@ GMReaderTupleBuffer is a struct that manages pending tuples fetched from worker 
 
 ## Definition
 
-
+```c
+typedef struct GMReaderTupleBuffer
+{
+	MinimalTuple *tuple;		/* array of length MAX_TUPLE_STORE */
+	int			nTuples;		/* number of tuples currently stored */
+	int			readCounter;	/* index of next tuple to extract */
+	bool		done;			/* true if reader is known exhausted */
+} GMReaderTupleBuffer;
+```
 ## Detailed Description
 The GMReaderTupleBuffer struct is used in PostgreSQL's Gather Merge node implementation to buffer tuples from worker processes during parallel query execution. This structure serves as a pending-tuple array for each worker, holding additional tuples that have been fetched from the worker but cannot be processed immediately due to the merge ordering requirements.
 

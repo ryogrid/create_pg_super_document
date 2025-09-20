@@ -8,7 +8,13 @@ PTEntryArray is a reference-counted container structure that holds an array of P
 
 ## Definition
 
-
+```c
+typedef struct PTEntryArray
+{
+	pg_atomic_uint32 refcount;	/* no. of iterator attached */
+	PagetableEntry ptentry[FLEXIBLE_ARRAY_MEMBER];
+} PTEntryArray;
+```
 ## Detailed Description
 PTEntryArray serves as a shared container for PagetableEntry objects in PostgreSQL's TIDBitmap system, specifically designed to support parallel bitmap iterations. The structure uses atomic reference counting to manage concurrent access from multiple iterator processes safely. The flexible array member allows the structure to accommodate varying numbers of page table entries without requiring separate memory allocations.
 

@@ -8,7 +8,10 @@ The  function is the core parsing function that converts a C-string representati
 
 ## Definition
 
-
+```c
+static Datum
+jsonPathFromCstring(char *in, int len, struct Node *escontext)
+```
 ## Detailed Description
  serves as the central parsing engine for JSON path expressions in PostgreSQL. This function orchestrates a two-phase parsing process: first using the jsonpath parser to convert the input string into an Abstract Syntax Tree (AST), then flattening that AST into the compact binary representation used internally by PostgreSQL.
 

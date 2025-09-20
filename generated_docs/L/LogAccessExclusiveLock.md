@@ -8,7 +8,10 @@ Logs an individual AccessExclusive lock acquisition to the Write-Ahead Log (WAL)
 
 ## Definition
 
-
+```c
+void
+LogAccessExclusiveLock(Oid dbOid, Oid relOid)
+```
 ## Detailed Description
 LogAccessExclusiveLock records the acquisition of a single AccessExclusive lock during the LockAcquire() process. This function is called when an AccessExclusive lock is acquired on a relation to inform standby servers about potential conflicts with their read-only queries.
 

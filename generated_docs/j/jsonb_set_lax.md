@@ -8,7 +8,9 @@ A "lax" version of jsonb_set that provides flexible handling of NULL values thro
 
 ## Definition
 
-
+```c
+struct_array_builtin(path, TEXTOID, &path_elems, &path_nulls, &path_len);
+```
 ## Detailed Description
 The  function is a SQL-callable function that extends  with flexible NULL value handling. When the new value to be set is NULL, the function provides four different treatment strategies: raise an exception, use JSON null, delete the key, or return the target unchanged. If the new value is not NULL, it simply delegates to .
 

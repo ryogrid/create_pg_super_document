@@ -8,7 +8,10 @@ Determines whether columns in a RangeTblEntry would become visible if accessed u
 
 ## Definition
 
-
+```c
+static bool
+rte_visible_if_qualified(ParseState *pstate, RangeTblEntry *rte)
+```
 ## Detailed Description
 This helper function analyzes whether columns in a given RangeTblEntry would be accessible if referenced using table-qualified notation (e.g., "table.column" instead of just "column"). It's designed to support PostgreSQL's error reporting system by determining when to suggest table qualification as a solution.
 

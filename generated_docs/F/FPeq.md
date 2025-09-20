@@ -8,7 +8,10 @@ FPeq is a static inline function that performs floating-point equality compariso
 
 ## Definition
 
-
+```c
+static inline bool
+FPeq(double A, double B)
+```
 ## Detailed Description
 FPeq implements a fuzzy equality comparison for double-precision floating-point numbers. The function first performs a direct equality check (A == B), which handles cases where both values are exactly equal (including special values like infinity or NaN). If the direct comparison fails, it falls back to an epsilon-based comparison using the absolute difference between the two values. This approach is essential in geometric computations where floating-point arithmetic can introduce small rounding errors that would make exact equality comparisons unreliable.
 

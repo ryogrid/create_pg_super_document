@@ -8,7 +8,10 @@ Converts a bitmap of columns according to an attribute mapping, transforming col
 
 ## Definition
 
-
+```c
+Bitmapset *
+execute_attr_map_cols(AttrMap *attrMap, Bitmapset *in_cols)
+```
 ## Detailed Description
 This function performs column bitmap conversion using an attribute map () to translate column references from one schema representation to another. The function is designed to handle PostgreSQL's column numbering system which includes both system columns (negative numbers) and user columns (positive numbers), with all bitmaps offset by .
 

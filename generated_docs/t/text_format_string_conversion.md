@@ -8,7 +8,13 @@ Formats string conversions (%s, %I, or %L) in PostgreSQL's format string process
 
 ## Definition
 
-
+```c
+static void
+text_format_string_conversion(StringInfo buf, char conversion,
+							  FmgrInfo *typOutputInfo,
+							  Datum value, bool isNull,
+							  int flags, int width)
+```
 ## Detailed Description
 This function handles the formatting of string-like conversions in PostgreSQL's text formatting system. It supports three types of conversions:
 - '%s': Regular string formatting

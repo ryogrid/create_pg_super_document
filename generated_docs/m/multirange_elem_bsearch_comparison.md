@@ -8,7 +8,12 @@ A static comparison function used for binary search to determine if a given elem
 
 ## Definition
 
-
+```c
+static int
+multirange_elem_bsearch_comparison(TypeCacheEntry *typcache,
+								   RangeBound *lower, RangeBound *upper,
+								   void *key, bool *match)
+```
 ## Detailed Description
 This function serves as a comparison callback for binary search operations when checking if an element is contained within any range of a multirange. It compares a given key element against the lower and upper bounds of a range to determine the element's position relative to that range. The function returns -1 if the key is before the range, 1 if after the range, and 0 if the key is contained within the range (setting *match to true).
 

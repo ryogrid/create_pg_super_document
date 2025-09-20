@@ -8,7 +8,10 @@ The debugtup function prints debug information for a single tuple to standard ou
 
 ## Definition
 
-
+```c
+bool
+debugtup(TupleTableSlot *slot, DestReceiver *self)
+```
 ## Detailed Description
 The debugtup function serves as a debugging utility that outputs the contents of a PostgreSQL tuple in a human-readable format. It iterates through all attributes in the tuple descriptor, extracts each non-null attribute value, converts it to its string representation using the appropriate output function, and displays it using the printatt function.
 

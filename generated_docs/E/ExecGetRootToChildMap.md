@@ -8,7 +8,10 @@ Returns the tuple conversion map needed to convert tuples from a root result rel
 
 ## Definition
 
-
+```c
+TupleConversionMap *
+ExecGetRootToChildMap(ResultRelInfo *resultRelInfo, EState *estate)
+```
 ## Detailed Description
 This function computes and caches a TupleConversionMap that enables conversion of tuples from the root table's schema to a child table's schema in partitioned table operations. The function implements lazy evaluation - it only computes the conversion map when first requested and caches the result for subsequent calls.
 

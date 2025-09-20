@@ -8,7 +8,10 @@ JsonTableFetchRow serves as the main interface for advancing to the next row in 
 
 ## Definition
 
-
+```c
+static bool
+JsonTableFetchRow(TableFuncScanState *state)
+```
 ## Detailed Description
 This function acts as the primary entry point for row iteration in PostgreSQL's JSON table functionality. It retrieves the JsonTableExecContext from the provided TableFuncScanState and delegates the actual row fetching to the root plan's JsonTablePlanNextRow function. The function serves as a bridge between PostgreSQL's table function infrastructure and the JSON table-specific execution logic, maintaining the execution context and ensuring proper integration with the broader query execution framework.
 

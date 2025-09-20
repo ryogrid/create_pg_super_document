@@ -8,7 +8,10 @@ Retrieves the next tuple from an index-only scan operation, attempting to avoid 
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+IndexOnlyNext(IndexOnlyScanState *node)
+```
 ## Detailed Description
 The IndexOnlyNext function is the core tuple retrieval mechanism for index-only scans in PostgreSQL. It implements an optimization where data can be returned directly from the index without accessing the heap table, provided that all tuples on the relevant heap page are visible to all transactions (as indicated by the visibility map).
 

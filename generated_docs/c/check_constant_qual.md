@@ -8,7 +8,10 @@ check_constant_qual determines whether a qualification list consists entirely of
 
 ## Definition
 
-
+```c
+static bool
+check_constant_qual(List *qual, bool *is_const_false)
+```
 ## Detailed Description
 check_constant_qual is a utility function used during merge join initialization to analyze qualification clauses. It examines a list of qualification expressions to determine if they are all constant values (either true or false). This optimization allows the executor to short-circuit evaluation when qualifications are known to be constant at plan time.
 

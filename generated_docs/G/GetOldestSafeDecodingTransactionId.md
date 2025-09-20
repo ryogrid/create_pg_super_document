@@ -8,7 +8,10 @@ GetOldestSafeDecodingTransactionId returns the oldest transaction ID that is gua
 
 ## Definition
 
-
+```c
+TransactionId
+GetOldestSafeDecodingTransactionId(bool catalogOnly)
+```
 ## Detailed Description
 This function determines the oldest transaction ID that can safely be used as a starting point for logical decoding operations. It guarantees that no rows with transaction IDs >= the returned value have been vacuumed away (unless the transaction aborted). The returned value is often more conservative than necessary, but provides a safe lower bound for changeset extraction.
 

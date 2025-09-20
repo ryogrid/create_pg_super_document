@@ -8,7 +8,13 @@ XLogRecGetBlockTagExtended retrieves block identification information and option
 
 ## Definition
 
-
+```c
+bool
+XLogRecGetBlockTagExtended(XLogReaderState *record, uint8 block_id,
+						   RelFileLocator *rlocator, ForkNumber *forknum,
+						   BlockNumber *blknum,
+						   Buffer *prefetch_buffer)
+```
 ## Detailed Description
 XLogRecGetBlockTagExtended provides comprehensive access to block reference information within a WAL record. The function first checks if the specified block reference exists using XLogRecHasBlockRef, and if so, extracts the relation file locator, fork number, block number, and optionally the prefetch buffer information. This extended version offers more control than XLogRecGetBlockTag by returning a boolean success indicator rather than throwing an error, and provides access to prefetch buffer information which can be used for optimization purposes.
 

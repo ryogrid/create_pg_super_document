@@ -8,7 +8,10 @@ Initializes shared memory space for the injection point system, setting up the d
 
 ## Definition
 
-
+```c
+void
+InjectionPointShmemInit(void)
+```
 ## Detailed Description
 This function allocates and initializes shared memory for the injection point subsystem. It creates a shared memory structure called "InjectionPoint hash" that holds the global state for all injection points. The function behaves differently depending on whether it's running in the postmaster process or a child process:
 

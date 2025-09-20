@@ -8,7 +8,10 @@ A support function for window frame range calculations with float4 (single preci
 
 ## Definition
 
-
+```c
+Datum
+in_range_float4_float8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL in_range support for float4 data types with float8 precision offsets, used primarily in window functions with RANGE frames. It determines whether a float4 value falls within a range defined by a float4 base value plus or minus a float8 offset. The mixed precision design allows for more precise offset calculations while working with single-precision base values.
 

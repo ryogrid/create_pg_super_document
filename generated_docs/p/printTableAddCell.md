@@ -8,7 +8,11 @@ Adds a cell to a table content structure used for formatting tabular output in P
 
 ## Definition
 
-
+```c
+void
+printTableAddCell(printTableContent *const content, char *cell,
+				  const bool translate, const bool mustfree)
+```
 ## Detailed Description
 This function adds a single cell to a printTableContent structure, which is used to build tabular output for PostgreSQL client utilities like psql. The function handles cell validation, optional translation through gettext, and memory management. It performs bounds checking to ensure the cell count doesn't exceed the allocated table dimensions and validates the cell content using multibyte character validation.
 

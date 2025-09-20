@@ -8,7 +8,10 @@ Indicates whether password authentication was required and used during the estab
 
 ## Definition
 
-
+```c
+int
+PQconnectionUsedPassword(const PGconn *conn)
+```
 ## Detailed Description
 The PQconnectionUsedPassword function determines whether password authentication was required during the connection establishment process. Unlike PQconnectionNeedsPassword which checks if a password is currently needed, this function reports on the historical fact of whether password authentication was part of the successful connection process. It examines the connection's password_needed flag, which is set when the server requests password authentication during the connection handshake.
 

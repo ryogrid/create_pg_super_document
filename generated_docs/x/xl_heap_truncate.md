@@ -8,7 +8,15 @@ The xl_heap_truncate struct represents the WAL record data for TRUNCATE operatio
 
 ## Definition
 
-
+```c
+typedef struct xl_heap_truncate
+{
+	Oid			dbId;
+	uint32		nrelids;
+	uint8		flags;
+	Oid			relids[FLEXIBLE_ARRAY_MEMBER];
+} xl_heap_truncate;
+```
 ## Detailed Description
 This structure records information needed to replay TRUNCATE operations during crash recovery or replication. It supports truncating multiple relations in a single operation and can handle both regular tables and sequences that need to be restarted. The flexible array member allows for variable numbers of relation OIDs to be stored in a single WAL record, making it efficient for bulk truncate operations.
 

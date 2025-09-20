@@ -8,7 +8,10 @@ Internal workhorse function for changing a foreign server's owner, performing ow
 
 ## Definition
 
-
+```c
+static void
+AlterForeignServerOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId)
+```
 ## Detailed Description
 This internal function handles the core logic for changing the ownership of a foreign server. It performs comprehensive permission checks to ensure the operation is authorized, validates that the new owner has appropriate privileges on the associated foreign-data wrapper, and updates both the server ownership and access control list (ACL) in the catalog. The function follows PostgreSQL's standard pattern for ownership changes by checking current ownership, validating permissions, and updating dependency records.
 

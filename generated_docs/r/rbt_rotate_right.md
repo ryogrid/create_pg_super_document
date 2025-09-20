@@ -8,7 +8,10 @@ Performs a right rotation operation on a Red-Black Tree node, restructuring the 
 
 ## Definition
 
-
+```c
+static void
+rbt_rotate_right(RBTree *rbt, RBTNode *x)
+```
 ## Detailed Description
 This function performs a right rotation, which is the mirror operation of left rotation. In a right rotation, node x's left child (y) takes x's place in the tree, and x becomes the right child of y.
 

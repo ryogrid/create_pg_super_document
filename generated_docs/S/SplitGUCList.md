@@ -8,7 +8,11 @@ SplitGUCList is a utility function that parses a string containing identifiers o
 
 ## Definition
 
-
+```c
+bool
+SplitGUCList(char *rawstring, char separator,
+			 char ***namelist)
+```
 ## Detailed Description
 This function splits a delimited string into a list of individual components without presuming whether the elements will be treated as identifiers or file names. The function is designed to work with strings that have already been processed through flatten_set_variable_args(), so it never performs downcasing or truncation operations.
 

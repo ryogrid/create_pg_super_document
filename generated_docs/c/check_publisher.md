@@ -8,7 +8,10 @@ Validates that the primary server is properly configured and ready for logical r
 
 ## Definition
 
-
+```c
+static void
+check_publisher(const struct LogicalRepInfo *dbinfo)
+```
 ## Detailed Description
 This function performs comprehensive validation of the publisher (primary server) to ensure it can support logical replication. It verifies that the server is not in recovery mode and checks critical configuration parameters required for logical replication:
 

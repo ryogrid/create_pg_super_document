@@ -8,7 +8,12 @@ The  function maps B-tree WAL record type codes to human-readable string identif
 
 ## Definition
 
-
+```c
+structure
+	 * that we could use.  Readability seems more important here.)
+	 */
+	appendStringInfoString(buf, ", updated: [");
+```
 ## Detailed Description
 This function serves as a lookup table that converts B-tree WAL record type identifiers into their corresponding string representations. It takes the info field from a WAL record, masks out the extra information bits, and returns a descriptive string name for the operation type. This is primarily used by PostgreSQL's WAL analysis tools, debugging utilities, and logging systems to provide meaningful names for B-tree operations instead of numeric codes.
 

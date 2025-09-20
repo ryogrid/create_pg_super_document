@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) check hook function that validates attempts 
 
 ## Definition
 
-
+```c
+bool
+check_default_with_oids(bool *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a check hook for the default_with_oids GUC parameter in PostgreSQL. Check hooks are validation functions called by PostgreSQL's configuration system before a parameter value is accepted. This particular function implements a complete rejection policy for the default_with_oids setting, as PostgreSQL has removed support for tables declared WITH OIDS.
 

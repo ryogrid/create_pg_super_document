@@ -8,7 +8,10 @@ Initializes the input handling subsystem for psql, setting up readline functiona
 
 ## Definition
 
-
+```c
+void
+initializeInput(int flags)
+```
 ## Detailed Description
 The  function is responsible for setting up all input-related functionality in psql, particularly readline support and command history management. When called with appropriate flags, it configures the GNU Readline library for interactive command editing, loads command history from persistent storage, and sets up cleanup handlers.
 

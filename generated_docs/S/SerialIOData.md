@@ -8,7 +8,12 @@ SerialIOData is a structure used for caching element-type data during array aggr
 
 ## Definition
 
-
+```c
+typedef struct SerialIOData
+{
+	FmgrInfo	typsend;
+} SerialIOData;
+```
 ## Detailed Description
 SerialIOData is a helper structure specifically designed for the array_agg_serialize function in PostgreSQL's array aggregation implementation. It serves as a cache to store the element type's binary output function information, preventing the need for repeated catalog lookups during the serialization process of array aggregation states.
 

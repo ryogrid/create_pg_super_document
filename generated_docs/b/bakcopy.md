@@ -8,7 +8,10 @@ The bakcopy function creates a backup copy of the input file and swaps the input
 
 ## Definition
 
-
+```c
+struct file name .Bfile */
+    for (p = in_name;
+```
 ## Detailed Description
 This function is part of the pg_bsd_indent tool and implements in-place file editing functionality. It creates a backup file with a ".BAK" extension in the same directory as the original input file. The function then copies the entire contents of the input file to the backup, closes the original input, and reopens the backup as the new input source. Finally, it opens the original filename for writing as the output destination. This allows the indent tool to read from the backup while writing the formatted output to the original filename, effectively performing in-place editing with backup preservation.
 

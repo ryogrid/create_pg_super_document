@@ -8,7 +8,10 @@ Deletes a large object from the database and returns the result of the deletion 
 
 ## Definition
 
-
+```c
+Datum
+be_lo_unlink(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the backend functionality for deleting large objects in PostgreSQL. It performs several important operations:
 

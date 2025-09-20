@@ -8,7 +8,10 @@ Retrieves the complete list of tables and their attributes from specified public
 
 ## Definition
 
-
+```c
+static List *
+fetch_table_list(WalReceiverConn *wrconn, List *publications)
+```
 ## Detailed Description
 This function queries the publisher database to obtain a comprehensive list of all tables included in the specified publications. It adapts its behavior based on the PostgreSQL server version to leverage newer features and optimize performance. For PostgreSQL 16+, it uses the enhanced pg_get_publication_tables function that can handle multiple publications and automatically filters partition tables whose ancestors are already published. For older versions, it queries pg_publication_tables directly. The function also handles column list information when supported (PostgreSQL 15+), while enforcing the constraint that tables cannot have different column lists across different publications to avoid data inconsistency issues.
 

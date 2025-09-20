@@ -8,7 +8,10 @@ Calculates and returns the distance between the center points of two geometric b
 
 ## Definition
 
-
+```c
+Datum
+box_distance(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `box_distance` function computes the Euclidean distance between the center points of two BOX geometric data types. It works by first extracting two BOX arguments from the function call, then calculating the center point of each box using the `box_cn` helper function, and finally computing the distance between these two center points using the `point_dt` function.
 

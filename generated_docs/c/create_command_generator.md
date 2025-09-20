@@ -8,7 +8,10 @@ A specialized tab completion generator function for PostgreSQL's psql that provi
 
 ## Definition
 
-
+```c
+static char *
+create_command_generator(const char *text, int state)
+```
 ## Detailed Description
 This function is a thin wrapper around  that specifically handles tab completion for CREATE statements. It filters out commands that cannot be used with CREATE by passing the  flag to exclude inappropriate completions. This ensures that users only see valid CREATE command options when pressing tab after typing "CREATE" in psql.
 

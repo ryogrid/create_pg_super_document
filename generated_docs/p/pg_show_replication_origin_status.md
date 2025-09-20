@@ -8,7 +8,10 @@ This function provides status information about all active replication origins i
 
 ## Definition
 
-
+```c
+Datum
+pg_show_replication_origin_status(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a set-returning function (SRF) that iterates through all replication origin slots and displays their current status information. This function is the underlying implementation for the  system view. It returns information about each active replication origin including its identifier, name, remote LSN position, and local LSN position.
 

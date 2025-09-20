@@ -8,7 +8,10 @@ Builds a SortGroupClause list defining the sort/grouping properties for a child 
 
 ## Definition
 
-
+```c
+static List *
+generate_setop_child_grouplist(SetOperationStmt *op, List *targetlist)
+```
 ## Detailed Description
 This function creates a SortGroupClause list for a child query of a set operation (UNION, INTERSECT, EXCEPT) by adapting the parent set operation's grouping clauses to work with the child's target list. Unlike generate_setop_grouplist(), this function must handle cases where target list entries may already have tleSortGroupRef values assigned for other purposes like existing GROUP BY operations.
 

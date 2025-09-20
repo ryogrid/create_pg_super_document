@@ -8,7 +8,10 @@ Creates a RecursiveUnion plan node for recursive Common Table Expression (CTE) q
 
 ## Definition
 
-
+```c
+static RecursiveUnion *
+create_recursiveunion_plan(PlannerInfo *root, RecursiveUnionPath *best_path)
+```
 ## Detailed Description
 This function constructs a RecursiveUnion plan node that implements recursive CTEs in PostgreSQL. Recursive CTEs consist of two parts: a non-recursive term (left plan) and a recursive term (right plan). The function creates plans for both subpaths and ensures they produce compatible target lists using the CP_EXACT_TLIST flag. It builds the target list for the union operation and configures the RecursiveUnion node with parameters needed for execution, including the working table parameter and distinctness requirements.
 

@@ -8,7 +8,10 @@ Computes the population variance of numeric values from an aggregate state, prov
 
 ## Definition
 
-
+```c
+Datum
+numeric_var_pop(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL aggregate function finalizer that calculates the population variance from accumulated numeric values. It takes a  pointer as input (which contains the accumulated sum, sum of squares, and count) and delegates to  to perform the actual variance calculation. The function returns the population variance, which differs from sample variance by using N (total count) rather than N-1 in the denominator.
 

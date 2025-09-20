@@ -8,7 +8,10 @@ Parses a possibly-qualified object name and determines the appropriate namespace
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, objname_p);
+```
 ## Detailed Description
 This function is central to PostgreSQL's object creation process, handling the parsing and resolution of qualified names (schema.object) to determine where new database objects should be created. It supports both fully-qualified names (with explicit schema) and unqualified names (using default creation namespace).
 

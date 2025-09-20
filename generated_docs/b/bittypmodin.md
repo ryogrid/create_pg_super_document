@@ -8,7 +8,11 @@ Processes type modifier input for the bit data type, validating and converting t
 
 ## Definition
 
-
+```c
+structure */
+				bitlen,			/* Number of bits in the bit string   */
+				slen;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that handles type modifier input for the  data type. When a user specifies a bit column with a length (e.g., ), this function processes that length specification and validates it. The function serves as a thin wrapper around , which contains the common logic shared between  and  type modifier processing.
 

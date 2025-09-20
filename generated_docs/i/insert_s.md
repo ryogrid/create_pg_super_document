@@ -8,7 +8,11 @@ A function in the Snowball stemming library that inserts a string at a specific 
 
 ## Definition
 
+```c
+}
 
+extern int insert_s(struct SN_env * z, int bra, int ket, int s_size, const symbol * s)
+```
 ## Detailed Description
 The  function inserts a string of symbols at a specified position in the working buffer by replacing the content between the  and  positions with the new string. After the insertion, it adjusts the environment's  and  cursors to maintain their relative positions in the modified string. This function is essential for stemming operations that need to insert text at specific locations while preserving cursor positions for subsequent operations.
 

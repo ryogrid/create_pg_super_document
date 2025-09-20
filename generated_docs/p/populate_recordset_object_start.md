@@ -8,7 +8,10 @@ A static function that handles the start of a JSON object during JSON recordset 
 
 ## Definition
 
-
+```c
+struct and return a tuple based on this level-1 object */
+	populate_recordset_record(_state, &obj);
+```
 ## Detailed Description
 This function is a callback handler for JSON parsing that is invoked when a JSON object opening brace is encountered. It manages the creation of hash tables for JSON objects that represent individual records in a recordset. The function enforces that the top-level JSON structure must be an array (not an object) and creates a new hash table for objects at nesting level 1, which represent individual records.
 

@@ -8,7 +8,10 @@ This function provides a more aggressive version of constant expression evaluati
 
 ## Definition
 
-
+```c
+Node *
+estimate_expression_value(PlannerInfo *root, Node *node)
+```
 ## Detailed Description
 The  function serves as an enhanced expression evaluator designed specifically for query planning and cost estimation scenarios. Unlike the standard , this function performs additional optimizations that prioritize useful estimates over absolute safety, making it ideal for planner decision-making where approximate values are acceptable.
 

@@ -8,7 +8,10 @@ Implements the GiST consistent method for circles, determining whether a circle 
 
 ## Definition
 
-
+```c
+Datum
+gist_circle_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the consistent method for circle data types in GiST (Generalized Search Tree) indexes. It takes a circle query and determines whether it could potentially match entries in the index tree. The function operates by converting the circle into its minimal bounding box and then using the existing R-tree internal consistency logic to perform the actual comparison.
 

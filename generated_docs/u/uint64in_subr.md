@@ -8,7 +8,11 @@ Converts a string to an unsigned 64-bit integer using PostgreSQL's strtou64() fu
 
 ## Definition
 
-
+```c
+uint64
+uint64in_subr(const char *s, char **endloc,
+			  const char *typname, Node *escontext)
+```
 ## Detailed Description
 This function provides string-to-unsigned-64-bit-integer conversion using PostgreSQL's custom strtou64() function for parsing. Similar to uint32in_subr, it offers flexible parsing with optional partial string processing and comprehensive error handling. The function is designed to handle the full range of 64-bit unsigned integers consistently across different platforms.
 

@@ -8,7 +8,10 @@ Detects whether a sequence is marked as "owned" by a table column through AUTO o
 
 ## Definition
 
-
+```c
+bool
+sequenceIsOwned(Oid seqId, char deptype, Oid *tableId, int32 *colId)
+```
 ## Detailed Description
 The `sequenceIsOwned` function determines if a sequence has an ownership relationship with a table column by searching for specific dependency types in the `pg_depend` system catalog. Sequence ownership is established through either AUTO or INTERNAL dependencies from the sequence to a column, which indicates that the sequence's lifecycle is tied to that column.
 

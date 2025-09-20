@@ -8,7 +8,9 @@ Creates a new parallel execution context for coordinating parallel workers, init
 
 ## Definition
 
-
+```c
+enumslen = 0;
+```
 ## Detailed Description
 CreateParallelContext establishes a new parallel context that serves as the foundation for parallel query execution in PostgreSQL. This function must be called after entering parallel mode and creates a ParallelContext structure that will manage the lifecycle of parallel workers. The function allocates memory in the TopTransactionContext to ensure the context persists for the duration of the transaction, initializes tracking structures for shared memory estimation, and registers the context in the global context list for cleanup purposes.
 

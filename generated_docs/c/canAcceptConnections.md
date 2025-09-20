@@ -8,7 +8,10 @@ Determines whether the PostgreSQL server can accept new connections of a specifi
 
 ## Definition
 
-
+```c
+static CAC_state
+canAcceptConnections(int backend_type)
+```
 ## Detailed Description
 canAcceptConnections serves as the gatekeeper for all new database connections, implementing a comprehensive state-based access control system. The function evaluates multiple criteria to determine connection acceptability:
 

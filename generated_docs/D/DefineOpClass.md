@@ -8,7 +8,10 @@ Creates a new index operator class, which defines how a particular data type can
 
 ## Definition
 
-
+```c
+ObjectAddress
+DefineOpClass(CreateOpClassStmt *stmt)
+```
 ## Detailed Description
 DefineOpClass implements the CREATE OPERATOR CLASS SQL command. It creates a new operator class that defines how a specific data type can be indexed using a particular access method. The function validates all components (operators, functions, storage type), ensures proper permissions, creates the necessary catalog entries, and establishes dependency relationships.
 

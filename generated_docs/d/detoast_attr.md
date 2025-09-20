@@ -8,7 +8,10 @@ A public entry point function that retrieves a toasted value from compression or
 
 ## Definition
 
-
+```c
+struct varlena *
+detoast_attr(struct varlena *attr)
+```
 ## Detailed Description
 This function provides complete detoasting functionality by handling all possible forms of extended varlena values and converting them to standard, non-extended format. It processes:
 

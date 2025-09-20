@@ -8,7 +8,10 @@ Extracts numeric parts (digits, signs, decimal points) from input strings during
 
 ## Definition
 
-
+```c
+static void
+NUM_numpart_from_char(NUMProc *Np, int id, int input_len)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's TO_NUMBER() functionality, responsible for parsing and extracting numeric components from formatted input strings. It handles complex parsing scenarios including:
 

@@ -8,7 +8,10 @@ The indent_declaration function handles proper indentation formatting for variab
 
 ## Definition
 
-
+```c
+static void
+indent_declaration(int cur_dec_ind, int tabs_to_var)
+```
 ## Detailed Description
 This function is responsible for correctly positioning and formatting variable declarations within the pg_bsd_indent code formatter. It calculates the proper indentation based on the current indentation level and desired column position, taking into account tab size settings and PostgreSQL-specific tab rules. The function handles both tab-based and space-based indentation, ensuring that declarations are aligned according to the specified formatting rules. It also manages the transition between tabs and spaces when the indentation doesn't align perfectly with tab boundaries.
 

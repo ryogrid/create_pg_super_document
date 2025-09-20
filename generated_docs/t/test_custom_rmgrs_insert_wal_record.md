@@ -8,7 +8,10 @@ A PostgreSQL SQL function that inserts a custom WAL record containing a text mes
 
 ## Definition
 
-
+```c
+Datum
+test_custom_rmgrs_insert_wal_record(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that demonstrates how to insert custom WAL records using a custom resource manager. The function takes a text argument and writes it to the WAL as a custom record type.
 

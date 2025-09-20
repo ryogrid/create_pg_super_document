@@ -8,7 +8,24 @@ An enumeration that defines the classification of data chunks within archive pro
 
 ## Definition
 
-
+```c
+struct. The details are expected
+ * to be present in the archive header and used to fill the struct, after
+ * which all subsequent calls for the same archive member are expected to
+ * pass the same details.
+ */
+typedef struct
+{
+	char		pathname[MAXPGPATH];
+	pgoff_t		size;
+	mode_t		mode;
+	uid_t		uid;
+	gid_t		gid;
+	bool		is_directory;
+	bool		is_link;
+	char		linktarget[MAXPGPATH];
+} bbstreamer_member;
+```
 ## Detailed Description
 The  enum is a fundamental component of PostgreSQL's base backup streaming architecture, specifically designed for parsing and processing archive formats like tar. It provides a structured way to classify different types of data chunks as they flow through the bbstreamer pipeline.
 

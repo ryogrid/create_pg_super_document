@@ -8,7 +8,10 @@ Retrieves information about all Row-Level Security (RLS) policies on dumpable ta
 
 ## Definition
 
-
+```c
+void
+getPolicies(Archive *fout, TableInfo tblinfo[], int numTables)
+```
 ## Detailed Description
 The `getPolicies` function is responsible for gathering all RLS policy information during a pg_dump operation. It performs a two-phase process:
 

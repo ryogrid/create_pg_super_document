@@ -8,7 +8,10 @@ Generates a CHECK constraint expression for a hash partition's constraint by cre
 
 ## Definition
 
-
+```c
+static List *
+get_qual_for_hash(Relation parent, PartitionBoundSpec *spec)
+```
 ## Detailed Description
 This function constructs the partition constraint for a hash partition, which is always implemented as a call to the built-in function satisfies_hash_partition(). The function takes the parent relation and partition bound specification to create a FuncExpr that validates whether a row belongs to this specific hash partition. It builds the necessary arguments including the parent relation OID, modulus, remainder, and all partition key columns.
 

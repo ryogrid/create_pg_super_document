@@ -8,7 +8,10 @@ A static comparison function used by qsort to order ObjectAddress items for depe
 
 ## Definition
 
-
+```c
+static int
+object_address_comparator(const void *a, const void *b)
+```
 ## Detailed Description
 This function implements a three-level comparison algorithm for ObjectAddress structures used in PostgreSQL's dependency tracking system. The comparator is designed specifically for dependency deletion ordering, where newer objects (higher OIDs) should typically be deleted before older ones to maintain referential integrity.
 

@@ -8,7 +8,10 @@ Converts external binary format to PostgreSQL's internal TimeADT representation,
 
 ## Definition
 
-
+```c
+Datum
+time_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL input function that deserializes time values from their binary external representation. It reads a 64-bit integer representing microseconds since midnight from a StringInfo buffer, validates the range, and applies any necessary type modifier adjustments. This function is part of PostgreSQL's binary I/O system for the time data type.
 

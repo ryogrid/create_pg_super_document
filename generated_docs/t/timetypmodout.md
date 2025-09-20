@@ -8,7 +8,10 @@ Converts internal typmod representation back to human-readable string format for
 
 ## Definition
 
-
+```c
+Datum
+timetypmodout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL type modifier output function for the TIME data type. It takes an internal integer typmod value and converts it back to its string representation for display purposes. The function delegates the actual formatting to  with the first parameter set to  to indicate this is for TIME (not TIMETZ).
 

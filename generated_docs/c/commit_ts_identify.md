@@ -8,7 +8,10 @@ Translates commit timestamp WAL record info codes into human-readable string ide
 
 ## Definition
 
-
+```c
+const char *
+commit_ts_identify(uint8 info)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's commit timestamp resource manager descriptor routines. It serves as a helper function that converts numeric WAL (Write-Ahead Logging) record info codes into descriptive string names for commit timestamp operations. This function is primarily used for debugging, logging, and diagnostic purposes when examining WAL records related to commit timestamp functionality.
 

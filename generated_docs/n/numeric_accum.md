@@ -8,7 +8,10 @@ A PostgreSQL aggregate transition function for numeric aggregates that require b
 
 ## Definition
 
-
+```c
+Datum
+numeric_accum(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for numeric aggregate operations that need to maintain both the sum of values and the sum of squared values. It's specifically designed for statistical aggregates like variance (VAR_SAMP, VAR_POP) and standard deviation (STDDEV_SAMP, STDDEV_POP) that require both sumX and sumX2 for their calculations.
 

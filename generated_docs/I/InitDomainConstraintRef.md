@@ -8,7 +8,11 @@ Initializes a DomainConstraintRef structure that manages references to domain co
 
 ## Definition
 
-
+```c
+void
+InitDomainConstraintRef(Oid type_id, DomainConstraintRef *ref,
+						MemoryContext refctx, bool need_exprstate)
+```
 ## Detailed Description
 This function sets up a DomainConstraintRef structure that provides a managed reference to domain constraint information. It handles the complete initialization process including memory context registration, reference counting, and optional expression state preparation. The function establishes a cleanup callback to ensure proper resource management when the memory context is reset or deleted.
 

@@ -8,7 +8,10 @@ CheckTargetForConflictsIn is a static helper function that checks a specific tar
 
 ## Definition
 
-
+```c
+static void
+CheckTargetForConflictsIn(PREDICATELOCKTARGETTAG *targettag)
+```
 ## Detailed Description
 This function is a subroutine of CheckForSerializableConflictIn() that examines a particular predicate lock target to detect serializable conflicts. It searches for existing predicate locks on the target that could create read-write dependencies with the current serializable transaction.
 

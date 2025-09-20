@@ -8,7 +8,10 @@ A PostgreSQL function that compares a timestamp (without timezone) value with a 
 
 ## Definition
 
-
+```c
+Datum
+timestamp_cmp_timestamptz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL-callable wrapper for comparing timestamp and timestamptz values. It extracts the timestamp and timestamptz arguments from the PostgreSQL function call context, then delegates the actual comparison logic to the internal function . The function returns a standard comparison result: negative for less-than, zero for equal, and positive for greater-than relationships.
 

@@ -8,7 +8,10 @@ CopyConversionError reports encoding or conversion errors encountered during COP
 
 ## Definition
 
-
+```c
+static void
+CopyConversionError(CopyFromState cstate)
+```
 ## Detailed Description
 CopyConversionError is responsible for generating detailed error reports when character encoding problems are detected during COPY FROM processing. The function operates differently depending on whether encoding conversion was needed:
 

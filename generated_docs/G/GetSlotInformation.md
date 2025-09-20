@@ -8,7 +8,11 @@ Executes the READ_REPLICATION_SLOT replication command to retrieve information a
 
 ## Definition
 
-
+```c
+bool
+GetSlotInformation(PGconn *conn, const char *slot_name,
+				   XLogRecPtr *restart_lsn, TimeLineID *restart_tli)
+```
 ## Detailed Description
 This function sends the READ_REPLICATION_SLOT replication protocol command to query information about a named physical replication slot. It validates that the slot exists and is of the correct type (physical), then extracts the restart LSN position and timeline ID from the response. The function is designed to work specifically with physical replication slots and will return an error if the slot is logical or doesn't exist.
 

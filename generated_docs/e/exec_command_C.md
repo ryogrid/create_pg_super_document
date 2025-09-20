@@ -8,7 +8,9 @@ exec_command_C implements the \C backslash command that overrides the table titl
 
 ## Definition
 
-
+```c
+enum trivalue reuse_previous = TRI_DEFAULT;
+```
 ## Detailed Description
 exec_command_C sets or clears the table title that appears above query result tables in psql output. The function accepts an optional argument that becomes the new title - if no argument is provided (or an empty string), the title is cleared. The implementation uses psql_scan_slash_option() with the 'true' parameter to allow empty strings, then calls do_pset() to update the "title" print setting.
 

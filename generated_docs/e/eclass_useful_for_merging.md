@@ -8,7 +8,12 @@ Detects whether an equivalence class could produce any mergejoinable join clause
 
 ## Definition
 
-
+```c
+bool
+eclass_useful_for_merging(PlannerInfo *root,
+						  EquivalenceClass *eclass,
+						  RelOptInfo *rel)
+```
 ## Detailed Description
 This function performs a heuristic test to determine if an equivalence class (EC) could potentially produce mergejoinable join clauses when joining with a specified relation. The function is designed to be optimistic - it's better to return "yes" incorrectly than "no", as this is used for optimization decisions rather than correctness.
 

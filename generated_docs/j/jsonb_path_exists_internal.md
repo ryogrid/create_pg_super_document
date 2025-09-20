@@ -8,7 +8,10 @@ Internal implementation function that checks whether a JSONPath expression retur
 
 ## Definition
 
-
+```c
+static Datum
+jsonb_path_exists_internal(FunctionCallInfo fcinfo, bool tz)
+```
 ## Detailed Description
 This is a core internal function that implements the JSONPath existence check functionality for PostgreSQL's JSONB data type. The function is designed to support both the @? and @@ operators and is optimized for consistency between index scan and sequential scan results. It follows a "throw as few errors as possible" philosophy to make indexing more reliable.
 

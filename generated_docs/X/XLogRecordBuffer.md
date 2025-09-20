@@ -8,7 +8,14 @@ XLogRecordBuffer is a structure used in PostgreSQL's logical decoding system to 
 
 ## Definition
 
-
+```c
+typedef struct XLogRecordBuffer
+{
+	XLogRecPtr	origptr;
+	XLogRecPtr	endptr;
+	XLogReaderState *record;
+} XLogRecordBuffer;
+```
 ## Detailed Description
 XLogRecordBuffer serves as a container structure that holds essential information about a WAL record during logical decoding operations. This structure is primarily used in the logical replication subsystem where WAL records need to be decoded and transformed into logical changes that can be replicated to other PostgreSQL instances.
 

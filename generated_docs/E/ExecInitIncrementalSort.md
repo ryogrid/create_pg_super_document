@@ -8,7 +8,10 @@ Initializes the runtime state for an incremental sort node, creating the necessa
 
 ## Definition
 
-
+```c
+structure. */
+	incrsortstate = makeNode(IncrementalSortState);
+```
 ## Detailed Description
 ExecInitIncrementalSort creates and initializes the runtime state information for an incremental sort node produced by the planner. This function sets up the IncrementalSortState structure with initial values, validates execution flags to ensure compatibility with incremental sorting limitations, and initializes both the outer child node and necessary tuple slots.
 

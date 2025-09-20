@@ -8,7 +8,11 @@ Saves data about a CREATE OPERATOR CLASS command being executed for event trigge
 
 ## Definition
 
-
+```c
+void
+EventTriggerCollectCreateOpClass(CreateOpClassStmt *stmt, Oid opcoid,
+								 List *operators, List *procedures)
+```
 ## Detailed Description
 This function is part of PostgreSQL's event trigger system and is responsible for collecting information about CREATE OPERATOR CLASS commands during their execution. It captures comprehensive details about the creation of new operator classes, which are essential components of PostgreSQL's indexing infrastructure.
 

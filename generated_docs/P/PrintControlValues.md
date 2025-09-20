@@ -8,7 +8,10 @@ PrintControlValues displays the current or guessed pg_control file values in a h
 
 ## Definition
 
-
+```c
+static void
+PrintControlValues(bool guessed)
+```
 ## Detailed Description
 This function provides a comprehensive display of the PostgreSQL control file contents, showing critical database configuration and state information in a formatted, user-friendly manner. The output includes both static configuration parameters (like block sizes and alignment settings) and dynamic state information (like transaction IDs and checkpoint data).
 

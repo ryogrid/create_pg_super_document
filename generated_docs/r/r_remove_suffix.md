@@ -8,7 +8,11 @@ Removes suffixes ('i', 'an', 'kan') from Indonesian words as part of the Snowbal
 
 ## Definition
 
+```c
+}
 
+static int r_remove_suffix(struct SN_env * z)
+```
 ## Detailed Description
 This function implements suffix removal logic for Indonesian word stemming. It searches backwards from the current position for specific suffixes defined in the  array ('i', 'an', 'kan') and removes them if found. The function uses the Snowball stemmer framework's string matching capabilities and includes validation through helper functions (r_SUFFIX_I_OK, r_SUFFIX_AN_OK, r_SUFFIX_KAN_OK) to ensure the suffix removal is linguistically appropriate. After successful removal, it decrements the morphological analysis counter .
 

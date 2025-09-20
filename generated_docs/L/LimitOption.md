@@ -8,7 +8,13 @@ LimitOption is an enumeration that defines the type of LIMIT clause behavior for
 
 ## Definition
 
-
+```c
+typedef enum LimitOption
+{
+	LIMIT_OPTION_COUNT,			/* FETCH FIRST... ONLY */
+	LIMIT_OPTION_WITH_TIES,		/* FETCH FIRST... WITH TIES */
+} LimitOption;
+```
 ## Detailed Description
 LimitOption specifies the semantics of LIMIT operations in PostgreSQL queries, particularly for FETCH FIRST clauses. It distinguishes between standard row count limiting and the WITH TIES variant that includes additional rows when they have the same values as the last row in the result set. This enumeration is used by the query planner and executor to determine the appropriate behavior for result set limiting. The enum is defined in nodes.h because it's needed in both parsenodes.h and plannodes.h for parsing and plan node execution.
 

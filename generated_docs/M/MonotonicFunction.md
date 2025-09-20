@@ -8,7 +8,15 @@ A bitflag enumeration that allows the PostgreSQL planner to track monotonic prop
 
 ## Definition
 
-
+```c
+typedef enum MonotonicFunction
+{
+	MONOTONICFUNC_NONE = 0,
+	MONOTONICFUNC_INCREASING = (1 << 0),
+	MONOTONICFUNC_DECREASING = (1 << 1),
+	MONOTONICFUNC_BOTH = MONOTONICFUNC_INCREASING | MONOTONICFUNC_DECREASING,
+} MonotonicFunction;
+```
 ## Detailed Description
 MonotonicFunction is used to characterize the monotonic behavior of functions, enabling the planner to make optimization decisions based on function properties. A monotonically increasing function is one where subsequent calls cannot yield lower values than previous calls, while a monotonically decreasing function cannot yield higher values on subsequent calls. Functions that are both monotonically increasing and decreasing must return the same value on each call.
 

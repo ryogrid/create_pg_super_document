@@ -8,7 +8,10 @@ fill_seq_fork_with_data initializes a specific fork of a sequence relation with 
 
 ## Definition
 
-
+```c
+static void
+fill_seq_fork_with_data(Relation rel, HeapTuple tuple, ForkNumber forkNum)
+```
 ## Detailed Description
 fill_seq_fork_with_data is a low-level function that performs the actual work of writing sequence data to a specific storage fork. It handles the complete process of sequence page initialization and data insertion with proper WAL logging.
 

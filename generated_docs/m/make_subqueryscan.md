@@ -8,7 +8,13 @@ Creates and initializes a SubqueryScan plan node, which represents a scan operat
 
 ## Definition
 
-
+```c
+static SubqueryScan *
+make_subqueryscan(List *qptlist,
+				  List *qpqual,
+				  Index scanrelid,
+				  Plan *subplan)
+```
 ## Detailed Description
 The `make_subqueryscan` function is a factory function that constructs a SubqueryScan plan node. This node type is used when the query planner needs to scan the results of a subquery. The function allocates memory for a new SubqueryScan node, initializes its base Plan structure with the provided target list and qualification conditions, and sets up the subquery-specific fields including the scan relation ID and the subplan that will produce the data to be scanned.
 

@@ -8,7 +8,10 @@ ReplicationSlotDropAtPubNode drops a replication slot on the publisher node thro
 
 ## Definition
 
-
+```c
+void
+ReplicationSlotDropAtPubNode(WalReceiverConn *wrconn, char *slotname, bool missing_ok)
+```
 ## Detailed Description
 ReplicationSlotDropAtPubNode executes a DROP_REPLICATION_SLOT command on the remote publisher node via the established WAL receiver connection. This function is a critical component of subscription cleanup and maintenance operations.
 

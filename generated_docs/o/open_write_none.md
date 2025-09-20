@@ -8,7 +8,10 @@ A static function that opens an uncompressed file for writing using a file path 
 
 ## Definition
 
-
+```c
+static bool
+open_write_none(const char *path, const char *mode, CompressFileHandle *CFH)
+```
 ## Detailed Description
 The `open_write_none` function is a specialized file opening function for uncompressed files ("none" compression mode) in pg_dump, specifically designed for write operations. Unlike `open_none` which supports both file paths and file descriptors, this function only works with file paths. It opens the specified file using `fopen()` with the provided mode and stores the resulting FILE pointer in the CompressFileHandle's private_data member. The function returns true on success and false on failure.
 

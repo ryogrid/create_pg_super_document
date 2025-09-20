@@ -8,7 +8,10 @@ A PostgreSQL test function that validates the correct operation of atomic operat
 
 ## Definition
 
-
+```c
+Datum
+test_atomic_ops(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a comprehensive test suite for PostgreSQL's atomic operations infrastructure. It systematically tests various atomic data types and operations including atomic flags, 32-bit and 64-bit unsigned integers, spinlocks, and nested spinlock operations. The function is designed to verify that the low-level synchronization primitives work correctly on the target platform, which is crucial for PostgreSQL's multi-process architecture and shared memory management.
 

@@ -8,7 +8,11 @@ Callback function used during manifest parsing to extract and store the backup m
 
 ## Definition
 
-
+```c
+static void
+verifybackup_version_cb(JsonManifestParseContext *context,
+						int manifest_version)
+```
 ## Detailed Description
 The verifybackup_version_cb function serves as a callback function for the JSON manifest parser specifically for handling the version information found in backup manifest files. When the parser encounters the version field in the manifest, it calls this function to record the version number in the manifest_data structure.
 

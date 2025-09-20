@@ -8,7 +8,10 @@ Serializes a ForeignKeyOptInfo node to its string representation, outputting for
 
 ## Definition
 
-
+```c
+static void
+_outForeignKeyOptInfo(StringInfo str, const ForeignKeyOptInfo *node)
+```
 ## Detailed Description
 The  function serializes ForeignKeyOptInfo nodes, which contain metadata about foreign key constraints that PostgreSQL's query planner uses for join optimization and constraint inference.
 

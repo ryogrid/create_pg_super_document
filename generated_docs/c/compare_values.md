@@ -8,7 +8,10 @@ Compares two Datum values for sorting purposes using a user-provided comparison 
 
 ## Definition
 
-
+```c
+static int
+compare_values(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 This function serves as a generic comparison function for sorting Datum values, designed to be compatible with standard C library sorting functions like qsort. It provides a standardized interface for comparing PostgreSQL Datum values of any type that has a comparison operator.
 

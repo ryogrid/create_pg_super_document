@@ -8,7 +8,10 @@ EvalPlanQualSetPlan sets or changes the subplan of an EPQState structure, which 
 
 ## Definition
 
-
+```c
+void
+EvalPlanQualSetPlan(EPQState *epqstate, Plan *subplan, List *auxrowmarks)
+```
 ## Detailed Description
 This function is part of PostgreSQL's EPQ (Eval Plan Qual) infrastructure, which handles concurrent tuple modifications during query execution. EvalPlanQualSetPlan allows modification of an existing EPQState by setting or changing its associated subplan and auxiliary row marks. The function first ensures that any currently running EPQ query is properly shut down before updating the plan configuration. Originally designed to handle multiple subplans in ModifyTable operations, this function could potentially be refactored as the codebase has evolved.
 

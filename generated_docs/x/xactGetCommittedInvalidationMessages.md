@@ -8,7 +8,11 @@ Collects all invalidation messages from the current transaction for inclusion in
 
 ## Definition
 
-
+```c
+int
+xactGetCommittedInvalidationMessages(SharedInvalidationMessage **msgs,
+									 bool *RelcacheInitFileInval)
+```
 ## Detailed Description
 xactGetCommittedInvalidationMessages is called by RecordTransactionCommit() to gather all invalidation messages that need to be included in the transaction's commit WAL record. This function runs before the transaction has officially committed and before AtEOXact_Inval() is called, ensuring it can access all the invalidation data that will be cleaned up later.
 

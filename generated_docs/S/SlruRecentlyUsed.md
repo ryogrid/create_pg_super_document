@@ -8,7 +8,10 @@ Marks a buffer slot as "most recently used" in the SLRU cache by updating its LR
 
 ## Definition
 
-
+```c
+static inline void
+SlruRecentlyUsed(SlruShared shared, int slotno)
+```
 ## Detailed Description
 SlruRecentlyUsed is an inline function that implements the LRU (Least Recently Used) tracking mechanism for SLRU buffer slots. It updates the LRU counter for a specific slot to mark it as recently accessed, which helps the cache replacement algorithm make better decisions about which pages to evict. The function uses a bank-based approach where buffer slots are organized into banks, and each bank maintains its own LRU counter. The function includes an optimization to avoid unnecessary counter updates when the same page is accessed consecutively multiple times.
 

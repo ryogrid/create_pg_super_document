@@ -8,7 +8,25 @@ A comprehensive structure that defines a complete text table formatting style, i
 
 ## Definition
 
-
+```c
+typedef struct printTextFormat
+{
+	/* A complete line style */
+	const char *name;			/* for display purposes */
+	printTextLineFormat lrule[4];	/* indexed by enum printTextRule */
+	const char *midvrule_nl;	/* vertical line for continue after newline */
+	const char *midvrule_wrap;	/* vertical line for wrapped data */
+	const char *midvrule_blank; /* vertical line for blank data */
+	const char *header_nl_left; /* left mark after newline */
+	const char *header_nl_right;	/* right mark for newline */
+	const char *nl_left;		/* left mark after newline */
+	const char *nl_right;		/* right mark for newline */
+	const char *wrap_left;		/* left mark after wrapped data */
+	const char *wrap_right;		/* right mark for wrapped data */
+	bool		wrap_right_border;	/* use right-hand border for wrap marks
+									 * when border=0? */
+} printTextFormat;
+```
 ## Detailed Description
 The printTextFormat structure represents a complete formatting theme for text-based table output in PostgreSQL frontend utilities. It encompasses not only basic line drawing characters but also sophisticated handling of text wrapping, line continuation, and different table sections (headers vs data). The structure allows for fine-grained control over table appearance, supporting various visual styles from simple ASCII to elaborate Unicode box-drawing formats.
 

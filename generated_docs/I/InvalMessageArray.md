@@ -8,7 +8,13 @@ InvalMessageArray is a data structure that manages a dynamically expandable arra
 
 ## Definition
 
-
+```c
+typedef struct InvalMessageArray
+{
+	SharedInvalidationMessage *msgs;	/* palloc'd array (can be expanded) */
+	int			maxmsgs;		/* current allocated size of array */
+} InvalMessageArray;
+```
 ## Detailed Description
 InvalMessageArray provides a container for storing SharedInvalidationMessage objects in PostgreSQL's cache invalidation system. It maintains a palloc'd array that can be dynamically expanded as needed. The structure is used within the TopTransactionContext to store invalidation messages that need to be processed for maintaining cache consistency.
 

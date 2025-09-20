@@ -8,7 +8,10 @@ Executes a BRIN index scan and returns a bitmap of heap pages that match the sca
 
 ## Definition
 
-
+```c
+int64
+bringetbitmap(IndexScanDesc scan, TIDBitmap *tbm)
+```
 ## Detailed Description
 The bringetbitmap function is the core bitmap index scan implementation for BRIN (Block Range Index) indexes. It works by:
 

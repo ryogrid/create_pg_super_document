@@ -8,7 +8,10 @@ GetLockmodeName provides the textual name of any lock mode given a lock method I
 
 ## Definition
 
-
+```c
+const char *
+GetLockmodeName(LOCKMETHODID lockmethodid, LOCKMODE mode)
+```
 ## Detailed Description
 This simple utility function translates numeric lock mode identifiers into human-readable string names. It accesses the global LockMethods array to retrieve the appropriate lock mode name from the specified lock method's configuration.
 

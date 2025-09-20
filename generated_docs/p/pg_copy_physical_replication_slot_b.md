@@ -8,7 +8,10 @@ A SQL-callable function that creates a new physical replication slot by copying 
 
 ## Definition
 
-
+```c
+Datum
+pg_copy_physical_replication_slot_b(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL system function that provides a simple interface for copying physical replication slots. It serves as a wrapper around the internal `copy_replication_slot` helper function, specifically configured for physical slots by passing `false` as the second parameter.
 

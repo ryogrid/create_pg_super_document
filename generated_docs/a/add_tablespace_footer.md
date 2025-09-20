@@ -8,7 +8,11 @@ A utility function that adds tablespace information to the footer of table descr
 
 ## Definition
 
-
+```c
+static void
+add_tablespace_footer(printTableContent *const cont, char relkind,
+					  Oid tablespace, const bool newline)
+```
 ## Detailed Description
 The  function is a specialized utility that enhances psql's describe output by adding tablespace information to relation descriptions. It only operates on relation types that support tablespaces and only displays non-default tablespaces to avoid cluttering the output for users not utilizing custom tablespaces.
 

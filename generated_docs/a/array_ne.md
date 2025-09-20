@@ -8,7 +8,10 @@ Implements array inequality comparison by negating the result of the array equal
 
 ## Definition
 
-
+```c
+Datum
+array_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a simple wrapper around the  function that implements the "not equal" operator (<>) for PostgreSQL arrays. Rather than duplicating the complex array comparison logic, it leverages the existing equality implementation and simply negates the result.
 

@@ -8,7 +8,10 @@ Subtracts two time values to produce an interval representing the difference bet
 
 ## Definition
 
-
+```c
+Datum
+time_mi_time(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that performs subtraction between two TimeADT (time) values and returns the result as an Interval. The function calculates the temporal difference between the two input times and creates an interval representing this duration. The resulting interval contains only a time component (in microseconds), with the day and month fields set to zero.
 

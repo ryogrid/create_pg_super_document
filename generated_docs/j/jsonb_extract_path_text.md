@@ -8,7 +8,9 @@ A PostgreSQL function that extracts a JSONB value at a specified path, returning
 
 ## Definition
 
-
+```c
+struct_array_builtin(path, TEXTOID, &pathtext, &pathnulls, &npath);
+```
 ## Detailed Description
 The  function serves as a wrapper that extracts values from JSONB data structures using a path specification and converts the result to text format. It internally delegates to  with the  parameter set to , ensuring the result is returned as a text string rather than maintaining the JSONB data type. This function is useful when you need the extracted value as a plain text representation.
 

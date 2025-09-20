@@ -8,7 +8,10 @@ Reads a null-terminated string from the connection's input buffer, replacing any
 
 ## Definition
 
-
+```c
+int
+pqGets(PQExpBuffer buf, PGconn *conn)
+```
 ## Detailed Description
 pqGets is a wrapper function around pqGets_internal that provides a convenient interface for reading null-terminated strings from the PostgreSQL connection's input buffer. It always resets the target buffer before reading the string, ensuring that any previous content is cleared.
 

@@ -8,7 +8,10 @@ A pairing heap comparison function used by GiST (Generalized Search Tree) index 
 
 ## Definition
 
-
+```c
+static int
+pairingheap_GISTSearchItem_cmp(const pairingheap_node *a, const pairingheap_node *b, void *arg)
+```
 ## Detailed Description
 This static function serves as a comparison callback for pairing heap operations in GiST index scanning. It implements a multi-criteria ordering strategy to ensure optimal search performance in nearest-neighbor queries and spatial searches. The function first compares items based on their distance values across multiple ORDER BY clauses, handling null values appropriately. For items with equal distances, it applies a secondary ordering rule that prioritizes heap tuples over inner index pages, ensuring a depth-first search pattern that improves cache locality and overall query performance.
 

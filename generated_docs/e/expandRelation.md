@@ -8,7 +8,12 @@ A helper function for expandRTE that handles the expansion of ordinary table rel
 
 ## Definition
 
-
+```c
+static void
+expandRelation(Oid relid, Alias *eref, int rtindex, int sublevels_up,
+			   int location, bool include_dropped,
+			   List **colnames, List **colvars)
+```
 ## Detailed Description
 This function serves as a specialized subroutine of expandRTE that specifically handles the expansion of RTE_RELATION type entries. It follows a simple but critical pattern:
 

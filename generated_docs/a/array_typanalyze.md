@@ -8,7 +8,10 @@ The array_typanalyze function serves as the typanalyze function for array column
 
 ## Definition
 
-
+```c
+Datum
+array_typanalyze(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is PostgreSQL's specialized type analyzer for array columns during vacuum analyze operations. It first calls the standard typanalyze function to establish basic statistics collection, then enhances it with array-specific analysis capabilities. The function validates that the column is indeed an array type, retrieves necessary type information for the array's element type (including equality operators, comparison procedures, and hash functions), and sets up a custom statistics computation function (compute_array_stats) to handle array-specific statistical analysis.
 

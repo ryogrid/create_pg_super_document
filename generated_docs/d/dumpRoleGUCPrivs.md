@@ -8,7 +8,10 @@ Dumps role configuration parameter privileges for PostgreSQL 15.0 and later serv
 
 ## Definition
 
-
+```c
+static void
+dumpRoleGUCPrivs(PGconn *conn)
+```
 ## Detailed Description
 This function handles the dumping of role privileges on configuration parameters (GUC - Grand Unified Configuration). It's specifically designed for PostgreSQL version 15.0 and later where per-role configuration parameter privileges are supported. The function queries the pg_parameter_acl system catalog to retrieve all parameters that have non-default access control lists (ACLs) defined, then generates the appropriate GRANT/REVOKE commands to recreate these privileges.
 

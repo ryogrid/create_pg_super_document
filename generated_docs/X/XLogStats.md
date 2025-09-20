@@ -8,7 +8,18 @@ XLogStats is a comprehensive structure for collecting and analyzing WAL (Write-A
 
 ## Definition
 
-
+```c
+typedef struct XLogStats
+{
+	uint64		count;
+#ifdef FRONTEND
+	XLogRecPtr	startptr;
+	XLogRecPtr	endptr;
+#endif
+	XLogRecStats rmgr_stats[RM_MAX_ID + 1];
+	XLogRecStats record_stats[RM_MAX_ID + 1][MAX_XLINFO_TYPES];
+} XLogStats;
+```
 ## Detailed Description
 XLogStats serves as the primary container for comprehensive WAL statistics collection in PostgreSQL. This structure provides a hierarchical view of WAL activity, tracking overall counts as well as detailed breakdowns by resource manager type and individual record types.
 

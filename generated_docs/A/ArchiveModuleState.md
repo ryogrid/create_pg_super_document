@@ -8,7 +8,17 @@ ArchiveModuleState is a structure that provides a mechanism for archive modules 
 
 ## Definition
 
-
+```c
+typedef struct ArchiveModuleState
+{
+	/*
+	 * Private data pointer for use by an archive module.  This can be used to
+	 * store state for the module that will be passed to each of its
+	 * callbacks.
+	 */
+	void	   *private_data;
+} ArchiveModuleState;
+```
 ## Detailed Description
 ArchiveModuleState serves as a container for archive module private data, enabling archive modules to store and access module-specific state information that persists across different callback function calls. This structure is fundamental to the archive module interface, providing a standardized way for modules to maintain context and configuration data throughout their lifecycle.
 

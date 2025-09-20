@@ -8,7 +8,14 @@ ListenAction is a structure that represents a queued LISTEN/NOTIFY operation, co
 
 ## Definition
 
-
+```c
+typedef struct ActionList
+{
+	int			nestingLevel;	/* current transaction nesting depth */
+	List	   *actions;		/* list of ListenAction structs */
+	struct ActionList *upper;	/* details for upper transaction levels */
+} ActionList;
+```
 ## Detailed Description
 ListenAction is a flexible-sized structure used to queue LISTEN, UNLISTEN, and UNLISTEN ALL operations during transaction execution. Each instance represents a single pending operation that will be processed when the transaction commits. The structure uses a flexible array member for the channel name to efficiently store channel names of varying lengths without requiring separate memory allocations. This design is part of PostgreSQL's mechanism to ensure that LISTEN/NOTIFY operations have proper transactional semantics.
 

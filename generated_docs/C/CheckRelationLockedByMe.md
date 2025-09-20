@@ -8,7 +8,10 @@ CheckRelationLockedByMe checks whether the current transaction holds a lock on t
 
 ## Definition
 
-
+```c
+bool
+CheckRelationLockedByMe(Relation relation, LOCKMODE lockmode, bool orstronger)
+```
 ## Detailed Description
 This function verifies if the current transaction has acquired a lock on the specified relation. It constructs a lock tag from the relation's database and relation identifiers, then delegates to LockHeldByMe to perform the actual lock check. The function can optionally check for stronger lock modes when the orstronger parameter is true, where "stronger" is defined numerically (higher LOCKMODE values).
 

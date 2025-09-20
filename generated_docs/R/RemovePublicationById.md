@@ -8,7 +8,10 @@ RemovePublicationById removes a publication from the system catalog using its OI
 
 ## Definition
 
-
+```c
+void
+RemovePublicationById(Oid pubid)
+```
 ## Detailed Description
 This function completely removes a publication from the pg_publication catalog table using the publication's OID. It implements intelligent cache invalidation logic that handles FOR ALL TABLES publications specially by invalidating the entire relation cache, while regular publications rely on dependency-driven invalidation. The function is primarily called by the dependency system during cascading deletions when a publication is explicitly dropped or when related objects are removed.
 

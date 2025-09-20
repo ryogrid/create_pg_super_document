@@ -8,7 +8,10 @@ Performs cleanup and shutdown operations for a ModifyTable execution node, relea
 
 ## Definition
 
-
+```c
+void
+ExecEndModifyTable(ModifyTableState *node)
+```
 ## Detailed Description
 This function systematically cleans up all resources allocated during the initialization and execution of a ModifyTable node. It ensures proper shutdown of foreign data wrappers, cleanup of partitioning structures, termination of EPQ (EvalPlanQual) state, and shutdown of the associated subplan.
 

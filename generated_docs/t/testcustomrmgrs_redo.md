@@ -8,7 +8,10 @@ A no-operation redo function for the test custom resource manager that validates
 
 ## Definition
 
-
+```c
+void
+testcustomrmgrs_redo(XLogReaderState *record)
+```
 ## Detailed Description
 The  function implements the redo callback for the test_custom_rmgrs custom WAL resource manager. This function is part of the RMGR API and gets called during WAL replay/recovery to apply logged changes.
 

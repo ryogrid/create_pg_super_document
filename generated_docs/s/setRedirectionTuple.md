@@ -8,7 +8,11 @@ This function updates a previously-created redirection tuple with the appropriat
 
 ## Definition
 
-
+```c
+static void
+setRedirectionTuple(SPPageDesc *current, OffsetNumber position,
+					BlockNumber blkno, OffsetNumber offnum)
+```
 ## Detailed Description
 This utility function modifies an existing SPGIST_REDIRECT tuple to point to its correct final destination. It's used when redirection tuples are initially created with a placeholder destination (the metapage) because the actual destination isn't known at creation time. The function:
 

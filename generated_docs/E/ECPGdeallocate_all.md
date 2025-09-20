@@ -8,7 +8,10 @@ A public API function that deallocates all prepared statements for a specified d
 
 ## Definition
 
-
+```c
+bool
+ECPGdeallocate_all(int lineno, int compat, const char *connection_name)
+```
 ## Detailed Description
  serves as the primary public interface for performing bulk deallocation of all prepared statements associated with a named database connection. This function acts as a simple wrapper around , providing a convenient API for applications that need to clean up all prepared statements for a specific connection. It resolves the connection by name and delegates the actual deallocation work to the internal function, making it suitable for use in application code that needs to perform comprehensive cleanup operations.
 

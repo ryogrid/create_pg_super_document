@@ -8,7 +8,10 @@ Converts a single character value to its string representation, formatting high-
 
 ## Definition
 
-
+```c
+Datum
+charout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The charout function is the output function for PostgreSQL's "char" (single character) data type. It converts a character value to its string representation following specific formatting rules:
 

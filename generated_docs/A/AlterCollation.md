@@ -8,7 +8,10 @@ AlterCollation implements the ALTER COLLATION REFRESH VERSION command, updating 
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterCollation(AlterCollationStmt *stmt)
+```
 ## Detailed Description
 This function handles the ALTER COLLATION REFRESH VERSION SQL command by:
 1. Validating that the target collation exists and the user has ownership privileges

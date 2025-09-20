@@ -8,7 +8,14 @@ Handles subcolor allocation for a single character, creating NFA arcs and managi
 
 ## Definition
 
-
+```c
+static void
+subcoloronechr(struct vars *v,
+			   chr ch,
+			   struct state *lp,
+			   struct state *rp,
+			   color *lastsubcolor)
+```
 ## Detailed Description
 The  function is a specialized version of subcolor processing that handles individual characters efficiently. For simple characters (≤ MAX_SIMPLE_CHR), it directly calls . For complex characters, it manages the colormap ranges by potentially splitting existing ranges to isolate the target character. The function creates new colormaprange structures as needed, potentially splitting a single range into up to three parts: before the target character, the target character itself, and after the target character. It maintains the hicolormap structure by cloning rows when ranges are split.
 

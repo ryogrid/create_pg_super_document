@@ -8,7 +8,11 @@ mdwriteback tells the kernel to write pages back to storage, providing an effici
 
 ## Definition
 
-
+```c
+void
+mdwriteback(SMgrRelation reln, ForkNumber forknum,
+			BlockNumber blocknum, BlockNumber nblocks)
+```
 ## Detailed Description
 mdwriteback implements PostgreSQL's writeback mechanism for the magnetic disk (md) storage manager. It advises the operating system kernel to write dirty pages from the buffer cache back to persistent storage. The function is optimized to handle ranges of blocks efficiently, issuing as few flush requests as possible while respecting segment boundaries. It includes safety mechanisms to handle cases where relation files might have been removed, avoiding race conditions with concurrent operations like PROCSIGNAL_BARRIER_SMGRRELEASE.
 

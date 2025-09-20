@@ -8,7 +8,10 @@ A PostgreSQL function that implements the "starts with" operation for text data 
 
 ## Definition
 
-
+```c
+Datum
+text_starts_with(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `text_starts_with` function is a PostgreSQL built-in function that determines whether one text value starts with another text value as a prefix. The function performs collation validation and handles locale-specific considerations, ensuring deterministic behavior by rejecting nondeterministic collations. It uses an efficient approach by extracting a substring from the first argument that matches the length of the second argument, then performs a byte-level comparison using `memcmp`. This implementation optimizes performance by avoiding full string comparison when the prefix length exceeds the target string length.
 

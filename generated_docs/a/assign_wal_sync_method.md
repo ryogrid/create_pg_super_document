@@ -8,7 +8,10 @@ A GUC assign hook function that safely transitions the WAL synchronization metho
 
 ## Definition
 
-
+```c
+void
+assign_wal_sync_method(int new_wal_sync_method, void *extra)
+```
 ## Detailed Description
 This function serves as the assign hook for the  GUC parameter. When the WAL synchronization method is changed, it ensures data integrity by performing necessary synchronization operations on the currently open WAL file before applying the new method.
 

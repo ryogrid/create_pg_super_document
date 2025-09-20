@@ -8,7 +8,10 @@ A static function that deserializes a RangeTblEntry node from its string represe
 
 ## Definition
 
-
+```c
+static RangeTblEntry *
+_readRangeTblEntry(void)
+```
 ## Detailed Description
 The  function reconstructs RangeTblEntry nodes from their serialized format during PostgreSQL's node deserialization process. A RangeTblEntry represents a single item in the FROM clause of a SQL query and can take various forms depending on the type of data source.
 

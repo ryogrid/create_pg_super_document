@@ -8,7 +8,10 @@ Sets the client character encoding for the database connection, allowing applica
 
 ## Definition
 
-
+```c
+int
+PQsetClientEncoding(PGconn *conn, const char *encoding)
+```
 ## Detailed Description
 PQsetClientEncoding sets the client character encoding for the given database connection by executing a "SET client_encoding" SQL command on the backend. The function validates the connection state and encoding parameter, handles the special "auto" encoding value by resolving it from the system locale, and sends the appropriate SQL command to the server. The actual encoding change is reported back by the backend server, and the client state is updated accordingly through the parameter status reporting mechanism.
 

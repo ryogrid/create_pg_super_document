@@ -8,7 +8,10 @@ Adds an interval to a timestamp data type, handling both quantitative time and q
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+					   *tm = &tt;
+```
 ## Detailed Description
 This function implements timestamp arithmetic by adding an interval to a timestamp. It handles the complexity of calendar arithmetic by processing different interval components separately:
 

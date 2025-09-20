@@ -8,7 +8,10 @@ A validation function that ensures referential integrity trigger functions are c
 
 ## Definition
 
-
+```c
+static void
+ri_CheckTrigger(FunctionCallInfo fcinfo, const char *funcname, int tgkind)
+```
 ## Detailed Description
 This function performs comprehensive validation to ensure that referential integrity trigger functions are invoked correctly by the PostgreSQL trigger system. It validates three critical aspects: that the function was actually called as a trigger (not directly), that the trigger timing and granularity are correct (AFTER ROW), and that the trigger event type matches the expected operation (INSERT, UPDATE, or DELETE).
 

@@ -8,7 +8,10 @@ A utility function that applies debug-level configurations based on the "-d N" c
 
 ## Definition
 
-
+```c
+void
+set_debug_options(int debug_flag, GucContext context, GucSource source)
+```
 ## Detailed Description
 This function implements PostgreSQL's debug level functionality triggered by the "-d N" command line option. It sets various logging and debugging configuration options based on the specified debug level, with higher levels enabling increasingly detailed output. The function provides a convenient way to configure multiple related debugging parameters with a single debug level value, making it easier for developers and administrators to control the verbosity of PostgreSQL's diagnostic output.
 

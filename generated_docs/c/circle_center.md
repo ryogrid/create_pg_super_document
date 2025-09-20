@@ -8,7 +8,10 @@ Returns the center point of a circle as a Point data type.
 
 ## Definition
 
-
+```c
+Datum
+circle_center(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function extracts the center point from a PostgreSQL CIRCLE geometric data type. It takes a circle as input and returns a newly allocated Point structure containing the x and y coordinates of the circle's center. This function is part of PostgreSQL's geometric operations and is typically used in SQL queries to retrieve the center point of circle objects.
 

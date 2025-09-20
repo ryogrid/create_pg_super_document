@@ -8,7 +8,11 @@ A static function that manages namespace visibility for different types of MERGE
 
 ## Definition
 
-
+```c
+static void
+setNamespaceForMergeWhen(ParseState *pstate, MergeWhenClause *mergeWhenClause,
+						 Index targetRTI, Index sourceRTI)
+```
 ## Detailed Description
 This function adjusts the namespace visibility in the parser state to ensure that the correct relations are accessible when transforming individual MERGE action's qualification expressions and target lists. The visibility rules depend on the type of MERGE action:
 

@@ -8,7 +8,12 @@ Creates the INSERT or UPDATE check trigger that enforces a foreign key constrain
 
 ## Definition
 
-
+```c
+static Oid
+CreateFKCheckTrigger(Oid myRelOid, Oid refRelOid, Constraint *fkconstraint,
+					 Oid constraintOid, Oid indexOid, Oid parentTrigOid,
+					 bool on_insert)
+```
 ## Detailed Description
 This function creates either an INSERT or UPDATE trigger that implements foreign key constraint checking on the referencing table. The trigger is configured to fire after the triggering event (INSERT or UPDATE) and calls the appropriate referential integrity function (RI_FKey_check_ins for inserts, RI_FKey_check_upd for updates). The function carefully manages trigger naming with a "RI_ConstraintTrigger_c_" prefix to ensure proper firing order relative to action triggers in self-referential foreign key scenarios.
 

@@ -8,7 +8,12 @@ Creates a new type cast in the PostgreSQL catalog by forming and inserting tuple
 
 ## Definition
 
-
+```c
+ObjectAddress
+CastCreate(Oid sourcetypeid, Oid targettypeid,
+		   Oid funcid, Oid incastid, Oid outcastid,
+		   char castcontext, char castmethod, DependencyType behavior)
+```
 ## Detailed Description
 CastCreate is responsible for creating a new cast entry in the PostgreSQL system catalog. It performs several critical operations: validates that the cast doesn't already exist, assigns a new OID, creates the catalog tuple with all necessary attributes, and establishes dependency relationships between the cast and its dependent objects (source type, target type, cast function, and any required intermediate casts). The function handles both function-based and binary-compatible casts, ensuring proper dependency tracking for automatic cleanup when dependent objects are dropped.
 

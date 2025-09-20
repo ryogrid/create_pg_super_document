@@ -8,7 +8,10 @@ Retrieves the OID of the unique index used for object identification for a given
 
 ## Definition
 
-
+```c
+Oid
+get_object_oid_index(Oid class_id)
+```
 ## Detailed Description
 This function returns the OID of the unique index that is used to identify objects of a specific catalog class. Each catalog table has a primary unique index that allows efficient lookup of objects by their OID. This function provides access to that index's OID by consulting the object property metadata for the given class.
 

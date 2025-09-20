@@ -8,7 +8,10 @@ Determines the tuple descriptor for a Var of type RECORD by drilling down to fin
 
 ## Definition
 
-
+```c
+TupleDesc
+expandRecordVariable(ParseState *pstate, Var *var, int levelsup)
+```
 ## Detailed Description
 expandRecordVariable handles the complex task of determining the structure of RECORD-type variables, which have no predefined schema. Since PostgreSQL does not allow actual table or view columns to have type RECORD, such variables must refer to JOIN RTEs, FUNCTION RTEs, or subquery outputs.
 

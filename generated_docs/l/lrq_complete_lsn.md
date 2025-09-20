@@ -8,7 +8,10 @@ Completes LSN processing in an LSN read queue by removing entries for LSNs that 
 
 ## Definition
 
-
+```c
+static inline void
+lrq_complete_lsn(LsnReadQueue *lrq, XLogRecPtr lsn)
+```
 ## Detailed Description
 This function manages the completion of LSN processing in the LSN read queue by advancing the tail pointer past all entries with LSNs less than the specified LSN. It operates under the assumption that LSNs before the given LSN have been replayed, meaning any I/O operations that were started before then have finished and can be safely removed from the queue.
 

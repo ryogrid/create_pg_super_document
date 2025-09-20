@@ -8,7 +8,10 @@ Serializes a NumericVar structure to binary format for storage or transmission, 
 
 ## Definition
 
-
+```c
+static void
+numericvar_serialize(StringInfo buf, const NumericVar *var)
+```
 ## Detailed Description
 This function serializes a NumericVar structure into a binary format using PostgreSQL's string buffer mechanism. The function performs no validation on weight or dscale values, enabling the serialization of intermediate computational results that may exceed the precision limits of the standard numeric data type. This design choice supports internal calculations that require higher precision before final rounding.
 

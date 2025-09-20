@@ -8,7 +8,11 @@ ExecResultRestrPos restores a previously marked position in a Result node, deleg
 
 ## Definition
 
-
+```c
+structure
+	 */
+	resstate = makeNode(ResultState);
+```
 ## Detailed Description
 ExecResultRestrPos implements the restore functionality for Result plan nodes as part of PostgreSQL's mark/restore position mechanism. This function is the counterpart to ExecResultMarkPos and is used to return to a previously marked execution position.
 

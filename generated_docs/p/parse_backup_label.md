@@ -8,7 +8,12 @@ Parses a PostgreSQL backup label file to extract essential information required 
 
 ## Definition
 
-
+```c
+void
+parse_backup_label(char *filename, StringInfo buf,
+				   TimeLineID *start_tli, XLogRecPtr *start_lsn,
+				   TimeLineID *previous_tli, XLogRecPtr *previous_lsn)
+```
 ## Detailed Description
 The  function processes the contents of a backup label file stored in a StringInfo buffer, starting from the current cursor position. It searches for specific required and optional lines:
 

@@ -8,7 +8,10 @@ Determines whether a given transaction ID is still in-progress according to the 
 
 ## Definition
 
-
+```c
+bool
+XidInMVCCSnapshot(TransactionId xid, Snapshot snapshot)
+```
 ## Detailed Description
 XidInMVCCSnapshot is a core function in PostgreSQL's MVCC (Multi-Version Concurrency Control) implementation that determines transaction visibility. It checks whether a specific transaction ID should be considered as 'still running' from the perspective of a given snapshot. This function implements the complex logic needed to handle both normal operations and recovery scenarios, dealing with transaction ID overflow conditions and the distinction between top-level transactions and subtransactions.
 

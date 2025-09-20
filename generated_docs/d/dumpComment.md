@@ -8,7 +8,13 @@ A simplified wrapper function that calls dumpCommentExtended with no initdb comm
 
 ## Definition
 
-
+```c
+static inline void
+dumpComment(Archive *fout, const char *type,
+			const char *name, const char *namespace,
+			const char *owner, CatalogId catalogId,
+			int subid, DumpId dumpId)
+```
 ## Detailed Description
 This function serves as a streamlined interface to dumpCommentExtended for cases where no special initdb comment processing is needed. It simply passes all parameters through to dumpCommentExtended with NULL for the initdb_comment parameter. This is the most commonly used function for dumping comments on database objects throughout pg_dump.
 

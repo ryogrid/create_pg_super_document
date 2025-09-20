@@ -8,7 +8,10 @@ Initializes a virtual tuple table slot, serving as the init callback for the TTS
 
 ## Definition
 
-
+```c
+static void
+tts_virtual_init(TupleTableSlot *slot)
+```
 ## Detailed Description
 The  function is the initialization callback for virtual tuple table slots in PostgreSQL. It is part of the  operations structure that defines the behavior for virtual tuple slots. A virtual tuple table slot is a lightweight implementation that stores tuple data as arrays of Datum values and null indicators, without requiring physical storage of heap tuples or minimal tuples.
 

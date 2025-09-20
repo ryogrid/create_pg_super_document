@@ -8,7 +8,10 @@ Initializes the PLyPlan Python type object for use in the PL/Python extension, m
 
 ## Definition
 
-
+```c
+void
+PLy_plan_init_type(void)
+```
 ## Detailed Description
 This function performs the necessary initialization of the PLy_PlanType Python type object by calling PyType_Ready(). The PLy_PlanType represents prepared SQL statements (plans) that can be executed multiple times with different parameters in PL/Python. The function ensures that the type is properly registered with the Python interpreter and ready for object creation. If initialization fails, it raises a PostgreSQL ERROR using elog().
 

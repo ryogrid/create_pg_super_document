@@ -8,7 +8,10 @@ syslogger_fdget is a utility wrapper function that extracts the file descriptor 
 
 ## Definition
 
-
+```c
+static int
+syslogger_fdget(FILE *file)
+```
 ## Detailed Description
 syslogger_fdget provides a cross-platform abstraction for obtaining the underlying file descriptor from a FILE pointer. This function is specifically designed for use in EXEC_BACKEND builds where the postmaster needs to pass open file descriptors to the syslogger process via startup data rather than inheriting them through fork().
 

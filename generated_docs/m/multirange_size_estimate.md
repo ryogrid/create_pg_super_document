@@ -8,7 +8,13 @@ Estimates the total size in bytes required to serialize a multirange structure c
 
 ## Definition
 
-
+```c
+struct, items and flags.
+	 */
+	size = att_align_nominal(sizeof(MultirangeType) +
+							 Max(range_count - 1, 0) * sizeof(uint32) +
+							 range_count * sizeof(uint8), elemalign);
+```
 ## Detailed Description
 This function calculates the memory footprint needed to store a multirange in its serialized form. The calculation includes space for the MultirangeType structure itself, item offsets, flags, and the actual range data. The function takes into account proper alignment requirements based on the element type's alignment characteristics.
 

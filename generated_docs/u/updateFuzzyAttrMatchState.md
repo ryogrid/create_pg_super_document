@@ -8,7 +8,12 @@ Updates the fuzzy attribute matching state by comparing a candidate column name 
 
 ## Definition
 
-
+```c
+static void
+updateFuzzyAttrMatchState(int fuzzy_rte_penalty,
+						  FuzzyAttrMatchState *fuzzystate, RangeTblEntry *rte,
+						  const char *actual, const char *match, int attnum)
+```
 ## Detailed Description
 This static function implements fuzzy matching logic for PostgreSQL's column name resolution. When an exact column name match fails, this function evaluates potential column candidates using the Levenshtein distance algorithm to suggest similar column names. It maintains state about the best and second-best matches found so far, considering both RTE-level penalties and column name differences. The function employs several heuristics to avoid suggesting unreasonable matches, such as rejecting matches where more than half the characters differ, and handles cases with multiple equally-distant matches to avoid ambiguous suggestions.
 

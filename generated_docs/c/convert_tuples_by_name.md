@@ -8,7 +8,10 @@ Creates a tuple conversion map by matching input and output columns by their nam
 
 ## Definition
 
-
+```c
+structure */
+	map = (TupleConversionMap *) palloc(sizeof(TupleConversionMap));
+```
 ## Detailed Description
 This function sets up tuple conversion infrastructure for cases where tuples need to be converted between different tuple descriptors and the correspondence is determined by matching column names rather than positions. It's specifically designed for use with rowtypes that are related by inheritance, where an exact match of both type and typmod is expected.
 

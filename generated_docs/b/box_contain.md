@@ -8,7 +8,10 @@ Tests whether the first box completely contains the second box in PostgreSQL's g
 
 ## Definition
 
-
+```c
+Datum
+box_contain(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements a geometric containment test that determines if one box (box1) completely contains another box (box2). This function serves as a wrapper around the internal  function, calling it with the arguments in their natural order to check if box1 contains box2.
 

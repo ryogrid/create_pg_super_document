@@ -8,7 +8,10 @@ AlterSubscriptionOwner changes the owner of a subscription identified by name, s
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterSubscriptionOwner(const char *name, Oid newOwnerId)
+```
 ## Detailed Description
 AlterSubscriptionOwner is the public interface function for changing subscription ownership via subscription name. It acts as a wrapper around the internal implementation, handling catalog lookup and resource management.
 

@@ -8,7 +8,12 @@ ConstraintCategory is an enumeration type that categorizes different types of co
 
 ## Definition
 
-
+```c
+structFkConstraintRow(HeapTuple tuple, int *numfks,
+									   AttrNumber *conkey, AttrNumber *confkey,
+									   Oid *pf_eq_oprs, Oid *pp_eq_oprs, Oid *ff_eq_oprs,
+									   int *num_fk_del_set_cols, AttrNumber *fk_del_set_cols);
+```
 ## Detailed Description
 ConstraintCategory is a classification enum used internally by PostgreSQL to distinguish between different categories of constraints when performing constraint-related operations. This enumeration helps the system determine how to handle constraint lookups, validation, and management operations based on the context in which the constraint exists.
 

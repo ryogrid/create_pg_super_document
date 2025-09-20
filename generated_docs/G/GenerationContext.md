@@ -8,7 +8,23 @@ GenerationContext is a memory context implementation designed for scenarios wher
 
 ## Definition
 
+```c
+typedef struct GenerationContext
+{
+	MemoryContextData header;	/* Standard memory-context fields */
 
+	/* Generational context parameters */
+	uint32		initBlockSize;	/* initial block size */
+	uint32		maxBlockSize;	/* maximum block size */
+	uint32		nextBlockSize;	/* next block size to allocate */
+	uint32		allocChunkLimit;	/* effective chunk size limit */
+
+	GenerationBlock *block;		/* current (most recently allocated) block */
+	GenerationBlock *freeblock; /* pointer to an empty block that's being
+								 * recycled, or NULL if there's no such block. */
+	dlist_head	blocks;			/* list of blocks */
+} GenerationContext;
+```
 ## Detailed Description
 GenerationContext is a specialized memory context that implements a generational memory allocation strategy. Unlike other PostgreSQL memory contexts that may reuse freed chunks, this context is designed for use cases where memory chunks are allocated but not typically reused. The key design principle is that blocks are only freed when ALL chunks within them have been freed, making it efficient for scenarios with predictable allocation and deallocation patterns.
 

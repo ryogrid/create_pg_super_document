@@ -8,7 +8,33 @@ PUBACTION_DELETE is an enum value representing the delete operation in PostgreSQ
 
 ## Definition
 
+```c
+PUBACTION_UPDATE,
+	PUBACTION_DELETE,
+};
 
+#define NUM_ROWFILTER_PUBACTIONS (PUBACTION_DELETE+1)
+
+/*
+ * Entry in the map used to remember which relation schemas we sent.
+ *
+ * The schema_sent flag determines if the current schema record for the
+ * relation (and for its ancestor if publish_as_relid is set) was already
+ * sent to the subscriber (in which case we don't need to send it again).
+ *
+ * The schema cache on downstream is however updated only at commit time,
+ * and with streamed transactions the commit order may be different from
+ * the order the transactions are sent in. Also, the (sub) transactions
+ * might get aborted so we need to send the schema for each (sub) transaction
+ * so that we don't lose the schema information on abort. For handling this,
+ * we maintain the list of xids (streamed_txns) for those we have already sent
+ * the schema.
+ *
+ * For partitions, 'pubactions' considers not only the table's own
+ * publications, but also those of all of its ancestors.
+ */
+typedef struct RelationSyncEntry
+```
 ## Detailed Description
 PUBACTION_DELETE is the third and final member of the RowFilterPubAction enum, defined in the pgoutput logical replication plugin. This enum value is specifically used to represent DELETE operations when implementing row-level filtering for logical replication publications. The enum serves as an index into various arrays and data structures that manage row filtering logic for different DML operations.
 

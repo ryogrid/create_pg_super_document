@@ -8,7 +8,22 @@ ExecRowMark is the runtime representation of FOR [KEY] UPDATE/SHARE clauses, man
 
 ## Definition
 
-
+```c
+typedef struct ExecRowMark
+{
+	Relation	relation;		/* opened and suitably locked relation */
+	Oid			relid;			/* its OID (or InvalidOid, if subquery) */
+	Index		rti;			/* its range table index */
+	Index		prti;			/* parent range table index, if child */
+	Index		rowmarkId;		/* unique identifier for resjunk columns */
+	RowMarkType markType;		/* see enum in nodes/plannodes.h */
+	LockClauseStrength strength;	/* LockingClause's strength, or LCS_NONE */
+	LockWaitPolicy waitPolicy;	/* NOWAIT and SKIP LOCKED */
+	bool		ermActive;		/* is this mark relevant for current tuple? */
+	ItemPointerData curCtid;	/* ctid of currently locked tuple, if any */
+	void	   *ermExtra;		/* available for use by relation source node */
+} ExecRowMark;
+```
 ## Detailed Description
 ExecRowMark manages row locking during the execution of queries with FOR [KEY] UPDATE/SHARE clauses. It maintains the runtime state necessary to apply proper locking semantics, including lock strength, wait policies, and tracking of currently locked tuples. The structure supports both regular relations and virtual relations (like subqueries), with special handling for inheritance hierarchies. Each non-target relation in a locking query gets its own ExecRowMark entry stored in the EState's es_rowmarks array.
 

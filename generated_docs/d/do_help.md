@@ -8,7 +8,10 @@ A static utility function in pg_ctl that displays comprehensive help information
 
 ## Definition
 
-
+```c
+static void
+do_help(void)
+```
 ## Detailed Description
 The  function prints detailed usage information for the pg_ctl utility to stdout. It provides a comprehensive overview of all available commands (init, start, stop, restart, reload, status, promote, logrotate, kill, and on Windows: register/unregister), their syntax, and available options. The function uses internationalization support through the  macro to provide localized help text.
 

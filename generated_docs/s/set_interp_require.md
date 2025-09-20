@@ -8,7 +8,10 @@ A static function that configures Perl's require and dofile operations to use ei
 
 ## Definition
 
-
+```c
+static void
+set_interp_require(bool trusted)
+```
 ## Detailed Description
 This function modifies Perl's internal operation dispatch table (PL_ppaddr) to control how 'require' and 'dofile' operations are handled based on the trust level of the current Perl interpreter context. When running in trusted mode, it sets both OP_REQUIRE and OP_DOFILE to use the safe implementation (pp_require_safe) which restricts module loading for security. When running in untrusted mode, it restores the original Perl behavior (pp_require_orig) allowing normal module loading. This is a critical security mechanism in PL/Perl that prevents trusted Perl code from loading arbitrary modules that could compromise database security.
 

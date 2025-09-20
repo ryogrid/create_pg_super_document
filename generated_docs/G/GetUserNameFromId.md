@@ -8,7 +8,13 @@ GetUserNameFromId retrieves the user name (role name) from a given user OID, wit
 
 ## Definition
 
-
+```c
+typedef struct SerializedClientConnectionInfo
+{
+	int32		authn_id_len;	/* strlen(authn_id), or -1 if NULL */
+	UserAuth	auth_method;
+} SerializedClientConnectionInfo;
+```
 ## Detailed Description
 This function looks up a user name from the PostgreSQL system catalog using the provided role OID. It searches the pg_authid system catalog to find the role entry and extracts the role name. The function provides flexible error handling: when noerr is true, it returns NULL for nonexistent roles; when noerr is false, it raises an ERROR for invalid role OIDs. The function uses PostgreSQL's system cache mechanism for efficient lookups and returns a palloc'd copy of the role name that the caller must free.
 

@@ -8,7 +8,12 @@ Specialized function that adjusts variable references in IndexOnlyScan plan node
 
 ## Definition
 
-
+```c
+static Plan *
+set_indexonlyscan_references(PlannerInfo *root,
+							 IndexOnlyScan *plan,
+							 int rtoffset)
+```
 ## Detailed Description
  handles the unique requirements of IndexOnlyScan nodes, which differ significantly from regular IndexScan nodes. The key challenge is that IndexOnlyScan nodes must convert variables that originally referenced heap columns into variables that reference corresponding index columns, since the scan will only access the index without touching the heap.
 

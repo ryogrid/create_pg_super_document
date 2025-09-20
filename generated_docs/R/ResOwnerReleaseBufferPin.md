@@ -8,7 +8,10 @@ A ResourceOwner callback function that releases buffer pins during resource clea
 
 ## Definition
 
-
+```c
+static void
+ResOwnerReleaseBufferPin(Datum res)
+```
 ## Detailed Description
 ResOwnerReleaseBufferPin is a static callback function used by PostgreSQL's ResourceOwner system to release buffer pins during resource cleanup scenarios such as transaction abort, error recovery, or resource deallocation. The function operates similarly to ReleaseBuffer but specifically avoids calling ResourceOwnerForgetBuffer, making it suitable for cleanup contexts where the ResourceOwner is already managing the release process.
 

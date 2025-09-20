@@ -8,7 +8,9 @@ Removes or recycles WAL files that are not part of the current timeline's histor
 
 ## Definition
 
-
+```c
+struct dirent *xlde;
+```
 ## Detailed Description
 This function is called during WAL recovery when switching to a new timeline or at the end of recovery when creating a new timeline. It identifies and removes WAL segments that belong to timelines not in the ancestry of the current timeline to prevent archiving of potentially garbage data.
 

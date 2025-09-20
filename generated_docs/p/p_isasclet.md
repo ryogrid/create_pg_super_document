@@ -8,7 +8,10 @@ A composite function that determines whether the current character in the parser
 
 ## Definition
 
-
+```c
+static int
+p_isasclet(TParser *prs)
+```
 ## Detailed Description
 The  function combines two character classification tests to determine if the current character is an ASCII alphabetic letter. It first calls  to verify the character is in the ASCII range (0-127), and then calls  to check if it's an alphabetic character. Only when both conditions are true does the function return 1.
 

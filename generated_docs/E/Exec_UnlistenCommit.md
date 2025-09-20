@@ -8,7 +8,10 @@ Removes a specific channel name from the backend's list of listened channels dur
 
 ## Definition
 
-
+```c
+static void
+Exec_UnlistenCommit(const char *channel)
+```
 ## Detailed Description
 This function is called during the commit phase of an UNLISTEN command to remove a channel name from the backend's  list. The function performs the following operations:
 

@@ -8,7 +8,9 @@ This function lexizes a single word using a specified text search dictionary, pr
 
 ## Definition
 
-
+```c
+struct_array_builtin(da, ptr - res, TEXTOID);
+```
 ## Detailed Description
 The  function takes a dictionary OID and input text, then applies the dictionary's lexization process to transform the input word into normalized lexemes. This function is designed primarily for debugging and testing purposes, allowing users to see how a particular dictionary would process a given word.
 

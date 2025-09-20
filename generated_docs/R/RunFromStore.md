@@ -8,7 +8,11 @@ Fetches tuples from a portal's tuple store and sends them to a destination recei
 
 ## Definition
 
-
+```c
+static uint64
+RunFromStore(Portal portal, ScanDirection direction, uint64 count,
+			 DestReceiver *dest)
+```
 ## Detailed Description
 RunFromStore is a specialized function that retrieves tuples from a portal's tuple store and delivers them to a destination receiver. Unlike ExecutorRun, this function operates without a queryDesc or estate, making it suitable for fetching previously stored results. The function creates a temporary tuple slot, iterates through the stored tuples in the specified direction, and sends each tuple to the destination receiver. It handles scan direction logic, respects tuple count limits, and properly manages memory contexts. The function returns the number of tuples processed and ensures proper cleanup of resources.
 

@@ -8,7 +8,11 @@ Performs comprehensive cleanup operations at the conclusion of archive recovery,
 
 ## Definition
 
-
+```c
+static void
+CleanupAfterArchiveRecovery(TimeLineID EndOfLogTLI, XLogRecPtr EndOfLog,
+							TimeLineID newTLI)
+```
 ## Detailed Description
 CleanupAfterArchiveRecovery orchestrates the final cleanup phase when archive recovery completes and the system transitions to normal operation on a new timeline. This function handles several critical cleanup tasks:
 

@@ -8,7 +8,12 @@ ATAddForeignKeyConstraint implements the complex logic for adding foreign key co
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATAddForeignKeyConstraint(List **wqueue, AlteredTableInfo *tab, Relation rel,
+						  Constraint *fkconstraint,
+						  bool recurse, bool recursing, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function is one of PostgreSQL's most complex constraint implementation functions, handling the complete lifecycle of foreign key constraint creation. It performs extensive validation of referencing and referenced tables, resolves appropriate equality operators for each column pair, handles table persistence compatibility checks, and manages the intricate requirements of partitioned table foreign keys.
 

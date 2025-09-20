@@ -8,7 +8,13 @@ Validates a targetlist entry found by findTargetlistEntrySQL92 to ensure it is a
 
 ## Definition
 
-
+```c
+struct, eg GROUP BY */
+						 errmsg("aggregate functions are not allowed in %s",
+								ParseExprKindName(exprKind)),
+						 parser_errposition(pstate,
+											locate_agg_of_level((Node *) tle->expr, 0))));
+```
 ## Detailed Description
 This function performs validation checks on a pre-existing targetlist entry that was selected using SQL92-style syntax (such as "GROUP BY 1" referring to the first column in the SELECT list). The function ensures that the selected expression is valid for use in the specified clause context. Different clause types have different restrictions:
 

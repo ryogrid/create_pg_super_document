@@ -8,7 +8,9 @@ Checks if a provided option is one of the libpq connection information options, 
 
 ## Definition
 
-
+```c
+struct ConnectionOption *opt;
+```
 ## Detailed Description
 The `is_conninfo_option` function is a static utility function that validates whether a given option name corresponds to a recognized libpq connection option. The function performs context-aware validation by checking both the option name and the catalog context (Oid) from which the option originated.
 

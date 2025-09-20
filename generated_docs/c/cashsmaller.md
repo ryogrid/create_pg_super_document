@@ -8,7 +8,10 @@ A PostgreSQL function that returns the smaller of two Cash values, implementing 
 
 ## Definition
 
-
+```c
+Datum
+cashsmaller(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL LEAST/min operation for the Cash data type. It takes two Cash values as arguments and returns whichever value is numerically smaller. The function uses a simple ternary conditional operator to perform the comparison and selection. This is typically used to support SQL functions like LEAST() when applied to cash data types or in contexts where the minimum of two monetary values needs to be determined.
 

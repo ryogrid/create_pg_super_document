@@ -8,7 +8,12 @@ Attempts to delete an empty leaf page from a GiST index during vacuum operations
 
 ## Definition
 
-
+```c
+static bool
+gistdeletepage(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+			   Buffer parentBuffer, OffsetNumber downlink,
+			   Buffer leafBuffer)
+```
 ## Detailed Description
 The  function is responsible for safely deleting empty leaf pages during GiST index vacuum operations. It performs comprehensive validation to ensure the page can be safely deleted without compromising concurrent operations or index integrity.
 

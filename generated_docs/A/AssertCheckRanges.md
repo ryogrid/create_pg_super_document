@@ -8,7 +8,10 @@ AssertCheckRanges is a comprehensive debugging function that validates the inter
 
 ## Definition
 
-
+```c
+static void
+AssertCheckRanges(Ranges *ranges, FmgrInfo *cmpFn, Oid colloid)
+```
 ## Detailed Description
 This function performs extensive validation of a Ranges structure, which is a core data structure in BRIN minmax-multi access method. The function verifies multiple critical invariants:
 

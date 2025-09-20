@@ -8,7 +8,15 @@ ReorderBufferTupleCidEnt is a hash table entry structure that stores command ID 
 
 ## Definition
 
-
+```c
+typedef struct ReorderBufferTupleCidEnt
+{
+	ReorderBufferTupleCidKey key;
+	CommandId	cmin;
+	CommandId	cmax;
+	CommandId	combocid;		/* just for debugging */
+} ReorderBufferTupleCidEnt;
+```
 ## Detailed Description
 This structure serves as a complete hash table entry that maps tuple locations to their command ID information in PostgreSQL's logical replication system. It combines the ReorderBufferTupleCidKey (which identifies the tuple location) with the actual command ID values that determine when the tuple was created (cmin) and when it was last modified or deleted (cmax). The combocid field is included for debugging purposes and helps track combination command IDs in complex transaction scenarios. This mapping is essential for logical decoding to determine tuple visibility and maintain transactional consistency.
 

@@ -8,7 +8,15 @@ An enumeration that defines the possible actions that can be taken when revoking
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	unsigned	specified;
+	bool		admin;
+	bool		inherit;
+	bool		set;
+} GrantRoleOptions;
+```
 ## Detailed Description
 This enumeration is used internally by PostgreSQL's role management system to determine what action needs to be taken when revoking role grants or specific grant options. It supports the cascading revocation logic where removing a role grant or admin option might require recursive changes to dependent grants. The enum provides fine-grained control over which aspects of a role grant should be modified or removed entirely.
 

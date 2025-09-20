@@ -8,7 +8,14 @@ Determines and returns the cost of performing a Group plan node, including the c
 
 ## Definition
 
-
+```c
+void
+cost_group(Path *path, PlannerInfo *root,
+		   int numGroupCols, double numGroups,
+		   List *quals,
+		   Cost input_startup_cost, Cost input_total_cost,
+		   double input_tuples)
+```
 ## Detailed Description
 This function calculates the execution cost for a Group operation in PostgreSQL's query planner. The Group operation is used to eliminate duplicate rows and implement grouping functionality. The cost calculation includes:
 

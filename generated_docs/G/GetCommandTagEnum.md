@@ -8,7 +8,10 @@ Performs a binary search to convert a command name string into its corresponding
 
 ## Definition
 
-
+```c
+CommandTag
+GetCommandTagEnum(const char *commandname)
+```
 ## Detailed Description
 This function implements a binary search algorithm to efficiently locate a command tag by its string name within the sorted  array. It performs case-insensitive string comparison using  to match the input command name against the stored command tag names. The function is designed for high performance lookups, utilizing the fact that command tag names are stored in sorted order.
 

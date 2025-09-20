@@ -8,7 +8,10 @@ Scans the resultmap file to determine which platform-specific expected files to 
 
 ## Definition
 
-
+```c
+static void
+load_resultmap(void)
+```
 ## Detailed Description
 The  function reads a "resultmap" file from the input directory to identify platform-specific expected output files for PostgreSQL regression tests. The resultmap file format uses entries like , where the hostplatformpattern is evaluated as a regular expression against the current platform's config.guess output. When a pattern matches the current host platform, the corresponding test name, file type, and expected result file are stored in a linked list for later use during test execution.
 

@@ -8,7 +8,10 @@ A comprehensive statistics display function in pg_waldump that formats and print
 
 ## Definition
 
-
+```c
+static void
+XLogDumpDisplayStats(XLogDumpConfig *config, XLogStats *stats)
+```
 ## Detailed Description
 XLogDumpDisplayStats generates a formatted statistical report of WAL records processed during pg_waldump analysis. The function first calculates totals across all resource managers, then displays statistics in a tabular format showing record counts, record sizes, full page image (FPI) sizes, and combined sizes with percentages. It supports two display modes: by resource manager only, or with detailed breakdown by individual record types within each resource manager. The output includes column headers, individual rows for each category, separator lines, and a summary total row with percentage breakdowns.
 

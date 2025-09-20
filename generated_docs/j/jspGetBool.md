@@ -8,7 +8,10 @@ Extracts and returns the boolean value from a JSON path boolean item.
 
 ## Definition
 
-
+```c
+bool
+jspGetBool(JsonPathItem *v)
+```
 ## Detailed Description
 The jspGetBool function is a simple accessor function that extracts boolean values from JSON path items. It first validates that the input JsonPathItem is of type jpiBool through an Assert statement. Once validated, it dereferences the data pointer stored in the item's content.value.data field and casts it to a boolean value. This function provides type-safe access to boolean constants embedded in JSON path expressions.
 

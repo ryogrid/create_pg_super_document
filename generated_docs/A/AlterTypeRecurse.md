@@ -8,7 +8,12 @@ A recursive function that applies type property changes to a base type and autom
 
 ## Definition
 
-
+```c
+static void
+AlterTypeRecurse(Oid typeOid, bool isImplicitArray,
+				 HeapTuple tup, Relation catalog,
+				 AlterTypeRecurseParams *atparams)
+```
 ## Detailed Description
 AlterTypeRecurse performs the actual catalog updates for type property modifications and ensures consistency across related types through recursive propagation. It updates the pg_type tuple for the specified type, regenerates type dependencies, and then recursively processes the associated array type (for typmod functions only) and all domains that use this type as their base. The function implements PostgreSQL's type inheritance model where domains inherit most properties from their base types, while arrays inherit only typmod-related functions.
 

@@ -8,7 +8,10 @@ Converts a string representation of a box geometric data type to its internal Po
 
 ## Definition
 
-
+```c
+Datum
+box_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL input conversion function that parses string representations of rectangular boxes and converts them to the internal BOX data type. It supports two input formats: the modern format "(f8, f8), (f8, f8)" representing two corner points, and the legacy format "(f8, f8, f8, f8)" representing coordinates in a flat sequence. After parsing, the function automatically reorders the coordinates to ensure that the 'high' point contains the maximum x and y values, and the 'low' point contains the minimum values, maintaining the canonical box representation.
 

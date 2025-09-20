@@ -8,7 +8,10 @@ A comprehensive error reporting function that provides contextual error messages
 
 ## Definition
 
-
+```c
+void
+warn_or_exit_horribly(ArchiveHandle *AH, const char *fmt,...)
+```
 ## Detailed Description
 The  function serves as the central error handling mechanism for the PostgreSQL archiver. It provides rich contextual information about where errors occur, including the current processing stage (INITIALIZING, PROCESSING, FINALIZING) and details about the current TOC entry being processed. The function can either exit the program immediately or increment an error counter for later handling, depending on the  setting in the archive handle.
 

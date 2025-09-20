@@ -8,7 +8,10 @@ Generates a random 64-bit integer uniformly distributed within a specified range
 
 ## Definition
 
-
+```c
+Datum
+int8random(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that generates pseudo-random 64-bit integers (bigint type) within a user-specified range. It takes two parameters defining the lower and upper bounds (inclusive) and returns a uniformly distributed random value between these bounds. The function validates that the lower bound does not exceed the upper bound before generating the random number. It uses PostgreSQL's internal pseudo-random number generator (PRNG) which is initialized on first use.
 

@@ -8,7 +8,10 @@ A comparison function used for sorting QueryOperand pointers by their string con
 
 ## Definition
 
-
+```c
+static int
+compareQueryOperand(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 The  function serves as a comparison callback for sorting arrays of QueryOperand pointers. It extracts the string content from two QueryOperand structures and uses PostgreSQL's  function to perform lexicographical comparison. The function is designed to be used with sorting functions like  that require a three-parameter comparison function.
 

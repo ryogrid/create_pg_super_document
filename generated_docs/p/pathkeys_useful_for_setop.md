@@ -8,7 +8,13 @@ Counts the number of leading common pathkeys between the query's setop pathkeys 
 
 ## Definition
 
-
+```c
+structively, but we can avoid
+	 * copying the list if we're not actually going to change it
+	 */
+	if (nuseful == 0)
+		return NIL;
+```
 ## Detailed Description
 This function evaluates how many pathkeys from a given list are useful for set operations (such as UNION, INTERSECT, EXCEPT) by counting the number of leading common pathkeys between the query's  and the provided pathkeys list.
 

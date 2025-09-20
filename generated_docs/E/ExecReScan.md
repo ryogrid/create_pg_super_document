@@ -8,7 +8,10 @@ ExecReScan is the central function that resets a plan node so that its output ca
 
 ## Definition
 
-
+```c
+void
+ExecReScan(PlanState *node)
+```
 ## Detailed Description
 ExecReScan serves as the main dispatcher function for rescanning plan nodes in PostgreSQL's executor. When a plan node needs to be reset to start producing output from the beginning again, this function handles the common setup tasks and then delegates to specialized rescan functions based on the node type.
 

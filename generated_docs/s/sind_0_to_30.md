@@ -8,7 +8,10 @@ The  function is a static helper function that computes the sine of an angle in 
 
 ## Definition
 
-
+```c
+static double
+sind_0_to_30(double x)
+```
 ## Detailed Description
 This function provides a specialized implementation for computing sine values in the first 30 degrees of the unit circle. It is designed as an internal helper function with specific mathematical guarantees:
 

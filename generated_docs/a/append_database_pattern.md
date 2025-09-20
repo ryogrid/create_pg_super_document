@@ -8,7 +8,10 @@ Adds a database name pattern to a pattern information array for use in PostgreSQ
 
 ## Definition
 
-
+```c
+static void
+append_database_pattern(PatternInfoArray *pia, const char *pattern, int encoding)
+```
 ## Detailed Description
 The  function processes a database name pattern and adds it to the provided pattern information array. It converts the user-provided pattern into a SQL regular expression that can be used for database matching operations. The function validates that the pattern contains no qualified names (no dots) as database patterns should represent simple database names only. If the pattern contains dots, indicating an improperly qualified name, the function logs an error and exits the program.
 

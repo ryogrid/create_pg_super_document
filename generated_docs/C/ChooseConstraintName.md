@@ -8,7 +8,12 @@ Selects a unique, non-conflicting name for a new constraint within a specified n
 
 ## Definition
 
-
+```c
+char *
+ChooseConstraintName(const char *name1, const char *name2,
+					 const char *label, Oid namespaceid,
+					 List *others)
+```
 ## Detailed Description
 This function generates a unique constraint name following SQL specification requirements that constraint names be unique within a namespace. It starts with a base name constructed from the provided components and appends numeric suffixes if conflicts are found. The function checks both existing constraints in the catalog and a list of names chosen within the current command but not yet committed. It uses the same naming logic as makeObjectName() but with additional conflict resolution through numeric suffixes.
 

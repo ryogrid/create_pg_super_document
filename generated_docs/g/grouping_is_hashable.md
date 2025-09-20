@@ -8,7 +8,10 @@ Determines whether a grouping list can be implemented by hashing by checking if 
 
 ## Definition
 
-
+```c
+bool
+grouping_is_hashable(List *groupClause)
+```
 ## Detailed Description
 This function examines a list of SortGroupClause structures to determine if the grouping operation can be implemented using a hash-based approach. It iterates through each SortGroupClause in the list and checks whether the hashable flag is set for that grouping column. If any grouping column is not hashable, the function returns false, indicating that hash-based grouping cannot be used.
 

@@ -8,7 +8,16 @@ PLyCursorObject is a structure representing a PostgreSQL cursor object within th
 
 ## Definition
 
-
+```c
+typedef struct PLyCursorObject
+{
+	PyObject_HEAD
+	char	   *portalname;
+	PLyDatumToOb result;
+	bool		closed;
+	MemoryContext mcxt;
+} PLyCursorObject;
+```
 ## Detailed Description
 PLyCursorObject is the core data structure that enables PL/Python functions to work with PostgreSQL cursors. It wraps a PostgreSQL portal (which implements cursors) and provides the necessary infrastructure for converting PostgreSQL data types to Python objects. This structure is designed as a Python object (inheriting from PyObject_HEAD) so it can be directly manipulated within Python code executed by PL/Python functions.
 

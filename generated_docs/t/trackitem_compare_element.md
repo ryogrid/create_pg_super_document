@@ -8,7 +8,10 @@ A static comparison function used to sort TrackItem pointers by their element va
 
 ## Definition
 
-
+```c
+static int
+trackitem_compare_element(const void *e1, const void *e2, void *arg)
+```
 ## Detailed Description
 This function implements a comparator for sorting TrackItem structures based on their key/element values rather than their frequencies. It serves as a wrapper around the element_compare function, extracting the key values from TrackItem structures and delegating the actual comparison to the type-specific comparison logic. This function is essential for organizing array statistics data by element value order, which is useful for creating sorted most common values (MCV) lists and for binary search operations on statistical data.
 

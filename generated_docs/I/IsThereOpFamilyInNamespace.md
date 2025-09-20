@@ -8,7 +8,11 @@ Validates that an operator family with the specified name and access method does
 
 ## Definition
 
-
+```c
+void
+IsThereOpFamilyInNamespace(const char *opfname, Oid opfmethod,
+						   Oid opfnamespace)
+```
 ## Detailed Description
 This function serves as a validation subroutine used during ALTER OPERATOR FAMILY operations, specifically for SET SCHEMA and RENAME operations. It performs a uniqueness check by searching the system catalogs to determine if an operator family with the given name and access method already exists in the target namespace.
 

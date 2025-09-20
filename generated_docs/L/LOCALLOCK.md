@@ -8,7 +8,24 @@ LOCALLOCK represents a backend's local view of a lock it has acquired or is inte
 
 ## Definition
 
+```c
+typedef struct LOCALLOCK
+{
+	/* tag */
+	LOCALLOCKTAG tag;			/* unique identifier of locallock entry */
 
+	/* data */
+	uint32		hashcode;		/* copy of LOCKTAG's hash value */
+	LOCK	   *lock;			/* associated LOCK object, if any */
+	PROCLOCK   *proclock;		/* associated PROCLOCK object, if any */
+	int64		nLocks;			/* total number of times lock is held */
+	int			numLockOwners;	/* # of relevant ResourceOwners */
+	int			maxLockOwners;	/* allocated size of array */
+	LOCALLOCKOWNER *lockOwners; /* dynamically resizable array */
+	bool		holdsStrongLockCount;	/* bumped FastPathStrongRelationLocks */
+	bool		lockCleared;	/* we read all sinval msgs for lock */
+} LOCALLOCK;
+```
 ## Detailed Description
 LOCALLOCK is the cornerstone of PostgreSQL's local lock management system. Each backend maintains a hash table of LOCALLOCK entries for all locks it has acquired or attempted to acquire. This structure serves as the local representation of lock state, enabling efficient lock reference counting, fast-path optimizations, and proper resource cleanup.
 

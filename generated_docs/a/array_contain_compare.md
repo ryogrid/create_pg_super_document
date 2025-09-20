@@ -8,7 +8,23 @@ Internal function that implements array overlap and containment comparisons by c
 
 ## Definition
 
-
+```c
+struct_array on it.  We scan array1 the hard way
+	 * however, since we very likely won't need to look at all of it.
+	 */
+	if (VARATT_IS_EXPANDED_HEADER(array2))
+	{
+		/* This should be safe even if input is read-only */
+		deconstruct_expanded_array(&(array2->xpn));
+		values2 = array2->xpn.dvalues;
+		nulls2 = array2->xpn.dnulls;
+		nelems2 = array2->xpn.nelems;
+	}
+	else
+		deconstruct_array((ArrayType *) array2,
+						  element_type, typlen, typbyval, typalign,
+						  &values2, &nulls2, &nelems2);
+```
 ## Detailed Description
 The  function provides the core logic for array overlap and containment operations. It compares two arrays element-by-element to determine either overlap (any elements in common) or containment (all elements of one array exist in another), depending on the  parameter.
 

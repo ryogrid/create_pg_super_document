@@ -8,7 +8,11 @@ Accumulates one additional transaction item into the given stats object, handlin
 
 ## Definition
 
-
+```c
+static void
+accumStats(StatsData *stats, bool skipped, double lat, double lag,
+		   EStatus estatus, int64 tries)
+```
 ## Detailed Description
 The  function is a core statistics collection function in pgbench that processes and records transaction execution results. It categorizes transactions based on their execution status and updates various performance counters accordingly. The function handles successful transactions by recording latency and lag statistics, tracks retry attempts, counts different types of failures (serialization errors, deadlocks), and maintains skipped transaction counts. This data is essential for pgbench's performance reporting and analysis capabilities.
 

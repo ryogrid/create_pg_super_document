@@ -8,7 +8,17 @@ CommandTagBehavior is a structure that defines the metadata and behavioral prope
 
 ## Definition
 
-
+```c
+typedef struct CommandTagBehavior
+{
+	const char *name;			/* tag name, e.g. "SELECT" */
+	const uint8 namelen;		/* set to strlen(name) */
+	const bool	event_trigger_ok;
+	const bool	table_rewrite_ok;
+	const bool	display_rowcount;	/* should the number of rows affected be
+									 * shown in the command completion string */
+} CommandTagBehavior;
+```
 ## Detailed Description
 CommandTagBehavior serves as a lookup table entry that stores the characteristics and behavior rules for each SQL command tag in PostgreSQL. This structure is used to create the  array in src/backend/tcop/cmdtag.c:33, which provides a centralized repository of command tag metadata. Each entry corresponds to a CommandTag enum value and defines how that command should behave in various contexts, particularly for command completion strings, event triggers, and table rewrite operations.
 

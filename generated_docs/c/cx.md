@@ -8,7 +8,11 @@ The  function implements cycle crossover, a genetic algorithm operator used in t
 
 ## Definition
 
-
+```c
+int
+cx(PlannerInfo *root, Gene *tour1, Gene *tour2, Gene *offspring,
+   int num_gene, City * city_table)
+```
 ## Detailed Description
 The  function performs cycle crossover, a specialized genetic algorithm crossover operation designed for permutation problems like the traveling salesman problem (TSP). This crossover method preserves the relative order and positions of genes from both parents while creating a valid offspring tour.
 

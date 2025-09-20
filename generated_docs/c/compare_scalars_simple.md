@@ -8,7 +8,10 @@ A simple comparison function wrapper that compares two Datum values using the pr
 
 ## Definition
 
-
+```c
+int
+compare_scalars_simple(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 This function serves as a qsort-compatible comparison wrapper that extracts Datum values from void pointers and delegates the actual comparison to compare_datums_simple. It provides a bridge between the generic qsort interface requirements and PostgreSQL's datum comparison infrastructure. The function is primarily used in contexts where simple scalar values need to be sorted using PostgreSQL's type-specific comparison logic.
 

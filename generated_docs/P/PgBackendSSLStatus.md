@@ -8,7 +8,24 @@ PgBackendSSLStatus is a structure that stores SSL connection information for eac
 
 ## Definition
 
+```c
+typedef struct PgBackendSSLStatus
+{
+	/* Information about SSL connection */
+	int			ssl_bits;
+	char		ssl_version[NAMEDATALEN];
+	char		ssl_cipher[NAMEDATALEN];
+	char		ssl_client_dn[NAMEDATALEN];
 
+	/*
+	 * serial number is max "20 octets" per RFC 5280, so this size should be
+	 * fine
+	 */
+	char		ssl_client_serial[NAMEDATALEN];
+
+	char		ssl_issuer_dn[NAMEDATALEN];
+} PgBackendSSLStatus;
+```
 ## Detailed Description
 PgBackendSSLStatus is a shared-memory data structure that maintains SSL-specific information for each backend connection. This structure is only populated when SSL is enabled for a connection. It serves as part of PostgreSQL's backend status tracking system, allowing administrators and monitoring tools to inspect SSL connection details across all active database sessions.
 

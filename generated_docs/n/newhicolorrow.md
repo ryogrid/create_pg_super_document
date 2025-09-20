@@ -8,7 +8,11 @@ Creates a new row in the hicolormap by cloning an existing row, used for managin
 
 ## Definition
 
-
+```c
+static int
+newhicolorrow(struct colormap *cm,
+			  int oldrow)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's regex color management system. It creates a new row in the hicolormap array by cloning data from an existing row. The function handles dynamic memory management by expanding the hicolormap storage when needed, doubling the array size when capacity is reached. After copying the row data, it updates color reference counts to maintain proper bookkeeping for the color management system.
 

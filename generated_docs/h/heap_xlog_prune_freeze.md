@@ -8,7 +8,10 @@ Replays XLOG_HEAP2_PRUNE_* WAL records during recovery, handling both tuple prun
 
 ## Definition
 
-
+```c
+static void
+heap_xlog_prune_freeze(XLogReaderState *record)
+```
 ## Detailed Description
 The  function is a critical WAL replay function that reconstructs the state of heap pages after prune and freeze operations during PostgreSQL recovery. It processes complex WAL records containing information about line pointer redirections, dead tuples, unused items, and tuple freezing plans.
 

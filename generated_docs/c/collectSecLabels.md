@@ -8,7 +8,10 @@ Queries the database to collect all security labels from pg_seclabel catalog and
 
 ## Definition
 
-
+```c
+struct lookup table containing OIDs in numeric form */
+	i_label = PQfnumber(res, "label");
+```
 ## Detailed Description
 This function is responsible for gathering all security label information from the database at the start of the dump process. It executes a SQL query against the pg_seclabel system catalog to retrieve all security labels, then processes and stores them in a sorted array for efficient lookup during the actual dumping phase.
 

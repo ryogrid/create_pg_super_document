@@ -8,7 +8,10 @@ Output function for the  data type that converts PostgreSQL's internal represent
 
 ## Definition
 
-
+```c
+Datum
+complex_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for converting PostgreSQL's internal  data type representation into a human-readable string format. It takes a Complex structure pointer and formats it as "(x,y)" where x and y are the real and imaginary parts respectively. This function is the counterpart to  and is used when PostgreSQL needs to display complex values to users or convert them for output.
 

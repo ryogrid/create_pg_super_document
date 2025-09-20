@@ -8,7 +8,10 @@ Initializes logical rewrite support during heap rewriting operations, setting up
 
 ## Definition
 
-
+```c
+static void
+logical_begin_heap_rewrite(RewriteState state)
+```
 ## Detailed Description
 This function prepares for logging logical mappings during a heap rewrite operation when necessary for logical decoding support. It determines whether the rewritten table needs logical rewrite tracking by checking if the relation is accessible during logical decoding and if there are active logical replication slots. If logical rewrite support is needed, it initializes the necessary data structures including a hash table to track rewrite mappings organized by transaction ID.
 

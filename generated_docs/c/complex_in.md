@@ -8,7 +8,10 @@ Input function for the  data type that parses a string representation of a compl
 
 ## Definition
 
-
+```c
+Datum
+complex_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for converting external string representations of complex numbers into PostgreSQL's internal  data type format. It expects input in the form "(x, y)" where x and y are double-precision floating-point numbers representing the real and imaginary parts respectively. The function performs input validation and error reporting for malformed input strings.
 

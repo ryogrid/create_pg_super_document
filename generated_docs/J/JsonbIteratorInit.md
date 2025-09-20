@@ -8,7 +8,10 @@ Initializes a JsonbIterator for traversing and iterating over the elements of a 
 
 ## Definition
 
-
+```c
+JsonbIterator *
+JsonbIteratorInit(JsonbContainer *container)
+```
 ## Detailed Description
 JsonbIteratorInit serves as the entry point for creating an iterator over a JsonbContainer structure. It provides a simple wrapper around the internal iteratorFromContainer function, passing NULL as the parent parameter to create a root-level iterator. This function is fundamental to JSONB processing in PostgreSQL, enabling traversal of complex nested JSON structures including objects and arrays.
 

@@ -8,7 +8,11 @@ Internal workhorse function that decompiles and reconstructs a partition key def
 
 ## Definition
 
-
+```c
+static char *
+pg_get_partkeydef_worker(Oid relid, int prettyFlags,
+						 bool attrsOnly, bool missing_ok)
+```
 ## Detailed Description
 This is the core implementation function for generating string representations of partition key definitions. It retrieves partition information from the  system catalog and reconstructs the partition clause syntax. The function handles different partition strategies (HASH, LIST, RANGE) and can format output in multiple modes - either as a complete "PARTITION BY" clause or just the column/expression list. It processes both simple column references and complex expressions, handling collations and operator classes appropriately.
 

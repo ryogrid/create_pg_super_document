@@ -8,7 +8,10 @@ ProcessSSLStartup checks for and handles direct SSL connection requests before t
 
 ## Definition
 
-
+```c
+static int
+ProcessSSLStartup(Port *port)
+```
 ## Detailed Description
 ProcessSSLStartup examines the first byte of incoming client data to determine if the client is attempting a direct SSL connection. It distinguishes SSL handshake messages (starting with 0x16) from regular PostgreSQL startup packets. When SSL is requested and supported, it establishes the SSL connection and validates that ALPN protocol negotiation was used. The function is careful not to consume data from the stream unless it's confirmed to be an SSL handshake, allowing proper fallback to standard startup packet processing.
 

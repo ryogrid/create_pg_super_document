@@ -8,7 +8,12 @@ Computes statistics for expression columns by evaluating expressions against sam
 
 ## Definition
 
-
+```c
+static void
+compute_expr_stats(Relation onerel, double totalrows,
+				   AnlExprData *exprdata, int nexprs,
+				   HeapTuple *rows, int numrows)
+```
 ## Detailed Description
 This function evaluates expressions on a sample of table rows and computes detailed statistics for each expression. It creates an executor state for expression evaluation, processes each expression against all sample rows, and generates statistical summaries including histograms, most common values, and n_distinct estimates. The function uses proper memory context management to avoid memory leaks during expression evaluation and handles null values appropriately. Statistics computed by this function are essential for the query planner to make accurate cost estimates for queries involving expressions.
 

@@ -8,7 +8,12 @@ Determines whether there exist equi-join conditions involving pairs of matching 
 
 ## Definition
 
-
+```c
+static bool
+have_partkey_equi_join(PlannerInfo *root, RelOptInfo *joinrel,
+					   RelOptInfo *rel1, RelOptInfo *rel2,
+					   JoinType jointype, List *restrictlist)
+```
 ## Detailed Description
 This function analyzes join restriction clauses to determine if partitionwise join is feasible between two partitioned relations. It performs a comprehensive validation of join conditions to ensure that:
 

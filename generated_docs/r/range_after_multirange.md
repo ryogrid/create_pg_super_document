@@ -8,7 +8,10 @@ Determines if a range is strictly positioned after (to the right of) a multirang
 
 ## Definition
 
-
+```c
+Datum
+range_after_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function implements the "strictly right of" operator (>>) between a range and a multirange. It checks whether the given range is entirely positioned after the multirange with no overlap or adjacency. The function serves as a SQL-callable wrapper around the internal  function, handling PostgreSQL's function calling convention and type management.
 

@@ -8,7 +8,9 @@ Checks whether a large object with a given OID exists in the pg_largeobject_meta
 
 ## Definition
 
-
+```c
+struct varlena *) datafield);
+```
 ## Detailed Description
 This internal function provides a snapshot-aware version of large object existence checking, similar to the LargeObjectExists() function in pg_largeobject.c but with the ability to specify a custom snapshot for visibility. It performs a system catalog scan on the pg_largeobject_metadata relation to search for a tuple with the specified large object OID. The function uses the system scan infrastructure with a B-tree equal strategy to efficiently locate the metadata record. It opens the metadata relation with AccessShareLock, performs the scan, and returns true if a valid tuple is found.
 

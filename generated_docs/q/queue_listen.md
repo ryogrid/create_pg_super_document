@@ -8,7 +8,10 @@ Common internal function for LISTEN, UNLISTEN, and UNLISTEN ALL commands that ad
 
 ## Definition
 
-
+```c
+static void
+queue_listen(ListenActionKind action, const char *channel)
+```
 ## Detailed Description
 queue_listen serves as the shared implementation for all listening-related SQL commands (LISTEN, UNLISTEN, UNLISTEN ALL). Rather than immediately updating the listenChannels list, it queues the action for deferred execution during transaction commit. This ensures proper transactional semantics where listen/unlisten operations only take effect if the transaction successfully commits. The function manages actions hierarchically across transaction nesting levels and does not attempt to optimize by collapsing duplicate or conflicting actions, as the interaction semantics would be too complex to guarantee correctness.
 

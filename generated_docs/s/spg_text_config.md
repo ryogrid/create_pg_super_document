@@ -8,7 +8,10 @@ The spg_text_config function is a SP-GiST (Space-Partitioned Generalized Search 
 
 ## Definition
 
-
+```c
+Datum
+spg_text_config(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the configuration entry point for SP-GiST text indexes. It initializes an spgConfigOut structure with the appropriate settings for handling text data in SP-GiST indexes. The function configures:
 - The prefix type as TEXTOID for storing common prefixes

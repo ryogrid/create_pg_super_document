@@ -8,7 +8,10 @@ Estimates the number of rows returned by a set-returning expression, returning 1
 
 ## Definition
 
-
+```c
+double
+expression_returns_set_rows(PlannerInfo *root, Node *clause)
+```
 ## Detailed Description
 This function analyzes a given expression to determine how many rows it will return when executed. It specifically handles set-returning functions (SRFs) and operators. The function only examines the top-level function or operator and does not recurse into nested expressions, as the multipliers for inner SRFs are accounted for separately in the PostgreSQL query planner.
 

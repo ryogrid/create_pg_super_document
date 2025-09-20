@@ -8,7 +8,10 @@ Creates or finds a join RelOptInfo representing the join of two relations, addin
 
 ## Definition
 
-
+```c
+struct Relids set that identifies the joinrel (without OJ as yet). */
+	joinrelids = bms_union(rel1->relids, rel2->relids);
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's query optimizer that handles the creation of join relations. It takes two relations and attempts to create a valid join between them, considering various join types including outer joins, and constraints from IN or EXISTS clauses that have been converted to joins. The function performs validity checks, determines the appropriate join type, constructs the canonical relation identifiers including any outer join dependencies, and populates the resulting join relation with possible execution paths.
 

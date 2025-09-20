@@ -8,7 +8,11 @@ This function removes primary suffixes from Danish words as part of the Snowball
 
 ## Definition
 
+```c
+}
 
+static int r_main_suffix(struct SN_env * z)
+```
 ## Detailed Description
 The r_main_suffix function implements the main suffix removal step in the Danish stemming algorithm. It operates by:
 

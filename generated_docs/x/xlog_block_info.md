@@ -8,7 +8,10 @@ A utility function that appends detailed information about all block references 
 
 ## Definition
 
-
+```c
+static void
+xlog_block_info(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This static function iterates through all block references in a WAL (Write-Ahead Log) record and generates detailed information about each referenced block. For each block reference found in the record, it extracts and formats:
 

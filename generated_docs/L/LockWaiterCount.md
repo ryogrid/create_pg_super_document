@@ -8,7 +8,10 @@ LockWaiterCount is a function that determines the number of lock requesters wait
 
 ## Definition
 
-
+```c
+int
+LockWaiterCount(const LOCKTAG *locktag)
+```
 ## Detailed Description
 This function searches the PostgreSQL lock manager's hash table to find a lock matching the provided LOCKTAG and returns the count of processes that have requested this lock. It performs thread-safe access to the lock hash table by acquiring the appropriate partition lock before searching. The function validates the lock method ID from the locktag and uses hash-based lookup for efficient lock discovery. If the lock is found, it returns the  field from the LOCK structure, which represents the total number of lock requests (both granted and waiting) for that particular lock. If no lock is found for the given locktag, it returns 0.
 

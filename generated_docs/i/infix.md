@@ -8,7 +8,10 @@ The  function recursively traverses a TSQuery tree structure and converts it int
 
 ## Definition
 
-
+```c
+static void
+infix(INFIX *in, int parentPriority, bool rightPhraseOp)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's TSQuery output formatting system. It performs a recursive tree traversal of the internal TSQuery representation (stored in prefix/polish notation) and converts it back to the familiar infix notation that users expect to see. The function handles three main types of query items:
 

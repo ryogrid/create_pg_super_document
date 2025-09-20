@@ -8,7 +8,13 @@ Builds the path keys for a join relation constructed by mergejoin or nestloop jo
 
 ## Definition
 
-
+```c
+List *
+build_join_pathkeys(PlannerInfo *root,
+					RelOptInfo *joinrel,
+					JoinType jointype,
+					List *outer_pathkeys)
+```
 ## Detailed Description
 The  function determines the appropriate path keys (sort order) for a join relation based on the join type and the outer path's existing keys. In most cases, the result relation maintains the same ordering as the outer path. However, for FULL, RIGHT, and RIGHT_ANTI joins, the function returns NIL (no ordering) because null lefthand rows may be inserted at random points, making the result unsorted.
 

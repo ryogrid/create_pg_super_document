@@ -8,7 +8,9 @@ UnresolvedTupData is a structure used during heap rewriting operations to track 
 
 ## Definition
 
-
+```c
+typedef UnresolvedTupData *UnresolvedTup;
+```
 ## Detailed Description
 UnresolvedTupData is a core component of PostgreSQL's heap rewriting facility, specifically used to handle the complex problem of maintaining ctid chains during table rewrites. When a table is being rewritten (such as during ALTER TABLE operations), tuples must be copied to a new heap while preserving the visibility information and update chains that link different versions of the same logical row.
 

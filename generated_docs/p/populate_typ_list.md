@@ -8,7 +8,9 @@ A static function in the PostgreSQL bootstrap module that loads the global Typ l
 
 ## Definition
 
-
+```c
+struct typmap *newtyp;
+```
 ## Detailed Description
 This function initializes the global Typ list (a linked list) by scanning the entire pg_type system catalog and creating a typmap structure for each type definition found. It is called during the bootstrap process to build an in-memory cache of type information that can be quickly accessed during subsequent operations.
 

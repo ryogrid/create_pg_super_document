@@ -8,7 +8,16 @@ PLySavedArgs is a structure used in PostgreSQL's PL/Python extension to save fun
 
 ## Definition
 
-
+```c
+typedef struct PLySavedArgs
+{
+	struct PLySavedArgs *next;	/* linked-list pointer */
+	PyObject   *args;			/* "args" element of globals dict */
+	PyObject   *td;				/* "TD" element of globals dict, if trigger */
+	int			nargs;			/* length of namedargs array */
+	PyObject   *namedargs[FLEXIBLE_ARRAY_MEMBER];	/* named args */
+} PLySavedArgs;
+```
 ## Detailed Description
 PLySavedArgs implements a linked-list structure that preserves function arguments and context information when PL/Python functions are called recursively or when dealing with set-returning functions. This structure ensures that each function call level maintains its own argument context, preventing argument corruption during nested executions. The structure stores both positional arguments (args) and named arguments (namedargs), along with trigger-specific data (td) when applicable.
 

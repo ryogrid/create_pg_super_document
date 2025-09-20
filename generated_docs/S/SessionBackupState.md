@@ -8,7 +8,13 @@ An enumeration that tracks the session-level status of base backup operations in
 
 ## Definition
 
-
+```c
+typedef enum SessionBackupState
+{
+	SESSION_BACKUP_NONE,
+	SESSION_BACKUP_RUNNING,
+} SessionBackupState;
+```
 ## Detailed Description
 SessionBackupState manages the backup status at the session level, working in parallel with shared memory status to control base backup operations. This enumeration is crucial for preventing concurrent base backup operations within the same session and ensuring consistent backup state management. SESSION_BACKUP_NONE indicates no backup is currently running in the session, while SESSION_BACKUP_RUNNING indicates an active backup operation. The session-level status is updated simultaneously with shared memory counters to maintain consistency between global and local backup states.
 

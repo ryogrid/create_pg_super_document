@@ -8,7 +8,10 @@ Processes subsequent calls in a set-returning function that iterates over TSVect
 
 ## Definition
 
-
+```c
+static Datum
+ts_process_call(FuncCallContext *funcctx)
+```
 ## Detailed Description
 This function handles the processing of individual calls within a set-returning function (SRF) that iterates through TSVectorStat tree entries. It retrieves the next entry from the tree traversal using walkStatEntryTree, formats the entry data into a tuple with three columns (lexeme, ndoc, nentry), and returns it as a Datum. The function constructs C-string representations of the lexeme text and numeric statistics, builds a heap tuple from these values, and marks the processed entry as visited by setting its ndoc to 0.
 

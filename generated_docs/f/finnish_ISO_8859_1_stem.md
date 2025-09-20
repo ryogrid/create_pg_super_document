@@ -8,7 +8,11 @@ The finnish_ISO_8859_1_stem function is the main entry point for Finnish text st
 
 ## Definition
 
+```c
+}
 
+extern int finnish_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete Finnish stemming algorithm according to the Snowball stemming specification. It processes Finnish words by systematically removing various morphological elements in a specific order to arrive at the word's stem. The algorithm follows these sequential steps:
 

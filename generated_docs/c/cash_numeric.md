@@ -8,7 +8,9 @@ A PostgreSQL function that converts a Cash value to a Numeric data type, handlin
 
 ## Definition
 
-
+```c
+struct lconv *lconvert = PGLC_localeconv();
+```
 ## Detailed Description
 This function converts a Cash value to PostgreSQL's Numeric data type, which provides arbitrary precision decimal arithmetic. The conversion process involves determining the appropriate fractional digits based on the current locale settings, converting the integral cash value to numeric format, and then scaling it appropriately by dividing by the correct power of 10. The function uses locale-specific settings (via PGLC_localeconv()) to determine how many fractional digits should be preserved, with a fallback to 2 digits if the locale settings are invalid. Special care is taken to ensure exact results even with large values approaching INT64_MAX by setting appropriate scale factors before division.
 

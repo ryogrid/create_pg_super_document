@@ -8,7 +8,10 @@ Internal function that writes a page from a shared buffer to disk if necessary, 
 
 ## Definition
 
-
+```c
+static void
+SlruInternalWritePage(SlruCtl ctl, int slotno, SlruWriteAll fdata)
+```
 ## Detailed Description
 SlruInternalWritePage is a critical internal function in PostgreSQL's SLRU subsystem that manages the actual writing of dirty pages from shared memory buffers to disk storage. The function implements a sophisticated protocol for handling concurrent access, write synchronization, and error recovery.
 

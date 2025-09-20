@@ -8,7 +8,14 @@ AffixNodeData is a structure that represents data stored in nodes of a prefix tr
 
 ## Definition
 
-
+```c
+typedef struct AffixNode
+{
+	uint32		isvoid:1,
+				length:31;
+	AffixNodeData data[FLEXIBLE_ARRAY_MEMBER];
+} AffixNode;
+```
 ## Detailed Description
 AffixNodeData serves as the data component of nodes in a prefix tree (Trie) structure used to organize affix rules in ISpell dictionaries. Each node contains character value information, the number of affixes associated with that node, pointers to the actual affix data, and references to child nodes in the tree. This tree structure enables efficient prefix-based lookups of affix rules during word normalization and spell checking operations.
 

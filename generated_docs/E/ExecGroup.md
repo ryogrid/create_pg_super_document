@@ -8,7 +8,11 @@ ExecGroup is the main execution function for PostgreSQL's Group plan node that r
 
 ## Definition
 
-
+```c
+structure
+	 */
+	grpstate = makeNode(GroupState);
+```
 ## Detailed Description
 ExecGroup implements the core logic for SQL GROUP BY operations at the executor level. It processes pre-sorted input tuples and identifies groups by comparing consecutive tuples using equality functions on the grouping columns. For each distinct group, it returns the first tuple of that group after applying any HAVING clause qualifications and projections.
 

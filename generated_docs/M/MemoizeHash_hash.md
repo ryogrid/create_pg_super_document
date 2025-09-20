@@ -8,7 +8,10 @@ Hash function for the simplehash hashtable used in the Memoize executor node, wh
 
 ## Definition
 
-
+```c
+static uint32
+MemoizeHash_hash(struct memoize_hash *tb, const MemoizeKey *key)
+```
 ## Detailed Description
 This function computes a hash value for memoize cache lookups. It operates on the MemoizeState's probeslot rather than the provided key parameter (which is unused). The function supports two modes:
 

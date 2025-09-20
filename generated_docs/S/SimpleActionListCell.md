@@ -8,7 +8,14 @@ A structure representing a single cell in a linked list that stores command-line
 
 ## Definition
 
-
+```c
+typedef struct SimpleActionListCell
+{
+	struct SimpleActionListCell *next;
+	enum _actions action;
+	char	   *val;
+} SimpleActionListCell;
+```
 ## Detailed Description
 SimpleActionListCell is a node structure used to build a linked list of actions that psql needs to perform based on command-line arguments. Each cell contains information about one action (such as executing a single query, processing a slash command, or reading from a file) along with any associated value. This structure is part of psql's startup mechanism that processes command-line options and queues them for sequential execution.
 

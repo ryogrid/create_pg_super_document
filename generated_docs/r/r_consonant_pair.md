@@ -8,7 +8,11 @@ This function removes doubled consonants (specifically 'd' and 't') that occur a
 
 ## Definition
 
+```c
+}
 
+static int r_consonant_pair(struct SN_env * z)
+```
 ## Detailed Description
 The r_consonant_pair function handles a specific morphological cleanup step in Scandinavian stemming by removing doubled consonants that may remain after suffix removal. The function operates in two phases:
 

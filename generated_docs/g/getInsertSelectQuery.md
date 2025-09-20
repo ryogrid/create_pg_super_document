@@ -8,7 +8,10 @@ Extracts and returns the SELECT subquery from an INSERT ... SELECT construct, wh
 
 ## Definition
 
-
+```c
+Query *
+getInsertSelectQuery(Query *parsetree, Query ***subquery_ptr)
+```
 ## Detailed Description
 This function is a specialized utility designed to handle INSERT ... SELECT constructs in rule processing contexts. When PostgreSQL processes rules, transformations often need to be applied specifically to the SELECT portion rather than the INSERT wrapper. This function identifies and extracts that SELECT subquery.
 

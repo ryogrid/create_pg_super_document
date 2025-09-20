@@ -8,7 +8,11 @@ dataExecPlaceToPageLeaf performs the actual data insertion into a GIN data leaf 
 
 ## Definition
 
-
+```c
+static void
+dataExecPlaceToPageLeaf(GinBtree btree, Buffer buf, GinBtreeStack *stack,
+						void *insertdata, void *ptp_workspace)
+```
 ## Detailed Description
 This function is the execution phase of GIN data page insertion, called after  has determined that the insertion will fit on the target page. It operates within a critical section and handles the actual modification of the page content along with WAL logging if required.
 

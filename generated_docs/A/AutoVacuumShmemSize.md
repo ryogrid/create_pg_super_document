@@ -8,7 +8,11 @@ AutoVacuumShmemSize calculates the amount of shared memory space required for au
 
 ## Definition
 
-
+```c
+struct and the array of WorkerInfoData.
+	 */
+	size = sizeof(AutoVacuumShmemStruct);
+```
 ## Detailed Description
 This function computes the total shared memory space needed for the autovacuum subsystem. It calculates space for two main components:
 

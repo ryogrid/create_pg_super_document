@@ -8,7 +8,10 @@ ProcessTwoPhaseBuffer reads and validates two-phase commit transaction state dat
 
 ## Definition
 
-
+```c
+struct header */
+	hdr = (TwoPhaseFileHeader *) buf;
+```
 ## Detailed Description
 ProcessTwoPhaseBuffer is a core function in PostgreSQL's two-phase commit recovery mechanism that handles the reading and validation of prepared transaction state data. The function can operate in two modes: reading from disk files (when fromdisk is true) or reading directly from WAL records in shared memory (when fromdisk is false). It performs comprehensive validation including transaction ID consistency checks, subtransaction handling, and maintains transaction parent-child relationships when requested. The function also handles cleanup of stale or corrupted transaction state data by removing invalid entries.
 

@@ -8,7 +8,10 @@ Returns the current seek location (file position) within a PostgreSQL large obje
 
 ## Definition
 
-
+```c
+int
+lo_tell(PGconn *conn, int fd)
+```
 ## Detailed Description
 The  function retrieves the current position within an open large object, similar to the standard C library  function. It communicates with the PostgreSQL server using the internal large object function  to get the current seek position. The function returns the position as a 32-bit integer, which limits it to handling large objects up to 2GB in size. For larger objects,  should be used instead.
 

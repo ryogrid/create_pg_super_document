@@ -8,7 +8,11 @@ dutch_ISO_8859_1_stem is the main entry point function for Dutch stemming using 
 
 ## Definition
 
+```c
+}
 
+extern int dutch_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 The dutch_ISO_8859_1_stem function implements the complete Dutch stemming algorithm pipeline following the standard Snowball stemming approach. It processes Dutch words through four distinct phases:
 

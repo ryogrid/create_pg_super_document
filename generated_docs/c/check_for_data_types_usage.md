@@ -8,7 +8,10 @@ Detects whether there are any stored columns depending on given problematic data
 
 ## Definition
 
-
+```c
+static void
+check_for_data_types_usage(ClusterInfo *cluster, DataTypesUsageChecks *checks)
+```
 ## Detailed Description
 This function performs comprehensive data type usage validation during PostgreSQL cluster upgrades. It executes a series of configurable checks to identify columns that use data types with inconsistent on-disk representations across PostgreSQL server versions. The function uses a recursive Common Table Expression (CTE) to handle nested type dependencies including domains, arrays, composite types, and ranges that may wrap the problematic base types.
 

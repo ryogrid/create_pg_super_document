@@ -8,7 +8,10 @@ Creates and initializes a new Perl interpreter instance for PL/Perl execution, h
 
 ## Definition
 
-
+```c
+static PerlInterpreter *
+plperl_init_interp(void)
+```
 ## Detailed Description
 The  function creates a new Perl interpreter instance and performs the initial setup required for PL/Perl execution. This function handles the complex process of initializing Perl's interpreter system while working within PostgreSQL's environment constraints.
 

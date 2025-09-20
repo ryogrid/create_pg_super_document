@@ -8,7 +8,10 @@ A PostgreSQL built-in function that checks whether the current user has a specif
 
 ## Definition
 
-
+```c
+Datum
+has_column_privilege_name_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is one of PostgreSQL's privilege checking functions that determines if the current user has specific access rights on a column. It takes three text parameters: table name, column name, and privilege type. The function internally converts the text table name to an OID using , the column name to an attribute number using , and the privilege string to an ACL mode. It then performs the actual privilege check using the  helper function. If the privilege check returns a negative value (indicating an error condition like a non-existent table or column), the function returns NULL; otherwise, it returns a boolean indicating whether the privilege is granted.
 

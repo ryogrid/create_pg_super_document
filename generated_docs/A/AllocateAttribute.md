@@ -8,7 +8,10 @@ A static function that allocates and zero-initializes memory for a pg_attribute 
 
 ## Definition
 
-
+```c
+static Form_pg_attribute
+AllocateAttribute(void)
+```
 ## Detailed Description
 This function provides a simple memory allocation wrapper specifically designed for creating pg_attribute structures during bootstrap. It allocates exactly ATTRIBUTE_FIXED_PART_SIZE bytes in TopMemoryContext and zero-initializes the memory, returning a pointer cast to Form_pg_attribute.
 

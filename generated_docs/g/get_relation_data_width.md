@@ -8,7 +8,10 @@ External API wrapper for  that provides the same functionality but handles the r
 
 ## Definition
 
-
+```c
+int32
+get_relation_data_width(Oid relid, int32 *attr_widths)
+```
 ## Detailed Description
 The  function serves as a convenient external API for . It takes a relation OID instead of a Relation pointer, handling the relcache entry opening and closing automatically. This function assumes the relation is already locked by the caller, following PostgreSQL's locking conventions.
 

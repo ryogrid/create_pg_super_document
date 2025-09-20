@@ -8,7 +8,10 @@ A public callback function that triggers an ERROR-level log message when attache
 
 ## Definition
 
-
+```c
+void
+injection_error(const char *name, const void *private_data)
+```
 ## Detailed Description
 This function serves as one of the available callback functions that can be attached to injection points in PostgreSQL's testing framework. When triggered, it evaluates the associated condition and, if allowed, generates an ERROR-level log message using PostgreSQL's  mechanism. This function is specifically designed to simulate error conditions during testing, allowing developers to verify that error handling paths work correctly under controlled conditions.
 

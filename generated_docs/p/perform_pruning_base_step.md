@@ -8,7 +8,11 @@ Determines the indexes of datums that satisfy conditions specified in a partitio
 
 ## Definition
 
-
+```c
+static PruneStepResult *
+perform_pruning_base_step(PartitionPruneContext *context,
+						  PartitionPruneStepOp *opstep)
+```
 ## Detailed Description
 This function is the core execution engine for individual partition pruning steps in PostgreSQL's partition pruning system. It takes a pruning step operation and evaluates it against partition bounds to determine which partitions might contain matching data.
 

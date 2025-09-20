@@ -8,7 +8,10 @@ Creates a deep copy of a printQueryOpt structure, allocating memory and duplicat
 
 ## Definition
 
-
+```c
+structures. */
+	memcpy(save, popt, sizeof(printQueryOpt));
+```
 ## Detailed Description
 The savePsetInfo function performs a complete deep copy of a printQueryOpt structure, which contains PostgreSQL query result printing options. It first performs a flat copy of all scalar fields using memcpy, then selectively duplicates dynamically allocated string members to prevent sharing of memory between the original and the copy. This ensures that modifications to either structure won't affect the other, and both can be independently freed.
 

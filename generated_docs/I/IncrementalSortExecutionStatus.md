@@ -8,7 +8,30 @@ An enumeration that tracks the current execution phase of an incremental sort op
 
 ## Definition
 
+```c
+typedef struct IncrementalSortState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	bool		bounded;		/* is the result set bounded? */
+	int64		bound;			/* if bounded, how many tuples are needed */
+	bool		outerNodeDone;	/* finished fetching tuples from outer node */
+	int64		bound_Done;		/* value of bound we did the sort with */
+	IncrementalSortExecutionStatus execution_status;
+	int64		n_fullsort_remaining;
+	Tuplesortstate *fullsort_state; /* private state of tuplesort.c */
+	Tuplesortstate *prefixsort_state;	/* private state of tuplesort.c */
+	/* the keys by which the input path is already sorted */
+	PresortedKeyData *presorted_keys;
 
+	IncrementalSortInfo incsort_info;
+
+	/* slot for pivot tuple defining values of presorted keys within group */
+	TupleTableSlot *group_pivot;
+	TupleTableSlot *transfer_tuple;
+	bool		am_worker;		/* are we a worker? */
+	SharedIncrementalSortInfo *shared_info; /* one entry per worker */
+} IncrementalSortState;
+```
 ## Detailed Description
 IncrementalSortExecutionStatus manages the execution state machine of PostgreSQL's incremental sort algorithm. Incremental sort is an optimization that leverages existing sort order in input data - when data is already sorted by a prefix of the required sort keys, it can sort smaller groups incrementally rather than performing a full sort. The enum tracks whether the executor is currently loading data into sort states or reading sorted results, and whether it's operating on the full sort or just the prefix sort portion.
 

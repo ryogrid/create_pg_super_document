@@ -8,7 +8,9 @@ Checks if the current user has the privilege to create databases in PostgreSQL.
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This function determines whether the currently connected user has the necessary privileges to create databases. The function implements PostgreSQL's hierarchical privilege system where superusers automatically have all privileges, including database creation. For non-superuser roles, it checks the  attribute in the  system catalog to determine if the role has been granted database creation privileges.
 

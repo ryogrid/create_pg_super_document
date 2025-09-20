@@ -8,7 +8,10 @@ Creates a tuple conversion map using a pre-built attribute map, providing the co
 
 ## Definition
 
-
+```c
+structure */
+	map = (TupleConversionMap *) palloc(sizeof(TupleConversionMap));
+```
 ## Detailed Description
 This function creates and initializes a  structure using a provided attribute map. It serves as the core implementation for tuple conversion setup, taking a pre-built  and combining it with input/output tuple descriptors to create a complete conversion map with preallocated workspace arrays.
 

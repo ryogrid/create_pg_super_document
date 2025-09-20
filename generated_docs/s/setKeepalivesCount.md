@@ -8,7 +8,9 @@ Sets the count of lost keepalive packets that will trigger a connection break fo
 
 ## Definition
 
-
+```c
+struct tcp_keepalive ka;
+```
 ## Detailed Description
 This function configures the TCP keepalive count parameter for a PostgreSQL connection socket. The keepalive count determines how many consecutive keepalive probes can be lost before the TCP stack considers the connection dead and terminates it. The function parses the keepalive count value from the connection's  parameter, validates it, and applies it to the socket using the  socket option if available on the platform.
 

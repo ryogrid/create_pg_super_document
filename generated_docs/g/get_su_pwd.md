@@ -8,7 +8,10 @@ The  function obtains the superuser password for database initialization, either
 
 ## Definition
 
-
+```c
+static void
+get_su_pwd(void)
+```
 ## Detailed Description
 This function is a critical component of the PostgreSQL initdb utility that handles secure password acquisition for the superuser account during database cluster initialization. It supports two modes of operation:
 

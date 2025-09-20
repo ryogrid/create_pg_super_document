@@ -8,7 +8,10 @@ Converts internal typmod representation back to external string format for the t
 
 ## Definition
 
-
+```c
+Datum
+timestamptztypmodout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the type modifier output function for the timestamptz data type. It takes PostgreSQL's internal typmod representation (an integer) and converts it back to a human-readable string format that can be displayed to users or used in SQL output. This function is the counterpart to  and is used when PostgreSQL needs to display type information, such as in DESCRIBE statements, pg_dump output, or error messages.
 

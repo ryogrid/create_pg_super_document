@@ -8,7 +8,11 @@ A sophisticated pattern matching function that performs binary search through a 
 
 ## Definition
 
+```c
+}
 
+extern int find_among(struct SN_env * z, const struct among * v, int v_size)
+```
 ## Detailed Description
 The  function is a core utility in the Snowball stemming framework that performs efficient pattern matching against a sorted array of candidate strings. It uses a binary search algorithm to locate matching patterns in the text starting from the current cursor position.
 

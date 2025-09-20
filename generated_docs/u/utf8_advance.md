@@ -8,7 +8,13 @@ Advances the UTF-8 state machine by processing a sequence of bytes, used as part
 
 ## Definition
 
-
+```c
+struction sets,
+		 * a shift by a 32-bit operand is understood to be a shift by its mod
+		 * 32, so the compiler should elide the mask operation.
+		 */
+		*state = Utf8Transition[*s++] >> (*state & 31);
+```
 ## Detailed Description
 This function implements a core component of PostgreSQL's shift-based deterministic finite automaton (DFA) for UTF-8 validation. It processes a sequence of bytes by advancing through the UTF-8 state machine using a packed 32-bit transition table. The function deliberately does not validate the input state value, allowing it to be used in optimized validation routines where state checking is handled elsewhere.
 

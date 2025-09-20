@@ -8,7 +8,12 @@ Prepares a SQLFunctionParseInfo structure for parsing a SQL function body, inclu
 
 ## Definition
 
-
+```c
+SQLFunctionParseInfoPtr
+prepare_sql_fn_parse_info(HeapTuple procedureTuple,
+						  Node *call_expr,
+						  Oid inputCollation)
+```
 ## Detailed Description
 This function creates and initializes a SQLFunctionParseInfo structure that contains all the necessary information for parsing and executing SQL function bodies. The function extracts function metadata from the pg_proc system catalog entry, resolves polymorphic argument types using the provided call expression, and collects argument names and types. This preparation is essential for the SQL function parser to correctly handle parameter references and type checking within the function body.
 

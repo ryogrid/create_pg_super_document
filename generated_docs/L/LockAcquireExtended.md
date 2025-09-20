@@ -8,7 +8,15 @@ LockAcquireExtended is the core lock acquisition implementation in PostgreSQL th
 
 ## Definition
 
-
+```c
+LockAcquireResult
+LockAcquireExtended(const LOCKTAG *locktag,
+					LOCKMODE lockmode,
+					bool sessionLock,
+					bool dontWait,
+					bool reportMemoryError,
+					LOCALLOCK **locallockp)
+```
 ## Detailed Description
 LockAcquireExtended is the comprehensive lock acquisition function that implements PostgreSQL's sophisticated locking mechanism. It handles the complete lifecycle of lock acquisition including validation, fast-path optimization for relation locks, conflict detection, shared memory management, and integration with WAL logging for standby servers.
 

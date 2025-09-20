@@ -8,7 +8,10 @@ Adds a given pattern to be matched only against btree indexes in PostgreSQL's pg
 
 ## Definition
 
-
+```c
+static void
+append_btree_pattern(PatternInfoArray *pia, const char *pattern, int encoding)
+```
 ## Detailed Description
 This function is a specialized wrapper around `append_relation_pattern_helper` that specifically targets btree indexes. It's part of the pg_amcheck utility's pattern matching system, which allows users to specify which database objects should be checked for corruption. The function parses the provided pattern and adds it to the pattern info array with btree-only matching enabled.
 

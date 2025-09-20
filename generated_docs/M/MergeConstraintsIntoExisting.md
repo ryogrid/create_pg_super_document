@@ -8,7 +8,10 @@ MergeConstraintsIntoExisting is a static function that validates constraint comp
 
 ## Definition
 
-
+```c
+static void
+MergeConstraintsIntoExisting(Relation child_rel, Relation parent_rel)
+```
 ## Detailed Description
 This function performs comprehensive constraint validation and merging when establishing inheritance relationships between tables. It ensures that all inheritable check constraints from the parent relation exist in the child relation with equivalent definitions, then updates the inheritance counts accordingly. The function uses a nested scanning approach to compare constraints by name and functional equivalence.
 

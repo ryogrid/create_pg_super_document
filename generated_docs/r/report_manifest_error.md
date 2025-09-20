@@ -8,7 +8,10 @@ A fatal error handler function used during backup manifest parsing that logs an 
 
 ## Definition
 
-
+```c
+static void
+report_manifest_error(JsonManifestParseContext *context, const char *fmt,...)
+```
 ## Detailed Description
 This function serves as an error callback for the JSON manifest parser. It handles variadic arguments to format error messages, logs the error using PostgreSQL's logging system, and immediately terminates the program with exit code 1. The manifest parser expects this function to not return, making all manifest parsing errors fatal.
 

@@ -8,7 +8,10 @@ PostgreSQL SQL function that computes the error function (erf) for a floating-po
 
 ## Definition
 
-
+```c
+Datum
+derf(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that wraps the standard C library's  function to compute the error function of a floating-point number. The error function is a mathematical function commonly used in probability and statistics. This function takes a single float8 (double precision) argument and returns the error function value as a float8 result.
 

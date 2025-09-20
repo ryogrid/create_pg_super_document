@@ -8,7 +8,12 @@ Recursively processes qualification clauses to identify and transform SubLinks (
 
 ## Definition
 
-
+```c
+static Node *
+pull_up_sublinks_qual_recurse(PlannerInfo *root, Node *node,
+							  Node **jtlink1, Relids available_rels1,
+							  Node **jtlink2, Relids available_rels2)
+```
 ## Detailed Description
 This function is the core engine for SubLink transformation during query optimization. It recursively traverses qualification expressions to find SubLink nodes that can be converted into more efficient join operations. The function handles several types of SubLink transformations:
 

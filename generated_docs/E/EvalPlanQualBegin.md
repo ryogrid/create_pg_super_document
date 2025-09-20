@@ -8,7 +8,10 @@ EvalPlanQualBegin initializes or resets an EPQ (Eval Plan Qual) state tree, prep
 
 ## Definition
 
-
+```c
+void
+EvalPlanQualBegin(EPQState *epqstate)
+```
 ## Detailed Description
 This function prepares an EPQ state for execution by handling two scenarios: initial setup and reset operations. On first invocation, it creates a new child EState by calling EvalPlanQualStart. For subsequent calls, it resets the existing EPQ infrastructure by copying the relsubs_blocked flags to relsubs_done to prevent fetching from blocked relations, synchronizing parameter values from the parent estate, and marking the plan tree for rescan. The function ensures that InitPlan outputs are properly evaluated and that parameter values are synchronized between parent and child execution states. It also sets up the plan tree to be rescanned by adding the EPQ parameter to the change parameter bitmap.
 

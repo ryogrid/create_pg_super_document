@@ -8,7 +8,9 @@ This Windows-specific function checks directory write permissions by creating an
 
 ## Definition
 
-
+```c
+struct stat statBuf;
+```
 ## Detailed Description
 The  function provides a workaround for a Windows limitation where the standard access() function cannot properly verify directory write permissions. Instead of relying on access(), this function performs a practical test by attempting to create a file (specifically the GLOBALS_DUMP_FILE) in the current directory with read and write permissions. If the file creation succeeds, it immediately closes and deletes the file using unlink(). The function returns the result of the unlink operation - if both file creation and deletion succeed, it indicates that the current directory has proper write permissions.
 

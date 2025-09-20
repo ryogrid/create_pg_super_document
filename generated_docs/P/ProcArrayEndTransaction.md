@@ -8,7 +8,10 @@ Marks a transaction as no longer running in the shared process array, handling b
 
 ## Definition
 
-
+```c
+void
+ProcArrayEndTransaction(PGPROC *proc, TransactionId latestXid)
+```
 ## Detailed Description
 ProcArrayEndTransaction handles the end of a transaction (either commit or abort) by clearing the transaction's visibility in the shared process array. The function implements several optimizations to minimize lock contention:
 

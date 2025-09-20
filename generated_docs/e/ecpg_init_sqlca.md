@@ -8,7 +8,10 @@ Initializes a SQLCA (SQL Communication Area) structure with default values by co
 
 ## Definition
 
-
+```c
+void
+ecpg_init_sqlca(struct sqlca_t *sqlca)
+```
 ## Detailed Description
 The  function initializes a SQLCA (SQL Communication Area) structure to its default state. It performs a memory copy operation from a static template structure () that contains predefined default values for all SQLCA fields. The SQLCA is a standard structure used in embedded SQL to communicate status information between the database interface and the application.
 

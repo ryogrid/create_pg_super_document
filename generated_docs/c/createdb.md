@@ -8,7 +8,9 @@ createdb is the main function that implements the CREATE DATABASE SQL command, r
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This comprehensive function handles all aspects of database creation including option parsing, validation, permission checking, and the actual database copying process. It supports multiple creation strategies (WAL logging vs file copy) and handles complex locale, encoding, and tablespace configurations.
 

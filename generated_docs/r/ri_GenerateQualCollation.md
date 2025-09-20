@@ -8,7 +8,10 @@ A utility function that adds a COLLATE specification to a WHERE clause in dynami
 
 ## Definition
 
-
+```c
+static void
+ri_GenerateQualCollation(StringInfo buf, Oid collation)
+```
 ## Detailed Description
 This function appends a COLLATE clause to a StringInfo buffer to specify the collation to be used for string comparisons in referential integrity queries. The function is crucial for handling cases where referencing and referenced columns have different collations, as required by the SQL standard which specifies that RI comparisons should use the referenced column's collation.
 

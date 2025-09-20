@@ -8,7 +8,11 @@ A static inline function that performs vector subtraction of two geometric point
 
 ## Definition
 
-
+```c
+struct(result,
+					float8_mi(pt1->x, pt2->x),
+					float8_mi(pt1->y, pt2->y));
+```
 ## Detailed Description
 This function computes the difference between two Point structures by subtracting the coordinates of the second point from the first point (pt1 - pt2). The result is stored in the provided result Point structure. The function uses PostgreSQL's float8_mi function to ensure proper floating-point subtraction semantics and calls point_construct to properly initialize the result point with the computed coordinates.
 

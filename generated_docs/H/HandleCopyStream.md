@@ -8,7 +8,9 @@ Main event loop that handles the COPY stream protocol for PostgreSQL streaming r
 
 ## Definition
 
-
+```c
+struct timeval timeout;
+```
 ## Detailed Description
  implements the core message processing loop for PostgreSQL streaming replication after the START_REPLICATION command is issued. It handles the bidirectional COPY stream protocol, receiving WAL data and keepalive messages from the server while sending periodic feedback messages back. The function manages synchronous flushing when required, implements timeout-based feedback sending to prevent connection drops, and processes different message types ('w' for WAL data, 'k' for keepalives). It also handles stop conditions through callbacks and ensures proper cleanup on errors.
 

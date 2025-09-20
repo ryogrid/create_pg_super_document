@@ -8,7 +8,10 @@ Returns whether GSSAPI authentication was successfully used on the given connect
 
 ## Definition
 
-
+```c
+bool
+be_gssapi_get_auth(Port *port)
+```
 ## Detailed Description
 The  function is a simple query function that checks whether GSSAPI authentication was completed for a specific connection. It performs null safety checks on the port and its GSSAPI state structure before returning the authentication status.
 

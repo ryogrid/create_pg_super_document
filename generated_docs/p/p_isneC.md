@@ -8,7 +8,10 @@ A convenience wrapper function that checks if the current character in the parse
 
 ## Definition
 
-
+```c
+static int
+p_isneC(TParser *prs)
+```
 ## Detailed Description
 The  function is the logical complement of , providing a convenient way to check if the current character at the parser's position does NOT match the character stored in the parser's  field. This function is part of PostgreSQL's text search parser infrastructure and returns the negated result of .
 

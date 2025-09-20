@@ -8,7 +8,10 @@ Returns whether the currently active read pointer in the tuplestore has reached 
 
 ## Definition
 
-
+```c
+bool
+tuplestore_ateof(Tuplestorestate *state)
+```
 ## Detailed Description
 This function checks the EOF (end-of-file) status of the currently active read pointer in the tuplestore. Each read pointer maintains an  flag that indicates whether it has read all available tuples and reached the end of the stored data. The function returns the state of this flag for the active read pointer (specified by ).
 

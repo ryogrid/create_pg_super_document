@@ -8,7 +8,16 @@ Compares the bounds of two range partitions and determines if they overlap, whil
 
 ## Definition
 
-
+```c
+static bool
+compare_range_partitions(int partnatts, FmgrInfo *partsupfuncs,
+						 Oid *partcollations,
+						 PartitionRangeBound *outer_lb,
+						 PartitionRangeBound *outer_ub,
+						 PartitionRangeBound *inner_lb,
+						 PartitionRangeBound *inner_ub,
+						 int *lb_cmpval, int *ub_cmpval)
+```
 ## Detailed Description
 This function performs overlap detection between two range partitions by comparing their boundary values. It implements a comprehensive comparison algorithm that not only determines whether the partitions overlap but also provides detailed comparison results for both lower and upper bounds. The function uses early termination optimization - if the outer partition's upper bound is lower than the inner partition's lower bound, or if the outer partition's lower bound is higher than the inner partition's upper bound, the partitions cannot overlap. For overlapping cases, it computes precise comparison values for both boundary pairs.
 

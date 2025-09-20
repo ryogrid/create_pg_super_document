@@ -8,7 +8,10 @@ A callback function that formats Oid (Object Identifier) values as unsigned inte
 
 ## Definition
 
-
+```c
+void
+oid_elem_desc(StringInfo buf, void *relid, void *data)
+```
 ## Detailed Description
 The  function is a specialized element description callback designed to work with the  utility function. It formats Oid values (PostgreSQL's Object Identifier type) as unsigned integers in the output buffer. This function is commonly used when describing arrays of relation OIDs or other object identifiers in WAL record descriptions.
 

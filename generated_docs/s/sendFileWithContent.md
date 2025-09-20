@@ -8,7 +8,9 @@
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function creates a synthetic file entry in the backup tar stream without requiring the file to exist on disk. It constructs appropriate file metadata (including ownership, permissions, and timestamps), writes a proper tar header, and streams the content data. The function handles checksum computation for backup manifest integration and ensures proper tar formatting with padding.
 

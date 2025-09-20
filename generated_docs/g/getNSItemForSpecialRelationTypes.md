@@ -8,7 +8,10 @@ Checks if a RangeVar refers to a CTE (Common Table Expression) or EphemeralNamed
 
 ## Definition
 
-
+```c
+static ParseNamespaceItem *
+getNSItemForSpecialRelationTypes(ParseState *pstate, RangeVar *rv)
+```
 ## Detailed Description
 This function serves as a specialized resolver for non-ordinary relation types during FROM clause processing. It first checks whether the given RangeVar has a qualified name (schema.table format) - if so, it immediately returns NULL since CTEs and ephemeral named relations cannot be qualified. For unqualified names, it searches the parse state's namespace first for CTEs using scanNameSpaceForCTE, and if found, creates a range table entry via addRangeTableEntryForCTE. If no CTE is found, it then checks for ephemeral named relations (ENRs) using scanNameSpaceForENR and creates an appropriate entry with addRangeTableEntryForENR if found. This function is essential for PostgreSQL's support of CTEs and temporary result sets in query processing.
 

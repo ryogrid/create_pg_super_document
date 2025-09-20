@@ -8,7 +8,11 @@ Creates a relative path from a target directory to support relocation of Postgre
 
 ## Definition
 
-
+```c
+static void
+make_relative_path(char *ret_path, const char *target_path,
+				   const char *bin_path, const char *my_exec_path)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's installation relocation support. It allows PostgreSQL installations to be moved to different directories while maintaining correct relative paths between components.
 

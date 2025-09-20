@@ -8,7 +8,10 @@ Checks whether the current user is permitted to acquire a specific lock mode on 
 
 ## Definition
 
-
+```c
+static AclResult
+LockTableAclCheck(Oid reloid, LOCKMODE lockmode, Oid userid)
+```
 ## Detailed Description
  is a static function that enforces PostgreSQL's access control policies for table locking operations. The function determines the appropriate ACL (Access Control List) permissions required based on the requested lock mode and checks whether the specified user has sufficient privileges on the target relation.
 

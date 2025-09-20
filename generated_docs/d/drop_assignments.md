@@ -8,7 +8,9 @@ Deallocates and removes all assignment entries from the global assignments linke
 
 ## Definition
 
-
+```c
+struct assignment *old_head = assignments;
+```
 ## Detailed Description
 This function iterates through the global assignments linked list and deallocates all nodes and their associated memory. It's a cleanup function that ensures proper memory management by freeing both the variable name strings and the assignment structures themselves. The function continues until the assignments list is completely empty.
 

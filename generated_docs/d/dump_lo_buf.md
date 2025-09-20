@@ -8,7 +8,10 @@ A function that flushes the current contents of the Large Object (LO) data buffe
 
 ## Definition
 
-
+```c
+static void
+dump_lo_buf(ArchiveHandle *AH)
+```
 ## Detailed Description
 The  function manages the output of accumulated Large Object data stored in the archive handle's buffer. When connected directly to a database, it uses the libpq  function to write data directly to the large object. For file-based output, it formats the binary data as a SQL statement using  and outputs it via . After successfully writing the buffer contents, it resets the buffer usage counter to zero.
 

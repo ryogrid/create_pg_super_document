@@ -8,7 +8,22 @@ Creates a pathnode corresponding to a mergejoin between two relations, setting u
 
 ## Definition
 
-
+```c
+MergePath *
+create_mergejoin_path(PlannerInfo *root,
+					  RelOptInfo *joinrel,
+					  JoinType jointype,
+					  JoinCostWorkspace *workspace,
+					  JoinPathExtraData *extra,
+					  Path *outer_path,
+					  Path *inner_path,
+					  List *restrict_clauses,
+					  List *pathkeys,
+					  Relids required_outer,
+					  List *mergeclauses,
+					  List *outersortkeys,
+					  List *innersortkeys)
+```
 ## Detailed Description
 This function constructs a MergePath node that represents a merge join execution plan. Merge joins are used when both input relations can be sorted on the join keys, allowing for an efficient merge operation. The function initializes all path metadata including cost estimates, parallelism settings, and join-specific information. It calls final_cost_mergejoin to compute accurate cost estimates based on the provided workspace and extra data.
 

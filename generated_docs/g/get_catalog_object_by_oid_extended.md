@@ -8,7 +8,13 @@ Extended version of catalog object retrieval that provides fine-grained control 
 
 ## Definition
 
-
+```c
+HeapTuple
+get_catalog_object_by_oid_extended(Relation catalog,
+								   AttrNumber oidcol,
+								   Oid objectId,
+								   bool locktup)
+```
 ## Detailed Description
 This function is the core implementation for retrieving catalog objects by OID, offering more control than the basic get_catalog_object_by_oid wrapper. It supports two retrieval methods: system cache (syscache) lookup when available, or direct table scanning when no appropriate cache exists.
 

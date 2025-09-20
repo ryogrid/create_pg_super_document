@@ -8,7 +8,10 @@ A static inline function that appends a CSV-formatted version of a string to a S
 
 ## Definition
 
-
+```c
+static inline void
+appendCSVLiteral(StringInfo buf, const char *data)
+```
 ## Detailed Description
 This function safely converts a C string into CSV format and appends it to a StringInfo buffer. It implements PostgreSQL's CSV formatting conventions where double quotes (") serve as both quote and escape characters. The function handles NULL input gracefully by appending nothing, and properly escapes any embedded double quotes by doubling them (" becomes ""). All non-NULL strings are wrapped in double quotes regardless of content, ensuring consistent CSV formatting.
 

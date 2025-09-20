@@ -8,7 +8,10 @@ Counts the number of items in a target list, excluding any resjunk items that ar
 
 ## Definition
 
-
+```c
+int
+ExecCleanTargetListLength(List *targetlist)
+```
 ## Detailed Description
 This utility function iterates through a PostgreSQL target list and counts only the "clean" target entries - those that represent actual result columns visible to the user. It specifically excludes target entries marked with , which are internal entries used by the executor for various purposes like storing join keys, sort keys, or other intermediate values that should not appear in the final result set.
 

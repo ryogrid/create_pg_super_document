@@ -8,7 +8,10 @@ Executes ALTER TABLE INHERIT commands by establishing a new inheritance relation
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecAddInherit(Relation child_rel, RangeVar *parent, LOCKMODE lockmode)
+```
 ## Detailed Description
 The  function implements the core logic for ALTER TABLE INHERIT operations. It performs extensive validation to ensure the inheritance relationship is valid and safe, then establishes the inheritance link between the child and parent tables. The function handles multiple edge cases including temporary table restrictions, partitioning conflicts, circular inheritance prevention, and trigger compatibility checks.
 

@@ -8,7 +8,10 @@ A static helper function that maps problematic locale names on Windows to their 
 
 ## Definition
 
-
+```c
+static const char *
+map_locale(const struct locale_map *map, const char *locale)
+```
 ## Detailed Description
 The  function performs string substitution on locale names to fix Windows-specific locale naming issues. It searches through a provided mapping table for locale name patterns that need to be replaced. The function supports both simple string replacement and more complex pattern matching where it can replace text between two delimiters (like a simplified regex "start.*end" replacement).
 

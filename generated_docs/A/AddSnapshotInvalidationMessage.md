@@ -8,7 +8,11 @@ Adds a snapshot invalidation message to the specified invalidation message group
 
 ## Definition
 
-
+```c
+static void
+AddSnapshotInvalidationMessage(InvalidationMsgsGroup *group,
+							   Oid dbId, Oid relId)
+```
 ## Detailed Description
 This function creates and adds a snapshot invalidation message to the RelCache message subgroup. Snapshot invalidation messages are used to notify other backends that cached snapshot information related to a specific relation needs to be invalidated. The function first checks for duplicate messages to avoid redundant invalidations, then creates a SharedInvalSnapshotMsg with the appropriate identifiers and adds it to the message group.
 

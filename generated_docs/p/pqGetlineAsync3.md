@@ -8,7 +8,10 @@ Asynchronously retrieves COPY data rows without blocking, implementing the proto
 
 ## Definition
 
-
+```c
+int
+pqGetlineAsync3(PGconn *conn, char *buffer, int bufsize)
+```
 ## Detailed Description
 pqGetlineAsync3 is the protocol 3 implementation of PostgreSQL's asynchronous COPY data retrieval mechanism. It reads COPY data from the connection's input buffer without blocking, making it suitable for non-blocking I/O operations. The function handles partial message consumption by tracking already-returned data in  to support scenarios where the caller's buffer is smaller than the available data.
 

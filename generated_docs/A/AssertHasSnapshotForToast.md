@@ -8,7 +8,10 @@ A debug assertion function that verifies a valid snapshot exists before performi
 
 ## Definition
 
-
+```c
+static inline void
+AssertHasSnapshotForToast(Relation rel)
+```
 ## Detailed Description
 AssertHasSnapshotForToast is a debug-only assertion function (active only when USE_ASSERT_CHECKING is defined) that ensures a valid snapshot is available before performing heap operations that might need to access TOAST tables. TOAST (The Oversized-Attribute Storage Technique) is PostgreSQL's mechanism for storing large attribute values separately from the main table.
 

@@ -8,7 +8,10 @@ Calculates the minimum memory size required for an empty native-mode SQLDA struc
 
 ## Definition
 
-
+```c
+structure and field structures */
+	offset = sizeof(struct sqlda_struct) + (sqld - 1) * sizeof(struct sqlvar_struct);
+```
 ## Detailed Description
 This function computes the base memory requirements for a native-mode SQLDA structure before any actual data values are stored. It calculates the space needed for the main sqlda_struct and the required number of sqlvar_struct field descriptors. Unlike the compatibility version, the native implementation includes one sqlvar_struct in the main structure, so it only needs to allocate additional space for (sqld - 1) extra field descriptors. The function also adds alignment padding to ensure proper alignment for the first data field.
 

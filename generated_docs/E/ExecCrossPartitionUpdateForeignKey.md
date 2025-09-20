@@ -8,7 +8,15 @@ ExecCrossPartitionUpdateForeignKey ensures foreign key constraint integrity duri
 
 ## Definition
 
-
+```c
+static void
+ExecCrossPartitionUpdateForeignKey(ModifyTableContext *context,
+								   ResultRelInfo *sourcePartInfo,
+								   ResultRelInfo *destPartInfo,
+								   ItemPointer tupleid,
+								   TupleTableSlot *oldslot,
+								   TupleTableSlot *newslot)
+```
 ## Detailed Description
 ExecCrossPartitionUpdateForeignKey handles the complex scenario of maintaining foreign key constraints when a tuple is moved from one partition to another during an update operation. The function performs several critical validations:
 

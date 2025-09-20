@@ -8,7 +8,10 @@ Creates a lookup key structure for operator caching based on operator name and a
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(opname, &schemaname, &opername);
+```
 ## Detailed Description
 This function prepares a cache key structure (OprCacheKey) for operator lookup operations in PostgreSQL's operator resolution system. It takes an operator name (which may be schema-qualified) and left/right argument type OIDs, then fills in the cache key structure with the necessary information for efficient operator caching.
 

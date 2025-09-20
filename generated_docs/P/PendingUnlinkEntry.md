@@ -8,7 +8,15 @@ PendingUnlinkEntry is a structure that tracks file deletion requests that need t
 
 ## Definition
 
-
+```c
+typedef struct SyncOps
+{
+	int			(*sync_syncfiletag) (const FileTag *ftag, char *path);
+	int			(*sync_unlinkfiletag) (const FileTag *ftag, char *path);
+	bool		(*sync_filetagmatches) (const FileTag *ftag,
+										const FileTag *candidate);
+} SyncOps;
+```
 ## Detailed Description
 PendingUnlinkEntry is part of PostgreSQL's checkpoint and synchronization mechanism, specifically designed to manage file deletion operations that must be deferred until after checkpoint completion. This structure is used to maintain a list of files that are marked for deletion but cannot be immediately removed from the filesystem because they may still be needed during crash recovery scenarios.
 

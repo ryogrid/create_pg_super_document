@@ -8,7 +8,11 @@ Sets up the function call context for the first call of a set-returning function
 
 ## Definition
 
-
+```c
+static void
+ts_setup_firstcall(FunctionCallInfo fcinfo, FuncCallContext *funcctx,
+				   TSVectorStat *stat)
+```
 ## Detailed Description
 This function initializes the function call context for set-returning functions that traverse TSVectorStat trees. It sets up a stack-based traversal mechanism to perform an in-order walk of the binary tree structure containing text search statistics. The function allocates memory for the traversal stack, finds the leftmost node in the tree as the starting point, and configures the tuple descriptor for returning composite row types.
 

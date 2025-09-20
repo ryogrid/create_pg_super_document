@@ -8,7 +8,9 @@ A static helper function that computes the physical block number of the reverse 
 
 ## Definition
 
-
+```c
+struct;
+```
 ## Detailed Description
 This function calculates which reverse map page contains the mapping information for a specified heap block by:
 1. Using the HEAPBLK_TO_REVMAP_BLK macro to convert the heap block number to a revmap block index

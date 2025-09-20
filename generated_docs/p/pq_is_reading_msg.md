@@ -8,7 +8,10 @@ Returns the current message reading state to enable protocol synchronization err
 
 ## Definition
 
-
+```c
+bool
+pq_is_reading_msg(void)
+```
 ## Detailed Description
  is a simple but important state inquiry function that returns whether a message reading operation is currently in progress. This function serves a critical role in error recovery and protocol synchronization validation.
 

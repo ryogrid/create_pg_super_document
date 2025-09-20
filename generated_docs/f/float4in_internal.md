@@ -8,7 +8,12 @@ Internal function that provides the core logic for parsing string representation
 
 ## Definition
 
-
+```c
+float4
+float4in_internal(char *num, char **endptr_p,
+				  const char *type_name, const char *orig_string,
+				  struct Node *escontext)
+```
 ## Detailed Description
 The float4in_internal function serves as the robust core implementation for converting string input to float4 values. It provides a platform-independent way of parsing floating-point numbers with behavior similar to strtof() but with enhanced error handling through PostgreSQL's error context system. The function handles special values like NaN and Infinity, manages whitespace, and provides detailed error reporting for invalid inputs or out-of-range values.
 

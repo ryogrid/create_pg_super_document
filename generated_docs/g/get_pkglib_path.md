@@ -8,7 +8,10 @@ Constructs the full path to PostgreSQL's package library directory by calculatin
 
 ## Definition
 
-
+```c
+void
+get_pkglib_path(const char *my_exec_path, char *ret_path)
+```
 ## Detailed Description
 This function determines the absolute path to PostgreSQL's package library directory (pkglibdir) based on the location of the current executable. It uses the  function to compute the path by using the compile-time constants PKGLIBDIR and PGBINDIR to establish the relative relationship between the binary directory and the package library directory.
 

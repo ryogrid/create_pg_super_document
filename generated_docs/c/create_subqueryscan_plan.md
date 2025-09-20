@@ -8,7 +8,11 @@ Creates a subquery scan plan for accessing the results of a subquery as if it we
 
 ## Definition
 
-
+```c
+static SubqueryScan *
+create_subqueryscan_plan(PlannerInfo *root, SubqueryScanPath *best_path,
+						 List *tlist, List *scan_clauses)
+```
 ## Detailed Description
 The  function constructs a SubqueryScan execution plan node that represents scanning the output of a subquery. This is used when a subquery appears in the FROM clause and is treated as a virtual table that needs to be scanned.
 

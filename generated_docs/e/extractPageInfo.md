@@ -8,7 +8,10 @@ Analyzes individual WAL records to identify which data blocks are modified and a
 
 ## Definition
 
-
+```c
+static void
+extractPageInfo(XLogReaderState *record)
+```
 ## Detailed Description
 This function is the core page analysis component of pg_rewind's WAL processing system. It examines individual WAL records to determine which data blocks have been modified and need to be considered during the rewind operation. The function implements specific handling logic for various types of WAL records, categorizing them based on their impact on data files.
 

@@ -8,7 +8,10 @@ Records the end of WAL and the time it was flushed locally to enable lag computa
 
 ## Definition
 
-
+```c
+static void
+LagTrackerWrite(XLogRecPtr lsn, TimestampTz local_flush_time)
+```
 ## Detailed Description
 LagTrackerWrite is a static function in the WAL sender process that maintains a circular buffer of WAL positions and their corresponding flush times. This function is called when new WAL data has been written and flushed locally, storing a sample that will later be used by LagTrackerRead to compute replication lag when the standby reports progress.
 

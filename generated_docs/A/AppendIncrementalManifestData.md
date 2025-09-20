@@ -8,7 +8,11 @@ Appends received backup manifest data chunks to an incremental backup buffer, ma
 
 ## Definition
 
-
+```c
+void
+AppendIncrementalManifestData(IncrementalBackupInfo *ib, const char *data,
+							  int len)
+```
 ## Detailed Description
 This function is called during incremental backup setup to process chunks of backup manifest data received from the client. It maintains an internal buffer that accumulates the manifest data, and when the buffer reaches certain size thresholds, it triggers incremental JSON parsing to process the accumulated data while retaining a minimum chunk for continuity.
 

@@ -8,7 +8,10 @@ Retrieves a copy of a catalog tuple for a given object OID from a specified cata
 
 ## Definition
 
-
+```c
+HeapTuple
+get_catalog_object_by_oid(Relation catalog, AttrNumber oidcol, Oid objectId)
+```
 ## Detailed Description
 This function serves as a convenience wrapper around get_catalog_object_by_oid_extended, providing the most common use case for catalog object retrieval. It attempts to locate a database object by its OID within a specified catalog table, returning a copy of the corresponding HeapTuple if found.
 

@@ -8,7 +8,12 @@ Compares a tuple attribute value to a scan key/array element during binary searc
 
 ## Definition
 
-
+```c
+static inline int32
+_bt_compare_array_skey(FmgrInfo *orderproc,
+					   Datum tupdatum, bool tupnull,
+					   Datum arrdatum, ScanKey cur)
+```
 ## Detailed Description
 This function serves as a helper routine for binary searches within SK_SEARCHARRAY arrays in B-tree index operations. It provides a standardized comparison interface that handles NULL values according to the index's NULL ordering policy and applies proper collation rules for cross-type comparisons. 
 

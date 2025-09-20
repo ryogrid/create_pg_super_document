@@ -8,7 +8,10 @@ CloseServerPorts is an on_proc_exit callback function that safely closes all ser
 
 ## Definition
 
-
+```c
+static void
+CloseServerPorts(int status, Datum arg)
+```
 ## Detailed Description
 CloseServerPorts ensures orderly cleanup of network resources during postmaster termination. It performs a carefully sequenced shutdown process to avoid race conditions:
 

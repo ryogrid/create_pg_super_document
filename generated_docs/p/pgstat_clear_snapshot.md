@@ -8,7 +8,9 @@ This function discards any statistics data collected in the current transaction 
 
 ## Definition
 
-
+```c
+struct PgStat_HashKey));
+```
 ## Detailed Description
 The  function provides a mechanism to invalidate and clear the current statistics snapshot held by the local backend. This function is essential for maintaining consistency in PostgreSQL's statistics system, particularly when transaction boundaries are crossed or when configuration changes require fresh statistics data.
 

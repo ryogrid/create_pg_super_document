@@ -8,7 +8,10 @@ Updates the xmin horizon for a physical replication slot based on hot standby fe
 
 ## Definition
 
-
+```c
+static void
+PhysicalReplicationSlotNewXmin(TransactionId feedbackXmin, TransactionId feedbackCatalogXmin)
+```
 ## Detailed Description
 This function processes hot standby feedback messages that inform the primary server about the oldest transaction IDs still visible on the standby server. It updates both the regular xmin and catalog_xmin values in the replication slot to prevent the primary from removing tuples that are still needed by queries running on the standby.
 

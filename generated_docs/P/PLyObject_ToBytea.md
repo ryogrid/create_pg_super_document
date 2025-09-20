@@ -8,7 +8,11 @@ Converts a Python object to a PostgreSQL bytea (binary data) datum, bypassing ge
 
 ## Definition
 
-
+```c
+static Datum
+PLyObject_ToBytea(PLyObToDatum *arg, PyObject *plrv,
+				  bool *isnull, bool inarray)
+```
 ## Detailed Description
 This specialized conversion function handles the conversion from Python objects to PostgreSQL bytea values. It exists as a separate function rather than using generic conversion because bytea data can contain embedded null bytes, which would cause problems with standard string conversion routines. The function first converts the Python object to a Python bytes object using PyObject_Bytes(), then extracts the raw byte data and copies it into a properly formatted PostgreSQL bytea structure. The conversion process is wrapped in PostgreSQL's exception handling to ensure proper cleanup of Python objects in case of errors. The resulting bytea includes the proper PostgreSQL variable-length header (VARHDRSZ) and data section.
 

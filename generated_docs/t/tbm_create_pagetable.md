@@ -8,7 +8,10 @@ Creates the internal hash table structure for a TID bitmap when it transitions f
 
 ## Definition
 
-
+```c
+static void
+tbm_create_pagetable(TIDBitmap *tbm)
+```
 ## Detailed Description
 The `tbm_create_pagetable` function performs a lazy initialization of the hash table structure within a TID bitmap. This is called when the bitmap needs to transition from the TBM_ONE_PAGE state (storing a single page worth of tuple identifiers) to the TBM_HASH state (storing multiple pages in a hash table). The function is marked as static since it's an internal implementation detail of the TID bitmap system.
 

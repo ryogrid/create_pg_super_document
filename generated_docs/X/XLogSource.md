@@ -8,7 +8,15 @@ XLogSource is an enumeration that defines the various sources from which Write-A
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	XLOG_FROM_ANY = 0,			/* request to read WAL from any source */
+	XLOG_FROM_ARCHIVE,			/* restored using restore_command */
+	XLOG_FROM_PG_WAL,			/* existing file in pg_wal */
+	XLOG_FROM_STREAM,			/* streamed from primary */
+} XLogSource;
+```
 ## Detailed Description
 XLogSource is a critical enumeration used in PostgreSQL's WAL recovery system to track and control where WAL data is being read from during recovery operations. This enumeration allows the recovery system to maintain awareness of the current data source and implement appropriate fallback strategies when one source becomes unavailable.
 

@@ -8,7 +8,21 @@ Processes indirection (field selection or subscripting) of target columns in INS
 
 ## Definition
 
-
+```c
+Node *
+transformAssignmentIndirection(ParseState *pstate,
+							   Node *basenode,
+							   const char *targetName,
+							   bool targetIsSubscripting,
+							   Oid targetTypeId,
+							   int32 targetTypMod,
+							   Oid targetCollation,
+							   List *indirection,
+							   ListCell *indirection_cell,
+							   Node *rhs,
+							   CoercionContext ccontext,
+							   int location)
+```
 ## Detailed Description
 This function is the core processor for complex assignment operations involving field selection and array subscripting in PostgreSQL. It handles assignments like  or  by recursively processing the indirection chain.
 

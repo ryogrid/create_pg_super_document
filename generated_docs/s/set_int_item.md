@@ -8,7 +8,10 @@ Converts and extracts an integer value from a variable of various numeric data t
 
 ## Definition
 
-
+```c
+static bool
+set_int_item(int lineno, int *target, const void *var, enum ECPGttype vartype)
+```
 ## Detailed Description
 This internal utility function is the counterpart to get_int_item, serving as part of ECPG's dynamic descriptor implementation. It extracts a numeric value from a source variable of various types and converts it to an integer for storage in a target integer pointer. The function handles the reverse operation of get_int_item by reading from typed variables and producing integer values.
 

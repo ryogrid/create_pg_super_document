@@ -8,7 +8,10 @@ PGresAttDesc is a structure that describes a single column (attribute) in a Post
 
 ## Definition
 
-
+```c
+structure */
+extern void PQfinish(PGconn *conn);
+```
 ## Detailed Description
 PGresAttDesc is a core data structure in PostgreSQL's libpq client library that provides comprehensive metadata about individual columns in query results. This structure is essential for applications that need to understand the schema and characteristics of result sets before processing the actual data. It contains both logical information (like column names and types) and physical information (like formatting and storage details).
 

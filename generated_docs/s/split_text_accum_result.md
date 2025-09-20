@@ -8,7 +8,13 @@ Helper function for text splitting operations that adds individual text items to
 
 ## Definition
 
-
+```c
+static void
+split_text_accum_result(SplitTextOutputData *tstate,
+						text *field_value,
+						text *null_string,
+						Oid collation)
+```
 ## Detailed Description
 This internal function is responsible for accumulating text fields during string splitting operations. It serves two main purposes: checking if the input field matches a specified null string pattern and adding the field to the appropriate result container. The function supports two output modes - storing results in a tuple store for table output or in an array accumulator for array output. When a field value matches the null_string parameter (using collation-aware comparison), it treats the field as NULL rather than storing the actual text value.
 

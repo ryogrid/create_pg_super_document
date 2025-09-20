@@ -8,7 +8,10 @@ This function serves as the binary output routine for the pg_dependencies data t
 
 ## Definition
 
-
+```c
+Datum
+pg_dependencies_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The function handles binary output of pg_dependencies values for PostgreSQL's binary communication protocol. Since functional dependencies are internally stored as serialized bytea data, the function simply delegates to the existing byteasend() function rather than implementing custom binary serialization.
 

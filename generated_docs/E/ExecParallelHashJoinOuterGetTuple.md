@@ -8,7 +8,12 @@ ExecParallelHashJoinOuterGetTuple is the parallel variant of outer tuple retriev
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecParallelHashJoinOuterGetTuple(PlanState *outerNode,
+								  HashJoinState *hjstate,
+								  uint32 *hashvalue)
+```
 ## Detailed Description
 ExecParallelHashJoinOuterGetTuple provides outer tuple retrieval specifically designed for parallel hash join execution. Unlike its non-parallel counterpart, this function handles the complexities of coordinated tuple access across multiple parallel workers.
 

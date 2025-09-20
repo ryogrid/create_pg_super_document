@@ -8,7 +8,14 @@ A core function that parses relation options from a Datum and builds a structure
 
 ## Definition
 
-
+```c
+void *
+build_reloptions(Datum reloptions, bool validate,
+				 relopt_kind kind,
+				 Size relopt_struct_size,
+				 const relopt_parse_elt *relopt_elems,
+				 int num_relopt_elems)
+```
 ## Detailed Description
 This function serves as the main entry point for building relation options structures. It orchestrates the complete process of parsing raw relation options: first calling parseRelOptions to convert the input Datum into structured relopt_value entries, then allocating memory for the result structure using allocateReloptStruct, and finally filling the structure with parsed values using fillRelOptions. The function handles the case where no options are provided by returning NULL, and properly manages memory by freeing the intermediate parsed options array.
 

@@ -8,7 +8,10 @@ Retrieves or creates a Tcl interpreter for executing PL/Tcl functions, managing 
 
 ## Definition
 
-
+```c
+static pltcl_interp_desc *
+pltcl_fetch_interp(Oid prolang, bool pltrusted)
+```
 ## Detailed Description
 The `pltcl_fetch_interp` function is responsible for providing the appropriate Tcl interpreter for executing PL/Tcl functions. It implements a per-user interpreter caching system where:
 

@@ -8,7 +8,10 @@ A static comparison function used for sorting ItemPointer structures (TIDs) in a
 
 ## Definition
 
-
+```c
+static int
+itemptr_cmp(const void *left, const void *right)
+```
 ## Detailed Description
 This function implements a comparator routine for ItemPointer structures, which are used in PostgreSQL to identify the physical location of tuples within heap files. The function performs lexicographic comparison where block numbers are compared first, and if they are equal, offset numbers are compared. This ordering ensures that ItemPointers are sorted in the physical order they appear on disk, which is important for efficient storage and retrieval operations in the tidstore test module.
 

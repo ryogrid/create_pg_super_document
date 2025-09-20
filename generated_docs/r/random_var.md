@@ -8,7 +8,11 @@ Generates a uniformly distributed random numeric value within a specified range 
 
 ## Definition
 
-
+```c
+static void
+random_var(pg_prng_state *state, const NumericVar *rmin,
+		   const NumericVar *rmax, NumericVar *result)
+```
 ## Detailed Description
 This function generates a random numeric value uniformly distributed within the closed interval [rmin, rmax]. The implementation uses sophisticated algorithms to ensure true uniform distribution while handling PostgreSQL's variable-precision decimal arithmetic. 
 

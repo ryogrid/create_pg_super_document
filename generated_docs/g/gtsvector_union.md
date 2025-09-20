@@ -8,7 +8,10 @@ The gtsvector_union function implements the GiST union operation for TSVector da
 
 ## Definition
 
-
+```c
+Datum
+gtsvector_union(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL GiST index support function that creates a union of multiple TSVector signatures. It iterates through all entries in the input vector, calling unionkey() to merge each signature with the base signature. If any individual signature indicates an all-true state, the entire result is marked as all-true and processing stops early. The function allocates a new signature result and returns it as a PostgreSQL Datum.
 

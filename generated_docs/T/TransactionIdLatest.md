@@ -8,7 +8,11 @@ TransactionIdLatest finds and returns the latest (most recent) transaction ID am
 
 ## Definition
 
-
+```c
+TransactionId
+TransactionIdLatest(TransactionId mainxid,
+					int nxids, const TransactionId *xids)
+```
 ## Detailed Description
 This function determines the latest transaction ID by comparing a main transaction ID with an array of child subtransaction IDs. It uses PostgreSQL's transaction ID precedence logic to find the most recent transaction among all provided IDs. The function scans the child transaction array in reverse order (back-to-front) as an optimization, since child transaction arrays are typically sorted and the latest transaction is likely to be at the end.
 

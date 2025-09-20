@@ -8,7 +8,10 @@ Fetches the next BRIN tuple from a tuplesort state in either forward or backward
 
 ## Definition
 
-
+```c
+BrinTuple *
+tuplesort_getbrintuple(Tuplesortstate *state, Size *len, bool forward)
+```
 ## Detailed Description
 This function is part of PostgreSQL's tuplesort framework, specifically designed to retrieve BRIN (Block Range Index) tuples from a sorted tuple collection. It serves as the interface between the generic tuplesort machinery and BRIN-specific tuple handling. The function manages memory context switching to ensure proper allocation and handles the conversion from the internal SortTuple format to the external BrinTuple format that callers expect.
 

@@ -8,7 +8,10 @@ Creates a new RestrictInfo representing the commuted version of a binary operato
 
 ## Definition
 
-
+```c
+RestrictInfo *
+commute_restrictinfo(RestrictInfo *rinfo, Oid comm_op)
+```
 ## Detailed Description
 This function produces a commuted version of a RestrictInfo containing a binary operator clause by creating new OpExpr and RestrictInfo structures with swapped operands. It performs efficient flat-copy operations of the original structures and then selectively updates only the fields that need to change for commutation. The function preserves valuable cached optimization data like selectivity estimates and cost information, while properly swapping left/right relation sets and equivalence class information. It's designed specifically for use with derived index qualifications where the commuted form may provide better optimization opportunities.
 

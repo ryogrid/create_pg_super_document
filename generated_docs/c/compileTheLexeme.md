@@ -8,7 +8,10 @@ Processes and compiles raw lexeme entries in a thesaurus dictionary by normalizi
 
 ## Definition
 
-
+```c
+static void
+compileTheLexeme(DictThesaurus *d)
+```
 ## Detailed Description
 This function performs the critical compilation phase of thesaurus dictionary initialization. It takes raw lexeme entries and transforms them into a normalized, sorted, and deduplicated array suitable for efficient runtime lookups.
 

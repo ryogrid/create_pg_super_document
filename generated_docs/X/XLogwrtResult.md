@@ -8,7 +8,13 @@ XLogwrtResult is a shared-memory data structure that tracks the actual completio
 
 ## Definition
 
-
+```c
+typedef struct XLogwrtResult
+{
+	XLogRecPtr	Write;			/* last byte + 1 written out */
+	XLogRecPtr	Flush;			/* last byte + 1 flushed */
+} XLogwrtResult;
+```
 ## Detailed Description
 XLogwrtResult represents the completion status of Write-Ahead Log (WAL) operations, tracking what has actually been accomplished rather than what is requested. It maintains the byte positions in the WAL that have been successfully written to disk and fsynced, providing the system with knowledge of which records are durably stored.
 

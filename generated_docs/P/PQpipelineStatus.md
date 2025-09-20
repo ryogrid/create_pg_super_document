@@ -8,7 +8,10 @@ Returns the current pipeline mode status of a PostgreSQL connection, indicating 
 
 ## Definition
 
-
+```c
+PGpipelineStatus
+PQpipelineStatus(const PGconn *conn)
+```
 ## Detailed Description
 The PQpipelineStatus function queries the current pipeline mode status of a PostgreSQL connection. Pipeline mode is a libpq feature that allows batching multiple queries and processing their results efficiently. This function returns one of three possible states: pipeline mode is disabled (PQ_PIPELINE_OFF), pipeline mode is active (PQ_PIPELINE_ON), or pipeline mode is in an aborted state (PQ_PIPELINE_ABORTED) due to an error.
 

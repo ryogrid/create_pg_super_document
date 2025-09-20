@@ -8,7 +8,21 @@ The  structure represents a WAL record for GiST index page split operations, cap
 
 ## Definition
 
+```c
+typedef struct gistxlogPageSplit
+{
+	BlockNumber origrlink;		/* rightlink of the page before split */
+	GistNSN		orignsn;		/* NSN of the page before split */
+	bool		origleaf;		/* was split page a leaf page? */
 
+	uint16		npage;			/* # of pages in the split */
+	bool		markfollowright;	/* set F_FOLLOW_RIGHT flags */
+
+	/*
+	 * follow: 1. gistxlogPage and array of IndexTupleData per page
+	 */
+} gistxlogPageSplit;
+```
 ## Detailed Description
 This structure is used to log GiST index page split operations in the write-ahead log. Page splits occur when a GiST page becomes full and needs to be divided into multiple pages. The structure contains metadata about the original page state before the split, the number of resulting pages, and control flags. The actual page data follows this header structure as gistxlogPage structures and arrays of IndexTupleData for each split page.
 

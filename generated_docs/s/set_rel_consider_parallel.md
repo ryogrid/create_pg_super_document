@@ -8,7 +8,13 @@ Determines whether a relation can be safely scanned within a parallel worker by 
 
 ## Definition
 
-
+```c
+structure right now anyway.  So
+			 * for now, bail out if we see a temporary table.
+			 */
+			if (get_rel_persistence(rte->relid) == RELPERSISTENCE_TEMP)
+				return;
+```
 ## Detailed Description
 This function performs comprehensive parallel safety analysis for base relations in PostgreSQL's query optimizer. It evaluates whether a relation can be safely accessed from within parallel workers by checking numerous constraints including relation type, temporary table restrictions, function safety, FDW capabilities, and expression safety. The function sets the  flag to true only when all safety requirements are met.
 

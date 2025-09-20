@@ -8,7 +8,10 @@ Windows-specific thread entry point function that transfers databases in paralle
 
 ## Definition
 
-
+```c
+DWORD
+win32_transfer_all_new_dbs(transfer_thread_arg *args)
+```
 ## Detailed Description
 This function serves as the thread entry point for Windows-based parallel database transfer operations in pg_upgrade. It's a thin wrapper around transfer_all_new_dbs that adapts the function signature to be compatible with Windows threading APIs (_beginthreadex). The function extracts database transfer parameters from the thread argument structure and executes the transfer using the standard transfer_all_new_dbs function.
 

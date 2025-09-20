@@ -8,7 +8,10 @@ A static function that determines whether a given relative path should be ignore
 
 ## Definition
 
-
+```c
+static bool
+should_ignore_relpath(verifier_context *context, const char *relpath)
+```
 ## Detailed Description
 This function implements path matching logic to determine if a file or directory should be excluded from backup verification. It iterates through the ignore list stored in the verifier context and performs prefix matching against the provided relative path. The function uses a character-by-character comparison to check if the relative path matches any ignored path exactly or is a subdirectory of an ignored path. The matching logic ensures that "aa/bb" matches "aa/bb" exactly and also matches any path that starts with "aa/bb/" (indicating files or subdirectories within the ignored directory), but does not match "aa/bbb" (a different file with a similar name prefix).
 

@@ -8,7 +8,10 @@ Checks if a user (specified by name) has specific privileges on a role (specifie
 
 ## Definition
 
-
+```c
+Datum
+pg_has_role_name_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a mixed-parameter variant of the pg_has_role privilege checking system that accepts a user name and a role OID. It combines name-based user identification with OID-based role identification, which can be useful when the role OID is already known but the username needs to be resolved. The function converts the username to its corresponding OID and then performs the standard role privilege check.
 

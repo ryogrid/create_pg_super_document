@@ -8,7 +8,10 @@ Writes data to a GSSAPI-encrypted PostgreSQL connection, handling encryption, pa
 
 ## Definition
 
-
+```c
+ssize_t
+pg_GSS_write(PGconn *conn, const void *ptr, size_t len)
+```
 ## Detailed Description
 This function encrypts and transmits data over a GSSAPI-secured connection. It handles the complete lifecycle of encrypting plaintext data using GSS-API, packaging it into properly formatted packets with length headers, and managing partial writes and retries. The function implements robust error handling and maintains state for partial transmission scenarios where the underlying socket would block.
 

@@ -8,7 +8,10 @@ MaybeStartWalSummarizer conditionally starts a WAL summarizer process when WAL s
 
 ## Definition
 
-
+```c
+static void
+MaybeStartWalSummarizer(void)
+```
 ## Detailed Description
 MaybeStartWalSummarizer implements conditional startup logic for the WAL summarizer process, which is responsible for creating WAL summaries to enable incremental backup functionality. The function starts a summarizer only when all required conditions are met: the summarize_wal configuration parameter is enabled, no summarizer is currently running (WalSummarizerPID == 0), the postmaster is in either normal running state (PM_RUN) or hot standby mode (PM_HOT_STANDBY), and the system is not in immediate shutdown mode.
 

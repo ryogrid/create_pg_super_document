@@ -8,7 +8,10 @@ ExecEndMemoize performs cleanup and shutdown operations for a MemoizeState node,
 
 ## Definition
 
-
+```c
+void
+ExecEndMemoize(MemoizeState *node)
+```
 ## Detailed Description
 ExecEndMemoize handles the proper shutdown of a Memoize execution node. In debug builds, it performs comprehensive memory accounting validation by iterating through all cache entries and their associated tuples to verify that the tracked memory usage matches the actual memory consumption. For parallel query execution, it copies the worker's accumulated statistics (cache hits, misses, overflows, and peak memory usage) back to shared memory so the main process can aggregate and report them in EXPLAIN ANALYZE output. Finally, it performs cleanup by deleting the dedicated memory context that holds all cache data and recursively shutting down the outer plan node.
 

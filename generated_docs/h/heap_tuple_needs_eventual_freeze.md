@@ -8,7 +8,10 @@ heap_tuple_needs_eventual_freeze determines whether a tuple contains transaction
 
 ## Definition
 
-
+```c
+bool
+heap_tuple_needs_eventual_freeze(HeapTupleHeader tuple)
+```
 ## Detailed Description
 This function examines all transaction ID fields in a tuple header (xmin, xmax, xvac) to determine if any contain normal transaction IDs that will eventually need to be frozen. Transaction ID freezing is a critical PostgreSQL maintenance operation that prevents transaction ID wraparound by converting old transaction IDs to special frozen values.
 

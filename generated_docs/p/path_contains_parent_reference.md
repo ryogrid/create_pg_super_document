@@ -8,7 +8,10 @@ Detects whether a canonicalized path contains any parent-directory references ('
 
 ## Definition
 
-
+```c
+bool
+path_contains_parent_reference(const char *path)
+```
 ## Detailed Description
 The  function determines if a path contains any '..' (parent directory) references. This function is designed to work on paths that have already been processed by  or .
 

@@ -8,7 +8,11 @@ ExecInitResult creates and initializes the execution state for a Result plan nod
 
 ## Definition
 
-
+```c
+structure
+	 */
+	resstate = makeNode(ResultState);
+```
 ## Detailed Description
 ExecInitResult is the initialization function for Result plan nodes that creates the runtime execution state (ResultState) and prepares the node for execution. This function is part of PostgreSQL's executor initialization phase.
 

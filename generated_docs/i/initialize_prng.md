@@ -8,7 +8,10 @@ Initializes (seeds) the pseudo-random number generator (PRNG) if it has not been
 
 ## Definition
 
-
+```c
+static void
+initialize_prng(void)
+```
 ## Detailed Description
 This internal function ensures the global PRNG state is properly initialized before any random number generation occurs. It uses a two-tier seeding approach:
 

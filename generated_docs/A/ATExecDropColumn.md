@@ -8,7 +8,14 @@ ATExecDropColumn implements the execution phase of ALTER TABLE DROP COLUMN, hand
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecDropColumn(List **wqueue, Relation rel, const char *colName,
+				 DropBehavior behavior,
+				 bool recurse, bool recursing,
+				 bool missing_ok, LOCKMODE lockmode,
+				 ObjectAddresses *addrs)
+```
 ## Detailed Description
 This function orchestrates the dropping of a column from a relation, handling complex scenarios including inheritance hierarchies, partitioned tables, and system constraints. It performs extensive validation (system columns, inherited columns, partition key usage), manages recursive descent through child relations, and coordinates the final deletion through PostgreSQL's dependency system. The function uses a two-phase approach: collecting objects to delete during recursion, then performing all deletions atomically at the top level.
 

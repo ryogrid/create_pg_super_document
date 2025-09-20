@@ -8,7 +8,10 @@ A convenience function that determines if the current logical replication worker
 
 ## Definition
 
-
+```c
+static inline bool
+am_leader_apply_worker(void)
+```
 ## Detailed Description
 The  function checks whether the current logical replication worker is configured as a leader apply worker. This function provides a type-safe way to determine if the current worker is the main apply worker, as opposed to a table synchronization worker or parallel apply worker.
 

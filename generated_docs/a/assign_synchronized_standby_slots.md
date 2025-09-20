@@ -8,7 +8,10 @@ GUC assign_hook for the synchronized_standby_slots configuration parameter that 
 
 ## Definition
 
-
+```c
+void
+assign_synchronized_standby_slots(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as a GUC (Grand Unified Configuration) assign hook for the synchronized_standby_slots parameter. It is called after successful validation when the parameter value is being applied. The function updates the global synchronized_standby_slots_config pointer with the new configuration data prepared by the check_hook, and resets ss_oldest_flush_lsn to InvalidXLogRecPtr to force recomputation of the oldest LSN among standby slots, since the set of synchronized standby slots may have changed.
 

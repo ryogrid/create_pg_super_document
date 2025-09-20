@@ -8,7 +8,12 @@ Handles non-complemented bracket expressions in regular expression compilation, 
 
 ## Definition
 
-
+```c
+static void
+bracket(struct vars *v,
+		struct state *lp,
+		struct state *rp)
+```
 ## Detailed Description
 The  function processes non-complemented bracket expressions (like  or ) in regular expressions. It's also called from  for complemented bracket expressions (like ). The function parses the contents of bracket expressions, handling character classes, ranges, and complemented character classes. It uses a deferred processing approach for complemented character classes to avoid color bookkeeping confusion, storing them in a boolean array and processing them at the end. After processing all elements, it optimizes the bracket expression if complemented elements were found.
 

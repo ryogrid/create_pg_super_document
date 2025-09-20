@@ -8,7 +8,10 @@ A specialized startup function for iterating over regular PostgreSQL Lists, used
 
 ## Definition
 
-
+```c
+static void
+list_startup_fn(Node *clause, PredIterInfo info)
+```
 ## Detailed Description
 This function serves as the initialization routine for the predicate iterator framework when dealing with regular PostgreSQL Lists. It is one of three functions (startup, next, cleanup) that work together to provide a unified interface for iterating over different node types during predicate analysis in the query optimizer. The function sets up the iteration state by storing the List pointer and initializing the iteration position to the head of the list.
 

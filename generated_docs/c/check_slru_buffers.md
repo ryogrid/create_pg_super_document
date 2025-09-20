@@ -8,7 +8,10 @@ check_slru_buffers is a GUC (Grand Unified Configuration) validation helper func
 
 ## Definition
 
-
+```c
+bool
+check_slru_buffers(const char *name, int *newval)
+```
 ## Detailed Description
 This function serves as a validation hook for PostgreSQL's configuration system (GUC) to validate SLRU buffer count parameters. It enforces the architectural requirement that all SLRU buffer counts must be multiples of SLRU_BANK_SIZE.
 

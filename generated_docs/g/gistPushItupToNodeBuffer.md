@@ -8,7 +8,11 @@ Adds an index tuple to a node buffer, managing page allocation, disk I/O, and bu
 
 ## Definition
 
-
+```c
+void
+gistPushItupToNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer,
+						 IndexTuple itup)
+```
 ## Detailed Description
 This function is the main entry point for adding index tuples to node buffers during GiST index builds. It handles several complex operations: initializing empty buffers with their first page, loading existing pages from disk when needed, managing page overflow by writing full pages to disk and allocating new ones, and monitoring buffer capacity to trigger emptying when buffers become half-full. The function also manages memory contexts to ensure allocations occur in the appropriate persistent context.
 

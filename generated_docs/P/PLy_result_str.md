@@ -8,7 +8,10 @@ PLy_result_str is a static function that implements the string representation me
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_result_str(PyObject *arg)
+```
 ## Detailed Description
 This function creates a human-readable string representation of a PLyResultObject, which is used when Python code calls str() on a result object or when the object needs to be displayed. The function formats the output to include the object type name, query execution status, number of rows, and the actual row data in a structured format.
 

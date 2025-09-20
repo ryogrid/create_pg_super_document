@@ -8,7 +8,12 @@ Retrieves a Range Table Entry (RTE) from the parser state by its position in the
 
 ## Definition
 
-
+```c
+RangeTblEntry *
+GetRTEByRangeTablePosn(ParseState *pstate,
+					   int varno,
+					   int sublevels_up)
+```
 ## Detailed Description
 This function locates and returns a specific Range Table Entry (RTE) from the PostgreSQL parser state structure. It navigates through potentially nested ParseState contexts using the sublevels_up parameter to find the appropriate query level, then retrieves the RTE at the specified position (varno) in that level's range table. The function is essential for resolving table references during query parsing, especially in complex queries with subqueries or CTEs where table references may need to be resolved at different nesting levels.
 

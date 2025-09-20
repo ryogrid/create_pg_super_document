@@ -8,7 +8,10 @@ Determines whether a type (identified by OID) is visible in the current search p
 
 ## Definition
 
-
+```c
+static bool
+TypeIsVisibleExt(Oid typid, bool *is_missing)
+```
 ## Detailed Description
 TypeIsVisibleExt is an internal function that checks if a specific type is visible in the current namespace search path. It extends the basic visibility checking by providing optional error handling - instead of throwing an error when a type is not found, it can optionally set a flag and return false. The function performs a comprehensive visibility check that considers both namespace membership and potential name conflicts with other types of the same name in earlier namespaces.
 

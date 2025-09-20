@@ -8,7 +8,11 @@ The porter_UTF_8_stem function is the main entry point for the Porter stemming a
 
 ## Definition
 
+```c
+}
 
+extern int porter_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete Porter stemming algorithm for UTF-8 encoded text. The Porter stemmer is a widely-used algorithm for reducing English words to their stems by removing common morphological and inflectional endings. The function operates in several phases:
 

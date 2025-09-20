@@ -8,7 +8,10 @@ Creates a new list containing the union of two integer lists, eliminating duplic
 
 ## Definition
 
-
+```c
+List *
+list_union_int(const List *list1, const List *list2)
+```
 ## Detailed Description
 This function performs a set union operation on two lists containing integer values. It creates a new list that contains all unique integer values from both input lists. The function starts by copying the first list, then iterates through the second list and appends any integers that are not already present in the result. This ensures no duplicate values exist in the final union.
 

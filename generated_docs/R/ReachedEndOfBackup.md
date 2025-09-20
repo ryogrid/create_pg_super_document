@@ -8,7 +8,10 @@ ReachedEndOfBackup is called when WAL recovery reaches the end of a base backup,
 
 ## Definition
 
-
+```c
+void
+ReachedEndOfBackup(XLogRecPtr EndRecPtr, TimeLineID tli)
+```
 ## Detailed Description
 ReachedEndOfBackup is a callback function invoked by PerformWalRecovery() when the recovery process encounters the end-of-backup WAL record. This occurs during recovery from a base backup when the system replays WAL records up to the point where the backup was completed and the database reached a consistent state.
 

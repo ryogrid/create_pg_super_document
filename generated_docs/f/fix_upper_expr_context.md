@@ -8,7 +8,14 @@ A context structure used during upper-level expression fixing to provide access 
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PlannerInfo *root;
+	indexed_tlist *subplan_itlist;
+	int			newvarno;
+} fix_windowagg_cond_context;
+```
 ## Detailed Description
 The  structure provides the necessary context for fixing expressions in upper-level plan nodes (such as Agg, Sort, Group, WindowAgg, etc.) in PostgreSQL's query planner. Upper-level nodes typically receive input from a single subplan and need to resolve variable references to point to the appropriate entries in that subplan's target list.
 

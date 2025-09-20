@@ -8,7 +8,16 @@ A static data structure that manages a chain of StateFileChunk blocks used for a
 
 ## Definition
 
-
+```c
+struct xllist
+{
+	StateFileChunk *head;		/* first data block in the chain */
+	StateFileChunk *tail;		/* last block in chain */
+	uint32		num_chunks;
+	uint32		bytes_free;		/* free bytes left in tail block */
+	uint32		total_len;		/* total data bytes in chain */
+}			records;
+```
 ## Detailed Description
 The  structure (instantiated as ) is a core component of PostgreSQL's two-phase commit implementation. It serves as a temporary container for assembling state file data during the prepare phase of a two-phase commit transaction. The structure manages a linked list of StateFileChunk blocks, each containing portions of the serialized transaction state data.
 

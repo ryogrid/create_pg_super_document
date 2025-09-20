@@ -8,7 +8,10 @@ This function tests whether a given point lies within the boundaries of a WIDGET
 
 ## Definition
 
-
+```c
+Datum
+pt_in_widget(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 pt_in_widget is a PostgreSQL function that implements a geometric containment test for a custom WIDGET data type. The function takes a Point and a WIDGET as arguments and returns a boolean value indicating whether the point falls within the widget's circular boundary. The implementation calculates the Euclidean distance between the input point and the widget's center point, then compares this distance to the widget's radius to determine containment.
 

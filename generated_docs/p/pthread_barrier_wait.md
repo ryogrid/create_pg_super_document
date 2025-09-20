@@ -8,7 +8,10 @@ Waits at a synchronization barrier until all expected threads have arrived, impl
 
 ## Definition
 
-
+```c
+int
+pthread_barrier_wait(pthread_barrier_t *barrier)
+```
 ## Detailed Description
 This function implements the core barrier synchronization logic. When a thread calls this function, it increments the arrived counter and waits at the barrier until exactly `count` threads (as specified during initialization) have called pthread_barrier_wait(). The last thread to arrive becomes the "master" thread that releases all waiting threads.
 

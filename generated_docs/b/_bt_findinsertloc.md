@@ -8,7 +8,21 @@ Finds the exact insertion location for a tuple within a B-tree leaf page, handli
 
 ## Definition
 
-
+```c
+enumerated above
+			 *
+			 * The earlier _bt_check_unique() call may well have established a
+			 * strict upper bound on the offset for the new item.  If it's not
+			 * the last item of the page (i.e. if there is at least one tuple
+			 * on the page that's greater than the tuple we're inserting to)
+			 * then we know that the tuple belongs on this page.  We can skip
+			 * the high key check.
+			 */
+			if (insertstate->bounds_valid &&
+				insertstate->low <= insertstate->stricthigh &&
+				insertstate->stricthigh <= PageGetMaxOffsetNumber(page))
+				break;
+```
 ## Detailed Description
 The  function determines the precise offset within a leaf page where a new tuple should be inserted. It handles the complex scenarios that arise when uniqueness checking has been performed and when pages need to be traversed to find the optimal insertion location.
 

@@ -8,7 +8,10 @@ pg_relation_is_updatable is a SQL-callable function that determines which update
 
 ## Definition
 
-
+```c
+Datum
+pg_relation_is_updatable(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a SQL interface to PostgreSQL's internal updatability checking mechanism. It takes a relation OID and a boolean flag indicating whether to include trigger-based updatability, then delegates to the internal  function in rewriteHandler.c to perform the actual analysis.
 

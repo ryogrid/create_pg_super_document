@@ -8,7 +8,10 @@ GUC assign hook function that sets the TCP_USER_TIMEOUT socket option on the cur
 
 ## Definition
 
-
+```c
+void
+assign_tcp_user_timeout(int newval, void *extra)
+```
 ## Detailed Description
 This function serves as a GUC (Grand Unified Configuration) assign hook for the  configuration parameter. When PostgreSQL's configuration system updates the tcp_user_timeout setting, this function is automatically called to apply the new timeout value to the active database connection. The TCP_USER_TIMEOUT socket option specifies the maximum amount of time that transmitted data may remain unacknowledged before the TCP connection is forcibly closed.
 

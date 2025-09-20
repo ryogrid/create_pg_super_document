@@ -8,7 +8,13 @@ PLyExceptionEntry is a hash table entry structure that maps PostgreSQL SQL state
 
 ## Definition
 
-
+```c
+typedef struct PLyExceptionEntry
+{
+	int			sqlstate;		/* hash key, must be first */
+	PyObject   *exc;			/* corresponding exception */
+} PLyExceptionEntry;
+```
 ## Detailed Description
 PLyExceptionEntry serves as a mapping structure in PL/Python's exception handling system that associates PostgreSQL SQL state codes with their corresponding Python exception objects. This structure is used as entries in a hash table (PLy_spi_exceptions) to enable efficient lookup of Python exceptions based on SQL state codes when PostgreSQL errors occur within PL/Python functions.
 

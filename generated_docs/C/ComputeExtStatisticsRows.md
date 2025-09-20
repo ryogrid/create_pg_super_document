@@ -8,7 +8,11 @@ ComputeExtStatisticsRows calculates the number of sample rows needed for computi
 
 ## Definition
 
-
+```c
+int
+ComputeExtStatisticsRows(Relation onerel,
+						 int natts, VacAttrStats **vacattrstats)
+```
 ## Detailed Description
 This function determines the sample size requirements for extended statistics computation during ANALYZE. It examines all extended statistics objects defined for the relation, checks whether each can be computed with the currently analyzed columns, calculates the statistics target for each valid object, and returns a sample size based on the highest target found. The function uses a simple formula of 300 rows per statistics target unit to determine the required sample size. This preprocessing step allows ANALYZE to collect sufficient samples before attempting to build the actual extended statistics.
 

@@ -8,7 +8,11 @@ ExecInitHashJoin initializes a HashJoin node during query plan startup, setting 
 
 ## Definition
 
-
+```c
+structure
+	 */
+	hjstate = makeNode(HashJoinState);
+```
 ## Detailed Description
 ExecInitHashJoin is the initialization routine for HashJoin nodes in PostgreSQL's executor. It performs comprehensive setup of the hash join execution state, including:
 

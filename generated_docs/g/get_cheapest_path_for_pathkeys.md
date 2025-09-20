@@ -8,7 +8,13 @@ Finds the cheapest path (according to specified cost criterion) that satisfies g
 
 ## Definition
 
-
+```c
+Path *
+get_cheapest_path_for_pathkeys(List *paths, List *pathkeys,
+							   Relids required_outer,
+							   CostSelector cost_criterion,
+							   bool require_parallel_safe)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's query optimizer that searches through a list of candidate paths to find the one that best matches the specified ordering requirements (pathkeys) while minimizing cost. It performs cost-based optimization by comparing paths using either startup cost or total cost as the selection criterion. The function also handles parameterized paths and can optionally restrict selection to parallel-safe paths only.
 

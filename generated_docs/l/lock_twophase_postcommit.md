@@ -8,7 +8,11 @@ Releases locks held by a prepared transaction during the COMMIT PREPARED phase o
 
 ## Definition
 
-
+```c
+void
+lock_twophase_postcommit(TransactionId xid, uint16 info,
+						 void *recdata, uint32 len)
+```
 ## Detailed Description
 The lock_twophase_postcommit function is responsible for releasing locks that were held by a prepared transaction when that transaction is finally committed via COMMIT PREPARED. This function is a critical component of PostgreSQL's two-phase commit protocol, ensuring that locks acquired during the first phase (PREPARE) are properly released during the second phase (COMMIT PREPARED).
 

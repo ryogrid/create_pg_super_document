@@ -8,7 +8,10 @@ Initializes array keys at the start of a B-tree index scan by setting up current
 
 ## Definition
 
-
+```c
+void
+_bt_start_array_keys(IndexScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 This function prepares array scan keys for a B-tree index scan by initializing their current element positions based on the scan direction. For forward scans, it sets the current element to the first array element (index 0), while for backward scans, it sets the current element to the last array element (num_elems - 1).
 

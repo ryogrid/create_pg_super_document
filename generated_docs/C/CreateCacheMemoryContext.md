@@ -8,7 +8,10 @@ CreateCacheMemoryContext is a public utility function that creates the global Ca
 
 ## Definition
 
-
+```c
+void
+CreateCacheMemoryContext(void)
+```
 ## Detailed Description
 This function serves as a standardized way to ensure the CacheMemoryContext exists throughout the PostgreSQL system. The CacheMemoryContext is a critical global memory context used by various caching subsystems including catalog caches, type caches, relation caches, and other system caches.
 

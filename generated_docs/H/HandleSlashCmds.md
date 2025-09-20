@@ -8,7 +8,13 @@ HandleSlashCmds is the main dispatcher function that processes all PostgreSQL ps
 
 ## Definition
 
-
+```c
+backslashResult
+HandleSlashCmds(PsqlScanState scan_state,
+				ConditionalStack cstack,
+				PQExpBuffer query_buf,
+				PQExpBuffer previous_buf)
+```
 ## Detailed Description
 HandleSlashCmds parses and executes backslash commands in the PostgreSQL psql client. The function first extracts the command name using psql_scan_slash_command(), then delegates actual command execution to exec_command(). It handles error conditions, manages restricted mode (where only \unrestrict is allowed), and performs cleanup operations like consuming remaining arguments and handling trailing backslashes.
 

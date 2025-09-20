@@ -8,7 +8,12 @@ Reduces the number of expanded ranges by merging adjacent ranges with the smalle
 
 ## Definition
 
-
+```c
+static int
+reduce_expanded_ranges(ExpandedRange *eranges, int neranges,
+					   DistanceValue *distances, int max_values,
+					   FmgrInfo *cmp, Oid colloid)
+```
 ## Detailed Description
 This function implements a range consolidation algorithm that merges adjacent ranges to reduce storage requirements while preserving as much selectivity as possible. The algorithm works by identifying the smallest gaps between consecutive ranges (using pre-computed distances) and merging ranges across those gaps. It starts with global minimum and maximum values, then adds boundary values for the largest gaps that should be preserved.
 

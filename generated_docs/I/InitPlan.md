@@ -8,7 +8,10 @@ Initializes the query execution plan by opening files, allocating storage, setti
 
 ## Definition
 
-
+```c
+static void
+InitPlan(QueryDesc *queryDesc, int eflags)
+```
 ## Detailed Description
 This comprehensive initialization function prepares the PostgreSQL executor for query execution. It performs several critical setup operations in sequence:
 

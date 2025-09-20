@@ -8,7 +8,10 @@ Performs the main bulk delete scan for SP-GiST vacuum operations, coordinating p
 
 ## Definition
 
-
+```c
+static void
+spgvacuumscan(spgBulkDeleteState *bds)
+```
 ## Detailed Description
 The `spgvacuumscan` function orchestrates the complete bulk delete scan process for SP-GiST indexes. It implements a two-phase approach:
 

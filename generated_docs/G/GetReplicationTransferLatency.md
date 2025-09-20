@@ -8,7 +8,10 @@ Calculates and returns the network transfer latency in milliseconds between the 
 
 ## Definition
 
-
+```c
+int
+GetReplicationTransferLatency(void)
+```
 ## Detailed Description
 This function measures the network latency by calculating the time difference between when a message was sent from the primary server (lastMsgSendTime) and when it was received by the standby server (lastMsgReceiptTime). The measurement includes actual network transmission time plus any clock differences and timezone variations between the servers. This metric is essential for monitoring replication performance and diagnosing network-related issues in streaming replication setups.
 

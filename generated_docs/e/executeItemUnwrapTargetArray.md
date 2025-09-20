@@ -8,7 +8,12 @@ This function unwraps a current array item and executes a JSONPath expression fo
 
 ## Definition
 
-
+```c
+static JsonPathExecResult
+executeItemUnwrapTargetArray(JsonPathExecContext *cxt, JsonPathItem *jsp,
+							 JsonbValue *jb, JsonValueList *found,
+							 bool unwrapElements)
+```
 ## Detailed Description
 The  function is a specialized JSONPath execution function that operates on array values. It validates that the provided JsonbValue represents a binary-encoded array and then delegates the actual execution to  with specific parameters optimized for array processing. The function ensures type safety by checking that the input is a binary type (not a direct array type) and throws an error for invalid types.
 

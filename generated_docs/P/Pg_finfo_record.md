@@ -8,7 +8,9 @@ A structure that contains metadata about PostgreSQL extension functions, specifi
 
 ## Definition
 
-
+```c
+typedef const Pg_finfo_record *(*PGFInfoFunction) (void);
+```
 ## Detailed Description
 The `Pg_finfo_record` structure serves as a version information record for PostgreSQL extension functions. It is part of the function manager (fmgr) system that handles dynamic loading and execution of C functions in PostgreSQL extensions. This structure ensures compatibility between different versions of the PostgreSQL function calling convention by storing the API version number that the function was compiled against.
 

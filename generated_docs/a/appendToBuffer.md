@@ -8,7 +8,10 @@ A static utility function that provides a convenient shorthand for reserving spa
 
 ## Definition
 
-
+```c
+static void
+appendToBuffer(StringInfo buffer, const char *data, int len)
+```
 ## Detailed Description
 The `appendToBuffer` function is a higher-level convenience function that combines two common buffer operations: space reservation and data copying. It first calls `reserveFromBuffer` to allocate the required space at the end of the buffer, then immediately uses `copyToBuffer` to copy the provided data to that newly reserved location. This function streamlines the common pattern of extending a buffer with new data, making JSONB serialization code more readable and less error-prone by eliminating the need for manual offset management.
 

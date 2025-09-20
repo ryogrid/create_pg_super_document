@@ -8,7 +8,10 @@ Determines whether to abort the numeric abbreviation strategy during sorting by 
 
 ## Definition
 
-
+```c
+static bool
+numeric_abbrev_abort(int memtupcount, SortSupport ssup)
+```
 ## Detailed Description
 The `numeric_abbrev_abort` function implements the adaptive abort logic for PostgreSQL's numeric abbreviation sorting strategy. It monitors the effectiveness of abbreviation by tracking the cardinality of abbreviated values and decides whether to continue or abort the abbreviation process.
 

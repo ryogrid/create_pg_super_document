@@ -8,7 +8,10 @@ DatumGetInt64 extracts a 64-bit signed integer value from a Datum, handling both
 
 ## Definition
 
-
+```c
+static inline int64
+DatumGetInt64(Datum X)
+```
 ## Detailed Description
 DatumGetInt64 is a platform-aware function that extracts a 64-bit signed integer from a Datum representation. The implementation varies based on whether the platform supports pass-by-value for 64-bit integers (controlled by the USE_FLOAT8_BYVAL compilation flag).
 

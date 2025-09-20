@@ -8,7 +8,10 @@ Initializes a GinEntries structure with a specified pre-allocation size for stor
 
 ## Definition
 
-
+```c
+static void
+init_gin_entries(GinEntries *entries, int preallocated)
+```
 ## Detailed Description
 This static function initializes a GinEntries buffer structure that is used to collect and manage GIN (Generalized Inverted Index) entries during JSONB extraction operations. The function sets up the initial state of the buffer, optionally pre-allocating memory for a specified number of Datum entries to improve performance by reducing the need for dynamic memory allocation during entry collection.
 

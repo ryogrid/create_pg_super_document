@@ -8,7 +8,22 @@ A comprehensive tree walker function that traverses raw parse trees (pre-analysi
 
 ## Definition
 
+```c
+structorExpr:
+			{
+				JsonConstructorExpr *ctor = (JsonConstructorExpr *) node;
 
+				if (WALK(ctor->args))
+					return true;
+				if (WALK(ctor->func))
+					return true;
+				if (WALK(ctor->coercion))
+					return true;
+				if (WALK(ctor->returning))
+					return true;
+			}
+			break;
+```
 ## Detailed Description
 The  function provides tree traversal capabilities for raw parse trees, which are the direct output of the PostgreSQL grammar parser before semantic analysis. Unlike the regular , this function operates on unprocessed syntax trees and includes handling for all node types that can appear in raw DML statements (SELECT/INSERT/UPDATE/DELETE/MERGE).
 

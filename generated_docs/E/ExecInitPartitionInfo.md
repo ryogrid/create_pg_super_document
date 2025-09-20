@@ -8,7 +8,14 @@ Locks a partition and initializes a complete ResultRelInfo structure for it, set
 
 ## Definition
 
-
+```c
+static ResultRelInfo *
+ExecInitPartitionInfo(ModifyTableState *mtstate, EState *estate,
+					  PartitionTupleRouting *proute,
+					  PartitionDispatch dispatch,
+					  ResultRelInfo *rootResultRelInfo,
+					  int partidx)
+```
 ## Detailed Description
 This function performs comprehensive initialization of a partition's execution state when it's first accessed during tuple routing. It opens the partition relation with appropriate locks, creates and configures a ResultRelInfo structure, and sets up all execution components including indexes, WITH CHECK OPTION constraints, RETURNING projections, ON CONFLICT handling, and MERGE operation state. The function handles attribute number mapping between the root table and partition when they have different tuple descriptors, ensuring that expressions and projections work correctly across the partition hierarchy.
 

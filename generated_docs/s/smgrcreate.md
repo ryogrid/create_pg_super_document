@@ -8,7 +8,10 @@ Creates the underlying disk file or storage for a specific fork of a relation.
 
 ## Definition
 
-
+```c
+void
+smgrcreate(SMgrRelation reln, ForkNumber forknum, bool isRedo)
+```
 ## Detailed Description
 This function creates the physical storage (typically a disk file) for a specific fork of a relation. It operates on an already-created but presumably unused SMgrRelation structure and delegates the actual creation to the appropriate storage manager implementation through the smgrsw function table. The function handles the creation of different types of relation forks including the main data fork, free space map (FSM), visibility map (VM), and initialization fork.
 

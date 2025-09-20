@@ -8,7 +8,10 @@ A static fast comparison function for 64-bit integers optimized for use within P
 
 ## Definition
 
-
+```c
+static int
+btint8fastcmp(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 This is an optimized comparison function specifically designed for fast sorting operations on 64-bit integer values. Unlike the standard  function, this operates directly on Datum values and is used by the sort support mechanism to provide high-performance sorting for int8/bigint data types during index creation and maintenance operations.
 

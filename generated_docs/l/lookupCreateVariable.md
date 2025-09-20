@@ -8,7 +8,10 @@ Searches for a variable by name and creates it if it doesn't exist, with validat
 
 ## Definition
 
-
+```c
+static Variable *
+lookupCreateVariable(Variables *variables, const char *context, char *name)
+```
 ## Detailed Description
 The  function provides a unified interface for variable access that automatically handles variable creation when needed. It first attempts to find an existing variable with the given name using . If the variable doesn't exist, it validates the name using , ensures sufficient array capacity with , and creates a new variable at the end of the array. The function initializes the variable's name field and sets the string value to NULL, leaving the caller responsible for setting the actual value. It also marks the variables array as unsorted since new variables are appended rather than inserted in sorted order.
 

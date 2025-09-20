@@ -8,7 +8,15 @@ A data structure that marks the end of recovery process in PostgreSQL, logging t
 
 ## Definition
 
-
+```c
+typedef struct xl_end_of_recovery
+{
+	TimestampTz end_time;
+	TimeLineID	ThisTimeLineID; /* new TLI */
+	TimeLineID	PrevTimeLineID; /* previous TLI we forked off from */
+	int			wal_level;
+} xl_end_of_recovery;
+```
 ## Detailed Description
 xl_end_of_recovery is a WAL record structure used to mark the completion of the recovery process in PostgreSQL. This record is written when recovery ends but an END_OF_RECOVERY checkpoint is not performed. It serves as a marker in the WAL stream indicating the transition from recovery mode to normal operations.
 

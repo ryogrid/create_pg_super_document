@@ -8,7 +8,10 @@ secure_write provides a secure, blocking write operation to client connections t
 
 ## Definition
 
-
+```c
+ssize_t
+secure_write(Port *port, void *ptr, size_t len)
+```
 ## Detailed Description
 The secure_write function is the primary interface for writing data to PostgreSQL client connections in a secure manner. It serves as the counterpart to secure_read and abstracts the complexities of different security protocols (SSL/TLS, GSS-API) while providing a unified interface for secure communications. The function implements sophisticated blocking behavior management and integrates with PostgreSQL's wait event system for efficient resource utilization.
 

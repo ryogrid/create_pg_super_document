@@ -8,7 +8,10 @@ A static helper function that checks whether a given ancestor table OID exists i
 
 ## Definition
 
-
+```c
+static bool
+is_ancestor_member_tableinfos(Oid ancestor, List *table_infos)
+```
 ## Detailed Description
 This function iterates through a list of  structures to determine if a specified ancestor table (identified by its OID) is present in the publication's table information list. It performs a simple linear search through the list, comparing each relation's OID with the target ancestor OID. The function is used internally within PostgreSQL's publication system to check table membership during partition filtering operations.
 

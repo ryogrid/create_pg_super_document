@@ -8,7 +8,13 @@ Computes the total memory space needed for a slice of a multidimensional array, 
 
 ## Definition
 
-
+```c
+static int
+array_slice_size(char *arraydataptr, bits8 *arraynullsptr,
+				 int ndim, int *dim, int *lb,
+				 int *st, int *endp,
+				 int typlen, bool typbyval, char typalign)
+```
 ## Detailed Description
 This function calculates the total byte size required to store a specified slice of a multidimensional array. It uses an optimized path for fixed-length types without nulls, simply multiplying the number of elements by the aligned type size. For variable-length types or arrays with nulls, it performs a complex traversal of the slice coordinates, examining each element individually to account for variable sizes and null values. The function leverages PostgreSQL's multidimensional array utilities (mda_*) to navigate the array structure and properly handle dimensional boundaries.
 

@@ -8,7 +8,10 @@ Searches through the parse state namespace hierarchy to find the ParseNamespaceI
 
 ## Definition
 
-
+```c
+static ParseNamespaceItem *
+findNSItemForRTE(ParseState *pstate, RangeTblEntry *rte)
+```
 ## Detailed Description
 This is a utility function that traverses PostgreSQL's parse state namespace structure to locate a specific ParseNamespaceItem that corresponds to a given RangeTblEntry. The function searches through the current parse state and all parent parse states in the hierarchy, examining each namespace item to find a match.
 

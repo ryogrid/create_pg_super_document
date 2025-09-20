@@ -8,7 +8,10 @@ Implements the in_range support function for numeric types in PostgreSQL window 
 
 ## Definition
 
-
+```c
+Datum
+in_range_numeric_numeric(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is used by window functions with RANGE clauses to determine if a value is within a specified numeric range from a base value. It handles the semantics of "val BETWEEN base - offset AND base + offset" (or similar comparisons) while properly dealing with special numeric values like NaN and infinity.
 

@@ -8,7 +8,20 @@ WindowDef is a parse tree node that represents the raw representation of WINDOW 
 
 ## Definition
 
-
+```c
+typedef struct WindowDef
+{
+	NodeTag		type;
+	char	   *name;			/* window's own name */
+	char	   *refname;		/* referenced window name, if any */
+	List	   *partitionClause;	/* PARTITION BY expression list */
+	List	   *orderClause;	/* ORDER BY (list of SortBy) */
+	int			frameOptions;	/* frame_clause options, see below */
+	Node	   *startOffset;	/* expression for starting bound, if any */
+	Node	   *endOffset;		/* expression for ending bound, if any */
+	ParseLoc	location;		/* parse location, or -1 if none/unknown */
+} WindowDef;
+```
 ## Detailed Description
 WindowDef nodes capture the complete specification of window definitions used in SQL window functions. They handle two main scenarios: entries in a WINDOW list where "name" defines a named window, and OVER clauses where "name" is used for "OVER window" syntax or "refname" for "OVER (window)" syntax. The latter case subtly differs by implying that the window frame clause can be overridden. The structure encompasses partitioning specifications (PARTITION BY), ordering specifications (ORDER BY), and frame boundary definitions (ROWS/RANGE clauses with optional offset expressions).
 

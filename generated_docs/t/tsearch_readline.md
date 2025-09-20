@@ -8,7 +8,13 @@ Reads the next line from a text search data file, handling UTF-8 validation and 
 
 ## Definition
 
-
+```c
+structure, we don't want it to be a larger
+	 * palloc chunk than necessary.  We'll reclaim the conversion result on
+	 * the next call.)
+	 */
+	return pstrdup(recoded);
+```
 ## Detailed Description
 This function reads one line from a file that was previously opened with tsearch_readline_begin(). It expects the input file to be in UTF-8 encoding and automatically converts the content to the database's current encoding if necessary. The function handles memory management carefully, ensuring that returned strings are properly allocated and that previous line data is cleaned up.
 

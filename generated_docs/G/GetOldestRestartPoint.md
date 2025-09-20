@@ -8,7 +8,10 @@ Returns the redo pointer and timeline ID of the last checkpoint or restartpoint,
 
 ## Definition
 
-
+```c
+void
+GetOldestRestartPoint(XLogRecPtr *oldrecptr, TimeLineID *oldtli)
+```
 ## Detailed Description
 This function provides access to the redo point information from the most recent checkpoint or restartpoint stored in the control file. The redo pointer represents the oldest WAL location that would need to be replayed if the system were to restart recovery from this checkpoint. The function safely reads this information under the protection of the ControlFileLock to ensure consistency.
 

@@ -8,7 +8,9 @@ A pointer to PartitionDescData structure that contains comprehensive information
 
 ## Definition
 
-
+```c
+typedef struct PartitionDescData *PartitionDesc;
+```
 ## Detailed Description
 PartitionDesc is a pointer type to the PartitionDescData structure that serves as the complete descriptor for a partitioned table's partition hierarchy. It contains arrays of partition OIDs and metadata, the partition boundary information, and performance optimization fields for caching recent partition lookups.
 

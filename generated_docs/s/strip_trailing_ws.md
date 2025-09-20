@@ -8,7 +8,10 @@ Removes trailing whitespace characters from a string, specifically designed to c
 
 ## Definition
 
-
+```c
+static char *
+strip_trailing_ws(const char *msg)
+```
 ## Detailed Description
 This utility function creates a copy of the input string and removes all trailing whitespace characters from it. The function is primarily used to clean up Perl error messages, which frequently include trailing newlines or other whitespace that would interfere with PostgreSQL's error reporting formatting.
 

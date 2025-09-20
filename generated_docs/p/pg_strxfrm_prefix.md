@@ -8,7 +8,11 @@ Transforms a string to a byte sequence that can be compared using memcmp() to ac
 
 ## Definition
 
-
+```c
+size_t
+pg_strxfrm_prefix(char *dest, const char *src, size_t destsize,
+				  pg_locale_t locale)
+```
 ## Detailed Description
 The pg_strxfrm_prefix function performs string transformation for collation purposes. It converts the input string 'src' into a binary representation stored in 'dest' such that lexicographic comparison (memcmp) of the transformed strings yields the same ordering as locale-aware string comparison (pg_strcoll) of the original strings. This transformation is essential for efficient sorting and indexing operations where locale-specific collation rules must be preserved.
 

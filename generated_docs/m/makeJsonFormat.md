@@ -8,7 +8,10 @@ Creates a JsonFormat node that specifies formatting and encoding options for JSO
 
 ## Definition
 
-
+```c
+JsonFormat *
+makeJsonFormat(JsonFormatType type, JsonEncoding encoding, int location)
+```
 ## Detailed Description
 This function constructs a JsonFormat structure used in PostgreSQL's JSON processing functionality. The JsonFormat node encapsulates formatting specifications for JSON operations such as JSON_SERIALIZE, JSON output formatting, and JSON table operations. It defines how JSON data should be formatted and what encoding should be used when processing or outputting JSON values.
 

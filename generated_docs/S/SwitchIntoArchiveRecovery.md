@@ -8,7 +8,10 @@ SwitchIntoArchiveRecovery transitions the database system from crash recovery mo
 
 ## Definition
 
-
+```c
+void
+SwitchIntoArchiveRecovery(XLogRecPtr EndRecPtr, TimeLineID replayTLI)
+```
 ## Detailed Description
 SwitchIntoArchiveRecovery is a callback function invoked by PerformWalRecovery() when the recovery process needs to transition from crash recovery to archive recovery mode. This typically occurs when the system runs out of WAL files in the pg_wal directory and needs to retrieve additional WAL files from the archive to continue recovery.
 

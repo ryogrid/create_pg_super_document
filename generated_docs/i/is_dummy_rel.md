@@ -8,7 +8,10 @@ Determines whether a relation has been proven to be empty during query planning 
 
 ## Definition
 
-
+```c
+bool
+is_dummy_rel(RelOptInfo *rel)
+```
 ## Detailed Description
 This function checks if a RelOptInfo has been determined to contain no rows during the planning process. When the optimizer proves that a relation will be empty (typically through constraint exclusion or other logical analysis), it creates a special "dummy" path structure consisting of a childless Append node.
 

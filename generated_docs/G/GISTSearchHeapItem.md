@@ -8,7 +8,18 @@ GISTSearchHeapItem represents an individual heap tuple that needs to be visited 
 
 ## Definition
 
-
+```c
+typedef struct GISTSearchHeapItem
+{
+	ItemPointerData heapPtr;
+	bool		recheck;		/* T if quals must be rechecked */
+	bool		recheckDistances;	/* T if distances must be rechecked */
+	HeapTuple	recontup;		/* data reconstructed from the index, used in
+								 * index-only scans */
+	OffsetNumber offnum;		/* track offset in page to mark tuple as
+								 * LP_DEAD */
+} GISTSearchHeapItem;
+```
 ## Detailed Description
 GISTSearchHeapItem is a key component of the GiST search infrastructure that represents heap tuples awaiting visitation during index scans. This structure is part of the pairing heap-based queue system used to manage unvisited items during both ordered and non-ordered searches. During ordered searches, these items are processed according to distance ordering, while in non-ordered searches they are prioritized to ensure depth-first traversal order (heap tuples before index pages).
 

@@ -8,7 +8,10 @@ Adds a new MultiXactId and its composing member set to the backend-local cache, 
 
 ## Definition
 
-
+```c
+static void
+mXactCachePut(MultiXactId multi, int nmembers, MultiXactMember *members)
+```
 ## Detailed Description
 This function stores a MultiXactId and its associated member set in the backend-local MultiXact cache. The cache is designed to avoid repeated SLRU area accesses for known MultiXacts during a transaction's lifetime.
 

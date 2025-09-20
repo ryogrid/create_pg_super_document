@@ -8,7 +8,15 @@ A WAL record structure for logging BRIN tuple update operations, specifically cr
 
 ## Definition
 
+```c
+typedef struct xl_brin_update
+{
+	/* offset number of old tuple on old page */
+	OffsetNumber oldOffnum;
 
+	xl_brin_insert insert;
+} xl_brin_update;
+```
 ## Detailed Description
 The  structure extends the basic  structure to handle BRIN tuple updates that span across pages (cross-page updates). This occurs when a BRIN tuple needs to be updated but there isn't sufficient space on the original page to accommodate the new tuple, requiring it to be placed on a different page.
 

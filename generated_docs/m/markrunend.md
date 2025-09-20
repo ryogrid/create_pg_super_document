@@ -8,7 +8,10 @@ Writes a zero-length marker to a logical tape to indicate the end of a run durin
 
 ## Definition
 
-
+```c
+static void
+markrunend(LogicalTape *tape)
+```
 ## Detailed Description
 The `markrunend` function writes a special end-of-run marker to a logical tape by writing a zero-length value (4 bytes containing 0). This marker serves as a delimiter between different runs of sorted data on the tape during merge sort operations. When reading from tapes, the zero-length marker signals to the reading functions that they have reached the end of the current run and should proceed to the next run or stop processing.
 

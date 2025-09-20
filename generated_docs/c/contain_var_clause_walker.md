@@ -8,7 +8,10 @@ A tree walker callback function that searches for Var, CurrentOfExpr, or PlaceHo
 
 ## Definition
 
-
+```c
+static bool
+contain_var_clause_walker(Node *node, void *context)
+```
 ## Detailed Description
 The  function implements the core logic for detecting variable references at the current query level (level 0). It serves as a callback function for expression tree walking and is designed for early termination - as soon as any variable reference is found, it returns true to abort further tree traversal.
 

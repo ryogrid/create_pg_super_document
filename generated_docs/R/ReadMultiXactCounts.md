@@ -8,7 +8,10 @@ Determines the current counts of multixacts and multixact members in the system 
 
 ## Definition
 
-
+```c
+static bool
+ReadMultiXactCounts(uint32 *multixacts, MultiXactOffset *members)
+```
 ## Detailed Description
 This function reads the current state from MultiXactState shared memory to calculate how many multixacts and multixact members currently exist in the system. It acquires the MultiXactGenLock in shared mode to safely read the next and oldest offsets and multixact IDs. The function can only provide accurate counts if the oldest offset is known; if this information is unavailable, it returns false.
 

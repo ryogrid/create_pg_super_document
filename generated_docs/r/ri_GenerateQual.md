@@ -8,7 +8,14 @@ A utility function that generates a WHERE clause equating two variables with pro
 
 ## Definition
 
-
+```c
+static void
+ri_GenerateQual(StringInfo buf,
+				const char *sep,
+				const char *leftop, Oid leftoptype,
+				Oid opoid,
+				const char *rightop, Oid rightoptype)
+```
 ## Detailed Description
 This function constructs a WHERE clause fragment that compares two operands using a specified operator. It appends the comparison clause to a StringInfo buffer in the format " sep leftop op rightop". The function ensures that the parser will select the correct operator by adding necessary type casts and schema qualifications. This is particularly important in PostgreSQL's referential integrity system where precise operator selection is crucial for correct constraint checking.
 

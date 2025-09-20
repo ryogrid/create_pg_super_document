@@ -8,7 +8,10 @@ The set_profile function reads configuration files (.indent.pro) from the user's
 
 ## Definition
 
-
+```c
+void
+set_profile(const char *profile_name)
+```
 ## Detailed Description
 This function handles the loading of profile configuration files for the pg_bsd_indent tool. It implements a hierarchical configuration system that:
 

@@ -8,7 +8,10 @@ High-level libpq function that sends a query to the backend and returns a comple
 
 ## Definition
 
-
+```c
+PGresult *
+PQexec(PGconn *conn, const char *query)
+```
 ## Detailed Description
 PQexec is the most commonly used function in libpq for executing SQL queries. It provides a simple, synchronous interface that combines query submission and result retrieval into a single function call. The function blocks until the query completes and returns a complete PGresult.
 

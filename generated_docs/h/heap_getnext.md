@@ -8,7 +8,10 @@ Retrieves the next tuple from a heap table scan, handling both page-mode and reg
 
 ## Definition
 
-
+```c
+HeapTuple
+heap_getnext(TableScanDesc sscan, ScanDirection direction)
+```
 ## Detailed Description
 The  function is the main interface for retrieving the next tuple during a heap table scan. It performs safety checks to ensure the scan is using the heap access method and validates transaction state for logical decoding scenarios. The function delegates the actual tuple retrieval to either  or  based on scan flags, then performs statistics tracking before returning the result.
 

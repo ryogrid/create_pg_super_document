@@ -8,7 +8,10 @@ Performs synonym replacement by searching for input tokens in the initialized sy
 
 ## Definition
 
-
+```c
+Datum
+dsynonym_lexize(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the core lexicalization routine for PostgreSQL's synonym dictionary. It takes an input token and searches the pre-built sorted synonym array to find matching entries. When a match is found, it returns the corresponding synonym as a TSLexeme array.
 

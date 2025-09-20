@@ -8,7 +8,13 @@ A static function that implements GiST consistency testing for range queries on 
 
 ## Definition
 
-
+```c
+static bool
+range_gist_consistent_int_range(TypeCacheEntry *typcache,
+								StrategyNumber strategy,
+								const RangeType *key,
+								const RangeType *query)
+```
 ## Detailed Description
 This function is a core component of the GiST range indexing system that determines whether an index internal page should be explored during a range query. It implements the consistency test for various range operators by evaluating the relationship between the index page's bounding range (key) and the query range.
 

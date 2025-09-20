@@ -8,7 +8,10 @@ Parses a string value as a boolean and stores the result, supporting various com
 
 ## Definition
 
-
+```c
+bool
+ParseVariableBool(const char *value, const char *name, bool *result)
+```
 ## Detailed Description
 This function attempts to interpret a string value as a boolean and stores the parsed result in the provided output parameter. It supports a comprehensive set of boolean representations including "true", "false", "yes", "no", "on", "off", "1", and "0". The function uses case-insensitive comparison and allows unique prefixes for most values (e.g., "t" for "true", "f" for "false").
 

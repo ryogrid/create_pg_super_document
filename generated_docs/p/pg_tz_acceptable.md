@@ -8,7 +8,9 @@ This function validates whether a timezone is acceptable for PostgreSQL use by d
 
 ## Definition
 
-
+```c
+struct pg_tm *tt;
+```
 ## Detailed Description
 pg_tz_acceptable performs a critical validation check to determine if a timezone can be safely used with PostgreSQL's date/time arithmetic. The function specifically tests for leap-second-aware timekeeping, which must be rejected because leap seconds would cause havoc with PostgreSQL's date and time calculations.
 

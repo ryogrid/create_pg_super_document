@@ -8,7 +8,10 @@ Determines whether a function (identified by OID) is visible in the current sear
 
 ## Definition
 
-
+```c
+bool
+FunctionIsVisible(Oid funcid)
+```
 ## Detailed Description
 FunctionIsVisible is a simple wrapper function that provides the standard interface for checking function visibility in PostgreSQL's namespace system. It determines whether a function would be found when searching for the unqualified function name with exact argument matches in the current search path. This function provides standard error handling behavior, throwing an error if the function OID is not found.
 

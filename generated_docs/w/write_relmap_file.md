@@ -8,7 +8,13 @@ write_relmap_file safely writes relation mapping data to disk with full transact
 
 ## Definition
 
-
+```c
+struct filenames -- a temporary file that we'll create to write the
+	 * data initially, and then the permanent name to which we will rename it.
+	 */
+	snprintf(mapfilename, sizeof(mapfilename), "%s/%s",
+			 dbpath, RELMAPPER_FILENAME);
+```
 ## Detailed Description
 write_relmap_file is the core function responsible for persistently storing relation mapping changes to disk. It implements a comprehensive approach to safe file writing that includes temporary file creation, atomic renaming, WAL logging for crash recovery, shared invalidation for cache coherency, and file preservation to prevent premature deletion.
 

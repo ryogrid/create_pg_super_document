@@ -8,7 +8,12 @@ PLy_get_error_data extracts error information from Python Error exception object
 
 ## Definition
 
-
+```c
+static void
+PLy_get_error_data(PyObject *exc, int *sqlerrcode, char **detail, char **hint,
+				   char **schema_name, char **table_name, char **column_name,
+				   char **datatype_name, char **constraint_name)
+```
 ## Detailed Description
 PLy_get_error_data is designed to extract error information from general PostgreSQL Error exceptions (as opposed to the more specific SPIError exceptions). Unlike PLy_get_spi_error_data, this function does not handle query position or query text attributes since these are not applicable to general Error exceptions.
 

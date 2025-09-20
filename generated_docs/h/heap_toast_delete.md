@@ -8,7 +8,10 @@ A cascaded delete function that removes TOAST entries when a heap tuple is delet
 
 ## Definition
 
-
+```c
+void
+heap_toast_delete(Relation rel, HeapTuple oldtup, bool is_speculative)
+```
 ## Detailed Description
 The `heap_toast_delete` function is responsible for cleaning up externally stored TOAST data when a heap tuple is deleted. It performs cascaded deletion of toast entries to maintain data consistency and prevent orphaned TOAST chunks in the toast table.
 

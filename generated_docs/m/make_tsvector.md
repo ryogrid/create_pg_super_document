@@ -8,7 +8,10 @@ Constructs a TSVector data structure from parsed text, creating the final binary
 
 ## Definition
 
-
+```c
+TSVector
+make_tsvector(ParsedText *prs)
+```
 ## Detailed Description
  is responsible for creating the final TSVector data structure from a ParsedText input. This function performs several critical operations:
 

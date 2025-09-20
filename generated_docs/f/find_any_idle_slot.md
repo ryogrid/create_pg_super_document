@@ -8,7 +8,10 @@ find_any_idle_slot is a static utility function that searches through a parallel
 
 ## Definition
 
-
+```c
+struct the fd_set for each call to select_loop */
+	FD_ZERO(&slotset);
+```
 ## Detailed Description
 This function performs a linear search through the slots in a ParallelSlotArray to locate the first slot that is not currently in use. It iterates through all slots sequentially, checking the inUse flag of each slot. The function returns immediately upon finding the first idle slot, making it efficient for cases where idle slots are commonly available early in the array.
 

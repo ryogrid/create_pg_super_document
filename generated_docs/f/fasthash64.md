@@ -8,7 +8,10 @@ Implements the original fasthash64 function using PostgreSQL's incremental hashi
 
 ## Definition
 
-
+```c
+static inline uint64
+fasthash64(const char *k, size_t len, uint64 seed)
+```
 ## Detailed Description
 The fasthash64 function is a high-performance 64-bit hash function that processes input data in chunks using PostgreSQL's incremental hashing framework. It re-implements the original fasthash64 algorithm by leveraging the fasthash_state structure and associated functions (fasthash_init, fasthash_accum, fasthash_final64) for modular processing.
 

@@ -8,7 +8,10 @@ Records an enhanced snapshot of currently running transactions into the Write-Ah
 
 ## Definition
 
-
+```c
+static XLogRecPtr
+LogCurrentRunningXacts(RunningTransactions CurrRunningXacts)
+```
 ## Detailed Description
 LogCurrentRunningXacts creates a WAL record containing a snapshot of all currently running transactions. This information is crucial for standby servers to maintain consistent transaction visibility during Hot Standby operations. The function converts a RunningTransactions data structure into an xl_running_xacts WAL record format and logs it with the XLOG_RUNNING_XACTS record type.
 

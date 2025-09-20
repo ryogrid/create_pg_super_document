@@ -8,7 +8,10 @@ Parses a single line of CSV-format COPY data into separate attribute fields, han
 
 ## Definition
 
-
+```c
+static int
+CopyReadAttributesCSV(CopyFromState cstate)
+```
 ## Detailed Description
 This function serves as the CSV counterpart to , implementing RFC 4180-compliant CSV parsing for PostgreSQL's COPY operations. The parser handles the complexities of CSV format including quoted fields that can contain delimiters and newlines, escape sequences within quoted contexts, and proper handling of quote characters themselves.
 

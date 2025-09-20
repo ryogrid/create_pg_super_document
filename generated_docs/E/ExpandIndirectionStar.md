@@ -8,7 +8,11 @@ Transforms "foo.*" expressions where "*" appears as the last item in an A_Indire
 
 ## Definition
 
-
+```c
+static List *
+ExpandIndirectionStar(ParseState *pstate, A_Indirection *ind,
+					  bool make_target_entry, ParseExprKind exprKind)
+```
 ## Detailed Description
 This function handles the expansion of star expressions that involve indirection, such as "composite_column.*" or "function_returning_record().*". Unlike ExpandColumnRefStar which handles simple relation-qualified stars, this function deals with more complex expressions that require indirection processing.
 

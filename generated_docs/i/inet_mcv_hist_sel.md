@@ -8,7 +8,12 @@ Estimates join selectivity between a Most Common Values (MCV) list and a histogr
 
 ## Definition
 
-
+```c
+static Selectivity
+inet_mcv_hist_sel(Datum *mcv_values, float4 *mcv_numbers, int mcv_nvalues,
+				  Datum *hist_values, int hist_nvalues,
+				  int opr_codenum)
+```
 ## Detailed Description
 This function performs selectivity estimation for join operations where one side has MCV statistics and the other has histogram statistics. It provides a hybrid approach that leverages the precision of MCV data for common values while using histogram estimation for the distribution analysis.
 

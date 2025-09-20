@@ -8,7 +8,12 @@ Moves all immediately-ready TOC entries from the pending list to the ready heap 
 
 ## Definition
 
-
+```c
+static void
+move_to_ready_heap(TocEntry *pending_list,
+				   binaryheap *ready_heap,
+				   RestorePass pass)
+```
 ## Detailed Description
 This function scans through the pending list of TOC (Table of Contents) entries and identifies items that are ready for immediate processing. An item is considered ready if it has no remaining dependencies (depCount == 0) and belongs to the current restore pass. Ready items are removed from the pending list and added to the binary heap structure that maintains the queue of work items available for parallel workers.
 

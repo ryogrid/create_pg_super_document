@@ -8,7 +8,9 @@ Returns the physical storage size (possibly compressed) of a varlena datum, hand
 
 ## Definition
 
-
+```c
+struct varlena *attr = (struct varlena *) DatumGetPointer(value);
+```
 ## Detailed Description
 The  function calculates and returns the physical storage size of a variable-length datum (varlena) in PostgreSQL. This function is a crucial component of the TOAST (The Oversized-Attribute Storage Technique) system, which manages large data values that exceed the standard page size limitations.
 

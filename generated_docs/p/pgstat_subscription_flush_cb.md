@@ -8,7 +8,10 @@ Flushes pending subscription statistics from backend-local storage to the shared
 
 ## Definition
 
-
+```c
+bool
+pgstat_subscription_flush_cb(PgStat_EntryRef *entry_ref, bool nowait)
+```
 ## Detailed Description
 This function is a callback used by the PostgreSQL statistics system to flush pending subscription statistics from backend-local storage to shared memory. It handles the transfer of subscription error statistics (both apply errors and sync errors) from the backend's pending entry to the shared statistics entry. The function implements locking mechanisms to ensure thread-safe access to shared statistics data.
 

@@ -8,7 +8,13 @@ A hash function for SharedRecordTableKey structures that generates consistent ha
 
 ## Definition
 
-
+```c
+typedef struct RecordCacheArrayEntry
+{
+	uint64		id;
+	TupleDesc	tupdesc;
+} RecordCacheArrayEntry;
+```
 ## Detailed Description
 This function generates hash values for SharedRecordTableKey structures used in dynamic shared hash tables. It extracts the TupleDesc from the key (handling both shared and local variants) and delegates to hashRowType to compute the actual hash value. This ensures that SharedRecordTableKey structures representing equivalent row types will produce the same hash value, which is essential for proper hash table functionality.
 

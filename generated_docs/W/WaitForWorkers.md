@@ -8,7 +8,10 @@ Coordinates worker process completion in pg_dump's parallel processing system by
 
 ## Definition
 
-
+```c
+void
+WaitForWorkers(ArchiveHandle *AH, ParallelState *pstate, WFW_WaitOption mode)
+```
 ## Detailed Description
 This function provides the main coordination mechanism for the leader process to synchronize with worker processes in pg_dump's parallel architecture. It implements four distinct waiting strategies:
 

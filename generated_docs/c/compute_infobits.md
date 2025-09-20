@@ -8,7 +8,10 @@ compute_infobits extracts and converts specific tuple header information bits fr
 
 ## Definition
 
-
+```c
+static uint8
+compute_infobits(uint16 infomask, uint16 infomask2)
+```
 ## Detailed Description
 This static function converts selected bits from a tuple's infomask and infomask2 fields into a compressed 8-bit representation suitable for storage in WAL records. It specifically extracts lock-related and update-related bits that need to be preserved for recovery operations. The function maps heap-specific infomask bits (HEAP_*) to their corresponding WAL record bits (XLHL_*). This compression is necessary because WAL records have space constraints and only need to preserve the essential transaction state information for proper recovery and replay.
 

@@ -8,7 +8,10 @@ The  function converts a TSVector data type to binary format for efficient netwo
 
 ## Definition
 
-
+```c
+Datum
+tsvectorsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the binary send function for the TSVector data type, responsible for serializing TSVector data into PostgreSQL's binary wire format. The binary format is structured and compact, beginning with the number of lexemes as a 32-bit integer, followed by each lexeme's text (null-terminated), the number of positions as a 16-bit integer, and finally the position data as 16-bit WordEntryPos values.
 

@@ -8,7 +8,10 @@ A simple utility function that converts a boolean value to a string representati
 
 ## Definition
 
-
+```c
+char *
+flag(int b)
+```
 ## Detailed Description
 The  function is a utility function used in the PostgreSQL locale testing framework. It takes an integer parameter representing a boolean value and returns a string representation. The function provides two different output formats depending on whether the  preprocessor macro is defined:
 - When  is defined: returns "yes" or "no"

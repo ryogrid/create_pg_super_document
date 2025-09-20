@@ -8,7 +8,10 @@ A static helper function that reads a chunk of data from a file stream, used pri
 
 ## Definition
 
-
+```c
+static bool
+read_chunk(FILE *fpin, void *ptr, size_t len)
+```
 ## Detailed Description
 This function is a simple wrapper around the standard C library  function that provides convenient error checking for reading statistics files. It reads a specified number of bytes from a file stream into a memory buffer and returns a boolean indicating whether the read operation was successful. The function is designed as a helper for  and ensures that exactly the requested number of bytes are read.
 

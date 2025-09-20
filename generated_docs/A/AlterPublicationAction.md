@@ -8,7 +8,25 @@ AlterPublicationAction is an enumeration that specifies the type of modification
 
 ## Definition
 
+```c
+typedef struct AlterPublicationStmt
+{
+	NodeTag		type;
+	char	   *pubname;		/* Name of the publication */
 
+	/* parameters used for ALTER PUBLICATION ... WITH */
+	List	   *options;		/* List of DefElem nodes */
+
+	/*
+	 * Parameters used for ALTER PUBLICATION ... ADD/DROP/SET publication
+	 * objects.
+	 */
+	List	   *pubobjects;		/* Optional list of publication objects */
+	bool		for_all_tables; /* Special publication for all tables in db */
+	AlterPublicationAction action;	/* What action to perform with the given
+									 * objects */
+} AlterPublicationStmt;
+```
 ## Detailed Description
 This enumeration defines the different types of actions that can be performed when altering a PostgreSQL publication using the ALTER PUBLICATION statement. Publications are used in logical replication to define which tables should be replicated to subscribers. The enum provides three fundamental operations: adding objects to an existing publication, removing objects from a publication, and completely replacing the publication's object list.
 

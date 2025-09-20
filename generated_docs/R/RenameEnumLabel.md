@@ -8,7 +8,12 @@ Renames a label in an enum type by updating the pg_enum catalog table while ensu
 
 ## Definition
 
-
+```c
+void
+RenameEnumLabel(Oid enumTypeOid,
+				const char *oldVal,
+				const char *newVal)
+```
 ## Detailed Description
 This function handles the renaming of an existing enum label within a PostgreSQL enum type. It performs comprehensive validation to ensure the operation is safe and consistent:
 

@@ -8,7 +8,10 @@ Returns a tuple slot for processing RETURNING clause results in INSERT, UPDATE, 
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+ExecGetReturningSlot(EState *estate, ResultRelInfo *relInfo)
+```
 ## Detailed Description
 This function provides access to a specialized tuple slot used for processing RETURNING clauses in data modification statements (INSERT, UPDATE, DELETE). The RETURNING clause allows these statements to return data from the rows that were inserted, updated, or deleted, making them more powerful than traditional DML statements that only return row counts.
 

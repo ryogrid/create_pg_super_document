@@ -8,7 +8,10 @@ Loads the information schema and populates it with PostgreSQL version and SQL st
 
 ## Definition
 
-
+```c
+static void
+setup_schema(FILE *cmdfd)
+```
 ## Detailed Description
 The setup_schema function is responsible for establishing the SQL standard information schema in a new PostgreSQL database. This schema provides standardized metadata views that comply with the SQL standard specification. The function performs three main operations:
 

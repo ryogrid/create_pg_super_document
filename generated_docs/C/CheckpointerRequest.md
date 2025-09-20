@@ -8,7 +8,27 @@ CheckpointerRequest is a structure that represents a single sync request submitt
 
 ## Definition
 
+```c
+typedef struct
+{
+	pid_t		checkpointer_pid;	/* PID (0 if not started) */
 
+	slock_t		ckpt_lck;		/* protects all the ckpt_* fields */
+
+	int			ckpt_started;	/* advances when checkpoint starts */
+	int			ckpt_done;		/* advances when checkpoint done */
+	int			ckpt_failed;	/* advances when checkpoint fails */
+
+	int			ckpt_flags;		/* checkpoint flags, as defined in xlog.h */
+
+	ConditionVariable start_cv; /* signaled when ckpt_started advances */
+	ConditionVariable done_cv;	/* signaled when ckpt_done advances */
+
+	int			num_requests;	/* current # of requests */
+	int			max_requests;	/* allocated array size */
+	CheckpointerRequest requests[FLEXIBLE_ARRAY_MEMBER];
+} CheckpointerShmemStruct;
+```
 ## Detailed Description
 The CheckpointerRequest structure encapsulates information about a file synchronization request that needs to be processed by the checkpointer background process. Each request contains the type of sync operation to perform and identifies the specific file through a FileTag. These requests are queued in the CheckpointerShmemStruct and processed during checkpoint operations to ensure data durability.
 

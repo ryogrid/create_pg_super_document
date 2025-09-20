@@ -8,7 +8,19 @@ BTScanInsertData is a structure that contains btree-private state needed to find
 
 ## Definition
 
-
+```c
+typedef struct BTScanInsertData
+{
+	bool		heapkeyspace;
+	bool		allequalimage;
+	bool		anynullkeys;
+	bool		nextkey;
+	bool		backward;		/* backward index scan? */
+	ItemPointer scantid;		/* tiebreaker for scankeys */
+	int			keysz;			/* Size of scankeys array */
+	ScanKeyData scankeys[INDEX_MAX_KEYS];	/* Must appear last */
+} BTScanInsertData;
+```
 ## Detailed Description
 BTScanInsertData serves as the core data structure for B-tree descent operations using _bt_search. It encapsulates all the necessary state information for both index scanning operations and tuple insertion operations. The structure is designed to handle both regular index scans and the specialized requirements of tuple insertion in heapkeyspace indexes (version 4+ indexes).
 

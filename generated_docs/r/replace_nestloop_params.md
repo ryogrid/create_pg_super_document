@@ -8,7 +8,10 @@ Replaces outer-relation Vars and PlaceHolderVars in expressions with nestloop Pa
 
 ## Definition
 
-
+```c
+static Node *
+replace_nestloop_params(PlannerInfo *root, Node *expr)
+```
 ## Detailed Description
 This function serves as a wrapper for the nested loop parameter replacement mechanism in PostgreSQL's query planner. It takes an expression tree and replaces all Vars and PlaceHolderVars that belong to outer relations (identified by root->curOuterRels) with Params. This transformation is essential for nested loop joins where inner relations need to reference values from outer relations through parameters rather than direct variable references.
 

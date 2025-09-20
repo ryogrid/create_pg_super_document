@@ -8,7 +8,10 @@ Generates SQL commands to recreate an undefined shell type (where typisdefined i
 
 ## Definition
 
-
+```c
+static void
+dumpUndefinedType(Archive *fout, const TypeInfo *tyinfo)
+```
 ## Detailed Description
 The  function handles the dumping of undefined types, also known as shell types that have not been fully defined. These are types that exist in the system catalogs but lack complete definition (typisdefined = false). This is distinct from shell types created temporarily to break circular dependencies - undefined types are genuine incomplete type definitions that shouldn't have any dependencies.
 

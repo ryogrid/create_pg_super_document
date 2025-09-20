@@ -8,7 +8,10 @@ Removes a specified member from a bitmapset, automatically trimming trailing emp
 
 ## Definition
 
-
+```c
+Bitmapset *
+bms_del_member(Bitmapset *a, int x)
+```
 ## Detailed Description
 The  function removes the specified integer member  from bitmapset . If the member is not present in the set, the function returns the set unchanged without error. The function performs automatic cleanup by trimming trailing empty words when the last word becomes empty after deletion, and completely frees the bitmapset if it becomes empty, returning NULL.
 

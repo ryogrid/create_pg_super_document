@@ -8,7 +8,10 @@ Appends a null-terminated text string to a StringInfo buffer with character set 
 
 ## Definition
 
-
+```c
+void
+pq_sendstring(StringInfo buf, const char *str)
+```
 ## Detailed Description
 The pq_sendstring function is responsible for appending a null-terminated string to a StringInfo buffer while performing character encoding conversion from server encoding to client encoding. This is essential for PostgreSQL's client-server communication protocol where strings need to be converted to the appropriate character set before being sent to the client. The function automatically handles the conversion process and ensures the output string remains null-terminated.
 

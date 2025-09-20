@@ -8,7 +8,10 @@ Converts a function OID obtained from text search parsers or templates into a pr
 
 ## Definition
 
-
+```c
+static char *
+convertTSFunction(Archive *fout, Oid funcOid)
+```
 ## Detailed Description
 This function takes a function OID and converts it to a human-readable function name by executing a SQL query that casts the OID to the REGPROC type. The REGPROC type automatically resolves the OID to the function's name. Since text search parser and template functions have predetermined argument lists, using REGPROC (which doesn't include argument types) is sufficient rather than REGPROCEDURE.
 

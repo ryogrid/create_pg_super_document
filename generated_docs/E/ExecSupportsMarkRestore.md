@@ -8,7 +8,10 @@ ExecSupportsMarkRestore determines whether a given Path supports mark/restore op
 
 ## Definition
 
-
+```c
+bool
+ExecSupportsMarkRestore(Path *pathnode)
+```
 ## Detailed Description
 ExecSupportsMarkRestore is a planning-time function that analyzes a Path node to determine whether the resulting plan node will support mark/restore operations. This information is crucial for the query planner, particularly when considering MergeJoin operations, which require the ability to mark and restore positions in the inner relation.
 

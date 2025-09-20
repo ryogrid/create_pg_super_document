@@ -8,7 +8,10 @@ Converts a string representation to a PostgreSQL multirange value, parsing curly
 
 ## Definition
 
-
+```c
+Datum
+multirange_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the input function for PostgreSQL multirange types, responsible for converting text representations into internal multirange format. It expects input in the format  where:
 

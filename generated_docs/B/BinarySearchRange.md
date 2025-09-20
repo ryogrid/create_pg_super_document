@@ -8,7 +8,12 @@ BinarySearchRange is a static function that performs binary search on a sorted a
 
 ## Definition
 
+```c
+};
 
+static unsigned short BinarySearchRange
+			(const codes_t *array, int high, unsigned short code)
+```
 ## Detailed Description
 This function implements a binary search algorithm specifically designed for character code conversion between Big5 (Traditional Chinese) and CNS 11643-1992 (Chinese National Standard) encodings. The function searches through a sorted array of code mappings to find the range containing the input code and then calculates the corresponding converted code point.
 

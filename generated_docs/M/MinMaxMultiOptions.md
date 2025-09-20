@@ -8,7 +8,13 @@ MinMaxMultiOptions is a storage structure for BRIN minmax-multi operator class r
 
 ## Definition
 
-
+```c
+typedef struct MinMaxMultiOptions
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	int			valuesPerRange; /* number of values per range */
+} MinMaxMultiOptions;
+```
 ## Detailed Description
 MinMaxMultiOptions serves as the configuration structure for BRIN minmax-multi indexes, specifically controlling the number of values stored per block range. This structure follows PostgreSQL's varlena (variable-length array) convention for storing relation options. The minmax-multi operator class extends the basic minmax approach by allowing multiple min/max pairs per range, providing better selectivity for data with high cardinality within blocks.
 

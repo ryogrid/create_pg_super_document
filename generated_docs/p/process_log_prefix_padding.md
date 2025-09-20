@@ -8,7 +8,10 @@ Parses padding specifications from PostgreSQL's log_line_prefix format string, e
 
 ## Definition
 
-
+```c
+static const char *
+process_log_prefix_padding(const char *p, int *ppadding)
+```
 ## Detailed Description
 This static helper function processes padding specifications within PostgreSQL's log_line_prefix format string. It parses numeric padding values that can be prefixed with a minus sign (-) to indicate left-alignment versus default right-alignment. The function reads a sequence of digits to build the padding value, multiplies it by the sign (1 for right-alignment, -1 for left-alignment), and stores the result in the provided ppadding parameter. Error conditions include format strings ending prematurely after a minus sign or ending with just a padding number without a subsequent format specifier. The function advances the input pointer past the parsed padding specification and returns the new position, or NULL if the format is invalid.
 

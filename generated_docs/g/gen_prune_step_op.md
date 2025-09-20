@@ -8,7 +8,13 @@ Generates a pruning step for a specific operator by creating a PartitionPruneSte
 
 ## Definition
 
-
+```c
+static PartitionPruneStep *
+gen_prune_step_op(GeneratePruningStepsContext *context,
+				  StrategyNumber opstrategy, bool op_is_ne,
+				  List *exprs, List *cmpfns,
+				  Bitmapset *nullkeys)
+```
 ## Detailed Description
 This function creates an operator-based partition pruning step (PartitionPruneStepOp) that encapsulates the information needed to perform partition elimination based on a specific comparison operator. The function allocates a new step node, assigns it a unique step identifier from the context, and configures it with the provided operator strategy, expressions, comparison functions, and null key constraints.
 

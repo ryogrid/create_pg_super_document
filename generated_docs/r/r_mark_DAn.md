@@ -8,7 +8,11 @@ A static function in the Turkish snowball stemmer that checks for the accusative
 
 ## Definition
 
+```c
+}
 
+static int r_mark_DAn(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish language stemmer implementation in PostgreSQL's snowball library. It specifically identifies and validates the accusative case suffix "DAn" (and its vowel harmony variants like "Dan", "Den", "Tan", "Ten") in Turkish words. The function performs a two-step validation: first checking vowel harmony rules, then verifying the suffix pattern against a predefined set of suffixes.
 

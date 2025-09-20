@@ -8,7 +8,10 @@ Enables tracing of frontend-backend message traffic for a PostgreSQL connection 
 
 ## Definition
 
-
+```c
+void
+PQtrace(PGconn *conn, FILE *debug_port)
+```
 ## Detailed Description
 PQtrace enables protocol-level tracing for a PostgreSQL connection. It allows developers and administrators to monitor the message traffic between the client application and the PostgreSQL server. The function sets up the connection to output trace information to the specified file stream. If tracing is already enabled on the connection, it first disables the existing tracing before enabling the new one. The trace output helps debug protocol-level issues and understand the communication flow between client and server.
 

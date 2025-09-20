@@ -8,7 +8,10 @@ Initializes data structures for file synchronization tracking, creating necessar
 
 ## Definition
 
-
+```c
+void
+InitSync(void)
+```
 ## Detailed Description
 InitSync is responsible for setting up the infrastructure needed for tracking pending file synchronization operations in PostgreSQL. It creates a hash table () and associated memory context () that will be used to track files that need to be fsync'd. This initialization only occurs when the process is either running standalone (not under a postmaster) or when it's the checkpointer auxiliary process, as these are the processes that need to manage file synchronization operations.
 

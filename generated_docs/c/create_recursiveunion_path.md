@@ -8,7 +8,17 @@ Creates a pathnode that represents a recursive UNION node, which combines non-re
 
 ## Definition
 
-
+```c
+RecursiveUnionPath *
+create_recursiveunion_path(PlannerInfo *root,
+						   RelOptInfo *rel,
+						   Path *leftpath,
+						   Path *rightpath,
+						   PathTarget *target,
+						   List *distinctList,
+						   int wtParam,
+						   double numGroups)
+```
 ## Detailed Description
 This function creates a RecursiveUnionPath node that represents the execution of recursive UNION operations in Common Table Expressions (CTEs). The leftpath provides data for the non-recursive term (base case), while the rightpath provides data for the recursive term (recursive case). The function supports both UNION and UNION ALL semantics - for UNION ALL, the distinctList is empty and numGroups is zero, while for UNION, distinctList contains SortGroupClause structures for deduplication. The wtParam identifies the work table parameter used in the recursive execution. The result is always unsorted regardless of input ordering.
 

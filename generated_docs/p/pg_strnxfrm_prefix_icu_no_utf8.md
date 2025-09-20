@@ -8,7 +8,11 @@ This static function generates partial ICU sort keys for non-UTF8 databases usin
 
 ## Definition
 
-
+```c
+static size_t
+pg_strnxfrm_prefix_icu_no_utf8(char *dest, const char *src, int32_t srclen,
+							   int32_t destsize, pg_locale_t locale)
+```
 ## Detailed Description
 pg_strnxfrm_prefix_icu_no_utf8 is a specialized function that generates partial sort keys using ICU's ucol_nextSortKeyPart() function. This function is specifically designed for non-UTF8 database encodings and enables incremental sort key generation, which is useful for prefix operations and memory-constrained scenarios.
 

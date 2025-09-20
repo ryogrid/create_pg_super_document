@@ -8,7 +8,10 @@ Estimates the number of elements in an array expression, providing a crucial com
 
 ## Definition
 
-
+```c
+double
+estimate_array_length(PlannerInfo *root, Node *arrayexpr)
+```
 ## Detailed Description
 This function analyzes an array expression and returns an estimate of how many elements it contains. The estimation process follows a hierarchical approach:
 

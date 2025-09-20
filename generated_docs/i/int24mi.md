@@ -8,7 +8,10 @@
 
 ## Definition
 
-
+```c
+Datum
+int24mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the subtraction operator for mixed-precision integer arithmetic in PostgreSQL's type system. It takes a 16-bit integer as the first argument (minuend) and a 32-bit integer as the second argument (subtrahend), performs safe subtraction with overflow detection, and returns the result as a 32-bit integer. The function uses PostgreSQL's safe arithmetic functions to prevent integer underflow/overflow, throwing an error if the result would exceed the range of a 32-bit signed integer.
 

@@ -8,7 +8,10 @@ A PostgreSQL function that generates highlighted headlines from JSONB documents 
 
 ## Definition
 
-
+```c
+Datum
+ts_headline_jsonb_byid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a wrapper function that provides JSONB headline generation with a specific text search configuration but without custom options. It allows users to specify which text search configuration to use (by providing the configuration's OID) rather than using the default system configuration. The function delegates the actual processing to  while providing a simpler interface that doesn't require specifying custom highlighting options.
 

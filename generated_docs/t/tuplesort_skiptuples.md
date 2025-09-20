@@ -8,7 +8,10 @@ A function that efficiently advances over a specified number of tuples in the fo
 
 ## Definition
 
-
+```c
+bool
+tuplesort_skiptuples(Tuplesortstate *state, int64 ntuples, bool forward)
+```
 ## Detailed Description
 This function provides an efficient way to skip over tuples during sort result traversal without the overhead of actually retrieving and processing the tuple data. It handles different sorting states with optimized approaches:
 

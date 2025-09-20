@@ -8,7 +8,10 @@ AlterSubscriptionOwner_internal is the internal workhorse function for changing 
 
 ## Definition
 
-
+```c
+static void
+AlterSubscriptionOwner_internal(Relation rel, HeapTuple tup, Oid newOwnerId)
+```
 ## Detailed Description
 AlterSubscriptionOwner_internal performs the core logic for changing subscription ownership. It validates that the current user has permission to perform the ownership change, ensures the new owner is valid, and updates both the catalog entry and dependency records.
 

@@ -8,7 +8,10 @@ PageIsNew is an inline function that determines whether a database page has been
 
 ## Definition
 
-
+```c
+static inline bool
+PageIsNew(Page page)
+```
 ## Detailed Description
 This function checks if a page is newly allocated and uninitialized by examining the pd_upper field in the page header. The pd_upper field indicates the offset to the end of free space on the page. When a page is first allocated from the operating system or buffer pool, it typically contains all zeros. During proper page initialization (via PageInit), pd_upper is set to a valid value indicating where free space ends. If pd_upper is still zero, it indicates the page has not been properly initialized and is considered "new". This is crucial for PostgreSQL's buffer management and crash recovery systems.
 

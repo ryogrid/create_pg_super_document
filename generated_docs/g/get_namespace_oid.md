@@ -8,7 +8,10 @@ Looks up a namespace (schema) by name and returns its OID, with optional error h
 
 ## Definition
 
-
+```c
+Oid
+get_namespace_oid(const char *nspname, bool missing_ok)
+```
 ## Detailed Description
 This function serves as the primary interface for resolving namespace names to their corresponding object identifiers (OIDs) in PostgreSQL's system catalog. It performs a direct lookup in the pg_namespace system catalog using the system cache for efficient access.
 

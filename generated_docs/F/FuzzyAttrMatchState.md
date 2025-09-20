@@ -8,7 +8,20 @@ A state tracking structure used during column name resolution to find fuzzy matc
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			distance;		/* Current or limit distance */
+	RangeTblEntry *rfirst;		/* RTE of closest non-exact match, or NULL */
+	AttrNumber	first;			/* Col index in rfirst */
+	RangeTblEntry *rsecond;		/* RTE of another non-exact match w/same dist */
+	AttrNumber	second;			/* Col index in rsecond */
+	RangeTblEntry *rexact1;		/* RTE of first exact match, or NULL */
+	AttrNumber	exact1;			/* Col index in rexact1 */
+	RangeTblEntry *rexact2;		/* RTE of second exact match, or NULL */
+	AttrNumber	exact2;			/* Col index in rexact2 */
+} FuzzyAttrMatchState;
+```
 ## Detailed Description
 FuzzyAttrMatchState is a data structure used by PostgreSQL's parser to track fuzzy attribute matching during column name resolution. When a column reference cannot be found exactly, this structure maintains state about potential matches based on Levenshtein distance calculations. The system uses this information to provide helpful error messages suggesting similar column names when SQL queries contain typos or minor naming errors.
 

@@ -8,7 +8,10 @@ A static function that formats WAL subtransaction assignment record information 
 
 ## Definition
 
-
+```c
+static void
+xact_desc_assignment(StringInfo buf, xl_xact_assignment *xlrec)
+```
 ## Detailed Description
 This function formats subtransaction assignment record information from WAL (Write-Ahead Log) into a simple human-readable description. It iterates through an array of subtransaction IDs and formats them as a space-separated list prefixed with "subxacts:". This function is used specifically for XLOG_XACT_ASSIGNMENT records that track the assignment of subtransaction IDs to a parent transaction, which is important for transaction visibility and cleanup operations.
 

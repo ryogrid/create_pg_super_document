@@ -8,7 +8,10 @@ Sets up working state for an ordered-set aggregate function, initializing per-qu
 
 ## Definition
 
-
+```c
+structures in the fn_mcxt, which we assume is the
+		 * executor's per-query context;
+```
 ## Detailed Description
 The  function initializes the necessary state structures for ordered-set aggregate functions like , , and . It performs both per-query initialization (done once per query) and per-group initialization (done once per aggregate group).
 

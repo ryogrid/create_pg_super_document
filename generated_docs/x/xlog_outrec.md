@@ -8,7 +8,10 @@ A utility function that appends basic structural information about an XLog recor
 
 ## Definition
 
-
+```c
+static void
+xlog_outrec(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This static function extracts and formats essential metadata from a WAL (Write-Ahead Log) record into a human-readable string format. It provides low-level structural information about the record that is useful for debugging and analysis purposes.
 

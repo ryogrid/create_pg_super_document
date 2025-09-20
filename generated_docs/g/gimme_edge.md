@@ -8,7 +8,10 @@ Registers an edge from one city to another in the edge table for the ERX crossov
 
 ## Definition
 
-
+```c
+static int
+gimme_edge(PlannerInfo *root, Gene gene1, Gene gene2, Edge *edge_table)
+```
 ## Detailed Description
 This static function registers a directed edge from city1 to city2 in the input edge table used by the ERX crossover algorithm. It makes no assumptions about directionality, so calling routines must call gimme_edge twice to create bidirectional edges. The function first checks if the edge already exists in the table. If found, it marks the edge as shared by setting it to a negative value (indicating common edges between parent tours). If the edge doesn't exist, it adds the new edge and increments the total and unused edge counters. The function returns 1 for newly added edges and 0 for existing edges.
 

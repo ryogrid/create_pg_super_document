@@ -8,7 +8,10 @@ Saves a copy of the current global locale's name for a given category, with prop
 
 ## Definition
 
-
+```c
+static save_locale_t
+save_global_locale(int category)
+```
 ## Detailed Description
 This function creates a backup of the current global locale setting for the specified category. It's designed to work in conjunction with  to implement a save-restore pattern for locale management. The function uses platform-specific approaches: on Windows, it uses the wide-character variant  to handle non-ASCII locale names that might not survive encoding conversions during locale switches. On other platforms, it uses the standard  function. The returned locale name is dynamically allocated and must be freed by the caller.
 

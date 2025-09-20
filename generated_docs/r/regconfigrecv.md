@@ -8,7 +8,10 @@ Converts external binary format data to a regconfig (text search configuration O
 
 ## Definition
 
-
+```c
+Datum
+regconfigrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function handles the binary input conversion for the regconfig data type, which represents text search configuration OIDs. This function is part of PostgreSQL's type input/output system and is used when regconfig values are received in binary format from external sources (such as binary protocol communications or binary file formats).
 

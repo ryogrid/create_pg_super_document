@@ -8,7 +8,10 @@ Sets the total size limit for a dynamic shared memory area, controlling the maxi
 
 ## Definition
 
-
+```c
+void
+dsa_set_size_limit(dsa_area *area, size_t limit)
+```
 ## Detailed Description
 This function establishes a size limit for the total virtual memory usage of a dynamic shared memory area. The limit is enforced when new segments need to be allocated from the operating system. If the area has already exceeded the new limit when this function is called, there is no immediate effect - the limit will only be enforced for future allocations.
 

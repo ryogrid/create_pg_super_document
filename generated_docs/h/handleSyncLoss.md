@@ -8,7 +8,10 @@ handleSyncLoss is an error recovery function that handles loss of message-bounda
 
 ## Definition
 
-
+```c
+static void
+handleSyncLoss(PGconn *conn, char id, int msgLength)
+```
 ## Detailed Description
 This function is called when the client detects that it has lost synchronization with the server's message protocol. This typically occurs when message boundaries become corrupted or when invalid message types or lengths are encountered. Since there is no reliable way to recover from synchronization loss in a streaming protocol, the function takes the drastic but necessary step of abandoning the connection entirely. It logs the problematic message details, creates an error result, and marks the connection as bad to prevent further use.
 

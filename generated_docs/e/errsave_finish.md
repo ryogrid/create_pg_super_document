@@ -8,7 +8,11 @@ Finalizes a "soft" error-reporting cycle by either delegating to standard error 
 
 ## Definition
 
-
+```c
+void
+errsave_finish(struct Node *context, const char *filename, int lineno,
+			   const char *funcname)
+```
 ## Detailed Description
 errsave_finish completes the soft error reporting cycle initiated by errsave_start(). It handles two distinct scenarios based on how the error was initially processed. If errsave_start() determined this was a regular error (ERROR level or higher), it delegates to errfinish() for standard error processing including potential process termination. If this was truly a soft error (LOG level), it packages the collected error information and stores it in the ErrorSaveContext for the caller to examine.
 

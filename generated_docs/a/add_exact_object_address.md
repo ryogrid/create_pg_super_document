@@ -8,7 +8,11 @@ A public utility function that adds a complete ObjectAddress structure to an Obj
 
 ## Definition
 
-
+```c
+void
+add_exact_object_address(const ObjectAddress *object,
+						 ObjectAddresses *addrs)
+```
 ## Detailed Description
 This function serves as a public interface for adding ObjectAddress entries to an ObjectAddresses collection when the caller already has a complete ObjectAddress structure. Unlike the static add_object_address function that takes individual components, this function accepts a pointer to an existing ObjectAddress and copies its entire contents.
 

@@ -8,7 +8,10 @@ This static function converts a malloc'd string from a specified source encoding
 
 ## Definition
 
-
+```c
+static void
+db_encoding_convert(int encoding, char **str)
+```
 ## Detailed Description
 The  function is a utility that ensures locale-related strings are properly converted to the database's character encoding. This is crucial for locale formatting information that may originate from the system locale, which could be in a different encoding than PostgreSQL's database encoding.
 

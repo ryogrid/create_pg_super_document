@@ -8,7 +8,10 @@ Restores database schemas in the new PostgreSQL cluster during pg_upgrade by exe
 
 ## Definition
 
-
+```c
+static void
+create_new_objects(void)
+```
 ## Detailed Description
 This function is responsible for restoring all database schemas and objects from the old cluster to the new cluster during the pg_upgrade process. It operates in several phases:
 

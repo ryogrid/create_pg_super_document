@@ -8,7 +8,10 @@ CopyReadBinaryData reads raw binary data from the input source through the buffe
 
 ## Definition
 
-
+```c
+static int
+CopyReadBinaryData(CopyFromState cstate, char *dest, int nbytes)
+```
 ## Detailed Description
 CopyReadBinaryData is a core function for binary COPY FROM operations that provides buffered reading of raw data. The function implements efficient data transfer with two main strategies:
 

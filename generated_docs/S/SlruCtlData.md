@@ -8,7 +8,46 @@ SlruCtlData is a process-local control structure that provides configuration and
 
 ## Definition
 
+```c
+typedef struct SlruCtlData
+{
+	SlruShared	shared;
 
+	/* Number of banks in this SLRU. */
+	uint16		nbanks;
+
+	/*
+	 * If true, use long segment file names.  Otherwise, use short file names.
+	 *
+	 * For details about the file name format, see SlruFileName().
+	 */
+	bool		long_segment_names;
+
+	/*
+	 * Which sync handler function to use when handing sync requests over to
+	 * the checkpointer.  SYNC_HANDLER_NONE to disable fsync (eg pg_notify).
+	 */
+	SyncRequestHandler sync_handler;
+
+	/*
+	 * Decide whether a page is "older" for truncation and as a hint for
+	 * evicting pages in LRU order.  Return true if every entry of the first
+	 * argument is older than every entry of the second argument.  Note that
+	 * !PagePrecedes(a,b) && !PagePrecedes(b,a) need not imply a==b; it also
+	 * arises when some entries are older and some are not.  For SLRUs using
+	 * SimpleLruTruncate(), this must use modular arithmetic.  (For others,
+	 * the behavior of this callback has no functional implications.)  Use
+	 * SlruPagePrecedesUnitTests() in SLRUs meeting its criteria.
+	 */
+	bool		(*PagePrecedes) (int64, int64);
+
+	/*
+	 * Dir is set during SimpleLruInit and does not change thereafter. Since
+	 * it's always the same, it doesn't need to be in shared memory.
+	 */
+	char		Dir[64];
+} SlruCtlData;
+```
 ## Detailed Description
 SlruCtlData serves as the primary control structure for individual SLRU instances in PostgreSQL. Unlike SlruSharedData which resides in shared memory, SlruCtlData is a process-local structure that contains configuration parameters and a pointer to the corresponding shared memory region. Each SLRU subsystem (CLOG, commit timestamps, multixact, subtransactions, etc.) maintains its own SlruCtlData instance.
 

@@ -8,7 +8,10 @@ This function processes a standard_conforming_strings configuration entry from a
 
 ## Definition
 
-
+```c
+static void
+processStdStringsEntry(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 The  function is responsible for parsing a  configuration setting from an archive's table of contents entry. It examines the definition string within the TOC entry, which should contain a SET command in the format "SET standard_conforming_strings = 'x';", and updates the archive handle's  flag accordingly.
 

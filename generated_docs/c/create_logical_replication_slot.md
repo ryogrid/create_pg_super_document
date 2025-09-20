@@ -8,7 +8,10 @@ A static helper function that creates a new logical replication slot with specif
 
 ## Definition
 
-
+```c
+static char *
+create_logical_replication_slot(PGconn *conn, struct LogicalRepInfo *dbinfo)
+```
 ## Detailed Description
 This function is a core helper for creating logical replication slots in PostgreSQL. It handles the complete initialization process including:
 

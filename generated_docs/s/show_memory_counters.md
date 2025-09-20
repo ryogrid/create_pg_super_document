@@ -8,7 +8,10 @@ Displays memory usage statistics in EXPLAIN output, showing both used and alloca
 
 ## Definition
 
-
+```c
+static void
+show_memory_counters(ExplainState *es, const MemoryContextCounters *mem_counters)
+```
 ## Detailed Description
 The  function formats and displays memory usage statistics in EXPLAIN output. It provides insights into memory consumption patterns during query execution, which is essential for understanding memory-intensive operations and potential memory-related performance bottlenecks.
 

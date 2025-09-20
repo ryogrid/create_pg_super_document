@@ -8,7 +8,14 @@ An enumeration that caches the trivial_subqueryscan property of a SubqueryScan n
 
 ## Definition
 
-
+```c
+typedef struct SubqueryScan
+{
+	Scan		scan;
+	Plan	   *subplan;
+	SubqueryScanStatus scanstatus;
+} SubqueryScan;
+```
 ## Detailed Description
 SubqueryScanStatus is used to cache the result of analyzing whether a SubqueryScan node is "trivial" and can potentially be eliminated from the query plan. This caching mechanism avoids redundant analysis during the planning phase. The status is determined by the  function, which checks if the SubqueryScan node simply passes through data from its subplan without any additional processing (no quals, same target list structure, etc.).
 

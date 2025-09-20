@@ -8,7 +8,10 @@ Efficiently compares two bitmap sets to determine their subset/superset/equality
 
 ## Definition
 
-
+```c
+BMS_Comparison
+bms_subset_compare(const Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 This function performs a comprehensive comparison between two bitmap sets and returns one of four possible relationships: BMS_EQUAL (sets are identical), BMS_SUBSET1 (a is a subset of b), BMS_SUBSET2 (b is a subset of a), or BMS_DIFFERENT (neither is a subset of the other). The function is optimized to determine the relationship in a single pass through the bitmap words, making it more efficient than calling bms_is_subset twice. It handles NULL inputs by treating them as empty sets, and uses bitwise operations to detect bits present in one set but not the other.
 

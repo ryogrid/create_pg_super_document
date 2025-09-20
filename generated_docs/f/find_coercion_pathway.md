@@ -8,7 +8,50 @@ Searches for a coercion pathway between two scalar data types, determining the m
 
 ## Definition
 
+```c
+enum */
+		switch (castForm->castcontext)
+		{
+			case COERCION_CODE_IMPLICIT:
+				castcontext = COERCION_IMPLICIT;
+				break;
+			case COERCION_CODE_ASSIGNMENT:
+				castcontext = COERCION_ASSIGNMENT;
+				break;
+			case COERCION_CODE_EXPLICIT:
+				castcontext = COERCION_EXPLICIT;
+				break;
+			default:
+				elog(ERROR, "unrecognized castcontext: %d",
+					 (int) castForm->castcontext);
+				castcontext = 0;	/* keep compiler quiet */
+				break;
+		}
 
+		/* Rely on ordering of enum for correct behavior here */
+		if (ccontext >= castcontext)
+		{
+			switch (castForm->castmethod)
+			{
+				case COERCION_METHOD_FUNCTION:
+					result = COERCION_PATH_FUNC;
+					*funcid = castForm->castfunc;
+					break;
+				case COERCION_METHOD_INOUT:
+					result = COERCION_PATH_COERCEVIAIO;
+					break;
+				case COERCION_METHOD_BINARY:
+					result = COERCION_PATH_RELABELTYPE;
+					break;
+				default:
+					elog(ERROR, "unrecognized castmethod: %d",
+						 (int) castForm->castmethod);
+					break;
+			}
+		}
+
+		ReleaseSysCache(tuple);
+```
 ## Detailed Description
 find_coercion_pathway is the core function for determining how to convert between PostgreSQL data types. It implements a comprehensive search strategy that considers multiple coercion mechanisms and respects coercion context restrictions.
 

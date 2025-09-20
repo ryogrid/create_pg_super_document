@@ -8,7 +8,43 @@ Tests whether a given enum value OID is present in the table of uncommitted enum
 
 ## Definition
 
+```c
+enum_id)
+{
+	bool		found;
 
+	/* If we've made no uncommitted values table, it's not in the table */
+	if (uncommitted_enum_values == NULL)
+		return false;
+
+	/* Else, is it in the table? */
+	(void) hash_search(uncommitted_enum_values, &enum_id, HASH_FIND, &found);
+	return found;
+}
+
+
+/*
+ * Clean up enum stuff after end of top-level transaction.
+ */
+void
+AtEOXact_Enum(void)
+{
+	/*
+	 * Reset the uncommitted tables, as all our tuples are now committed. The
+	 * memory will go away automatically when TopTransactionContext is freed;
+	 * it's sufficient to clear our pointers.
+	 */
+	uncommitted_enum_types = NULL;
+	uncommitted_enum_values = NULL;
+}
+
+
+/*
+ * RenumberEnumType
+ *		Renumber existing enum elements to have sort positions 1..n.
+ *
+ * We avoid doing this unless absolutely necessary;
+```
 ## Detailed Description
 This function checks if a specific enum value (not the enum type itself, but an individual enum label/value) is considered "uncommitted" - meaning it was created in the current transaction and not yet committed. PostgreSQL maintains a separate hash table () to track such values during transaction processing. This is important for ensuring safe usage of enum values, as uncommitted enum values may not be visible to other transactions and have special handling requirements.
 

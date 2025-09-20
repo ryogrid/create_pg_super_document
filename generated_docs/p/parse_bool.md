@@ -8,7 +8,10 @@ Parses a string value as a boolean, supporting common boolean representations in
 
 ## Definition
 
-
+```c
+bool
+parse_bool(const char *value, bool *result)
+```
 ## Detailed Description
 The  function is a convenience wrapper around  that attempts to interpret a null-terminated string as a boolean value. It calculates the string length using  and delegates the actual parsing logic to . The function accepts various string representations of boolean values and their unique prefixes, providing flexible boolean parsing for PostgreSQL configuration and data processing.
 

@@ -8,7 +8,11 @@ Reports an invalid page reference by logging an appropriate error message, diffe
 
 ## Definition
 
-
+```c
+static void
+report_invalid_page(int elevel, RelFileLocator locator, ForkNumber forkno,
+					BlockNumber blkno, bool present)
+```
 ## Detailed Description
 The  function is a static utility function in the PostgreSQL WAL (Write-Ahead Log) utilities that generates descriptive error messages when invalid pages are encountered. It constructs a human-readable path for the relation and logs either "uninitialized" or "does not exist" messages depending on the  parameter. This function helps administrators and developers understand the nature of page-related issues during recovery or normal operations.
 

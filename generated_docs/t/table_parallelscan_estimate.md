@@ -8,7 +8,10 @@ Estimates the shared memory space required for a parallel table scan, including 
 
 ## Definition
 
-
+```c
+Size
+table_parallelscan_estimate(Relation rel, Snapshot snapshot)
+```
 ## Detailed Description
 This function calculates the total shared memory space needed to coordinate a parallel table scan across multiple worker processes. The estimation includes:
 

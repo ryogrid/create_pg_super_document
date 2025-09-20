@@ -8,7 +8,10 @@ Handles syntax errors during tsvector or tsquery parsing by reporting appropriat
 
 ## Definition
 
-
+```c
+static bool
+prssyntaxerror(TSVectorParseState state)
+```
 ## Detailed Description
 This static function is responsible for generating and reporting syntax errors that occur during parsing operations. It uses the error context system to handle both hard and soft error scenarios. The function generates different error messages depending on whether the parser is in tsquery mode or tsvector mode, providing context-appropriate error reporting. In soft error situations, it returns false as a convenience for the caller.
 

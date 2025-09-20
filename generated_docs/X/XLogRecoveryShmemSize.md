@@ -8,7 +8,10 @@ Calculates the shared memory size required for WAL recovery data structures, spe
 
 ## Definition
 
-
+```c
+Size
+XLogRecoveryShmemSize(void)
+```
 ## Detailed Description
 XLogRecoveryShmemSize is a utility function that computes the amount of shared memory needed for WAL (Write-Ahead Log) recovery operations. The function returns the size of XLogRecoveryCtlData structure, which contains the control data necessary for managing WAL recovery processes across multiple PostgreSQL backend processes. This function is typically called during PostgreSQL's shared memory initialization phase to ensure proper memory allocation for recovery operations.
 

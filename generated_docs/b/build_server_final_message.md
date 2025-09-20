@@ -8,7 +8,10 @@ Builds the final server-side message in a SCRAM authentication exchange, contain
 
 ## Definition
 
-
+```c
+static char *
+build_server_final_message(scram_state *state)
+```
 ## Detailed Description
 This function constructs the server-final-message as the concluding step of the SCRAM authentication protocol (RFC 5802). The message contains a server signature that serves as mutual authentication proof - it demonstrates that the server has successfully verified the client's credentials and possesses the correct authentication keys.
 

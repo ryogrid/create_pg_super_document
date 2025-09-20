@@ -8,7 +8,10 @@ Deletes the contents of a specified subdirectory from the new PostgreSQL cluster
 
 ## Definition
 
-
+```c
+static void
+remove_new_subdir(const char *subdir, bool rmtopdir)
+```
 ## Detailed Description
 This function removes files and directories from a specified subdirectory within the new cluster's data directory. It is used during pg_upgrade to clean up directories that need to be replaced with data from the old cluster. The function constructs the full path by combining the new cluster's pgdata directory with the provided subdirectory name, then uses the rmtree utility function to perform the actual deletion.
 

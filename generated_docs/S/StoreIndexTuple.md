@@ -8,7 +8,11 @@ Fills a TupleTableSlot with data extracted from an index tuple, handling datatyp
 
 ## Definition
 
-
+```c
+static void
+StoreIndexTuple(IndexOnlyScanState *node, TupleTableSlot *slot,
+				IndexTuple itup, TupleDesc itupdesc)
+```
 ## Detailed Description
 StoreIndexTuple is a specialized function that converts data from an IndexTuple into a TupleTableSlot format suitable for query execution. The function deforms the index tuple into separate Datum values and null indicators, then stores them in the provided slot.
 

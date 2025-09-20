@@ -8,7 +8,10 @@ A wrapper function that converts boolean values from DefElem to VacOptValue enum
 
 ## Definition
 
-
+```c
+static VacOptValue
+get_vacoptval_from_boolean(DefElem *def)
+```
 ## Detailed Description
 This utility function serves as an adapter between the generic boolean value extraction mechanism (defGetBoolean) and the vacuum-specific option value system. It converts true/false boolean values into the corresponding VacOptValue enumeration constants (VACOPTVALUE_ENABLED/VACOPTVALUE_DISABLED), providing type safety and consistency in vacuum option handling throughout the codebase.
 

@@ -8,7 +8,10 @@ PostgreSQL function that converts text from EUC_TW (Extended Unix Code for Taiwa
 
 ## Definition
 
-
+```c
+Datum
+euc_tw_to_big5(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL function interface for converting character strings from EUC_TW encoding to Big5 encoding. It extracts the function arguments using PostgreSQL's function call macros, validates the encoding conversion parameters, and delegates the actual conversion work to the  helper function. The function handles both successful conversions and error conditions based on the  parameter.
 

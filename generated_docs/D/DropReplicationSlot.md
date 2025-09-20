@@ -8,7 +8,10 @@ Removes an existing replication slot by name, with optional waiting behavior for
 
 ## Definition
 
-
+```c
+bool
+DropReplicationSlot(PGconn *conn, const char *slot_name)
+```
 ## Detailed Description
 This function is a simple wrapper that drops a replication slot by calling the core ReplicationSlotDrop function. It translates the command parameters, particularly the wait flag, to control whether the operation should wait for an active slot to become inactive before dropping it, or fail immediately if the slot is currently in use.
 

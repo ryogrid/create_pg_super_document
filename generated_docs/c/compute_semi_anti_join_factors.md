@@ -8,7 +8,17 @@ Estimates how much of the inner input a SEMI, ANTI, or inner_unique join can be 
 
 ## Definition
 
-
+```c
+void
+compute_semi_anti_join_factors(PlannerInfo *root,
+							   RelOptInfo *joinrel,
+							   RelOptInfo *outerrel,
+							   RelOptInfo *innerrel,
+							   JoinType jointype,
+							   SpecialJoinInfo *sjinfo,
+							   List *restrictlist,
+							   SemiAntiJoinFactors *semifactors)
+```
 ## Detailed Description
 This function computes estimates for SEMI, ANTI, and inner_unique joins where the executor stops scanning inner rows as soon as it finds a match to the current outer row. The function calculates two key factors:
 

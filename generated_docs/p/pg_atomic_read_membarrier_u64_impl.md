@@ -8,7 +8,10 @@ Performs an atomic read operation on a 64-bit unsigned integer with memory barri
 
 ## Definition
 
-
+```c
+static inline uint64
+pg_atomic_read_membarrier_u64_impl(volatile pg_atomic_uint64 *ptr)
+```
 ## Detailed Description
 This function implements an atomic read operation with full memory barrier semantics for 64-bit unsigned integers. It achieves this by performing a fetch-and-add operation with zero as the addend, which effectively reads the current value without modifying it while providing the memory ordering guarantees of the underlying atomic operation. This ensures that all memory operations (both loads and stores) that appear before this read in program order are completed before the read, and all memory operations that appear after are completed after the read.
 

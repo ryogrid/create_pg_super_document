@@ -8,7 +8,13 @@ Implements width_bucket functionality for generic fixed-width data types using b
 
 ## Definition
 
-
+```c
+static int
+width_bucket_array_fixed(Datum operand,
+						 ArrayType *thresholds,
+						 Oid collation,
+						 TypeCacheEntry *typentry)
+```
 ## Detailed Description
 This function provides width bucketing for fixed-width data types (where typlen > 0) other than float8. It uses a generic binary search algorithm that relies on the data type's comparison function to determine the correct bucket placement.
 

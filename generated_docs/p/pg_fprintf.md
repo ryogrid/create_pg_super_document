@@ -8,7 +8,10 @@ A PostgreSQL-specific wrapper around the standard fprintf function that provides
 
 ## Definition
 
-
+```c
+int
+pg_fprintf(FILE *stream, const char *fmt,...)
+```
 ## Detailed Description
 pg_fprintf is a variadic function that serves as PostgreSQL's portable replacement for the standard C library fprintf function. It internally delegates to pg_vfprintf to handle the actual formatting work. This function is part of PostgreSQL's effort to provide consistent printf-style formatting across different platforms, ensuring that format specifiers and behavior remain uniform regardless of the underlying system's printf implementation.
 

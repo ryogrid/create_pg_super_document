@@ -8,7 +8,10 @@ Validates a list of publication names for duplicates and optionally converts the
 
 ## Definition
 
-
+```c
+static void
+check_duplicates_in_publist(List *publist, Datum *datums)
+```
 ## Detailed Description
 This function performs duplicate detection on a list of publication names using a nested loop algorithm to ensure each publication appears only once in the list. When duplicates are found, it immediately reports an error with the ERRCODE_DUPLICATE_OBJECT error code. Additionally, if a datums array is provided, the function converts each publication name from the list into a text datum and stores it in the array for subsequent use in PostgreSQL array construction. This dual functionality makes it useful for both validation and data preparation phases of subscription operations.
 

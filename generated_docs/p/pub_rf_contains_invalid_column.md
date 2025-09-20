@@ -8,7 +8,11 @@ Validates whether a publication's row filter expression references only columns 
 
 ## Definition
 
-
+```c
+bool
+pub_rf_contains_invalid_column(Oid pubid, Relation relation, List *ancestors,
+							   bool pubviaroot)
+```
 ## Detailed Description
 This function performs validation to ensure that all columns referenced in a publication's row filter WHERE clause are part of the table's REPLICA IDENTITY. This validation is critical for logical replication because only columns in the REPLICA IDENTITY are guaranteed to be available on the subscriber side for filtering operations.
 

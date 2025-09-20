@@ -8,7 +8,10 @@ Creates, updates, or deletes comments for cluster-wide shared objects by manipul
 
 ## Definition
 
-
+```c
+void
+CreateSharedComments(Oid oid, Oid classoid, const char *comment)
+```
 ## Detailed Description
 CreateSharedComments manages comments for cluster-wide shared objects (databases, tablespaces, roles) in the pg_shdescription catalog table. It operates similarly to CreateComments but works with shared objects that exist across the entire database cluster rather than within a single database. The function performs insert, update, or delete operations based on the comment parameter, using a two-key lookup system (object OID and class OID) since shared objects don't have sub-objects.
 

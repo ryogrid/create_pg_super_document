@@ -8,7 +8,12 @@ Creates a Limit plan node that restricts the number of tuples returned by its ch
 
 ## Definition
 
-
+```c
+Limit *
+make_limit(Plan *lefttree, Node *limitOffset, Node *limitCount,
+		   LimitOption limitOption, int uniqNumCols, AttrNumber *uniqColIdx,
+		   Oid *uniqOperators, Oid *uniqCollations)
+```
 ## Detailed Description
 The  function constructs a Limit plan node that implements SQL LIMIT and OFFSET functionality by controlling the number of tuples passed from its child plan to parent nodes. The node can skip a specified number of initial tuples (OFFSET) and then return up to a specified maximum number of subsequent tuples (LIMIT). Additionally, it supports uniqueness constraints through optional column specifications for duplicate elimination.
 

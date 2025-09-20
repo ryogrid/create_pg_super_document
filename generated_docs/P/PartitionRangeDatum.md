@@ -8,7 +8,18 @@ PartitionRangeDatum represents one of the values in a range partition bound, whi
 
 ## Definition
 
+```c
+typedef struct PartitionRangeDatum
+{
+	NodeTag		type;
 
+	PartitionRangeDatumKind kind;
+	Node	   *value;			/* Const (or A_Const in raw tree), if kind is
+								 * PARTITION_RANGE_DATUM_VALUE, else NULL */
+
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} PartitionRangeDatum;
+```
 ## Detailed Description
 PartitionRangeDatum is used in range partitioning to represent individual bound values that define partition boundaries. Each datum can represent either an unbounded value (MINVALUE for negative infinity, MAXVALUE for positive infinity) or a specific bounded value with an associated constant. These structures are used to build the lower and upper bounds lists in PartitionBoundSpec for range-partitioned tables.
 

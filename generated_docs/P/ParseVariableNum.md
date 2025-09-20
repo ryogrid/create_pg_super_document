@@ -8,7 +8,9 @@ Parses a string value as an integer and stores the result, with comprehensive va
 
 ## Definition
 
-
+```c
+struct _variable *ptr;
+```
 ## Detailed Description
 This function attempts to parse a string as an integer value using the standard C library strtol function with automatic base detection (base 0). It performs thorough validation to ensure the string represents a valid integer that fits within the range of the int data type. The function checks for conversion errors, ensures the entire string was consumed during parsing, verifies that at least one character was processed, and confirms the resulting long value can be safely cast to an int.
 

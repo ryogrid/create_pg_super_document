@@ -8,7 +8,40 @@ PostgreSQL aggregate combine function that merges two sets of statistical transi
 
 ## Definition
 
+```c
+struct a
+	 * new array with the updated transition data and return it.
+	 */
+	if (AggCheckCallContext(fcinfo, NULL))
+	{
+		transvalues1[0] = N;
+		transvalues1[1] = Sx;
+		transvalues1[2] = Sxx;
 
+		PG_RETURN_ARRAYTYPE_P(transarray1);
+	}
+	else
+	{
+		Datum		transdatums[3];
+		ArrayType  *result;
+
+		transdatums[0] = Float8GetDatumFast(N);
+		transdatums[1] = Float8GetDatumFast(Sx);
+		transdatums[2] = Float8GetDatumFast(Sxx);
+
+		result = construct_array(transdatums, 3,
+								 FLOAT8OID,
+								 sizeof(float8), FLOAT8PASSBYVAL, TYPALIGN_DOUBLE);
+
+		PG_RETURN_ARRAYTYPE_P(result);
+	}
+}
+
+Datum
+float8_accum(PG_FUNCTION_ARGS)
+{
+	ArrayType  *transarray = PG_GETARG_ARRAYTYPE_P(0);
+```
 ## Detailed Description
 The `float8_combine` function is a specialized aggregate combine function designed for PostgreSQL's two-stage aggregation system. It takes two 3-element float8 arrays representing statistical transition data (N, Sx, Sxx) and combines them into a single transition data array using a generalized Youngs-Cramer algorithm.
 

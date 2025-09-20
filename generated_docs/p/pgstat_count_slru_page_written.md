@@ -8,7 +8,10 @@ Increments the blocks_written counter for a specific SLRU (Simple LRU) buffer ca
 
 ## Definition
 
-
+```c
+void
+pgstat_count_slru_page_written(int slru_idx)
+```
 ## Detailed Description
 This function is part of PostgreSQL's statistics collection system for SLRU (Simple LRU) buffer caches. It increments the blocks_written counter for the specified SLRU cache index by 1. SLRU caches are used for various PostgreSQL subsystems like transaction logs, commit logs, multixact logs, etc. This function helps track I/O activity by counting how many pages have been written to disk for each SLRU cache.
 

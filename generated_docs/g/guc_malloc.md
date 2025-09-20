@@ -8,7 +8,10 @@ GUC-related memory allocation function that allocates memory in the GUC memory c
 
 ## Definition
 
-
+```c
+void *
+guc_malloc(int elevel, size_t size)
+```
 ## Detailed Description
  is a PostgreSQL-specific memory allocation function designed for GUC (Grand Unified Configuration) system operations. It provides a wrapper around PostgreSQL's memory context allocation system, specifically allocating memory within the . The function is modeled after the standard C library's  but includes PostgreSQL-specific error handling that allows the caller to specify the error level for out-of-memory conditions.
 

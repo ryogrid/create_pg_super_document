@@ -8,7 +8,10 @@ Creates a MaterialPath node that represents a Material plan operation, which mat
 
 ## Definition
 
-
+```c
+MaterialPath *
+create_material_path(RelOptInfo *rel, Path *subpath)
+```
 ## Detailed Description
 The  function constructs a MaterialPath node that corresponds to a Material plan node in PostgreSQL's query execution. A Material node is used to materialize the output of its subpath, storing the result tuples in memory or on disk so they can be read multiple times efficiently. This is particularly useful when the same data needs to be accessed repeatedly, such as in certain join algorithms or when multiple scans of the same intermediate result are required.
 

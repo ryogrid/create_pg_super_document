@@ -8,7 +8,10 @@ Computes a 64-bit extended hash value for a float8 (double precision floating-po
 
 ## Definition
 
-
+```c
+Datum
+hashfloat8extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is an extended version of the standard float8 hash function that accepts an additional seed parameter for hash computation. It handles special floating-point cases:
 - Zero values (both positive and negative zero) are normalized to return the seed value directly

@@ -8,7 +8,11 @@ Helper function that validates IntegerSet membership results against expected va
 
 ## Definition
 
-
+```c
+static void
+check_with_filler(IntegerSet *intset, uint64 x,
+				  uint64 value, uint64 filler_min, uint64 filler_max)
+```
 ## Detailed Description
 The  function is a specialized validation helper designed to test IntegerSet membership queries in the context of sets that contain both isolated values and continuous ranges. It calculates the expected membership result for a given query value based on whether that value matches either the specific target value or falls within the defined filler range, then compares this expectation against the actual result returned by .
 

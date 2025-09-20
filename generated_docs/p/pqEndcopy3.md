@@ -8,7 +8,10 @@ Terminates a COPY operation in PostgreSQL protocol 3, handling the proper cleanu
 
 ## Definition
 
-
+```c
+int
+pqEndcopy3(PGconn *conn)
+```
 ## Detailed Description
 pqEndcopy3 implements the protocol 3 termination sequence for PostgreSQL COPY operations. It validates the connection is in an appropriate COPY state, sends the necessary CopyDone message for COPY IN operations, handles extended-query mode synchronization, flushes pending data, and waits for the server's completion response. The function manages both blocking and non-blocking connection modes and provides backwards-compatible error handling by converting errors to notices.
 

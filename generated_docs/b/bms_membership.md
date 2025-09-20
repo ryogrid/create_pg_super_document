@@ -8,7 +8,10 @@ Determines whether a bitmapset has zero, one, or multiple members by efficiently
 
 ## Definition
 
-
+```c
+BMS_Membership
+bms_membership(const Bitmapset *a)
+```
 ## Detailed Description
 The  function efficiently determines the membership status of a bitmapset without performing a full member count. It returns one of three enumerated values:  for empty sets,  for sets with exactly one member, or  for sets with two or more members. This function is optimized for performance and is faster than using  when only the general membership category is needed.
 

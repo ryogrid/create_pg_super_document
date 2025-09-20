@@ -8,7 +8,10 @@ A PostgreSQL function that performs a "less than" comparison between two record 
 
 ## Definition
 
-
+```c
+Datum
+record_image_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a simple wrapper around  that returns true if the first record is "less than" the second record according to byte-oriented comparison. This function implements the "image" comparison semantics where different representations of values that are considered semantically equal are treated as distinct. For example, with citext type, 'A' and 'a' are equal semantically but not identical in byte representation.
 

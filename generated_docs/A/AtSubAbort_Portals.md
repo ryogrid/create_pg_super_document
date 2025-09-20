@@ -8,7 +8,14 @@ Subtransaction abort handling function that deactivates and safely handles porta
 
 ## Definition
 
-
+```c
+structure proper, we can
+		 * release any memory in subsidiary contexts, such as executor state.
+		 * The cleanup hook was the last thing that might have needed data
+		 * there.
+		 */
+		MemoryContextDeleteChildren(portal->portalContext);
+```
 ## Detailed Description
 AtSubAbort_Portals handles the cleanup of portals when a subtransaction aborts. The function deactivates portals that were created or used during the failed subtransaction, ensuring system stability by preventing access to potentially corrupted or invalid portal states. Unlike AtSubCommit_Portals, this function focuses on safe deactivation rather than ownership transfer.
 

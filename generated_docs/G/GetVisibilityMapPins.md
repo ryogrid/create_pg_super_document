@@ -8,7 +8,12 @@ GetVisibilityMapPins manages visibility map pins for heap pages that are all-vis
 
 ## Definition
 
-
+```c
+static bool
+GetVisibilityMapPins(Relation relation, Buffer buffer1, Buffer buffer2,
+					 BlockNumber block1, BlockNumber block2,
+					 Buffer *vmbuffer1, Buffer *vmbuffer2)
+```
 ## Detailed Description
 This function manages the acquisition of visibility map pins for heap pages that are marked as all-visible. It coordinates between potentially two buffers and their corresponding visibility map pages, handling complex locking scenarios:
 

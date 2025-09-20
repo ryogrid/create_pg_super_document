@@ -8,7 +8,10 @@ A SQL-callable function that creates a new logical replication slot by copying t
 
 ## Definition
 
-
+```c
+Datum
+pg_copy_logical_replication_slot_c(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL system function that provides a simple interface for copying logical replication slots. It serves as a wrapper around the internal `copy_replication_slot` helper function, specifically configured for logical slots by passing `true` as the second parameter.
 

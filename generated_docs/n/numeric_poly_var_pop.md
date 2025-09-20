@@ -8,7 +8,10 @@ Computes the population variance of numeric values using an optimized polynomial
 
 ## Definition
 
-
+```c
+Datum
+numeric_poly_var_pop(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function calculates the population variance for numeric data types. It leverages PostgreSQL's optimized polynomial aggregation state (PolyNumAggState) when the system has 128-bit integer support (HAVE_INT128), which provides better performance for large datasets. When 128-bit integers are not available, it falls back to the standard numeric_var_pop implementation.
 

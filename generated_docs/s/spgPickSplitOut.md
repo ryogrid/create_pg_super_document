@@ -8,7 +8,19 @@ spgPickSplitOut is a structure that defines the output parameters for SP-GiST (S
 
 ## Definition
 
+```c
+typedef struct spgPickSplitOut
+{
+	bool		hasPrefix;		/* new inner tuple should have a prefix? */
+	Datum		prefixDatum;	/* if so, its value */
 
+	int			nNodes;			/* number of nodes for new inner tuple */
+	Datum	   *nodeLabels;		/* their labels (or NULL for no labels) */
+
+	int		   *mapTuplesToNodes;	/* node index for each leaf tuple */
+	Datum	   *leafTupleDatums;	/* datum to store in each new leaf tuple */
+} spgPickSplitOut;
+```
 ## Detailed Description
 The spgPickSplitOut structure is used as an output parameter in SP-GiST index pick split operations. When an inner node becomes full and needs to be split, the pick split function populates this structure to specify how the existing leaf tuples should be redistributed among the new child nodes. This structure provides complete information about the new inner tuple configuration, including whether it should have a prefix, how many child nodes it should have, what labels those nodes should get, and how existing leaf tuples should be mapped to the new nodes.
 

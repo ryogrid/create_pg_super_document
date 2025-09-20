@@ -8,7 +8,10 @@ Computes and returns the WAL (Write-Ahead Log) filename for a given WAL location
 
 ## Definition
 
-
+```c
+Datum
+pg_walfile_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This SQL-callable function takes a WAL location (LSN - Log Sequence Number) as input and converts it into the corresponding WAL filename. The function performs several key operations:
 

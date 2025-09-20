@@ -8,7 +8,12 @@ A debugging function that prints a human-readable representation of a single sta
 
 ## Definition
 
-
+```c
+static void
+dumpcstate(int st,
+		   struct cnfa *cnfa,
+		   FILE *f)
+```
 ## Detailed Description
 The  function outputs detailed debugging information about a specific state in a compiled NFA. It prints the state number followed by a marker indicating whether the state has the CNFA_NOPROGRESS flag (marked with ':') or is a normal state (marked with '.'). Then it iterates through all arcs (transitions) originating from this state, displaying each transition's color/character class and destination state. The function formats output to show up to 5 transitions per line for readability, with special handling for RAINBOW (wildcard) transitions and color vs. constraint distinctions.
 

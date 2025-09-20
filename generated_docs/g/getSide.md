@@ -8,7 +8,13 @@ Helper function that determines the spatial relationship between a coordinate va
 
 ## Definition
 
-
+```c
+typedef struct SortedPoint
+{
+	Point	   *p;
+	int			i;
+} SortedPoint;
+```
 ## Detailed Description
 This static function compares a given coordinate value against either the X or Y coordinate of a test point, returning an integer indicating their relative position. It serves as a fundamental building block for k-d tree spatial partitioning logic, enabling the tree to determine which side of a splitting plane a point falls on. The function supports both X and Y coordinate comparisons through the  parameter, making it suitable for alternating between dimensions in k-d tree traversal.
 

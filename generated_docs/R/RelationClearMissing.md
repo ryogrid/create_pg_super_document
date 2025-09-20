@@ -8,7 +8,10 @@ RelationClearMissing clears the missing value information (atthasmissing and att
 
 ## Definition
 
-
+```c
+void
+RelationClearMissing(Relation rel)
+```
 ## Detailed Description
 This function removes missing value information from all attributes in a relation by setting atthasmissing to false and attmissingval to null in pg_attribute. It is safely used when a table is completely rewritten (such as by VACUUM FULL or CLUSTER) where all rows are guaranteed to have the full complement of attributes, making missing value defaults unnecessary. The function iterates through all non-system attributes, finds those with atthasmissing set to true, and updates their pg_attribute entries to clear the missing value information. This optimization reduces storage overhead and eliminates unnecessary missing value processing.
 

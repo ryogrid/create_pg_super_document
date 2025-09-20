@@ -8,7 +8,13 @@ A base structure that defines the common header fields for both internal and lea
 
 ## Definition
 
-
+```c
+struct intset_node
+{
+	uint16		level;			/* tree level of this node */
+	uint16		num_items;		/* number of items in this node */
+};
+```
 ## Detailed Description
 The intset_node structure serves as the foundation for PostgreSQL's IntegerSet data structure, which implements a B-tree for efficiently storing and querying sets of integers. This structure defines the common header that appears at the beginning of both internal nodes (intset_internal_node) and leaf nodes (intset_leaf_node) in the tree hierarchy.
 

@@ -8,7 +8,10 @@ A helper function that generates detailed error messages when JSON array process
 
 ## Definition
 
-
+```c
+static void
+populate_array_report_expected_array(PopulateArrayContext *ctx, int ndim)
+```
 ## Detailed Description
 The  function is a diagnostic helper function used during JSON/JSONB array processing operations. When the array population process expects to find a JSON array but encounters a different JSON value type, this function generates appropriate error messages with contextual information to help users identify the problematic data.
 

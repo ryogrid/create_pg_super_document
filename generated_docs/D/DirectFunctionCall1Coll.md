@@ -8,7 +8,10 @@ Directly invokes a PostgreSQL function with one argument and a specified collati
 
 ## Definition
 
-
+```c
+Datum
+DirectFunctionCall1Coll(PGFunction func, Oid collation, Datum arg1)
+```
 ## Detailed Description
 The  function provides a high-performance mechanism for calling PostgreSQL functions when the function pointer is already known and only one argument needs to be passed. This function is part of PostgreSQL's direct function call family, designed to minimize overhead when the function identity is determined at compile time or through previous lookups.
 

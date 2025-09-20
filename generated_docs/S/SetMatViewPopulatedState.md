@@ -8,7 +8,10 @@ SetMatViewPopulatedState marks a materialized view as populated or unpopulated b
 
 ## Definition
 
-
+```c
+void
+SetMatViewPopulatedState(Relation relation, bool newstate)
+```
 ## Detailed Description
 This function updates the relispopulated field in the pg_class system catalog for a materialized view relation. The function performs a catalog update that triggers shared invalidation messages to other backends, ensuring that all processes rebuild their relation cache entries to reflect the new populated state. This is critical for maintaining consistency across the database cluster when materialized views are refreshed or initially populated.
 

@@ -8,7 +8,10 @@ Processes an OWNED BY option for CREATE/ALTER SEQUENCE statements, establishing 
 
 ## Definition
 
-
+```c
+static void
+process_owned_by(Relation seqrel, List *owned_by, bool for_identity)
+```
 ## Detailed Description
 The  function handles the OWNED BY clause in sequence operations, which establishes a dependency between a sequence and a table column. This dependency ensures that when the owning table column is dropped, the sequence is automatically dropped as well. The function performs several critical validations:
 

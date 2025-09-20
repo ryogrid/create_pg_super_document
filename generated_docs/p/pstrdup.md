@@ -8,7 +8,10 @@ A utility function that duplicates a null-terminated string using the current me
 
 ## Definition
 
-
+```c
+char *
+pstrdup(const char *in)
+```
 ## Detailed Description
 pstrdup is a simple wrapper function that creates a duplicate copy of a null-terminated string in the current memory context. It uses the PostgreSQL memory management system to allocate memory for the new string copy. This function is commonly used throughout PostgreSQL when a persistent copy of a string is needed that will be automatically freed when the current memory context is reset or deleted.
 

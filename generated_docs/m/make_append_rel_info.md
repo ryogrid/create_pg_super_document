@@ -8,7 +8,11 @@ Creates and initializes an AppendRelInfo structure to represent the relationship
 
 ## Definition
 
-
+```c
+AppendRelInfo *
+make_append_rel_info(Relation parentrel, Relation childrel,
+					 Index parentRTindex, Index childRTindex)
+```
 ## Detailed Description
 This function constructs an AppendRelInfo node that encapsulates the metadata needed to handle inheritance relationships between parent and child relations. It sets up the essential mapping information including relation identifiers, type information, and attribute translation lists that enable the query planner to properly handle inheritance hierarchies. The function is a key component in PostgreSQL's inheritance processing infrastructure.
 

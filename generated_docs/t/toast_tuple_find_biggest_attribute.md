@@ -8,7 +8,11 @@ Finds the largest varlena attribute in a tuple that meets specific criteria for 
 
 ## Definition
 
-
+```c
+int
+toast_tuple_find_biggest_attribute(ToastTupleContext *ttc,
+								   bool for_compression, bool check_main)
+```
 ## Detailed Description
 This function searches through all attributes in a tuple to find the largest one that satisfies specific criteria for TOAST operations. It serves as a helper function to determine which attribute should be processed next during tuple compression or externalization.
 

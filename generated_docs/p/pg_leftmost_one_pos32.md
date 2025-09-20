@@ -8,7 +8,10 @@ Returns the position of the most significant set bit in a 32-bit word, providing
 
 ## Definition
 
-
+```c
+static inline int
+pg_leftmost_one_pos32(uint32 word)
+```
 ## Detailed Description
 This function finds the position of the leftmost (most significant) set bit in a 32-bit unsigned integer, with positions measured from the least significant bit (0-based indexing). The function provides platform-optimized implementations using compiler builtins when available, falling back to a lookup table approach for maximum portability.
 

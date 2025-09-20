@@ -8,7 +8,10 @@ ForeignNext is a static workhorse function that executes the next iteration of a
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ForeignNext(ForeignScanState *node)
+```
 ## Detailed Description
 ForeignNext serves as the core execution engine for foreign scan operations in PostgreSQL's executor. It acts as an intermediary between the executor framework and Foreign Data Wrapper (FDW) routines, managing memory context switches and delegating the actual tuple retrieval to the appropriate FDW callback function.
 

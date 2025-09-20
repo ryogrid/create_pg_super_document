@@ -8,7 +8,10 @@ Ensures that a snapshot for a fixed-numbered statistics kind exists, creating it
 
 ## Definition
 
-
+```c
+void
+pgstat_snapshot_fixed(PgStat_Kind kind)
+```
 ## Detailed Description
 This function guarantees that a statistics snapshot exists for the specified fixed-numbered statistics kind. It serves as the entry point for accessing fixed-amount statistics by ensuring the appropriate snapshot data is available before statistics retrieval functions can access it. The function implements two snapshot building strategies based on the current fetch consistency setting: either building a complete snapshot for all statistics kinds or building a targeted snapshot for only the requested kind.
 

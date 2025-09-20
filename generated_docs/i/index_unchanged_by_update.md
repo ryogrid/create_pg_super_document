@@ -8,7 +8,9 @@ Determines whether an index remains logically unchanged by an UPDATE operation, 
 
 ## Definition
 
-
+```c
+union(updatedCols, extraUpdatedCols);
+```
 ## Detailed Description
 This function performs a comprehensive analysis to determine if an index can be considered unchanged by an UPDATE operation. It implements a caching mechanism to avoid redundant calculations and follows a multi-step process:
 

@@ -8,7 +8,17 @@ standard_ProcessUtility is the core implementation function that handles executi
 
 ## Definition
 
-
+```c
+void
+standard_ProcessUtility(PlannedStmt *pstmt,
+						const char *queryString,
+						bool readOnlyTree,
+						ProcessUtilityContext context,
+						ParamListInfo params,
+						QueryEnvironment *queryEnv,
+						DestReceiver *dest,
+						QueryCompletion *qc)
+```
 ## Detailed Description
 standard_ProcessUtility serves as PostgreSQL's primary utility command execution engine, handling a comprehensive range of SQL commands including transaction control, DDL operations, administrative commands, and system maintenance operations. The function operates through a sophisticated dispatching mechanism using a large switch statement based on the node type of the parsed statement.
 

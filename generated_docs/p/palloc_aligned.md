@@ -8,7 +8,10 @@ A convenience wrapper function that allocates memory with custom byte alignment 
 
 ## Definition
 
-
+```c
+void *
+palloc_aligned(Size size, Size alignto, int flags)
+```
 ## Detailed Description
 The `palloc_aligned` function provides a simple interface for allocating aligned memory from the current memory context (`CurrentMemoryContext`). It serves as a convenience wrapper around `MemoryContextAllocAligned`, automatically using the current memory context rather than requiring the caller to specify a context explicitly.
 

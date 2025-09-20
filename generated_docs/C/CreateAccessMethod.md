@@ -8,7 +8,10 @@ Registers a new access method in the PostgreSQL system catalog, creating the nec
 
 ## Definition
 
-
+```c
+ObjectAddress
+CreateAccessMethod(CreateAmStmt *stmt)
+```
 ## Detailed Description
 CreateAccessMethod processes a CREATE ACCESS METHOD statement by inserting a new tuple into the pg_am system catalog. The function performs several validation checks including superuser privilege verification and name uniqueness, then creates the catalog entry with proper dependency tracking. It establishes a dependency relationship between the access method and its handler function, and records the access method as part of the current extension if applicable.
 

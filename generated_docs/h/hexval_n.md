@@ -8,7 +8,10 @@ Translates a string containing hexadecimal digits to an unsigned integer value b
 
 ## Definition
 
-
+```c
+static unsigned int
+hexval_n(const char *instr, size_t n)
+```
 ## Detailed Description
 The  function converts a sequence of hexadecimal characters into their corresponding numeric value. It processes exactly  characters from the input string, treating each character as a hexadecimal digit. The function builds the result by iterating through each character, converting it using the  helper function, and shifting it to the appropriate bit position based on its position in the sequence. The most significant digit comes first in the input string.
 

@@ -8,7 +8,13 @@ Saves the current position in a B-tree index scan to enable later restoration to
 
 ## Definition
 
-
+```c
+struct in markPos.  If (as often happens) the mark is moved
+	 * before we leave the page, we don't have to do that work.
+	 */
+	if (BTScanPosIsValid(so->currPos))
+		so->markItemIndex = so->currPos.itemIndex;
+```
 ## Detailed Description
 The btmarkpos function implements a lightweight position marking mechanism for B-tree index scans. Instead of immediately copying the entire scan position structure, it uses a lazy approach that only records the current item index. If the scan moves to a different page before the mark is restored or moved, the full position structure will be copied by _bt_steppage. This optimization avoids unnecessary copying when marks are frequently moved within the same page, which is a common usage pattern.
 

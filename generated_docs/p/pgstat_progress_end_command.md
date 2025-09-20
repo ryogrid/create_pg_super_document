@@ -8,7 +8,10 @@ Resets the progress command tracking in the current backend's status entry, sign
 
 ## Definition
 
-
+```c
+void
+pgstat_progress_end_command(void)
+```
 ## Detailed Description
 This function terminates progress tracking for the current backend by clearing the progress command indicators in the shared backend status structure. It sets  to  and  to , effectively signaling that no command is currently being tracked for progress reporting.
 

@@ -8,7 +8,9 @@ RangeVarCallbackForDropRelation is a callback function that performs permission 
 
 ## Definition
 
-
+```c
+struct DropRelationCallbackState *state;
+```
 ## Detailed Description
 This function serves as a callback during the relation lookup process for DROP operations. It performs critical safety checks and lock acquisition to ensure the drop operation can proceed safely:
 

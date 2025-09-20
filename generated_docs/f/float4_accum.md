@@ -8,7 +8,40 @@ Accumulator function for statistical aggregates on float4 (single precision) val
 
 ## Definition
 
+```c
+struct a
+	 * new array with the updated transition data and return it.
+	 */
+	if (AggCheckCallContext(fcinfo, NULL))
+	{
+		transvalues[0] = N;
+		transvalues[1] = Sx;
+		transvalues[2] = Sxx;
 
+		PG_RETURN_ARRAYTYPE_P(transarray);
+	}
+	else
+	{
+		Datum		transdatums[3];
+		ArrayType  *result;
+
+		transdatums[0] = Float8GetDatumFast(N);
+		transdatums[1] = Float8GetDatumFast(Sx);
+		transdatums[2] = Float8GetDatumFast(Sxx);
+
+		result = construct_array(transdatums, 3,
+								 FLOAT8OID,
+								 sizeof(float8), FLOAT8PASSBYVAL, TYPALIGN_DOUBLE);
+
+		PG_RETURN_ARRAYTYPE_P(result);
+	}
+}
+
+Datum
+float8_avg(PG_FUNCTION_ARGS)
+{
+	ArrayType  *transarray = PG_GETARG_ARRAYTYPE_P(0);
+```
 ## Detailed Description
 The  function is a transition function used by PostgreSQL's statistical aggregate functions (like AVG, VAR_POP, VAR_SAMP, STDDEV_POP, STDDEV_SAMP) when operating on float4 data. It implements the Youngs-Cramer algorithm to maintain numerically stable running statistics by tracking three values: count (N), sum (Sx), and sum of squared deviations (Sxx).
 

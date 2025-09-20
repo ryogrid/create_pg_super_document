@@ -8,7 +8,14 @@ An enumeration constant that defines the byte offset for the prefix field within
 
 ## Definition
 
-
+```c
+enum tarFileType
+{
+	TAR_FILETYPE_PLAIN = '0',
+	TAR_FILETYPE_SYMLINK = '2',
+	TAR_FILETYPE_DIRECTORY = '5',
+};
+```
 ## Detailed Description
 TAR_OFFSET_PREFIX is a member of the tarHeaderOffset enumeration that specifies the byte offset (345) where the prefix field begins within a standard 512-byte tar header block. The prefix field is a 155-byte string field that, according to the POSIX tar standard, can be used to store the leading portion of a file path when the complete path name is too long to fit in the standard 100-byte name field.
 

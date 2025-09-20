@@ -8,7 +8,10 @@ Increments the reference count for a given relation and tracks the reference in 
 
 ## Definition
 
-
+```c
+void
+RelationIncrementReferenceCount(Relation rel)
+```
 ## Detailed Description
 This function safely increments the reference count () of a relation structure by one and ensures that the current resource owner tracks this reference for proper cleanup. The function handles the special case of bootstrap mode, where reference count ownership tracking is disabled due to different initialization patterns during database bootstrap.
 

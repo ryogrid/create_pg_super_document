@@ -8,7 +8,9 @@ The pg_regerror function provides a standardized interface for converting regex 
 
 ## Definition
 
-
+```c
+struct rerr *r;
+```
 ## Detailed Description
 pg_regerror serves as PostgreSQL's implementation of the POSIX regerror() function with additional functionality. It handles three distinct operations:
 

@@ -8,7 +8,10 @@ Prunes low-frequency entries from the lexemes hash table as part of the Lossy Co
 
 ## Definition
 
-
+```c
+static void
+prune_lexemes_hashtable(HTAB *lexemes_tab, int b_current)
+```
 ## Detailed Description
 This function implements the pruning phase of the Lossy Counting algorithm used in tsvector statistics collection. It removes entries from the hash table where the condition (frequency + delta <= b_current) is satisfied, which eliminates lexemes that are unlikely to meet the final frequency threshold. The pruning helps keep memory usage bounded while maintaining algorithm accuracy guarantees.
 

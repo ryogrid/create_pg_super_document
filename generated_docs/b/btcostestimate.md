@@ -8,7 +8,13 @@ A specialized cost estimation function for B-tree index access paths that provid
 
 ## Definition
 
-
+```c
+void
+btcostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+			   Cost *indexStartupCost, Cost *indexTotalCost,
+			   Selectivity *indexSelectivity, double *indexCorrelation,
+			   double *indexPages)
+```
 ## Detailed Description
 The  function provides specialized cost estimation for B-tree index scans, building upon the generic cost estimation framework while adding B-tree specific optimizations and considerations.
 

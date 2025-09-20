@@ -8,7 +8,10 @@ Converts a Datum value to a VarBit pointer, handling potential TOAST decompressi
 
 ## Definition
 
-
+```c
+static inline VarBit *
+DatumGetVarBitP(Datum X)
+```
 ## Detailed Description
 DatumGetVarBitP is an inline function that safely converts a Datum value containing a bit string (BIT or BIT VARYING type) to a VarBit pointer. The function automatically handles TOAST decompression if the bit string data has been compressed or stored out-of-line. This is essential for working with variable-length bit strings in PostgreSQL, as they are toastable varlena types that may need decompression before access.
 

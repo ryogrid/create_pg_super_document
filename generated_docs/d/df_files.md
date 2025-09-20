@@ -8,7 +8,19 @@ The df_files struct is a node in a linked list that tracks dynamically loaded li
 
 ## Definition
 
-
+```c
+typedef struct df_files
+{
+	struct df_files *next;		/* List link */
+	dev_t		device;			/* Device file is on */
+#ifndef WIN32					/* ensures we never again depend on this under
+								 * win32 */
+	ino_t		inode;			/* Inode number of file */
+#endif
+	void	   *handle;			/* a handle for pg_dl* functions */
+	char		filename[FLEXIBLE_ARRAY_MEMBER];	/* Full pathname of file */
+} DynamicFileList;
+```
 ## Detailed Description
 The df_files struct (typedef'd as DynamicFileList) serves as the fundamental data structure for PostgreSQL's dynamic library management system. It maintains a linked list of all dynamically loaded shared libraries, ensuring that each library is loaded only once and providing efficient access to previously loaded libraries. The structure stores both file system metadata (device and inode) and runtime information (dlopen handle) to uniquely identify and manage loaded libraries across the PostgreSQL process lifetime.
 

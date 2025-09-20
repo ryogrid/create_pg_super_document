@@ -8,7 +8,11 @@ Executes one or more accumulated REINDEX SQL commands against a database connect
 
 ## Definition
 
-
+```c
+static void
+run_reindex_command(PGconn *conn, ReindexType type, const char *name,
+					bool echo, PQExpBufferData *sql)
+```
 ## Detailed Description
 This function serves as the execution layer for REINDEX commands that have been previously constructed by gen_reindex_command. It performs the following operations:
 

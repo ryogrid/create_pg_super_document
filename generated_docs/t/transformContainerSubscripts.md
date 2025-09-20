@@ -8,7 +8,15 @@ A comprehensive function that transforms container subscripting expressions for 
 
 ## Definition
 
-
+```c
+SubscriptingRef *
+transformContainerSubscripts(ParseState *pstate,
+							 Node *containerBase,
+							 Oid containerType,
+							 int32 containerTypMod,
+							 List *indirection,
+							 bool isAssignment)
+```
 ## Detailed Description
 This function serves as the main entry point for processing container subscripting operations in PostgreSQL. It handles both fetching from containers (e.g., array[1]) and assignment to containers (e.g., array[1] := value).
 

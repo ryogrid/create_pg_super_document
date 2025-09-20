@@ -8,7 +8,15 @@ PublicationActions is a structure that defines which DML operations (Data Manipu
 
 ## Definition
 
-
+```c
+typedef struct PublicationActions
+{
+	bool		pubinsert;
+	bool		pubupdate;
+	bool		pubdelete;
+	bool		pubtruncate;
+} PublicationActions;
+```
 ## Detailed Description
 PublicationActions is a simple structure that serves as a configuration container for logical replication publications. It controls which types of DML operations on published tables should be replicated to subscribers. Each boolean field corresponds to a specific SQL operation type, allowing fine-grained control over what changes are captured and transmitted during logical replication.
 

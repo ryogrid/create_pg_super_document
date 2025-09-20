@@ -8,7 +8,10 @@ Determines whether a given string is a recognized PostgreSQL connection string f
 
 ## Definition
 
-
+```c
+static bool
+recognized_connection_string(const char *connstr)
+```
 ## Detailed Description
 This function validates whether a connection string follows one of PostgreSQL's accepted formats. It performs a preliminary check to determine if the string appears to be a valid connection string that can be parsed by PostgreSQL's connection parsing routines. The function checks for two main patterns:
 

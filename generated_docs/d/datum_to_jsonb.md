@@ -8,7 +8,10 @@ A function that converts a PostgreSQL Datum value to JSONB format, serving as a 
 
 ## Definition
 
-
+```c
+Datum
+datum_to_jsonb(Datum val, JsonTypeCategory tcategory, Oid outfuncoid)
+```
 ## Detailed Description
 The datum_to_jsonb function performs the actual conversion of PostgreSQL Datum values to JSONB format. It takes a preprocessed type category and output function OID (typically obtained from json_categorize_type) to efficiently convert the input value. The function initializes a JsonbInState structure, delegates the conversion work to datum_to_jsonb_internal, and then packages the result into a proper JSONB Datum for return. This function is optimized for scenarios where type categorization has already been performed, avoiding redundant type lookups.
 

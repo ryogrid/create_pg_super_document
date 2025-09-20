@@ -8,7 +8,10 @@ Converts text from ISO-8859-1 (Latin-1) encoding to UTF-8 encoding, handling cha
 
 ## Definition
 
-
+```c
+Datum
+iso8859_1_to_utf8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function converts a string from ISO-8859-1 (Latin-1) encoding to UTF-8 encoding. It processes each character in the source string:
 - ASCII characters (0x00-0x7F) are copied directly as they are identical in both encodings

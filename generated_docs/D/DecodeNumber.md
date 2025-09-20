@@ -8,7 +8,11 @@ DecodeNumber interprets a plain numeric field as a date value within the context
 
 ## Definition
 
-
+```c
+static int
+DecodeNumber(int flen, char *str, int fmask,
+			 int *tmask, struct tm *tm, fsec_t *fsec, bool *is2digits, bool EuroDates)
+```
 ## Detailed Description
 This function is a central component of PostgreSQL's date/time parsing system that interprets numeric fields based on contextual information. It implements sophisticated logic to determine whether a numeric field represents a year, month, day, or time component based on:
 

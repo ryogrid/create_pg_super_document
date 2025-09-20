@@ -8,7 +8,10 @@ Creates and fills a new PostgreSQL array with specified dimensions, lower bounds
 
 ## Definition
 
-
+```c
+Datum
+array_fill_with_lower_bounds(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL SQL function `array_fill(anyelement, int[], int[])` which creates a new array filled with a specified value. Unlike the simpler `array_fill` function, this variant allows specification of custom lower bounds for each array dimension, providing complete control over the array's index structure.
 

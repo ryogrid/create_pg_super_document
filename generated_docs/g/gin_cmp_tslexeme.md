@@ -8,7 +8,10 @@ A PostgreSQL function that compares two text search lexemes (tokens) for orderin
 
 ## Definition
 
-
+```c
+Datum
+gin_cmp_tslexeme(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a comparison operator for text search lexemes within the GIN indexing framework. It extracts two text arguments, compares them using PostgreSQL's text search comparison logic, and returns an integer result indicating their relative ordering. The function is designed to support GIN index operations that require ordered comparisons of lexeme data, which is essential for efficient text search indexing and retrieval.
 

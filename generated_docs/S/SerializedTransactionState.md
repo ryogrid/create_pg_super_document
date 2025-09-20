@@ -8,7 +8,18 @@ SerializedTransactionState is a compact structure used to transmit essential tra
 
 ## Definition
 
-
+```c
+typedef struct SerializedTransactionState
+{
+	int			xactIsoLevel;
+	bool		xactDeferrable;
+	FullTransactionId topFullTransactionId;
+	FullTransactionId currentFullTransactionId;
+	CommandId	currentCommandId;
+	int			nParallelCurrentXids;
+	TransactionId parallelCurrentXids[FLEXIBLE_ARRAY_MEMBER];
+} SerializedTransactionState;
+```
 ## Detailed Description
 SerializedTransactionState provides a serialized representation of transaction state that can be efficiently transmitted to parallel worker processes via shared memory. This structure contains only the essential transaction information needed for parallel workers to operate correctly within the transaction context, including isolation level, transaction IDs, and command state. The flexible array member allows for variable-length storage of parallel transaction IDs without requiring separate memory allocation.
 

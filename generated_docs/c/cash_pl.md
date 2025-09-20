@@ -8,7 +8,10 @@ The cash_pl function implements addition for PostgreSQL's cash (money) data type
 
 ## Definition
 
-
+```c
+Datum
+cash_pl(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that implements the '+' operator for the cash data type. It extracts two cash values from the function arguments and delegates to the internal cash_pl_cash function for the actual arithmetic operation. The function follows PostgreSQL's standard function calling convention and includes overflow detection to prevent arithmetic errors that could result in incorrect monetary calculations.
 

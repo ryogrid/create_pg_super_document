@@ -8,7 +8,10 @@ Returns the larger of two single-precision floating-point numbers, with PostgreS
 
 ## Definition
 
-
+```c
+static inline float4
+float4_max(const float4 val1, const float4 val2)
+```
 ## Detailed Description
 This inline function implements the maximum operation for single-precision floating-point numbers (float4). It uses the float4_gt comparison function to determine which value is larger and returns that value. The function inherits PostgreSQL's NaN handling behavior from float4_gt, where NaN comparisons follow specific SQL standard semantics.
 

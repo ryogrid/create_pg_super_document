@@ -8,7 +8,10 @@ A public function that converts a JSONB container to its C-string representation
 
 ## Definition
 
-
+```c
+char *
+JsonbToCStringIndent(StringInfo out, JsonbContainer *in, int estimated_len)
+```
 ## Detailed Description
 This function provides an interface for converting JSONB data to a formatted string representation with indentation and newlines for improved readability. It serves as a wrapper around JsonbToCStringWorker with indentation enabled (true). The function is primarily used for pretty-printing JSONB values where human readability is important, such as in debugging output or user-facing displays. Like its non-indented counterpart, it can work with either an existing StringInfo buffer or allocate a new string.
 

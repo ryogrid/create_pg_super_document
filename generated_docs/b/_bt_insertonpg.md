@@ -8,7 +8,12 @@ _bt_insertonpg is a recursive function that performs tuple insertion on a specif
 
 ## Definition
 
-
+```c
+struct final itup (as well as nposting) using
+				 * _bt_swap_posting().
+				 */
+				upostingoff = postingoff;
+```
 ## Detailed Description
 This recursive procedure is the core insertion mechanism for B-tree indexes. It handles several complex scenarios:
 

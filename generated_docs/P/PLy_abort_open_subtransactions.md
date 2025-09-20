@@ -8,7 +8,10 @@ Forcibly aborts and cleans up lingering subtransactions that were explicitly sta
 
 ## Definition
 
-
+```c
+static void
+PLy_abort_open_subtransactions(int save_subxact_level)
+```
 ## Detailed Description
 This function serves as a cleanup mechanism for PL/Python subtransaction management. It iterates through the explicit_subtransactions list and aborts any subtransactions that remain open beyond the specified save point level. For each open subtransaction, it issues a WARNING message to inform about the forced abort, calls RollbackAndReleaseCurrentSubTransaction() to perform the actual rollback, removes the subtransaction from the tracking list, restores the previous memory context and resource owner, and frees the associated subtransaction data structure. This ensures that incomplete subtransaction management in Python code doesn't leave the PostgreSQL transaction system in an inconsistent state.
 

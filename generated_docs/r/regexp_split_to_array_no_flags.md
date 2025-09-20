@@ -8,7 +8,10 @@ A wrapper function for regexp_split_to_array that provides a two-argument interf
 
 ## Definition
 
-
+```c
+Datum
+regexp_split_to_array_no_flags(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a simple wrapper around regexp_split_to_array, providing a two-parameter interface that omits the optional flags parameter. It directly passes all function call information (fcinfo) to regexp_split_to_array without any processing or modification. Like its table counterpart, this separation exists primarily to satisfy PostgreSQL's opr_sanity regression test requirements, which expect distinct function signatures for different argument counts.
 

@@ -8,7 +8,10 @@ Tests error handling and validation for operations that are not allowed in Postg
 
 ## Definition
 
-
+```c
+static void
+test_disallowed_in_pipeline(PGconn *conn)
+```
 ## Detailed Description
 The  function validates that certain libpq operations are properly restricted when the connection is in pipeline mode, and that appropriate error messages are returned when these restrictions are violated. It also tests the pipeline mode state transitions and ensures that re-entering and exiting pipeline mode works correctly.
 

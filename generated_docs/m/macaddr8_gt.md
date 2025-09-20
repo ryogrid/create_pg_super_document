@@ -8,7 +8,10 @@ The macaddr8_gt function implements the greater-than comparison operator (>) for
 
 ## Definition
 
-
+```c
+Datum
+macaddr8_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares two 8-byte MAC addresses and returns true if the first MAC address is strictly greater than the second MAC address. The comparison is performed using the internal comparison function macaddr8_cmp_internal, which compares MAC addresses by first comparing the high-order bits, then the low-order bits if the high-order bits are equal. The function follows PostgreSQL's function call convention using the PG_FUNCTION_ARGS macro.
 

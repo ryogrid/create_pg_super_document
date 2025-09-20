@@ -8,7 +8,10 @@ Frees the host list data structure in a PGconn, including all associated host co
 
 ## Definition
 
-
+```c
+void
+pqReleaseConnHosts(PGconn *conn)
+```
 ## Detailed Description
 The  function is responsible for deallocating the connection host list () array within a PGconn structure. This function handles multiple host configurations where PostgreSQL clients can specify multiple potential database servers for connection failover or load balancing.
 

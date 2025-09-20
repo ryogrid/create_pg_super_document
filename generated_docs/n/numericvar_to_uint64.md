@@ -8,7 +8,10 @@ The `numericvar_to_uint64` function converts a PostgreSQL numeric variable to a 
 
 ## Definition
 
-
+```c
+struct the result */
+	digits = rounded.digits;
+```
 ## Detailed Description
 This function performs a safe conversion from PostgreSQL's arbitrary-precision numeric representation to a 64-bit unsigned integer:
 

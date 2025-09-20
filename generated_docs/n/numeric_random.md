@@ -8,7 +8,10 @@ Generates a random numeric value uniformly distributed within a specified range.
 
 ## Definition
 
-
+```c
+Datum
+numeric_random(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that generates pseudo-random numeric values within a user-specified range. It accepts two Numeric parameters defining the lower and upper bounds and returns a uniformly distributed random Numeric value between these bounds. Unlike  which works with integer types, this function operates on PostgreSQL's arbitrary-precision numeric type, allowing for decimal precision and very large number ranges. The function uses PostgreSQL's internal pseudo-random number generator which is initialized on first use.
 

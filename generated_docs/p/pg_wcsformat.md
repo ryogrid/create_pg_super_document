@@ -8,7 +8,11 @@ Formats a multibyte character string into one or more lineptr structures for dis
 
 ## Definition
 
-
+```c
+void
+pg_wcsformat(const unsigned char *pwcs, size_t len, int encoding,
+			 struct lineptr *lines, int count)
+```
 ## Detailed Description
 pg_wcsformat takes a multibyte character string and formats it into an array of lineptr structures, where each structure represents a line of formatted output. This function is the companion to pg_wcssize and must be kept in sync with it. The function processes characters similarly to pg_wcssize but actually writes the formatted output to the provided lineptr array.
 

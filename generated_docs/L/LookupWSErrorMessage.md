@@ -8,7 +8,9 @@ LookupWSErrorMessage is a static helper function that searches for a Windows Win
 
 ## Definition
 
-
+```c
+struct WSErrorEntry *e;
+```
 ## Detailed Description
 This function performs a linear search through the WSErrors array to find an entry matching the provided Windows socket error code. When a match is found, it copies the associated error description string to the destination buffer using strcpy(). The function implements a simple lookup mechanism for translating numeric Winsock error codes into descriptive text messages, which is essential for providing meaningful error reporting in Windows socket operations.
 

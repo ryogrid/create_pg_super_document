@@ -8,7 +8,13 @@ PTIterationArray is a data structure used for managing shared iteration over pag
 
 ## Definition
 
-
+```c
+typedef struct PTIterationArray
+{
+	pg_atomic_uint32 refcount;	/* no. of iterator attached */
+	int			index[FLEXIBLE_ARRAY_MEMBER];	/* index array */
+} PTIterationArray;
+```
 ## Detailed Description
 PTIterationArray serves as a shared data structure that facilitates concurrent iteration over pagetable entries in the TID bitmap system. It maintains an atomic reference counter to track the number of iterators currently attached to the structure, ensuring proper resource management in multi-process environments. The flexible array member 'index' stores the actual indices that are being iterated over, allowing for variable-length arrays based on the number of pagetable entries.
 

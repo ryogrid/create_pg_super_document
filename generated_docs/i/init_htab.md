@@ -8,7 +8,10 @@ Initializes a hash table by computing derived fields of the hash control structu
 
 ## Definition
 
-
+```c
+static bool
+init_htab(HTAB *hashp, long nelem)
+```
 ## Detailed Description
 The  function is a static helper function that performs the crucial initialization work for PostgreSQL's dynamic hash tables. It calculates the optimal number of buckets based on the expected number of elements, sets up the directory structure for managing segments, and allocates the initial memory segments needed for hash table operations.
 

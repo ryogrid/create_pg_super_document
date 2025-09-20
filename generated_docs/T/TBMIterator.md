@@ -8,7 +8,16 @@ TBMIterator is a stateful iterator structure that enables sorted traversal of TI
 
 ## Definition
 
-
+```c
+struct TBMIterator
+{
+	TIDBitmap  *tbm;			/* TIDBitmap we're iterating over */
+	int			spageptr;		/* next spages index */
+	int			schunkptr;		/* next schunks index */
+	int			schunkbit;		/* next bit to check in current schunk */
+	TBMIterateResult output;	/* MUST BE LAST (because variable-size) */
+};
+```
 ## Detailed Description
 TBMIterator provides a mechanism for sequential, sorted access to the tuple identifiers stored in a TIDBitmap. The iterator maintains separate pointers for exact pages (spageptr) and lossy chunks (schunkptr), allowing it to traverse both types of entries in block number order. 
 

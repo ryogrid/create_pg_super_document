@@ -8,7 +8,10 @@ A PostgreSQL C function that creates and initializes a TidStore for testing purp
 
 ## Definition
 
-
+```c
+Datum
+test_create(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function creates a TidStore (Tuple Identifier Store) for testing the tidstore functionality. It supports two creation modes:
 - **Shared mode**: Creates the tidstore using Dynamic Shared Area (DSA) for inter-process communication

@@ -8,7 +8,10 @@ A configuration function for SP-GiST quadtree indexes on 2D geometric types that
 
 ## Definition
 
-
+```c
+Datum
+spg_bbox_quad_config(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function configures SP-GiST index parameters for 2D geometric types that use bounding box representations for spatial indexing. It sets up the index to use BOX type for both prefix (internal nodes) and leaf storage, with no node labels required. The configuration is designed for lossy representation where the original geometric object is approximated by its bounding box for indexing purposes. This approach trades some precision for improved performance in spatial queries.
 

@@ -8,7 +8,20 @@ A custom time structure used by PostgreSQL's formatting functions to support bot
 
 ## Definition
 
-
+```c
+struct fmt_tm
+{
+	int			tm_sec;
+	int			tm_min;
+	int64		tm_hour;
+	int			tm_mday;
+	int			tm_mon;
+	int			tm_year;
+	int			tm_wday;
+	int			tm_yday;
+	long int	tm_gmtoff;
+};
+```
 ## Detailed Description
 The fmt_tm structure is a custom datetime representation used specifically by PostgreSQL's formatting system for datetime-to-character conversion. It's designed as an enhanced version of the standard pg_tm struct with a key difference: the tm_hour field is 64-bit (int64) instead of the standard int, allowing it to handle very large hour values that can occur in interval calculations. This structure omits the tm_isdst and tm_zone fields from the standard tm struct since they are not needed for formatting operations. The structure supports both timestamp and interval data types, making it versatile for various temporal formatting scenarios.
 

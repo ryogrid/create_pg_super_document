@@ -8,7 +8,10 @@ Converts a NameData type to a bpchar (blank-padded character) type by leveraging
 
 ## Definition
 
-
+```c
+Datum
+name_bpchar(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs type conversion from PostgreSQL's internal  type to the  type. It uses the text conversion infrastructure to accomplish this conversion, which is appropriate given that BpChar and text types are equivalent in their internal representation. The function extracts the string representation from the NameData input and converts it to a BpChar result using the existing  utility function.
 

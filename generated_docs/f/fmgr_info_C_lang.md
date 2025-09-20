@@ -8,7 +8,10 @@ This static function handles special processing for initializing FmgrInfo struct
 
 ## Definition
 
-
+```c
+static void
+fmgr_info_C_lang(Oid functionId, FmgrInfo *finfo, HeapTuple procedureTuple)
+```
 ## Detailed Description
 fmgr_info_C_lang specializes in setting up function manager information for C-language functions. It first attempts to find the function in a hash table cache to avoid repeated expensive operations. If not cached, it:
 

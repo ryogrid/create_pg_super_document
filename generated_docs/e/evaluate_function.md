@@ -8,7 +8,14 @@ Attempts to pre-evaluate a function call during query optimization by checking i
 
 ## Definition
 
-
+```c
+static Expr *
+evaluate_function(Oid funcid, Oid result_type, int32 result_typmod,
+				  Oid result_collid, Oid input_collid, List *args,
+				  bool funcvariadic,
+				  HeapTuple func_tuple,
+				  eval_const_expressions_context *context)
+```
 ## Detailed Description
 This function performs constant folding optimization on function calls. It can simplify function calls in two main scenarios:
 1. For strict functions with any constant-NULL inputs: returns a NULL constant since the function will never be called

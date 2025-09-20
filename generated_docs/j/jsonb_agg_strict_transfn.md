@@ -8,7 +8,10 @@ Transition function for the strict variant of JSONB array aggregation that exclu
 
 ## Definition
 
-
+```c
+Datum
+jsonb_agg_strict_transfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for the  aggregate function, which collects input values into a JSONB array while excluding NULL values. It acts as a thin wrapper around , passing  for the  parameter to ensure NULL values are not included in the resulting array. This function is called once for each input row during aggregate processing.
 

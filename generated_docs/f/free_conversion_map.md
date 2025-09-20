@@ -8,7 +8,10 @@ Deallocates a TupleConversionMap structure and all its associated memory resourc
 
 ## Definition
 
-
+```c
+void
+free_conversion_map(TupleConversionMap *map)
+```
 ## Detailed Description
 This function performs complete memory deallocation of a TupleConversionMap structure, which is used in PostgreSQL to convert tuples between different formats or schemas. The function systematically frees all dynamically allocated components of the conversion map, including the attribute mapping, value arrays, and null indicator arrays. Importantly, the function does not free the input and output tuple descriptors (indesc and outdesc) as these are managed elsewhere and may be shared across multiple conversion maps.
 

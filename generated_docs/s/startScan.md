@@ -8,7 +8,10 @@ Initializes a GIN index scan by starting all scan entries and implementing fuzzy
 
 ## Definition
 
-
+```c
+static void
+startScan(IndexScanDesc scan)
+```
 ## Detailed Description
 The startScan function orchestrates the initialization of a complete GIN index scan operation. It performs two main phases: first, it initializes all individual scan entries using startScanEntry, and second, it applies fuzzy search optimizations when GinFuzzySearchLimit is configured.
 

@@ -8,7 +8,10 @@ A utility function that safely sets a locale category to a specified value with 
 
 ## Definition
 
-
+```c
+static void
+init_locale(const char *categoryname, int category, const char *locale)
+```
 ## Detailed Description
 This function provides a robust way to initialize locale settings during PostgreSQL startup. It attempts to set the specified locale category to the desired locale value, but includes a fallback mechanism to ensure the system can always establish a valid locale setting.
 

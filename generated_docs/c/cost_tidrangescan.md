@@ -8,7 +8,12 @@ Determines and sets the costs of scanning a relation using a range of TIDs, prov
 
 ## Definition
 
-
+```c
+void
+cost_tidrangescan(Path *path, PlannerInfo *root,
+				  RelOptInfo *baserel, List *tidrangequals,
+				  ParamPathInfo *param_info)
+```
 ## Detailed Description
 The `cost_tidrangescan` function calculates the cost of performing a TID range scan, which is an access method that can scan a contiguous range of tuple identifiers rather than individual TIDs. This is more efficient than individual TID lookups when scanning multiple consecutive tuples. The costing model accounts for the fact that the first page requires a random seek, but subsequent pages in the range can be accessed sequentially. The function uses selectivity estimation to determine how many pages and tuples will be accessed, then applies both random and sequential page costs appropriately. The design intentionally makes TID range scans cost slightly more than equivalent sequential scans to prefer sequential scans when they offer benefits like scan synchronization and parallelization.
 

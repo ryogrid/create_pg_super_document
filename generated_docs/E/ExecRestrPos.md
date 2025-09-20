@@ -8,7 +8,10 @@ ExecRestrPos restores the scan position that was previously saved with ExecMarkP
 
 ## Definition
 
-
+```c
+void
+ExecRestrPos(PlanState *node)
+```
 ## Detailed Description
 ExecRestrPos is the counterpart to ExecMarkPos, restoring a plan node's scan position to a location that was previously marked. This function is critical for implementing algorithms that need to re-read portions of input data, particularly in MergeJoin operations where duplicate values may require backing up and re-scanning sections of the inner relation.
 

@@ -8,7 +8,10 @@ Retrieves information about publication membership for dumpable tables, creating
 
 ## Definition
 
-
+```c
+void
+getPublicationTables(Archive *fout, TableInfo tblinfo[], int numTables)
+```
 ## Detailed Description
 This function queries the  system catalog to collect information about which tables are included in publications. It creates  objects for each publication-table relationship that should be dumped. The function handles version-specific features, supporting row filters (prrelqual) and column lists (prattrs) for PostgreSQL 15.0 and later, while maintaining compatibility with earlier versions (10.0+).
 

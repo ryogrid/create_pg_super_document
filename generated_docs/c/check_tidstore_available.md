@@ -8,7 +8,10 @@ A static utility function that verifies the tidstore has been properly initializ
 
 ## Definition
 
-
+```c
+static void
+check_tidstore_available(void)
+```
 ## Detailed Description
 This function performs a simple but critical validation check to ensure that the global tidstore variable has been initialized before any tidstore operations are attempted. It serves as a guard function to prevent operations on uninitialized tidstore instances, which would cause crashes or undefined behavior.
 

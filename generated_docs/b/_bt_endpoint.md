@@ -8,7 +8,10 @@ Finds the first or last page in a B-tree index and scans from there to locate th
 
 ## Definition
 
-
+```c
+static bool
+_bt_endpoint(IndexScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 This function implements the endpoint scanning strategy for B-tree index scans when the scan must start at the very beginning or end of the index. It serves as a specialized version of the general search algorithm, optimized for cases where no key-based positioning is needed. The function handles both forward scans (starting from leftmost page) and backward scans (starting from rightmost page).
 

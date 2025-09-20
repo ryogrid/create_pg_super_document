@@ -8,7 +8,10 @@ Saves the original argc/argv values during early startup and prepares the proces
 
 ## Definition
 
-
+```c
+char	  **
+save_ps_display_args(int argc, char **argv)
+```
 ## Detailed Description
 This function is called early in PostgreSQL startup to preserve the original command-line arguments before they may be modified for process status display purposes. On platforms that support argv clobbering (PS_USE_CLOBBER_ARGV), it calculates the available space in the argv area and relocates environment strings to make room for longer status displays.
 

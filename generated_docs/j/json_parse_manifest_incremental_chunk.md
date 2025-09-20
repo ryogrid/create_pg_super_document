@@ -8,7 +8,11 @@ Processes a chunk of JSON manifest data incrementally, updating the hash and par
 
 ## Definition
 
-
+```c
+void
+json_parse_manifest_incremental_chunk(JsonManifestParseIncrementalState *incstate,
+									  const char *chunk, size_t size, bool is_last)
+```
 ## Detailed Description
 This function is the core of incremental JSON manifest parsing, processing individual chunks of manifest data as they become available. It performs incremental JSON parsing using the PostgreSQL JSON parser, maintains a running cryptographic hash of the manifest content (except for the final chunk which contains the checksum), and validates parsing state transitions.
 

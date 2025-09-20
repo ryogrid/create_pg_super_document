@@ -8,7 +8,10 @@ SQL function that converts a PostgreSQL type OID and typemod into a human-readab
 
 ## Definition
 
-
+```c
+Datum
+format_type(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL function that takes a type OID from  and an optional typemod from  and returns a formatted type name string. It serves as the primary interface for converting internal PostgreSQL type representations into readable SQL type names.
 

@@ -8,7 +8,9 @@ A PostgreSQL test function that retrieves all environment variables from the cur
 
 ## Definition
 
-
+```c
+struct_array_builtin(env, nvals, TEXTOID);
+```
 ## Detailed Description
 The  function is a test utility that provides access to the process environment variables from within PostgreSQL. It accesses the global  variable (a null-terminated array of strings) that contains all environment variables in "KEY=VALUE" format, counts the total number of environment variables, and constructs a PostgreSQL array containing all environment variable strings as text elements. This function is useful for regression testing scenarios where the test environment setup needs to be verified or when testing PostgreSQL's interaction with the operating system environment. The function allocates memory to store all environment variable strings as PostgreSQL Datum values and constructs a proper PostgreSQL array type for return.
 

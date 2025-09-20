@@ -8,7 +8,15 @@ ConvProcInfo is a structure that caches function manager lookup information for 
 
 ## Definition
 
-
+```c
+typedef struct ConvProcInfo
+{
+	int			s_encoding;		/* server and client encoding IDs */
+	int			c_encoding;
+	FmgrInfo	to_server_info; /* lookup info for conversion procs */
+	FmgrInfo	to_client_info;
+} ConvProcInfo;
+```
 ## Detailed Description
 ConvProcInfo is a caching structure used in PostgreSQL's multi-byte character encoding system. It maintains a simple linked list that stores function manager (fmgr) lookup information for the currently selected conversion functions, as well as any that have been selected previously in the current session. This caching mechanism is crucial for performance optimization as it avoids repeated catalog lookups for encoding conversion functions.
 

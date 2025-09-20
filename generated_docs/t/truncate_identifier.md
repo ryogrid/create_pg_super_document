@@ -8,7 +8,10 @@ A utility function that truncates SQL identifiers to PostgreSQL's maximum allowe
 
 ## Definition
 
-
+```c
+void
+truncate_identifier(char *ident, int len, bool warn)
+```
 ## Detailed Description
 This function ensures that identifiers do not exceed PostgreSQL's maximum identifier length (NAMEDATALEN-1 bytes) by truncating them in-place when necessary. The function is designed to handle multi-byte character encodings correctly by using  to find an appropriate truncation point that doesn't split multi-byte characters.
 

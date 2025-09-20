@@ -8,7 +8,10 @@ Returns the name of a custom wait event based on the provided wait event informa
 
 ## Definition
 
-
+```c
+static const char *
+GetWaitEventCustomIdentifier(uint32 wait_event_info)
+```
 ## Detailed Description
 This static function retrieves the human-readable name string for a custom wait event given its numeric identifier. It first checks if the wait event is the built-in "Extension" event (PG_WAIT_EXTENSION), and if not, performs a hash table lookup to find the corresponding custom wait event name. The function uses shared locking on WaitEventCustomLock to ensure thread-safe access to the hash table during the lookup operation.
 

@@ -8,7 +8,12 @@ Computes the combined evaluation costs of a base relation's restriction qualifie
 
 ## Definition
 
-
+```c
+static void
+get_restriction_qual_cost(PlannerInfo *root, RelOptInfo *baserel,
+						  ParamPathInfo *param_info,
+						  QualCost *qpqual_cost)
+```
 ## Detailed Description
 The  function provides a convenient way to calculate the total cost of evaluating all qualification clauses that will be applied during a base relation scan. It handles two scenarios:
 

@@ -8,7 +8,10 @@ Initializes check constraint expressions for execution outside a normal Plan tre
 
 ## Definition
 
-
+```c
+ExprState *
+ExecPrepareCheck(List *qual, EState *estate)
+```
 ## Detailed Description
 ExecPrepareCheck is a specialized function that prepares check constraint expressions for execution outside the normal query planning and execution pipeline. It is specifically designed for constraint validation expressions that need to be evaluated to ensure data integrity.
 

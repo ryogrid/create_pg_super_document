@@ -8,7 +8,10 @@ The core recursive function that traverses an expression tree to assign collatio
 
 ## Definition
 
-
+```c
+static bool
+assign_collations_walker(Node *node, assign_collations_context *context)
+```
 ## Detailed Description
 This function is the recursive workhorse of PostgreSQL's collation assignment system. It walks through every node in an expression tree, determining the appropriate collation for each node based on several factors:
 

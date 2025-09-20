@@ -8,7 +8,11 @@ ExecInitIndexScan initializes the execution state for an index scan node, settin
 
 ## Definition
 
-
+```c
+structure
+	 */
+	indexstate = makeNode(IndexScanState);
+```
 ## Detailed Description
 ExecInitIndexScan is the initialization function for index scan execution nodes. It creates and configures an IndexScanState structure containing all the information needed to execute index scans. The function handles both the base relation and index relation setup, as index scans require tracking two separate relations.
 

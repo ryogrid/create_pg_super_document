@@ -8,7 +8,10 @@ Removes a target file, directory, or symbolic link based on the file entry's typ
 
 ## Definition
 
-
+```c
+void
+remove_target(file_entry_t *entry)
+```
 ## Detailed Description
 This function is a dispatcher that removes different types of target file system objects based on their type. It validates that the file entry is marked for removal (FILE_ACTION_REMOVE) and that the target exists before proceeding. The function uses a switch statement to delegate to specific removal functions based on the target file type (regular file, directory, or symbolic link). It includes safety assertions to ensure the function is called with appropriate file entries and handles undefined file types as fatal errors.
 

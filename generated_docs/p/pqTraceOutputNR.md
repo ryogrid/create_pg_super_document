@@ -8,7 +8,11 @@ A static utility function that outputs trace information for NoticeResponse and 
 
 ## Definition
 
-
+```c
+static void
+pqTraceOutputNR(FILE *f, const char *type, const char *message, int *cursor,
+				bool regress)
+```
 ## Detailed Description
 This function provides shared code for tracing NoticeResponse and ErrorResponse protocol messages. It iterates through the message fields, extracting and formatting each field according to the PostgreSQL frontend/backend protocol. The function handles field suppression during regression testing to ensure consistent test output by hiding fields that may vary between test runs (such as line numbers, file names, and routine names).
 

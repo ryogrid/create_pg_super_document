@@ -8,7 +8,10 @@ Broadcasts the reason for a system shutdown by setting a shared memory field tha
 
 ## Definition
 
-
+```c
+void
+SetQuitSignalReason(QuitSignalReason reason)
+```
 ## Detailed Description
 This function sets the shutdown reason in shared memory before the postmaster sends SIGQUIT signals to child processes. It stores the reason in the PMSignalState structure, allowing child processes to understand why they are being terminated. The function is typically called by the postmaster during controlled shutdown scenarios to provide context about whether the shutdown is due to a crash, an immediate stop command, or other reasons. In crash-and-restart scenarios, the reason field is automatically cleared as part of shared memory reconstruction, so explicit clearing by the postmaster is not required.
 

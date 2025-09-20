@@ -8,7 +8,10 @@ Calculates the number of decimal digits required to represent a 32-bit unsigned 
 
 ## Definition
 
-
+```c
+static inline int
+decimalLength32(const uint32 v)
+```
 ## Detailed Description
 This function efficiently computes the decimal length (number of digits) of a 32-bit unsigned integer using a bit manipulation technique adapted from Stanford's bit manipulation algorithms. Instead of performing division operations, it uses a mathematical approximation based on the position of the leftmost bit to estimate the base-10 logarithm, then validates the result using a lookup table of powers of ten.
 

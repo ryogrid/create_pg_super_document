@@ -8,7 +8,10 @@ A utility function that removes quotes from a string in-place, handling both lea
 
 ## Definition
 
-
+```c
+void
+strip_quotes(char *source, char quote, char escape, int encoding)
+```
 ## Detailed Description
 The strip_quotes function modifies a string in-place to remove quote characters and process escape sequences. It removes leading and trailing occurrences of the specified quote character, converts doubled quote characters to single quotes (a common SQL escaping convention), and processes escape sequences where the escape character removes special significance from the following character. The function is designed to work with multi-byte character encodings and is commonly used to clean up tokens that have been parsed with quote preservation.
 

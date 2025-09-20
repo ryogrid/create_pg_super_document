@@ -8,7 +8,10 @@ Implements the inequality comparison operator (!=, <>) for PostgreSQL's cash/mon
 
 ## Definition
 
-
+```c
+Datum
+cash_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs inequality comparison between two cash values in PostgreSQL. It takes two cash arguments and returns a boolean result indicating whether the two values are not equal. This function is part of the comparison operator family for the money data type and is used when SQL queries contain inequality comparisons (using != or <> operators) between cash/money values.
 

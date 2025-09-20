@@ -8,7 +8,13 @@ MdfdVec is a structure that represents a single segment file descriptor in Postg
 
 ## Definition
 
-
+```c
+typedef struct _MdfdVec
+{
+	File		mdfd_vfd;		/* fd number in fd.c's pool */
+	BlockNumber mdfd_segno;		/* segment number, from 0 */
+} MdfdVec;
+```
 ## Detailed Description
 MdfdVec is a fundamental data structure in PostgreSQL's storage management system, specifically within the magnetic disk (md) storage manager located in src/backend/storage/smgr/md.c. This structure serves as a descriptor for individual segment files that make up larger PostgreSQL relation files.
 

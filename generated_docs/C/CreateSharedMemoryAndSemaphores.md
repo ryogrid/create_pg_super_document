@@ -8,7 +8,10 @@ Creates and initializes the entire shared memory segment and semaphore infrastru
 
 ## Definition
 
-
+```c
+void
+CreateSharedMemoryAndSemaphores(void)
+```
 ## Detailed Description
 CreateSharedMemoryAndSemaphores is the central orchestrator for establishing PostgreSQL's shared memory infrastructure. This function is exclusively called by the postmaster process during startup and performs a comprehensive initialization sequence.
 

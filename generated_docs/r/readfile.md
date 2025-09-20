@@ -8,7 +8,9 @@ Reads all lines from a text file and returns them as a dynamically allocated arr
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The  function is a utility function in initdb that reads an entire text file and returns its contents as an array of strings. Each line in the file becomes a separate string in the result array. The function handles dynamic memory allocation, automatically growing the result array as needed while reading the file.
 

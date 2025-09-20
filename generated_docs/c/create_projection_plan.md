@@ -8,7 +8,13 @@ Creates a projection plan that computes a specific target list of expressions, o
 
 ## Definition
 
-
+```c
+struction,
+	 * so being formally correct might just make the EXPLAIN output look less
+	 * consistent not more so.  Hence, just copy the subplan's cost.
+	 */
+	copy_plan_costsize(plan, subplan);
+```
 ## Detailed Description
 The  function implements PostgreSQL's projection step, which computes a specific set of expressions (target list) from input tuples. The function intelligently determines whether a separate Result node is needed or if the projection can be pushed down to the subplan.
 

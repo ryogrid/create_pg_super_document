@@ -8,7 +8,11 @@ The hash: hash table empty function constructs a hash code for a bitvector array
 
 ## Definition
 
-
+```c
+static unsigned
+hash(unsigned *uv,
+	 int n)
+```
 ## Detailed Description
 This function implements a simple but effective hash algorithm for bitvectors by performing XOR operations across all elements of an unsigned integer array. The hash is used to quickly identify and cache DFA state sets. The implementation prioritizes speed over hash quality, as noted in the source comments that "there are probably better ways, but they're more expensive."
 

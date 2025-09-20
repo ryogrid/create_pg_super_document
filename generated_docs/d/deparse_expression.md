@@ -8,7 +8,11 @@ A general utility function for deparsing expressions that calls deparse_expressi
 
 ## Definition
 
-
+```c
+char *
+deparse_expression(Node *expr, List *dpcontext,
+				   bool forceprefix, bool showimplicit)
+```
 ## Detailed Description
 This function serves as a simplified wrapper around deparse_expression_pretty, providing a convenient interface for expression deparsing when pretty printing is not needed. It converts a PostgreSQL expression node tree back into its string representation using the provided deparse context. The function always calls deparse_expression_pretty with prettyFlags=0 and startIndent=0, effectively disabling all formatting enhancements.
 

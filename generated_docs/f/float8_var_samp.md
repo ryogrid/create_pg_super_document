@@ -8,7 +8,10 @@ Final function for the VAR_SAMP aggregate that computes the sample variance from
 
 ## Definition
 
-
+```c
+Datum
+float8_var_samp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the final function for PostgreSQL's VAR_SAMP (sample variance) aggregate when operating on floating-point data. It computes the sample variance by dividing the sum of squared deviations (Sxx) by (N-1), where N is the count of values. This implements Bessel's correction, which provides an unbiased estimator of the population variance from a sample.
 

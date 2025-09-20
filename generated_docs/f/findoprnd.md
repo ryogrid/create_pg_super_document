@@ -8,7 +8,9 @@ A wrapper function that initiates the process of filling in left-offset fields f
 
 ## Definition
 
-
+```c
+struct TSQueryParserStateData state;
+```
 ## Detailed Description
 The findoprnd function serves as the entry point for processing a tsquery structure in polish notation to compute operator left-offset fields and detect stop words. It initializes the traversal position and needcleanup flag, then delegates the actual work to findoprnd_recurse. After the recursive traversal completes, it performs a validation check to ensure all nodes in the array were processed correctly. If the final position doesn't match the expected size, it indicates a malformed tsquery structure and raises an error. This function is essential for converting a parsed tsquery into its final executable form with properly computed operator offsets.
 

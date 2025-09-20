@@ -8,7 +8,10 @@ LockHasWaiters determines whether releasing a specific lock would wake up other 
 
 ## Definition
 
-
+```c
+bool
+LockHasWaiters(const LOCKTAG *locktag, LOCKMODE lockmode, bool sessionLock)
+```
 ## Detailed Description
 LockHasWaiters performs a non-intrusive check to determine if other processes are waiting for a lock that the current process holds. It validates that the current process actually owns the specified lock, then examines the shared lock table to check if there are waiters whose lock requests conflict with the specified lock mode. This function is crucial for optimizing lock release operations and understanding contention patterns without actually releasing the lock.
 

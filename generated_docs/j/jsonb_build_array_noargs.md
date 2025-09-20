@@ -8,7 +8,10 @@ A PostgreSQL function that handles the degenerate case of  when called with zero
 
 ## Definition
 
-
+```c
+Datum
+jsonb_build_array_noargs(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is specifically designed to handle the case where  is called without any arguments. It creates an empty JSONB array  by directly constructing the JSONB structure without processing any elements. This is a performance optimization that avoids the overhead of variadic argument processing when no arguments are provided.
 

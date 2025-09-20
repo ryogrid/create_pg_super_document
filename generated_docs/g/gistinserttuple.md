@@ -8,7 +8,11 @@ A convenience wrapper function that inserts or replaces a single tuple in a GiST
 
 ## Definition
 
-
+```c
+static bool
+gistinserttuple(GISTInsertState *state, GISTInsertStack *stack,
+				GISTSTATE *giststate, IndexTuple tuple, OffsetNumber oldoffnum)
+```
 ## Detailed Description
 gistinserttuple is a simplified interface to the GiST tuple insertion mechanism. It handles the common case of inserting or replacing a single tuple on a GiST index page. The function acts as a thin wrapper around gistinserttuples, converting single-tuple operations into the multi-tuple format expected by the underlying implementation.
 

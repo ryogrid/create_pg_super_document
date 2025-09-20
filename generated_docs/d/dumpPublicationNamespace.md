@@ -8,7 +8,10 @@ Generates SQL commands to recreate publication schema mappings by producing ALTE
 
 ## Definition
 
-
+```c
+static void
+dumpPublicationNamespace(Archive *fout, const PublicationSchemaInfo *pubsinfo)
+```
 ## Detailed Description
 This function generates the SQL DDL necessary to recreate a publication's schema membership. It creates an  statement that adds all tables in a specific schema to a publication. The function is part of pg_dump's output generation phase and creates archive entries that will be written to the dump file.
 

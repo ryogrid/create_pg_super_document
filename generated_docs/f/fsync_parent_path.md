@@ -8,7 +8,10 @@ A static function that synchronizes the parent directory of a given file or dire
 
 ## Definition
 
-
+```c
+int
+fsync_parent_path(const char *fname)
+```
 ## Detailed Description
  extracts the parent directory path from the given filename and performs an fsync operation on it. This is crucial for ensuring that directory metadata changes (such as file creation, deletion, or renaming) are persistently written to disk, which is essential for crash recovery and ACID guarantees. The function handles the special case where the input is just a filename without a directory path by treating it as the current directory ("."). It uses  to extract the parent path and  to perform the actual synchronization.
 

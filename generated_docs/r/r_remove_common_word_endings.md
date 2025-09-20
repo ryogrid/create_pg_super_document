@@ -8,7 +8,11 @@ Removes common word endings from Tamil words as part of the Tamil stemming algor
 
 ## Definition
 
+```c
+}
 
+static int r_remove_common_word_endings(struct SN_env * z)
+```
 ## Detailed Description
 This function is a critical component of the Tamil stemming process that identifies and removes various common word endings from Tamil words. The function operates by:
 

@@ -8,7 +8,11 @@ A static function that computes a hash value for a set of catalog cache lookup k
 
 ## Definition
 
-
+```c
+static uint32
+CatalogCacheComputeHashValue(CatCache *cache, int nkeys,
+							 Datum v1, Datum v2, Datum v3, Datum v4)
+```
 ## Detailed Description
 The `CatalogCacheComputeHashValue` function creates a composite hash value from multiple lookup keys (up to 4) for catalog cache operations. It uses the hash functions stored in the cache's `cc_hashfunc` array to compute individual hash values for each key, then combines them using XOR operations with bit rotation. The bit rotation (using `pg_rotate_left32`) is applied at different amounts (24, 16, 8 bits) for each key position to ensure that identical values in different key positions produce different contributions to the final hash. This technique helps maintain good hash distribution and reduces collisions. The function uses a fallthrough switch statement to handle caches with 1-4 keys efficiently, and includes debug logging for troubleshooting cache performance.
 

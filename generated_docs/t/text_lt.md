@@ -8,7 +8,10 @@ PostgreSQL function implementing the less-than comparison operator (`<`) for tex
 
 ## Definition
 
-
+```c
+Datum
+text_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `text_lt` implements the PostgreSQL `<` operator for text data types. It provides a straightforward wrapper around `text_cmp`, extracting the text arguments and calling the comparison function with the current collation context. The function returns true if the first text argument is lexicographically less than the second according to the specified collation rules. It handles memory management for potentially toasted text values and follows the standard PostgreSQL function call convention.
 

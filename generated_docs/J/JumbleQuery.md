@@ -8,7 +8,10 @@ JumbleQuery is the main function that generates a unique query identifier (query
 
 ## Definition
 
-
+```c
+JumbleState *
+JumbleQuery(Query *query)
+```
 ## Detailed Description
 JumbleQuery processes a parsed SQL query (Query node) to generate a unique identifier that can be used to group similar queries together regardless of parameter values or formatting differences. It creates a JumbleState workspace, recursively processes the query tree structure using _jumbleNode to create a normalized representation, and then computes a hash value that becomes the query's unique identifier. The function handles edge cases where the hash might be zero by using fallback values (1 for normal statements, 2 for utility statements).
 

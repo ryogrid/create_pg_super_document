@@ -8,7 +8,28 @@ RemoveGUCFromLists is a static helper function that summarily removes a GUC (Gra
 
 ## Definition
 
+```c
+struct config_generic *gconf)
+{
+	if (gconf->source != PGC_S_DEFAULT)
+		dlist_delete(&gconf->nondef_link);
+	if (gconf->stack != NULL)
+		slist_delete(&guc_stack_list, &gconf->stack_link);
+	if (gconf->status & GUC_NEEDS_REPORT)
+		slist_delete(&guc_report_list, &gconf->report_link);
+}
 
+
+/*
+ * Select the configuration files and data directory to be used, and
+ * do the initial read of postgresql.conf.
+ *
+ * This is called after processing command-line switches.
+ *		userDoption is the -D switch value if any (NULL if unspecified).
+ *		progname is just for use in error messages.
+ *
+ * Returns true on success;
+```
 ## Detailed Description
 This function performs cleanup operations on a GUC variable by removing it from three possible linked lists maintained by the GUC system:
 

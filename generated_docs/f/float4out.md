@@ -8,7 +8,10 @@ PostgreSQL function that converts a single-precision floating-point number (floa
 
 ## Definition
 
-
+```c
+Datum
+float4out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The float4out function is a PostgreSQL built-in function that handles the conversion of float4 values to their textual representation. It uses PostgreSQL's function calling conventions (PG_FUNCTION_ARGS) and returns a Datum containing a C-string. The function supports two output modes: when extra_float_digits is greater than 0, it uses the shortest decimal representation; otherwise, it uses pg_strfromd() with a controlled number of significant digits based on FLT_DIG plus extra_float_digits.
 

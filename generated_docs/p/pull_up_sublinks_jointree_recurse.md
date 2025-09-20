@@ -8,7 +8,11 @@ Recursively processes jointree nodes for pull_up_sublinks, transforming SubLinks
 
 ## Definition
 
-
+```c
+union(leftrelids,
+																   rightrelids),
+														 NULL, NULL);
+```
 ## Detailed Description
 This is the core recursive function that implements the SubLink pull-up transformation for different types of jointree nodes. It traverses the query's jointree structure and delegates SubLink processing to pull_up_sublinks_qual_recurse for the qualification clauses.
 

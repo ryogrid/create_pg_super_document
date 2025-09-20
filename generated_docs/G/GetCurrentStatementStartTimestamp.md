@@ -8,7 +8,10 @@ Returns the timestamp marking the start of the current SQL statement execution, 
 
 ## Definition
 
-
+```c
+TimestampTz
+GetCurrentStatementStartTimestamp(void)
+```
 ## Detailed Description
 This function returns the value stored in the global variable `stmtStartTimestamp`, which represents the timestamp when the current SQL statement began execution. This timestamp is set once at the beginning of each statement via `SetCurrentStatementStartTimestamp()` and remains constant throughout the statement's execution, ensuring consistent time references within a single statement's processing.
 

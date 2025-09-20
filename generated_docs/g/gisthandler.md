@@ -8,7 +8,10 @@ The gisthandler function is the main entry point for the GiST (Generalized Searc
 
 ## Definition
 
-
+```c
+Datum
+gisthandler(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the handler for the GiST access method, creating and configuring an IndexAmRoutine structure that defines all the capabilities and function pointers for GiST operations. It sets up the access method's properties such as whether it supports ordering, uniqueness, multi-column indexes, and various other characteristics. The function also assigns all the callback functions that implement the actual GiST operations like building, inserting, scanning, and maintenance.
 

@@ -8,7 +8,10 @@ Re-attaches a postmaster child process to an existing shared memory segment in t
 
 ## Definition
 
-
+```c
+void
+PGSharedMemoryReAttach(void)
+```
 ## Detailed Description
 This function is specifically designed for the EXEC_BACKEND case where postmaster child processes need to explicitly re-attach to the shared memory segment that was created by the postmaster. In normal configurations, child processes inherit the shared memory attachment through fork(), making this function unnecessary.
 

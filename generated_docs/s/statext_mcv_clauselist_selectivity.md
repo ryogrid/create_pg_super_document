@@ -8,7 +8,13 @@ Estimates clause selectivity using the best multi-column MCV (Most Common Values
 
 ## Definition
 
-
+```c
+static Selectivity
+statext_mcv_clauselist_selectivity(PlannerInfo *root, List *clauses, int varRelid,
+								   JoinType jointype, SpecialJoinInfo *sjinfo,
+								   RelOptInfo *rel, Bitmapset **estimatedclauses,
+								   bool is_or)
+```
 ## Detailed Description
 This function implements a sophisticated selectivity estimation algorithm using extended multi-column MCV statistics. It employs a greedy approach, iteratively selecting the best statistics object that covers the most remaining clauses and applying it to estimate their combined selectivity. The function handles both AND-ed and OR-ed clause lists differently: for AND clauses, it multiplies selectivities together, while for OR clauses it uses the inclusion-exclusion principle to account for overlaps. The algorithm combines simple selectivity (assuming column independence), MCV selectivity (from actual statistics), base selectivity, and total selectivity using mcv_combine_selectivities to produce accurate estimates that leverage both traditional and extended statistics.
 

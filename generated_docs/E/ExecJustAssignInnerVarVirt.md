@@ -8,7 +8,10 @@ An optimized expression evaluation function for assigning variables from virtual
 
 ## Definition
 
-
+```c
+static Datum
+ExecJustAssignInnerVarVirt(ExprState *state, ExprContext *econtext, bool *isnull)
+```
 ## Detailed Description
 ExecJustAssignInnerVarVirt is a specialized assignment function optimized for virtual tuple slots, specifically designed to handle inner tuple variables in join operations. This function is part of PostgreSQL's expression evaluation infrastructure and represents an optimization where the expression compiler can determine at compilation time that only virtual slots will be used for inner tuple access.
 

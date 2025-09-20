@@ -8,7 +8,10 @@ Converts the internal PostgreSQL BOX data type to its external string representa
 
 ## Definition
 
-
+```c
+Datum
+box_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL output conversion function that transforms a BOX structure into its string representation. It utilizes the  function with  delimiter type to format the box as two coordinate pairs representing the corners of the rectangle. The function generates output in the format "(x1,y1),(x2,y2)" where the coordinates represent the high and low corners of the box. This is the inverse operation of  and is used whenever PostgreSQL needs to display or export box values as text.
 

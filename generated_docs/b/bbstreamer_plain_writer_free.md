@@ -8,7 +8,10 @@ This function deallocates memory associated with a plain file writer bbstreamer 
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_plain_writer_free(bbstreamer *streamer)
+```
 ## Detailed Description
 The `bbstreamer_plain_writer_free` function is responsible for freeing memory allocated to a `bbstreamer_plain_writer` structure. Before deallocating memory, it performs assertions to ensure proper cleanup state: the file should already be closed (verified by `!should_close_file` assertion) and no downstream bbstreamers should be connected (verified by checking `bbs_next == NULL`). The function then frees the pathname string and the streamer structure itself using PostgreSQL's `pfree` function. This is part of the resource cleanup in PostgreSQL's backup streaming system.
 

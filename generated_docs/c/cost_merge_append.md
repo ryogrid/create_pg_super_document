@@ -8,7 +8,13 @@ Calculates the startup and total costs for a MergeAppend node, which merges mult
 
 ## Definition
 
-
+```c
+void
+cost_merge_append(Path *path, PlannerInfo *root,
+				  List *pathkeys, int n_streams,
+				  Cost input_startup_cost, Cost input_total_cost,
+				  double tuples)
+```
 ## Detailed Description
 The cost_merge_append function estimates the cost of executing a MergeAppend node in PostgreSQL's query planner. MergeAppend operations merge several pre-sorted input streams while maintaining sort order by using a heap data structure that holds the next tuple from each stream at any given moment.
 

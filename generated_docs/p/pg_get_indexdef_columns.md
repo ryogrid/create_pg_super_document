@@ -8,7 +8,10 @@ Returns the key-column definitions of a PostgreSQL index as a formatted string, 
 
 ## Definition
 
-
+```c
+char *
+pg_get_indexdef_columns(Oid indexrelid, bool pretty)
+```
 ## Detailed Description
 This function serves as an internal wrapper around pg_get_indexdef_worker to specifically extract and format the key-column definitions of an index. It focuses solely on the column specifications without including other index attributes like the index name, table name, or access method. The function sets specific flags to pg_get_indexdef_worker to ensure only key columns are returned in the output.
 

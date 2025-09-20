@@ -8,7 +8,18 @@ WaitEvent is a structure that represents individual events returned from Postgre
 
 ## Definition
 
-
+```c
+typedef struct WaitEvent
+{
+	int			pos;			/* position in the event data structure */
+	uint32		events;			/* triggered events */
+	pgsocket	fd;				/* socket fd associated with event */
+	void	   *user_data;		/* pointer provided in AddWaitEventToSet */
+#ifdef WIN32
+	bool		reset;			/* Is reset of the event required? */
+#endif
+} WaitEvent;
+```
 ## Detailed Description
 WaitEvent structures are returned by PostgreSQL's event waiting infrastructure to indicate which specific events have occurred during a wait operation. These events can include latch signaling, socket readiness (readable/writable), timeout expiration, or postmaster death detection.
 

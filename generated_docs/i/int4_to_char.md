@@ -8,7 +8,10 @@ A PostgreSQL built-in function that converts a 32-bit integer value to a formatt
 
 ## Definition
 
-
+```c
+Datum
+int4_to_char(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's TO_CHAR functionality specifically for 32-bit integer values. It takes an int32 value and a format pattern, then produces a formatted string representation according to the pattern specifications.
 

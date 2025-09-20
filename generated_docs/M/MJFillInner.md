@@ -8,7 +8,10 @@ MJFillInner generates a fake join tuple with nulls for the outer tuple and retur
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+MJFillInner(MergeJoinState *node)
+```
 ## Detailed Description
 MJFillInner is a specialized function in the merge join executor that handles the generation of result tuples when performing right outer joins. When the merge join needs to produce output tuples for inner side tuples that have no matching outer side tuples, this function creates a "fill" tuple by combining the current inner tuple with a null outer tuple.
 

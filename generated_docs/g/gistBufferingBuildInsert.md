@@ -8,7 +8,10 @@ Insert function for buffering-mode GiST index construction that routes index tup
 
 ## Definition
 
-
+```c
+static void
+gistBufferingBuildInsert(GISTBuildState *buildstate, IndexTuple itup)
+```
 ## Detailed Description
 This function implements the insertion logic for the buffering algorithm during GiST index construction. It serves as a higher-level coordinator that manages the two main phases of buffered insertion:
 

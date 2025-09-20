@@ -8,7 +8,11 @@ The getFuncs function retrieves all user-defined functions from the PostgreSQL s
 
 ## Definition
 
-
+```c
+structor
+	 * functions for range types.  Note this is OK only because the
+	 * constructors don't have any dependencies the range type doesn't have;
+```
 ## Detailed Description
 This function is part of pg_dump's catalog reading functionality that handles regular functions (non-aggregates). It implements sophisticated filtering logic to determine which functions should be included in the dump. The function constructs complex SQL queries that vary based on PostgreSQL version, filtering out aggregates, internally dependent functions (like range type constructors), and system functions in pg_catalog unless they meet specific criteria.
 

@@ -8,7 +8,34 @@ TransactionStateData is a core structure that maintains the complete state infor
 
 ## Definition
 
-
+```c
+typedef struct TransactionStateData
+{
+	FullTransactionId fullTransactionId;	/* my FullTransactionId */
+	SubTransactionId subTransactionId;	/* my subxact ID */
+	char	   *name;			/* savepoint name, if any */
+	int			savepointLevel; /* savepoint level */
+	TransState	state;			/* low-level state */
+	TBlockState blockState;		/* high-level state */
+	int			nestingLevel;	/* transaction nesting depth */
+	int			gucNestLevel;	/* GUC context nesting depth */
+	MemoryContext curTransactionContext;	/* my xact-lifetime context */
+	ResourceOwner curTransactionOwner;	/* my query resources */
+	TransactionId *childXids;	/* subcommitted child XIDs, in XID order */
+	int			nChildXids;		/* # of subcommitted child XIDs */
+	int			maxChildXids;	/* allocated size of childXids[] */
+	Oid			prevUser;		/* previous CurrentUserId setting */
+	int			prevSecContext; /* previous SecurityRestrictionContext */
+	bool		prevXactReadOnly;	/* entry-time xact r/o state */
+	bool		startedInRecovery;	/* did we start in recovery? */
+	bool		didLogXid;		/* has xid been included in WAL record? */
+	int			parallelModeLevel;	/* Enter/ExitParallelMode counter */
+	bool		parallelChildXact;	/* is any parent transaction parallel? */
+	bool		chain;			/* start a new block after this one */
+	bool		topXidLogged;	/* for a subxact: is top-level XID logged? */
+	struct TransactionStateData *parent;	/* back link to parent */
+} TransactionStateData;
+```
 ## Detailed Description
 TransactionStateData serves as the comprehensive state container for PostgreSQL's transaction management system. It tracks both low-level transaction states and high-level block states, manages nested subtransactions through a parent-child relationship, and maintains context for parallel execution modes. The structure supports PostgreSQL's sophisticated transaction nesting capabilities, including savepoints, and ensures proper resource management across transaction boundaries.
 

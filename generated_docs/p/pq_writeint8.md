@@ -8,7 +8,10 @@ A static inline function that appends an 8-bit unsigned integer to a StringInfo 
 
 ## Definition
 
-
+```c
+static inline void
+pq_writeint8(StringInfoData *pg_restrict buf, uint8 i)
+```
 ## Detailed Description
 The  function is a low-level utility function designed for efficient binary protocol data serialization in PostgreSQL. It directly writes an 8-bit unsigned integer value to a pre-allocated StringInfo buffer without performing any byte order conversion (since single bytes have no endianness). The function is implemented as a static inline function for maximum performance in protocol message construction.
 

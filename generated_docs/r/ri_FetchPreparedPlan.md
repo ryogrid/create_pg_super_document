@@ -8,7 +8,10 @@ Retrieves a cached SPI execution plan from the private hash table using a query 
 
 ## Definition
 
-
+```c
+static SPIPlanPtr
+ri_FetchPreparedPlan(RI_QueryKey *key)
+```
 ## Detailed Description
 This function implements a caching mechanism for SPI (Server Programming Interface) execution plans used in referential integrity triggers. It searches a private hash table for a previously prepared and cached plan using the provided query key. The function ensures plan validity before returning it, handling cases where the underlying database objects (tables, columns) may have been renamed or modified since the plan was cached.
 

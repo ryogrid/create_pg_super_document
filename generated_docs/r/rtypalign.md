@@ -8,7 +8,10 @@ The rtypalign function is a stub implementation that provides Informix compatibi
 
 ## Definition
 
-
+```c
+int
+rtypalign(int offset, int type)
+```
 ## Detailed Description
 The rtypalign function is part of PostgreSQL's ECPG Informix compatibility library. This is a stub implementation that mimics the signature of the Informix rtypalign function, which would typically calculate memory alignment requirements for different data types at a given offset. However, the PostgreSQL implementation simply ignores all parameters and returns 0, indicating no alignment adjustment.
 

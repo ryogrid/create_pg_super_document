@@ -8,7 +8,13 @@ PipeProtoChunk is a union type that provides a memory layout for pipe protocol c
 
 ## Definition
 
-
+```c
+typedef union
+{
+	PipeProtoHeader proto;
+	char		filler[PIPE_CHUNK_SIZE];
+} PipeProtoChunk;
+```
 ## Detailed Description
 PipeProtoChunk is a union that serves as a memory management abstraction for the pipe protocol used in PostgreSQL's logging system. It provides two different views of the same memory space: one as a structured protocol header (PipeProtoHeader) and another as a raw character buffer of fixed size (PIPE_CHUNK_SIZE). This design allows the system to efficiently allocate memory for log chunks while ensuring proper alignment and size constraints.
 

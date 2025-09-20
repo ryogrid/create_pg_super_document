@@ -8,7 +8,10 @@ Continues GSS authentication with the next token in a multi-step GSSAPI authenti
 
 ## Definition
 
-
+```c
+static int
+pg_GSS_continue(PGconn *conn, int payloadlen)
+```
 ## Detailed Description
 This function handles the continuation of GSSAPI authentication after the initial startup. It manages the exchange of authentication tokens between the client and server through multiple round trips. The function performs the following key operations:
 

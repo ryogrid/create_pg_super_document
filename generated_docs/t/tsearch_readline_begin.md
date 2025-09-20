@@ -8,7 +8,11 @@ Initializes a tsearch_readline_state structure to read a file line by line with 
 
 ## Definition
 
-
+```c
+bool
+tsearch_readline_begin(tsearch_readline_state *stp,
+					   const char *filename)
+```
 ## Detailed Description
 This function sets up the infrastructure for reading text search configuration files (like stop word files, dictionaries, etc.) with better error handling than direct file reading. It opens the specified file, initializes the state structure, and sets up an error context callback that provides line number information when errors occur during subsequent reading operations.
 

@@ -8,7 +8,10 @@ Calculates the minimum distance between a point and an axis-aligned bounding box
 
 ## Definition
 
-
+```c
+static double
+point_box_distance(Point *point, BOX *box)
+```
 ## Detailed Description
 This function computes the Euclidean distance from a given point to the nearest point on or within an axis-aligned bounding box. The calculation follows these rules:
 - If the point is inside the box, the distance is 0.0

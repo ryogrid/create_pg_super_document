@@ -8,7 +8,10 @@ A debugging utility function that overwrites freed memory with a distinctive byt
 
 ## Definition
 
-
+```c
+static inline void
+wipe_mem(void *ptr, size_t size)
+```
 ## Detailed Description
 The `wipe_mem` function is a memory debugging utility that serves two primary purposes: detecting use-after-free errors and making memory corruption bugs more obvious during debugging. It overwrites the specified memory region with the byte pattern 0x7F, which is easily recognizable in memory dumps and debuggers. The function integrates with Valgrind memory checking tools to properly mark the memory region as undefined and then inaccessible, ensuring that Valgrind can detect improper accesses to wiped memory.
 

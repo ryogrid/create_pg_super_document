@@ -8,7 +8,10 @@ Final function for the STDDEV_POP aggregate that computes the population standar
 
 ## Definition
 
-
+```c
+Datum
+float8_stddev_pop(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the final function for PostgreSQL's STDDEV_POP (population standard deviation) aggregate when operating on floating-point data. It computes the population standard deviation by taking the square root of the population variance, which is calculated as the sum of squared deviations (Sxx) divided by the count (N).
 

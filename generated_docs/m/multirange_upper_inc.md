@@ -8,7 +8,10 @@ Returns whether the upper bound of the last range in a multirange is inclusive (
 
 ## Definition
 
-
+```c
+Datum
+multirange_upper_inc(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function determines if the upper bound of the rightmost (last) range in a multirange is inclusive. It extracts the bounds of the last range in the multirange and returns the inclusive flag of the upper bound. If the multirange is empty, it returns false since there are no bounds to examine.
 

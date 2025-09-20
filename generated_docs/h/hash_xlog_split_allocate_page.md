@@ -8,7 +8,10 @@ Replays the page allocation phase of a hash index bucket split operation during 
 
 ## Definition
 
-
+```c
+static void
+hash_xlog_split_allocate_page(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles WAL replay for the allocation phase of hash index bucket splitting. Hash index bucket splitting is a complex operation that occurs when buckets become full and need to be divided. This function specifically handles the page allocation and initial setup phase, preparing both the old bucket page (which will have some tuples redistributed) and the new bucket page (which will receive redistributed tuples).
 

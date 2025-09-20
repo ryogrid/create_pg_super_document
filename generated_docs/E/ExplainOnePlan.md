@@ -8,7 +8,9 @@ ExplainOnePlan executes a planned query (if analysis is requested) and generates
 
 ## Definition
 
-
+```c
+struct config_generic **gucs;
+```
 ## Detailed Description
 ExplainOnePlan is the core function responsible for executing planned queries and generating detailed EXPLAIN output. It handles both EXPLAIN (plan-only) and EXPLAIN ANALYZE (with execution) scenarios.
 

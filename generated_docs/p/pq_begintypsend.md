@@ -8,7 +8,10 @@ Initializes a StringInfo buffer for constructing a bytea result that will be sen
 
 ## Definition
 
-
+```c
+void
+pq_begintypsend(StringInfo buf)
+```
 ## Detailed Description
 The  function prepares a StringInfo buffer for building binary data that will eventually be sent as a bytea value over the PostgreSQL protocol. It initializes the buffer and reserves the first four bytes for storing the length of the bytea data, which is a requirement of the PostgreSQL wire protocol format for variable-length binary data.
 

@@ -8,7 +8,10 @@ Initializes the global security context for PostgreSQL's secure communication la
 
 ## Definition
 
-
+```c
+int
+secure_initialize(bool isServerStart)
+```
 ## Detailed Description
 The `secure_initialize` function acts as a wrapper that conditionally initializes the TLS/SSL subsystem based on compile-time configuration. When PostgreSQL is compiled with SSL support (USE_SSL macro defined), it delegates to `be_tls_init` to perform the actual SSL initialization. Without SSL support, it simply returns success.
 

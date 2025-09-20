@@ -8,7 +8,10 @@ Converts a collation OID to its corresponding collation name string representati
 
 ## Definition
 
-
+```c
+Datum
+regcollationout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is an output function for the regcollation data type that converts a collation OID (Object Identifier) to a human-readable string representation. It performs the following operations:
 

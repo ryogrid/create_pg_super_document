@@ -8,7 +8,10 @@ A recursive tree-walking function that computes detailed execution costs for ind
 
 ## Definition
 
-
+```c
+struct equivalence to treat these all alike */
+		set_opfuncid((OpExpr *) node);
+```
 ## Detailed Description
 The  function is the core workhorse of PostgreSQL's qualification cost estimation system. It performs a depth-first traversal of expression trees, accumulating execution costs for each node type based on their computational complexity and execution characteristics.
 

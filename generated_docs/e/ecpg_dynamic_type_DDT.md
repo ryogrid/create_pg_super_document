@@ -8,7 +8,9 @@ Maps PostgreSQL date/time type OIDs to SQL3 descriptor data type (DDT) constants
 
 ## Definition
 
-
+```c
+struct sqlca_t *sqlca = ECPGget_sqlca();
+```
 ## Detailed Description
 This function is an internal utility within the ECPG (Embedded SQL in C for PostgreSQL) library that translates PostgreSQL's internal date and time type OIDs into standardized SQL3 descriptor data type constants. It's specifically used in dynamic descriptor operations to provide type information that conforms to the SQL3 standard for embedded SQL implementations.
 

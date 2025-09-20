@@ -8,7 +8,14 @@ A structure that defines the formatting characters for table row elements in Uni
 
 ## Definition
 
-
+```c
+typedef struct unicodeStyleRowFormat
+{
+	const char *horizontal;
+	const char *vertical_and_right[2];
+	const char *vertical_and_left[2];
+} unicodeStyleRowFormat;
+```
 ## Detailed Description
 This structure holds the Unicode characters used for formatting table rows in PostgreSQL's frontend utilities. It provides the necessary characters for drawing horizontal lines and vertical connectors that attach to the right and left sides of table cells. The structure is specifically designed to support Unicode/UTF-8 table formatting, allowing for proper rendering of table borders and separators in terminal output.
 

@@ -8,7 +8,12 @@ Maps XML names back to SQL identifiers by reversing the character escaping perfo
 
 ## Definition
 
-
+```c
+struct_array(array, elmtype,
+						  elmlen, elmbyval, elmalign,
+						  &elem_values, &elem_nulls,
+						  &num_elems);
+```
 ## Detailed Description
 This function converts XML names back to their original SQL identifier form by decoding escape sequences that were applied during the XML name mapping process. It specifically looks for the Unicode escape pattern  where NNNN represents a 4-digit hexadecimal Unicode code point, and converts these back to their original characters.
 

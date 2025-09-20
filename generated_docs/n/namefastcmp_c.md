@@ -8,7 +8,10 @@ A fast comparison function specifically optimized for PostgreSQL's NAME data typ
 
 ## Definition
 
-
+```c
+static int
+namefastcmp_c(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 The `namefastcmp_c` function provides optimized comparison functionality specifically for PostgreSQL's NAME data type when using C locale collation. The NAME type is a fixed-length data type used primarily for storing system catalog names like table names, column names, etc. This function uses strncmp() with a fixed length of NAMEDATALEN to compare two NAME values efficiently. Unlike variable-length string types, NAME values have a predetermined maximum length, allowing for a simpler comparison implementation without the need for length calculation or dynamic memory management.
 

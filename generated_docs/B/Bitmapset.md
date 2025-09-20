@@ -8,7 +8,16 @@ Bitmapset is a PostgreSQL data structure that represents a set of nonnegative in
 
 ## Definition
 
+```c
+typedef struct Bitmapset
+{
+	pg_node_attr(custom_copy_equal, special_read_write, no_query_jumble)
 
+	NodeTag		type;
+	int			nwords;			/* number of words in array */
+	bitmapword	words[FLEXIBLE_ARRAY_MEMBER];	/* really [nwords] */
+} Bitmapset;
+```
 ## Detailed Description
 Bitmapset is PostgreSQL's generic bitmap set implementation that can represent any set of nonnegative integers. It is primarily designed for sets where the maximum value is not large (typically a few hundred at most). The structure uses a flexible array of bitmap words to efficiently store and manipulate sets of integers.
 

@@ -8,7 +8,13 @@ Deserializes a binary representation of an MCV (Most Common Values) statistics l
 
 ## Definition
 
-
+```c
+struct alignment.
+	 */
+	if (VARSIZE_ANY(data) < MinSizeOfMCVList)
+		elog(ERROR, "invalid MCV size %zu (expected at least %zu)",
+			 VARSIZE_ANY(data), MinSizeOfMCVList);
+```
 ## Detailed Description
 This function reconstructs an MCVList structure from its serialized binary form. The deserialization process involves:
 

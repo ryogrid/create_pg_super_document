@@ -8,7 +8,10 @@ CommitTransaction is the core function responsible for committing a PostgreSQL t
 
 ## Definition
 
-
+```c
+void
+CommitTransaction(Archive *AHX)
+```
 ## Detailed Description
 CommitTransaction performs the complete commit sequence for a PostgreSQL transaction. It orchestrates a complex series of operations in a carefully ordered sequence to ensure ACID properties are maintained. The function handles both regular transactions and parallel worker transactions, with special logic for each case.
 

@@ -8,7 +8,15 @@ The xl_heap_insert struct represents the WAL record data for heap tuple insertio
 
 ## Definition
 
+```c
+typedef struct xl_heap_insert
+{
+	OffsetNumber offnum;		/* inserted tuple's offset */
+	uint8		flags;
 
+	/* xl_heap_header & TUPLE DATA in backup block 0 */
+} xl_heap_insert;
+```
 ## Detailed Description
 This structure contains the metadata needed to record and replay heap tuple insertion operations in PostgreSQL's WAL system. When a new tuple is inserted into a heap table, this record is written to the WAL along with the actual tuple header (xl_heap_header) and tuple data as a backup block. The structure itself is compact, containing only the essential metadata, while the bulk of the insertion data (tuple header and content) is stored separately in the WAL record's backup block.
 

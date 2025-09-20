@@ -8,7 +8,13 @@ Builds join relations between a given relation and other relations that particip
 
 ## Definition
 
-
+```c
+static void
+make_rels_by_clause_joins(PlannerInfo *root,
+						  RelOptInfo *old_rel,
+						  List *other_rels,
+						  int first_rel_idx)
+```
 ## Detailed Description
 The  function systematically creates join relations between a specified relation () and a list of candidate relations (). It only creates joins when there are relevant join clauses or join-order restrictions between the relations. This function is part of PostgreSQL's dynamic programming approach to join optimization, ensuring that only meaningful joins are considered rather than generating all possible Cartesian products.
 

@@ -8,7 +8,10 @@ Returns the timestamp with timezone representing the start time of the current t
 
 ## Definition
 
-
+```c
+Datum
+now(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements PostgreSQL's NOW() built-in SQL function, which returns the current timestamp with timezone. Importantly, it returns the timestamp representing when the current transaction began, not the exact moment the function is called. This ensures that all calls to NOW() within the same transaction return the same value, providing transaction-level consistency.
 

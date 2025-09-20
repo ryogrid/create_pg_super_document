@@ -8,7 +8,9 @@ Determines if a line segment intersects with a box and optionally computes the c
 
 ## Definition
 
-
+```c
+struct(&bseg, &box->low, &point);
+```
 ## Detailed Description
 The  function is a comprehensive geometric computation function that determines whether a line segment (LSEG) intersects with a rectangular box (BOX). This is a static helper function used internally by other geometric operations. The function performs multiple intersection tests:
 

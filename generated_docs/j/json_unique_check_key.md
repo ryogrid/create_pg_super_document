@@ -8,7 +8,10 @@ This function checks whether a given key is unique within a JSON object being pr
 
 ## Definition
 
-
+```c
+static bool
+json_unique_check_key(JsonUniqueCheckState *cxt, const char *key, int object_id)
+```
 ## Detailed Description
 The function implements duplicate key detection for JSON objects by maintaining a hash table of seen keys. It takes a key string and an object identifier, creates a hash entry for the key, and attempts to insert it into the uniqueness checking hash table. The function returns true if the key is unique (not previously seen) and false if it's a duplicate.
 

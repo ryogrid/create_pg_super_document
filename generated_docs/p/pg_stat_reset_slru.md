@@ -8,7 +8,10 @@ A PostgreSQL system function that resets Simple LRU (SLRU) cache statistics, all
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_reset_slru(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a mechanism to reset statistics for PostgreSQL's Simple LRU (SLRU) caches. SLRU caches are used throughout PostgreSQL to manage various types of cached data, including transaction status, commit timestamps, multixact information, and other frequently accessed metadata.
 

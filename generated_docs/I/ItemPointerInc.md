@@ -8,7 +8,10 @@ ItemPointerInc increments an ItemPointer to the next logical position, handling 
 
 ## Definition
 
-
+```c
+void
+ItemPointerInc(ItemPointer pointer)
+```
 ## Detailed Description
 This function implements arithmetic increment operation for ItemPointer structures, treating them as sequential addresses within the database's physical storage. When the offset number reaches its maximum value (PG_UINT16_MAX), the function rolls over to offset 0 of the next block number. The function operates at the type level, meaning it doesn't enforce PostgreSQL's logical offset limits (FirstOffsetNumber/MaxOffsetNumber) but only respects the underlying data type boundaries.
 

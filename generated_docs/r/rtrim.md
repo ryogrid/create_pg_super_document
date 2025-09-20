@@ -8,7 +8,10 @@ The  function removes characters from the end (right side) of a text string, tri
 
 ## Definition
 
-
+```c
+Datum
+rtrim(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that implements right trimming for text data types. It removes all trailing characters from the input string that match any character present in the trim set. The function continues removing characters from the end until it encounters a character that is not in the trim set, then returns the remaining portion of the string.
 

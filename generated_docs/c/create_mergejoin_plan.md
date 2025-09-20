@@ -8,7 +8,36 @@ Creates a MergeJoin plan node from a MergePath, implementing merge joins where t
 
 ## Definition
 
+```c
+struction (see find_mergeclauses_for_outer_pathkeys()). There
+		 * could be more than one mergeclause for the same outer pathkey, but
+		 * no pathkey may be entirely skipped over.
+		 */
+		if (oeclass != opeclass)	/* multiple matches are not interesting */
+		{
+			/* doesn't match the current opathkey, so must match the next */
+			if (lop == NULL)
+				elog(ERROR, "outer pathkeys do not match mergeclauses");
+			opathkey = (PathKey *) lfirst(lop);
+			opeclass = opathkey->pk_eclass;
+			lop = lnext(outerpathkeys, lop);
+			if (oeclass != opeclass)
+				elog(ERROR, "outer pathkeys do not match mergeclauses");
+		}
 
+		/*
+		 * The inner pathkeys likewise should not have skipped-over keys, but
+		 * it's possible for a mergeclause to reference some earlier inner
+		 * pathkey if we had redundant pathkeys.  For example we might have
+		 * mergeclauses like "o.a = i.x AND o.b = i.y AND o.c = i.x".  The
+		 * implied inner ordering is then "ORDER BY x, y, x", but the pathkey
+		 * mechanism drops the second sort by x as redundant, and this code
+		 * must cope.
+		 *
+		 * It's also possible for the implied inner-rel ordering to be like
+		 * "ORDER BY x, y, x DESC".  We still drop the second instance of x as
+		 * redundant;
+```
 ## Detailed Description
 This function creates a MergeJoin execution plan node from a MergePath. Merge joins are efficient when both input relations are already sorted (or can be cheaply sorted) on the join columns. The function handles complex pathkey matching between outer and inner relations, creates explicit Sort nodes when necessary, and sets up the merge operation arrays needed by the executor. It also handles materialize nodes for the inner relation when mark/restore operations are needed, processes join clauses appropriately for different join types, and manages redundant pathkeys and sort ordering requirements.
 

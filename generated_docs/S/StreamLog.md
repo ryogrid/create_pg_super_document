@@ -8,7 +8,10 @@ The main function responsible for establishing and managing the WAL (Write-Ahead
 
 ## Definition
 
-
+```c
+static void
+StreamLog(void)
+```
 ## Detailed Description
 StreamLog is the core function that orchestrates the entire WAL streaming process. It handles the complete lifecycle of WAL streaming including:
 

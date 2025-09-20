@@ -8,7 +8,10 @@ Provides default selectivity estimates for range operators when statistics are u
 
 ## Definition
 
-
+```c
+static double
+default_range_selectivity(Oid operator)
+```
 ## Detailed Description
 This function returns hardcoded selectivity estimates for various range operators when PostgreSQL's query planner cannot rely on table statistics. The function uses a switch statement to map different range operator OIDs to appropriate selectivity values. These estimates are crucial for query optimization when dealing with range types in the absence of statistical information.
 

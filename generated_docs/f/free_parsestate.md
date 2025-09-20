@@ -8,7 +8,10 @@ Releases a ParseState structure and its associated resources, with validation to
 
 ## Definition
 
-
+```c
+void
+free_parsestate(ParseState *pstate)
+```
 ## Detailed Description
 The  function properly deallocates a ParseState structure and performs essential cleanup operations. It validates that the number of result columns generated during parsing does not exceed PostgreSQL's maximum allowed tuple attributes (MaxTupleAttributeNumber), which prevents potential overflow issues in attribute numbering.
 

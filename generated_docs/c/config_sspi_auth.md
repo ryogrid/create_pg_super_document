@@ -8,7 +8,9 @@ Configures SSPI authentication for PostgreSQL regression tests by rewriting pg_h
 
 ## Definition
 
-
+```c
+struct addrinfo *gai_result;
+```
 ## Detailed Description
 This function is specifically designed for Windows environments to set up SSPI (Security Support Provider Interface) authentication during PostgreSQL regression testing. It creates new pg_hba.conf and pg_ident.conf files that allow the current Windows user to authenticate as the database superuser and any additional roles specified during test setup. The function handles both IPv4 and IPv6 connections, automatically detecting IPv6 support on the platform.
 

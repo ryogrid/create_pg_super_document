@@ -8,7 +8,10 @@ Updates the cached EquivalenceClass links in a mergeclause RestrictInfo to point
 
 ## Definition
 
-
+```c
+void
+update_mergeclause_eclasses(PlannerInfo *root, RestrictInfo *restrictinfo)
+```
 ## Detailed Description
 The `update_mergeclause_eclasses` function ensures that the EquivalenceClass pointers in a mergeclause RestrictInfo structure point to the correct canonical equivalence classes after the EC merging process is complete. During query planning, EquivalenceClasses may be merged when the planner discovers that expressions are equivalent. When this happens, the original ECs become non-canonical and point to their merged parent via the `ec_merged` field.
 

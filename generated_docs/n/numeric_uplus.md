@@ -8,7 +8,10 @@ The numeric_uplus function implements the unary plus operator for PostgreSQL's N
 
 ## Definition
 
-
+```c
+Datum
+numeric_uplus(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the implementation for the unary plus operator (+) when applied to NUMERIC values in PostgreSQL. Unlike many unary plus operations that simply return the original value, this function creates a duplicate copy of the input numeric value. This behavior ensures proper memory management and isolation between the input and output values in PostgreSQL's function call framework.
 

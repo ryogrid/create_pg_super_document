@@ -8,7 +8,10 @@ pqRowProcessor processes incoming row data from the PostgreSQL server and adds i
 
 ## Definition
 
-
+```c
+int
+pqRowProcessor(PGconn *conn, const char **errmsgp)
+```
 ## Detailed Description
 This function is responsible for processing incoming row data during asynchronous query execution. It takes raw column data from conn->rowBuf and converts it into a properly formatted tuple that gets added to the current PGresult. The function handles both regular result processing and partial result modes (single-row mode and chunked results).
 

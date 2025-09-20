@@ -8,7 +8,14 @@ RangeType is a fundamental data structure in PostgreSQL that represents range ty
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	Oid			rangetypid;		/* range type's own OID */
+	/* Following the OID are zero to two bound values, then a flags byte */
+} RangeType;
+```
 ## Detailed Description
 RangeType is the core structure for PostgreSQL's range types system, which allows representation of continuous ranges of values such as integer ranges, timestamp ranges, etc. As a varlena object, it follows PostgreSQL's variable-length data convention where the first int32 contains the total object size.
 

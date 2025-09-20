@@ -8,7 +8,10 @@ lazy_scan_heap is the workhorse function for VACUUM operations, performing the m
 
 ## Definition
 
-
+```c
+static void
+lazy_scan_heap(LVRelState *vacrel)
+```
 ## Detailed Description
 lazy_scan_heap orchestrates the core vacuum work through multiple phases:
 

@@ -8,7 +8,9 @@ DefineSequence creates a new sequence relation in PostgreSQL, handling all aspec
 
 ## Definition
 
-
+```c
+enumber for the sequence;
+```
 ## Detailed Description
 DefineSequence is the main function responsible for creating PostgreSQL sequences. It performs comprehensive sequence creation by:
 

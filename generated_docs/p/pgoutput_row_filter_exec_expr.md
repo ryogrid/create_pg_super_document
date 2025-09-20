@@ -8,7 +8,10 @@ Executes row filter expressions to determine whether a change should be replicat
 
 ## Definition
 
-
+```c
+static bool
+pgoutput_row_filter_exec_expr(ExprState *state, ExprContext *econtext)
+```
 ## Detailed Description
 This function evaluates row filter expressions in the context of logical replication to determine if a particular row change should be transmitted to subscribers. It uses PostgreSQL's expression evaluation infrastructure to execute the compiled filter expression within the provided expression context. The function implements specific semantics for NULL handling: if the expression evaluates to NULL, it is treated as false, meaning the change will not be replicated. This follows SQL's three-valued logic where NULL in a boolean context typically means 'unknown' but is treated as false for filtering purposes.
 

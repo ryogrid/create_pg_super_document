@@ -8,7 +8,11 @@ Creates a pathnode that represents acquiring row locks on tuples from a subpath,
 
 ## Definition
 
-
+```c
+LockRowsPath *
+create_lockrows_path(PlannerInfo *root, RelOptInfo *rel,
+					 Path *subpath, List *rowMarks, int epqParam)
+```
 ## Detailed Description
 This function creates a LockRowsPath node that represents the operation of acquiring row locks during query execution. It's primarily used for implementing SELECT FOR UPDATE, SELECT FOR SHARE, and similar locking constructs. The function wraps an existing subpath and adds the necessary metadata for row locking operations.
 

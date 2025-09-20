@@ -8,7 +8,10 @@ Recursively scans a clause to discover whether it contains any Var nodes of the 
 
 ## Definition
 
-
+```c
+bool
+contain_var_clause(Node *node)
+```
 ## Detailed Description
 The  function performs a boolean test to determine if a given parse tree node or expression contains any variable references (Var nodes) at the current query level (level 0). This is a utility function commonly used throughout PostgreSQL's optimizer and other components to quickly check for variable dependencies.
 

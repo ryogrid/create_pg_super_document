@@ -8,7 +8,10 @@ Resets the global state variables related to exported snapshots during transacti
 
 ## Definition
 
-
+```c
+void
+SnapBuildResetExportedSnapshotState(void)
+```
 ## Detailed Description
 This function provides essential cleanup functionality for the snapshot export mechanism during transaction abort scenarios. It resets the global state variables that track exported snapshot status to their initial values:
 

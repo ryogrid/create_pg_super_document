@@ -8,7 +8,9 @@ Initiates an online backup by creating a checkpoint, establishing backup state, 
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This function serves as the core implementation of PostgreSQL's online backup functionality. It orchestrates the complex process of starting a consistent backup while the database remains online and operational. The function handles multiple critical aspects of backup initialization:
 

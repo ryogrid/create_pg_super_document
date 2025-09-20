@@ -8,7 +8,9 @@ A static utility function that compares two PostgreSQL wide character strings le
 
 ## Definition
 
-
+```c
+enum, form);
+```
 ## Detailed Description
 The pg_wcscmp function performs a lexicographic comparison of two wide character strings represented as pg_wchar arrays. It iterates through both strings character by character, comparing the Unicode code points directly. The function returns a negative value if the first string is lexicographically smaller, a positive value if it's larger, or zero if the strings are identical. This is a test utility function specifically used in Unicode normalization testing within PostgreSQL's common library.
 

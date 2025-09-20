@@ -8,7 +8,10 @@ Converts a relation OID to its human-readable class name string representation, 
 
 ## Definition
 
-
+```c
+Datum
+regclassout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is an output function for the  data type that converts a relation OID (Object Identifier) into its corresponding class name string. This function is part of PostgreSQL's registry type system that provides user-friendly representations of internal object identifiers.
 

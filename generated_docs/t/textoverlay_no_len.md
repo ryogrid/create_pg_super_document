@@ -8,7 +8,10 @@ A PostgreSQL function that implements the SQL OVERLAY() operation without an exp
 
 ## Definition
 
-
+```c
+Datum
+textoverlay_no_len(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a variant of the SQL OVERLAY() operation where the length of the substring to replace is not explicitly specified. Instead, it automatically calculates the length by measuring the replacement text using the  function. This creates a more convenient interface for cases where you want to replace a substring with text of a different length, automatically adjusting the replacement length to match the new text.
 

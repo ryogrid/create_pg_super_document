@@ -8,7 +8,11 @@ Translates an object name and arguments (as passed by the parser) to an ObjectAd
 
 ## Definition
 
-
+```c
+ObjectAddress
+get_object_address(ObjectType objtype, Node *object,
+				   Relation *relp, LOCKMODE lockmode, bool missing_ok)
+```
 ## Detailed Description
 The  function is the central dispatcher for object name resolution in PostgreSQL. It takes a parsed object specification and converts it into a standardized ObjectAddress structure that uniquely identifies any database object. The function handles a comprehensive range of PostgreSQL objects including relations, functions, operators, types, constraints, and many others.
 

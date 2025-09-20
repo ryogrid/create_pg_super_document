@@ -8,7 +8,10 @@ Finds and returns the pg_constraint tuple that implements a validated NOT NULL c
 
 ## Definition
 
-
+```c
+HeapTuple
+findDomainNotNullConstraint(Oid typid)
+```
 ## Detailed Description
 This function searches the pg_constraint catalog to locate a validated NOT NULL constraint associated with a specific domain type. It performs a sequential scan through all constraints belonging to the domain and returns the first validated NOT NULL constraint found. The function is specifically designed to work with domain types and their NOT NULL constraints, which are a special category of constraints in PostgreSQL's type system. It returns a copy of the constraint tuple to prevent issues with concurrent catalog modifications.
 

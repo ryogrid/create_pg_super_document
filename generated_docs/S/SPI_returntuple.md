@@ -8,7 +8,10 @@ Prepares a tuple for return from a stored procedure by copying it to the upper e
 
 ## Definition
 
-
+```c
+HeapTupleHeader
+SPI_returntuple(HeapTuple tuple, TupleDesc tupdesc)
+```
 ## Detailed Description
 SPI_returntuple is an SPI function that converts a HeapTuple into a HeapTupleHeader suitable for returning from a stored procedure or function. The function copies the tuple to the appropriate memory context (the saved context of the current SPI connection) to ensure the tuple remains valid after the SPI context is destroyed. For RECORD types, it also ensures that a proper typmod is assigned to the tuple descriptor if one hasn't been set already.
 

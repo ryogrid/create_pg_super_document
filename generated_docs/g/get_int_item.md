@@ -8,7 +8,10 @@ Converts and assigns an integer value to a variable of various numeric data type
 
 ## Definition
 
-
+```c
+static bool
+get_int_item(int lineno, void *var, enum ECPGttype vartype, int value)
+```
 ## Detailed Description
 This internal utility function is part of ECPG's dynamic descriptor implementation that handles type conversion and assignment of integer values to variables of different numeric types. The function takes a generic void pointer to a variable, determines the target data type using the ECPG type enumeration, and performs appropriate casting and assignment.
 

@@ -8,7 +8,10 @@ The final processing pass of the planner/optimizer that adjusts representational
 
 ## Definition
 
-
+```c
+Plan *
+set_plan_references(PlannerInfo *root, Plan *plan)
+```
 ## Detailed Description
 The  function performs the final transformation phase of PostgreSQL's query planner. It takes a complete plan tree and adjusts various representational details to prepare it for execution. The function performs nine key operations:
 

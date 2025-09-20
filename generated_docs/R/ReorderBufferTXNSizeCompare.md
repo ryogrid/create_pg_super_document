@@ -8,7 +8,10 @@ A comparison function that orders ReorderBufferTXN transactions by their memory 
 
 ## Definition
 
-
+```c
+static int
+ReorderBufferTXNSizeCompare(const pairingheap_node *a, const pairingheap_node *b, void *arg)
+```
 ## Detailed Description
 ReorderBufferTXNSizeCompare is a static comparison function designed to work with PostgreSQL's pairing heap data structure. It compares two ReorderBufferTXN transactions based on their memory consumption ( field) to establish ordering within a priority queue or heap.
 

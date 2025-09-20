@@ -8,7 +8,10 @@ Registers invalidation of a specified relation's relcache entry at the end of th
 
 ## Definition
 
-
+```c
+void
+CacheInvalidateRelcache(Relation relation)
+```
 ## Detailed Description
 CacheInvalidateRelcache is used to invalidate the relcache (relation cache) entry for a specific relation. This function is called in situations where operations need to force a relcache rebuild but aren't changing any of the tuples that are normally recognized as contributors to the relcache entry by CacheInvalidateHeapTuple. A prime example is dropping an index, which affects the relation's structure but doesn't modify the main relation tuple itself.
 

@@ -8,7 +8,10 @@ Performs cleanup operations on all indexes of a relation during vacuum, handling
 
 ## Definition
 
-
+```c
+static void
+lazy_cleanup_all_indexes(LVRelState *vacrel)
+```
 ## Detailed Description  
 This function coordinates the cleanup phase for all indexes on a table during vacuum operations. Index cleanup is the final maintenance step that updates index statistics and metadata after the main vacuuming work is complete. The function handles both serial and parallel execution modes, automatically choosing the appropriate method based on whether parallel vacuum is active.
 

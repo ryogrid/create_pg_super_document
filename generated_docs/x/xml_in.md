@@ -8,7 +8,10 @@ PostgreSQL input function that converts a C string representation of XML data in
 
 ## Definition
 
-
+```c
+Datum
+xml_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the input conversion function for PostgreSQL's xml data type. It takes a C string containing XML data and converts it into PostgreSQL's internal xml representation. The function performs well-formedness validation by parsing the XML data using libxml2. The conversion process reuses the text data type's conversion mechanism since xml and text types share the same internal representation. The function is conditionally compiled and only available when PostgreSQL is built with libxml2 support (USE_LIBXML).
 

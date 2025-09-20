@@ -8,7 +8,10 @@ A variable hook function that updates the PROMPT3 variable in psql, which contro
 
 ## Definition
 
-
+```c
+static bool
+prompt3_hook(const char *newval)
+```
 ## Detailed Description
 This hook function is responsible for updating the psql prompt3 setting when the PROMPT3 variable is modified. It is called whenever the user sets or changes the PROMPT3 variable in psql. The function simply copies the new value to the pset.prompt3 field, which is used internally by psql to display the prompt when the SQL statement appears to be incomplete. If a NULL value is passed, it defaults to an empty string.
 

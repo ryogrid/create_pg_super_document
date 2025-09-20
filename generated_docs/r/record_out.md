@@ -8,7 +8,10 @@ Converts the internal binary representation of a composite type (record) into it
 
 ## Definition
 
-
+```c
+structure */
+	tuple.t_len = HeapTupleHeaderGetDatumLength(rec);
+```
 ## Detailed Description
 The  function serves as the output conversion function for any composite type in PostgreSQL. It takes a  (the internal binary format) and converts it to a human-readable string representation in the format . The function handles proper quoting of values that contain special characters, escape sequence generation, and null value representation.
 

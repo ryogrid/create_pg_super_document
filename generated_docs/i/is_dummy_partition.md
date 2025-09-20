@@ -8,7 +8,10 @@ Determines whether a partition has been proven empty and should be treated as a 
 
 ## Definition
 
-
+```c
+static bool
+is_dummy_partition(RelOptInfo *rel, int part_index)
+```
 ## Detailed Description
 This function checks if a specific partition within a partitioned relation has been proven to be empty during query planning. A partition is considered dummy if either:
 

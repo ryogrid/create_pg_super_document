@@ -8,7 +8,13 @@ A WAL (Write-Ahead Logging) record structure that stores the necessary informati
 
 ## Definition
 
-
+```c
+typedef struct xl_brin_createidx
+{
+	BlockNumber pagesPerRange;
+	uint16		version;
+} xl_brin_createidx;
+```
 ## Detailed Description
 The  structure is used in PostgreSQL's WAL system to record the creation of a BRIN index. BRIN indexes are designed for very large tables where the data has some natural correlation with its physical location (such as time-series data). This WAL record captures the essential parameters needed to recreate or describe a BRIN index during recovery operations.
 

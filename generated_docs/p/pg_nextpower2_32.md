@@ -8,7 +8,10 @@ Returns the next higher power of 2 above a given number, or the number itself if
 
 ## Definition
 
-
+```c
+static inline uint32
+pg_nextpower2_32(uint32 num)
+```
 ## Detailed Description
 This function efficiently computes the smallest power of 2 that is greater than or equal to the input number. It uses a clever bit manipulation technique to detect if a number is already a power of 2, and if not, calculates the next power of 2 using the position of the most significant bit.
 

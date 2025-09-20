@@ -8,7 +8,11 @@ The r_verb_sfx function removes Irish verb suffixes during the stemming process,
 
 ## Definition
 
+```c
+}
 
+static int r_verb_sfx(struct SN_env * z)
+```
 ## Detailed Description
 This function handles Irish verb suffix removal as part of the stemming algorithm. It includes several distinctive features:
 

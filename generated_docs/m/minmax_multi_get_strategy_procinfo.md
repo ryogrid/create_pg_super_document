@@ -8,7 +8,49 @@ Cache and return comparison operators for specific data types and strategy numbe
 
 ## Definition
 
+```c
+struct,
+	 * to avoid repetitive syscache lookups.  If the subtype changed,
+	 * invalidate all the cached entries.
+	 */
+	if (opaque->cached_subtype != subtype)
+	{
+		uint16		i;
 
+		for (i = 1; i <= BTMaxStrategyNumber; i++)
+			opaque->strategy_procinfos[i - 1].fn_oid = InvalidOid;
+		opaque->cached_subtype = subtype;
+	}
+
+	if (opaque->strategy_procinfos[strategynum - 1].fn_oid == InvalidOid)
+	{
+		Form_pg_attribute attr;
+		HeapTuple	tuple;
+		Oid			opfamily,
+					oprid;
+
+		opfamily = bdesc->bd_index->rd_opfamily[attno - 1];
+		attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+		tuple = SearchSysCache4(AMOPSTRATEGY, ObjectIdGetDatum(opfamily),
+								ObjectIdGetDatum(attr->atttypid),
+								ObjectIdGetDatum(subtype),
+								Int16GetDatum(strategynum));
+		if (!HeapTupleIsValid(tuple))
+			elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+				 strategynum, attr->atttypid, subtype, opfamily);
+
+		oprid = DatumGetObjectId(SysCacheGetAttrNotNull(AMOPSTRATEGY, tuple,
+														Anum_pg_amop_amopopr));
+		ReleaseSysCache(tuple);
+		Assert(RegProcedureIsValid(oprid));
+
+		fmgr_info_cxt(get_opcode(oprid),
+					  &opaque->strategy_procinfos[strategynum - 1],
+					  bdesc->bd_context);
+	}
+
+	return &opaque->strategy_procinfos[strategynum - 1];
+```
 ## Detailed Description
 This static function provides cached access to strategy operators (comparison functions) for the minmax-multi operator class. Unlike minmax_multi_get_procinfo which caches support functions, this function caches operators based on strategy numbers (like BTLessStrategyNumber) for specific data types.
 

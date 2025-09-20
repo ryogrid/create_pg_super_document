@@ -8,7 +8,11 @@ Identifies and marks the Turkish temporal suffix -yken (meaning 'while' or 'when
 
 ## Definition
 
+```c
+}
 
+static int r_mark_yken(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish Snowball stemmer that identifies the temporal suffix "-ken" which can be optionally preceded by the consonant 'y' (making it "-yken"). The suffix "-yken" in Turkish indicates simultaneous action or state, equivalent to "while" or "when" in English (e.g., "okurken" - while reading). 
 

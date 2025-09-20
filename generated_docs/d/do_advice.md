@@ -8,7 +8,10 @@ Displays a helpful message directing users to use the --help option for more inf
 
 ## Definition
 
-
+```c
+static void
+do_advice(void)
+```
 ## Detailed Description
 This is a simple utility function that outputs a standardized help message to stderr. It provides users with guidance on how to get more detailed information about pg_ctl command-line options and usage. The function uses the global progname variable to display the correct program name in the help message, making it consistent with the actual invocation method used by the user.
 

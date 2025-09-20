@@ -8,7 +8,50 @@ A static helper function that caches and returns procedure information for given
 
 ## Definition
 
+```c
+struct, to
+	 * avoid repetitive syscache lookups.  If the sub-type is changed,
+	 * invalidate all the cached entries.
+	 */
+	if (opaque->cached_subtype != subtype)
+	{
+		uint16		i;
 
+		for (i = 1; i <= RTMaxStrategyNumber; i++)
+			opaque->strategy_procinfos[i - 1].fn_oid = InvalidOid;
+		opaque->cached_subtype = subtype;
+	}
+
+	if (opaque->strategy_procinfos[strategynum - 1].fn_oid == InvalidOid)
+	{
+		Form_pg_attribute attr;
+		HeapTuple	tuple;
+		Oid			opfamily,
+					oprid;
+
+		opfamily = bdesc->bd_index->rd_opfamily[attno - 1];
+		attr = TupleDescAttr(bdesc->bd_tupdesc, attno - 1);
+		tuple = SearchSysCache4(AMOPSTRATEGY, ObjectIdGetDatum(opfamily),
+								ObjectIdGetDatum(attr->atttypid),
+								ObjectIdGetDatum(subtype),
+								Int16GetDatum(strategynum));
+
+		if (!HeapTupleIsValid(tuple))
+			elog(ERROR, "missing operator %d(%u,%u) in opfamily %u",
+				 strategynum, attr->atttypid, subtype, opfamily);
+
+		oprid = DatumGetObjectId(SysCacheGetAttrNotNull(AMOPSTRATEGY, tuple,
+														Anum_pg_amop_amopopr));
+		ReleaseSysCache(tuple);
+		Assert(RegProcedureIsValid(oprid));
+
+		fmgr_info_cxt(get_opcode(oprid),
+					  &opaque->strategy_procinfos[strategynum - 1],
+					  bdesc->bd_context);
+	}
+
+	return &opaque->strategy_procinfos[strategynum - 1];
+```
 ## Detailed Description
 This function serves as a procedure lookup and caching mechanism for BRIN inclusion opclasses. It retrieves the procedure corresponding to a given sub-type and strategy number, where the index's data type acts as the left-hand side of the operator and the provided sub-type as the right-hand side. The function implements an intelligent caching strategy to avoid repetitive syscache lookups by storing procedures for the last accessed sub-type in the opaque structure.
 

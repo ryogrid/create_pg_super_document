@@ -8,7 +8,10 @@ The sizebitvec function counts the number of set bits (1s) in a bit vector signa
 
 ## Definition
 
-
+```c
+static int32
+sizebitvec(BITVECP sign, int siglen)
+```
 ## Detailed Description
 This function provides a simple wrapper around PostgreSQL's pg_popcount() function to count the number of set bits in a bit vector signature. It's a utility function used throughout the TSVector GiST index implementation for calculating bit densities, Hamming distances, and making index optimization decisions. The function is essential for measuring the 'size' or cardinality of signature bit vectors.
 

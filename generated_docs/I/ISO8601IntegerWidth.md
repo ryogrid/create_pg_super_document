@@ -8,7 +8,10 @@ ISO8601IntegerWidth determines the number of integral digits in a valid ISO 8601
 
 ## Definition
 
-
+```c
+static int
+ISO8601IntegerWidth(const char *fieldstart)
+```
 ## Detailed Description
 This utility function is designed to analyze ISO 8601 formatted number fields and count only the integral digit portion. It's particularly useful in ISO 8601 interval parsing where the width of the integer part of a number field affects interpretation according to the ISO 8601 specification. The function handles negative numbers by skipping over a leading minus sign and then counting consecutive decimal digits.
 

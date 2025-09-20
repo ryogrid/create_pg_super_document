@@ -8,7 +8,11 @@ NewHeapCreateToastTable is a function that creates a TOAST table for a newly cre
 
 ## Definition
 
-
+```c
+void
+NewHeapCreateToastTable(Oid relOid, Datum reloptions, LOCKMODE lockmode,
+						Oid OIDOldToast)
+```
 ## Detailed Description
 This function is specialized for creating TOAST tables when building new heap relations, particularly during operations that create a completely new physical copy of a table such as CLUSTER or VACUUM FULL. Unlike AlterTableCreateToastTable, this function is designed for scenarios where a new heap is being created and needs its own TOAST table setup.
 

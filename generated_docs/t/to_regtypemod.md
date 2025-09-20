@@ -8,7 +8,10 @@ Converts a textual type name to its type modifier value, returning NULL if the t
 
 ## Definition
 
-
+```c
+Datum
+to_regtypemod(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that takes a text representation of a type name and returns its corresponding type modifier value. The function uses the internal  function to parse the input string and extract both the type OID and type modifier. If the parsing fails (e.g., the type name is invalid or not found), the function returns NULL instead of throwing an error.
 

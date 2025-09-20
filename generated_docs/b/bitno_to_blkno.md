@@ -8,7 +8,10 @@ Converts an overflow page bit number (its index in the free-page bitmaps) to the
 
 ## Definition
 
-
+```c
+static BlockNumber
+bitno_to_blkno(HashMetaPage metap, uint32 ovflbitnum)
+```
 ## Detailed Description
 This function performs a critical conversion in PostgreSQL's hash index overflow page management system. It takes a zero-based bit number from the overflow page bitmap and converts it to an absolute block number within the hash index file. The conversion process involves:
 

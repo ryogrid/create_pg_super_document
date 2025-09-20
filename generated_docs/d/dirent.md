@@ -8,7 +8,16 @@ The  structure represents a directory entry in PostgreSQL's Windows-specific dir
 
 ## Definition
 
-
+```c
+struct dirent
+{
+	long		d_ino;
+	unsigned short d_reclen;
+	unsigned char d_type;
+	unsigned short d_namlen;
+	char		d_name[MAX_PATH];
+};
+```
 ## Detailed Description
 The  structure is part of PostgreSQL's Windows compatibility layer, specifically designed for MSVC builds on Windows. This structure emulates the POSIX  interface that is natively available on Unix-like systems but absent on Windows. It serves as a bridge between Windows file system APIs and PostgreSQL's cross-platform directory traversal code.
 

@@ -8,7 +8,10 @@ Handles large memory allocations in Bump contexts by creating dedicated blocks t
 
 ## Definition
 
-
+```c
+static void *
+BumpAllocLarge(MemoryContext context, Size size, int flags)
+```
 ## Detailed Description
 BumpAllocLarge is a specialized allocation function for requests that exceed the normal chunk size limits in Bump contexts. When a requested allocation is too large to fit efficiently within the standard block allocation strategy, this function creates a dedicated block that contains only the large chunk being allocated. This approach prevents large allocations from fragmenting the regular allocation blocks and ensures that the large allocation doesn't prevent efficient packing of smaller allocations.
 

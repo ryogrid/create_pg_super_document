@@ -8,7 +8,10 @@ The t_isdigit function checks whether a character is a digit, with proper suppor
 
 ## Definition
 
-
+```c
+int
+t_isdigit(const char *ptr)
+```
 ## Detailed Description
 This function provides locale-aware digit detection for PostgreSQL's text search functionality. It handles both single-byte and multi-byte character encodings. For single-byte characters or when the database uses C locale, it uses the standard isdigit() function. For multi-byte characters, it converts the character to wide character format and uses iswdigit() for proper Unicode digit classification.
 

@@ -8,7 +8,10 @@ Callback function that estimates the effectiveness of abbreviated key optimizati
 
 ## Definition
 
-
+```c
+static bool
+network_abbrev_abort(int memtupcount, SortSupport ssup)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's sort support optimization system for network data types (inet/cidr). It implements adaptive logic to determine whether abbreviated sorting should be abandoned in favor of authoritative comparison. The function uses HyperLogLog cardinality estimation to analyze the distinctness of abbreviated keys and makes intelligent decisions about continuing or aborting the abbreviation optimization.
 

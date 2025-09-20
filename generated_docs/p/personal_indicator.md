@@ -8,7 +8,15 @@ A struct definition in ECPG test cases that represents indicator variables for t
 
 ## Definition
 
-
+```c
+struct personal_indicator { 
+#line 28 "variable.pgc"
+ int ind_name ;
+ 
+#line 29 "variable.pgc"
+ struct birthinfo ind_birth ;
+ } ind_personal , * i ;
+```
 ## Detailed Description
 The  struct is used in PostgreSQL's ECPG (Embedded SQL in C) testing framework to demonstrate indicator variable handling. In embedded SQL, indicator variables are used to detect null values and other special conditions when transferring data between SQL and C variables. This struct mirrors the structure of  but contains indicator fields instead of actual data.
 

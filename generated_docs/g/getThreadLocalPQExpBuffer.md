@@ -8,7 +8,10 @@ Provides thread-safe access to a PQExpBuffer by managing thread-local storage, e
 
 ## Definition
 
-
+```c
+static PQExpBuffer
+getThreadLocalPQExpBuffer(void)
+```
 ## Detailed Description
 This static function implements thread-local storage management for PQExpBuffer objects, which are expandable string buffers used throughout PostgreSQL client applications. The function uses a dual-mode approach:
 

@@ -8,7 +8,10 @@ Validates whether a locale name is valid for a specific locale category and opti
 
 ## Definition
 
-
+```c
+bool
+check_locale(int category, const char *locale, char **canonname)
+```
 ## Detailed Description
 This function validates locale names by attempting to set the specified locale using setlocale() and then restoring the original locale. It provides safety checks against non-ASCII locale names, which can cause issues on Windows systems. The function can optionally return the canonical form of the locale name, which is particularly useful for resolving what the empty string ("") means in locale contexts (typically the server environment value). The validation is performed by temporarily changing the locale and checking if the operation succeeds.
 

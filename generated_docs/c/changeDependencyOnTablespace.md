@@ -8,7 +8,10 @@ Updates shared dependency records when an object's tablespace is changed, ensuri
 
 ## Definition
 
-
+```c
+void
+changeDependencyOnTablespace(Oid classId, Oid objectId, Oid newTablespaceId)
+```
 ## Detailed Description
 This function manages the update of shared dependency records when a database object's tablespace is modified. It handles two scenarios: when an object is moved to a new tablespace (creating a new dependency) and when an object is moved away from a tablespace (removing the dependency). The function operates on the pg_shdepend system catalog to maintain accurate dependency tracking between database objects and tablespaces.
 

@@ -8,7 +8,10 @@ A simple PostgreSQL C function that increments an integer argument by one, servi
 
 ## Definition
 
-
+```c
+Datum
+add_one(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL C function that takes a single 32-bit integer parameter and returns the value incremented by 1. This function is part of the PostgreSQL tutorial examples, demonstrating the basic structure and conventions for writing PostgreSQL C functions. It uses the standard PostgreSQL function calling conventions with  macro for parameter handling and  for returning values.
 

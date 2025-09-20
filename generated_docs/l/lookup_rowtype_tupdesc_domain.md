@@ -8,7 +8,10 @@ Looks up a TupleDesc for a row type, with special handling for domains over comp
 
 ## Definition
 
-
+```c
+TupleDesc
+lookup_rowtype_tupdesc_domain(Oid type_id, int32 typmod, bool noError)
+```
 ## Detailed Description
 This function extends the functionality of lookup_rowtype_tupdesc_noerror() by handling domains over named composite types transparently. When the input type is a domain, it automatically resolves to the base composite type and retrieves its TupleDesc. This optimization avoids the need for callers to explicitly call getBaseType() before looking up the tuple descriptor.
 

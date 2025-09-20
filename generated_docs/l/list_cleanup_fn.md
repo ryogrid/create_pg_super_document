@@ -8,7 +8,17 @@ A no-op cleanup function for List iteration that completes the predicate iterati
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	OpExpr		opexpr;
+	Const		const_expr;
+	int			next_elem;
+	int			num_elems;
+	Datum	   *elem_values;
+	bool	   *elem_nulls;
+} ArrayConstIterState;
+```
 ## Detailed Description
 This function serves as the cleanup routine for the predicate iterator framework when dealing with regular PostgreSQL Lists. Unlike other node types that may require memory deallocation or resource cleanup after iteration, regular Lists do not require any special cleanup operations, so this function contains no implementation - it simply satisfies the interface requirement. The function is part of the three-function iteration pattern (startup, next, cleanup) that provides a unified interface for iterating over different node types during predicate analysis.
 

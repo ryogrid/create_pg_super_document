@@ -8,7 +8,15 @@ An enumeration type that defines the four basic operations that can be performed
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	DSM_OP_CREATE,
+	DSM_OP_ATTACH,
+	DSM_OP_DETACH,
+	DSM_OP_DESTROY,
+} dsm_op;
+```
 ## Detailed Description
 The  enum serves as a command parameter for the dynamic shared memory implementation layer, specifically used by the  function to determine which operation to perform on a shared memory segment. This enumeration provides a type-safe way to specify the intended operation across different platform-specific implementations (POSIX, System V, Windows, and memory-mapped files).
 

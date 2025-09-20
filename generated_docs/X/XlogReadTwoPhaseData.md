@@ -8,7 +8,10 @@ XlogReadTwoPhaseData reads two-phase commit state data directly from the Write-A
 
 ## Definition
 
-
+```c
+static void
+XlogReadTwoPhaseData(XLogRecPtr lsn, char **buf, int *len)
+```
 ## Detailed Description
 XlogReadTwoPhaseData provides the capability to retrieve two-phase commit state data directly from WAL records, which is used as an alternative to reading from disk files during certain recovery scenarios. It allocates and configures an XLog reader, seeks to the specified LSN, reads and validates the record to ensure it's a PREPARE record, then copies the data payload into a newly allocated buffer. This function is critical for checkpoint operations that move 2PC data from WAL to persistent files and for recovery operations that need to access prepare state before it's been written to disk.
 

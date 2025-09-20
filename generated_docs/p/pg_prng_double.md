@@ -8,7 +8,10 @@ Generates a random double-precision floating-point number uniformly distributed 
 
 ## Definition
 
-
+```c
+double
+pg_prng_double(pg_prng_state *state)
+```
 ## Detailed Description
 This function selects a random double uniformly from the half-open interval [0.0, 1.0). The implementation extracts the upper 52 bits from the 64-bit xoroshiro128** output (matching the mantissa precision of IEEE 754 double-precision format) and uses ldexp() to scale it to the [0.0, 1.0) range. The function assumes IEEE 754 double arithmetic, which is standard in PostgreSQL.
 

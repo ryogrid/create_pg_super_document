@@ -8,7 +8,17 @@ SortBy is a parse tree node that represents a single sorting specification in OR
 
 ## Definition
 
-
+```c
+typedef struct SortBy
+{
+	NodeTag		type;
+	Node	   *node;			/* expression to sort on */
+	SortByDir	sortby_dir;		/* ASC/DESC/USING/default */
+	SortByNulls sortby_nulls;	/* NULLS FIRST/LAST */
+	List	   *useOp;			/* name of op to use, if SORTBY_USING */
+	ParseLoc	location;		/* operator location, or -1 if none/unknown */
+} SortBy;
+```
 ## Detailed Description
 SortBy nodes are fundamental components of PostgreSQL's ORDER BY clause processing. Each SortBy node represents one sorting key in an ORDER BY clause, containing the expression to sort on, the sorting direction (ASC/DESC), null value ordering preferences (NULLS FIRST/LAST), and optional custom operator specifications for advanced sorting. The structure supports both standard sorting (ASC/DESC) and custom operator-based sorting (USING clause). These nodes are created during parsing and later transformed into execution plan sorting specifications.
 

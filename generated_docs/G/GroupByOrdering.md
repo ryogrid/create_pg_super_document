@@ -8,7 +8,15 @@ GroupByOrdering represents an ordered arrangement of GROUP BY clauses along with
 
 ## Definition
 
+```c
+typedef struct GroupByOrdering
+{
+	NodeTag		type;
 
+	List	   *pathkeys;
+	List	   *clauses;
+} GroupByOrdering;
+```
 ## Detailed Description
 GroupByOrdering is a data structure that contains an ordered list of GROUP BY clauses and their corresponding pathkeys. This structure is essential for the query planner when determining optimal grouping strategies. The pathkeys represent the sort order that would be useful for grouping operations, while the clauses contain the actual GROUP BY expressions.
 

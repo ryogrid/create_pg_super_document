@@ -8,7 +8,9 @@ Performs the core logic of adding or removing objects from extensions, including
 
 ## Definition
 
-
+```c
+struct stat fst;
+```
 ## Detailed Description
 This static function implements the actual membership modification logic for ALTER EXTENSION ADD/DROP operations. It operates recursively to handle dependent objects automatically, ensuring that related objects (like array types for base types, multirange types for range types, and row types for tables) maintain consistent extension membership.
 

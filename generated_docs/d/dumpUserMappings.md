@@ -8,7 +8,13 @@ Dumps all user mappings associated with a specific foreign server, generating CR
 
 ## Definition
 
-
+```c
+static void
+dumpUserMappings(Archive *fout,
+				 const char *servername, const char *namespace,
+				 const char *owner,
+				 CatalogId catalogId, DumpId dumpId)
+```
 ## Detailed Description
 The  function is responsible for extracting and dumping all user mappings that are associated with a particular foreign server. It queries the  view to retrieve user mapping information and generates the corresponding SQL DDL statements for database restoration.
 

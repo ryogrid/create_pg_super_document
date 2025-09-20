@@ -8,7 +8,11 @@ Replaces the current slice (between bra and ket positions) in a Snowball environ
 
 ## Definition
 
+```c
+}
 
+extern int slice_from_s(struct SN_env * z, int s_size, const symbol * s)
+```
 ## Detailed Description
 The `slice_from_s` function is a high-level wrapper for slice replacement operations in PostgreSQL's Snowball stemming environment. It first validates the slice parameters using `slice_check` to ensure the operation is safe, then delegates to `replace_s` to perform the actual replacement of symbols between the current bracket positions (`z->bra` and `z->ket`) with the provided symbol sequence. This function provides a clean interface for replacing the currently selected slice with new content while maintaining proper error handling and validation.
 

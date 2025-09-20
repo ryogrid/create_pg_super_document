@@ -8,7 +8,11 @@ A callback function for XLogReader that handles reading WAL pages from disk, inc
 
 ## Definition
 
-
+```c
+static int
+SimpleXLogPageRead(XLogReaderState *xlogreader, XLogRecPtr targetPagePtr,
+				   int reqLen, XLogRecPtr targetRecPtr, char *readBuf)
+```
 ## Detailed Description
 This function serves as the page reading callback for XLogReader operations in pg_rewind. It handles the complex task of reading WAL pages from the appropriate timeline and segment files, including automatic timeline switching when crossing timeline boundaries and archive recovery when local WAL files are not available.
 

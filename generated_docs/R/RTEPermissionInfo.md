@@ -8,7 +8,20 @@ RTEPermissionInfo contains per-relation information for permission checking, sto
 
 ## Definition
 
+```c
+typedef struct RTEPermissionInfo
+{
+	NodeTag		type;
 
+	Oid			relid;			/* relation OID */
+	bool		inh;			/* separately check inheritance children? */
+	AclMode		requiredPerms;	/* bitmask of required access permissions */
+	Oid			checkAsUser;	/* if valid, check access as this role */
+	Bitmapset  *selectedCols;	/* columns needing SELECT permission */
+	Bitmapset  *insertedCols;	/* columns needing INSERT permission */
+	Bitmapset  *updatedCols;	/* columns needing UPDATE permission */
+} RTEPermissionInfo;
+```
 ## Detailed Description
 RTEPermissionInfo is added to Query nodes by the parser for each relation that requires permission checking. It specifies run-time access permissions that must be verified at query startup. The structure supports both table-wide and column-level permissions, allowing fine-grained access control.
 

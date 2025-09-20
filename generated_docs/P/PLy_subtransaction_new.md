@@ -8,7 +8,10 @@ Creates and initializes a new PLy subtransaction object for use in Python code w
 
 ## Definition
 
-
+```c
+PyObject *
+PLy_subtransaction_new(PyObject *self, PyObject *unused)
+```
 ## Detailed Description
 This function creates a new PLySubtransactionObject instance that represents a subtransaction in the PLPython environment. It allocates memory for the object using PyObject_New() and initializes the object's state fields to their default values. The created subtransaction object can later be used to manage database subtransactions from Python code. This corresponds to the Python syntax `plpy.subtransaction()` within PL/Python functions.
 

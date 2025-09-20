@@ -8,7 +8,10 @@ Converts a Perl SV (scalar value) to a C string in the current database encoding
 
 ## Definition
 
-
+```c
+static inline char *
+sv2cstr(SV *sv)
+```
 ## Detailed Description
 This function safely converts a Perl SV to a C-style null-terminated string in PostgreSQL's current database encoding. It handles various edge cases and encoding conversions:
 

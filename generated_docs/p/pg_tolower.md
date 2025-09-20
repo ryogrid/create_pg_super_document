@@ -8,7 +8,10 @@ Converts a single character to lowercase in a safe manner that works with both A
 
 ## Definition
 
-
+```c
+unsigned char
+pg_tolower(unsigned char ch)
+```
 ## Detailed Description
 The  function converts a character to its lowercase equivalent, providing a safe alternative to the standard C library's  function. Like its uppercase counterpart , this function is designed to be safe when applied to characters that are not uppercase letters - it will simply return the character unchanged if it's not an uppercase letter.
 

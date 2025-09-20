@@ -8,7 +8,10 @@ Decompresses a varlena data structure that was previously compressed using the L
 
 ## Definition
 
-
+```c
+struct varlena *
+lz4_decompress_datum(const struct varlena *value)
+```
 ## Detailed Description
 This function performs LZ4 decompression for PostgreSQL's TOAST system when LZ4 support is available at compile time. It takes a compressed varlena structure and decompresses it back to its original form using the LZ4 algorithm. The function first checks if LZ4 support is compiled in; if not, it calls NO_LZ4_SUPPORT() and returns NULL. When LZ4 is available, it allocates memory for the decompressed data based on the stored original size, then calls LZ4_decompress_safe to safely decompress the data with bounds checking. If decompression fails, it raises an error indicating data corruption.
 

@@ -8,7 +8,12 @@ BaseInit performs early initialization of a PostgreSQL backend process that is r
 
 ## Definition
 
-
+```c
+struction, in case we ever
+	 * try to insert XLOG.
+	 */
+	InitXLogInsert();
+```
 ## Detailed Description
 BaseInit is a fundamental initialization function that sets up essential subsystems required for any PostgreSQL backend process to function. It is designed to be called early in the process lifecycle, even before InitPostgres, and is shared between regular backends under the postmaster and auxiliary processes that may never call InitPostgres at all.
 

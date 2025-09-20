@@ -8,7 +8,10 @@ Converts a PostgreSQL internal timestamp value to its ASCII string representatio
 
 ## Definition
 
-
+```c
+struct tm	tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 PGTYPEStimestamp_to_asc is an ECPG (Embedded SQL in C for PostgreSQL) library function that converts PostgreSQL's internal timestamp data type to a human-readable ASCII string representation. This function serves as the inverse operation to PGTYPEStimestamp_from_asc.
 

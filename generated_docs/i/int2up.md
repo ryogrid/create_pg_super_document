@@ -8,7 +8,10 @@ A PostgreSQL system function that implements the unary plus operator for 16-bit 
 
 ## Definition
 
-
+```c
+Datum
+int2up(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int2up function implements the unary plus operator (+) for PostgreSQL's int2 (smallint) data type. This is essentially a no-op function that simply returns the input value without any modification. The unary plus operator is provided for completeness and symmetry with the unary minus operator, allowing expressions like "+42" to be syntactically valid even though they don't change the value.
 

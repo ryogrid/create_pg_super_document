@@ -8,7 +8,10 @@ A comparison function that compares two SortedPoint structures based on their Y 
 
 ## Definition
 
-
+```c
+static int
+y_cmp(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 The  function is a standard qsort-compatible comparison function that compares two  structures based on their Y coordinates. It follows the standard C library comparison function convention, returning:
 - 0 if the Y coordinates are equal

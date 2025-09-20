@@ -8,7 +8,9 @@ Adds a new SQL descriptor to the global descriptors linked list, storing its nam
 
 ## Definition
 
-
+```c
+struct descriptor *new;
+```
 ## Detailed Description
 This function creates a new descriptor entry and adds it to the head of the global descriptors linked list. It performs validation to ensure the descriptor name starts with a quote character before processing. The function allocates memory for the descriptor structure and copies both the name and optional connection string.
 

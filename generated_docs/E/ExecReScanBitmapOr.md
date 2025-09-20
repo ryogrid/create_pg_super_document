@@ -8,7 +8,10 @@ ExecReScanBitmapOr handles parameter changes and initiates rescanning of all chi
 
 ## Definition
 
-
+```c
+void
+ExecReScanBitmapOr(BitmapOrState *node)
+```
 ## Detailed Description
 ExecReScanBitmapOr manages the rescan operation for BitmapOr nodes, which is necessary when query parameters change during execution (typically in nested loop scenarios). The function is responsible for propagating parameter change information to child subplans and ensuring they are properly rescanned when needed.
 

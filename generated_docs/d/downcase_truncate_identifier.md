@@ -8,7 +8,16 @@ A utility function that performs both downcasing and truncation of unquoted SQL 
 
 ## Definition
 
-
+```c
+structure for.  Instead we use tolower() to provide a
+	 * locale-aware translation.  However, there are some locales where this
+	 * is not right either (eg, Turkish may do strange things with 'i' and
+	 * 'I').  Our current compromise is to use tolower() for characters with
+	 * the high bit set, as long as they aren't part of a multi-byte
+	 * character, and use an ASCII-only downcasing for 7-bit characters.
+	 */
+	for (i = 0;
+```
 ## Detailed Description
 This function is a convenience wrapper around  that performs both case conversion and truncation of SQL identifiers in a single call. It converts uppercase letters to lowercase following SQL standards and truncates identifiers that exceed PostgreSQL's maximum identifier length (NAMEDATALEN). The function is specifically designed for processing unquoted identifiers, as quoted identifiers preserve their original case and are handled differently.
 

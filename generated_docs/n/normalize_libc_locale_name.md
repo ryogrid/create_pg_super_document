@@ -8,7 +8,10 @@ normalize_libc_locale_name strips encoding tags from libc locale names to create
 
 ## Definition
 
-
+```c
+static bool
+normalize_libc_locale_name(char *new, const char *old)
+```
 ## Detailed Description
 This static utility function processes libc locale names by removing encoding specifications (e.g., ".utf8", ".UTF-8", ".iso885915") while preserving other locale components. The normalization process:
 1. Copies characters from the old name to the new name

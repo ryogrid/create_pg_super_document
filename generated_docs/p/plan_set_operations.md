@@ -8,7 +8,36 @@ The main entry point for planning set operations (UNION/INTERSECT/EXCEPT) in Pos
 
 ## Definition
 
+```c
+union, it needs special processing.
+	 */
+	if (root->hasRecursion)
+	{
+		setop_rel = generate_recursion_path(topop, root,
+											leftmostQuery->targetList,
+											&top_tlist);
+	}
+	else
+	{
+		bool		trivial_tlist;
 
+		/*
+		 * Recurse on setOperations tree to generate paths for set ops. The
+		 * final output paths should have just the column types shown as the
+		 * output from the top-level node, plus possibly resjunk working
+		 * columns (we can rely on upper-level nodes to deal with that).
+		 */
+		setop_rel = recurse_set_operations((Node *) topop, root,
+										   topop->colTypes, topop->colCollations,
+										   true, -1,
+										   leftmostQuery->targetList,
+										   &top_tlist,
+										   &trivial_tlist);
+	}
+
+	/* Must return the built tlist into root->processed_tlist. */
+	root->processed_tlist = top_tlist;
+```
 ## Detailed Description
  is responsible for planning and optimizing a tree of set operations in PostgreSQL. This function serves as the main coordinator for handling UNION, INTERSECT, and EXCEPT operations. It takes a parsed query containing set operations and produces optimized execution paths.
 

@@ -8,7 +8,11 @@ This is the workhouse routine for inserting a tuple into a GiST (Generalized Sea
 
 ## Definition
 
-
+```c
+void
+gistdoinsert(Relation r, IndexTuple itup, Size freespace,
+			 GISTSTATE *giststate, Relation heapRel, bool is_build)
+```
 ## Detailed Description
  performs the core GiST index insertion logic by walking down the tree from the root, following the path of smallest penalty to find the appropriate leaf page for insertion. The function handles several complex scenarios:
 

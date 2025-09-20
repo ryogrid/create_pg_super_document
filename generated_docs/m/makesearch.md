@@ -8,7 +8,11 @@ Transforms an NFA into a search NFA by implicitly prepending  (non-greedy match-
 
 ## Definition
 
-
+```c
+static void
+makesearch(struct vars *v,
+		   struct nfa *nfa)
+```
 ## Detailed Description
 The  function converts a standard NFA (Non-deterministic Finite Automaton) into a search NFA suitable for finding patterns anywhere within input text, not just at the beginning. This transformation involves two main phases:
 

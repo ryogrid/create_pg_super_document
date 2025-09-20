@@ -8,7 +8,15 @@ SPIPrepareOptions is a structure that provides optional configuration parameters
 
 ## Definition
 
-
+```c
+typedef struct SPIPrepareOptions
+{
+	ParserSetupHook parserSetup;
+	void	   *parserSetupArg;
+	RawParseMode parseMode;
+	int			cursorOptions;
+} SPIPrepareOptions;
+```
 ## Detailed Description
 SPIPrepareOptions serves as a configuration structure for advanced SPI statement preparation scenarios. It enables callers to customize the parsing process by providing custom parser setup hooks, specifying parsing modes, and configuring cursor-specific options. This structure is particularly useful when preparing statements that require non-standard parsing behavior or when working with cursor-based operations that need specific configuration.
 

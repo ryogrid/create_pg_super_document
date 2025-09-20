@@ -8,7 +8,10 @@ A static function that evaluates runtime conditions to determine whether a named
 
 ## Definition
 
-
+```c
+static bool
+injection_point_allowed(InjectionPointCondition *condition)
+```
 ## Detailed Description
 This function implements the conditional logic for injection points in PostgreSQL's testing framework. It takes an  structure and evaluates the specified conditions to determine if the injection point should be triggered. The function supports different condition types including process ID-based filtering and always-allow conditions. This allows for fine-grained control over when injection points are activated, enabling targeted testing scenarios.
 

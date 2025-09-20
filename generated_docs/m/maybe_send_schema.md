@@ -8,7 +8,12 @@ Conditionally sends the schema of a relation and its ancestor (if any) to the lo
 
 ## Definition
 
-
+```c
+static void
+maybe_send_schema(LogicalDecodingContext *ctx,
+				  ReorderBufferChange *change,
+				  Relation relation, RelationSyncEntry *relentry)
+```
 ## Detailed Description
 This function determines whether to send schema information for a relation in the logical replication stream. It handles both streaming and non-streaming transactions, tracking which schemas have already been sent to avoid redundant transmissions. The function has special handling for relations that are published using an ancestor's schema (inheritance scenarios), sending both the ancestor's and the relation's schema information when needed. For streaming transactions, schema tracking is maintained per transaction to handle the complex ordering requirements of streamed vs non-streamed transactions.
 

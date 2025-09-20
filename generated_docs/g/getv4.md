@@ -8,7 +8,10 @@ Parses IPv4 address components from a string in dotted decimal notation, support
 
 ## Definition
 
-
+```c
+static int
+getv4(const char *src, u_char *dst, int *bitsp)
+```
 ## Detailed Description
 This function parses IPv4 address components from a string containing dotted decimal notation. It processes decimal octets separated by dots and can handle partial IPv4 addresses (fewer than 4 octets). When a forward slash is encountered, it delegates CIDR prefix parsing to the getbits function.
 

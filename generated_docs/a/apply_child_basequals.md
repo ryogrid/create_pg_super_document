@@ -8,7 +8,12 @@ Translates and applies base restriction qualifiers from a parent relation to a c
 
 ## Definition
 
-
+```c
+bool
+apply_child_basequals(PlannerInfo *root, RelOptInfo *parentrel,
+					  RelOptInfo *childrel, RangeTblEntry *childRTE,
+					  AppendRelInfo *appinfo)
+```
 ## Detailed Description
 This function is responsible for propagating restriction qualifiers (WHERE clause conditions) from a parent relation to its child relations in inheritance hierarchies or partitioned tables. It translates variable references using the append relation mapping, evaluates constant expressions for optimization opportunities, and handles security qualifiers.
 

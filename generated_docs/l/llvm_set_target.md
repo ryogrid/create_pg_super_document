@@ -8,7 +8,10 @@ Initializes the LLVM target architecture and data layout information by extracti
 
 ## Definition
 
-
+```c
+static void
+llvm_set_target(void)
+```
 ## Detailed Description
 This static function serves as an initialization routine for the LLVM JIT compilation system in PostgreSQL. It extracts and caches the target triple and data layout string from the , which contains pre-compiled type definitions. The function ensures that the LLVM JIT compiler uses the same target architecture and memory layout that was used when the types module was compiled, guaranteeing compatibility between the JIT-compiled code and the rest of the PostgreSQL system.
 

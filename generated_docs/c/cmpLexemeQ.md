@@ -8,7 +8,10 @@ A qsort-compatible wrapper function for cmpLexeme that enables sorting arrays of
 
 ## Definition
 
-
+```c
+static int
+cmpLexemeQ(const void *a, const void *b)
+```
 ## Detailed Description
 This function serves as an adapter between the specific cmpLexeme comparison function and the generic qsort/bsearch family of functions that require comparators with void pointer parameters. It performs the necessary type casting from void pointers to TheLexeme pointers and delegates the actual comparison logic to cmpLexeme.
 

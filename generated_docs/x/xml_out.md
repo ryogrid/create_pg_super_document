@@ -8,7 +8,10 @@ PostgreSQL output function that converts the internal xml data type to a C strin
 
 ## Definition
 
-
+```c
+Datum
+xml_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the output conversion function for PostgreSQL's xml data type. It acts as a wrapper around xml_out_internal, specifically designed to handle client communication scenarios. The key feature of this function is that it deliberately removes encoding declarations from the XML output by passing 0 as the target encoding. This design decision prevents potential encoding conflicts that could arise when the output is later converted to different client encodings, ensuring safer XML transmission to clients.
 

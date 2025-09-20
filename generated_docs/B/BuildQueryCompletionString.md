@@ -8,7 +8,11 @@ Constructs a command completion string containing the command tag name and optio
 
 ## Definition
 
-
+```c
+Size
+BuildQueryCompletionString(char *buff, const QueryCompletion *qc,
+						   bool nameonly)
+```
 ## Detailed Description
 This function builds the command completion string that PostgreSQL sends to clients after executing a command. The string format varies based on the command type and the  parameter. For commands that display row counts (determined by ), the function appends the number of processed rows to the command name.
 

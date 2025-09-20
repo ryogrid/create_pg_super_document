@@ -8,7 +8,10 @@ Assigns a cycle ID to a B-tree index at the beginning of a VACUUM operation, tra
 
 ## Definition
 
-
+```c
+BTCycleId
+_bt_start_vacuum(Relation rel)
+```
 ## Detailed Description
 This function initiates VACUUM tracking for a B-tree index by assigning a unique cycle ID that will be used throughout the VACUUM process. The cycle ID serves to identify pages that were split during VACUUM, allowing VACUUM to detect concurrent page modifications. The function maintains a shared memory array () that tracks all currently active VACUUM operations across different indexes.
 

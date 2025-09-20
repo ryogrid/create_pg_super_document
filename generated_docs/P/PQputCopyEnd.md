@@ -8,7 +8,10 @@ Signals the end of a COPY IN operation to the PostgreSQL backend, either indicat
 
 ## Definition
 
-
+```c
+int
+PQputCopyEnd(PGconn *conn, const char *errormsg)
+```
 ## Detailed Description
 PQputCopyEnd terminates a COPY IN or COPY BOTH operation by sending either a COPY DONE message (successful completion) or a COPY FAIL message (error condition) to the PostgreSQL server. The function handles protocol-level details including proper message formatting and connection state transitions.
 

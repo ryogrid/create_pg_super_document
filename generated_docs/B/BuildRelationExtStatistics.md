@@ -8,7 +8,12 @@ BuildRelationExtStatistics computes and stores extended statistics objects for a
 
 ## Definition
 
-
+```c
+void
+BuildRelationExtStatistics(Relation onerel, bool inh, double totalrows,
+						   int numrows, HeapTuple *rows,
+						   int natts, VacAttrStats **vacattrstats)
+```
 ## Detailed Description
 This function serves as the main entry point for building extended statistics during the ANALYZE command. It fetches extended statistics definitions from pg_statistic_ext catalog, validates that the required columns have been analyzed, and computes the requested statistics types. For each statistics object, it determines an appropriate statistics target, builds the requested statistics (n-distinct, dependencies, MCV lists, or expression statistics), and stores the results back into the system catalogs. The function also provides progress reporting during extended statistics computation.
 

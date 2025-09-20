@@ -8,7 +8,10 @@ SQL-callable function that provides access to PostgreSQL's SET command functiona
 
 ## Definition
 
-
+```c
+Datum
+set_config_by_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a SQL-accessible wrapper around PostgreSQL's configuration setting functionality. It implements the set_config() SQL function that can be called from SQL queries to modify GUC (Grand Unified Configuration) parameters.
 

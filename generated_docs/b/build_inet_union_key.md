@@ -8,7 +8,11 @@ A static helper function that constructs a GistInetKey representing the union of
 
 ## Definition
 
-
+```c
+static GistInetKey *
+build_inet_union_key(int family, int minbits, int commonbits,
+					 unsigned char *addr)
+```
 ## Detailed Description
 This function creates a new GistInetKey structure that represents the union of multiple inet values by combining their common characteristics. The function takes pre-calculated union parameters (typically from calc_inet_union_params functions) and constructs a proper GiST index key.
 

@@ -8,7 +8,11 @@ ExecIndexScanInitializeDSM sets up a parallel index scan descriptor in shared me
 
 ## Definition
 
-
+```c
+void
+ExecIndexScanInitializeDSM(IndexScanState *node,
+						   ParallelContext *pcxt)
+```
 ## Detailed Description
 ExecIndexScanInitializeDSM is responsible for initializing the shared memory structures needed for parallel index scanning. This function is called during the initialization phase of parallel query execution to set up coordination mechanisms between the leader process and worker processes.
 

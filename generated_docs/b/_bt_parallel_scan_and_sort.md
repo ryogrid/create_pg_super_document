@@ -8,7 +8,12 @@ Core function that performs the actual table scanning and tuple sorting work for
 
 ## Definition
 
-
+```c
+static void
+_bt_parallel_scan_and_sort(BTSpool *btspool, BTSpool *btspool2,
+						   BTShared *btshared, Sharedsort *sharedsort,
+						   Sharedsort *sharedsort2, int sortmem, bool progress)
+```
 ## Detailed Description
 This function implements the worker's portion of a parallel B-tree index build by performing the following key operations:
 

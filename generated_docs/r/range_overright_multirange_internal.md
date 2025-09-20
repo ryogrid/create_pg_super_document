@@ -8,7 +8,12 @@ Internal function that checks if a range does not extend to the left of a multir
 
 ## Definition
 
-
+```c
+bool
+range_overright_multirange_internal(TypeCacheEntry *rangetyp,
+									const RangeType *r,
+									const MultirangeType *mr)
+```
 ## Detailed Description
 This internal function implements the core logic for the "overright" or "does not extend to left of" operator (&>) between a range type and a multirange type. It determines whether the given range does not extend to the left of the given multirange by comparing their lower bounds.
 

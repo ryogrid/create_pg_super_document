@@ -8,7 +8,11 @@ Determines whether a relation can be excluded from scanning based on constraint 
 
 ## Definition
 
-
+```c
+bool
+relation_excluded_by_constraints(PlannerInfo *root,
+								 RelOptInfo *rel, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function performs constraint exclusion optimization by analyzing whether a relation needs to be scanned at all. It examines the relation's base restriction clauses and compares them against the relation's constraints (CHECK constraints, NOT NULL constraints, and partition constraints) to determine if the restrictions are logically inconsistent with the constraints, making the scan unnecessary.
 

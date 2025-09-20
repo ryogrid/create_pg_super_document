@@ -8,7 +8,10 @@ The remove_gene function removes a specified gene from the edge table structure,
 
 ## Definition
 
-
+```c
+static void
+remove_gene(PlannerInfo *root, Gene gene, Edge edge, Edge *edge_table)
+```
 ## Detailed Description
 This function is responsible for removing a specific gene from the edge table data structure used in the genetic algorithm's edge recombination crossover operation. When a gene is selected for inclusion in the offspring tour, it must be removed from all edge lists to prevent it from being selected again. The function iterates through all genes that have edges to the input gene (stored in the edge's edge_list) and removes the input gene from their respective edge lists.
 

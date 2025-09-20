@@ -8,7 +8,10 @@ Computes join selectivity estimates for case-insensitive regular expression non-
 
 ## Definition
 
-
+```c
+Datum
+icregexnejoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides selectivity estimation for join operations involving case-insensitive regular expression non-match (NOT SIMILAR TO with case-insensitive matching). It is a PostgreSQL system function that helps the query planner estimate how many rows will result from a join condition using case-insensitive regex non-matching.
 

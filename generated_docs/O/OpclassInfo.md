@@ -8,7 +8,14 @@ OpclassInfo is a structure used in pg_dump to represent operator class metadata 
 
 ## Definition
 
-
+```c
+typedef struct _opfamilyInfo
+{
+	DumpableObject dobj;
+	Oid			opfmethod;
+	const char *rolname;
+} OpfamilyInfo;
+```
 ## Detailed Description
 OpclassInfo stores metadata about PostgreSQL operator classes for the dump and restore process. Operator classes define sets of operators and support functions that an access method can use for a particular data type. This structure captures the operator class's association with its access method and ownership information, enabling pg_dump to properly recreate custom operator classes during database restoration with their correct relationships and permissions.
 

@@ -8,7 +8,10 @@ A static inline function that switches the current memory context to a specified
 
 ## Definition
 
-
+```c
+static inline MemoryContext
+MemoryContextSwitchTo(MemoryContext context)
+```
 ## Detailed Description
 MemoryContextSwitchTo is a fundamental memory management utility in PostgreSQL that changes the current memory allocation context. It atomically switches the global CurrentMemoryContext variable to the specified context and returns the previously active context. This function is essential for PostgreSQL's memory management system, allowing code to temporarily switch to a different memory context for allocations and then restore the previous context. The function is implemented as a static inline for performance reasons since it's frequently called throughout the PostgreSQL codebase.
 

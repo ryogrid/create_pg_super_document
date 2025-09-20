@@ -8,7 +8,13 @@ Handles each chunk of tar content while injecting recovery configuration, managi
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_recovery_injector_content(bbstreamer *streamer,
+									 bbstreamer_member *member,
+									 const char *data, int len,
+									 bbstreamer_archive_context context)
+```
 ## Detailed Description
 This function processes archive stream chunks and selectively modifies them to inject recovery configuration. It operates differently based on the archive context and recovery GUC support:
 

@@ -8,7 +8,11 @@ A Tamil stemmer function that repeatedly applies ending fixes to a word by calli
 
 ## Definition
 
+```c
+}
 
+static int r_fix_endings(struct SN_env * z)
+```
 ## Detailed Description
 This function serves as a controller for the Tamil ending normalization process. It implements a loop that continuously calls  to perform character sequence corrections at word endings until no more transformations are possible. This iterative approach ensures that all applicable ending fixes are applied, even when one fix might enable another fix to be applied.
 

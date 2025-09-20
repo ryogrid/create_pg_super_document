@@ -8,7 +8,9 @@ RecoveryTargetAction is an enumeration type that defines the possible actions to
 
 ## Definition
 
-
+```c
+struct LogicalDecodingContext;
+```
 ## Detailed Description
 This enumeration controls what PostgreSQL should do when it reaches a configured recovery target during archive recovery or streaming replication. The recovery target can be specified by time, transaction ID, LSN, or other criteria. Once the target is reached, the system must decide whether to pause recovery (allowing inspection), promote to become a primary server, or shutdown gracefully.
 

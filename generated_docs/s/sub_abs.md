@@ -8,7 +8,10 @@ Subtracts the absolute value of var2 from the absolute value of var1 and stores 
 
 ## Definition
 
-
+```c
+static void
+sub_abs(const NumericVar *var1, const NumericVar *var2, NumericVar *result)
+```
 ## Detailed Description
 The  function performs subtraction of absolute values between two NumericVar operands. It implements multi-precision arithmetic by working with digit arrays in base NBASE representation. The function requires that the absolute value of var1 must be greater than or equal to the absolute value of var2 to ensure the result is non-negative. The operation handles borrowing between digits and properly manages the weight and scale of the result. The result can safely point to one of the operands without causing memory corruption.
 

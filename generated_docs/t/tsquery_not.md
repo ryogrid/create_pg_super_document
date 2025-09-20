@@ -8,7 +8,10 @@ Creates a negation query that matches documents where the specified tsquery does
 
 ## Definition
 
-
+```c
+Datum
+tsquery_not(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function creates a NOT operation on a tsquery, which matches documents that do not contain the specified search terms or patterns. It constructs a new query tree with a NOT operator as the root node and the input query as its single child. The function handles empty queries by returning them unchanged, since negating an empty query would still be empty.
 

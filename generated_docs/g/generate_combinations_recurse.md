@@ -8,7 +8,11 @@ Recursively generates all possible k-combinations of n elements in lexicographic
 
 ## Definition
 
-
+```c
+static void
+generate_combinations_recurse(CombinationGenerator *state,
+							  int index, int start, int *current)
+```
 ## Detailed Description
 This function implements the recursive logic for generating all possible combinations of k elements from n total elements. It operates by filling combination positions one by one, ensuring lexicographic ordering to eliminate duplicate permutations. The function uses a depth-first recursive approach where each recursive call fills one position in the combination array.
 

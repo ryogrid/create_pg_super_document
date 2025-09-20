@@ -8,7 +8,12 @@ Converts spilled hash aggregation partitions into new processing batches after t
 
 ## Definition
 
-
+```c
+structures
+		 * are no longer needed.
+		 */
+		pfree(aggstate->hash_spills);
+```
 ## Detailed Description
 This function is called after processing a HashAggBatch to handle any tuples that were spilled to disk during hash aggregation. When hash tables exceed memory limits, PostgreSQL spills some tuples to disk in partitions. This function processes those spilled partitions by converting them into new HashAggBatch structures that will be processed in subsequent iterations.
 

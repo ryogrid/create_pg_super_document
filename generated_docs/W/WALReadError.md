@@ -8,7 +8,16 @@ WALReadError is a structure that encapsulates error information from WAL reading
 
 ## Definition
 
-
+```c
+typedef struct WALReadError
+{
+	int			wre_errno;		/* errno set by the last pg_pread() */
+	int			wre_off;		/* Offset we tried to read from. */
+	int			wre_req;		/* Bytes requested to be read. */
+	int			wre_read;		/* Bytes read by the last read(). */
+	WALOpenSegment wre_seg;		/* Segment we tried to read from. */
+} WALReadError;
+```
 ## Detailed Description
 WALReadError serves as a comprehensive error reporting structure for WAL reading operations. It captures all relevant context when a WAL read operation fails, including the system error code, the attempted read parameters (offset and requested bytes), the actual bytes read, and information about the WAL segment being accessed. This structure enables both PostgreSQL backend processes and frontend utilities to diagnose and handle WAL reading failures in a consistent manner.
 

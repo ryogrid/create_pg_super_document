@@ -8,7 +8,10 @@ A static comparison function used for searching Unicode codepoint ranges via bin
 
 ## Definition
 
-
+```c
+static int
+codepoint_range_cmp(const void *a, const void *b)
+```
 ## Detailed Description
 This function serves as a comparison callback for binary search operations (typically used with bsearch()). It compares a Unicode codepoint against a range of codepoints to determine the relative position. The function is specifically designed to work with Unicode codepoint tables that store ranges as pairs of values [lower_bound, upper_bound].
 

@@ -8,7 +8,13 @@ transformFkeyGetPrimaryKey retrieves the names, attribute numbers, types, and in
 
 ## Definition
 
-
+```c
+static int
+transformFkeyGetPrimaryKey(Relation pkrel, Oid *indexOid,
+						   List **attnamelist,
+						   int16 *attnums, Oid *atttypids,
+						   Oid *opclasses)
+```
 ## Detailed Description
 This function automatically determines the primary key columns of a referenced table when creating a foreign key constraint without explicitly specifying the referenced columns. It searches through all indexes on the table to find the primary key index, validates that the primary key is suitable for foreign key references, and extracts detailed information about the primary key columns.
 

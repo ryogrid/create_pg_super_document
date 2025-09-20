@@ -8,7 +8,10 @@ Deletes a context and its descendants, releasing all space allocated therein, us
 
 ## Definition
 
-
+```c
+void
+MemoryContextDelete(MemoryContext context)
+```
 ## Detailed Description
 MemoryContextDelete is a comprehensive memory management function that completely removes a memory context and all its descendant contexts from the memory hierarchy. Unlike reset operations, this function permanently destroys the contexts and frees all associated memory.
 

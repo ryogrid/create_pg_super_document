@@ -8,7 +8,10 @@ Determines whether an existing relation has a primary key index by searching thr
 
 ## Definition
 
-
+```c
+static bool
+relationHasPrimaryKey(Relation rel)
+```
 ## Detailed Description
 This function checks if a relation (table) has a primary key by examining all indexes associated with the relation. It retrieves the list of index OIDs from the relation cache and searches through each index in the pg_index system catalog to find one marked as a primary key. The function intentionally does not check the indisvalid flag, allowing it to detect primary key constraints even if the associated index is currently invalid. This behavior is important for enforcing the rule that only one primary key index can exist per table.
 

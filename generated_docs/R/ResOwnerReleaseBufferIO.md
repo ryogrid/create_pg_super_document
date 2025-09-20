@@ -8,7 +8,10 @@ A ResourceOwner callback function that releases buffer IO operations by aborting
 
 ## Definition
 
-
+```c
+static void
+ResOwnerReleaseBufferIO(Datum res)
+```
 ## Detailed Description
 ResOwnerReleaseBufferIO is a static callback function used by PostgreSQL's ResourceOwner system to clean up buffer IO operations during resource management scenarios such as transaction abort, error recovery, or resource deallocation. The function converts the generic Datum parameter to a Buffer identifier and calls AbortBufferIO to terminate any ongoing IO operations on that buffer.
 

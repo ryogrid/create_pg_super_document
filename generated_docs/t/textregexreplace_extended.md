@@ -8,7 +8,10 @@ Provides extended regular expression replacement functionality with additional p
 
 ## Definition
 
-
+```c
+Datum
+textregexreplace_extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the full-featured version of PostgreSQL's  SQL function, supporting up to 6 arguments. It extends the basic  by allowing users to specify a start position within the source text and control which occurrence(s) to replace.
 

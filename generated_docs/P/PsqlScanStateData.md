@@ -8,7 +8,57 @@ PsqlScanStateData is the central state structure that contains all working state
 
 ## Definition
 
+```c
+typedef struct PsqlScanStateData
+{
+	yyscan_t	scanner;		/* Flex's state for this PsqlScanState */
 
+	PQExpBuffer output_buf;		/* current output buffer */
+
+	StackElem  *buffer_stack;	/* stack of variable expansion buffers */
+
+	/*
+	 * These variables always refer to the outer buffer, never to any stacked
+	 * variable-expansion buffer.
+	 */
+	YY_BUFFER_STATE scanbufhandle;
+	char	   *scanbuf;		/* start of outer-level input buffer */
+	const char *scanline;		/* current input line at outer level */
+
+	/* safe_encoding, curline, refline are used by emit() to replace FFs */
+	int			encoding;		/* encoding being used now */
+	bool		safe_encoding;	/* is current encoding "safe"? */
+	bool		std_strings;	/* are string literals standard? */
+	const char *curline;		/* actual flex input string for cur buf */
+	const char *refline;		/* original data for cur buffer */
+
+	/*
+	 * All this state lives across successive input lines, until explicitly
+	 * reset by psql_scan_reset.  start_state is adopted by yylex() on entry,
+	 * and updated with its finishing state on exit.
+	 */
+	int			start_state;	/* yylex's starting/finishing state */
+	int			state_before_str_stop;	/* start cond. before end quote */
+	int			paren_depth;	/* depth of nesting in parentheses */
+	int			xcdepth;		/* depth of nesting in slash-star comments */
+	char	   *dolqstart;		/* current $foo$ quote start string */
+
+	/*
+	 * State to track boundaries of BEGIN ... END blocks in function
+	 * definitions, so that semicolons do not send query too early.
+	 */
+	int			identifier_count;	/* identifiers since start of statement */
+	char		identifiers[4]; /* records the first few identifiers */
+	int			begin_depth;	/* depth of begin/end pairs */
+
+	/*
+	 * Callback functions provided by the program making use of the lexer,
+	 * plus a void* callback passthrough argument.
+	 */
+	const PsqlScanCallbacks *callbacks;
+	void	   *cb_passthrough;
+} PsqlScanStateData;
+```
 ## Detailed Description
 PsqlScanStateData is the comprehensive state container for PostgreSQL's lexical scanning system, designed to support re-entrant lexer operations essential for handling nested include files and multiple simultaneous scanning contexts. This structure encapsulates all the information needed to maintain scanning state between lexer calls, enabling sophisticated features like variable substitution, multibyte encoding support, and complex SQL parsing rules.
 

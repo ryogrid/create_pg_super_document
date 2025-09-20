@@ -8,7 +8,10 @@ A substitute hook function for psql boolean variables that normalizes variable a
 
 ## Definition
 
-
+```c
+static char *
+bool_substitute_hook(char *newval)
+```
 ## Detailed Description
 This function serves as a variable substitution hook in psql's variable management system, specifically designed to handle boolean variables. It implements the logic to normalize boolean variable assignments by converting NULL values (from \unset commands) to "off" and empty string values (from bare \set commands) to "on". This normalization ensures consistent boolean representation across psql's variable system and supports the expected behavior where \set VAR with no value means "turn on" and \unset VAR means "turn off".
 

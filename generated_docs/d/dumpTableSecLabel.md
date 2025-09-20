@@ -8,7 +8,10 @@ Dumps security labels for both a specified table (or view) and its columns to th
 
 ## Definition
 
-
+```c
+static void
+dumpTableSecLabel(Archive *fout, const TableInfo *tbinfo, const char *reltypename)
+```
 ## Detailed Description
 This function is responsible for extracting and dumping security labels associated with a table or view and its columns. It searches for security labels using the table's catalog information, then generates appropriate SECURITY LABEL SQL statements for restoration. The function handles both table-level and column-level security labels, distinguishing between them using the objsubid field. Security labels are metadata used by security modules like SELinux to provide mandatory access control policies.
 

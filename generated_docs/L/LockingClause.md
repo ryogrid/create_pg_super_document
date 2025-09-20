@@ -8,7 +8,15 @@ LockingClause represents the raw parse tree representation of FOR UPDATE/FOR SHA
 
 ## Definition
 
-
+```c
+typedef struct LockingClause
+{
+	NodeTag		type;
+	List	   *lockedRels;		/* FOR [KEY] UPDATE/SHARE relations */
+	LockClauseStrength strength;
+	LockWaitPolicy waitPolicy;	/* NOWAIT and SKIP LOCKED */
+} LockingClause;
+```
 ## Detailed Description
 LockingClause captures the FOR UPDATE and FOR SHARE locking specifications found in SELECT statements. It represents the parsed form of row-level locking directives that control concurrent access to query results. The structure can specify particular relations to lock or apply to all relations in the query. It supports different locking strengths (UPDATE vs SHARE, with KEY variants) and wait policies (blocking, NOWAIT, or SKIP LOCKED) to handle lock conflicts.
 

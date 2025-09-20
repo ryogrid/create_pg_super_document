@@ -8,7 +8,10 @@ A GUC assign hook function that translates the synchronous_commit configuration 
 
 ## Definition
 
-
+```c
+void
+assign_synchronous_commit(int newval, void *extra)
+```
 ## Detailed Description
 This function serves as the assignment hook for the synchronous_commit GUC parameter in PostgreSQL's configuration system. It translates the user-facing synchronous_commit setting values into the internal SyncRepWaitMode values that control how the synchronous replication system behaves.
 

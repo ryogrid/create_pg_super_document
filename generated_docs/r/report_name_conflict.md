@@ -8,7 +8,10 @@ A static helper function that raises an error indicating that an object with the
 
 ## Definition
 
-
+```c
+static void
+report_name_conflict(Oid classId, const char *name)
+```
 ## Detailed Description
 This function generates appropriate error messages for duplicate object names based on the object class ID. It uses a switch statement to determine the correct error message format for different types of database objects including event triggers, foreign-data wrappers, foreign servers, languages, publications, and subscriptions. The function then raises an ERROR with the ERRCODE_DUPLICATE_OBJECT error code and the formatted message.
 

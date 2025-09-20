@@ -8,7 +8,10 @@ RestrictSearchPath sets the search_path to a predefined safe value during mainte
 
 ## Definition
 
-
+```c
+struct config_generic *gconf = slist_container(struct config_generic,
+													   stack_link, iter.cur);
+```
 ## Detailed Description
 This function temporarily restricts the search_path configuration parameter to a safe, well-known value during critical maintenance operations. This security measure prevents potentially malicious or problematic schema resolution that could occur if user-defined search paths were used during system maintenance tasks. The function only operates outside of bootstrap mode, as the search_path is already fixed and safe during bootstrap processing.
 

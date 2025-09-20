@@ -8,7 +8,10 @@ A signal handler function that sets a global flag to gracefully stop the WAL rec
 
 ## Definition
 
-
+```c
+static void
+sigexit_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 The  function is a simple signal handler designed to provide graceful termination for PostgreSQL WAL (Write-Ahead Log) receiver utilities. When termination signals (such as SIGTERM or SIGINT) are received, this handler sets the global boolean variable  to , which allows the main processing loop to detect the termination request and exit cleanly. This approach ensures that the process can complete any ongoing operations and perform proper cleanup before shutting down.
 

@@ -8,7 +8,20 @@ LogicalRepInfo is a struct that holds runtime information and configuration deta
 
 ## Definition
 
+```c
+struct LogicalRepInfo
+{
+	char	   *dbname;			/* database name */
+	char	   *pubconninfo;	/* publisher connection string */
+	char	   *subconninfo;	/* subscriber connection string */
+	char	   *pubname;		/* publication name */
+	char	   *subname;		/* subscription name */
+	char	   *replslotname;	/* replication slot name */
 
+	bool		made_replslot;	/* replication slot was created */
+	bool		made_publication;	/* publication was created */
+};
+```
 ## Detailed Description
 LogicalRepInfo serves as a per-database container for logical replication configuration and state tracking in the pg_createsubscriber utility. This structure encapsulates all the necessary information required to manage logical replication for a single database during the conversion process from standby to subscriber. It stores connection strings, object names, and boolean flags that track whether certain replication objects were created during the conversion process. The structure is used extensively throughout the pg_createsubscriber.c module to manage the setup, configuration, and cleanup of logical replication components for each database being converted.
 

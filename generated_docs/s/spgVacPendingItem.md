@@ -8,7 +8,14 @@ A structure representing an entry in a pending list of TIDs (Tuple IDs) that nee
 
 ## Definition
 
-
+```c
+typedef struct spgVacPendingItem
+{
+	ItemPointerData tid;		/* redirection target to visit */
+	bool		done;			/* have we dealt with this? */
+	struct spgVacPendingItem *next; /* list link */
+} spgVacPendingItem;
+```
 ## Detailed Description
 The  structure is used in SPGiST (Space-Partitioned Generalized Search Tree) vacuum operations to maintain a linked list of tuple identifiers that require processing. This structure is essential for tracking redirection targets that need to be visited during the vacuum process. The pending list ensures that all necessary tuples are processed even when they are discovered during the vacuum operation itself.
 

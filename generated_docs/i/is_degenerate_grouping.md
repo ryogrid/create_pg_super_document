@@ -8,7 +8,10 @@ Determines whether the current query represents a degenerate grouping case that 
 
 ## Definition
 
-
+```c
+static bool
+is_degenerate_grouping(PlannerInfo *root)
+```
 ## Detailed Description
 This function identifies a specific optimization case in GROUP BY processing called "degenerate grouping." A degenerate grouping occurs when a query has either a HAVING clause or grouping sets, but lacks both aggregate functions and actual GROUP BY columns. This typically happens with empty grouping sets or when grouping is used purely for filtering purposes without aggregation.
 

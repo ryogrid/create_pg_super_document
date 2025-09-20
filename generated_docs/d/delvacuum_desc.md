@@ -8,7 +8,12 @@ The  function formats detailed information about deleted and updated items in B-
 
 ## Definition
 
-
+```c
+structure
+	 * that we could use.  Readability seems more important here.)
+	 */
+	appendStringInfoString(buf, ", updated: [");
+```
 ## Detailed Description
 This static helper function provides detailed formatting for B-tree vacuum and delete operations that contain information about deleted and updated items. It parses the block data structure to extract arrays of deleted offset numbers and updated item information, then formats them into a human-readable representation. For deleted items, it displays an array of page offset numbers. For updated items, it shows more complex information including the offset number, number of deleted TIDs (tuple identifiers), and the specific TID positions that were deleted from posting list tuples. The function handles the complex data layout where deleted offsets come first, followed by updated offsets, followed by the detailed update structures.
 

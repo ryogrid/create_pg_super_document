@@ -8,7 +8,11 @@ This function validates whether a specific I/O operation should be tracked for a
 
 ## Definition
 
-
+```c
+bool
+pgstat_tracks_io_op(BackendType bktype, IOObject io_object,
+					IOContext io_context, IOOp io_op)
+```
 ## Detailed Description
 The `pgstat_tracks_io_op` function serves as the final validation layer in PostgreSQL's I/O statistics tracking system. It validates that a specific I/O operation (IOOp) is valid for the given combination of backend type, I/O object, and I/O context. The function implements several categories of validation rules:
 

@@ -8,7 +8,10 @@ Tests whether the upper edge of one circle is at or below the upper edge of anot
 
 ## Definition
 
-
+```c
+Datum
+circle_overbelow(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs a positional comparison between two circles to determine if the first circle's upper edge (center.y + radius) is at or below the second circle's upper edge. This is a geometric operator used in PostgreSQL's spatial data types for circle positioning queries. The function returns true if circle1's uppermost point has a y-coordinate less than or equal to circle2's uppermost point.
 

@@ -8,7 +8,13 @@ Provides a preliminary estimate of the cost of a nestloop join path, producing l
 
 ## Definition
 
-
+```c
+void
+initial_cost_nestloop(PlannerInfo *root, JoinCostWorkspace *workspace,
+					  JoinType jointype,
+					  Path *outer_path, Path *inner_path,
+					  JoinPathExtraData *extra)
+```
 ## Detailed Description
 This function performs the first phase of nested loop join cost estimation in PostgreSQL's query planner. It quickly produces lower-bound estimates of startup and total costs to determine if a proposed nested loop path should be considered further. The function:
 

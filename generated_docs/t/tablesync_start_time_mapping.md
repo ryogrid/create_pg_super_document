@@ -8,7 +8,13 @@ A lightweight structure used internally by PostgreSQL's logical replication syst
 
 ## Definition
 
-
+```c
+struct tablesync_start_time_mapping
+	{
+		Oid			relid;
+		TimestampTz last_start_time;
+	};
+```
 ## Detailed Description
 The  struct serves as a hash table entry within the  function to implement a throttling mechanism for table synchronization workers in PostgreSQL's logical replication. This structure is part of a rate-limiting strategy that prevents the system from continuously attempting to restart failed table sync workers, which could lead to resource exhaustion or performance degradation.
 

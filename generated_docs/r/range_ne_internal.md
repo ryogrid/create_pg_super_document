@@ -8,7 +8,10 @@ This internal PostgreSQL function performs inequality comparison between two ran
 
 ## Definition
 
-
+```c
+bool
+range_ne_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2)
+```
 ## Detailed Description
 The  function is a simple internal implementation for range inequality comparison in PostgreSQL. Rather than implementing its own comparison logic, it leverages the existing  function and returns its logical negation. This approach ensures consistency between equality and inequality operations while minimizing code duplication. The function serves as the core logic for the "not equal" (<>) operator for range types and is used by both public operators and internal PostgreSQL indexing mechanisms.
 

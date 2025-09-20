@@ -8,7 +8,31 @@ A macro that marks the end of an exception handling try block in PL/Perl, servin
 
 ## Definition
 
+```c
+#    define XCPT_TRY_START    Copy(top_env, oldTOP, 1, Sigjmp_buf); rEtV = Sigsetjmp(top_env, 1); if (rEtV == 0)
+#    define XCPT_TRY_END      Copy(oldTOP, top_env, 1, Sigjmp_buf);
+#    define XCPT_CATCH        if (rEtV != 0)
+#    define XCPT_RETHROW      Siglongjmp(top_env, rEtV)
+#  endif
+#endif
 
+#if !defined(my_strlcat)
+#if defined(NEED_my_strlcat)
+static Size_t DPPP_(my_my_strlcat)(char * dst, const char * src, Size_t size);
+static
+#else
+extern Size_t DPPP_(my_my_strlcat)(char * dst, const char * src, Size_t size);
+#endif
+
+#if defined(NEED_my_strlcat) || defined(NEED_my_strlcat_GLOBAL)
+
+#define my_strlcat DPPP_(my_my_strlcat)
+#define Perl_my_strlcat DPPP_(my_my_strlcat)
+
+
+Size_t
+DPPP_(my_my_strlcat)(char *dst, const char *src, Size_t size)
+```
 ## Detailed Description
 XCPT_TRY_END is a preprocessor macro defined in the ppport.h compatibility header for PL/Perl. It serves as the closing delimiter for exception handling try blocks when the NO_XSLOCKS compilation flag is defined and the dJMPENV macro is available. The macro expands to JMPENV_POP, which removes the current jump environment from the PostgreSQL exception handling stack.
 

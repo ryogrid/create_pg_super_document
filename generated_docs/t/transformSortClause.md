@@ -8,7 +8,14 @@ Transforms an ORDER BY clause into a list of SortGroupClause nodes, adding sort 
 
 ## Definition
 
-
+```c
+List *
+transformSortClause(ParseState *pstate,
+					List *orderlist,
+					List **targetlist,
+					ParseExprKind exprKind,
+					bool useSQL99)
+```
 ## Detailed Description
 This function processes ORDER BY clauses for various SQL constructs including SELECT statements, window functions, and aggregate functions. For each SortBy node in the input orderlist, it locates or creates a corresponding TargetEntry in the targetlist. The function uses different lookup strategies based on the useSQL99 flag: SQL99 rules (used for window and aggregate ORDER BY) or SQL92 rules (used for statement-level ORDER BY). After finding or creating the TargetEntry, it calls addTargetToSortList to build the final sort specification. If a sort expression is not already present in the targetlist, it gets added as a resjunk column.
 

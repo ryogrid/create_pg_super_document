@@ -8,7 +8,11 @@ A utility function that recursively frees a subRE (sub-regular expression) subtr
 
 ## Definition
 
-
+```c
+static void
+freesubreandsiblings(struct vars *v,	/* might be NULL */
+					 struct subre *sr)
+```
 ## Detailed Description
 This function is designed to efficiently clean up memory for linked subRE structures in PostgreSQL's regular expression engine. It traverses a singly-linked list of sibling subRE nodes, freeing each one by calling the  function. The function handles the entire chain of siblings starting from the provided node, ensuring complete cleanup of related subRE structures.
 

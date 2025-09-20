@@ -8,7 +8,10 @@ A safety check function that determines whether a PostgreSQL function can be saf
 
 ## Definition
 
-
+```c
+static bool
+ece_function_is_safe(Oid funcid, eval_const_expressions_context *context)
+```
 ## Detailed Description
 This function serves as a subroutine for  to determine if a function is safe to evaluate during query planning and optimization. It implements PostgreSQL's volatility-based safety model for function evaluation.
 

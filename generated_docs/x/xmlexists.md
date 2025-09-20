@@ -8,7 +8,10 @@ Determines if the node specified by the supplied XPath exists in a given XML doc
 
 ## Definition
 
-
+```c
+Datum
+xmlexists(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that evaluates an XPath expression against an XML document and returns a boolean indicating whether any matching nodes exist. This function provides a way to test for the existence of XML elements or attributes without retrieving the actual data. It is part of PostgreSQL's XML processing capabilities and requires libxml2 support to function.
 

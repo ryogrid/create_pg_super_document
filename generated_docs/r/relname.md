@@ -8,7 +8,10 @@ Generates a relative path from a target file to a linkname, computing the necess
 
 ## Definition
 
-
+```c
+static char *
+relname(char const *target, char const *linkname)
+```
 ## Detailed Description
 The  function computes a relative path that can be used to reference the target file from the location of the linkname. This is particularly useful for creating relative symbolic links. The function analyzes the common directory prefix between target and linkname paths, then constructs a relative path using "../" sequences to go up the directory hierarchy from linkname's directory to the common ancestor, followed by the remaining path to reach the target.
 

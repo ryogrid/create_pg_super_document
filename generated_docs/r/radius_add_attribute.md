@@ -8,7 +8,10 @@ Adds a RADIUS attribute to a RADIUS packet structure, ensuring the packet doesn'
 
 ## Definition
 
-
+```c
+struct alignment is correct */
+	Assert(offsetof(radius_packet, vector) == 4);
+```
 ## Detailed Description
 This static function is responsible for safely adding RADIUS attributes to a RADIUS packet during the authentication process. It performs bounds checking to ensure that adding the new attribute won't cause the packet to exceed the maximum RADIUS buffer size (RADIUS_BUFFER_SIZE). The function constructs a properly formatted RADIUS attribute with the correct type, length, and data fields, then appends it to the existing packet structure.
 

@@ -8,7 +8,10 @@ Compares two character values for equality, treating them as unsigned 8-bit inte
 
 ## Definition
 
-
+```c
+Datum
+chareq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The chareq function is the equality comparison operator for PostgreSQL's "char" data type. It implements the "=" operator for single-character comparisons within SQL expressions and queries.
 

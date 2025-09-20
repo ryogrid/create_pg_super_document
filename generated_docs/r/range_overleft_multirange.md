@@ -8,7 +8,10 @@ Checks if a range does not extend to the right of a multirange (PostgreSQL "&<" 
 
 ## Definition
 
-
+```c
+Datum
+range_overleft_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the "overleft" or "does not extend to right of" operator (&<) between a range type and a multirange type. It determines whether the given range does not extend to the right of the given multirange by comparing their bounds. The function serves as a PostgreSQL function wrapper that extracts arguments, retrieves type information, and delegates the actual comparison logic to `range_overleft_multirange_internal`.
 

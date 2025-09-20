@@ -8,7 +8,10 @@ ExecParallelSetupTupleQueues creates and configures shared memory message queues
 
 ## Definition
 
-
+```c
+static shm_mq_handle **
+ExecParallelSetupTupleQueues(ParallelContext *pcxt, bool reinitialize)
+```
 ## Detailed Description
 This static function establishes the communication infrastructure for parallel query execution by setting up tuple queues in shared memory. Each parallel worker process gets its own dedicated message queue to send result tuples back to the coordinator process.
 

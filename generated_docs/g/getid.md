@@ -8,7 +8,10 @@ Parses the first identifier from a string, handling both quoted and unquoted ide
 
 ## Definition
 
-
+```c
+static const char *
+getid(const char *s, char *n, Node *escontext)
+```
 ## Detailed Description
 This function extracts identifiers from ACL strings during parsing operations. It handles two types of identifiers: unquoted alphanumeric identifiers (including underscores and high-bit characters) and quoted identifiers enclosed in double quotes. For quoted identifiers, it processes escaped quotes (double quotes within quotes) correctly.
 

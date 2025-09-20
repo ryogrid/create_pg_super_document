@@ -8,7 +8,10 @@ Validates that the old and new PostgreSQL cluster versions are compatible for up
 
 ## Definition
 
-
+```c
+void
+check_cluster_versions(void)
+```
 ## Detailed Description
 This function performs comprehensive version compatibility checking between the old and new PostgreSQL clusters before proceeding with an upgrade. It enforces several critical constraints:
 

@@ -8,7 +8,12 @@ ATPrepSetNotNull is a preparation phase function for the ALTER TABLE ALTER COLUM
 
 ## Definition
 
-
+```c
+static void
+ATPrepSetNotNull(List **wqueue, Relation rel,
+				 AlterTableCmd *cmd, bool recurse, bool recursing,
+				 LOCKMODE lockmode, AlterTableUtilityContext *context)
+```
 ## Detailed Description
 This function prepares for setting a NOT NULL constraint on a column during ALTER TABLE operations. It implements several key optimizations:
 

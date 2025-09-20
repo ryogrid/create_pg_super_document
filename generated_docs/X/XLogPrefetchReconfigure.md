@@ -8,7 +8,10 @@ Handles reconfiguration events for XLog prefetching by incrementing a global cou
 
 ## Definition
 
-
+```c
+void
+XLogPrefetchReconfigure(void)
+```
 ## Detailed Description
 This function serves as a notification mechanism for configuration changes that affect XLog prefetching behavior. When any GUC (Grand Unified Configuration) parameter related to prefetching is modified, this function is called to increment the XLogPrefetchReconfigureCount global counter.
 

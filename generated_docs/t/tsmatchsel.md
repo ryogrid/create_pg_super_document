@@ -8,7 +8,10 @@ Computes the selectivity estimate for the "@@" operator between tsvector and tsq
 
 ## Definition
 
-
+```c
+structure, must punt */
+		selec = DEFAULT_TS_MATCH_SEL;
+```
 ## Detailed Description
  is a selectivity estimation function for the "@@" text search match operator. It calculates the probability that a tsvector @@ tsquery or tsquery @@ tsvector expression will return true. This function is critical for the PostgreSQL query planner to make informed decisions about query execution plans involving full-text search operations.
 

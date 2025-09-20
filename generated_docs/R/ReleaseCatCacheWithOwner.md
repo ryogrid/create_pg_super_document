@@ -8,7 +8,10 @@ Core implementation for releasing catalog cache entries with explicit resource o
 
 ## Definition
 
-
+```c
+static void
+ReleaseCatCacheWithOwner(HeapTuple tuple, ResourceOwner resowner)
+```
 ## Detailed Description
 ReleaseCatCacheWithOwner performs the actual work of releasing catalog cache entries. It decrements the reference count of the specified cache entry and updates the resource owner tracking. If the reference count reaches zero and certain conditions are met (entry is dead or CATCACHE_FORCE_RELEASE is enabled), it removes the entry from the cache entirely.
 

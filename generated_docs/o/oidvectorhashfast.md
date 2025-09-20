@@ -8,7 +8,10 @@ A static hash function that computes a hash value for an oidvector datum, used i
 
 ## Definition
 
-
+```c
+static uint32
+oidvectorhashfast(Datum datum)
+```
 ## Detailed Description
 The  function is a simple wrapper around the standard  function that provides a fast hash computation for oidvector data types. It takes a Datum containing an oidvector and returns a 32-bit hash value. This function is specifically designed for use within the catalog cache system where fast hash computation is essential for performance. The function leverages PostgreSQL's function call infrastructure through  to invoke the standard oidvector hash function and converts the result to a proper uint32 hash value.
 

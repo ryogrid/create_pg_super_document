@@ -8,7 +8,10 @@ A semantic action callback function that validates the top-level JSON structure 
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+okeys_array_start(void *state)
+```
 ## Detailed Description
 This function serves as a validation callback in PostgreSQL's JSON parser framework specifically for the json_object_keys function. Its primary purpose is to ensure that the top-level JSON structure being parsed is an object rather than an array, since json_object_keys is designed to extract keys from objects only.
 

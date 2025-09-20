@@ -8,7 +8,10 @@ A static JSON parsing callback function that handles the start of object field p
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+hash_object_field_start(void *state, char *fname, bool isnull)
+```
 ## Detailed Description
 This function serves as a callback in the JSON parsing framework, specifically designed for building hash tables from JSON objects. It is called when the JSON parser encounters the beginning of an object field. The function performs several key operations:
 

@@ -8,7 +8,10 @@ Trims the last N elements from a PostgreSQL array by creating an appropriate sli
 
 ## Definition
 
-
+```c
+Datum
+trim_array(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL  SQL function, which removes a specified number of elements from the end of an array. It works by constructing slice bounds and using the existing  infrastructure to create a new array with the desired elements.
 

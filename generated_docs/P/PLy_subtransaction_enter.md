@@ -8,7 +8,10 @@ Starts an explicit subtransaction in PL/Python, corresponding to the `__enter__(
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_subtransaction_enter(PyObject *self, PyObject *unused)
+```
 ## Detailed Description
 This function implements the entry point for PL/Python subtransactions, allowing Python code to start explicit subtransactions within stored procedures. It validates that the subtransaction hasn't already been started or exited, then creates the necessary data structures and calls BeginInternalSubTransaction() to start the actual database subtransaction. The function manages memory contexts and resource owners to ensure proper cleanup, and maintains a list of active explicit subtransactions. SPI calls within an explicit subtransaction will not start another subtransaction, providing atomic execution control.
 

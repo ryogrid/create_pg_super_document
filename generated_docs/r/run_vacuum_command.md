@@ -8,7 +8,11 @@ This function sends a vacuum or analyze SQL command to the PostgreSQL server asy
 
 ## Definition
 
-
+```c
+static void
+run_vacuum_command(PGconn *conn, const char *sql, bool echo,
+				   const char *table)
+```
 ## Detailed Description
 The function executes a pre-constructed vacuum/analyze SQL command on the specified database connection. It uses PostgreSQL's asynchronous query interface () to send the command without waiting for completion. The function handles error reporting by distinguishing between table-specific operations and database-wide operations, providing appropriate error messages for each case.
 

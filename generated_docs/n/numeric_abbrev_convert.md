@@ -8,7 +8,10 @@ Converts numeric values to abbreviated forms for optimized sorting, handling spe
 
 ## Definition
 
-
+```c
+static Datum
+numeric_abbrev_convert(Datum original_datum, SortSupport ssup)
+```
 ## Detailed Description
 The `numeric_abbrev_convert` function is a key component of PostgreSQL's numeric sort optimization system. It converts full numeric values into abbreviated representations that can be compared much faster than the original values.
 

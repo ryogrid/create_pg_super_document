@@ -8,7 +8,12 @@ Determines the datatype that a PostgreSQL function is supposed to return based o
 
 ## Definition
 
-
+```c
+TypeFuncClass
+get_call_result_type(FunctionCallInfo fcinfo,
+					 Oid *resultTypeId,
+					 TupleDesc *resultTupleDesc)
+```
 ## Detailed Description
 This function analyzes a function's call information to determine what type of data it should return. It serves as a high-level wrapper around , extracting the necessary information from the FunctionCallInfo structure. The function handles two particularly challenging scenarios:
 

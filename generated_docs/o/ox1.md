@@ -8,7 +8,11 @@ The ox1 function implements the Order Crossover 1 (OX1) genetic algorithm crosso
 
 ## Definition
 
-
+```c
+void
+ox1(PlannerInfo *root, Gene *tour1, Gene *tour2, Gene *offspring, int num_gene,
+	City * city_table)
+```
 ## Detailed Description
 The ox1 function performs position-based crossover between two parent tours (gene sequences) to produce an offspring tour. This is a standard genetic algorithm crossover technique specifically designed for permutation problems like the Traveling Salesman Problem (TSP), which GEQO uses as an analogy for query optimization.
 

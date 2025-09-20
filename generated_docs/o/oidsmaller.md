@@ -8,7 +8,10 @@ The  function returns the smaller of two OID (Object Identifier) values, impleme
 
 ## Definition
 
-
+```c
+Datum
+oidsmaller(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares two OID values and returns the smaller one. It performs a numerical comparison between the two input OIDs and uses a ternary operator to select the minimum value. The function follows PostgreSQL's standard function calling convention and returns an OID result using the  macro. This function is typically used in SQL contexts where finding the minimum OID value is needed.
 

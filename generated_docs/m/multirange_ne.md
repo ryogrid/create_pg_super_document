@@ -8,7 +8,10 @@ Implements the inequality operator (<> or !=) for multirange types, comparing tw
 
 ## Definition
 
-
+```c
+Datum
+multirange_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the SQL-callable wrapper for multirange inequality comparison. It mirrors the structure of  but delegates to  to perform the actual comparison logic. The function extracts two multirange arguments from the function call context, retrieves the appropriate type cache entry for the multirange type, and returns the boolean result of the inequality comparison.
 

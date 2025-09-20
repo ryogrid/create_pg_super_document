@@ -8,7 +8,14 @@ WAL record structure that stores information for setting replication origin prog
 
 ## Definition
 
-
+```c
+typedef struct xl_replorigin_set
+{
+	XLogRecPtr	remote_lsn;
+	RepOriginId node_id;
+	bool		force;
+} xl_replorigin_set;
+```
 ## Detailed Description
 The  structure is used in PostgreSQL's Write-Ahead Logging (WAL) system to record replication origin progress updates. This structure is written to WAL when  is called with WAL logging enabled. During recovery or when applying WAL records, this information is used to restore the replication progress state of various replication origins.
 

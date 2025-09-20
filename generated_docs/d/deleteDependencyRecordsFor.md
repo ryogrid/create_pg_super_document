@@ -8,7 +8,11 @@ Deletes all dependency records where the specified object is the depender, typic
 
 ## Definition
 
-
+```c
+long
+deleteDependencyRecordsFor(Oid classId, Oid objectId,
+						   bool skipExtensionDeps)
+```
 ## Detailed Description
 This function removes all dependency records from pg_depend where the specified object (identified by classId and objectId) is the dependent object. It is primarily used during object redefinition operations where the outgoing dependencies from an object need to be cleared before establishing new ones. The function provides an option to preserve extension membership dependencies, which is important for maintaining the relationship between objects and their containing extensions during redefinition. The function uses a system catalog scan to locate and delete matching records, returning the count of deleted entries.
 

@@ -8,7 +8,10 @@ Computes the optimal starting bucket for a hash value in a PostgreSQL simple has
 
 ## Definition
 
-
+```c
+static inline uint32
+SH_INITIAL_BUCKET(SH_TYPE * tb, uint32 hash)
+```
 ## Detailed Description
 SH_INITIAL_BUCKET is a macro that generates a function name for computing the initial bucket position within PostgreSQL's simple hash table framework. The function takes a hash value and maps it to a valid bucket index by performing a bitwise AND operation with the table's size mask. This approach is highly efficient because the hash table size is always a power of 2, making the sizemask (size - 1) effectively perform a modulo operation through bitwise arithmetic. This function is fundamental to the hash table's addressing mechanism and is used extensively throughout hash table operations.
 

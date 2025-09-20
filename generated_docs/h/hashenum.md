@@ -8,7 +8,10 @@ A PostgreSQL hash function that computes a hash value for enumeration type value
 
 ## Definition
 
-
+```c
+Datum
+hashenum(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a specialized hash function for PostgreSQL enumeration types. It extracts the enumeration value as an OID (Object Identifier) using , casts it to a 32-bit unsigned integer, and delegates the actual hash computation to the  function. This approach treats enumeration values as their underlying integer representations for hashing purposes, ensuring consistent hash values for the same enumeration value.
 

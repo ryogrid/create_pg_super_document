@@ -8,7 +8,11 @@ Creates and initializes a new Snowball stemming environment with specified array
 
 ## Definition
 
+```c
+#include "header.h"
 
+extern struct SN_env * SN_create_env(int S_size, int I_size)
+```
 ## Detailed Description
 This function is the primary constructor for the Snowball stemming library's environment structure (). It allocates memory for the environment and initializes its components based on the provided size parameters. The function creates a working environment that contains:
 

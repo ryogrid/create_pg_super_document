@@ -8,7 +8,10 @@ Calculates the total on-disk size of a given table, including all forks (FSM, VM
 
 ## Definition
 
-
+```c
+static int64
+calculate_table_size(Relation rel)
+```
 ## Detailed Description
 This function computes the complete storage footprint of a PostgreSQL table by examining all storage components:
 

@@ -8,7 +8,34 @@ IndexScanState represents the comprehensive execution state for index scan opera
 
 ## Definition
 
+```c
+typedef struct IndexScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	ExprState  *indexqualorig;
+	List	   *indexorderbyorig;
+	struct ScanKeyData *iss_ScanKeys;
+	int			iss_NumScanKeys;
+	struct ScanKeyData *iss_OrderByKeys;
+	int			iss_NumOrderByKeys;
+	IndexRuntimeKeyInfo *iss_RuntimeKeys;
+	int			iss_NumRuntimeKeys;
+	bool		iss_RuntimeKeysReady;
+	ExprContext *iss_RuntimeContext;
+	Relation	iss_RelationDesc;
+	struct IndexScanDescData *iss_ScanDesc;
 
+	/* These are needed for re-checking ORDER BY expr ordering */
+	pairingheap *iss_ReorderQueue;
+	bool		iss_ReachedEnd;
+	Datum	   *iss_OrderByValues;
+	bool	   *iss_OrderByNulls;
+	SortSupport iss_SortSupport;
+	bool	   *iss_OrderByTypByVals;
+	int16	   *iss_OrderByTypLens;
+	Size		iss_PscanLen;
+} IndexScanState;
+```
 ## Detailed Description
 IndexScanState is the central execution state structure for index scan operations in PostgreSQL, extending ScanState to provide comprehensive index scanning capabilities. This structure manages all aspects of index-based data retrieval including qualification evaluation, ordering operations, runtime key computation, and tuple reordering when necessary.
 

@@ -8,7 +8,10 @@ A signal handler for SIGUSR2 in the autovacuum launcher that responds to worker 
 
 ## Definition
 
-
+```c
+static void
+avl_sigusr2_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 The  function serves as the SIGUSR2 signal handler for the autovacuum launcher process. This signal is used by the postmaster to notify the launcher about various worker lifecycle events:
 

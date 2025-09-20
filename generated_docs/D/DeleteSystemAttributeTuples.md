@@ -8,7 +8,10 @@ Removes pg_attribute entries for system columns of a specified relation, primari
 
 ## Definition
 
-
+```c
+void
+DeleteSystemAttributeTuples(Oid relid)
+```
 ## Detailed Description
 This function is a specialized catalog maintenance utility designed specifically for the table-to-view conversion process in PostgreSQL. Unlike regular tables, views do not have system columns (such as ctid, oid, tableoid, etc.), so when a table is converted to a view, these system attribute definitions must be removed from the pg_attribute catalog.
 

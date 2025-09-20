@@ -8,7 +8,10 @@ Traverses the GiST tree to find the path from the root page to a specified child
 
 ## Definition
 
-
+```c
+static GISTInsertStack *
+gistFindPath(Relation r, BlockNumber child, OffsetNumber *downlinkoffnum)
+```
 ## Detailed Description
  performs a breadth-first search from the root of the GiST tree to locate a specific child block and construct the path back to the root. The function is primarily used for recovery operations when the parent-child relationship needs to be re-established.
 

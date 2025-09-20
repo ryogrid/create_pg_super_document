@@ -8,7 +8,11 @@ ExecForeignScan is the main execution function for foreign scan nodes that fetch
 
 ## Definition
 
-
+```c
+structure
+	 */
+	scanstate = makeNode(ForeignScanState);
+```
 ## Detailed Description
 ExecForeignScan serves as the primary execution interface for foreign scan operations in PostgreSQL's executor framework. It acts as a high-level coordinator that delegates the actual work to the generic ExecScan framework, providing foreign-scan-specific access and recheck methods.
 

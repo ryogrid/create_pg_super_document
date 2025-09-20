@@ -8,7 +8,10 @@ This function validates changes to the transaction deferrable setting, ensuring 
 
 ## Definition
 
-
+```c
+bool
+check_transaction_deferrable(bool *newval, void **extra, GucSource source)
+```
 ## Detailed Description
  is a GUC check hook function that validates attempts to change the transaction deferrable setting via  or  commands. The deferrable property is only meaningful for serializable transactions and allows them to be deferred until they can run without causing serialization failures.
 

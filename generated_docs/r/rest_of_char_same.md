@@ -8,7 +8,10 @@ A performance-optimized helper function that compares the remaining characters o
 
 ## Definition
 
-
+```c
+static inline bool
+rest_of_char_same(const char *s1, const char *s2, int len)
+```
 ## Detailed Description
 This function provides a fast character-by-character comparison of two string segments, working backwards from the specified length. It's optimized for use in Levenshtein distance algorithms where you need to quickly determine if the remaining characters in two strings are identical. The function is marked as inline for performance and uses a backwards iteration approach that can be more efficient than forward iteration in certain scenarios.
 

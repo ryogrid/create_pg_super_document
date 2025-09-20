@@ -8,7 +8,10 @@ Enhanced array hashing function that produces 64-bit hash values with seed suppo
 
 ## Definition
 
-
+```c
+Datum
+hash_array_extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the extended version of , designed to provide 64-bit hash values with seeded hashing capability. It follows the same basic algorithm as  but uses the extended hash functions for individual elements, which accept a 64-bit seed parameter to enhance hash distribution and provide protection against hash collision attacks.
 

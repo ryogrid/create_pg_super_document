@@ -8,7 +8,10 @@ Finds and returns the DumpableObject for a PostgreSQL type with the given OID, u
 
 ## Definition
 
-
+```c
+TypeInfo *
+findTypeByOid(Oid oid)
+```
 ## Detailed Description
 This function is part of the pg_dump utility's object management system. It searches for a type object by its OID (Object Identifier) and returns a pointer to the corresponding TypeInfo structure. The function creates a CatalogId using the TypeRelationId and the provided OID, then delegates to findObjectByCatalogId to locate the actual DumpableObject. It includes assertions to ensure that any found object is indeed a type object (either DO_TYPE or DO_DUMMY_TYPE).
 

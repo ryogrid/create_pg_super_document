@@ -8,7 +8,10 @@ The final function for PostgreSQL's string_agg() aggregate that produces the fin
 
 ## Definition
 
-
+```c
+Datum
+string_agg_finalfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The string_agg_finalfn function serves as the final function for the string_agg aggregate, responsible for producing the ultimate text result. Its primary purpose is to remove the leading delimiter that was preserved during the transition and combine phases for parallel aggregation support.
 

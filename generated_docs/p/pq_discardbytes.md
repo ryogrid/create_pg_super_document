@@ -8,7 +8,10 @@ Discards a specified number of bytes from the PostgreSQL communication receive b
 
 ## Definition
 
-
+```c
+static int
+pq_discardbytes(size_t len)
+```
 ## Detailed Description
  is a low-level function that throws away a known number of bytes from the receive buffer. Unlike , this function does not copy the discarded data to any destination. The primary purpose is to facilitate resynchronization after read errors by advancing the receive pointer past unwanted or corrupted data.
 

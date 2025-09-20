@@ -8,7 +8,10 @@ Creates a shallow copy of a PostgreSQL list structure, duplicating only the list
 
 ## Definition
 
-
+```c
+List *
+list_copy(const List *oldlist)
+```
 ## Detailed Description
 The  function creates a shallow copy of a PostgreSQL List structure. It allocates a new List with the same type and length as the original, then copies all element pointers using . This is a shallow copy operation, meaning only the list structure and pointers are duplicated - the actual data elements pointed to by the list cells remain the same objects in memory.
 

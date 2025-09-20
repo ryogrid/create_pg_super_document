@@ -8,7 +8,10 @@ InitializeMaxBackends calculates and sets the global MaxBackends value based on 
 
 ## Definition
 
-
+```c
+void
+InitializeMaxBackends(void)
+```
 ## Detailed Description
 This function computes the MaxBackends value by summing up all the different types of backend processes that PostgreSQL needs to support. It must be called after shared_preload_libraries modules have had a chance to alter GUCs but before shared memory size is determined. The function ensures that the calculated value does not exceed the system-defined maximum (MAX_BACKENDS) and raises an error if it does.
 

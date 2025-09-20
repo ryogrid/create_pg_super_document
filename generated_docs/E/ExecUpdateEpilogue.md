@@ -8,7 +8,12 @@ ExecUpdateEpilogue performs the closing steps after a successful tuple update, h
 
 ## Definition
 
-
+```c
+static void
+ExecUpdateEpilogue(ModifyTableContext *context, UpdateContext *updateCxt,
+				   ResultRelInfo *resultRelInfo, ItemPointer tupleid,
+				   HeapTuple oldtuple, TupleTableSlot *slot)
+```
 ## Detailed Description
 ExecUpdateEpilogue is responsible for completing the update operation after ExecUpdateAct has successfully updated the tuple. The function performs several post-update tasks in a specific order to maintain database consistency:
 

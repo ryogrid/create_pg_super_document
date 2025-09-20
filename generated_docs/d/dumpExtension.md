@@ -8,7 +8,10 @@ Generates SQL commands to recreate a PostgreSQL extension during database restor
 
 ## Definition
 
-
+```c
+static void
+dumpExtension(Archive *fout, const ExtensionInfo *extinfo)
+```
 ## Detailed Description
 The  function creates SQL statements to restore PostgreSQL extensions. It handles two distinct scenarios: regular dumps where it creates extensions using  allowing for flexible version handling, and binary upgrade mode where it precisely recreates the exact extension state including version, configuration, and dependencies.
 

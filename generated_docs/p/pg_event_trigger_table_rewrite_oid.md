@@ -8,7 +8,13 @@ A PostgreSQL built-in function that returns the OID of the table being rewritten
 
 ## Definition
 
-
+```c
+struct CollectedCommand representation of itself to the command list,
+ * using the routines below.
+ *
+ * 2) Some time after that, ddl_command_end fires and the command list is made
+ * available to the event trigger function via pg_event_trigger_ddl_commands();
+```
 ## Detailed Description
 This function provides access to the Object Identifier (OID) of the table that is currently being rewritten during a table rewrite operation. It can only be called from within table_rewrite event trigger functions and serves as a way for event trigger functions to identify which specific table is undergoing the rewrite operation.
 

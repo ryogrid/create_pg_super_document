@@ -8,7 +8,10 @@ Creates a deep copy of the topmost error stack entry for use in error handler co
 
 ## Definition
 
-
+```c
+struct itself */
+	newedata = (ErrorData *) palloc(sizeof(ErrorData));
+```
 ## Detailed Description
 CopyErrorData creates a complete copy of the current error stack entry (topmost error) into the current memory context. This function is specifically designed for use in error handler code where the error information needs to survive beyond the automatic cleanup performed by FlushErrorState. The function performs a deep copy of the ErrorData structure, including all separately-allocated string fields like filename, funcname, message, detail, hint, context, and various database object names. All string fields are copied using pstrdup() to ensure they remain valid even if the original strings point to JIT-created code segments that might be unloaded during transaction cleanup.
 

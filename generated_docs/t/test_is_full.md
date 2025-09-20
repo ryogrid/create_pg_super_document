@@ -8,7 +8,10 @@ A simple test function that verifies TidStore memory usage functionality by chec
 
 ## Definition
 
-
+```c
+Datum
+test_is_full(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a basic test for the TidStoreMemoryUsage functionality by comparing the current memory usage of the TidStore against a baseline measurement taken when the store was empty. Rather than implementing complex memory limit checking (which would be used in production), this function focuses on verifying that the memory usage reporting mechanism is functioning correctly.
 

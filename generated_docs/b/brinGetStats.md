@@ -8,7 +8,10 @@ Fetches statistical data from a BRIN index's metadata page and populates the pro
 
 ## Definition
 
-
+```c
+void
+brinGetStats(Relation index, BrinStatsData *stats)
+```
 ## Detailed Description
 This function reads the metadata page of a BRIN index to extract essential statistical information. It accesses the first block of the index (the metadata page), reads the metadata structure, and extracts key statistics including the number of pages per range and the number of revmap pages. The function handles proper buffer locking to ensure safe concurrent access to the metadata page.
 

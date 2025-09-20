@@ -8,7 +8,9 @@ Converts a parsed List of arguments from SET statements into the flat string rep
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This internal function transforms parsenode Lists emitted by the SQL grammar for SET statements into flat string values that can be processed by the GUC system. The flattening behavior varies based on the target variable's characteristics, such as whether it accepts list input or requires special quoting.
 

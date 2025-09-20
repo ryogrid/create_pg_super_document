@@ -8,7 +8,14 @@ checkEnumOwner is a static validation function that verifies a PostgreSQL type i
 
 ## Definition
 
-
+```c
+enum */
+	if (typTup->typtype != TYPTYPE_ENUM)
+		ereport(ERROR,
+				(errcode(ERRCODE_WRONG_OBJECT_TYPE),
+				 errmsg("%s is not an enum",
+						format_type_be(typTup->oid))));
+```
 ## Detailed Description
 This function performs two critical validations before allowing enum-related operations:
 1. **Type validation**: Ensures the type referenced by the heap tuple is actually an enum type (TYPTYPE_ENUM)

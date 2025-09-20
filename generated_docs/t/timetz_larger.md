@@ -8,7 +8,10 @@ Returns the larger of two time-with-timezone values, comparing them based on the
 
 ## Definition
 
-
+```c
+Datum
+timetz_larger(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL built-in function that compares two time-with-timezone () values and returns the one that represents the later time when converted to UTC. The function uses internal comparison logic to determine which time is larger, accounting for timezone differences to ensure accurate temporal ordering.
 

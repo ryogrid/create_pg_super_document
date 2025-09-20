@@ -8,7 +8,16 @@ HashInstrumentation is a structure that collects and stores performance metrics 
 
 ## Definition
 
-
+```c
+typedef struct HashInstrumentation
+{
+	int			nbuckets;		/* number of buckets at end of execution */
+	int			nbuckets_original;	/* planned number of buckets */
+	int			nbatch;			/* number of batches at end of execution */
+	int			nbatch_original;	/* planned number of batches */
+	Size		space_peak;		/* peak memory usage in bytes */
+} HashInstrumentation;
+```
 ## Detailed Description
 HashInstrumentation serves as a data collection structure for monitoring and analyzing the performance characteristics of hash operations in PostgreSQL. It captures both planned estimates and actual execution metrics, enabling users to understand how hash operations performed compared to initial estimates. This information is particularly valuable for query optimization and performance tuning, as it reveals whether hash operations required more buckets, batches, or memory than originally planned.
 

@@ -8,7 +8,11 @@ UnlockDatabaseObject releases a previously acquired lock on a database object, p
 
 ## Definition
 
-
+```c
+void
+UnlockDatabaseObject(Oid classid, Oid objid, uint16 objsubid,
+					 LOCKMODE lockmode)
+```
 ## Detailed Description
 UnlockDatabaseObject is the complementary function to LockDatabaseObject, used to release locks that were previously acquired on database objects. It constructs the same LOCKTAG using the provided object identifiers and calls LockRelease to release the lock.
 

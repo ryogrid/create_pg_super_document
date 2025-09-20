@@ -8,7 +8,10 @@ register_label_provider registers a new security label provider with the Postgre
 
 ## Definition
 
-
+```c
+void
+register_label_provider(const char *provider_name, check_object_relabel_type hook)
+```
 ## Detailed Description
 register_label_provider allows security label modules (such as SELinux extensions) to register themselves with PostgreSQL's security label infrastructure. The function creates a new LabelProvider entry and adds it to the global list of available providers. The registration includes both the provider name and a callback function that will be invoked to validate security label operations.
 

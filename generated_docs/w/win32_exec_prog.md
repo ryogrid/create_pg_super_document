@@ -8,7 +8,10 @@ Windows-specific thread entry point function that executes commands in parallel 
 
 ## Definition
 
-
+```c
+DWORD
+win32_exec_prog(exec_thread_arg *args)
+```
 ## Detailed Description
 This function serves as the thread entry point for Windows-based parallel execution in pg_upgrade. It's a thin wrapper around exec_prog that adapts the function signature to be compatible with Windows threading APIs (_beginthreadex). The function extracts command parameters from the thread argument structure and executes the command using the standard exec_prog function.
 

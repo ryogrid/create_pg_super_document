@@ -8,7 +8,10 @@ Validates and constructs type modifier values for the INTERVAL data type, proces
 
 ## Definition
 
-
+```c
+Datum
+intervaltypmodin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is responsible for processing the type modifier parameters for PostgreSQL's INTERVAL data type. It takes an array of integer type modifiers and validates them according to SQL standard interval specifications, then encodes them into a single 32-bit typmod value.
 

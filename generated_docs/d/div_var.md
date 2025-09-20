@@ -8,7 +8,11 @@ Performs division of two NumericVar values using long division algorithm with op
 
 ## Definition
 
-
+```c
+static void
+div_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result,
+		int rscale, bool round)
+```
 ## Detailed Description
 The  function implements division at the variable level for PostgreSQL's NUMERIC data type. It uses several optimization strategies:
 

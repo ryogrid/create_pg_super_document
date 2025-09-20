@@ -8,7 +8,10 @@ The oidout function converts an internal OID (object identifier) value to its st
 
 ## Definition
 
-
+```c
+Datum
+oidout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The oidout function is responsible for converting PostgreSQL's internal OID representation to a human-readable string format. It allocates memory for the result string and uses snprintf to format the unsigned integer OID value as a decimal string. This function is part of PostgreSQL's type input/output system and is automatically called when converting OID values to text in SQL operations or when displaying OID values to users.
 

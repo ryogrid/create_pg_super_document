@@ -8,7 +8,16 @@ RTEKind is an enumeration that defines the different types of range table entrie
 
 ## Definition
 
+```c
+RTE_CTE,					/* common table expr (WITH list element) */
+	RTE_NAMEDTUPLESTORE,		/* tuplestore, e.g. for AFTER triggers */
+	RTE_RESULT,					/* RTE represents an empty FROM clause; such
+								 * RTEs are added by the planner, they're not
+								 * present during parsing or rewriting */
+} RTEKind;
 
+typedef struct RangeTblEntry
+```
 ## Detailed Description
 RTEKind is used to classify range table entries (RTEs) in PostgreSQL's query tree structure. Each value represents a different kind of data source that can appear in a query's FROM clause or be referenced during query processing. The enumeration helps the query planner and executor determine how to handle each entry in the range table, as different types require different processing strategies.
 

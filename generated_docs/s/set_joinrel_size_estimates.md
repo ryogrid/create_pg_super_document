@@ -8,7 +8,14 @@ Sets the size estimates (row count) for a join relation by calculating the estim
 
 ## Definition
 
-
+```c
+void
+set_joinrel_size_estimates(PlannerInfo *root, RelOptInfo *rel,
+						   RelOptInfo *outer_rel,
+						   RelOptInfo *inner_rel,
+						   SpecialJoinInfo *sjinfo,
+						   List *restrictlist)
+```
 ## Detailed Description
 This function is responsible for estimating the size (number of rows) of a join relation. It serves as a wrapper that calls  to perform the actual calculation and then assigns the result to the relation's rows field. The function assumes that the relation's targetlist has already been constructed and that an appropriate restriction clause list is provided.
 

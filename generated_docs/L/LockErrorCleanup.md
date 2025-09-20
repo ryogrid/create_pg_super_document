@@ -8,7 +8,10 @@ Cancels any pending lock wait when aborting a transaction and reverts any strong
 
 ## Definition
 
-
+```c
+void
+LockErrorCleanup(void)
+```
 ## Detailed Description
 LockErrorCleanup is a critical error recovery function that handles cleanup when a process must abort its current lock acquisition attempt. This function is designed to handle scenarios where a transaction is being aborted due to cancellation, death interrupts, or error conditions that occur before or during lock waits.
 

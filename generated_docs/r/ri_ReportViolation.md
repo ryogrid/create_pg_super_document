@@ -8,7 +8,13 @@ Generates and reports detailed error messages for referential integrity constrai
 
 ## Definition
 
-
+```c
+static void
+ri_ReportViolation(const RI_ConstraintInfo *riinfo,
+				   Relation pk_rel, Relation fk_rel,
+				   TupleTableSlot *violatorslot, TupleDesc tupdesc,
+				   int queryno, bool partgone)
+```
 ## Detailed Description
 This function produces comprehensive error reports when foreign key constraints are violated. It determines the appropriate error message format based on the type of violation (insert/update on FK table vs update/delete on PK table), extracts and formats the violating key values for display, and performs extensive permission checking to ensure users only see data they have access to. The function handles special cases like partition removal and respects Row Level Security (RLS) policies when deciding whether to include detailed key information in error messages.
 

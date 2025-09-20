@@ -8,7 +8,10 @@ A PostgreSQL upgrade utility function that identifies extensions requiring updat
 
 ## Definition
 
-
+```c
+void
+report_extension_updates(ClusterInfo *cluster)
+```
 ## Detailed Description
 This function is part of the pg_upgrade utility and is responsible for detecting PostgreSQL extensions that have newer versions available than what is currently installed. It scans all databases in the cluster to identify extensions where the installed version differs from the default (latest) version available. When such extensions are found, the function generates an "update_extensions.sql" script containing ALTER EXTENSION UPDATE commands that can be executed post-upgrade to bring all extensions to their current versions.
 

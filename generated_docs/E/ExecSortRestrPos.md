@@ -8,7 +8,10 @@ Restores the reading position in a sorted result set to a previously marked loca
 
 ## Definition
 
-
+```c
+void
+ExecSortRestrPos(SortState *node)
+```
 ## Detailed Description
 ExecSortRestrPos implements the restore functionality for Sort plan nodes by returning the current reading position to a previously saved location in the sorted tuple stream. This function:
 

@@ -8,7 +8,12 @@ Transforms a GROUP BY clause (or window PARTITION BY clause) into a flat list of
 
 ## Definition
 
-
+```c
+List *
+transformGroupClause(ParseState *pstate, List *grouplist, List **groupingSets,
+					 List **targetlist, List *sortClause,
+					 ParseExprKind exprKind, bool useSQL99)
+```
 ## Detailed Description
 This function processes GROUP BY clauses and window PARTITION BY clauses, handling both simple grouping and complex grouping sets (CUBE, ROLLUP, GROUPING SETS). It performs two main tasks: (1) creates a flat list of SortGroupClause nodes referencing each distinct grouping expression, adding them to the targetlist as resjunk columns if needed, and (2) builds the groupingSets tree using ressortgrouprefs stored in GroupingSet nodes. The function first flattens implicit RowExprs recursively, then processes each item in the flattened list. For GroupingSet nodes, it handles different kinds (EMPTY, SETS, CUBE, ROLLUP) appropriately, while simple expressions are transformed via transformGroupClauseExpr. The function maintains proper nesting constraints where GROUPING_SET_SETS can contain SIMPLE, CUBE, or ROLLUP nodes, but CUBE and ROLLUP can only contain SIMPLE nodes.
 

@@ -8,7 +8,11 @@ A Windows-specific wrapper function that provides locale-aware string formatting
 
 ## Definition
 
-
+```c
+static size_t
+strftime_win32(char *dst, size_t dstlen,
+			   const char *format, const struct tm *tm)
+```
 ## Detailed Description
 The  function addresses encoding issues specific to Windows platforms where the standard  function returns output in CP_ACP encoding (the default operating system codepage), which often differs from PostgreSQL's SERVER_ENCODING. This is particularly problematic for Japanese Windows systems that use SJIS encoding, which PostgreSQL doesn't support as a server encoding.
 

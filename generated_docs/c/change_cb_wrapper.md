@@ -8,7 +8,11 @@ A wrapper function that provides error handling and context management when call
 
 ## Definition
 
-
+```c
+static void
+change_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+				  Relation relation, ReorderBufferChange *change)
+```
 ## Detailed Description
 The  function serves as an intermediary layer between PostgreSQL's logical replication infrastructure and output plugin change callbacks. It establishes proper error context, manages output state, and ensures that LSN (Log Sequence Number) information is correctly propagated for client communication. This wrapper is crucial for maintaining consistency and providing meaningful error messages during logical decoding operations.
 

@@ -8,7 +8,11 @@ Writes a WAL record when a previously deleted GiST page is being reused, primari
 
 ## Definition
 
-
+```c
+void
+gistXLogPageReuse(Relation rel, Relation heaprel,
+				  BlockNumber blkno, FullTransactionId deleteXid)
+```
 ## Detailed Description
 The  function creates a WAL record when a GiST index page that was previously deleted is being reused for new data. Unlike most WAL records, this record doesn't describe a page modification but serves as a conflict point for Hot Standby servers to ensure read consistency.
 

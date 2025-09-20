@@ -8,7 +8,10 @@ A static helper function that adds type modifier (typmod) decoration to a Postgr
 
 ## Definition
 
-
+```c
+static char *
+printTypmod(const char *typname, int32 typmod, Oid typmodout)
+```
 ## Detailed Description
 The  function is responsible for formatting PostgreSQL type names with their associated type modifiers. Type modifiers provide additional constraints or specifications for data types (such as precision for numeric types, length for varchar, etc.). The function handles two scenarios:
 

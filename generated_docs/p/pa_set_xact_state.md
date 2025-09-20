@@ -8,7 +8,11 @@ pa_set_xact_state is a utility function used to set the transaction state for a 
 
 ## Definition
 
-
+```c
+void
+pa_set_xact_state(ParallelApplyWorkerShared *wshared,
+				  ParallelTransState xact_state)
+```
 ## Detailed Description
 This function provides a thread-safe mechanism to update the transaction state of a parallel apply worker. It uses spinlock synchronization to ensure atomic updates to the shared worker state structure. The function is part of PostgreSQL's parallel logical replication infrastructure, which allows multiple worker processes to apply changes from a logical replication stream concurrently.
 

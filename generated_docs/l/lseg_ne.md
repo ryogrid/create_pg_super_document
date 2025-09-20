@@ -8,7 +8,10 @@ Determines if two line segments are not equal by comparing their corresponding e
 
 ## Definition
 
-
+```c
+Datum
+lseg_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function tests whether two line segments are not equal. Two line segments are considered not equal if either their first endpoints are not equal OR their second endpoints are not equal. This is the logical negation of the  function. The function returns true if at least one pair of corresponding endpoints differs between the two segments.
 

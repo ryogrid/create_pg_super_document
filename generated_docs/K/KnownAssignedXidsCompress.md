@@ -8,7 +8,10 @@ KnownAssignedXidsCompress compresses the KnownAssignedXids array by removing gap
 
 ## Definition
 
-
+```c
+static void
+KnownAssignedXidsCompress(KAXCompressReason reason, bool haveLock)
+```
 ## Detailed Description
 This function implements the compression algorithm for the KnownAssignedXids array, which tracks active transaction IDs during Hot Standby recovery. The array can develop gaps over time as transactions end and their entries are marked invalid rather than immediately removed. Compression eliminates these gaps by copying all valid entries to the beginning of the array, improving both memory efficiency and search performance.
 

@@ -8,7 +8,11 @@ Submits a work item request to the autovacuum system for processing in the next 
 
 ## Definition
 
-
+```c
+struct and the array of WorkerInfoData.
+	 */
+	size = sizeof(AutoVacuumShmemStruct);
+```
 ## Detailed Description
 This function provides an interface for database operations to request specific autovacuum work items. It manages a shared memory pool of work items that autovacuum workers can process asynchronously. The function is designed to be called from regular database operations that need autovacuum assistance.
 

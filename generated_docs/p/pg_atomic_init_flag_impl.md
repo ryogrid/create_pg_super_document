@@ -8,7 +8,10 @@ Initializes a fallback atomic flag implementation using spinlocks when native at
 
 ## Definition
 
-
+```c
+void
+pg_atomic_init_flag_impl(volatile pg_atomic_flag *ptr)
+```
 ## Detailed Description
 pg_atomic_init_flag_impl is a fallback implementation for initializing atomic flags on platforms that lack native atomic flag support. It is compiled only when PG_HAVE_ATOMIC_FLAG_SIMULATION is defined. The function initializes the pg_atomic_flag structure by setting up either a semaphore-based or spinlock-based synchronization mechanism (depending on platform capabilities) and setting the flag value to false. The implementation includes a static assertion to ensure proper size alignment between the semaphore field and slock_t type.
 

@@ -8,7 +8,12 @@ The xl_hash_update_meta_page struct represents the WAL record data for hash inde
 
 ## Definition
 
-
+```c
+typedef struct xl_hash_update_meta_page
+{
+	double		ntuples;
+} xl_hash_update_meta_page;
+```
 ## Detailed Description
 This structure contains the necessary information to perform or replay hash index metapage update operations during WAL recovery. The metapage update operation modifies the metadata information of a hash index, particularly the tuple count statistic. This is typically used during bulk delete operations or other maintenance tasks that affect the overall statistics of the hash index.
 

@@ -8,7 +8,12 @@ Compares a range partition bound against a tuple's partitioning key values to de
 
 ## Definition
 
-
+```c
+int32
+partition_rbound_datum_cmp(FmgrInfo *partsupfunc, Oid *partcollation,
+						   Datum *rb_datums, PartitionRangeDatumKind *rb_kind,
+						   Datum *tuple_datums, int n_tuple_datums)
+```
 ## Detailed Description
 The  function performs a comparison between a range partition boundary and the partitioning key values from a tuple. This is a critical function used for tuple routing (determining which partition a tuple belongs to) and partition pruning (eliminating partitions that cannot contain matching tuples).
 

@@ -8,7 +8,10 @@ ExecParallelHashRepartitionRest assists in repartitioning inner batches 1 throug
 
 ## Definition
 
-
+```c
+static void
+ExecParallelHashRepartitionRest(HashJoinTable hashtable)
+```
 ## Detailed Description
 This function handles the second phase of tuple repartitioning when the number of batches is increased in a parallel hash join. While ExecParallelHashRepartitionFirst handles tuples in memory (batch 0), this function processes tuples stored on disk in batches 1 through n from the previous generation.
 

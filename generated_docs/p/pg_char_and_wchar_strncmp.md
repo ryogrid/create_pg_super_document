@@ -8,7 +8,10 @@ Compares at most n characters between a regular character string and a wide char
 
 ## Definition
 
-
+```c
+int
+pg_char_and_wchar_strncmp(const char *s1, const pg_wchar *s2, size_t n)
+```
 ## Detailed Description
 This function performs a lexicographic comparison between a regular character string (char*) and a wide character string (pg_wchar*), comparing at most n characters. It converts each character from the regular string to a wide character representation before comparison, treating unsigned char values as pg_wchar values. This enables direct comparison between different character string types within PostgreSQL's multibyte character handling system.
 

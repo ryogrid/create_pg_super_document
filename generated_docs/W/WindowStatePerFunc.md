@@ -8,7 +8,9 @@ WindowStatePerFunc is a pointer type representing per-function working state for
 
 ## Definition
 
-
+```c
+typedef struct WindowStatePerFuncData *WindowStatePerFunc;
+```
 ## Detailed Description
 WindowStatePerFunc is a pointer to WindowStatePerFuncData structure that maintains execution state and metadata for individual window functions within a WindowAgg node. Each window function or window aggregate processed by the node has its own WindowStatePerFunc instance that tracks function-specific information including the function's metadata, argument details, result type information, and window object context. This structure serves as the bridge between the window function expressions and their runtime execution state, handling both regular window functions and plain aggregate functions used in window contexts.
 

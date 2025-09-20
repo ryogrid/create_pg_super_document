@@ -8,7 +8,10 @@ The printtup_create_DR function creates and initializes a DestReceiver for print
 
 ## Definition
 
-
+```c
+DestReceiver *
+printtup_create_DR(CommandDest dest)
+```
 ## Detailed Description
 This function serves as a factory for creating DR_printtup structures, which are specialized DestReceiver objects for handling tuple output operations. It allocates memory for a new DR_printtup structure and initializes all its function pointers and member variables to appropriate values. The function sets up the complete infrastructure needed for sending query results to clients, including the setup of callback functions for startup, shutdown, and destruction operations. A key feature is the automatic determination of whether to send row description messages (T messages) based on the destination type.
 

@@ -8,7 +8,10 @@ ExecSetOp is the main executor function for set operations (UNION, INTERSECT, EX
 
 ## Definition
 
-
+```c
+static TupleTableSlot *			/* return: a tuple or NULL */
+ExecSetOp(PlanState *pstate)
+```
 ## Detailed Description
 ExecSetOp implements the core execution logic for PostgreSQL's set operations. It handles two distinct strategies:
 

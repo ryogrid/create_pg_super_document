@@ -8,7 +8,11 @@ The  function implements the  psql command to display a formatted list of operat
 
 ## Definition
 
-
+```c
+bool
+listOpFamilyOperators(const char *access_method_pattern,
+					  const char *family_pattern, bool verbose)
+```
 ## Detailed Description
 This function constructs and executes an SQL query to retrieve operator information from PostgreSQL system catalogs, specifically from the  table which stores access method operators. It displays operators with their associated access methods, operator family names, operator signatures (in regoperator format), strategy numbers, and purposes (ordering vs. search). In verbose mode, it additionally shows the sort operator family information. The function supports pattern matching for filtering results by access method name and operator family name.
 

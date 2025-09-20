@@ -8,7 +8,10 @@ Implements the redo logic for generic WAL records during crash recovery, reconst
 
 ## Definition
 
-
+```c
+void
+generic_redo(XLogReaderState *record)
+```
 ## Detailed Description
 generic_redo is the main redo function for generic WAL records in PostgreSQL's crash recovery system. It processes WAL records created by GenericXLogFinish, reconstructing the original page modifications during database recovery or standby replay.
 

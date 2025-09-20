@@ -8,7 +8,11 @@ Records or updates information about a C function in PostgreSQL's internal CFunc
 
 ## Definition
 
-
+```c
+static void
+record_C_func(HeapTuple procedureTuple,
+			  PGFunction user_fn, const Pg_finfo_record *inforec)
+```
 ## Detailed Description
 The  function is a critical internal function in PostgreSQL's function manager (fmgr) system that maintains a hash table of C-language functions. This function either creates a new entry or updates an existing entry in the CFuncHash table for a given PostgreSQL function OID. The hash table serves as a cache to avoid repeatedly looking up function metadata from the system catalogs during function execution.
 

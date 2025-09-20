@@ -8,7 +8,11 @@ A static helper function that calculates the optimal amount of memory to allocat
 
 ## Definition
 
-
+```c
+static int64
+merge_read_buffer_size(int64 avail_mem, int nInputTapes, int nInputRuns,
+					   int maxOutputTapes)
+```
 ## Detailed Description
 This function determines how to distribute available memory among input tape buffers during the merge phase of external sorting. It first calculates the number of output tapes needed for the current merge pass by dividing input runs among input tapes (rounded up), then constrains this by the maximum allowed output tapes.
 

@@ -8,7 +8,10 @@ An assignment hook function for the AUTOCOMMIT psql variable that validates and 
 
 ## Definition
 
-
+```c
+static bool
+autocommit_hook(const char *newval)
+```
 ## Detailed Description
 This function serves as an assignment hook in psql's variable management system, specifically responsible for handling changes to the AUTOCOMMIT variable. When the AUTOCOMMIT variable is modified via \set commands, this hook validates the new boolean value and updates the corresponding field in psql's global settings structure (pset.autocommit). The function leverages PostgreSQL's standard boolean parsing utilities to ensure consistent validation and error handling.
 

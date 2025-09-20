@@ -8,7 +8,10 @@ PQescapeInternal is a static internal function that escapes arbitrary strings as
 
 ## Definition
 
-
+```c
+static char *
+PQescapeInternal(PGconn *conn, const char *str, size_t len, bool as_ident)
+```
 ## Detailed Description
 PQescapeInternal provides the core escaping functionality for both SQL literals and identifiers in libpq. Unlike PQescapeStringInternal which works with pre-allocated buffers, this function allocates and returns a new buffer containing the properly escaped and quoted string.
 

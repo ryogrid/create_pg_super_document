@@ -8,7 +8,10 @@ A validation function that verifies the client's final nonce in SCRAM authentica
 
 ## Definition
 
-
+```c
+static bool
+verify_final_nonce(scram_state *state)
+```
 ## Detailed Description
 The `verify_final_nonce` function implements a critical security check in the SCRAM authentication protocol by validating that the client has correctly constructed the final nonce. According to SCRAM specification, the final nonce should be the concatenation of the client's original nonce (sent in the client-first-message) and the server's nonce (sent in the server-first-message).
 

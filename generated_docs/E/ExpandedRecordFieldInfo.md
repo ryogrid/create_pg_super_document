@@ -8,7 +8,15 @@ ExpandedRecordFieldInfo is a structure that holds metadata information about a s
 
 ## Definition
 
-
+```c
+typedef struct ExpandedRecordFieldInfo
+{
+	int			fnumber;		/* field's attr number in record */
+	Oid			ftypeid;		/* field's type/typmod info */
+	int32		ftypmod;
+	Oid			fcollation;		/* field's collation if any */
+} ExpandedRecordFieldInfo;
+```
 ## Detailed Description
 ExpandedRecordFieldInfo serves as a container for essential metadata about a field within an expanded record structure. This structure is specifically designed to be populated by the expanded_record_lookup_field() function when looking up fields by name in expanded records. It encapsulates all the critical type system information needed to properly handle field values, including the field's position, data type, type modifier, and collation information.
 

@@ -8,7 +8,14 @@ The plperl_interp_desc structure represents information associated with a Perl i
 
 ## Definition
 
-
+```c
+typedef struct plperl_interp_desc
+{
+	Oid			user_id;		/* Hash key (must be first!) */
+	PerlInterpreter *interp;	/* The interpreter */
+	HTAB	   *query_hash;		/* plperl_query_entry structs */
+} plperl_interp_desc;
+```
 ## Detailed Description
 This structure encapsulates the state and resources associated with a Perl interpreter instance. PostgreSQL uses different interpreter management strategies for trusted and untrusted Perl functions:
 

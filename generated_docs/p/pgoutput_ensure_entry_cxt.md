@@ -8,7 +8,10 @@ Ensures that a per-entry memory context exists for a RelationSyncEntry in the pg
 
 ## Definition
 
-
+```c
+static void
+pgoutput_ensure_entry_cxt(PGOutputData *data, RelationSyncEntry *entry)
+```
 ## Detailed Description
 This function is responsible for lazily initializing the memory context for a specific relation entry in the pgoutput logical replication plugin. The function checks if the entry already has a memory context () and creates one if it doesn't exist. The memory context is created as a child of the cache context () and is specifically named after the relation it represents. This per-entry context is used to manage memory allocations related to row filtering and column list processing for the specific relation.
 

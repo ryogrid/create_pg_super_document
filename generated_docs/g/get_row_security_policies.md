@@ -8,7 +8,12 @@ This function retrieves and applies row-level security (RLS) policies for a spec
 
 ## Definition
 
-
+```c
+void
+get_row_security_policies(Query *root, RangeTblEntry *rte, int rt_index,
+						  List **securityQuals, List **withCheckOptions,
+						  bool *hasRowSecurity, bool *hasSubLinks)
+```
 ## Detailed Description
 The  function is the central coordinator for PostgreSQL's row-level security implementation. It analyzes a range table entry (RTE) and determines what security policies should be applied based on the command type, user permissions, and RLS configuration. The function handles complex scenarios including:
 

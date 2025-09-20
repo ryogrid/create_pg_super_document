@@ -8,7 +8,13 @@ DiscardMode is an enumeration type that defines the different types of cached in
 
 ## Definition
 
-
+```c
+typedef struct DiscardStmt
+{
+	NodeTag		type;
+	DiscardMode target;
+} DiscardStmt;
+```
 ## Detailed Description
 DiscardMode specifies what type of session state should be cleared by the DISCARD statement. The DISCARD statement is used to free up session-local resources and reset various session states to help with connection pooling and session cleanup:
 

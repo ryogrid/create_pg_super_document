@@ -8,7 +8,10 @@ generate_restrict_key creates a random alphanumeric string for use as a restrict
 
 ## Definition
 
-
+```c
+char *
+generate_restrict_key(void)
+```
 ## Detailed Description
 This function generates a 63-character random alphanumeric string that serves as a restrict key for PostgreSQL dump utilities. The function uses cryptographically strong random number generation to ensure the key is unpredictable and secure. Each character in the generated key is selected from a predefined set of alphanumeric characters (a-z, A-Z, 0-9) to ensure compatibility with psql's restrict/unrestrict commands.
 

@@ -8,7 +8,14 @@ StartReadBuffersImpl is the core implementation function for PostgreSQL's asynch
 
 ## Definition
 
-
+```c
+static pg_attribute_always_inline bool
+StartReadBuffersImpl(ReadBuffersOperation *operation,
+					 Buffer *buffers,
+					 BlockNumber blockNum,
+					 int *nblocks,
+					 int flags)
+```
 ## Detailed Description
 StartReadBuffersImpl is the heart of PostgreSQL's asynchronous buffer reading mechanism. It processes a range of block numbers, pinning buffers for each block and determining which ones need actual I/O operations. The function optimizes I/O by creating contiguous readable ranges - when it encounters a buffer hit (already in memory), it terminates the read operation to avoid creating multiple separate I/O operations. For blocks not in memory, it extends the readable range and prepares the operation for actual I/O. The function can optionally issue prefetch advice to the storage manager to optimize disk access patterns. It returns true if any I/O operations are needed (requiring a subsequent WaitReadBuffers call), or false if all requested blocks were found in memory.
 

@@ -8,7 +8,10 @@ The bitcat function provides concatenation functionality for bit strings in Post
 
 ## Definition
 
-
+```c
+Datum
+bitcat(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL SQL-callable function that concatenates two bit strings (VarBit types). It extracts two VarBit arguments from the function call arguments, passes them to the internal bit_catenate function for the actual concatenation work, and returns the result as a VarBit datum. The function follows PostgreSQL's standard function calling convention using the PG_FUNCTION_ARGS macro.
 

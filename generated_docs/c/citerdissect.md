@@ -8,7 +8,13 @@ Implements iteration node dissection in regular expression matching by finding v
 
 ## Definition
 
-
+```c
+static int						/* regexec return code */
+citerdissect(struct vars *v,
+			 struct subre *t,
+			 chr *begin,		/* beginning of relevant substring */
+			 chr *end)			/* end of same */
+```
 ## Detailed Description
 The  function handles iteration nodes ('*', '+', '?', '{m,n}') in regular expression matching. It implements a sophisticated two-phase algorithm:
 

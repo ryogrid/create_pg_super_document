@@ -8,7 +8,12 @@ Determines and returns the cost of scanning a subquery RTE, calculating costs fo
 
 ## Definition
 
-
+```c
+void
+cost_subqueryscan(SubqueryScanPath *path, PlannerInfo *root,
+				  RelOptInfo *baserel, ParamPathInfo *param_info,
+				  bool trivial_pathtarget)
+```
 ## Detailed Description
 The `cost_subqueryscan` function calculates the cost of scanning a subquery by building upon the cost of the underlying subplan and adding the overhead of any additional restriction clauses and target list evaluation. The function performs an important optimization: when there are no relevant restriction clauses and the pathtarget is trivial, it recognizes that the SubqueryScan node will likely be optimized away during plan creation, so it returns early without adding overhead costs. For non-trivial cases, it computes row estimates by applying selectivity of restriction clauses to the subpath's row estimate, then adds CPU costs for tuple processing and target list evaluation on top of the subplan's costs.
 

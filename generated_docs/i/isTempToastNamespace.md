@@ -8,7 +8,10 @@ Determines whether a given namespace OID corresponds to the current session's te
 
 ## Definition
 
-
+```c
+bool
+isTempToastNamespace(Oid namespaceId)
+```
 ## Detailed Description
 The isTempToastNamespace function checks if the provided namespace OID matches the current session's temporary TOAST namespace. PostgreSQL uses TOAST (The Oversized-Attribute Storage Technique) to store large field values that exceed the page size limit. When temporary tables are created that require TOAST storage, PostgreSQL creates a separate temporary TOAST namespace to house the TOAST tables and indexes associated with temporary tables.
 

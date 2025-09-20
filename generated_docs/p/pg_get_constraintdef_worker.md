@@ -8,7 +8,10 @@ This is the core worker function that generates SQL constraint definitions by pa
 
 ## Definition
 
-
+```c
+struct_array_builtin(DatumGetArrayTypeP(cols), INT2OID,
+											  &keys, NULL, &nKeys);
+```
 ## Detailed Description
 pg_get_constraintdef_worker is the central function responsible for converting PostgreSQL constraint metadata into human-readable SQL constraint definitions. It handles all constraint types including foreign keys, primary keys, unique constraints, check constraints, not null constraints, triggers, and exclusion constraints. The function retrieves constraint information from pg_constraint system catalog using MVCC snapshots and generates appropriate SQL text based on the constraint type and formatting options.
 

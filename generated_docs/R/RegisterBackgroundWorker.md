@@ -8,7 +8,12 @@ Registers a new static background worker that will be started by the postmaster 
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	if (!IsUnderPostmaster)
+		return false;
+```
 ## Detailed Description
 This function registers a static background worker with the PostgreSQL system. Static workers are registered during server startup, either directly in the postmaster process or via the _PG_init function of modules loaded through shared_preload_libraries. The function performs several validation checks including process context verification, worker configuration validation, and resource limit enforcement before adding the worker to the global background worker list.
 

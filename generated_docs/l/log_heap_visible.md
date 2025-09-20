@@ -8,7 +8,11 @@ Performs XLogInsert for a heap-visible operation, generating a write-ahead log (
 
 ## Definition
 
-
+```c
+XLogRecPtr
+log_heap_visible(Relation rel, Buffer heap_buffer, Buffer vm_buffer,
+				 TransactionId snapshotConflictHorizon, uint8 vmflags)
+```
 ## Detailed Description
 The  function creates a WAL record for marking a heap page as all-visible. This is a critical operation for PostgreSQL's MVCC (Multi-Version Concurrency Control) system and vacuum operations. The function registers both the visibility map buffer and heap buffer for WAL logging, with optimizations to avoid full-page images when checksums or wal_log_hints are disabled. The resulting WAL record allows for proper recovery and replication of visibility map changes.
 

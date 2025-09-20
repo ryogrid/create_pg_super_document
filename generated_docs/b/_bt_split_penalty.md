@@ -8,7 +8,10 @@ Calculates a penalty score for a B-tree split point candidate, helping to determ
 
 ## Definition
 
-
+```c
+static inline int
+_bt_split_penalty(FindSplitData *state, SplitPoint *split)
+```
 ## Detailed Description
 This function computes a penalty score for a given split point to help the B-tree split algorithm choose the best location to split a page. The penalty calculation differs significantly between leaf and internal (non-leaf) pages:
 

@@ -8,7 +8,10 @@ Creates an interval value from separate numeric components (years, months, weeks
 
 ## Definition
 
-
+```c
+Datum
+make_interval(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL built-in function constructs an Interval data structure from individual numeric parameters. It processes each time component separately and combines them into a single interval representation using PostgreSQL's internal microsecond-based storage format.
 

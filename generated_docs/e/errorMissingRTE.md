@@ -8,7 +8,10 @@ Generates detailed error messages when a referenced table or relation is missing
 
 ## Definition
 
-
+```c
+void
+errorMissingRTE(ParseState *pstate, RangeVar *relation)
+```
 ## Detailed Description
 This function is responsible for generating helpful error messages when PostgreSQL's parser encounters a reference to a table or relation that cannot be found in the current query's range table. The function performs sophisticated analysis to determine the most likely cause of the error and provides specific hints to guide users toward the correct syntax.
 

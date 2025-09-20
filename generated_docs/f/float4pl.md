@@ -8,7 +8,10 @@ PostgreSQL SQL-callable function that performs addition of two single-precision 
 
 ## Definition
 
-
+```c
+Datum
+float4pl(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL fmgr-compatible function that adds two float4 (single-precision floating-point) values. It extracts two float4 arguments from the function call context using PostgreSQL's function manager macros, delegates the actual arithmetic operation to the inline helper function , and returns the result as a PostgreSQL Datum. This function provides overflow detection - if the addition of two finite values results in infinity, it raises a floating-point overflow error.
 

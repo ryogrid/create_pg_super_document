@@ -8,7 +8,10 @@ Compares two ExpandedRange structures for sorting purposes, first by minimum val
 
 ## Definition
 
-
+```c
+static int
+compare_expanded_ranges(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 This function serves as a comparison function for sorting ExpandedRange structures, typically used with qsort. The comparison follows a two-level ordering strategy:
 

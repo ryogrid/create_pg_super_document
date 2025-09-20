@@ -8,7 +8,9 @@ The current_schemas function is a SQL function that returns an array of all sche
 
 ## Definition
 
-
+```c
+struct_array_builtin(names, i, NAMEOID);
+```
 ## Detailed Description
 This function implements the SQL standard CURRENT_SCHEMAS function. It takes a boolean parameter indicating whether to include implicit schemas (like pg_catalog) in the result. The function retrieves the complete search path and converts all schema OIDs to their corresponding names, returning them as a PostgreSQL array.
 

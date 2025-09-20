@@ -8,7 +8,13 @@ A structure representing a floating-point number in decimal format as mantissa *
 
 ## Definition
 
-
+```c
+typedef struct floating_decimal_32
+{
+	uint32		mantissa;
+	int32		exponent;
+} floating_decimal_32;
+```
 ## Detailed Description
 The `floating_decimal_32` structure is a key data type in PostgreSQL's implementation of the Ryu algorithm for converting 32-bit floating-point numbers to their shortest decimal string representation. This structure represents a decimal number in the form `mantissa * 10^exponent`, where the mantissa contains the significant digits and the exponent indicates the decimal point position.
 

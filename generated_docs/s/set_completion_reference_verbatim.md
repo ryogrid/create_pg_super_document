@@ -8,7 +8,10 @@ Sets up the completion reference object to be exactly the given word verbatim, u
 
 ## Definition
 
-
+```c
+static void
+set_completion_reference_verbatim(const char *word)
+```
 ## Detailed Description
 This function is a utility in PostgreSQL's psql tab completion system that configures the global completion reference variables when the reference object should be exactly the provided word without any schema qualification or modification. It clears any schema reference and sets the object reference to a duplicate of the input word.
 

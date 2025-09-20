@@ -8,7 +8,10 @@ A PostgreSQL function that generates highlighted headlines from JSONB documents 
 
 ## Definition
 
-
+```c
+Datum
+ts_headline_jsonb_byid_opt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is the core function for applying text search highlighting to JSONB documents. It recursively processes JSONB values, identifying string values and applying headline generation to them based on the provided TSQuery. The function supports custom text search configurations and highlighting options, making it the most flexible of the JSONB headline functions.
 

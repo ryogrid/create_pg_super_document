@@ -8,7 +8,10 @@ Ensures that any relation map updates logged before a checkpoint are securely fl
 
 ## Definition
 
-
+```c
+void
+CheckPointRelationMap(void)
+```
 ## Detailed Description
 The CheckPointRelationMap function is called during PostgreSQL's checkpoint process to ensure data durability for relation mapping changes. It implements a simple but effective synchronization mechanism to guarantee that any relation map updates that were WAL-logged before the start of the checkpoint are securely flushed to disk.
 

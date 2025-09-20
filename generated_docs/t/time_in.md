@@ -8,7 +8,10 @@ Parses a string representation of a time value and converts it to PostgreSQL's i
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in input function that parses a string representation of a time value and converts it to the internal TimeADT data type. This function is part of PostgreSQL's time type input/output system and handles various time string formats. The function performs comprehensive parsing using the PostgreSQL datetime parsing infrastructure, including error handling and precision adjustment based on the type modifier.
 

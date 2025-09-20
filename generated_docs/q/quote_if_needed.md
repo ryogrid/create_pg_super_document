@@ -8,7 +8,12 @@ A utility function that determines whether a string needs quoting for safe parsi
 
 ## Definition
 
-
+```c
+char *
+quote_if_needed(const char *source, const char *entails_quote,
+				char quote, char escape, bool force_quote,
+				int encoding)
+```
 ## Detailed Description
 The quote_if_needed function analyzes a source string to determine if it requires quoting for safe parsing by functions like strtokx() or psql_scan_slash_option(). If the string contains characters that would require special handling during parsing, or if force_quote is true, the function returns a newly allocated string with proper quoting and escaping applied. If no quoting is needed, it returns NULL to indicate the original string can be used as-is.
 

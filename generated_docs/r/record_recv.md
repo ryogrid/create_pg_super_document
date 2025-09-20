@@ -8,7 +8,10 @@ Converts a binary representation of a composite type (record) from network/stora
 
 ## Definition
 
-
+```c
+structure */
+	tuple.t_len = HeapTupleHeaderGetDatumLength(rec);
+```
 ## Detailed Description
 The  function serves as the binary input conversion function for any composite type in PostgreSQL. It reads binary data from a  buffer (typically from network protocols or binary storage) and converts it into the internal  format. This function is part of PostgreSQL's binary I/O protocol, handling the conversion of externally formatted binary record data into the server's internal representation.
 

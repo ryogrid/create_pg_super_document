@@ -8,7 +8,14 @@ GetPreparedTransactionList creates a copy of all prepared transactions from shar
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	GlobalTransaction array;
+	int			ngxacts;
+	int			currIdx;
+} Working_State;
+```
 ## Detailed Description
 GetPreparedTransactionList is a static function that provides a snapshot of all currently prepared transactions in the system. It returns an array containing copies of all GlobalTransaction structures from the shared memory TwoPhaseState, minimizing the time spent holding TwoPhaseStateLock. The function allocates memory for the returned array using palloc() and performs deep copies of each transaction structure to ensure data consistency. The function may return transactions that are not yet fully prepared, so callers should filter appropriately if needed.
 

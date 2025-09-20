@@ -8,7 +8,16 @@ InsertRule is a static function that inserts a rewrite rule definition into the 
 
 ## Definition
 
-
+```c
+static Oid
+InsertRule(const char *rulname,
+		   int evtype,
+		   Oid eventrel_oid,
+		   bool evinstead,
+		   Node *event_qual,
+		   List *action,
+		   bool replace)
+```
 ## Detailed Description
 InsertRule performs the low-level catalog insertion of a rewrite rule into the pg_rewrite system table. It constructs the appropriate catalog tuple from the provided rule parameters, handles rule replacement logic when a rule with the same name already exists on the same relation, and establishes proper dependency relationships. The function converts the rule's qualification and action trees to string representations for storage and manages both new insertions and updates of existing rules based on the replace parameter.
 

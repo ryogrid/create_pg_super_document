@@ -8,7 +8,11 @@ Searches for a function parameter by name and constructs a Param node if found, 
 
 ## Definition
 
-
+```c
+static Node *
+sql_fn_resolve_param_name(SQLFunctionParseInfoPtr pinfo,
+						  const char *paramname, int location)
+```
 ## Detailed Description
 This function implements parameter name resolution for SQL functions by searching through the argument names array in the parse info structure. When a parameter with the specified name is found, it delegates to sql_fn_make_param to construct the appropriate Param node. This is a key component of the SQL function parsing infrastructure that enables named parameter references in function bodies.
 

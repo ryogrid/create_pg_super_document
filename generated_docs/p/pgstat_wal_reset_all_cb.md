@@ -8,7 +8,10 @@ This function resets all WAL (Write-Ahead Log) statistics to zero values and set
 
 ## Definition
 
-
+```c
+void
+pgstat_wal_reset_all_cb(TimestampTz ts)
+```
 ## Detailed Description
  is a callback function that handles the reset of all WAL-related statistics in PostgreSQL's shared memory statistics system. The function operates on the shared WAL statistics structure by acquiring an exclusive lock, zeroing out all statistical counters, and setting the reset timestamp to the provided value. This ensures thread-safe access to the shared statistics while performing a complete reset operation.
 

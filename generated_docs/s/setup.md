@@ -8,7 +8,10 @@ Performs essential initialization tasks for pg_upgrade including environment val
 
 ## Definition
 
-
+```c
+static void
+setup(char *argv0, bool *live_check)
+```
 ## Detailed Description
 The setup function prepares the pg_upgrade environment by performing critical initialization and validation tasks. It:
 

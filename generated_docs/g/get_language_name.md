@@ -8,7 +8,10 @@ Retrieves the name of a procedural language from the system cache given its OID,
 
 ## Definition
 
-
+```c
+static char *
+get_language_name(Archive *fout, Oid langid)
+```
 ## Detailed Description
 The  function performs a cached lookup in the  system catalog to retrieve the name of a procedural language identified by its OID. It uses PostgreSQL's system cache mechanism for efficient access to frequently-needed language information. The function can optionally handle missing languages gracefully based on the  parameter.
 

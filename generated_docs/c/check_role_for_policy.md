@@ -8,7 +8,10 @@ Determines if a row-level security policy should be applied for the current role
 
 ## Definition
 
-
+```c
+static bool
+check_role_for_policy(ArrayType *policy_roles, Oid user_id)
+```
 ## Detailed Description
 This static function is a core component of PostgreSQL's row-level security (RLS) system. It evaluates whether a given user should be subject to a particular security policy by checking if the user has the privileges of any role specified in the policy's role list. The function implements an efficient role membership check that supports both specific role assignments and the special case of public policies that apply to all users.
 

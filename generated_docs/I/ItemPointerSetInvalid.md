@@ -8,7 +8,10 @@ Sets a disk item pointer to an invalid state by assigning invalid values to both
 
 ## Definition
 
-
+```c
+static inline void
+ItemPointerSetInvalid(ItemPointerData *pointer)
+```
 ## Detailed Description
 ItemPointerSetInvalid initializes an ItemPointerData structure to represent an invalid or null tuple reference. This function is essential for indicating that an item pointer does not reference any valid tuple location within the database. It sets both the block ID to InvalidBlockNumber and the position ID to InvalidOffsetNumber, creating a clearly identifiable invalid state that can be tested by other functions.
 

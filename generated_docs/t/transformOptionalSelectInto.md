@@ -8,7 +8,10 @@ Converts SELECT statements with INTO clauses to CREATE TABLE AS statements, hand
 
 ## Definition
 
-
+```c
+static Query *
+transformOptionalSelectInto(ParseState *pstate, Node *parseTree)
+```
 ## Detailed Description
 This function performs a specialized transformation that converts SELECT ... INTO syntax into CREATE TABLE AS statements. It operates at the top level of the parse tree before entering the main recursive transformation process in transformStmt(). The function specifically handles:
 

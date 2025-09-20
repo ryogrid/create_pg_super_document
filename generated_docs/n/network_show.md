@@ -8,7 +8,10 @@ Implements the inet and cidr casts to text, providing a complete network represe
 
 ## Definition
 
-
+```c
+Datum
+network_show(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The network_show function converts inet or cidr values to their text representation, always including the netmask portion. Unlike network_out, this function has specialized behavior for casting operations and ensures that the netmask is always displayed (e.g., "192.168.1.1/24"). If the formatted address doesn't already include a netmask (which it typically won't when using pg_inet_net_ntop with maximum bits), the function appends the actual netmask length from the inet value. This provides a complete network specification in text format.
 

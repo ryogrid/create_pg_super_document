@@ -8,7 +8,10 @@ A PostgreSQL function that performs equality comparison between two bytea (binar
 
 ## Definition
 
-
+```c
+Datum
+byteaeq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the equality operator for bytea data type in PostgreSQL. It compares two binary string values byte-by-byte to determine if they are equal. The function includes an optimization where it first compares the lengths of the two values using  to quickly determine inequality without detoasting the values if the lengths differ. If the lengths are equal, it detoasts both values and performs a byte-by-byte comparison using .
 

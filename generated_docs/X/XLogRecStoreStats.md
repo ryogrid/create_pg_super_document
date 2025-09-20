@@ -8,7 +8,10 @@ Stores per-resource manager and per-record type statistics for a given WAL recor
 
 ## Definition
 
-
+```c
+void
+XLogRecStoreStats(XLogStats *stats, XLogReaderState *record)
+```
 ## Detailed Description
 This function updates WAL statistics by analyzing a parsed WAL record and incrementing counters and size accumulators in the provided XLogStats structure. It maintains both per-resource manager statistics and detailed per-record type statistics.
 

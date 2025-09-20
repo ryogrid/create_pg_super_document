@@ -8,7 +8,10 @@ Validates whether a cached PL/Perl function descriptor is still up-to-date by ch
 
 ## Definition
 
-
+```c
+static bool
+validate_plperl_function(plperl_proc_ptr *proc_ptr, HeapTuple procTup)
+```
 ## Detailed Description
 This function implements cache validation for compiled PL/Perl functions. It checks if a previously compiled function descriptor is still valid by comparing the transaction ID (xmin) and tuple ID from when the function was originally compiled against the current pg_proc tuple. This validation is crucial because CREATE OR REPLACE FUNCTION can modify a function's definition without changing its OID, making cached compiled versions obsolete. If the cached version is outdated, the function unlinks it from the hash table and decrements its reference count.
 

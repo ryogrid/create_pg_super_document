@@ -8,7 +8,10 @@ Ensures that the RecordCacheArray and RecordIdentifierArray are large enough to 
 
 ## Definition
 
-
+```c
+static void
+ensure_record_cache_typmod_slot_exists(int32 typmod)
+```
 ## Detailed Description
 This static function manages the size of PostgreSQL's record cache arrays to ensure they can store entries for a given typmod value. The function performs lazy initialization of the RecordCacheArray if it doesn't exist, allocating an initial capacity of 64 entries. When the requested typmod exceeds the current array length, the function doubles the array size using the next power of 2 to accommodate the new entry and provide room for future growth.
 

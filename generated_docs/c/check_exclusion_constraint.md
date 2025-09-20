@@ -8,7 +8,14 @@ A simplified wrapper function that checks for violations of exclusion constraint
 
 ## Definition
 
-
+```c
+void
+check_exclusion_constraint(Relation heap, Relation index,
+						   IndexInfo *indexInfo,
+						   ItemPointer tupleid,
+						   const Datum *values, const bool *isnull,
+						   EState *estate, bool newIndex)
+```
 ## Detailed Description
 This function provides a streamlined interface for checking exclusion constraint violations. It's essentially a wrapper around the more comprehensive  function, but with simplified parameters and behavior tailored for external callers. The function validates that a tuple doesn't violate any exclusion constraints defined on the specified index by checking if the tuple's values conflict with existing tuples in the index according to the exclusion operators.
 

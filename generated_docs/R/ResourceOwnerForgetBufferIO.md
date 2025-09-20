@@ -8,7 +8,10 @@ Removes a buffer I/O resource from resource owner tracking to indicate that the 
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerForgetBufferIO(ResourceOwner owner, Buffer buffer)
+```
 ## Detailed Description
 ResourceOwnerForgetBufferIO is an inline function that serves as a specialized wrapper around the generic ResourceOwnerForget function for buffer I/O resources. It removes the association between a ResourceOwner and a specific buffer that was being tracked for I/O operations. This function is typically called when I/O operations on a buffer are completed or terminated, ensuring that the resource tracking system properly releases its claim on the buffer I/O resource.
 

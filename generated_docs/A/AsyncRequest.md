@@ -8,7 +8,18 @@ AsyncRequest is a struct that manages state for asynchronous tuple requests betw
 
 ## Definition
 
-
+```c
+typedef struct AsyncRequest
+{
+	struct PlanState *requestor;	/* Node that wants a tuple */
+	struct PlanState *requestee;	/* Node from which a tuple is wanted */
+	int			request_index;	/* Scratch space for requestor */
+	bool		callback_pending;	/* Callback is needed */
+	bool		request_complete;	/* Request complete, result valid */
+	TupleTableSlot *result;		/* Result (NULL or an empty slot if no more
+								 * tuples) */
+} AsyncRequest;
+```
 ## Detailed Description
 AsyncRequest encapsulates the state necessary for asynchronous communication between executor nodes, primarily used in parallel query execution scenarios like Append nodes with foreign tables. It enables non-blocking tuple retrieval by allowing requestor nodes to issue requests and later check for completion, facilitating better resource utilization during I/O-bound operations.
 

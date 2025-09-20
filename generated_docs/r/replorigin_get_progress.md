@@ -8,7 +8,10 @@ Retrieves the current replication progress (remote LSN) for a specified replicat
 
 ## Definition
 
-
+```c
+XLogRecPtr
+replorigin_get_progress(RepOriginId node, bool flush)
+```
 ## Detailed Description
 replorigin_get_progress queries the current replication progress for a given replication origin by searching through the replication_states array. It returns the remote LSN that represents how far replication has progressed from the remote node. The function uses shared locks to safely read the state without blocking concurrent operations. If the flush parameter is true and a valid local LSN exists, it ensures that the local WAL is flushed up to that point, providing durability guarantees for the progress information.
 

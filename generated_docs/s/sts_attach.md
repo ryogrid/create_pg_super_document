@@ -8,7 +8,12 @@ Attaches to an existing SharedTuplestore that was initialized by another backend
 
 ## Definition
 
-
+```c
+SharedTuplestoreAccessor *
+sts_attach(SharedTuplestore *sts,
+		   int my_participant_number,
+		   SharedFileSet *fileset)
+```
 ## Detailed Description
 The  function allows a backend process to connect to a  that has already been initialized by another process. Unlike , this function does not set up the shared structure itself but simply creates a new  that provides access to the existing shared tuple store.
 

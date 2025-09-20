@@ -8,7 +8,10 @@ A comparison function used for sorting ExprEvalOpLookup structures when building
 
 ## Definition
 
-
+```c
+static int
+dispatch_compare_ptr(const void *a, const void *b)
+```
 ## Detailed Description
 This function serves as a comparator for qsort() when building a lookup table that maps jump target addresses to opcodes in PostgreSQL's expression evaluation interpreter. In the threaded dispatch implementation, this lookup table is crucial for converting computed goto addresses back to their corresponding ExprEvalOp opcodes. The function performs a simple integer comparison on the opcode field of ExprEvalOpLookup structures.
 

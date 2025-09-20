@@ -8,7 +8,10 @@ Performs secure SSL/TLS data reading from a PostgreSQL connection with comprehen
 
 ## Definition
 
-
+```c
+ssize_t
+pgtls_read(PGconn *conn, void *ptr, size_t len)
+```
 ## Detailed Description
 This function provides a secure wrapper around OpenSSL's SSL_read() function for reading data from an encrypted PostgreSQL connection. It implements robust error handling for various SSL error conditions and manages OpenSSL's per-thread error queue to ensure reliable operation in multi-threaded environments.
 

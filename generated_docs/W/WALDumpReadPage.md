@@ -8,7 +8,11 @@ WALDumpReadPage is a callback function used by the XLogReader infrastructure in 
 
 ## Definition
 
-
+```c
+static int
+WALDumpReadPage(XLogReaderState *state, XLogRecPtr targetPagePtr, int reqLen,
+				XLogRecPtr targetPtr, char *readBuff)
+```
 ## Detailed Description
 This function serves as the page_read callback for the XLogReaderRoutine structure in pg_waldump. It handles reading WAL data pages from disk while respecting configured endpoint limits. The function manages partial reads when approaching the configured end position and provides detailed error reporting when read operations fail. It ensures that WAL data is read in complete XLOG_BLCKSZ-sized blocks when possible, or adjusts the read size when approaching the endpoint.
 

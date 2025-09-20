@@ -8,7 +8,10 @@ PQresultStatus returns the execution status of a PostgreSQL query result, provid
 
 ## Definition
 
-
+```c
+ExecStatusType
+PQresultStatus(const PGresult *res)
+```
 ## Detailed Description
 This function is a fundamental accessor function for PGresult objects that returns the execution status of a completed PostgreSQL command or query. It provides a way for client applications to determine the outcome of their database operations by returning one of the ExecStatusType enumeration values.
 

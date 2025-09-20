@@ -8,7 +8,10 @@ ProcessSlotSyncInterrupts is an interrupt handler function for the main loop of 
 
 ## Definition
 
-
+```c
+static void
+ProcessSlotSyncInterrupts(WalReceiverConn *wrconn)
+```
 ## Detailed Description
 This function serves as the interrupt handler for the replication slot synchronization worker's main loop. It processes two types of interrupts: shutdown requests (SIGINT) and configuration reload requests. When a shutdown request is pending, the function logs the shutdown message and exits the process cleanly. When a configuration reload is pending, it triggers a configuration reread through slotsync_reread_config().
 

@@ -8,7 +8,10 @@ ExecMaterialRestrPos restores the tuplestore read position to the previously mar
 
 ## Definition
 
-
+```c
+void
+ExecMaterialRestrPos(MaterialState *node)
+```
 ## Detailed Description
 ExecMaterialRestrPos implements the restore operation for Material nodes by copying the mark pointer position back to the active read pointer in the tuplestore. This allows the executor to return to a previously saved position that was set by ExecMaterialMarkPos, enabling efficient backtracking during query execution.
 

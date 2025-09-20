@@ -8,7 +8,9 @@ Implements the CREATE CAST command to define type conversion operations between 
 
 ## Definition
 
-
+```c
+struct;
+```
 ## Detailed Description
 CreateCast processes CREATE CAST statements to establish type conversion mechanisms in PostgreSQL. The function performs extensive validation and supports three coercion methods:
 

@@ -8,7 +8,11 @@ A public libpq API function that returns the connection options used for an acti
 
 ## Definition
 
-
+```c
+*/
+PQconninfoOption *
+PQconninfo(PGconn *conn)
+```
 ## Detailed Description
 This function extracts the connection parameters from an active PostgreSQL connection and returns them as an array of PQconninfoOption structures. It provides a way for applications to introspect the actual connection settings being used, which may differ from the original connection string due to defaults, environment variables, or server-side configuration.
 

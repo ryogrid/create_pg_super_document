@@ -8,7 +8,15 @@ Applies functional dependencies to a list of clauses and returns the estimated s
 
 ## Definition
 
-
+```c
+static Selectivity
+clauselist_apply_dependencies(PlannerInfo *root, List *clauses,
+							  int varRelid, JoinType jointype,
+							  SpecialJoinInfo *sjinfo,
+							  MVDependency **dependencies, int ndependencies,
+							  AttrNumber *list_attnums,
+							  Bitmapset **estimatedclauses)
+```
 ## Detailed Description
 This function implements the core logic for applying functional dependencies during selectivity estimation. It processes clauses that are compatible with given dependencies and computes a more accurate combined selectivity than would result from assuming independence.
 

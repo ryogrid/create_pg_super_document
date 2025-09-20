@@ -8,7 +8,10 @@ The core function that performs the physical clustering of a single relation by 
 
 ## Definition
 
-
+```c
+void
+cluster_rel(Oid tableOid, Oid indexOid, ClusterParams *params)
+```
 ## Detailed Description
 cluster_rel implements the low-level clustering operation for a single table. It creates a new table with tuples physically ordered according to the specified index, then swaps the relfilenumbers to preserve the original table's OID, grants, inheritance relationships, and references.
 

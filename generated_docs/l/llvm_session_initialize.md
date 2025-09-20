@@ -8,7 +8,10 @@ Performs one-time per-session initialization of the LLVM JIT compilation environ
 
 ## Definition
 
-
+```c
+static void
+llvm_session_initialize(void)
+```
 ## Detailed Description
 This function initializes the LLVM JIT compilation infrastructure for the current PostgreSQL session. It is designed to be called only once per session and includes:
 

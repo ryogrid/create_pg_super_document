@@ -8,7 +8,10 @@ Tree walker function that detects cross-references and self-references between C
 
 ## Definition
 
-
+```c
+static bool
+makeDependencyGraphWalker(Node *node, CteState *cstate)
+```
 ## Detailed Description
 This function implements a recursive tree walker that examines parse tree nodes to identify CTE references and build dependency relationships. It performs several key operations:
 

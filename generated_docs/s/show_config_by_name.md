@@ -8,7 +8,9 @@ A PostgreSQL system function that retrieves the current value of a configuration
 
 ## Definition
 
-
+```c
+struct config_generic **guc_vars;
+```
 ## Detailed Description
 This function provides programmatic access to PostgreSQL configuration parameter values from within SQL queries. It takes a configuration parameter name as input and returns the current value of that parameter as text. The function serves as a functional equivalent to the SHOW SQL command, allowing configuration values to be retrieved in SELECT statements and other SQL contexts where expressions are needed.
 

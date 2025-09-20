@@ -8,7 +8,11 @@ Forms unions of subkeys in index tuples, filtering out tuples marked as "don't c
 
 ## Definition
 
-
+```c
+static void
+gistunionsubkeyvec(GISTSTATE *giststate, IndexTuple *itvec,
+				   GistSplitUnion *gsvp)
+```
 ## Detailed Description
 This function is a subroutine for  that processes a subset of index tuples to create union values for GiST index splitting. It creates a cleaned array of index tuples by excluding any tuples that are marked in the  array, then calls  to compute the actual union of the remaining tuples. This filtering mechanism allows the splitting algorithm to ignore certain tuples when computing representative union values for index nodes.
 

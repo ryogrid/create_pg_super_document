@@ -8,7 +8,13 @@ Retrieves detailed information about an exclusion constraint associated with an 
 
 ## Definition
 
-
+```c
+void
+RelationGetExclusionInfo(Relation indexRelation,
+						 Oid **operators,
+						 Oid **procs,
+						 uint16 **strategies)
+```
 ## Detailed Description
 This function extracts and caches information about an exclusion constraint that is associated with the given index relation. It should only be called for indexes that are known to have an associated exclusion constraint.
 

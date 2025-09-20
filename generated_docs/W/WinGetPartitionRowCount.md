@@ -8,7 +8,10 @@ Returns the total number of rows in the current partition, forcing complete part
 
 ## Definition
 
-
+```c
+int64
+WinGetPartitionRowCount(WindowObject winobj)
+```
 ## Detailed Description
 This function provides the total row count for the current partition being processed by a window function. It implements a lazy loading strategy where the entire partition is spooled into the tuplestore on the first call, which can be expensive for large partitions. However, subsequent calls within the same partition are very efficient as they simply return the cached count. The function forces complete partition materialization by calling spool_tuples with -1 (meaning "spool all remaining tuples"), ensuring that all rows in the partition are available for analysis. This is essential for window functions that need to know the partition size for calculations like PERCENT_RANK, CUME_DIST, and NTILE.
 

@@ -8,7 +8,12 @@ Main entry point function for executing CREATE TABLE AS and CREATE MATERIALIZED 
 
 ## Definition
 
-
+```c
+ObjectAddress
+ExecCreateTableAs(ParseState *pstate, CreateTableAsStmt *stmt,
+				  ParamListInfo params, QueryEnvironment *queryEnv,
+				  QueryCompletion *qc)
+```
 ## Detailed Description
 The  function serves as the primary execution handler for both CREATE TABLE AS SELECT and CREATE MATERIALIZED VIEW statements. It orchestrates the entire process including relation existence checking, query rewriting, planning, execution, and data population.
 

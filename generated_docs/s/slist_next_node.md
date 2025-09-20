@@ -8,7 +8,10 @@ Returns the next node in a singly linked list, with safety validation to ensure 
 
 ## Definition
 
-
+```c
+static inline slist_node *
+slist_next_node(slist_head *head, slist_node *node)
+```
 ## Detailed Description
 This function provides safe traversal capability for PostgreSQL's singly linked list by returning the next node in the sequence. Before returning the next node, it validates that a next node actually exists using slist_has_next(), which prevents attempts to access beyond the end of the list. This safety check is enforced through an assertion that will trigger if the current node is the last node in the list.
 

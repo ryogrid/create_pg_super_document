@@ -8,7 +8,10 @@ Allocates a false or pseudo color in the colormap that is intended to be managed
 
 ## Definition
 
-
+```c
+static color
+pseudocolor(struct colormap *cm)
+```
 ## Detailed Description
 The pseudocolor function creates a special type of color called a "pseudo color" or "false color" that doesn't correspond to actual characters in the input. These colors are used internally by the regex engine for special purposes and are managed by other parts of the system rather than through the normal character mapping mechanisms.
 

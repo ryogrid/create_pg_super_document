@@ -8,7 +8,14 @@ The  structure represents information needed to attach partition indexes to thei
 
 ## Definition
 
-
+```c
+typedef struct _indexAttachInfo
+{
+	DumpableObject dobj;
+	IndxInfo   *parentIdx;		/* link to index on partitioned table */
+	IndxInfo   *partitionIdx;	/* link to index on partition */
+} IndexAttachInfo;
+```
 ## Detailed Description
 The  structure is used by pg_dump to manage the relationship between indexes on partitioned tables and their corresponding indexes on individual partitions. When pg_dump encounters a partitioned table with indexes, it needs to recreate not only the indexes themselves but also the logical attachment relationships between parent and child indexes. This structure stores the information needed to generate the appropriate  commands during restore.
 

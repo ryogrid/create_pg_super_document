@@ -8,7 +8,10 @@ Creates parallel sequential scan paths for plain base relations by determining t
 
 ## Definition
 
-
+```c
+static void
+create_plain_partial_paths(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function generates partial access paths for parallel execution of plain base relations in PostgreSQL's query optimizer. It calculates the optimal number of parallel workers based on the relation's characteristics and system configuration, then creates a parallel sequential scan path if parallel execution is deemed beneficial.
 

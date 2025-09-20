@@ -8,7 +8,10 @@ Updates the pg_index system catalog to mark a specified index as the clustered i
 
 ## Definition
 
-
+```c
+void
+mark_index_clustered(Relation rel, Oid indexOid, bool is_internal)
+```
 ## Detailed Description
 The mark_index_clustered function manages the indisclustered flag in the pg_index system catalog, which indicates which index (if any) a table is clustered on. This metadata is used by subsequent CLUSTER operations to determine the default clustering index when no specific index is specified.
 

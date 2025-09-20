@@ -8,7 +8,10 @@ Verifies that scan's array key state is correct before starting a new primitive 
 
 ## Definition
 
-
+```c
+static bool
+_bt_verify_arrays_bt_first(IndexScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 This function performs validation checks on the scan's array key state to ensure it's properly configured before _bt_start_prim_scan initiates a new primitive index scan. It enforces a critical rule for non-required array scan keys: they must be positioned at the first element appropriate for the current scan direction.
 

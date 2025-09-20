@@ -8,7 +8,10 @@ Returns either explicitly-requested table footers or generates a default row cou
 
 ## Definition
 
-
+```c
+static printTableFooter *
+footers_with_default(const printTableContent *cont)
+```
 ## Detailed Description
 The  function determines what footer text should be displayed for a table output. It implements logic to either return explicitly provided footers from the table content or generate a default footer showing the row count. When no explicit footers are provided and default footer display is enabled, the function creates a localized "(xx rows)" or "(xx row)" message using the total record count (including prior records). The function uses  for proper pluralization based on the locale. The default footer is omitted when explicit footers are provided, when footer display is disabled, or when specifically instructed by calling commands. Vertical formats typically don't use this function since they number rows individually.
 

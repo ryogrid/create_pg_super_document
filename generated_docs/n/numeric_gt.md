@@ -8,7 +8,10 @@ PostgreSQL function that compares two numeric values and returns true if the fir
 
 ## Definition
 
-
+```c
+Datum
+numeric_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the greater-than comparison operator (>) for PostgreSQL's NUMERIC data type. This function is part of the comprehensive set of numeric comparison operators in PostgreSQL and serves as the backend implementation for SQL expressions like . 
 

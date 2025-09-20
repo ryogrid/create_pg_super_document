@@ -8,7 +8,9 @@ Converts text-array format reloptions back into a List of DefElem nodes, serving
 
 ## Definition
 
-
+```c
+struct_array_builtin(array, TEXTOID, &optiondatums, NULL, &noptions);
+```
 ## Detailed Description
 This function performs the reverse transformation of , taking the internal text-array representation of relation options and converting them back into a list of DefElem nodes that can be processed by other parts of the system. It parses each 'name=value' formatted string in the array, splitting on the '=' character to separate option names from their values. Options without values (bare names) are handled as having NULL values. This function is commonly used when PostgreSQL needs to examine or manipulate existing relation options.
 

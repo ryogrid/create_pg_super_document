@@ -8,7 +8,10 @@ Performs an in-order traversal of a binary tree containing TSVectorStat entries,
 
 ## Definition
 
-
+```c
+static StatEntry *
+walkStatEntryTree(TSVectorStat *stat)
+```
 ## Detailed Description
 This function implements a stateful in-order traversal of a binary tree structure containing text search statistics. It uses a stack-based approach to maintain the current position in the tree across multiple function calls. The traversal follows the standard in-order pattern: left subtree, node itself, right subtree. The function handles three main cases: returning the current node if it has valid data (ndoc != 0), navigating to the right subtree and finding its leftmost node, or backtracking up the tree when a subtree is fully traversed.
 

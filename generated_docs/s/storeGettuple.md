@@ -8,7 +8,12 @@ Helper function for SPGiST index scanning that stores a retrieved heap tuple poi
 
 ## Definition
 
-
+```c
+struct index data.  We have to copy the datum out of the temp
+		 * context anyway, so we may as well create the tuple here.
+		 */
+		Datum		leafDatums[INDEX_MAX_KEYS];
+```
 ## Detailed Description
 This function is a subroutine used during SPGiST index scans to store information about a retrieved tuple. It manages the storage of heap tuple pointers, recheck flags, distance calculations for ORDER BY operations, and reconstructed index tuples when needed. The function operates within the context of SPGiST (Space-Partitioned Generalized Search Tree) index scanning and is specifically designed for gettuple-style operations where individual tuples are retrieved one at a time.
 

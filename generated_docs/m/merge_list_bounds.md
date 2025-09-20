@@ -8,7 +8,15 @@ Creates partition bounds for a join relation between list partitioned tables by 
 
 ## Definition
 
-
+```c
+struct to return. */
+		merged_bounds = build_merged_partition_bounds(outer_bi->strategy,
+													  merged_datums,
+													  NIL,
+													  merged_indexes,
+													  null_index,
+													  default_index);
+```
 ## Detailed Description
 This function implements partition-wise join support for list partitioned tables by merging their partition bounds. It uses a merge-join-like algorithm to find matching partitions from both sides by comparing list values in ascending order. The function handles various scenarios including:
 

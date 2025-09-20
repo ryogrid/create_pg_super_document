@@ -8,7 +8,10 @@ Decodes a Simple8b compressed 64-bit codeword back into the original sequence of
 
 ## Definition
 
-
+```c
+static int
+simple8b_decode(uint64 codeword, uint64 *decoded, uint64 base)
+```
 ## Detailed Description
 This function implements the decoding counterpart to the Simple8b compression algorithm. It takes a 64-bit codeword created by  and reconstructs the original integer sequence by:
 

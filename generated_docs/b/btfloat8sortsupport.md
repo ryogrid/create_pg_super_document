@@ -8,7 +8,10 @@ PostgreSQL function that configures sort support for double-precision floating-p
 
 ## Definition
 
-
+```c
+Datum
+btfloat8sortsupport(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function initializes a SortSupport structure for double-precision floating-point values used in B-tree indexing operations. It assigns the optimized btfloat8fastcmp function as the comparator, which enables faster sorting by bypassing the standard PostgreSQL function call overhead. This is part of PostgreSQL's sort support infrastructure that allows data types to provide specialized, high-performance comparison routines for sorting and indexing operations.
 

@@ -8,7 +8,10 @@ checkControlFile performs a basic existence check for the pg_control file in the
 
 ## Definition
 
-
+```c
+static void
+checkControlFile(void)
+```
 ## Detailed Description
 checkControlFile implements a fundamental sanity check during postmaster startup to ensure the specified data directory actually contains a PostgreSQL database cluster. The function performs a minimal validation by checking only for the existence and readability of the pg_control file:
 

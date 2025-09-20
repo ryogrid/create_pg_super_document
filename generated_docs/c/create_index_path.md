@@ -8,7 +8,20 @@ Creates an IndexPath node representing an index scan or index-only scan access m
 
 ## Definition
 
-
+```c
+IndexPath *
+create_index_path(PlannerInfo *root,
+				  IndexOptInfo *index,
+				  List *indexclauses,
+				  List *indexorderbys,
+				  List *indexorderbycols,
+				  List *pathkeys,
+				  ScanDirection indexscandir,
+				  bool indexonly,
+				  Relids required_outer,
+				  double loop_count,
+				  bool partial_path)
+```
 ## Detailed Description
 The  function constructs an IndexPath node for index-based access methods. It handles both regular index scans (which read both index and heap pages) and index-only scans (which read only index pages when all needed columns are available in the index). The function supports complex index operations including filtering clauses, ordering operators, and both forward and backward scan directions.
 

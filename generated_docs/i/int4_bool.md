@@ -8,7 +8,10 @@ Converts a 32-bit integer (int4) value to a boolean value, following PostgreSQL'
 
 ## Definition
 
-
+```c
+Datum
+int4_bool(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the type conversion from PostgreSQL's int4 (32-bit integer) data type to boolean data type. The conversion follows standard C semantics where 0 evaluates to false and any non-zero value evaluates to true. This function is used internally by PostgreSQL's type system when explicit or implicit casting from integer to boolean is required.
 

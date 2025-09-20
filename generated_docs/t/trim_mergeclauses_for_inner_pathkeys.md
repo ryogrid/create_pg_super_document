@@ -8,7 +8,12 @@ This function trims a list of mergeclauses to include only those that work with 
 
 ## Definition
 
-
+```c
+List *
+trim_mergeclauses_for_inner_pathkeys(PlannerInfo *root,
+									 List *mergeclauses,
+									 List *pathkeys)
+```
 ## Detailed Description
 The function addresses a specific problem in merge join planning: when the inner relation has a pathkey ordering that is a truncation of the ideal pathkeys from make_inner_pathkeys_for_merge, some mergeclauses may need to be dropped even if they match surviving pathkeys. This happens because make_inner_pathkeys_for_merge can reorder pathkeys due to redundancy elimination.
 

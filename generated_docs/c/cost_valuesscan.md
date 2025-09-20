@@ -8,7 +8,11 @@ Determines and returns the cost of scanning a VALUES RTE (Range Table Entry), ca
 
 ## Definition
 
-
+```c
+void
+cost_valuesscan(Path *path, PlannerInfo *root,
+				RelOptInfo *baserel, ParamPathInfo *param_info)
+```
 ## Detailed Description
 This function calculates the execution cost for scanning a VALUES clause, which represents a literal list of rows in SQL (e.g., VALUES (1,'a'), (2,'b')). The cost estimation considers:
 

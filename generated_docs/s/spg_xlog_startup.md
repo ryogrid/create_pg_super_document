@@ -8,7 +8,10 @@ Initializes the SP-GiST temporary memory context used during WAL record replay o
 
 ## Definition
 
-
+```c
+void
+spg_xlog_startup(void)
+```
 ## Detailed Description
  is a startup initialization function for SP-GiST WAL replay operations. It creates a dedicated memory context named "SP-GiST temporary context" that will be used by the  function and other SP-GiST recovery operations. This memory context () provides isolated memory management during recovery, allowing for efficient cleanup after each WAL record is processed. The function uses default allocation set sizes for the memory context, which provides a balanced approach to memory allocation for typical SP-GiST operations.
 

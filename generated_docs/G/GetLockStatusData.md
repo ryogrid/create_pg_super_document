@@ -8,7 +8,21 @@ GetLockStatusData returns a summary of the lock manager's internal status for us
 
 ## Definition
 
-
+```c
+structure.  We do
+	 * this so that, at least for locks in the primary lock table, the state
+	 * will be self-consistent.
+	 *
+	 * Since this is a read-only operation, we take shared instead of
+	 * exclusive lock.  There's not a whole lot of point to this, because all
+	 * the normal operations require exclusive lock, but it doesn't hurt
+	 * anything either. It will at least allow two backends to do
+	 * GetLockStatusData in parallel.
+	 *
+	 * Must grab LWLocks in partition-number order to avoid LWLock deadlock.
+	 */
+	for (i = 0;
+```
 ## Detailed Description
 This function creates a comprehensive snapshot of the PostgreSQL lock manager's state by collecting information from both the fast-path lock arrays and the main lock hash table. It's designed to minimize the time spent holding LWLocks by quickly copying necessary data and releasing locks, allowing callers to process the data without blocking normal lock operations.
 

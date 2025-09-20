@@ -8,7 +8,11 @@ Maps variable attribute numbers (varattnos) in expressions from one relation to 
 
 ## Definition
 
-
+```c
+List *
+map_partition_varattnos(List *expr, int fromrel_varno,
+						Relation to_rel, Relation from_rel)
+```
 ## Detailed Description
 This function transforms expressions by mapping variable attribute numbers from one relation to another in a partitioning hierarchy. Even though partitioned tables and their partitions must have the same column names and types, their physical attribute numbers (attnums) may differ. The function uses name-based attribute mapping to convert expressions so they reference the correct columns in the target relation.
 

@@ -8,7 +8,13 @@ Compares two range partition bounds to determine their relative ordering, servin
 
 ## Definition
 
-
+```c
+enum elements
+		 * compare the same way as the values they represent.
+		 */
+		if (kind1[i] < kind2[i])
+			return -colnum;
+```
 ## Detailed Description
 The  function performs a comprehensive comparison between two range partition bounds, taking into account not only the data values but also special boundary conditions (MINVALUE/MAXVALUE) and whether the bounds are upper or lower bounds.
 

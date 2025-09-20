@@ -8,7 +8,10 @@ Converts a POLYGON geometric type to a PATH geometric type, preserving all the v
 
 ## Definition
 
-
+```c
+Datum
+poly_path(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs a geometric type conversion from a PostgreSQL POLYGON to a PATH. It creates a new PATH structure that contains the same vertices as the input polygon, with the path marked as closed (since polygons are inherently closed geometric shapes). The function allocates memory for the new PATH structure and copies all coordinate points from the polygon to the path while preserving their order and positions.
 

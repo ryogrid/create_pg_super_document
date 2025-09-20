@@ -8,7 +8,11 @@ Creates a new Bump memory context, which is a specialized memory allocation cont
 
 ## Definition
 
-
+```c
+MemoryContext
+BumpContextCreate(MemoryContext parent, const char *name, Size minContextSize,
+				  Size initBlockSize, Size maxBlockSize)
+```
 ## Detailed Description
 BumpContextCreate initializes a Bump memory context that provides efficient memory allocation for scenarios where memory is primarily allocated sequentially and freed all at once. The context uses a block-based allocation strategy where memory is allocated from contiguous blocks, and when a block is exhausted, a new larger block is allocated. This design is particularly efficient for temporary data structures that grow incrementally and are discarded entirely.
 

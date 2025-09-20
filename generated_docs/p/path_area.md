@@ -8,7 +8,10 @@ Calculates the area enclosed by a closed path (polygon) using the shoelace formu
 
 ## Definition
 
-
+```c
+Datum
+path_area(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function computes the area of a closed path representing a polygon using the shoelace formula (also known as the surveyor's formula). The algorithm works by summing the cross products of consecutive vertices to calculate twice the signed area, then taking the absolute value and dividing by 2 to get the actual area. For open paths (polylines), the function returns NULL since area is only meaningful for closed polygons.
 

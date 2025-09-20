@@ -8,7 +8,10 @@ simple_heap_delete is a simplified wrapper around heap_delete that provides a co
 
 ## Definition
 
-
+```c
+void
+simple_heap_delete(Relation relation, ItemPointer tid)
+```
 ## Detailed Description
 simple_heap_delete serves as a high-level wrapper around the more complex heap_delete function, designed for use cases where the caller expects the deletion to succeed unconditionally. This function is typically used when the caller holds appropriate locks on the relation that prevent concurrent modifications, making failure conditions unexpected.
 

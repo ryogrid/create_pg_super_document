@@ -8,7 +8,10 @@ Ensures PostgreSQL utility programs run with a restricted Windows security token
 
 ## Definition
 
-
+```c
+void
+get_restricted_token(void)
+```
 ## Detailed Description
 get_restricted_token is a security enforcement function that provides a cross-platform interface for privilege reduction, with Windows-specific implementation. On Windows, it implements a "run-once" pattern that:
 

@@ -8,7 +8,21 @@ PQconninfoOption is a structure that represents a single connection parameter op
 
 ## Definition
 
-
+```c
+structure for PQfn() arguments
+ * ----------------
+ */
+typedef struct
+{
+	int			len;
+	int			isint;
+	union
+	{
+		int		   *ptr;		/* can't use void (dec compiler barfs)	 */
+		int			integer;
+	}			u;
+} PQArgBlock;
+```
 ## Detailed Description
 PQconninfoOption is a fundamental data structure in PostgreSQL's libpq interface that encapsulates all metadata necessary for handling connection parameters. This structure is used extensively throughout the connection establishment process, connection string parsing, and user interface components that need to display or manipulate connection options. Each instance represents a single connection parameter (like host, port, database name, etc.) with complete information about how it should be handled, displayed, and what its current value is.
 

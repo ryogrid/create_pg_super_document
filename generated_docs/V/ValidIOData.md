@@ -8,7 +8,17 @@ ValidIOData is a structure used to cache metadata needed for input validation op
 
 ## Definition
 
-
+```c
+typedef struct ValidIOData
+{
+	Oid			typoid;
+	int32		typmod;
+	bool		typname_constant;
+	Oid			typiofunc;
+	Oid			typioparam;
+	FmgrInfo	inputproc;
+} ValidIOData;
+```
 ## Detailed Description
 ValidIOData serves as a cache structure to optimize repeated input validation operations by storing pre-computed type information. This structure is primarily used in the `pg_input_is_valid_common` function to avoid redundant lookups of type input functions and their parameters across multiple calls. The structure maintains the necessary metadata for converting string input to the target PostgreSQL data type, including the type's OID, type modifier, input function information, and whether the type name is constant across calls.
 

@@ -8,7 +8,17 @@ The  structure represents a SQL Descriptor Area (SQLDA) in the ECPG compatibilit
 
 ## Definition
 
-
+```c
+struct sqlda_compat
+{
+	short		sqld;
+	struct sqlvar_compat *sqlvar;
+	char		desc_name[19];	/* descriptor name				*/
+	short		desc_occ;		/* size of sqlda structure		*/
+	struct sqlda_compat *desc_next; /* pointer to next sqlda struct */
+	void	   *reserved;		/* reserved for future use */
+};
+```
 ## Detailed Description
 The  structure implements a SQL Descriptor Area (SQLDA) for the ECPG compatibility layer. It acts as a container that holds an array of  structures, each describing individual SQL variables or columns. This structure supports dynamic SQL operations where the number and types of variables are determined at runtime.
 

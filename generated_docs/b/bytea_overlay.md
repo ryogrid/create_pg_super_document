@@ -8,7 +8,10 @@ A static helper function that performs the core implementation of bytea overlay 
 
 ## Definition
 
-
+```c
+static bytea *
+bytea_overlay(bytea *t1, bytea *t2, int sp, int sl)
+```
 ## Detailed Description
 The `bytea_overlay` function implements the core logic for the SQL OVERLAY() operation on bytea data types. It follows the SQL standard approach by breaking down the overlay operation into three parts: extracting the substring before the replacement point, the replacement string itself, and the substring after the replacement point, then concatenating them together. The function includes robust error checking for integer overflow conditions and validates that the start position is positive. The implementation uses the existing `bytea_substring` and `bytea_catenate` functions to perform the actual work.
 

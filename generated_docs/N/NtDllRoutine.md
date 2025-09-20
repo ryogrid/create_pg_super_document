@@ -8,7 +8,13 @@ A structure used to define the mapping between Windows NT function names and the
 
 ## Definition
 
-
+```c
+typedef struct NtDllRoutine
+{
+	const char *name;
+	pg_funcptr_t *address;
+} NtDllRoutine;
+```
 ## Detailed Description
 The  structure serves as a lookup table entry for dynamically loading Windows NT functions from ntdll.dll. It provides a clean abstraction for managing the relationship between function names (as strings) and their runtime addresses (as function pointers).
 

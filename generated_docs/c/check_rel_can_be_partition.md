@@ -8,7 +8,10 @@ A static helper function that validates whether a given relation can participate
 
 ## Definition
 
-
+```c
+static bool
+check_rel_can_be_partition(Oid relid)
+```
 ## Detailed Description
 This function performs validation checks to determine if a relation identified by its OID can be part of PostgreSQL's table partitioning system. It serves as a gatekeeper function that ensures only valid relations are processed by partition-related operations. The function checks two main criteria:
 

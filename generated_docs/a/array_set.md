@@ -8,7 +8,12 @@ A backwards compatibility wrapper function for array_set_element that provides e
 
 ## Definition
 
-
+```c
+ArrayType *
+array_set(ArrayType *array, int nSubscripts, int *indx,
+		  Datum dataValue, bool isNull,
+		  int arraytyplen, int elmlen, bool elmbyval, char elmalign)
+```
 ## Detailed Description
 This function serves as a legacy API wrapper around the more general  function, maintaining backwards compatibility for code that expects to work with  pointers directly. It bridges the gap between the older direct pointer interface and the newer, more flexible Datum-based interface.
 

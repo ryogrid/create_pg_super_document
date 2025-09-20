@@ -8,7 +8,10 @@ A SQL-callable function that summarizes a specific page range in a BRIN index, o
 
 ## Definition
 
-
+```c
+Datum
+brin_summarize_range(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the core functionality for BRIN index maintenance by creating or updating summary tuples for specified block ranges. It performs comprehensive validation including checking that the target is a valid BRIN index, ensuring proper permissions, and verifying that recovery is not in progress. The function implements proper locking protocols (table before index to avoid deadlocks) and security context switching for autovacuum operations. When the special value BRIN_ALL_BLOCKRANGES is passed, it processes all unsummarized ranges in the index.
 

@@ -8,7 +8,10 @@ ExecAssignScanProjectionInfoWithVarno is a variant of ExecAssignScanProjectionIn
 
 ## Definition
 
-
+```c
+void
+ExecAssignScanProjectionInfoWithVarno(ScanState *node, int varno)
+```
 ## Detailed Description
 ExecAssignScanProjectionInfoWithVarno provides flexibility for scan nodes that need to specify a custom varno when setting up projection information. This function is particularly useful for specialized scan types like foreign scans, custom scans, and index-only scans where the standard scanrelid from the plan might not be appropriate for projection analysis.
 

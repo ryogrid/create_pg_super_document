@@ -8,7 +8,12 @@ Provides the final estimate of the cost and result size of a nestloop join path,
 
 ## Definition
 
-
+```c
+void
+final_cost_nestloop(PlannerInfo *root, NestPath *path,
+					JoinCostWorkspace *workspace,
+					JoinPathExtraData *extra)
+```
 ## Detailed Description
 This function performs the second phase of nested loop join cost estimation in PostgreSQL's query planner, building upon the preliminary estimates from initial_cost_nestloop. It provides comprehensive cost analysis including:
 

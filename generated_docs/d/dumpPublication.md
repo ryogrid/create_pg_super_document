@@ -8,7 +8,10 @@ Generates the SQL statements to recreate a logical replication publication durin
 
 ## Definition
 
-
+```c
+static void
+dumpPublication(Archive *fout, const PublicationInfo *pubinfo)
+```
 ## Detailed Description
 The `dumpPublication` function creates the SQL DDL statements needed to recreate publications during database restoration. It constructs a comprehensive "CREATE PUBLICATION" statement that includes:
 

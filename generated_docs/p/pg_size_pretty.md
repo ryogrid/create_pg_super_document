@@ -8,7 +8,9 @@ This function formats a numeric byte size value into a human-readable string rep
 
 ## Definition
 
-
+```c
+struct size_pretty_unit *unit;
+```
 ## Detailed Description
 The pg_size_pretty function converts a 64-bit integer representing a size in bytes into a formatted string with appropriate size units for better readability. It uses a table of size units (size_pretty_units) to determine the most appropriate unit to display the size. The function intelligently handles:
 - Selection of the most appropriate unit based on the magnitude of the size

@@ -8,7 +8,10 @@ Backend-specific function for formatting PostgreSQL type names in error messages
 
 ## Definition
 
-
+```c
+char *
+format_type_be(Oid type_oid)
+```
 ## Detailed Description
  is a simplified interface to  designed specifically for backend use in error messages and internal operations. Unlike the SQL-accessible  function, this version will fail (throw an error) if given an invalid type OID, making it suitable for contexts where type validity is expected and errors should be propagated.
 

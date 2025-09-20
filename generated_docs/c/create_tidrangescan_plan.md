@@ -8,7 +8,11 @@ Creates a TID range scan plan for a base relation that scans a range of tuple id
 
 ## Definition
 
-
+```c
+static TidRangeScan *
+create_tidrangescan_plan(PlannerInfo *root, TidRangePath *best_path,
+						 List *tlist, List *scan_clauses)
+```
 ## Detailed Description
 The  function constructs a TidRangeScan execution plan node for scanning ranges of tuple identifiers. Unlike regular TID scans that target specific individual TIDs, this function handles queries that specify TID ranges, allowing for efficient scanning of consecutive rows in a table.
 

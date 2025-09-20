@@ -8,7 +8,84 @@ The core function that performs the actual statistics analysis for a relation, h
 
 ## Definition
 
+```c
+structure is allocated in anl_context.
+	 */
+	if (numrows > 0)
+	{
+		MemoryContext col_context,
+					old_context;
 
+		pgstat_progress_update_param(PROGRESS_ANALYZE_PHASE,
+									 PROGRESS_ANALYZE_PHASE_COMPUTE_STATS);
+
+		col_context = AllocSetContextCreate(anl_context,
+											"Analyze Column",
+											ALLOCSET_DEFAULT_SIZES);
+		old_context = MemoryContextSwitchTo(col_context);
+
+		for (i = 0; i < attr_cnt; i++)
+		{
+			VacAttrStats *stats = vacattrstats[i];
+			AttributeOpts *aopt;
+
+			stats->rows = rows;
+			stats->tupDesc = onerel->rd_att;
+			stats->compute_stats(stats,
+								 std_fetch_func,
+								 numrows,
+								 totalrows);
+
+			/*
+			 * If the appropriate flavor of the n_distinct option is
+			 * specified, override with the corresponding value.
+			 */
+			aopt = get_attribute_options(onerel->rd_id, stats->tupattnum);
+			if (aopt != NULL)
+			{
+				float8		n_distinct;
+
+				n_distinct = inh ? aopt->n_distinct_inherited : aopt->n_distinct;
+				if (n_distinct != 0.0)
+					stats->stadistinct = n_distinct;
+			}
+
+			MemoryContextReset(col_context);
+		}
+
+		if (nindexes > 0)
+			compute_index_stats(onerel, totalrows,
+								indexdata, nindexes,
+								rows, numrows,
+								col_context);
+
+		MemoryContextSwitchTo(old_context);
+		MemoryContextDelete(col_context);
+
+		/*
+		 * Emit the completed stats rows into pg_statistic, replacing any
+		 * previous statistics for the target columns.  (If there are stats in
+		 * pg_statistic for columns we didn't process, we leave them alone.)
+		 */
+		update_attstats(RelationGetRelid(onerel), inh,
+						attr_cnt, vacattrstats);
+
+		for (ind = 0; ind < nindexes; ind++)
+		{
+			AnlIndexData *thisdata = &indexdata[ind];
+
+			update_attstats(RelationGetRelid(Irel[ind]), false,
+							thisdata->attr_cnt, thisdata->vacattrstats);
+		}
+
+		/* Build extended statistics (if there are any). */
+		BuildRelationExtStatistics(onerel, inh, totalrows, numrows, rows,
+								   attr_cnt, vacattrstats);
+	}
+
+	pgstat_progress_update_param(PROGRESS_ANALYZE_PHASE,
+								 PROGRESS_ANALYZE_PHASE_FINALIZE_ANALYZE);
+```
 ## Detailed Description
 This function orchestrates the complete analysis process for a relation, including column selection, index analysis, row sampling, statistics computation, and metadata updates. It operates in two modes: regular analysis for individual tables and inherited analysis for partitioned tables that processes all child partitions. The function sets up proper security contexts, manages memory allocation, samples rows using the provided acquisition function, computes statistics for both table columns and index expressions, and updates the system catalogs with the results.
 

@@ -8,7 +8,16 @@ ObjectAccessPostCreate is a struct that holds arguments for the OAT_POST_CREATE 
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	/*
+	 * Flags to inform extensions the context of this deletion. Also see
+	 * PERFORM_DELETION_* in dependency.h
+	 */
+	int			dropflags;
+} ObjectAccessDrop;
+```
 ## Detailed Description
 The ObjectAccessPostCreate struct serves as a parameter container for object access hooks that are triggered after object creation (OAT_POST_CREATE events). It provides essential context information to extensions about whether the object creation was initiated by explicit user operations or by internal PostgreSQL mechanisms.
 

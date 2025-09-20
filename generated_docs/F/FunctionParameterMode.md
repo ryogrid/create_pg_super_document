@@ -8,7 +8,16 @@ FunctionParameterMode is an enumeration type that defines the different modes fo
 
 ## Definition
 
-
+```c
+typedef struct FunctionParameter
+{
+	NodeTag		type;
+	char	   *name;			/* parameter name, or NULL if not given */
+	TypeName   *argType;		/* TypeName for parameter type */
+	FunctionParameterMode mode; /* IN/OUT/etc */
+	Node	   *defexpr;		/* raw default expr, or NULL if not given */
+} FunctionParameter;
+```
 ## Detailed Description
 FunctionParameterMode defines the directional behavior and special characteristics of function parameters in PostgreSQL. The enum values are stored directly in the system catalog pg_proc and correspond to the parameter modes defined in the SQL standard:
 

@@ -8,7 +8,14 @@ The gininsert function is the main entry point for inserting a single heap tuple
 
 ## Definition
 
-
+```c
+bool
+gininsert(Relation index, Datum *values, bool *isnull,
+		  ItemPointer ht_ctid, Relation heapRel,
+		  IndexUniqueCheck checkUnique,
+		  bool indexUnchanged,
+		  IndexInfo *indexInfo)
+```
 ## Detailed Description
 The gininsert function handles the insertion of a single tuple from the heap relation into the corresponding GIN index. It serves as the main interface for tuple insertion operations and supports two different insertion strategies:
 

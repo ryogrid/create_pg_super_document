@@ -8,7 +8,12 @@ Internal function that converts SQL query results into XML format, providing the
 
 ## Definition
 
-
+```c
+static StringInfo
+query_to_xml_internal(const char *query, char *tablename,
+					  const char *xmlschema, bool nulls, bool tableforest,
+					  const char *targetns, bool top_level)
+```
 ## Detailed Description
 This static function serves as the workhorse for PostgreSQL's XML generation capabilities. It executes a given SQL query using the Server Programming Interface (SPI) and transforms the result set into well-formed XML. The function supports various XML formatting options including schema inclusion, null value handling, and different structural layouts (table vs forest format). It handles the complete XML generation pipeline from query execution to final XML string construction.
 

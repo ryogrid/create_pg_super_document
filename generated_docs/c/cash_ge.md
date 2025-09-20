@@ -8,7 +8,10 @@ The cash_ge function implements the greater-than-or-equal-to comparison operator
 
 ## Definition
 
-
+```c
+Datum
+cash_ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that implements the '>=' operator for the cash data type. It extracts two cash values from the function arguments using PostgreSQL's argument retrieval macros and performs a simple numeric comparison. The function follows PostgreSQL's standard function calling convention, taking arguments through PG_FUNCTION_ARGS and returning a Datum result.
 

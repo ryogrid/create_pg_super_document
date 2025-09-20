@@ -8,7 +8,11 @@ A PostgreSQL function that provides the SQL-callable interface for adding two ge
 
 ## Definition
 
-
+```c
+struct(result,
+					float8_mi(pt1->x, pt2->x),
+					float8_mi(pt1->y, pt2->y));
+```
 ## Detailed Description
 This function serves as the PostgreSQL SQL function interface for point addition operations. It extracts two Point arguments from the function call arguments using PostgreSQL's function calling convention, allocates memory for the result, delegates the actual computation to point_add_point, and returns the result in PostgreSQL's Datum format. This function enables the '+' operator for point data types in SQL queries.
 

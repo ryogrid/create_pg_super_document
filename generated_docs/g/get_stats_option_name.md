@@ -8,7 +8,10 @@ A utility function that maps single-character command-line option arguments to t
 
 ## Definition
 
-
+```c
+const char *
+get_stats_option_name(const char *arg)
+```
 ## Detailed Description
 This function serves as a mapping utility for PostgreSQL's statistics logging command-line options. It takes a command-line argument string and returns the corresponding GUC (Grand Unified Configuration) parameter name for statistics logging. The function specifically handles three types of statistics logging options:
 

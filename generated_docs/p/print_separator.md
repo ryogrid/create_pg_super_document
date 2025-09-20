@@ -8,7 +8,23 @@ Outputs a separator character or string to a file stream, handling both null-ter
 
 ## Definition
 
+```c
+struct separator sep, FILE *fout)
+{
+	if (sep.separator_zero)
+		fputc('\000', fout);
+	else if (sep.separator)
+		fputs(sep.separator, fout);
+}
 
+
+/*
+ * Return the list of explicitly-requested footers or, when applicable, the
+ * default "(xx rows)" footer.  Always omit the default footer when given
+ * non-default footers, "\pset footer off", or a specific instruction to that
+ * effect from a calling backslash command.  Vertical formats number each row,
+ * making the default footer redundant;
+```
 ## Detailed Description
 The  function is a utility that outputs separator characters or strings to a specified file stream. It handles two types of separators: null byte separators (when  is true) and regular string separators. The function first checks if a null byte separator should be output using , otherwise it outputs a regular string separator using . This function is commonly used in unaligned text printing where different types of field separators are needed between data elements.
 

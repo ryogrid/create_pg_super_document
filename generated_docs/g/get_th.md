@@ -8,7 +8,12 @@ A utility function that returns the appropriate ordinal suffix (ST/ND/RD/TH) for
 
 ## Definition
 
-
+```c
+typedef int32_t (*ICU_Convert_Func) (UChar *dest, int32_t destCapacity,
+									 const UChar *src, int32_t srcLength,
+									 const char *locale,
+									 UErrorCode *pErrorCode);
+```
 ## Detailed Description
 The  function determines the correct ordinal suffix for a given number string according to English grammar rules. It analyzes the last digit(s) of the number to determine whether to return "ST", "ND", "RD", or "TH" (or their lowercase equivalents). The function implements the standard English ordinal rules:
 

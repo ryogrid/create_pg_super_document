@@ -8,7 +8,19 @@ IndexPath represents an index scan execution path over a single index, supportin
 
 ## Definition
 
-
+```c
+typedef struct IndexPath
+{
+	Path		path;
+	IndexOptInfo *indexinfo;
+	List	   *indexclauses;
+	List	   *indexorderbys;
+	List	   *indexorderbycols;
+	ScanDirection indexscandir;
+	Cost		indextotalcost;
+	Selectivity indexselectivity;
+} IndexPath;
+```
 ## Detailed Description
 IndexPath is a specialized Path structure that represents index scan operations over a single index. It extends the base Path structure with index-specific information needed for both regular index scans (T_IndexScan) and index-only scans (T_IndexOnlyScan), with the path.pathtype field indicating which type is intended.
 

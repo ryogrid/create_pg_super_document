@@ -8,7 +8,13 @@ Implements backref (backreference) node dissection in regular expression matchin
 
 ## Definition
 
-
+```c
+static int						/* regexec return code */
+cbrdissect(struct vars *v,
+		   struct subre *t,
+		   chr *begin,			/* beginning of relevant substring */
+		   chr *end)			/* end of same */
+```
 ## Detailed Description
 The  function handles backreference nodes in regular expression matching. A backreference refers to a previously captured group and requires that the current position in the string matches exactly the same text that was captured by that group, repeated a specified number of times.
 

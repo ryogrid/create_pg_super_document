@@ -8,7 +8,9 @@ Identifies the system timezone on Windows by matching the current timezone name 
 
 ## Definition
 
-
+```c
+struct tm  *tm = localtime(&t);
+```
 ## Detailed Description
 This Windows-specific function implements a two-phase approach to identify the system timezone:
 

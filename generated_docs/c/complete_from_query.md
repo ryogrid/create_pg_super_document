@@ -8,7 +8,10 @@ A tab completion generator function that provides autocompletion suggestions by 
 
 ## Definition
 
-
+```c
+static char *
+complete_from_query(const char *text, int state)
+```
 ## Detailed Description
 This function serves as a wrapper around the more general  function, providing a simplified interface for query-based completions. It executes SQL queries to retrieve completion candidates from the PostgreSQL server, making it possible to provide dynamic, context-aware suggestions based on actual database content (such as table names, column names, function names, etc.).
 

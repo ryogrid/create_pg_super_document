@@ -8,7 +8,10 @@ PostgreSQL input function for the boolean data type that converts string represe
 
 ## Definition
 
-
+```c
+Datum
+boolin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `boolin` function serves as the input conversion function for PostgreSQL's boolean data type. It is automatically called by the PostgreSQL type system when converting string inputs to boolean values during SQL operations. The function handles whitespace normalization by trimming leading and trailing spaces, then delegates the actual parsing to `parse_bool_with_len`. If parsing fails, it raises a properly formatted error using PostgreSQL's error reporting system with the ERRCODE_INVALID_TEXT_REPRESENTATION error code.
 

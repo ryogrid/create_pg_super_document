@@ -8,7 +8,10 @@ _bt_pageinit initializes a new B-tree page by setting up the page header and cle
 
 ## Definition
 
-
+```c
+void
+_bt_pageinit(Page page, Size size)
+```
 ## Detailed Description
 _bt_pageinit is a wrapper function that initializes a new B-tree page by calling the generic PageInit function with B-tree-specific parameters. The function sets up the standard page header structure, initializes the data space as empty, and zeros out the special space that will later contain B-tree-specific metadata.
 

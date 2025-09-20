@@ -8,7 +8,10 @@ A utility function that disables specific query execution plan strategies based 
 
 ## Definition
 
-
+```c
+bool
+set_plan_disabling_options(const char *arg, GucContext context, GucSource source)
+```
 ## Detailed Description
 This function provides a convenient mechanism to disable various query execution strategies through single-character command line arguments. It maps each character to a corresponding "enable_*" GUC parameter and sets it to "false", effectively disabling that particular execution strategy. This functionality is primarily used for testing the query planner's behavior when certain execution methods are unavailable, debugging performance issues, or forcing the planner to choose alternative execution paths.
 

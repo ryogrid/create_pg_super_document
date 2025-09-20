@@ -8,7 +8,10 @@ ReleaseSemaphores is a cleanup function that releases all acquired semaphores du
 
 ## Definition
 
-
+```c
+static void
+ReleaseSemaphores(int status, Datum arg)
+```
 ## Detailed Description
 This function serves as the cleanup callback for PostgreSQL's semaphore system, automatically invoked during process shutdown or shared memory reinitialization. It systematically releases all semaphores that were created during the session, with different cleanup strategies for named and unnamed POSIX semaphores.
 

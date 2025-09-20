@@ -8,7 +8,11 @@ The finnish_ISO_8859_1_create_env function creates and initializes a Snowball en
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * finnish_ISO_8859_1_create_env(void)
+```
 ## Detailed Description
 This function serves as a factory method for creating Snowball stemming environment structures tailored for Finnish language processing. It initializes the environment with the specific parameters required by the Finnish stemming algorithm:
 

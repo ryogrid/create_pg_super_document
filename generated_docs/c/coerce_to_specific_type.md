@@ -8,7 +8,12 @@ A convenience function that coerces an expression node to a specific data type f
 
 ## Definition
 
-
+```c
+Node *
+coerce_to_specific_type(ParseState *pstate, Node *node,
+						Oid targetTypeId,
+						const char *constructName)
+```
 ## Detailed Description
 This function serves as a simplified wrapper around , providing type coercion functionality for SQL constructs that need arguments of a specific data type. It automatically uses a default typmod of -1 (meaning no specific type modifier is required) and delegates the actual coercion work to the more general  function.
 

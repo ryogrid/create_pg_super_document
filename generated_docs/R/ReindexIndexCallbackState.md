@@ -8,7 +8,13 @@ A callback state structure used to pass context information to the  function dur
 
 ## Definition
 
-
+```c
+struct ReindexIndexCallbackState
+{
+	ReindexParams params;		/* options from statement */
+	Oid			locked_table_oid;	/* tracks previously locked table */
+};
+```
 ## Detailed Description
 The  structure serves as a callback argument for , which is responsible for checking permissions and acquiring proper locks during index reindexing operations. This structure maintains state across multiple callback invocations, particularly tracking which tables have been locked to avoid deadlocks and ensure proper lock management during the reindexing process.
 

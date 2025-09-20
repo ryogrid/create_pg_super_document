@@ -8,7 +8,15 @@ JsonbInState is a state structure used during the parsing and construction of JS
 
 ## Definition
 
-
+```c
+typedef struct JsonbInState
+{
+	JsonbParseState *parseState;
+	JsonbValue *res;
+	bool		unique_keys;
+	Node	   *escontext;
+} JsonbInState;
+```
 ## Detailed Description
 JsonbInState serves as a context structure that maintains the state during JSONB input processing operations. It encapsulates the parsing state, result storage, configuration options, and error handling context needed for converting various input formats into JSONB representation. This structure is extensively used throughout the JSONB input/output functions and aggregate operations to track parsing progress and maintain consistency during complex JSONB construction operations.
 

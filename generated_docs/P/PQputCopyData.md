@@ -8,7 +8,10 @@ Sends data to the PostgreSQL backend during COPY IN or COPY BOTH operations, all
 
 ## Definition
 
-
+```c
+int
+PQputCopyData(PGconn *conn, const char *buffer, int nbytes)
+```
 ## Detailed Description
 PQputCopyData is a libpq function that transmits data to the PostgreSQL server during a COPY operation. It operates in both blocking and non-blocking modes, handling the low-level protocol details of sending copy data messages to the backend. The function validates the connection state, processes pending messages, manages output buffer space, and formats the data according to PostgreSQL's copy protocol.
 

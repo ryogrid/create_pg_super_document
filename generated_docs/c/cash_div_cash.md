@@ -8,7 +8,10 @@ Performs division of two PostgreSQL Cash values, returning the result as a doubl
 
 ## Definition
 
-
+```c
+Datum
+cash_div_cash(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function divides one Cash value by another and returns the quotient as a float8. It implements the PostgreSQL SQL operator for dividing money amounts, handling division by zero by raising an appropriate error. The function converts both Cash operands to float8 before performing the division to ensure precision in the result.
 

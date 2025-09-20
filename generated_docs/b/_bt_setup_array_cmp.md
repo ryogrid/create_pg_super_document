@@ -8,7 +8,11 @@ Sets up array comparison functions by configuring ORDER procedures for binary se
 
 ## Definition
 
-
+```c
+static void
+_bt_setup_array_cmp(IndexScanDesc scan, ScanKey skey, Oid elemtype,
+					FmgrInfo *orderproc, FmgrInfo **sortprocp)
+```
 ## Detailed Description
 This function configures the comparison procedures needed for array operations in B-tree scans. It handles two distinct scenarios:
 

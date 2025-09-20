@@ -8,7 +8,13 @@ A utility function that generates LLVM code to switch PostgreSQL's current memor
 
 ## Definition
 
-
+```c
+struct_gep(b,
+						  StructFunctionCallInfoData,
+						  v_fcinfo,
+						  FIELDNO_FUNCTIONCALLINFODATA_ARGS,
+						  "");
+```
 ## Detailed Description
 This function generates LLVM IR code that implements PostgreSQL's memory context switching mechanism at the JIT level. Memory contexts are a fundamental part of PostgreSQL's memory management system, providing hierarchical memory allocation with automatic cleanup capabilities. The function emits code that:
 

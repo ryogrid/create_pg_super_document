@@ -8,7 +8,16 @@ PostgreSQL SQL function that computes the complementary error function (erfc) fo
 
 ## Definition
 
-
+```c
+struct_array() since the array data is just
+	 * going to look like a C array of N float8 values.
+	 */
+	if (ARR_NDIM(transarray) != 1 ||
+		ARR_DIMS(transarray)[0] != n ||
+		ARR_HASNULL(transarray) ||
+		ARR_ELEMTYPE(transarray) != FLOAT8OID)
+		elog(ERROR, "%s: expected %d-element float8 array", caller, n);
+```
 ## Detailed Description
 The `derfc` function is a PostgreSQL SQL-callable function that wraps the standard C library's `erfc()` function to compute the complementary error function of a floating-point number. The complementary error function is defined as erfc(x) = 1 - erf(x) and is commonly used in probability theory, statistics, and mathematical computations. This function takes a single float8 (double precision) argument and returns the complementary error function value as a float8 result.
 

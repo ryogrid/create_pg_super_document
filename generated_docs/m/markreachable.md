@@ -8,7 +8,13 @@ The markreachable function is a recursive utility function in PostgreSQL's regex
 
 ## Definition
 
-
+```c
+static void
+markreachable(struct nfa *nfa,
+			  struct state *s,
+			  struct state *okay,	/* consider only states with this mark */
+			  struct state *mark)	/* the value to mark with */
+```
 ## Detailed Description
 This function performs a depth-first traversal of an NFA starting from a given state, marking all reachable states with a specific mark value. It only considers states that currently have the 'okay' mark and changes them to the new 'mark' value. The function is recursive and follows all outgoing arcs from each state to find all reachable states.
 

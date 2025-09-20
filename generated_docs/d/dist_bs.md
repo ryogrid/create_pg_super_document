@@ -8,7 +8,10 @@ Calculates the distance from a box geometric object to a line segment (lseg).
 
 ## Definition
 
-
+```c
+Datum
+dist_bs(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function computes the shortest distance between a box and a line segment in PostgreSQL's geometric data type system. It serves as a PostgreSQL SQL-callable function wrapper that extracts the input arguments and delegates the actual distance calculation to the internal  function. The function returns the computed distance as a floating-point value.
 

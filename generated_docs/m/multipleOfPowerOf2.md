@@ -8,7 +8,10 @@ Determines whether a given 64-bit unsigned integer value is divisible by a speci
 
 ## Definition
 
-
+```c
+static inline bool
+multipleOfPowerOf2(const uint32 value, const uint32 p)
+```
 ## Detailed Description
 This function efficiently checks if a value is divisible by 2 raised to the power p (2^p) using bitwise operations. The implementation uses a mask-based approach: it creates a mask with the lower p bits set to 1, then performs a bitwise AND with the input value. If the result is zero, the value is divisible by 2^p.
 

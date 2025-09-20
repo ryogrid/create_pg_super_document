@@ -8,7 +8,14 @@ PgStat_SnapshotEntry is a hash table entry structure used for storing statistics
 
 ## Definition
 
-
+```c
+typedef struct PgStat_SnapshotEntry
+{
+	PgStat_HashKey key;
+	char		status;			/* for simplehash use */
+	void	   *data;			/* the stats data itself */
+} PgStat_SnapshotEntry;
+```
 ## Detailed Description
 PgStat_SnapshotEntry serves as an entry in the hash table for statistics snapshots within PostgreSQL's statistics collection and reporting system. This structure is designed to work with PostgreSQL's simplehash implementation and provides a mechanism for organizing and accessing statistical data snapshots. Each entry contains a key for identification, a status field required by the simplehash implementation, and a generic pointer to the actual statistics data.
 

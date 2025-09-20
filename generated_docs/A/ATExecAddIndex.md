@@ -8,7 +8,27 @@ ATExecAddIndex implements the execution of index creation during ALTER TABLE ope
 
 ## Definition
 
+```c
+enumber for us, we used it for the
+	 * new index instead of building from scratch.  Restore associated fields.
+	 * This may store InvalidSubTransactionId in both fields, in which case
+	 * relcache.c will assume it can rebuild the relcache entry.  Hence, do
+	 * this after the CCI that made catalog rows visible to any rebuild.  The
+	 * DROP of the old edition of this index will have scheduled the storage
+	 * for deletion at commit, so cancel that pending deletion.
+	 */
+	if (RelFileNumberIsValid(stmt->oldNumber))
+	{
+		Relation	irel = index_open(address.objectId, NoLock);
 
+		irel->rd_createSubid = stmt->oldCreateSubid;
+		irel->rd_firstRelfilelocatorSubid = stmt->oldFirstRelfilelocatorSubid;
+		RelationPreserveStorage(irel->rd_locator, true);
+		index_close(irel, NoLock);
+	}
+
+	return address;
+```
 ## Detailed Description
 This function creates indexes as part of ALTER TABLE processing, particularly for UNIQUE and PRIMARY KEY constraints that are internally converted to AT_AddIndex subcommands by parse_utilcmd.c. It coordinates with the ALTER TABLE infrastructure to determine appropriate timing for index creation, handles index rebuilding scenarios, and manages storage reuse when rebuilding existing indexes. The function delegates the actual index creation to DefineIndex but provides ALTER TABLE-specific context and options.
 

@@ -8,7 +8,9 @@ A PostgreSQL system function that returns a set of tuples containing all configu
 
 ## Definition
 
-
+```c
+struct config_generic **guc_vars;
+```
 ## Detailed Description
 This function implements the core functionality behind PostgreSQL's pg_settings system view, which provides comprehensive information about all configuration parameters. It's a Set Returning Function (SRF) that uses PostgreSQL's SRF framework to return multiple rows of data, each representing one configuration parameter with all its associated metadata.
 

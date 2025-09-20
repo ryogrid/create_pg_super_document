@@ -8,7 +8,11 @@ Creates a private copy of a snapshot that can be modified for catalog access, en
 
 ## Definition
 
-
+```c
+static Snapshot
+ReorderBufferCopySnap(ReorderBuffer *rb, Snapshot orig_snap,
+					  ReorderBufferTXN *txn, CommandId cid)
+```
 ## Detailed Description
 This function creates a specialized copy of a PostgreSQL snapshot that is tailored for logical decoding operations. The copied snapshot allows catalog-modifying transactions to examine intermediate catalog states by incorporating transaction-specific information.
 

@@ -8,7 +8,10 @@ A backward compatibility wrapper function that maintains support for pre-9.6 con
 
 ## Definition
 
-
+```c
+Datum
+gtsvector_consistent_oldsig(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a compatibility shim for PostgreSQL installations that may have older opclass declarations from contrib/tsearch2 extensions created before version 9.6. The original gtsvector_consistent function had its signature modified to match PostgreSQL's documented conventions for GiST support functions, but existing opclass definitions still referenced the old signature.
 

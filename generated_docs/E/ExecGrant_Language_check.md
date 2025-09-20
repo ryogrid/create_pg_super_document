@@ -8,7 +8,10 @@ ExecGrant_Language_check is a validation function that ensures GRANT and REVOKE 
 
 ## Definition
 
-
+```c
+static void
+ExecGrant_Language_check(InternalGrant *istmt, HeapTuple tuple)
+```
 ## Detailed Description
 ExecGrant_Language_check serves as an object-specific validation callback for procedural languages in the GRANT/REVOKE system. It examines the language's trust status and prevents privilege operations on untrusted languages, since only superusers can use untrusted languages and therefore privilege management would be meaningless.
 

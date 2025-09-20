@@ -8,7 +8,10 @@ ItemPointerDec decrements an ItemPointer to the previous logical position, handl
 
 ## Definition
 
-
+```c
+void
+ItemPointerDec(ItemPointer pointer)
+```
 ## Detailed Description
 This function implements arithmetic decrement operation for ItemPointer structures, treating them as sequential addresses within the database's physical storage. When the offset number reaches 0, the function rolls over to the maximum offset value (PG_UINT16_MAX) of the previous block number. Like ItemPointerInc, this function operates at the type level and doesn't enforce PostgreSQL's logical offset limits, only respecting the underlying data type boundaries.
 

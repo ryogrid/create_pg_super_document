@@ -8,7 +8,10 @@ The hashmacaddr8extended function is an extended hash support function for creat
 
 ## Definition
 
-
+```c
+Datum
+hashmacaddr8extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function computes a seeded hash value for a macaddr8 (8-byte MAC address) value, enabling the use of hash indexes and hash joins for this data type with additional randomization through a seed value. The function uses PostgreSQL's hash_any_extended function to compute a hash over the entire 8-byte MAC address structure with a provided seed. The extended version provides better hash distribution and security by allowing different hash seeds, which is particularly useful for preventing hash collision attacks and improving performance in certain scenarios.
 

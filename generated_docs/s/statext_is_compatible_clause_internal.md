@@ -8,7 +8,12 @@ Recursively determines if a clause is compatible with MCV (Most Common Values) l
 
 ## Definition
 
-
+```c
+static bool
+statext_is_compatible_clause_internal(PlannerInfo *root, Node *clause,
+									  Index relid, Bitmapset **attnums,
+									  List **exprs, bool *leakproof)
+```
 ## Detailed Description
 This internal function recursively examines SQL clauses to determine compatibility with extended statistics MCV lists. It supports a specific set of clause types including OpExprs with comparison operators (=, <, >, >=, <=), NULL tests, ScalarArrayOpExprs (IN/ANY/ALL), and Boolean combinations (AND/OR/NOT). The function extracts variable attribute numbers and sub-expressions that need to be matched against statistics objects. It also tracks the leakproofness of operators to ensure security constraints are maintained during statistics-based estimation.
 

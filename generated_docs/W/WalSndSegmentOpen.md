@@ -8,7 +8,11 @@ WalSndSegmentOpen is a callback function used by XLogReader to open WAL segments
 
 ## Definition
 
-
+```c
+static void
+WalSndSegmentOpen(XLogReaderState *state, XLogSegNo nextSegNo,
+				  TimeLineID *tli_p)
+```
 ## Detailed Description
 WalSndSegmentOpen serves as the segment_open callback for XLogReaderState during WAL streaming operations. Its primary responsibility is to open the appropriate WAL segment file for reading, taking into account timeline switches that may have occurred. 
 

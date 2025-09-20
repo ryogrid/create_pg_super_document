@@ -8,7 +8,10 @@ Converts string values from JSONB data to a text search vector (TSVector) using 
 
 ## Definition
 
-
+```c
+Datum
+jsonb_string_to_tsvector_byid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that extracts string values from JSONB data and converts them into a text search vector using a specific text search configuration. Unlike functions that process all JSONB content, this function specifically targets only string values within the JSONB structure, filtering out other data types like numbers, booleans, or nested objects/arrays.
 

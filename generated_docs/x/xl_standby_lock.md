@@ -8,7 +8,14 @@ A WAL (Write-Ahead Log) record structure that represents an AccessExclusiveLock 
 
 ## Definition
 
-
+```c
+typedef struct xl_standby_lock
+{
+	TransactionId xid;			/* xid of holder of AccessExclusiveLock */
+	Oid			dbOid;			/* DB containing table */
+	Oid			relOid;			/* OID of table */
+} xl_standby_lock;
+```
 ## Detailed Description
 The  structure is used in PostgreSQL's WAL system to record information about AccessExclusiveLocks on tables. This information is crucial for standby servers in hot standby mode to properly handle lock conflicts and maintain consistency with the primary server. When a transaction acquires an AccessExclusiveLock on a table, this structure captures the essential details needed for standby servers to understand the locking state and resolve potential conflicts with running queries on the standby.
 

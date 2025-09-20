@@ -8,7 +8,10 @@ LsnReadQueueNextStatus is an enumeration type used in PostgreSQL's WAL prefetchi
 
 ## Definition
 
-
+```c
+typedef LsnReadQueueNextStatus (*LsnReadQueueNextFun) (uintptr_t lrq_private,
+													   XLogRecPtr *lsn);
+```
 ## Detailed Description
 This enum is a core component of PostgreSQL's WAL prefetching mechanism, located in the xlogprefetcher module. It serves as the return type for callback functions that determine the next prefetch operation during WAL recovery. The enum provides a tri-state status system that allows the prefetcher to efficiently manage I/O operations by indicating whether a prefetch I/O should be initiated, skipped, or deferred.
 

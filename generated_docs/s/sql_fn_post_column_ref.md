@@ -8,7 +8,10 @@ Parser callback function for handling ColumnRef nodes in SQL function bodies, re
 
 ## Definition
 
-
+```c
+static Node *
+sql_fn_post_column_ref(ParseState *pstate, ColumnRef *cref, Node *var)
+```
 ## Detailed Description
 This function serves as a post-processing callback for column references encountered during SQL function parsing. It handles various syntactic forms of parameter references including simple parameter names, qualified parameter names with function name prefixes, field references within composite parameters, and whole-row references. The function implements PostgreSQL's parameter scoping rules where parameter names appear in a scope outside individual SQL commands, ensuring table-column references take precedence over parameter references.
 

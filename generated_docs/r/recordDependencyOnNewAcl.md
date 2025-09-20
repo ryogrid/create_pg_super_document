@@ -8,7 +8,11 @@ Records dependency relationships between a newly created database object and all
 
 ## Definition
 
-
+```c
+void
+recordDependencyOnNewAcl(Oid classId, Oid objectId, int32 objsubId,
+						 Oid ownerId, Acl *acl)
+```
 ## Detailed Description
 This function establishes dependency tracking for ACL-related roles when a new database object is created with custom privileges. It extracts all role OIDs mentioned in the provided ACL using aclmembers(), then calls updateAclDependencies() to record these dependencies in the pg_shdepend system catalog.
 

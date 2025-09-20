@@ -8,7 +8,10 @@ CountOtherDBBackends checks for other active backends running in a specified dat
 
 ## Definition
 
-
+```c
+bool
+CountOtherDBBackends(Oid databaseId, int *nbackends, int *nprepared)
+```
 ## Detailed Description
 This function implements a critical safety mechanism for database operations that require exclusive access, particularly DROP DATABASE commands. It scans the process array to identify all backends connected to a specific database (excluding the current backend) and attempts to wait for them to exit gracefully.
 

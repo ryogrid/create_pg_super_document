@@ -8,7 +8,12 @@ A utility function that converts a list of DefElem structures into a formatted T
 
 ## Definition
 
-
+```c
+struction of the node type as well as the value.
+		 */
+		if (IsA(defel->arg, Integer) || IsA(defel->arg, Float))
+			appendStringInfoString(&buf, val);
+```
 ## Detailed Description
 This function transforms a PostgreSQL List of DefElem structures into a properly formatted text string that represents dictionary options. The output format is designed to be pg_dump-compatible, meaning it produces text that could be directly used in a CREATE TEXT SEARCH DICTIONARY statement to reproduce the same configuration. The function handles different data types appropriately: numeric values (Integer/Float) are emitted without quotes, while string values are properly quoted with SQL escaping. Special attention is given to backslash handling using escape string syntax when necessary. Each option is formatted as 'name = value' with proper identifier quoting and comma separation between multiple options.
 

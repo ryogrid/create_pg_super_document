@@ -8,7 +8,10 @@ Retrieves or creates a statistics entry for a specific lightweight lock, managin
 
 ## Definition
 
-
+```c
+static lwlock_stats *
+get_lwlock_stats_entry(LWLock *lock)
+```
 ## Detailed Description
 This function serves as the primary interface for accessing lock statistics entries in the lwlock_stats hash table. It takes a lock pointer and returns the corresponding statistics structure, creating a new entry if one doesn't exist. The function handles the special case where the statistics hash table hasn't been initialized yet (during shared memory setup) by returning a dummy statistics entry.
 

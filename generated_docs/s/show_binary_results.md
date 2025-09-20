@@ -8,7 +8,10 @@ A utility function that demonstrates how to process and display binary-format qu
 
 ## Definition
 
-
+```c
+static void
+show_binary_results(PGresult *res)
+```
 ## Detailed Description
 The show_binary_results function is part of the testlibpq3 example program that demonstrates how to handle binary-format query results from PostgreSQL. This function specifically processes results from a table with three columns: an integer ('i'), text ('t'), and bytea ('b') field.
 

@@ -8,7 +8,13 @@ VersionedQuery is a struct used in PostgreSQL's psql tab completion system to ha
 
 ## Definition
 
-
+```c
+typedef struct VersionedQuery
+{
+	int			min_server_version;
+	const char *query;
+} VersionedQuery;
+```
 ## Detailed Description
 The VersionedQuery structure is part of psql's tab completion infrastructure that enables version-aware query execution. It addresses the challenge where tab completion queries must vary depending on the PostgreSQL server version being connected to. The system stores arrays of VersionedQuery entries, each tagged with the minimum server version required for that specific query to work properly.
 

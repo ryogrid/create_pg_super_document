@@ -8,7 +8,10 @@ SQL-callable function that returns information about all available cursors (port
 
 ## Definition
 
-
+```c
+Datum
+pg_cursor(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 pg_cursor is a system function that provides information about all visible cursors (portals) currently active in the PostgreSQL session. This function is designed to be called from SQL and returns a set of rows containing details about each cursor, including its name, source text, options, and creation time.
 

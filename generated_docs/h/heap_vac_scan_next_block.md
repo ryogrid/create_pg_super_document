@@ -8,7 +8,11 @@ heap_vac_scan_next_block determines the next block that vacuum should process, u
 
 ## Definition
 
-
+```c
+static bool
+heap_vac_scan_next_block(LVRelState *vacrel, BlockNumber *blkno,
+						 bool *all_visible_according_to_vm)
+```
 ## Detailed Description
 heap_vac_scan_next_block implements intelligent block selection logic for vacuum operations. It operates in three distinct states:
 

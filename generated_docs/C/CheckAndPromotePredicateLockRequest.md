@@ -8,7 +8,10 @@ Checks all ancestors of a newly-acquired predicate lock, increments their child 
 
 ## Definition
 
-
+```c
+static bool
+CheckAndPromotePredicateLockRequest(const PREDICATELOCKTARGETTAG *reqtag)
+```
 ## Detailed Description
 CheckAndPromotePredicateLockRequest is a static function in PostgreSQL's predicate locking system that implements lock promotion logic. When a new predicate lock is acquired, this function traverses up the lock hierarchy to examine all ancestor locks (e.g., from tuple to page to relation). For each ancestor, it increments the child lock count in the local predicate lock hash table.
 

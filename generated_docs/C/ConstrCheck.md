@@ -8,7 +8,15 @@ ConstrCheck represents a CHECK constraint in PostgreSQL's constraint system, sto
 
 ## Definition
 
-
+```c
+typedef struct ConstrCheck
+{
+	char	   *ccname;
+	char	   *ccbin;			/* nodeToString representation of expr */
+	bool		ccvalid;
+	bool		ccnoinherit;	/* this is a non-inheritable constraint */
+} ConstrCheck;
+```
 ## Detailed Description
 ConstrCheck is a structure that stores information about CHECK constraints on database tables. CHECK constraints are user-defined conditions that must be satisfied by all rows in a table. This structure is part of PostgreSQL's constraint management system and is used within tuple descriptors to maintain CHECK constraint information.
 

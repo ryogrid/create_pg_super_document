@@ -8,7 +8,10 @@ Creates a named restore point in the WAL that can be used as a target for point-
 
 ## Definition
 
-
+```c
+Datum
+pg_create_restore_point(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function creates a named restore point in the Write-Ahead Log, which serves as a labeled checkpoint that can be referenced during point-in-time recovery operations. This allows database administrators to create meaningful recovery targets with descriptive names rather than relying solely on timestamps or LSN values.
 

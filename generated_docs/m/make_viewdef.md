@@ -8,7 +8,11 @@ Reconstructs the SELECT part of a view rewrite rule by extracting rule tuple inf
 
 ## Definition
 
-
+```c
+static void
+make_viewdef(StringInfo buf, HeapTuple ruletup, TupleDesc rulettc,
+			 int prettyFlags, int wrapColumn)
+```
 ## Detailed Description
 The  function is responsible for reconstructing the original SELECT statement that defines a view from its internal rule representation stored in the system catalogs. It extracts rule attributes from a heap tuple representing a rewrite rule, validates that the rule is appropriate for view definition reconstruction (must be a SELECT rule with INSTEAD semantics), and then converts the stored query tree back into readable SQL text.
 

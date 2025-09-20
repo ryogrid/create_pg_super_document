@@ -8,7 +8,10 @@ Copies a non-null datum to a target memory location for storage in an SP-GiST in
 
 ## Definition
 
-
+```c
+static void
+memcpyInnerDatum(void *target, SpGistTypeDesc *att, Datum datum)
+```
 ## Detailed Description
 This static function performs type-aware copying of datum values into inner tuple storage. It implements the storage convention where pass-by-value types are stored as their Datum representation directly, while pass-by-reference types are stored as their actual data content. The function handles both fixed-length and variable-length pass-by-reference types correctly.
 

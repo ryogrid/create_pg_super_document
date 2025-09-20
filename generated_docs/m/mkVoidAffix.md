@@ -8,7 +8,10 @@ mkVoidAffix creates root void nodes in the prefix tree to handle affixes with em
 
 ## Definition
 
-
+```c
+static void
+mkVoidAffix(IspellDict *Conf, bool issuffix, int startsuffix)
+```
 ## Detailed Description
 This function creates special "void" nodes at the root of the affix prefix trees to handle affixes that have empty replacement strings (replen == 0). These affixes represent operations where characters are removed without replacement during word transformation.
 

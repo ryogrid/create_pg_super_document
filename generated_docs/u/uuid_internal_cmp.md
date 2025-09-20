@@ -8,7 +8,10 @@ Internal comparison function that performs lexicographic comparison of two UUID 
 
 ## Definition
 
-
+```c
+static int
+uuid_internal_cmp(const pg_uuid_t *arg1, const pg_uuid_t *arg2)
+```
 ## Detailed Description
 This is a static internal helper function that provides the core comparison logic for all UUID comparison operations in PostgreSQL. It performs a byte-wise comparison of two UUID values using the standard  function, treating UUIDs as 16-byte binary values. The function returns an integer indicating the relative ordering of the two UUIDs: negative if arg1 < arg2, zero if equal, and positive if arg1 > arg2. This lexicographic comparison ensures consistent ordering behavior across all UUID operations.
 

@@ -8,7 +8,10 @@ Finalizes LZ4 compression by writing the frame footer and flushing remaining dat
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_lz4_compressor_finalize(bbstreamer *streamer)
+```
 ## Detailed Description
 This function performs end-of-stream processing for LZ4 compression. It calculates the footer boundary requirements, ensures sufficient buffer space, and calls LZ4F_compressEnd to finalize the compression frame and flush any remaining data from the compression context.
 

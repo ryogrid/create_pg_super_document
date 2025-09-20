@@ -8,7 +8,11 @@ Determines the properties of a btree ordering operator, including its opfamily, 
 
 ## Definition
 
-
+```c
+bool
+get_ordering_op_properties(Oid opno,
+						   Oid *opfamily, Oid *opcintype, int16 *strategy)
+```
 ## Detailed Description
 This function takes an OID of an ordering operator (a btree "<" or ">" operator) and extracts key properties needed for query planning and optimization. It searches the pg_amop system catalog to find the operator's registration details within btree operator families.
 

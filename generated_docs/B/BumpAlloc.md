@@ -8,7 +8,10 @@ BumpAlloc is the primary allocation function for the bump memory context, provid
 
 ## Definition
 
-
+```c
+void *
+BumpAlloc(MemoryContext context, Size size, int flags)
+```
 ## Detailed Description
 This function implements the main allocation logic for the bump memory allocator. It first calculates the required chunk size with proper alignment, then determines whether to handle the request as a regular chunk or delegate to BumpAllocLarge for oversized allocations. For regular allocations, it attempts to allocate from the current block, and if insufficient space is available, calls BumpAllocFromNewBlock to create a new block. The function is optimized for performance with the most common code paths inline and less common scenarios delegated to helper functions.
 

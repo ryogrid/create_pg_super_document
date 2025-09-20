@@ -8,7 +8,9 @@ A function that determines whether a given PostgreSQL locale produces determinis
 
 ## Definition
 
-
+```c
+struct pg_locale_struct result;
+```
 ## Detailed Description
 This function checks whether a PostgreSQL locale is deterministic. A deterministic locale ensures that string comparison and collation operations always produce the same results for identical inputs, which is crucial for operations like indexing, hashing, and ORDER BY clauses. The function implements a simple but important rule: the default locale (represented by NULL) is always considered deterministic, while custom locales have their deterministic property explicitly stored and returned.
 

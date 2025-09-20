@@ -8,7 +8,10 @@ ExecScanReScan resets scan state for rescanning operations, handling tuple slot 
 
 ## Definition
 
-
+```c
+void
+ExecScanReScan(ScanState *node)
+```
 ## Detailed Description
 ExecScanReScan is a critical function called by all scan node types during rescan operations, which occur in nested loop joins, subplan re-evaluation, and other scenarios requiring multiple passes over scan data. The function ensures proper state reset by clearing the current scan tuple slot and managing EvalPlanQual (EPQ) state for concurrent transaction handling.
 

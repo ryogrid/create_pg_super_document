@@ -8,7 +8,10 @@ Opens an existing PostgreSQL dump archive file for restoration operations, initi
 
 ## Definition
 
-
+```c
+Archive *
+OpenArchive(const char *FileSpec, const ArchiveFormat fmt)
+```
 ## Detailed Description
 The OpenArchive function is responsible for opening and initializing an existing PostgreSQL dump archive file for restoration purposes. It creates an ArchiveHandle structure that manages the archive operations throughout the restoration process. The function sets up compression specifications (defaulting to no compression) and allocates the archive handle with appropriate parameters for read operations.
 

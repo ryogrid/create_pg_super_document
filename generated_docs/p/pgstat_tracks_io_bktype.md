@@ -8,7 +8,10 @@ This function determines whether I/O statistics are collected for a specific bac
 
 ## Definition
 
-
+```c
+bool
+pgstat_tracks_io_bktype(BackendType bktype)
+```
 ## Detailed Description
 The `pgstat_tracks_io_bktype` function acts as a filter to determine which backend types should have their I/O operations tracked in PostgreSQL's statistics system. Not all backend types participate in I/O statistics collection due to various reasons:
 

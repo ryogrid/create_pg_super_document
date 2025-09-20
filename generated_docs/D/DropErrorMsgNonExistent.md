@@ -8,7 +8,9 @@ DropErrorMsgNonExistent generates appropriate error or warning messages when a D
 
 ## Definition
 
-
+```c
+struct dropmsgstrings *rentry;
+```
 ## Detailed Description
 DropErrorMsgNonExistent is a static helper function responsible for providing user-friendly error messages when attempting to drop relations that do not exist. The function first checks if the specified schema exists, and if not, reports an appropriate schema-related error or notice. Then it looks up the relation kind in the dropmsgstringarray to find the corresponding error messages. Depending on the missing_ok flag, it either throws an error (when missing_ok is false) or issues a notice and continues (when missing_ok is true). This supports the IF EXISTS clause behavior in DROP statements.
 

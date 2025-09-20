@@ -8,7 +8,10 @@ Constructs an SP-GiST node tuple containing a label value for storage within inn
 
 ## Definition
 
-
+```c
+SpGistNodeTuple
+spgFormNodeTuple(SpGistState *state, Datum label, bool isnull)
+```
 ## Detailed Description
 This function creates a node tuple that represents a single node within an SP-GiST inner tuple. Node tuples store label values that help guide tree traversal decisions. The function handles both null and non-null labels appropriately and ensures the resulting tuple fits within PostgreSQL's size constraints.
 

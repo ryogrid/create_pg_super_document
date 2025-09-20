@@ -8,7 +8,10 @@ Subtracts a specified number of days from a date value, returning a new date.
 
 ## Definition
 
-
+```c
+Datum
+date_mii(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements date subtraction by subtracting an integer number of days from a DateADT value. This function handles PostgreSQL's internal date representation and includes comprehensive overflow checking and boundary validation. The function preserves infinite date values unchanged and performs range validation to ensure the result remains within PostgreSQL's supported date range.
 

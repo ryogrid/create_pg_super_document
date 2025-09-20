@@ -8,7 +8,10 @@ Sets the message domain that will be used by errcontext() for internationalizati
 
 ## Definition
 
-
+```c
+int
+set_errcontext_domain(const char *domain)
+```
 ## Detailed Description
 This function sets the message domain to be used by subsequent errcontext() calls for proper internationalization. It's designed to handle cases where errcontext_msg() is called from a different module than the original ereport(), making it impossible to use the message domain passed in errstart() for translation. The function operates on the current error data structure in the error stack and sets the context_domain field to the specified domain or defaults to the PostgreSQL backend domain if NULL is passed.
 

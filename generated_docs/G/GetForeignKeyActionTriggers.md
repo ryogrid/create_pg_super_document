@@ -8,7 +8,13 @@ GetForeignKeyActionTriggers retrieves the delete and update action triggers asso
 
 ## Definition
 
-
+```c
+static void
+GetForeignKeyActionTriggers(Relation trigrel,
+							Oid conoid, Oid confrelid, Oid conrelid,
+							Oid *deleteTriggerOid,
+							Oid *updateTriggerOid)
+```
 ## Detailed Description
 This function searches the pg_trigger catalog to find the action triggers (ON DELETE and ON UPDATE) that belong to a specific foreign key constraint. Action triggers are created on the referenced table (primary key side) and are responsible for enforcing the foreign key's cascade, restrict, or set null actions when the referenced row is modified or deleted.
 

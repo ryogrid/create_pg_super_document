@@ -8,7 +8,12 @@ Checks for violations of unique index constraints by scanning for conflicting tu
 
 ## Definition
 
-
+```c
+static TransactionId
+_bt_check_unique(Relation rel, BTInsertState insertstate, Relation heapRel,
+				 IndexUniqueCheck checkUnique, bool *is_unique,
+				 uint32 *speculativeToken)
+```
 ## Detailed Description
 The  function performs uniqueness constraint validation for B-tree index insertions. It scans through tuples with the same key as the tuple being inserted to detect conflicts. The function handles various scenarios including live conflicts, transactions in progress, and dead tuples.
 

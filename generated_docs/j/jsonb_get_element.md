@@ -8,7 +8,10 @@ A core function that extracts elements from JSONB data structures using a path a
 
 ## Definition
 
-
+```c
+Datum
+jsonb_get_element(Jsonb *jb, Datum *path, int npath, bool *isnull, bool as_text)
+```
 ## Detailed Description
 The  function implements the fundamental JSONB path traversal logic in PostgreSQL. It navigates through nested JSONB structures (objects, arrays, and scalars) using a sequence of path elements. The function handles object key lookups using string keys, array indexing with both positive and negative indices, and supports extraction from scalar values. It provides comprehensive error handling and null-safety checks, returning appropriate null values when paths don't exist or are invalid.
 

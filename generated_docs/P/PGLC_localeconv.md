@@ -8,7 +8,9 @@ PGLC_localeconv returns a POSIX lconv struct containing locale-specific number a
 
 ## Definition
 
-
+```c
+struct lconv CurrentLocaleConv;
+```
 ## Detailed Description
 PGLC_localeconv is PostgreSQL's wrapper around the standard C library localeconv() function. It provides locale-specific formatting information for numeric and monetary values while handling the complexity of multiple locale categories, encoding conversion, and caching.
 

@@ -8,7 +8,11 @@ Initializes a CompressorState structure for gzip compression, setting up functio
 
 ## Definition
 
-
+```c
+void
+InitCompressorGzip(CompressorState *cs,
+				   const pg_compress_specification compression_spec)
+```
 ## Detailed Description
 InitCompressorGzip is a public API function that configures a CompressorState structure to use gzip compression. It serves as the entry point for setting up gzip-based compression in PostgreSQL's pg_dump utility. The function has two implementations depending on build configuration:
 

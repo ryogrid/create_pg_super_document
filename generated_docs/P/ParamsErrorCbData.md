@@ -8,7 +8,13 @@ ParamsErrorCbData is a struct that serves as the argument for parameter error ca
 
 ## Definition
 
-
+```c
+typedef struct ParamsErrorCbData
+{
+	const char *portalName;
+	ParamListInfo params;
+} ParamsErrorCbData;
+```
 ## Detailed Description
 ParamsErrorCbData is specifically designed as the argument type for ParamsErrorCallback functions. It encapsulates the essential context needed for meaningful error reporting when parameter-related errors occur during query preparation or execution. This structure provides both the portal name for identifying the specific query context and the parameter list for detailed parameter information in error messages.
 

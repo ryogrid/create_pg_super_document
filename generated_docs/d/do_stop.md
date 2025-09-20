@@ -8,7 +8,10 @@ Handles the stopping of a PostgreSQL server by sending a termination signal to t
 
 ## Definition
 
-
+```c
+static void
+do_stop(void)
+```
 ## Detailed Description
 The  function is responsible for gracefully shutting down a PostgreSQL server instance. It first retrieves the process ID of the running postmaster from the PID file, validates that the server is running in the correct mode (not as a standalone backend), and then sends the appropriate termination signal to the process. 
 

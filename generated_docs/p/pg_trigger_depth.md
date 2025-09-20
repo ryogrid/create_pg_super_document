@@ -8,7 +8,10 @@ Returns the current nesting level of PostgreSQL triggers, allowing stored proced
 
 ## Definition
 
-
+```c
+Datum
+pg_trigger_depth(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a SQL-callable system function that returns the current depth of trigger execution nesting. This function provides visibility into how many levels deep the system is currently executing triggers, which is useful for debugging complex trigger scenarios and preventing excessive recursion.
 

@@ -8,7 +8,10 @@ A SIGINT signal handler function that provides graceful shutdown capability for 
 
 ## Definition
 
-
+```c
+static void
+sigint_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 The sigint_handler function is a signal handler specifically designed to handle SIGINT signals (typically triggered by Ctrl+C) in the pg_waldump utility. When invoked, it sets the global boolean variable `time_to_stop` to true, which serves as a flag for the main processing loop to terminate gracefully. This allows pg_waldump to stop reading and processing WAL (Write-Ahead Log) records in response to user interruption while ensuring any current operations can complete cleanly.
 

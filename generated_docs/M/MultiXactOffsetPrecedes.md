@@ -8,7 +8,10 @@ MultiXactOffsetPrecedes determines which of two MultiXact offset values is earli
 
 ## Definition
 
-
+```c
+static bool
+MultiXactOffsetPrecedes(MultiXactOffset offset1, MultiXactOffset offset2)
+```
 ## Detailed Description
 This function implements a precedence comparison for MultiXact offsets using modular arithmetic to handle wrap-around behavior. It computes the difference between the two offsets as a signed 32-bit integer and returns true if offset1 precedes offset2. The function follows the same pattern as MultiXactIdPrecedes but operates on the offset space rather than the MultiXact ID space.
 

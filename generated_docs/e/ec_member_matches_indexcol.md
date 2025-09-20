@@ -8,7 +8,12 @@ Tests whether an EquivalenceClass member matches an index column for generating 
 
 ## Definition
 
-
+```c
+static bool
+ec_member_matches_indexcol(PlannerInfo *root, RelOptInfo *rel,
+						   EquivalenceClass *ec, EquivalenceMember *em,
+						   void *arg)
+```
 ## Detailed Description
 This function serves as a callback for  to determine if a specific EquivalenceClass member can be matched against an index column. It performs compatibility checks between the equivalence member and the target index column, considering operator family compatibility (for btree indexes), collation matching, and operand structure matching.
 

@@ -8,7 +8,10 @@ Main entry point for executing GRANT and REVOKE SQL utility commands, converting
 
 ## Definition
 
-
+```c
+void
+ExecuteGrantStmt(GrantStmt *stmt)
+```
 ## Detailed Description
 This public function serves as the primary interface for PostgreSQL's GRANT and REVOKE command execution. It performs comprehensive validation and transformation of the parsed GrantStmt into an InternalGrant structure. The function first validates the grantor specification (currently limited to the current user for SQL compatibility). It then resolves object names to OIDs using either objectNamesToOids() for specific objects or objectsInSchemaToOids() for schema-wide operations. Role specifications are converted from RoleSpec structures to OID lists, with special handling for PUBLIC grants. The function maps privilege specifications from string names to AclMode bitmasks, validating that requested privileges are appropriate for the target object type. Column-level privileges are separated for special handling. Finally, it delegates to ExecGrantStmt_oids() for the actual ACL modifications. The function includes extensive object type handling for all PostgreSQL objects that support ACL-based security.
 

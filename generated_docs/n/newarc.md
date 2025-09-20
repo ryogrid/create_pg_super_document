@@ -8,7 +8,14 @@ Creates a new arc within an NFA (Non-deterministic Finite Automaton) while ensur
 
 ## Definition
 
-
+```c
+static void
+newarc(struct nfa *nfa,
+	   int t,
+	   color co,
+	   struct state *from,
+	   struct state *to)
+```
 ## Detailed Description
 The newarc function is responsible for setting up a new arc within an NFA structure used in PostgreSQL's regex engine. It performs duplicate checking to ensure that no redundant arcs are created, which is important for maintaining NFA efficiency. The function uses an optimization strategy where it checks for duplicates using whichever chain (incoming or outgoing) is shorter to minimize search time. If no duplicate is found, it delegates the actual arc creation to the createarc function.
 

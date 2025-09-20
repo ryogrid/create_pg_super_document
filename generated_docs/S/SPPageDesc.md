@@ -8,7 +8,16 @@ SPPageDesc is a structure that tracks all information about a page during SP-GiS
 
 ## Definition
 
-
+```c
+typedef struct SPPageDesc
+{
+	BlockNumber blkno;			/* block number, or InvalidBlockNumber */
+	Buffer		buffer;			/* page's buffer number, or InvalidBuffer */
+	Page		page;			/* pointer to page buffer, or NULL */
+	OffsetNumber offnum;		/* offset of tuple, or InvalidOffsetNumber */
+	int			node;			/* node number within inner tuple, or -1 */
+} SPPageDesc;
+```
 ## Detailed Description
 SPPageDesc serves as a comprehensive descriptor for tracking pages during SP-GiST insertion operations. The structure is designed with flexibility in mind - any of its fields can be invalid depending on the context. The key invariant is that if the buffer field is valid, it implies the caller holds both a pin and exclusive lock on that buffer. Additionally, the page pointer should be valid exactly when the buffer is valid, maintaining consistency between these related fields.
 

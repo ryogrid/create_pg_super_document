@@ -8,7 +8,14 @@ A structure that serves as a cache entry for multirange type input/output functi
 
 ## Definition
 
-
+```c
+typedef struct MultirangeIOData
+{
+	TypeCacheEntry *typcache;	/* multirange type's typcache entry */
+	FmgrInfo	typioproc;		/* range type's I/O proc */
+	Oid			typioparam;		/* range type's I/O parameter */
+} MultirangeIOData;
+```
 ## Detailed Description
 MultirangeIOData is a caching structure used in PostgreSQL's multirange type system to optimize input/output operations. This structure is stored in the fn_extra field of function call context to avoid repeated lookups of type information during I/O operations. It contains cached information about the multirange type's properties and the underlying range type's I/O procedures, which are essential for parsing and formatting multirange values.
 

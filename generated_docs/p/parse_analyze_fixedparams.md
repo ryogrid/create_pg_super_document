@@ -8,7 +8,12 @@ Analyzes a raw parse tree and transforms it into a Query node, with support for 
 
 ## Definition
 
-
+```c
+Query *
+parse_analyze_fixedparams(RawStmt *parseTree, const char *sourceText,
+						  const Oid *paramTypes, int numParams,
+						  QueryEnvironment *queryEnv)
+```
 ## Detailed Description
 This function serves as one of the main entry points for SQL parsing and analysis in PostgreSQL. It takes a raw parse tree (produced by the parser) and transforms it into a fully analyzed Query node that can be used by the planner and executor. The function specifically handles cases where parameter types are known in advance, making it suitable for prepared statements and similar scenarios where parameter information is available upfront.
 

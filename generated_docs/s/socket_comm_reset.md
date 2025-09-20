@@ -8,7 +8,10 @@ Resets the libpq communication state during error recovery, clearing the busy fl
 
 ## Definition
 
-
+```c
+static void
+socket_comm_reset(void)
+```
 ## Detailed Description
 The  function is a static internal function designed to recover from error conditions that occur within the libpq communication layer. It serves as a safety mechanism to reset the communication state when an error (elog) is thrown from within pqcomm.c routines.
 

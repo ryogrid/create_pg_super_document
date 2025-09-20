@@ -8,7 +8,11 @@ Tests whether a simple clause predicate is refuted by another simple clause rest
 
 ## Definition
 
-
+```c
+static bool
+predicate_refuted_by_simple_clause(Expr *predicate, Node *clause,
+								   bool weak)
+```
 ## Detailed Description
 This function performs refutation testing between two "simple clause" expressions to determine if the truth of one clause logically contradicts (refutes) another predicate. It's designed as the complement to predicate_implied_by_simple_clause, focusing on proving when predicates cannot both be true simultaneously.
 

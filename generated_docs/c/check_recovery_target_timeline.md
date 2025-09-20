@@ -8,7 +8,10 @@ A GUC check hook function that validates and processes recovery_target_timeline 
 
 ## Definition
 
-
+```c
+bool
+check_recovery_target_timeline(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a GUC check hook for the  parameter. It validates the input value and converts it into an appropriate  enum value. The function accepts three types of values: "current" (uses control file timeline), "latest" (uses the latest available timeline), and numeric values (specific timeline ID). For numeric values, it performs validation using  to ensure the value is a valid number. The processed goal type is stored in the  parameter for later use by the assign hook.
 

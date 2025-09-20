@@ -8,7 +8,10 @@ Initiates asynchronous execution of valid async-capable subplans in an Append no
 
 ## Definition
 
-
+```c
+static void
+ExecAppendAsyncBegin(AppendState *node)
+```
 ## Detailed Description
 This function is the entry point for asynchronous execution in Append nodes, enabling PostgreSQL to execute multiple subplans concurrently rather than sequentially. It is part of PostgreSQL's asynchronous query execution infrastructure that allows for improved performance when dealing with multiple data sources or partitions.
 

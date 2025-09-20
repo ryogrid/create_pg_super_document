@@ -8,7 +8,14 @@ Initializes a Tuplesortstate for sorting GiST (Generalized Search Tree) index tu
 
 ## Definition
 
-
+```c
+Tuplesortstate *
+tuplesort_begin_index_gist(Relation heapRel,
+						   Relation indexRel,
+						   int workMem,
+						   SortCoordinate coordinate,
+						   int sortopt)
+```
 ## Detailed Description
 This function creates a specialized tuplesort state for GiST index creation operations. It configures the sorting infrastructure for GiST index tuples, which have different requirements than B-tree indexes. The function sets up sort support for each index key attribute using GiST-specific preparation routines, handles collation information directly from the index relation, and disables uniqueness enforcement since GiST indexes don't support unique constraints. It reuses B-tree comparison functions but adapts them for GiST-specific sorting needs.
 

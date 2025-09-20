@@ -8,7 +8,10 @@ SimpleLruGetBankLock is a static inline function that retrieves the appropriate 
 
 ## Definition
 
-
+```c
+typedef bool (*SlruScanCallback) (SlruCtl ctl, char *filename, int64 segpage,
+								  void *data);
+```
 ## Detailed Description
 This function implements a critical part of PostgreSQL's SLRU (Simple Least Recently Used) buffer management by providing thread-safe access to SLRU pages through bank-based locking. The SLRU system divides its buffer pool into multiple banks, each protected by its own lightweight lock (LWLock). This banking approach reduces lock contention by allowing concurrent access to pages in different banks.
 

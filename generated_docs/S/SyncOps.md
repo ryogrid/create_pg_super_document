@@ -8,7 +8,15 @@ SyncOps is a function pointer structure that defines the interface for handling 
 
 ## Definition
 
-
+```c
+typedef struct SyncOps
+{
+	int			(*sync_syncfiletag) (const FileTag *ftag, char *path);
+	int			(*sync_unlinkfiletag) (const FileTag *ftag, char *path);
+	bool		(*sync_filetagmatches) (const FileTag *ftag,
+										const FileTag *candidate);
+} SyncOps;
+```
 ## Detailed Description
 SyncOps serves as a polymorphic interface for handling file synchronization operations across different storage handlers in PostgreSQL. The structure contains function pointers that allow different storage subsystems (magnetic disk, transaction logs, commit timestamps, multixact data) to implement their own specific synchronization logic while maintaining a uniform interface. This design enables the sync manager to handle various file types without needing to know the specific implementation details of each storage type.
 

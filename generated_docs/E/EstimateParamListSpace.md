@@ -8,7 +8,16 @@ Estimates the amount of memory space required to serialize a ParamListInfo struc
 
 ## Definition
 
-
+```c
+structure into caller-provided storage.
+ *
+ * We write the number of parameters first, as a 4-byte integer, and then
+ * write details for each parameter in turn.  The details for each parameter
+ * consist of a 4-byte type OID, 2 bytes of flags, and then the datum as
+ * serialized by datumSerialize().  The caller is responsible for ensuring
+ * that there is enough storage to store the number of bytes that will be
+ * written;
+```
 ## Detailed Description
 The EstimateParamListSpace function calculates the total memory space needed to serialize a ParamListInfo structure and all its parameter data. This is typically used in parallel query execution where parameter lists need to be shared between processes. The function iterates through all parameters in the list, accounting for the space needed to store each parameter's type OID, flags, and datum value. For dynamic parameters, it uses the paramFetch hook to get current values. The calculation handles both pass-by-value and pass-by-reference datatypes appropriately, using datumEstimateSpace for accurate size estimation of variable-length data.
 

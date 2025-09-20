@@ -8,7 +8,10 @@ Compares a freeze plan with a HeapTupleFreeze structure to determine if they rep
 
 ## Definition
 
-
+```c
+static inline bool
+heap_log_freeze_eq(xlhp_freeze_plan *plan, HeapTupleFreeze *frz)
+```
 ## Detailed Description
 This inline function performs a field-by-field comparison between an existing freeze plan (xlhp_freeze_plan) and a new HeapTupleFreeze request to determine if they describe identical freeze operations. The comparison is used to optimize WAL logging by consolidating multiple equivalent freeze operations into a single plan.
 

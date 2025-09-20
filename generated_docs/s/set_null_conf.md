@@ -8,7 +8,10 @@ A static utility function in initdb that creates an empty postgresql.conf config
 
 ## Definition
 
-
+```c
+static void
+set_null_conf(void)
+```
 ## Detailed Description
 The  function creates a minimal empty postgresql.conf configuration file in the data directory. This temporary configuration file is used during the early stages of database initialization to enable the launching of a test backend process for configuration validation and other initialization checks. The function simply creates an empty file by opening it in binary write mode and immediately closing it without writing any content. This allows PostgreSQL to start with default configuration settings while the full configuration is being set up.
 

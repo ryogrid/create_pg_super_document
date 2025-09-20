@@ -8,7 +8,10 @@ Provides identification strings for generic WAL record types, returning a consta
 
 ## Definition
 
-
+```c
+const char *
+generic_identify(uint8 info)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL record identification system. It serves as a simple identifier function that returns a constant string "Generic" for all generic xlog records, regardless of the info parameter passed to it. This function deliberately does not distinguish between different subtypes within generic xlog records, treating them all uniformly. This design reflects the fact that generic xlog records are already a catch-all category for WAL records that don't fit into more specific resource manager categories.
 

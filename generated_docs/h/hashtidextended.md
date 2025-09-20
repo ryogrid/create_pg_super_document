@@ -8,7 +8,10 @@ A PostgreSQL function that computes an extended hash value for a tuple identifie
 
 ## Definition
 
-
+```c
+Datum
+hashtidextended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that generates a seeded hash value from an ItemPointer (TID). This is an extended version of the  function that accepts an additional 64-bit seed parameter. It uses the  function to compute the hash, which allows for better hash distribution and is particularly useful in advanced hashing scenarios such as hash joins with multiple hash stages or hash partitioning. Like its simpler counterpart, it carefully calculates the size by adding the sizes of component fields ( + ) rather than using  to avoid potential padding issues.
 

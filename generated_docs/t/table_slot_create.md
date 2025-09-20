@@ -8,7 +8,10 @@ Creates a TupleTableSlot for a given relation using the appropriate slot operati
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+table_slot_create(Relation relation, List **reglist)
+```
 ## Detailed Description
 This function creates a new TupleTableSlot specifically tailored for the given relation. It combines the relation-specific slot callback determination with slot creation in a single operation. The function:
 

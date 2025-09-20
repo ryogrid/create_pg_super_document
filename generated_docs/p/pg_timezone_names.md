@@ -8,7 +8,9 @@ A set-returning function that reads all available full time zones and returns a 
 
 ## Definition
 
-
+```c
+enum  *tzenum;
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that enumerates all available timezone definitions and returns detailed information about each one. It's implemented as a set-returning function (SRF) that materializes its results in a tuplestore.
 

@@ -8,7 +8,10 @@ Releases a read-write conflict record by removing it from transaction conflict l
 
 ## Definition
 
-
+```c
+static void
+ReleaseRWConflict(RWConflict conflict)
+```
 ## Detailed Description
 This function cleans up a read-write conflict record by removing it from both the inLink and outLink lists (which connect it to the involved transactions) and returning the conflict record to the RWConflictPool's available list for future reuse. This is part of the conflict management lifecycle in PostgreSQL's serializable snapshot isolation implementation.
 

@@ -8,7 +8,11 @@ The r_residual_form function handles specialized Portuguese morphological patter
 
 ## Definition
 
+```c
+}
 
+static int r_residual_form(struct SN_env * z)
+```
 ## Detailed Description
 The r_residual_form function is a Portuguese-specific stemming function that processes a small set of residual morphological patterns (a_8 array with 4 entries). It implements complex character-level analysis beyond simple suffix matching, examining specific letter combinations like 'gu' and 'ci' patterns. Case 1 performs sophisticated pattern matching: after initial suffix deletion, it checks for 'u' preceded by 'g' or 'i' preceded by 'c', performing additional deletions when these patterns are found within the RV region. Case 2 performs simple suffix replacement. This function handles Portuguese-specific morphological irregularities that require character-level analysis rather than simple pattern matching, making it unique among the stemming functions.
 

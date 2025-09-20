@@ -8,7 +8,10 @@ Parses and validates relation options for database indexes by delegating to the 
 
 ## Definition
 
-
+```c
+bytea *
+index_reloptions(amoptions_function amoptions, Datum reloptions, bool validate)
+```
 ## Detailed Description
 The `index_reloptions` function serves as a generic wrapper for parsing index relation options in PostgreSQL. Unlike other reloptions functions that handle specific relation types directly, this function delegates the actual parsing to the access method's specific option parser function (amoptions). This design allows each index access method (B-tree, Hash, GiST, GIN, SP-GiST, BRIN, etc.) to define and parse its own set of options while maintaining a consistent interface. The function performs basic validation to ensure the amoptions function is provided and that the reloptions datum is valid before delegating the parsing responsibility.
 

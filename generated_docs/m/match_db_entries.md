@@ -8,7 +8,10 @@ A static helper function that determines if a statistics hash entry belongs to t
 
 ## Definition
 
-
+```c
+static bool
+match_db_entries(PgStatShared_HashEntry *entry, Datum match_data)
+```
 ## Detailed Description
 This function serves as a filter predicate for statistics hash table operations. It compares the database OID stored in a statistics hash entry against the current backend's database OID (MyDatabaseId) to determine if the entry belongs to the current database.
 

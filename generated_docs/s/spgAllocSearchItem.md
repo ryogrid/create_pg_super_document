@@ -8,7 +8,10 @@ A memory allocation function that creates and initializes a new SpGistSearchItem
 
 ## Definition
 
-
+```c
+static SpGistSearchItem *
+spgAllocSearchItem(SpGistScanOpaque so, bool isnull, double *distances)
+```
 ## Detailed Description
 This function handles the dynamic allocation of SpGistSearchItem structures, implementing intelligent memory management by only allocating space for distance arrays when needed. The function uses the SizeOfSpGistSearchItem macro to calculate the appropriate structure size based on whether the item is NULL and how many ORDER BY clauses require distance tracking.
 

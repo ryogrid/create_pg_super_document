@@ -8,7 +8,10 @@ PostgreSQL comparison function that determines if the first oidvector is less th
 
 ## Definition
 
-
+```c
+Datum
+oidvectorle(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "less than or equal" operator (<=) for oidvector data types in PostgreSQL. It leverages the  comparison function to perform a comprehensive comparison between two oidvector values and returns true if the first vector is lexicographically less than or equal to the second vector.
 

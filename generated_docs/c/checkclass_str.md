@@ -8,7 +8,11 @@ Checks if a word entry matches a query operand by examining weight restrictions 
 
 ## Definition
 
-
+```c
+static TSTernaryValue
+checkclass_str(CHKVAL *chkval, WordEntry *entry, QueryOperand *val,
+			   ExecPhraseData *data)
+```
 ## Detailed Description
 The  function is a core component of PostgreSQL's text search execution engine that determines whether a lexeme (word entry) in a tsvector matches the criteria specified in a query operand. It handles weight filtering (A, B, C, D weights) and optionally collects positional information needed for phrase matching.
 

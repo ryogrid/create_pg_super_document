@@ -8,7 +8,10 @@ A utility function that safely multiplies two Size values while checking for ari
 
 ## Definition
 
-
+```c
+Size
+mul_size(Size s1, Size s2)
+```
 ## Detailed Description
 The  function performs safe multiplication of two Size values (typically size_t) with overflow detection. It is specifically designed for shared memory size calculations in PostgreSQL, where exceeding the maximum addressable memory size would cause undefined behavior. The function implements a division-based overflow check: after multiplication, it verifies that . If this condition fails, it indicates that overflow occurred during multiplication, and the function reports an ERROR with the specific error code . This safety mechanism is crucial in PostgreSQL's shared memory management subsystem, where accurate size calculations are essential for proper memory allocation and system stability.
 

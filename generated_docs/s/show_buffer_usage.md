@@ -8,7 +8,10 @@ Displays detailed buffer usage statistics in EXPLAIN output, formatting informat
 
 ## Definition
 
-
+```c
+static void
+show_buffer_usage(ExplainState *es, const BufferUsage *usage)
+```
 ## Detailed Description
 The  function is responsible for formatting and displaying buffer usage statistics in EXPLAIN output. It handles both text and non-text (JSON, XML, YAML) output formats, showing comprehensive information about buffer operations including:
 

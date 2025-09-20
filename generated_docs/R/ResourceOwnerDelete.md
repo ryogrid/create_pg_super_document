@@ -8,7 +8,10 @@ Safely deletes a resource owner and its entire descendant tree after ensuring al
 
 ## Definition
 
-
+```c
+void
+ResourceOwnerDelete(ResourceOwner owner)
+```
 ## Detailed Description
 ResourceOwnerDelete is responsible for the complete destruction of a resource owner and its hierarchical descendants. This function implements a careful deletion strategy to maintain system integrity during the destruction process.
 

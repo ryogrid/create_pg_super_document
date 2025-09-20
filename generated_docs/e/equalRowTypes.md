@@ -8,7 +8,15 @@ equalRowTypes determines whether two TupleDesc structures represent compatible r
 
 ## Definition
 
-
+```c
+structure in
+ *		a previously allocated tuple descriptor.
+ *
+ * If attributeName is NULL, the attname field is set to an empty string
+ * (this is for cases where we don't know or need a name for the field).
+ * Also, some callers use this function to change the datatype-related fields
+ * in an existing tupdesc;
+```
 ## Detailed Description
 This function performs a specialized comparison focused solely on row type compatibility rather than complete TupleDesc equality. It is designed for scenarios where two record types need to be verified as compatible for operations like function returns, record type comparisons, or type cache lookups.
 

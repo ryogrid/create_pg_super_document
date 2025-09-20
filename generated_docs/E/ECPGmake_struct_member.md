@@ -8,7 +8,10 @@ Creates and appends a new struct member to a linked list of struct members for E
 
 ## Definition
 
-
+```c
+void
+ECPGmake_struct_member(const char *name, struct ECPGtype *type, struct ECPGstruct_member **start)
+```
 ## Detailed Description
 The  function is responsible for creating a new struct member node and adding it to the end of a linked list of struct members. This function is part of the ECPG type system that handles C struct definitions during preprocessing. It allocates memory for a new struct member, copies the provided name, preserves the type pointer, and maintains the linked list structure by appending the new member to the end of the list. This ensures proper ordering of struct members as they are encountered during parsing.
 

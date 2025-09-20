@@ -8,7 +8,9 @@ Validates that a variable has a numeric type and outputs its name to the generat
 
 ## Definition
 
-
+```c
+struct variable *v = find_variable(name);
+```
 ## Detailed Description
 This function performs type validation for variables that must be numeric left-values in ECPG descriptor operations. It looks up the variable by name, checks if its type is one of the supported numeric types, and either outputs the variable name to the generated code stream or reports a parse error if the type is incompatible.
 

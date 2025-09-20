@@ -8,7 +8,10 @@ PLy_function_save_args creates a snapshot of the current argument values in a pr
 
 ## Definition
 
-
+```c
+static PLySavedArgs *
+PLy_function_save_args(PLyProcedure *proc)
+```
 ## Detailed Description
 This function addresses a legacy design decision where PL/Python function arguments are made available through the procedure's global namespace. To handle recursive function calls and set-returning functions that may be interleaved, the current argument values must be saved and restored. The function performs:
 

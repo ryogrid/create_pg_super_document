@@ -8,7 +8,11 @@ Stores a HeapTuple in a BufferHeapTupleTableSlot, managing buffer references and
 
 ## Definition
 
-
+```c
+static inline void
+tts_buffer_heap_store_tuple(TupleTableSlot *slot, HeapTuple tuple,
+							Buffer buffer, bool transfer_pin)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's tuple table slot mechanism, specifically designed for buffer-backed heap tuple table slots. It efficiently stores a HeapTuple in the slot while managing buffer pins to optimize memory usage and prevent unnecessary buffer reference counting operations.
 

@@ -8,7 +8,13 @@ Finds all Vars in an expression tree that reference a particular RTE (Range Tabl
 
 ## Definition
 
-
+```c
+Node *
+replace_rte_variables(Node *node, int target_varno, int sublevels_up,
+					  replace_rte_variables_callback callback,
+					  void *callback_arg,
+					  bool *outer_hasSubLinks)
+```
 ## Detailed Description
 This function performs a tree walk through PostgreSQL expression trees to find all Var nodes that reference a specific range table entry (identified by target_varno at a specific sublevel) and replaces them using a user-provided callback function. It's a key utility in PostgreSQL's query rewriting system, particularly useful for operations like view expansion, subquery pullup, and other query transformations.
 

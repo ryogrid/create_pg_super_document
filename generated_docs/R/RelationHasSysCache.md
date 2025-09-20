@@ -8,7 +8,10 @@ Tests whether a given relation has an associated system catalog cache by perform
 
 ## Definition
 
-
+```c
+bool
+RelationHasSysCache(Oid relid)
+```
 ## Detailed Description
 RelationHasSysCache efficiently determines if a relation is backed by a system catalog cache using a binary search algorithm. The function searches through the SysCacheRelationOid array, which contains a sorted list of all relation OIDs that have associated system caches. This lookup is used by various parts of PostgreSQL to determine the appropriate invalidation and caching behavior for different system catalogs.
 

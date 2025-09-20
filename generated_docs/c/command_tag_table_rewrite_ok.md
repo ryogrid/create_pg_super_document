@@ -8,7 +8,10 @@ Returns whether a given command tag allows table rewrite operations, determining
 
 ## Definition
 
-
+```c
+bool
+command_tag_table_rewrite_ok(CommandTag commandTag)
+```
 ## Detailed Description
 This function provides a boolean indicator of whether a particular PostgreSQL command (identified by its CommandTag) is allowed to perform table rewrite operations. It accesses the  field from the corresponding entry in the global  array. This information is critical for the event trigger system to determine whether table rewrite event triggers should be fired for specific commands.
 

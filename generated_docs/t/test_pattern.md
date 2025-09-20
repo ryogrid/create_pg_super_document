@@ -8,7 +8,10 @@ Comprehensive test function that validates IntegerSet functionality using repeat
 
 ## Definition
 
-
+```c
+static void
+test_pattern(const test_spec *spec)
+```
 ## Detailed Description
 The  function performs extensive testing of the PostgreSQL IntegerSet data structure using predefined test specifications that define repeating patterns. The function creates an IntegerSet, populates it with values according to a specified bit pattern, and then validates the correctness of various IntegerSet operations including membership testing, iteration, and memory management.
 

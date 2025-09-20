@@ -8,7 +8,9 @@ Processes a single invalidation message to flush local caches based on the messa
 
 ## Definition
 
-
+```c
+struct RELCACHECALLBACK *ccitem = relcache_callback_list + i;
+```
 ## Detailed Description
 LocalExecuteInvalidationMessage is the core function that executes invalidation messages locally within a single backend process. It examines the message ID to determine the type of invalidation required and performs the appropriate cache invalidation operations. The function handles six different types of invalidation messages:
 

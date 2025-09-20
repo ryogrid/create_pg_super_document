@@ -8,7 +8,10 @@ Validates and initializes the number of dimensions for array population operatio
 
 ## Definition
 
-
+```c
+static bool
+populate_array_assign_ndims(PopulateArrayContext *ctx, int ndims)
+```
 ## Detailed Description
 The  function is responsible for validating and setting up the dimensional structure for array population operations during JSON/JSONB processing. It initializes the context with the correct number of dimensions and allocates the necessary tracking arrays.
 

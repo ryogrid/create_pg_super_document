@@ -8,7 +8,13 @@ Implements alternation node dissection in regular expression matching by testing
 
 ## Definition
 
-
+```c
+static int						/* regexec return code */
+caltdissect(struct vars *v,
+			struct subre *t,
+			chr *begin,			/* beginning of relevant substring */
+			chr *end)			/* end of same */
+```
 ## Detailed Description
 The  function handles alternation nodes ('|' operator) in regular expression matching. An alternation represents a choice between multiple alternative subexpressions, where any one of them can match successfully.
 

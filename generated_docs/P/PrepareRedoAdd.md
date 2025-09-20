@@ -8,7 +8,55 @@ PrepareRedoAdd creates and registers a global transaction entry in shared memory
 
 ## Definition
 
+```c
+struct and puts it into the active array.
+	 *
+	 * In redo, this struct is mainly used to track PREPARE/COMMIT entries in
+	 * shared memory. Hence, we only fill up the bare minimum contents here.
+	 * The gxact also gets marked with gxact->inredo set to true to indicate
+	 * that it got added in the redo phase
+	 */
 
+	/*
+	 * In the event of a crash while a checkpoint was running, it may be
+	 * possible that some two-phase data found its way to disk while its
+	 * corresponding record needs to be replayed in the follow-up recovery. As
+	 * the 2PC data was on disk, it has already been restored at the beginning
+	 * of recovery with restoreTwoPhaseData(), so skip this record to avoid
+	 * duplicates in TwoPhaseState.  If a consistent state has been reached,
+	 * the record is added to TwoPhaseState and it should have no
+	 * corresponding file in pg_twophase.
+	 */
+	if (!XLogRecPtrIsInvalid(start_lsn))
+	{
+		char		path[MAXPGPATH];
+
+		TwoPhaseFilePath(path, hdr->xid);
+
+		if (access(path, F_OK) == 0)
+		{
+			ereport(reachedConsistency ? ERROR : WARNING,
+					(errmsg("could not recover two-phase state file for transaction %u",
+							hdr->xid),
+					 errdetail("Two-phase state file has been found in WAL record %X/%X, but this transaction has already been restored from disk.",
+							   LSN_FORMAT_ARGS(start_lsn))));
+			return;
+		}
+
+		if (errno != ENOENT)
+			ereport(ERROR,
+					(errcode_for_file_access(),
+					 errmsg("could not access file \"%s\": %m", path)));
+	}
+
+	/* Get a free gxact from the freelist */
+	if (TwoPhaseState->freeGXacts == NULL)
+		ereport(ERROR,
+				(errcode(ERRCODE_OUT_OF_MEMORY),
+				 errmsg("maximum number of prepared transactions reached"),
+				 errhint("Increase \"max_prepared_transactions\" (currently %d).",
+						 max_prepared_xacts)));
+```
 ## Detailed Description
 PrepareRedoAdd is a critical function in PostgreSQL's two-phase commit recovery process that creates global transaction entries in the TwoPhaseState shared memory structure during WAL replay. The function handles both scenarios where two-phase data is available in WAL records (start_lsn is valid) and where data has already been restored from disk files (start_lsn is invalid). It includes sophisticated duplicate detection logic to handle crash scenarios where some two-phase data may exist both in WAL records and on disk. The function also manages replication origin advancement for logical replication scenarios and maintains proper state tracking with the inredo flag.
 

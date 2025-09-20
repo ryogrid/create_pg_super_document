@@ -8,7 +8,10 @@ Determines whether a given transaction ID is visible according to a PostgreSQL s
 
 ## Definition
 
-
+```c
+Datum
+pg_visible_in_snapshot(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that checks transaction visibility within a given snapshot. It takes a full transaction ID (xid8) and a snapshot, then determines whether the transaction would have been visible to a transaction using that snapshot.
 

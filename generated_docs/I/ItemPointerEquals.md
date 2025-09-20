@@ -8,7 +8,10 @@ ItemPointerEquals is a utility function that compares two ItemPointer structures
 
 ## Definition
 
-
+```c
+bool
+ItemPointerEquals(ItemPointer pointer1, ItemPointer pointer2)
+```
 ## Detailed Description
 This function performs equality comparison between two ItemPointer structures by checking if both the block number and offset number components are identical. ItemPointers are fundamental data structures in PostgreSQL that represent physical locations of tuples within heap files. The function returns true only when both pointers reference the exact same tuple location, making it essential for tuple identification and comparison operations throughout the database system.
 

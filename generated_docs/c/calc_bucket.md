@@ -8,7 +8,10 @@ Converts a hash value to a bucket number using the hash table's masking scheme f
 
 ## Definition
 
-
+```c
+static inline uint32
+calc_bucket(HASHHDR *hctl, uint32 hash_val)
+```
 ## Detailed Description
 This internal function maps a hash value to the appropriate bucket number within the dynamic hash table structure. It uses a two-level masking approach to handle the table's dynamic expansion: first applying the high_mask, then conditionally applying the low_mask if the result exceeds the current maximum bucket. This allows the hash table to grow incrementally while maintaining proper distribution of entries.
 

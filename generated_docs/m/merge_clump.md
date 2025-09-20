@@ -8,7 +8,16 @@ Merges a single clump (group of joined relations) into an existing list of clump
 
 ## Definition
 
-
+```c
+struct a RelOptInfo representing the join of these two input
+			 * relations.  Note that we expect the joinrel not to exist in
+			 * root->join_rel_list yet, and so the paths constructed for it
+			 * will only include the ones we want.
+			 */
+			joinrel = make_join_rel(root,
+									old_clump->joinrel,
+									new_clump->joinrel);
+```
 ## Detailed Description
 The merge_clump function is a core component of gimme_tree's clump-based join construction algorithm. It attempts to merge a new clump with existing clumps in the list, repeating the process recursively when successful merges occur. The function serves as the primary mechanism for building larger join relations from smaller ones while respecting join constraints and heuristics.
 

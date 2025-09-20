@@ -8,7 +8,9 @@ The WAL replay function for database-related operations that handles the redo of
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This function is the central WAL replay handler for database operations during PostgreSQL recovery. It processes three types of database-related WAL records: file-copy database creation (XLOG_DBASE_CREATE_FILE_COPY), WAL-logged database creation (XLOG_DBASE_CREATE_WAL_LOG), and database dropping (XLOG_DBASE_DROP). For database creation, it handles both copying from template databases and creating new empty databases, ensuring proper directory structure exists and managing potential missing tablespace scenarios during recovery. For database dropping, it performs comprehensive cleanup including buffer management, replication slot cleanup, and physical file removal while handling hot standby locking concerns.
 

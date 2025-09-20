@@ -8,7 +8,11 @@ Converts IPv4 network numbers from presentation format to network format, suppor
 
 ## Definition
 
-
+```c
+struction unless we prefetched EOS. */
+	if (ch != '\0')
+		goto enoent;
+```
 ## Detailed Description
 This function parses IPv4 network addresses from string format into binary network format. It supports multiple input formats including hexadecimal notation (0x prefix), decimal dotted notation (192.168.1.0), and CIDR specifications (/24 suffix). When no CIDR specification is provided, the function automatically infers the network width based on classful networking rules (Class A, B, C, D, E).
 

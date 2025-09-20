@@ -8,7 +8,10 @@ This function performs an atomic add operation on a 32-bit unsigned integer and 
 
 ## Definition
 
-
+```c
+static inline uint32
+pg_atomic_add_fetch_u32_impl(volatile pg_atomic_uint32 *ptr, int32 add_)
+```
 ## Detailed Description
 This is a generic implementation of atomic add-and-fetch operation that combines the functionality of fetch-add with post-addition to return the new value. It's implemented as a thin wrapper around `pg_atomic_fetch_add_u32_impl`, which performs the atomic addition using spinlock-based synchronization, and then adds the increment value to the returned old value to produce the new value. This function is used when the target architecture doesn't provide native support for atomic add-and-fetch operations.
 

@@ -8,7 +8,13 @@ GetForeignKeyCheckTriggers retrieves the insert and update check triggers associ
 
 ## Definition
 
-
+```c
+static void
+GetForeignKeyCheckTriggers(Relation trigrel,
+						   Oid conoid, Oid confrelid, Oid conrelid,
+						   Oid *insertTriggerOid,
+						   Oid *updateTriggerOid)
+```
 ## Detailed Description
 This function searches the pg_trigger catalog to find the check triggers (ON INSERT and ON UPDATE) that belong to a specific foreign key constraint. Check triggers are created on the referencing table (foreign key side) and are responsible for validating that inserted or updated foreign key values exist in the referenced table.
 

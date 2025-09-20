@@ -8,7 +8,9 @@ Converts PostgreSQL arrays from external binary format to their internal ArrayTy
 
 ## Definition
 
-
+```c
+struct_empty_array(element_type));
+```
 ## Detailed Description
 array_recv is the binary receive function for PostgreSQL arrays, responsible for deserializing binary array data from network or storage formats into internal ArrayType structures. The function performs extensive validation of the binary input, including dimension bounds checking, element type verification, and format validation. It uses a caching mechanism (ArrayMetaState) to optimize repeated operations with the same element type.
 

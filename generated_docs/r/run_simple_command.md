@@ -8,7 +8,10 @@ Executes a SQL command on a PostgreSQL connection and expects successful complet
 
 ## Definition
 
-
+```c
+static void
+run_simple_command(PGconn *conn, const char *sql)
+```
 ## Detailed Description
 The  function is a utility function that executes SQL commands that are expected to complete successfully without returning data. It is primarily used for configuration commands like SET statements, DDL commands, or other administrative operations.
 

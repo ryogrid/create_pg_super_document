@@ -8,7 +8,10 @@ Calculates the slope of a line segment by computing the slope between its two en
 
 ## Definition
 
-
+```c
+static inline float8
+lseg_sl(LSEG *lseg)
+```
 ## Detailed Description
 The  function is a utility function that calculates the slope of a line segment. It acts as a wrapper around the  function, passing the two endpoints of the line segment (lseg->p[0] and lseg->p[1]) to compute the slope. The slope is calculated as the ratio of the vertical distance to the horizontal distance between the two points. Special cases include returning infinity for vertical lines and 0.0 for horizontal lines.
 

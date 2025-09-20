@@ -8,7 +8,10 @@ A qsort-compatible comparison function for sorting arrays of RangeType pointers,
 
 ## Definition
 
-
+```c
+int
+range_compare(const void *key1, const void *key2, void *arg)
+```
 ## Detailed Description
 The `range_compare` function serves as a callback for qsort operations on arrays of RangeType pointers. It implements a well-defined total ordering for ranges: empty ranges are considered equal to each other and sort before any non-empty ranges. For non-empty ranges, the primary sort key is the lower bound, with the upper bound serving as a tiebreaker when lower bounds are equal. This ordering is essential for range canonicalization operations and ensures consistent, predictable sorting behavior for range arrays.
 

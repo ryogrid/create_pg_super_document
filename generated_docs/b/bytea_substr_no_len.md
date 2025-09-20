@@ -8,7 +8,10 @@ bytea_substr_no_len is a PostgreSQL internal function that extracts a substring 
 
 ## Definition
 
-
+```c
+Datum
+bytea_substr_no_len(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a variant of bytea substring extraction that only requires a starting position and automatically extracts from that position to the end of the bytea value. It serves as a wrapper around bytea_substring, specifically designed to avoid opr_sanity failures that occur when one function accepts different numbers of arguments. The function passes -1 as the length and true as the no_len parameter to bytea_substring.
 

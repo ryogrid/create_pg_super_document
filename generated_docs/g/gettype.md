@@ -8,7 +8,9 @@ A static function that looks up type information by name, returning either an in
 
 ## Definition
 
-
+```c
+struct typmap *app = lfirst(lc);
+```
 ## Detailed Description
 This function implements a two-phase type lookup mechanism during PostgreSQL bootstrap. Initially, when the Typ list is empty (NIL), it searches the statically defined TypInfo array and returns an array index. Once a type not found in TypInfo is encountered, it populates the Typ list by reading pg_type catalog and switches to returning actual OIDs.
 

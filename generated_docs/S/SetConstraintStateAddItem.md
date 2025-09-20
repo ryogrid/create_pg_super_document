@@ -8,7 +8,11 @@ SetConstraintStateAddItem adds a new per-trigger constraint state item to a SetC
 
 ## Definition
 
-
+```c
+static SetConstraintState
+SetConstraintStateAddItem(SetConstraintState state,
+						  Oid tgoid, bool tgisdeferred)
+```
 ## Detailed Description
 This function adds a new trigger constraint state entry to an existing SetConstraintState structure. If the current allocation is insufficient, it automatically expands the storage using a doubling strategy with a minimum size of 8 entries. The function updates the state with the new trigger OID and its deferred status, then increments the count of active states.
 

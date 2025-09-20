@@ -8,7 +8,11 @@ Determines the optimal B-tree splitting strategy and calculates the perfect pena
 
 ## Definition
 
-
+```c
+static int
+_bt_strategy(FindSplitData *state, SplitPoint *leftpage,
+			 SplitPoint *rightpage, FindSplitStrat *strategy)
+```
 ## Detailed Description
 This function analyzes the page being split and decides between three splitting strategies: default, many duplicates, or single value. It examines the distribution of key values and determines which strategy will produce the most efficient split while minimizing tuple size overhead. For internal pages, it returns the minimum first-right tuple size as the perfect penalty. For leaf pages, it performs more complex analysis of duplicate patterns and key distribution.
 

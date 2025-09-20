@@ -8,7 +8,10 @@ Transforms a simple UNION ALL subquery into an append relation by pulling up its
 
 ## Definition
 
-
+```c
+static Node *
+pull_up_simple_union_all(PlannerInfo *root, Node *jtnode, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function handles the optimization of simple UNION ALL subqueries by converting them into PostgreSQL's "append relation" structure. Rather than executing the UNION operation at runtime, the planner can treat the UNION ALL as a logical append operation over multiple relations, which is more efficient.
 

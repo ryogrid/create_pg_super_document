@@ -8,7 +8,16 @@ UniquePathMethod is an enumeration that specifies the algorithm to be used for e
 
 ## Definition
 
-
+```c
+typedef struct UniquePath
+{
+	Path		path;
+	Path	   *subpath;
+	UniquePathMethod umethod;
+	List	   *in_operators;	/* equality operators of the IN clause */
+	List	   *uniq_exprs;		/* expressions to be made unique */
+} UniquePath;
+```
 ## Detailed Description
 UniquePathMethod defines the three possible strategies for implementing row uniqueness elimination in PostgreSQL's query execution plans. This enumeration is used by the UniquePath node to determine how to remove duplicate rows from the result set.
 

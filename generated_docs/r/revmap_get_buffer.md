@@ -8,7 +8,9 @@ A static helper function that obtains and returns a buffer containing the revers
 
 ## Definition
 
-
+```c
+struct, use that;
+```
 ## Detailed Description
 This function retrieves the buffer containing the reverse map page for a specified heap block by:
 1. Using revmap_get_blkno to translate the heap block number to the physical revmap block number

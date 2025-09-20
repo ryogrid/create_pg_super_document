@@ -8,7 +8,20 @@ A structure that holds database connection parameters needed by PostgreSQL clien
 
 ## Definition
 
-
+```c
+typedef struct _connParams
+{
+	/* These fields record the actual command line parameters */
+	const char *dbname;			/* this may be a connstring! */
+	const char *pghost;
+	const char *pgport;
+	const char *pguser;
+	enum trivalue prompt_password;
+	/* If not NULL, this overrides the dbname obtained from command line */
+	/* (but *only* the DB name, not anything else in the connstring) */
+	const char *override_dbname;
+} ConnParams;
+```
 ## Detailed Description
 The  structure encapsulates all the essential database connection parameters that PostgreSQL client applications need to establish a connection to a PostgreSQL server. This structure is particularly important in pg_dump, pg_restore, and other PostgreSQL client utilities where connection parameters need to be passed around between functions. The structure supports both simple database names and full connection strings, providing flexibility in how connections are specified.
 

@@ -8,7 +8,10 @@ The chooseScript function selects a SQL script with weighted random choice from 
 
 ## Definition
 
-
+```c
+static int
+chooseScript(TState *thread)
+```
 ## Detailed Description
 This function implements weighted random selection of SQL scripts for pgbench execution. When multiple scripts are configured with different weights, it uses a random number generator to select one script based on the probability distribution defined by their relative weights. If only one script is available, it immediately returns index 0 without any random selection.
 

@@ -8,7 +8,59 @@ ParseState is the central state structure used during SQL parsing that maintains
 
 ## Definition
 
+```c
+struct ParseState
+{
+	ParseState *parentParseState;	/* stack link */
+	const char *p_sourcetext;	/* source text, or NULL if not available */
+	List	   *p_rtable;		/* range table so far */
+	List	   *p_rteperminfos; /* list of RTEPermissionInfo nodes for each
+								 * RTE_RELATION entry in rtable */
+	List	   *p_joinexprs;	/* JoinExprs for RTE_JOIN p_rtable entries */
+	List	   *p_nullingrels;	/* Bitmapsets showing nulling outer joins */
+	List	   *p_joinlist;		/* join items so far (will become FromExpr
+								 * node's fromlist) */
+	List	   *p_namespace;	/* currently-referenceable RTEs (List of
+								 * ParseNamespaceItem) */
+	bool		p_lateral_active;	/* p_lateral_only items visible? */
+	List	   *p_ctenamespace; /* current namespace for common table exprs */
+	List	   *p_future_ctes;	/* common table exprs not yet in namespace */
+	CommonTableExpr *p_parent_cte;	/* this query's containing CTE */
+	Relation	p_target_relation;	/* INSERT/UPDATE/DELETE/MERGE target rel */
+	ParseNamespaceItem *p_target_nsitem;	/* target rel's NSItem, or NULL */
+	bool		p_is_insert;	/* process assignment like INSERT not UPDATE */
+	List	   *p_windowdefs;	/* raw representations of window clauses */
+	ParseExprKind p_expr_kind;	/* what kind of expression we're parsing */
+	int			p_next_resno;	/* next targetlist resno to assign */
+	List	   *p_multiassign_exprs;	/* junk tlist entries for multiassign */
+	List	   *p_locking_clause;	/* raw FOR UPDATE/FOR SHARE info */
+	bool		p_locked_from_parent;	/* parent has marked this subquery
+										 * with FOR UPDATE/FOR SHARE */
+	bool		p_resolve_unknowns; /* resolve unknown-type SELECT outputs as
+									 * type text */
 
+	QueryEnvironment *p_queryEnv;	/* curr env, incl refs to enclosing env */
+
+	/* Flags telling about things found in the query: */
+	bool		p_hasAggs;
+	bool		p_hasWindowFuncs;
+	bool		p_hasTargetSRFs;
+	bool		p_hasSubLinks;
+	bool		p_hasModifyingCTE;
+
+	Node	   *p_last_srf;		/* most recent set-returning func/op found */
+
+	/*
+	 * Optional hook functions for parser callbacks.  These are null unless
+	 * set up by the caller of make_parsestate.
+	 */
+	PreParseColumnRefHook p_pre_columnref_hook;
+	PostParseColumnRefHook p_post_columnref_hook;
+	ParseParamRefHook p_paramref_hook;
+	CoerceParamHook p_coerce_param_hook;
+	void	   *p_ref_hook_state;	/* common passthrough link for above */
+};
+```
 ## Detailed Description
 ParseState serves as the central context structure during SQL query parsing in PostgreSQL. It maintains all the necessary state information to resolve names, track relations, and provide context for expression parsing. The structure forms a stack through the parentParseState link, allowing nested query contexts (such as subqueries) to access outer scope information while maintaining their own local state.
 

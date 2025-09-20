@@ -8,7 +8,10 @@ Installs the PL/pgSQL procedural language extension during database initializati
 
 ## Definition
 
-
+```c
+static void
+load_plpgsql(FILE *cmdfd)
+```
 ## Detailed Description
 The load_plpgsql function is responsible for installing PL/pgSQL (PostgreSQL Procedural Language/pgSQL) as an extension in a newly initialized database. PL/pgSQL is PostgreSQL's built-in procedural language that extends SQL with programming constructs such as variables, conditional statements, loops, and exception handling.
 

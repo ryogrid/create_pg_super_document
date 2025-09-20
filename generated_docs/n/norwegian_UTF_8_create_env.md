@@ -8,7 +8,11 @@ Creates a new Snowball stemming environment specifically configured for Norwegia
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * norwegian_UTF_8_create_env(void)
+```
 ## Detailed Description
 This function is part of the Snowball stemming library integration in PostgreSQL, specifically designed for Norwegian language stemming operations. It serves as a wrapper around the generic SN_create_env function, providing pre-configured parameters optimized for Norwegian text processing with UTF-8 character encoding. The function allocates and initializes a stemming environment that can be used to perform morphological analysis and word stemming on Norwegian text.
 

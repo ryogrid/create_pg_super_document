@@ -8,7 +8,10 @@ CopyReadLineText is the core line-reading engine that handles byte-by-byte parsi
 
 ## Definition
 
-
+```c
+static bool
+CopyReadLineText(CopyFromState cstate)
+```
 ## Detailed Description
 This static function performs the low-level parsing of text input during COPY FROM operations. It operates as the inner loop of CopyReadLine, handling the complex logic of reading input data byte-by-byte while respecting CSV quoting rules, detecting various end-of-line conventions, and recognizing the end-of-copy marker (\.). The function maintains state for CSV mode including quote tracking, escape sequence handling, and proper treatment of embedded newlines within quoted fields.
 

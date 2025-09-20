@@ -8,7 +8,12 @@ HeapTupleSatisfiesUpdate determines the visibility status of a heap tuple for UP
 
 ## Definition
 
-
+```c
+struct is used as an
+ * output argument to return the xids of concurrent xacts that affected the
+ * tuple.  snapshot->xmin is set to the tuple's xmin if that is another
+ * transaction that's still in progress;
+```
 ## Detailed Description
 This function implements PostgreSQL's tuple visibility checking specifically for UPDATE operations. Unlike other visibility functions that return simple boolean results, HeapTupleSatisfiesUpdate returns detailed status codes that UPDATE operations need to determine appropriate action. The function handles complex scenarios including:
 

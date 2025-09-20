@@ -8,7 +8,10 @@ A specialized binary search function optimized for searching date/time token arr
 
 ## Definition
 
-
+```c
+static const datetkn *
+datebsearch(const char *key, const datetkn *base, unsigned int nel)
+```
 ## Detailed Description
 datebsearch implements a binary search algorithm based on Knuth's Algorithm B (6.2.1) specifically optimized for searching through arrays of datetkn structures. The function includes performance optimizations such as pre-checking the first character of the key before performing a full string comparison. It uses strncmp with TOKMAXLEN to support matching of truncated tokens, which is important for date/time parsing where partial matches may be acceptable.
 

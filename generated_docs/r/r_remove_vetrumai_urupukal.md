@@ -8,7 +8,11 @@ Removes Tamil case markers (vetrumai urupukal) from words as part of the Tamil s
 
 ## Definition
 
+```c
+}
 
+static int r_remove_vetrumai_urupukal(struct SN_env * z)
+```
 ## Detailed Description
 This function handles the removal of Tamil case markers (vetrumai urupukal), which are suffixes that indicate grammatical case relationships in Tamil morphology. The function implements a sophisticated multi-stage approach:
 

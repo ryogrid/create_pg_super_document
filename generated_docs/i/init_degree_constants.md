@@ -8,7 +8,10 @@ A static initialization function that computes and caches trigonometric constant
 
 ## Definition
 
-
+```c
+static void
+init_degree_constants(void)
+```
 ## Detailed Description
 The  function initializes cached constants (sin_30, one_minus_cos_60, asin_0_5, acos_0_5, atan_1_0, tan_45, cot_45) used by PostgreSQL's degree-based trigonometric functions. This complex initialization method exists to ensure exact results by preventing compilers from precomputing trigonometric expressions using different sin/cos functions than those used at runtime. The function also addresses potential compiler optimizations that could rearrange expressions or use wider registers than standard double precision, which could affect numerical accuracy.
 

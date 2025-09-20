@@ -8,7 +8,10 @@ SQL-callable function that generates an XML Schema Definition (XSD) for a specif
 
 ## Definition
 
-
+```c
+Datum
+table_to_xmlschema(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that creates an XML Schema Definition (XSD) describing the structure of a database table. It takes a table OID and various formatting options, then generates a complete XML schema that defines the table's columns, data types, and constraints in XML Schema format. The function uses PostgreSQL's function call interface (PG_FUNCTION_ARGS) and returns an XML datum that can be used directly in SQL queries.
 

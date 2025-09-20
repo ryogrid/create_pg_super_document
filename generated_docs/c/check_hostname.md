@@ -8,7 +8,10 @@ Verifies that a connecting client's IP address matches a given hostname by perfo
 
 ## Definition
 
-
+```c
+struct addrinfo *gai_result,
+			   *gai;
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's host-based authentication (HBA) system that validates whether a client's IP address corresponds to a specified hostname in pg_hba.conf. It performs a two-stage verification process:
 

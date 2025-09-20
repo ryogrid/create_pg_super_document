@@ -8,7 +8,10 @@ A static helper function that checks whether an expression tree contains any MUL
 
 ## Definition
 
-
+```c
+static bool
+contains_multiexpr_param(Node *node, void *context)
+```
 ## Detailed Description
 This function performs a tree traversal to detect MULTIEXPR parameters within an expression tree. It's designed to work with PostgreSQL's expression tree walker infrastructure. The function specifically looks for Param nodes with paramkind set to PARAM_MULTIEXPR and intentionally avoids descending into SubLinks, focusing only on parameters at the current query level. When a MULTIEXPR Param is found, it immediately returns true to abort the tree traversal.
 

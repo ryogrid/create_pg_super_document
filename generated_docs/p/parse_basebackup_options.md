@@ -8,7 +8,10 @@
 
 ## Definition
 
-
+```c
+static void
+parse_basebackup_options(List *options, basebackup_options *opt)
+```
 ## Detailed Description
 This function processes a list of DefElem structures containing base backup options and converts them into a structured basebackup_options configuration. It handles all standard base backup options including label, progress reporting, checkpoint behavior, WAL inclusion, compression, manifest generation, and target specification. The function performs comprehensive validation, checking for duplicate options, valid value ranges, and logical consistency between related options.
 

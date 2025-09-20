@@ -8,7 +8,10 @@ Assigns an open database connection to a parallel slots array for reuse, transfe
 
 ## Definition
 
-
+```c
+void
+ParallelSlotsAdoptConn(ParallelSlotArray *sa, PGconn *conn)
+```
 ## Detailed Description
 ParallelSlotsAdoptConn takes ownership of an already established database connection and assigns it to an available slot in the parallel slots array for subsequent reuse. This function is part of PostgreSQL's parallel slot management system used by client utilities to efficiently manage multiple database connections for parallel operations.
 

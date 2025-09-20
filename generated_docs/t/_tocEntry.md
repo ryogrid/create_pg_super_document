@@ -8,7 +8,50 @@ _tocEntry is the core structure that represents individual database objects and 
 
 ## Definition
 
+```c
+struct _tocEntry
+{
+	struct _tocEntry *prev;
+	struct _tocEntry *next;
+	CatalogId	catalogId;
+	DumpId		dumpId;
+	teSection	section;
+	bool		hadDumper;		/* Archiver was passed a dumper routine (used
+								 * in restore) */
+	char	   *tag;			/* index tag */
+	char	   *namespace;		/* null or empty string if not in a schema */
+	char	   *tablespace;		/* null if not in a tablespace; empty string
+								 * means use database default */
+	char	   *tableam;		/* table access method, only for TABLE tags */
+	char		relkind;		/* relation kind, only for TABLE tags */
+	char	   *owner;
+	char	   *desc;
+	char	   *defn;
+	char	   *dropStmt;
+	char	   *copyStmt;
+	DumpId	   *dependencies;	/* dumpIds of objects this one depends on */
+	int			nDeps;			/* number of dependencies */
 
+	DataDumperPtr dataDumper;	/* Routine to dump data for object */
+	const void *dataDumperArg;	/* Arg for above routine */
+	void	   *formatData;		/* TOC Entry data specific to file format */
+
+	/* working state while dumping/restoring */
+	pgoff_t		dataLength;		/* item's data size; 0 if none or unknown */
+	int			reqs;			/* do we need schema and/or data of object
+								 * (REQ_* bit mask) */
+	bool		created;		/* set for DATA member if TABLE was created */
+
+	/* working state (needed only for parallel restore) */
+	struct _tocEntry *pending_prev; /* list links for pending-items list; */
+	struct _tocEntry *pending_next; /* NULL if not in that list */
+	int			depCount;		/* number of dependencies not yet restored */
+	DumpId	   *revDeps;		/* dumpIds of objects depending on this one */
+	int			nRevDeps;		/* number of such dependencies */
+	DumpId	   *lockDeps;		/* dumpIds of objects this one needs lock on */
+	int			nLockDeps;		/* number of such dependencies */
+};
+```
 ## Detailed Description
 The _tocEntry structure is the comprehensive implementation behind the TocEntry typedef, containing all metadata and state information needed to represent and manage individual database objects during dump and restore operations. Each instance represents a single database object (table, index, function, view, etc.) or operation within the archive.
 

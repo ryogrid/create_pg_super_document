@@ -8,7 +8,10 @@ Begins a "soft" error-reporting cycle that can capture error details without imm
 
 ## Definition
 
-
+```c
+bool
+errsave_start(struct Node *context, const char *domain)
+```
 ## Detailed Description
 errsave_start provides a flexible error reporting mechanism that supports both traditional error handling and "soft" error capture. When no ErrorSaveContext is provided, it delegates to errstart() for normal ERROR processing. When an ErrorSaveContext is provided, it enables capturing error information without immediate process termination.
 

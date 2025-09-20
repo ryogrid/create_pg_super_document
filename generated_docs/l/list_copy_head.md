@@ -8,7 +8,10 @@ Creates a shallow copy of a PostgreSQL list containing only the first 'len' elem
 
 ## Definition
 
-
+```c
+List *
+list_copy_head(const List *oldlist, int len)
+```
 ## Detailed Description
 The  function creates a shallow copy of the first portion of a PostgreSQL List structure. It copies only the first 'len' elements from the source list, or the entire list if it contains fewer than 'len' elements. Like , this performs a shallow copy operation where only the list structure and element pointers are duplicated.
 

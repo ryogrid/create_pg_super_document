@@ -8,7 +8,10 @@ A convenience wrapper function that decodes a complete compressed GIN posting li
 
 ## Definition
 
-
+```c
+ItemPointer
+ginPostingListDecode(GinPostingList *plist, int *ndecoded_out)
+```
 ## Detailed Description
 This function serves as a simplified interface for decoding compressed GIN posting lists. It internally calls  with the full size of the posting list to decode all segments at once. The function is designed to handle the common case where the entire posting list needs to be decoded, abstracting away the complexity of partial segment decoding.
 

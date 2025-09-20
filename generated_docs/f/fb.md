@@ -8,7 +8,10 @@ A static test function used in ECPG (Embedded SQL in C) test cases that demonstr
 
 ## Definition
 
-
+```c
+static int
+fb(int x)
+```
 ## Detailed Description
 The `fb` function is a test function that takes an integer parameter and returns it unchanged. It prints a debug message to stdout showing the input parameter value. This function is part of the ECPG test suite and is used to verify that parameter passing and function calls work correctly in the ECPG preprocessor and runtime environment.
 

@@ -8,7 +8,10 @@ Parses a string representation of a circle into PostgreSQL's internal CIRCLE dat
 
 ## Definition
 
-
+```c
+Datum
+circle_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `circle_in` function is the input conversion routine for PostgreSQL's CIRCLE geometric type. It parses string representations of circles and converts them into the internal binary format. The function supports two main input formats:
 

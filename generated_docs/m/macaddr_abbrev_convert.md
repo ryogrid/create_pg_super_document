@@ -8,7 +8,10 @@ A SortSupport conversion function that transforms MAC address data into abbrevia
 
 ## Definition
 
-
+```c
+static Datum
+macaddr_abbrev_convert(Datum original, SortSupport ssup)
+```
 ## Detailed Description
 This function serves as the core conversion routine for PostgreSQL's abbreviated key optimization when sorting MAC addresses. It transforms the original MAC address representation into a compact abbreviated form that enables faster comparisons during sort operations.
 

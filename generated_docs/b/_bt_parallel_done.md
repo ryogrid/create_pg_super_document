@@ -8,7 +8,10 @@ Marks a parallel B-tree index scan as complete and notifies other worker process
 
 ## Definition
 
-
+```c
+void
+_bt_parallel_done(IndexScanDesc scan)
+```
 ## Detailed Description
 This function is called when a parallel B-tree scan has completed and there are no more pages to scan. It updates the parallel scan status to indicate completion and broadcasts this status change to all other worker processes that may be waiting. The function ensures that other workers don't wait indefinitely for the scan to advance to the next page.
 

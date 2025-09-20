@@ -8,7 +8,10 @@ Implements the equality comparison operator (=) for PostgreSQL's cash/money data
 
 ## Definition
 
-
+```c
+Datum
+cash_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs equality comparison between two cash values in PostgreSQL. It takes two cash arguments and returns a boolean result indicating whether the two values are equal. This function is part of the comparison operator family for the money data type and is used when SQL queries contain equality comparisons between cash/money values.
 

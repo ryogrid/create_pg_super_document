@@ -8,7 +8,10 @@ PostgreSQL function that implements the "less than" comparison operator for rang
 
 ## Definition
 
-
+```c
+Datum
+range_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is one of PostgreSQL's inequality operators for range types. It provides the "<" operator functionality for range data types by utilizing the internal  comparison function. The function follows PostgreSQL's standard comparison semantics where empty ranges sort before all non-empty ranges, and non-empty ranges are compared first by their lower bounds, then by their upper bounds if the lower bounds are equal.
 

@@ -8,7 +8,10 @@ Escapes special XML characters in text strings by replacing them with appropriat
 
 ## Definition
 
-
+```c
+char *
+escape_xml(const char *str)
+```
 ## Detailed Description
 This function provides XML character escaping functionality that is independent of libxml2, making it available in all PostgreSQL builds. It processes input text character by character and replaces XML-significant characters with their corresponding entity references to prevent XML parsing errors and security issues.
 

@@ -8,7 +8,14 @@ ATExecSetCompression handles the ALTER TABLE ALTER COLUMN SET COMPRESSION comman
 
 ## Definition
 
-
+```c
+structTupleDescriptor()).
+	 */
+	SetIndexStorageProperties(rel, attrel, attnum,
+							  false, 0,
+							  true, cmethod,
+							  lockmode);
+```
 ## Detailed Description
 This function implements column-level compression setting for ALTER TABLE operations. It validates that the specified column exists and is not a system column, checks that the column type supports compression, converts the compression method name to its internal code, updates the pg_attribute catalog, and applies the compression setting to any simple index columns that reference this table column.
 

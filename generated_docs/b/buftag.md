@@ -8,7 +8,16 @@ The  is a fundamental data structure that uniquely identifies which disk block a
 
 ## Definition
 
-
+```c
+typedef struct buftag
+{
+	Oid			spcOid;			/* tablespace oid */
+	Oid			dbOid;			/* database oid */
+	RelFileNumber relNumber;	/* relation file number */
+	ForkNumber	forkNum;		/* fork number */
+	BlockNumber blockNum;		/* blknum relative to begin of reln */
+} BufferTag;
+```
 ## Detailed Description
 The  structure (typedef'd as ) serves as a complete identifier for any disk block in PostgreSQL's storage system. It contains all the necessary information to uniquely identify and locate a specific block without requiring access to system catalogs like pg_class or pg_tablespace. This design is crucial for buffer management operations that may occur in contexts where the relation might not yet be visible to the current transaction.
 

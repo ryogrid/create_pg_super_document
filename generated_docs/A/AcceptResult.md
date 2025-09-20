@@ -8,7 +8,10 @@ AcceptResult validates a PostgreSQL query result and ensures the database connec
 
 ## Definition
 
-
+```c
+static bool
+AcceptResult(const PGresult *result, bool show_error)
+```
 ## Detailed Description
 AcceptResult is a static function in psql that serves as a centralized result validation mechanism. It examines the status of a PGresult object returned from PostgreSQL query execution and determines whether the result represents a successful operation or an error condition. The function handles multiple valid result states (successful commands, tuples, empty queries, and copy operations) and distinguishes them from error states (bad responses, non-fatal errors, and fatal errors). When an error is detected and error display is enabled, the function retrieves and logs the error message from the database connection and checks the connection status.
 

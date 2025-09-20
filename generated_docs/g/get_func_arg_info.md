@@ -8,7 +8,12 @@ Extracts comprehensive function argument information from a pg_proc catalog tupl
 
 ## Definition
 
-
+```c
+struct_array() since the array data is just going to look like
+		 * a C array of values.
+		 */
+		arr = DatumGetArrayTypeP(proallargtypes);
+```
 ## Detailed Description
 This function retrieves complete argument metadata for a PostgreSQL function from its pg_proc system catalog entry. It handles both simple functions (with only IN parameters) and complex functions (with OUT, INOUT, and TABLE parameters) by examining the proallargtypes, proargnames, and proargmodes arrays.
 

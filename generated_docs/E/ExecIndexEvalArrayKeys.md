@@ -8,7 +8,14 @@ Evaluates array key expressions, decomposes arrays into individual elements, and
 
 ## Definition
 
-
+```c
+struct the array expression. (Notes in
+		 * ExecIndexEvalRuntimeKeys() apply here too.)
+		 */
+		arraydatum = ExecEvalExpr(array_expr,
+								  econtext,
+								  &isNull);
+```
 ## Detailed Description
 The `ExecIndexEvalArrayKeys` function handles the evaluation and setup of array-based index scan keys. It evaluates array expressions, decomposes them into individual elements, and prepares the scan infrastructure to iterate through array elements during index scans. This is essential for queries using array operators like `ANY` or `ALL` with index scans.
 

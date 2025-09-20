@@ -8,7 +8,10 @@ Cut-down version of ProcKill specifically designed for auxiliary processes (bgwr
 
 ## Definition
 
-
+```c
+static void
+AuxiliaryProcKill(int code, Datum arg)
+```
 ## Detailed Description
 AuxiliaryProcKill is a specialized cleanup function for auxiliary processes in PostgreSQL. Unlike regular backend processes handled by ProcKill, auxiliary processes have a simpler lifecycle and use pre-allocated PGPROC structures that are not returned to freelists upon termination.
 

@@ -8,7 +8,10 @@ Exits an explicit subtransaction in PL/Python, implementing the `__exit__()` met
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_subtransaction_exit(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 This function handles the exit from PL/Python subtransactions, following Python's context manager protocol (PEP 343). It accepts exception information as parameters and decides whether to commit or abort the subtransaction based on whether an exception occurred. If exc_type is None, the subtransaction is committed via ReleaseCurrentSubTransaction(); otherwise, it's aborted using RollbackAndReleaseCurrentSubTransaction(). The function performs extensive validation, restores the previous memory context and resource owner, and cleans up the subtransaction data from the explicit_subtransactions list.
 

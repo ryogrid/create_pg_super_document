@@ -8,7 +8,10 @@ The avg_pool function calculates the average fitness value (worth) of all chromo
 
 ## Definition
 
-
+```c
+static double
+avg_pool(Pool *pool)
+```
 ## Detailed Description
 This function computes the arithmetic mean of the worth values for all chromosomes in the given pool. It's specifically designed for use in debug printouts within PostgreSQL's GEQO (Genetic Query Optimizer) system. The function includes special handling to prevent overflow when the pool contains multiple occurrences of DBL_MAX values by dividing each worth value by the pool size before accumulation rather than dividing the sum at the end.
 

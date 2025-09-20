@@ -8,7 +8,15 @@ InclusionOpaque is a structure that holds cached operator class information for 
 
 ## Definition
 
-
+```c
+typedef struct InclusionOpaque
+{
+	FmgrInfo	extra_procinfos[INCLUSION_MAX_PROCNUMS];
+	bool		extra_proc_missing[INCLUSION_MAX_PROCNUMS];
+	Oid			cached_subtype;
+	FmgrInfo	strategy_procinfos[RTMaxStrategyNumber];
+} InclusionOpaque;
+```
 ## Detailed Description
 The InclusionOpaque structure serves as a cache for operator class information specific to BRIN inclusion indexes. It stores function manager information for both extra support procedures and strategy operators, along with flags indicating missing procedures and the cached subtype OID. This caching mechanism improves performance by avoiding repeated lookups of operator class procedures during index operations.
 

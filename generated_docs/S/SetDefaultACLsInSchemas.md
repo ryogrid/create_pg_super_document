@@ -8,7 +8,10 @@ Applies default ACL settings to either database-wide scope (when no schemas spec
 
 ## Definition
 
-
+```c
+static void
+SetDefaultACLsInSchemas(InternalDefaultACL *iacls, List *nspnames)
+```
 ## Detailed Description
 This function serves as a dispatcher that applies default Access Control List (ACL) settings based on the scope specified. When no schema names are provided (nspnames is NIL), it sets database-wide default privileges by setting the namespace ID to InvalidOid and calling SetDefaultACL. When specific schemas are provided, it iterates through each schema name, resolves the schema name to its OID using get_namespace_oid, sets the resolved namespace ID in the InternalDefaultACL structure, and calls SetDefaultACL for each individual schema. The function includes extensive comments explaining why CREATE privilege checking on schemas was removed - it was causing confusion and preventing certain database states from being properly dumped and restored.
 

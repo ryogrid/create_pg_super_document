@@ -8,7 +8,10 @@ Inverse accumulation function for 32-bit integer aggregate operations that remov
 
 ## Definition
 
-
+```c
+Datum
+int4_accum_inv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the inverse accumulation function for aggregate operations involving 32-bit integers. It's used in window functions and moving aggregates where values need to be removed from the running state as the window slides. The function takes a  pointer and an integer value to remove from the accumulation state.
 

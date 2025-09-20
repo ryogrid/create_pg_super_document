@@ -8,7 +8,10 @@ A private inline function that performs safe subtraction of two Cash values with
 
 ## Definition
 
-
+```c
+static inline Cash
+cash_mi_cash(Cash c1, Cash c2)
+```
 ## Detailed Description
 The  function provides safe subtraction of two Cash values (64-bit signed integers representing monetary amounts). It uses PostgreSQL's overflow-safe arithmetic function  to detect integer underflow conditions that could occur during subtraction. If an overflow/underflow would occur, the function reports a "money out of range" error using PostgreSQL's error reporting mechanism. This ensures that monetary calculations remain within valid bounds and prevents silent arithmetic errors that could corrupt financial data.
 

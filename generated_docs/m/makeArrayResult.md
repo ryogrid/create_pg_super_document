@@ -8,7 +8,11 @@ Converts an ArrayBuildState into a final one-dimensional PostgreSQL array, handl
 
 ## Definition
 
-
+```c
+Datum
+makeArrayResult(ArrayBuildState *astate,
+				MemoryContext rcontext)
+```
 ## Detailed Description
 This function finalizes the array building process by converting an ArrayBuildState structure into a proper PostgreSQL array Datum. It creates a one-dimensional array with appropriate dimensions and lower bounds, delegating the actual array construction to makeMdArrayResult().
 

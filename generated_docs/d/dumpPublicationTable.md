@@ -8,7 +8,10 @@ Generates SQL commands to recreate publication table mappings by producing ALTER
 
 ## Definition
 
-
+```c
+static void
+dumpPublicationTable(Archive *fout, const PublicationRelInfo *pubrinfo)
+```
 ## Detailed Description
 This function generates the SQL DDL necessary to recreate a publication's table membership. It creates an  statement that adds a specific table to a publication, including support for column lists and WHERE clause row filters when present. The function is part of pg_dump's output generation phase and creates archive entries that will be written to the dump file.
 

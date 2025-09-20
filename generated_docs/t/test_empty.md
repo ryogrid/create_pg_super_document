@@ -8,7 +8,10 @@ Tests the functionality of an empty IntegerSet to ensure proper behavior when no
 
 ## Definition
 
-
+```c
+static void
+test_empty(void)
+```
 ## Detailed Description
 This function performs comprehensive testing of IntegerSet operations on an empty set. It validates that:
 1. The  function correctly returns false for any queried value (0, 1, and PG_UINT64_MAX)

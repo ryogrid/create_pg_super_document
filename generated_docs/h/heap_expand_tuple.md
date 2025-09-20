@@ -8,7 +8,10 @@ Public wrapper function that creates an expanded HeapTuple from a source tuple w
 
 ## Definition
 
-
+```c
+HeapTuple
+heap_expand_tuple(HeapTuple sourceTuple, TupleDesc tupleDesc)
+```
 ## Detailed Description
 The  function is a public wrapper around the internal  function specifically for creating HeapTuple outputs. This function is used when you need to expand a tuple to match a larger tuple descriptor and want the result as a full HeapTuple rather than a MinimalTuple.
 

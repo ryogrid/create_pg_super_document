@@ -8,7 +8,12 @@ Handles the actual recycling or removal of a single WAL log file, intelligently 
 
 ## Definition
 
-
+```c
+static void
+RemoveXlogFile(const struct dirent *segment_de,
+			   XLogSegNo recycleSegNo, XLogSegNo *endlogSegNo,
+			   TimeLineID insertTLI)
+```
 ## Detailed Description
 This function performs the low-level work of either recycling or removing a WAL segment file. It implements an intelligent recycling strategy where segments can be reused as future WAL files if conditions are met, otherwise they are permanently deleted.
 

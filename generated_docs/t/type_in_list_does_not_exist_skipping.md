@@ -8,7 +8,11 @@ type_in_list_does_not_exist_skipping is a helper function that determines whethe
 
 ## Definition
 
-
+```c
+static bool
+type_in_list_does_not_exist_skipping(List *typenames, const char **msg,
+									 char **name)
+```
 ## Detailed Description
 This function is used when a specification for objects that involve datatypes (functions, casts, aggregates, operators) returns that the object doesn't exist. It iterates through a list of TypeNames to check if any of the involved datatypes or their schemas are missing. If a datatype or its schema doesn't exist, it sets appropriate error message and name parameters and returns true (indicating the missing object should be skipped). If all datatypes exist, it returns false, meaning the original object itself is genuinely missing.
 

@@ -8,7 +8,10 @@ Dynamically loads Windows NT functions from ntdll.dll and initializes function p
 
 ## Definition
 
-
+```c
+int
+initialize_ntdll(void)
+```
 ## Detailed Description
 The  function is responsible for dynamically loading the Windows NT library (ntdll.dll) and resolving function addresses for specific NT functions that PostgreSQL needs to access. This approach allows PostgreSQL to use advanced Windows NT functions while maintaining compatibility across different Windows versions.
 

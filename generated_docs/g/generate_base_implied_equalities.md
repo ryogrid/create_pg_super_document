@@ -8,7 +8,10 @@ Generates restriction clauses that can be deduced from equivalence classes, prov
 
 ## Definition
 
-
+```c
+void
+generate_base_implied_equalities(PlannerInfo *root)
+```
 ## Detailed Description
 This function is the main entry point for generating implied equality clauses from equivalence classes. It implements a sophisticated strategy that varies based on whether the EC contains constants or not:
 

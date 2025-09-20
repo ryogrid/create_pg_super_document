@@ -8,7 +8,13 @@ RelationPutHeapTuple places a heap tuple at a specified page in a PostgreSQL buf
 
 ## Definition
 
-
+```c
+void
+RelationPutHeapTuple(Relation relation,
+					 Buffer buffer,
+					 HeapTuple tuple,
+					 bool token)
+```
 ## Detailed Description
 This function performs the low-level physical insertion of a heap tuple into a buffer page. It is a critical component of PostgreSQL's heap access method, responsible for:
 - Adding the tuple data to the specified page using PageAddItem

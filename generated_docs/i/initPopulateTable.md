@@ -8,7 +8,11 @@ The  function populates a pgbench table with test data using PostgreSQL's COPY p
 
 ## Definition
 
-
+```c
+static void
+initPopulateTable(PGconn *con, const char *table, int64 base,
+				  initRowMethod init_row)
+```
 ## Detailed Description
 This function is responsible for efficiently populating pgbench tables with large amounts of test data. It uses PostgreSQL's COPY protocol for high-performance bulk data loading and provides detailed progress reporting. The function automatically uses the COPY FREEZE optimization on PostgreSQL 14+ for all tables except partitioned pgbench_accounts tables. It includes sophisticated progress reporting with time estimates and proper terminal handling for clean display updates.
 

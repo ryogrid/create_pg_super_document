@@ -8,7 +8,11 @@ The r_i_verb_suffix function handles the removal of French infinitive verb suffi
 
 ## Definition
 
+```c
+}
 
+static int r_i_verb_suffix(struct SN_env * z)
+```
 ## Detailed Description
 This function is a specialized component of the French stemming algorithm that removes infinitive verb suffixes. It implements complex morphological rules specific to French verbs by:
 

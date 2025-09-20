@@ -8,7 +8,10 @@ A specialized tab completion generator function for PostgreSQL's psql that provi
 
 ## Definition
 
-
+```c
+static char *
+alter_command_generator(const char *text, int state)
+```
 ## Detailed Description
 This function is a wrapper around  that specifically handles tab completion for ALTER statements. It filters out commands that cannot be used with ALTER by passing the  flag to exclude inappropriate completions. This ensures that users only see valid ALTER command options when pressing tab after typing "ALTER" in psql.
 

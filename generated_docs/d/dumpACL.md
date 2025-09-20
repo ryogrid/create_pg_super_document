@@ -8,7 +8,13 @@ Generates GRANT and REVOKE statements necessary to recreate access control lists
 
 ## Definition
 
-
+```c
+static DumpId
+dumpACL(Archive *fout, DumpId objDumpId, DumpId altDumpId,
+		const char *type, const char *name, const char *subname,
+		const char *nspname, const char *tag, const char *owner,
+		const DumpableAcl *dacl)
+```
 ## Detailed Description
 The  function is a central component of pg_dump's ACL handling system. It generates the SQL statements needed to recreate the access control permissions for various database objects during database restoration. The function handles complex permission scenarios including:
 

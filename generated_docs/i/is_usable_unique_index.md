@@ -8,7 +8,10 @@ Determines whether a given index meets all the requirements to be used for mater
 
 ## Definition
 
-
+```c
+static bool
+is_usable_unique_index(Relation indexRel)
+```
 ## Detailed Description
 This function validates that an index satisfies all the strict requirements needed for the sophisticated refresh_by_match_merge algorithm. The function performs comprehensive checks to ensure the index can reliably identify and match rows between the old and new versions of materialized view data.
 

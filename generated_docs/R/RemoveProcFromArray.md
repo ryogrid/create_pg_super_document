@@ -8,7 +8,10 @@ Removes the current process from the shared ProcArray, typically called during p
 
 ## Definition
 
-
+```c
+static void
+RemoveProcFromArray(int code, Datum arg)
+```
 ## Detailed Description
 RemoveProcFromArray is a static cleanup function that removes the current process (MyProc) from the shared ProcArray data structure. This function serves as an exit callback that ensures proper cleanup when a backend process terminates.
 

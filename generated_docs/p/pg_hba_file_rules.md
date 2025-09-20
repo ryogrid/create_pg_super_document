@@ -8,7 +8,10 @@ SQL-accessible set-returning function that returns all entries from the pg_hba.c
 
 ## Definition
 
-
+```c
+Datum
+pg_hba_file_rules(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the SQL interface for the pg_hba_file_rules system view, which exposes PostgreSQL's host-based authentication configuration to SQL queries. It implements a set-returning function (SRF) that reads and parses the entire pg_hba.conf file, returning each configuration rule as a separate row. The function uses PostgreSQL's materialized SRF infrastructure to ensure thread-safety against concurrent HBA file changes and provide efficient random access to results. All the actual processing is delegated to the fill_hba_view function, while this function handles the SQL interface aspects.
 

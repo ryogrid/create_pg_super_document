@@ -8,7 +8,10 @@ Copies additional data fields from one Red-Black Tree node to another, excluding
 
 ## Definition
 
-
+```c
+static inline void
+rbt_copy_data(RBTree *rbt, RBTNode *dest, const RBTNode *src)
+```
 ## Detailed Description
 This is a static inline utility function that performs a memory copy of the user-defined data portion of an RBTNode. It copies only the additional fields beyond the base RBTNode structure, using the tree's node_size to determine how much data to copy. The function uses pointer arithmetic to skip past the base RBTNode structure and copy only the application-specific data that follows it.
 

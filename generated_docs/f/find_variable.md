@@ -8,7 +8,9 @@ Locates and returns a variable structure from the global variable list, handling
 
 ## Definition
 
-
+```c
+struct variable *p;
+```
 ## Detailed Description
 The `find_variable` function is a comprehensive variable lookup mechanism in the ECPG preprocessor that handles various forms of variable references. It can process simple variable names, array accesses with brackets, and struct/union member access using dot notation. The function intelligently parses the variable name to determine the appropriate lookup strategy and creates new variable structures for complex expressions when needed.
 

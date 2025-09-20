@@ -8,7 +8,11 @@ Callback function used during GIN index creation that processes each heap tuple 
 
 ## Definition
 
-
+```c
+static void
+ginBuildCallback(Relation index, ItemPointer tid, Datum *values,
+				 bool *isnull, bool tupleIsAlive, void *state)
+```
 ## Detailed Description
 This function serves as the callback mechanism for PostgreSQL's index build infrastructure during GIN index creation. It is called once for each heap tuple being indexed and performs the following operations:
 

@@ -8,7 +8,10 @@ A static helper function that implements common code for finding the first or la
 
 ## Definition
 
-
+```c
+static Oid
+enum_endpoint(Oid enumtypoid, ScanDirection direction)
+```
 ## Detailed Description
 The  function serves as the core implementation for both  and  SQL functions. It performs an ordered scan of the pg_enum system catalog to find either the first or last enum value based on the specified scan direction. The function uses the  to ensure proper ordering and explicitly avoids the system cache for safety reasons related to concurrent enum modifications.
 

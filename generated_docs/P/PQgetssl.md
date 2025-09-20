@@ -8,7 +8,10 @@ Returns a pointer to the OpenSSL object (SSL structure) associated with a Postgr
 
 ## Definition
 
-
+```c
+void *
+PQgetssl(PGconn *conn)
+```
 ## Detailed Description
 PQgetssl is a public API function in PostgreSQL's libpq library that provides access to the underlying OpenSSL SSL object for an established connection. This function allows applications to inspect or manipulate SSL-specific properties that are not directly exposed through other libpq functions.
 

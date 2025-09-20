@@ -8,7 +8,21 @@ Creates a path node corresponding to an Append plan, which combines results from
 
 ## Definition
 
-
+```c
+struct a full ParamPathInfo
+	 * for the path.  This supports building a Memoize path atop this path,
+	 * and if this is a partitioned table the info may be useful for run-time
+	 * pruning (cf make_partition_pruneinfo()).
+	 *
+	 * However, if we don't have "root" then that won't work and we fall back
+	 * on the simpler get_appendrel_parampathinfo.  There's no point in doing
+	 * the more expensive thing for a dummy path, either.
+	 */
+	if (rel->reloptkind == RELOPT_BASEREL && root && subpaths != NIL)
+		pathnode->path.param_info = get_baserel_parampathinfo(root,
+															  rel,
+															  required_outer);
+```
 ## Detailed Description
 This function constructs an AppendPath node that represents an Append operation in PostgreSQL's query execution plan. The Append operation combines results from multiple input paths, which can be either regular subpaths or partial subpaths for parallel execution. The function handles various optimization scenarios including single-child optimization (where the Append becomes a no-op), parallel execution with cost-based sorting, and proper parameter propagation.
 

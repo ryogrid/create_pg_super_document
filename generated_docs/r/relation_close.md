@@ -8,7 +8,10 @@ Closes a relation and optionally releases the specified lock, serving as the cou
 
 ## Definition
 
-
+```c
+void
+relation_close(Relation relation, LOCKMODE lockmode)
+```
 ## Detailed Description
 The `relation_close` function provides the standard interface for closing relations that were previously opened with any of the relation opening functions. It performs two main operations:
 

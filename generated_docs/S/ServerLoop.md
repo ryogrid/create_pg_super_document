@@ -8,7 +8,10 @@ The main event loop of the PostgreSQL postmaster process that handles client con
 
 ## Definition
 
-
+```c
+static int
+ServerLoop(void)
+```
 ## Detailed Description
 ServerLoop is the heart of the PostgreSQL postmaster, implementing the main event-driven loop that keeps the database server operational. This function runs continuously until server shutdown, orchestrating all major server operations:
 

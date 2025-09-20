@@ -8,7 +8,10 @@ BeginTransactionBlock implements the SQL BEGIN command by transitioning the curr
 
 ## Definition
 
-
+```c
+void
+BeginTransactionBlock(void)
+```
 ## Detailed Description
 This function handles the execution of a BEGIN command by examining the current transaction block state and performing appropriate state transitions. It supports starting new transaction blocks from TBLOCK_STARTED state and converting implicit transaction blocks (TBLOCK_IMPLICIT_INPROGRESS) to explicit ones. The function includes comprehensive validation logic that issues warnings for redundant BEGIN commands when already in a transaction block, and fatal errors for invalid state transitions. The state machine design ensures proper transaction block lifecycle management and prevents inconsistent transaction states.
 

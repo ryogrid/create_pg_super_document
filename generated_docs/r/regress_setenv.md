@@ -8,7 +8,10 @@ A PostgreSQL regression test function that allows setting environment variables 
 
 ## Definition
 
-
+```c
+Datum
+regress_setenv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL C function designed for use in regression testing environments. It provides the ability to modify environment variables from within PostgreSQL, but enforces strict security by requiring superuser privileges. The function takes two text arguments representing the environment variable name and its desired value, converts them to C strings, validates the caller's permissions, and uses the system's  call to modify the environment. If any step fails (permission check or system call), it raises an ERROR that terminates the current transaction.
 

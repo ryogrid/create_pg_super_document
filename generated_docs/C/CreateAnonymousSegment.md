@@ -8,7 +8,10 @@ Creates an anonymous memory-mapped shared memory segment with optional huge page
 
 ## Definition
 
-
+```c
+static void *
+CreateAnonymousSegment(Size *size)
+```
 ## Detailed Description
 This function creates an anonymous shared memory segment using mmap() with support for huge pages. It first attempts to allocate using huge pages if configured (HUGE_PAGES_ON or HUGE_PAGES_TRY), rounding up the size to huge page boundaries to avoid kernel compatibility issues. If huge page allocation fails and the mode is HUGE_PAGES_TRY, it falls back to regular memory allocation. The function updates the  configuration to reflect the actual allocation method used.
 

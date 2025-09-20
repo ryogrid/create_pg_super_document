@@ -8,7 +8,10 @@ PostgreSQL function that converts a float4 value to binary format for external t
 
 ## Definition
 
-
+```c
+Datum
+float4send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The float4send function is part of PostgreSQL's binary I/O system for the float4 data type. It converts internal float4 values to a standardized external binary format suitable for network transmission, binary file storage, or binary protocol communication. The function creates a binary representation that can be transmitted across different architectures and later reconstructed using float4recv. It handles byte order conversion to ensure consistent binary format regardless of the host system's endianness.
 

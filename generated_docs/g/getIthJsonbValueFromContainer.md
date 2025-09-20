@@ -8,7 +8,10 @@ Retrieves the element at a specified index position from a JSONB array container
 
 ## Definition
 
-
+```c
+JsonbValue *
+getIthJsonbValueFromContainer(JsonbContainer *container, uint32 i)
+```
 ## Detailed Description
 This function provides indexed access to elements within a JSONB array container. It performs bounds checking to ensure the requested index is valid, then extracts the element at that position using the container's internal storage layout. The function calculates the appropriate base address for the array elements and uses the container's offset information to locate and extract the specific element.
 

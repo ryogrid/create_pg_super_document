@@ -8,7 +8,14 @@ The _avl_tree structure serves as the control structure for an AVL (Adelson-Vels
 
 ## Definition
 
-
+```c
+typedef struct _avl_tree
+{
+	int			count;			/* Total number of nodes */
+	avl_node   *root;			/* root of the tree */
+	avl_node   *end;			/* Immutable dereferenceable empty tree */
+} avl_tree;
+```
 ## Detailed Description
 The _avl_tree structure provides the management interface for an AVL balanced binary search tree implementation specifically designed for organizing pivot fields in PostgreSQL's psql crosstabview feature. AVL trees maintain optimal search performance by automatically balancing themselves during insertions and deletions, ensuring O(log n) time complexity for all major operations.
 

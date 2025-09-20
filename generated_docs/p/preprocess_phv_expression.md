@@ -8,7 +8,10 @@ Preprocesses a PlaceHolderVar expression that has been pulled up from a LATERAL 
 
 ## Definition
 
-
+```c
+Expr *
+preprocess_phv_expression(PlannerInfo *root, Expr *expr)
+```
 ## Detailed Description
 This function is specifically designed to handle PlaceHolderVar expressions that arise from LATERAL subquery processing. When a LATERAL subquery references an output from another subquery, and that output must be wrapped in a PlaceHolderVar due to an intermediate outer join, the expression gets pushed down into the subquery and later pulled back up during find_lateral_references. Since this happens after subquery_planner has already preprocessed the expressions at the current query level, this function ensures that the pulled-up PlaceHolderVar expressions receive proper preprocessing.
 

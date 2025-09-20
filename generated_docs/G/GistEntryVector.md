@@ -8,7 +8,18 @@ A data structure that represents a vector (array) of GISTENTRY structs, commonly
 
 ## Definition
 
+```c
+GISTENTRY	vector[FLEXIBLE_ARRAY_MEMBER];
+} GistEntryVector;
 
+#define GEVHDRSZ	(offsetof(GistEntryVector, vector))
+
+/*
+ * macro to initialize a GISTENTRY
+ */
+#define gistentryinit(e, k, r, pg, o, l) \
+	do
+```
 ## Detailed Description
 GistEntryVector is a fundamental data structure in PostgreSQL's GiST (Generalized Search Tree) access method implementation. It serves as a container for multiple GISTENTRY structures, allowing GiST operator classes to process collections of index entries efficiently. The structure uses a flexible array member to accommodate variable numbers of entries, making it suitable for dynamic operations during index construction and maintenance.
 

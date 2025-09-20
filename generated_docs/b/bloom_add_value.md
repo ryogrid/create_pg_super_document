@@ -8,7 +8,10 @@ Adds a 32-bit value to an existing Bloom filter by computing multiple hash funct
 
 ## Definition
 
-
+```c
+static BloomFilter *
+bloom_add_value(BloomFilter *filter, uint32 value, bool *updated)
+```
 ## Detailed Description
 This function implements the standard Bloom filter insertion algorithm. It computes two primary hash values using different seeds (BLOOM_SEED_1 and BLOOM_SEED_2) and then generates the required number of hash functions using double hashing: h(i) = (h1 + i * h2) % nbits. For each generated hash value, it sets the corresponding bit in the filter's data array. The function tracks whether any new bits were set and updates a counter of set bits for monitoring filter saturation.
 

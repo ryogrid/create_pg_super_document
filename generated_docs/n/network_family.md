@@ -8,7 +8,10 @@ Returns the address family version (4 for IPv4, 6 for IPv6) of a network address
 
 ## Definition
 
-
+```c
+Datum
+network_family(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that determines the IP version of a given inet or cidr network address. It examines the address family of the input network data and returns an integer representing the IP protocol version. The function supports both IPv4 and IPv6 addresses, returning 4 for IPv4 addresses, 6 for IPv6 addresses, and 0 for any unrecognized address family.
 

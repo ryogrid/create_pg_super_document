@@ -8,7 +8,10 @@ Performs bitwise AND operation between two MAC addresses, returning a new MAC ad
 
 ## Definition
 
-
+```c
+Datum
+macaddr_and(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements bitwise AND operation for PostgreSQL's  data type. It takes two MAC addresses as input arguments and computes the bitwise AND of each corresponding byte pair (a through f) to produce a new MAC address. This function is typically used in network address masking operations where you need to apply a bitmask to a MAC address. The function allocates memory for the result using PostgreSQL's memory management system () and returns the result using PostgreSQL's function call convention.
 

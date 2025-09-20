@@ -8,7 +8,9 @@ A pointer to PartitionBoundInfoData structure that encapsulates a set of partiti
 
 ## Definition
 
-
+```c
+typedef struct PartitionBoundInfoData *PartitionBoundInfo;
+```
 ## Detailed Description
 PartitionBoundInfo is a pointer type to the PartitionBoundInfoData structure, which contains comprehensive information about partition boundaries for different partitioning strategies (hash, list, or range). The structure stores partition boundary data in a format optimized for efficient partition pruning and routing operations.
 

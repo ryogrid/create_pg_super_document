@@ -8,7 +8,21 @@ BackgroundWorker is a structure that defines the configuration and properties of
 
 ## Definition
 
-
+```c
+typedef struct BackgroundWorker
+{
+	char		bgw_name[BGW_MAXLEN];
+	char		bgw_type[BGW_MAXLEN];
+	int			bgw_flags;
+	BgWorkerStartTime bgw_start_time;
+	int			bgw_restart_time;	/* in seconds, or BGW_NEVER_RESTART */
+	char		bgw_library_name[MAXPGPATH];
+	char		bgw_function_name[BGW_MAXLEN];
+	Datum		bgw_main_arg;
+	char		bgw_extra[BGW_EXTRALEN];
+	pid_t		bgw_notify_pid; /* SIGUSR1 this backend on start/stop */
+} BackgroundWorker;
+```
 ## Detailed Description
 The BackgroundWorker structure serves as a comprehensive configuration template for background worker processes in PostgreSQL. It encapsulates all the necessary information required by the postmaster to spawn, monitor, and manage background worker processes. This structure is used both for static workers (registered during shared_preload_libraries) and dynamic workers (registered at runtime). The postmaster uses this information to determine when to start the worker, how to restart it upon failure, and which function to execute as the worker's main entry point.
 

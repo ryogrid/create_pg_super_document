@@ -8,7 +8,19 @@ FunctionScanState is a runtime state structure for PostgreSQL's function scan ex
 
 ## Definition
 
-
+```c
+typedef struct FunctionScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	int			eflags;
+	bool		ordinality;
+	bool		simple;
+	int64		ordinal;
+	int			nfuncs;
+	struct FunctionScanPerFuncState *funcstates;	/* array of length nfuncs */
+	MemoryContext argcontext;
+} FunctionScanState;
+```
 ## Detailed Description
 FunctionScanState manages the execution state for scanning table-valued functions and set-returning functions. This executor node handles functions that return multiple rows, treating them as virtual tables that can be queried like regular relations. The structure supports multiple functions in a single scan (for lateral joins or function unions), tracks ordinality information when WITH ORDINALITY is specified, and manages the execution context for function arguments and return values. Each function has its own per-function state maintained in the funcstates array.
 

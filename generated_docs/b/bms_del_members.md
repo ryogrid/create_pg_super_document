@@ -8,7 +8,10 @@ Removes all members from bitmap set 'a' that are also present in bitmap set 'b',
 
 ## Definition
 
-
+```c
+Bitmapset *
+bms_del_members(Bitmapset *a, const Bitmapset *b)
+```
 ## Detailed Description
 The bms_del_members function performs a set difference operation, removing from bitmap set 'a' all members that are also present in bitmap set 'b'. This is equivalent to computing A - B (A minus B) in set theory. The function is optimized to recycle the left input bitmap set rather than creating a new one, similar to bms_int_members.
 

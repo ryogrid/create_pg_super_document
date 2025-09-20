@@ -8,7 +8,15 @@ Initializes a tuple descriptor attribute entry without requiring catalog access 
 
 ## Definition
 
-
+```c
+void
+TupleDescInitBuiltinEntry(TupleDesc desc,
+						  AttrNumber attributeNumber,
+						  const char *attributeName,
+						  Oid oidtypeid,
+						  int32 typmod,
+						  int attdim)
+```
 ## Detailed Description
 TupleDescInitBuiltinEntry is designed to initialize tuple descriptor attributes for essential builtin types without needing access to the system catalog (pg_type table). This function is particularly useful in scenarios where database catalog access is not available, such as during bootstrap processes or in disconnected utility operations.
 

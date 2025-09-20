@@ -8,7 +8,17 @@ An enumeration that defines different types of row-marking operations used for t
 
 ## Definition
 
-
+```c
+typedef enum RowMarkType
+{
+	ROW_MARK_EXCLUSIVE,			/* obtain exclusive tuple lock */
+	ROW_MARK_NOKEYEXCLUSIVE,	/* obtain no-key exclusive tuple lock */
+	ROW_MARK_SHARE,				/* obtain shared tuple lock */
+	ROW_MARK_KEYSHARE,			/* obtain keyshare tuple lock */
+	ROW_MARK_REFERENCE,			/* just fetch the TID, don't lock it */
+	ROW_MARK_COPY,				/* physically copy the row value */
+} RowMarkType;
+```
 ## Detailed Description
 RowMarkType defines the various strategies PostgreSQL uses to mark and potentially lock rows during query execution. The first four values represent different lock strengths for SELECT FOR [KEY] UPDATE/SHARE requests, arranged in order of decreasing lock strength. These locking modes are supported on regular tables and foreign tables whose FDWs support late locking.
 

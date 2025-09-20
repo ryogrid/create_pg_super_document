@@ -8,7 +8,10 @@ Displays formatted status messages for potentially long-running operations in pg
 
 ## Definition
 
-
+```c
+void
+prep_status_progress(const char *fmt,...)
+```
 ## Detailed Description
 The  function is a specialized variant of  designed specifically for operations that may take significant time to complete. It prepares the terminal for displaying progress updates during long-running processes.
 

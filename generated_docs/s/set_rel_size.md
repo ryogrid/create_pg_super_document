@@ -8,7 +8,11 @@ Sets size estimates for a base relation by analyzing the relation type and chara
 
 ## Definition
 
-
+```c
+static void
+set_rel_size(PlannerInfo *root, RelOptInfo *rel,
+			 Index rti, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function serves as the central dispatcher for establishing size estimates across different types of relations in PostgreSQL. It implements a comprehensive logic tree that handles:
 

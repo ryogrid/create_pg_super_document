@@ -8,7 +8,9 @@ Converts a WAL level integer value to its corresponding string representation by
 
 ## Definition
 
-
+```c
+struct config_enum_entry *entry;
+```
 ## Detailed Description
 This static helper function provides a human-readable string representation for PostgreSQL's Write-Ahead Logging (WAL) level values. It iterates through the wal_level_options array, which contains mappings between WAL level constants and their string names, to find the matching entry for the given numeric WAL level. If no match is found, it returns "?" as a fallback value.
 

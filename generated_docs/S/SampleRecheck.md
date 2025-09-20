@@ -8,7 +8,11 @@ SampleRecheck is a recheck function used during EvalPlanQual processing for samp
 
 ## Definition
 
-
+```c
+structure
+	 */
+	scanstate = makeNode(SampleScanState);
+```
 ## Detailed Description
 SampleRecheck is an access method routine specifically designed for use during EvalPlanQual (EPQ) processing in PostgreSQL's concurrency control mechanism. During EPQ, the system needs to re-evaluate whether previously found tuples still satisfy the scan conditions after potential concurrent updates. However, for sample scans, this function always returns true because sample scans, like sequential scans, don't pass any checkable keys to the underlying heap scan operation. The sampling logic is based on the sampling method's algorithm rather than tuple-level predicates that could be invalidated by concurrent updates.
 

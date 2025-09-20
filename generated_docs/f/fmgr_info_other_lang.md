@@ -8,7 +8,10 @@ This static function handles special processing for initializing FmgrInfo struct
 
 ## Definition
 
-
+```c
+static void
+fmgr_info_other_lang(Oid functionId, FmgrInfo *finfo, HeapTuple procedureTuple)
+```
 ## Detailed Description
 fmgr_info_other_lang sets up function manager information for procedural language functions by:
 

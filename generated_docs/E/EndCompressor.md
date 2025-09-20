@@ -8,7 +8,10 @@ This function terminates the compression library context, flushes any remaining 
 
 ## Definition
 
-
+```c
+void
+EndCompressor(ArchiveHandle *AH, CompressorState *cs)
+```
 ## Detailed Description
 The `EndCompressor` function provides a clean shutdown mechanism for compression operations. It calls the algorithm-specific end function through the CompressorState's function pointer to properly terminate the compression context, flush any remaining data in internal buffers, and perform necessary cleanup. After the algorithm-specific cleanup is complete, it frees the memory allocated for the CompressorState structure itself.
 

@@ -8,7 +8,15 @@ A static helper function that calculates union parameters for GistInetKey entrie
 
 ## Definition
 
-
+```c
+static void
+calc_inet_union_params_indexed(GISTENTRY *ent,
+							   OffsetNumber *offsets, int noffsets,
+							   int *minfamily_p,
+							   int *maxfamily_p,
+							   int *minbits_p,
+							   int *commonbits_p)
+```
 ## Detailed Description
 This function performs the same union parameter calculation as calc_inet_union_params() but operates on a non-contiguous subset of GISTENTRY elements specified by an array of offset indices. This selective approach is essential during GiST page splitting operations where keys need to be analyzed in specific groupings rather than contiguous ranges.
 

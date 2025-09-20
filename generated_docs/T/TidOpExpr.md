@@ -8,7 +8,14 @@ TidOpExpr represents an upper or lower range bound for TID (tuple identifier) ra
 
 ## Definition
 
-
+```c
+typedef struct TidOpExpr
+{
+	TidExprType exprtype;		/* type of op; lower or upper */
+	ExprState  *exprstate;		/* ExprState for a TID-yielding subexpr */
+	bool		inclusive;		/* whether op is inclusive */
+} TidOpExpr;
+```
 ## Detailed Description
 TidOpExpr is a specialized data structure used in PostgreSQL's TID range scan executor node (nodeTidrangescan.c) to represent comparison operations that define range boundaries for scanning rows by their tuple identifiers (CTIDs). This structure is essential for optimizing queries that filter on CTID values using range operators like <, <=, >, >=.
 

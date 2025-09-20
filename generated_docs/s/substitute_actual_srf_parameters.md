@@ -8,7 +8,10 @@ Replaces Param nodes in a Query tree with appropriate actual parameters during s
 
 ## Definition
 
-
+```c
+static Query *
+substitute_actual_srf_parameters(Query *expr, int nargs, List *args)
+```
 ## Detailed Description
 This function serves as the entry point for parameter substitution specifically designed for set-returning function inlining. It creates a context structure containing the parameter information and delegates the actual substitution work to a query tree mutator function. The function is similar to  but has specific behavior tailored for set-returning function contexts, particularly in how it handles parameter scoping levels.
 

@@ -8,7 +8,10 @@ DisableSubscriptionAndExit is a critical error recovery function that handles su
 
 ## Definition
 
-
+```c
+void
+DisableSubscriptionAndExit(void)
+```
 ## Detailed Description
 This function is called when a logical replication worker encounters an unrecoverable error during either table synchronization or apply operations. It performs a controlled shutdown sequence that includes error reporting, transaction cleanup, subscription disabling, and process termination. The function ensures that the subscription is properly marked as disabled in the system catalogs before the worker exits, preventing further replication attempts until manual intervention.
 

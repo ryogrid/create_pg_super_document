@@ -8,7 +8,10 @@ This SQL function populates a PostgreSQL record (row type) with field values fro
 
 ## Definition
 
-
+```c
+Datum
+jsonb_populate_record(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the SQL function  which takes a record template and a JSONB object as input, returning a new record with fields populated from the JSONB data. This function serves as a bridge between JSONB data and PostgreSQL's structured record types.
 

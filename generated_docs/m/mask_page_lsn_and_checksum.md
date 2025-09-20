@@ -8,7 +8,10 @@ Masks out the LSN and checksum fields in a page header to facilitate consistency
 
 ## Definition
 
-
+```c
+void
+mask_page_lsn_and_checksum(Page page)
+```
 ## Detailed Description
 This function is used in PostgreSQL's WAL (Write-Ahead Logging) consistency checking mechanisms. When comparing two pages for consistency, the LSN (Log Sequence Number) fields will likely differ because of concurrent operations occurring between when the WAL was generated and when it was applied. Similarly, the checksum will not match if any other content on the page has been masked. To enable meaningful page comparisons, this function masks out both the LSN and checksum fields by setting them to a predefined MASK_MARKER value.
 

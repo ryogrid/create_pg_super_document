@@ -8,7 +8,11 @@ The r_instrum function handles instrumental case endings in Hungarian words, spe
 
 ## Definition
 
+```c
+}
 
+static int r_instrum(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Hungarian stemmer that processes instrumental case endings. It operates by first setting the ending position (ket), then checking for the presence of specific instrumental suffixes 'al' or 'el'. The function applies several morphological checks:
 

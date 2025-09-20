@@ -8,7 +8,20 @@ OprProofCacheEntry is a hash table entry structure that stores cached results of
 
 ## Definition
 
+```c
+typedef struct OprProofCacheEntry
+{
+	/* the hash lookup key MUST BE FIRST */
+	OprProofCacheKey key;
 
+	bool		have_implic;	/* do we know the implication result? */
+	bool		have_refute;	/* do we know the refutation result? */
+	bool		same_subexprs_implies;	/* X clause_op Y implies X pred_op Y? */
+	bool		same_subexprs_refutes;	/* X clause_op Y refutes X pred_op Y? */
+	Oid			implic_test_op; /* OID of the test operator, or 0 if none */
+	Oid			refute_test_op; /* OID of the test operator, or 0 if none */
+} OprProofCacheEntry;
+```
 ## Detailed Description
 OprProofCacheEntry represents a complete cache entry in the B-tree operator proof lookup system. This structure stores both the lookup key (operator pair) and all the computed results about the logical relationships between those operators. The cache serves to avoid expensive repeated lookups in the system catalogs (particularly pg_amop) when determining whether one operator implies or refutes another.
 

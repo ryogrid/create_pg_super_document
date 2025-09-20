@@ -8,7 +8,9 @@ OldToNewMappingData is a structure used during heap rewriting operations to main
 
 ## Definition
 
-
+```c
+typedef OldToNewMappingData *OldToNewMapping;
+```
 ## Detailed Description
 OldToNewMappingData is an essential component of PostgreSQL's heap rewriting facility that works in conjunction with UnresolvedTupData to maintain tuple reference integrity during table rewrites. This structure serves as a mapping record that tracks where tuples have been relocated from their original positions in the old heap to their new positions in the rewritten heap.
 

@@ -8,7 +8,10 @@ Performs parallel transfer of all new databases during PostgreSQL upgrade, enabl
 
 ## Definition
 
-
+```c
+struct */
+		new_arg->old_db_arr = old_db_arr;
+```
 ## Detailed Description
 This function provides parallel execution capabilities for transferring all new databases during a PostgreSQL upgrade. It has the same API as transfer_all_new_dbs but adds parallel execution by transferring multiple tablespaces concurrently. The function manages worker processes (Unix) or threads (Windows) to handle database transfers in parallel, significantly improving upgrade performance for systems with multiple tablespaces.
 

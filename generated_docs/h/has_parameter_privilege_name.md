@@ -8,7 +8,10 @@ A PostgreSQL function that checks if the current user has specific privileges on
 
 ## Definition
 
-
+```c
+Datum
+has_parameter_privilege_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a simplified variant of the has_parameter_privilege family that assumes the current user as the subject of the privilege check. It takes only the parameter name and privilege name as arguments, automatically using the current session's user ID for the privilege check. This provides a convenient interface for users to check their own privileges on parameters without having to specify their username explicitly.
 

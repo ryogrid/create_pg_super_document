@@ -8,7 +8,10 @@ A callback function used during JSON parsing to handle the start of object field
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+json_unique_object_field_start(void *_state, char *field, bool isnull)
+```
 ## Detailed Description
 This function is a specialized JSON parsing callback that ensures object field names are unique within their containing objects. It operates as part of the JSON validation framework and is called when the parser encounters the beginning of an object field. The function maintains a stack-based tracking system to monitor object nesting levels and uses a key collision detection mechanism to identify duplicate field names. When a duplicate is found, it marks the parsing state as non-unique and cleans up the object tracking stack.
 

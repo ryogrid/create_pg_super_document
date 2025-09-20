@@ -8,7 +8,10 @@ Assigns a unique dump ID to newly created dumpable objects and registers them in
 
 ## Definition
 
-
+```c
+void
+AssignDumpId(DumpableObject *dobj)
+```
 ## Detailed Description
 The AssignDumpId function is a central component of pg_dump's object management system that assigns unique sequential identifiers to all dumpable database objects. It performs essential initialization of DumpableObject structures by setting default values for dump options, dependency tracking, and extension membership status. The function maintains two critical data structures: dumpIdMap (an array for fast lookup by ID) and catalogIdHash (a hash table for lookup by PostgreSQL catalog OID).
 

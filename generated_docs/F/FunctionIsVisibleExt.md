@@ -8,7 +8,10 @@ Determines whether a function (identified by OID) is visible in the current sear
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &opername);
+```
 ## Detailed Description
 FunctionIsVisibleExt is the core implementation for function visibility checking in PostgreSQL's namespace system. It determines whether a function would be found when searching for the unqualified function name with exact argument matches. The function performs a comprehensive two-phase visibility check: first verifying the function's namespace is in the search path, then ensuring the function isn't masked by another function with the same name and signature in an earlier namespace.
 

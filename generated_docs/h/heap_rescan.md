@@ -8,7 +8,11 @@ Restarts a heap table scan from the beginning, optionally updating scan paramete
 
 ## Definition
 
-
+```c
+void
+heap_rescan(TableScanDesc sscan, ScanKey key, bool set_params,
+			bool allow_strat, bool allow_sync, bool allow_pagemode)
+```
 ## Detailed Description
 The  function reinitializes an existing heap table scan to start over from the beginning. It handles cleanup of the current scan state, including releasing any pinned buffers, and optionally updates scan parameters before reinitializing the scan. This function is typically used when a query plan needs to restart a table scan, such as in nested loop joins or when implementing resettable scan operations.
 

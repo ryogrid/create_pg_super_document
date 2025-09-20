@@ -8,7 +8,10 @@ A static function in PostgreSQL's text search parser that checks whether the par
 
 ## Definition
 
-
+```c
+static int
+p_isignore(TParser *prs)
+```
 ## Detailed Description
 p_isignore is a simple predicate function that returns the state of the parser's ignore flag. When the parser is in ignore mode (prs->ignore is true), this function returns 1, otherwise it returns 0. This function is used to determine whether certain tokens or character sequences should be ignored during text search parsing.
 

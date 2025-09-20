@@ -8,7 +8,10 @@ Aggregates JIT instrumentation statistics by adding the metrics from one JitInst
 
 ## Definition
 
-
+```c
+void
+InstrJitAgg(JitInstrumentation *dst, JitInstrumentation *add)
+```
 ## Detailed Description
 The  function performs aggregation of JIT (Just-In-Time) compilation instrumentation data by combining statistics from a source  structure into a destination structure. This function is essential for PostgreSQL's JIT performance monitoring system, allowing the database to collect comprehensive statistics about JIT compilation performance across different execution contexts.
 

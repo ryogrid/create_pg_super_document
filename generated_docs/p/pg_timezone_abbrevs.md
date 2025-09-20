@@ -8,7 +8,9 @@ pg_timezone_abbrevs is a set-returning SQL function that provides access to all 
 
 ## Definition
 
-
+```c
+struct pg_itm_in itm_in;
+```
 ## Detailed Description
 This SQL-accessible function exposes PostgreSQL's internal timezone abbreviation table as a queryable result set. It returns three columns for each timezone abbreviation:
 - **abbrev**: The timezone abbreviation name (uppercased)

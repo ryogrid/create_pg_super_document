@@ -8,7 +8,10 @@ A stub implementation of Tcl's event waiting function that always returns 0 to p
 
 ## Definition
 
-
+```c
+static int
+pltcl_WaitForEvent(CONST86 Tcl_Time *timePtr)
+```
 ## Detailed Description
 This function is part of PostgreSQL's PL/Tcl implementation strategy to override Tcl's builtin Notifier subsystem. Unlike the other notifier functions that are completely empty, this function returns 0 to indicate that no events are available for processing.
 

@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) assignment hook function that applies valida
 
 ## Definition
 
-
+```c
+void
+assign_datestyle(const char *newval, void *extra)
+```
 ## Detailed Description
 The  function serves as a GUC assign hook that actually applies the datestyle configuration changes that were previously validated by . It extracts the validated date style and order values from the extra data structure and assigns them to the global  and  variables that control PostgreSQL's date formatting behavior throughout the system.
 

@@ -8,7 +8,10 @@ Initializes a new Tcl interpreter for PostgreSQL's PL/Tcl procedural language, s
 
 ## Definition
 
-
+```c
+static void
+pltcl_init_interp(pltcl_interp_desc *interp_desc, Oid prolang, bool pltrusted)
+```
 ## Detailed Description
 The `pltcl_init_interp` function creates and configures a new Tcl interpreter as a subsidiary to the main pltcl_hold_interp. This function is responsible for setting up a complete PL/Tcl execution environment that includes:
 

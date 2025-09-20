@@ -8,7 +8,9 @@ Implements the GiST compress operation for multirange types, converting multiran
 
 ## Definition
 
-
+```c
+union_range(typcache->rngtype, mr);
+```
 ## Detailed Description
 The  function is part of the GiST operator class for multirange types. It compresses multirange values into single range values for storage in GiST indexes. The compression works by computing the union range that spans all ranges within the multirange, effectively creating a bounding range that encompasses the entire multirange.
 

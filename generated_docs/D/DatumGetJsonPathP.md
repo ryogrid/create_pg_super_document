@@ -8,7 +8,10 @@ DatumGetJsonPathP is an inline function that converts a PostgreSQL Datum to a Js
 
 ## Definition
 
-
+```c
+static inline JsonPath *
+DatumGetJsonPathP(Datum d)
+```
 ## Detailed Description
 DatumGetJsonPathP is a type conversion utility function that safely extracts a JsonPath structure from a PostgreSQL Datum. The function uses the PG_DETOAST_DATUM macro to handle the conversion, which will decompress and/or extract the data from PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) storage if necessary. This function returns a pointer to the actual JsonPath structure without making a copy, making it efficient for read-only operations.
 

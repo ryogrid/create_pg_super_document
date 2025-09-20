@@ -8,7 +8,10 @@
 
 ## Definition
 
-
+```c
+static void
+_SPI_error_callback(void *arg)
+```
 ## Detailed Description
 This function serves as an error callback handler within the SPI framework. When a query execution fails, this callback is invoked to enhance the error message with contextual information about the failing query. It handles syntax errors specially by converting them to internal syntax errors with position information, while other errors receive descriptive context based on the query type.
 

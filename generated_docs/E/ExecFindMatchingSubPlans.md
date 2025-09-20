@@ -8,7 +8,11 @@ Determines which subplans match the partition pruning steps for the current comp
 
 ## Definition
 
-
+```c
+Bitmapset *
+ExecFindMatchingSubPlans(PartitionPruneState *prunestate,
+						 bool initial_prune)
+```
 ## Detailed Description
 This function is the main entry point for executor-time partition pruning. It iterates through all partition hierarchies defined in the pruning state and determines which subplans should be executed based on the current runtime parameter values. The function supports two modes of operation:
 

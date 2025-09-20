@@ -8,7 +8,11 @@ The  function removes an arc from the color chain of its associated color, prope
 
 ## Definition
 
-
+```c
+static void
+uncolorchain(struct colormap *cm,
+			 struct arc *a)
+```
 ## Detailed Description
 This function implements the counterpart to , handling the safe removal of arcs from color-based chains. It manages the complex pointer manipulations required to maintain the integrity of the doubly-linked list when removing an arc from the middle, beginning, or end of a color chain.
 

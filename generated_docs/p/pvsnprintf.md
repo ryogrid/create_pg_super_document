@@ -8,7 +8,10 @@ A PostgreSQL utility function that attempts to format text data into a buffer us
 
 ## Definition
 
-
+```c
+size_t
+pvsnprintf(char *buf, size_t len, const char *fmt, va_list args)
+```
 ## Detailed Description
 The `pvsnprintf` function is a robust wrapper around the standard `vsnprintf` function that provides PostgreSQL-specific error handling and buffer size estimation. It serves as the core formatting engine used by `psprintf` and other PostgreSQL string formatting utilities.
 

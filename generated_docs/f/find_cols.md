@@ -8,7 +8,10 @@ Finds input-tuple columns that are needed for aggregation processing, dividing t
 
 ## Definition
 
-
+```c
+static void
+find_cols(AggState *aggstate, Bitmapset **aggregated, Bitmapset **unaggregated)
+```
 ## Detailed Description
 The  function analyzes the target list and qualification conditions of an aggregation plan to identify which input columns are referenced. It categorizes these column references into two distinct sets: those that appear within aggregate function expressions (aggregated) and those that appear outside of aggregate functions (unaggregated). This classification is essential for optimization decisions in aggregation processing, particularly for determining which columns need to be available during different phases of aggregation.
 

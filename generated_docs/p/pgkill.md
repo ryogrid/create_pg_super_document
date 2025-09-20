@@ -8,7 +8,10 @@ The  function is PostgreSQL's Windows-specific implementation of the POSIX  syst
 
 ## Definition
 
-
+```c
+int
+pgkill(int pid, int sig)
+```
 ## Detailed Description
 The  function implements signal delivery on Windows by using named pipes for inter-process communication. Since Windows lacks native POSIX signal support, PostgreSQL creates a custom signaling mechanism where processes listen on named pipes for signal notifications.
 

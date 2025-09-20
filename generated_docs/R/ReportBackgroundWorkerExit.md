@@ -8,7 +8,10 @@ Reports that a background worker has exited by updating the shared memory slot a
 
 ## Definition
 
-
+```c
+void
+ReportBackgroundWorkerExit(slist_mutable_iter *cur)
+```
 ## Detailed Description
 This function handles the cleanup and notification process when a background worker terminates. It updates the shared memory slot with the worker's final PID (typically 0), and if the worker is marked for termination or configured to never restart, it deregisters the worker before sending notification. The function strategically performs deregistration before notification to minimize race conditions where a requesting process might try to reuse a slot that's not yet available. After cleanup, it sends a SIGUSR1 signal to notify the requesting process (if specified) about the worker's termination.
 

@@ -8,7 +8,10 @@ Implements the ALTER FUNCTION utility command, allowing modification of function
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterFunction(ParseState *pstate, AlterFunctionStmt *stmt)
+```
 ## Detailed Description
 AlterFunction processes ALTER FUNCTION statements to modify various attributes of existing functions or procedures. The function validates permissions, processes the requested changes, and updates the pg_proc catalog accordingly. Key capabilities include:
 

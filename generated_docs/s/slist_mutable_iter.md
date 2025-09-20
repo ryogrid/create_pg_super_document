@@ -8,7 +8,14 @@ An enhanced iterator structure for singly linked lists that supports safe deleti
 
 ## Definition
 
-
+```c
+typedef struct slist_mutable_iter
+{
+	slist_node *cur;			/* current element */
+	slist_node *next;			/* next node we'll iterate to */
+	slist_node *prev;			/* prev node, for deletions */
+} slist_mutable_iter;
+```
 ## Detailed Description
 The  structure provides a specialized iterator for singly linked lists that allows safe deletion of the current node during iteration. Unlike the basic , this iterator maintains additional state to support modification operations while traversing the list.
 

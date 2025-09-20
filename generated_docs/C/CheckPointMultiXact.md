@@ -8,7 +8,10 @@ Performs checkpoint operations for the MultiXact subsystem by writing all dirty 
 
 ## Definition
 
-
+```c
+void
+CheckPointMultiXact(void)
+```
 ## Detailed Description
 CheckPointMultiXact is responsible for ensuring that all MultiXact data is safely written to disk during checkpoint operations. This function is called as part of both regular checkpoints and shutdown checkpoints to guarantee data persistence and recovery consistency.
 

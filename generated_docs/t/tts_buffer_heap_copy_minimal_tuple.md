@@ -8,7 +8,10 @@ Creates a MinimalTuple copy from a BufferHeapTupleTableSlot by first ensuring th
 
 ## Definition
 
-
+```c
+static MinimalTuple
+tts_buffer_heap_copy_minimal_tuple(TupleTableSlot *slot)
+```
 ## Detailed Description
 This function extracts tuple data from a BufferHeapTupleTableSlot and creates a MinimalTuple representation. MinimalTuples are a more compact representation compared to HeapTuples, as they remove HeapTuple-specific overhead and metadata that isn't needed in certain contexts.
 

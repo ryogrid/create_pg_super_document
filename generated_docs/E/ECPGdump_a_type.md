@@ -8,7 +8,14 @@ A comprehensive function that generates C code for ECPG type declarations, handl
 
 ## Definition
 
-
+```c
+void
+ECPGdump_a_type(FILE *o, const char *name, struct ECPGtype *type, const int brace_level,
+				const char *ind_name, struct ECPGtype *ind_type, const int ind_brace_level,
+				const char *prefix, const char *ind_prefix,
+				char *arr_str_size, const char *struct_sizeof,
+				const char *ind_struct_sizeof)
+```
 ## Detailed Description
 The  function is a central component of the ECPG preprocessor's code generation system. It analyzes ECPG type structures and generates the appropriate C code for variable declarations, type conversions, and SQL interface operations. The function performs comprehensive type checking, validates variable scope and shadowing, handles complex data structures (arrays, structs, unions), and manages indicator variables for null value detection. It supports all ECPG data types including simple types, arrays, structures, and PostgreSQL-specific types like varchar, bytea, and descriptors.
 

@@ -8,7 +8,10 @@ A notice processor callback function that handles NOTICE messages from PostgreSQ
 
 ## Definition
 
-
+```c
+static void
+isotesterNoticeProcessor(void *arg, const char *message)
+```
 ## Detailed Description
 This function serves as a libpq notice processor callback that gets invoked whenever the PostgreSQL backend sends a NOTICE message to a client session during isolation testing. It performs three critical functions: formats the notice output by prefixing it with the session name for clarity, tracks the total count of notices received by incrementing the session's notice counter, and sets a global flag to indicate that new notices have arrived.
 

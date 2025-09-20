@@ -8,7 +8,10 @@ Converts a 128-bit signed integer to PostgreSQL's NumericVar format for internal
 
 ## Definition
 
-
+```c
+static void
+int128_to_numericvar(int128 val, NumericVar *var)
+```
 ## Detailed Description
 This function converts a 128-bit signed integer (int128) into PostgreSQL's internal NumericVar representation. The conversion process involves extracting digits in base NBASE (10000) by repeatedly dividing the absolute value and storing remainders as digits. The function properly handles sign conversion, allocates sufficient space for the maximum possible digits (40), and sets up all NumericVar fields including weight, scale, and digit count.
 

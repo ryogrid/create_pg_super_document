@@ -8,7 +8,9 @@ Implements the ALTER DOMAIN DROP CONSTRAINT statement, removing a named constrai
 
 ## Definition
 
-
+```c
+struct = (Form_pg_constraint) GETSTRUCT(contup);
+```
 ## Detailed Description
 This function removes a named constraint from a domain type by scanning the pg_constraint catalog for the target constraint. It handles special processing for NOT NULL constraints by updating the typnotnull field in pg_type. The function uses a systematic scan of constraints associated with the domain and performs deletion using the specified drop behavior. It also handles cache invalidation to ensure dependent plans are rebuilt since the domain's pg_type row doesn't change automatically.
 

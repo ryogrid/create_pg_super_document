@@ -8,7 +8,9 @@ A flag bit constant used to control the behavior of query_tree_walker and query_
 
 ## Definition
 
-
+```c
+#define QTW_EXAMINE_RTES_BEFORE		0x10	/* examine RTE nodes before their
+```
 ## Detailed Description
 QTW_EXAMINE_RTES_BEFORE is a bit flag with value 0x10 (16 in decimal) that controls the traversal order when walking through PostgreSQL's query tree structures. When this flag is set, the walker function will examine Range Table Entry nodes before descending into their contents. This is particularly useful for operations that need to process the RTE metadata or structure before analyzing the expressions and subqueries contained within the RTE.
 

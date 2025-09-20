@@ -8,7 +8,10 @@ Provides planner support for the ILIKE (case-insensitive LIKE) operator by deleg
 
 ## Definition
 
-
+```c
+Datum
+texticlike_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as a planner support function for PostgreSQL's ILIKE operator, which performs case-insensitive LIKE pattern matching. It acts as a thin wrapper around the generic  function, specifically configured for case-insensitive LIKE pattern matching. This function is called by the PostgreSQL query planner to optimize queries involving ILIKE operations, including selectivity estimation and index condition generation.
 

@@ -8,7 +8,10 @@ Finds the position of the last non-zero digit after the decimal point in a numer
 
 ## Definition
 
-
+```c
+static char *
+get_last_relevant_decnum(char *num)
+```
 ## Detailed Description
 This function scans a numeric string to find the last significant (non-zero) digit after the decimal point. It's primarily used in Fill Mode (FM) formatting to determine where to truncate trailing zeros. The function returns a pointer to the last relevant character, which could be either the last non-zero digit or the decimal point itself if all decimal digits are zero.
 

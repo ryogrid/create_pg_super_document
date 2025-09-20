@@ -8,7 +8,10 @@ The geqo_mutation function implements a mutation operator for the Genetic Query 
 
 ## Definition
 
-
+```c
+void
+geqo_mutation(PlannerInfo *root, Gene *tour, int num_gene)
+```
 ## Detailed Description
 The geqo_mutation function is part of PostgreSQL's Genetic Query Optimizer (GEQO) system, which uses genetic algorithms to solve complex join ordering problems. This function implements the mutation operation, one of the fundamental genetic operators used to maintain diversity in the population and prevent premature convergence.
 

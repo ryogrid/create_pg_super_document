@@ -8,7 +8,10 @@ Internal function that adds an interval to a timestamp with timezone (timestampt
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+					   *tm = &tt;
+```
 ## Detailed Description
 This is the core implementation function for timestamptz-interval addition that handles timezone-aware arithmetic. Unlike the plain timestamp version, this function must account for timezone effects throughout the calculation:
 

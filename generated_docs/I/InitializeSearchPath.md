@@ -8,7 +8,10 @@ Initializes the search path module during PostgreSQL startup, setting up either 
 
 ## Definition
 
-
+```c
+void
+InitializeSearchPath(void)
+```
 ## Detailed Description
 This function is called during InitPostgres to properly initialize the search path subsystem after the system is sufficiently initialized to perform catalog lookups. It handles two distinct initialization modes:
 

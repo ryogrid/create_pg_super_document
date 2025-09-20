@@ -8,7 +8,14 @@ Matches a relation's rewrite rules against a specific command type and returns t
 
 ## Definition
 
-
+```c
+static List *
+matchLocks(CmdType event,
+		   Relation relation,
+		   int varno,
+		   Query *parsetree,
+		   bool *hasUpdate)
+```
 ## Detailed Description
 This function examines a relation's rewrite rules and returns those that match the specified command type and current execution context. It implements sophisticated filtering logic that considers:
 

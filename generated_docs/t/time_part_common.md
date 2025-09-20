@@ -8,7 +8,10 @@ The  function extracts specified time components (hour, minute, second, etc.) fr
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+				   *tm = &tt;
+```
 ## Detailed Description
 This function is the core implementation for extracting time components from a time data type in PostgreSQL. It processes a text string specifying which time component to extract (e.g., 'hour', 'minute', 'second') and returns the corresponding value from a TimeADT input. The function supports multiple precision levels for seconds (microseconds, milliseconds, seconds) and handles special cases like epoch conversion. It can return results either as numeric values (when retnumeric is true) or as floating-point values (when retnumeric is false).
 

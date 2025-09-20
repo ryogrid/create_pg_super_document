@@ -8,7 +8,10 @@ Determines whether a fully-parsed query tree contains any external parameters (P
 
 ## Definition
 
-
+```c
+bool
+query_contains_extern_params(Query *query)
+```
 ## Detailed Description
 This function provides a simple boolean check to determine if a given query tree contains any external parameters. It serves as a convenience wrapper around the query tree walking mechanism, using query_contains_extern_params_walker to traverse the entire query structure and detect the presence of PARAM_EXTERN parameter nodes.
 

@@ -8,7 +8,10 @@ Finds and returns the ParallelSlot structure for the current worker process or t
 
 ## Definition
 
-
+```c
+static ParallelSlot *
+GetMyPSlot(ParallelState *pstate)
+```
 ## Detailed Description
 This static function searches through the array of parallel slots in the given ParallelState to find the slot that corresponds to the currently executing worker process or thread. The identification mechanism is platform-specific:
 

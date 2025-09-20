@@ -8,7 +8,10 @@ Displays a yes/no question to the user and returns a boolean result based on the
 
 ## Definition
 
-
+```c
+bool
+yesno_prompt(const char *question)
+```
 ## Detailed Description
 This function presents an interactive yes/no prompt to the user, displaying the provided question along with localized options for "yes" and "no". It uses simple_prompt to read user input and compares the response against the translated versions of PG_YESLETTER and PG_NOLETTER constants. 
 

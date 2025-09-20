@@ -8,7 +8,10 @@ Clears the backend activity snapshot data collected in the current transaction, 
 
 ## Definition
 
-
+```c
+void
+pgstat_clear_backend_activity_snapshot(void)
+```
 ## Detailed Description
 This function discards any backend activity data that has been collected during the current transaction. It is designed to clean up snapshot data that is no longer needed, typically called during transaction commit or abort operations. The function performs two main cleanup operations: releasing any allocated memory from the backend status snapshot context and resetting the local backend status tracking variables to their initial state.
 

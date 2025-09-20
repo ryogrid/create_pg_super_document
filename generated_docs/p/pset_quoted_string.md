@@ -8,7 +8,10 @@ Creates a properly quoted and escaped string suitable for display in psql output
 
 ## Definition
 
-
+```c
+static char *
+pset_quoted_string(const char *str)
+```
 ## Detailed Description
 The pset_quoted_string function creates a quoted version of an input string by wrapping it in single quotes and escaping special characters within the string. It specifically handles two types of characters that require escaping: newlines (converted to \n) and single quotes (escaped with backslashes). The function allocates sufficient memory to accommodate the worst-case scenario where every character might need escaping, plus space for the surrounding quotes and null terminator.
 

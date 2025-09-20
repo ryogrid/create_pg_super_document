@@ -8,7 +8,10 @@ A PostgreSQL function that resets all statistics counters for the current databa
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_reset(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a SQL-callable interface to reset all statistics counters for the current database. When called, it clears accumulated statistics data including table access statistics, index usage statistics, function call statistics, and other database-level metrics. This is particularly useful for establishing a baseline for statistics collection, such as after system maintenance, performance tuning, or when starting a new measurement period.
 

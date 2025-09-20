@@ -8,7 +8,10 @@ Windows-specific socket send function that provides PostgreSQL-compatible socket
 
 ## Definition
 
-
+```c
+int
+pgwin32_send(SOCKET s, const void *buf, int len, int flags)
+```
 ## Detailed Description
  is a Windows-specific wrapper around the Windows Socket API  function that provides PostgreSQL-compatible socket sending behavior. The function implements proper signal handling during socket operations and handles blocking/non-blocking modes appropriately for PostgreSQL's needs on Windows.
 

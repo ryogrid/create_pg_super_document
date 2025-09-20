@@ -8,7 +8,10 @@ A PostgreSQL function wrapper that extracts a substring from text starting at a 
 
 ## Definition
 
-
+```c
+Datum
+text_substr_no_len(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a wrapper around the more general  function to provide a simplified interface for extracting substrings without specifying an explicit length. It internally calls  with a length parameter of -1, which indicates that the substring should extend to the end of the input string. The function exists primarily to avoid opr_sanity failures that would occur if the same function accepted different numbers of arguments.
 

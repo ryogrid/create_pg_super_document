@@ -8,7 +8,10 @@ A static inline comparison function that compares two BufferTag structures to es
 
 ## Definition
 
-
+```c
+static inline int
+buffertag_comparator(const BufferTag *ba, const BufferTag *bb)
+```
 ## Detailed Description
 The buffertag_comparator function provides a three-way comparison between two BufferTag structures, returning a value indicating their relative ordering. This comparator is essential for sorting and organizing buffer tags in data structures like sorted arrays or binary trees used in buffer management.
 

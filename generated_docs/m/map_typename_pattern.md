@@ -8,7 +8,10 @@ Maps variant type names accepted by the PostgreSQL backend grammar into their ca
 
 ## Definition
 
-
+```c
+static const char *
+map_typename_pattern(const char *pattern)
+```
 ## Detailed Description
 This function serves as a normalization utility for PostgreSQL type names in psql. It maintains a static mapping table that translates commonly used type name aliases and abbreviations into their canonical forms as they appear in the system catalogs. The function is particularly important for psql's describe commands where users might use familiar abbreviations like "int" instead of the canonical "integer", or "decimal" instead of "numeric".
 

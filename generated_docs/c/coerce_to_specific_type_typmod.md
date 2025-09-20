@@ -8,7 +8,12 @@ This function coerces an expression to a specific data type with a specific typm
 
 ## Definition
 
-
+```c
+Node *
+coerce_to_specific_type_typmod(ParseState *pstate, Node *node,
+							   Oid targetTypeId, int32 targetTypmod,
+							   const char *constructName)
+```
 ## Detailed Description
 The coerce_to_specific_type_typmod function is a specialized coercion function that enforces both type and type modifier (typmod) requirements for SQL constructs that need precise data type specifications. It is similar to coerce_to_boolean but for any specific target type.
 

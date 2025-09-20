@@ -8,7 +8,9 @@ Calculates the closest point on or within a box to a specified point and returns
 
 ## Definition
 
-
+```c
+struct(&lseg, &box->low, &point);
+```
 ## Detailed Description
 This static function finds the closest point on a box (rectangle) to a given point using a comprehensive algorithm. It first checks if the point is inside the box (in which case the distance is 0 and the closest point is the point itself). If the point is outside the box, it systematically checks all four edges of the box by constructing line segments for each edge and finding the closest point on each edge to the input point. The function returns the minimum distance found among all four edges.
 

@@ -8,7 +8,14 @@ Processes and validates subscripts in a SubscriptingRef expression during execut
 
 ## Definition
 
-
+```c
+struct
+	 * an empty source.
+	 */
+	if (sbsrefstate->numupper > 0 && sbsrefstate->upperprovided[0] &&
+		!sbsrefstate->upperindexnull[0] && workspace->indexOid[0] == INT4OID)
+		workspace->expectArray = true;
+```
 ## Detailed Description
 This function is called during the execution phase to process subscripts that have already been evaluated to Datum form. It performs several critical tasks:
 

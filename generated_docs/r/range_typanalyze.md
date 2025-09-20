@@ -8,7 +8,10 @@ The  function is a specialized type analysis function for range columns in Postg
 
 ## Definition
 
-
+```c
+Datum
+range_typanalyze(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the type-specific analysis setup routine for range columns. It is called during the ANALYZE process to configure how statistics should be collected for range data types. The function sets up the necessary parameters for statistics collection, including the computation function and minimum sample size requirements.
 

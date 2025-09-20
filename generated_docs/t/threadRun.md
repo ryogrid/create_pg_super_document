@@ -8,7 +8,10 @@ The main worker thread function for pgbench that executes database transactions 
 
 ## Definition
 
-
+```c
+static THREAD_FUNC_RETURN_TYPE THREAD_FUNC_CC
+threadRun(void *arg)
+```
 ## Detailed Description
 This function implements the core execution engine for pgbench's multi-threaded benchmark operations. Each thread manages multiple client connections (represented by CState structures) through a sophisticated state machine that handles connection establishment, transaction execution, result waiting, throttling, and error handling. The function uses an event-driven approach with socket polling to efficiently manage multiple concurrent database connections. It coordinates with other threads through barriers, handles progress reporting (only from thread 0), manages connection timeouts and retries, and maintains detailed statistics and optional transaction logging. The main execution loop continues until all client connections have completed or been aborted.
 

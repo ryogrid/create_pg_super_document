@@ -8,7 +8,13 @@ Builds a fresh GIN index leaf tuple from scratch, choosing between posting-list 
 
 ## Definition
 
-
+```c
+static IndexTuple
+buildFreshLeafTuple(GinState *ginstate,
+					OffsetNumber attnum, Datum key, GinNullCategory category,
+					ItemPointerData *items, uint32 nitem,
+					GinStatsData *buildStats, Buffer buffer)
+```
 ## Detailed Description
 This function creates a new GIN index tuple from the provided key and item pointers. It implements the same core logic as addItemPointersToLeafTuple but works from different input parameters (individual components rather than an existing tuple).
 

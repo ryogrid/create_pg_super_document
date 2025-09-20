@@ -8,7 +8,10 @@ Converts a 32-bit integer (int4) to a single-precision floating-point number (fl
 
 ## Definition
 
-
+```c
+Datum
+i4tof(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL built-in function for converting int4 (32-bit integer) values to float4 (single-precision floating-point) values. It follows the standard PostgreSQL function calling convention using the fmgr interface, taking arguments via PG_FUNCTION_ARGS and returning a Datum. The conversion is performed using a simple C cast from int32 to float4.
 

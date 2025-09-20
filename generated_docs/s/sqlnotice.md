@@ -8,7 +8,9 @@ A static callback function used in ECPG test programs to handle SQL notice messa
 
 ## Definition
 
-
+```c
+struct sa x = { 14 },*y = &x;
+```
 ## Detailed Description
 The  function is a simple callback handler designed for use in ECPG (Embedded SQL in C) test programs. It receives SQL notice messages and transaction status information, providing a standardized way to display notice information during test execution. The function performs basic null-checking on the notice parameter and outputs formatted information to stdout for debugging and testing purposes.
 

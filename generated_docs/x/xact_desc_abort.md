@@ -8,7 +8,10 @@ A static function that formats WAL abort record information into human-readable 
 
 ## Definition
 
-
+```c
+static void
+xact_desc_abort(StringInfo buf, uint8 info, xl_xact_abort *xlrec, RepOriginId origin_id)
+```
 ## Detailed Description
 This function parses and formats transaction abort record information from WAL (Write-Ahead Log) into a comprehensive human-readable description. It extracts various aspects of the abort operation including timestamp, relations involved, subtransactions, statistics, and replication origin information. The function handles both regular aborts and two-phase abort scenarios, providing detailed contextual information for transaction analysis and debugging. Similar to xact_desc_commit but specifically for abort operations.
 

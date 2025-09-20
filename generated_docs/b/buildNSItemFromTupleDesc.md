@@ -8,7 +8,12 @@ Builds a ParseNamespaceItem structure from a tuple descriptor, extracting column
 
 ## Definition
 
-
+```c
+static ParseNamespaceItem *
+buildNSItemFromTupleDesc(RangeTblEntry *rte, Index rtindex,
+						 RTEPermissionInfo *perminfo,
+						 TupleDesc tupdesc)
+```
 ## Detailed Description
 This function constructs a ParseNamespaceItem that encapsulates a relation's column information for use during query parsing. It extracts column metadata from the physical tuple descriptor and builds an array of ParseNamespaceColumn structures containing type information, attribute numbers, and collation details. The function handles dropped columns by leaving their entries as zeroes while maintaining proper indexing alignment. The resulting namespace item includes visibility flags and lateral reference settings with default values.
 

@@ -8,7 +8,10 @@ IntervalPGetDatum is an inline utility function that converts an Interval pointe
 
 ## Definition
 
-
+```c
+static inline Datum
+IntervalPGetDatum(const Interval *X)
+```
 ## Detailed Description
 This function serves as a type-safe wrapper around PointerGetDatum specifically for Interval data types. It takes a pointer to an Interval structure and converts it to a Datum, which is PostgreSQL's universal data type used for passing values in the function call interface. The function is implemented as a simple inline wrapper that calls PointerGetDatum internally, providing type safety and semantic clarity when working with interval values.
 

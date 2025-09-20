@@ -8,7 +8,10 @@ Returns the scale of a numeric value, which is the count of decimal digits in th
 
 ## Definition
 
-
+```c
+Datum
+numeric_scale(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that extracts the scale (number of digits after the decimal point) from a numeric value. The function handles special numeric values (such as NaN or infinity) by returning NULL. For regular numeric values, it returns the scale as stored in the numeric data structure.
 

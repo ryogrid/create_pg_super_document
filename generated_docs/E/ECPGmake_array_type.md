@@ -8,7 +8,10 @@ Creates an ECPGtype structure representing an array type with a specified elemen
 
 ## Definition
 
-
+```c
+struct ECPGtype *
+ECPGmake_array_type(struct ECPGtype *type, char *size)
+```
 ## Detailed Description
 This function creates a new ECPGtype structure to represent an array type. It leverages ECPGmake_simple_type to create the basic structure with ECPGt_array type, then sets the element type to point to the provided type parameter. This creates a type hierarchy where the array type contains a reference to its element type, allowing for nested arrays and complex type structures.
 

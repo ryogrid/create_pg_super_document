@@ -8,7 +8,20 @@ PredIterInfoData is the core structure that implements a generic iteration frame
 
 ## Definition
 
-
+```c
+typedef struct PredIterInfoData
+{
+	/* node-type-specific iteration state */
+	void	   *state;
+	List	   *state_list;
+	/* initialize to do the iteration */
+	void		(*startup_fn) (Node *clause, PredIterInfo info);
+	/* next-component iteration function */
+	Node	   *(*next_fn) (PredIterInfo info);
+	/* release resources when done with iteration */
+	void		(*cleanup_fn) (PredIterInfo info);
+} PredIterInfoData;
+```
 ## Detailed Description
 PredIterInfoData implements a generic iterator pattern for traversing various expression node types during predicate analysis in PostgreSQL's optimizer. This structure provides a unified interface for iterating over different expression formats such as Lists (implicit AND), BoolExpr nodes (explicit AND/OR), and ScalarArrayOpExpr nodes. The framework is essential for the predicate testing logic that determines logical relationships between WHERE clause conditions.
 

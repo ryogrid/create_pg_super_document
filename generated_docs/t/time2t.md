@@ -8,7 +8,10 @@ A static helper function that converts individual time components (hour, minute,
 
 ## Definition
 
-
+```c
+static TimeOffset
+time2t(const int hour, const int min, const int sec, const fsec_t fsec)
+```
 ## Detailed Description
 The time2t function performs a time-to-offset conversion by calculating the total number of microseconds represented by the given time components. It multiplies hours by minutes per hour, adds minutes, multiplies by seconds per minute, adds seconds, multiplies by microseconds per second, and finally adds the fractional seconds (already in microseconds). This creates a linear time offset suitable for timestamp calculations.
 

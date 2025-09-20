@@ -8,7 +8,9 @@ An internal static function that provides the core implementation for both array
 
 ## Definition
 
-
+```c
+struct_empty_array(element_type);
+```
 ## Detailed Description
 The array_replace_internal function serves as the unified backend implementation for PostgreSQL's array_remove() and array_replace() SQL functions. It performs a comprehensive scan of an input array, using the element type's equality operator to find elements that match the search criteria. Based on the 'remove' parameter, matching elements are either deleted from the result array or replaced with the specified replacement value.
 

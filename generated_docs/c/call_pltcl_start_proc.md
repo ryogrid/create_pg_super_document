@@ -8,7 +8,10 @@ Calls a user-defined initialization procedure during PL/Tcl interpreter setup, p
 
 ## Definition
 
-
+```c
+static void
+call_pltcl_start_proc(Oid prolang, bool pltrusted)
+```
 ## Detailed Description
 The `call_pltcl_start_proc` function is responsible for executing a user-defined initialization procedure when a new PL/Tcl interpreter is created. This mechanism allows database administrators and users to customize the initialization of PL/Tcl environments by specifying a startup function through the `pltcl.start_proc` or `pltclu.start_proc` GUC parameters.
 

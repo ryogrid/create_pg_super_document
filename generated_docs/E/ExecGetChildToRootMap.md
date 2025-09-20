@@ -8,7 +8,10 @@ Returns a tuple conversion map that transforms tuples from a child result relati
 
 ## Definition
 
-
+```c
+TupleConversionMap *
+ExecGetChildToRootMap(ResultRelInfo *resultRelInfo)
+```
 ## Detailed Description
 This function is crucial for PostgreSQL's partitioned table support and inheritance hierarchies. When working with partitioned tables or inheritance, child relations may have different column layouts than their parent (root) relation. This function provides the mapping needed to convert tuples from a child relation's format to the root relation's format.
 

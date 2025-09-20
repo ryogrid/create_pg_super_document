@@ -8,7 +8,10 @@ A static helper function that determines whether a given RestrictInfo represents
 
 ## Definition
 
-
+```c
+static bool
+IsCurrentOfClause(RestrictInfo *rinfo, RelOptInfo *rel)
+```
 ## Detailed Description
 IsCurrentOfClause is a utility function used in PostgreSQL's query optimizer to identify CURRENT OF clauses in WHERE conditions. It checks if a restriction clause is a CurrentOfExpr (which represents "WHERE CURRENT OF cursor_name" clauses) and whether that clause references the specified relation. This function is part of the TID (tuple identifier) path planning logic, which optimizes queries that can directly access tuples by their physical locations.
 

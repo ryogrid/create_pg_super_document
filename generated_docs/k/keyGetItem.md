@@ -8,7 +8,11 @@ Identifies the current minimum item among entry streams for a GIN scan key, adva
 
 ## Definition
 
-
+```c
+static void
+keyGetItem(GinState *ginstate, MemoryContext tempCtx, GinScanKey key,
+		   ItemPointerData advancePast)
+```
 ## Detailed Description
 The keyGetItem function implements the core logic for combining multiple GIN entry streams into a single scan key result. It operates in several phases: first finding the minimum item pointer among required entries, then advancing additional entries to the same position, and finally testing the combined result against the key's consistency function.
 

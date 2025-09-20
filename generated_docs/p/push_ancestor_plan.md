@@ -8,7 +8,11 @@ A static function that temporarily transfers deparsing attention to an ancestor 
 
 ## Definition
 
-
+```c
+static void
+push_ancestor_plan(deparse_namespace *dpns, ListCell *ancestor_cell,
+				   deparse_namespace *save_dpns)
+```
 ## Detailed Description
 The  function is used during the deparsing process to temporarily shift focus to an ancestor plan node. This is essential when expanding Param references in PostgreSQL's query deparsing functionality. When a Param reference is encountered, the deparse context must be adjusted to match the plan node that contains the expression being printed. This prevents failures when that expression itself contains Param, OUTER_VAR, INNER_VAR, or INDEX_VAR variables.
 

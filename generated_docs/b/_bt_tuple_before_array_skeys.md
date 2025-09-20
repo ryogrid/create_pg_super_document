@@ -8,7 +8,12 @@ Determines whether it is too early to advance array keys by comparing a tuple ag
 
 ## Definition
 
-
+```c
+static bool
+_bt_tuple_before_array_skeys(IndexScanDesc scan, ScanDirection dir,
+							 IndexTuple tuple, TupleDesc tupdesc, int tupnatts,
+							 bool readpagetup, int sktrig, bool *scanBehind)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's B-tree array key handling mechanism. It compares a given tuple against the current set of array scan keys to determine whether the scan has reached the point where array keys need to be advanced. The function handles both forward and backward scan directions and deals with the complexity of required vs. non-required scan keys.
 

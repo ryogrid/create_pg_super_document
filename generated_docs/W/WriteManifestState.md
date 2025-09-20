@@ -8,7 +8,13 @@ A simple state management structure for handling backup manifest file operations
 
 ## Definition
 
-
+```c
+typedef struct WriteManifestState
+{
+	char		filename[MAXPGPATH];
+	FILE	   *file;
+} WriteManifestState;
+```
 ## Detailed Description
 WriteManifestState is a minimal state management structure used in pg_basebackup specifically for handling backup manifest file operations. This structure provides a clean abstraction for managing the manifest file writing process, encapsulating both the file path information and the active file handle in a single state object.
 

@@ -8,7 +8,10 @@ Implements the \dd command in psql to display comments for database objects that
 
 ## Definition
 
-
+```c
+bool
+objectDescription(const char *pattern, bool showSystem)
+```
 ## Detailed Description
 The  function implements the psql \dd command, which lists comments for specific types of database objects. Unlike other describe commands that show comprehensive object information, this function focuses solely on retrieving and displaying user-defined comments/descriptions for objects.
 

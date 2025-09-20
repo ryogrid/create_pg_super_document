@@ -8,7 +8,10 @@ The int8um function implements unary minus (negation) operation for 64-bit signe
 
 ## Definition
 
-
+```c
+Datum
+int8um(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs unary minus operation on a 64-bit signed integer argument. It extracts the input argument using PostgreSQL's function argument macros, checks for potential overflow conditions (specifically when the input is the minimum possible 64-bit integer value), and returns the negated result. The function is part of PostgreSQL's arithmetic operators for the bigint data type and follows the standard PostgreSQL function calling convention using the Datum return type and PG_FUNCTION_ARGS parameter mechanism.
 

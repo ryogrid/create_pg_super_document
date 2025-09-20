@@ -8,7 +8,15 @@ Internal work-horse function for catalog cache searching that handles the core l
 
 ## Definition
 
-
+```c
+static inline HeapTuple
+SearchCatCacheInternal(CatCache *cache,
+					   int nkeys,
+					   Datum v1,
+					   Datum v2,
+					   Datum v3,
+					   Datum v4)
+```
 ## Detailed Description
 SearchCatCacheInternal is the core implementation function that performs catalog cache lookups. It handles the complete search process including hash computation, bucket traversal, tuple comparison, and cache management. The function first checks if a tuple matching the given key values exists in the cache. If found, it moves the entry to the front of the hash bucket for better performance and increments its reference count. If not found, it delegates to SearchCatCacheMiss to handle the cache miss scenario.
 

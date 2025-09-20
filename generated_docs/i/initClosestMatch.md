@@ -8,7 +8,10 @@ Initializes a ClosestMatchState structure for finding the best string match usin
 
 ## Definition
 
-
+```c
+void
+initClosestMatch(ClosestMatchState *state, const char *source, int max_d)
+```
 ## Detailed Description
 This function initializes a ClosestMatchState structure that is used to track the closest matching string to a given source string using Levenshtein distance calculations. It's part of PostgreSQL's fuzzy string matching system, commonly used to provide "did you mean?" suggestions in error messages when users provide invalid option names, function names, or other identifiers. The function sets up the initial state with the source string to match against and the maximum acceptable distance for matches.
 

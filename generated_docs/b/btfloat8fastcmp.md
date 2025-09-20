@@ -8,7 +8,10 @@ Internal static function that provides optimized three-way comparison between tw
 
 ## Definition
 
-
+```c
+static int
+btfloat8fastcmp(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 This function is an optimized comparison function specifically designed for use with PostgreSQL's SortSupport framework. Unlike btfloat8cmp which uses the standard PostgreSQL function call interface, btfloat8fastcmp operates directly on Datum values, avoiding the overhead of the fmgr (function manager) interface. This makes it more efficient for sorting operations where many comparisons are needed. The function extracts double-precision floating-point values from the input Datums and delegates the actual comparison to float8_cmp_internal.
 

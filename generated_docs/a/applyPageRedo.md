@@ -8,7 +8,10 @@ Applies delta changes to a database page during WAL replay by parsing and applyi
 
 ## Definition
 
-
+```c
+static void
+applyPageRedo(Page page, const char *delta, Size deltaSize)
+```
 ## Detailed Description
 applyPageRedo is a static function that implements the core logic for applying delta changes during WAL (Write-Ahead Log) replay. It processes a delta buffer containing a series of modifications encoded as offset-length-data triplets. Each triplet specifies where in the page to apply changes (offset), how much data to copy (length), and the actual data bytes to be written.
 

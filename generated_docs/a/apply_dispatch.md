@@ -8,7 +8,10 @@ Central message dispatcher for logical replication protocol messages, routing in
 
 ## Definition
 
-
+```c
+void
+apply_dispatch(StringInfo s)
+```
 ## Detailed Description
 This function serves as the main message dispatcher for PostgreSQL's logical replication worker. It implements a comprehensive switch-based routing system that:
 

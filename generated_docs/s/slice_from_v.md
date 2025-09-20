@@ -8,7 +8,11 @@ Replaces the current slice in a Snowball environment with symbols from a variabl
 
 ## Definition
 
+```c
+}
 
+extern int slice_from_v(struct SN_env * z, const symbol * p)
+```
 ## Detailed Description
 The `slice_from_v` function is a convenience wrapper that replaces the current slice (between bra and ket positions) in PostgreSQL's Snowball stemming environment with symbols from a variable-length buffer. It automatically determines the size of the replacement content using the SIZE macro on the provided buffer and delegates to `slice_from_s` for the actual replacement operation. This function simplifies slice replacement when working with pre-allocated symbol buffers that contain their own size information.
 

@@ -8,7 +8,10 @@ Creates a new partition directory object that provides efficient hash-based look
 
 ## Definition
 
-
+```c
+PartitionDirectory
+CreatePartitionDirectory(MemoryContext mcxt, bool omit_detached)
+```
 ## Detailed Description
 CreatePartitionDirectory initializes a new partition directory structure that serves as a cache for partition descriptors. The directory uses a hash table to enable fast lookups of partition information by relation OID. The function allocates the directory structure and its hash table in the specified memory context, allowing for proper memory management and cleanup.
 

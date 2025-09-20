@@ -8,7 +8,9 @@ HASH is a macro definition in PostgreSQL's regular expression engine that provid
 
 ## Definition
 
-
+```c
+#define  HASH(bv, nw)	 (((nw) == 1) ? *(bv) : hash(bv, nw))
+```
 ## Detailed Description
 The HASH macro is an optimization for computing hash values of bitvectors in PostgreSQL's regular expression DFA implementation. It provides a fast path for single-word bitvectors by directly using the word value as the hash, while falling back to a full hash function for multi-word bitvectors. This optimization is crucial for performance in the DFA state caching and lookup mechanisms, where hash values are frequently computed to quickly identify and retrieve cached states.
 

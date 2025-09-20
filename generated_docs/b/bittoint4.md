@@ -8,7 +8,10 @@ Converts a variable-length bit string to a 32-bit unsigned integer, with range v
 
 ## Definition
 
-
+```c
+Datum
+bittoint4(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function converts a PostgreSQL variable-length bit string (varbit) to a 32-bit unsigned integer. It processes the bit string byte by byte, building up the integer value while respecting the natural bit ordering. The function includes range checking to ensure the bit string length does not exceed what can be represented in a 32-bit integer.
 

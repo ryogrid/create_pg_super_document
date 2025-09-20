@@ -8,7 +8,10 @@ BTreeTupleGetHeapTID retrieves the tiebreaker heap TID attribute from a B-tree i
 
 ## Definition
 
-
+```c
+static inline ItemPointer
+BTreeTupleGetHeapTID(IndexTuple itup)
+```
 ## Detailed Description
 This function extracts the heap TID (Tuple Identifier) from a B-tree index tuple, which serves as a tiebreaker when comparing tuples with identical key values. The function handles three different tuple types:
 

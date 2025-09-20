@@ -8,7 +8,10 @@ XLogSaveBufferForHint writes a backup block to WAL when setting hint bits on a p
 
 ## Definition
 
-
+```c
+XLogRecPtr
+XLogSaveBufferForHint(Buffer buffer, bool buffer_std)
+```
 ## Detailed Description
 XLogSaveBufferForHint handles WAL logging for hint bit modifications on pages that need crash recovery protection. Unlike normal WAL operations that require exclusive locks, this function works with only a shared lock on the buffer by copying the page data before logging. It only writes to WAL if the page's LSN is at or before the current Redo pointer, indicating the page hasn't been fully written in the current checkpoint cycle. For standard page layouts, it optimizes by copying only the data outside the pd_lower/pd_upper hole to reduce WAL volume. Multiple backends may concurrently write the same page, which is acceptable for correctness.
 

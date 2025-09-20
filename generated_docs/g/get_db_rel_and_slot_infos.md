@@ -8,7 +8,10 @@ High-level routine that retrieves comprehensive database, relation, and logical 
 
 ## Definition
 
-
+```c
+void
+get_db_rel_and_slot_infos(ClusterInfo *cluster, bool live_check)
+```
 ## Detailed Description
 This function serves as the main entry point for gathering all necessary database metadata from a PostgreSQL cluster during pg_upgrade operations. It orchestrates the collection of template0 information, database listings, relation information for each database, and logical replication slot information for old clusters.
 

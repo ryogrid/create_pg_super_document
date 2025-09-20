@@ -8,7 +8,10 @@ Appends missing function arguments with their default values when the argument l
 
 ## Definition
 
-
+```c
+static List *
+add_function_defaults(List *args, int pronargs, HeapTuple func_tuple)
+```
 ## Detailed Description
 This function handles the simple case where a function call uses only positional arguments but provides fewer arguments than the function expects. It assumes that all missing arguments are at the end of the argument list and can be filled in with consecutive default values.
 

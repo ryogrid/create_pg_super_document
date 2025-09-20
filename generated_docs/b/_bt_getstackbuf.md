@@ -8,7 +8,10 @@ _bt_getstackbuf re-finds and locks a parent page containing the downlink to a sp
 
 ## Definition
 
-
+```c
+Buffer
+_bt_getstackbuf(Relation rel, Relation heaprel, BTStack stack, BlockNumber child)
+```
 ## Detailed Description
 This function addresses a fundamental challenge in concurrent B-tree operations: the location of parent-child relationships may change between the time a descent path is recorded and when it needs to be used later. The function performs several key operations:
 

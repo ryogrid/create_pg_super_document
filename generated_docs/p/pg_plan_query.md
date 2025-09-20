@@ -8,7 +8,11 @@ Generates an execution plan for a single already-rewritten query by serving as a
 
 ## Definition
 
-
+```c
+PlannedStmt *
+pg_plan_query(Query *querytree, const char *query_string, int cursorOptions,
+			  ParamListInfo boundParams)
+```
 ## Detailed Description
 This function is the main entry point for query planning in PostgreSQL, transforming a rewritten Query structure into an executable PlannedStmt. It serves as a wrapper around the core  function while providing additional functionality:
 

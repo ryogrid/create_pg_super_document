@@ -8,7 +8,10 @@ A PostgreSQL function that implements LIKE pattern matching for the Name data ty
 
 ## Definition
 
-
+```c
+Datum
+namelike(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The namelike function provides LIKE pattern matching functionality specifically for PostgreSQL's Name data type (used for object names like table names, column names, etc.). It acts as an interface between PostgreSQL's function call manager and the generic pattern matching infrastructure.
 

@@ -8,7 +8,10 @@ The `apply_typmod_special` function handles bounds checking for special numeric 
 
 ## Definition
 
-
+```c
+static bool
+apply_typmod_special(Numeric num, int32 typmod, Node *escontext)
+```
 ## Detailed Description
 This function is a specialized companion to `apply_typmod` that deals exclusively with PostgreSQL's special numeric values:
 

@@ -8,7 +8,10 @@ statext_is_kind_built checks whether a specific type of extended statistics has 
 
 ## Definition
 
-
+```c
+bool
+statext_is_kind_built(HeapTuple htup, char type)
+```
 ## Detailed Description
 This function determines if a particular kind of extended statistics exists in a pg_statistic_ext_data catalog tuple by checking if the corresponding attribute is non-NULL. It supports four types of extended statistics: n-distinct (NDISTINCT), functional dependencies (DEPENDENCIES), most common values (MCV), and expression statistics (EXPRESSIONS). The function maps each statistics type to its corresponding catalog column and uses heap_attisnull to check for the presence of data.
 

@@ -8,7 +8,10 @@ The core locale-aware string comparison function used by PostgreSQL's sort suppo
 
 ## Definition
 
-
+```c
+static int
+varstrfastcmp_locale(char *a1p, int len1, char *a2p, int len2, SortSupport ssup)
+```
 ## Detailed Description
  is the fundamental locale-aware string comparison function in PostgreSQL's sort support infrastructure. This function implements several key optimizations for string comparison during sorting operations:
 

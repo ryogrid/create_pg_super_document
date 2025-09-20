@@ -8,7 +8,10 @@ The  function implements the greater-than-or-equal-to comparison operator for Po
 
 ## Definition
 
-
+```c
+Datum
+oidge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL operator  for OID values in PostgreSQL. It extracts two OID arguments from the function call context and performs a numerical comparison to determine if the first OID is greater than or equal to the second OID. The function follows PostgreSQL's standard function calling convention using the  macro and returns a boolean result using .
 

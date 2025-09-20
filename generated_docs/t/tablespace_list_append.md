@@ -8,7 +8,10 @@ Parses and validates tablespace mapping arguments and appends them to the global
 
 ## Definition
 
-
+```c
+static void
+tablespace_list_append(const char *arg)
+```
 ## Detailed Description
 This function processes command-line arguments that specify tablespace directory mappings for pg_basebackup. It parses the input string in the format "OLDDIR=NEWDIR", validates both paths, and adds the mapping to a linked list for use during backup operations.
 

@@ -8,7 +8,10 @@ Opens and locks relations specified by a PublicationTable list, preparing them f
 
 ## Definition
 
-
+```c
+static List *
+OpenTableList(List *tables)
+```
 ## Detailed Description
 OpenTableList is a static function that processes a list of PublicationTable structures to open and lock the corresponding database relations. The function performs several critical tasks:
 

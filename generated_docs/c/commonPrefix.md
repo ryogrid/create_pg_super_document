@@ -8,7 +8,10 @@ A utility function that finds the length of the common prefix shared between two
 
 ## Definition
 
-
+```c
+static int
+commonPrefix(const char *a, const char *b, int lena, int lenb)
+```
 ## Detailed Description
 This function compares two character strings byte-by-byte from the beginning and returns the length of their common prefix. It stops comparison when it encounters the first differing character or reaches the end of either string. This is a fundamental operation used in SP-GiST text processing for determining how much of a prefix can be shared between text values, which is crucial for building efficient search tree structures.
 

@@ -8,7 +8,13 @@ MinmaxOpaque is a private data structure used by BRIN (Block Range INdex) min/ma
 
 ## Definition
 
-
+```c
+typedef struct MinmaxOpaque
+{
+	Oid			cached_subtype;
+	FmgrInfo	strategy_procinfos[BTMaxStrategyNumber];
+} MinmaxOpaque;
+```
 ## Detailed Description
 MinmaxOpaque serves as an opaque (private) data structure within the BRIN min/max operator class implementation. It is used to cache frequently accessed procedure information to avoid repetitive system catalog lookups, which significantly improves performance during index operations.
 

@@ -8,7 +8,10 @@ A list_sort comparator function that sorts append child paths by total_cost in d
 
 ## Definition
 
-
+```c
+static int
+append_total_cost_compare(const ListCell *a, const ListCell *b)
+```
 ## Detailed Description
 This static function serves as a comparison function for list_sort to order append child paths by their total costs in descending order. This sorting is specifically used in parallel append operations to minimize the total time needed to finish all non-partial paths. The function implements a multi-level comparison strategy: first by total cost (descending), then by startup cost if total costs are equal, and finally by relids comparison to ensure deterministic results.
 

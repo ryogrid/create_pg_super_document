@@ -8,7 +8,10 @@ Converts a timezone rule to its string representation in POSIX timezone format, 
 
 ## Definition
 
-
+```c
+static int
+stringrule(char *result, struct rule *const rp, zic_t save, zic_t stdoff)
+```
 ## Detailed Description
 The  function generates a POSIX timezone rule string from a PostgreSQL timezone rule structure. It handles two main types of daylight saving time transition rules:
 

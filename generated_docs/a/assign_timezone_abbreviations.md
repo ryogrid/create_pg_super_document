@@ -8,7 +8,10 @@ This is a GUC assign hook function that installs the validated timezone abbrevia
 
 ## Definition
 
-
+```c
+void
+assign_timezone_abbreviations(const char *newval, void *extra)
+```
 ## Detailed Description
 The  function serves as the assignment hook for PostgreSQL's  configuration parameter. It is called after the  function has successfully validated and loaded the timezone abbreviation file.
 

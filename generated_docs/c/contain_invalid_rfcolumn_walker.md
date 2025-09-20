@@ -8,7 +8,10 @@ A tree walker function that checks whether any column referenced in a row filter
 
 ## Definition
 
-
+```c
+static bool
+contain_invalid_rfcolumn_walker(Node *node, rf_context *context)
+```
 ## Detailed Description
 This function implements a recursive tree walker that traverses expression nodes to identify Var nodes (column references) and validates whether each referenced column is part of the table's REPLICA IDENTITY. It's specifically designed to validate row filter expressions used in logical replication publications.
 

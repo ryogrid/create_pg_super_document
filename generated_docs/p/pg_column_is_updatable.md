@@ -8,7 +8,10 @@ A PostgreSQL system function that determines whether a specific column in a tabl
 
 ## Definition
 
-
+```c
+Datum
+pg_column_is_updatable(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function determines whether a column can be updated based on PostgreSQL's rules for updatable views and tables. This function specifically implements the logic behind the SQL standard  column, providing a centralized decision point that can be modified without requiring database reinitialization.
 

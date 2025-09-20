@@ -8,7 +8,10 @@ A fast inline comparison function for 32-bit signed integers that returns a stan
 
 ## Definition
 
-
+```c
+static inline int
+pg_cmp_s32(int32 a, int32 b)
+```
 ## Detailed Description
 The  function implements a three-way comparison for 32-bit signed integers using a branchless algorithm. It returns -1 if , 0 if , and 1 if . The implementation uses the expression  which leverages the fact that boolean expressions evaluate to 0 or 1 in C, creating an efficient branchless comparison that avoids conditional jumps and potential pipeline stalls.
 

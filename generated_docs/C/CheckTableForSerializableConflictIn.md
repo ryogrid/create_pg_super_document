@@ -8,7 +8,10 @@ CheckTableForSerializableConflictIn handles serializable conflict detection for 
 
 ## Definition
 
-
+```c
+void
+CheckTableForSerializableConflictIn(Relation relation)
+```
 ## Detailed Description
 This function detects serializable conflicts when performing DDL-style logical mass delete operations such as TRUNCATE or DROP TABLE. These operations can occur within serializable transactions and must be properly serialized under SSI (Serializable Snapshot Isolation).
 

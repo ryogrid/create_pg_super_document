@@ -8,7 +8,10 @@ Sets the "mark" position for a WindowObject, defining the oldest row that can be
 
 ## Definition
 
-
+```c
+void
+WinSetMarkPosition(WindowObject winobj, int64 markpos)
+```
 ## Detailed Description
 This function establishes a lower bound for tuple access within a partition by setting the mark position to a specified row number. The mark position represents the oldest row (by zero-based position) that the window function is allowed to fetch during subsequent operations. This mechanism serves as both a memory optimization and access control feature - by advancing the mark position forward, window functions can help keep the tuplestore size manageable and prevent unnecessary spilling to disk. The function ensures that the mark can only move forward (never backward) and automatically adjusts both the mark pointer and read pointer positions within the tuplestore to maintain consistency.
 

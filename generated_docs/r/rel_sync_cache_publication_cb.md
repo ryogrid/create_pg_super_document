@@ -8,7 +8,10 @@ A syscache invalidation callback function that invalidates all relation sync cac
 
 ## Definition
 
-
+```c
+static void
+rel_sync_cache_publication_cb(Datum arg, int cacheid, uint32 hashvalue)
+```
 ## Detailed Description
 This function serves as a syscache invalidation callback that responds to changes in publication-related system catalogs. It is registered to handle invalidations for multiple system catalogs including pg_publication, pg_publication_rel, pg_publication_namespace, and pg_namespace.
 

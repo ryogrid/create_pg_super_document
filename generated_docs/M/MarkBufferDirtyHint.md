@@ -8,7 +8,10 @@ MarkBufferDirtyHint marks a buffer dirty for non-critical hint bit updates, with
 
 ## Definition
 
-
+```c
+void
+MarkBufferDirtyHint(Buffer buffer, bool buffer_std)
+```
 ## Detailed Description
 This function is designed for marking buffers dirty when making non-critical changes like hint bit updates. Unlike MarkBufferDirty, it has several key differences: it may need to write WAL records for checksum protection when the caller doesn't write WAL, it can work with share locks instead of requiring exclusive locks, and it doesn't guarantee the buffer will always be marked dirty due to potential race conditions. The function implements sophisticated logic to handle torn page protection, checkpoint coordination, and vacuum cost accounting while being optimized for performance in high-frequency hint bit update scenarios.
 

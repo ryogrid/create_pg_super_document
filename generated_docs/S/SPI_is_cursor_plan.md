@@ -8,7 +8,10 @@ Determine whether a prepared SPI plan can be used to open a cursor by checking i
 
 ## Definition
 
-
+```c
+bool
+SPI_is_cursor_plan(SPIPlanPtr plan)
+```
 ## Detailed Description
 SPI_is_cursor_plan examines a prepared SPI plan to determine if it is suitable for cursor operations. A plan is considered cursor-compatible if it contains exactly one command and that command returns tuples to the caller (such as SELECT or INSERT ... RETURNING, but not SELECT ... INTO). This function is essential for validating plans before attempting to use them with SPI_cursor_open.
 

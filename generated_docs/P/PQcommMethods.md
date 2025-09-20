@@ -8,7 +8,17 @@ PQcommMethods is a function pointer structure that provides an abstraction layer
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	void		(*comm_reset) (void);
+	int			(*flush) (void);
+	int			(*flush_if_writable) (void);
+	bool		(*is_send_pending) (void);
+	int			(*putmessage) (char msgtype, const char *s, size_t len);
+	void		(*putmessage_noblock) (char msgtype, const char *s, size_t len);
+} PQcommMethods;
+```
 ## Detailed Description
 PQcommMethods implements a strategy pattern for PostgreSQL's backend communication layer. It defines a set of function pointers that abstract the underlying communication mechanism between the PostgreSQL backend and clients. This design allows PostgreSQL to support different communication backends without changing the higher-level code that sends and receives messages.
 

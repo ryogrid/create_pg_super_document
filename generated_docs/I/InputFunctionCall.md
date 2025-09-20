@@ -8,7 +8,15 @@ InputFunctionCall is a convenience wrapper that calls a previously-looked-up dat
 
 ## Definition
 
-
+```c
+struct and
+ * returning false.  (The caller can choose to test SOFT_ERROR_OCCURRED(),
+ * but checking the function result instead is usually cheaper.)
+ *
+ * If escontext does not point to an ErrorSaveContext, errors are reported
+ * via ereport(ERROR), so that there is no functional difference from
+ * InputFunctionCall;
+```
 ## Detailed Description
 This function provides a convenient interface for calling PostgreSQL's datatype input functions. It handles the setup of function call information and manages NULL value processing according to the function's strictness. The function takes a string representation of a value and converts it to the appropriate internal Datum representation using the specified input function. It includes error checking to ensure that NULL inputs produce NULL outputs and non-NULL inputs produce non-NULL outputs, maintaining data consistency.
 

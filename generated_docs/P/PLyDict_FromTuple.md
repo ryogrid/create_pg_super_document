@@ -8,7 +8,10 @@ Converts a PostgreSQL HeapTuple into a Python dictionary by extracting each attr
 
 ## Definition
 
-
+```c
+static PyObject *
+PLyDict_FromTuple(PLyDatumToOb *arg, HeapTuple tuple, TupleDesc desc, bool include_generated)
+```
 ## Detailed Description
 This function performs the core work of converting a PostgreSQL tuple to a Python dictionary. It iterates through each attribute in the tuple descriptor, extracts the corresponding value from the tuple using heap_getattr, and converts each non-NULL value to a Python object using the appropriate conversion function. The function properly handles dropped attributes (skips them), generated columns (includes them only if requested), and NULL values (converts to Python None). The conversion process is wrapped in PostgreSQL's exception handling mechanism to ensure proper cleanup if errors occur during the conversion.
 

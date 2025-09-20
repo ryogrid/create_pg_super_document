@@ -8,7 +8,11 @@ Parses a PostgreSQL URI connection string and returns a structured array of conn
 
 ## Definition
 
-
+```c
+static PQconninfoOption *
+conninfo_uri_parse(const char *uri, PQExpBuffer errorMessage,
+				   bool use_defaults)
+```
 ## Detailed Description
 This function is a subroutine of  specifically designed to handle PostgreSQL connection strings in URI format (e.g., "postgresql://user:password@host:port/database?param=value"). It provides a clean interface for URI parsing while delegating the actual parsing work to .
 

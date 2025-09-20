@@ -8,7 +8,13 @@ Implements the dissection algorithm for concatenation nodes in regular expressio
 
 ## Definition
 
-
+```c
+static int						/* regexec return code */
+crevcondissect(struct vars *v,
+			   struct subre *t,
+			   chr *begin,		/* beginning of relevant substring */
+			   chr *end)		/* end of same */
+```
 ## Detailed Description
 The  function is a specialized dissection function for concatenation operators ('.') in regular expression parsing. It employs a shortest-first approach where the left child of the concatenation is matched with the shortest possible substring first, then the right child is tested with the remaining portion. This is the reverse strategy compared to , which uses a longest-first approach for the left operand.
 

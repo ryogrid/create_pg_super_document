@@ -8,7 +8,10 @@ An intelligent cost-benefit analysis function that determines whether abbreviate
 
 ## Definition
 
-
+```c
+static bool
+varstr_abbrev_abort(int memtupcount, SortSupport ssup)
+```
 ## Detailed Description
  is a sophisticated cost analysis function that continuously monitors the effectiveness of PostgreSQL's abbreviated key optimization during sorting operations. The function uses statistical analysis based on HyperLogLog cardinality estimation to determine whether the overhead of creating abbreviated keys is justified by the performance benefits they provide.
 

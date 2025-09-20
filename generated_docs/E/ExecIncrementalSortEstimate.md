@@ -8,7 +8,10 @@ Estimates the shared memory space required to propagate incremental sort statist
 
 ## Definition
 
-
+```c
+void
+ExecIncrementalSortEstimate(IncrementalSortState *node, ParallelContext *pcxt)
+```
 ## Detailed Description
 ExecIncrementalSortEstimate calculates the amount of shared memory needed to collect and share incremental sort performance statistics across parallel worker processes. This function is part of PostgreSQL's parallel query execution infrastructure and is called during the parallel query planning phase.
 

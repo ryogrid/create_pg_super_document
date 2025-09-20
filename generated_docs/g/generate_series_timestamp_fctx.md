@@ -8,7 +8,16 @@ This struct serves as a context structure for the generate_series_timestamp func
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	TimestampTz current;
+	TimestampTz finish;
+	Interval	step;
+	int			step_sign;
+	pg_tz	   *attimezone;
+} generate_series_timestamptz_fctx;
+```
 ## Detailed Description
 The generate_series_timestamp_fctx structure is used as a function context (fctx) to preserve state between successive calls to the generate_series_timestamp function. This is essential for PostgreSQL's set-returning function mechanism, which generates a series of timestamp values incrementally across multiple function invocations. The structure stores the current position in the series, the end condition, the step interval, and the direction of iteration.
 

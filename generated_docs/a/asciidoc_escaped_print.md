@@ -8,7 +8,10 @@ Escapes special AsciiDoc characters in a string for safe output to AsciiDoc form
 
 ## Definition
 
-
+```c
+static void
+asciidoc_escaped_print(const char *in, FILE *fout)
+```
 ## Detailed Description
 This function processes an input string and escapes characters that have special meaning in AsciiDoc markup to prevent formatting conflicts and ensure proper display. Currently, it specifically handles the pipe character ('|') which is used as a table cell delimiter in AsciiDoc format. The function iterates through each character in the input string and either outputs the escaped version or the original character unchanged.
 

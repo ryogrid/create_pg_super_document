@@ -8,7 +8,10 @@ Creates a PlaceHolderVar node for a given expression, which is used in PostgreSQ
 
 ## Definition
 
-
+```c
+PlaceHolderVar *
+make_placeholder_expr(PlannerInfo *root, Expr *expr, Relids phrels)
+```
 ## Detailed Description
 The  function constructs a PlaceHolderVar node that wraps an expression with metadata about where it should be evaluated in the query plan. PlaceHolderVars are essential for correctly handling expressions that need to be computed at specific levels in the join tree, particularly when dealing with outer joins and subqueries. The function initializes a new PlaceHolderVar with a unique identifier and sets up the basic structure, leaving some fields for later adjustment by the caller.
 

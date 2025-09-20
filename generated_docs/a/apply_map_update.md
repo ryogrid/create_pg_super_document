@@ -8,7 +8,9 @@ A static helper function that inserts or updates a mapping between a relation OI
 
 ## Definition
 
-
+```c
+enumber = fileNumber;
+```
 ## Detailed Description
 The  function is responsible for maintaining the relation-to-file mapping table within a RelMapFile structure. It first searches for an existing mapping for the given relation OID. If found, it updates the file number for that relation. If no existing mapping is found, it creates a new mapping entry, but only if the  parameter is true. This function ensures that each relation has at most one mapping entry and prevents the mapping table from exceeding its maximum capacity.
 

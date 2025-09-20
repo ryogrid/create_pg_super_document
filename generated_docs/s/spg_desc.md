@@ -8,7 +8,10 @@ A function that formats SP-GiST (Space-Partitioned Generalized Search Tree) WAL 
 
 ## Definition
 
-
+```c
+void
+spg_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL (Write-Ahead Logging) description system specifically for SP-GiST index operations. It parses different types of SP-GiST WAL records and formats their contents into readable descriptions that are appended to a StringInfo buffer. This function is essential for WAL debugging, logging, and recovery operations.
 

@@ -8,7 +8,10 @@ Generates human-readable descriptions of GIN (Generalized Inverted Index) WAL (W
 
 ## Definition
 
-
+```c
+void
+gin_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This function serves as the main WAL record description function for GIN index operations. It decodes and formats various types of GIN-related WAL records into human-readable text for debugging, monitoring, and analysis purposes. The function examines the record type and extracts relevant information from each WAL record, formatting it appropriately for display.
 

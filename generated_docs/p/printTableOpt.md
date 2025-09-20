@@ -8,7 +8,42 @@ A comprehensive configuration structure that controls all aspects of table forma
 
 ## Definition
 
-
+```c
+typedef struct printTableOpt
+{
+	enum printFormat format;	/* see enum above */
+	unsigned short int expanded;	/* expanded/vertical output (if supported
+									 * by output format); 0=no, 1=yes, 2=auto */
+	printXheaderWidthType expanded_header_width_type;	/* width type for header
+														 * line in expanded mode */
+	int			expanded_header_exact_width;	/* explicit width for header
+												 * line in expanded mode */
+	unsigned short int border;	/* Print a border around the table. 0=none,
+								 * 1=dividing lines, 2=full */
+	unsigned short int pager;	/* use pager for output (if to stdout and
+								 * stdout is a tty) 0=off 1=on 2=always */
+	int			pager_min_lines;	/* don't use pager unless there are at
+									 * least this many lines */
+	bool		tuples_only;	/* don't output headers, row counts, etc. */
+	bool		start_table;	/* print start decoration, eg <table> */
+	bool		stop_table;		/* print stop decoration, eg </table> */
+	bool		default_footer; /* allow "(xx rows)" default footer */
+	unsigned long prior_records;	/* start offset for record counters */
+	const printTextFormat *line_style;	/* line style (NULL for default) */
+	struct separator fieldSep;	/* field separator for unaligned text mode */
+	struct separator recordSep; /* record separator for unaligned text mode */
+	char		csvFieldSep[2]; /* field separator for csv format */
+	bool		numericLocale;	/* locale-aware numeric units separator and
+								 * decimal marker */
+	char	   *tableAttr;		/* attributes for HTML <table ...> */
+	int			encoding;		/* character encoding */
+	int			env_columns;	/* $COLUMNS on psql start, 0 is unset */
+	int			columns;		/* target width for wrapped format */
+	unicode_linestyle unicode_border_linestyle;
+	unicode_linestyle unicode_column_linestyle;
+	unicode_linestyle unicode_header_linestyle;
+} printTableOpt;
+```
 ## Detailed Description
 The printTableOpt structure serves as the central configuration hub for all table output formatting in PostgreSQL frontend utilities. It encompasses every aspect of table presentation from basic layout options (borders, pagination) to advanced formatting features (Unicode styling, locale-aware numbering, CSV output). This structure allows fine-grained control over table appearance and behavior, supporting multiple output formats including text, HTML, CSV, and others.
 

@@ -8,7 +8,10 @@ ExecResult is the core execution function for the Result plan node that returns 
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecResult(PlanState *pstate)
+```
 ## Detailed Description
 ExecResult processes Result plan nodes, which are used in two primary scenarios:
 1. **With outer plan**: Acts as a filter/projection layer that retrieves tuples from an outer plan and applies qualifications

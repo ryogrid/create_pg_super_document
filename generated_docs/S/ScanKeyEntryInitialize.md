@@ -8,7 +8,17 @@ Initializes a scan key entry with all field values, allowing for comprehensive c
 
 ## Definition
 
-
+```c
+void
+ScanKeyEntryInitialize(ScanKey entry,
+					   int flags,
+					   AttrNumber attributeNumber,
+					   StrategyNumber strategy,
+					   Oid subtype,
+					   Oid collation,
+					   RegProcedure procedure,
+					   Datum argument)
+```
 ## Detailed Description
 ScanKeyEntryInitialize is the most comprehensive function for initializing ScanKey entries in PostgreSQL. It provides full control over all scan key parameters, making it suitable for complex scanning scenarios where specific flags, subtypes, collations, or custom operators are required. The function handles both valid procedures and special null-search cases (SK_SEARCHNULL/SK_SEARCHNOTNULL), automatically setting up the appropriate function manager information. This function is particularly important for index scanning operations where precise control over search conditions is necessary.
 

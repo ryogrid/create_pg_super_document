@@ -8,7 +8,10 @@ A PostgreSQL user function that returns an array of all positions where a specif
 
 ## Definition
 
-
+```c
+Datum
+array_positions(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  searches through a one-dimensional PostgreSQL array and returns an array containing the 1-based positions of all occurrences of a specified element. Unlike  which returns only the first match, this function finds and returns all matching positions. It uses "IS NOT DISTINCT FROM" semantics for comparisons, meaning it can properly handle NULL values in both the search element and array elements.
 

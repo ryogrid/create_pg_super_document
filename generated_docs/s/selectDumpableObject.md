@@ -8,7 +8,10 @@ A generic policy-setting function that determines whether any dumpable object sh
 
 ## Definition
 
-
+```c
+static void
+selectDumpableObject(DumpableObject *dobj, Archive *fout)
+```
 ## Detailed Description
 This function serves as the default policy-setting routine for database objects that don't have specialized dumping logic. It implements a two-tier decision process: objects associated with a namespace inherit the dump policy from their parent namespace, while objects not associated with any namespace are only dumped when performing a complete database dump (include_everything option).
 

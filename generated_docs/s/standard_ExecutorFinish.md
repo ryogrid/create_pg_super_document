@@ -8,7 +8,10 @@ Completes the execution phase of a query plan by performing final cleanup operat
 
 ## Definition
 
-
+```c
+void
+standard_ExecutorFinish(QueryDesc *queryDesc)
+```
 ## Detailed Description
 The  function is responsible for the final phase of query execution, handling post-processing operations that must occur after the main execution is complete. This function ensures that all ModifyTable nodes (INSERT, UPDATE, DELETE operations) are properly completed and executes any queued AFTER triggers. It also manages instrumentation timing and marks the executor state as finished to prevent duplicate execution.
 

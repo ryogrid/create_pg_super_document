@@ -8,7 +8,10 @@ Returns the full pathname of the timezone data directory for PostgreSQL to use w
 
 ## Definition
 
-
+```c
+static const char *
+pg_TZDIR(void)
+```
 ## Detailed Description
 The pg_TZDIR function is a simple utility that returns the path to the timezone data directory. It provides a layer of abstraction for accessing timezone files, supporting both PostgreSQL's internal timezone database and system-provided timezone data.
 

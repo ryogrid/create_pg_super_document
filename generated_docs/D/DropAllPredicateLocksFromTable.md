@@ -8,7 +8,11 @@ Removes all predicate locks of any granularity from a specified relation (heap o
 
 ## Definition
 
-
+```c
+structure entries for the hash table.
+			 */
+			oldCommitSeqNo = oldpredlock->commitSeqNo;
+```
 ## Detailed Description
 DropAllPredicateLocksFromTable is a comprehensive cleanup function that handles predicate lock management during DDL operations. The function performs an expensive but necessary operation of scanning the entire lock target table to remove locks associated with a specific relation. Key aspects include:
 

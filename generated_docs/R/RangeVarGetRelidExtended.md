@@ -8,7 +8,12 @@ A comprehensive function that resolves a RangeVar (relation name specification) 
 
 ## Definition
 
-
+```c
+Oid
+RangeVarGetRelidExtended(const RangeVar *relation, LOCKMODE lockmode,
+						 uint32 flags,
+						 RangeVarGetRelidCallback callback, void *callback_arg)
+```
 ## Detailed Description
 RangeVarGetRelidExtended is the core function for resolving relation names to OIDs in PostgreSQL. It performs a sophisticated name lookup that handles schema qualification, temporary table resolution, and concurrent DDL safety through an invalidation message retry mechanism.
 

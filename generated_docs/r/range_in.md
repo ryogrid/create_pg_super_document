@@ -8,7 +8,10 @@ The range_in function is the text input function for PostgreSQL range types, res
 
 ## Definition
 
-
+```c
+struct result string */
+	output_str = range_deparse(flags, lbound_str, ubound_str);
+```
 ## Detailed Description
 This function parses a textual representation of a range value and converts it to PostgreSQL's internal RangeType format. The function handles various range formats including empty ranges, infinite bounds, and inclusive/exclusive bounds. It performs comprehensive validation and uses the element type's input function to parse the boundary values. The function supports error contexts for proper error reporting and handles recursive parsing when the subtype is itself a range type.
 

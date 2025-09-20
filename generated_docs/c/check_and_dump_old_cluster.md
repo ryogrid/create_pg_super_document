@@ -8,7 +8,10 @@ Performs comprehensive validation and analysis of the old PostgreSQL cluster dur
 
 ## Definition
 
-
+```c
+void
+check_and_dump_old_cluster(bool live_check)
+```
 ## Detailed Description
 This function orchestrates the complete validation process for the old PostgreSQL cluster during pg_upgrade operations. It starts the old cluster's postmaster (if not performing live checks), extracts database and table information, and executes a series of version-specific compatibility checks to ensure the cluster can be safely upgraded.
 

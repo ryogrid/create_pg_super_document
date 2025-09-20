@@ -8,7 +8,40 @@ The Subscription structure represents a logical replication subscription in Post
 
 ## Definition
 
-
+```c
+typedef struct Subscription
+{
+	Oid			oid;			/* Oid of the subscription */
+	Oid			dbid;			/* Oid of the database which subscription is
+								 * in */
+	XLogRecPtr	skiplsn;		/* All changes finished at this LSN are
+								 * skipped */
+	char	   *name;			/* Name of the subscription */
+	Oid			owner;			/* Oid of the subscription owner */
+	bool		ownersuperuser; /* Is the subscription owner a superuser? */
+	bool		enabled;		/* Indicates if the subscription is enabled */
+	bool		binary;			/* Indicates if the subscription wants data in
+								 * binary format */
+	char		stream;			/* Allow streaming in-progress transactions.
+								 * See LOGICALREP_STREAM_xxx constants. */
+	char		twophasestate;	/* Allow streaming two-phase transactions */
+	bool		disableonerr;	/* Indicates if the subscription should be
+								 * automatically disabled if a worker error
+								 * occurs */
+	bool		passwordrequired;	/* Must connection use a password? */
+	bool		runasowner;		/* Run replication as subscription owner */
+	bool		failover;		/* True if the associated replication slots
+								 * (i.e. the main slot and the table sync
+								 * slots) in the upstream database are enabled
+								 * to be synchronized to the standbys. */
+	char	   *conninfo;		/* Connection string to the publisher */
+	char	   *slotname;		/* Name of the replication slot */
+	char	   *synccommit;		/* Synchronous commit setting for worker */
+	List	   *publications;	/* List of publication names to subscribe to */
+	char	   *origin;			/* Only publish data originating from the
+								 * specified origin */
+} Subscription;
+```
 ## Detailed Description
 The Subscription structure is a core data structure in PostgreSQL's logical replication system. It encapsulates all the necessary configuration and state information for a subscription that replicates data from one or more publications on a remote PostgreSQL server. This structure is used throughout the logical replication subsystem to manage subscription behavior, connection parameters, and replication settings. The structure supports advanced features like binary format replication, streaming transactions, two-phase commit, failover scenarios, and fine-grained origin filtering.
 

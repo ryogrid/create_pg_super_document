@@ -8,7 +8,10 @@ Adds a single index tuple to a BTSpool structure for temporary storage during B-
 
 ## Definition
 
-
+```c
+static void
+_bt_spool(BTSpool *btspool, ItemPointer self, Datum *values, bool *isnull)
+```
 ## Detailed Description
  is a simple wrapper function that adds index tuple data to a spool structure during B-tree index construction. It serves as an interface between the index building callback mechanism and the underlying tuplesort functionality.
 

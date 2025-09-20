@@ -8,7 +8,10 @@ Initializes a QueryCompletion structure to its default values, setting the comma
 
 ## Definition
 
-
+```c
+void
+InitializeQueryCompletion(QueryCompletion *qc)
+```
 ## Detailed Description
 This function performs basic initialization of a QueryCompletion structure by setting its fields to safe default values. It sets the commandTag field to CMDTAG_UNKNOWN (which displays as "???") and resets the nprocessed counter to 0. This ensures that QueryCompletion structures start in a predictable state before being populated with actual query execution results.
 

@@ -8,7 +8,13 @@ The  structure represents a pending flush request that needs to be issued to the
 
 ## Definition
 
-
+```c
+typedef struct PendingWriteback
+{
+	/* could store different types of pending flushes here */
+	BufferTag	tag;
+} PendingWriteback;
+```
 ## Detailed Description
 The  structure is a simple container that holds information about buffers that need to be written back to storage. It is designed as part of PostgreSQL's writeback optimization system, which batches and coordinates flush requests to the operating system for better I/O performance.
 

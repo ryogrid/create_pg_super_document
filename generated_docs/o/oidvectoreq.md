@@ -8,7 +8,10 @@ The  function implements the equality comparison operator for PostgreSQL's oidve
 
 ## Definition
 
-
+```c
+Datum
+oidvectoreq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL operator  for oidvector values in PostgreSQL. An oidvector is an array-like data type that stores multiple OID values, commonly used in system catalogs to represent lists of object identifiers. The function delegates the actual comparison to , which performs a comprehensive comparison of the two oidvector structures, and then checks if the result indicates equality (comparison result equals 0). This follows the standard pattern where comparison functions return 0 for equality, negative for less-than, and positive for greater-than.
 

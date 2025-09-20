@@ -8,7 +8,10 @@ A static helper function that checks if a specific role has the given privileges
 
 ## Definition
 
-
+```c
+static bool
+has_param_priv_byname(Oid roleid, const text *parameter, AclMode priv)
+```
 ## Detailed Description
 This internal helper function performs parameter privilege checking by converting the parameter name from PostgreSQL's text type to a C string and then delegating the actual privilege check to . It serves as a bridge between the higher-level parameter privilege functions that work with PostgreSQL data types and the lower-level ACL checking mechanism that works with C strings.
 

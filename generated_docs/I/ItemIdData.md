@@ -8,7 +8,14 @@ ItemIdData is a fundamental data structure in PostgreSQL's buffer page managemen
 
 ## Definition
 
-
+```c
+typedef struct ItemIdData
+{
+	unsigned	lp_off:15,		/* offset to tuple (from start of page) */
+				lp_flags:2,		/* state of line pointer, see below */
+				lp_len:15;		/* byte length of tuple */
+} ItemIdData;
+```
 ## Detailed Description
 ItemIdData serves as a line pointer that provides a level of indirection for accessing tuples on a buffer page. This structure is essential for PostgreSQL's page layout and tuple management. The structure uses bit fields to pack three pieces of information into a compact 4-byte structure: the offset to the tuple data, flags indicating the state of the line pointer, and the length of the tuple.
 

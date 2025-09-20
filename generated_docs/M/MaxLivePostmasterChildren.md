@@ -8,7 +8,10 @@ Calculates the maximum number of live child processes that the postmaster can ma
 
 ## Definition
 
-
+```c
+int
+MaxLivePostmasterChildren(void)
+```
 ## Detailed Description
 This function computes the total number of entries needed in per-child-process arrays such as PMChildFlags array and ShmemBackendArray (when EXEC_BACKEND is enabled). The calculation includes regular backends, autovacuum workers, WAL senders, and background workers, but excludes special children and dead_end children.
 

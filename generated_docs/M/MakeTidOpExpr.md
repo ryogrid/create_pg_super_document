@@ -8,7 +8,10 @@ MakeTidOpExpr creates a TidOpExpr structure from an OpExpr for TID range scan op
 
 ## Definition
 
-
+```c
+static TidOpExpr *
+MakeTidOpExpr(OpExpr *expr, TidRangeScanState *tidstate)
+```
 ## Detailed Description
 This static function processes an OpExpr containing a CTID (tuple identifier) comparison and converts it into a TidOpExpr structure suitable for TID range scanning. The function analyzes the operator type and operand positions to determine whether the expression represents an upper or lower bound for the TID range, and whether the bound should be inclusive or exclusive. It handles operator inversion when the CTID variable appears on the right side of the comparison.
 

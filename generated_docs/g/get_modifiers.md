@@ -8,7 +8,15 @@ A static helper function that parses modifier characters from tsquery strings to
 
 ## Definition
 
-
+```c
+enum
+	{
+		PHRASE_OPEN = 0,
+		PHRASE_DIST,
+		PHRASE_CLOSE,
+		PHRASE_FINISH
+	}			state = PHRASE_OPEN;
+```
 ## Detailed Description
 The get_modifiers function is a subroutine used in PostgreSQL's full-text search query parsing. It parses the modifiers part of a query token (like ':AB*' in a query) to extract weight information and prefix flag. The function processes characters following a colon (:) in the query string and sets appropriate weight bits for each valid weight character (A, B, C, D) and sets the prefix flag if an asterisk (*) is encountered.
 

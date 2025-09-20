@@ -8,7 +8,10 @@ A safe 16-bit unsigned integer subtraction function that detects overflow condit
 
 ## Definition
 
-
+```c
+static inline bool
+pg_sub_u16_overflow(uint16 a, uint16 b, uint16 *result)
+```
 ## Detailed Description
 This function performs subtraction of two 16-bit unsigned integers with overflow detection. It uses compiler built-ins when available (`__builtin_sub_overflow`) for optimal performance and reliability. When built-ins are not available, it implements manual overflow checking by verifying that the subtrahend (b) is not greater than the minuend (a).
 

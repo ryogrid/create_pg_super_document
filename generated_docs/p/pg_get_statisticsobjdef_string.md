@@ -8,7 +8,10 @@ Returns the definition string for a statistics object in a format suitable for A
 
 ## Definition
 
-
+```c
+char *
+pg_get_statisticsobjdef_string(Oid statextid)
+```
 ## Detailed Description
 This function is an internal version of the statistics object definition retrieval functionality, specifically designed for use by ALTER TABLE commands. It generates a complete definition string for a statistics object that includes tablespace information, which is necessary when recreating statistics objects during table alterations. The function returns a palloc'd C string without pretty-printing formatting.
 

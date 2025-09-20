@@ -8,7 +8,10 @@ Splits a string at matches of a regular expression pattern, returning the split-
 
 ## Definition
 
-
+```c
+Datum
+regexp_split_to_table(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a PostgreSQL set-returning function (SRF) that splits an input string using a regular expression pattern and returns each split substring as a separate row. The function uses the SRF framework to manage state across multiple calls, storing the regexp matching context in the function's multi-call memory context. Unlike the standard behavior where users can specify the 'g' (global) flag, this function prohibits the global flag but internally forces global matching to find all occurrences of the pattern. The function processes matches sequentially, returning one split result per call until all matches have been processed.
 

@@ -8,7 +8,10 @@ A validation hook function for the ECHO psql variable that parses string values 
 
 ## Definition
 
-
+```c
+static bool
+echo_hook(const char *newval)
+```
 ## Detailed Description
 The  function is a psql variable hook that validates and processes new values assigned to the ECHO variable. It accepts string values ("none", "errors", "queries", "all") and converts them to the corresponding internal enum values that control which SQL statements psql echoes to standard output.
 

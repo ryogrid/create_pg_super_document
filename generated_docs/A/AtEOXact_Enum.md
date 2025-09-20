@@ -8,7 +8,9 @@ Performs cleanup of enum-related data structures at the end of a top-level trans
 
 ## Definition
 
-
+```c
+enum_types = NULL;
+```
 ## Detailed Description
 This function is called at the end of transaction processing (both commit and abort) to clean up the enum subsystem's transaction-local state. It resets the global pointers to the hash tables that track uncommitted enum types and values ( and ) back to NULL.
 

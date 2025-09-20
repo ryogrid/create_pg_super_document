@@ -8,7 +8,13 @@ Marks index tuples as dead (LP_DEAD) based on kill list information from index s
 
 ## Definition
 
-
+```c
+typedef struct BTOneVacInfo
+{
+	LockRelId	relid;			/* global identifier of an index */
+	BTCycleId	cycleid;		/* cycle ID for its active VACUUM */
+} BTOneVacInfo;
+```
 ## Detailed Description
 This function implements the "kill tuple" optimization for B-tree indexes, which marks index tuples as dead when the scan has determined that their corresponding heap tuples have been deleted. The function processes a list of killed items maintained in the scan state, matching them by heap TID to ensure correctness. It handles both regular tuples and posting list tuples (which contain multiple heap TIDs). The function includes sophisticated logic to handle concurrent modifications: if the page was pinned continuously since reading, no LSN check is needed; if the pin was dropped, it re-reads the page and verifies the LSN hasn't changed to ensure safety. When tuples are successfully marked dead, it sets the BTP_HAS_GARBAGE flag on the page to indicate cleanup is needed.
 

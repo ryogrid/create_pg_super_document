@@ -8,7 +8,10 @@ ExplainSaveGroup pops one level of grouping state while preserving the state inf
 
 ## Definition
 
-
+```c
+static void
+ExplainSaveGroup(ExplainState *es, int depth, int *state_save)
+```
 ## Detailed Description
 ExplainSaveGroup is designed to temporarily save and pop formatting state that was previously prepared by ExplainOpenSetAsideGroup. This function:
 

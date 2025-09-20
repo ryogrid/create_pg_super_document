@@ -8,7 +8,10 @@ Converts an operator name string to an operator OID, returning NULL if the opera
 
 ## Definition
 
-
+```c
+Datum
+to_regoper(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that safely converts an operator name string to its corresponding operator OID (Object Identifier). Unlike , this function does not raise an error when the operator name is not found; instead, it returns NULL. This makes it suitable for use in queries where you want to handle missing operators gracefully.
 

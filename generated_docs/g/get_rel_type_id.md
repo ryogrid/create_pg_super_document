@@ -8,7 +8,10 @@ Returns the pg_type OID associated with a given relation, providing type informa
 
 ## Definition
 
-
+```c
+Oid
+get_rel_type_id(Oid relid)
+```
 ## Detailed Description
 This function retrieves the type OID associated with a specified relation from the system catalog. It performs a system cache lookup on the pg_class catalog using the relation OID and extracts the reltype field from the relation tuple. The function is important because in PostgreSQL, tables and views can have associated composite types that represent their row structure.
 

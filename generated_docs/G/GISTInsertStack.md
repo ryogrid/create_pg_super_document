@@ -8,7 +8,34 @@ GISTInsertStack is a structure used during GiST index insertions to maintain a s
 
 ## Definition
 
+```c
+typedef struct GISTInsertStack
+{
+	/* current page */
+	BlockNumber blkno;
+	Buffer		buffer;
+	Page		page;
 
+	/*
+	 * log sequence number from page->lsn to recognize page update and compare
+	 * it with page's nsn to recognize page split
+	 */
+	GistNSN		lsn;
+
+	/*
+	 * If set, we split the page while descending the tree to find an
+	 * insertion target. It means that we need to retry from the parent,
+	 * because the downlink of this page might no longer cover the new key.
+	 */
+	bool		retry_from_parent;
+
+	/* offset of the downlink in the parent page, that points to this page */
+	OffsetNumber downlinkoffnum;
+
+	/* pointer to parent */
+	struct GISTInsertStack *parent;
+} GISTInsertStack;
+```
 ## Detailed Description
 GISTInsertStack represents a single level in the descent path during GiST index operations, forming a stack structure that tracks the path from root to target leaf page. This structure is essential for maintaining consistency during concurrent operations, as it stores LSN information to detect page modifications and splits that may have occurred during the descent. The stack enables proper retry logic when page splits invalidate the current descent path, ensuring that insertions find the correct target page even in high-concurrency scenarios.
 

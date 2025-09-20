@@ -8,7 +8,10 @@ A static comparison function used as a callback for qsort operations on ItemPoin
 
 ## Definition
 
-
+```c
+static int
+qsortCompareItemPointers(const void *a, const void *b)
+```
 ## Detailed Description
 This function serves as a comparison callback for the standard C library qsort function when sorting arrays of ItemPointer structures. It wraps the PostgreSQL-specific ginCompareItemPointers function to provide the exact interface required by qsort (accepting void* parameters and returning an integer comparison result).
 

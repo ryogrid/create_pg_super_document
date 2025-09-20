@@ -8,7 +8,10 @@ Determines whether a grouping list can be implemented by sorting by checking if 
 
 ## Definition
 
-
+```c
+bool
+grouping_is_sortable(List *groupClause)
+```
 ## Detailed Description
 This function examines a list of SortGroupClause structures to determine if the grouping operation can be implemented using a sort-based approach. It iterates through each SortGroupClause in the list and checks whether a valid sort operator (sortop) is available for that grouping column. If any grouping column lacks a valid sort operator, the function returns false, indicating that sort-based grouping cannot be used.
 

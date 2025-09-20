@@ -8,7 +8,11 @@ The  function implements the  psql command to display a formatted list of suppor
 
 ## Definition
 
-
+```c
+bool
+listOpFamilyFunctions(const char *access_method_pattern,
+					  const char *family_pattern, bool verbose)
+```
 ## Detailed Description
 This function constructs and executes an SQL query to retrieve support function information from PostgreSQL system catalogs, specifically from the  table which stores access method support procedures. It displays support functions with their associated access methods, operator family names, registered left and right operand types, procedure numbers, and function names or signatures. The function supports two output modes: non-verbose shows just the function name, while verbose mode shows the complete function signature in regprocedure format. Pattern matching is supported for filtering results by access method name and operator family name.
 

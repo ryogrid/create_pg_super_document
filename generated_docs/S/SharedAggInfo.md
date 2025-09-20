@@ -8,7 +8,13 @@ SharedAggInfo is a shared memory container structure used to store per-worker ag
 
 ## Definition
 
-
+```c
+typedef struct SharedAggInfo
+{
+	int			num_workers;
+	AggregateInstrumentation sinstrument[FLEXIBLE_ARRAY_MEMBER];
+} SharedAggInfo;
+```
 ## Detailed Description
 SharedAggInfo serves as a shared memory data structure that facilitates coordination and information sharing between multiple worker processes during parallel aggregate operations. It acts as a container for aggregate instrumentation data that needs to be accessible across different worker processes in a parallel query execution context. The structure uses a flexible array member to accommodate a variable number of AggregateInstrumentation entries, one for each worker process involved in the parallel aggregation.
 

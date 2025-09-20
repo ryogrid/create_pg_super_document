@@ -8,7 +8,30 @@ The  structure stores comprehensive metadata about database indexes in pg_dump, 
 
 ## Definition
 
+```c
+typedef struct _indxInfo
+{
+	DumpableObject dobj;
+	TableInfo  *indextable;		/* link to table the index is for */
+	char	   *indexdef;
+	char	   *tablespace;		/* tablespace in which index is stored */
+	char	   *indreloptions;	/* options specified by WITH (...) */
+	char	   *indstatcols;	/* column numbers with statistics */
+	char	   *indstatvals;	/* statistic values for columns */
+	int			indnkeyattrs;	/* number of index key attributes */
+	int			indnattrs;		/* total number of index attributes */
+	Oid		   *indkeys;		/* In spite of the name 'indkeys' this field
+								 * contains both key and nonkey attributes */
+	bool		indisclustered;
+	bool		indisreplident;
+	bool		indnullsnotdistinct;
+	Oid			parentidx;		/* if a partition, parent index OID */
+	SimplePtrList partattaches; /* if partitioned, partition attach objects */
 
+	/* if there is an associated constraint object, its dumpId: */
+	DumpId		indexconstraint;
+} IndxInfo;
+```
 ## Detailed Description
 The  structure is a comprehensive container for index metadata used by pg_dump to store and reconstruct database indexes. It captures all aspects of an index including its SQL definition, storage characteristics, statistics, partitioning relationships, and constraint associations. This structure enables pg_dump to accurately recreate indexes with all their properties and relationships during database restoration.
 

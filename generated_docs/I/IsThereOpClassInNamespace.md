@@ -8,7 +8,11 @@ Validates that an operator class with the specified name and access method does 
 
 ## Definition
 
-
+```c
+void
+IsThereOpClassInNamespace(const char *opcname, Oid opcmethod,
+						  Oid opcnamespace)
+```
 ## Detailed Description
 This function serves as a validation subroutine for ALTER OPERATOR CLASS operations, specifically for SET SCHEMA and RENAME commands. It performs a namespace collision check by searching the system catalog to determine if an operator class with the specified name and access method already exists in the target namespace. If such a collision is detected, the function raises a comprehensive error message that includes the operator class name, access method name, and schema name to help users understand the conflict. This prevents naming conflicts and maintains the uniqueness constraints required for operator class identification within PostgreSQL's catalog system.
 

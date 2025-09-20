@@ -8,7 +8,11 @@ A WAL page reading callback function optimized for logical decoding contexts in 
 
 ## Definition
 
-
+```c
+static int
+logical_read_xlog_page(XLogReaderState *state, XLogRecPtr targetPagePtr, int reqLen,
+					   XLogRecPtr targetRecPtr, char *cur_page)
+```
 ## Detailed Description
 logical_read_xlog_page serves as an XLogReaderRoutine page_read callback specifically designed for logical decoding in walsender processes. This function provides several optimizations over the standard read_local_xlog_page:
 

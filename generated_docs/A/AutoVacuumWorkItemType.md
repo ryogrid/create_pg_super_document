@@ -8,7 +8,12 @@ An enumeration that defines the types of work items that can be requested from t
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	AVW_BRINSummarizeRange,
+} AutoVacuumWorkItemType;
+```
 ## Detailed Description
 AutoVacuumWorkItemType is an enumeration that specifies the different categories of work that can be delegated to autovacuum workers from other PostgreSQL processes. Currently, it contains only one value, but the enum structure allows for future expansion of autovacuum work types.
 

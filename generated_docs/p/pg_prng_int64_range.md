@@ -8,7 +8,10 @@ Generates a random 64-bit signed integer uniformly distributed within the specif
 
 ## Definition
 
-
+```c
+int64
+pg_prng_int64_range(pg_prng_state *state, int64 rmin, int64 rmax)
+```
 ## Detailed Description
 This function selects a random int64 uniformly from the closed interval [rmin, rmax]. If the range is empty (rmax <= rmin), it always returns rmin. The implementation uses pg_prng_uint64_range() internally to ensure uniform distribution, carefully handling the conversion between signed and unsigned 64-bit integers to avoid implementation-defined behavior for large values exceeding PG_INT64_MAX.
 

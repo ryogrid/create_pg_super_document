@@ -8,7 +8,11 @@ pgoutput_stream_start is a callback function that handles the start of streaming
 
 ## Definition
 
-
+```c
+static void
+pgoutput_stream_start(struct LogicalDecodingContext *ctx,
+					  ReorderBufferTXN *txn)
+```
 ## Detailed Description
 pgoutput_stream_start is a callback function in the pgoutput logical replication output plugin that handles the START STREAM event for large transactions that are being streamed in chunks rather than being buffered entirely in memory. When a transaction is large enough to trigger streaming mode, this function is called at the beginning of each stream chunk. It writes a stream start message to the logical replication protocol, handles replication origin information appropriately (only sending it for the first stream of a transaction), and sets internal state to indicate that streaming is active.
 

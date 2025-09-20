@@ -8,7 +8,10 @@ The core PostgreSQL function that implements text search matching between a tsve
 
 ## Definition
 
-
+```c
+Datum
+ts_match_vq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the fundamental text search matching operation in PostgreSQL, testing whether a tsvector document matches a tsquery search expression. It extracts the tsvector and tsquery from the function arguments, sets up the necessary data structures for comparison, and delegates to TS_execute for the actual matching logic.
 

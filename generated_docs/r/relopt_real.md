@@ -8,7 +8,15 @@ relopt_real is a structure that defines a floating-point (real) type relation op
 
 ## Definition
 
-
+```c
+typedef struct relopt_real
+{
+	relopt_gen	gen;
+	double		default_val;
+	double		min;
+	double		max;
+} relopt_real;
+```
 ## Detailed Description
 The relopt_real structure represents a floating-point relation option definition in PostgreSQL's reloption system. It inherits all the common metadata from relopt_gen and adds real-number-specific fields: a default value and minimum/maximum bounds for validation.
 

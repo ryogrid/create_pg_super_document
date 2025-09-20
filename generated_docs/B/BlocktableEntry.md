@@ -8,7 +8,42 @@ BlocktableEntry is a data structure that represents entries in the block table o
 
 ## Definition
 
+```c
+typedef struct BlocktableEntry
+{
+	struct
+	{
+#ifndef WORDS_BIGENDIAN
+		/*
+		 * We need to position this member to reserve space for the backing
+		 * radix tree to tag the lowest bit when struct 'header' is stored
+		 * inside a pointer or DSA pointer.
+		 */
+		uint8		flags;
 
+		int8		nwords;
+#endif
+
+		/*
+		 * We can store a small number of offsets here to avoid wasting space
+		 * with a sparse bitmap.
+		 */
+		OffsetNumber full_offsets[NUM_FULL_OFFSETS];
+
+#ifdef WORDS_BIGENDIAN
+		int8		nwords;
+		uint8		flags;
+#endif
+	}			header;
+
+	/*
+	 * We don't expect any padding space here, but to be cautious, code
+	 * creating new entries should zero out space up to 'words'.
+	 */
+
+	bitmapword	words[FLEXIBLE_ARRAY_MEMBER];
+} BlocktableEntry;
+```
 ## Detailed Description
 BlocktableEntry serves as the core data structure for storing tuple identifiers within a single block in PostgreSQL's TidStore implementation. It is designed with a dual storage strategy: for sparse distributions of offsets, it uses a compact array () to store individual offset numbers directly, while for denser distributions, it employs a bitmap representation using the  array. The structure is optimized for memory efficiency and includes careful consideration for endianness and alignment requirements. The design is similar to PagetableEntry in tidbitmap.c, sharing architectural patterns for efficient TID storage.
 

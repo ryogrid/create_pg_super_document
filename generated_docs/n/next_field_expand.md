@@ -8,7 +8,11 @@ Tokenizes one field from an HBA configuration line, handling file inclusion and 
 
 ## Definition
 
-
+```c
+static List *
+next_field_expand(const char *filename, char **lineptr,
+				  int elevel, int depth, char **err_msg)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's HBA configuration file parser. It processes a single field from a configuration line, which may contain comma-separated values and file inclusion directives. When it encounters a token beginning with '@' (and not quoted), it treats it as a file inclusion directive and recursively processes the referenced file. The function handles memory management carefully by switching to the appropriate memory context for token allocation. It continues processing until it encounters the end of the field (no trailing comma) or an error occurs, building a list of AuthToken structures representing all the individual tokens in the field.
 

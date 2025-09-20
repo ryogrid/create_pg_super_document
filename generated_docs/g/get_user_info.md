@@ -8,7 +8,10 @@ get_user_info is a utility function in pg_upgrade that retrieves the current use
 
 ## Definition
 
-
+```c
+int
+get_user_info(char **user_name_p)
+```
 ## Detailed Description
 get_user_info serves as a wrapper function that obtains information about the currently running user for PostgreSQL's pg_upgrade utility. On Unix-like systems, it calls geteuid() to get the effective user ID, while on Windows it returns a fixed value of 1. The function then calls get_user_name() to retrieve the username string, handles any errors by calling pg_fatal(), and creates a dynamically allocated copy of the username using pg_strdup(). This function is essential for pg_upgrade to ensure proper permissions and ownership during database cluster upgrades, as the upgrade process must be run by the same user who owns the database files.
 

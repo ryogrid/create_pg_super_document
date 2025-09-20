@@ -8,7 +8,12 @@ Merges two sorted arrays of ItemPointers into a single sorted array while elimin
 
 ## Definition
 
-
+```c
+ItemPointer
+ginMergeItemPointers(ItemPointerData *a, uint32 na,
+					 ItemPointerData *b, uint32 nb,
+					 int *nmerged)
+```
 ## Detailed Description
 This function implements an optimized merge algorithm for combining two pre-sorted arrays of ItemPointers. It employs multiple strategies depending on the relationship between the input arrays to maximize efficiency:
 

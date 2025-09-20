@@ -8,7 +8,10 @@ A PostgreSQL function that provides B-tree comparison functionality for text dat
 
 ## Definition
 
-
+```c
+Datum
+bttextcmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `bttextcmp` function is a PostgreSQL built-in function that implements B-tree comparison semantics for text data types. It serves as a comparison function specifically designed for use in B-tree index operations, returning a tri-state integer result: negative if the first argument is less than the second, zero if they are equal, and positive if the first argument is greater than the second. The function leverages the core `text_cmp` function to perform collation-aware comparison while providing the standardized B-tree comparison interface that PostgreSQL's indexing system expects.
 

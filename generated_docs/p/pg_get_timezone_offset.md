@@ -8,7 +8,9 @@ This function determines if a timezone uses only one GMT offset and retrieves th
 
 ## Definition
 
-
+```c
+struct state *sp;
+```
 ## Detailed Description
 pg_get_timezone_offset checks whether the given timezone has a consistent GMT offset across all its timezone transition information (ttinfo) entries. A timezone may have multiple ttinfo entries if it has historically used more than one abbreviation, but this function returns true only if all entries share the same GMT offset.
 

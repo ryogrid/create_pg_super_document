@@ -8,7 +8,10 @@ Sets a value to NULL for a given data type in the Informix compatibility layer o
 
 ## Definition
 
-
+```c
+int
+rsetnull(int t, char *ptr)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's ECPG Informix compatibility library. It provides a wrapper around the ECPG library's  function to set a value to NULL for a specified data type. This function maintains compatibility with Informix's SQL APIs by providing the same interface that Informix developers would expect.
 

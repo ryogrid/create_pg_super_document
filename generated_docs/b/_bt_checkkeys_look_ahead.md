@@ -8,7 +8,13 @@ Optimizes B-tree array key scans by performing look-ahead analysis to skip over 
 
 ## Definition
 
-
+```c
+struct _bt_readpage to skip ahead to very next tuple
+		 * after the one we determined was still before the current array keys
+		 */
+		if (ScanDirectionIsForward(dir))
+			pstate->skip = aheadoffnum + 1;
+```
 ## Detailed Description
 This function implements a look-ahead optimization for B-tree scans with array keys. When scanning encounters a gap between matching array keys (where many tuples exist that don't match any array values), this function attempts to skip ahead to find the next potentially matching tuple. It uses adaptive heuristics to determine how far ahead to look, starting with a small distance and exponentially increasing it when successful skips are found. The function checks a tuple at the target distance to see if it's still "before" the current array keys, and if so, instructs the scan to skip ahead to that position. This optimization is particularly effective for sparse array key matches on large pages.
 

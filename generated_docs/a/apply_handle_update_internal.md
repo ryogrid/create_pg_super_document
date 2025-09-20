@@ -8,7 +8,14 @@ Internal workhorse function that performs the actual UPDATE operation for logica
 
 ## Definition
 
-
+```c
+static void
+apply_handle_update_internal(ApplyExecutionData *edata,
+							 ResultRelInfo *relinfo,
+							 TupleTableSlot *remoteslot,
+							 LogicalRepTupleData *newtup,
+							 Oid localindexoid)
+```
 ## Detailed Description
 This function performs the core UPDATE operation for logical replication after the higher-level apply_handle_update has handled message parsing and setup. The function:
 

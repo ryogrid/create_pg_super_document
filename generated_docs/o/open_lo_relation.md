@@ -8,7 +8,10 @@ Opens the PostgreSQL large object relation (pg_largeobject) and its associated i
 
 ## Definition
 
-
+```c
+static void
+open_lo_relation(void)
+```
 ## Detailed Description
 This internal function ensures that the large object heap relation and its primary index are available for operations within the current transaction. It uses a lazy initialization approach, only opening the relations if they haven't been opened already. The function acquires RowExclusiveLock on both the table and index to allow both read and write operations. To ensure proper resource management, it temporarily switches the resource owner to TopTransactionResourceOwner so that the relation references are owned by the top-level transaction.
 

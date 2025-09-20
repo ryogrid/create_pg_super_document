@@ -8,7 +8,10 @@ Adds a new Datum entry to a GinEntries buffer, automatically resizing the buffer
 
 ## Definition
 
-
+```c
+static int
+add_gin_entry(GinEntries *entries, Datum entry)
+```
 ## Detailed Description
 This static function manages the dynamic growth of a GinEntries buffer by adding new Datum entries to it. The function implements an automatic buffer expansion strategy: when the buffer reaches capacity, it either doubles the current allocation size (if previously allocated) or starts with an initial allocation of 8 entries. This approach balances memory efficiency with performance by reducing the frequency of memory reallocations as the buffer grows.
 

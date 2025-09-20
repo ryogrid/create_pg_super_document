@@ -8,7 +8,16 @@ Initializes partition key expressions for a partitioned join relation by determi
 
 ## Definition
 
-
+```c
+structures that
+				 * parse analysis would build for such variables.  But it's
+				 * hard to tell which those are, so just make all the pairs.
+				 * Extra items in the nullable_partexprs list won't cause big
+				 * problems.  (It's possible that such items will get matched
+				 * to user-written COALESCEs, but it should still be valid to
+				 * partition on those, since they're going to be either the
+				 * partition column or NULL;
+```
 ## Detailed Description
 This function constructs the partition key expressions for a join relation by analyzing how different join types affect the nullability and validity of partition keys from the input relations. It allocates arrays for both regular () and nullable () partition key expressions and populates them according to join semantics:
 

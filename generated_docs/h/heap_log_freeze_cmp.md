@@ -8,7 +8,10 @@ A comparator function used to sort and deduplicate HeapTupleFreeze structures fo
 
 ## Definition
 
-
+```c
+static int
+heap_log_freeze_cmp(const void *arg1, const void *arg2)
+```
 ## Detailed Description
 This function implements a comparison routine for HeapTupleFreeze structures, designed to be used with sorting algorithms (like qsort) to order freeze operations systematically. The comparison follows a hierarchical ordering based on the freeze operation characteristics: xmax (transaction ID), t_infomask2, t_infomask, frzflags, and finally the page offset number as a tiebreaker.
 

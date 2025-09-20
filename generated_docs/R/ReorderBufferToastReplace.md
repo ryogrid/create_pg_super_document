@@ -8,7 +8,9 @@ Reconstructs TOAST values from collected chunks and replaces external TOAST poin
 
 ## Definition
 
-
+```c
+struct varlena *varlena;
+```
 ## Detailed Description
 This function performs the critical task of reconstructing large column values that were stored using PostgreSQL's TOAST mechanism during logical replication. When a transaction is ready for processing, any external TOAST pointers in the tuple data need to be replaced with the actual reconstructed values built from the chunks collected by ReorderBufferToastAppendChunk. The function iterates through all attributes in the tuple, identifies external TOAST pointers, looks up the corresponding chunks in the transaction's toast hash table, reassembles the chunks into the original large value, and replaces the external pointer with an indirect pointer to the reconstructed data. It also carefully manages memory accounting by tracking the size difference between the original change and the modified change with reconstructed TOAST data.
 

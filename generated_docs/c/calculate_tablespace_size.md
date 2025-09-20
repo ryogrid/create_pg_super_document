@@ -8,7 +8,9 @@ A static function that calculates the total physical size of a tablespace, inclu
 
 ## Definition
 
-
+```c
+struct dirent *direntry;
+```
 ## Detailed Description
 The  function computes the total size of a tablespace by scanning its directory structure and summing the sizes of all files and subdirectories. It first performs access control checking to ensure the user has either pg_read_all_stats role privileges or CREATE privilege on the target tablespace (with an exception for the current database's default tablespace). The function handles three special tablespace cases: DEFAULTTABLESPACE_OID maps to the "base" directory, GLOBALTABLESPACE_OID maps to "global", and custom tablespaces map to "pg_tblspc/oid/version_directory". It then iterates through all entries in the tablespace directory, using  to get file sizes and recursively calling  for subdirectories. The function includes both individual file sizes and directory contents in the total calculation.
 

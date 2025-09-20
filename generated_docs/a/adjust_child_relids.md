@@ -8,7 +8,10 @@ Substitutes child relation IDs for parent relation IDs in a Relids set based on 
 
 ## Definition
 
-
+```c
+Relids
+adjust_child_relids(Relids relids, int nappinfos, AppendRelInfo **appinfos)
+```
 ## Detailed Description
 This function performs relation ID substitution for query planning optimization, specifically for handling inheritance and partitioning scenarios. It iterates through an array of AppendRelInfo structures and replaces any parent relation IDs found in the input Relids set with their corresponding child relation IDs. The function is designed to be efficient by only creating a copy of the input set when modifications are actually needed.
 

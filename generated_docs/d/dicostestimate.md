@@ -8,7 +8,13 @@ A cost estimation function for the dummy index access method that intentionally 
 
 ## Definition
 
-
+```c
+static void
+dicostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+			   Cost *indexStartupCost, Cost *indexTotalCost,
+			   Selectivity *indexSelectivity, double *indexCorrelation,
+			   double *indexPages)
+```
 ## Detailed Description
 The  function implements the cost estimation interface for the dummy index access method. Unlike production index AMs that provide realistic cost estimates to help the planner choose efficient query plans, this function deliberately returns extremely high costs (1.0e10) for both startup and total costs.
 

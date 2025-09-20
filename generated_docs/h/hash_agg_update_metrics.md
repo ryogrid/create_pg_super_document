@@ -8,7 +8,10 @@ Updates memory usage metrics and performance statistics for hash aggregation ope
 
 ## Definition
 
-
+```c
+static void
+hash_agg_update_metrics(AggState *aggstate, bool from_tape, int npartitions)
+```
 ## Detailed Description
 This function updates various metrics related to hash aggregation performance after filling the hash table. It calculates and tracks memory usage across different components including the hash table metadata, group keys and transition states, and tape buffer memory when spilling occurs. The function also updates peak memory usage, disk usage when tapes are involved, and provides updated estimates for hash entry size based on current group count.
 

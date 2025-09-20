@@ -8,7 +8,10 @@ A tree-walking mutator function that recursively traverses expression trees to r
 
 ## Definition
 
-
+```c
+static Node *
+replace_correlation_vars_mutator(Node *node, PlannerInfo *root)
+```
 ## Detailed Description
 This function implements the core logic for replacing correlation variables in expression trees. It uses PostgreSQL's expression tree mutator framework to recursively walk through expression nodes and identify uplevel references that need to be converted to execution parameters.
 

@@ -8,7 +8,28 @@ SnapBuildOnDisk is a serialization structure used to persist SnapBuild snapshot 
 
 ## Definition
 
+```c
+typedef struct SnapBuildOnDisk
+{
+	/* first part of this struct needs to be version independent */
 
+	/* data not covered by checksum */
+	uint32		magic;
+	pg_crc32c	checksum;
+
+	/* data covered by checksum */
+
+	/* version, in case we want to support pg_upgrade */
+	uint32		version;
+	/* how large is the on disk data, excluding the constant sized part */
+	uint32		length;
+
+	/* version dependent part */
+	SnapBuild	builder;
+
+	/* variable amount of TransactionIds follows */
+} SnapBuildOnDisk;
+```
 ## Detailed Description
 SnapBuildOnDisk provides a persistent storage format for SnapBuild structures, allowing logical replication slots to maintain consistency across database restarts and recovery scenarios. The structure is carefully designed with version independence and data integrity in mind.
 

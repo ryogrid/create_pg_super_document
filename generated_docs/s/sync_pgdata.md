@@ -8,7 +8,9 @@ Synchronizes a PostgreSQL data directory (PGDATA) and all its contents to ensure
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function is responsible for synchronizing the entire PostgreSQL data directory to ensure that all data is safely written to disk. It handles the complexity of different PostgreSQL versions and synchronization methods while carefully managing symbolic links.
 

@@ -8,7 +8,10 @@ The numeric_round function implements PostgreSQL's ROUND() SQL function for NUME
 
 ## Definition
 
-
+```c
+Datum
+numeric_round(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL-accessible interface for rounding NUMERIC values in PostgreSQL. It accepts two arguments: the numeric value to round and the scale (number of digits after the decimal point). The function supports negative scale values, which rounds digits before the decimal point, following Oracle's interpretation of rounding.
 

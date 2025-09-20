@@ -8,7 +8,10 @@ The  function saves the database encoding information to the archive as a SET cl
 
 ## Definition
 
-
+```c
+static void
+dumpEncoding(Archive *AH)
+```
 ## Detailed Description
 The  function creates an archive entry that contains a SQL command to set the client encoding to match the database encoding. This ensures that when the dump is restored, the client connection uses the same encoding as the original database. The function converts the numeric encoding stored in the archive to its string representation, wraps it in a SET client_encoding statement, and stores it as a PRE_DATA section entry in the dump archive.
 

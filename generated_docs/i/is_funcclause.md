@@ -8,7 +8,10 @@ A static inline utility function that checks whether a given clause is a FuncExp
 
 ## Definition
 
-
+```c
+static inline bool
+is_funcclause(const void *clause)
+```
 ## Detailed Description
 This function provides a type-safe way to determine if a clause represents a function call expression in PostgreSQL's parse tree. It uses the IsA() macro to perform runtime type checking, ensuring that the provided clause is not NULL and is specifically a FuncExpr node type. This is commonly used in optimizer and planner code where different types of clauses need to be handled differently based on their node type.
 

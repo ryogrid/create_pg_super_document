@@ -8,7 +8,10 @@ A validation hook function for the IGNOREEOF psql variable that parses and valid
 
 ## Definition
 
-
+```c
+static bool
+ignoreeof_hook(const char *newval)
+```
 ## Detailed Description
 The  function is a psql variable hook that validates new values assigned to the IGNOREEOF variable. It parses string input to ensure it represents a valid integer and stores the parsed value in . The IGNOREEOF variable controls how many consecutive EOF (Ctrl-D) characters are required before psql will exit - a value of 0 means exit immediately on EOF, while positive values require that many consecutive EOF inputs.
 

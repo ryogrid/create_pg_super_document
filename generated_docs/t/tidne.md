@@ -8,7 +8,10 @@ tidne is a PostgreSQL function that performs inequality comparison between two t
 
 ## Definition
 
-
+```c
+Datum
+tidne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the "not equals" operator for the tid (tuple identifier) data type in PostgreSQL. It takes two ItemPointer arguments and compares them using ItemPointerCompare, returning true if the pointers are not equal (comparison result != 0). This is part of PostgreSQL's tuple identifier comparison operators, which are essential for identifying specific rows within tables.
 

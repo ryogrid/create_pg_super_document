@@ -8,7 +8,11 @@ A comprehensive Tamil stemmer function that performs various character sequence 
 
 ## Definition
 
+```c
+}
 
+static int r_fix_ending(struct SN_env * z)
+```
 ## Detailed Description
 This function is a central component of the Tamil stemming algorithm that handles complex ending transformations. It operates from the end of the word (using backward matching) and applies a series of pattern-matching rules to normalize Tamil character sequences.
 

@@ -8,7 +8,9 @@ This function initializes the directory format archive handler for PostgreSQL's 
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
  serves as the initialization routine for the directory archive format in pg_dump. This function is responsible for:
 

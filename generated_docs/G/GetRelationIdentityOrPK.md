@@ -8,7 +8,10 @@ Returns the OID of either the replica identity index or primary key index for a 
 
 ## Definition
 
-
+```c
+Oid
+GetRelationIdentityOrPK(Relation rel)
+```
 ## Detailed Description
 This function provides a unified way to obtain the most appropriate index OID for logical replication purposes. It follows a specific priority order:
 1. First attempts to get the replica identity index using RelationGetReplicaIndex()

@@ -8,7 +8,10 @@ A function that provides standardized parsing of relation options for tables tha
 
 ## Definition
 
-
+```c
+bytea *
+default_reloptions(Datum reloptions, bool validate, relopt_kind kind)
+```
 ## Detailed Description
 This function serves as an option parser for any relation type that uses the standard StdRdOptions structure. It defines a comprehensive parsing table that includes storage parameters like fillfactor, toast settings, parallel worker configuration, vacuum settings, and detailed autovacuum options. The function delegates the actual parsing and structure building to build_reloptions, providing it with the StdRdOptions-specific parsing table and structure size.
 

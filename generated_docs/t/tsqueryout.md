@@ -8,7 +8,10 @@ The  function is a PostgreSQL I/O function that converts a TSQuery data type int
 
 ## Definition
 
-
+```c
+Datum
+tsqueryout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the output function for the TSQuery data type in PostgreSQL's type system. It takes an internal TSQuery structure and converts it into a human-readable string format that users can understand and work with. The function is responsible for the reverse operation of  - instead of parsing text into TSQuery, it formats TSQuery back into text.
 

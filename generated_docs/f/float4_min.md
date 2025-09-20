@@ -8,7 +8,10 @@ Returns the smaller of two single-precision floating-point numbers, with Postgre
 
 ## Definition
 
-
+```c
+static inline float4
+float4_min(const float4 val1, const float4 val2)
+```
 ## Detailed Description
 This inline function implements the minimum operation for single-precision floating-point numbers (float4). It uses the float4_lt comparison function to determine which value is smaller and returns that value. The function inherits PostgreSQL's NaN handling behavior from float4_lt, where NaN comparisons follow specific SQL standard semantics.
 

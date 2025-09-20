@@ -8,7 +8,11 @@ Identifies and marks Turkish past participle suffixes ending in -ymUs̈ variants
 
 ## Definition
 
+```c
+}
 
+static int r_mark_ymUs_(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Turkish Snowball stemmer implementation that identifies past participle suffixes with variants of -ymUs̈. It performs pattern matching for the Turkish suffixes "miş", "muş", "mış", and "müş" which are past participle endings in Turkish grammar. The function implements vowel harmony checking and handles the optional 'y' consonant insertion rule that is characteristic of Turkish morphology.
 

@@ -8,7 +8,10 @@ Converts a Unicode general category enumeration value into its corresponding hum
 
 ## Definition
 
-
+```c
+const char *
+unicode_category_string(pg_unicode_category category)
+```
 ## Detailed Description
 This function provides a string description for Unicode general category values as defined in the Unicode standard. It takes a pg_unicode_category enumeration value and returns a descriptive string that matches the official Unicode category names. The function covers all standard Unicode general categories including letters, marks, numbers, punctuation, symbols, separators, and other character types. This is primarily used for debugging, testing, and user-facing displays where category names need to be presented in readable form.
 

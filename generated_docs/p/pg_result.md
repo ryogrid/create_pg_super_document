@@ -8,7 +8,55 @@ The core internal structure in libpq that represents a query result set, contain
 
 ## Definition
 
+```c
+struct pg_result
+{
+	int			ntups;
+	int			numAttributes;
+	PGresAttDesc *attDescs;
+	PGresAttValue **tuples;		/* each PGresult tuple is an array of
+								 * PGresAttValue's */
+	int			tupArrSize;		/* allocated size of tuples array */
+	int			numParameters;
+	PGresParamDesc *paramDescs;
+	ExecStatusType resultStatus;
+	char		cmdStatus[CMDSTATUS_LEN];	/* cmd status from the query */
+	int			binary;			/* binary tuple values if binary == 1,
+								 * otherwise text */
 
+	/*
+	 * These fields are copied from the originating PGconn, so that operations
+	 * on the PGresult don't have to reference the PGconn.
+	 */
+	PGNoticeHooks noticeHooks;
+	PGEvent    *events;
+	int			nEvents;
+	int			client_encoding;	/* encoding id */
+
+	/*
+	 * Error information (all NULL if not an error result).  errMsg is the
+	 * "overall" error message returned by PQresultErrorMessage.  If we have
+	 * per-field info then it is stored in a linked list.
+	 */
+	char	   *errMsg;			/* error message, or NULL if no error */
+	PGMessageField *errFields;	/* message broken into fields */
+	char	   *errQuery;		/* text of triggering query, if available */
+
+	/* All NULL attributes in the query result point to this null string */
+	char		null_field[1];
+
+	/*
+	 * Space management information.  Note that attDescs and error stuff, if
+	 * not null, point into allocated blocks.  But tuples points to a
+	 * separately malloc'd block, so that we can realloc it.
+	 */
+	PGresult_data *curBlock;	/* most recently allocated block */
+	int			curOffset;		/* start offset of free space in block */
+	int			spaceLeft;		/* number of free bytes remaining in block */
+
+	size_t		memorySize;		/* total space allocated for this PGresult */
+};
+```
 ## Detailed Description
 The `pg_result` structure is the fundamental data structure that represents the result of a PostgreSQL query in libpq. It contains the actual data returned by the server, metadata about columns and parameters, error information, and memory management data. This structure is used internally and exposed to applications through the `PGresult` typedef.
 

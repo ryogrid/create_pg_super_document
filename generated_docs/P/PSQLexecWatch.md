@@ -8,7 +8,10 @@ PSQLexecWatch is a specialized function in psql designed to execute queries for 
 
 ## Definition
 
-
+```c
+int
+PSQLexecWatch(const char *query, const printQueryOpt *opt, FILE *printQueryFout, int min_rows)
+```
 ## Detailed Description
 PSQLexecWatch is specifically designed to support psql's \watch command functionality. It executes a query and processes its results with the following characteristics:
 

@@ -8,7 +8,11 @@ Initializes the execution state for a ModifyTable plan node, setting up all nece
 
 ## Definition
 
-
+```c
+structure
+	 */
+	mtstate = makeNode(ModifyTableState);
+```
 ## Detailed Description
 This comprehensive initialization function sets up a ModifyTableState structure for executing DML operations. It handles complex scenarios including partitioned tables, foreign tables, inheritance hierarchies, ON CONFLICT clauses, RETURNING projections, WITH CHECK OPTIONS, and MERGE operations.
 

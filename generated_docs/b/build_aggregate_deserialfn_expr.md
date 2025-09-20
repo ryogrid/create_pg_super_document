@@ -8,7 +8,11 @@ Constructs an expression tree for the deserialization function of an aggregate, 
 
 ## Definition
 
-
+```c
+void
+build_aggregate_deserialfn_expr(Oid deserialfn_oid,
+								Expr **deserialfnexpr)
+```
 ## Detailed Description
 This function builds an expression tree specifically for aggregate deserialization functions. It creates a FuncExpr node that represents a call to the deserialization function, which is used in parallel aggregation to deserialize the state that was previously serialized by another worker process. The deserialization function always follows a fixed signature: it takes BYTEA (serialized data) and INTERNAL (context) parameters and returns INTERNAL (deserialized state).
 

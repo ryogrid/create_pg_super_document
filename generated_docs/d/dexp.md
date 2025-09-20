@@ -8,7 +8,10 @@ The dexp function implements PostgreSQL's exponential function, returning e rais
 
 ## Definition
 
-
+```c
+Datum
+dexp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The dexp function is PostgreSQL's implementation of the exponential function (exp). It takes a single float8 argument and returns e^arg1. The function includes comprehensive error handling for special floating-point values including NaN and infinity cases, following POSIX standards. It also implements overflow and underflow detection to ensure robust behavior across different platforms.
 

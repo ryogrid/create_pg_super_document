@@ -8,7 +8,10 @@ Finalizes and cleans up a heap rewrite operation by processing any remaining unr
 
 ## Definition
 
-
+```c
+void
+end_heap_rewrite(RewriteState state)
+```
 ## Detailed Description
 The `end_heap_rewrite` function completes a heap rewrite operation that was initiated with `begin_heap_rewrite`. It performs final cleanup tasks including processing any remaining unresolved tuples in the hash table, writing any buffered data to storage, and deallocating all memory contexts and resources associated with the rewrite operation.
 

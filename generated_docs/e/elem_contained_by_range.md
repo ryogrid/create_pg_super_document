@@ -8,7 +8,10 @@ This PostgreSQL function determines whether an element is contained within a ran
 
 ## Definition
 
-
+```c
+Datum
+elem_contained_by_range(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that checks if a given element value is contained within the boundaries of a range type. It serves as the implementation for the "contained by" operator (<@) when the left operand is an element and the right operand is a range. The function extracts the element value and range from the function arguments, obtains the appropriate type cache information for the range's element type, and delegates the actual containment check to the internal  function.
 

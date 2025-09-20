@@ -8,7 +8,10 @@ Estimates the size and output characteristics for a plain base relation without 
 
 ## Definition
 
-
+```c
+static void
+set_plain_rel_size(PlannerInfo *root, RelOptInfo *rel, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function establishes size estimates for plain base relations in PostgreSQL's query optimizer. It performs a two-step process: first checking the applicability of partial indexes (which can significantly impact size estimates), then computing the actual size estimates including row count and tuple width. The function is specifically designed for simple table relations that don't involve subqueries, inheritance, or other complex structures.
 

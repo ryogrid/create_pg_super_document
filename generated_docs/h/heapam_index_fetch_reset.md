@@ -8,7 +8,10 @@ Resets the heap index fetch scan state by releasing any currently held buffer an
 
 ## Definition
 
-
+```c
+static void
+heapam_index_fetch_reset(IndexFetchTableData *scan)
+```
 ## Detailed Description
 This function provides cleanup and reset functionality for heap index fetch operations within PostgreSQL's table access method framework. It takes an IndexFetchTableData pointer (which is actually an IndexFetchHeapData structure) and performs necessary cleanup by releasing any buffer that is currently pinned by the scan. The function checks if there is a valid buffer held in xs_cbuf, and if so, releases it using ReleaseBuffer() and resets the buffer reference to InvalidBuffer. This ensures proper resource management and prevents buffer leaks during index scan operations.
 

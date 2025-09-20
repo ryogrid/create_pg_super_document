@@ -8,7 +8,10 @@ A PostgreSQL function that implements interval division by a floating-point fact
 
 ## Definition
 
-
+```c
+Datum
+interval_div(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function divides an interval by a floating-point factor, handling various edge cases including division by zero, NaN, and infinity conditions. The implementation follows similar logic to  but performs division instead of multiplication, with proper rounding and cascading of fractional units.
 

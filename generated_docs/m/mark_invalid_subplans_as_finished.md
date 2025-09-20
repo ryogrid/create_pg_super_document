@@ -8,7 +8,10 @@ Marks invalid subplans as finished in the ParallelAppendState during runtime par
 
 ## Definition
 
-
+```c
+static void
+mark_invalid_subplans_as_finished(AppendState *node)
+```
 ## Detailed Description
 This function is a crucial component of PostgreSQL's runtime partition pruning mechanism for parallel Append nodes. When runtime pruning determines that certain subplans are not needed (e.g., partitions that don't match the query's WHERE conditions), this function marks those invalid subplans as finished in the parallel execution state.
 

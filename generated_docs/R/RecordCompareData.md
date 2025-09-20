@@ -8,7 +8,17 @@ A structure that caches metadata needed for comparing entire records, supporting
 
 ## Definition
 
-
+```c
+typedef struct RecordCompareData
+{
+	int			ncolumns;		/* allocated length of columns[] */
+	Oid			record1_type;
+	int32		record1_typmod;
+	Oid			record2_type;
+	int32		record2_typmod;
+	ColumnCompareData columns[FLEXIBLE_ARRAY_MEMBER];
+} RecordCompareData;
+```
 ## Detailed Description
 RecordCompareData is a comprehensive structure designed to optimize record comparison operations in PostgreSQL. Unlike simpler comparison scenarios, this structure is specifically designed to handle comparisons between records that may have different types, requiring separate type metadata for each operand (record1_type/record2_type).
 

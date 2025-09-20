@@ -8,7 +8,11 @@ A static function that performs cross-type comparison of two datetime SQL/JSON i
 
 ## Definition
 
-
+```c
+static int
+compareDatetime(Datum val1, Oid typid1, Datum val2, Oid typid2,
+				bool useTz, bool *cast_error)
+```
 ## Detailed Description
 The  function implements comprehensive datetime comparison logic for SQL/JSON path operations. It handles all combinations of PostgreSQL datetime types (DATE, TIME, TIMETZ, TIMESTAMP, TIMESTAMPTZ) and determines if they can be meaningfully compared. The function employs a nested switch statement structure to handle type-specific conversion and comparison logic. When types are incompatible (such as comparing DATE with TIME), it sets the cast_error flag rather than throwing an exception, allowing callers to handle the error appropriately. For comparable types, it delegates to the appropriate PostgreSQL comparison functions or helper functions for cross-type comparisons.
 

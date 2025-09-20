@@ -8,7 +8,18 @@ Distributes a completed RestrictInfo clause to the appropriate relation restrict
 
 ## Definition
 
-
+```c
+structure with
+	 * original (this is necessary in case there are subselects in there...)
+	 */
+	clause = (Node *) make_opclause(opno,
+									BOOLOID,	/* opresulttype */
+									false,	/* opretset */
+									copyObject(item1),
+									copyObject(item2),
+									InvalidOid,
+									collation);
+```
 ## Detailed Description
 This function is the final step in the qualify distribution process for ordinary qualification clauses in PostgreSQL's query planner. It analyzes the  bitmapset of a RestrictInfo to determine where the clause should be attached:
 

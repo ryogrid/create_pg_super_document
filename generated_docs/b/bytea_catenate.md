@@ -8,7 +8,10 @@ bytea_catenate is a static internal function that performs the core concatenatio
 
 ## Definition
 
-
+```c
+static bytea *
+bytea_catenate(bytea *t1, bytea *t2)
+```
 ## Detailed Description
 This function performs the actual concatenation of two bytea values by allocating new memory and copying data from both input bytea values sequentially. It handles the PostgreSQL variable-length data structure details, including proper header management and memory allocation. The function includes safety checks for negative lengths and supports arguments in short-header form, though not compressed or out-of-line variants.
 

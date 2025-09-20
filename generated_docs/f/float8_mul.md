@@ -8,7 +8,10 @@ Performs multiplication of two double-precision floating-point numbers (float8) 
 
 ## Definition
 
-
+```c
+static inline float8
+float8_mul(const float8 val1, const float8 val2)
+```
 ## Detailed Description
 The  function multiplies two  (double-precision floating-point) values and returns the result with appropriate error handling. This is an inline function defined in the header file for performance optimization. Similar to , this function performs standard multiplication but includes additional checks to detect and handle floating-point overflow and underflow conditions, which are critical for maintaining data integrity in database operations.
 

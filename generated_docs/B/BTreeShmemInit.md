@@ -8,7 +8,10 @@ Initializes the shared memory structures used for coordinating B-tree VACUUM ope
 
 ## Definition
 
-
+```c
+void
+BTreeShmemInit(void)
+```
 ## Detailed Description
 This function sets up the shared memory infrastructure required for B-tree VACUUM coordination. It allocates and initializes the  structure that tracks all currently active VACUUM operations across the system. The function handles both the initial creation (in the postmaster process) and attachment (in child processes) scenarios.
 

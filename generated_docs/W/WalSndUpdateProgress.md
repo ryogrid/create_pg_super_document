@@ -8,7 +8,11 @@ WalSndUpdateProgress is a callback function used by the logical decoding context
 
 ## Definition
 
-
+```c
+static void
+WalSndUpdateProgress(LogicalDecodingContext *ctx, XLogRecPtr lsn, TransactionId xid,
+					 bool skipped_xact)
+```
 ## Detailed Description
 WalSndUpdateProgress serves as the 'update_progress' callback for logical decoding in PostgreSQL's WAL sender process. It performs two main functions: tracking replication lag by writing samples to the lag tracker, and sending keepalive messages to prevent timeout when empty transactions are skipped during synchronous replication.
 

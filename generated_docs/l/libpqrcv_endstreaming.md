@@ -8,7 +8,10 @@ Terminates an active WAL streaming session with the primary server, handling the
 
 ## Definition
 
-
+```c
+static void
+libpqrcv_endstreaming(WalReceiverConn *conn, TimeLineID *next_tli)
+```
 ## Detailed Description
 This function implements the proper termination sequence for a WAL streaming connection in PostgreSQL replication. It sends a copy-end message to signal the end of streaming, then processes the server's response which may include information about the next timeline. The function handles multiple possible response scenarios: receiving timeline information in a result set, handling aborted copy operations, and ensuring proper protocol completion.
 

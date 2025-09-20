@@ -8,7 +8,10 @@ Extracts an OID (Object Identifier) value from a DefElem structure, handling bot
 
 ## Definition
 
-
+```c
+Oid
+defGetObjectId(DefElem *def)
+```
 ## Detailed Description
 The  function is a utility function that safely extracts an OID value from a  structure, which is commonly used in PostgreSQL's parser to represent definition elements with name-value pairs. The function handles two cases:
 

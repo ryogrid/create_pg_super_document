@@ -8,7 +8,10 @@ Comparison function for sorting points by their x-coordinate, used in SP-GiST sp
 
 ## Definition
 
-
+```c
+static int
+x_cmp(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 The  function is a standard C library comparison function that compares two  structures based on their x-coordinates. It follows the qsort/bsearch comparison function convention, returning a negative value if the first point's x-coordinate is less than the second, zero if they are equal, and a positive value if the first is greater. This function is used to sort arrays of points by x-coordinate for spatial partitioning operations in SP-GiST k-d tree and quadtree implementations.
 

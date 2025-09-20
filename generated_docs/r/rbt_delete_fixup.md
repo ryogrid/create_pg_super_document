@@ -8,7 +8,10 @@ Maintains Red-Black tree balance properties after deleting a black node by perfo
 
 ## Definition
 
-
+```c
+static void
+rbt_delete_fixup(RBTree *rbt, RBTNode *x)
+```
 ## Detailed Description
 This function is a critical component of the Red-Black tree deletion algorithm that restores the Red-Black tree properties after a black node has been removed. The deletion of a black node can violate the Red-Black tree's fundamental property that all paths from any node to its descendant leaf nodes must contain the same number of black nodes (black-height property).
 

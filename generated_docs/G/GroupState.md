@@ -8,7 +8,14 @@ GroupState is the execution state structure for GROUP BY operations that elimina
 
 ## Definition
 
-
+```c
+typedef struct GroupState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	ExprState  *eqfunction;		/* equality function */
+	bool		grp_done;		/* indicates completion of Group scan */
+} GroupState;
+```
 ## Detailed Description
 GroupState is the execution state structure used by the Group executor node in PostgreSQL. The Group node is a specialized operator that eliminates consecutive duplicate rows from an input stream that is already sorted by the grouping columns. Unlike the more general HashAggregate or GroupAggregate nodes that can handle arbitrary grouping operations, the Group node assumes the input is pre-sorted and simply removes duplicates by comparing consecutive tuples.
 

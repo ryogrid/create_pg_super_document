@@ -8,7 +8,17 @@ Deallocates memory for an edge table used in the GEQO ERX algorithm, providing p
 
 ## Definition
 
-
+```c
+structure which represents the set of explicit
+ *	 edges between points in the (2) input genes
+ *
+ *	 assumes circular tours and bidirectional edges
+ *
+ *	 gimme_edge() will set "shared" edges to negative values
+ *
+ *	 returns average number edges/city in range 2.0 - 4.0
+ *	 where 2.0=homogeneous;
+```
 ## Detailed Description
 This function deallocates the memory previously allocated for an edge table in the GEQO ERX crossover algorithm. It serves as the cleanup counterpart to alloc_edge_table, ensuring proper memory management within PostgreSQL's genetic query optimizer. The function uses PostgreSQL's pfree function to release the memory allocated by palloc.
 

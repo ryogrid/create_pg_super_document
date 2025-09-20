@@ -8,7 +8,10 @@ This is a GUC check hook function that validates timezone strings for the log_ti
 
 ## Definition
 
-
+```c
+bool
+check_log_timezone(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 The  function serves as the validation hook for PostgreSQL's  configuration parameter. It validates that the provided timezone string represents a valid timezone that PostgreSQL can use for logging purposes. Unlike the main  parameter,  does not support interval-based timezone methods, focusing only on named timezone support for SQL spec compliance.
 

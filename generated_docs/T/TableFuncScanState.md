@@ -8,7 +8,28 @@ TableFuncScanState is a runtime state structure for PostgreSQL's table function 
 
 ## Definition
 
-
+```c
+typedef struct TableFuncScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	ExprState  *docexpr;		/* state for document expression */
+	ExprState  *rowexpr;		/* state for row-generating expression */
+	List	   *colexprs;		/* state for column-generating expression */
+	List	   *coldefexprs;	/* state for column default expressions */
+	List	   *colvalexprs;	/* state for column value expressions */
+	List	   *passingvalexprs;	/* state for PASSING argument expressions */
+	List	   *ns_names;		/* same as TableFunc.ns_names */
+	List	   *ns_uris;		/* list of states of namespace URI exprs */
+	Bitmapset  *notnulls;		/* nullability flag for each output column */
+	void	   *opaque;			/* table builder private space */
+	const struct TableFuncRoutine *routine; /* table builder methods */
+	FmgrInfo   *in_functions;	/* input function for each column */
+	Oid		   *typioparams;	/* typioparam for each column */
+	int64		ordinal;		/* row number to be output next */
+	MemoryContext perTableCxt;	/* per-table context */
+	Tuplestorestate *tupstore;	/* output tuple store */
+} TableFuncScanState;
+```
 ## Detailed Description
 TableFuncScanState manages the execution of table-expression functions like XMLTABLE and JSON_TABLE that extract tabular data from structured documents (XML, JSON). The structure handles document parsing, row extraction, column value computation, and namespace management. It uses a pluggable architecture through the TableFuncRoutine interface to support different document types and extraction methods. The execution process involves parsing the input document, applying row-generating expressions to extract rows, then applying column expressions to extract values for each column in each row.
 

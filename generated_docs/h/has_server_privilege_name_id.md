@@ -8,7 +8,10 @@ Checks whether a named user has specified privileges on a foreign server identif
 
 ## Definition
 
-
+```c
+Datum
+has_server_privilege_name_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a variant of the has_server_privilege family that takes a username, server OID, and privilege type as arguments. It uses the extended access control check function (object_aclcheck_ext) which can detect when the target foreign server object is missing or has been dropped. If the server doesn't exist, the function returns NULL instead of raising an error, providing a more graceful handling of missing objects.
 

@@ -8,7 +8,16 @@ The  structure is used to sort and organize buffers by file during checkpoint op
 
 ## Definition
 
-
+```c
+typedef struct CkptSortItem
+{
+	Oid			tsId;
+	RelFileNumber relNumber;
+	ForkNumber	forkNum;
+	BlockNumber blockNum;
+	int			buf_id;
+} CkptSortItem;
+```
 ## Detailed Description
 The  structure is specifically designed to optimize checkpoint operations by providing a way to sort buffers according to their physical file location. During checkpoints, PostgreSQL needs to write out dirty buffers to disk, and doing so in file order rather than random order can significantly improve I/O performance.
 

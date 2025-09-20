@@ -8,7 +8,10 @@ This function handles the start of JSON arrays during null-stripping operations,
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+sn_array_start(void *state)
+```
 ## Detailed Description
 The `sn_array_start` function is a callback handler used by the JSON null-stripping functionality (`json_strip_nulls`). It serves as a semantic action that processes the beginning of JSON arrays during parsing.
 

@@ -8,7 +8,10 @@ Initializes the format-specific data structures and writes control information w
 
 ## Definition
 
-
+```c
+static void
+_StartData(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 The  function is a key component of PostgreSQL's custom archive format implementation in pg_dump. It is called by the archiver just prior to the dumper's  routine being executed when saving TABLE DATA (not schema). This function prepares the archive for receiving table data by:
 

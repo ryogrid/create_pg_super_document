@@ -8,7 +8,19 @@ ParamPathInfo stores common information for all parameterized paths of a given r
 
 ## Definition
 
+```c
+typedef struct ParamPathInfo
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+
+	Relids		ppi_req_outer;	/* rels supplying parameters used by path */
+	Cardinality ppi_rows;		/* estimated number of result tuples */
+	List	   *ppi_clauses;	/* join clauses available from outer rels */
+	Bitmapset  *ppi_serials;	/* set of rinfo_serial for enforced quals */
+} ParamPathInfo;
+```
 ## Detailed Description
 ParamPathInfo is a shared data structure that links to all parameterized paths for a given relation with the same set of required outer relations. The primary purpose is to store common information, particularly the estimated rowcount for this specific parameterization, to avoid recalculations and ensure consistency across all paths using the same parameterization.
 

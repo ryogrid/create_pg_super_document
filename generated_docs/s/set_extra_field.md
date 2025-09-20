@@ -8,7 +8,10 @@ A static utility function in PostgreSQL's GUC system that safely assigns a new '
 
 ## Definition
 
-
+```c
+static void
+set_extra_field(struct config_generic *gconf, void **field, void *newval)
+```
 ## Detailed Description
 The  function provides a memory-safe way to update 'extra' data fields within PostgreSQL's GUC configuration management system. It performs assignment of a new extra data pointer to a specified field while ensuring proper cleanup of the previous value. The function uses  to check if the old value is still referenced elsewhere in the configuration structure (including stacked states) before freeing it, preventing memory leaks while avoiding premature deallocation of shared extra data.
 

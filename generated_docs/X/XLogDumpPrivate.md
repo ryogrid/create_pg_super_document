@@ -8,7 +8,15 @@ XLogDumpPrivate is a structure that holds private state information for WAL (Wri
 
 ## Definition
 
-
+```c
+typedef struct XLogDumpPrivate
+{
+	TimeLineID	timeline;
+	XLogRecPtr	startptr;
+	XLogRecPtr	endptr;
+	bool		endptr_reached;
+} XLogDumpPrivate;
+```
 ## Detailed Description
 XLogDumpPrivate serves as a context structure that maintains the state of a WAL dump session. It tracks the timeline being processed, the start and end positions for the dump operation, and whether the end position has been reached. This structure is used internally by pg_waldump to manage the boundaries and progress of WAL record reading operations.
 

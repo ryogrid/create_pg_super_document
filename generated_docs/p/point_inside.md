@@ -8,7 +8,10 @@ Determines whether a point lies inside a polygon using the ray-casting algorithm
 
 ## Definition
 
-
+```c
+static int
+point_inside(Point *p, int npts, Point *plist)
+```
 ## Detailed Description
 The `point_inside` function implements the ray-casting (point-in-polygon) algorithm to determine if a given point lies within a polygon boundary. The algorithm works by casting a conceptual ray from the test point and counting how many times it crosses polygon edges. If the number of crossings is odd, the point is inside; if even (including zero), the point is outside.
 

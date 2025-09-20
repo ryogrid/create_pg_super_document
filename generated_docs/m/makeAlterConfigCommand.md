@@ -8,7 +8,13 @@ makeAlterConfigCommand is a helper function for generating ALTER DATABASE/ROLE S
 
 ## Definition
 
-
+```c
+void
+makeAlterConfigCommand(PGconn *conn, const char *configitem,
+					   const char *type, const char *name,
+					   const char *type2, const char *name2,
+					   PQExpBuffer buf)
+```
 ## Detailed Description
 This function parses a configuration item (in "name=value" format) and wraps it in a complete ALTER command suitable for database dumps. The function handles both simple configuration values and GUC_LIST_QUOTE variables that require special parsing and quoting.
 

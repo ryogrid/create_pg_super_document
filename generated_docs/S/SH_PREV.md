@@ -8,7 +8,10 @@ Returns the previous bucket before the current bucket in a PostgreSQL simple has
 
 ## Definition
 
-
+```c
+static inline uint32
+SH_PREV(SH_TYPE * tb, uint32 curelem, uint32 startelem)
+```
 ## Detailed Description
 SH_PREV is a macro that generates a function name for moving to the previous bucket within PostgreSQL's simple hash table framework. The function implements backward linear probing by decrementing the current bucket index and wrapping around to the end of the table using bitwise AND with the size mask. Similar to SH_NEXT, it includes an assertion to prevent infinite loops by ensuring the probing doesn't return to the starting element. This function is less commonly used than SH_NEXT but is essential for certain hash table operations that require backward traversal.
 

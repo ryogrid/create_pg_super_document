@@ -8,7 +8,11 @@ ExecInitGroup initializes the runtime state for a Group plan node, setting up th
 
 ## Definition
 
-
+```c
+structure
+	 */
+	grpstate = makeNode(GroupState);
+```
 ## Detailed Description
 ExecInitGroup performs comprehensive initialization of a GroupState node during query plan startup. It creates the execution state structure, establishes parent-child relationships in the plan tree, initializes expression evaluation contexts, and sets up tuple processing infrastructure.
 

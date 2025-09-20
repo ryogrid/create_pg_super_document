@@ -8,7 +8,15 @@ A generic selectivity estimation function for matching-type operators that provi
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	Node	   *var;			/* might be an expression, not just a Var */
+	RelOptInfo *rel;			/* relation it belongs to */
+	double		ndistinct;		/* # distinct values */
+	bool		isdefault;		/* true if DEFAULT_NUM_DISTINCT was used */
+} GroupVarInfo;
+```
 ## Detailed Description
 This function serves as a generic selectivity estimator for operators that have "matching" semantics - typically operators that test for similarity or pattern matching rather than exact equality. It's designed for use with operators that operate on data types for which PostgreSQL collects standard statistics and where the default estimate (twice DEFAULT_EQ_SEL) provides a reasonable approximation.
 

@@ -8,7 +8,10 @@ Converts a string from KOI8-R (Cyrillic) encoding to ISO-8859-5 encoding using a
 
 ## Definition
 
-
+```c
+Datum
+koi8r_to_iso(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function performs character encoding conversion from KOI8-R (a Russian/Cyrillic character encoding) to ISO-8859-5 (Latin/Cyrillic encoding). It uses a lookup table  to map characters from the high bit range (128-255) between the two encodings. The function leverages the generic  conversion mechanism that handles single-byte charset conversions between ASCII-superset encodings.
 

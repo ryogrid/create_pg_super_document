@@ -8,7 +8,14 @@ LockRefindAndRelease finds a lock in the shared lock table and releases it, ensu
 
 ## Definition
 
-
+```c
+typedef struct
+	{
+		LOCKTAG		lock;		/* identifies the lockable object */
+		bool		sessLock;	/* is any lockmode held at session level? */
+		bool		xactLock;	/* is any lockmode held at xact level? */
+	} PerLockTagEntry;
+```
 ## Detailed Description
 This function is responsible for finding and releasing a lock that exists in the shared lock table. It performs a complete lock release operation including:
 

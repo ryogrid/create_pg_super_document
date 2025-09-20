@@ -8,7 +8,10 @@ Removes the current process from the ProcSignal mechanism during backend shutdow
 
 ## Definition
 
-
+```c
+static void
+CleanupProcSignalState(int status, Datum arg)
+```
 ## Detailed Description
 CleanupProcSignalState is a cleanup function registered via on_shmem_exit() that is automatically called during backend process termination. It safely removes the current process from the process signaling infrastructure by first clearing the global MyProcSignalSlot pointer to prevent race conditions with signal handlers, then performing sanity checks on the slot contents. The function sets the slot's barrier generation to the maximum value to ensure no barrier operations will block waiting for this slot, broadcasts to any condition variable waiters, and finally clears the process ID to mark the slot as available for reuse.
 

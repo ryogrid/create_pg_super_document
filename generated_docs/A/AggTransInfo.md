@@ -8,7 +8,45 @@ AggTransInfo holds information about transition state that is shared by one or m
 
 ## Definition
 
+```c
+typedef struct AggTransInfo
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+
+	/* Inputs for this transition state */
+	List	   *args;
+	Expr	   *aggfilter;
+
+	/* Oid of the state transition function */
+	Oid			transfn_oid;
+
+	/* Oid of the serialization function, or InvalidOid if none */
+	Oid			serialfn_oid;
+
+	/* Oid of the deserialization function, or InvalidOid if none */
+	Oid			deserialfn_oid;
+
+	/* Oid of the combine function, or InvalidOid if none */
+	Oid			combinefn_oid;
+
+	/* Oid of state value's datatype */
+	Oid			aggtranstype;
+
+	/* Additional data about transtype */
+	int32		aggtranstypmod;
+	int			transtypeLen;
+	bool		transtypeByVal;
+
+	/* Space-consumption estimate */
+	int32		aggtransspace;
+
+	/* Initial value from pg_aggregate entry */
+	Datum		initValue pg_node_attr(read_write_ignore);
+	bool		initValueIsNull;
+} AggTransInfo;
+```
 ## Detailed Description
 AggTransInfo is a critical optimization structure in PostgreSQL's aggregate processing system. It enables multiple aggregate functions to share the same transition state when they have identical inputs and transition functions, reducing computational overhead and memory usage. Each unique combination of inputs and transition function gets assigned a single AggTransInfo, and all aggregates sharing these characteristics reference the same 'aggtransno' value. The structure contains comprehensive metadata about the transition state, including serialization/deserialization functions for parallel aggregation, combine functions for partial aggregation, and space consumption estimates for memory management.
 

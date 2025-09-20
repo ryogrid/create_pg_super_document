@@ -8,7 +8,10 @@ Trigger function that enforces NO ACTION foreign key constraint behavior during 
 
 ## Definition
 
-
+```c
+Datum
+RI_FKey_noaction_del(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the NO ACTION foreign key constraint action for DELETE operations on primary key tables. When a row in a primary key table is being deleted, this function checks whether any foreign key rows in referencing tables depend on the key being deleted. If dependencies exist, it prevents the deletion by raising a foreign key violation error.
 

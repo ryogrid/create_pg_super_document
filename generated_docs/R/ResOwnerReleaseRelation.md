@@ -8,7 +8,10 @@ ResOwnerReleaseRelation is a resource owner callback function that handles the c
 
 ## Definition
 
-
+```c
+static void
+ResOwnerReleaseRelation(Datum res)
+```
 ## Detailed Description
 This function serves as a callback for the PostgreSQL resource owner system to properly release relation cache entries. It is automatically invoked when the resource owner is cleaned up or when ResourceOwnerReleaseAllOfKind() is called for relation cache references. The function decrements the relation's reference count and performs necessary cleanup operations without calling ResourceOwnerForgetRelationRef, since the reference has already been removed from the resource owner at the time this callback is invoked.
 

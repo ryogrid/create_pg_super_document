@@ -8,7 +8,10 @@ A qsort comparator function used for sorting arrays of OffsetNumber values in as
 
 ## Definition
 
-
+```c
+static int
+cmpOffsetNumbers(const void *a, const void *b)
+```
 ## Detailed Description
 This function serves as a comparison function for the standard C library qsort function, specifically designed to sort arrays of OffsetNumber values. It compares two OffsetNumber values by dereferencing the void pointers to OffsetNumber pointers and using the PostgreSQL utility function pg_cmp_u16 to perform the comparison. The function returns a negative value if the first offset is smaller, zero if they are equal, or a positive value if the first offset is larger, following standard comparator conventions.
 

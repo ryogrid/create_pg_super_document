@@ -8,7 +8,10 @@ The oidrecv function converts external binary format data to an internal OID val
 
 ## Definition
 
-
+```c
+Datum
+oidrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The oidrecv function is responsible for reading OID values from PostgreSQL's binary wire protocol format. It extracts a binary integer from a StringInfo buffer using pq_getmsgint and converts it to PostgreSQL's internal OID representation. This function is part of PostgreSQL's binary I/O system and is used when OID values are transmitted in binary format over the network or stored in binary format.
 

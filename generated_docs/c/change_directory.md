@@ -8,7 +8,10 @@ A robust directory changing utility function in the timezone compiler that safel
 
 ## Definition
 
-
+```c
+static void
+change_directory(char const *dir)
+```
 ## Detailed Description
 This function provides reliable directory navigation for the timezone compiler (zic). It attempts to change the working directory to the specified path, and if the directory doesn't exist (ENOENT error), it automatically creates the directory structure using the  function before retrying the directory change operation.
 

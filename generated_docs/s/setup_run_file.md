@@ -8,7 +8,10 @@ The  function reads an external SQL file and writes its contents to the command 
 
 ## Definition
 
-
+```c
+static void
+setup_run_file(FILE *cmdfd, const char *filename)
+```
 ## Detailed Description
 This function serves as a utility for executing external SQL script files during PostgreSQL database cluster initialization. It provides a mechanism to incorporate pre-written SQL commands from external files into the initialization process.
 

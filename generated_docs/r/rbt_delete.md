@@ -8,7 +8,10 @@ Public API function that removes a specified node from a Red-Black tree, serving
 
 ## Definition
 
-
+```c
+void
+rbt_delete(RBTree *rbt, RBTNode *node)
+```
 ## Detailed Description
 This function provides the public interface for deleting nodes from a Red-Black tree. It serves as a simple wrapper around the internal rbt_delete_node function, providing a clean API for external code to use. The function is designed to be called after a node has been located through other tree operations like rbt_find or rbt_leftmost.
 

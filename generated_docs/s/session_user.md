@@ -8,7 +8,10 @@ The session_user function is a SQL function that returns the name of the user wh
 
 ## Definition
 
-
+```c
+Datum
+session_user(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL standard SESSION_USER function. It retrieves the session user ID and converts it to the corresponding username string. Unlike current_user which can change due to SET ROLE or SET SESSION AUTHORIZATION, session_user always returns the original authenticated user who established the database session.
 

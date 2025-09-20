@@ -8,7 +8,11 @@ Constructs a VacAttrStats array for extended statistics by matching requested at
 
 ## Definition
 
-
+```c
+static VacAttrStats **
+lookup_var_attr_stats(Relation rel, Bitmapset *attrs, List *exprs,
+					  int nvacatts, VacAttrStats **vacatts)
+```
 ## Detailed Description
 The lookup_var_attr_stats function serves as a critical bridge in PostgreSQL's extended statistics system, responsible for assembling the necessary VacAttrStats structures needed to compute extended statistics. It takes a collection of available column statistics and filters/organizes them according to the specific attributes and expressions required for a particular extended statistics object.
 

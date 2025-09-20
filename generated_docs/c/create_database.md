@@ -8,7 +8,10 @@ Creates a new PostgreSQL database with standardized settings optimized for regre
 
 ## Definition
 
-
+```c
+static void
+create_database(const char *dbname)
+```
 ## Detailed Description
 This function creates a new database specifically configured for PostgreSQL regression testing. It uses template0 as the base template to avoid any installation-local customizations that might affect test results. The function applies consistent locale and configuration settings to ensure reproducible test behavior across different environments.
 

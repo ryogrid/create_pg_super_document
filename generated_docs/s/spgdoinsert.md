@@ -8,7 +8,11 @@ Primary insertion function for SP-GiST that coordinates the complete process of 
 
 ## Definition
 
-
+```c
+bool
+spgdoinsert(Relation index, SpGistState *state,
+			ItemPointer heapPtr, Datum *datums, bool *isnulls)
+```
 ## Detailed Description
 The  function orchestrates the entire SP-GiST tuple insertion process. It begins by preparing the leaf tuple data, optionally applying compression, and validating size constraints. The function then navigates the tree starting from the appropriate root (null or regular), following opclass-defined choose function guidance. At each inner node, it may perform match (descend), addNode (expand inner tuple), or splitTuple (restructure inner tuple) operations. When reaching a leaf page, it either directly inserts the tuple, moves the entire leaf chain to a new page, or performs a picksplit operation to redistribute tuples across multiple pages.
 

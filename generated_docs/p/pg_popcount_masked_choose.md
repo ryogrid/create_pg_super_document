@@ -8,7 +8,10 @@ A static wrapper function that initializes the popcount function selection mecha
 
 ## Definition
 
-
+```c
+static uint64
+pg_popcount_masked_choose(const char *buf, int bytes, bits8 mask)
+```
 ## Detailed Description
 This function serves as a bootstrap wrapper for the masked population count functionality in PostgreSQL. It's designed to be called only once through a function pointer mechanism. Upon first invocation, it calls choose_popcount_functions() to detect the available hardware capabilities and set up function pointers to the most appropriate implementation (fast/slow/AVX512). After initialization, it immediately delegates to the selected pg_popcount_masked implementation to perform the actual masked bit counting operation.
 

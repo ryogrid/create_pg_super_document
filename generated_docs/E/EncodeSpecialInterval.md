@@ -8,7 +8,10 @@ Converts special reserved interval values (positive and negative infinity) to th
 
 ## Definition
 
-
+```c
+static void
+EncodeSpecialInterval(const Interval *interval, char *str)
+```
 ## Detailed Description
 This static utility function handles the string encoding of PostgreSQL's special interval values that represent infinite durations. Similar to its timestamp counterpart, it processes two reserved interval values:
 

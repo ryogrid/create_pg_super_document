@@ -8,7 +8,10 @@ Determines whether a text search configuration (identified by OID) is visible in
 
 ## Definition
 
-
+```c
+bool
+TSConfigIsVisible(Oid cfgid)
+```
 ## Detailed Description
 TSConfigIsVisible is a simple wrapper function that determines if a text search configuration is visible in the current namespace search path. It delegates the actual work to TSConfigIsVisibleExt with a NULL second parameter, which means any missing configuration will result in an error rather than setting a flag. The function checks whether the specified configuration would be found when searching by its unqualified name, taking into account the current search path order and potential name conflicts with configurations in other namespaces.
 

@@ -8,7 +8,10 @@ ExecInitExprList is a utility function that applies ExecInitExpr to each express
 
 ## Definition
 
-
+```c
+List *
+ExecInitExprList(List *nodes, PlanState *parent)
+```
 ## Detailed Description
 ExecInitExprList is a straightforward utility function that provides batch compilation of expression lists. It iterates through a list of Expr nodes and calls ExecInitExpr on each one, collecting the resulting ExprState pointers into a new list that maintains the same ordering as the input.
 

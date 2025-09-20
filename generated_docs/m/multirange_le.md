@@ -8,7 +8,10 @@ A PostgreSQL function that implements the less-than-or-equal-to operator (<=) fo
 
 ## Definition
 
-
+```c
+Datum
+multirange_le(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a comparison operator that implements the "<=" (less than or equal to) operation for multirange data types in PostgreSQL. It serves as part of the B-tree operator class for multiranges, enabling them to be used in indexes, sorting operations, and comparison queries.
 

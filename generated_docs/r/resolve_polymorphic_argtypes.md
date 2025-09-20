@@ -8,7 +8,11 @@ Resolves polymorphic argument types (ANYELEMENT, ANYARRAY, etc.) in function sig
 
 ## Definition
 
-
+```c
+bool
+resolve_polymorphic_argtypes(int numargs, Oid *argtypes, char *argmodes,
+							 Node *call_expr)
+```
 ## Detailed Description
 This function replaces polymorphic type placeholders in a function's argument type array with concrete data types determined from the actual arguments provided in a function call. It handles both traditional polymorphic types (ANYELEMENT, ANYARRAY, ANYRANGE, ANYMULTIRANGE) and the newer ANYCOMPATIBLE family of types.
 

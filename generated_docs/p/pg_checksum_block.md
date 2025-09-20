@@ -8,7 +8,10 @@ Computes a 32-bit checksum for a PostgreSQL page block using a parallel FNV-1a h
 
 ## Definition
 
-
+```c
+static uint32
+pg_checksum_block(const PGChecksummablePage *page)
+```
 ## Detailed Description
 This function implements PostgreSQL's page-level checksum algorithm using a sophisticated approach that calculates multiple parallel FNV-1a hashes. The algorithm is designed to provide strong collision resistance and performance by unrolling the hash computation across 32 parallel streams. The function requires the input page to be properly aligned (at least on a 4-byte boundary) and operates on blocks of exactly BLCKSZ size.
 

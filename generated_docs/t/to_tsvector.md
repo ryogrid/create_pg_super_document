@@ -8,7 +8,10 @@ Converts text input to a text search vector (TSVector) using the current default
 
 ## Definition
 
-
+```c
+Datum
+to_tsvector(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that converts text input into a text search vector (TSVector). It serves as a convenience wrapper that automatically uses the current default text search configuration to process the input text. The function retrieves the current text search configuration ID and then delegates the actual processing to  with that configuration.
 

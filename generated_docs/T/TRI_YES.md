@@ -8,7 +8,14 @@ TRI_YES is an enumeration constant representing the "yes" or "true" state in Pos
 
 ## Definition
 
-
+```c
+enum trivalue
+{
+	TRI_DEFAULT,
+	TRI_NO,
+	TRI_YES,
+};
+```
 ## Detailed Description
 TRI_YES is part of the trivalue enumeration which implements a three-state boolean logic system commonly used in PostgreSQL client applications. This enumeration provides a way to distinguish between an explicitly set "yes" value, an explicitly set "no" value, and a default/unset state where the system should use its default behavior.
 

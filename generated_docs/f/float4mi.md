@@ -8,7 +8,10 @@ PostgreSQL SQL-callable function that performs subtraction of two single-precisi
 
 ## Definition
 
-
+```c
+Datum
+float4mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `float4mi` function is a PostgreSQL fmgr-compatible function that subtracts the second float4 value from the first float4 value. It extracts two float4 arguments from the function call context using PostgreSQL's function manager macros, delegates the actual arithmetic operation to the inline helper function `float4_mi`, and returns the result as a PostgreSQL Datum. This function provides overflow detection - if the subtraction of two finite values results in infinity, it raises a floating-point overflow error.
 

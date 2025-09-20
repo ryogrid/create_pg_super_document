@@ -8,7 +8,16 @@ A structure representing a TAR format parser that implements the bbstreamer inte
 
 ## Definition
 
-
+```c
+typedef struct bbstreamer_tar_parser
+{
+	bbstreamer	base;
+	bbstreamer_archive_context next_context;
+	bbstreamer_member member;
+	size_t		file_bytes_sent;
+	size_t		pad_bytes_expected;
+} bbstreamer_tar_parser;
+```
 ## Detailed Description
 The  structure is designed to parse TAR archive streams in pg_basebackup. It extends the base  structure to provide TAR-specific parsing functionality. This parser transforms a stream of unknown chunks into properly categorized chunks (header, content, trailer) following TAR format conventions. It maintains state information to track the current parsing context and progress through TAR archive members.
 

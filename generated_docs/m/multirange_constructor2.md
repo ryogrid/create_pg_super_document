@@ -8,7 +8,10 @@ Constructs a multirange value from an array of ranges, providing the main entry 
 
 ## Definition
 
-
+```c
+Datum
+multirange_constructor2(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL function interface for constructing multirange values from arrays of ranges. It serves as the backend implementation for SQL multirange constructor functions. The function handles various input scenarios including empty arrays, single-dimensional range arrays, and validates that all input ranges are of the correct type. It performs comprehensive error checking for null values, multidimensional arrays, and type mismatches before delegating the actual multirange construction to the  function.
 

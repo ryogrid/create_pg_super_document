@@ -8,7 +8,10 @@ Appends an integer value to a list only if it is not already present, ensuring u
 
 ## Definition
 
-
+```c
+List *
+list_append_unique_int(List *list, int datum)
+```
 ## Detailed Description
 This function is a specialized variant of list_append_unique() that operates specifically on lists of integers. It checks whether the given integer value already exists in the list using list_member_int(), and only appends the value if it's not already present. This ensures that the resulting list contains only unique integer values, preventing duplicates while maintaining the original order of elements.
 

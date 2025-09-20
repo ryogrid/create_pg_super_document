@@ -8,7 +8,18 @@ Creates a Write-Ahead Log (WAL) record for vacuuming entry tree leaf pages in GI
 
 ## Definition
 
+```c
+typedef struct DataPageDeleteStack
+{
+	struct DataPageDeleteStack *child;
+	struct DataPageDeleteStack *parent;
 
+	BlockNumber blkno;			/* current block number */
+	Buffer		leftBuffer;		/* pinned and locked rightest non-deleted page
+								 * on left */
+	bool		isRoot;
+} DataPageDeleteStack;
+```
 ## Detailed Description
 This static function generates WAL records specifically for vacuum operations on GIN index entry tree leaf pages. It ensures that vacuum operations are properly logged for crash recovery by creating a full page image in the WAL. The function includes safety assertions to verify that the page being processed is indeed an entry tree leaf page (not a data page) and that it is a leaf page. If the relation doesn't require WAL logging, the function returns early without creating any log records.
 

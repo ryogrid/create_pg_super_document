@@ -8,7 +8,10 @@ Initializes a 64-bit atomic unsigned integer variable with a specified value, se
 
 ## Definition
 
-
+```c
+void
+pg_atomic_init_u64_impl(volatile pg_atomic_uint64 *ptr, uint64 val_)
+```
 ## Detailed Description
 This function provides the implementation for initializing 64-bit atomic variables in PostgreSQL's fallback atomic operations system. It serves as the backend implementation when hardware-specific atomic operations are not available. The function performs two critical tasks: initializing the synchronization primitive (either a semaphore or spinlock depending on system capabilities) and setting the initial value of the atomic variable.
 

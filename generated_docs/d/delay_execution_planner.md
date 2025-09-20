@@ -8,7 +8,11 @@ A planner hook function in PostgreSQL's test module that provides deliberate del
 
 ## Definition
 
-
+```c
+static PlannedStmt *
+delay_execution_planner(Query *parse, const char *query_string,
+						int cursorOptions, ParamListInfo boundParams)
+```
 ## Detailed Description
 The  function serves as a planner hook that introduces controlled delays during the query planning phase. This function is part of PostgreSQL's testing infrastructure, specifically designed to test timing-sensitive scenarios and race conditions by creating predictable delays in query execution planning.
 

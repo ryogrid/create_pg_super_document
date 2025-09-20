@@ -8,7 +8,10 @@ The core implementation of PostgreSQL's generic node copying system that creates
 
 ## Definition
 
-
+```c
+void *
+copyObjectImpl(const void *from)
+```
 ## Detailed Description
 The  function serves as the central dispatcher for PostgreSQL's node copying infrastructure. It creates deep copies of arbitrary Node trees by examining the node type tag and delegating to the appropriate type-specific copy function. The function handles three main categories of objects: regular nodes (dispatched via an auto-generated switch statement), lists (with different strategies for deep vs shallow copying), and provides error handling for unrecognized types.
 

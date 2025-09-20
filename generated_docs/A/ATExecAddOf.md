@@ -8,7 +8,10 @@ Executes the ALTER TABLE OF command to attach a table to a composite type, makin
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecAddOf(Relation rel, const TypeName *ofTypename, LOCKMODE lockmode)
+```
 ## Detailed Description
 ATExecAddOf implements the ALTER TABLE OF SQL command that converts a regular table into a typed table by associating it with a composite type. The function performs comprehensive validation to ensure the table structure exactly matches the type definition, including column names, data types, type modifiers, and collations in the same order. It enforces that typed tables cannot have inheritance relationships and ensures the table structure is compatible with what could have been created using CREATE TABLE OF. If the table was previously typed, it removes the old type dependency before establishing the new one.
 

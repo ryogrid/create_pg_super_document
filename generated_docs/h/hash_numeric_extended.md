@@ -8,7 +8,10 @@ Computes a seeded 64-bit hash value for PostgreSQL numeric data types, providing
 
 ## Definition
 
-
+```c
+Datum
+hash_numeric_extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function generates a 64-bit hash value for numeric types using a provided seed value, extending the functionality of hash_numeric. It implements the same normalization logic as hash_numeric to ensure numerically equivalent values produce identical hash values, but returns a 64-bit result and incorporates a seed for better hash distribution in advanced scenarios.
 

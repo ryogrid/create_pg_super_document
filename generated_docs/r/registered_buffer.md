@@ -8,7 +8,16 @@ The  struct represents a registered buffer in PostgreSQL's WAL (Write-Ahead Log)
 
 ## Definition
 
-
+```c
+structing a record.
+ * 'hdr_scratch' is not a plain variable, but is palloc'd at initialization,
+ * because we want it to be MAXALIGNed and padding bytes zeroed.
+ *
+ * For simplicity, it's allocated large enough to hold the headers for any
+ * WAL record.
+ */
+static XLogRecData hdr_rdt;
+```
 ## Detailed Description
 The  structure is a core component of PostgreSQL's WAL insertion mechanism defined in . It serves as a container for buffer registration information when creating WAL records. Each instance tracks a specific database page that has been registered for inclusion in a WAL record through the  function. 
 

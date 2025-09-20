@@ -8,7 +8,10 @@ A dummy ternary consistent function for GIN index EVERYTHING keys that always re
 
 ## Definition
 
-
+```c
+static GinTernaryValue
+trueTriConsistentFn(GinScanKey key)
+```
 ## Detailed Description
 This function serves as a placeholder ternary consistent function for GIN (Generalized Inverted Index) scan keys representing "EVERYTHING" keys. Unlike the boolean version (trueConsistentFn), this function returns a ternary value (GIN_TRUE) rather than a simple boolean. It always indicates a definitive positive match without performing any actual consistency checking, making it suitable for scan keys that should match all possible values.
 

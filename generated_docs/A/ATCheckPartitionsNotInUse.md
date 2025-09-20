@@ -8,7 +8,10 @@ A specialized validation function that ensures all partitions of a partitioned t
 
 ## Definition
 
-
+```c
+static void
+ATCheckPartitionsNotInUse(Relation rel, LOCKMODE lockmode)
+```
 ## Detailed Description
 ATCheckPartitionsNotInUse performs safety validation specifically for partitioned tables by examining all partitions in the partition hierarchy. The function uses find_all_inheritors to discover all partitions, then opens each partition with the specified lock mode and runs CheckAlterTableIsSafe to ensure the partition is not in use by concurrent transactions. This validation is essential for ALTER TABLE operations that could be unsafe if performed while partitions are being accessed. The function is a no-op for non-partitioned tables and specifically ignores legacy inheritance relationships, focusing only on modern partitioned table structures.
 

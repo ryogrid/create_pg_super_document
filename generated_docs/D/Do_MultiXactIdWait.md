@@ -8,7 +8,13 @@ Do_MultiXactIdWait is the core implementation function that waits for conflictin
 
 ## Definition
 
-
+```c
+static bool
+Do_MultiXactIdWait(MultiXactId multi, MultiXactStatus status,
+				   uint16 infomask, bool nowait,
+				   Relation rel, ItemPointer ctid, XLTW_Oper oper,
+				   int *remaining)
+```
 ## Detailed Description
 This function implements the actual waiting logic for multixact conflicts by:
 

@@ -8,7 +8,11 @@ The repairDependencyLoop function resolves circular dependencies in PostgreSQL d
 
 ## Definition
 
-
+```c
+static void
+repairDependencyLoop(DumpableObject **loop,
+					 int nLoop)
+```
 ## Detailed Description
 This function is the central dependency loop resolution mechanism in pg_dump's sorting system. It handles various types of circular dependencies that can occur between database objects during dump ordering. The function uses a pattern-matching approach to identify common dependency loop scenarios and delegates to specialized repair functions for each case.
 

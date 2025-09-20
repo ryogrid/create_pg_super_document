@@ -8,7 +8,10 @@ A static comparison function used to sort DECountItem pointers in ascending orde
 
 ## Definition
 
-
+```c
+static int
+countitem_compare_count(const void *e1, const void *e2, void *arg)
+```
 ## Detailed Description
 This function implements a comparator for sorting DECountItem (Distinct Element Count Item) structures based on their count field in ascending order (lowest count first). It follows the standard C library qsort comparison function interface and is specifically designed for use in PostgreSQL's array statistics collection system. The function performs explicit three-way comparison logic rather than simple subtraction to avoid potential integer overflow issues that could occur with very large count values.
 

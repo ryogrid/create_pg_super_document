@@ -8,7 +8,10 @@ Validates and retrieves the OID of a type's output function, ensuring it meets P
 
 ## Definition
 
-
+```c
+static Oid
+findTypeOutputFunction(List *procname, Oid typeOid)
+```
 ## Detailed Description
 This function is responsible for locating and validating a type output function during type definition or modification. Type output functions are critical components that convert PostgreSQL's internal binary representation of a data type to its external string representation (cstring). The function performs several validation checks to ensure the specified function meets PostgreSQL's strict requirements for output functions, including proper signature validation and return type verification.
 

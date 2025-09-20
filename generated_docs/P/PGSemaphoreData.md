@@ -8,7 +8,13 @@ PGSemaphoreData is a structure that serves as the concrete implementation of Pos
 
 ## Definition
 
-
+```c
+typedef struct PGSemaphoreData
+{
+	int			semId;			/* semaphore set identifier */
+	int			semNum;			/* semaphore number within set */
+} PGSemaphoreData;
+```
 ## Detailed Description
 PGSemaphoreData is the actual data structure that implements PostgreSQL semaphores on POSIX platforms. It wraps a padded semaphore structure to ensure proper cache line alignment and avoid false sharing in multi-processor environments. This structure is part of PostgreSQL's platform abstraction layer for semaphores, providing a uniform interface across different operating systems while optimizing for performance on each platform.
 

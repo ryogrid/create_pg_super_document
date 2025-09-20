@@ -8,7 +8,10 @@ A static helper function that converts a column name (as text) to its correspond
 
 ## Definition
 
-
+```c
+static AttrNumber
+convert_column_name(Oid tableoid, text *column)
+```
 ## Detailed Description
 This function serves as a support routine for the has_column_privilege family of functions. It takes a table OID and a column name as a text string and returns the corresponding attribute number (AttrNumber). The function performs a direct lookup in the system catalog (pg_attribute) using SearchSysCache2 rather than using get_attnum() because it needs to distinguish between dropped columns and nonexistent columns. For dropped columns (where attisdropped is true), it returns InvalidAttrNumber, allowing the caller to return NULL instead of failing. If the column doesn't exist but the table does, it throws an ERRCODE_UNDEFINED_COLUMN error. If the table itself doesn't exist (get_rel_name returns NULL), it returns InvalidAttrNumber to allow graceful handling by the caller.
 

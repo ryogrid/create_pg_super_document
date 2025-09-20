@@ -8,7 +8,10 @@ A PostgreSQL function that tests whether a timestamptz (with timezone) value is 
 
 ## Definition
 
-
+```c
+Datum
+timestamptz_lt_timestamp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL-callable wrapper for testing less-than relationships between timestamptz and timestamp values. It extracts both arguments from the PostgreSQL function call context and uses the internal comparison function  to determine the ordering. The function returns true if the timestamptz value is less than the timestamp value (i.e., when the comparison result is greater than 0, indicating the timestamp is greater than the timestamptz).
 

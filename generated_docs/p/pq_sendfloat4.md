@@ -8,7 +8,13 @@ Appends a float4 (single-precision floating-point) value to a StringInfo buffer 
 
 ## Definition
 
-
+```c
+union
+	{
+		float4		f;
+		uint32		i;
+	}			swap;
+```
 ## Detailed Description
 The pq_sendfloat4 function handles the serialization of single-precision floating-point values (float4) into PostgreSQL's standardized binary wire format. This function encapsulates the knowledge of how float4 values should be represented externally, ensuring portability across different architectures and systems.
 

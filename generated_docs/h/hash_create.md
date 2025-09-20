@@ -8,7 +8,10 @@ hash_create is the primary function for creating new dynamic hash tables in Post
 
 ## Definition
 
-
+```c
+struct) that
+	 * we allocate in TopMemoryContext;
+```
 ## Detailed Description
 hash_create serves as the main entry point for creating dynamic hash tables in PostgreSQL's hash table infrastructure. This function supports extensive customization through flags and the HASHCTL structure, allowing callers to specify hash functions, comparison functions, memory contexts, key copying methods, and various optimization settings. The function handles both shared-memory and private hash tables, with different allocation strategies for each. It performs comprehensive validation of input parameters, sets up appropriate defaults based on key type (strings, blobs, or custom), and initializes the complete hash table structure including directory segments and freelists.
 

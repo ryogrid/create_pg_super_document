@@ -8,7 +8,10 @@ Creates a new wait event for extensions with the specified name, or returns exis
 
 ## Definition
 
-
+```c
+uint32
+WaitEventExtensionNew(const char *wait_event_name)
+```
 ## Detailed Description
 This function provides a convenient interface for PostgreSQL extensions to create custom wait events. It serves as a wrapper around WaitEventCustomNew(), automatically categorizing the wait event under the PG_WAIT_EXTENSION class.
 

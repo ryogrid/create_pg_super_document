@@ -8,7 +8,10 @@ Converts a 16-byte array to its hexadecimal string representation for MD5 hash o
 
 ## Definition
 
-
+```c
+static void
+bytesToHex(uint8 b[16], char *s)
+```
 ## Detailed Description
 This static utility function converts a 16-byte binary array (typically an MD5 hash digest) into a 32-character hexadecimal string representation followed by a null terminator. The function uses lowercase hexadecimal characters ('0'-'9', 'a'-'f') and processes each byte by extracting its high and low nibbles separately to produce two hexadecimal characters per byte.
 

@@ -8,7 +8,12 @@ This function serves as the main executioner for query backends that conflict wi
 
 ## Definition
 
-
+```c
+static void
+ResolveRecoveryConflictWithVirtualXIDs(VirtualTransactionId *waitlist,
+									   ProcSignalReason reason, uint32 wait_event_info,
+									   bool report_waiting)
+```
 ## Detailed Description
 ResolveRecoveryConflictWithVirtualXIDs is a core function in PostgreSQL's standby server conflict resolution mechanism. It processes a list of virtual transaction IDs that are preventing recovery from proceeding, waiting for them to complete naturally or forcibly terminating them if the wait exceeds configured limits.
 

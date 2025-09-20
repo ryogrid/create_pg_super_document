@@ -8,7 +8,9 @@ Creates an archive notification file (.ready) to signal the archiver process tha
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 XLogArchiveNotify is a core component of PostgreSQL's WAL archiving system that creates notification files to communicate with the archiver process. When a WAL file is complete and ready for archival, this function creates a corresponding .ready file in the archive_status directory.
 

@@ -8,7 +8,14 @@ A structure representing a gzip compression stream writer that compresses data u
 
 ## Definition
 
-
+```c
+typedef struct bbstreamer_gzip_writer
+{
+	bbstreamer	base;
+	char	   *pathname;
+	gzFile		gzfile;
+} bbstreamer_gzip_writer;
+```
 ## Detailed Description
 The  is a specialized bbstreamer implementation that provides gzip compression functionality for PostgreSQL's base backup system. It inherits from the base  structure and adds gzip-specific functionality through the zlib library. This structure is used internally by pg_basebackup to create compressed backup archives.
 

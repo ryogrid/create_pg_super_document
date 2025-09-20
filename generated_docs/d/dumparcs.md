@@ -8,7 +8,11 @@ A debugging function that outputs all outgoing arcs from a given NFA state in hu
 
 ## Definition
 
-
+```c
+static void
+dumparcs(struct state *s,
+		 FILE *f)
+```
 ## Detailed Description
 The  function iterates through and displays all outgoing arcs from a specified NFA state. It traverses the arc chain to find the oldest arc first, then prints each arc in reverse chronological order (oldest to newest) for clearer debugging output. The function formats the output by placing up to 5 arcs per line before adding a newline, making the display more readable for states with many outgoing transitions.
 

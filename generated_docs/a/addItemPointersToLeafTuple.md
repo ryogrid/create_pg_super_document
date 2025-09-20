@@ -8,7 +8,13 @@ Adds an array of item pointers to a GIN index tuple's posting list, or creates a
 
 ## Definition
 
-
+```c
+static IndexTuple
+addItemPointersToLeafTuple(GinState *ginstate,
+						   IndexTuple old,
+						   ItemPointerData *items, uint32 nitem,
+						   GinStatsData *buildStats, Buffer buffer)
+```
 ## Detailed Description
 This function takes an existing GIN index tuple and adds new item pointers to its posting list. The function handles two scenarios:
 

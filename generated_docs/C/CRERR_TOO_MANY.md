@@ -8,7 +8,20 @@
 
 ## Definition
 
+```c
+CRERR_WRONG_DB,
+		CRERR_TOO_MANY
+	}			crerr = CRERR_NO_COLUMN;
+	const char *err;
 
+	/*
+	 * Check to see if the column reference is in an invalid place within the
+	 * query.  We allow column references in most places, except in default
+	 * expressions and partition bound expressions.
+	 */
+	err = NULL;
+	switch (pstate->p_expr_kind)
+```
 ## Detailed Description
  is one of four enum values defined locally within the  function to categorize different types of column reference errors. This particular value indicates that the column reference contains more qualification levels than PostgreSQL supports. PostgreSQL supports up to 4 levels of qualification in column references: catalog.schema.table.column. When a column reference exceeds this limit, the error tracking variable  is set to , which later triggers an appropriate error message indicating that the column reference has too many dots (qualification levels). This enum-based approach allows the function to defer error reporting until after all parsing attempts have been made, providing more informative error messages to users.
 

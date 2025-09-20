@@ -8,7 +8,10 @@ Checks for archive timeout conditions and forces WAL file switches to ensure tim
 
 ## Definition
 
-
+```c
+static void
+CheckArchiveTimeout(void)
+```
 ## Detailed Description
 CheckArchiveTimeout monitors the time since the last WAL segment switch and forces a new WAL segment to be created when the archive_timeout period has elapsed. This ensures that WAL files are archived in a timely manner even during periods of low database activity.
 

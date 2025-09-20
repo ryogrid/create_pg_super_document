@@ -8,7 +8,10 @@ Counts the number of non-resjunk entries in a target list, returning the count o
 
 ## Definition
 
-
+```c
+int
+count_nonjunk_tlist_entries(List *tlist)
+```
 ## Detailed Description
 The `count_nonjunk_tlist_entries` function iterates through a target list and counts only the TargetEntry nodes that are not marked as resjunk. Resjunk columns are auxiliary columns used internally by PostgreSQL for processing but are not part of the final result set visible to users. This function provides a quick way to determine how many actual output columns a target list will produce.
 

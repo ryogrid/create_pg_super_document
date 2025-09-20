@@ -8,7 +8,10 @@ This function finalizes a plain file writer bbstreamer by closing the file if it
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_plain_writer_finalize(bbstreamer *streamer)
+```
 ## Detailed Description
 The `bbstreamer_plain_writer_finalize` function is the finalization callback for plain file writer bbstreamers. It performs end-of-archive cleanup when writing to a plain file. The function only closes the file if the streamer originally opened it (indicated by the `should_close_file` flag) - it does not close files that were provided by the caller. After closing the file (if needed), it cleans up the internal state by setting the file pointer to NULL and the `should_close_file` flag to false. This is part of the bbstreamer operations vtable pattern used in PostgreSQL's backup streaming architecture.
 

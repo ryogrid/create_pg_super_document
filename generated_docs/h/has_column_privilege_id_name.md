@@ -8,7 +8,10 @@ A PostgreSQL built-in function that checks whether the current user has a specif
 
 ## Definition
 
-
+```c
+Datum
+has_column_privilege_id_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is another variant of the column privilege checking functions that takes a table OID directly as the first parameter instead of a table name. It checks if the current user has the specified privilege on a column identified by the table OID and column name. Since it already has the table OID, it skips the table name resolution step () and directly converts the column name to an attribute number using . The privilege string is converted to an ACL mode using , and the actual privilege check is performed using . This variant is more efficient when the table OID is already known, avoiding the overhead of name-to-OID resolution.
 

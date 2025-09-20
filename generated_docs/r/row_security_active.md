@@ -8,7 +8,10 @@ A SQL-callable function that checks whether Row Level Security is active for a g
 
 ## Definition
 
-
+```c
+Datum
+row_security_active(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a SQL-accessible wrapper around the  function. It takes a table OID as input and returns a boolean value indicating whether RLS is currently active for that table. Unlike the underlying  function, this function treats  and  as equivalent (both return false), only returning true when RLS is definitively enabled ().
 

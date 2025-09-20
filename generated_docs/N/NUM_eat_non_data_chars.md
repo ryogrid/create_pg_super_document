@@ -8,7 +8,10 @@ A static utility function that skips over non-numeric data characters in input s
 
 ## Definition
 
-
+```c
+static void
+NUM_eat_non_data_chars(NUMProc *Np, int n, int input_len)
+```
 ## Detailed Description
 This function is designed to advance the input pointer past a specified number of characters, but only if those characters are not numeric data. It's used during number parsing to skip formatting characters that should be ignored when extracting numeric values. The function respects multibyte character boundaries and includes safety checks to prevent buffer overruns.
 

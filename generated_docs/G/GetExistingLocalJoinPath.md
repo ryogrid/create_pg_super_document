@@ -8,7 +8,10 @@ Returns a shallow copy of an existing local join path for a given join relation,
 
 ## Definition
 
-
+```c
+Path *
+GetExistingLocalJoinPath(RelOptInfo *joinrel)
+```
 ## Detailed Description
 This function searches through the pathlist of a join relation to find a suitable local join path that can be used as an alternative to foreign join paths. It specifically looks for unparameterized paths of types MergeJoin, HashJoin, or NestLoop since these are the only join types that can be used to construct local plans for foreign joins.
 

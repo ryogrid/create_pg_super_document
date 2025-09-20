@@ -8,7 +8,13 @@ The plperl_proc_ptr structure serves as a hash table entry that maps composite k
 
 ## Definition
 
-
+```c
+typedef struct plperl_proc_ptr
+{
+	plperl_proc_key proc_key;	/* Hash key (must be first!) */
+	plperl_proc_desc *proc_ptr;
+} plperl_proc_ptr;
+```
 ## Detailed Description
 This structure acts as a hash table entry in PostgreSQL's PL/Perl function caching system. It combines a composite key (plperl_proc_key) with a pointer to the actual procedure descriptor (plperl_proc_desc). The design allows the hash table to efficiently map from function identity information (OID, trigger status, user context) to the full compiled procedure data.
 

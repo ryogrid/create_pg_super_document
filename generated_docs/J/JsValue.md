@@ -8,7 +8,23 @@ JsValue is a generalized structure for passing JSON/JSONB values within PostgreS
 
 ## Definition
 
+```c
+typedef struct JsValue
+{
+	bool		is_json;		/* json/jsonb */
+	union
+	{
+		struct
+		{
+			const char *str;	/* json string */
+			int			len;	/* json string length or -1 if null-terminated */
+			JsonTokenType type; /* json type */
+		}			json;		/* json value */
 
+		JsonbValue *jsonb;		/* jsonb value */
+	}			val;
+} JsValue;
+```
 ## Detailed Description
 JsValue serves as a polymorphic wrapper that can hold either JSON text data or binary JSONB data. This abstraction allows PostgreSQL's JSON processing functions to work uniformly with both representations without needing separate code paths. The structure uses a discriminated union pattern where the  flag determines which variant of the data is currently stored.
 

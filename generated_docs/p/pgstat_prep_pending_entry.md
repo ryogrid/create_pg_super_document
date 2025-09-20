@@ -8,7 +8,10 @@ Prepares and returns a statistics entry reference for accumulating pending stati
 
 ## Definition
 
-
+```c
+PgStat_EntryRef *
+pgstat_prep_pending_entry(PgStat_Kind kind, Oid dboid, Oid objoid, bool *created_entry)
+```
 ## Detailed Description
 This function serves as the primary interface for setting up pending statistics infrastructure for a specific statistics object. It ensures that all necessary components are in place for accumulating statistics data before it gets flushed to shared memory. The function handles lazy initialization of the pending statistics memory context and manages the allocation of pending data structures for specific statistics entries.
 

@@ -8,7 +8,10 @@ Sets up EquivalenceClass links in a mergeclause RestrictInfo by finding or creat
 
 ## Definition
 
-
+```c
+void
+initialize_mergeclause_eclasses(PlannerInfo *root, RestrictInfo *restrictinfo)
+```
 ## Detailed Description
 The `initialize_mergeclause_eclasses` function establishes the equivalence class relationships for a mergeclause by setting the `left_ec` and `right_ec` fields in the RestrictInfo structure. This function is called when a mergeclause is not directly generated from or used to create an EquivalenceClass, requiring explicit setup of these relationships.
 

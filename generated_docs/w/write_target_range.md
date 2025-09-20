@@ -8,7 +8,10 @@ Writes a buffer of data to a specific offset range in the currently open target 
 
 ## Definition
 
-
+```c
+void
+write_target_range(char *buf, off_t begin, size_t size)
+```
 ## Detailed Description
 This function writes a specified buffer to a target file at a given offset. It performs robust error handling with retry logic for partial writes, ensuring all data is written successfully. The function updates global progress tracking and respects the dry_run mode. It seeks to the specified position in the file and then writes the data in a loop to handle cases where the write system call doesn't write all requested bytes in a single operation. The function maintains the file open after writing to allow for subsequent operations.
 

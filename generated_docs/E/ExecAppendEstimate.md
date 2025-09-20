@@ -8,7 +8,11 @@ Estimates the amount of shared memory space needed for parallel execution of an 
 
 ## Definition
 
-
+```c
+void
+ExecAppendEstimate(AppendState *node,
+				   ParallelContext *pcxt)
+```
 ## Detailed Description
 ExecAppendEstimate is part of PostgreSQL's parallel query execution framework, specifically responsible for calculating the shared memory requirements for parallel Append node execution. The function is called during the parallel query planning phase to determine how much space to allocate in the Dynamic Shared Memory (DSM) segment.
 

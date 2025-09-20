@@ -8,7 +8,10 @@ This function reads an ORIGIN message from the logical replication input stream,
 
 ## Definition
 
-
+```c
+char *
+logicalrep_read_origin(StringInfo in, XLogRecPtr *origin_lsn)
+```
 ## Detailed Description
 The  function is the counterpart to , responsible for deserializing ORIGIN messages from the logical replication stream. It extracts the origin LSN position and origin name from the input buffer, providing this information to the caller for replication origin tracking. The function reads the 64-bit LSN value first, then retrieves the null-terminated origin name string and returns a newly allocated copy of it.
 

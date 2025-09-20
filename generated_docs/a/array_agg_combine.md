@@ -8,7 +8,10 @@ Combines two ArrayBuildState structures during parallel aggregate processing for
 
 ## Definition
 
-
+```c
+Datum
+array_agg_combine(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a combine function used in parallel aggregation for the array_agg() aggregate function. It merges two ArrayBuildState structures (state1 and state2) that have been accumulated in different parallel workers into a single combined state. The function handles various scenarios including NULL states, empty states, and the need to expand arrays when combining states with different numbers of elements.
 

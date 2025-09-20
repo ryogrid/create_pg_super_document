@@ -8,7 +8,41 @@ MessageDLL is a structure that represents a Windows Dynamic Link Library (DLL) e
 
 ## Definition
 
+```c
+struct MessageDLL
+{
+	const char *dll_name;
+	void	   *handle;
+	int			loaded;			/* BOOL */
+}			dlls[] =
 
+{
+	{
+		"netmsg.dll", 0, 0
+	},
+	{
+		"winsock.dll", 0, 0
+	},
+	{
+		"ws2_32.dll", 0, 0
+	},
+	{
+		"wsock32n.dll", 0, 0
+	},
+	{
+		"mswsock.dll", 0, 0
+	},
+	{
+		"ws2help.dll", 0, 0
+	},
+	{
+		"ws2thk.dll", 0, 0
+	},
+	{
+		0, 0, 1
+	}							/* Last one, no dll, always loaded */
+};
+```
 ## Detailed Description
 The MessageDLL structure serves as a registry entry for Windows system DLLs that contain socket error message resources. It is used to implement a fallback mechanism for error message lookup when the static WSErrors table doesn't contain a specific error code. The structure supports lazy loading of DLLs, where each library is loaded only once when needed and the handle is cached for subsequent use.
 

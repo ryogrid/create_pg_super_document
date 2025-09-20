@@ -8,7 +8,13 @@ This function initiates a comprehensive walk of a Query's expression subtrees, s
 
 ## Definition
 
-
+```c
+bool
+query_tree_walker_impl(Query *query,
+					   tree_walker_callback walker,
+					   void *context,
+					   int flags)
+```
 ## Detailed Description
 The  function serves as the implementation backbone for walking through all expression subtrees contained within a PostgreSQL Query node. It systematically traverses various components of the query including target lists, join trees, WHERE clauses, HAVING clauses, window clauses, and other expression-containing elements. The function is designed to reduce code duplication by centralizing the knowledge of where all expression subtrees are located within a Query structure.
 

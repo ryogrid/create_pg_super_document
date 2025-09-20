@@ -8,7 +8,14 @@ ginVacuumPostingTreeLeaf performs vacuum operations on a GIN posting tree leaf p
 
 ## Definition
 
-
+```c
+struct the page from the pieces.
+	 *
+	 * We don't try to re-encode the segments here, even though some of them
+	 * might be really small now that we've removed some items from them. It
+	 * seems like a waste of effort, as there isn't really any benefit from
+	 * larger segments per se;
+```
 ## Detailed Description
 This function implements the vacuum process for GIN (Generalized Inverted Index) posting tree leaf pages. It systematically processes each segment within the leaf page, identifying and removing dead item pointers based on the vacuum state information.
 

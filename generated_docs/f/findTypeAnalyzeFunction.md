@@ -8,7 +8,10 @@ This function validates and retrieves the OID of a user-specified analyze functi
 
 ## Definition
 
-
+```c
+static Oid
+findTypeAnalyzeFunction(List *procname, Oid typeOid)
+```
 ## Detailed Description
 The  is a static helper function used during type definition and modification operations in PostgreSQL. It validates that a specified function exists and conforms to the required signature for type analyze functions. Type analyze functions are used by the PostgreSQL query planner to gather statistics about user-defined types, which helps in query optimization.
 

@@ -8,7 +8,10 @@ A PostgreSQL function that performs case-insensitive regular expression matching
 
 ## Definition
 
-
+```c
+Datum
+nameicregexne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the SQL operator  for PostgreSQL's name data type. It takes a name value and a regular expression pattern, performs case-insensitive pattern matching, and returns the negation of the match result. The function uses PostgreSQL's advanced regular expression engine with case-insensitive flags to evaluate whether the given pattern does NOT match the name string.
 

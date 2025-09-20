@@ -8,7 +8,10 @@ Sets up a dynamic shared memory segment for communication between leader and par
 
 ## Definition
 
-
+```c
+static bool
+pa_setup_dsm(ParallelApplyWorkerInfo *winfo)
+```
 ## Detailed Description
 This function creates and configures a dynamic shared memory (DSM) segment that facilitates communication between the leader apply worker and parallel apply workers. The segment contains a control region with worker information, a message queue for sending data to the worker, and an error queue for receiving error messages from the worker. The function uses the shared memory table of contents (TOC) mechanism to organize the different components within the segment.
 

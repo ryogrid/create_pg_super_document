@@ -8,7 +8,17 @@ Adds WithCheckOptions of a specified kind to ensure that new records from INSERT
 
 ## Definition
 
-
+```c
+static void
+add_with_check_options(Relation rel,
+					   int rt_index,
+					   WCOKind kind,
+					   List *permissive_policies,
+					   List *restrictive_policies,
+					   List **withCheckOptions,
+					   bool *hasSubLinks,
+					   bool force_using)
+```
 ## Detailed Description
 This function creates WithCheckOption nodes that enforce Row Level Security policies during data modification operations. It processes both permissive and restrictive RLS policies to generate appropriate checks:
 

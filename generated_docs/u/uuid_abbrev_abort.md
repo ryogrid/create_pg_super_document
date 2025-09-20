@@ -8,7 +8,10 @@ A callback function used to estimate the effectiveness of abbreviated key optimi
 
 ## Definition
 
-
+```c
+static bool
+uuid_abbrev_abort(int memtupcount, SortSupport ssup)
+```
 ## Detailed Description
 This function is a crucial component of PostgreSQL's sort optimization system for UUID data types. It evaluates the effectiveness of abbreviated key sorting by analyzing the cardinality of abbreviated values versus the total input count. The function uses HyperLogLog estimation to determine if the abbreviated key optimization is providing sufficient benefit to justify its overhead.
 

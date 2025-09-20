@@ -8,7 +8,13 @@ PGEventConnDestroy is a structure that contains event information passed to even
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PGconn	   *conn;
+	PGresult   *result;
+} PGEventResultCreate;
+```
 ## Detailed Description
 PGEventConnDestroy is used as the event information structure when the libpq event system fires a PGEVT_CONNDESTROY event. This event occurs when a PostgreSQL connection is being destroyed, typically during cleanup operations such as PQfinish() or when a connection object is being freed. The structure provides event callbacks with access to the connection object that is about to be destroyed, allowing them to perform any necessary cleanup operations, release resources, or save state before the connection becomes invalid.
 

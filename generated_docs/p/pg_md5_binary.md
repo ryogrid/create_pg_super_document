@@ -8,7 +8,10 @@ Calculates the MD5 hash digest of a buffer and returns it as a binary byte array
 
 ## Definition
 
-
+```c
+bool
+pg_md5_binary(const void *buff, size_t len, void *outbuf, const char **errstr)
+```
 ## Detailed Description
 This function computes the MD5 cryptographic hash of the specified input buffer using PostgreSQL's cryptographic hash framework, similar to pg_md5_hash, but returns the result as raw binary data instead of converting it to a hexadecimal string. The function outputs the 16-byte MD5 digest directly to the provided output buffer, making it suitable for applications that need the binary hash value for further processing or storage.
 

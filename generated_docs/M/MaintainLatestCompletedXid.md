@@ -8,7 +8,10 @@ MaintainLatestCompletedXid updates the global latest completed transaction ID if
 
 ## Definition
 
-
+```c
+static void
+MaintainLatestCompletedXid(TransactionId latestXid)
+```
 ## Detailed Description
 This function is responsible for maintaining the global record of the latest completed transaction ID in TransamVariables->latestCompletedXid. It compares the provided transaction ID with the current latest completed XID and updates the global value if the provided XID is newer. This tracking is essential for PostgreSQL's MVCC (Multi-Version Concurrency Control) system to determine transaction visibility and manage snapshot generation.
 

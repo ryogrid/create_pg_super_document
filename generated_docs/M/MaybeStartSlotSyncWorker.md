@@ -8,7 +8,10 @@ MaybeStartSlotSyncWorker conditionally starts a slot synchronization worker proc
 
 ## Definition
 
-
+```c
+static void
+MaybeStartSlotSyncWorker(void)
+```
 ## Detailed Description
 MaybeStartSlotSyncWorker implements conditional startup logic for slot sync worker processes, which are responsible for synchronizing replication slots between primary and standby servers. This function is highly specialized - it only operates on hot standby servers (pmState == PM_HOT_STANDBY) and includes several validation checks to ensure proper configuration.
 

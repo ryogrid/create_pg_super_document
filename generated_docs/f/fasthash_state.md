@@ -8,7 +8,15 @@ A state structure used for incremental hashing with the fasthash algorithm, allo
 
 ## Definition
 
+```c
+typedef struct fasthash_state
+{
+	/* staging area for chunks of input */
+	uint64		accum;
 
+	uint64		hash;
+} fasthash_state;
+```
 ## Detailed Description
 The  structure is the core data type for PostgreSQL's incremental fasthash implementation, which is a modification of the fast-hash algorithm originally developed by Zilong Tan. This structure maintains the internal state needed for computing hash values incrementally across multiple inputs, rather than requiring all data to be available at once.
 

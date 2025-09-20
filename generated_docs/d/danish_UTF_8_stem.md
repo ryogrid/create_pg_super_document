@@ -8,7 +8,11 @@ The main stemming function for Danish text in UTF-8 encoding that reduces words 
 
 ## Definition
 
+```c
+}
 
+extern int danish_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete Danish stemming algorithm as part of the Snowball stemming library. It processes a Danish word stored in the SN_env structure through a series of morphological transformations to reduce it to its stem form. The algorithm follows the standard Snowball stemming approach by:
 

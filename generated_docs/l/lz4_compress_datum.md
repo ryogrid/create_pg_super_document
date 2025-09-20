@@ -8,7 +8,10 @@ Compresses a varlena data structure using the LZ4 compression algorithm, which i
 
 ## Definition
 
-
+```c
+struct varlena *
+lz4_compress_datum(const struct varlena *value)
+```
 ## Detailed Description
 This function implements LZ4 compression for PostgreSQL's TOAST system when LZ4 support is available at compile time. It takes a varlena structure and attempts to compress it using the LZ4 algorithm. The function first checks if LZ4 support is compiled in; if not, it calls NO_LZ4_SUPPORT() and returns NULL. When LZ4 is available, it calculates the maximum possible compressed size, allocates memory accordingly, and performs the compression. If compression results in a larger size than the original (indicating incompressible data), it frees the memory and returns NULL to signal that compression should not be used.
 

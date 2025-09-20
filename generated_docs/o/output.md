@@ -8,7 +8,10 @@ The output function displays a formatted histogram of timing durations collected
 
 ## Definition
 
-
+```c
+static void
+output(uint64 loop_count)
+```
 ## Detailed Description
 This function generates a comprehensive histogram report showing the distribution of timing measurements collected by the test_timing function. It analyzes the histogram array to find the highest significant bit position with non-zero values, then displays a formatted table showing timing ranges, percentages of total measurements, and raw counts.
 

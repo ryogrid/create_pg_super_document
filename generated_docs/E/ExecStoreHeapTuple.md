@@ -8,7 +8,12 @@ Stores a physical HeapTuple into a specified TTSOpsHeapTuple type slot in the tu
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+ExecStoreHeapTuple(HeapTuple tuple,
+				   TupleTableSlot *slot,
+				   bool shouldFree)
+```
 ## Detailed Description
 ExecStoreHeapTuple is used to store an on-the-fly physical tuple into a specified slot in the tuple table. This function is optimized for TTSOpsHeapTuple type slots and provides efficient storage of HeapTuple structures. The function manages memory ownership through the shouldFree parameter, allowing flexible control over tuple lifecycle management.
 

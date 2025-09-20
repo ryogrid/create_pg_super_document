@@ -8,7 +8,10 @@ A specialized psql command function that implements the \\dP metacommand to disp
 
 ## Definition
 
-
+```c
+bool
+listPartitionedTables(const char *reltypes, const char *pattern, bool verbose)
+```
 ## Detailed Description
 This function provides functionality for the psql \\dP metacommand, which is specifically designed to list partitioned tables and indexes introduced in PostgreSQL 10.0 with declarative partitioning. The function supports filtering by relation types (tables 't', indexes 'i', and nested partitions 'n') and can display comprehensive information about partition hierarchies. In verbose mode, it shows partition sizes using either recursive queries (pre-12.0) or the pg_partition_tree function (12.0+). The function handles mixed output when both tables and indexes are requested and provides parent-child relationship information when nested partitions or patterns are specified.
 

@@ -8,7 +8,9 @@ Creates a compressed version of a varlena datum using either PGLZ or LZ4 compres
 
 ## Definition
 
-
+```c
+struct varlena *tmp = NULL;
+```
 ## Detailed Description
 This function attempts to compress a varlena datum using the specified compression method. It performs several validation checks to ensure the datum is compressible and verifies that compression actually provides meaningful space savings. The function supports two compression methods: PGLZ (PostgreSQL's traditional compression) and LZ4 (faster alternative). If the compression method parameter is invalid, it defaults to the system's configured default compression method.
 

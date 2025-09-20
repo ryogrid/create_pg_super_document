@@ -8,7 +8,11 @@ Implements the PostgreSQL psql  command that prints the current query buffer con
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_print(PsqlScanState scan_state, bool active_branch,
+				   PQExpBuffer query_buf, PQExpBuffer previous_buf)
+```
 ## Detailed Description
 The  function handles the  backslash command in psql, which displays the current query buffer contents. This command is useful for reviewing what query would be executed by  without actually running it. The function intelligently chooses between the current query buffer and the previous query buffer, prioritizing the current buffer if it contains data. If both buffers are empty, it displays an informative message indicating the query buffer is empty (unless quiet mode is enabled).
 

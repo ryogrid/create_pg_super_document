@@ -8,7 +8,10 @@ Ensures that the current backend has up-to-date batch accessor structures that m
 
 ## Definition
 
-
+```c
+static void
+ExecParallelHashEnsureBatchAccessors(HashJoinTable hashtable)
+```
 ## Detailed Description
  is a synchronization function that ensures each parallel worker backend maintains consistent access to the current set of batches in a parallel hash join. This function is critical when the number of batches changes dynamically due to memory pressure or other factors during hash join execution.
 

@@ -8,7 +8,19 @@ Restores Red-Black Tree balance properties after inserting a new node, using col
 
 ## Definition
 
-
+```c
+struct that is of interest.
+ *
+ * If the value represented by "data" is not present in the tree, then
+ * we copy "data" into a new tree entry and return that node, setting *isNew
+ * to true.
+ *
+ * If the value represented by "data" is already present, then we call the
+ * combiner function to merge data into the existing node, and return the
+ * existing node, setting *isNew to false.
+ *
+ * "data" is unmodified in either case;
+```
 ## Detailed Description
 This function is responsible for maintaining Red-Black Tree balance after a node insertion. Since new nodes are always inserted as red, this may create violations where a red node has a red parent. The function systematically resolves these violations through a combination of color changes and tree rotations.
 

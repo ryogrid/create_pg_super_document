@@ -8,7 +8,10 @@ A cleanup function registered with atexit() that removes data and WAL directorie
 
 ## Definition
 
-
+```c
+static void
+cleanup_directories_atexit(void)
+```
 ## Detailed Description
 This function serves as an exit handler for the initdb utility, responsible for cleaning up any directories and files created during database initialization if the process fails or is interrupted. The function checks the global  flag and performs cleanup operations based on various state variables that track what directories were created or found during initialization.
 

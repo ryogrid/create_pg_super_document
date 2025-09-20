@@ -8,7 +8,10 @@ Registers invalidation of a relation's relcache entry by identifying the relatio
 
 ## Definition
 
-
+```c
+void
+CacheInvalidateRelcacheByRelid(Oid relid)
+```
 ## Detailed Description
 CacheInvalidateRelcacheByRelid provides relcache invalidation functionality when only a relation OID is available. This is the least efficient of the three relcache invalidation variants because it must perform a system catalog lookup to retrieve the pg_class tuple before proceeding with the invalidation. The function searches the system cache for the relation tuple, validates it exists, then delegates to CacheInvalidateRelcacheByTuple to perform the actual invalidation.
 

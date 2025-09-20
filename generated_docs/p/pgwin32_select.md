@@ -8,7 +8,10 @@ Windows-specific implementation of the select() system call that provides Postgr
 
 ## Definition
 
-
+```c
+int
+pgwin32_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, const struct timeval *timeout)
+```
 ## Detailed Description
  is a Windows-specific implementation of the POSIX select() system call, designed to provide socket multiplexing functionality for PostgreSQL on Windows. Unlike the standard POSIX select(), this implementation uses Windows Socket API events (, ) to efficiently monitor multiple sockets for I/O readiness.
 

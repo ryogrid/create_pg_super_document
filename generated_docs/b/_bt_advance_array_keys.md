@@ -8,7 +8,12 @@ Advances array elements using a tuple to determine new array positions, and serv
 
 ## Definition
 
-
+```c
+static bool
+_bt_advance_array_keys(IndexScanDesc scan, BTReadPageState *pstate,
+					   IndexTuple tuple, int tupnatts, TupleDesc tupdesc,
+					   int sktrig, bool sktrig_required)
+```
 ## Detailed Description
 This function is the core of PostgreSQL's B-tree array key advancement mechanism. It performs a complex process of advancing array scan keys based on tuple values, ensuring that the scan progresses correctly through the index while handling both required and non-required array keys.
 

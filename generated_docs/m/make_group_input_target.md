@@ -8,7 +8,10 @@ Generates the appropriate PathTarget for initial input to grouping nodes by incl
 
 ## Definition
 
-
+```c
+static PathTarget *
+make_group_input_target(PlannerInfo *root, PathTarget *final_target)
+```
 ## Detailed Description
 This function creates the correct target list for the scan/join subplan when there is grouping or aggregation in the query. The subplan cannot emit the query's final targetlist directly because it may contain aggregate function calls and other expressions that must be computed by upper plan nodes.
 

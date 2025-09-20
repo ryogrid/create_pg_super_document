@@ -8,7 +8,10 @@ A Windows-specific function that determines whether the current user has adminis
 
 ## Definition
 
-
+```c
+int
+pgwin32_is_admin(void)
+```
 ## Detailed Description
 The  function is a security utility specifically designed for Windows platforms to check if the current user possesses administrative privileges. It performs this check by examining membership in two critical Windows security groups: the Administrators group and the PowerUsers group (a legacy group from older Windows versions that provided elevated privileges).
 

@@ -8,7 +8,15 @@ OpFamilyOpFuncGroup is a structure used to group operators and support functions
 
 ## Definition
 
-
+```c
+typedef struct OpFamilyOpFuncGroup
+{
+	Oid			lefttype;		/* amoplefttype/amproclefttype */
+	Oid			righttype;		/* amoprighttype/amprocrighttype */
+	uint64		operatorset;	/* bitmask of operators with these types */
+	uint64		functionset;	/* bitmask of support funcs with these types */
+} OpFamilyOpFuncGroup;
+```
 ## Detailed Description
 OpFamilyOpFuncGroup is a data structure returned by the identify_opfamily_groups() function to represent a group of operators and support functions that share the same left and right data types within an operator family. This struct is essential for PostgreSQL's access method validation system, which ensures that operator families contain consistent and complete sets of operators and support functions.
 

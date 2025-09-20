@@ -8,7 +8,10 @@ Opens an index relation by its object identifier (OID) and optionally acquires a
 
 ## Definition
 
-
+```c
+Relation
+index_open(Oid relationId, LOCKMODE lockmode)
+```
 ## Detailed Description
 The  function is a convenience routine specifically adapted for index scan operations. It opens an index relation using the provided OID and lock mode, then validates that the opened relation is actually an index. This function is a wrapper around  that adds index-specific validation.
 

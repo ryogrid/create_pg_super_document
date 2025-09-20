@@ -8,7 +8,10 @@ Fetches the RI_ConstraintInfo struct for a trigger's foreign key constraint, per
 
 ## Definition
 
-
+```c
+static const RI_ConstraintInfo *
+ri_FetchConstraintInfo(Trigger *trigger, Relation trig_rel, bool rel_is_pk)
+```
 ## Detailed Description
 This function retrieves constraint information for referential integrity triggers by looking up the foreign key constraint associated with a trigger. It performs several validation steps:
 

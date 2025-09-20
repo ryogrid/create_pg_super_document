@@ -8,7 +8,13 @@ SortedPoint is a utility structure used in PostgreSQL's SP-GiST k-d tree impleme
 
 ## Definition
 
-
+```c
+typedef struct SortedPoint
+{
+	Point	   *p;
+	int			i;
+} SortedPoint;
+```
 ## Detailed Description
 The SortedPoint structure is used within the SP-GiST (Space-Partitioned Generalized Search Tree) k-d tree implementation for geometric point indexing. It serves as a wrapper that pairs a geometric Point with its original index position, enabling the sorting algorithms to maintain the relationship between sorted points and their positions in the original input array. This is essential for the  function, which needs to split point data while preserving the mapping between the sorted order and the original tuple positions.
 

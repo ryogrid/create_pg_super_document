@@ -8,7 +8,10 @@ simple_heap_insert is a simplified wrapper around heap_insert() that provides de
 
 ## Definition
 
-
+```c
+void
+simple_heap_insert(Relation relation, HeapTuple tup)
+```
 ## Detailed Description
 This function serves as a convenience wrapper for heap_insert() with default parameters. It automatically supplies the current command ID using GetCurrentCommandId(true) and sets options to 0 with no bulk insert state. The function is designed for straightforward tuple insertions where the caller doesn't need to specify custom insertion options or provide bulk insert optimization state. It's the recommended interface for most system catalog operations where simplicity is preferred over fine-grained control.
 

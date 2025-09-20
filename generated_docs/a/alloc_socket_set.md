@@ -8,7 +8,10 @@ A function in pgbench that allocates and initializes a socket set data structure
 
 ## Definition
 
-
+```c
+static socket_set *
+alloc_socket_set(int count)
+```
 ## Detailed Description
 This function provides a cross-platform abstraction for allocating socket sets that can be used with either ppoll() or select() system calls for monitoring multiple database connections. The implementation varies based on compile-time configuration:
 

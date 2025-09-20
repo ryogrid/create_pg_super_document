@@ -8,7 +8,16 @@ Determines if the current character in a text parser has special properties in U
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	const TParserStateActionItem *action;	/* the actual state info */
+	TParserState state;			/* only for Assert crosscheck */
+#ifdef WPARSER_TRACE
+	const char *state_name;		/* only for debug printout */
+#endif
+} TParserStateAction;
+```
 ## Detailed Description
 This function serves as a specialized character classifier in PostgreSQL's text search word parser. It identifies characters that have unique properties in text tokenization:
 

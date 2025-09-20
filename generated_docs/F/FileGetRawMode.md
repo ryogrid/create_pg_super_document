@@ -8,7 +8,10 @@ FileGetRawMode returns the file mode (permission bits) that were used when creat
 
 ## Definition
 
-
+```c
+mode_t
+FileGetRawMode(File file)
+```
 ## Detailed Description
 FileGetRawMode retrieves the fileMode field from the VfdCache for a given PostgreSQL File descriptor. This mode represents the permission bits (file mode) that were passed to the open(2) system call when the file was created or opened, such as 0644, 0600, or other Unix permission combinations. The mode parameter is only meaningful when creating new files (when O_CREAT flag is used) and determines the initial permissions of the created file.
 

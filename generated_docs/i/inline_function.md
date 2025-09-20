@@ -8,7 +8,14 @@ Attempts to expand a SQL function call inline by substituting the function body 
 
 ## Definition
 
-
+```c
+structs and must use all of the function
+	 * parameters (this is overkill, but an exact analysis is hard).
+	 */
+	if (funcform->provolatile == PROVOLATILE_IMMUTABLE &&
+		contain_mutable_functions(newexpr))
+		goto fail;
+```
 ## Detailed Description
 This function performs function inlining optimization for SQL-language functions. It attempts to replace function calls with their actual implementation when the function body is a simple "SELECT expression". This optimization eliminates the per-call overhead of SQL functions and can expose additional constant-folding opportunities.
 

@@ -8,7 +8,14 @@ Returns the targetlist entry matching a given expression using SQL99 interpretat
 
 ## Definition
 
-
+```c
+struct a new target entry which is appended to the
+	 * end of the target list.  This target is given resjunk = true so that it
+	 * will not be projected into the final tuple.
+	 */
+	target_result = transformTargetEntry(pstate, node, expr, exprKind,
+										 NULL, true);
+```
 ## Detailed Description
 This function implements the SQL99 standard interpretation for expressions in ORDER BY, GROUP BY, and similar clauses. Unlike SQL92 interpretation, it treats expressions as ordinary expressions that reference input column names from the FROM clause rather than output column names or positional references from the SELECT list.
 

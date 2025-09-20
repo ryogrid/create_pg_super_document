@@ -8,7 +8,10 @@ Reads serialized functional dependencies from a bytea value and reconstructs the
 
 ## Definition
 
-
+```c
+MVDependencies *
+statext_dependencies_deserialize(bytea *data)
+```
 ## Detailed Description
 This function performs the reverse operation of statext_dependencies_serialize, converting a serialized bytea representation back into a fully functional MVDependencies structure. The deserialization process includes:
 

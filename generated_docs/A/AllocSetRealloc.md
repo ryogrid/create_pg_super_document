@@ -8,7 +8,10 @@ AllocSetRealloc changes the size of a previously allocated memory chunk, returni
 
 ## Definition
 
-
+```c
+void *
+AllocSetRealloc(void *pointer, Size size, int flags)
+```
 ## Detailed Description
 AllocSetRealloc is a sophisticated memory reallocation function that handles three distinct scenarios depending on the type and size requirements of the memory being reallocated:
 

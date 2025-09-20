@@ -8,7 +8,22 @@ GISTSearchItem represents a generic unvisited item in the GiST search queue, whi
 
 ## Definition
 
+```c
+typedef struct GISTSearchItem
+{
+	pairingheap_node phNode;
+	BlockNumber blkno;			/* index page number, or InvalidBlockNumber */
+	union
+	{
+		GistNSN		parentlsn;	/* parent page's LSN, if index page */
+		/* we must store parentlsn to detect whether a split occurred */
+		GISTSearchHeapItem heap;	/* heap info, if heap tuple */
+	}			data;
 
+	/* numberOfOrderBys entries */
+	IndexOrderByDistance distances[FLEXIBLE_ARRAY_MEMBER];
+} GISTSearchItem;
+```
 ## Detailed Description
 GISTSearchItem serves as the fundamental unit in the GiST search queue system, providing a unified representation for both index pages and heap tuples that await processing during index scans. The structure is designed to work within a pairing heap data structure (via the phNode member) to enable efficient priority-based retrieval during ordered searches and proper depth-first ordering during non-ordered searches.
 

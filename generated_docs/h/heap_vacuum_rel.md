@@ -8,7 +8,11 @@ heap_vacuum_rel performs VACUUM operation for one heap relation, setting up the 
 
 ## Definition
 
-
+```c
+void
+heap_vacuum_rel(Relation rel, VacuumParams *params,
+				BufferAccessStrategy bstrategy)
+```
 ## Detailed Description
 heap_vacuum_rel is the main entry point for vacuuming a single heap relation. It performs comprehensive setup and coordination of the vacuum process:
 

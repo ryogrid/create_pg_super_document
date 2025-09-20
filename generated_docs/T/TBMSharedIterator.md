@@ -8,7 +8,16 @@ TBMSharedIterator is a structure designed for joint iteration over TID (tuple id
 
 ## Definition
 
-
+```c
+struct TBMSharedIterator
+{
+	TBMSharedIteratorState *state;	/* shared state */
+	PTEntryArray *ptbase;		/* pagetable element array */
+	PTIterationArray *ptpages;	/* sorted exact page index list */
+	PTIterationArray *ptchunks; /* sorted lossy page index list */
+	TBMIterateResult output;	/* MUST BE LAST (because variable-size) */
+};
+```
 ## Detailed Description
 TBMSharedIterator serves as the shared memory counterpart to TBMIterator, specifically designed for joint iteration scenarios where multiple processes need to coordinate access to the same TID bitmap. This structure maintains references to shared state and provides organized access to both exact pages and lossy pages through separate PTIterationArray structures.
 

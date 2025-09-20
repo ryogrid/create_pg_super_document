@@ -8,7 +8,10 @@ ExecEndHashJoin performs cleanup operations for a HashJoin node during query pla
 
 ## Definition
 
-
+```c
+void
+ExecEndHashJoin(HashJoinState *node)
+```
 ## Detailed Description
 ExecEndHashJoin is the cleanup routine for HashJoin nodes in PostgreSQL's executor. It performs orderly shutdown of hash join resources to prevent memory leaks and ensure proper cleanup of associated structures.
 

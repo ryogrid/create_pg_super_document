@@ -8,7 +8,11 @@ Restarts a table scan operation from the beginning, optionally applying new scan
 
 ## Definition
 
-
+```c
+static inline void
+table_rescan(TableScanDesc scan,
+			 struct ScanKeyData *key)
+```
 ## Detailed Description
 The  function provides a way to restart an existing table scan from the beginning without having to end the current scan and start a new one. This is more efficient than terminating and reinitializing a scan, as it can reuse existing scan state and resources. The function allows for optionally specifying new scan keys that will be used to filter rows during the rescan.
 

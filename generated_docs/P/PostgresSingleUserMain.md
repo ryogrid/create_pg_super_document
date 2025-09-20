@@ -8,7 +8,12 @@ Entry point function for PostgreSQL's single-user mode that performs initializat
 
 ## Definition
 
-
+```c
+struct in shared memory. We must do this
+	 * before we can use LWLocks.
+	 */
+	InitProcess();
+```
 ## Detailed Description
 PostgresSingleUserMain serves as the primary initialization function for PostgreSQL when running in single-user mode (standalone operation without a postmaster). This mode is typically used for database recovery, maintenance operations, or emergency database access when the server cannot start normally.
 

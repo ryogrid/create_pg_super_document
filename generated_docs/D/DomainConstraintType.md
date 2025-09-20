@@ -8,7 +8,16 @@ An enumeration that specifies the type of domain constraint to be checked during
 
 ## Definition
 
-
+```c
+typedef struct DomainConstraintState
+{
+	NodeTag		type;
+	DomainConstraintType constrainttype;	/* constraint type */
+	char	   *name;			/* name of constraint (for error msgs) */
+	Expr	   *check_expr;		/* for CHECK, a boolean expression */
+	ExprState  *check_exprstate;	/* check_expr's eval state, or NULL */
+} DomainConstraintState;
+```
 ## Detailed Description
 DomainConstraintType is used to distinguish between different types of domain constraints that need to be evaluated when coercing values to a domain type. PostgreSQL domains can have two types of constraints: NOT NULL constraints that prevent null values, and CHECK constraints that enforce custom validation rules through boolean expressions. This enumeration allows the constraint checking machinery to handle each type appropriately during runtime evaluation.
 

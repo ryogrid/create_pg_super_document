@@ -8,7 +8,15 @@ The Notification structure represents a pending NOTIFY event in PostgreSQL's asy
 
 ## Definition
 
-
+```c
+typedef struct Notification
+{
+	uint16		channel_len;	/* length of channel-name string */
+	uint16		payload_len;	/* length of payload string */
+	/* null-terminated channel name, then null-terminated payload follow */
+	char		data[FLEXIBLE_ARRAY_MEMBER];
+} Notification;
+```
 ## Detailed Description
 The Notification structure is a core component of PostgreSQL's asynchronous notification system. It represents a single NOTIFY event that has been issued within a transaction but not yet delivered. The structure uses a flexible array member design to store variable-length channel names and payload data in a single memory allocation.
 

@@ -8,7 +8,10 @@ Retrieves the path to PostgreSQL's shared data directory, with support for reloc
 
 ## Definition
 
-
+```c
+void
+get_share_path(const char *my_exec_path, char *ret_path)
+```
 ## Detailed Description
 The  function determines the location of PostgreSQL's shared data directory. This directory typically contains shared files such as extension control files, configuration templates, timezone data, and other read-only data files that are shared across all PostgreSQL installations.
 

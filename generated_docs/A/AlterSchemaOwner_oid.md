@@ -8,7 +8,10 @@ AlterSchemaOwner_oid changes the owner of a schema identified by its OID, servin
 
 ## Definition
 
-
+```c
+void
+AlterSchemaOwner_oid(Oid schemaoid, Oid newOwnerId)
+```
 ## Detailed Description
 AlterSchemaOwner_oid provides a simple interface for changing schema ownership when the schema is identified by its OID rather than name. This function handles the catalog lookup and locking necessary to safely modify schema ownership, delegating the actual ownership change logic to AlterSchemaOwner_internal. It's primarily used in system operations where the schema OID is already known, such as during dependency reassignment operations.
 

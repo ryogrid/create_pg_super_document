@@ -8,7 +8,33 @@ ModifyTableContext is a context structure that encapsulates the basic execution 
 
 ## Definition
 
+```c
+typedef struct ModifyTableContext
+{
+	/* Operation state */
+	ModifyTableState *mtstate;
+	EPQState   *epqstate;
+	EState	   *estate;
 
+	/*
+	 * Slot containing tuple obtained from ModifyTable's subplan.  Used to
+	 * access "junk" columns that are not going to be stored.
+	 */
+	TupleTableSlot *planSlot;
+
+	/*
+	 * Information about the changes that were made concurrently to a tuple
+	 * being updated or deleted
+	 */
+	TM_FailureData tmfd;
+
+	/*
+	 * The tuple projected by the INSERT's RETURNING clause, when doing a
+	 * cross-partition UPDATE
+	 */
+	TupleTableSlot *cpUpdateReturningSlot;
+} ModifyTableContext;
+```
 ## Detailed Description
 This structure serves as a context container that bundles together all the essential state and execution information needed during ModifyTable operations. It is primarily used to simplify function signatures by avoiding the need to pass numerous individual parameters to helper functions like ExecUpdateAct(), ExecDeleteAct(), and related routines.
 

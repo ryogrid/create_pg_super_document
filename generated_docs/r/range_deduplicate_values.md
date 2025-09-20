@@ -8,7 +8,10 @@ range_deduplicate_values is an optimization function that removes duplicate valu
 
 ## Definition
 
-
+```c
+static void
+range_deduplicate_values(Ranges *range)
+```
 ## Detailed Description
 This function performs in-place deduplication of values in the unsorted portion of a Ranges structure. It serves as a lightweight optimization strategy that improves storage efficiency without the computational overhead of more expensive range consolidation operations.
 

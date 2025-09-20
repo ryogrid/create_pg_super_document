@@ -8,7 +8,11 @@ Determines the spatial relationship between an argument bound and centroid bound
 
 ## Definition
 
-
+```c
+static int
+adjacent_cmp_bounds(TypeCacheEntry *typcache, const RangeBound *arg,
+					const RangeBound *centroid)
+```
 ## Detailed Description
 This static function is used during adjacent range searches in SP-GiST indexing to determine which side of a centroid partition should be searched. It analyzes the relationship between an argument bound (from the search query) and a centroid bound to determine if adjacent ranges would be found in the "left" or "right" partition.
 

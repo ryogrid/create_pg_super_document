@@ -8,7 +8,12 @@ dataBeginPlaceToPageInternal prepares to insert data on an internal GIN data pag
 
 ## Definition
 
-
+```c
+structure
+		 * isn't reentrant anyway.
+		 */
+		static ginxlogInsertDataInternal data;
+```
 ## Detailed Description
 This function is responsible for preparing an insertion operation on an internal (non-leaf) GIN data page. It evaluates whether the new PostingItem will fit on the current page by checking the available free space. If the item fits, it returns GPTP_INSERT to proceed with the insertion. If there isn't enough space, it triggers a page split operation by calling dataSplitPageInternal and returns GPTP_SPLIT.
 

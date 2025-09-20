@@ -8,7 +8,9 @@ Validates that all existing rows in a table satisfy a newly proposed foreign key
 
 ## Definition
 
-
+```c
+structure;
+```
 ## Detailed Description
 This function performs a comprehensive validation of existing table data against a proposed foreign key constraint. It employs a two-phase validation strategy: first attempting an optimized LEFT JOIN query approach through RI_Initial_Check(), and if that approach is not feasible, falling back to a tuple-by-tuple validation method. The tuple-by-tuple method simulates INSERT trigger execution for each existing row, calling RI_FKey_check_ins() to verify that each row's foreign key values have corresponding references in the primary key table.
 

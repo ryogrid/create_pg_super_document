@@ -8,7 +8,10 @@ Retrieves the OID (Object Identifier) for a procedural language by its name, wit
 
 ## Definition
 
-
+```c
+Oid
+get_language_oid(const char *langname, bool missing_ok)
+```
 ## Detailed Description
 This utility function performs a system catalog lookup to find the OID corresponding to a given procedural language name. It uses the system cache for efficient retrieval and provides flexible error handling based on the missing_ok parameter. The function is commonly used throughout PostgreSQL when language references need to be resolved to their internal object identifiers.
 

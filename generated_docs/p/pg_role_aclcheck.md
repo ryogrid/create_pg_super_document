@@ -8,7 +8,10 @@ This function performs access control checks for role-based privileges by evalua
 
 ## Definition
 
-
+```c
+static AclResult
+pg_role_aclcheck(Oid role_oid, Oid roleid, AclMode mode)
+```
 ## Detailed Description
 The `pg_role_aclcheck` function is a static helper function that provides "quick-and-dirty" support for the pg_has_role family of functions. It checks various types of role privileges based on the ACL mode flags provided. The function evaluates four types of permissions: admin privileges (using ACL_CREATE with grant option), membership (using ACL_CREATE), usage privileges (ACL_USAGE), and SET privileges (ACL_SET). Each privilege type is checked using corresponding role membership functions, and the function returns ACLCHECK_OK if any requested privilege is satisfied, or ACLCHECK_NO_PRIV if none are met.
 

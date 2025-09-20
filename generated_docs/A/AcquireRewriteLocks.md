@@ -8,7 +8,12 @@ Acquires suitable locks on all relations mentioned in a Query to ensure that rel
 
 ## Definition
 
-
+```c
+void
+AcquireRewriteLocks(Query *parsetree,
+					bool forExecute,
+					bool forUpdatePushedDown)
+```
 ## Detailed Description
 AcquireRewriteLocks is a crucial function in PostgreSQL's query rewriting system that ensures schema stability during query processing. It traverses all Range Table Entries (RTEs) in a query tree and acquires appropriate locks on the referenced relations.
 

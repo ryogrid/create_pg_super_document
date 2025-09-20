@@ -8,7 +8,13 @@ Calculates selectivity of the "var @> const" operator, estimating the fraction o
 
 ## Definition
 
-
+```c
+static double
+calc_hist_selectivity_contains(TypeCacheEntry *typcache,
+							   const RangeBound *lower, const RangeBound *upper,
+							   const RangeBound *hist_lower, int hist_nvalues,
+							   Datum *length_hist_values, int length_hist_nvalues)
+```
 ## Detailed Description
 This function estimates what fraction of multiranges in the database contain (i.e., completely encompass) a given constant range. Like its counterpart calc_hist_selectivity_contained, it uses histograms of range lower bounds and lengths, assuming independence between these properties.
 

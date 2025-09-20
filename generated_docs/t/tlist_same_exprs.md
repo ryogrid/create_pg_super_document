@@ -8,7 +8,10 @@ Checks whether two target lists contain the same expressions, ignoring labeling 
 
 ## Definition
 
-
+```c
+bool
+tlist_same_exprs(List *tlist1, List *tlist2)
+```
 ## Detailed Description
 This function compares two target lists to determine if they contain the same expressions. It's primarily used to decide whether it's safe to substitute a new target list into a non-projection-capable plan node. The function performs a structural comparison of the expression trees while ignoring TargetEntry attributes like resname, ressortgroupref, resorigtbl, resorigcol, and resjunk, as these are only labelings that don't affect the actual row values computed by the node.
 

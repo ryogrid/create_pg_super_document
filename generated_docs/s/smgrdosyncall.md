@@ -8,7 +8,10 @@ Immediately synchronizes all forks of multiple relations to persistent storage, 
 
 ## Definition
 
-
+```c
+void
+smgrdosyncall(SMgrRelation *rels, int nrels)
+```
 ## Detailed Description
 This function performs an immediate synchronization of all forks for multiple relations to persistent storage. It represents an optimized bulk operation that is significantly faster than performing individual FlushRelationBuffers() and smgrimmedsync() calls for each relation separately.
 

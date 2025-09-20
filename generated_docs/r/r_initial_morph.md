@@ -8,7 +8,11 @@ The r_initial_morph function handles initial morphological transformations for I
 
 ## Definition
 
+```c
+}
 
+static int r_initial_morph(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the initial morphological processing step in the Irish Snowball stemming algorithm. It searches for specific patterns at the beginning of words using a predefined array (a_0 with 24 entries) and performs corresponding transformations. The function uses a switch statement to handle 10 different cases of morphological changes:
 

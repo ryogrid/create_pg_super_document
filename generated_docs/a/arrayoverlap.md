@@ -8,7 +8,10 @@ PostgreSQL function implementing the array overlap operator (&&) that determines
 
 ## Definition
 
-
+```c
+Datum
+arrayoverlap(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the PostgreSQL array overlap operator (&&), which returns true if the two input arrays share at least one common element. It serves as a thin wrapper around the  function, calling it with  to perform overlap detection rather than full containment checking.
 

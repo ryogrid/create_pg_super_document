@@ -8,7 +8,13 @@ A structure that defines one member of the array of acceptable values for an enu
 
 ## Definition
 
-
+```c
+typedef struct relopt_enum_elt_def
+{
+	const char *string_val;
+	int			symbol_val;
+} relopt_enum_elt_def;
+```
 ## Detailed Description
 The `relopt_enum_elt_def` structure represents a single valid value for an enumerated relation option. It maps a string representation to an integer symbol value, allowing PostgreSQL to define enum-type relation options where users can specify values by name (string) which are internally represented as integers. This structure is fundamental to the relation options system for handling enumerated values like storage parameters.
 

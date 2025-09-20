@@ -8,7 +8,10 @@ Parses and validates a PostgreSQL connection string, returning a base connection
 
 ## Definition
 
-
+```c
+static char *
+get_base_conninfo(const char *conninfo, char **dbname)
+```
 ## Detailed Description
 This function processes a PostgreSQL connection string to create a "base" connection string that can be reused for connecting to multiple databases. It parses the input connection string using libpq's PQconninfoParse(), extracts all connection parameters except the database name, and reconstructs them into a new connection string.
 

@@ -8,7 +8,12 @@ Returns an ObjectAddress based on a RangeVar and an object name, prepending the 
 
 ## Definition
 
-
+```c
+ObjectAddress
+get_object_address_rv(ObjectType objtype, RangeVar *rel, List *object,
+					  Relation *relp, LOCKMODE lockmode,
+					  bool missing_ok)
+```
 ## Detailed Description
 The  function is a convenience wrapper around  that handles RangeVar-based object specifications. It constructs a fully qualified object name by prepending the relation information from the RangeVar to an existing object name list. This is particularly useful for finding objects that depend on a relation, such as constraints, triggers, or rules, where the object name needs to be qualified with the relation name.
 

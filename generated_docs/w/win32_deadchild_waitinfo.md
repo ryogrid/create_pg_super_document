@@ -8,7 +8,27 @@ win32_deadchild_waitinfo is a Windows-specific struct that holds information nee
 
 ## Definition
 
+```c
+DWORD		procId;
+} win32_deadchild_waitinfo;
+#endif							/* WIN32 */
 
+static void ShmemBackendArrayAdd(Backend *bn);
+static void ShmemBackendArrayRemove(Backend *bn);
+#endif							/* EXEC_BACKEND */
+
+/* Macros to check exit status of a child process */
+#define EXIT_STATUS_0(st)  ((st) == 0)
+#define EXIT_STATUS_1(st)  (WIFEXITED(st) && WEXITSTATUS(st) == 1)
+#define EXIT_STATUS_3(st)  (WIFEXITED(st) && WEXITSTATUS(st) == 3)
+
+#ifndef WIN32
+/*
+ * File descriptors for pipe used to monitor if postmaster is alive.
+ * First is POSTMASTER_FD_WATCH, second is POSTMASTER_FD_OWN.
+ */
+int			postmaster_alive_fds[2] =
+```
 ## Detailed Description
 win32_deadchild_waitinfo is a Windows-specific data structure used to implement child process monitoring in PostgreSQL's postmaster on Windows platforms. Since Windows doesn't have the same signal-based child process notification mechanisms as Unix systems, PostgreSQL uses Windows' I/O completion ports and thread pool APIs to asynchronously monitor child process termination.
 

@@ -8,7 +8,10 @@ Frees a file handle opened by open_auth_file() and manages the associated tokeni
 
 ## Definition
 
-
+```c
+void
+free_auth_file(FILE *file, int depth)
+```
 ## Detailed Description
 The free_auth_file function is responsible for properly closing authentication configuration files that were opened using open_auth_file(). It performs two key operations:
 

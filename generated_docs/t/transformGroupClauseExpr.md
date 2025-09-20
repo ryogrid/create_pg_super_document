@@ -8,7 +8,13 @@ Transforms a single expression within a GROUP BY clause or grouping set, adding 
 
 ## Definition
 
-
+```c
+static Index
+transformGroupClauseExpr(List **flatresult, Bitmapset *seen_local,
+						 ParseState *pstate, Node *gexpr,
+						 List **targetlist, List *sortClause,
+						 ParseExprKind exprKind, bool useSQL99, bool toplevel)
+```
 ## Detailed Description
 This function processes individual expressions within GROUP BY clauses and grouping sets. It performs several key operations:
 

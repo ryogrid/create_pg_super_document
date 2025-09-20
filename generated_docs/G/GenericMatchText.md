@@ -8,7 +8,10 @@ A dispatcher function that selects the appropriate character encoding-specific L
 
 ## Definition
 
-
+```c
+static inline int
+GenericMatchText(const char *s, int slen, const char *p, int plen, Oid collation)
+```
 ## Detailed Description
 GenericMatchText serves as a smart dispatcher in PostgreSQL's LIKE pattern matching system. It analyzes the current database configuration and selects the most appropriate matching algorithm:
 

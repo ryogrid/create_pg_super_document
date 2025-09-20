@@ -8,7 +8,9 @@ Creates a deep copy of a PostgreSQL list structure, recursively copying both the
 
 ## Definition
 
-
+```c
+typedef int (*qsort_comparator) (const void *a, const void *b);
+```
 ## Detailed Description
 The  function creates a deep copy of a PostgreSQL List structure, meaning it copies not only the list container and element pointers, but also recursively copies all the actual data objects pointed to by the list elements. This is accomplished using  for each element, which provides PostgreSQL's standard deep-copy semantics for node structures.
 

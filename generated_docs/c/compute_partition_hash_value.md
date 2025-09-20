@@ -8,7 +8,19 @@ Computes a 64-bit hash value for given partition key values used in hash partiti
 
 ## Definition
 
-
+```c
+typedef struct ColumnsHashData
+	{
+		Oid			relid;
+		int			nkeys;
+		Oid			variadic_type;
+		int16		variadic_typlen;
+		bool		variadic_typbyval;
+		char		variadic_typalign;
+		Oid			partcollid[PARTITION_MAX_KEYS];
+		FmgrInfo	partsupfunc[FLEXIBLE_ARRAY_MEMBER];
+	} ColumnsHashData;
+```
 ## Detailed Description
 This function calculates a hash value for a set of partition key values by iterating through each partition attribute and calling the appropriate datatype-specific hash function. The function combines individual hash values using the  function to produce a single 64-bit hash value that determines which hash partition a tuple should be placed in.
 

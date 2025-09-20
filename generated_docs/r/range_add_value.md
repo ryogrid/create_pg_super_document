@@ -8,7 +8,12 @@ This function adds a new value to a BRIN minmax-multi range structure, managing 
 
 ## Definition
 
-
+```c
+static bool
+range_add_value(BrinDesc *bdesc, Oid colloid,
+				AttrNumber attno, Form_pg_attribute attr,
+				Ranges *ranges, Datum newval)
+```
 ## Detailed Description
 The function implements a comprehensive strategy for adding new values to BRIN minmax-multi ranges. It first ensures adequate buffer space by calling ensure_free_space_in_buffer, which may trigger compaction and deduplication. Before actually adding the value, it checks if the value is already covered by existing ranges to avoid duplicates.
 

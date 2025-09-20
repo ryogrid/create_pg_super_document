@@ -8,7 +8,10 @@ Performs an atomic add-and-fetch operation on a 64-bit unsigned integer, returni
 
 ## Definition
 
-
+```c
+static inline uint64
+pg_atomic_add_fetch_u64_impl(volatile pg_atomic_uint64 *ptr, int64 add_)
+```
 ## Detailed Description
 This function implements the atomic add-and-fetch operation for 64-bit unsigned integers by leveraging the existing  function and adding the increment value to its result. Unlike fetch-and-add which returns the original value, this function returns the new value after the addition has been performed. This is implemented as a generic fallback when direct add-and-fetch atomic operations are not available in hardware.
 

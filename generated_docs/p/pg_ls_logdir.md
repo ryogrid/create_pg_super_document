@@ -8,7 +8,10 @@ Returns a list of regular files in the PostgreSQL log directory with detailed in
 
 ## Definition
 
-
+```c
+Datum
+pg_ls_logdir(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL system function that provides SQL access to list files in the PostgreSQL log directory. It is a simple wrapper around the  function that specifically targets the log directory configured by the  server setting.
 

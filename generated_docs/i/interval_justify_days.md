@@ -8,7 +8,10 @@ Adjusts an interval so that the 'day' component contains less than 30 days, tran
 
 ## Definition
 
-
+```c
+Datum
+interval_justify_days(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function normalizes PostgreSQL interval values by converting days exceeding 30 into months. It takes an Interval structure and redistributes the day component when it exceeds DAYS_PER_MONTH (30 days). The function handles both positive and negative intervals correctly and ensures the result maintains proper sign consistency between month and day components.
 

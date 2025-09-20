@@ -8,7 +8,10 @@ Queues a request to fetch an entire file from the remote PostgreSQL system durin
 
 ## Definition
 
-
+```c
+static void
+libpq_queue_fetch_file(rewind_source *source, const char *path, size_t len)
+```
 ## Detailed Description
 This function is responsible for preparing and queuing a complete file fetch operation from the remote PostgreSQL server during pg_rewind. It implements a two-step process: first truncating the target file locally, then queuing a range fetch request for the entire file content.
 

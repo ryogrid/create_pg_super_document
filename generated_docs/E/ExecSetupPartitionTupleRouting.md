@@ -8,7 +8,10 @@ Sets up information needed during tuple routing for partitioned tables, encapsul
 
 ## Definition
 
-
+```c
+PartitionTupleRouting *
+ExecSetupPartitionTupleRouting(EState *estate, Relation rel)
+```
 ## Detailed Description
 This function initializes the partition routing infrastructure for a partitioned table by creating and configuring a PartitionTupleRouting structure. The design philosophy emphasizes lazy initialization - partition ResultRelInfo structures are built on demand only when a tuple actually needs to be routed to a specific partition. This approach optimizes for the common case where INSERT operations target a single partition, ensuring fast execution for simple scenarios.
 

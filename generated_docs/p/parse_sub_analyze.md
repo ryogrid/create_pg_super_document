@@ -8,7 +8,13 @@ Entry point for recursively analyzing sub-statements within a larger query conte
 
 ## Definition
 
-
+```c
+Query *
+parse_sub_analyze(Node *parseTree, ParseState *parentParseState,
+				  CommonTableExpr *parentCTE,
+				  bool locked_from_parent,
+				  bool resolve_unknowns)
+```
 ## Detailed Description
 This function handles the analysis of sub-statements that occur within a larger SQL query context, such as subqueries, set operations, CTEs, and derived tables. Unlike the top-level parse_analyze functions, this function creates a child parse state that inherits context from a parent parse state, allowing for proper scope resolution and parameter inheritance.
 

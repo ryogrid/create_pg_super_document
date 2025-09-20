@@ -8,7 +8,10 @@ Initializes a new bitmap page in the PostgreSQL hash index, setting all bits to 
 
 ## Definition
 
-
+```c
+void
+_hash_initbitmapbuffer(Buffer buf, uint16 bmsize, bool initpage)
+```
 ## Detailed Description
 This function initializes a bitmap page that tracks the allocation status of overflow pages in a hash index. The bitmap uses a "1" bit to indicate that an overflow page is allocated/in use, and "0" to indicate it's free. During initialization, all bits are set to "1" (0xFF pattern) since no overflow pages are initially free.
 

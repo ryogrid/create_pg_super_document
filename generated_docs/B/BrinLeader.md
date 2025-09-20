@@ -8,7 +8,36 @@ BrinLeader is a structure that manages the leader process state during parallel 
 
 ## Definition
 
+```c
+typedef struct BrinLeader
+{
+	/* parallel context itself */
+	ParallelContext *pcxt;
 
+	/*
+	 * nparticipanttuplesorts is the exact number of worker processes
+	 * successfully launched, plus one leader process if it participates as a
+	 * worker (only DISABLE_LEADER_PARTICIPATION builds avoid leader
+	 * participating as a worker).
+	 */
+	int			nparticipanttuplesorts;
+
+	/*
+	 * Leader process convenience pointers to shared state (leader avoids TOC
+	 * lookups).
+	 *
+	 * brinshared is the shared state for entire build.  sharedsort is the
+	 * shared, tuplesort-managed state passed to each process tuplesort.
+	 * snapshot is the snapshot used by the scan iff an MVCC snapshot is
+	 * required.
+	 */
+	BrinShared *brinshared;
+	Sharedsort *sharedsort;
+	Snapshot	snapshot;
+	WalUsage   *walusage;
+	BufferUsage *bufferusage;
+} BrinLeader;
+```
 ## Detailed Description
 BrinLeader serves as the control structure for the leader process in parallel BRIN index builds. It maintains references to the parallel execution context and provides convenient access to shared state that would otherwise require table of contents (TOC) lookups. The leader process uses this structure to coordinate with worker processes and manage the overall parallel build operation.
 

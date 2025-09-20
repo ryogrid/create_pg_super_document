@@ -8,7 +8,10 @@ Retrieves the schema (namespace) OID that contains a specified database object, 
 
 ## Definition
 
-
+```c
+Oid
+get_object_namespace(const ObjectAddress *address)
+```
 ## Detailed Description
 The `get_object_namespace` function determines which schema contains a given database object by looking up the object's namespace attribute in the system catalogs. This function is essential for namespace-aware operations and resolving object names within their proper schema context.
 

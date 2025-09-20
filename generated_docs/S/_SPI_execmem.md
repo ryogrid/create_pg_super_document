@@ -8,7 +8,10 @@
 
 ## Definition
 
-
+```c
+static MemoryContext
+_SPI_execmem(void)
+```
 ## Detailed Description
 This function provides a convenient way to switch to the execution memory context associated with the current SPI connection. It accesses the execCxt field from the current SPI connection structure and switches the active memory context to it using MemoryContextSwitchTo. The function returns the previous memory context, allowing callers to restore it later if needed.
 

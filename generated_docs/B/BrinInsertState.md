@@ -8,7 +8,14 @@ BrinInsertState captures running state that spans multiple brininsert invocation
 
 ## Definition
 
-
+```c
+typedef struct BrinInsertState
+{
+	BrinRevmap *bis_rmAccess;
+	BrinDesc   *bis_desc;
+	BlockNumber bis_pages_per_range;
+} BrinInsertState;
+```
 ## Detailed Description
 BrinInsertState is a lightweight state structure designed to optimize multiple insert operations within a single command by caching essential access structures. Rather than reinitializing the reverse map access and index descriptor for each insert operation, this state allows them to be reused across multiple brininsert calls, improving performance for bulk insert operations.
 

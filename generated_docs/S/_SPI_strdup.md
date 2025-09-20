@@ -8,7 +8,33 @@ A static utility function that duplicates a string using SPI memory allocation, 
 
 ## Definition
 
+```c
+structure (the "schema") to XML
+ * Schema.  And there are functions that do both at the same time.
+ *
+ * Then you can map a database, a schema, or a table, each in both
+ * ways.  This breaks down recursively: Mapping a database invokes
+ * mapping schemas, which invokes mapping tables, which invokes
+ * mapping rows, which invokes mapping columns, although you can't
+ * call the last two from the outside.  Because of this, there are a
+ * number of xyz_internal() functions which are to be called both from
+ * the function manager wrapper and from some upper layer in a
+ * recursive call.
+ *
+ * See the documentation about what the common function arguments
+ * nulls, tableforest, and targetns mean.
+ *
+ * Some style guidelines for XML output: Use double quotes for quoting
+ * XML attributes.  Indent XML elements by two spaces, but remember
+ * that a lot of code is called recursively at different levels, so
+ * it's better not to indent rather than create output that indents
+ * and outdents weirdly.  Add newlines to make the output look nice.
+ */
 
+
+/*
+ * Visibility of objects for XML mappings;
+```
 ## Detailed Description
 This function provides string duplication functionality specifically designed to work within the SPI (Server Programming Interface) memory context. It allocates memory using  instead of the standard memory allocator, ensuring that the duplicated string is allocated in the appropriate SPI memory context and will be properly managed by SPI's memory management system.
 

@@ -8,7 +8,11 @@ XLogPageRead is a critical function that reads WAL pages from various sources (l
 
 ## Definition
 
-
+```c
+static int
+XLogPageRead(XLogReaderState *xlogreader, XLogRecPtr targetPagePtr, int reqLen,
+			 XLogRecPtr targetRecPtr, char *readBuf)
+```
 ## Detailed Description
 XLogPageRead serves as the primary page reading mechanism for WAL recovery operations. It abstracts the complexity of reading WAL pages from multiple sources and handles the intricate logic of source switching when pages are unavailable. The function is designed to work in both blocking and non-blocking modes, supporting WAL prefetching operations.
 

@@ -8,7 +8,10 @@ Maps an invalidation reason string for a replication slot to its corresponding R
 
 ## Definition
 
-
+```c
+ReplicationSlotInvalidationCause
+GetSlotInvalidationCause(const char *invalidation_reason)
+```
 ## Detailed Description
 This function takes a string representation of a replication slot invalidation reason and converts it to the corresponding ReplicationSlotInvalidationCause enum value. It performs this mapping by iterating through all possible invalidation causes and comparing the input string with the string representations stored in the SlotInvalidationCauses array. The function includes assertions to ensure that a valid invalidation reason is provided and that a matching cause is found.
 

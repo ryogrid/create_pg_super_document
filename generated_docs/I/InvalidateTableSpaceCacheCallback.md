@@ -8,7 +8,10 @@ A cache invalidation callback function that flushes all tablespace cache entries
 
 ## Definition
 
-
+```c
+static void
+InvalidateTableSpaceCacheCallback(Datum arg, int cacheid, uint32 hashvalue)
+```
 ## Detailed Description
 This function serves as a callback for PostgreSQL's cache invalidation system. When the pg_tablespace system catalog is updated (e.g., when tablespaces are created, modified, or dropped), this callback is invoked to ensure cache consistency. Rather than selectively invalidating specific entries, it takes a simple approach of flushing the entire tablespace cache. This design choice is justified by the expectation that tablespaces are not numerous and are infrequently modified, making the performance impact of full cache invalidation negligible while ensuring correctness.
 

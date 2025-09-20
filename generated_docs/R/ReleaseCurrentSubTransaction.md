@@ -8,7 +8,10 @@ ReleaseCurrentSubTransaction commits the innermost subtransaction, regardless of
 
 ## Definition
 
-
+```c
+void
+ReleaseCurrentSubTransaction(void)
+```
 ## Detailed Description
 ReleaseCurrentSubTransaction performs a commit operation on the current innermost subtransaction. This is a specialized function designed for internal PostgreSQL operations that need to commit subtransactions without the overhead and complexity of the full transaction command processing cycle.
 

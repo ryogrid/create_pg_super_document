@@ -8,7 +8,9 @@ Determines the likely date order format (MDY, DMY, or YMD) from a given locale b
 
 ## Definition
 
-
+```c
+struct tm	testtime;
+```
 ## Detailed Description
 This function determines the date ordering convention used by a specific locale by temporarily setting the system locale and formatting a test date. It creates a test date (November 22, 2033) and formats it using the locale's "%x" format specifier, then analyzes the positions of the day (22), month (11), and year (33) components in the resulting string to determine whether the locale uses Month-Day-Year (MDY), Day-Month-Year (DMY), or Year-Month-Day (YMD) ordering.
 

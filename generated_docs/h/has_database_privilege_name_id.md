@@ -8,7 +8,10 @@ Checks if a specified user has a given privilege on a database identified by OID
 
 ## Definition
 
-
+```c
+Datum
+has_database_privilege_name_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function implements a hybrid variant of the has_database_privilege SQL function family. It takes a username (by name), a database OID (by ID), and a privilege type string, then determines whether the specified user has the requested privilege on the database. This variant is optimized for cases where the database OID is already known but the username needs to be resolved. The function uses object_aclcheck_ext to handle cases where the database might not exist, returning NULL in such situations.
 

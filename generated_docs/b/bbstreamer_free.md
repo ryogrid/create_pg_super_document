@@ -8,7 +8,10 @@ This function frees a bbstreamer object by calling its free callback, allowing t
 
 ## Definition
 
-
+```c
+static inline void
+bbstreamer_free(bbstreamer *streamer)
+```
 ## Detailed Description
 bbstreamer_free is a static inline function that provides a standardized interface for deallocating any bbstreamer implementation. It acts as a wrapper around the free callback function pointer in the bbstreamer's operations structure (bbs_ops->free). This function is the final step in the bbstreamer lifecycle and is responsible for releasing all memory and resources associated with a bbstreamer instance.
 

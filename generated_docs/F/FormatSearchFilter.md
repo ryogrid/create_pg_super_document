@@ -8,7 +8,10 @@ Formats an LDAP search filter template by substituting username placeholders wit
 
 ## Definition
 
-
+```c
+static char *
+FormatSearchFilter(const char *pattern, const char *user_name)
+```
 ## Detailed Description
 The `FormatSearchFilter` function creates a customized LDAP search filter by processing a template pattern and replacing all occurrences of the placeholder "$username" with the actual username. This function is essential for LDAP authentication where search filters need to be dynamically constructed based on the connecting user.
 

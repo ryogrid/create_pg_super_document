@@ -8,7 +8,10 @@ PostgreSQL SQL function that calculates the distance from a Point to a PATH (ope
 
 ## Definition
 
-
+```c
+Datum
+dist_ppath(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the public PostgreSQL SQL interface for computing the shortest distance from a point to a path. It extracts the point and path arguments from the function call framework and delegates the actual distance calculation to . The function handles both open paths (series of connected line segments) and closed paths (polygons).
 

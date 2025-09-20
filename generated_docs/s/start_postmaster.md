@@ -8,7 +8,10 @@ Starts the PostgreSQL postmaster process and returns its process ID (PID), handl
 
 ## Definition
 
-
+```c
+static pid_t
+start_postmaster(void)
+```
 ## Detailed Description
 The  function is responsible for launching the PostgreSQL postmaster process. It implements different strategies for Unix and Windows platforms:
 

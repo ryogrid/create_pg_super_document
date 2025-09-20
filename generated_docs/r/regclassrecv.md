@@ -8,7 +8,10 @@ Converts external binary format data to regclass type by delegating to the stand
 
 ## Definition
 
-
+```c
+Datum
+regclassrecv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the binary input function for the  data type. It handles the conversion of binary format data (typically from network protocols or binary storage) into the internal regclass representation.
 

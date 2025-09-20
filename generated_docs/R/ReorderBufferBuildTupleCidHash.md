@@ -8,7 +8,10 @@ Builds a hash table mapping (relfilelocator, ctid) pairs to command ID informati
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferBuildTupleCidHash(ReorderBuffer *rb, ReorderBufferTXN *txn)
+```
 ## Detailed Description
 This function constructs a specialized hash table that enables efficient lookup of command ID information for specific tuples during logical decoding. The hash table is essential for proper MVCC (Multi-Version Concurrency Control) visibility checking when accessing catalog tables during logical replication.
 

@@ -8,7 +8,10 @@ Unblocks signal delivery to a background worker process by setting the process s
 
 ## Definition
 
-
+```c
+void
+BackgroundWorkerUnblockSignals(void)
+```
 ## Detailed Description
 This function restores normal signal delivery to the current background worker process by calling sigprocmask() with the SIG_SETMASK operation and the global UnBlockSig signal set. This function is typically used to end critical sections that were protected by BackgroundWorkerBlockSignals, allowing the process to once again respond to signals.
 

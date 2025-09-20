@@ -8,7 +8,10 @@ The  function converts a PostgreSQL text value containing JSON data into interna
 
 ## Definition
 
-
+```c
+Datum
+jsonb_from_text(text *js, bool unique_keys)
+```
 ## Detailed Description
 This function provides a convenient interface for converting PostgreSQL text values to JSONB format. Unlike the standard input functions that work with C strings, this function operates directly on PostgreSQL's text data type, handling the necessary data extraction and length calculations. It serves as a bridge between PostgreSQL's text type system and the core JSONB conversion functionality, delegating the actual parsing work to  while properly extracting the text content and length from the PostgreSQL text structure.
 

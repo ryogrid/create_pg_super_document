@@ -8,7 +8,10 @@ Final function for JSONB array aggregation that converts the accumulated state i
 
 ## Definition
 
-
+```c
+Datum
+jsonb_agg_finalfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the final function for JSONB array aggregation operations. It takes the accumulated JsonbAggState from the transition phase and converts it into a complete JSONB array by adding the final array end marker. The function performs a shallow clone of the parse state to ensure the final function can be called multiple times safely without modifying the original state. It handles the case where no input values were provided by returning NULL.
 

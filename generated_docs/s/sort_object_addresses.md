@@ -8,7 +8,10 @@ Sorts the items in an ObjectAddresses array using OID-descending order to ensure
 
 ## Definition
 
-
+```c
+void
+sort_object_addresses(ObjectAddresses *addrs)
+```
 ## Detailed Description
 The  function provides a standardized way to sort ObjectAddress entries within an ObjectAddresses array. The sorting is performed using the standard library's  function with a custom comparator () that implements OID-descending order.
 

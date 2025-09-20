@@ -8,7 +8,10 @@ Transforms a SELECT statement AST node into a Query tree structure, handling all
 
 ## Definition
 
-
+```c
+static Query *
+transformSelectStmt(ParseState *pstate, SelectStmt *stmt)
+```
 ## Detailed Description
 transformSelectStmt is the core function responsible for converting a parsed SELECT statement (SelectStmt) into PostgreSQL's internal Query representation. This function systematically processes each component of a SELECT statement in a specific order to ensure proper dependency resolution. It handles WITH clauses, FROM clauses, target lists, WHERE conditions, HAVING conditions, GROUP BY, ORDER BY, DISTINCT, LIMIT/OFFSET, window definitions, and locking clauses.
 

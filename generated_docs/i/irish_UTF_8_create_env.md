@@ -8,7 +8,11 @@ The irish_UTF_8_create_env function creates and initializes a Snowball environme
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * irish_UTF_8_create_env(void)
+```
 ## Detailed Description
 This function serves as a factory method for creating Snowball stemming environment instances tailored for Irish language processing with UTF-8 character encoding. It acts as a thin wrapper around the generic SN_create_env function, providing the specific parameters needed for Irish stemming:
 

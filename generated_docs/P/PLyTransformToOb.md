@@ -8,7 +8,12 @@ PLyTransformToOb is a struct that contains conversion information for transformi
 
 ## Definition
 
-
+```c
+typedef struct PLyTransformToOb
+{
+	FmgrInfo	typtransform;	/* lookup info for from-SQL transform func */
+} PLyTransformToOb;
+```
 ## Detailed Description
 PLyTransformToOb handles conversion of PostgreSQL data types that have custom transform functions defined for the PL/Python language. Transform functions provide a way to customize how specific PostgreSQL types are converted to Python objects, bypassing the standard conversion mechanisms. This allows for more efficient or specialized representations of complex data types.
 

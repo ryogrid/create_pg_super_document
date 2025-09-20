@@ -8,7 +8,10 @@ A wrapper function that provides a single-argument version of pg_current_logfile
 
 ## Definition
 
-
+```c
+Datum
+pg_current_logfile_1arg(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a compatibility wrapper around the main  function. It exists specifically to satisfy PostgreSQL's opr_sanity checks, which require that all built-in functions sharing the same implementing C function must take the same number of arguments. The function simply delegates to the main  function, which reports the current log file used by the log collector by scanning the current_logfiles metadata.
 

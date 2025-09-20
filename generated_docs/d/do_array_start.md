@@ -8,7 +8,10 @@ The  function is a JSON parsing callback function that handles the beginning of 
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+do_array_start(void *state)
+```
 ## Detailed Description
 This function is part of the incremental JSON parser test framework in PostgreSQL. It serves as a semantic action callback that gets invoked when the JSON parser encounters the start of an array (opening bracket '['). The function performs two main actions: it outputs the opening bracket to stdout for visual representation of the parsing progress, and it sets a flag in the parser state to indicate that the first array element is being processed. This flag is used to manage comma placement between array elements during the parsing output.
 

@@ -8,7 +8,10 @@ Core function that creates new custom wait events with proper concurrency contro
 
 ## Definition
 
-
+```c
+static uint32
+WaitEventCustomNew(uint32 classId, const char *wait_event_name)
+```
 ## Detailed Description
 This internal function implements the core logic for creating custom wait events in PostgreSQL. It provides a robust, thread-safe mechanism for registering new wait events while ensuring name uniqueness within each wait event class and preventing resource exhaustion.
 

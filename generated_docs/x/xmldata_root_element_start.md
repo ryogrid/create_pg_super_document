@@ -8,7 +8,12 @@ Internal utility function that generates the opening XML tag for root elements i
 
 ## Definition
 
-
+```c
+static void
+xmldata_root_element_start(StringInfo result, const char *eltname,
+						   const char *xmlschema, const char *targetns,
+						   bool top_level)
+```
 ## Detailed Description
 The `xmldata_root_element_start` function is responsible for generating properly formatted XML opening tags for root elements in PostgreSQL's SQL/XML functions. It handles the complex logic of XML namespace declarations, schema location attributes, and ensures that namespace declarations are only included at the appropriate hierarchical level to avoid redundancy and maintain clean XML output.
 

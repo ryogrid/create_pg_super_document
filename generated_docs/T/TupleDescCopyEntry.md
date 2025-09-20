@@ -8,7 +8,11 @@ Copies a single attribute structure from one tuple descriptor to another without
 
 ## Definition
 
-
+```c
+void
+TupleDescCopyEntry(TupleDesc dst, AttrNumber dstAttno,
+				   TupleDesc src, AttrNumber srcAttno)
+```
 ## Detailed Description
 This function copies a single attribute definition from a source tuple descriptor to a destination tuple descriptor at specified positions. It performs a memory copy of the fixed-part attribute structure, updates the attribute number, and resets the cache offset. Like other copy functions in this family, it explicitly does not copy constraint-related information and clears all constraint flags in the destination attribute. The function includes sanity checks to ensure valid source and destination descriptors and attribute numbers.
 

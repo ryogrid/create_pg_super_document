@@ -8,7 +8,10 @@ Retrieve the type identifier (Oid) for a specific parameter of a prepared SPI pl
 
 ## Definition
 
-
+```c
+Oid
+SPI_getargtypeid(SPIPlanPtr plan, int argIndex)
+```
 ## Detailed Description
 SPI_getargtypeid is used to examine the parameter types of a prepared SPI plan. Given a valid SPI plan and an argument index, it returns the PostgreSQL type Oid (Object identifier) for that parameter. This function is useful for introspection of plan parameters, especially when implementing generic functions that need to handle different parameter types dynamically.
 

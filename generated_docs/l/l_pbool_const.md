@@ -8,7 +8,10 @@ Creates an LLVM constant boolean value suitable for function parameters within P
 
 ## Definition
 
-
+```c
+static inline LLVMValueRef
+l_pbool_const(bool i)
+```
 ## Detailed Description
 This utility function creates LLVM constant boolean values specifically designed for function parameter contexts. It uses , which represents the LLVM type corresponding to the parameter passing convention for boolean values in PostgreSQL's JIT-compiled functions. This distinction is important because different contexts (storage, parameters, etc.) may have different boolean representations or sizes depending on the target platform's ABI (Application Binary Interface). The function converts a C boolean value to the appropriate LLVM constant for use in function calls and parameter passing scenarios.
 

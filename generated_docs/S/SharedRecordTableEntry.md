@@ -8,7 +8,12 @@ SharedRecordTableEntry is a structure used in PostgreSQL's type cache system to 
 
 ## Definition
 
-
+```c
+typedef struct SharedRecordTableEntry
+{
+	SharedRecordTableKey key;
+} SharedRecordTableEntry;
+```
 ## Detailed Description
 SharedRecordTableEntry serves as the shared version of RecordCacheEntry in PostgreSQL's type cache implementation. This structure is specifically designed to facilitate typmod lookups using TupleDesc structures, regardless of whether those TupleDesc structures are stored in local backend memory or shared memory across multiple backends. The structure acts as a hash table entry that enables efficient sharing of record type information between different database processes.
 

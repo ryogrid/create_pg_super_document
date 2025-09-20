@@ -8,7 +8,10 @@ Provides a snapshot that is sufficiently up-to-date for scanning system catalog 
 
 ## Definition
 
-
+```c
+Snapshot
+GetCatalogSnapshot(Oid relid)
+```
 ## Detailed Description
 GetCatalogSnapshot is a core function in PostgreSQL's snapshot management system that returns an appropriate snapshot for system catalog scans. The function implements a key optimization for logical decoding by checking if a historic snapshot is currently active. When logical decoding is in progress (detected via HistoricSnapshotActive()), it returns the HistoricSnapshot to ensure catalog visibility is consistent with the point-in-time being decoded. Otherwise, it delegates to GetNonHistoricCatalogSnapshot() for normal catalog access patterns.
 

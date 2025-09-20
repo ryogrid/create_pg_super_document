@@ -8,7 +8,17 @@ The binaryheap structure represents a binary heap data structure implementation 
 
 ## Definition
 
-
+```c
+typedef struct binaryheap
+{
+	int			bh_size;
+	int			bh_space;
+	bool		bh_has_heap_property;	/* debugging cross-check */
+	binaryheap_comparator bh_compare;
+	void	   *bh_arg;
+	bh_node_type bh_nodes[FLEXIBLE_ARRAY_MEMBER];
+} binaryheap;
+```
 ## Detailed Description
 The binaryheap structure implements a complete binary tree stored as an array, where each parent node satisfies a heap property relative to its children as defined by the comparison function. This implementation supports both min-heap and max-heap configurations depending on the provided comparator function. The heap provides efficient operations for priority queue functionality commonly used in sorting algorithms, merge operations, and scheduling tasks within PostgreSQL.
 

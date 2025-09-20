@@ -8,7 +8,18 @@ A context structure used during scan expression fixing to provide necessary info
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PlannerInfo *root;
+	indexed_tlist *outer_itlist;
+	indexed_tlist *inner_itlist;
+	Index		acceptable_rel;
+	int			rtoffset;
+	NullingRelsMatch nrm_match;
+	double		num_exec;
+} fix_join_expr_context;
+```
 ## Detailed Description
 The  structure serves as a context container during the expression fixing phase for scan-level operations in PostgreSQL's query planner. This structure is used when the planner needs to adjust variable references and expression nodes to match the final plan structure.
 

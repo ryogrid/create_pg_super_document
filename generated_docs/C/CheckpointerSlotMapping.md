@@ -8,7 +8,13 @@ A local structure used in the CompactCheckpointerRequestQueue function to map ch
 
 ## Definition
 
-
+```c
+struct CheckpointerSlotMapping
+	{
+		CheckpointerRequest request;
+		int			slot;
+	};
+```
 ## Detailed Description
 CheckpointerSlotMapping is a temporary data structure used exclusively within the CompactCheckpointerRequestQueue function in the PostgreSQL checkpointer process. This structure serves as a hash table entry that associates a CheckpointerRequest with its corresponding slot number in the request queue array. 
 

@@ -8,7 +8,10 @@ Low-level function that performs physical disk I/O to write SLRU pages from shar
 
 ## Definition
 
-
+```c
+static bool
+SlruPhysicalWritePage(SlruCtl ctl, int64 pageno, int slotno, SlruWriteAll fdata)
+```
 ## Detailed Description
 SlruPhysicalWritePage is the core low-level function responsible for writing SLRU pages from shared memory buffers to disk storage. It implements PostgreSQL's write-ahead logging (WAL) protocol, sophisticated error handling, and optimization for batch write operations.
 

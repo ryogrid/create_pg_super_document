@@ -8,7 +8,9 @@ Parses a single tokenized line from the pg_ident.conf file and creates an IdentL
 
 ## Definition
 
-
+```c
+enumber = line_num;
+```
 ## Detailed Description
 This function processes tokenized lines from the pg_ident.conf file, which defines mappings between system usernames and PostgreSQL role names. The function performs comprehensive validation and processing:
 

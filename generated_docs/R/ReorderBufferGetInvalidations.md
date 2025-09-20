@@ -8,7 +8,11 @@ ReorderBufferGetInvalidations retrieves the count and linked list of invalidatio
 
 ## Definition
 
-
+```c
+uint32
+ReorderBufferGetInvalidations(ReorderBuffer *rb, TransactionId xid,
+							  SharedInvalidationMessage **msgs)
+```
 ## Detailed Description
 ReorderBufferGetInvalidations is a utility function that provides access to invalidation messages stored within a transaction in the reorder buffer. Invalidation messages are critical for maintaining cache coherency in PostgreSQL's shared cache systems during logical replication.
 

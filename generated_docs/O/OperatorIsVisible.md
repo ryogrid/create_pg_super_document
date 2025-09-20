@@ -8,7 +8,10 @@ OperatorIsVisible determines whether an operator identified by its OID is visibl
 
 ## Definition
 
-
+```c
+bool
+OperatorIsVisible(Oid oprid)
+```
 ## Detailed Description
 This function serves as a simple wrapper around OperatorIsVisibleExt to check operator visibility. An operator is considered "visible" if it would be found when searching for the unqualified operator name with exact argument matches in the current namespace search path. This function is essential for determining whether an operator can be referenced without schema qualification in SQL statements.
 

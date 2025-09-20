@@ -8,7 +8,10 @@ Returns the number of bits required to store 5^e, specifically computing e == 0 
 
 ## Definition
 
-
+```c
+static inline uint32
+pow5bits(const int32 e)
+```
 ## Detailed Description
 This function calculates the minimum number of bits required to represent 5 raised to the power e. It uses an efficient bit-shifting approximation formula: ((((uint32) e) * 1217359) >> 19) + 1. The implementation is optimized for speed and avoids expensive logarithmic operations by using integer arithmetic with a magic constant (1217359) derived from mathematical approximations.
 

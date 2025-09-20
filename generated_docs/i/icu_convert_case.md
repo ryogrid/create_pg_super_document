@@ -8,7 +8,11 @@ A utility function that performs locale-aware case conversion using ICU (Interna
 
 ## Definition
 
-
+```c
+static int32_t
+icu_convert_case(ICU_Convert_Func func, pg_locale_t mylocale,
+				 UChar **buff_dest, UChar *buff_source, int32_t len_source)
+```
 ## Detailed Description
 The  function serves as a generic wrapper for ICU case conversion operations (uppercase, lowercase, title case). It handles the complexity of ICU's buffer management by initially attempting conversion with a buffer of the same size as the source, then reallocating with the correct size if a buffer overflow occurs. This two-pass approach is necessary because ICU case conversion can result in strings of different lengths than the original (due to locale-specific rules, ligatures, or special character mappings).
 

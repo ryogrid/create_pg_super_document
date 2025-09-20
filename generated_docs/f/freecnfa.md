@@ -8,7 +8,10 @@ A static function that properly deallocates memory for a compacted NFA (Non-dete
 
 ## Definition
 
-
+```c
+static void
+freecnfa(struct cnfa *cnfa)
+```
 ## Detailed Description
 The  function is responsible for cleaning up and deallocating all memory associated with a compacted NFA structure. It ensures proper memory management by freeing the individual components of the NFA (state flags, states, and arcs) and then zeroing out the structure to mark it as empty. This function is part of PostgreSQL's regex compilation subsystem and is called when a compiled NFA is no longer needed.
 

@@ -8,7 +8,13 @@ Preprocesses SK_SEARCHARRAY scan keys by deconstructing arrays and setting up BT
 
 ## Definition
 
-
+```c
+struct the array into elements.  Anything allocated
+		 * here (including a possibly detoasted array value) is in the
+		 * workspace context.
+		 */
+		arrayval = DatumGetArrayTypeP(cur->sk_argument);
+```
 ## Detailed Description
 This function performs sophisticated preprocessing of array scan keys (SK_SEARCHARRAY) to optimize B-tree searches. It handles several key optimizations:
 

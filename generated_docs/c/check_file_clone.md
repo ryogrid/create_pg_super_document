@@ -8,7 +8,10 @@ Tests whether file cloning/reflinking is supported between the old and new Postg
 
 ## Definition
 
-
+```c
+void
+check_file_clone(void)
+```
 ## Detailed Description
 The check_file_clone function performs a compatibility test to determine if file cloning operations can be successfully performed between the old and new PostgreSQL data directories. This test is crucial during pg_upgrade's pre-flight checks to ensure that the cloning method can be used for efficient file transfers.
 

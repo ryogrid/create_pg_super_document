@@ -8,7 +8,10 @@ Runs the leader apply worker by setting up replication origin tracking, establis
 
 ## Definition
 
-
+```c
+static void
+run_apply_worker()
+```
 ## Detailed Description
 This function orchestrates the startup sequence for a PostgreSQL logical replication apply worker. It performs several critical initialization steps:
 

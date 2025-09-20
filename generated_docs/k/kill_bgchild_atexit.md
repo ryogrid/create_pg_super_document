@@ -8,7 +8,10 @@ An exit handler function that terminates background child processes during pg_ba
 
 ## Definition
 
-
+```c
+static void
+kill_bgchild_atexit(void)
+```
 ## Detailed Description
 This function serves as an atexit() handler specifically designed for Unix-like systems to ensure that background child processes (such as WAL streaming processes) are properly terminated when pg_basebackup exits. The function prevents orphaned child processes that might continue running and attempting to stream data after the parent process has terminated.
 

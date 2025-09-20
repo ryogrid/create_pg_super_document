@@ -8,7 +8,10 @@ heap_attisnull determines whether a specific attribute (column) in a heap tuple 
 
 ## Definition
 
-
+```c
+bool
+heap_attisnull(HeapTuple tup, int attnum, TupleDesc tupleDesc)
+```
 ## Detailed Description
 heap_attisnull is a fundamental function for checking null values in PostgreSQL heap tuples. It provides a unified interface for testing null values across different types of attributes, including user-defined columns and system attributes. The function handles several special cases:
 

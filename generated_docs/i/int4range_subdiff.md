@@ -8,7 +8,10 @@ Computes the difference between two 32-bit integer values, used as a subtype dif
 
 ## Definition
 
-
+```c
+Datum
+int4range_subdiff(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function calculates the arithmetic difference between two int32 values and returns the result as a float8 (double precision) value. It is designed to be used as a subtype difference function for int4range types, which is essential for range operations that need to measure the "distance" or "size" of ranges. The function converts both integer inputs to float8 before performing the subtraction to avoid potential integer overflow issues.
 

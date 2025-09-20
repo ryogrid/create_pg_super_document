@@ -8,7 +8,11 @@ Translates a path parameterized by a parent relation to be parameterized by a gi
 
 ## Definition
 
-
+```c
+Path *
+reparameterize_path_by_child(PlannerInfo *root, Path *path,
+							 RelOptInfo *child_rel)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's partitionwise join optimization. When the optimizer needs to create a partitionwise join plan, it must translate paths that were originally parameterized by parent relations to work with specific child (partition) relations.
 

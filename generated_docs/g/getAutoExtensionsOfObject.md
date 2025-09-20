@@ -8,7 +8,10 @@ Returns a list of extensions that the specified object depends on through DEPEND
 
 ## Definition
 
-
+```c
+List *
+getAutoExtensionsOfObject(Oid classId, Oid objectId)
+```
 ## Detailed Description
 The `getAutoExtensionsOfObject` function searches the `pg_depend` system catalog to find all extensions that have an automatic extension dependency relationship with a given database object. Unlike regular extension membership (DEPENDENCY_EXTENSION), automatic extension dependencies (DEPENDENCY_AUTO_EXTENSION) represent a different kind of relationship where objects are automatically associated with extensions but can exist independently.
 

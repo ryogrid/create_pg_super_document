@@ -8,7 +8,13 @@ A utility structure used during PostgreSQL's bootstrap process to cache type inf
 
 ## Definition
 
-
+```c
+struct typmap
+{								/* a hack */
+	Oid			am_oid;
+	FormData_pg_type am_typ;
+};
+```
 ## Detailed Description
 The  structure is a bootstrap-time caching mechanism used to store type information during PostgreSQL's initialization phase. As noted by the comment "a hack", this is a specialized structure that serves as a temporary mapping between type OIDs and their complete pg_type catalog data.
 

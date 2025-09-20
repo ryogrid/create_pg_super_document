@@ -8,7 +8,10 @@ A SQL-callable function that synchronizes failover-enabled replication slots fro
 
 ## Definition
 
-
+```c
+Datum
+pg_sync_replication_slots(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL system function that provides manual synchronization of replication slots from a primary server to a standby server. It is specifically designed for failover scenarios where standby servers need to maintain synchronized copies of replication slots to ensure seamless failover operations.
 

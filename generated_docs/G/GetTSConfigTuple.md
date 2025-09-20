@@ -8,7 +8,10 @@ Finds and retrieves the system catalog tuple for a text search configuration by 
 
 ## Definition
 
-
+```c
+static HeapTuple
+GetTSConfigTuple(List *names)
+```
 ## Detailed Description
 GetTSConfigTuple is a static utility function that performs a two-step lookup to find a text search configuration in the system catalog. It first resolves the configuration name to an OID using get_ts_config_oid(), then retrieves the corresponding tuple from the system cache using SearchSysCache1(). The function is designed to handle missing configurations gracefully by returning NULL, making it suitable for operations where the configuration may not exist.
 

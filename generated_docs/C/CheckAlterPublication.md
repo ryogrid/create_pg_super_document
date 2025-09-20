@@ -8,7 +8,11 @@ CheckAlterPublication validates whether relations and schemas can be legally add
 
 ## Definition
 
-
+```c
+static void
+CheckAlterPublication(AlterPublicationStmt *stmt, HeapTuple tup,
+					  List *tables, List *schemaidlist)
+```
 ## Detailed Description
 This internal validation function performs comprehensive checks before allowing publication alterations. It enforces PostgreSQL's publication security model by requiring superuser privileges for schema operations and prevents logical conflicts by blocking table/schema additions to FOR ALL TABLES publications. The function acts as a gatekeeper to ensure publication modifications maintain system integrity and follow access control policies.
 

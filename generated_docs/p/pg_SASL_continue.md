@@ -8,7 +8,10 @@ Exchanges messages during the SASL authentication protocol with the backend serv
 
 ## Definition
 
-
+```c
+static int
+pg_SASL_continue(PGconn *conn, int payloadlen, bool final)
+```
 ## Detailed Description
 The  function handles the message exchange phase of SASL authentication in PostgreSQL's libpq client library. It processes AuthenticationSASLContinue or AuthenticationSASLFinal messages from the server, reads the challenge data, passes it to the SASL mechanism for processing, and sends back the appropriate response.
 

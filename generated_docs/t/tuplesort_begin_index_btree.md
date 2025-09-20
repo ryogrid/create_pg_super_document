@@ -8,7 +8,16 @@ Initializes a Tuplesortstate for sorting index tuples during B-tree index creati
 
 ## Definition
 
-
+```c
+Tuplesortstate *
+tuplesort_begin_index_btree(Relation heapRel,
+							Relation indexRel,
+							bool enforceUnique,
+							bool uniqueNullsNotDistinct,
+							int workMem,
+							SortCoordinate coordinate,
+							int sortopt)
+```
 ## Detailed Description
 This function creates a specialized tuplesort state for B-tree index creation operations. It configures the sorting infrastructure to handle index tuples according to the index's key attributes, with specific support for uniqueness constraints. The function sets up comparison functions optimized for index tuples, prepares sort support data for each index key, and configures uniqueness enforcement when required. It respects the index's ordering properties including collation, null handling, and ascending/descending sort directions.
 

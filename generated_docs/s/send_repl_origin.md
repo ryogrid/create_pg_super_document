@@ -8,7 +8,11 @@ Sends a replication origin message to the logical replication subscriber when or
 
 ## Definition
 
-
+```c
+static void
+send_repl_origin(LogicalDecodingContext *ctx, RepOriginId origin_id,
+				 XLogRecPtr origin_lsn, bool send_origin)
+```
 ## Detailed Description
 This function handles the transmission of replication origin information in PostgreSQL's logical replication system. Replication origins are used to track the source of changes in multi-node replication scenarios, helping to prevent replication loops and maintain proper change provenance.
 

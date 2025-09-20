@@ -8,7 +8,10 @@ Creates a new basebackup sink that performs bandwidth throttling and forwards da
 
 ## Definition
 
-
+```c
+bbsink *
+bbsink_throttle_new(bbsink *next, uint32 maxrate)
+```
 ## Detailed Description
 The  function creates and initializes a throttling basebackup sink that controls the rate of data transfer during base backups. It allocates and configures a  structure with throttling parameters based on the specified maximum transfer rate. The sink operates by calculating a throttling sample size and minimum time unit to regulate data flow, ensuring backup operations don't overwhelm system resources or network bandwidth.
 

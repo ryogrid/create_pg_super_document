@@ -8,7 +8,10 @@ Creates IndexAttachInfo objects for partitioned indexes to handle index attachme
 
 ## Definition
 
-
+```c
+static void
+flagInhIndexes(Archive *fout, TableInfo tblinfo[], int numTables)
+```
 ## Detailed Description
 The flagInhIndexes function processes indexes on partitioned tables to create IndexAttachInfo objects that represent ATTACH INDEX operations needed during database restoration. When PostgreSQL creates indexes on partitioned tables, child partition indexes are automatically attached to their parent partitioned indexes. During pg_dump restore, these attachment relationships must be recreated after both the parent and child indexes exist.
 

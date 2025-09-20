@@ -8,7 +8,11 @@ The r_plural function handles plural suffix removal for the Hungarian stemming a
 
 ## Definition
 
+```c
+}
 
+static int r_plural(struct SN_env * z)
+```
 ## Detailed Description
 The r_plural function is responsible for detecting and removing Hungarian plural suffixes during the stemming process. It operates by:
 

@@ -8,7 +8,9 @@ Negates a Boolean expression by logical simplification, attempting to eliminate 
 
 ## Definition
 
-
+```c
+structure;
+```
 ## Detailed Description
 The  function takes a Boolean expression and returns its logical negation, but does so intelligently by applying various logical simplification rules rather than just adding a NOT node. It is primarily designed as a helper function for  and preserves AND/OR flat structure in the input.
 

@@ -8,7 +8,10 @@ A convenience wrapper function that requests query cancellation on an active Pos
 
 ## Definition
 
-
+```c
+int
+PQrequestCancel(PGconn *conn)
+```
 ## Detailed Description
 PQrequestCancel provides a simplified interface for canceling queries on an existing PostgreSQL connection. It internally creates a PGcancel object from the connection, sends the cancel request using PQcancel, and then cleans up the cancel object. This function is marked as old and not thread-safe because it modifies the connection's error message buffer, which could interfere with other concurrent operations on the same connection object. The function performs validation to ensure the connection is open before attempting cancellation.
 

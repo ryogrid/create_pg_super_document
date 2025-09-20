@@ -8,7 +8,10 @@ Extracts a null-terminated text string from a message buffer with optional chara
 
 ## Definition
 
-
+```c
+const char *
+pq_getmsgstring(StringInfo msg)
+```
 ## Detailed Description
 The  function retrieves a null-terminated string from a PostgreSQL message buffer. It automatically detects the string length by scanning for the null terminator and performs character encoding conversion from client to server encoding if necessary. The function may return either a pointer directly into the message buffer (if no conversion is needed) or a pointer to a freshly allocated converted result. The function validates that a proper null terminator exists within the message boundaries.
 

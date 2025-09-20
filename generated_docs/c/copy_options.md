@@ -8,7 +8,17 @@ A structure that holds parsed options and parameters for psql's \copy command, e
 
 ## Definition
 
-
+```c
+struct copy_options
+{
+	char	   *before_tofrom;	/* COPY string before TO/FROM */
+	char	   *after_tofrom;	/* COPY string after TO/FROM filename */
+	char	   *file;			/* NULL = stdin/stdout */
+	bool		program;		/* is 'file' a program to popen? */
+	bool		psql_inout;		/* true = use psql stdin/stdout */
+	bool		from;			/* true = FROM, false = TO */
+};
+```
 ## Detailed Description
 The  structure is used by psql to store the parsed components of a \copy command line. It breaks down the complex \copy syntax into manageable components that can be processed by the copy execution logic. The structure handles various forms of the \copy command including table copies, query result copies, and different input/output destinations (files, programs, stdin/stdout).
 

@@ -8,7 +8,25 @@ HeadlineWordEntry is a structure that represents a single word token in text sea
 
 ## Definition
 
+```c
+typedef struct
+{
+	/* Fields filled by core code before calling prsheadline function: */
+	HeadlineWordEntry *words;
+	int32		lenwords;		/* allocated length of words[] */
+	int32		curwords;		/* current number of valid entries */
+	int32		vectorpos;		/* used by ts_parse.c in filling pos fields */
 
+	/* The prsheadline function must fill these fields: */
+	/* Strings for marking selected tokens and separating fragments: */
+	char	   *startsel;		/* palloc'd strings */
+	char	   *stopsel;
+	char	   *fragdelim;
+	int16		startsellen;	/* lengths of strings */
+	int16		stopsellen;
+	int16		fragdelimlen;
+} HeadlineParsedText;
+```
 ## Detailed Description
 HeadlineWordEntry is a core data structure used in PostgreSQL's text search system for generating headlines (text snippets with highlighted search terms). Each structure represents a single token from parsed text and contains both the token's content and various flags that control how it should be processed during headline generation.
 

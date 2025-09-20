@@ -8,7 +8,12 @@ PGEventId is an enumeration that defines callback event identifiers used in Post
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PGconn	   *conn;
+} PGEventRegister;
+```
 ## Detailed Description
 PGEventId serves as the event type identifier in PostgreSQL's libpq event notification system. This enumeration is used to specify which type of event has occurred when an event callback function (PGEventProc) is invoked. The event system allows applications to register callback functions that get notified during various stages of connection and result object lifecycles, enabling custom resource management, logging, or cleanup operations.
 

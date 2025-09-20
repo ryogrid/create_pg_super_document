@@ -8,7 +8,10 @@ Increments the flush counter for a specific SLRU (Simple LRU) buffer cache to tr
 
 ## Definition
 
-
+```c
+void
+pgstat_count_slru_flush(int slru_idx)
+```
 ## Detailed Description
 This function is part of PostgreSQL's statistics collection system for SLRU (Simple LRU) buffer caches. It increments the flush counter for the specified SLRU cache index by 1. SLRU flush operations occur when multiple dirty pages need to be written to disk simultaneously, typically during checkpoint operations or when the cache needs to free up space. This function helps track the frequency of flush operations for performance monitoring and tuning.
 

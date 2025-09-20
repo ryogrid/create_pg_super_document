@@ -8,7 +8,15 @@ WalSummarizerData is a shared memory structure that maintains the state and coor
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	TimeLineID	tli;
+	bool		historic;
+	XLogRecPtr	read_upto;
+	bool		end_of_wal;
+} SummarizerReadLocalXLogPrivate;
+```
 ## Detailed Description
 WalSummarizerData serves as the central coordination structure for WAL summarization in PostgreSQL's shared memory. It tracks the progress of WAL summarization, manages the state of the summarizer process, and provides synchronization mechanisms for processes that depend on WAL summary files. The structure is protected by WALSummarizerLock (except for the condition variable which handles its own synchronization) and is essential for incremental backup functionality.
 

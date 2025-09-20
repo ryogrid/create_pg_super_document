@@ -8,7 +8,13 @@ Allocates and initializes a new lookaround-constraint sub-regular expression (la
 
 ## Definition
 
-
+```c
+static int						/* lacon number */
+newlacon(struct vars *v,
+		 struct state *begin,
+		 struct state *end,
+		 int latype)
+```
 ## Detailed Description
 The newlacon function is responsible for managing the dynamic allocation and initialization of lookaround constraint structures (lacons) in PostgreSQL's regex engine. Lookaround assertions include lookahead (?=...), negative lookahead (?!...), lookbehind (?<=...), and negative lookbehind (?<!...) patterns.
 

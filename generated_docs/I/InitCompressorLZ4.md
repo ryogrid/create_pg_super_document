@@ -8,7 +8,11 @@ Initializes the LZ4 compressor state for use with PostgreSQL's pg_dump utility, 
 
 ## Definition
 
-
+```c
+void
+InitCompressorLZ4(CompressorState *cs,
+				  const pg_compress_specification compression_spec)
+```
 ## Detailed Description
 InitCompressorLZ4 serves as the initialization function for LZ4 compression within PostgreSQL's backup and restore infrastructure. The function has two different implementations depending on whether LZ4 support is compiled into the build:
 

@@ -8,7 +8,10 @@ Converts a 64-bit integer from native byte order to network byte order for trans
 
 ## Definition
 
-
+```c
+void
+fe_sendint64(int64 i, char *buf)
+```
 ## Detailed Description
 This function takes a 64-bit signed integer in the native host byte order and converts it to network byte order (big-endian) for transmission over the network. The converted value is stored in the provided buffer. This is part of PostgreSQL's streaming utility functions used in logical replication and base backup operations to ensure consistent data representation across different architectures.
 

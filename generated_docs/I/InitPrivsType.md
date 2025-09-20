@@ -8,7 +8,13 @@ InitPrivsType is an enumeration that differentiates the source of initial privil
 
 ## Definition
 
-
+```c
+typedef enum InitPrivsType
+{
+	INITPRIVS_INITDB = 'i',
+	INITPRIVS_EXTENSION = 'e',
+}			InitPrivsType;
+```
 ## Detailed Description
 InitPrivsType is used within PostgreSQL's privilege management system to track the origin of initial privileges stored in the pg_init_privs catalog table. This enumeration is critical for maintaining proper privilege semantics when dealing with database initialization versus extension-created objects.
 

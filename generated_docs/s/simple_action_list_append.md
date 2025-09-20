@@ -8,7 +8,11 @@ A static utility function that appends a new action item to the end of a SimpleA
 
 ## Definition
 
-
+```c
+static void
+simple_action_list_append(SimpleActionList *list,
+						  enum _actions action, const char *val)
+```
 ## Detailed Description
 This function implements a linked list append operation for psql's action queue system. It creates a new SimpleActionListCell node, initializes it with the provided action type and optional value string, and appends it to the tail of the linked list. The function handles memory allocation for the new cell and performs string duplication if a value is provided, ensuring proper memory management for the action queue.
 

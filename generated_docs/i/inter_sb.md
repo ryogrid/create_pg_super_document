@@ -8,7 +8,9 @@ Tests whether a line segment intersects with a box.
 
 ## Definition
 
-
+```c
+struct(&bseg, &p1, &p2);
+```
 ## Detailed Description
 The  function is a PostgreSQL geometric operator that determines if a line segment (LSEG) intersects with a rectangular box (BOX). This function serves as a SQL-callable wrapper for the  function, providing a boolean result for intersection testing. The function is part of the intersection testing family (inter_*) and implements the geometric intersection operator for line segment-box relationships in PostgreSQL's spatial data type system. It delegates the actual geometric computation to the more comprehensive  function while only requesting a boolean result.
 

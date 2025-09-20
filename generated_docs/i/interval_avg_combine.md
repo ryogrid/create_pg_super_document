@@ -8,7 +8,10 @@ Combine function for sum() and avg() interval aggregates that merges two interna
 
 ## Definition
 
-
+```c
+Datum
+interval_avg_combine(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the combine operation for PostgreSQL's parallel aggregation framework for interval sum and avg functions. It takes two IntervalAggState structures and combines them by merging their counts, infinity counters, and summed interval values. The function handles three cases: when either state is NULL (returning the non-NULL state or copying the second to a new first state), and when both states are valid (adding counts and summing finite interval values using finite_interval_pl). This enables PostgreSQL to perform parallel aggregation by combining partial results from different worker processes.
 

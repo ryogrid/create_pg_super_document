@@ -8,7 +8,9 @@ A function that sends messages using the deprecated PostgreSQL protocol version 
 
 ## Definition
 
-
+```c
+struct tcp_keepalive ka;
+```
 ## Detailed Description
 This function implements message sending for PostgreSQL's protocol version 2, which is no longer supported in current PostgreSQL versions. Unlike the modern protocol version 3 format used by socket_putmessage(), this function does not include a message length field in the protocol header - it sends only the message type followed directly by the message body.
 

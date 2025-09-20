@@ -8,7 +8,13 @@ A core PostgreSQL function that performs tree mutation operations specifically o
 
 ## Definition
 
-
+```c
+List *
+range_table_mutator_impl(List *rtable,
+						 tree_mutator_callback mutator,
+						 void *context,
+						 int flags)
+```
 ## Detailed Description
 The  function is the implementation core of the range table mutation functionality in PostgreSQL's node processing system. It iterates through each Range Table Entry (RTE) in a query's range table and applies mutation operations based on the RTE type. This function is split out from the larger  to provide focused range table processing that can be used independently.
 

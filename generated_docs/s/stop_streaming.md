@@ -8,7 +8,10 @@ A control function that determines whether WAL streaming should be stopped based
 
 ## Definition
 
-
+```c
+static bool
+stop_streaming(XLogRecPtr xlogpos, uint32 timeline, bool segment_finished)
+```
 ## Detailed Description
 The stop_streaming function serves as the main control mechanism for terminating WAL streaming in pg_receivewal. It evaluates multiple conditions to determine when streaming should cease: whether the specified ending LSN has been reached, if a timeline switch has occurred, or if an interrupt signal has been received. The function maintains static variables to track the previous timeline and position for proper timeline switch reporting. When verbose mode is enabled, it provides detailed logging about segment completion, timeline switches, and stopping reasons. The function is designed to be called at the end of each WAL segment to make streaming control decisions.
 

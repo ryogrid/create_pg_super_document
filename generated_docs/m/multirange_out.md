@@ -8,7 +8,10 @@ Converts a PostgreSQL multirange value to its string representation, formatting 
 
 ## Definition
 
-
+```c
+Datum
+multirange_out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the output function for PostgreSQL multirange types, responsible for converting internal multirange format into text representation. It produces output in the format  where:
 

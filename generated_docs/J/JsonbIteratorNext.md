@@ -8,7 +8,10 @@ Advances a JsonbIterator to the next token in a JSONB structure, handling comple
 
 ## Definition
 
-
+```c
+JsonbIteratorToken
+JsonbIteratorNext(JsonbIterator **it, JsonbValue *val, bool skipNested)
+```
 ## Detailed Description
 JsonbIteratorNext is the core iteration function for traversing JSONB structures in PostgreSQL. It implements a state machine that processes different types of JSONB tokens including arrays, objects, keys, values, and scalars. The function automatically handles recursion into nested containers by creating child iterators and manages their lifecycle to prevent memory leaks in highly nested structures.
 

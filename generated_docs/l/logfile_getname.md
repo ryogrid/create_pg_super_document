@@ -8,7 +8,9 @@ Constructs log file names using timestamp information and PostgreSQL's configura
 
 ## Definition
 
-
+```c
+struct pg_tm *tm;
+```
 ## Detailed Description
 The  function generates log file names by combining the configured log directory path with a timestamp-formatted filename pattern. It uses PostgreSQL's  configuration parameter as a strftime pattern to create time-based filenames. The function also supports optional suffixes (like ".csv" or ".json") for different log formats, automatically replacing any existing ".log" extension in the pattern. The result is a dynamically allocated string that must be freed by the caller.
 

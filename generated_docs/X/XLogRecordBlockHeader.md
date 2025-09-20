@@ -8,7 +8,19 @@ XLogRecordBlockHeader is a structure that provides header information for block 
 
 ## Definition
 
+```c
+typedef struct XLogRecordBlockHeader
+{
+	uint8		id;				/* block reference ID */
+	uint8		fork_flags;		/* fork within the relation, and flags */
+	uint16		data_length;	/* number of payload bytes (not including page
+								 * image) */
 
+	/* If BKPBLOCK_HAS_IMAGE, an XLogRecordBlockImageHeader struct follows */
+	/* If BKPBLOCK_SAME_REL is not set, a RelFileLocator follows */
+	/* BlockNumber follows */
+} XLogRecordBlockHeader;
+```
 ## Detailed Description
 XLogRecordBlockHeader serves as a descriptor for block-specific data within WAL records. Each header describes one data block that is part of the logged operation, providing essential information about the block's identity, type, and data length. The structure is designed to be compact and is followed by variable-length components that depend on the flag bits set in fork_flags. The structure is intentionally not aligned, requiring copying to aligned local storage before use for performance reasons.
 

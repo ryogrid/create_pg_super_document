@@ -8,7 +8,11 @@ A static function that writes a datum to a specified memory location with proper
 
 ## Definition
 
-
+```c
+static Pointer
+datum_write(Pointer ptr, Datum datum, bool typbyval, char typalign,
+			int16 typlen, char typstorage)
+```
 ## Detailed Description
 This function is part of PostgreSQL's range type serialization system and handles the physical writing of datum values to memory buffers. It supports multiple storage formats including pass-by-value types, variable-length arrays (varlena), C-strings, and fixed-length pass-by-reference types. The function optimizes storage by converting eligible varlena types to short format when possible and ensures proper memory alignment for each data type. It includes safety checks to prevent storing toast pointers within range objects.
 

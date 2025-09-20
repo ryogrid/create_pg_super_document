@@ -8,7 +8,11 @@ This function implements the main Spanish stemming algorithm using the Snowball 
 
 ## Definition
 
+```c
+}
 
+extern int spanish_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 The  function is the primary entry point for Spanish text stemming in PostgreSQL's full-text search system. It orchestrates a multi-stage stemming process that follows the Snowball Spanish stemming algorithm:
 

@@ -8,7 +8,10 @@ mkANode builds a prefix tree (Trie) for affix rules with non-empty replacement s
 
 ## Definition
 
-
+```c
+static AffixNode *
+mkANode(IspellDict *Conf, int low, int high, int level, int type)
+```
 ## Detailed Description
 This recursive function constructs a prefix tree from a range of affix rules to enable fast pattern matching. It processes affixes level by level, grouping them by their character at the current position. The function builds a tree where:
 

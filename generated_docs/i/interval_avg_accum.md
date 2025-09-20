@@ -8,7 +8,10 @@ Transition function for sum() and avg() interval aggregates that accumulates int
 
 ## Definition
 
-
+```c
+Datum
+interval_avg_accum(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the transition function for PostgreSQL's interval sum() and avg() aggregate functions. It maintains an IntervalAggState structure to accumulate interval values during aggregation. On the first call with a NULL state, it initializes a new aggregation state using makeIntervalAggState. For subsequent calls, it adds non-NULL interval values to the existing state using do_interval_accum. The function follows PostgreSQL's standard aggregate function interface, using the PG_FUNCTION_ARGS macro for parameter handling and returning a Datum pointer to the state.
 

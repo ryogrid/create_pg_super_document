@@ -8,7 +8,10 @@ descriptor_free is a static helper function that completely deallocates a descri
 
 ## Definition
 
-
+```c
+static void
+descriptor_free(struct descriptor *desc)
+```
 ## Detailed Description
 descriptor_free performs comprehensive cleanup of a descriptor structure by freeing all memory associated with it. The function traverses the linked list of descriptor items, freeing each item's data and the item structure itself. It then proceeds to free the descriptor's name string, clear the associated PostgreSQL result set, and finally free the descriptor structure itself.
 

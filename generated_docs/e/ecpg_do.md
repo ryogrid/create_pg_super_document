@@ -8,7 +8,9 @@ The main execution function for SQL statements in the ECPG (Embedded SQL in C fo
 
 ## Definition
 
-
+```c
+struct statement *stmt = NULL;
+```
 ## Detailed Description
 The `ecpg_do` function serves as the core execution engine for SQL statements in the ECPG library. It orchestrates the complete process of executing embedded SQL statements by coordinating several phases: prologue setup, parameter building, transaction management, statement execution, and output processing. This function is designed to handle variable argument lists, making it suitable for use by other functions that need to pass dynamic parameters. The function follows a fail-safe pattern where any failure in the execution pipeline causes an immediate jump to cleanup code.
 

@@ -8,7 +8,10 @@ Public PostgreSQL function that checks whether a JSONPath expression returns at 
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_exists(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the public interface for JSONPath existence checking in PostgreSQL. It is a simple wrapper around  that provides timezone-naive JSONPath execution. The function is designed to be called directly from SQL as a built-in PostgreSQL function.
 

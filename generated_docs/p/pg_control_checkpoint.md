@@ -8,7 +8,10 @@ A PostgreSQL SQL function that retrieves comprehensive checkpoint information fr
 
 ## Definition
 
-
+```c
+Datum
+pg_control_checkpoint(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides access to the checkpoint information stored in PostgreSQL's control file. It reads the control file under lock protection, extracts detailed checkpoint metadata, and returns it as an 18-field composite tuple. The function includes transaction ID tracking, timeline management, WAL file identification, and various system state indicators that are critical for recovery and replication operations. It calculates the WAL filename containing the checkpoint's REDO start point and formats transaction IDs appropriately for display.
 

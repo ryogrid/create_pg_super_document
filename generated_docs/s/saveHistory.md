@@ -8,7 +8,10 @@ Saves the current readline history to a specified file with optional line limit 
 
 ## Definition
 
-
+```c
+static bool
+saveHistory(char *fname, int max_lines)
+```
 ## Detailed Description
 The  function persists the current readline command history to a file, implementing several sophisticated features for reliability and compatibility. Before saving, it encodes embedded newlines in multi-line commands to prevent readline from misinterpreting them as separate history entries when the file is later read.
 

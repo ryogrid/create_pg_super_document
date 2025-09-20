@@ -8,7 +8,13 @@ ReorderBufferTXNByIdEnt is a hash table entry structure used to map transaction 
 
 ## Definition
 
-
+```c
+typedef struct ReorderBufferTXNByIdEnt
+{
+	TransactionId xid;
+	ReorderBufferTXN *txn;
+} ReorderBufferTXNByIdEnt;
+```
 ## Detailed Description
 This structure serves as an entry in a hash table that provides efficient lookup of transaction state information based on transaction ID. The reorder buffer is a crucial component of PostgreSQL's logical replication system, responsible for collecting and reordering WAL changes before they are decoded and sent to subscribers. This hash table entry allows the system to quickly locate the ReorderBufferTXN structure associated with a specific transaction ID during the logical decoding process.
 

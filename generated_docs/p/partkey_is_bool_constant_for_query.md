@@ -8,7 +8,10 @@ Determines if a partition key column is constrained to have a constant boolean v
 
 ## Definition
 
-
+```c
+static bool
+partkey_is_bool_constant_for_query(RelOptInfo *partrel, int partkeycol)
+```
 ## Detailed Description
 This function addresses a specific optimization challenge with boolean partition key columns. When a partition key column is constrained to a constant value, it becomes irrelevant for sorting purposes. For non-boolean columns, this is typically handled through EquivalenceClasses created from WHERE clauses like "partkeycol = constant". However, boolean columns are special because expression preprocessing simplifies boolean conditions to "WHERE partkeycol" or "WHERE NOT partkeycol" instead of creating explicit equality comparisons.
 

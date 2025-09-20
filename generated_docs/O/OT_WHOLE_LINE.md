@@ -8,7 +8,11 @@ OT_WHOLE_LINE is an enumeration constant in psql that instructs the slash comman
 
 ## Definition
 
-
+```c
+enum slash_option_type type,
+					   char *quote,
+					   bool semicolon);
+```
 ## Detailed Description
 OT_WHOLE_LINE is one of the values in the  enumeration used by psql's slash command parsing system. When this option type is specified to , the parser will consume everything from the current position to the end of the line and return it as a single string parameter, regardless of spaces, quotes, or other delimiters that would normally separate arguments.
 

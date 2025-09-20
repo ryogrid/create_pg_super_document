@@ -8,7 +8,10 @@ PostgreSQL function that implements the greater-than-or-equal-to comparison oper
 
 ## Definition
 
-
+```c
+Datum
+enum_ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the implementation for the >= operator when comparing two PostgreSQL enum values. It extracts two enum OID arguments from the function call arguments and delegates the actual comparison logic to the internal  function. The function returns true if the first enum value has a greater or equal sort order compared to the second enum value, based on the enum type's defined ordering.
 

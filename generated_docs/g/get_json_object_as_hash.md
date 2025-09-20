@@ -8,7 +8,11 @@ A static function that parses a JSON object string and decomposes it into a Post
 
 ## Definition
 
-
+```c
+static HTAB *
+get_json_object_as_hash(const char *json, int len, const char *funcname,
+						Node *escontext)
+```
 ## Detailed Description
 This function parses a JSON object and creates a hash table containing all the key-value pairs for efficient lookup during record population. It uses PostgreSQL's JSON parser with custom semantic actions to populate the hash table. The function sets up proper lexical context, configures semantic actions for JSON parsing events, and handles errors gracefully by cleaning up resources and returning NULL on parse failures.
 

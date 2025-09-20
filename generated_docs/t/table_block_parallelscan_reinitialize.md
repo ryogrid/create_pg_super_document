@@ -8,7 +8,10 @@ Resets the parallel scan descriptor to allow restarting a parallel scan of a rel
 
 ## Definition
 
-
+```c
+void
+table_block_parallelscan_reinitialize(Relation rel, ParallelTableScanDesc pscan)
+```
 ## Detailed Description
 This function reinitializes an existing parallel scan descriptor to reset it for a fresh scan of the same relation. The primary purpose is to reset the allocation counter that tracks how many blocks have been distributed to worker processes. This allows the same parallel scan descriptor to be reused for multiple scan passes over the same relation.
 

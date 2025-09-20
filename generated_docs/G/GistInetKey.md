@@ -8,7 +8,16 @@ A specialized data structure used to represent INET/CIDR index keys in PostgreSQ
 
 ## Definition
 
-
+```c
+typedef struct GistInetKey
+{
+	uint8		va_header;		/* varlena header --- don't touch directly */
+	unsigned char family;		/* PGSQL_AF_INET, PGSQL_AF_INET6, or zero */
+	unsigned char minbits;		/* minimum number of bits in netmask */
+	unsigned char commonbits;	/* number of common prefix bits in addresses */
+	unsigned char ipaddr[16];	/* up to 128 bits of common address */
+} GistInetKey;
+```
 ## Detailed Description
 GistInetKey is a specialized representation used internally by PostgreSQL's GiST indexing mechanism for INET and CIDR network address data types. Unlike the standard INET/CIDR representation, this structure includes additional metadata necessary for efficient GiST tree operations, specifically tracking the length of common address prefixes and minimum netmask lengths.
 

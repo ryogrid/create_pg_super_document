@@ -8,7 +8,13 @@ Finalizes a window aggregate computation by applying the aggregate's final funct
 
 ## Definition
 
-
+```c
+static void
+finalize_windowaggregate(WindowAggState *winstate,
+						 WindowStatePerFunc perfuncstate,
+						 WindowStatePerAgg peraggstate,
+						 Datum *result, bool *isnull)
+```
 ## Detailed Description
 This function is parallel to  in nodeAgg.c and handles the final step of window aggregate computation. It determines whether the aggregate has a final function and either calls that function with the current transition value or returns the transition value directly as the result. When a final function is present, it handles strict function semantics by checking for NULL arguments and avoiding calls to strict functions with NULL inputs. The function carefully manages memory contexts and uses  to ensure result values are properly formatted and read-only when needed.
 

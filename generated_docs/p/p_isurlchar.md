@@ -8,7 +8,10 @@ A static function that determines whether the current character in a text parser
 
 ## Definition
 
-
+```c
+static int
+p_isurlchar(TParser *prs)
+```
 ## Detailed Description
 This function validates whether the character at the current position in the text parser is suitable for inclusion in a URL. It performs multiple checks:
 

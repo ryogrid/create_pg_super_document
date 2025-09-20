@@ -8,7 +8,10 @@ The  function is a special PostgreSQL type coercion function that applies precis
 
 ## Definition
 
-
+```c
+Datum
+numeric		(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a type modifier enforcer for the NUMERIC data type in PostgreSQL. When a value is about to be stored in a column with specific precision and scale constraints, this function is called to ensure the value conforms to those constraints. The function handles special cases like NaN and infinity values, performs bounds checking, and applies rounding when necessary.
 

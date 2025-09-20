@@ -8,7 +8,13 @@ Performs GiST consistent test on an index internal page when the query is a mult
 
 ## Definition
 
-
+```c
+static bool
+range_gist_consistent_int_multirange(TypeCacheEntry *typcache,
+									 StrategyNumber strategy,
+									 const RangeType *key,
+									 const MultirangeType *query)
+```
 ## Detailed Description
 This function implements the consistent test for GiST (Generalized Search Tree) index operations when searching with a multirange query against range index keys on internal nodes. The function evaluates various spatial relationships between a range key and a multirange query based on the specified strategy, returning whether it's necessary to descend into child nodes during index traversal.
 

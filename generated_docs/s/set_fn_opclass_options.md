@@ -8,7 +8,10 @@ Sets opclass-specific options in an FmgrInfo structure by storing them as a byte
 
 ## Definition
 
-
+```c
+void
+set_fn_opclass_options(FmgrInfo *flinfo, bytea *options)
+```
 ## Detailed Description
 This function provides a mechanism for opclass (operator class) support functions to receive configuration options. Since opclass support functions are invoked outside of normal expression contexts, the fn_expr field (which would normally contain the calling expression tree) can be repurposed to store opclass options as a constant node.
 

@@ -8,7 +8,10 @@ This function releases an unlocked buffer by dropping only its pin (reference co
 
 ## Definition
 
-
+```c
+void
+_hash_dropbuf(Relation rel, Buffer buf)
+```
 ## Detailed Description
  is a specialized buffer release function that drops the pin (reference count) on a buffer without attempting to release any locks. This function is specifically designed for situations where the buffer is not locked but still has a reference count that needs to be decremented. It serves as a counterpart to , which releases both locks and pins, making it suitable for different buffer management scenarios in hash index operations.
 

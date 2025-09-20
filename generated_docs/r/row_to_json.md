@@ -8,7 +8,10 @@ SQL function that converts a PostgreSQL composite type (record/row) into its JSO
 
 ## Definition
 
-
+```c
+Datum
+row_to_json(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL function that takes a composite type (record/row) as input and converts it to a JSON object representation. It serves as a wrapper function that calls the internal  function with  set to false, meaning the output JSON will be compact without line breaks for formatting.
 

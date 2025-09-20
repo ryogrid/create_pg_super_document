@@ -8,7 +8,10 @@ PostgreSQL binary input function that receives XML data from client in binary pr
 
 ## Definition
 
-
+```c
+Datum
+xml_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function handles the binary protocol reception of XML data from clients. Unlike xml_in which processes text input, xml_recv works with PostgreSQL's binary message protocol. The function performs sophisticated encoding handling by first reading the raw bytes, parsing the XML declaration to detect the specified encoding, and then converting the data to the server's encoding. It defaults to UTF-8 if no encoding is specified in the XML declaration. The function validates well-formedness through XML parsing and performs necessary encoding conversions using PostgreSQL's encoding conversion facilities.
 

@@ -8,7 +8,10 @@ Populates fields of an existing PostgreSQL record using values from a JSON objec
 
 ## Definition
 
-
+```c
+Datum
+json_populate_record(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that takes an existing record and a JSON object as input, then creates a new record by populating/updating the record's fields with corresponding values from the JSON object. This function is a thin wrapper around the  function, specifically configured for JSON input with a record argument template.
 

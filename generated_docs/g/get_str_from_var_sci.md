@@ -8,7 +8,10 @@ Converts a NumericVar to normalized scientific notation text representation in t
 
 ## Definition
 
-
+```c
+static char *
+get_str_from_var_sci(const NumericVar *var, int rscale)
+```
 ## Detailed Description
 This static function converts a NumericVar into scientific notation format, which represents numbers as a significand multiplied by a power of 10. The function calculates the appropriate exponent to normalize the number so that there is exactly one significant digit before the decimal point, then formats the result using E notation (e.g., "1.23e+04" for 12300).
 

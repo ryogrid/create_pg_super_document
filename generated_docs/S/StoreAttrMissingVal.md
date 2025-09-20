@@ -8,7 +8,14 @@ StoreAttrMissingVal sets the missing value for a single attribute by updating pg
 
 ## Definition
 
-
+```c
+struct_array(&missingval,
+												 1,
+												 attStruct->atttypid,
+												 attStruct->attlen,
+												 attStruct->attbyval,
+												 attStruct->attalign));
+```
 ## Detailed Description
 This function stores a missing value for a specified attribute when adding a column with a default value to an existing table. It updates the pg_attribute system catalog by setting atthasmissing to true and storing the provided default value in attmissingval as a single-element array. The missing value mechanism allows PostgreSQL to avoid rewriting the entire table when adding columns with defaults, instead using the stored missing value for existing rows that don't have the new column. The function is specifically designed for plain tables (RELKIND_RELATION) and constructs the missing value array using the attribute's type information.
 

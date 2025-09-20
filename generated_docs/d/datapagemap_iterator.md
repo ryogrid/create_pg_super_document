@@ -8,7 +8,13 @@ The datapagemap_iterator struct provides an iterator mechanism for traversing a 
 
 ## Definition
 
-
+```c
+struct datapagemap_iterator
+{
+	datapagemap_t *map;
+	BlockNumber nextblkno;
+};
+```
 ## Detailed Description
 The datapagemap_iterator is an internal structure used by pg_rewind to iterate through all blocks that have been marked as changed in a datapagemap bitmap. This iterator maintains state for sequential traversal of set bits in the bitmap, allowing efficient enumeration of modified data pages. The iterator is designed to work with the datapagemap system which tracks data pages that have changed and need to be synchronized during database rewinding operations.
 

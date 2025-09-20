@@ -8,7 +8,10 @@ _ArchiveEntry is a callback function invoked by the PostgreSQL archiver when the
 
 ## Definition
 
-
+```c
+static void
+_ArchiveEntry(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function serves as an optional callback that is called whenever a new TOC entry is created during the dump process. Its primary purpose is to initialize format-specific data structures associated with each TOC entry in the custom archive format.
 

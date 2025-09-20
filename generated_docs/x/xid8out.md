@@ -8,7 +8,10 @@ Converts a FullTransactionId (XID8) to its string representation, formatting it 
 
 ## Definition
 
-
+```c
+Datum
+xid8out(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is PostgreSQL's output conversion function for the XID8 data type. It takes a FullTransactionId and converts it to a human-readable string representation. This function is automatically called by PostgreSQL's type system when displaying XID8 values or converting them to text format.
 

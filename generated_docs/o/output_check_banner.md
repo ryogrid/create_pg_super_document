@@ -8,7 +8,10 @@ Displays a formatted banner message indicating the start of consistency checks d
 
 ## Definition
 
-
+```c
+void
+output_check_banner(bool live_check)
+```
 ## Detailed Description
 This function outputs a standardized banner message to inform users that consistency checks are beginning during the pg_upgrade process. It provides two different banner formats: one for checks performed on a live running server and another for standard offline checks. The function uses the user_opts.check flag to determine if checks are enabled and the live_check parameter to distinguish between live and offline check scenarios.
 

@@ -8,7 +8,10 @@ perform_relmap_update applies pending relation mapping changes to the persistent
 
 ## Definition
 
-
+```c
+struct the pathname for this database */
+		dbpath = GetDatabasePath(xlrec->dbid, xlrec->tsid);
+```
 ## Detailed Description
 perform_relmap_update is the central function that commits relation mapping changes during normal multiuser operation. It implements a safe update protocol that includes acquiring exclusive locks, re-reading current mappings to ensure consistency, merging pending updates, writing the new mappings to disk, and updating in-memory structures.
 

@@ -8,7 +8,10 @@ Compares a target list's exposed collations against a specified list of expected
 
 ## Definition
 
-
+```c
+bool
+tlist_same_collations(List *tlist, List *colCollations, bool junkOK)
+```
 ## Detailed Description
 This function verifies whether a target list produces the same collations as specified in a given list of expected collations. It follows identical logic to tlist_same_datatypes but focuses on collation compatibility rather than datatype compatibility. This is crucial for ensuring correct string comparison and sorting behavior in set operations and other query planning scenarios.
 

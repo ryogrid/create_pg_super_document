@@ -8,7 +8,10 @@ Internal function that looks up an ephemeral named relation by name within the c
 
 ## Definition
 
-
+```c
+static EphemeralNamedRelation
+_SPI_find_ENR_by_name(const char *name)
+```
 ## Detailed Description
 This is an internal static function used by the SPI (Server Programming Interface) system to locate ephemeral named relations (ENRs) by their string name. The function provides a simple lookup mechanism that first checks if any query environment exists in the current SPI context, and if so, delegates to the  function to perform the actual lookup. It includes an assertion to ensure the name parameter is not NULL, as any error would indicate a bug in the SPI implementation itself.
 

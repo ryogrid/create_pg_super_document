@@ -8,7 +8,14 @@ Performs a query to enforce a referential integrity restriction by executing a p
 
 ## Definition
 
-
+```c
+static bool
+ri_PerformCheck(const RI_ConstraintInfo *riinfo,
+				RI_QueryKey *qkey, SPIPlanPtr qplan,
+				Relation fk_rel, Relation pk_rel,
+				TupleTableSlot *oldslot, TupleTableSlot *newslot,
+				bool detectNewRows, int expect_OK)
+```
 ## Detailed Description
 This is a core function in PostgreSQL's referential integrity enforcement system. It executes pre-compiled SPI queries to check foreign key constraints, handling various constraint actions like RESTRICT, CASCADE, SET NULL, etc. The function manages transaction snapshots appropriately for different isolation levels, switches to the table owner's security context for permission checks, and extracts key values from tuple slots to use as query parameters.
 

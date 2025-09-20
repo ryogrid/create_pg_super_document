@@ -8,7 +8,10 @@ Utility function that produces properly escaped JSON string literals by converti
 
 ## Definition
 
-
+```c
+void
+escape_json(StringInfo buf, const char *str)
+```
 ## Detailed Description
 The `escape_json` function transforms a C string into a properly escaped JSON string literal by wrapping the input in double quotes and escaping all special characters according to JSON specification. It handles standard JSON escape sequences (backspace, form feed, newline, carriage return, tab, double quote, backslash) and converts control characters (ASCII < 32) to Unicode escape sequences (\uXXXX format). The function appends the escaped result to a StringInfo buffer.
 

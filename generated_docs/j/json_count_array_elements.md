@@ -8,7 +8,10 @@ A utility function that counts the number of elements in a JSON array by parsing
 
 ## Definition
 
-
+```c
+JsonParseErrorType
+json_count_array_elements(JsonLexContext *lex, int *elements)
+```
 ## Detailed Description
 json_count_array_elements provides a specialized function for determining the number of elements in a JSON array. It operates by creating a shallow copy of the provided lexing context and parsing through the array structure, counting each element encountered. The function is designed to be called from array_start semantic action routines and safely uses a copy of the lexing context to avoid modifying the original parser state. It handles proper array syntax validation, including checking for opening/closing brackets and comma separators between elements.
 

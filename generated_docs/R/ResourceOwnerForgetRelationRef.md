@@ -8,7 +8,10 @@ A convenience wrapper function that unregisters a relation reference from a reso
 
 ## Definition
 
-
+```c
+static inline void
+ResourceOwnerForgetRelationRef(ResourceOwner owner, Relation rel)
+```
 ## Detailed Description
 This inline function serves as a convenience wrapper around the generic ResourceOwnerForget() function, specifically designed for relation references. It removes a previously registered relation reference from the specified resource owner's tracking list.
 

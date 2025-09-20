@@ -8,7 +8,13 @@ SetOpCmd is an enumeration that defines the type of set operation commands for S
 
 ## Definition
 
-
+```c
+typedef enum SetOpStrategy
+{
+	SETOP_SORTED,				/* input must be sorted */
+	SETOP_HASHED,				/* use internal hashtable */
+} SetOpStrategy;
+```
 ## Detailed Description
 SetOpCmd specifies the semantics of set operations in PostgreSQL queries. It distinguishes between INTERSECT and EXCEPT operations, as well as their ALL variants. This enumeration is used by the query planner and executor to determine the appropriate behavior for set operations between query results. The enum is defined in nodes.h because it's needed in both pathnodes.h and plannodes.h for path generation and plan node execution.
 

@@ -8,7 +8,13 @@ Result is a plan node that either evaluates a variable-free targetlist (when the
 
 ## Definition
 
-
+```c
+typedef struct Result
+{
+	Plan		plan;
+	Node	   *resconstantqual;
+} Result;
+```
 ## Detailed Description
 The Result node serves two primary purposes in PostgreSQL's execution engine. When used without an outer plan (lefttree is NULL), it evaluates expressions that don't require input tuples, such as SELECT 1+1 or SELECT current_timestamp. When used with an outer plan, it acts as a projection node that applies the targetlist to incoming tuples.
 

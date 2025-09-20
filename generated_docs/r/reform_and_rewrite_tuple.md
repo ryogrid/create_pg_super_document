@@ -8,7 +8,12 @@ reform_and_rewrite_tuple reconstructs and rewrites a tuple during table rewrite 
 
 ## Definition
 
-
+```c
+static void
+reform_and_rewrite_tuple(HeapTuple tuple,
+						 Relation OldHeap, Relation NewHeap,
+						 Datum *values, bool *isnull, RewriteState rwstate)
+```
 ## Detailed Description
 This function is a critical helper function used during table rewrite operations (such as ALTER TABLE). It reconstructs tuples from the old table format to the new table format, ensuring proper handling of structural changes. The function cannot simply copy tuples as-is for several important reasons:
 

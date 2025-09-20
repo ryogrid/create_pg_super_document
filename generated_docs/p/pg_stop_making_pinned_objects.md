@@ -8,7 +8,10 @@ A SQL-callable function that stops the generation of pinned object IDs during da
 
 ## Definition
 
-
+```c
+Datum
+pg_stop_making_pinned_objects(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a SQL interface wrapper for the  function, designed exclusively for use by initdb during PostgreSQL database initialization. The function transitions the object ID generation mechanism from creating "pinned" objects (which have special system significance and low OIDs) to creating "unpinned" objects (regular user objects with higher OIDs).
 

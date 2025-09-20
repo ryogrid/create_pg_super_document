@@ -8,7 +8,14 @@ A per-query cache structure used by PostgreSQL's JSON populate_record_worker and
 
 ## Definition
 
-
+```c
+typedef struct PopulateRecordCache
+{
+	Oid			argtype;		/* declared type of the record argument */
+	ColumnIOData c;				/* metadata cache for populate_composite() */
+	MemoryContext fn_mcxt;		/* where this is stored */
+} PopulateRecordCache;
+```
 ## Detailed Description
 PopulateRecordCache is a caching structure designed to improve performance when populating PostgreSQL records from JSON data. It stores essential metadata that would otherwise need to be recomputed for each record operation. The cache is particularly beneficial when processing multiple records of the same type, as it allows the system to reuse type information and column metadata across multiple populate operations.
 

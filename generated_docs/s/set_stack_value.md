@@ -8,7 +8,10 @@ A static utility function in PostgreSQL's GUC system that copies a GUC variable'
 
 ## Definition
 
-
+```c
+static void
+set_stack_value(struct config_generic *gconf, config_var_value *val)
+```
 ## Detailed Description
 The  function is responsible for copying the current active value of a GUC configuration parameter into a stack entry structure. This is essential for PostgreSQL's configuration stack management, which allows parameters to be saved and restored across different contexts (such as transaction boundaries, function calls, or nested configuration scopes). The function handles all supported GUC variable types (boolean, integer, real, string, enum) and ensures that associated extra data is properly copied as well.
 

@@ -8,7 +8,10 @@ Converts a Windows FILETIME structure to a 64-bit time_t value representing Unix
 
 ## Definition
 
-
+```c
+static __time64_t
+filetime_to_time(const FILETIME *ft)
+```
 ## Detailed Description
 This function converts Windows FILETIME values to Unix time_t format. FILETIME represents the number of 100-nanosecond intervals since January 1, 1601 UTC, while Unix time_t represents seconds since January 1, 1970 UTC. The function performs the necessary epoch shift and time unit conversion to bridge these two time representations.
 

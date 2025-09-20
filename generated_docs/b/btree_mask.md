@@ -8,7 +8,10 @@ The btree_mask function masks a btree page before performing consistency checks 
 
 ## Definition
 
-
+```c
+void
+btree_mask(char *pagedata, BlockNumber blkno)
+```
 ## Detailed Description
 This function is part of PostgreSQL's Write-Ahead Logging (WAL) consistency checking mechanism for btree indexes. It prepares a btree page for comparison by masking (clearing) various flags and fields that can legitimately differ between the primary server and standby servers, even when the pages are logically identical.
 

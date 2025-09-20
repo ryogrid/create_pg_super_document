@@ -8,7 +8,10 @@ RemoveTempRelations removes all relations within a specified temporary namespace
 
 ## Definition
 
-
+```c
+static void
+RemoveTempRelations(Oid tempNamespaceId)
+```
 ## Detailed Description
 This internal function performs a comprehensive cleanup of all database objects within a temporary namespace. It uses PostgreSQL's dependency deletion mechanism with specific flags to:
 

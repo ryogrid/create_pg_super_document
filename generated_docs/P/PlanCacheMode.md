@@ -8,7 +8,14 @@ PlanCacheMode is an enumeration that defines the available modes for controlling
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	PLAN_CACHE_MODE_AUTO,
+	PLAN_CACHE_MODE_FORCE_GENERIC_PLAN,
+	PLAN_CACHE_MODE_FORCE_CUSTOM_PLAN,
+}			PlanCacheMode;
+```
 ## Detailed Description
 PlanCacheMode is used in conjunction with the  GUC (Grand Unified Configuration) parameter to control how PostgreSQL chooses between custom and generic plans for prepared statements. This enum provides the possible values for the configuration parameter that determines the planner's behavior:
 

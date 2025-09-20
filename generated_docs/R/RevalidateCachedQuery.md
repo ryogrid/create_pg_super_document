@@ -8,7 +8,11 @@ RevalidateCachedQuery ensures the validity of cached analyzed-and-rewritten quer
 
 ## Definition
 
-
+```c
+static List *
+RevalidateCachedQuery(CachedPlanSource *plansource,
+					  QueryEnvironment *queryEnv)
+```
 ## Detailed Description
 RevalidateCachedQuery is a critical internal function that handles cache invalidation by revalidating cached query parse trees when underlying database objects have changed. The function performs several validation checks including search path changes, Row Level Security (RLS) dependency changes, and general schema invalidation. When revalidation is needed, it re-executes the complete parse analysis and rewrite phase, updating all dependent metadata including relation OIDs, invalidation items, and search paths.
 

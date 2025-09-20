@@ -8,7 +8,10 @@ Performs leaf-level consistency checking for box data types in GiST (Generalized
 
 ## Definition
 
-
+```c
+static bool
+gist_box_leaf_consistent(BOX *key, BOX *query, StrategyNumber strategy)
+```
 ## Detailed Description
 This function implements leaf-level consistency checking for BOX data types in PostgreSQL's GiST index access method. At leaf nodes of a GiST index, this function determines whether a stored box (key) satisfies the query condition represented by another box (query) and a strategy number. The function acts as a dispatcher that selects the appropriate box comparison operator based on the strategy number, which corresponds to different spatial relationships like containment, overlap, positioning, etc.
 

@@ -8,7 +8,9 @@ Reads a complete null-terminated message from a pipe file descriptor, blocking u
 
 ## Definition
 
-
+```c
+struct sockaddr_in serv_addr;
+```
 ## Detailed Description
 This function implements a robust message reading mechanism for inter-process communication in PostgreSQL's parallel dump system. It reads data byte-by-byte from the specified pipe until it encounters a null terminator, ensuring complete message retrieval even when messages arrive in fragments. The function dynamically manages memory allocation, starting with a 64-byte buffer and expanding it in 16-byte increments as needed. This conservative approach prevents message fragmentation issues while maintaining simplicity, though it trades some efficiency for reliability in handling the relatively short command and status strings used in the parallel dump protocol.
 

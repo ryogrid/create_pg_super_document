@@ -8,7 +8,13 @@ A linked list structure that maintains a queue of command-line actions to be exe
 
 ## Definition
 
-
+```c
+typedef struct SimpleActionList
+{
+	SimpleActionListCell *head;
+	SimpleActionListCell *tail;
+} SimpleActionList;
+```
 ## Detailed Description
 SimpleActionList is a simple linked list implementation that stores a sequence of actions parsed from psql command-line arguments. The structure maintains both head and tail pointers for efficient appending of new actions to the end of the list. Actions are processed sequentially in the order they were specified on the command line, allowing psql to execute multiple queries, slash commands, or file inputs in a single invocation.
 

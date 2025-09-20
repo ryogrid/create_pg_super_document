@@ -8,7 +8,10 @@ Evaluates a potential execution path for a relation and adds it to the relation'
 
 ## Definition
 
-
+```c
+void
+add_path(RelOptInfo *parent_rel, Path *new_path)
+```
 ## Detailed Description
 This function implements the core path comparison and selection logic in PostgreSQL's cost-based optimizer. It decides whether to accept a new path by comparing it against existing paths using multiple criteria:
 

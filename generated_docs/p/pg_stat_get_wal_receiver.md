@@ -8,7 +8,10 @@ Returns activity information of the WAL receiver process, including process ID, 
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_get_wal_receiver(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides comprehensive monitoring information about the WAL receiver process, which is responsible for receiving WAL (Write-Ahead Log) records from a primary server in PostgreSQL streaming replication. The function returns a composite tuple containing detailed statistics about the receiver's current state, progress, and connection information.
 

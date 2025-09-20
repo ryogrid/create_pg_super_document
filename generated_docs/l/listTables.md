@@ -8,7 +8,10 @@ A comprehensive psql command function that implements multiple table-related met
 
 ## Definition
 
-
+```c
+bool
+listTables(const char *tabtypes, const char *pattern, bool verbose, bool showSystem)
+```
 ## Detailed Description
 This function is the primary handler for multiple psql metacommands that list database relations. It supports listing tables (\\dt), indexes (\\di), views (\\dv), materialized views (\\dm), sequences (\\ds), and foreign tables (\\dE) either individually or in combination. The tabtypes parameter determines which relation types to include using single character codes (t=tables, i=indexes, v=views, m=materialized views, s=sequences, E=foreign tables). The function constructs a complex SQL query that joins pg_class with pg_namespace and optionally with pg_am (access methods) and pg_index depending on the requested information. It provides detailed information including schema, name, type, owner, and optionally persistence, access method, size, and description.
 

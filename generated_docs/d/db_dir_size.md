@@ -8,7 +8,9 @@ A static utility function that calculates the physical size of a directory by re
 
 ## Definition
 
-
+```c
+struct dirent *direntry;
+```
 ## Detailed Description
 The  function performs a directory traversal to calculate the total size of all files contained within a specified directory path. It opens the directory using , iterates through all directory entries using , and accumulates the file sizes by calling  on each file. The function handles errors gracefully - if the directory doesn't exist, it returns 0, and if individual files cannot be accessed due to ENOENT (file not found), it skips them. For other stat errors, it reports an error. The function also includes interruption checking to allow query cancellation during long operations.
 

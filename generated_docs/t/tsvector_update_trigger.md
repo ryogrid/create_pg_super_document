@@ -8,7 +8,10 @@ The core implementation function for PostgreSQL triggers that automatically upda
 
 ## Definition
 
-
+```c
+static Datum
+tsvector_update_trigger(PG_FUNCTION_ARGS, bool config_column)
+```
 ## Detailed Description
 The  function is the main implementation for automatic tsvector maintenance triggers in PostgreSQL. This static function handles the complete workflow of parsing text from specified columns, applying text search configuration, and updating the target tsvector column. It supports two modes of operation based on the  parameter: using a literal configuration name or referencing a regconfig column.
 

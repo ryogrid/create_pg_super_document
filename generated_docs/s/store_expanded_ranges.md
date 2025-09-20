@@ -8,7 +8,10 @@ Converts processed expanded ranges back into the compact Ranges storage format, 
 
 ## Definition
 
-
+```c
+static void
+store_expanded_ranges(Ranges *ranges, ExpandedRange *eranges, int neranges)
+```
 ## Detailed Description
 This function performs the final step in range processing by converting an array of ExpandedRange structures back into the compact Ranges format used for persistent storage. The function separates the expanded ranges into two categories: regular ranges (requiring two boundary values each) and collapsed ranges (single-point ranges requiring one value each). Regular ranges are stored first with their min/max pairs, followed by the collapsed ranges stored as individual values.
 

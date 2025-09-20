@@ -8,7 +8,11 @@ A static function that deallocates a single prepared statement from the ECPG (Em
 
 ## Definition
 
-
+```c
+static bool
+deallocate_one(int lineno, enum COMPAT_MODE c, struct connection *con,
+			   struct prepared_statement *prev, struct prepared_statement *this)
+```
 ## Detailed Description
 The  function performs the complete deallocation of a prepared statement in the ECPG library. It operates in two phases: first sending a DEALLOCATE command to the PostgreSQL backend to remove the prepared statement from the server, and then freeing all client-side memory resources associated with the statement. The function handles different compatibility modes and manages the linked list structure of prepared statements by properly updating pointers when removing a statement from the chain.
 

@@ -8,7 +8,13 @@ A cross-platform function that determines the file type of a directory entry, wi
 
 ## Definition
 
-
+```c
+PGFileType
+get_dirent_type(const char *path,
+				const struct dirent *de,
+				bool look_through_symlinks,
+				int elevel)
+```
 ## Detailed Description
  provides a portable way to determine whether a directory entry represents a regular file, directory, symbolic link, or other file type. The function first attempts to use the BSD/Linux extension  field from the dirent structure for efficiency. If this information is unavailable or unknown (common on some filesystems), it falls back to using  or  system calls to determine the file type. The function can optionally follow symbolic links or treat them as links depending on the  parameter. Error handling is unified for both frontend and backend code through conditional compilation.
 

@@ -8,7 +8,10 @@ This function analyzes PostgreSQL query result status to determine whether paral
 
 ## Definition
 
-
+```c
+static bool
+should_processing_continue(PGresult *res)
+```
 ## Detailed Description
 The should_processing_continue function provides intelligent error handling logic for pg_amcheck's parallel execution framework. It examines query results to distinguish between:
 

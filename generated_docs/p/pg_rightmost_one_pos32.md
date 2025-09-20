@@ -8,7 +8,10 @@ Returns the position of the least significant set bit in a 32-bit word, providin
 
 ## Definition
 
-
+```c
+static inline int
+pg_rightmost_one_pos32(uint32 word)
+```
 ## Detailed Description
 This function finds the position of the rightmost (least significant) set bit in a 32-bit unsigned integer, with positions measured from the least significant bit (0-based indexing). It essentially counts the number of trailing zeros in the binary representation of the word.
 

@@ -8,7 +8,22 @@ Callback function for TS_execute that searches a tsvector for lexemes matching a
 
 ## Definition
 
-
+```c
+struct, or NULL
+ * Ldata, Rdata: input position lists
+ * emit: bitmask of TSPO_XXX flags
+ * Loffset: offset to be added to Ldata positions before comparing/outputting
+ * Roffset: offset to be added to Rdata positions before comparing/outputting
+ * max_npos: maximum possible required size of output position array
+ *
+ * Loffset and Roffset should not be negative, else we risk trying to output
+ * negative positions, which won't fit into WordEntryPos.
+ *
+ * The result is boolean (TS_YES or TS_NO), but for the caller's convenience
+ * we return it as TSTernaryValue.
+ *
+ * Returns TS_YES if any positions were emitted to *data;
+```
 ## Detailed Description
 The  function is the core matching engine used by PostgreSQL's text search execution framework. It implements a binary search algorithm to locate lexemes in a tsvector that match a query operand, supporting both exact string matching and prefix matching modes.
 

@@ -8,7 +8,10 @@ GUC-related string duplication function that creates a copy of a string in the G
 
 ## Definition
 
-
+```c
+char *
+guc_strdup(int elevel, const char *src)
+```
 ## Detailed Description
  is a PostgreSQL-specific string duplication function designed for the GUC (Grand Unified Configuration) system. It provides functionality similar to the standard C library's  but operates within PostgreSQL's GUC memory context and includes PostgreSQL-specific error handling. The function allocates memory for a new string using , then copies the source string content including the null terminator.
 

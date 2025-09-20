@@ -8,7 +8,10 @@ A validation hook function for the ECHO_HIDDEN psql variable that controls the d
 
 ## Definition
 
-
+```c
+static bool
+echo_hidden_hook(const char *newval)
+```
 ## Detailed Description
 The  function is a psql variable hook that validates and processes new values assigned to the ECHO_HIDDEN variable. This variable controls whether psql displays the SQL commands that are generated internally by backslash commands (like \d, \dt, etc.).
 

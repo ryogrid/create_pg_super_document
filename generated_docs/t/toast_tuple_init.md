@@ -8,7 +8,9 @@ Initializes a TOAST tuple context structure to prepare for toasting operations o
 
 ## Definition
 
-
+```c
+struct varlena *old_value;
+```
 ## Detailed Description
 This function prepares the ToastTupleContext structure for tuple toasting operations. It analyzes each attribute in the tuple to determine what toasting actions are needed. For new tuples (INSERT), it simply examines the new values. For updates (UPDATE), it compares old and new values to determine which external values need cleanup and which can be reused.
 

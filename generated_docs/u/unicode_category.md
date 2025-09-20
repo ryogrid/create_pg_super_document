@@ -8,7 +8,11 @@ The unicode_category function returns the Unicode general category for a given U
 
 ## Definition
 
-
+```c
+*/
+pg_unicode_category
+unicode_category(pg_wchar code)
+```
 ## Detailed Description
 This function determines the Unicode general category of a character by performing a binary search through the unicode_categories lookup table. For ASCII characters (code < 0x80), it uses an optimized lookup table (unicode_opt_ascii) for faster access. For non-ASCII characters, it performs a binary search on the main unicode_categories array, which contains ranges of Unicode codepoints and their corresponding categories.
 

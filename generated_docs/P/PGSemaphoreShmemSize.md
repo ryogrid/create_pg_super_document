@@ -8,7 +8,10 @@ PGSemaphoreShmemSize calculates the amount of shared memory required to store se
 
 ## Definition
 
-
+```c
+Size
+PGSemaphoreShmemSize(int maxSemas)
+```
 ## Detailed Description
 This function provides a platform-specific calculation of shared memory requirements for PostgreSQL's semaphore system. The implementation varies significantly based on whether the system uses named or unnamed POSIX semaphores:
 

@@ -8,7 +8,10 @@ pqParseInput3 is the main message parsing function for PostgreSQL's protocol ver
 
 ## Definition
 
-
+```c
+void
+pqParseInput3(PGconn *conn)
+```
 ## Detailed Description
 This function implements the core message processing loop for the PostgreSQL client-server protocol version 3. It continuously reads and processes complete messages from the input buffer, handling various message types including query results, notifications, errors, and protocol control messages. The function validates message headers, manages connection state transitions, and dispatches messages to appropriate handlers based on the current connection state (IDLE, BUSY, COPY modes, etc.).
 

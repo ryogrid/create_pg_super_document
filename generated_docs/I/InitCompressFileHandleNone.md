@@ -8,7 +8,11 @@ A public interface function that initializes a CompressFileHandle structure for 
 
 ## Definition
 
-
+```c
+void
+InitCompressFileHandleNone(CompressFileHandle *CFH,
+						   const pg_compress_specification compression_spec)
+```
 ## Detailed Description
 The `InitCompressFileHandleNone` function serves as the main initialization entry point for the "none" compression implementation in pg_dump. It sets up a CompressFileHandle structure by assigning appropriate function pointers for all file operations (open, read, write, close, etc.) to their uncompressed equivalents. This function implements the compression abstraction layer's interface, allowing pg_dump to work with uncompressed files using the same API as compressed files. All function pointers are set to the corresponding "_none" variants that handle uncompressed file operations.
 

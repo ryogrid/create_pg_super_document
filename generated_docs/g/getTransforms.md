@@ -8,7 +8,10 @@ Retrieves basic information about every transform in the PostgreSQL system for u
 
 ## Definition
 
-
+```c
+TransformInfo *
+getTransforms(Archive *fout, int *numTransforms)
+```
 ## Detailed Description
 The  function queries the  system catalog to retrieve information about all transform definitions in the database. Transforms define how to convert data types to and from procedural languages (introduced in PostgreSQL 9.5). The function includes version checking to ensure compatibility, returning NULL for PostgreSQL versions prior to 9.5.
 

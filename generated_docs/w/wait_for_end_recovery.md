@@ -8,7 +8,10 @@ wait_for_end_recovery is a function that waits for a PostgreSQL server to comple
 
 ## Definition
 
-
+```c
+static void
+wait_for_end_recovery(const char *conninfo, const struct CreateSubscriberOptions *opt)
+```
 ## Detailed Description
 This function is part of the pg_createsubscriber utility and monitors a PostgreSQL server to detect when it finishes the recovery process. It repeatedly checks the server's recovery status by connecting to it and querying whether it is still in recovery mode. The function will wait indefinitely by default, but can be configured with a timeout through the recovery_timeout option. If a timeout is specified and exceeded, the function will terminate the standby server and exit abnormally. In dry run mode, the function immediately considers recovery as ended since no actual recovery is performed.
 

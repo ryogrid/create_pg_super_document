@@ -8,7 +8,11 @@ Explains an integer-valued property in PostgreSQL EXPLAIN output by formatting a
 
 ## Definition
 
-
+```c
+void
+ExplainPropertyInteger(const char *qlabel, const char *unit, int64 value,
+					   ExplainState *es)
+```
 ## Detailed Description
 This function serves as a specialized wrapper around ExplainProperty for handling integer values. It converts a 64-bit signed integer value to its string representation using the INT64_FORMAT macro, then delegates to ExplainProperty to handle the actual output formatting based on the current explain format (TEXT, XML, JSON, or YAML). This ensures consistent integer formatting across all explain output formats while maintaining type safety.
 

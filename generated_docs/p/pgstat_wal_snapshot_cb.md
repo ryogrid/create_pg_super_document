@@ -8,7 +8,10 @@ This function creates a snapshot of current WAL (Write-Ahead Log) statistics by 
 
 ## Definition
 
-
+```c
+void
+pgstat_wal_snapshot_cb(void)
+```
 ## Detailed Description
  is a callback function that captures a consistent snapshot of WAL statistics from shared memory into the local process's statistics snapshot. The function uses a shared lock to safely read the current state of WAL statistics while allowing concurrent read operations from other processes. This snapshot mechanism enables consistent reporting of statistics without holding locks for extended periods.
 

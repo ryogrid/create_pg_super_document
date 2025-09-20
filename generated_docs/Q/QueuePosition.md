@@ -8,7 +8,13 @@ QueuePosition is a structure that describes a specific position within the async
 
 ## Definition
 
-
+```c
+typedef struct QueuePosition
+{
+	int64		page;			/* SLRU page number */
+	int			offset;			/* byte offset within page */
+} QueuePosition;
+```
 ## Detailed Description
 The QueuePosition structure serves as a coordinate system for locating specific positions within PostgreSQL's asynchronous notification queue. The queue is implemented using SLRU (Simple Least Recently Used) pages, and this structure provides a two-dimensional addressing scheme: a page number and an offset within that page. This allows precise positioning within the potentially very large notification queue that spans multiple SLRU pages.
 

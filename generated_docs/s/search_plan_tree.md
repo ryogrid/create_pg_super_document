@@ -8,7 +8,11 @@ Searches through a PlanState execution tree to find a scan node for a specified 
 
 ## Definition
 
-
+```c
+static ScanState *
+search_plan_tree(PlanState *node, Oid table_oid,
+				 bool *pending_rescan)
+```
 ## Detailed Description
 This recursive function traverses PostgreSQL's execution plan tree to locate a scan node that is scanning the specified table and is responsible for the plan tree's current output row. Unlike a simple search, it must ensure that any found scan actually contributed to the current execution state.
 

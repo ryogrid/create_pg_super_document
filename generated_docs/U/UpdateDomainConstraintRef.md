@@ -8,7 +8,10 @@ Rechecks the validity of domain constraint information and updates the reference
 
 ## Definition
 
-
+```c
+void
+UpdateDomainConstraintRef(DomainConstraintRef *ref)
+```
 ## Detailed Description
 This function performs validation and synchronization of domain constraint references with the current state of the domain's constraint information. It is designed to be called before each use of constraint information to ensure consistency. The function first ensures the type cache entry is up to date by loading domain information if necessary, then compares the current constraint cache with the referenced one.
 

@@ -8,7 +8,15 @@ Retrieves the default value expression for a specified PostgreSQL data type, ret
 
 ## Definition
 
-
+```c
+struct fields. Must do it the hard way with
+	 * SysCacheGetAttr.
+	 */
+	datum = SysCacheGetAttr(TYPEOID,
+							typeTuple,
+							Anum_pg_type_typdefaultbin,
+							&isNull);
+```
 ## Detailed Description
 This function performs a system catalog lookup to retrieve the default value for a given data type from the pg_type system catalog. It handles two forms of default values: binary expression defaults (stored in typdefaultbin) and plain text literal defaults (stored in typdefault). For binary defaults, it deserializes the stored expression tree using stringToNode(). For text defaults, it converts the text to the appropriate type value using the type's input function and creates a Const node. The function returns NULL if no default value is defined for the type. The caller is responsible for ensuring type coercion if needed, as the returned expression might not exactly match the expected datatype.
 

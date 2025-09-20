@@ -8,7 +8,13 @@ Estimates selectivity of ScalarArrayOpExpr operations via array containment anal
 
 ## Definition
 
-
+```c
+Selectivity
+scalararraysel_containment(PlannerInfo *root,
+						   Node *leftop, Node *rightop,
+						   Oid elemtype, bool isEquality, bool useOr,
+						   int varRelid)
+```
 ## Detailed Description
 This function provides selectivity estimation for scalar array operations by transforming them into array containment operations. It handles expressions of the form 'const =/<> ANY/ALL (array_var)' by treating them as array containment operations like 'array_var op ARRAY[const]'.
 

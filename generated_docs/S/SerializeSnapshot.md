@@ -8,7 +8,11 @@ Serializes a snapshot structure into a binary format that can be stored in memor
 
 ## Definition
 
-
+```c
+struct to possibly-unaligned buffer */
+	memcpy(start_address,
+		   &serialized_snapshot, sizeof(SerializedSnapshotData));
+```
 ## Detailed Description
 SerializeSnapshot converts a PostgreSQL snapshot structure into a serialized binary format that can be stored at a specified memory location. This function is primarily used in parallel query execution where snapshot information needs to be shared between the main process and parallel worker processes. The function handles the serialization of all snapshot components including transaction ID arrays, ensuring that the serialized data maintains all necessary information for proper MVCC visibility checking.
 

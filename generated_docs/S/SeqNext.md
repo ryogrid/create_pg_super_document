@@ -8,7 +8,10 @@ SeqNext is a static function that serves as the core workhorse for ExecSeqScan, 
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+SeqNext(SeqScanState *node)
+```
 ## Detailed Description
 SeqNext implements the fundamental tuple retrieval logic for sequential scans in PostgreSQL. It manages the table scan descriptor lifecycle, handles both parallel and non-parallel scan scenarios, and retrieves tuples from the underlying storage engine. The function first checks if a scan descriptor exists, and if not (which occurs for non-parallel scans or serial execution of planned parallel scans), it initializes one using table_beginscan. It then calls table_scan_getnextslot to fetch the next tuple in the specified scan direction.
 

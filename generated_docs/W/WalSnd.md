@@ -8,7 +8,53 @@ WalSnd is a shared memory structure that represents the state and control inform
 
 ## Definition
 
+```c
+typedef struct WalSnd
+{
+	pid_t		pid;			/* this walsender's PID, or 0 if not active */
 
+	WalSndState state;			/* this walsender's state */
+	XLogRecPtr	sentPtr;		/* WAL has been sent up to this point */
+	bool		needreload;		/* does currently-open file need to be
+								 * reloaded? */
+
+	/*
+	 * The xlog locations that have been written, flushed, and applied by
+	 * standby-side. These may be invalid if the standby-side has not offered
+	 * values yet.
+	 */
+	XLogRecPtr	write;
+	XLogRecPtr	flush;
+	XLogRecPtr	apply;
+
+	/* Measured lag times, or -1 for unknown/none. */
+	TimeOffset	writeLag;
+	TimeOffset	flushLag;
+	TimeOffset	applyLag;
+
+	/*
+	 * The priority order of the standby managed by this WALSender, as listed
+	 * in synchronous_standby_names, or 0 if not-listed.
+	 */
+	int			sync_standby_priority;
+
+	/* Protects shared variables in this structure. */
+	slock_t		mutex;
+
+	/*
+	 * Pointer to the walsender's latch. Used by backends to wake up this
+	 * walsender when it has work to do. NULL if the walsender isn't active.
+	 */
+	Latch	   *latch;
+
+	/*
+	 * Timestamp of the last message received from standby.
+	 */
+	TimestampTz replyTime;
+
+	ReplicationKind kind;
+} WalSnd;
+```
 ## Detailed Description
 The WalSnd structure serves as the central coordination point for each WAL sender process in PostgreSQL's streaming replication architecture. It maintains critical state information about the replication connection, tracks replication progress, and provides synchronization mechanisms between the walsender process and other backend processes.
 

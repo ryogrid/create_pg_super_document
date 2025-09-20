@@ -8,7 +8,11 @@ Adds detailed information about IndexScan and IndexOnlyScan operations to EXPLAI
 
 ## Definition
 
-
+```c
+static void
+ExplainIndexScanDetails(Oid indexid, ScanDirection indexorderdir,
+						ExplainState *es)
+```
 ## Detailed Description
 The  function enhances EXPLAIN output by providing additional context about index scan operations. It shows two key pieces of information that help understand how an index scan is being executed:
 

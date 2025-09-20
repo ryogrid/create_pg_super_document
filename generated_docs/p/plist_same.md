@@ -8,7 +8,10 @@ A static utility function that determines if two point lists represent the same 
 
 ## Definition
 
-
+```c
+static bool
+plist_same(int npts, Point *p1, Point *p2)
+```
 ## Detailed Description
 This function compares two point lists to determine if they represent the same polygon, even if the points are ordered differently. It handles two common variations:
 1. **Different starting points**: The same polygon can be represented starting from any vertex

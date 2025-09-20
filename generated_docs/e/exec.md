@@ -8,7 +8,13 @@ The  structure is a simple data container used in the ECPG (Embedded SQL in C) p
 
 ## Definition
 
-
+```c
+struct exec
+{
+	char	   *name;
+	char	   *type;
+};
+```
 ## Detailed Description
  is a lightweight structure defined in PostgreSQL's ECPG preprocessor type system. It provides a basic mechanism for storing execution-related metadata with just two string components: a name identifier and type information. While defined in the ECPG preprocessor headers, references to this symbol name also appear in other parts of the PostgreSQL codebase, particularly in JSON path execution and WAL receiver functionality, though these may be different symbols with the same name.
 

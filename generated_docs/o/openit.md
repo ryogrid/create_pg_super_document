@@ -8,7 +8,11 @@ A static function that declares and opens a database cursor for selecting record
 
 ## Definition
 
+```c
+}
 
+static void openit(void)
+```
 ## Detailed Description
 The openit function demonstrates cursor declaration and opening in ECPG (Embedded SQL in C) with Informix compatibility. It declares a cursor named 'c' that selects all columns from a 'test' table where the 'i' column is less than or equal to a parameter value. The function uses ECPGdo() to execute the SQL statement and includes error handling through the sqlca structure.
 

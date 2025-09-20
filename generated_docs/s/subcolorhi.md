@@ -8,7 +8,10 @@ Allocates a new subcolor for a high colormap entry if necessary, performing the 
 
 ## Definition
 
-
+```c
+static color
+subcolorhi(struct colormap *cm, color *pco)
+```
 ## Detailed Description
 The subcolorhi function is the high colormap counterpart to the subcolor() function. While subcolor() works with individual characters in the low colormap, subcolorhi() operates on entries in the high colormap that may correspond to multiple character codes or Unicode ranges rather than single characters.
 

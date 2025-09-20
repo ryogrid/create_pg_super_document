@@ -8,7 +8,10 @@ A multibyte-aware character search function that locates the first occurrence of
 
 ## Definition
 
-
+```c
+static char *
+findchar(char *str, int c)
+```
 ## Detailed Description
 The  function is a specialized string search utility that finds the first occurrence of a character in a string while properly handling multibyte character encodings. Unlike standard C library functions like , this function is specifically designed to work with PostgreSQL's text search locale handling and multibyte character support.
 

@@ -8,7 +8,10 @@ Finds a text search parser by its possibly qualified name and returns its OID, w
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &parser_name);
+```
 ## Detailed Description
 This function resolves a text search parser name (which may be schema-qualified) to its object identifier (OID). It supports both fully qualified names (schema.parser) and unqualified names that are resolved using the search path. The function handles two main scenarios:
 

@@ -8,7 +8,10 @@ A static function that computes and sets the frame head position for the current
 
 ## Definition
 
-
+```c
+static void
+update_frameheadpos(WindowAggState *winstate)
+```
 ## Detailed Description
 This function is responsible for determining where the window frame begins relative to the current row being processed in a window aggregation operation. It handles all supported frame start boundary types defined by SQL window functions:
 

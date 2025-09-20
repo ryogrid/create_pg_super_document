@@ -8,7 +8,10 @@ XLogDumpDisplayRecord formats and prints a comprehensive, human-readable represe
 
 ## Definition
 
-
+```c
+static void
+XLogDumpDisplayRecord(XLogDumpConfig *config, XLogReaderState *record)
+```
 ## Detailed Description
 This function produces the main output format for pg_waldump, displaying detailed information about WAL records in a structured, human-readable format. It extracts and displays key metadata including resource manager information, record lengths, transaction IDs, LSR values, and previous record pointers. The function leverages the PostgreSQL resource manager infrastructure to provide operation-specific descriptions and detailed block reference information. The output format is designed to be both human-readable for manual analysis and parseable for automated processing.
 

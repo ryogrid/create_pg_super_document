@@ -8,7 +8,10 @@ Initializes an access object for a BRIN (Block Range Index) range map, which pro
 
 ## Definition
 
-
+```c
+BrinRevmap *
+brinRevmapInitialize(Relation idxrel, BlockNumber *pagesPerRange)
+```
 ## Detailed Description
 This function creates and initializes a BrinRevmap structure that serves as the access interface to a BRIN index's range map. The range map is a critical component of BRIN indexes that maintains the mapping between heap block ranges and their corresponding index tuples. The function reads the index's metadata page to extract essential parameters like pages per range and the last revmap page number, then constructs the access object with this information.
 

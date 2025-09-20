@@ -8,7 +8,10 @@ The ginbuildempty function creates a minimal empty GIN index structure in the in
 
 ## Definition
 
-
+```c
+void
+ginbuildempty(Relation index)
+```
 ## Detailed Description
 The ginbuildempty function creates the most basic valid GIN index structure in the initialization fork. This function is used when creating an empty index that will be populated later, typically during VACUUM FULL or similar operations that rebuild indexes. 
 

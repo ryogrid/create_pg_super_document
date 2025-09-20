@@ -8,7 +8,14 @@ BackendParameters is a comprehensive structure that contains all variables and s
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	const char *name;
+	void		(*main_fn) (char *startup_data, size_t startup_data_len) pg_attribute_noreturn();
+	bool		shmem_attach;
+} child_process_kind;
+```
 ## Detailed Description
 BackendParameters is the central structure used in PostgreSQL's process forking mechanism to transfer all essential state information from the postmaster process to newly created backend processes. This structure contains everything a backend process needs to initialize itself properly, including shared memory references, locking primitives, configuration flags, and communication channels.
 

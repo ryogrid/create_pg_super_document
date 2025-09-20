@@ -8,7 +8,10 @@ A wrapper function for  that resets the prefetcher state and initializes WAL rea
 
 ## Definition
 
-
+```c
+void
+XLogPrefetcherBeginRead(XLogPrefetcher *prefetcher, XLogRecPtr recPtr)
+```
 ## Detailed Description
 This function provides a clean initialization interface for starting WAL reading with prefetching capabilities. It serves as a wrapper around the standard  function while also handling prefetcher-specific state management.
 

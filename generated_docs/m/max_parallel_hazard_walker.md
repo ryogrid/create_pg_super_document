@@ -8,7 +8,32 @@ The core expression tree walker function that recursively traverses PostgreSQL e
 
 ## Definition
 
+```c
+structs
+	 * anywhere in the tree.
+	 */
+	else if (IsA(node, Query))
+	{
+		Query	   *query = (Query *) node;
 
+		/* SELECT FOR UPDATE/SHARE must be treated as unsafe */
+		if (query->rowMarks != NULL)
+		{
+			context->max_hazard = PROPARALLEL_UNSAFE;
+			return true;
+		}
+
+		/* Recurse into subselects */
+		return query_tree_walker(query,
+								 max_parallel_hazard_walker,
+								 context, 0);
+	}
+
+	/* Recurse to check arguments */
+	return expression_tree_walker(node,
+								  max_parallel_hazard_walker,
+								  context);
+```
 ## Detailed Description
 The  function is the workhorse of PostgreSQL's parallel safety analysis system. It implements a recursive tree walker that examines each node in an expression tree to determine whether it contains constructs that would prevent or restrict parallel execution.
 

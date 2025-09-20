@@ -8,7 +8,10 @@ Returns a bitmap representing all columns being updated during an UPDATE operati
 
 ## Definition
 
-
+```c
+union(ExecGetUpdatedCols(relinfo, estate),
+					ExecGetExtraUpdatedCols(relinfo, estate));
+```
 ## Detailed Description
 This function provides a comprehensive view of all columns that will be modified during an UPDATE operation by combining two sources of updated columns:
 

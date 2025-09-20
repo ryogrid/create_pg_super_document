@@ -8,7 +8,11 @@ Constructs a formatted error message from the fields in a PGresult structure, wi
 
 ## Definition
 
-
+```c
+struction.
+ *
+ * The cursor location is measured in logical characters;
+```
 ## Detailed Description
 This function builds a comprehensive error message by extracting and formatting various diagnostic fields from a PGresult structure. It supports three verbosity levels: TERSE (minimal), DEFAULT (standard), and VERBOSE (detailed). The function handles different types of error position information (statement position and internal position), formats query text with syntax cursor display when appropriate, and includes additional diagnostic information based on the verbosity setting.
 

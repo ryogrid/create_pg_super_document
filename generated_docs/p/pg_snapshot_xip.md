@@ -8,7 +8,10 @@ Returns the set of in-progress transaction IDs from a PostgreSQL snapshot as a s
 
 ## Definition
 
-
+```c
+Datum
+pg_snapshot_xip(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in set-returning function (SRF) that extracts and returns the array of in-progress transaction IDs from a snapshot. The  (transaction in-progress) array contains all transaction IDs in the range [xmin, xmax) that were still running when the snapshot was created.
 

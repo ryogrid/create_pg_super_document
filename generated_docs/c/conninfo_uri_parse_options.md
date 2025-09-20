@@ -8,7 +8,11 @@ Parses a PostgreSQL connection URI string according to RFC 3986 syntax and popul
 
 ## Definition
 
-
+```c
+static bool
+conninfo_uri_parse_options(PQconninfoOption *options, const char *uri,
+						   PQExpBuffer errorMessage)
+```
 ## Detailed Description
 This function is the actual URI parser that handles PostgreSQL connection URIs in the format:
 

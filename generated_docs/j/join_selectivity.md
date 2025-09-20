@@ -8,7 +8,15 @@ Calculates the selectivity of a join operator clause by invoking the operator's 
 
 ## Definition
 
-
+```c
+Selectivity
+join_selectivity(PlannerInfo *root,
+				 Oid operatorid,
+				 List *args,
+				 Oid inputcollid,
+				 JoinType jointype,
+				 SpecialJoinInfo *sjinfo)
+```
 ## Detailed Description
 This function computes the selectivity estimate for a join condition by calling the join selectivity estimation function associated with the specified operator. Join selectivity represents the fraction of the Cartesian product between two relations that is expected to satisfy the join condition.
 

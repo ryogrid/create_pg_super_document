@@ -8,7 +8,10 @@ Returns the byte length of a multibyte character in a specified encoding, servin
 
 ## Definition
 
-
+```c
+int
+pg_encoding_mblen(int encoding, const char *mbstr)
+```
 ## Detailed Description
 This function determines the byte length of a multibyte character by dispatching to encoding-specific length calculation functions stored in the pg_wchar_table. It serves as the main API for multibyte character length determination across PostgreSQL's codebase, providing a unified interface for all supported character encodings.
 

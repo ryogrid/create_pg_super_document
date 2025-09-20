@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) check hook function that validates the synta
 
 ## Definition
 
-
+```c
+bool
+check_synchronous_standby_names(char **newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation hook for the synchronous_standby_names GUC parameter in PostgreSQL. When a user attempts to set or change the synchronous_standby_names configuration, this function is called to parse and validate the new value before it is accepted. It uses a dedicated parser (syncrep_yyparse) to analyze the configuration string and ensures that the syntax is correct and the semantic requirements are met (e.g., number of synchronous standbys must be greater than zero).
 

@@ -8,7 +8,10 @@ The byteage function implements the greater-than-or-equal-to (>=) comparison ope
 
 ## Definition
 
-
+```c
+Datum
+byteage(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares two bytea values and returns true if the first argument is greater than or equal to the second argument. The comparison is performed lexicographically using memcmp() on the binary data. For equal-length prefixes, the longer string is considered greater. If both strings are identical in content and length, they are considered equal.
 

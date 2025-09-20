@@ -8,7 +8,9 @@ ReadStr is a function in PostgreSQL's pg_dump archiver that reads a null-termina
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 ReadStr reads a string from a PostgreSQL archive by first reading an integer representing the string length, then allocating memory and reading the string data. The function handles both null strings (when length is negative) and normal strings. It ensures proper null termination of the read string and returns a dynamically allocated buffer that the caller must eventually free.
 

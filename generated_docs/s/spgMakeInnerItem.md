@@ -8,7 +8,14 @@ Creates a new SpGistSearchItem for an inner node during SP-GiST index traversal,
 
 ## Definition
 
-
+```c
+structed values are of type leafType) */
+	item->value = out->reconstructedValues
+		? datumCopy(out->reconstructedValues[i],
+					so->state.attLeafType.attbyval,
+					so->state.attLeafType.attlen)
+		: (Datum) 0;
+```
 ## Detailed Description
 This function constructs a SpGistSearchItem specifically for inner (non-leaf) nodes during SP-GiST index scanning. It processes the output from an inner_consistent method call to create search items for child nodes that should be visited. The function handles level calculation, reconstructed value copying, and traversal value management.
 

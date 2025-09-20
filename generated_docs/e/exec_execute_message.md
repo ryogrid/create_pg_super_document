@@ -8,7 +8,10 @@ Processes an "Execute" message for a portal, running the actual query execution 
 
 ## Definition
 
-
+```c
+static void
+exec_execute_message(const char *portal_name, long max_rows)
+```
 ## Detailed Description
 This function implements the Execute phase of PostgreSQL's extended query protocol. It executes a previously bound portal (created via Parse and Bind messages) and returns query results to the client. The function handles both complete execution and partial execution with row limits.
 

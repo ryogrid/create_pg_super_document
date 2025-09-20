@@ -8,7 +8,10 @@ This function conditionally detoasts a varlena datum only if it is compressed or
 
 ## Definition
 
-
+```c
+struct varlena *
+pg_detoast_datum_packed(struct varlena *datum)
+```
 ## Detailed Description
 pg_detoast_datum_packed provides selective detoasting that preserves the packed (short-header) format when possible. Unlike pg_detoast_datum_copy which always creates a new copy, or full detoasting which converts all extended formats to normal 4-byte header format, this function only detoasts datums that are compressed or externally stored.
 

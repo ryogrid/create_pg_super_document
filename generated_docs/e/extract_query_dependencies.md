@@ -8,7 +8,13 @@ Extracts dependencies from a rewritten but unplanned query tree, identifying rel
 
 ## Definition
 
-
+```c
+void
+extract_query_dependencies(Node *query,
+						   List **relationOids,
+						   List **invalItems,
+						   bool *hasRowSecurity)
+```
 ## Detailed Description
 This function analyzes a rewritten Query node or list of Query nodes to extract the same dependency information that would be collected during  processing, but without actually planning the query. It's specifically designed to support plan cache invalidation in  by identifying all database objects that an unplanned query depends on.
 

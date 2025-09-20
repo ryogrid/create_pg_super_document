@@ -8,7 +8,10 @@ Creates a new base backup streamer that writes data directly to a file without a
 
 ## Definition
 
-
+```c
+bbstreamer *
+bbstreamer_plain_writer_new(char *pathname, FILE *file)
+```
 ## Detailed Description
 This function creates and initializes a bbstreamer_plain_writer structure that implements the base backup streaming interface for writing data to a file. The function can operate in two modes: it can either create and manage its own file handle by opening the specified pathname, or use a provided FILE pointer. When creating its own file handle, it opens the file in binary write mode ("wb") and takes responsibility for closing it when the streamer is finalized.
 

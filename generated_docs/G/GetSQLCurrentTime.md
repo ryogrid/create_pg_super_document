@@ -8,7 +8,10 @@ GetSQLCurrentTime implements the SQL CURRENT_TIME and CURRENT_TIME(n) functions,
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 This function retrieves the current time with timezone information and returns it as a TimeTzADT structure. It supports precision specification through the typmod parameter, which allows controlling the fractional seconds precision in the result. The function gets the current time using GetCurrentTimeUsec, converts it to the appropriate timezone-aware time format, and applies any precision adjustments specified by the typmod parameter.
 

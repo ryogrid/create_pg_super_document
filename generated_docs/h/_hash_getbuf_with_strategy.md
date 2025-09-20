@@ -8,7 +8,12 @@ This function retrieves a buffer for a hash index page with a specified buffer a
 
 ## Definition
 
-
+```c
+Buffer
+_hash_getbuf_with_strategy(Relation rel, BlockNumber blkno,
+						   int access, int flags,
+						   BufferAccessStrategy bstrategy)
+```
 ## Detailed Description
  is a specialized version of the standard  function that allows specification of a custom buffer access strategy. This function is primarily used during VACUUM operations where different memory management policies may be beneficial for performance. The function validates that the block number is not P_NEW (which is not supported in hash indexes), reads the buffer using the specified strategy, applies the requested lock, and validates the page structure.
 

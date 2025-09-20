@@ -8,7 +8,10 @@ GetVirtualXIDsDelayingChkpt returns an array of virtual transaction IDs for tran
 
 ## Definition
 
-
+```c
+VirtualTransactionId *
+GetVirtualXIDsDelayingChkpt(int *nvxids, int type)
+```
 ## Detailed Description
 This function identifies and collects virtual transaction IDs (VXIDs) of transactions that are currently in commit critical sections, preventing checkpoint completion. These transactions are identified by having specific delayChkptFlags bits set in their PGPROC structure.
 

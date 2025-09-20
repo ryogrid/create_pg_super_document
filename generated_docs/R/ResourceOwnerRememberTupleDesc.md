@@ -8,7 +8,11 @@ A convenience wrapper function that registers a TupleDesc with a resource owner 
 
 ## Definition
 
-
+```c
+structure.
+ *
+ * Tuple type ID information is initially set for an anonymous record type;
+```
 ## Detailed Description
 This is a static inline convenience wrapper around the generic ResourceOwnerRemember function, specifically designed for TupleDesc objects. It simplifies the process of registering a tuple descriptor with a resource owner by automatically handling the type-specific resource descriptor (tupdesc_resowner_desc) and datum conversion. This ensures that the TupleDesc will be properly cleaned up when the resource owner is released, preventing memory leaks.
 

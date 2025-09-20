@@ -8,7 +8,13 @@ Validates that a relation can have a primary key index created by checking for e
 
 ## Definition
 
-
+```c
+void
+index_check_primary_key(Relation heapRel,
+						const IndexInfo *indexInfo,
+						bool is_alter_table,
+						const IndexStmt *stmt)
+```
 ## Detailed Description
 This function performs essential validation checks before creating a PRIMARY KEY index. It was originally part of DefineIndex() but was extracted to support ALTER TABLE ADD PRIMARY KEY USING INDEX operations. The function enforces several PostgreSQL constraints: (1) prevents creation of multiple primary keys on a table, (2) ensures primary key indexes don't use NULLS NOT DISTINCT, (3) validates that all indexed columns are simple column references rather than expressions, and (4) confirms all primary key columns are marked NOT NULL. The function expects the parser to have already inserted any required ALTER TABLE SET NOT NULL operations before attempting to create the primary key.
 

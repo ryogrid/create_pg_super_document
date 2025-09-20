@@ -8,7 +8,10 @@ The rupshift function converts all lowercase characters in a string to uppercase
 
 ## Definition
 
-
+```c
+void
+rupshift(char *str)
+```
 ## Detailed Description
 The rupshift function is part of PostgreSQL's ECPG Informix compatibility library. It iterates through each character in the input string and converts any lowercase letters to their uppercase equivalents using the standard C library functions islower() and toupper(). The conversion is performed in-place, modifying the original string directly.
 

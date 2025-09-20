@@ -8,7 +8,10 @@ Removes expired prefetch filters that are no longer needed because the correspon
 
 ## Definition
 
-
+```c
+static inline void
+XLogPrefetcherCompleteFilters(XLogPrefetcher *prefetcher, XLogRecPtr replaying_lsn)
+```
 ## Detailed Description
 This function maintains the prefetch filter system by cleaning up filters that have outlived their purpose. It processes the filter queue in order, removing filters whose target LSN has been reached or exceeded by WAL replay.
 

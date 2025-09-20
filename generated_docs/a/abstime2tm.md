@@ -8,7 +8,10 @@ Converts an AbsoluteTime value to a broken-down time structure (tm), handling ti
 
 ## Definition
 
-
+```c
+static void
+abstime2tm(AbsoluteTime _time, int *tzp, struct tm *tm, char **tzn)
+```
 ## Detailed Description
 abstime2tm is a static utility function in the ECPG (Embedded C for PostgreSQL) library that converts PostgreSQL's AbsoluteTime representation to a standard C tm structure. The function provides timezone-aware time conversion, supporting both local time and UTC representations based on the input parameters.
 

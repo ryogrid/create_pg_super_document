@@ -8,7 +8,10 @@ Initializes a multi-dimensional sort support structure used for sorting tuples a
 
 ## Definition
 
-
+```c
+MultiSortSupport
+multi_sort_init(int ndims)
+```
 ## Detailed Description
 The multi_sort_init function creates and initializes a MultiSortSupport structure that enables efficient multi-dimensional sorting operations required by PostgreSQL's extended statistics system. This function is essential for statistical computations that need to sort data across multiple columns simultaneously, such as computing functional dependencies, most common values (MCV), and n-distinct statistics.
 

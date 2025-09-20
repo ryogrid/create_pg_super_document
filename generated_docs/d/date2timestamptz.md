@@ -8,7 +8,10 @@ A wrapper function that converts a DateADT value to a TimestampTz (timestamp wit
 
 ## Definition
 
-
+```c
+static TimestampTz
+date2timestamptz(DateADT dateVal)
+```
 ## Detailed Description
 The  function provides a simplified interface for date-to-timestamptz conversion by calling  with a NULL overflow parameter. This forces the underlying function to throw an error rather than return an overflow indicator when the date value or subsequent timezone adjustment would result in a value outside the valid timestamptz range. The function is declared static, indicating it's used internally within the date.c module for operations that require strict range validation with timezone awareness.
 

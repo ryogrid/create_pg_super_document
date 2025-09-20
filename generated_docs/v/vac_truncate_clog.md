@@ -8,7 +8,13 @@ Attempts to truncate transaction commit logs (pg_xact), commit timestamps, and M
 
 ## Definition
 
-
+```c
+static void
+vac_truncate_clog(TransactionId frozenXID,
+				  MultiXactId minMulti,
+				  TransactionId lastSaneFrozenXid,
+				  MultiXactId lastSaneMinMulti)
+```
 ## Detailed Description
 This function performs critical system maintenance by truncating various transaction-related logs when it's safe to do so. The process involves:
 

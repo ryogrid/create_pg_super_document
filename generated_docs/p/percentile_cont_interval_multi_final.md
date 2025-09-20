@@ -8,7 +8,10 @@ Implements the final phase of the PostgreSQL aggregate function , which computes
 
 ## Definition
 
-
+```c
+Datum
+percentile_cont_interval_multi_final(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the finalization function for the  ordered-set aggregate when applied to interval data types with multiple percentile values. It acts as a thin wrapper around , providing interval-specific type information and the appropriate linear interpolation function () for continuous percentile calculation.
 

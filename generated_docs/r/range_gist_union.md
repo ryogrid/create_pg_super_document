@@ -8,7 +8,10 @@ Implements the GiST union operation for range types, computing the bounding rang
 
 ## Definition
 
-
+```c
+Datum
+range_gist_union(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a core component of the GiST operator class for range types. It computes the union (bounding range) of multiple range values, which is essential for maintaining the GiST tree structure. This function is called during index construction and maintenance operations to create parent nodes that represent the spatial bounds of their child nodes.
 

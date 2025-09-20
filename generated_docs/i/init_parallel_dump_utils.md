@@ -8,7 +8,10 @@ Initializes parallel dump support functionality and should be called early in pr
 
 ## Definition
 
-
+```c
+void
+init_parallel_dump_utils(void)
+```
 ## Detailed Description
 This function performs platform-specific initialization required for parallel dump operations in pg_dump and pg_restore utilities. On Windows platforms, it:
 

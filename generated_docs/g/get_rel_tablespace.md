@@ -8,7 +8,10 @@ Returns the pg_tablespace OID associated with a given relation, indicating which
 
 ## Definition
 
-
+```c
+Oid
+get_rel_tablespace(Oid relid)
+```
 ## Detailed Description
 This function retrieves the tablespace OID for a specified relation from the system catalog. Tablespaces in PostgreSQL allow database administrators to define locations in the file system where database objects can be stored. The function performs a system cache lookup on the pg_class catalog using the relation OID and extracts the reltablespace field.
 

@@ -8,7 +8,11 @@ Implements the \elif command in PostgreSQL's psql client for providing alternati
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_elif(PsqlScanState scan_state, ConditionalStack cstack,
+				  PQExpBuffer query_buf)
+```
 ## Detailed Description
 This function handles the execution of the \elif (else if) backslash command in psql, which provides alternative conditional branches within an \if..\endif block. The function's behavior depends on the current state of the conditional stack: if the previous branch was true, it ignores the expression and remaining branches; if false, it evaluates the new expression; if already ignored, it continues ignoring. The function validates that \elif appears in the correct context (after \if but before any \else) and manages query buffer state appropriately by either preserving text from active branches or discarding text from inactive ones.
 

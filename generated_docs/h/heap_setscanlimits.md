@@ -8,7 +8,10 @@ Sets the scan range limits for a heap table scan by specifying the starting bloc
 
 ## Definition
 
-
+```c
+void
+heap_setscanlimits(TableScanDesc sscan, BlockNumber startBlk, BlockNumber numBlks)
+```
 ## Detailed Description
 heap_setscanlimits restricts the range of a heap table scan to a specific subset of blocks. This function is used to limit scanning to a particular range of pages within a table, which is useful for operations like TID range scans, index builds on specific ranges, or other scenarios where only a portion of the table needs to be scanned.
 

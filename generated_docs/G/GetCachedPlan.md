@@ -8,7 +8,40 @@ GetCachedPlan is the main interface for retrieving executable plans from the pla
 
 ## Definition
 
+```c
+structures, such as the parent CachedPlanSource or a
+ * Portal.  Transient references should be protected by a resource owner.
+ */
+void
+ReleaseCachedPlan(CachedPlan *plan, ResourceOwner owner)
+{
+	Assert(plan->magic == CACHEDPLAN_MAGIC);
+	if (owner)
+	{
+		Assert(plan->is_saved);
+		ResourceOwnerForgetPlanCacheRef(owner, plan);
+	}
+	Assert(plan->refcount > 0);
+	plan->refcount--;
+	if (plan->refcount == 0)
+	{
+		/* Mark it no longer valid */
+		plan->magic = 0;
 
+		/* One-shot plans do not own their context, so we can't free them */
+		if (!plan->is_oneshot)
+			MemoryContextDelete(plan->context);
+	}
+}
+
+/*
+ * CachedPlanAllowsSimpleValidityCheck: can we use CachedPlanIsSimplyValid?
+ *
+ * This function, together with CachedPlanIsSimplyValid, provides a fast path
+ * for revalidating "simple" generic plans.  The core requirement to be simple
+ * is that the plan must not require taking any locks, which translates to
+ * not touching any tables;
+```
 ## Detailed Description
 GetCachedPlan serves as the primary entry point for PostgreSQL's plan cache system, encapsulating the complex decision-making process between generic and custom plans. The function orchestrates multiple subsystems: query revalidation, plan selection heuristics, plan construction, memory management, and resource tracking. It ensures that returned plans are valid, properly locked for execution, and correctly reference-counted for memory safety.
 

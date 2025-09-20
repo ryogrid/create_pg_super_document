@@ -8,7 +8,15 @@ Looks up a relation descriptor by OID, either retrieving it from the relation ca
 
 ## Definition
 
-
+```c
+structure exists to
+			 * perform pg_class lookups. The structure of such entries doesn't
+			 * change, but we still want to update the rd_rel entry. So
+			 * rd_isvalid = false is left in place for a later lookup.
+			 */
+			Assert(rd->rd_isvalid ||
+				   (rd->rd_isnailed && !criticalRelcachesBuilt));
+```
 ## Detailed Description
 This function is the primary interface for obtaining relation descriptors in PostgreSQL. It implements a two-level lookup strategy:
 

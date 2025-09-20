@@ -8,7 +8,10 @@ Computes a 64-bit hash value for a range type with an extended hashing algorithm
 
 ## Definition
 
-
+```c
+Datum
+hash_range_extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the extended version of the range hash function that produces a 64-bit hash value with a seed parameter. It deserializes the input range, extracts the lower and upper bounds, and computes hash values for each bound using the element type's extended hash function. The final hash is computed by combining the hashes of the range flags, lower bound, and upper bound through XOR operations and bit rotation to ensure good distribution.
 

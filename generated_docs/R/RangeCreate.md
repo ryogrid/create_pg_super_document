@@ -8,7 +8,12 @@ Creates an entry in the pg_range catalog table to register metadata for a range 
 
 ## Definition
 
-
+```c
+void
+RangeCreate(Oid rangeTypeOid, Oid rangeSubType, Oid rangeCollation,
+			Oid rangeSubOpclass, RegProcedure rangeCanonical,
+			RegProcedure rangeSubDiff, Oid multirangeTypeOid)
+```
 ## Detailed Description
 RangeCreate is responsible for creating a new entry in the pg_range catalog table that stores metadata for range types. The function inserts a tuple with range type information including the range type OID, subtype, collation, operator class, canonical function, subdiff function, and associated multirange type. After inserting the catalog entry, it establishes proper dependency relationships between the range type and its constituent objects to ensure referential integrity.
 

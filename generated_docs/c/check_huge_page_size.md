@@ -8,7 +8,10 @@ A GUC validation hook function that validates the  configuration parameter, ensu
 
 ## Definition
 
-
+```c
+bool
+check_huge_page_size(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a validation check hook for PostgreSQL's GUC (Grand Unified Configuration) system, specifically for the  parameter. It enforces platform-specific constraints by only allowing non-zero values on recent Linux systems that support MAP_HUGE_MASK and MAP_HUGE_SHIFT. On unsupported platforms, it rejects any attempt to set a non-zero huge page size and provides an appropriate error message.
 

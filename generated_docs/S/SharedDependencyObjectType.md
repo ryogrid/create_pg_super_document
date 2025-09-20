@@ -8,7 +8,14 @@ An enum type that classifies the nature of database objects in PostgreSQL's shar
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	ObjectAddress object;
+	char		deptype;
+	SharedDependencyObjectType objtype;
+} ShDependObjectInfo;
+```
 ## Detailed Description
 The  enum is used within PostgreSQL's shared dependency system to categorize database objects based on their scope and accessibility. This classification is crucial for the dependency tracking mechanism that ensures referential integrity across the database cluster. The enum helps determine how dependencies should be handled during operations like object dropping, reassignment, and dependency validation.
 

@@ -8,7 +8,10 @@ Replays a vacuum redirect operation from the WAL for SP-GiST indexes, reconstruc
 
 ## Definition
 
-
+```c
+static void
+spgRedoVacuumRedirect(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the replay of SP-GiST vacuum redirect operations, which clean up redirect tuples that are no longer needed. Redirect tuples are temporary placeholders created during page splits to maintain consistency, but they need to be cleaned up eventually. The function performs several key operations:
 

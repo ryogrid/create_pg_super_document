@@ -8,7 +8,24 @@ This static function implements the core recursive logic for constant expression
 
 ## Definition
 
+```c
+struct
+													 * equivalence */
 
+					/*
+					 * Code for op/func reduction is pretty bulky, so split it
+					 * out as a separate function.
+					 */
+					simple = simplify_function(expr->opfuncid,
+											   expr->opresulttype, -1,
+											   expr->opcollid,
+											   expr->inputcollid,
+											   &args,
+											   false,
+											   false,
+											   false,
+											   context);
+```
 ## Detailed Description
 The  function is the recursive engine that performs comprehensive constant folding, expression simplification, and optimization across all PostgreSQL expression node types. It implements a tree-walking mutator pattern that examines each node type and applies appropriate simplifications while preserving expression semantics.
 

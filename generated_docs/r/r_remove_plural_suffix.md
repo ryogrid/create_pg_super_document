@@ -8,7 +8,11 @@ Removes Tamil plural suffixes from words and replaces them with appropriate sing
 
 ## Definition
 
+```c
+}
 
+static int r_remove_plural_suffix(struct SN_env * z)
+```
 ## Detailed Description
 This function handles Tamil plural suffix removal and transformation by working backwards from the end of the word. It implements a cascading pattern-matching approach that:
 

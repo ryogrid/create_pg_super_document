@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) assign hook function that sets the global io
 
 ## Definition
 
-
+```c
+extern void
+assign_debug_io_direct(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as a PostgreSQL GUC assign hook for the debug_io_direct configuration parameter. It is called after the parameter value has been validated by check_debug_io_direct() to apply the parsed flags to the global io_direct_flags variable. The function receives the validated flags through the extra parameter, which was populated during the check phase. This mechanism allows PostgreSQL to control direct I/O behavior for data files, WAL files, and WAL initialization files based on user configuration.
 

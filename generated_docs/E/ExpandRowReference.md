@@ -8,7 +8,11 @@ Transforms a star expression (.*) applied to an arbitrary expression of composit
 
 ## Definition
 
-
+```c
+static List *
+ExpandRowReference(ParseState *pstate, Node *expr,
+				   bool make_target_entry)
+```
 ## Detailed Description
 ExpandRowReference handles the expansion of star expressions when applied to complex composite-type expressions that are not simple table references. Unlike ExpandSingleTable which deals with simple table references, this function handles arbitrary expressions that evaluate to composite types.
 

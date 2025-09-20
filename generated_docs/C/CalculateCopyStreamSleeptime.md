@@ -8,7 +8,11 @@ CalculateCopyStreamSleeptime computes the appropriate sleep duration for send/re
 
 ## Definition
 
-
+```c
+static long
+CalculateCopyStreamSleeptime(TimestampTz now, int standby_message_timeout,
+							 TimestampTz last_status)
+```
 ## Detailed Description
 This function calculates how long the streaming loop should sleep before the next iteration, based on standby message timeout requirements. It ensures that status messages are sent to the server within the configured timeout period while maintaining efficient resource usage. The function considers the current time, the configured timeout value, and when the last status message was sent to determine the optimal sleep duration.
 

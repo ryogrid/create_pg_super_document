@@ -8,7 +8,10 @@ Performs LDAP authentication by establishing an LDAP connection, optionally sear
 
 ## Definition
 
-
+```c
+static int
+CheckLDAPAuth(Port *port)
+```
 ## Detailed Description
 The `CheckLDAPAuth` function implements PostgreSQL's LDAP authentication mechanism. It supports two primary authentication modes:
 

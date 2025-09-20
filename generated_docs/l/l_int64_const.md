@@ -8,7 +8,10 @@ Creates an LLVM constant integer value of 64-bit signed integer type for use in 
 
 ## Definition
 
-
+```c
+static inline LLVMValueRef
+l_int64_const(LLVMContextRef lc, int64 i)
+```
 ## Detailed Description
 This is a utility function that wraps LLVM's  function to create 64-bit signed integer constants in LLVM IR. It's part of PostgreSQL's JIT (Just-In-Time) compilation infrastructure, specifically used for generating LLVM intermediate representation code. The function takes a 64-bit signed integer value and creates an LLVM constant value that can be used in LLVM IR instructions. The function is implemented as a static inline function for performance, as it's likely to be called frequently during JIT compilation.
 

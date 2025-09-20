@@ -8,7 +8,11 @@ A bulk delete operation handler for BRIN indexes that currently performs minimal
 
 ## Definition
 
-
+```c
+struct */
+	if (stats == NULL)
+		stats = palloc0_object(IndexBulkDeleteResult);
+```
 ## Detailed Description
  is the bulk delete handler for BRIN indexes, called during VACUUM operations when tuples are deleted from the heap table. However, unlike traditional indexes that maintain per-tuple entries, BRIN indexes store summarized information about ranges of heap blocks. This fundamental difference means that bulk delete operations cannot simply remove index entries.
 

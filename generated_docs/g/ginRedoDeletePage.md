@@ -8,7 +8,10 @@ Replays GIN data page deletion operations during WAL recovery, updating sibling 
 
 ## Definition
 
-
+```c
+static void
+ginRedoDeletePage(XLogReaderState *record)
+```
 ## Detailed Description
 ginRedoDeletePage is a WAL recovery function that replays GIN (Generalized Inverted Index) data page deletion operations from transaction log records. This function handles the complex process of removing a data page from the GIN index structure while maintaining consistency across multiple related pages.
 

@@ -8,7 +8,10 @@ XLogSendPhysical reads and streams physical WAL data to replication clients, han
 
 ## Definition
 
-
+```c
+static void
+XLogSendPhysical(void)
+```
 ## Detailed Description
 XLogSendPhysical is the core function responsible for streaming physical WAL data to replication clients. It implements sophisticated logic to handle multiple replication scenarios:
 

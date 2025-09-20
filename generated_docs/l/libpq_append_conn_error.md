@@ -8,7 +8,10 @@ A utility function that appends a formatted, translated error message to a Postg
 
 ## Definition
 
-
+```c
+void
+libpq_append_conn_error(PGconn *conn, const char *fmt,...)
+```
 ## Detailed Description
 This function provides a convenient way to append formatted error messages to a PostgreSQL connection's error buffer. It handles several important aspects of error message management:
 

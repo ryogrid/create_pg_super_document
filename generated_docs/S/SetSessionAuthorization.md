@@ -8,7 +8,10 @@ SetSessionAuthorization changes the session authorization user ID during runtime
 
 ## Definition
 
-
+```c
+void
+SetSessionAuthorization(Oid userid, bool is_superuser)
+```
 ## Detailed Description
 This function changes the session authorization user ID while PostgreSQL is running. It serves as the GUC (Grand Unified Configuration) assign hook for the "session_authorization" parameter. The function implements the SQL standard requirement that SET SESSION AUTHORIZATION implies SET ROLE NONE. The function is designed to be commutative with SetCurrentRoleId because guc.c provides no guarantees about which hook will run first during operations like transaction rollback. It updates the session user ID and conditionally updates the outer user ID only when no role is currently active (!SetRoleIsActive).
 

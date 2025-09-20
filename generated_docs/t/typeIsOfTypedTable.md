@@ -8,7 +8,10 @@ Checks whether a given relation type ID corresponds to the row type of a typed t
 
 ## Definition
 
-
+```c
+static bool
+typeIsOfTypedTable(Oid reltypeId, Oid reloftypeId)
+```
 ## Detailed Description
 This function determines if  represents the row type of a typed table that is of type , or if it's a domain over such a row type. The function is conceptually similar to the subtype relationship checking performed by .
 

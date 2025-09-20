@@ -8,7 +8,10 @@ Finds the starting member offset of a given MultiXactId by reading the correspon
 
 ## Definition
 
-
+```c
+static bool
+find_multixact_start(MultiXactId multi, MultiXactOffset *result)
+```
 ## Detailed Description
 This function locates the starting member offset for a specified MultiXactId by reading from the MultiXact offset SLRU area. It first calculates the appropriate page number and entry number for the given MultiXactId, then ensures all dirty data is written out before checking if the required physical page exists on disk. If the page exists, it reads the page in read-only mode, extracts the offset from the appropriate entry, and returns it via the result parameter.
 

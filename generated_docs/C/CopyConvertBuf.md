@@ -8,7 +8,10 @@ CopyConvertBuf performs character encoding conversion on data from the raw input
 
 ## Definition
 
-
+```c
+static void
+CopyConvertBuf(CopyFromState cstate)
+```
 ## Detailed Description
 CopyConvertBuf is a critical function in PostgreSQL's COPY FROM parsing pipeline that handles character encoding conversion and validation. The function operates in two distinct modes based on whether transcoding is needed:
 

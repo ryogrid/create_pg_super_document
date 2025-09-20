@@ -8,7 +8,10 @@ This function computes the distance between two float4 values for use in BRIN mi
 
 ## Definition
 
-
+```c
+Datum
+brin_minmax_multi_distance_float4(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This is a PostgreSQL function that serves as the distance function for float4 data types in the BRIN minmax-multi operator class. The function is crucial for range compaction operations, as it determines which ranges are closest together and should be merged first during space optimization.
 

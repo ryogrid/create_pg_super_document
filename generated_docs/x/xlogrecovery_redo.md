@@ -8,7 +8,9 @@ xlogrecovery_redo handles specific XLOG resource manager record types that are d
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 xlogrecovery_redo is a specialized function that processes XLOG resource manager records that require special handling during WAL recovery. Unlike regular WAL records that are processed by their respective resource managers, these records are handled directly in the recovery subsystem because they relate to recovery control operations.
 

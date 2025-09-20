@@ -8,7 +8,13 @@ Processes asynchronous notification messages from the PostgreSQL server, creatin
 
 ## Definition
 
-
+```c
+structure so it can all be
+	 * freed at once.  We don't use NAMEDATALEN because we don't want to tie
+	 * this interface to a specific server name length.
+	 */
+	nmlen = strlen(svname);
+```
 ## Detailed Description
 This static function handles Notify messages ('A') sent by the PostgreSQL server when a LISTEN/NOTIFY event occurs. The message contains the backend process ID that sent the notification, the channel name (relation name), and optional payload data. The function creates a PGnotify structure to store this information and adds it to the connection's notification queue for later retrieval by the application.
 

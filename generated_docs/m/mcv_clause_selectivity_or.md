@@ -8,7 +8,13 @@ Estimates the selectivity of a clause that appears in an ORed list of clauses us
 
 ## Definition
 
-
+```c
+Selectivity
+mcv_clause_selectivity_or(PlannerInfo *root, StatisticExtInfo *stat,
+						  MCVList *mcv, Node *clause, bool **or_matches,
+						  Selectivity *basesel, Selectivity *overlap_mcvsel,
+						  Selectivity *overlap_basesel, Selectivity *totalsel)
+```
 ## Detailed Description
 This function is a specialized component of PostgreSQL's query planning system that uses MCV statistics to estimate the selectivity of individual clauses within OR expressions. It implements a sophisticated algorithm to handle the overlap between multiple OR clauses, which is essential for accurate selectivity estimation in complex WHERE conditions.
 

@@ -8,7 +8,10 @@ A static function that implements the Duj1 estimator algorithm to estimate the n
 
 ## Definition
 
-
+```c
+static double
+estimate_ndistinct(double totalrows, int numrows, int d, int f1)
+```
 ## Detailed Description
 This function implements the Duj1 estimator, which is the same n-distinct estimation algorithm used in PostgreSQL's ANALYZE command (analyze.c). The estimator calculates the likely number of distinct values in the full dataset based on sample statistics using the formula:
 

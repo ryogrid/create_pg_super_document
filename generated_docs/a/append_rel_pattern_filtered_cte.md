@@ -8,7 +8,11 @@ Creates a filtered Common Table Expression that selects only database-relevant p
 
 ## Definition
 
-
+```c
+static void
+append_rel_pattern_filtered_cte(PQExpBuffer buf, const char *raw,
+								const char *filtered, PGconn *conn)
+```
 ## Detailed Description
 This function generates a CTE that filters patterns from a raw pattern CTE to include only those relevant to the current database connection. It applies database-level filtering logic: patterns with no database component are always included, patterns whose database component matches the current connection's database are included, and patterns targeting other databases are excluded. Additionally, it filters out patterns that have neither namespace nor relation components, as these would be too broad to be useful for relation matching.
 

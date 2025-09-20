@@ -8,7 +8,11 @@ Executes ALTER TABLE ENABLE/DISABLE RULE commands by delegating to the rewrite r
 
 ## Definition
 
-
+```c
+static void
+ATExecEnableDisableRule(Relation rel, const char *rulename,
+						char fires_when, LOCKMODE lockmode)
+```
 ## Detailed Description
 The  function is the execution handler for ALTER TABLE ENABLE/DISABLE RULE commands within the ALTER TABLE infrastructure. It serves as a wrapper that delegates the actual rule manipulation to the rewrite rule subsystem while ensuring proper integration with the ALTER TABLE framework, including invoking necessary post-alter hooks for event triggers and dependency tracking.
 

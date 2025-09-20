@@ -8,7 +8,10 @@ Converts a PostgreSQL BOX data type to its binary representation for transmissio
 
 ## Definition
 
-
+```c
+Datum
+box_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's binary input/output system for the BOX geometric data type. It serializes a BOX structure into a binary format suitable for network transmission. The function extracts the four coordinate values (high.x, high.y, low.x, low.y) from the BOX structure and writes them sequentially as 8-byte floating-point values using the PostgreSQL binary protocol functions.
 

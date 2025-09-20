@@ -8,7 +8,12 @@ Executes AFTER ROW INSERT triggers for a given relation and handles transition t
 
 ## Definition
 
-
+```c
+void
+ExecARInsertTriggers(EState *estate, ResultRelInfo *relinfo,
+					 TupleTableSlot *slot, List *recheckIndexes,
+					 TransitionCaptureState *transition_capture)
+```
 ## Detailed Description
 ExecARInsertTriggers is responsible for executing AFTER ROW INSERT triggers and managing transition table capture for insert operations. The function validates that foreign tables don't use transition table capture (which is not supported) and then delegates the actual trigger execution to AfterTriggerSaveEvent. This function is part of PostgreSQL's deferred trigger execution system, where AFTER triggers are queued for execution at the end of the statement or transaction.
 

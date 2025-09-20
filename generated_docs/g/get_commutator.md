@@ -8,7 +8,10 @@ Returns the corresponding commutator operator for a given operator OID, or Inval
 
 ## Definition
 
-
+```c
+Oid
+get_commutator(Oid opno)
+```
 ## Detailed Description
 This function retrieves the commutator operator for a given operator from the PostgreSQL system catalog. A commutator operator is an operator that produces the same result when its operands are swapped. For example, the commutator of "<" is ">", and the commutator of "=" is "=" itself.
 

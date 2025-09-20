@@ -8,7 +8,10 @@ Internal static inline utility function that converts a single hexadecimal chara
 
 ## Definition
 
-
+```c
+static inline bool
+get_hex(const char *cp, char *out)
+```
 ## Detailed Description
 The `get_hex` function is a helper function for hexadecimal decoding operations. It takes a single character pointer and attempts to convert the character to its hexadecimal digit value (0-15). The function uses the `hexlookup` table to perform the conversion efficiently. It handles both uppercase and lowercase hex digits ('0'-'9', 'A'-'F', 'a'-'f') and returns a boolean indicating whether the conversion was successful.
 

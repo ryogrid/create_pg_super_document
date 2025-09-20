@@ -8,7 +8,10 @@ Tests whether two polygons are identical by comparing all their points in both f
 
 ## Definition
 
-
+```c
+Datum
+poly_same(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `poly_same` function determines if two polygons are geometrically identical by comparing all their vertices. The function first performs a quick check to ensure both polygons have the same number of points, then uses the `plist_same` helper function to perform a comprehensive point-by-point comparison.
 

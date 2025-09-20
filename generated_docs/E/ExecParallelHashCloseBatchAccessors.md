@@ -8,7 +8,10 @@ Properly closes and cleans up all ParallelHashJoinBatchAccessor objects, ensurin
 
 ## Definition
 
-
+```c
+static void
+ExecParallelHashCloseBatchAccessors(HashJoinTable hashtable)
+```
 ## Detailed Description
  performs cleanup operations for parallel hash join batch accessors. This function ensures that all shared tuplestore operations are properly terminated before freeing the accessor array memory.
 

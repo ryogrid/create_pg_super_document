@@ -8,7 +8,10 @@ Generates a new on-disk tuple to be inserted in a BRIN index, converting in-memo
 
 ## Definition
 
-
+```c
+struct varlena *)
+															  DatumGetPointer(value)));
+```
 ## Detailed Description
 This function transforms a BRIN memory tuple into a disk-storable format. It handles complex operations including value serialization, TOAST decompression/compression, null bitmap management, and memory layout optimization. The function processes each column's summary values, handles special cases like all-null columns and null-containing ranges, and creates a properly formatted on-disk tuple with correct alignment and null bitmap encoding.
 

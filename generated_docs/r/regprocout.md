@@ -8,7 +8,10 @@ Converts a RegProcedure OID to its string representation, serving as the output 
 
 ## Definition
 
-
+```c
+Datum
+regprocout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The regprocout function is the output conversion function for PostgreSQL's regproc data type. It takes a RegProcedure OID and converts it to a human-readable string representation. The function implements intelligent formatting logic:
 

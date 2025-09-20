@@ -8,7 +8,10 @@ consoleHandler is a Windows-specific console interrupt handler that manages grac
 
 ## Definition
 
-
+```c
+static BOOL WINAPI
+consoleHandler(DWORD dwCtrlType)
+```
 ## Detailed Description
 consoleHandler is a Windows console control handler function that responds to console interrupt events (CTRL_C_EVENT and CTRL_BREAK_EVENT) in pg_dump's parallel processing mode. When triggered, it performs an orderly shutdown by first terminating worker threads, sending query cancellation requests to all connected database backends, and then allowing the default process termination to proceed.
 

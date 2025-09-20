@@ -8,7 +8,9 @@ Invalidates (removes) the relation cache initialization files during commit of a
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This function is part of a two-phase process for invalidating relation cache initialization files when transactions modify system catalogs. It performs the first phase: acquiring the serialization lock and removing obsolete initialization files.
 

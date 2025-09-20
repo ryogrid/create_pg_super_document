@@ -8,7 +8,10 @@ AtEOXact_GUC handles the complex cleanup and restoration of GUC (Grand Unified C
 
 ## Definition
 
-
+```c
+struct config_generic *gconf = slist_container(struct config_generic,
+													   stack_link, iter.cur);
+```
 ## Detailed Description
 This function is the cornerstone of PostgreSQL's transactional GUC system, responsible for properly managing the stack of GUC variable states when exiting transaction contexts. Despite its name suggesting transaction-only usage, it handles various scenarios including subtransaction boundaries, function exits with proconfig settings, and transient GUC assignments. The function implements sophisticated logic for determining which values to restore based on the context (commit vs. abort) and the type of GUC operations performed.
 

@@ -8,7 +8,10 @@ Cleanup function that shuts down all subplans of an Append node and releases ass
 
 ## Definition
 
-
+```c
+void
+ExecEndAppend(AppendState *node)
+```
 ## Detailed Description
 ExecEndAppend is the cleanup and termination function for PostgreSQL's Append node executor. It performs a straightforward but essential task of recursively calling ExecEndNode on each initialized subplan to ensure proper resource cleanup and memory deallocation.
 

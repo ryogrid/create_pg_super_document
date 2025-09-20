@@ -8,7 +8,10 @@ Implements the  command in psql to list the detailed contents of installed Postg
 
 ## Definition
 
-
+```c
+bool
+listExtensionContents(const char *pattern)
+```
 ## Detailed Description
 This function serves as a coordinator for displaying detailed extension contents. It first queries the pg_extension catalog to find extensions matching the given pattern, then iterates through each found extension and calls listOneExtensionContents() to display the detailed contents of each extension. The function handles error cases such as no matching extensions found and provides appropriate user feedback.
 

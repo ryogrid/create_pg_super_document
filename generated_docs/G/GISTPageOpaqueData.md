@@ -8,7 +8,15 @@ GISTPageOpaqueData is a structure that defines the opaque data stored in each pa
 
 ## Definition
 
-
+```c
+typedef struct GISTPageOpaqueData
+{
+	PageGistNSN nsn;			/* this value must change on page split */
+	BlockNumber rightlink;		/* next page if any */
+	uint16		flags;			/* see bit definitions above */
+	uint16		gist_page_id;	/* for identification of GiST indexes */
+} GISTPageOpaqueData;
+```
 ## Detailed Description
 GISTPageOpaqueData serves as the page header structure for GiST index pages, providing essential metadata for page management, navigation, and consistency checking. The structure is stored in the opaque area of each page and contains information needed for proper GiST index operations including page linking, split detection, and page type identification.
 

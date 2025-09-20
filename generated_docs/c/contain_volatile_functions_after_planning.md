@@ -8,7 +8,10 @@ Tests whether a given expression contains volatile functions after performing ex
 
 ## Definition
 
-
+```c
+bool
+contain_volatile_functions_after_planning(Expr *expr)
+```
 ## Detailed Description
 This function is a wrapper around  that ensures proper analysis by first running the expression through . The planning step is crucial for accurate volatility detection for two main reasons:
 

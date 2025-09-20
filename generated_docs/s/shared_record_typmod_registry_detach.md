@@ -8,7 +8,10 @@ A cleanup function that detaches from shared record typmod infrastructure when a
 
 ## Definition
 
-
+```c
+static void
+shared_record_typmod_registry_detach(dsm_segment *segment, Datum datum)
+```
 ## Detailed Description
 This function serves as a callback hook that is invoked when a dynamic shared memory (DSM) segment is being detached or destroyed. It safely cleans up the current session's references to shared record typmod infrastructure by detaching from the shared hash tables and clearing the registry pointer. The function includes defensive programming by checking for NULL pointers before attempting to detach, ensuring it can handle cases where initialization might not have completed successfully. This cleanup is essential for both parallel query leaders and workers to properly release shared resources.
 

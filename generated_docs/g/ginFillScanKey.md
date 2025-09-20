@@ -8,7 +8,14 @@ Initializes a GinScanKey structure using output from the extractQueryFn, setting
 
 ## Definition
 
-
+```c
+static void
+ginFillScanKey(GinScanOpaque so, OffsetNumber attnum,
+			   StrategyNumber strategy, int32 searchMode,
+			   Datum query, uint32 nQueryValues,
+			   Datum *queryValues, GinNullCategory *queryCategories,
+			   bool *partial_matches, Pointer *extra_data)
+```
 ## Detailed Description
 The  function processes the output from the opclass's extractQueryFn and creates a complete GinScanKey structure. It allocates arrays for scan entries and result values, creates individual scan entries for each query value using , and configures the key's behavior based on the search mode.
 

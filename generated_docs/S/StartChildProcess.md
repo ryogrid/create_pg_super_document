@@ -8,7 +8,10 @@ StartChildProcess is an auxiliary process launcher in the PostgreSQL postmaster 
 
 ## Definition
 
-
+```c
+static pid_t
+StartChildProcess(BackendType type)
+```
 ## Detailed Description
 StartChildProcess serves as a wrapper function for creating auxiliary child processes in the PostgreSQL postmaster. It takes a BackendType parameter that determines what kind of child process will be started (such as background writer, checkpointer, WAL writer, etc.). The function calls postmaster_child_launch to perform the actual fork operation and handle the low-level process creation details. All child processes initially execute AuxiliaryProcessMain, which handles common initialization tasks.
 

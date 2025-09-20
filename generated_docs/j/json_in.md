@@ -8,7 +8,10 @@ Converts a JSON string input into PostgreSQL's internal JSON text representation
 
 ## Definition
 
-
+```c
+Datum
+json_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the input conversion function for PostgreSQL's JSON data type. It takes a C-style string representation of JSON data and converts it into PostgreSQL's internal text format while ensuring the JSON is syntactically valid. This function is typically called when JSON data is being inserted into a table or passed as a parameter to a function that expects JSON input.
 

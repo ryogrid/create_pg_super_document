@@ -8,7 +8,11 @@ Validates aggregate function placement and grouping correctness after query pars
 
 ## Definition
 
-
+```c
+structs.
+		 */
+		List	   *gsets = expand_grouping_sets(qry->groupingSets, qry->groupDistinct, 4096);
+```
 ## Detailed Description
 This function performs comprehensive validation of aggregate functions and grouping in SQL queries:
 

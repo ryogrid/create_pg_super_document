@@ -8,7 +8,12 @@ Modifies input relation IDs to include relids of outer joins that will be calcul
 
 ## Definition
 
-
+```c
+Relids
+add_outer_joins_to_relids(PlannerInfo *root, Relids input_relids,
+						  SpecialJoinInfo *sjinfo,
+						  List **pushed_down_joins)
+```
 ## Detailed Description
 The  function is responsible for managing the complex logic of outer join ordering and dependencies in PostgreSQL's query optimizer. It takes the union of relid sets from two input relations and adds additional relids to represent outer joins that will be computed at this join level. The function implements outer-join identity 3 rules, which allow certain outer joins to be reordered or "pushed down" for optimization purposes.
 

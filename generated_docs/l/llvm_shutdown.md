@@ -8,7 +8,10 @@ Cleans up LLVM JIT resources during PostgreSQL process shutdown, disposing of OR
 
 ## Definition
 
-
+```c
+static void
+llvm_shutdown(int code, Datum arg)
+```
 ## Detailed Description
 This function serves as the cleanup handler for LLVM JIT resources, registered via  during session initialization. It performs careful resource cleanup while handling edge cases:
 

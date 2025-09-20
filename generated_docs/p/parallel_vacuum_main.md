@@ -8,7 +8,10 @@ Main entry point for parallel vacuum worker processes, responsible for setting u
 
 ## Definition
 
-
+```c
+void
+parallel_vacuum_main(dsm_segment *seg, shm_toc *toc)
+```
 ## Detailed Description
 This function serves as the main execution routine for parallel vacuum worker processes. It initializes the worker environment by setting up shared memory access, opening relations and indexes, configuring vacuum cost parameters, and establishing error handling. The function then processes the indexes assigned to this worker through parallel vacuum operations.
 

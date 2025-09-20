@@ -8,7 +8,12 @@ WriteMTruncateXlogRec is a static function that writes a TRUNCATE xlog record fo
 
 ## Definition
 
-
+```c
+static void
+WriteMTruncateXlogRec(Oid oldestMultiDB,
+					  MultiXactId startTruncOff, MultiXactId endTruncOff,
+					  MultiXactOffset startTruncMemb, MultiXactOffset endTruncMemb)
+```
 ## Detailed Description
 This function creates and writes a TRUNCATE xlog record (xl_multixact_truncate) for multixact operations. It populates the record with the provided parameters and ensures the xlog record is flushed to disk before returning, which is critical for consistency similar to TruncateCLOG() operations. The function uses the standard xlog insertion pattern: begin insert, register data, insert record, and flush.
 

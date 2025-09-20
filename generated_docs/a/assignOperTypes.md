@@ -8,7 +8,10 @@ Determines and assigns the lefttype/righttype for an operator member in an opera
 
 ## Definition
 
-
+```c
+static void
+assignOperTypes(OpFamilyMember *member, Oid amoid, Oid typeoid)
+```
 ## Detailed Description
 This function processes an operator that is being added to an operator family, determining its left and right operand types and validating that it meets the requirements for index operations. It fetches the operator definition from the system catalog, enforces that the operator is binary, and performs different validation based on whether it's a search operator or an ordering operator. For search operators, it ensures the return type is boolean. For ordering operators, it verifies that the access method supports ordering operations. If the member's lefttype or righttype are not explicitly specified, it uses the operator's intrinsic input types.
 

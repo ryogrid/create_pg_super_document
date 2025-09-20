@@ -8,7 +8,10 @@ Performs a simple materialized view refresh by swapping the physical heap files 
 
 ## Definition
 
-
+```c
+static void
+refresh_by_heap_swap(Oid matviewOid, Oid OIDNewHeap, char relpersistence)
+```
 ## Detailed Description
 This function implements the simpler of two materialized view refresh strategies in PostgreSQL. Unlike refresh_by_match_merge, this approach does not allow concurrent reads during the refresh operation. Instead, it:
 

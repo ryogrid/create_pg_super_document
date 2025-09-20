@@ -8,7 +8,14 @@ A structure that represents a single test case input for PostgreSQL escape funct
 
 ## Definition
 
-
+```c
+typedef struct pe_test_vector
+{
+	const char *client_encoding;
+	size_t		escape_len;
+	const char *escape;
+} pe_test_vector;
+```
 ## Detailed Description
 The  structure encapsulates a single test input case for the escape function testing framework. Each test vector defines a specific scenario with a particular client encoding and an escape sequence to be tested. This structure allows the test framework to systematically test escape functions against various encoding contexts and input patterns, ensuring comprehensive coverage of different character encoding scenarios that might be encountered in real-world PostgreSQL usage.
 

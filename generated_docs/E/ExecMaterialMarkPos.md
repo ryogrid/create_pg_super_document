@@ -8,7 +8,10 @@ ExecMaterialMarkPos saves the current position in the tuplestore as a mark that 
 
 ## Definition
 
-
+```c
+void
+ExecMaterialMarkPos(MaterialState *node)
+```
 ## Detailed Description
 ExecMaterialMarkPos implements the mark operation for Material nodes by copying the current read pointer position to the mark pointer in the tuplestore. This allows the executor to return to this marked position later using ExecMaterialRestrPos. The function also performs an optimization by calling tuplestore_trim to potentially free memory from tuples that are no longer needed.
 

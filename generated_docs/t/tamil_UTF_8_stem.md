@@ -8,7 +8,11 @@ The main entry point function for Tamil language stemming in PostgreSQL's Snowba
 
 ## Definition
 
+```c
+}
 
+extern int tamil_UTF_8_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function serves as the master controller for Tamil stemming operations, implementing a comprehensive morphological analysis pipeline specifically designed for the Tamil language. The function orchestrates the stemming process through multiple sequential stages:
 

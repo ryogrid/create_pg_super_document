@@ -8,7 +8,10 @@ Selects a PARAM_EXEC number to identify the given Var as a parameter for the cur
 
 ## Definition
 
-
+```c
+static int
+assign_param_for_var(PlannerInfo *root, Var *var)
+```
 ## Detailed Description
 This function is responsible for parameter assignment during query planning in PostgreSQL's optimizer. It handles the conversion of Var nodes into parameters that can be passed between query levels in nested subqueries. The function first searches for an existing matching PlannerParamItem to avoid creating duplicates, and if none is found, creates a new parameter entry.
 

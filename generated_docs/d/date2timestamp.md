@@ -8,7 +8,10 @@ A wrapper function that converts a DateADT value to a Timestamp, throwing an err
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function provides a simplified interface for date-to-timestamp conversion by calling  with a NULL overflow parameter. This forces the underlying function to throw an error rather than return an overflow indicator when the date value is outside the valid timestamp range. The function is declared static, indicating it's used internally within the date.c module for operations that require strict range validation.
 

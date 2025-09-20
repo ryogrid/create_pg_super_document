@@ -8,7 +8,10 @@ _bt_getroot retrieves the root page of a B-tree index, handling root page locati
 
 ## Definition
 
-
+```c
+Buffer
+_bt_getroot(Relation rel, Relation heaprel, int access)
+```
 ## Detailed Description
 This function is the primary interface for obtaining the root page of a B-tree index. It handles several complex scenarios:
 

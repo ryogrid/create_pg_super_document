@@ -8,7 +8,14 @@ PendingWrite is a struct that represents a single pending write operation in Pos
 
 ## Definition
 
-
+```c
+typedef struct PendingWrite
+{
+	BulkWriteBuffer buf;
+	BlockNumber blkno;
+	bool		page_std;
+} PendingWrite;
+```
 ## Detailed Description
 The PendingWrite struct is a core component of PostgreSQL's bulk write optimization system located in . It represents a single write operation that has been queued but not yet flushed to disk. The bulk write system accumulates multiple PendingWrite entries in an array within the BulkWriteState structure, allowing PostgreSQL to batch multiple write operations together for improved I/O efficiency.
 

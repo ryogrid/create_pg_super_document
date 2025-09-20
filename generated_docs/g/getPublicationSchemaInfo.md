@@ -8,7 +8,11 @@ Retrieves publication name and schema name information from a publication schema
 
 ## Definition
 
-
+```c
+static bool
+getPublicationSchemaInfo(const ObjectAddress *object, bool missing_ok,
+						 char **pubname, char **nspname)
+```
 ## Detailed Description
 This static function extracts publication and namespace information from a publication schema object by performing lookups in the system catalogs. It first searches the pg_publication_namespace catalog using the object's OID to retrieve the publication schema record, then uses the stored publication ID and namespace ID to fetch the corresponding names.
 

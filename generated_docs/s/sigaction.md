@@ -8,7 +8,15 @@ sigaction is a Windows-specific structure that emulates the POSIX sigaction stru
 
 ## Definition
 
-
+```c
+struct sigaction
+{
+	void		(*sa_handler) (int);
+	/* sa_sigaction not yet implemented */
+	sigset_t	sa_mask;
+	int			sa_flags;
+};
+```
 ## Detailed Description
 The sigaction structure is defined in PostgreSQL's Windows compatibility layer to provide POSIX-like signal handling functionality on Windows platforms. This structure is used in conjunction with the pqsigaction function to install and examine signal handlers. It serves as a bridge between PostgreSQL's cross-platform signal handling requirements and Windows' native signal mechanisms.
 

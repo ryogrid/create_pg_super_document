@@ -8,7 +8,13 @@ Determines and returns the cost of sorting a relation using PostgreSQL's tupleso
 
 ## Definition
 
-
+```c
+static void
+cost_tuplesort(Cost *startup_cost, Cost *run_cost,
+			   double tuples, int width,
+			   Cost comparison_cost, int sort_mem,
+			   double limit_tuples)
+```
 ## Detailed Description
 The function calculates sorting costs using different algorithms depending on data size and available memory:
 

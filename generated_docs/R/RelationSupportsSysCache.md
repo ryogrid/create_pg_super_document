@@ -8,7 +8,10 @@ Tests whether a relation supports a system cache, meaning it is either a cached 
 
 ## Definition
 
-
+```c
+bool
+RelationSupportsSysCache(Oid relid)
+```
 ## Detailed Description
 RelationSupportsSysCache determines if a relation participates in the system catalog cache infrastructure, either as a cached table or as an index that supports cache operations. Unlike RelationHasSysCache which only checks for relations that are directly cached, this function also includes indexes that are used by the caching system. The function performs a binary search on the SysCacheSupportingRelOid array to efficiently locate relations that are part of the cache infrastructure.
 

@@ -8,7 +8,10 @@ Controls the visibility of context information in error messages, allowing appli
 
 ## Definition
 
-
+```c
+PGContextVisibility
+PQsetErrorContextVisibility(PGconn *conn, PGContextVisibility show_context)
+```
 ## Detailed Description
 PQsetErrorContextVisibility configures whether and when context information is displayed in error messages from the PostgreSQL client library. Context information provides additional details about where an error occurred, such as function call stacks or query parsing context. The function updates the connection's context visibility setting and returns the previous setting, enabling temporary changes to context reporting behavior.
 

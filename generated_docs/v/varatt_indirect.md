@@ -8,7 +8,12 @@ A structure representing a "TOAST pointer" for out-of-line Datum stored in memor
 
 ## Definition
 
-
+```c
+typedef struct varatt_indirect
+{
+	struct varlena *pointer;	/* Pointer to in-memory varlena */
+}			varatt_indirect;
+```
 ## Detailed Description
 The varatt_indirect structure is a specialized type of TOAST pointer used for managing out-of-line data that resides in memory rather than being stored in an external TOAST table. Unlike varatt_external which points to data in a TOAST relation on disk, varatt_indirect directly references in-memory varlena data structures.
 

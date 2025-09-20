@@ -8,7 +8,10 @@ Internal support function that calculates the address of the structure containin
 
 ## Definition
 
-
+```c
+static inline void *
+dlist_head_element_off(dlist_head *head, size_t off)
+```
 ## Detailed Description
 This function is a low-level utility that implements the core logic for accessing the structure that contains the first dlist_node in a list. It works by taking the address of the first node (head->head.next) and subtracting the offset of the dlist_node field within the containing structure. This offset arithmetic allows the intrusive list implementation to retrieve the containing structure from just the embedded node pointer.
 

@@ -8,7 +8,9 @@ Converts PostgreSQL datums to their JSON text representation, handling type-spec
 
 ## Definition
 
-
+```c
+struct pg_tm tm;
+```
 ## Detailed Description
 The  function is the core conversion engine for transforming PostgreSQL data values into their JSON text representation. It handles the complex logic of determining how each PostgreSQL data type should be represented in JSON format, including proper quoting, escaping, and formatting rules. The function dispatches to type-specific conversion logic based on the provided type category and handles special cases for JSON object keys versus values.
 

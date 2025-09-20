@@ -8,7 +8,9 @@ TParserState is an enumerated type that defines all possible parser states used 
 
 ## Definition
 
-
+```c
+struct TParser;
+```
 ## Detailed Description
 TParserState is a comprehensive enumeration that represents all the different states that the PostgreSQL text search parser can be in while processing input text. The parser uses a finite state machine approach to tokenize text, where each state represents a specific context or type of token being parsed. The states cover various token types including:
 

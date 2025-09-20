@@ -8,7 +8,10 @@ Tests whether a toast value with a given ID exists in the specified toast relati
 
 ## Definition
 
-
+```c
+static bool
+toastrel_valueid_exists(Relation toastrel, Oid valueid)
+```
 ## Detailed Description
 This internal function performs a lookup to determine if any toast chunks exist for a specified value ID within a given toast relation. It uses the toast relation's primary index to efficiently search for tuples matching the target value ID. The function is designed with safety in mind, using SnapshotAny to detect both live and dead tuples, which is important for avoiding OID reuse conflicts during operations like table rewrites.
 

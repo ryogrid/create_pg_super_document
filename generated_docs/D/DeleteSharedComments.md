@@ -8,7 +8,10 @@ Removes comments for cluster-wide shared objects from the pg_shdescription catal
 
 ## Definition
 
-
+```c
+void
+DeleteSharedComments(Oid oid, Oid classoid)
+```
 ## Detailed Description
 DeleteSharedComments removes comment entries from the pg_shdescription catalog table for cluster-wide shared objects such as databases, tablespaces, and roles. Unlike DeleteComments, this function operates on the shared description catalog and doesn't handle sub-object IDs since shared objects don't have sub-components. It performs a systematic scan using two-key lookups (object OID and class OID) and deletes all matching comment tuples.
 

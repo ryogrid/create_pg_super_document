@@ -8,7 +8,10 @@ A PostgreSQL backend function that updates a specific range within an existing l
 
 ## Definition
 
-
+```c
+Datum
+be_lo_put(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides selective writing capability for PostgreSQL large objects by allowing updates to specific regions within an existing large object. Unlike functions that create new large objects, this function modifies existing ones by seeking to a specified offset position and writing the provided bytea data. The function handles the complete update process: opening the large object for writing, seeking to the correct position, writing the data, and ensuring data integrity through assertion checking. This functionality is essential for efficient partial updates of large objects without requiring complete replacement.
 

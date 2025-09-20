@@ -8,7 +8,10 @@ Creates a hardcoded tuple descriptor from predefined attribute data, serving as 
 
 ## Definition
 
-
+```c
+static TupleDesc
+BuildHardcodedDescriptor(int natts, const FormData_pg_attribute *attrs)
+```
 ## Detailed Description
 BuildHardcodedDescriptor constructs a tuple descriptor using predefined attribute information, primarily used for accessing pg_class and pg_index catalogs during early PostgreSQL initialization phases. This function creates a "kluge" descriptor that bypasses the normal catalog cache dependency by using hardcoded attribute definitions.
 

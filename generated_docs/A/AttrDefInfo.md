@@ -8,7 +8,14 @@ AttrDefInfo represents column default value expressions in PostgreSQL's pg_dump 
 
 ## Definition
 
-
+```c
+typedef struct _tableDataInfo
+{
+	DumpableObject dobj;
+	TableInfo  *tdtable;		/* link to table to dump */
+	char	   *filtercond;		/* WHERE condition to limit rows dumped */
+} TableDataInfo;
+```
 ## Detailed Description
 AttrDefInfo encapsulates information about column default value expressions stored in the pg_attrdef system catalog. Each instance represents a DEFAULT clause for a specific table column that needs to be included in database dumps. The structure contains the decompiled DEFAULT expression and metadata about how it should be dumped - either inline within the CREATE TABLE statement or as a separate ALTER TABLE ... ALTER COLUMN ... SET DEFAULT statement. This separation is necessary for cases where the default expression has dependencies that must be resolved after the table is created, such as references to user-defined functions or types.
 

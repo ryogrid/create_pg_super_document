@@ -8,7 +8,10 @@ Compares a date value against a timestamptz value and returns true if the date i
 
 ## Definition
 
-
+```c
+Datum
+date_ge_timestamptz(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the >= operator for comparing a date (left operand) with a timestamptz (right operand). It extracts the date and timestamptz values from the function arguments, then delegates to the internal comparison function . The function returns true if the comparison result is greater than or equal to zero.
 

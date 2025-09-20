@@ -8,7 +8,12 @@ Determines whether to override the param_source_rels heuristic to enable paramet
 
 ## Definition
 
-
+```c
+static inline bool
+allow_star_schema_join(PlannerInfo *root,
+					   Relids outerrelids,
+					   Relids inner_paramrels)
+```
 ## Detailed Description
 This function implements a special heuristic for star-schema query patterns where a large fact table needs to be joined with multiple smaller dimension tables. In typical scenarios, the optimizer's param_source_rels restriction prevents passing parameters down across joins unless there are join-order constraints that require it.
 

@@ -8,7 +8,11 @@ Creates a PartitionBoundInfo structure for a range partitioned table by processi
 
 ## Definition
 
-
+```c
+static PartitionBoundInfo
+create_range_bounds(PartitionBoundSpec **boundspecs, int nparts,
+					PartitionKey key, int **mapping)
+```
 ## Detailed Description
 This function takes an array of partition boundary specifications for range partitions and creates a unified PartitionBoundInfo structure. It processes both lower and upper bounds from all partitions, sorts them, removes duplicates, and creates the final boundary structure with proper indexing. The function handles default partitions specially and assigns canonical indexes to each partition.
 

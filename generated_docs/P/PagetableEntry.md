@@ -8,7 +8,16 @@ PagetableEntry is a data structure that represents hashtable entries in PostgreS
 
 ## Definition
 
-
+```c
+typedef struct PagetableEntry
+{
+	BlockNumber blockno;		/* page number (hashtable key) */
+	char		status;			/* hash entry status */
+	bool		ischunk;		/* T = lossy storage, F = exact */
+	bool		recheck;		/* should the tuples be rechecked? */
+	bitmapword	words[Max(WORDS_PER_PAGE, WORDS_PER_CHUNK)];
+} PagetableEntry;
+```
 ## Detailed Description
 PagetableEntry serves as the core data structure for PostgreSQL's TIDBitmap system, which is used for efficient storage and manipulation of tuple identifiers. The structure supports two distinct storage modes:
 

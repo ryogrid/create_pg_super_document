@@ -8,7 +8,10 @@ Retrieves the string representation of a variable from a Variables collection, p
 
 ## Definition
 
-
+```c
+static char *
+getVariable(Variables *variables, char *name)
+```
 ## Detailed Description
 The  function retrieves a variable by name from a Variables collection and returns its value as a string. If the variable already has a cached string representation (), it returns that directly. Otherwise, it converts the variable's typed value to a string format based on the value type (NULL, boolean, integer, or double) and caches the result for future use. The function handles all supported pgbench variable types and ensures consistent string representation across the application.
 

@@ -8,7 +8,10 @@ A utility function that converts a string into a more readable format by escapin
 
 ## Definition
 
-
+```c
+static void
+escapify(PQExpBuffer buf, const char *str, size_t len)
+```
 ## Detailed Description
 The  function processes a string character by character and appends an escaped representation to a PQExpBuffer. It makes characters outside of plain ASCII more recognizable by converting them to escape sequences. This function is primarily used in PostgreSQL's test modules for displaying string content in a human-readable format during testing and debugging.
 

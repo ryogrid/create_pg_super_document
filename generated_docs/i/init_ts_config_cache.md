@@ -8,7 +8,10 @@ Initializes the text search configuration cache hash table and registers syscach
 
 ## Definition
 
-
+```c
+static void
+init_ts_config_cache(void)
+```
 ## Detailed Description
 init_ts_config_cache is a helper function that sets up the infrastructure for caching text search configurations. This function was extracted from lookup_ts_config_cache to allow for early initialization of the cache system, particularly to enable callback registration before caching the current configuration (TSCurrentConfigCache).
 

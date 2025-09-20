@@ -8,7 +8,12 @@ A wrapper function that safely invokes the optional output plugin's stream_messa
 
 ## Definition
 
-
+```c
+static void
+stream_message_cb_wrapper(ReorderBuffer *cache, ReorderBufferTXN *txn,
+						  XLogRecPtr message_lsn, bool transactional,
+						  const char *prefix, Size message_size, const char *message)
+```
 ## Detailed Description
 This function serves as a protective wrapper around the output plugin's optional stream_message_cb callback in PostgreSQL's logical replication streaming mechanism. Unlike other stream callbacks, this one is optional and the function returns early if the callback is not provided by the plugin.
 

@@ -8,7 +8,10 @@ A Windows-specific function that creates symbolic links by implementing junction
 
 ## Definition
 
-
+```c
+int
+pgsymlink(const char *oldpath, const char *newpath)
+```
 ## Detailed Description
 The  function implements symbolic link creation on Windows by utilizing NTFS junction points through the Win32 reparse point mechanism. Since Windows (especially older versions) lacks native symbolic link support, this function provides a compatible alternative using junction points, which offer similar functionality.
 

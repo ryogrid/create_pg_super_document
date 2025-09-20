@@ -8,7 +8,13 @@ A utility function that merges range table entries (RTEs) and their associated p
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			offset;
+	int			sublevels_up;
+} OffsetVarNodes_context;
+```
 ## Detailed Description
 This function combines two range tables by appending the source range table entries to the destination range table. It also handles the associated permission information (RTEPermissionInfos) by merging the source permission list into the destination and updating the perminfoindex values in the source RTEs to correctly point to their new positions in the combined permission list. The function operates destructively on the destination lists, so callers should pass modifiable copies if the original lists need to be preserved.
 

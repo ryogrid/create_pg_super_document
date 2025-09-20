@@ -8,7 +8,10 @@ The get_old_cluster_logical_slot_infos function retrieves metadata for all logic
 
 ## Definition
 
-
+```c
+static void
+get_old_cluster_logical_slot_infos(DbInfo *dbinfo, bool live_check)
+```
 ## Detailed Description
 This function collects comprehensive information about logical replication slots from the source database during a PostgreSQL upgrade. It only operates on PostgreSQL 17 and later, as earlier versions don't reliably save logical slot state at shutdown, risking data loss. The function queries pg_replication_slots to gather slot details including name, plugin, two-phase commit status, failover capability, and validation state. For non-live checks, it determines if slots are "caught up" using the binary_upgrade_logical_slot_has_caught_up function, which checks for any pending decodable changes. Temporary and invalidated slots are handled specially - temporary slots are ignored since they cannot survive upgrades, and invalidated slots skip WAL validation as their corresponding WAL files may have been removed.
 

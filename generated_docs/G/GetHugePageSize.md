@@ -8,7 +8,10 @@ Determines the system's huge page size and computes the appropriate mmap flags f
 
 ## Definition
 
-
+```c
+void
+GetHugePageSize(Size *hugepagesize, int *mmap_flags)
+```
 ## Detailed Description
 This function identifies the huge page size to use and computes related mmap flags for shared memory allocation. It handles a Linux kernel bug where mmap() can fail on requests that aren't multiples of the hugepage size. The function rounds up requests to hugepage multiples to avoid compatibility issues and makes efficient use of the extra memory by increasing available space in the shmem header.
 

@@ -8,7 +8,10 @@ Executes the SQL LISTEN command by queueing a listen action for the specified ch
 
 ## Definition
 
-
+```c
+void
+Async_Listen(const char *channel)
+```
 ## Detailed Description
 Async_Listen is the entry point function for the SQL LISTEN command. It provides a simple wrapper around the queue_listen function, specifically requesting a LISTEN_LISTEN action for the given channel. The function includes optional debug logging when trace notifications are enabled. Like other async notification functions, it defers the actual listen operation until transaction commit to ensure proper transactional semantics.
 

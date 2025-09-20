@@ -8,7 +8,17 @@ ExecStatus is an enumeration type that tracks the execution state of SQL functio
 
 ## Definition
 
-
+```c
+typedef struct execution_state
+{
+	struct execution_state *next;
+	ExecStatus	status;
+	bool		setsResult;		/* true if this query produces func's result */
+	bool		lazyEval;		/* true if should fetch one row at a time */
+	PlannedStmt *stmt;			/* plan for this query */
+	QueryDesc  *qd;				/* null unless status == RUN */
+} execution_state;
+```
 ## Detailed Description
 ExecStatus is used to manage the lifecycle of SQL function execution within the PostgreSQL executor. It provides a simple state machine for tracking whether a particular execution state record is starting, currently running, or has completed execution. This enumeration is part of the SQL function execution infrastructure that handles the execution of user-defined SQL functions.
 

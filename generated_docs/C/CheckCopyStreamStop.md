@@ -8,7 +8,10 @@ CheckCopyStreamStop determines whether the WAL streaming process should continue
 
 ## Definition
 
-
+```c
+static bool
+CheckCopyStreamStop(PGconn *conn, StreamCtl *stream, XLogRecPtr blockpos)
+```
 ## Detailed Description
 This function evaluates whether the streaming process should be stopped based on the current block position and stream configuration. When the stream_stop callback indicates that streaming should cease, it performs an orderly shutdown by closing the current WAL file and sending a copy-end packet to the server. The function ensures proper cleanup of resources and communication with the PostgreSQL server during the termination process.
 

@@ -8,7 +8,13 @@ CommitTimestampEntry is a data structure that stores commit timestamp informatio
 
 ## Definition
 
-
+```c
+typedef struct CommitTimestampEntry
+{
+	TimestampTz time;
+	RepOriginId nodeid;
+} CommitTimestampEntry;
+```
 ## Detailed Description
 CommitTimestampEntry is a fundamental data structure in PostgreSQL's commit timestamp tracking system. Each entry occupies 8+2 bytes (10 bytes total) and represents the commit information for a single transaction. The structure is designed to be compact to optimize storage efficiency in the commit timestamp SLRU (Simple Least Recently Used) buffer system.
 

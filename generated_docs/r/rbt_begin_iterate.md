@@ -8,7 +8,10 @@ Initializes an RBTreeIterator structure to prepare for traversing a red-black tr
 
 ## Definition
 
-
+```c
+void
+rbt_begin_iterate(RBTree *rbt, RBTOrderControl ctrl, RBTreeIterator *iter)
+```
 ## Detailed Description
 This function sets up an iterator state for traversing a red-black tree. It initializes the RBTreeIterator structure with the appropriate iterator function pointer based on the requested traversal order. The function supports two traversal orders: LeftRightWalk (in-order: left, self, right) and RightLeftWalk (reverse in-order: right, self, left). After calling this function, the caller should repeatedly call rbt_iterate() to get successive nodes until NULL is returned.
 

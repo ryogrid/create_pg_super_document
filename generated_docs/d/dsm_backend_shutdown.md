@@ -8,7 +8,10 @@ Detaches all remaining DSM segments during backend shutdown to ensure proper cle
 
 ## Definition
 
-
+```c
+void
+dsm_backend_shutdown(void)
+```
 ## Detailed Description
 The  function serves as a cleanup mechanism that is called during backend process termination. It systematically detaches all DSM segments that remain attached to the current backend process, ensuring that no shared memory resources are leaked when the process exits.
 

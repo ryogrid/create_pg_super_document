@@ -8,7 +8,10 @@ This function marks a coercion node as IMPLICIT to control its display behavior,
 
 ## Definition
 
-
+```c
+static void
+hide_coercion_node(Node *node)
+```
 ## Detailed Description
 The hide_coercion_node function is used to modify the display format of various coercion nodes by setting their format field to COERCE_IMPLICIT_CAST. This is particularly useful when PostgreSQL generates nested coercion nodes to implement what is logically a single conversion operation. By marking inner nodes as implicit, they become invisible in query plan output and rule display, simplifying the visual representation without changing the actual semantics of the operations.
 

@@ -8,7 +8,11 @@ A specialized function for reading and deserializing index tuples from logical t
 
 ## Definition
 
-
+```c
+static void
+readtup_index(Tuplesortstate *state, SortTuple *stup,
+			  LogicalTape *tape, unsigned int len)
+```
 ## Detailed Description
 This function deserializes an IndexTuple from a logical tape during the external sorting merge phase. It performs the inverse operation of writetup_index:
 

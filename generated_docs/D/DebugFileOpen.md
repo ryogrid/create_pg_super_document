@@ -8,7 +8,10 @@ DebugFileOpen initializes debug output file redirection by opening a specified d
 
 ## Definition
 
-
+```c
+void
+DebugFileOpen(void)
+```
 ## Detailed Description
 DebugFileOpen handles the initialization of debug output file redirection for PostgreSQL processes. The function checks if an output filename has been configured (via OutputFileName global variable) and performs the following operations:
 

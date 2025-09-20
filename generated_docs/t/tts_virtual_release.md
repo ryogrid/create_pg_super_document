@@ -8,7 +8,10 @@ Releases resources associated with a virtual tuple table slot, serving as the re
 
 ## Definition
 
-
+```c
+static void
+tts_virtual_release(TupleTableSlot *slot)
+```
 ## Detailed Description
 The  function is the resource release callback for virtual tuple table slots in PostgreSQL. It is part of the  operations structure and is called when the slot is being destroyed or needs to release its resources.
 

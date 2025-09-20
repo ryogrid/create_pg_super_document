@@ -8,7 +8,10 @@ This function determines the current user identity and ensures that initdb is no
 
 ## Definition
 
-
+```c
+static char *
+get_id(void)
+```
 ## Detailed Description
 The  function is responsible for identifying the current user and performing a critical security check on Unix-like systems. It prevents PostgreSQL database initialization from being performed as the root user, which would create security vulnerabilities. On Unix systems, it uses  to check the effective user ID and exits with an error if the user is root (UID 0). After the security check passes, it retrieves the username using  and returns a dynamically allocated copy of the username string.
 

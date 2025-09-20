@@ -8,7 +8,12 @@ Calculates an effective freeze threshold for multixacts based on member space ut
 
 ## Definition
 
-
+```c
+typedef struct mxtruncinfo
+{
+	int64		earliestExistingPage;
+} mxtruncinfo;
+```
 ## Detailed Description
 This function implements an adaptive mechanism to prevent exhaustion of the multixact members space by dynamically adjusting the effective freeze threshold. When multixact member space utilization exceeds safe thresholds, it reduces the effective autovacuum_multixact_freeze_max_age to trigger more aggressive vacuuming.
 

@@ -8,7 +8,9 @@ Multiplies a box by a point, scaling the box dimensions by multiplying each corn
 
 ## Definition
 
-
+```c
+struct(result, &high, &low);
+```
 ## Detailed Description
 The `box_mul` function implements geometric multiplication (scaling) between a box and a point. It creates a new box by multiplying the coordinates of both the high and low corner points of the input box with the corresponding coordinates of the input point. This operation scales the box dimensions along each axis. The function uses temporary Point variables to store the multiplication results and then constructs a properly oriented box using `box_construct`, which ensures the high and low corners are correctly assigned regardless of the multiplication results.
 

@@ -8,7 +8,10 @@ Transforms JSON_OBJECTAGG() aggregate function expressions into JsonConstructorE
 
 ## Definition
 
-
+```c
+structorOutput(pstate, agg->constructor->output,
+											   args);
+```
 ## Detailed Description
 This function transforms JSON_OBJECTAGG() expressions into PostgreSQL's internal representation for JSON object aggregation. The transformation process selects the appropriate underlying aggregate function based on the output format (JSON vs JSONB) and behavioral flags (unique key enforcement and null handling).
 

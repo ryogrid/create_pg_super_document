@@ -8,7 +8,13 @@ ArrayMapState is a workspace structure that provides private state needed by the
 
 ## Definition
 
-
+```c
+typedef struct ArrayMapState
+{
+	ArrayMetaState inp_extra;
+	ArrayMetaState ret_extra;
+} ArrayMapState;
+```
 ## Detailed Description
 ArrayMapState serves as a workspace for the array_map() function, which transforms arrays through arbitrary expressions. This structure optimizes performance by caching type metadata for both input and output array elements across multiple calls. The structure must be zeroed by the caller before the first use and should not be modified after that. While it's legitimate to pass a freshly-zeroed ArrayMapState on each call, better performance is achieved when the state is preserved across a series of calls to array_map().
 

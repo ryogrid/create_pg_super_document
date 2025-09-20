@@ -8,7 +8,10 @@ Prepares a backend process to receive notifications by registering it as a liste
 
 ## Definition
 
-
+```c
+static void
+Exec_ListenPreCommit(void)
+```
 ## Detailed Description
 This function is called during the pre-commit phase to ensure that a backend process is ready to catch any incoming NOTIFY messages. It performs the following key operations:
 

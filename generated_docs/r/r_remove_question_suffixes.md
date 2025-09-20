@@ -8,7 +8,11 @@ Removes Tamil question suffixes from words and replaces them with appropriate fo
 
 ## Definition
 
+```c
+}
 
+static int r_remove_question_suffixes(struct SN_env * z)
+```
 ## Detailed Description
 This function handles the removal and transformation of Tamil interrogative (question) suffixes. It operates by:
 

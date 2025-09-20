@@ -8,7 +8,10 @@ Public libpq function that determines whether PQgetResult would block waiting fo
 
 ## Definition
 
-
+```c
+int
+PQisBusy(PGconn *conn)
+```
 ## Detailed Description
 PQisBusy is a non-blocking function that checks if there are complete messages available from the server that can be processed immediately. It returns true if a call to PQgetResult would need to wait for more data from the server, and false if PQgetResult can return a result immediately.
 

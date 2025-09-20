@@ -8,7 +8,13 @@ An atomic 64-bit unsigned integer structure that provides lock-free operations f
 
 ## Definition
 
-
+```c
+typedef struct pg_atomic_uint64
+{
+	/* alignment guaranteed due to being on a 64bit platform */
+	volatile uint64 value;
+} pg_atomic_uint64;
+```
 ## Detailed Description
 The `pg_atomic_uint64` struct is PostgreSQL's atomic type for 64-bit unsigned integers, designed for high-performance lock-free operations on large values such as Log Sequence Numbers (LSNs), transaction IDs, and memory pointers. This structure is critical for PostgreSQL's write-ahead logging (WAL) system, replication, and other subsystems that require atomic operations on 64-bit values.
 

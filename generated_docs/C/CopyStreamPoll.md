@@ -8,7 +8,9 @@ CopyStreamPoll is a utility function that waits until data becomes available for
 
 ## Definition
 
-
+```c
+struct timeval timeout;
+```
 ## Detailed Description
 This function implements a blocking wait mechanism using select() to monitor file descriptors for read availability. It's specifically designed for streaming replication scenarios where the client needs to wait for incoming CopyData messages from the server while being responsive to timeout conditions and external termination signals. The function monitors both the PostgreSQL connection socket and an optional stop socket that can be used to interrupt the wait operation. It handles various edge cases including signal interruption (EINTR) and invalid socket conditions.
 

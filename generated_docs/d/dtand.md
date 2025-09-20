@@ -8,7 +8,10 @@ The  function computes the tangent of an angle specified in degrees, providing a
 
 ## Definition
 
-
+```c
+Datum
+dtand(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the tangent function for degree-based input, following POSIX specifications for special value handling. It uses a sophisticated domain reduction algorithm to map arbitrary degree inputs to the range [0,90] degrees, then computes the tangent using the ratio of  and  functions. The implementation includes special handling for NaN inputs, infinite inputs, and ensures portability by normalizing minus zero to plain zero. The function leverages the mathematical properties of tangent to reduce computational complexity while maintaining accuracy.
 

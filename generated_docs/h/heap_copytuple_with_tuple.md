@@ -8,7 +8,10 @@ Copies a tuple into a caller-supplied HeapTuple management struct, allowing for 
 
 ## Definition
 
-
+```c
+void
+heap_copytuple_with_tuple(HeapTuple src, HeapTuple dest)
+```
 ## Detailed Description
 The  function copies tuple data from a source HeapTuple into a destination HeapTuple structure that is provided by the caller. Unlike , this function does not allocate the HeapTuple management structure itself - only the tuple data portion is allocated separately using palloc().
 

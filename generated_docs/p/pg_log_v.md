@@ -8,7 +8,10 @@ Core internal logging function that handles all log message formatting and outpu
 
 ## Definition
 
-
+```c
+static void
+pg_log_v(eLogType type, const char *fmt, va_list ap)
+```
 ## Detailed Description
 The  function is the central logging engine for pg_upgrade, responsible for formatting and routing all log messages according to their type and the current output configuration. It implements sophisticated logic to handle different output destinations (TTY vs non-TTY) and verbosity levels.
 

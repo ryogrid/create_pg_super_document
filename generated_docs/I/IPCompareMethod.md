@@ -8,7 +8,17 @@ IPCompareMethod is an enumeration that defines different methods for comparing I
 
 ## Definition
 
-
+```c
+typedef enum ConnType
+{
+	ctLocal,
+	ctHost,
+	ctHostSSL,
+	ctHostNoSSL,
+	ctHostGSS,
+	ctHostNoGSS,
+} ConnType;
+```
 ## Detailed Description
 This enum defines the various methods used to compare client IP addresses against the configured rules in pg_hba.conf. Each value represents a different approach to IP address matching:
 

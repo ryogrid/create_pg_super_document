@@ -8,7 +8,10 @@ BufTableDelete removes an entry from the shared buffer hash table for a given bu
 
 ## Definition
 
-
+```c
+void
+BufTableDelete(BufferTag *tagPtr, uint32 hashcode)
+```
 ## Detailed Description
 BufTableDelete is a critical function in PostgreSQL's buffer management system that removes a specific entry from the shared buffer hash table (SharedBufHash). This function is typically called when a buffer is being invalidated or when cleaning up buffer mappings. The function uses the provided hash code for efficient lookup and removal of the hash table entry.
 

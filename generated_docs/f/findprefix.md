@@ -8,7 +8,13 @@ A static helper function that performs the core analysis to extract a common pre
 
 ## Definition
 
-
+```c
+static int						/* regprefix return code */
+findprefix(struct cnfa *cnfa,
+		   struct colormap *cm,
+		   chr *string,
+		   size_t *slength)
+```
 ## Detailed Description
 The findprefix function implements the core algorithm for identifying common prefixes in regular expression patterns. It traverses the NFA state machine starting from the "pre" state, following transitions to identify sequences of characters that must appear at the beginning of any string matching the pattern.
 

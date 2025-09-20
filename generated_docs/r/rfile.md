@@ -8,7 +8,19 @@ The  struct stores metadata and state information needed to reconstruct files fr
 
 ## Definition
 
-
+```c
+typedef struct rfile
+{
+	char	   *filename;
+	int			fd;
+	size_t		header_length;
+	unsigned	num_blocks;
+	BlockNumber *relative_block_numbers;
+	unsigned	truncation_block_length;
+	unsigned	num_blocks_read;
+	off_t		highest_offset_read;
+} rfile;
+```
 ## Detailed Description
 The  struct is a core data structure in PostgreSQL's pg_combinebackup utility that manages file reconstruction from backup chains. For any given output file being reconstructed, one  instance is created per backup that needs to be consulted during the reconstruction process.
 

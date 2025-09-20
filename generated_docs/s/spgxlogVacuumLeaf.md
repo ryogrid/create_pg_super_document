@@ -8,7 +8,29 @@ The spgxlogVacuumLeaf struct is a PostgreSQL WAL record structure used to log va
 
 ## Definition
 
+```c
+typedef struct spgxlogVacuumLeaf
+{
+	uint16		nDead;			/* number of tuples to become DEAD */
+	uint16		nPlaceholder;	/* number of tuples to become PLACEHOLDER */
+	uint16		nMove;			/* number of tuples to move */
+	uint16		nChain;			/* number of tuples to re-chain */
 
+	spgxlogState stateSrc;
+
+	/*----------
+	 * data follows:
+	 *		tuple numbers to become DEAD
+	 *		tuple numbers to become PLACEHOLDER
+	 *		tuple numbers to move from (and replace with PLACEHOLDER)
+	 *		tuple numbers to move to (replacing what is there)
+	 *		tuple numbers to update nextOffset links of
+	 *		tuple numbers to insert in nextOffset links
+	 *----------
+	 */
+	OffsetNumber offsets[FLEXIBLE_ARRAY_MEMBER];
+} spgxlogVacuumLeaf;
+```
 ## Detailed Description
 This structure represents a WAL record for SP-GiST leaf page vacuum operations. During vacuum, the system needs to clean up dead tuples, compact the page, and maintain proper chaining relationships between tuples. The vacuum process involves multiple operations: marking tuples as dead, creating placeholders for maintaining tuple chain integrity, moving tuples to eliminate fragmentation, and updating the chain links that connect related tuples. This struct captures all these operations so they can be replayed during WAL recovery.
 

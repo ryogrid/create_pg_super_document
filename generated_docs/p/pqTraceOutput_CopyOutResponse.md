@@ -8,7 +8,10 @@ Outputs formatted trace information for PostgreSQL CopyOutResponse messages, dis
 
 ## Definition
 
-
+```c
+static void
+pqTraceOutput_CopyOutResponse(FILE *f, const char *message, int *cursor)
+```
 ## Detailed Description
 This function parses and outputs trace information for CopyOutResponse messages in the PostgreSQL frontend protocol. CopyOutResponse messages are sent by the server to indicate that it is ready to send COPY data to the client. The function extracts and displays the overall format of the copy operation (text or binary) and the format codes for each column being copied.
 

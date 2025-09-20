@@ -8,7 +8,10 @@ A hook function used in PostgreSQL's psql client to provide a default value for 
 
 ## Definition
 
-
+```c
+static char *
+fetch_count_substitute_hook(char *newval)
+```
 ## Detailed Description
 The  function serves as a substitute hook for the FETCH_COUNT psql variable. Unlike the boolean validation hooks, this function handles string substitution rather than boolean parsing. When the FETCH_COUNT variable is being set and the provided value is NULL (indicating an unset or cleared variable), this hook provides a default value of "0". This ensures that the FETCH_COUNT variable always has a meaningful value. The FETCH_COUNT variable controls how many rows psql should fetch at a time when executing queries, with 0 meaning fetch all rows at once (the default behavior).
 

@@ -8,7 +8,10 @@ read_relmap_file loads and validates relation mapping data from disk files, prov
 
 ## Definition
 
-
+```c
+static void
+read_relmap_file(RelMapFile *map, char *dbpath, bool lock_held, int elevel)
+```
 ## Detailed Description
 read_relmap_file is the fundamental function that reads relation mapping files from disk into memory structures. It handles the complete process of opening, reading, validating, and verifying relation mapping files. The function implements proper locking, error handling, file I/O operations, and data integrity checks including CRC verification.
 

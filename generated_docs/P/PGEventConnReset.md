@@ -8,7 +8,12 @@ PGEventConnReset is a structure that contains event information passed to event 
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PGconn	   *conn;
+} PGEventConnDestroy;
+```
 ## Detailed Description
 PGEventConnReset is used as the event information structure when the libpq event system fires a PGEVT_CONNRESET event. This event occurs after a PostgreSQL connection has been successfully reset using either PQreset() or PQresetPoll(). The structure provides event callbacks with access to the connection object that was reset, allowing them to perform any necessary cleanup, re-initialization, or state synchronization operations that may be required after a connection reset.
 

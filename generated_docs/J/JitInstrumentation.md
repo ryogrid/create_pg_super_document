@@ -8,7 +8,28 @@ JitInstrumentation is a structure that tracks performance metrics and timing inf
 
 ## Definition
 
+```c
+typedef struct JitInstrumentation
+{
+	/* number of emitted functions */
+	size_t		created_functions;
 
+	/* accumulated time to generate code */
+	instr_time	generation_counter;
+
+	/* accumulated time to deform tuples, included into generation_counter */
+	instr_time	deform_counter;
+
+	/* accumulated time for inlining */
+	instr_time	inlining_counter;
+
+	/* accumulated time for optimization */
+	instr_time	optimization_counter;
+
+	/* accumulated time for code emission */
+	instr_time	emission_counter;
+} JitInstrumentation;
+```
 ## Detailed Description
 JitInstrumentation serves as a comprehensive performance monitoring structure for PostgreSQL's JIT compilation subsystem. It collects detailed timing and counting metrics for various phases of the JIT compilation process, enabling performance analysis and optimization of the JIT system. The structure is used throughout the executor and explain functionality to provide insights into JIT compilation overhead and effectiveness.
 

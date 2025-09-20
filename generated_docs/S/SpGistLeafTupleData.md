@@ -8,7 +8,18 @@ SpGistLeafTupleData represents the structure of leaf tuples in SP-GiST indexes, 
 
 ## Definition
 
-
+```c
+typedef struct SpGistLeafTupleData
+{
+	unsigned int tupstate:2,	/* LIVE/REDIRECT/DEAD/PLACEHOLDER */
+				size:30;		/* large enough for any palloc'able value */
+	uint16		t_info;			/* nextOffset, which links to the next tuple
+								 * in chain, plus two flag bits */
+	ItemPointerData heapPtr;	/* TID of represented heap tuple */
+	/* nulls bitmap follows if the flag bit for it is set */
+	/* leaf datum, then any included datums, follows on a MAXALIGN boundary */
+} SpGistLeafTupleData;
+```
 ## Detailed Description
 SpGistLeafTupleData defines the on-disk format for leaf tuples in SP-GiST indexes. These tuples store the actual indexed values (or derived representations like suffixes) along with heap tuple identifiers and optional included columns. The structure supports various tuple states and implements chaining for tuples belonging to the same parent node. The design optimizes space usage through bit packing and conditional nulls bitmap inclusion, while maintaining alignment requirements for efficient access.
 

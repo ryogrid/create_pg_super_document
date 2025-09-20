@@ -8,7 +8,10 @@ This function checks whether the currently connected user in a pg_dump session h
 
 ## Definition
 
-
+```c
+bool
+is_superuser(void)
+```
 ## Detailed Description
 The  function is a utility function in pg_dump that determines if the current database connection is established by a superuser. It queries the PostgreSQL server's parameter status using  to retrieve the "is_superuser" parameter value. This information is crucial for pg_dump operations as certain database objects and operations require superuser privileges to access or dump properly.
 

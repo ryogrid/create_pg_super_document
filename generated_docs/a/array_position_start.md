@@ -8,7 +8,10 @@ A PostgreSQL user function that finds the position of an element in an array, st
 
 ## Definition
 
-
+```c
+Datum
+array_position_start(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a simple wrapper function for the  SQL function. It delegates all its functionality to the common implementation . This function searches for a specified element within a one-dimensional array and returns the 1-based index of the first occurrence. The function is designed to work with the PostgreSQL function call interface and handles null inputs appropriately.
 

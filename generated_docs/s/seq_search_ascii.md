@@ -8,7 +8,10 @@ A static function that performs a case-insensitive sequential search through a n
 
 ## Definition
 
-
+```c
+static int
+seq_search_ascii(const char *name, const char *const *array, int *len)
+```
 ## Detailed Description
 This function searches through an array of null-terminated strings for a case-insensitive match to the beginning of the input string . The function is optimized by handling the first character comparison separately to improve performance. It uses  for case conversion, making it suitable only for ASCII strings. The function returns the array index of the first match found, or -1 if no match is found. It also sets the output parameter  to indicate how many characters from the input string were matched.
 

@@ -8,7 +8,9 @@ Executes shell commands from within the PostgreSQL psql client, either launching
 
 ## Definition
 
-
+```c
+struct itimerval interval;
+```
 ## Detailed Description
 The  function provides shell command execution functionality for PostgreSQL's psql client. When called with a command string, it executes that specific command using the system() function. When called with NULL, it launches an interactive shell session using the user's preferred shell (determined by environment variables).
 

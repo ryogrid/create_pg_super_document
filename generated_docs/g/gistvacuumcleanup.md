@@ -8,7 +8,10 @@ Entry point for VACUUM cleanup stage in GiST indexes, handling empty page deleti
 
 ## Definition
 
-
+```c
+IndexBulkDeleteResult *
+gistvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+```
 ## Detailed Description
 This function implements the second phase of VACUUM operations for GiST indexes, known as the cleanup stage. It serves multiple purposes: if no bulk delete was performed (stats == NULL), it performs a complete index scan to gather statistics; it handles empty page deletion and consolidation; and it validates and corrects index tuple count statistics against the underlying heap.
 

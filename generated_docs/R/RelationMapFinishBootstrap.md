@@ -8,7 +8,10 @@ Writes out the initial relation mapping files at the completion of PostgreSQL's 
 
 ## Definition
 
-
+```c
+void
+RelationMapFinishBootstrap(void)
+```
 ## Detailed Description
 The RelationMapFinishBootstrap function is called at the end of PostgreSQL's bootstrap phase to create the initial relation mapping files on disk. During bootstrap, the system catalogs and other mapped relations are created and their mappings are established in memory. This function persists those mappings to the filesystem.
 

@@ -8,7 +8,10 @@ The  function converts an open path to a closed path by setting the closed flag 
 
 ## Definition
 
-
+```c
+Datum
+path_close(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that takes a PATH geometric type as input and returns a copy of that path with its closed flag set to true. This effectively converts an open path (polyline) into a closed path (polygon). The function creates a copy of the input path to avoid modifying the original data structure, then sets the  field to true before returning the modified path.
 

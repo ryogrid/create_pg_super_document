@@ -8,7 +8,11 @@ Executes the first qualifying WHEN NOT MATCHED [BY TARGET] action in MERGE state
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecMergeNotMatched(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+					bool canSetTag)
+```
 ## Detailed Description
 ExecMergeNotMatched handles the NOT MATCHED BY TARGET case in MERGE statements, which occurs when a source tuple has no corresponding target tuple based on the join conditions. This function:
 

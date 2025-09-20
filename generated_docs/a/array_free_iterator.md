@@ -8,7 +8,10 @@ This function releases memory allocated for an ArrayIterator and its associated 
 
 ## Definition
 
-
+```c
+void
+array_free_iterator(ArrayIterator iterator)
+```
 ## Detailed Description
 The  function performs cleanup of an ArrayIterator object created by . It conditionally frees workspace arrays that were allocated for slice-based iteration (when slice_ndim > 0), then frees the iterator structure itself. This function is essential for proper memory management when using the array iteration API.
 

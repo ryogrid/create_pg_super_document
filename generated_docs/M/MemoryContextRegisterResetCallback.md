@@ -8,7 +8,11 @@ Registers a function to be called before the next context reset/delete, with cal
 
 ## Definition
 
-
+```c
+void
+MemoryContextRegisterResetCallback(MemoryContext context,
+								   MemoryContextCallback *cb)
+```
 ## Detailed Description
 MemoryContextRegisterResetCallback provides a mechanism for registering cleanup functions that will be automatically executed before a memory context is reset or deleted. This callback system allows code to perform necessary cleanup operations, such as closing files, releasing resources, or updating global state, before the context's memory is freed.
 

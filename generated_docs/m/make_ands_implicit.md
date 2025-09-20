@@ -8,7 +8,10 @@ Converts an expression clause into a list of conjunctive (AND) terms, treating i
 
 ## Definition
 
-
+```c
+List *
+make_ands_implicit(Expr *clause)
+```
 ## Detailed Description
 This function transforms a boolean expression into a list of terms that are implicitly connected by AND operations. It handles several special cases:
 

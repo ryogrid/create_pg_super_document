@@ -8,7 +8,10 @@ Computes x raised to the power of y (x^y) with extensive special value handling 
 
 ## Definition
 
-
+```c
+Datum
+numeric_power(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements exponentiation for PostgreSQL numeric types with comprehensive handling of special values including NaN and infinities. It strictly follows POSIX pow(3) semantics: NaN^0 = 1, 1^NaN = 1, while other NaN combinations return NaN. The function implements detailed rules for infinity combinations, such as |x|<1 and y=±∞, |x|>1 and y=±∞, and special cases like (-1)^∞ = 1.
 

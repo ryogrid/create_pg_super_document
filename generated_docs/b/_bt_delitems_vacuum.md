@@ -8,7 +8,12 @@ _bt_delitems_vacuum removes dead tuples and updates posting lists on B-tree leaf
 
 ## Definition
 
-
+```c
+void
+_bt_delitems_vacuum(Relation rel, Buffer buf,
+					OffsetNumber *deletable, int ndeletable,
+					BTVacuumPosting *updatable, int nupdatable)
+```
 ## Detailed Description
 _bt_delitems_vacuum is the primary function for cleaning B-tree leaf pages during VACUUM operations. It handles two types of tuple maintenance: complete removal of dead tuples and selective removal of dead heap TIDs from posting list tuples (where multiple heap TIDs point to the same index key).
 

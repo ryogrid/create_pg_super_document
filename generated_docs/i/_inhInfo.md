@@ -8,7 +8,13 @@ The  structure represents temporary inheritance information in PostgreSQL's pg_d
 
 ## Definition
 
-
+```c
+typedef struct _inhInfo
+{
+	Oid			inhrelid;		/* OID of a child table */
+	Oid			inhparent;		/* OID of its parent */
+} InhInfo;
+```
 ## Detailed Description
 The  structure is a lightweight temporary data structure used internally by pg_dump to manage table inheritance relationships. Unlike other pg_dump structures, it does not inherit from  because it represents transient state rather than a database object that needs to be dumped. This structure is used to track which tables are child tables in inheritance hierarchies during the dump process.
 

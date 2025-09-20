@@ -8,7 +8,10 @@ dropdb is the core function that implements the DROP DATABASE SQL command, handl
 
 ## Definition
 
-
+```c
+void
+dropdb(const char *dbname, bool missing_ok, bool force)
+```
 ## Detailed Description
 This comprehensive function performs the complete removal of a PostgreSQL database, including extensive validation, cleanup operations, and filesystem removal. It implements strict safety checks to prevent dropping databases that are in use, contain active connections, or have dependent resources.
 

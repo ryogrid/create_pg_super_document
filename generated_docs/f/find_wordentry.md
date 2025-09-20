@@ -8,7 +8,10 @@ Searches for a specific query operand within a TSVector using binary search, ret
 
 ## Definition
 
-
+```c
+static WordEntry *
+find_wordentry(TSVector t, TSQuery q, QueryOperand *item, int32 *nitem)
+```
 ## Detailed Description
 The  function performs a binary search through the WordEntry array of a TSVector to locate entries that match a given QueryOperand from a TSQuery. It implements an efficient search algorithm that can handle both exact matches and prefix matches depending on the item's prefix flag.
 

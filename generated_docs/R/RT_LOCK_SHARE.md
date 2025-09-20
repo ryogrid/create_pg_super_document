@@ -8,7 +8,10 @@ RT_LOCK_SHARE is a macro that generates a function name for acquiring a shared l
 
 ## Definition
 
-
+```c
+RT_SCOPE void
+RT_LOCK_SHARE(RT_RADIX_TREE * tree)
+```
 ## Detailed Description
 RT_LOCK_SHARE is part of PostgreSQL's generic radix tree implementation for shared memory usage. This macro uses the RT_MAKE_NAME helper to generate a prefixed function name that acquires a shared lock on a shared memory radix tree. The actual function signature generated would be:
 

@@ -8,7 +8,10 @@ A simplified right-trim function that removes trailing whitespace characters (sp
 
 ## Definition
 
-
+```c
+Datum
+rtrim1(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The rtrim1 function provides a streamlined version of PostgreSQL's rtrim functionality with a fixed character set of just space characters (' '). It serves as a wrapper around the internal dotrim function, specifically configured to trim only trailing spaces from text input. This function is part of PostgreSQL's Oracle compatibility layer, providing behavior similar to Oracle's RTRIM function when called without specifying a trim set.
 

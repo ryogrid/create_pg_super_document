@@ -8,7 +8,12 @@ Serializes IntervalAggState for interval aggregates into a bytea format for tran
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate),
+						   VARSIZE_ANY_EXHDR(sstate));
+```
 ## Detailed Description
 This function converts an IntervalAggState structure into a serialized bytea format using PostgreSQL's binary protocol functions. It serializes all fields of the aggregation state including the count of finite values (N), the summed interval components (time, day, month), and the counts of positive and negative infinity values. The function includes a safety check to ensure it's only called within an aggregate context. The serialized format uses PostgreSQL's standard binary protocol with 64-bit integers for counts and time components, and 32-bit integers for day and month components.
 

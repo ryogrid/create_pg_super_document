@@ -8,7 +8,10 @@ Records the initial privileges (ACLs) for a database object and its sub-objects 
 
 ## Definition
 
-
+```c
+void
+recordExtObjInitPriv(Oid objoid, Oid classoid)
+```
 ## Detailed Description
 This function is part of PostgreSQL's extension system and handles the recording of initial privileges when objects are added to extensions via ALTER EXTENSION ADD. It stores the current ACL state of objects in pg_init_privs so that privileges can be restored when the extension is dropped or when CREATE EXTENSION is run.
 

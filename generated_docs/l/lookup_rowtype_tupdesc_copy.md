@@ -8,7 +8,10 @@ Public function to lookup a row type's tuple descriptor and return an independen
 
 ## Definition
 
-
+```c
+TupleDesc
+lookup_rowtype_tupdesc_copy(Oid type_id, int32 typmod)
+```
 ## Detailed Description
 This function provides a specialized variant of tuple descriptor lookup that returns an independent copy rather than a reference-counted shared descriptor. Key characteristics include:
 

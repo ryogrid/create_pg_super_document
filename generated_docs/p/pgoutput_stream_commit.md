@@ -8,7 +8,12 @@ This function notifies downstream to apply a streamed transaction along with all
 
 ## Definition
 
-
+```c
+static void
+pgoutput_stream_commit(struct LogicalDecodingContext *ctx,
+					   ReorderBufferTXN *txn,
+					   XLogRecPtr commit_lsn)
+```
 ## Detailed Description
 The  function is a callback used in PostgreSQL's logical replication system to handle the commit of streamed transactions. It operates as part of the pgoutput plugin's transaction streaming functionality. The function ensures that the transaction commit happens outside of the streaming block while maintaining the transaction's streamed status. It sends a stream commit message to the downstream subscriber and performs cleanup of the relation synchronization cache.
 

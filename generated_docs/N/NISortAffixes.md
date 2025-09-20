@@ -8,7 +8,10 @@ NISortAffixes builds the complete affix tree structures (Prefix and Suffix trees
 
 ## Definition
 
-
+```c
+void
+NISortAffixes(IspellDict *Conf)
+```
 ## Detailed Description
 This function performs comprehensive processing of imported affix rules to create efficient data structures for spell checking operations. It handles three main tasks:
 

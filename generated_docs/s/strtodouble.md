@@ -8,7 +8,10 @@ Converts a string to a double-precision floating-point number with overflow/unde
 
 ## Definition
 
-
+```c
+bool
+strtodouble(const char *str, bool errorOK, double *dv)
+```
 ## Detailed Description
 The  function provides a robust string-to-double conversion mechanism specifically designed for pgbench operations. It wraps the standard  function with additional error checking to detect numeric overflows, underflows, and invalid input syntax. The function supports both error-reporting and silent-error modes, making it suitable for different contexts where string-to-double conversion is needed with varying error handling requirements.
 

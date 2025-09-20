@@ -8,7 +8,10 @@ The  function creates a new list by concatenating the elements of two input list
 
 ## Definition
 
-
+```c
+List *
+list_concat_copy(const List *list1, const List *list2)
+```
 ## Detailed Description
 This function provides a non-destructive alternative to  by creating a completely new list that contains all elements from both input lists in sequence. Unlike , neither input list is modified during the operation. The function is more efficient than the equivalent operation  because it creates the result list with the correct size from the beginning and uses direct memory copying.
 

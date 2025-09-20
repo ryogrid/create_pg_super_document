@@ -8,7 +8,10 @@ Implements the \du and \dg commands in psql to display information about databas
 
 ## Definition
 
-
+```c
+bool
+describeRoles(const char *pattern, bool verbose, bool showSystem)
+```
 ## Detailed Description
 The  function implements psql's \du (describe users) and \dg (describe groups) commands, which are functionally identical since PostgreSQL treats users and groups as the same entity (roles). The function queries the pg_roles system view to retrieve comprehensive information about database roles and formats it into a readable table.
 

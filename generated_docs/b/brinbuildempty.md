@@ -8,7 +8,11 @@ Creates an empty BRIN index structure consisting of only a properly initialized 
 
 ## Definition
 
-
+```c
+struct */
+	if (stats == NULL)
+		stats = palloc0_object(IndexBulkDeleteResult);
+```
 ## Detailed Description
  is responsible for creating the minimal structure for an empty BRIN index. This function is typically called during index creation when no initial data needs to be indexed, or as part of index recreation operations. 
 

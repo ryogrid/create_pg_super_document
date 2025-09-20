@@ -8,7 +8,10 @@ A comparison function used for sorting SPLITCOST structures by their cost values
 
 ## Definition
 
-
+```c
+static int
+comparecost(const void *a, const void *b)
+```
 ## Detailed Description
 The comparecost function is a qsort-compatible comparison function that compares two SPLITCOST structures based on their cost values. This function is essential for the GiST (Generalized Search Tree) index splitting algorithm, where different split options are evaluated and sorted by cost to determine the optimal way to split an index node.
 

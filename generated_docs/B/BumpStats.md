@@ -8,7 +8,11 @@ BumpStats computes and reports memory consumption statistics for a Bump memory c
 
 ## Definition
 
-
+```c
+void
+BumpStats(MemoryContext context, MemoryStatsPrintFunc printfunc,
+		  void *passthru, MemoryContextCounters *totals, bool print_to_stderr)
+```
 ## Detailed Description
 This function analyzes the memory usage of a Bump context by iterating through all blocks and calculating statistics such as total allocated space, free space, and number of blocks. It can optionally format and print these statistics via a callback function and/or accumulate the statistics into a totals counter structure. The function handles both human-readable output formatting and programmatic statistics collection for memory usage monitoring and debugging purposes.
 

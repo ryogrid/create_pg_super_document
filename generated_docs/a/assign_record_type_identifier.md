@@ -8,7 +8,10 @@ Assigns a unique identifier for the lifetime of the backend process to track the
 
 ## Definition
 
-
+```c
+uint64
+assign_record_type_identifier(Oid type_id, int32 typmod)
+```
 ## Detailed Description
 This function provides a backend-lifetime unique identification system for tuple descriptors of composite types. It handles two distinct cases with different identity semantics:
 

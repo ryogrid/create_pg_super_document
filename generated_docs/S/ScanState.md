@@ -8,7 +8,15 @@ ScanState is the base structure for executor nodes that perform scans, extending
 
 ## Definition
 
-
+```c
+typedef struct ScanState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	Relation	ss_currentRelation;
+	struct TableScanDescData *ss_currentScanDesc;
+	TupleTableSlot *ss_ScanTupleSlot;
+} ScanState;
+```
 ## Detailed Description
 ScanState serves as the foundational structure for all scan executor nodes in PostgreSQL. It extends PlanState to provide common functionality for scanning relations or processing tuples from subplans. This structure is used both for physical table scans and for nodes that process output from underlying plan nodes, making it a versatile base for many executor node types.
 

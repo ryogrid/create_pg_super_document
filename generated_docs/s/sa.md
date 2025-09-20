@@ -8,7 +8,9 @@ A simple test structure used in ECPG (Embedded C for PostgreSQL) preprocessing t
 
 ## Definition
 
-
+```c
+struct sa { int member; };
+```
 ## Detailed Description
 The  struct is a minimal test structure defined in PostgreSQL's ECPG test suite. It serves as a simple example for testing ECPG's ability to process C structures that contain variables used in embedded SQL declare sections. The structure is intentionally basic, containing only a single integer member, and is used to validate that ECPG can correctly handle struct member access operations (both direct access via '.' and pointer access via '->') when these values are used to initialize variables in embedded SQL declare sections.
 

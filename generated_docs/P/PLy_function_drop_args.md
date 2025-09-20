@@ -8,7 +8,10 @@ Frees a PLySavedArgs struct and all its Python object references without restori
 
 ## Definition
 
-
+```c
+struct */
+	pfree(savedargs);
+```
 ## Detailed Description
 This function is responsible for cleaning up a PLySavedArgs structure by properly decrementing reference counts for all Python objects it contains and then freeing the structure itself. It is used when saved arguments need to be discarded rather than restored, typically during error cleanup or when exiting from set-returning functions. The function ensures proper Python memory management by calling Py_XDECREF on all stored Python objects before deallocating the C structure.
 

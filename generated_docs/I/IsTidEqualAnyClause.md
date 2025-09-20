@@ -8,7 +8,10 @@ IsTidEqualAnyClause is a static function that identifies whether a RestrictInfo 
 
 ## Definition
 
-
+```c
+static bool
+IsTidEqualAnyClause(PlannerInfo *root, RestrictInfo *rinfo, RelOptInfo *rel)
+```
 ## Detailed Description
 This function determines if a RestrictInfo represents a clause of the form "CTID = ANY (pseudoconstant_array)", where the CTID variable belongs to the specified relation and the array contains values that don't reference the relation. It validates that the clause is a ScalarArrayOpExpr using the TID equality operator with useOr=true, ensures the first argument is a CTID variable for the target relation, and verifies that the second argument (the array) is a pseudoconstant expression. This enables the optimizer to consider TID-based access when multiple specific tuple identifiers are being sought.
 

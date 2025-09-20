@@ -8,7 +8,10 @@ Processes hot standby feedback messages from standby servers that communicate th
 
 ## Definition
 
-
+```c
+static void
+ProcessStandbyHSFeedbackMessage(void)
+```
 ## Detailed Description
 This function handles hot standby feedback messages that allow standby servers to inform the primary about their current transaction visibility requirements. The feedback contains xmin values representing the oldest transactions still visible to queries running on the standby, enabling the primary to hold back VACUUM operations that would otherwise create recovery conflicts.
 

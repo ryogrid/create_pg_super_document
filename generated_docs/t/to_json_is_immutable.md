@@ -8,7 +8,10 @@ Determines whether a given PostgreSQL data type produces immutable JSON output w
 
 ## Definition
 
-
+```c
+bool
+to_json_is_immutable(Oid typoid)
+```
 ## Detailed Description
 The  function analyzes a PostgreSQL data type (identified by its OID) to determine whether converting values of that type to JSON will produce consistent, immutable results. This function is crucial for query optimization, as immutable expressions can be pre-evaluated and cached.
 

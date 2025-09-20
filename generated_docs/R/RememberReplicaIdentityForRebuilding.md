@@ -8,7 +8,10 @@ RememberReplicaIdentityForRebuilding records replica identity index information 
 
 ## Definition
 
-
+```c
+static void
+RememberReplicaIdentityForRebuilding(Oid indoid, AlteredTableInfo *tab)
+```
 ## Detailed Description
 This function is a utility subroutine used during ALTER TABLE operations that require rebuilding indexes. When an index is marked as a replica identity (used for logical replication to identify rows), this function:
 

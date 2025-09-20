@@ -8,7 +8,34 @@ The _pivot_field structure represents a value/position from a PostgreSQL result 
 
 ## Definition
 
+```c
+typedef struct _pivot_field
+{
+	/*
+	 * Pointer obtained from PQgetvalue() for colV or colH. Each distinct
+	 * value becomes an entry in the vertical header (colV), or horizontal
+	 * header (colH). A Null value is represented by a NULL pointer.
+	 */
+	char	   *name;
 
+	/*
+	 * When a sort is requested on an alternative column, this holds
+	 * PQgetvalue() for the sort column corresponding to <name>. If <name>
+	 * appear multiple times, it's the first value in the order of the results
+	 * that is kept. A Null value is represented by a NULL pointer.
+	 */
+	char	   *sort_value;
+
+	/*
+	 * Rank of this value, starting at 0. Initially, it's the relative
+	 * position of the first appearance of <name> in the resultset. For
+	 * example, if successive rows contain B,A,C,A,D then it's B:0,A:1,C:2,D:3
+	 * When a sort column is specified, ranks get updated in a final pass to
+	 * reflect the desired order.
+	 */
+	int			rank;
+} pivot_field;
+```
 ## Detailed Description
 The _pivot_field structure is a core component of psql's crosstabview functionality, which transforms query results into a cross-tabulated (pivot table) format. Each instance represents a distinct value that appears in either the vertical header (colV) or horizontal header (colH) of the crosstab display. The structure supports both the display value and an optional sort value for ordering, along with ranking information to maintain proper positioning in the final output.
 

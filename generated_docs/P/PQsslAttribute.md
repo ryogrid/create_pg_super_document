@@ -8,7 +8,10 @@ Returns the value of a specified SSL attribute for a PostgreSQL connection, prov
 
 ## Definition
 
-
+```c
+const char *
+PQsslAttribute(PGconn *conn, const char *attribute_name)
+```
 ## Detailed Description
 PQsslAttribute is a public API function in PostgreSQL's libpq library that retrieves specific SSL attribute values from an active PostgreSQL connection. The function supports querying various SSL properties including cryptographic details, protocol information, and negotiated features.
 

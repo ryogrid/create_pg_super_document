@@ -8,7 +8,13 @@ KAXCompressReason is an enumeration that specifies the reason for compressing th
 
 ## Definition
 
-
+```c
+struct
+ * GlobalVisState for details. As shared, catalog, normal and temporary
+ * relations can have different horizons, one such state exists for each.
+ */
+static GlobalVisState GlobalVisSharedRels;
+```
 ## Detailed Description
 This enumeration is used internally by the procarray.c module to control when and why the KnownAssignedXids array should be compressed. The KnownAssignedXids array tracks transaction IDs that are known to be assigned during Hot Standby recovery, and over time it can develop gaps when transactions end. To maintain efficiency for operations like taking snapshots and searching for specific XIDs, the array needs periodic compression to remove these gaps and shift valid data to the beginning.
 

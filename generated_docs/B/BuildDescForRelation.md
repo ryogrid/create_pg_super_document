@@ -8,7 +8,9 @@ BuildDescForRelation constructs a TupleDesc (tuple descriptor) from a list of Co
 
 ## Definition
 
-
+```c
+struct dropmsgstrings *rentry;
+```
 ## Detailed Description
 BuildDescForRelation is responsible for converting a list of column definitions into a TupleDesc structure, which serves as PostgreSQL's internal representation of a relation's schema. The function iterates through each ColumnDef in the input list, extracting type information, performing permission checks, and initializing each attribute entry in the tuple descriptor. It handles various column properties including data types, collations, array dimensions, NOT NULL constraints, inheritance information, identity columns, generated columns, and storage attributes. The function also creates a TupleConstr structure when NOT NULL constraints are present.
 

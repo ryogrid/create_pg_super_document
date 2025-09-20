@@ -8,7 +8,11 @@ Constructs the compact representation of an NFA (Non-deterministic Finite Automa
 
 ## Definition
 
-
+```c
+static void
+compact(struct nfa *nfa,
+		struct cnfa *cnfa)
+```
 ## Detailed Description
 This function transforms a regular NFA into a compact representation optimized for execution. The compact form uses arrays instead of linked lists for better cache locality and faster traversal during pattern matching. The conversion process involves:
 

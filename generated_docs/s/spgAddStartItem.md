@@ -8,7 +8,10 @@ Creates and initializes the starting search item for SP-GiST scan operations, se
 
 ## Definition
 
-
+```c
+static void
+spgAddStartItem(SpGistScanOpaque so, bool isnull)
+```
 ## Detailed Description
 This function creates the initial search item that serves as the starting point for SP-GiST tree traversal. It handles both regular searches (starting from the tree root) and searches that need to include NULL values (starting from the NULL partition). The function allocates a properly initialized SpGistSearchItem, sets up the appropriate block number and offset based on whether NULL values should be searched, and adds the item to the search queue.
 

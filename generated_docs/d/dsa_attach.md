@@ -8,7 +8,10 @@ Attaches to an existing Dynamic Shared Area (DSA) using a handle obtained from a
 
 ## Definition
 
-
+```c
+dsa_area *
+dsa_attach(dsa_handle handle)
+```
 ## Detailed Description
 This function enables processes to attach to DSAs created by other processes using handles obtained via dsa_get_handle(). The handle is essentially a DSM segment handle for the first segment containing the DSA control object. The function first attempts to attach to the underlying DSM segment, reporting an error if the attachment fails (which could happen if the segment no longer exists or is inaccessible).
 

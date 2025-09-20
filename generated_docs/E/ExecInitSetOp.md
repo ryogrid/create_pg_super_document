@@ -8,7 +8,11 @@ ExecInitSetOp initializes the execution state for a SetOp plan node, setting up 
 
 ## Definition
 
-
+```c
+structure
+	 */
+	setopstate = makeNode(SetOpState);
+```
 ## Detailed Description
 ExecInitSetOp performs comprehensive initialization of a SetOp node's execution state. The function:
 

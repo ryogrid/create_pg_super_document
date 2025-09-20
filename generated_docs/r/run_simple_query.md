@@ -8,7 +8,10 @@ Executes a SQL query that is expected to return a single string value and return
 
 ## Definition
 
-
+```c
+static char *
+run_simple_query(PGconn *conn, const char *sql)
+```
 ## Detailed Description
 The  function is a utility function that executes a SQL query on a PostgreSQL connection and expects exactly one row and one column in the result set. It performs strict validation of the result set format and returns the single value as a newly allocated string.
 

@@ -8,7 +8,10 @@ Searches for an existing shared tuple descriptor that matches the given descript
 
 ## Definition
 
-
+```c
+static TupleDesc
+find_or_make_matching_shared_tupledesc(TupleDesc tupdesc)
+```
 ## Detailed Description
 This function manages shared tuple descriptors in a multi-process PostgreSQL environment. It first attempts to find an existing shared tuple descriptor that matches the input descriptor by searching the shared record table. If found, it returns the existing shared descriptor. If not found, it allocates a new typmod number, creates a shared copy of the tuple descriptor using , and registers it in both the typmod table and record table for future reuse. The function includes proper error handling and cleanup, with transaction-like semantics using PostgreSQL's PG_TRY/PG_CATCH mechanism to ensure consistency. It also handles race conditions where another process might create a matching descriptor concurrently.
 

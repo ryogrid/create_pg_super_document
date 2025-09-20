@@ -8,7 +8,10 @@ Generates and outputs the SQL statements needed to recreate a foreign server def
 
 ## Definition
 
-
+```c
+static void
+dumpForeignServer(Archive *fout, const ForeignServerInfo *srvinfo)
+```
 ## Detailed Description
 The  function is responsible for creating the SQL DDL statements necessary to recreate a foreign server object when restoring a database dump. It handles the complete lifecycle of foreign server dumping including:
 

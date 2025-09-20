@@ -8,7 +8,10 @@ Updates global visibility boundaries for all relation types by triggering a comp
 
 ## Definition
 
-
+```c
+static void
+GlobalVisUpdate(void)
+```
 ## Detailed Description
 This function serves as a simple wrapper that triggers a complete update of global visibility boundaries for shared, catalog, data, and temporary relations. It calls ComputeXidHorizons() which performs the actual horizon calculation and applies the results to the global visibility states as a side effect.
 

@@ -8,7 +8,14 @@ Evaluates and potentially adds a nestloop join path to the joinrel's pathlist, p
 
 ## Definition
 
-
+```c
+structure and submitting it to add_path().
+	 * The latter two steps are expensive enough to make this two-phase
+	 * methodology worthwhile.
+	 */
+	initial_cost_nestloop(root, &workspace, jointype,
+						  outer_path, inner_path, extra);
+```
 ## Detailed Description
 This function is the main entry point for considering a nestloop join strategy during query planning. It performs several crucial validation steps before creating and adding a nestloop path to the join relation. The function implements a two-phase optimization approach: first doing a quick precheck with cost estimation, then creating the full path structure only if the path shows promise.
 

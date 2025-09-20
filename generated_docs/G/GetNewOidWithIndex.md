@@ -8,7 +8,10 @@ GetNewOidWithIndex generates a new unique OID for insertion into a system catalo
 
 ## Definition
 
-
+```c
+Oid
+GetNewOidWithIndex(Relation relation, Oid indexId, AttrNumber oidcolumn)
+```
 ## Detailed Description
 This function generates a unique OID for use in system catalogs by repeatedly calling GetNewObjectId() and checking for uniqueness against an existing index. It uses SnapshotAny to see uncommitted rows, reducing the risk of transient conflicts. The function includes comprehensive retry logic with exponential backoff logging to handle cases where many OIDs are already in use. It's designed for system catalogs which typically have relatively few entries compared to the full OID space. The function includes special handling for bootstrap mode and prevents OID generation for pg_type during pg_upgrade to avoid conflicts.
 

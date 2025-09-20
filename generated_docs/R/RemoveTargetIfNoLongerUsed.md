@@ -8,7 +8,10 @@ Checks whether the list of related predicate locks is empty for a predicate lock
 
 ## Definition
 
-
+```c
+static void
+RemoveTargetIfNoLongerUsed(PREDICATELOCKTARGET *target, uint32 targettaghash)
+```
 ## Detailed Description
 RemoveTargetIfNoLongerUsed is a static function in PostgreSQL's predicate locking system that performs cleanup of unused predicate lock targets. The function checks if a given predicate lock target still has any associated locks by examining its predicateLocks list. If the list is empty, meaning no transactions are holding locks on this target, the function removes the target from the PredicateLockTargetHash to free up memory and maintain hash table efficiency.
 

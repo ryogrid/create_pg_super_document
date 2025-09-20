@@ -8,7 +8,12 @@ Selects the best statistics object from a list based on specified criteria, prio
 
 ## Definition
 
-
+```c
+StatisticExtInfo *
+choose_best_statistics(List *stats, char requiredkind, bool inh,
+					   Bitmapset **clause_attnums, List **clause_exprs,
+					   int nclauses)
+```
 ## Detailed Description
 This function implements a selection algorithm to choose the most appropriate statistics object for query optimization from a list of available statistics. It uses a two-tier selection criteria: first, it maximizes the number of matched attributes and expressions from unestimated clauses, then breaks ties by preferring statistics objects with fewer total keys. The function iterates through all statistics, filtering by required kind and inheritance flag, then evaluates coverage of clauses using both attribute numbers and expressions. Only statistics objects that match at least two attributes/expressions are considered candidates.
 

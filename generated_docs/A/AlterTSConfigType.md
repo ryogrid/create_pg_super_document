@@ -8,7 +8,24 @@ AlterTSConfigType is an enumeration that specifies the type of alteration operat
 
 ## Definition
 
+```c
+typedef struct AlterTSConfigurationStmt
+{
+	NodeTag		type;
+	AlterTSConfigType kind;		/* ALTER_TSCONFIG_ADD_MAPPING, etc */
+	List	   *cfgname;		/* qualified name (list of String) */
 
+	/*
+	 * dicts will be non-NIL if ADD/ALTER MAPPING was specified. If dicts is
+	 * NIL, but tokentype isn't, DROP MAPPING was specified.
+	 */
+	List	   *tokentype;		/* list of String */
+	List	   *dicts;			/* list of list of String */
+	bool		override;		/* if true - remove old variant */
+	bool		replace;		/* if true - replace dictionary by another */
+	bool		missing_ok;		/* for DROP - skip error if missing? */
+} AlterTSConfigurationStmt;
+```
 ## Detailed Description
 This enumeration defines the different types of modifications that can be made to PostgreSQL text search configurations through the ALTER TEXT SEARCH CONFIGURATION statement. Text search configurations define how documents are processed for full-text search by specifying which dictionaries to use for different types of tokens. Each enum value represents a specific type of mapping manipulation within a text search configuration.
 

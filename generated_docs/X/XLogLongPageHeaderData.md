@@ -8,7 +8,15 @@ A data structure representing the extended header used for XLOG pages when the X
 
 ## Definition
 
-
+```c
+typedef struct XLogLongPageHeaderData
+{
+	XLogPageHeaderData std;		/* standard header fields */
+	uint64		xlp_sysid;		/* system identifier from pg_control */
+	uint32		xlp_seg_size;	/* just as a cross-check */
+	uint32		xlp_xlog_blcksz;	/* just as a cross-check */
+} XLogLongPageHeaderData;
+```
 ## Detailed Description
 XLogLongPageHeaderData extends the standard XLogPageHeaderData with additional fields used for file identification and validation. This extended header is primarily used in the first page of XLOG files when the XLP_LONG_HEADER flag is set. The additional fields provide system identification information and cross-check values to ensure file integrity and proper file identification across different PostgreSQL instances.
 

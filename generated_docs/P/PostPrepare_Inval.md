@@ -8,7 +8,10 @@ Cleans up invalidation state after successful PREPARE by undoing syscache change
 
 ## Definition
 
-
+```c
+void
+PostPrepare_Inval(void)
+```
 ## Detailed Description
 PostPrepare_Inval is called after a successful PREPARE statement in two-phase commit transactions. When a transaction is prepared, it exists in a limbo state where the transaction has been durably recorded but is not yet visible to other transactions. During this state, the system must maintain cache consistency by acting as if the transaction had aborted rather than committed.
 

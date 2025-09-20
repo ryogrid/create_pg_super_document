@@ -8,7 +8,10 @@ The  function allocates memory for a new chromosome structure and its associated
 
 ## Definition
 
-
+```c
+Chromosome *
+alloc_chromo(PlannerInfo *root, int string_length)
+```
 ## Detailed Description
 This function is a memory allocation utility within the GEQO framework that creates a new chromosome data structure. It performs two key memory allocations: one for the Chromosome structure itself and another for the gene string array that will hold the chromosome's genetic information. The function uses PostgreSQL's  memory allocation function, which provides automatic memory management within the current memory context.
 

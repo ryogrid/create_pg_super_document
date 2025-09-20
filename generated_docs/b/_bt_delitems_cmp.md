@@ -8,7 +8,10 @@ A comparator function used to restore the deltids array back to its original lea
 
 ## Definition
 
-
+```c
+static int
+_bt_delitems_cmp(const void *a, const void *b)
+```
 ## Detailed Description
 This is a simple comparison function designed for use with sorting algorithms (such as ) to order  structures by their ID field. The function is specifically used by  to restore a deltids array back to its original leaf-page-wise sort order.
 

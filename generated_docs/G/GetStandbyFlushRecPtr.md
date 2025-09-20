@@ -8,7 +8,10 @@ GetStandbyFlushRecPtr returns the latest WAL position that has been safely flush
 
 ## Definition
 
-
+```c
+XLogRecPtr
+GetStandbyFlushRecPtr(TimeLineID *tli)
+```
 ## Detailed Description
 GetStandbyFlushRecPtr determines the safe WAL position that can be used for cascading replication or slot synchronization operations on a standby server. The function implements a dual-source strategy to maximize the available WAL range:
 

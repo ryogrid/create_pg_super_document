@@ -8,7 +8,10 @@ ValidatePgVersion verifies that the PostgreSQL data directory version is compati
 
 ## Definition
 
-
+```c
+void
+ValidatePgVersion(const char *path)
+```
 ## Detailed Description
 This function performs critical version compatibility checking during PostgreSQL startup. It reads the PG_VERSION file located in the specified data directory path and compares the major version number with the current server's major version. The function ensures that the data directory was initialized by a compatible PostgreSQL version, preventing potential data corruption or incompatibility issues that could arise from version mismatches.
 

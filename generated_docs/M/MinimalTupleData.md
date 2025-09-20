@@ -8,7 +8,28 @@ MinimalTupleData is a streamlined tuple header structure used for temporary tupl
 
 ## Definition
 
+```c
+struct MinimalTupleData
+{
+	uint32		t_len;			/* actual length of minimal tuple */
 
+	char		mt_padding[MINIMAL_TUPLE_PADDING];
+
+	/* Fields below here must match HeapTupleHeaderData! */
+
+	uint16		t_infomask2;	/* number of attributes + various flags */
+
+	uint16		t_infomask;		/* various flag bits, see below */
+
+	uint8		t_hoff;			/* sizeof header incl. bitmap, padding */
+
+	/* ^ - 23 bytes - ^ */
+
+	bits8		t_bits[FLEXIBLE_ARRAY_MEMBER];	/* bitmap of NULLs */
+
+	/* MORE DATA FOLLOWS AT END OF STRUCT */
+};
+```
 ## Detailed Description
 MinimalTupleData represents a space-efficient tuple header designed for temporary operations where full transaction visibility information is not required. Unlike HeapTupleHeaderData, it omits transaction IDs and other MVCC-related fields, making it suitable for intermediate results, sorting operations, and other scenarios where tuples don't need to participate in the full transaction visibility system.
 

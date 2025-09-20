@@ -8,7 +8,22 @@ LockReleaseAll releases all locks of a specified lock method held by the current
 
 ## Definition
 
+```c
+structures, we must acquire it before attempting
+			 * to release the lock via the fast-path.  We will continue to
+			 * hold the LWLock until we're done scanning the locallock table,
+			 * unless we hit a transferred fast-path lock.  (XXX is this
+			 * really such a good idea?  There could be a lot of entries ...)
+			 */
+			if (!have_fast_path_lwlock)
+			{
+				LWLockAcquire(&MyProc->fpInfoLock, LW_EXCLUSIVE);
+				have_fast_path_lwlock = true;
+			}
 
+			/* Attempt fast-path release. */
+			relid = locallock->tag.lock.locktag_field2;
+```
 ## Detailed Description
 LockReleaseAll is a comprehensive lock cleanup function that releases multiple locks held by the current process for a specific lock method. The function operates in two main phases:
 

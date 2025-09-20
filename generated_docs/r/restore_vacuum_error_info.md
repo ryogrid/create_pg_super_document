@@ -8,7 +8,11 @@ Restores vacuum error information from a previously saved state, complementing t
 
 ## Definition
 
-
+```c
+static void
+restore_vacuum_error_info(LVRelState *vacrel,
+						  const LVSavedErrInfo *saved_vacrel)
+```
 ## Detailed Description
 The `restore_vacuum_error_info` function restores the vacuum error context from a previously saved state. It is the complement to `update_vacuum_error_info` and is used to revert the error context to a previous state after temporary changes have been made during nested vacuum operations.
 

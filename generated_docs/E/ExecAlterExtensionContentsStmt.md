@@ -8,7 +8,11 @@ Executes ALTER EXTENSION ADD/DROP commands to modify the contents of an extensio
 
 ## Definition
 
-
+```c
+ObjectAddress
+ExecAlterExtensionContentsStmt(AlterExtensionContentsStmt *stmt,
+							   ObjectAddress *objAddr)
+```
 ## Detailed Description
 This function implements the core logic for ALTER EXTENSION ADD/DROP SQL commands. It validates that the specified object type can be added to extensions, resolves both the extension and target object addresses, performs necessary permission checks, and delegates to a recursive helper function to handle the actual modification and any dependent objects. The function ensures proper concurrency control through strategic locking and maintains referential integrity throughout the operation.
 

@@ -8,7 +8,10 @@ Sets up parser hooks for parsing a SQL function body by configuring column refer
 
 ## Definition
 
-
+```c
+void
+sql_fn_parser_setup(struct ParseState *pstate, SQLFunctionParseInfoPtr pinfo)
+```
 ## Detailed Description
 This function configures a ParseState structure with the necessary hooks for parsing SQL function bodies. It sets up specialized handlers for column references and parameter references that are specific to SQL function parsing context. The function disables the pre-column reference hook, assigns custom post-column reference and parameter reference hooks, and stores the function parse information for use by the hooks.
 

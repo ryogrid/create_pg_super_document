@@ -8,7 +8,10 @@ Performs regular expression-based text replacement with pattern matching flags, 
 
 ## Definition
 
-
+```c
+Datum
+textregexreplace(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the PostgreSQL  SQL function with four arguments: source text, pattern, replacement, and flags. It provides pattern-based text substitution using regular expressions with configurable matching options.
 

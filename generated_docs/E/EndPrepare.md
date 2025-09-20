@@ -8,7 +8,10 @@ EndPrepare completes the two-phase commit state file preparation by finalizing t
 
 ## Definition
 
-
+```c
+void
+EndPrepare(GlobalTransaction gxact)
+```
 ## Detailed Description
 EndPrepare finalizes the two-phase commit preparation process initiated by StartPrepare. It adds an end sentinel record to the 2PC records, updates the total length in the file header, handles replication origin information if present, validates the data size doesn't exceed limits, and writes the entire state data to WAL within a critical section. The function ensures proper checkpoint coordination, marks the transaction as prepared, and handles synchronous replication requirements.
 

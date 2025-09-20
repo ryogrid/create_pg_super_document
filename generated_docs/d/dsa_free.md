@@ -8,7 +8,10 @@ Frees memory that was previously allocated with dsa_allocate or dsa_allocate_ext
 
 ## Definition
 
-
+```c
+void
+dsa_free(dsa_area *area, dsa_pointer dp)
+```
 ## Detailed Description
 This function deallocates memory within a DSA area that was previously allocated using  or . The function handles two different types of allocations:
 

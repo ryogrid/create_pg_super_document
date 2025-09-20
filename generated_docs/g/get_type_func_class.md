@@ -8,7 +8,12 @@ Classifies a PostgreSQL data type by its functional characteristics and returns 
 
 ## Definition
 
-
+```c
+struct_array() since the array data is just going to look like
+		 * a C array of values.
+		 */
+		arr = DatumGetArrayTypeP(proallargtypes);
+```
 ## Detailed Description
 This function centralizes the logic for classifying PostgreSQL data types into functional categories that determine how functions returning those datatypes should be handled. It examines the type's characteristics and returns a TypeFuncClass enumeration value indicating the appropriate handling strategy.
 

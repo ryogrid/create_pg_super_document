@@ -8,7 +8,10 @@ Determines a suitable column name for target list entries when no explicit name 
 
 ## Definition
 
-
+```c
+char *
+FigureColname(Node *node)
+```
 ## Detailed Description
 FigureColname serves as the main entry point for automatic column name generation in PostgreSQL's target list processing. When a SELECT list item lacks an explicit alias (AS clause), this function analyzes the untransformed parse tree to derive an appropriate column name.
 

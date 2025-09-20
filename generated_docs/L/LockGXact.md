@@ -8,7 +8,10 @@ Locates a prepared transaction by its Global Identifier (GID) and locks it for e
 
 ## Definition
 
-
+```c
+static GlobalTransaction
+LockGXact(const char *gid, Oid user)
+```
 ## Detailed Description
 LockGXact is responsible for finding and securing exclusive access to a prepared transaction identified by its GID. The function performs comprehensive validation including checking transaction validity, ownership permissions, database context, and current lock status. It ensures that only the transaction owner or a superuser can access the prepared transaction, and that the operation is performed from the correct database context. Once validated, it marks the transaction as locked to prevent concurrent access and registers the current backend as the locking owner.
 

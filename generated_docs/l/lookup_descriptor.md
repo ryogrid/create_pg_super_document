@@ -8,7 +8,9 @@ Searches for an existing SQL descriptor by name and optionally by connection, re
 
 ## Definition
 
-
+```c
+struct descriptor *i;
+```
 ## Detailed Description
 This function searches through the global linked list of descriptors to find a descriptor with the specified name. It handles connection-specific lookups and can automatically bind a descriptor to a connection if the descriptor exists without a connection and a connection is specified. The function validates that the descriptor name starts with a double quote character before performing the search.
 

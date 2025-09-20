@@ -8,7 +8,11 @@ A factory function that creates and initializes a new Snowball environment struc
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * armenian_UTF_8_create_env(void)
+```
 ## Detailed Description
 The  function serves as the environment initialization routine for Armenian text stemming. It creates a properly configured SN_env structure by calling the generic  function with parameters specific to the Armenian stemming algorithm requirements.
 

@@ -8,7 +8,10 @@ The GiST union function for inet data types that computes the union of multiple 
 
 ## Definition
 
-
+```c
+Datum
+inet_gist_union(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the GiST union method for inet/cidr data types, which is called during index construction and maintenance to combine multiple child keys into a single parent key. The union operation creates a key that represents the tightest possible bounding box containing all input inet values.
 

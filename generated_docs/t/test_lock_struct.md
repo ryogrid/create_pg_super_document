@@ -8,7 +8,14 @@ A test structure used in PostgreSQL's spinlock testing program to verify correct
 
 ## Definition
 
-
+```c
+struct test_lock_struct
+		{
+			char		data_before[4];
+			slock_t		lock;
+			char		data_after[4];
+		}			struct_w_lock;
+```
 ## Detailed Description
 The  is a simple test structure designed specifically for PostgreSQL's spinlock validation program (compiled when  is defined). This structure serves as a container for testing spinlock operations while ensuring that the spinlock implementation doesn't corrupt adjacent memory locations. The structure is deliberately designed with padding characters ( and ) on either side of the actual spinlock to detect memory corruption issues that might occur due to incorrect spinlock size assumptions or implementation bugs.
 

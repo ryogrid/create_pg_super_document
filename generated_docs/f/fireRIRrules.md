@@ -8,7 +8,12 @@ Applies all RIR (Rules Instead Rewrite) rules on each range table entry in the g
 
 ## Definition
 
-
+```c
+structuring so that
+	 * we only need to process the qual this way once.)
+	 */
+	(void) acquireLocksOnSubLinks(new_qual, &context);
+```
 ## Detailed Description
 fireRIRrules is the core function of PostgreSQL's rule rewriting system that processes a query tree to apply RIR rules. It systematically examines each range table entry (RTE) in the query, applying appropriate SELECT rules (typically from views) while maintaining recursion detection through the activeRIRs list. The function handles multiple aspects of query rewriting including:
 

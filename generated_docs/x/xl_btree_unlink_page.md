@@ -8,7 +8,28 @@ WAL record structure for the second stage of B-tree page deletion, permanently u
 
 ## Definition
 
+```c
+typedef struct xl_btree_unlink_page
+{
+	BlockNumber leftsib;		/* target block's left sibling, if any */
+	BlockNumber rightsib;		/* target block's right sibling */
+	uint32		level;			/* target block's level */
+	FullTransactionId safexid;	/* target block's BTPageSetDeleted() XID */
 
+	/*
+	 * Information needed to recreate a half-dead leaf page with correct
+	 * topparent link.  The fields are only used when deletion operation's
+	 * target page is an internal page.  REDO routine creates half-dead page
+	 * from scratch to keep things simple (this is the same convenient
+	 * approach used for the target page itself).
+	 */
+	BlockNumber leafleftsib;
+	BlockNumber leafrightsib;
+	BlockNumber leaftopparent;	/* next child down in the subtree */
+
+	/* xl_btree_metadata FOLLOWS IF XLOG_BTREE_UNLINK_PAGE_META */
+} xl_btree_unlink_page;
+```
 ## Detailed Description
 The xl_btree_unlink_page structure represents the second and final phase of B-tree page deletion. After a page has been marked half-dead using xl_btree_mark_page_halfdead, this operation permanently unlinks the target page from its siblings and marks it as a deleted tombstone. The structure supports deletion of both leaf pages and internal pages, with special handling for leaf page recreation when deleting internal nodes in a subtree.
 

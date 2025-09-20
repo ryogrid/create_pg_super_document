@@ -8,7 +8,15 @@ TypeCast represents a CAST expression in PostgreSQL's parse tree, used to explic
 
 ## Definition
 
-
+```c
+typedef struct TypeCast
+{
+	NodeTag		type;
+	Node	   *arg;			/* the expression being casted */
+	TypeName   *typeName;		/* the target type */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} TypeCast;
+```
 ## Detailed Description
 TypeCast is a parse tree node that represents explicit type casting operations in SQL statements (e.g., CAST(expression AS type) or expression::type). It encapsulates both the source expression that needs to be converted and the target type specification. This node is created during parsing when the parser encounters type casting syntax and is later transformed during the analysis phase into appropriate coercion functions or operations.
 

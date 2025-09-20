@@ -8,7 +8,10 @@ Converts a PostgreSQL numeric value to a 16-bit signed integer (smallint), perfo
 
 ## Definition
 
-
+```c
+Datum
+numeric_int2(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `numeric_int2` function converts a PostgreSQL `Numeric` type to a 16-bit signed integer (`int16`). It handles the conversion by first checking for special numeric values (NaN and infinity), then converting to an intermediate 64-bit integer representation, and finally performing range validation to ensure the result fits within the smallint range (-32768 to 32767). The function follows PostgreSQL's standard function calling convention using the `PG_FUNCTION_ARGS` macro.
 

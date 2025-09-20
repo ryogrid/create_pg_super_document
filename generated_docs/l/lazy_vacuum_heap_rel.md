@@ -8,7 +8,10 @@ Performs the second pass over the heap during the two-pass vacuum strategy, conv
 
 ## Definition
 
-
+```c
+static void
+lazy_vacuum_heap_rel(LVRelState *vacrel)
+```
 ## Detailed Description
 This function implements the heap vacuuming phase of PostgreSQL's lazy vacuum process. It operates as the second pass in a two-pass strategy where the first pass identifies dead tuples and the second pass actually removes them from heap pages. The function iterates through all dead items collected during index vacuuming, visiting each page that contains dead items and marking them as LP_UNUSED. This allows the space to be reclaimed for future use.
 

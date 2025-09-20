@@ -8,7 +8,10 @@ Converts a null-terminated string to lowercase using locale-appropriate case con
 
 ## Definition
 
-
+```c
+char *
+lowerstr(const char *str)
+```
 ## Detailed Description
 This function is a convenience wrapper around lowerstr_with_len() that handles null-terminated strings. It automatically calculates the string length using strlen() and then delegates to the length-aware version for the actual case conversion. The function handles both single-byte and multi-byte character encodings appropriately.
 

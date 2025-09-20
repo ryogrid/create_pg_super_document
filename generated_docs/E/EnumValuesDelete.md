@@ -8,7 +8,10 @@ Removes all pg_enum entries for a specified enum type during enum type deletion 
 
 ## Definition
 
-
+```c
+void
+EnumValuesDelete(Oid enumTypeOid)
+```
 ## Detailed Description
 EnumValuesDelete is a cleanup function that removes all enum value entries from the pg_enum catalog table for a given enum type. This function is typically called during DROP TYPE operations to ensure complete removal of enum-related catalog entries.
 

@@ -8,7 +8,10 @@ Computes the full 128-bit product of two 64-bit unsigned integers, returning the
 
 ## Definition
 
-
+```c
+static inline uint64
+umul128(const uint64 a, const uint64 b, uint64 *const productHi)
+```
 ## Detailed Description
 The  function performs 64-bit × 64-bit → 128-bit unsigned multiplication. This is part of the Ryu floating-point number formatting algorithm used in PostgreSQL for fast and accurate double-precision floating-point to string conversion. The function has two implementations depending on compiler intrinsic availability:
 

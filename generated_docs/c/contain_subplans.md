@@ -8,7 +8,10 @@ Recursively searches for subplan nodes within a clause, returning true if any su
 
 ## Definition
 
-
+```c
+bool
+contain_subplans(Node *clause)
+```
 ## Detailed Description
 This function serves as a wrapper around  to detect the presence of subplans within an expression tree. It performs a recursive search through the given clause to identify any SubLink nodes, which indicate the presence of subqueries that will likely become subplans during query execution.
 

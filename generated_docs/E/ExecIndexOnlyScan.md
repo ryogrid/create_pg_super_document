@@ -8,7 +8,10 @@ The main execution entry point for index-only scan nodes, coordinating runtime k
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecIndexOnlyScan(PlanState *pstate)
+```
 ## Detailed Description
 ExecIndexOnlyScan serves as the primary execution function for index-only scan plan nodes within PostgreSQL's executor framework. The function acts as a thin wrapper that handles runtime key initialization when necessary, then delegates the actual scanning work to the generic ExecScan framework.
 

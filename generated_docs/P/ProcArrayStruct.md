@@ -8,7 +8,38 @@ ProcArrayStruct is the core shared memory structure that maintains global transa
 
 ## Definition
 
+```c
+typedef struct ProcArrayStruct
+{
+	int			numProcs;		/* number of valid procs entries */
+	int			maxProcs;		/* allocated size of procs array */
 
+	/*
+	 * Known assigned XIDs handling
+	 */
+	int			maxKnownAssignedXids;	/* allocated size of array */
+	int			numKnownAssignedXids;	/* current # of valid entries */
+	int			tailKnownAssignedXids;	/* index of oldest valid element */
+	int			headKnownAssignedXids;	/* index of newest element, + 1 */
+
+	/*
+	 * Highest subxid that has been removed from KnownAssignedXids array to
+	 * prevent overflow; or InvalidTransactionId if none.  We track this for
+	 * similar reasons to tracking overflowing cached subxids in PGPROC
+	 * entries.  Must hold exclusive ProcArrayLock to change this, and shared
+	 * lock to read it.
+	 */
+	TransactionId lastOverflowedXid;
+
+	/* oldest xmin of any replication slot */
+	TransactionId replication_slot_xmin;
+	/* oldest catalog xmin of any replication slot */
+	TransactionId replication_slot_catalog_xmin;
+
+	/* indexes into allProcs[], has PROCARRAY_MAXPROCS entries */
+	int			pgprocnos[FLEXIBLE_ARRAY_MEMBER];
+} ProcArrayStruct;
+```
 ## Detailed Description
 ProcArrayStruct serves as the central repository for tracking all active backend processes and their transaction states in PostgreSQL's shared memory. This structure is critical for implementing MVCC (Multi-Version Concurrency Control) by maintaining information about which transactions are currently running, which XIDs have been assigned, and what the global transaction visibility horizons are.
 

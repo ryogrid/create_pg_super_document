@@ -8,7 +8,10 @@ createdb_failure_callback is an error cleanup callback function that handles rol
 
 ## Definition
 
-
+```c
+static void
+createdb_failure_callback(int code, Datum arg)
+```
 ## Detailed Description
 This callback function is registered with the PostgreSQL error handling system to perform necessary cleanup operations when CREATE DATABASE operations fail after partial completion. It handles different cleanup scenarios based on the database creation strategy used.
 

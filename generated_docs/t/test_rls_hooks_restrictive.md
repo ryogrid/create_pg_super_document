@@ -8,7 +8,9 @@ Test hook function that generates restrictive Row Level Security (RLS) policies 
 
 ## Definition
 
-
+```c
+struct_array_builtin(&role, 1, OIDOID);
+```
 ## Detailed Description
 The  function is a test implementation of a Row Level Security restrictive policy hook. It dynamically creates RLS policies that restrict access to rows where the `supervisor` column matches the current PostgreSQL user. This function complements the permissive policy hook to test PostgreSQL's complete RLS hook infrastructure.
 

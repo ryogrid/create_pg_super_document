@@ -8,7 +8,10 @@ Backend function that formats PostgreSQL type names with mandatory schema qualif
 
 ## Definition
 
-
+```c
+char *
+format_type_be_qualified(Oid type_oid)
+```
 ## Detailed Description
  is a specialized variant of the type formatting functions that enforces schema qualification on type names regardless of the current search_path settings. This ensures that the returned type name is unambiguous and can be resolved correctly even when used in different schema contexts.
 

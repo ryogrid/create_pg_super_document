@@ -8,7 +8,10 @@ Frees shared iterator state and associated shared memory structures for TID bitm
 
 ## Definition
 
-
+```c
+void
+tbm_free_shared_area(dsa_area *dsa, dsa_pointer dp)
+```
 ## Detailed Description
 The `tbm_free_shared_area` function manages the cleanup of shared TID bitmap iterator state in parallel query execution scenarios. It uses atomic reference counting to safely deallocate shared memory structures when they are no longer needed by any parallel worker. The function handles three types of shared structures: the main page table (pagetable), shared pages arrays (spages), and shared chunks arrays (schunks).
 

@@ -8,7 +8,15 @@ A static helper function that calculates parameters for the union of multiple Gi
 
 ## Definition
 
-
+```c
+static void
+calc_inet_union_params(GISTENTRY *ent,
+					   int m, int n,
+					   int *minfamily_p,
+					   int *maxfamily_p,
+					   int *minbits_p,
+					   int *commonbits_p)
+```
 ## Detailed Description
 This function analyzes a range of GISTENTRY elements (from index m to n inclusive) and computes four key union parameters that describe the collective characteristics of the inet keys:
 

@@ -8,7 +8,10 @@ TidRangeRecheck is an access method routine used to recheck a tuple during EvalP
 
 ## Definition
 
-
+```c
+static bool
+TidRangeRecheck(TidRangeScanState *node, TupleTableSlot *slot)
+```
 ## Detailed Description
 This function serves as the recheck routine for TID range scans during EvalPlanQual (EPQ) processing. EvalPlanQual is PostgreSQL's mechanism for handling concurrent updates in READ COMMITTED isolation level transactions. When a tuple needs to be rechecked due to concurrent modifications, this function is called. Currently, the implementation simply returns true, indicating that all tuples retrieved by TID range scans are considered valid during recheck operations. This simplified approach is appropriate because TID-based scans directly target specific physical tuple locations.
 

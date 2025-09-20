@@ -8,7 +8,12 @@ ATAddCheckConstraint adds a check constraint to a table and recursively applies 
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATAddCheckConstraint(List **wqueue, AlteredTableInfo *tab, Relation rel,
+					 Constraint *constr, bool recurse, bool recursing,
+					 bool is_readd, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function implements check constraint addition with sophisticated inheritance handling. Unlike other ALTER TABLE operations that use prep-time recursion, this function performs execution-time recursion to ensure all constraints across the inheritance hierarchy receive the same name. This is critical because PostgreSQL requires related constraints to have identical names to be recognized as part of the same logical constraint.
 

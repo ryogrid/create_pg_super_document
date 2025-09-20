@@ -8,7 +8,10 @@ Reads and parses the final message received from the client in a SCRAM authentic
 
 ## Definition
 
-
+```c
+static void
+read_client_final_message(scram_state *state, const char *input)
+```
 ## Detailed Description
 This function processes the client-final-message as part of the SCRAM authentication protocol (RFC 5802). It performs several critical validation and parsing tasks:
 

@@ -8,7 +8,11 @@ Appends appropriate vowel sounds ('ı', 'i', 'u', 'ü') to Turkish word stems en
 
 ## Definition
 
+```c
+}
 
+static int r_append_U_to_stems_ending_with_d_or_g(struct SN_env * z)
+```
 ## Detailed Description
 This function implements Turkish vowel harmony rules by appending the appropriate vowel to stems ending with 'd' or 'g' consonants. The function follows Turkish phonological rules where the choice of appended vowel depends on the preceding vowel context:
 

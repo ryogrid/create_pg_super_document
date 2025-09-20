@@ -8,7 +8,10 @@ RT_UNLOCK is a macro that generates a function name for releasing a lock on a sh
 
 ## Definition
 
-
+```c
+RT_SCOPE void
+RT_UNLOCK(RT_RADIX_TREE * tree)
+```
 ## Detailed Description
 RT_UNLOCK is part of PostgreSQL's generic radix tree implementation for shared memory usage. This macro uses the RT_MAKE_NAME helper to generate a prefixed function name that releases any type of lock (exclusive or shared) previously acquired on a shared memory radix tree. The actual function signature generated would be:
 

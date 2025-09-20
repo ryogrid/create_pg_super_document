@@ -8,7 +8,10 @@ Cleans up active snapshots and releases associated resources when a subtransacti
 
 ## Definition
 
-
+```c
+void
+AtSubAbort_Snapshot(int level)
+```
 ## Detailed Description
 This function is called during subtransaction abort to clean up all active snapshots that were created at or above the specified subtransaction level. It performs a complete cleanup by:
 

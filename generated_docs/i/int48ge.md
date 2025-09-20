@@ -8,7 +8,10 @@ A PostgreSQL function that compares a 32-bit integer with a 64-bit integer to de
 
 ## Definition
 
-
+```c
+Datum
+int48ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `int48ge` function implements the ">=" (greater than or equal) comparison operator between an `int4` (32-bit integer) and an `int8` (64-bit integer) in PostgreSQL's type system. It extracts two arguments from the function call context - a 32-bit integer as the first argument and a 64-bit integer as the second argument, then performs the comparison and returns a boolean result.
 

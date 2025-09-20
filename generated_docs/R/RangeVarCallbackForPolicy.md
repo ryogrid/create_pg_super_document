@@ -8,7 +8,11 @@ A callback function used with RangeVarGetRelidExtended() to validate that a rela
 
 ## Definition
 
-
+```c
+static void
+RangeVarCallbackForPolicy(const RangeVar *rv, Oid relid, Oid oldrelid,
+						  void *arg)
+```
 ## Detailed Description
 This function serves as a validation callback that is invoked during relation lookup operations for row-level security policy commands. It performs three critical security and type checks:
 

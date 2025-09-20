@@ -8,7 +8,10 @@ A static utility function that checks if a specified column is covered by a colu
 
 ## Definition
 
-
+```c
+static bool
+column_in_column_list(int attnum, Bitmapset *columns)
+```
 ## Detailed Description
 This function determines whether a given column (identified by its attribute number) is included in a specified column list represented as a Bitmapset. The function handles a special case where a NULL column list is interpreted as covering all columns, effectively meaning no column filtering is applied.
 

@@ -8,7 +8,11 @@ A static function that reconstructs the CREATE RULE command text for a given pg_
 
 ## Definition
 
-
+```c
+static void
+make_ruledef(StringInfo buf, HeapTuple ruletup, TupleDesc rulettc,
+			 int prettyFlags)
+```
 ## Detailed Description
 The  function is responsible for reconstructing the complete CREATE RULE command from a PostgreSQL rule tuple stored in the pg_rewrite system catalog. This function extracts all rule attributes from the tuple and formats them into the standard SQL CREATE RULE syntax. It handles different event types (SELECT, UPDATE, INSERT, DELETE), optional qualifications (WHERE clauses), and rule actions. The function also handles formatting options and produces properly qualified object names.
 

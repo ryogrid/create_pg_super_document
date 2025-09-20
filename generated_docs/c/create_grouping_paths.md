@@ -8,7 +8,14 @@ Builds a new upper relation containing paths for grouping and/or aggregation, ha
 
 ## Definition
 
-
+```c
+static RelOptInfo *
+create_grouping_paths(PlannerInfo *root,
+					  RelOptInfo *input_rel,
+					  PathTarget *target,
+					  bool target_parallel_safe,
+					  grouping_sets_data *gd)
+```
 ## Detailed Description
 This function creates execution paths for GROUP BY and aggregate operations by building an upper relation that contains different strategies for performing grouping and aggregation. It analyzes the query characteristics to determine which grouping methods are feasible (sort-based, hash-based, partial aggregation) and delegates to specialized path creation functions.
 

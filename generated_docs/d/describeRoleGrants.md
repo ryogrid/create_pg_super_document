@@ -8,7 +8,10 @@ A psql command function that implements the \\drg (describe role grants) metacom
 
 ## Definition
 
-
+```c
+bool
+describeRoleGrants(const char *pattern, bool showSystem)
+```
 ## Detailed Description
 This function provides functionality for the psql \\drg metacommand, which displays role membership information including which roles are members of other roles and what privileges they have been granted. The function queries the pg_auth_members system catalog joined with pg_roles to show role relationships. It displays the member role name, the role they are a member of, options (ADMIN, INHERIT, SET privileges), and the grantor of the membership. The function adapts its query based on the PostgreSQL server version (16.0 and later have enhanced role membership options) and can filter out system roles when requested.
 

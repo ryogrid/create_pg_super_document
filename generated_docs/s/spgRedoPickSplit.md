@@ -8,7 +8,10 @@ Replays a pick-split operation from the WAL for SP-GiST indexes, reconstructing 
 
 ## Definition
 
-
+```c
+static void
+spgRedoPickSplit(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the replay of SP-GiST pick-split operations, which are among the most complex WAL recovery operations in the SP-GiST access method. A pick-split occurs when an SP-GiST inner node becomes full and needs to redistribute its child tuples across multiple pages. The function:
 

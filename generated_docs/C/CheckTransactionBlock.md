@@ -8,7 +8,10 @@ CheckTransactionBlock is the core implementation function that validates whether
 
 ## Definition
 
-
+```c
+static void
+CheckTransactionBlock(bool isTopLevel, bool throwError, const char *stmtType)
+```
 ## Detailed Description
 This function serves as the underlying implementation for both WarnNoTransactionBlock and RequireTransactionBlock. It performs the actual logic of checking whether a command is executing within a transaction block, subtransaction, or function call context. Based on the throwError parameter, it either issues a warning or raises an error when the command is executed outside of a transaction block.
 

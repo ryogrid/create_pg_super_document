@@ -8,7 +8,10 @@ Replaces a segment of symbols in a Snowball environment's string buffer with a n
 
 ## Definition
 
-
+```c
+*/
+extern int replace_s(struct SN_env * z, int c_bra, int c_ket, int s_size, const symbol * s, int * adjptr)
+```
 ## Detailed Description
 The `replace_s` function performs string replacement operations in PostgreSQL's Snowball stemming environment. It replaces symbols between positions `c_bra` (bracket start) and `c_ket` (bracket end) in the environment's string buffer (`z->p`) with `s_size` symbols from the source array `s`. The function handles dynamic memory management by calling `increase_size` when the replacement requires more space than currently available. It also manages cursor position adjustments and calculates the size difference between the original and replacement text. On error, the function frees the buffer and sets it to NULL.
 

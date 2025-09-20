@@ -8,7 +8,10 @@ A dispatcher function that routes command reading to either socket-based or inte
 
 ## Definition
 
-
+```c
+static int
+ReadCommand(StringInfo inBuf)
+```
 ## Detailed Description
 The `ReadCommand` function serves as a command input dispatcher in PostgreSQL's backend process. It abstracts the source of command input by examining the global `whereToSendOutput` variable to determine whether the backend is connected to a remote client (socket-based communication) or running in interactive mode (stdin/stdout).
 

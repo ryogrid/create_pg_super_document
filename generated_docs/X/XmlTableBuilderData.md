@@ -8,7 +8,21 @@ A builder structure that maintains state and context for constructing result set
 
 ## Definition
 
-
+```c
+typedef struct XmlTableBuilderData
+{
+	int			magic;
+	int			natts;
+	long int	row_count;
+	PgXmlErrorContext *xmlerrcxt;
+	xmlParserCtxtPtr ctxt;
+	xmlDocPtr	doc;
+	xmlXPathContextPtr xpathcxt;
+	xmlXPathCompExprPtr xpathcomp;
+	xmlXPathObjectPtr xpathobj;
+	xmlXPathCompExprPtr *xpathscomp;
+} XmlTableBuilderData;
+```
 ## Detailed Description
 XmlTableBuilderData is the core data structure used by PostgreSQL's XMLTABLE functionality to extract tabular data from XML documents. It encapsulates all the necessary libxml contexts, compiled XPath expressions, and state information needed to efficiently process XML documents and generate result rows. The structure maintains both the XML parsing context and XPath evaluation context, along with compiled XPath expressions for performance optimization during row generation.
 

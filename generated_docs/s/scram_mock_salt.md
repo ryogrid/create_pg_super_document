@@ -8,7 +8,11 @@ Deterministically generates a salt for mock SCRAM authentication using a SHA256 
 
 ## Definition
 
-
+```c
+static char *
+scram_mock_salt(const char *username, pg_cryptohash_type hash_type,
+				int key_length)
+```
 ## Detailed Description
 This function is a crucial security component that generates deterministic salt values for mock SCRAM authentication. It serves as a defense against timing attacks by ensuring that failed authentication attempts take approximately the same amount of time as successful ones.
 

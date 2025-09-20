@@ -8,7 +8,13 @@ Allocates a backend-private iterator and attaches it to shared iterator state, e
 
 ## Definition
 
-
+```c
+struct, with enough trailing space to
+	 * serve the needs of the TBMIterateResult sub-struct.
+	 */
+	iterator = (TBMSharedIterator *) palloc0(sizeof(TBMSharedIterator) +
+											 MAX_TUPLES_PER_PAGE * sizeof(OffsetNumber));
+```
 ## Detailed Description
 This function creates a backend-private TBMSharedIterator that connects to shared iterator state stored in dynamic shared memory. It converts DSA (Dynamic Shared Area) pointers to local pointers for efficient access during iteration. The function allocates sufficient memory for the iterator structure plus trailing space for tuple offset numbers, then maps the shared state components (pagetable, spages, schunks) to local address space for the current backend process.
 

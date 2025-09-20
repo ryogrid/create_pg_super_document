@@ -8,7 +8,12 @@ Produces a list of Var nodes and optionally column names for the non-dropped, ex
 
 ## Definition
 
-
+```c
+List *
+expandNSItemVars(ParseState *pstate, ParseNamespaceItem *nsitem,
+				 int sublevels_up, int location,
+				 List **colnames)
+```
 ## Detailed Description
 This function is a sophisticated column expansion utility that works with ParseNamespaceItem structures to generate properly configured Var nodes. Unlike lower-level expansion functions that work with tuple descriptors or RTEs directly, this function operates on namespace items which contain pre-processed column metadata including nullability information and syntactic aliasing details.
 

@@ -8,7 +8,10 @@ OpernameGetOprid looks up an operator by its name and exact input data types, re
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &opername);
+```
 ## Detailed Description
 This function performs operator resolution in the PostgreSQL catalog system. It takes a possibly schema-qualified operator name and exact input data types to locate the corresponding operator. The function handles both schema-qualified and unqualified operator names. For schema-qualified names, it searches only within the specified schema. For unqualified names, it searches through the current namespace search path to find the first matching operator. The function supports prefix operators by accepting InvalidOid for the left operand type.
 

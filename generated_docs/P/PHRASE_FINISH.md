@@ -8,7 +8,16 @@ An enumeration constant representing the final state in the phrase operator pars
 
 ## Definition
 
+```c
+PHRASE_CLOSE,
+		PHRASE_FINISH
+	}			state = PHRASE_OPEN;
+	char	   *ptr = pstate->buf;
+	char	   *endptr;
+	long		l = 1;			/* default distance */
 
+	while (*ptr)
+```
 ## Detailed Description
 PHRASE_FINISH is one of four states in the finite state machine used by the parse_phrase_operator function to parse phrase operators in tsquery expressions. This state represents the successful completion of parsing a phrase operator syntax like '<N>' where N is a distance value. When the parser reaches this state, it means the phrase operator has been fully validated and parsed, and the distance value can be extracted and returned.
 

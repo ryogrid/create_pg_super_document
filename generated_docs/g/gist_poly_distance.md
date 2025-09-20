@@ -8,7 +8,10 @@ A GiST distance function for polygon data types that calculates the distance fro
 
 ## Definition
 
-
+```c
+Datum
+gist_poly_distance(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a GiST distance operator for polygon data types, implementing the distance calculation interface required by GiST nearest-neighbor queries. The function acts as a wrapper around , leveraging the fact that polygon distance calculations can be efficiently approximated using bounding box distances. The function always sets the recheck flag to true, indicating that the exact distance must be recalculated at the heap tuple level for accurate results, as the bounding box approximation may not be precise enough.
 

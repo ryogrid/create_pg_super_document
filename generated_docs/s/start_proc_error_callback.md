@@ -8,7 +8,10 @@ Error context callback function that provides enhanced error messages when probl
 
 ## Definition
 
-
+```c
+static void
+start_proc_error_callback(void *arg)
+```
 ## Detailed Description
 The `start_proc_error_callback` function serves as an error context callback for PostgreSQL's error reporting system. When an error occurs during the processing of PL/Tcl startup procedures (configured via `pltcl.start_proc` or `pltclu.start_proc` GUC parameters), this callback is invoked to provide additional context information in error messages.
 

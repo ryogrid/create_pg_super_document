@@ -8,7 +8,10 @@ Associates a file descriptor with an SSL connection using PostgreSQL's custom BI
 
 ## Definition
 
-
+```c
+static int
+my_SSL_set_fd(PGconn *conn, int fd)
+```
 ## Detailed Description
 This function serves as a PostgreSQL-specific replacement for OpenSSL's SSL_set_fd function. Instead of using OpenSSL's default socket BIO, it creates a BIO using PostgreSQL's custom my_BIO_s_socket method. This allows PostgreSQL to maintain control over socket I/O operations while still benefiting from OpenSSL's SSL/TLS functionality.
 

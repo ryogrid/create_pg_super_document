@@ -8,7 +8,10 @@ Main entry point function for creating PL/Python cursor objects from either SQL 
 
 ## Definition
 
-
+```c
+PyObject *
+PLy_cursor(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 PLy_cursor serves as the primary interface for the plpy.cursor() function in PL/Python. It acts as a dispatcher that accepts two different argument patterns: either a simple SQL query string, or a prepared plan object with optional parameters. The function uses Python's argument parsing to determine which type of cursor creation is requested and delegates to the appropriate specialized function.
 

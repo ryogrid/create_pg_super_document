@@ -8,7 +8,11 @@ An enumerated constant that defines the maximum recommended length for a single 
 
 ## Definition
 
-
+```c
+enum
+	{
+	component_len_max = 14};
+```
 ## Detailed Description
 The component_len_max constant is defined within the componentcheck function and specifies the maximum recommended length for individual path components in timezone file names. When a component exceeds this length, the timezone compiler issues a warning but continues processing. This limit is based on historical filesystem compatibility considerations and helps ensure that generated timezone files will be portable across different systems, particularly older ones with more restrictive filename length limits.
 

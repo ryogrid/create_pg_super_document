@@ -8,7 +8,11 @@ XLogCompressBackupBlock creates a compressed version of a backup block image for
 
 ## Definition
 
-
+```c
+static bool
+XLogCompressBackupBlock(char *page, uint16 hole_offset, uint16 hole_length,
+						char *dest, uint16 *dlen)
+```
 ## Detailed Description
 XLogCompressBackupBlock attempts to compress a backup block image using the configured compression algorithm (PGLZ, LZ4, or ZSTD). The function handles pages with holes by first copying the data around the hole into a temporary buffer before compression. It only returns success if the compressed result is actually smaller than the original data, accounting for any extra header bytes needed for compressed blocks with holes. This ensures that compression only occurs when it provides a genuine space benefit.
 

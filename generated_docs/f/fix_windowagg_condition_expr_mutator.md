@@ -8,7 +8,11 @@ A specialized expression tree mutator that replaces WindowFunc nodes with corres
 
 ## Definition
 
-
+```c
+static Node *
+fix_windowagg_condition_expr_mutator(Node *node,
+									 fix_windowagg_cond_context *context)
+```
 ## Detailed Description
 The  function is a highly specialized mutator function within PostgreSQL's plan reference fixing system. It serves a specific purpose in the context of window function processing: replacing WindowFunc nodes in expressions with variable references that point to the corresponding entries in the subplan's target list.
 

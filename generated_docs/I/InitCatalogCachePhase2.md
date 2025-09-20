@@ -8,7 +8,10 @@ Completes the initialization of PostgreSQL's system catalog caches by performing
 
 ## Definition
 
-
+```c
+void
+InitCatalogCachePhase2(void)
+```
 ## Detailed Description
 InitCatalogCachePhase2 is the second phase of catalog cache initialization that performs actual database access to complete cache setup. Unlike InitCatalogCache which only allocates memory and sets up structures, this function triggers database queries to populate the caches with data.
 

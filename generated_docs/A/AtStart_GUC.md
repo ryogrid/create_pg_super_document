@@ -8,7 +8,10 @@ AtStart_GUC initializes the GUC (Grand Unified Configuration) nesting level at t
 
 ## Definition
 
-
+```c
+void
+AtStart_GUC(void)
+```
 ## Detailed Description
 This function performs essential initialization for the GUC system at the start of each main transaction. Its primary responsibility is to set the GUC nesting level to 1, indicating that the system is now inside a transaction context. The function also includes important validation logic to detect potential issues with the GUC state management system.
 

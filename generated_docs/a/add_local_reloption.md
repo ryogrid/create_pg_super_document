@@ -8,7 +8,9 @@ Adds an already-created custom reloption to the local list of reloptions for a r
 
 ## Definition
 
-
+```c
+struct_size);
+```
 ## Detailed Description
 This is a static helper function that manages the addition of custom reloptions to a local reloption structure. It allocates memory for a new local_relopt structure, initializes it with the provided option and offset, and appends it to the list of options in the local_relopts structure. The function includes an assertion to ensure the offset is within the bounds of the reloption structure size.
 

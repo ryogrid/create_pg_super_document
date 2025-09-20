@@ -8,7 +8,10 @@ SQL-callable function that determines whether a data type is visible in the curr
 
 ## Definition
 
-
+```c
+Datum
+pg_type_is_visible(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `pg_type_is_visible` function is a SQL-callable wrapper around the internal `TypeIsVisibleExt` function. It takes an OID of a data type and returns a boolean indicating whether that type is visible in the current search path without requiring explicit schema qualification.
 

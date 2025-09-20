@@ -8,7 +8,18 @@ Adds equivalence members for each non-resjunk target in a setop child relation's
 
 ## Definition
 
-
+```c
+union_paths,
+		 * likewise, the JoinDomain can be that of the initial member of the
+		 * Pathkey's EquivalenceClass.
+		 */
+		add_eq_member(pk->pk_eclass,
+					  tle->expr,
+					  child_rel->relids,
+					  parent_em->em_jdomain,
+					  parent_em,
+					  exprType((Node *) tle->expr));
+```
 ## Detailed Description
 This function is specifically designed for set operations (UNION, INTERSECT, EXCEPT) and creates equivalence class members for child relations within the set operation hierarchy. For each non-resjunk target entry in the child's target list, it adds a new equivalence member to the corresponding PathKey's equivalence class from the setop_pathkeys list. This ensures that expressions across different branches of a set operation are properly recognized as equivalent when they represent the same output column.
 

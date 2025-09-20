@@ -8,7 +8,10 @@ Trigger function that validates foreign key constraints during UPDATE operations
 
 ## Definition
 
-
+```c
+Datum
+RI_FKey_check_upd(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the entry point for foreign key constraint validation during UPDATE operations on tables with foreign key constraints. It performs initial validation to ensure it's called in the correct trigger context (UPDATE event), then delegates the actual constraint checking to the shared `RI_FKey_check` function.
 

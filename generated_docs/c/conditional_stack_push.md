@@ -8,7 +8,10 @@ Pushes a new conditional state onto the conditional stack, representing entry in
 
 ## Definition
 
-
+```c
+void
+conditional_stack_push(ConditionalStack cstack, ifState new_state)
+```
 ## Detailed Description
 This function creates a new conditional branch by pushing a new IfStackElem onto the top of the conditional stack. It allocates memory for a new stack element, initializes it with the provided conditional state, and links it to the existing stack structure. The function implements a typical stack push operation using a linked list, where new elements are added at the head. The query_len and paren_depth fields are initialized to -1, indicating they need to be set later using appropriate setter functions when the actual values become available.
 

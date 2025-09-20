@@ -8,7 +8,10 @@ Creates a new base backup streamer that performs Zstandard (zstd) compression of
 
 ## Definition
 
-
+```c
+bbstreamer *
+bbstreamer_zstd_compressor_new(bbstreamer *next, pg_compress_specification *compress)
+```
 ## Detailed Description
 This function initializes a new bbstreamer instance specifically designed for Zstandard compression during PostgreSQL base backups. It creates a compression context using libzstd, configures compression parameters according to the provided specification, and sets up the necessary buffering structures. The streamer follows PostgreSQL's streaming architecture where data flows through a chain of processing nodes, with this compressor fitting into that pipeline.
 

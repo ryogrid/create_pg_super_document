@@ -8,7 +8,16 @@ JsonPathMutableContext is a context structure used to track state during the rec
 
 ## Definition
 
-
+```c
+struct JsonPathMutableContext
+{
+	List	   *varnames;		/* list of variable names */
+	List	   *varexprs;		/* list of variable expressions */
+	enum JsonPathDatatypeStatus current;	/* status of @ item */
+	bool		lax;			/* jsonpath is lax or strict */
+	bool		mutable;		/* resulting mutability status */
+};
+```
 ## Detailed Description
 This structure serves as a context holder for the  function, which recursively walks through JSONPath expressions to determine if they contain mutable operations. The primary purpose is to detect JSONPath expressions that might produce different results in different execution contexts, particularly those involving datetime comparisons with different timezone statuses.
 

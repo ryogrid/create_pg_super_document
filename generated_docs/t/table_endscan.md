@@ -8,7 +8,10 @@ Terminates a table scan operation by calling the table access method's scan_end 
 
 ## Definition
 
-
+```c
+static inline void
+table_endscan(TableScanDesc scan)
+```
 ## Detailed Description
 The  function serves as the standard way to terminate any table scan operation in PostgreSQL. It acts as a wrapper around the table access method's scan_end function, providing a uniform interface for ending scans regardless of the underlying storage implementation. This function is responsible for cleaning up scan-related resources, releasing locks, freeing memory, and performing any other cleanup operations required by the specific table access method.
 

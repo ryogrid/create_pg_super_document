@@ -8,7 +8,10 @@ Retrieves a bitmap of attribute numbers for columns that are part of the configu
 
 ## Definition
 
-
+```c
+Bitmapset *
+RelationGetIdentityKeyBitmap(Relation relation)
+```
 ## Detailed Description
 This function returns a bitmap indicating which table attributes (columns) are part of the replica identity index for a given relation. It is a specialized version of  designed specifically for logical replication use cases.
 

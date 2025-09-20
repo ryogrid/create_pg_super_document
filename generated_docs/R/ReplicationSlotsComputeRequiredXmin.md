@@ -8,7 +8,10 @@ Computes the oldest transaction IDs (xmin) across all replication slots and upda
 
 ## Definition
 
-
+```c
+void
+ReplicationSlotsComputeRequiredXmin(bool already_locked)
+```
 ## Detailed Description
 This function performs a critical role in PostgreSQL's MVCC (Multi-Version Concurrency Control) system by determining the oldest transaction ID that must be preserved across all active replication slots. It scans all replication slots to find the minimum effective_xmin and effective_catalog_xmin values, which represent the oldest transactions that logical or physical replication still needs to see.
 

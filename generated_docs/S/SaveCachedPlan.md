@@ -8,7 +8,10 @@ SaveCachedPlan permanently saves a completed cached plan by moving it to long-li
 
 ## Definition
 
-
+```c
+void
+SaveCachedPlan(CachedPlanSource *plansource)
+```
 ## Detailed Description
 SaveCachedPlan transitions a CachedPlanSource from transient to permanent storage by reparenting its memory context under CacheMemoryContext, making it live for the entire backend lifetime unless explicitly dropped. The function adds the plan to the global list of cached plans that are monitored for invalidation when system catalog changes occur. This is a critical step that transforms a temporary plan cache entry into a persistent one that can survive transaction boundaries.
 

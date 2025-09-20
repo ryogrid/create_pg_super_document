@@ -8,7 +8,12 @@ Generates formatted information about all block references contained in a WAL (W
 
 ## Definition
 
-
+```c
+void
+XLogRecGetBlockRefInfo(XLogReaderState *record, bool pretty,
+					   bool detailed_format, StringInfo buf,
+					   uint32 *fpi_len)
+```
 ## Detailed Description
 This function iterates through all block references in a WAL record and generates human-readable information about each block. It provides two formatting modes: detailed format (showing comprehensive block information) and short format (showing minimal block information). The function also tracks full-page image (FPI) data and compression details.
 

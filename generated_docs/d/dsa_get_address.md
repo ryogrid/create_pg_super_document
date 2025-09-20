@@ -8,7 +8,10 @@ Converts a portable dsa_pointer to a backend-local memory address that can be di
 
 ## Definition
 
-
+```c
+void *
+dsa_get_address(dsa_area *area, dsa_pointer dp)
+```
 ## Detailed Description
 This function performs the critical conversion from a portable  (which can be shared across processes) to a local memory address that can be directly dereferenced within the current process. The function handles the complexity of dynamic shared memory mapping by:
 

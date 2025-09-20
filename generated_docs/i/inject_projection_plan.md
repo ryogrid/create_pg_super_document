@@ -8,7 +8,13 @@ Inserts a Result node to perform projection on-the-fly when a projection step is
 
 ## Definition
 
-
+```c
+struction,
+	 * so being formally correct might just make the EXPLAIN output look less
+	 * consistent not more so.  Hence, just copy the subplan's cost.
+	 */
+	copy_plan_costsize(plan, subplan);
+```
 ## Detailed Description
 The  function is a utility that creates a Result node to perform projection when it's determined during plan construction that a projection step is required. This function is used as a "fallback" mechanism when the planner realizes on-the-fly that projection is needed, rather than having it planned from the beginning during path creation.
 

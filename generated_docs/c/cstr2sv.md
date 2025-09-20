@@ -8,7 +8,10 @@ Creates a new Perl SV (scalar value) from a C string assumed to be in the curren
 
 ## Definition
 
-
+```c
+static inline SV *
+cstr2sv(const char *str)
+```
 ## Detailed Description
 This function converts a C-style null-terminated string from PostgreSQL's database encoding into a Perl SV. The conversion process depends on the current database encoding:
 

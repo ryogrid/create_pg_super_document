@@ -8,7 +8,10 @@ Returns a human-readable string identifying the type of PostgreSQL backend proce
 
 ## Definition
 
-
+```c
+const char *
+get_backend_type_for_log(void)
+```
 ## Detailed Description
 This function provides a descriptive string identifying the current PostgreSQL backend process type for logging purposes. It implements a three-tier logic: (1) if the current process is the postmaster (identified by matching MyProcPid with PostmasterPid), it returns "postmaster", (2) if the backend type is a background worker (B_BG_WORKER), it returns the specific worker type from the background worker entry (MyBgworkerEntry->bgw_type), and (3) for all other backend types, it delegates to GetBackendTypeDesc() to get the appropriate description. This function ensures that log entries contain meaningful process type information to help administrators understand which component generated each log message.
 

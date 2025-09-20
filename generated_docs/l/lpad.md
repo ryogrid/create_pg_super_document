@@ -8,7 +8,10 @@ The  function left-pads a string to a specified length with a padding string, or
 
 ## Definition
 
-
+```c
+Datum
+lpad(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function takes three parameters: a source string, a target length, and a padding string. It returns the source string left-padded to the specified length using the padding string. If the source string is longer than the target length, it truncates the string on the right to the target length. The padding string is repeated as necessary to fill the required space. The function handles multibyte characters correctly and includes overflow protection for very large requested lengths.
 

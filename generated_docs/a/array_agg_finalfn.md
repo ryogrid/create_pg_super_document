@@ -8,7 +8,10 @@ Finalizes the array_agg() aggregate by converting the accumulated ArrayBuildStat
 
 ## Definition
 
-
+```c
+Datum
+array_agg_finalfn(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the final step in the array_agg() aggregate process, converting the accumulated ArrayBuildState structure into an actual PostgreSQL array. It creates a one-dimensional array from the collected elements, setting appropriate dimensions and lower bounds. The function handles the NULL case by returning NULL if no input values were provided during aggregation.
 

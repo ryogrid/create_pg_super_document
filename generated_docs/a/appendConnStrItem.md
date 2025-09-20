@@ -8,7 +8,10 @@ Helper function that appends a keyword-value pair to a PostgreSQL connection str
 
 ## Definition
 
-
+```c
+static void
+appendConnStrItem(PQExpBuffer buf, const char *keyword, const char *val)
+```
 ## Detailed Description
 This utility function constructs PostgreSQL connection strings by appending individual keyword-value pairs to a PQExpBuffer. It handles the proper formatting of connection string items by:
 

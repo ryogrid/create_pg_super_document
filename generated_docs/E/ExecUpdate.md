@@ -8,7 +8,12 @@ ExecUpdate is the main function responsible for executing UPDATE operations in P
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecUpdate(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+		   ItemPointer tupleid, HeapTuple oldtuple, TupleTableSlot *slot,
+		   bool canSetTag)
+```
 ## Detailed Description
 ExecUpdate orchestrates the complete UPDATE operation workflow in PostgreSQL. The function handles multiple update scenarios based on the target relation type:
 

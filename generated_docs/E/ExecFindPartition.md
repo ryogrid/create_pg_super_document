@@ -8,7 +8,13 @@ Returns the ResultRelInfo for the leaf partition that a tuple should belong to, 
 
 ## Definition
 
-
+```c
+ResultRelInfo *
+ExecFindPartition(ModifyTableState *mtstate,
+				  ResultRelInfo *rootResultRelInfo,
+				  PartitionTupleRouting *proute,
+				  TupleTableSlot *slot, EState *estate)
+```
 ## Detailed Description
 This function implements the core partition routing algorithm for PostgreSQL's partitioned tables. It evaluates partition key expressions against the input tuple and traverses the partition hierarchy from root to leaf, handling both single-level and multi-level partitioning schemes. The function employs lazy initialization, creating ResultRelInfo structures only when a partition is first accessed. It also handles tuple format conversion when moving between partitioning levels that have different tuple descriptors, and performs partition constraint validation for default partitions to ensure data consistency.
 

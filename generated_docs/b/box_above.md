@@ -8,7 +8,10 @@ Tests whether the first box is strictly above the second box in PostgreSQL's geo
 
 ## Definition
 
-
+```c
+Datum
+box_above(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements a geometric relationship test that determines if one box is positioned strictly above another box. It checks whether the lower edge (minimum y-coordinate) of the first box is greater than the upper edge (maximum y-coordinate) of the second box. This ensures there is no vertical overlap between the boxes and that box1 is entirely above box2.
 

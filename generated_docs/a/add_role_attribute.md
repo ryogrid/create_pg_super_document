@@ -8,7 +8,10 @@ A static utility function in psql that appends a role attribute string to a PQEx
 
 ## Definition
 
-
+```c
+static void
+add_role_attribute(PQExpBuffer buf, const char *const str)
+```
 ## Detailed Description
 This simple utility function is used within the psql client to build formatted lists of role attributes when describing database roles. It manages the comma-separated formatting by checking if the buffer already contains content and adding a comma separator before appending the new attribute string. This ensures proper formatting in role descriptions displayed to users.
 

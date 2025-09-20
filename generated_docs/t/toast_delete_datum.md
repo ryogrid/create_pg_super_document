@@ -8,7 +8,9 @@ Deletes all chunks of a single externally stored TOAST value from the secondary 
 
 ## Definition
 
-
+```c
+struct varlena *attr = (struct varlena *) DatumGetPointer(value);
+```
 ## Detailed Description
 This function removes a complete TOASTed value from the toast relation by locating and deleting all chunks that belong to the specified value. It extracts the toast pointer information from the input datum to identify the target toast relation and value ID, then performs a systematic scan to find and delete all associated chunk tuples.
 

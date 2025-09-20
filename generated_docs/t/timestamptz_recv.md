@@ -8,7 +8,10 @@ Converts external binary format data to PostgreSQL's internal timestamptz repres
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function serves as the binary input function for the timestamptz data type. It reads a 64-bit integer from a StringInfo buffer representing a timestamp with timezone in PostgreSQL's internal binary format, validates the value, and applies any necessary typmod adjustments. This function is part of PostgreSQL's binary I/O protocol, used when receiving timestamptz values in binary format from clients or during binary data transfer operations.
 

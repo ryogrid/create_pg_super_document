@@ -8,7 +8,10 @@ exec_command_bind implements the \bind backslash command that sets query paramet
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_bind(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 exec_command_bind collects parameter values from the command line arguments and stores them in the global pset structure for use with prepared statements. The function first calls clean_bind_state() to clear any existing parameter bindings, then parses all arguments as parameter values using psql_scan_slash_option(). The parameters are stored in a dynamically allocated array that grows as needed using pg_realloc_array().
 

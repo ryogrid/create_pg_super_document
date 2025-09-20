@@ -8,7 +8,10 @@ Writes out user-defined constraints to the dump archive, handling multiple const
 
 ## Definition
 
-
+```c
+static void
+dumpConstraint(Archive *fout, const ConstraintInfo *coninfo)
+```
 ## Detailed Description
 The  function is a comprehensive constraint dumping handler that generates appropriate SQL statements for different constraint types in PostgreSQL. It handles the complexity of constraint restoration by generating both creation and deletion statements with proper dependencies and metadata.
 

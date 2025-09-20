@@ -8,7 +8,59 @@ The core scanner's private state structure that contains all necessary data for 
 
 ## Definition
 
+```c
+typedef struct core_yy_extra_type
+{
+	/*
+	 * The string the scanner is physically scanning.  We keep this mainly so
+	 * that we can cheaply compute the offset of the current token (yytext).
+	 */
+	char	   *scanbuf;
+	Size		scanbuflen;
 
+	/*
+	 * The keyword list to use, and the associated grammar token codes.
+	 */
+	const ScanKeywordList *keywordlist;
+	const uint16 *keyword_tokens;
+
+	/*
+	 * Scanner settings to use.  These are initialized from the corresponding
+	 * GUC variables by scanner_init().  Callers can modify them after
+	 * scanner_init() if they don't want the scanner's behavior to follow the
+	 * prevailing GUC settings.
+	 */
+	int			backslash_quote;
+	bool		escape_string_warning;
+	bool		standard_conforming_strings;
+
+	/*
+	 * literalbuf is used to accumulate literal values when multiple rules are
+	 * needed to parse a single literal.  Call startlit() to reset buffer to
+	 * empty, addlit() to add text.  NOTE: the string in literalbuf is NOT
+	 * necessarily null-terminated, but there always IS room to add a trailing
+	 * null at offset literallen.  We store a null only when we need it.
+	 */
+	char	   *literalbuf;		/* palloc'd expandable buffer */
+	int			literallen;		/* actual current string length */
+	int			literalalloc;	/* current allocated buffer size */
+
+	/*
+	 * Random assorted scanner state.
+	 */
+	int			state_before_str_stop;	/* start cond. before end quote */
+	int			xcdepth;		/* depth of nesting in slash-star comments */
+	char	   *dolqstart;		/* current $foo$ quote start string */
+	YYLTYPE		save_yylloc;	/* one-element stack for PUSH_YYLLOC() */
+
+	/* first part of UTF16 surrogate pair for Unicode escapes */
+	int32		utf16_first_part;
+
+	/* state variables for literal-lexing warnings */
+	bool		warn_on_first_escape;
+	bool		saw_non_ascii;
+} core_yy_extra_type;
+```
 ## Detailed Description
 This structure serves as the YY_EXTRA data that a flex scanner allows to be passed around during lexical analysis. It contains all the private state needed by PostgreSQL's core scanner. The structure is designed to be extensible - the actual yy_extra struct in calling parsers may be larger and have this as its first component, allowing parser-specific fields to be added while maintaining compatibility with the core scanner functionality.
 

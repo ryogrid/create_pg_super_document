@@ -8,7 +8,9 @@ Quotes a filename according to SQL rules for tab completion in psql, returning a
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function is part of psql's tab completion system and handles the complex logic of properly quoting filenames that may contain special characters. It uses  to apply SQL-style quoting with single quotes, then applies sophisticated logic to determine when to strip trailing quotes based on user input context, match type, and file system properties.
 

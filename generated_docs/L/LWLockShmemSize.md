@@ -8,7 +8,10 @@ Calculates the total shared memory space required for the LWLock subsystem, incl
 
 ## Definition
 
-
+```c
+Size
+LWLockShmemSize(void)
+```
 ## Detailed Description
 This function computes the exact amount of shared memory needed to allocate the complete LWLock infrastructure during PostgreSQL startup. It accounts for multiple components: the main LWLock array (including both fixed locks and dynamically requested named tranche locks), space for dynamic allocation tracking, the named tranche metadata structures, and storage for tranche name strings.
 

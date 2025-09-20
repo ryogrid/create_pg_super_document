@@ -8,7 +8,10 @@ SetLatch signals a latch to wake up any processes or threads waiting on it, prov
 
 ## Definition
 
-
+```c
+void
+SetLatch(Latch *latch)
+```
 ## Detailed Description
 SetLatch is a critical synchronization primitive that sets a latch's state to signaled and wakes up any processes waiting on it. The function uses memory barriers to ensure proper ordering of memory operations and includes platform-specific optimizations for both Unix-like systems and Windows.
 

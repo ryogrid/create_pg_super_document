@@ -8,7 +8,10 @@ Sets the global state flags to indicate that a specified heap table and its inde
 
 ## Definition
 
-
+```c
+static void
+SetReindexProcessing(Oid heapOid, Oid indexOid)
+```
 ## Detailed Description
 SetReindexProcessing is a static function that establishes the global reindexing state by setting the currently reindexed heap and index OIDs. This function enforces the non-re-entrant nature of reindexing operations by checking if a reindex is already in progress and raising an error if so. It also removes the index from the pending reindex list and records the current transaction nesting level for proper cleanup during transaction abort scenarios.
 

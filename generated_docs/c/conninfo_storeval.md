@@ -8,7 +8,13 @@ A static function that stores a new value for a connection option in the connOpt
 
 ## Definition
 
-
+```c
+static PQconninfoOption *
+conninfo_storeval(PQconninfoOption *connOptions,
+				  const char *keyword, const char *value,
+				  PQExpBuffer errorMessage, bool ignoreMissing,
+				  bool uri_decode)
+```
 ## Detailed Description
 This function updates or sets a connection option value in the PostgreSQL connection options array. It performs several key operations:
 

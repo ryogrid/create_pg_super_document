@@ -8,7 +8,10 @@ Provides a version-compatible wrapper for LLVM's struct GEP (Get Element Pointer
 
 ## Definition
 
-
+```c
+static inline LLVMValueRef
+l_struct_gep(LLVMBuilderRef b, LLVMTypeRef t, LLVMValueRef v, int32 idx, const char *name)
+```
 ## Detailed Description
 This function serves as a compatibility wrapper for LLVM's struct GEP (Get Element Pointer) operations, which are used to generate addresses of struct members. The function automatically handles the API differences between LLVM versions - for LLVM versions prior to 16, it uses , while for version 16 and later, it uses  which requires an explicit type parameter. This abstraction allows PostgreSQL's JIT code to work across different LLVM versions without conditional compilation scattered throughout the codebase. The function is essential for accessing members of complex data structures in JIT-compiled code.
 

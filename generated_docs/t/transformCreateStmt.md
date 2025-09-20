@@ -8,7 +8,10 @@ Performs parse analysis for CREATE TABLE statements, transforming the raw parser
 
 ## Definition
 
-
+```c
+List *
+transformCreateStmt(CreateStmt *stmt, const char *queryString)
+```
 ## Detailed Description
 transformCreateStmt is the main entry point for processing CREATE TABLE statements in PostgreSQL's parser. It takes a raw CreateStmt from the parser and transforms it into a comprehensive list of utility commands that will be executed to create the table. The function handles the complete lifecycle of table creation including:
 

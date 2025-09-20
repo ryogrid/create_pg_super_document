@@ -8,7 +8,14 @@ Computes statistics for tsvector columns using the Lossy Counting algorithm to i
 
 ## Definition
 
-
+```c
+struct a hash key.  The key points into the (detoasted)
+			 * tsvector value at this point, but if a new entry is created, we
+			 * make a copy of it.  This way we can free the tsvector value
+			 * once we've processed all its lexemes.
+			 */
+			hash_key.lexeme = lexemesptr + curentryptr->pos;
+```
 ## Detailed Description
 This function implements statistics collection for tsvector columns by finding the most common lexemes rather than most common values (since tsvectors are typically unique). It uses the Lossy Counting algorithm from Manku and Motwani to efficiently track lexeme frequencies in a streaming fashion. The algorithm maintains a hash table of lexemes with their frequencies and periodically prunes low-frequency entries. The resulting statistics are stored in the MCELEM slot of pg_statistic to support @@ operator selectivity estimation.
 

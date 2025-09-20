@@ -8,7 +8,10 @@ Initializes the moreLeft, moreRight directional flags and resets scan state coun
 
 ## Definition
 
-
+```c
+static inline void
+_bt_initialize_more_data(BTScanOpaque so, ScanDirection dir)
+```
 ## Detailed Description
 This utility function sets up the directional scanning state for B-tree index scans by configuring the moreLeft and moreRight flags that control scan advancement logic. The function handles different scanning scenarios: primary scans with array keys (which can advance in both directions), forward scans (which can only advance right), and backward scans (which can only advance left).
 

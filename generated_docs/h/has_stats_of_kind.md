@@ -8,7 +8,10 @@ Checks whether a list of extended statistics contains a statistic of a specific 
 
 ## Definition
 
-
+```c
+bool
+has_stats_of_kind(List *stats, char requiredkind)
+```
 ## Detailed Description
 This utility function iterates through a list of StatisticExtInfo structures to determine if any of them matches a specified statistic kind. It provides a simple boolean check that's commonly used in extended statistics processing to verify the availability of specific types of statistics (such as dependency, MCV, or other extended statistic kinds) before attempting to use them for query planning or selectivity estimation.
 

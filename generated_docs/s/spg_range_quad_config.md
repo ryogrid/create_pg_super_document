@@ -8,7 +8,10 @@ SP-GiST configuration function for range type quadtree indexing that defines the
 
 ## Definition
 
-
+```c
+Datum
+spg_range_quad_config(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the configuration interface for SP-GiST quadtree indexing of range types. It initializes the spgConfigOut structure to define how the SP-GiST index should be structured for range data. The function configures the index to use ANYRANGEOID as the prefix type (allowing the centroid range to be stored), sets no node labels (VOIDOID), enables data return capability, and disallows long values to maintain efficient quadtree operations.
 

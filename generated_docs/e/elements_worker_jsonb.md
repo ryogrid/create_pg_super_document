@@ -8,7 +8,11 @@ A static worker function that extracts array elements from a JSONB value and ret
 
 ## Definition
 
-
+```c
+static Datum
+elements_worker_jsonb(FunctionCallInfo fcinfo, const char *funcname,
+					  bool as_text)
+```
 ## Detailed Description
 This function serves as the core implementation for JSONB array element extraction operations. It validates that the input JSONB is an array (not a scalar or object), then iterates through each array element using a JsonbIterator. For each element, it creates a tuple containing either the JSONB value directly or its text representation, depending on the  parameter. The function uses a temporary memory context for efficient memory management during tuple processing and implements proper set-returning function (SRF) protocols using PostgreSQL's materialized SRF framework.
 

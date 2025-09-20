@@ -8,7 +8,10 @@ SQL-callable function that cancels a running query in a PostgreSQL backend proce
 
 ## Definition
 
-
+```c
+Datum
+pg_cancel_backend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 pg_cancel_backend is a PostgreSQL built-in function that allows users to cancel queries running in other backend processes. It serves as a wrapper around pg_signal_backend(), specifically sending a SIGINT signal to interrupt query execution. The function enforces strict access control:
 

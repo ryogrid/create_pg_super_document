@@ -8,7 +8,9 @@ A utility function that prints the current SQL error message from the sqlca stru
 
 ## Definition
 
-
+```c
+struct sqlca_t *sqlca = ECPGget_sqlca();
+```
 ## Detailed Description
 The  function provides a simple mechanism for applications to display the current SQL error message stored in the sqlca (SQL Communication Area) structure. It retrieves the current sqlca, ensures the error message string is properly null-terminated, and outputs a formatted error message to stderr using localized text. This function is designed to be called by user applications when they need to display error information in a standardized format. The function handles cases where the sqlca structure might be unavailable due to memory issues.
 

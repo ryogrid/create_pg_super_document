@@ -8,7 +8,9 @@ A platform-independent function that creates a directory and any necessary paren
 
 ## Definition
 
-
+```c
+struct stat sb;
+```
 ## Detailed Description
 The  function implements recursive directory creation functionality similar to the Unix "mkdir -p" command. It creates the specified directory along with any missing parent directories in the path. The function handles both Windows and POSIX systems, with special logic for Windows network drives and local drive specifications.
 

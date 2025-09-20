@@ -8,7 +8,10 @@ Formats a date value into a string according to a specified format, providing In
 
 ## Definition
 
-
+```c
+int
+rfmtdate(date d, const char *fmt, char *str)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's ECPG Informix compatibility library. It takes a date value and formats it into a string representation according to the specified format string. The function serves as a wrapper around PostgreSQL's internal  function, translating system errors to Informix-compatible error codes.
 

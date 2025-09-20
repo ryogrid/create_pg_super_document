@@ -8,7 +8,11 @@ Outputs an objname/objargs representation for a procedure with the given OID, wh
 
 ## Definition
 
-
+```c
+void
+format_procedure_parts(Oid procedure_oid, List **objnames, List **objargs,
+					   bool missing_ok)
+```
 ## Detailed Description
 This function retrieves procedure information from the system catalog and formats it into a standardized representation consisting of object names and argument types. It looks up the procedure in pg_proc using the provided OID, extracts the procedure's namespace and name, and builds a list of qualified argument type names. The function is designed to work with PostgreSQL's object addressing system, providing a way to represent procedures in a format that can be consumed by other object management functions.
 

@@ -8,7 +8,12 @@ Stores a prepared statement and its associated cached plan source in the global 
 
 ## Definition
 
-
+```c
+void
+StorePreparedStatement(const char *stmt_name,
+					   CachedPlanSource *plansource,
+					   bool from_sql)
+```
 ## Detailed Description
 StorePreparedStatement creates a new entry in the prepared statements hash table and stores the provided cached plan source with the specified statement name. The function initializes the hash table if it doesn't exist, validates that the statement name is unique, creates a hash table entry with metadata including the preparation timestamp, and moves the cached plan source to permanent memory storage. This function serves as the final step in the preparation process, making the prepared statement available for future execution.
 

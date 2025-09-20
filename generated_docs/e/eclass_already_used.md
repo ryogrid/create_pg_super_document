@@ -8,7 +8,11 @@ Determines whether any join clause usable with a given set of relation IDs was d
 
 ## Definition
 
-
+```c
+static bool
+eclass_already_used(EquivalenceClass *parent_ec, Relids oldrelids,
+					List *indexjoinclauses)
+```
 ## Detailed Description
 This function implements a crucial optimization in PostgreSQL's parameterized index path generation by detecting when multiple join clauses derived from the same EquivalenceClass would create functionally equivalent parameterizations. 
 

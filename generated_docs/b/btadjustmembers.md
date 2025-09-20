@@ -8,7 +8,13 @@ Pre-processing function that adjusts dependency relationships when adding operat
 
 ## Definition
 
-
+```c
+void
+btadjustmembers(Oid opfamilyoid,
+				Oid opclassoid,
+				List *operators,
+				List *functions)
+```
 ## Detailed Description
 The  function manages the dependency relationships between btree operators/functions and their containing operator classes or families. It implements a sophisticated dependency management strategy:
 

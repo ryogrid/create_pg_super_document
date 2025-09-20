@@ -8,7 +8,10 @@ NISortDictionary builds the dictionary tree and optimizes affix data from the im
 
 ## Definition
 
-
+```c
+void
+NISortDictionary(IspellDict *Conf)
+```
 ## Detailed Description
 This function performs critical post-import processing of dictionary data to build an efficient prefix tree structure for spell checking. It handles two different modes based on whether flag aliases are being used:
 

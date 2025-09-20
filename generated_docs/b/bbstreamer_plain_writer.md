@@ -8,7 +8,15 @@ A specialized bbstreamer structure designed to write backup data directly to a p
 
 ## Definition
 
-
+```c
+typedef struct bbstreamer_plain_writer
+{
+	bbstreamer	base;
+	char	   *pathname;
+	FILE	   *file;
+	bool		should_close_file;
+} bbstreamer_plain_writer;
+```
 ## Detailed Description
 The  is a concrete implementation of the bbstreamer interface specifically designed for writing backup data to regular files. This structure extends the base bbstreamer functionality to handle file I/O operations during PostgreSQL base backup processes. It maintains file state information and handles both cases where the caller provides an already-opened file handle or requests the streamer to open the file itself based on the pathname.
 

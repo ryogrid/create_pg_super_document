@@ -8,7 +8,10 @@ This function reads a boolean expression from the psql command input but discard
 
 ## Definition
 
-
+```c
+static void
+ignore_boolean_expression(PsqlScanState scan_state)
+```
 ## Detailed Description
 The  function is a utility function in psql's command processor that reads a boolean expression from the input stream but does nothing with the parsed content. It's specifically designed for use in conditional command processing (like ,  statements) when the condition needs to be consumed from the input but not evaluated - typically when the conditional stack's current state is INACTIVE.
 

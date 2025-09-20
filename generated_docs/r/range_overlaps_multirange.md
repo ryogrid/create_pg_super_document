@@ -8,7 +8,10 @@ Implements the overlap operator (&& operator) that tests whether a single range 
 
 ## Definition
 
-
+```c
+Datum
+range_overlaps_multirange(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL-callable interface for testing overlap between a range and a multirange. It extracts a range and a multirange from the function arguments, retrieves the appropriate type cache for range operations, and delegates the actual overlap testing logic to . The function returns true if the given range overlaps with any of the individual ranges contained within the multirange.
 

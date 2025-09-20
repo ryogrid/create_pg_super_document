@@ -8,7 +8,10 @@ Updates a proconfig value according to a list of VariableSetStmt items, handling
 
 ## Definition
 
-
+```c
+static ArrayType *
+update_proconfig_value(ArrayType *a, List *set_items)
+```
 ## Detailed Description
 This static function processes a list of SET/RESET statements to update function configuration parameters (proconfig). It iterates through a list of VariableSetStmt items and applies each configuration change to the provided ArrayType structure. The function handles both setting new values and resetting existing ones, including the special case of resetting all configuration parameters at once.
 

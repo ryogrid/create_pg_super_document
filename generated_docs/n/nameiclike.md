@@ -8,7 +8,10 @@ A PostgreSQL function that performs case-insensitive LIKE pattern matching on Na
 
 ## Definition
 
-
+```c
+Datum
+nameiclike(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements case-insensitive pattern matching for PostgreSQL's Name data type. It takes a Name value and a text pattern as input, converts the Name to text format, and then uses the generic case-insensitive text matching function  to perform the pattern matching operation. This function is the backend implementation for the ILIKE operator when applied to Name data types.
 

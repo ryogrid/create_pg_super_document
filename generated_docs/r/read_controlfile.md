@@ -8,7 +8,9 @@ read_controlfile attempts to read and validate the existing pg_control file, per
 
 ## Definition
 
-
+```c
+struct timeval tv;
+```
 ## Detailed Description
 This function is responsible for reading the PostgreSQL control file (pg_control) and determining whether its contents are valid and usable. The function performs several levels of validation:
 

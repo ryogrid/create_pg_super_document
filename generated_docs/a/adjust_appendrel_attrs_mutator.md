@@ -8,7 +8,10 @@ The core recursive function that performs the actual transformation of expressio
 
 ## Definition
 
-
+```c
+structures, either. */
+	Assert(!IsA(node, RangeTblRef));
+```
 ## Detailed Description
 This function implements a comprehensive expression tree walker that handles the complex task of translating variable references and relation identifiers from parent tables to child tables. It processes various node types including Var nodes, whole-row references, PlaceHolderVars, RestrictInfo nodes, and CurrentOfExpr nodes. The function handles special cases like ROWID_VAR placeholders, maintains nulling relations for outer joins, and performs proper type coercions when translating whole-row variables between relations with different tuple layouts.
 

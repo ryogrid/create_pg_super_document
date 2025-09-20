@@ -8,7 +8,10 @@ Exports and returns a snapshot identifier that can be used by parallel dump work
 
 ## Definition
 
-
+```c
+static char *
+get_synchronized_snapshot(Archive *fout)
+```
 ## Detailed Description
 The get_synchronized_snapshot function obtains a snapshot identifier from PostgreSQL that represents a consistent point-in-time view of the database. This snapshot can be shared among multiple database connections to ensure they all see the same data state, which is crucial for parallel dump operations. The function executes the pg_export_snapshot() system function, which creates a snapshot that remains available for other transactions to import until the exporting transaction ends.
 

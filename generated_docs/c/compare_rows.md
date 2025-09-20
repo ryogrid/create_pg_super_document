@@ -8,7 +8,10 @@ A comparator function used for sorting HeapTuple arrays by their physical storag
 
 ## Definition
 
-
+```c
+static int
+compare_rows(const void *a, const void *b, void *arg)
+```
 ## Detailed Description
 The compare_rows function serves as a comparator for qsort operations on arrays of HeapTuple pointers. It compares two HeapTuples based on their physical storage location within the table, specifically comparing their ItemPointer values (t_self field). 
 

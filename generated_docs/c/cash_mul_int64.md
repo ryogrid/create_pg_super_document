@@ -8,7 +8,10 @@ An inline static helper function that performs safe multiplication of a Cash val
 
 ## Definition
 
-
+```c
+static inline Cash
+cash_mul_int64(Cash c, int64 i)
+```
 ## Detailed Description
 This function multiplies a Cash value by a 64-bit signed integer while checking for arithmetic overflow. It uses PostgreSQL's safe multiplication utility function pg_mul_s64_overflow to detect potential overflow conditions. If an overflow would occur, it reports an error with the message "money out of range" using PostgreSQL's error reporting system. The function is designed to be inlined for performance optimization in cash arithmetic operations.
 

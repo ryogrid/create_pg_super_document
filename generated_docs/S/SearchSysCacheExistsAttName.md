@@ -8,7 +8,10 @@ Checks whether an attribute with the given name exists in a relation, ignoring d
 
 ## Definition
 
-
+```c
+bool
+SearchSysCacheExistsAttName(Oid relid, const char *attname)
+```
 ## Detailed Description
 This function is an attisdropped-aware version of SearchSysCacheExists that specifically checks for the existence of an attribute by name within a given relation. It uses SearchSysCacheAttName internally to perform the lookup, which automatically excludes attributes that have been marked as dropped (attisdropped = true). This provides a convenient way for callers to test attribute existence while treating dropped attributes as if they don't exist.
 

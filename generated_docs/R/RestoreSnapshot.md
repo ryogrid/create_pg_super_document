@@ -8,7 +8,10 @@ Deserializes a binary snapshot representation back into a PostgreSQL snapshot st
 
 ## Definition
 
-
+```c
+Snapshot
+RestoreSnapshot(char *start_address)
+```
 ## Detailed Description
 RestoreSnapshot performs the inverse operation of SerializeSnapshot, reconstructing a full PostgreSQL snapshot structure from its serialized binary representation. This function is essential for parallel query execution, allowing worker processes to obtain the same MVCC snapshot that was active in the main process. The function allocates memory in TopTransactionContext and properly initializes all snapshot fields including transaction ID arrays, reference counts, and metadata flags.
 

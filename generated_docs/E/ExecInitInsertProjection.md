@@ -8,7 +8,11 @@ Performs one-time initialization of projection data for INSERT operations, setti
 
 ## Definition
 
-
+```c
+static void
+ExecInitInsertProjection(ModifyTableState *mtstate,
+						 ResultRelInfo *resultRelInfo)
+```
 ## Detailed Description
 This function initializes the projection infrastructure needed for INSERT operations. INSERT queries often need projection to filter out junk attributes (system columns, metadata) from the subplan's target list and ensure the resulting tuple matches the target table's schema.
 

@@ -8,7 +8,17 @@ Looks up an internal PostgreSQL function by name and returns its corresponding O
 
 ## Definition
 
-
+```c
+struct fmgr_security_definer_cache
+{
+	FmgrInfo	flinfo;			/* lookup info for target function */
+	Oid			userid;			/* userid to set, or InvalidOid */
+	List	   *configNames;	/* GUC names to set, or NIL */
+	List	   *configHandles;	/* GUC handles to set, or NIL */
+	List	   *configValues;	/* GUC values to set, or NIL */
+	Datum		arg;			/* passthrough argument for plugin modules */
+};
+```
 ## Detailed Description
 The  function provides a specialized lookup mechanism specifically designed for the function manager's internal validator. Given a function name as a string, it searches PostgreSQL's built-in function table to determine if the name corresponds to a valid internal function.
 

@@ -8,7 +8,13 @@ Analyzes a tuple's transaction ID fields (xmin, xmax, xvac) to determine if free
 
 ## Definition
 
-
+```c
+bool
+heap_prepare_freeze_tuple(HeapTupleHeader tuple,
+						  const struct VacuumCutoffs *cutoffs,
+						  HeapPageFreeze *pagefrz,
+						  HeapTupleFreeze *frz, bool *totally_frozen)
+```
 ## Detailed Description
 heap_prepare_freeze_tuple is a core component of PostgreSQL's tuple freezing mechanism, responsible for analyzing tuple headers and preparing freeze plans during VACUUM operations. The function examines all transaction ID fields in a tuple (xmin, xmax, xvac) against various age-based cutoffs to determine what freezing actions are needed.
 

@@ -8,7 +8,11 @@ This function performs locale-aware string comparison for two strings with speci
 
 ## Definition
 
-
+```c
+int
+pg_strncoll(const char *arg1, size_t len1, const char *arg2, size_t len2,
+			pg_locale_t locale)
+```
 ## Detailed Description
 pg_strncoll is a dispatch function that performs collation-aware string comparison by delegating to the appropriate underlying implementation based on the locale provider. It supports both traditional libc-based collations and modern ICU-based collations. The function handles strings that may not be null-terminated by accepting explicit length parameters, making it suitable for use with PostgreSQL's internal string representations.
 

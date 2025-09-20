@@ -8,7 +8,10 @@ A cross-platform function in pgbench that sets up a timer to limit the duration 
 
 ## Definition
 
-
+```c
+static void
+setalarm(int seconds)
+```
 ## Detailed Description
 This function provides a platform-specific timer mechanism to implement duration-based benchmarking in pgbench. It sets up a timer that will trigger after the specified number of seconds, causing the global  flag to be set, which signals the benchmark execution loop to terminate.
 

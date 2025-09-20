@@ -8,7 +8,10 @@ Sets up and validates locale variables during PostgreSQL database initialization
 
 ## Definition
 
-
+```c
+static void
+setlocales(void)
+```
 ## Detailed Description
 This function is responsible for configuring all locale-related settings during database cluster initialization (initdb). It performs several key operations:
 

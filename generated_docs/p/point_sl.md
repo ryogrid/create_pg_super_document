@@ -8,7 +8,10 @@ Calculates the slope of a line defined by two points, handling special cases for
 
 ## Definition
 
-
+```c
+static inline float8
+point_sl(Point *pt1, Point *pt2)
+```
 ## Detailed Description
 The  function computes the slope of a line passing through two given points using the standard slope formula: slope = (y₂-y₁)/(x₂-x₁). The function includes special handling for edge cases:
 - When the x-coordinates are equal (vertical line), it returns positive infinity

@@ -8,7 +8,11 @@ This function is the workhorse for "*" expansion in PostgreSQL's parser, produci
 
 ## Definition
 
-
+```c
+List *
+expandNSItemAttrs(ParseState *pstate, ParseNamespaceItem *nsitem,
+				  int sublevels_up, bool require_col_privs, int location)
+```
 ## Detailed Description
 The  function expands a "*" reference into a list of  nodes representing all visible columns of a table or other relation. It serves as the core implementation for SELECT * operations and similar wildcard expansions in SQL queries. The function handles permission checking, assigns result numbers to target list entries, and marks columns as requiring SELECT access when requested.
 

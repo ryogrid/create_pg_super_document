@@ -8,7 +8,18 @@ BTVacuumPostingData is a state structure used during B-tree VACUUM operations to
 
 ## Definition
 
+```c
+typedef struct BTVacuumPostingData
+{
+	/* Tuple that will be/was updated */
+	IndexTuple	itup;
+	OffsetNumber updatedoffset;
 
+	/* State needed to describe final itup in WAL */
+	uint16		ndeletedtids;
+	uint16		deletetids[FLEXIBLE_ARRAY_MEMBER];
+} BTVacuumPostingData;
+```
 ## Detailed Description
 This structure manages the vacuum process for posting list tuples in B-tree indexes. When VACUUM determines that only some TIDs in a posting list tuple need to be deleted (rather than the entire tuple), this structure maintains the state needed for the operation. The convention is that the itup field contains the original posting list tuple on input and a palloc()'d final tuple used to overwrite the existing tuple on output.
 

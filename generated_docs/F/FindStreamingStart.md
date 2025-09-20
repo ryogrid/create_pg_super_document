@@ -8,7 +8,9 @@ Determines the starting location for WAL streaming by analyzing existing WAL seg
 
 ## Definition
 
-
+```c
+struct dirent *dirent;
+```
 ## Detailed Description
 This function scans the destination directory for existing WAL (Write-Ahead Logging) files to determine where streaming should resume. It examines all WAL segment files, validates their completeness by checking file sizes, and identifies the highest timeline ID with the latest complete segment. The function supports multiple compression algorithms (none, gzip, LZ4) and handles the complexity of verifying compressed segment integrity.
 

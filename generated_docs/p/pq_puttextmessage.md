@@ -8,7 +8,10 @@ Generates and sends a character set-converted message to the client in a single 
 
 ## Definition
 
-
+```c
+void
+pq_puttextmessage(char msgtype, const char *str)
+```
 ## Detailed Description
 The  function provides a convenient one-step method for sending text messages to PostgreSQL clients with automatic character encoding conversion. It combines the functionality of character set conversion and message transmission, similar to  but specifically designed for null-terminated strings that may require encoding conversion from the server's internal encoding to the client's expected encoding.
 

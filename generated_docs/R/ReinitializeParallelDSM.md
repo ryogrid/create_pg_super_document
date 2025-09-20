@@ -8,7 +8,10 @@ Reinitializes the dynamic shared memory segment for a parallel context to prepar
 
 ## Definition
 
-
+```c
+void
+ReinitializeParallelDSM(ParallelContext *pcxt)
+```
 ## Detailed Description
 ReinitializeParallelDSM prepares an existing parallel context for reuse by cleaning up state from previous parallel worker executions and resetting the shared memory segment to a fresh state. This function is essential for scenarios where the same parallel context needs to be used multiple times, such as parallel vacuum operations that process multiple indexes or parallel query execution phases that require worker recycling.
 

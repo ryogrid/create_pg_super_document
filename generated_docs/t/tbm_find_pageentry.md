@@ -8,7 +8,10 @@ Finds and returns a PagetableEntry for a specific page number, ensuring the entr
 
 ## Definition
 
-
+```c
+static const PagetableEntry *
+tbm_find_pageentry(const TIDBitmap *tbm, BlockNumber pageno)
+```
 ## Detailed Description
 The  function performs a lookup operation to find a specific PagetableEntry within a TIDBitmap structure. It specifically searches for non-lossy entries, returning NULL if the requested page is either not found or exists only as a lossy chunk header.
 

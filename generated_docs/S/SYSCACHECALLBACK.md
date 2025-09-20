@@ -8,7 +8,15 @@ SYSCACHECALLBACK is a structure that defines an entry in the system cache callba
 
 ## Definition
 
-
+```c
+struct SYSCACHECALLBACK
+{
+	int16		id;				/* cache number */
+	int16		link;			/* next callback index+1 for same cache */
+	SyscacheCallbackFunction function;
+	Datum		arg;
+}			syscache_callback_list[MAX_SYSCACHE_CALLBACKS];
+```
 ## Detailed Description
 The SYSCACHECALLBACK structure is part of PostgreSQL's cache invalidation system. It maintains a static array of callback entries that are executed when system caches need to be invalidated. The structure implements a linked list organization where callbacks for the same cache are chained together using the link field. This design allows efficient traversal of callbacks for specific cache types during invalidation events. The maximum number of callbacks is limited by MAX_SYSCACHE_CALLBACKS (64).
 

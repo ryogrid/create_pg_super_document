@@ -8,7 +8,11 @@ A test function that verifies that psql parses a given input as a single SQL sta
 
 ## Definition
 
-
+```c
+static void
+test_psql_parse(pe_test_config *tc, PQExpBuffer testname,
+				PQExpBuffer input_buf, PQExpBuffer details)
+```
 ## Detailed Description
 This function validates that the psql parser interprets the provided input buffer as a single SQL statement. It uses the psql scanner to parse the input and ensures that only one statement is detected. This verification is critical for testing escape functions because if an input can be parsed as multiple statements, it indicates that the escape function failed to prevent SQL injection through statement smuggling. The function scans the input using PostgreSQL's psql scanner, tracks the number of statements found, and reports whether the test passes or fails based on whether exactly one complete statement was parsed.
 

@@ -8,7 +8,20 @@ A structure that stores all command-line options and configuration parameters fo
 
 ## Definition
 
-
+```c
+typedef struct cb_options
+{
+	bool		debug;
+	char	   *output;
+	bool		dry_run;
+	bool		no_sync;
+	cb_tablespace_mapping *tsmappings;
+	pg_checksum_type manifest_checksums;
+	bool		no_manifest;
+	DataDirSyncMethod sync_method;
+	CopyMethod	copy_method;
+} cb_options;
+```
 ## Detailed Description
 The  structure serves as the central configuration container for pg_combinebackup, storing all user-specified options and operational parameters. This structure is populated during command-line parsing and is passed throughout the application to control behavior during backup combination operations.
 

@@ -8,7 +8,12 @@ Creates partitionwise grouping and aggregation paths for partitioned relations b
 
 ## Definition
 
-
+```c
+structure as is and then override the
+		 * members specific to this child.
+		 */
+		memcpy(&child_extra, extra, sizeof(child_extra));
+```
 ## Detailed Description
 This function optimizes aggregation and grouping operations over partitioned relations by implementing partitionwise processing. It handles two main scenarios:
 

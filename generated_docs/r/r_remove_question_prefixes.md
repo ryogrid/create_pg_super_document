@@ -8,7 +8,11 @@ A Tamil stemmer function that identifies and removes specific question-forming p
 
 ## Definition
 
+```c
+}
 
+static int r_remove_question_prefixes(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Tamil language stemming algorithm that handles question-forming prefixes. It follows a specific pattern-matching sequence to identify Tamil question prefixes:
 

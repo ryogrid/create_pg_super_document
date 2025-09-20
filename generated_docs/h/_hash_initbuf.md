@@ -8,7 +8,11 @@ Initializes a hash page buffer with bucket-specific metadata, setting up the pag
 
 ## Definition
 
-
+```c
+void
+_hash_initbuf(Buffer buf, uint32 max_bucket, uint32 num_bucket, uint32 flag,
+			  bool initpage)
+```
 ## Detailed Description
 This function initializes a buffer that has already been allocated for use as a hash index page. Unlike the buffer allocation functions, _hash_initbuf operates on an existing buffer and focuses specifically on setting up the hash-specific metadata in the page's opaque area.
 

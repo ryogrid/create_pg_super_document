@@ -8,7 +8,10 @@ PostgreSQL built-in function that implements the less-than comparison operator (
 
 ## Definition
 
-
+```c
+Datum
+enum_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the less-than comparison functionality for PostgreSQL enum types. It serves as a thin wrapper around enum_cmp_internal(), extracting the two enum OID arguments from the function call context and returning true if the first argument is less than the second according to the enum's defined ordering.
 

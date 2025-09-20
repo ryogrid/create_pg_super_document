@@ -8,7 +8,10 @@ pg_database_collation_actual_version is a PostgreSQL SQL function that returns t
 
 ## Definition
 
-
+```c
+Datum
+pg_database_collation_actual_version(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL function `pg_database_collation_actual_version(database_oid)` which returns the current version string from the system collation library for a given database. The function:
 

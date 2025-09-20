@@ -8,7 +8,12 @@ Drops a specified subscription to avoid duplicate subscriptions when converting 
 
 ## Definition
 
-
+```c
+struct a query string. These commands are allowed to be executed
+	 * within a transaction.
+	 */
+	appendPQExpBuffer(query, "ALTER SUBSCRIPTION %s DISABLE;
+```
 ## Detailed Description
 This function safely removes an existing subscription by executing a sequence of SQL commands within a transaction. The process follows a specific order to avoid conflicts:
 

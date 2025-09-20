@@ -8,7 +8,14 @@ PgStat_Kind is an enumeration that defines the different types of statistics ent
 
 ## Definition
 
-
+```c
+typedef enum TrackFunctionsLevel
+{
+	TRACK_FUNC_OFF,
+	TRACK_FUNC_PL,
+	TRACK_FUNC_ALL,
+}			TrackFunctionsLevel;
+```
 ## Detailed Description
 PgStat_Kind categorizes different types of statistics that PostgreSQL collects and maintains. The enumeration is divided into two main categories: statistics for variable-numbered objects (like databases, tables, functions) and statistics for fixed-numbered objects (like background processes). This classification helps the statistics system organize and manage different types of performance and activity data efficiently.
 

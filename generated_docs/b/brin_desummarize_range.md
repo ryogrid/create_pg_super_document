@@ -8,7 +8,10 @@ A SQL-callable function that removes summary information for a specific block ra
 
 ## Definition
 
-
+```c
+Datum
+brin_desummarize_range(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the opposite functionality to  by removing existing summary tuples for a specified block range. It performs similar validation as the summarize function, ensuring the target is a valid BRIN index and that the user has appropriate permissions. Unlike , this function is never called by autovacuum, so it doesn't need to switch security contexts. The actual work is delegated to , which handles the low-level details of removing summary entries from the revmap. The function uses a loop to ensure the operation completes successfully.
 

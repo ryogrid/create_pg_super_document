@@ -8,7 +8,10 @@ Internal common implementation for creating RestrictInfo nodes, handling the det
 
 ## Definition
 
-
+```c
+union(restrictinfo->left_relids,
+												restrictinfo->right_relids);
+```
 ## Detailed Description
 This static function serves as the core implementation for RestrictInfo creation, performing comprehensive initialization of all RestrictInfo fields. It analyzes the clause structure to determine relation dependencies, evaluates join potential for binary operator clauses, handles security considerations including leak-proofness testing, and initializes performance-related caches. The function distinguishes between binary operator clauses (which may be join-capable) and other clause types, setting up appropriate left/right relation information for optimization purposes.
 

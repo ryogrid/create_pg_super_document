@@ -8,7 +8,10 @@ Generates pseudorandom permutations of integers in the range [0, size) for pgben
 
 ## Definition
 
-
+```c
+static int64
+permute(const int64 val, const int64 isize, const int64 seed)
+```
 ## Detailed Description
 This function implements a pseudorandom permutation algorithm designed for pgbench's workload generation needs. For small sizes (≤20), it can generate each of the (size!) possible permutations with roughly equal probability. For larger sizes, while not all permutations are possible due to the finite state space of the PRNG, it still provides good random distribution.
 

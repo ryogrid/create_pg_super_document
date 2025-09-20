@@ -8,7 +8,10 @@ Checks if the current user has any given privilege on any column of a specified 
 
 ## Definition
 
-
+```c
+Datum
+has_any_column_privilege_id(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function combines the convenience of automatic current user detection with the precision of OID-based table identification and robust error handling. It automatically uses the currently connected user (via ) and takes a table OID for precise table identification.
 

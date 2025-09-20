@@ -8,7 +8,12 @@ A static utility function that adds an ObjectAddress entry along with associated
 
 ## Definition
 
-
+```c
+static void
+add_exact_object_address_extra(const ObjectAddress *object,
+							   const ObjectAddressExtra *extra,
+							   ObjectAddresses *addrs)
+```
 ## Detailed Description
 This function extends the basic object address addition functionality by supporting additional metadata storage through the ObjectAddressExtra structure. It maintains two parallel arrays: the main ObjectAddress array and a corresponding ObjectAddressExtra array that stores supplementary information.
 

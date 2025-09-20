@@ -8,7 +8,14 @@ ACT_FILE is an enumeration value that represents a file execution action in psql
 
 ## Definition
 
-
+```c
+typedef struct SimpleActionListCell
+{
+	struct SimpleActionListCell *next;
+	enum _actions action;
+	char	   *val;
+} SimpleActionListCell;
+```
 ## Detailed Description
 ACT_FILE is one of the action types defined in psql's startup module that specifies the type of operation to be performed. When ACT_FILE is used, it indicates that psql should execute SQL commands from a specified file. This enumeration value is part of the action list system that allows psql to queue multiple operations for execution in sequence.
 

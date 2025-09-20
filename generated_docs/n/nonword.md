@@ -8,7 +8,13 @@ The nonword function generates NFA arcs for matching non-word-character position
 
 ## Definition
 
-
+```c
+static void
+nonword(struct vars *v,
+		int dir,				/* AHEAD or BEHIND */
+		struct state *lp,
+		struct state *rp)
+```
 ## Detailed Description
 The nonword function is part of PostgreSQL's regular expression engine implementation. It creates arcs in the NFA (Non-deterministic Finite Automaton) that match non-word character positions. The function handles both lookahead (AHEAD) and lookbehind (BEHIND) assertions for non-word boundaries.
 

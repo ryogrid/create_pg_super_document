@@ -8,7 +8,9 @@ Locates a named WindowClause in a list of window clauses by name, returning the 
 
 ## Definition
 
-
+```c
+structName = NULL;
+```
 ## Detailed Description
 This simple utility function performs a linear search through a list of WindowClause structures to find one with a matching name. It's used during window function processing to resolve window clause references by name in SQL window specifications.
 

@@ -8,7 +8,11 @@ This function detects when a user-defined picksplit function fails to properly d
 
 ## Definition
 
-
+```c
+static bool
+checkAllTheSame(spgPickSplitIn *in, spgPickSplitOut *out, bool tooBig,
+				bool *includeNew)
+```
 ## Detailed Description
 This function serves as a failsafe mechanism for SPGiST index operations when the user-defined picksplit function produces inadequate node distribution. It detects the problematic case where all tuples are assigned to the same node, which would not achieve the desired space-partitioning effect.
 

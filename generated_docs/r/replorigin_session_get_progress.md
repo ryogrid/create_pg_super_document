@@ -8,7 +8,10 @@ Retrieves the current replication progress (remote LSN) from the active replicat
 
 ## Definition
 
-
+```c
+XLogRecPtr
+replorigin_session_get_progress(bool flush)
+```
 ## Detailed Description
 This function queries the current replication origin session to determine how far replication has progressed by returning the remote LSN (Log Sequence Number). It provides an efficient way to check replication progress without needing to search through the global replication state array.
 

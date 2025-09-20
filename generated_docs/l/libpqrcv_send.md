@@ -8,7 +8,10 @@ libpqrcv_send is a static function that sends data to a PostgreSQL WAL (Write-Ah
 
 ## Definition
 
-
+```c
+static void
+libpqrcv_send(WalReceiverConn *conn, const char *buffer, int nbytes)
+```
 ## Detailed Description
 This function serves as a low-level communication primitive for WAL replication streams in PostgreSQL. It wraps the libpq PQputCopyData and PQflush calls to send binary data through a streaming replication connection. The function implements robust error handling by checking the return values of both PQputCopyData (for queuing data) and PQflush (for ensuring data is actually transmitted), and raises an ERROR-level ereport if either operation fails. This ensures that WAL receiver processes can reliably detect and report communication problems with the primary server.
 

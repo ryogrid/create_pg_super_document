@@ -8,7 +8,10 @@ A PostgreSQL system function that determines whether a text search configuration
 
 ## Definition
 
-
+```c
+Datum
+pg_ts_config_is_visible(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL system function that checks the visibility of a text search configuration within the current schema search path. It takes a configuration OID as input and returns a boolean value indicating whether the configuration is accessible from the current context. The function handles missing configurations gracefully by returning NULL instead of throwing an error, making it suitable for use in SQL queries where the existence of the configuration is uncertain.
 

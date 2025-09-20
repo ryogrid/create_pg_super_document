@@ -8,7 +8,41 @@ TypeCreate is the comprehensive function that creates a fully-defined type entry
 
 ## Definition
 
-
+```c
+ObjectAddress
+TypeCreate(Oid newTypeOid,
+		   const char *typeName,
+		   Oid typeNamespace,
+		   Oid relationOid,		/* only for relation rowtypes */
+		   char relationKind,	/* ditto */
+		   Oid ownerId,
+		   int16 internalSize,
+		   char typeType,
+		   char typeCategory,
+		   bool typePreferred,
+		   char typDelim,
+		   Oid inputProcedure,
+		   Oid outputProcedure,
+		   Oid receiveProcedure,
+		   Oid sendProcedure,
+		   Oid typmodinProcedure,
+		   Oid typmodoutProcedure,
+		   Oid analyzeProcedure,
+		   Oid subscriptProcedure,
+		   Oid elementType,
+		   bool isImplicitArray,
+		   Oid arrayType,
+		   Oid baseType,
+		   const char *defaultTypeValue,	/* human-readable rep */
+		   char *defaultTypeBin,	/* cooked rep */
+		   bool passedByValue,
+		   char alignment,
+		   char storage,
+		   int32 typeMod,
+		   int32 typNDims,		/* Array dimensions for baseType */
+		   bool typeNotNull,
+		   Oid typeCollation)
+```
 ## Detailed Description
 TypeCreate is the core function responsible for creating complete type definitions in PostgreSQL's type system. It performs extensive validation of type parameters, ensures consistency between size, alignment, and pass-by-value semantics, and handles both new type creation and shell type completion.
 

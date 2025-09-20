@@ -8,7 +8,11 @@ Collects metadata about an ALTER TEXT SEARCH CONFIGURATION command being execute
 
 ## Definition
 
-
+```c
+void
+EventTriggerCollectAlterTSConfig(AlterTSConfigurationStmt *stmt, Oid cfgId,
+								 Oid *dictIds, int ndicts)
+```
 ## Detailed Description
 This function is part of PostgreSQL's event trigger system and is responsible for capturing information about ALTER TEXT SEARCH CONFIGURATION commands. When an ALTER TEXT SEARCH CONFIGURATION command is executed, this function creates a CollectedCommand structure containing the command details and stores it in the current event trigger state for later processing by event triggers.
 

@@ -8,7 +8,10 @@ Flushes all accumulated pending batch inserts to foreign tables by iterating thr
 
 ## Definition
 
-
+```c
+static void
+ExecPendingInserts(EState *estate)
+```
 ## Detailed Description
 ExecPendingInserts serves as a batch flush mechanism for foreign table insertions. When foreign tables support batching (ri_BatchSize > 1), individual insert operations accumulate tuples in memory buffers rather than inserting them immediately. This function processes all such accumulated batches:
 

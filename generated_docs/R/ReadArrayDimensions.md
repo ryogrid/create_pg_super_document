@@ -8,7 +8,11 @@ Parses array dimension specifications from an input string and converts them to 
 
 ## Definition
 
-
+```c
+static bool
+ReadArrayDimensions(char **srcptr, int *ndim_p, int *dim, int *lBound,
+					const char *origStr, Node *escontext)
+```
 ## Detailed Description
 ReadArrayDimensions is a static helper function that parses the optional dimension specification part of PostgreSQL array literals. It handles dimension specifications in the format "[n]" for simple dimensions or "[m:n]" for explicit lower and upper bounds.
 

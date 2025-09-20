@@ -8,7 +8,10 @@ Converts an ItemPointer to a 64-bit unsigned integer representation for efficien
 
 ## Definition
 
-
+```c
+static inline uint64
+itemptr_to_uint64(const ItemPointer iptr)
+```
 ## Detailed Description
 This function converts a PostgreSQL ItemPointer (which contains a block number and offset number) into a compact 64-bit unsigned integer representation. The conversion packs the block number in the upper bits and the offset number in the lower bits, using MaxHeapTuplesPerPageBits to determine the bit allocation. This compact representation is essential for efficient storage and processing of posting lists in GIN indexes, where many ItemPointers need to be stored and compared.
 

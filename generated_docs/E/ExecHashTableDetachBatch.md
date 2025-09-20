@@ -8,7 +8,10 @@ Detaches the current process from a shared hash join batch and performs cleanup 
 
 ## Definition
 
-
+```c
+void
+ExecHashTableDetachBatch(HashJoinTable hashtable)
+```
 ## Detailed Description
 This function manages the detachment of a worker process from a parallel hash join batch. It handles the complex synchronization required for parallel hash joins by using barrier synchronization primitives. When detaching, the function ensures proper cleanup of temporary files and coordinates the transition through batch processing phases (PHJ_BATCH_PROBE, PHJ_BATCH_SCAN, PHJ_BATCH_FREE).
 

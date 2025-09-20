@@ -8,7 +8,15 @@ Creates a canonical PathKey from a sort operator, serving as a compatibility wra
 
 ## Definition
 
-
+```c
+static PathKey *
+make_pathkey_from_sortop(PlannerInfo *root,
+						 Expr *expr,
+						 Oid ordering_op,
+						 bool nulls_first,
+						 Index sortref,
+						 bool create_it)
+```
 ## Detailed Description
 This function provides a simplified interface for creating PathKeys when only a sort operator OID is available, rather than detailed operator family information. It acts as a compatibility layer and convenience wrapper around make_pathkey_from_sortinfo.
 

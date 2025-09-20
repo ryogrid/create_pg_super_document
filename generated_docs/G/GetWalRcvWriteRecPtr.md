@@ -8,7 +8,10 @@ Returns the last+1 byte position that the WAL receiver has written to WAL buffer
 
 ## Definition
 
-
+```c
+XLogRecPtr
+GetWalRcvWriteRecPtr(void)
+```
 ## Detailed Description
 This function provides a fast, lock-free method to retrieve the current write position of the WAL receiver process. Unlike GetWalRcvFlushRecPtr which returns the flushed (durable) position, this function returns the written position which may be ahead of what has been flushed to disk. It uses atomic operations to read the writtenUpto field without requiring mutex protection, making it suitable for frequent polling or monitoring scenarios where performance is critical.
 

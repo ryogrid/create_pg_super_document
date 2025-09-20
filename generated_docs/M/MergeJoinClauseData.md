@@ -8,7 +8,29 @@ MergeJoinClauseData is a runtime data structure that encapsulates all the inform
 
 ## Definition
 
+```c
+typedef struct MergeJoinClauseData
+{
+	/* Executable expression trees */
+	ExprState  *lexpr;			/* left-hand (outer) input expression */
+	ExprState  *rexpr;			/* right-hand (inner) input expression */
 
+	/*
+	 * If we have a current left or right input tuple, the values of the
+	 * expressions are loaded into these fields:
+	 */
+	Datum		ldatum;			/* current left-hand value */
+	Datum		rdatum;			/* current right-hand value */
+	bool		lisnull;		/* and their isnull flags */
+	bool		risnull;
+
+	/*
+	 * Everything we need to know to compare the left and right values is
+	 * stored here.
+	 */
+	SortSupportData ssup;
+}			MergeJoinClauseData;
+```
 ## Detailed Description
 MergeJoinClauseData represents the runtime state for a single merge join clause during execution. Each instance corresponds to one equality condition in the merge join's join quals. The structure is designed to optimize performance by:
 

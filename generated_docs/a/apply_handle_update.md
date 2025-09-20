@@ -8,7 +8,10 @@ Handles UPDATE messages in PostgreSQL logical replication by applying the update
 
 ## Definition
 
-
+```c
+static void
+apply_handle_update(StringInfo s)
+```
 ## Detailed Description
 This function is the main entry point for processing UPDATE messages received from a logical replication publisher. It performs several key operations:
 

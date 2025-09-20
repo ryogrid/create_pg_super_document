@@ -8,7 +8,11 @@ AlterSubscription modifies existing logical replication subscriptions, handling 
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterSubscription(ParseState *pstate, AlterSubscriptionStmt *stmt,
+				  bool isTopLevel)
+```
 ## Detailed Description
 AlterSubscription is the main function for handling ALTER SUBSCRIPTION SQL commands in PostgreSQL's logical replication system. It performs comprehensive validation and modification of subscription properties stored in the pg_subscription system catalog.
 

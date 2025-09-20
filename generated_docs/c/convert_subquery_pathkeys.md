@@ -8,7 +8,12 @@ Converts a subquery's output pathkeys into equivalent pathkeys in the context of
 
 ## Definition
 
-
+```c
+List *
+convert_subquery_pathkeys(PlannerInfo *root, RelOptInfo *rel,
+						  List *subquery_pathkeys,
+						  List *subquery_tlist)
+```
 ## Detailed Description
 This function performs the complex task of translating pathkeys from a subquery's internal representation to pathkeys that are meaningful in the outer query's context. It handles two main cases:
 

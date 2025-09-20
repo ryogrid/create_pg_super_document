@@ -8,7 +8,10 @@ Computes the Least Common Multiple (LCM) of two 64-bit signed integers, with ove
 
 ## Definition
 
-
+```c
+Datum
+int8lcm(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function calculates the least common multiple of two int64 values using the mathematical formula: lcm(x, y) = abs(x / gcd(x, y) * y). It implements several safety measures including special case handling for zero arguments, overflow detection during multiplication, and range validation to ensure the result can be represented as a PostgreSQL bigint.
 

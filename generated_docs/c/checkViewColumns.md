@@ -8,7 +8,10 @@ checkViewColumns verifies that the columns of a proposed new view definition are
 
 ## Definition
 
-
+```c
+static void
+checkViewColumns(TupleDesc newdesc, TupleDesc olddesc)
+```
 ## Detailed Description
 checkViewColumns performs strict compatibility checking between old and new view column definitions during CREATE OR REPLACE VIEW operations. The function ensures that view replacement maintains backward compatibility by enforcing the following rules:
 

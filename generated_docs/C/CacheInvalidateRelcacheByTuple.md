@@ -8,7 +8,10 @@ Registers invalidation of a relation's relcache entry by identifying the relatio
 
 ## Definition
 
-
+```c
+void
+CacheInvalidateRelcacheByTuple(HeapTuple classTuple)
+```
 ## Detailed Description
 CacheInvalidateRelcacheByTuple provides the same functionality as CacheInvalidateRelcache but operates on a pg_class tuple instead of a Relation structure. This is useful in contexts where you have access to the catalog tuple but not necessarily an open relation. The function extracts the relation OID and shared status directly from the pg_class tuple structure and registers the appropriate relcache invalidation.
 

@@ -8,7 +8,10 @@ MultiXactIdPrecedesOrEquals determines whether one MultiXactId is logically less
 
 ## Definition
 
-
+```c
+bool
+MultiXactIdPrecedesOrEquals(MultiXactId multi1, MultiXactId multi2)
+```
 ## Detailed Description
 This function implements a precedence or equality comparison for MultiXact IDs using modular arithmetic to handle wrap-around. It computes the difference between the two MultiXact IDs as a signed 32-bit integer and returns true if multi1 precedes or equals multi2 (multi1 <= multi2). Like MultiXactIdPrecedes, it assumes that MultiXact IDs are close enough in value that the difference fits within the range of a 32-bit signed integer.
 

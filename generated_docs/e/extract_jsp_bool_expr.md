@@ -8,7 +8,11 @@ Recursively extracts and builds a GIN-compatible query tree from boolean jsonpat
 
 ## Definition
 
-
+```c
+static JsonPathGinNode *
+extract_jsp_bool_expr(JsonPathGinContext *cxt, JsonPathGinPath path,
+					  JsonPathItem *jsp, bool not)
+```
 ## Detailed Description
 This function serves as the core boolean expression processor for jsonpath GIN index queries. It recursively traverses a jsonpath boolean expression tree and converts it into a  structure that can be efficiently processed by PostgreSQL's GIN indexing system. The function handles De Morgan's law transformations when the  parameter is true, converting AND operations to OR and vice versa.
 

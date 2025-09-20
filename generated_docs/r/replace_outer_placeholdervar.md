@@ -8,7 +8,10 @@ Generates a Param node to replace the given PlaceHolderVar which is expected to 
 
 ## Definition
 
-
+```c
+Param *
+replace_outer_placeholdervar(PlannerInfo *root, PlaceHolderVar *phv)
+```
 ## Detailed Description
 This function is the PlaceHolderVar equivalent of replace_outer_var, handling the conversion of PlaceHolderVar nodes into Param nodes for parameter passing between query levels. PlaceHolderVars represent expressions that need to be computed at specific levels in the query tree, and this function enables their parameterization for use in correlated subqueries.
 

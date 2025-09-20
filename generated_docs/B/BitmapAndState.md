@@ -8,7 +8,14 @@ BitmapAndState is the runtime state structure for the BitmapAnd executor node, w
 
 ## Definition
 
-
+```c
+typedef struct BitmapAndState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	PlanState **bitmapplans;	/* array of PlanStates for my inputs */
+	int			nplans;			/* number of input plans */
+} BitmapAndState;
+```
 ## Detailed Description
 BitmapAndState manages the execution of bitmap AND operations in PostgreSQL's bitmap index scan optimization. It combines multiple bitmap indexes by performing logical AND operations, resulting in a bitmap that represents the intersection of all input bitmaps. This is used to efficiently filter rows when multiple index conditions need to be satisfied simultaneously.
 

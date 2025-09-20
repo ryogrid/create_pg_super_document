@@ -8,7 +8,10 @@ Reads data from a large object and returns it as a bytea (binary data) value.
 
 ## Definition
 
-
+```c
+Datum
+be_loread(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the backend functionality for reading data from large objects in PostgreSQL. It takes a file descriptor and length parameter, reads the specified amount of data from the large object, and returns it as a PostgreSQL bytea data type.
 

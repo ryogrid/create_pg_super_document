@@ -8,7 +8,10 @@ An enumeration that defines option flag bits for controlling the behavior of  wh
 
 ## Definition
 
-
+```c
+typedef void (*RangeVarGetRelidCallback) (const RangeVar *relation, Oid relId,
+										  Oid oldRelId, void *callback_arg);
+```
 ## Detailed Description
 This enumeration provides bit flags that modify the behavior of PostgreSQL's  function when resolving relation names to object identifiers (OIDs). The flags control error handling for missing relations and locking behavior when the target relation is already locked by another process.
 

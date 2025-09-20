@@ -8,7 +8,10 @@ CatCacheRemoveCTup is a static function that removes and deallocates a catalog c
 
 ## Definition
 
-
+```c
+static void
+CatCacheRemoveCTup(CatCache *cache, CatCTup *ct)
+```
 ## Detailed Description
 This function performs the complete removal of a catalog cache tuple entry from the cache system. It handles the complex cleanup process including deallocation of memory, unlinking from data structures, and maintaining cache statistics. The function includes special logic for handling entries that are part of CatCList structures.
 

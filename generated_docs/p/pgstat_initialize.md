@@ -8,7 +8,10 @@ Initializes the PostgreSQL statistics system for a backend process by attaching 
 
 ## Definition
 
-
+```c
+void
+pgstat_initialize(void)
+```
 ## Detailed Description
 This function performs the essential initialization of the PostgreSQL statistics system for an individual backend process. It is called early in backend startup from  to establish the necessary infrastructure for statistics collection and reporting throughout the backend's lifetime.
 

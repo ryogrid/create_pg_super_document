@@ -8,7 +8,15 @@ Builds a complete tuple descriptor for a new index by processing column informat
 
 ## Definition
 
-
+```c
+static TupleDesc
+ConstructTupleDescriptor(Relation heapRelation,
+						 const IndexInfo *indexInfo,
+						 const List *indexColNames,
+						 Oid accessMethodId,
+						 const Oid *collationIds,
+						 const Oid *opclassIds)
+```
 ## Detailed Description
 This function constructs a TupleDesc (tuple descriptor) for a new index by combining information from the heap relation, index specification, and access method requirements. It processes both simple column references and expression-based columns, handling type information, collations, and operator classes. For simple columns, it copies relevant attributes from the heap relation's tuple descriptor. For expression columns, it determines the result type by evaluating the expression and looking up type information in the system catalog. The function also handles special cases like opclass key type overrides and polymorphic type resolution (ANYELEMENT/ANYARRAY). The resulting tuple descriptor serves as the structural definition for how index tuples will be stored and accessed.
 

@@ -8,7 +8,36 @@ A specialized binary search function for arrays of leaf_item structures, used to
 
 ## Definition
 
+```c
+struct simple8b_mode
+{
+	uint8		bits_per_int;
+	uint8		num_ints;
+}			simple8b_modes[17] =
 
+{
+	{0, 240},					/* mode  0: 240 zeroes */
+	{0, 120},					/* mode  1: 120 zeroes */
+	{1, 60},					/* mode  2: sixty 1-bit integers */
+	{2, 30},					/* mode  3: thirty 2-bit integers */
+	{3, 20},					/* mode  4: twenty 3-bit integers */
+	{4, 15},					/* mode  5: fifteen 4-bit integers */
+	{5, 12},					/* mode  6: twelve 5-bit integers */
+	{6, 10},					/* mode  7: ten 6-bit integers */
+	{7, 8},						/* mode  8: eight 7-bit integers (four bits
+								 * are wasted) */
+	{8, 7},						/* mode  9: seven 8-bit integers (four bits
+								 * are wasted) */
+	{10, 6},					/* mode 10: six 10-bit integers */
+	{12, 5},					/* mode 11: five 12-bit integers */
+	{15, 4},					/* mode 12: four 15-bit integers */
+	{20, 3},					/* mode 13: three 20-bit integers */
+	{30, 2},					/* mode 14: two 30-bit integers */
+	{60, 1},					/* mode 15: one 60-bit integer */
+
+	{0, 0}						/* sentinel value */
+};
+```
 ## Detailed Description
 This function is a variant of the standard binary search algorithm, specifically designed to work with arrays of  structures. Each  contains a compressed sequence of integers, and this function searches by comparing against the  field of each item, which represents the first (smallest) integer in that compressed sequence.
 

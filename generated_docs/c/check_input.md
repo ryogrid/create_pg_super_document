@@ -8,7 +8,9 @@ A static utility function in initdb that validates the existence and accessibili
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The  function performs file system validation on input files that are essential for PostgreSQL database cluster initialization. It first attempts to stat the file at the given path, checking for file existence and accessibility. If the file cannot be accessed, it distinguishes between file-not-found errors (ENOENT) and other access errors, providing appropriate error messages for each case. Additionally, it verifies that the path points to a regular file (not a directory, device, or other special file type) using the  macro. If any validation fails, the function logs descriptive error messages with hints about possible causes and terminates the program with exit code 1.
 

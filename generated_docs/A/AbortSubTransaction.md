@@ -8,7 +8,10 @@ AbortSubTransaction aborts a subtransaction by performing comprehensive cleanup 
 
 ## Definition
 
-
+```c
+struction state */
+	XLogResetInsertion();
+```
 ## Detailed Description
 AbortSubTransaction is a static function responsible for aborting a subtransaction in PostgreSQL's transaction management system. The function performs extensive cleanup and recovery operations:
 

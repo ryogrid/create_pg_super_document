@@ -8,7 +8,10 @@ Obtains information about a previously prepared statement by sending a Describe 
 
 ## Definition
 
-
+```c
+PGresult *
+PQdescribePrepared(PGconn *conn, const char *stmt)
+```
 ## Detailed Description
 PQdescribePrepared is a synchronous function that retrieves metadata about a previously prepared statement. It sends a Describe message to the server with statement type 'S' (prepared statement) and waits for the complete response. The function returns a PGresult that contains information about the statement's input parameters and output columns.
 

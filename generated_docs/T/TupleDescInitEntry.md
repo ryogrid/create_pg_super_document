@@ -8,7 +8,15 @@ TupleDescInitEntry initializes a single attribute structure within a previously 
 
 ## Definition
 
-
+```c
+void
+TupleDescInitEntry(TupleDesc desc,
+				   AttrNumber attributeNumber,
+				   const char *attributeName,
+				   Oid oidtypeid,
+				   int32 typmod,
+				   int attdim)
+```
 ## Detailed Description
 This function performs comprehensive initialization of a single attribute slot in a TupleDesc structure. It combines caller-provided information with type metadata retrieved from the system catalog to fully populate the pg_attribute structure.
 

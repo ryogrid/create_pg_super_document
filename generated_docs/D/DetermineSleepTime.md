@@ -8,7 +8,10 @@ Calculates the optimal sleep duration in milliseconds for the PostgreSQL postmas
 
 ## Definition
 
-
+```c
+static int
+DetermineSleepTime(void)
+```
 ## Detailed Description
 DetermineSleepTime is a critical function in the postmaster's event loop that determines how long the server should wait before checking for new events. The function implements intelligent sleep duration calculation based on the current server state:
 

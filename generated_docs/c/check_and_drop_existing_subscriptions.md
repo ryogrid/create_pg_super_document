@@ -8,7 +8,11 @@ Retrieves and drops all pre-existing subscriptions for a specified database in P
 
 ## Definition
 
-
+```c
+static void
+check_and_drop_existing_subscriptions(PGconn *conn,
+									  const struct LogicalRepInfo *dbinfo)
+```
 ## Detailed Description
 This function is part of the pg_createsubscriber utility that converts a standby server into a logical replica. It performs cleanup by identifying and removing any existing subscriptions in the target database. The function queries the pg_subscription catalog to find subscriptions associated with the specified database, then calls drop_existing_subscriptions() to remove each one. This ensures a clean state before setting up new logical replication subscriptions.
 

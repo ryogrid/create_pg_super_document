@@ -8,7 +8,11 @@ Creates a special WAL record to handle the case where a continuation record was 
 
 ## Definition
 
-
+```c
+static XLogRecPtr
+CreateOverwriteContrecordRecord(XLogRecPtr aborted_lsn, XLogRecPtr pagePtr,
+								TimeLineID newTLI)
+```
 ## Detailed Description
 CreateOverwriteContrecordRecord addresses a critical edge case in WAL recovery where a continuation record expected at the start of a WAL page is missing or corrupted. When this occurs, recovery must end and normal WAL writing must resume, but simply resuming at the start of the broken record would cause problems for downstream consumers (physical replicas) that are not prepared to handle rewind scenarios.
 

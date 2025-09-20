@@ -8,7 +8,11 @@ This function compares the data types in a subquery's target list against the ex
 
 ## Definition
 
-
+```c
+static void
+compare_tlist_datatypes(List *tlist, List *colTypes,
+						pushdown_safety_info *safetyInfo)
+```
 ## Detailed Description
 The function is used in the context of qualifier pushdown optimization for set operations (UNION/UNION ALL/INTERSECT/INTERSECT ALL). When PostgreSQL attempts to push WHERE clause conditions into component queries of a set operation, it must ensure that no semantic issues arise from type coercions.
 

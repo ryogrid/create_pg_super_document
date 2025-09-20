@@ -8,7 +8,10 @@ Validates the existence, executability, and optionally the version of a specific
 
 ## Definition
 
-
+```c
+static void
+check_exec(const char *dir, const char *program, bool check_version)
+```
 ## Detailed Description
 This function performs thorough validation of individual PostgreSQL executables required for the pg_upgrade process. It constructs the full path to the executable, verifies its existence and executability using validate_exec(), and tests that it can be executed by running it with the '-V' (version) flag.
 

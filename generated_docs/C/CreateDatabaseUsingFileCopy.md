@@ -8,7 +8,9 @@ CreateDatabaseUsingFileCopy implements the FILE_COPY strategy for creating a new
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This function creates a new database using the FILE_COPY strategy, which involves copying the entire source database's files at the filesystem level. The approach requires checkpoints before and after the copy operation, which may be expensive but greatly reduces WAL generation for large databases.
 

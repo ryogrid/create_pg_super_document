@@ -8,7 +8,11 @@ Creates a path node for scanning a named tuplestore, which represents an in-memo
 
 ## Definition
 
-
+```c
+Path *
+create_namedtuplestorescan_path(PlannerInfo *root, RelOptInfo *rel,
+								Relids required_outer)
+```
 ## Detailed Description
 This function constructs a Path node specifically for named tuplestore scan operations. Named tuplestores are temporary storage structures that hold intermediate results during query processing, often used for operations like window functions, recursive CTEs, or other complex query constructs that require temporary data storage. The function initializes all necessary Path structure fields and sets the pathtype to T_NamedTuplestoreScan. Unlike some other scan types, named tuplestore scans always produce unordered results (pathkeys = NIL).
 

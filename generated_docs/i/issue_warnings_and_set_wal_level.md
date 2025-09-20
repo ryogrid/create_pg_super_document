@@ -8,7 +8,12 @@ Performs final setup tasks after upgrade compatibility is confirmed, including s
 
 ## Definition
 
-
+```c
+structions, they will need pg_upgrade to write its final
+	 * WAL record showing wal_level as 'replica'.
+	 */
+	start_postmaster(&new_cluster, true);
+```
 ## Detailed Description
 This function executes several critical post-compatibility tasks during the pg_upgrade process:
 

@@ -8,7 +8,11 @@ Collects and formats database-specific and role-and-database-specific SET config
 
 ## Definition
 
-
+```c
+static void
+dumpDatabaseConfig(Archive *AH, PQExpBuffer outbuf,
+				   const char *dbname, Oid dboid)
+```
 ## Detailed Description
 This function retrieves configuration settings that have been set at the database level or for specific role-database combinations using ALTER DATABASE SET and ALTER ROLE IN DATABASE SET commands. It queries the pg_db_role_setting system catalog to find these settings and formats them as appropriate ALTER commands for restoration. The function handles two types of configurations: database-wide settings (where setrole = 0) and role-specific settings within the database context. The generated ALTER commands are appended to the provided output buffer for inclusion in the dump.
 

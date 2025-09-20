@@ -8,7 +8,10 @@ Determines if a line segment is vertical by checking if both endpoints have the 
 
 ## Definition
 
-
+```c
+Datum
+lseg_vertical(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function tests whether a line segment is vertical. A line segment is considered vertical if both of its endpoints have the same x-coordinate, meaning the segment runs parallel to the y-axis. The function compares the x-coordinates of the two points that define the line segment using floating-point equality comparison.
 

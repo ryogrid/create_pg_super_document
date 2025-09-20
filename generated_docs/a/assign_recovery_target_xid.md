@@ -8,7 +8,10 @@ A GUC assign hook function that sets the recovery target to a specific transacti
 
 ## Definition
 
-
+```c
+void
+assign_recovery_target_xid(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as a GUC assign hook for the  parameter. It validates that no other recovery target type is currently set and then configures the recovery system to stop at a specific transaction ID. When a valid XID is provided, it sets the recovery target type to  and stores the transaction ID in . When the parameter is cleared (empty string), it resets the recovery target to unset. The function enforces mutual exclusivity among different recovery target types by calling  when conflicts are detected.
 

@@ -8,7 +8,10 @@ A static helper function that determines if any rectangle from a given RectBox d
 
 ## Definition
 
-
+```c
+static bool
+overBelow4D(RectBox *rect_box, RangeBox *query)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's SP-GiST (Space-Partitioned Generalized Search Tree) implementation for geometric data types. This function performs a 4D geometric comparison to check whether any rectangle within the provided  parameter does not extend above the boundaries defined by the  parameter. It accomplishes this by delegating the actual comparison to the  function, specifically comparing the Y-axis range of the rectangle box with the right boundary of the query range.
 

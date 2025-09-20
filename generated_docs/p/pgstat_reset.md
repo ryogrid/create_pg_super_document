@@ -8,7 +8,10 @@ Resets statistics for a single, specific object identified by kind, database OID
 
 ## Definition
 
-
+```c
+void
+pgstat_reset(PgStat_Kind kind, Oid dboid, Oid objoid)
+```
 ## Detailed Description
 This function provides fine-grained control over statistics reset operations, allowing the reset of statistics for individual database objects rather than entire databases. It operates on the PostgreSQL statistics system's kind-based architecture, where different types of statistics (tables, functions, subscriptions, etc.) are categorized by their kind.
 

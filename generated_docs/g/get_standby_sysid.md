@@ -8,7 +8,10 @@ Retrieves the system identifier directly from the PostgreSQL control file in a l
 
 ## Definition
 
-
+```c
+static uint64
+get_standby_sysid(const char *datadir)
+```
 ## Detailed Description
 The  function reads the system identifier directly from the PostgreSQL control file in a local data directory without requiring a database connection. This is particularly useful for pg_createsubscriber when working with a standby database that may not be running or accessible via network connection. The function validates the control file's integrity using CRC checks and extracts the system identifier for comparison with the publisher database.
 

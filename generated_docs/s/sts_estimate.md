@@ -8,7 +8,10 @@ Calculates the amount of shared memory required to allocate a SharedTuplestore f
 
 ## Definition
 
-
+```c
+size_t
+sts_estimate(int participants)
+```
 ## Detailed Description
 The  function provides a memory size calculation for allocating a  structure in shared memory. It computes the total memory needed by adding the base size of the  structure up to the participants field (using ) plus the memory required for an array of  structures, one for each participant.
 

@@ -8,7 +8,10 @@ A version hook function that determines whether a JSONB data type compatibility 
 
 ## Definition
 
-
+```c
+bool
+jsonb_9_4_check_applicable(ClusterInfo *cluster)
+```
 ## Detailed Description
 This function is part of the pg_upgrade utility's version-specific compatibility checking system. It specifically targets PostgreSQL 9.4 clusters where the JSONB storage format changed during the beta phase. The function checks if the source cluster is running a version of PostgreSQL 9.4 that predates the JSONB format change, which would require special handling during the upgrade process.
 

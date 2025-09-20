@@ -8,7 +8,10 @@ Tests whether a given clause is an OR clause (BoolExpr with OR_EXPR operator).
 
 ## Definition
 
-
+```c
+static inline bool
+is_orclause(const void *clause)
+```
 ## Detailed Description
 This function is a type-checking utility that determines whether a given clause represents an OR expression. It performs a series of checks to ensure the clause is not NULL, is of type BoolExpr, and specifically has the OR_EXPR boolean operator. This is commonly used throughout the PostgreSQL optimizer and planner to identify OR clauses for special handling, optimization, and transformation.
 

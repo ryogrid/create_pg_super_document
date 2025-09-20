@@ -8,7 +8,10 @@ A trigger function designed to optimize database performance by preventing redun
 
 ## Definition
 
-
+```c
+Datum
+suppress_redundant_updates_trigger(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL trigger function that performs a byte-level comparison between the old and new tuple data in an UPDATE operation. If the data is identical, it suppresses the update by returning NULL, which prevents unnecessary write operations, WAL logging, and potential cascading effects.
 

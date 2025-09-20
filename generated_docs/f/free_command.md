@@ -8,7 +8,10 @@ Deallocates a Command structure and all its associated dynamically allocated mem
 
 ## Definition
 
-
+```c
+static void
+free_command(Command *command)
+```
 ## Detailed Description
 The free_command function serves as a destructor for Command structures in pgbench, responsible for properly deallocating all memory associated with a command object. It systematically frees each dynamically allocated component of the Command structure, including the SQL text buffer, parameter arguments, and metadata strings. The function follows a careful cleanup sequence to ensure no memory leaks occur when commands are no longer needed.
 

@@ -8,7 +8,18 @@ Generates parameterized index paths by systematically examining combinations of 
 
 ## Definition
 
-
+```c
+union of this clause's relids set with each
+		 * previously-tried set.  This ensures we try this clause along with
+		 * every interesting subset of previous clauses.  However, to avoid
+		 * exponential growth of planning time when there are many clauses,
+		 * limit the number of relid sets accepted to 10 * considered_clauses.
+		 *
+		 * Note: get_join_index_paths appends entries to *considered_relids,
+		 * but we do not need to visit such newly-added entries within this
+		 * loop, so we don't use foreach() here.  No real harm would be done
+		 * if we did visit them, since the subset check would reject them;
+```
 ## Detailed Description
 This function serves as the workhorse for consider_index_join_clauses, implementing the detailed logic for generating parameterized index paths. For each join clause in the input list, it:
 

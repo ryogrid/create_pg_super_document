@@ -8,7 +8,10 @@ A static inline function that decrements the reference count of a given Perl SV 
 
 ## Definition
 
-
+```c
+static inline void
+SvREFCNT_dec_current(SV *sv)
+```
 ## Detailed Description
 This function serves as a convenience wrapper around Perl's SvREFCNT_dec macro. Its primary purpose is to simplify reference count management by automatically reloading the active Perl interpreter pointer using the dTHX macro, which saves notation in calling code that frequently switches between different Perl interpreter contexts. The function is designed to be inlined for performance efficiency while providing cleaner code structure in the PL/Perl implementation.
 

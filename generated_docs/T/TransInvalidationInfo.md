@@ -8,7 +8,25 @@ TransInvalidationInfo is a data structure that manages cache invalidation state 
 
 ## Definition
 
+```c
+typedef struct TransInvalidationInfo
+{
+	/* Back link to parent transaction's info */
+	struct TransInvalidationInfo *parent;
 
+	/* Subtransaction nesting depth */
+	int			my_level;
+
+	/* Events emitted by current command */
+	InvalidationMsgsGroup CurrentCmdInvalidMsgs;
+
+	/* Events emitted by previous commands of this (sub)transaction */
+	InvalidationMsgsGroup PriorCmdInvalidMsgs;
+
+	/* init file must be invalidated? */
+	bool		RelcacheInitFileInval;
+} TransInvalidationInfo;
+```
 ## Detailed Description
 TransInvalidationInfo forms the core of PostgreSQL's transaction-aware cache invalidation system. It maintains a stack-like structure where each transaction and subtransaction level has its own instance, linked through the parent pointer. This design enables proper handling of nested transactions and allows for correct rollback behavior when subtransactions abort.
 

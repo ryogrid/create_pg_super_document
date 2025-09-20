@@ -8,7 +8,11 @@ Handles FOREIGN KEY constraints by generating ALTER TABLE ADD CONSTRAINT command
 
 ## Definition
 
-
+```c
+static void
+transformFKConstraints(CreateStmtContext *cxt,
+					   bool skipValidation, bool isAddConstraint)
+```
 ## Detailed Description
 The  function processes FOREIGN KEY constraints in a deferred manner, converting them into ALTER TABLE ADD CONSTRAINT commands that execute after the primary table creation or column addition operation completes. This approach is necessary because foreign key constraints require both the referencing and referenced tables to exist before validation can occur.
 

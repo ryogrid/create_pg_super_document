@@ -8,7 +8,11 @@ Performs bulk deletion operation on a single index relation, removing dead tuple
 
 ## Definition
 
-
+```c
+IndexBulkDeleteResult *
+vac_bulkdel_one_index(IndexVacuumInfo *ivinfo, IndexBulkDeleteResult *istat,
+					  TidStore *dead_items, VacDeadItemsInfo *dead_items_info)
+```
 ## Detailed Description
 This function executes bulk deletion on a single index relation as part of the vacuum process. It delegates the actual deletion work to index_bulk_delete(), using vac_tid_reaped as the callback function to determine which tuples should be deleted based on the provided TidStore. After completion, it reports the operation results including the number of row versions removed from the index. The function maintains and returns updated bulk delete statistics that can be used for subsequent operations or reporting.
 

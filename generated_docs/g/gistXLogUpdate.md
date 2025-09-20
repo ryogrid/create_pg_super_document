@@ -8,7 +8,13 @@ gistXLogUpdate creates a Write-Ahead Log (WAL) record for GiST index page update
 
 ## Definition
 
-
+```c
+XLogRecPtr
+gistXLogUpdate(Buffer buffer,
+			   OffsetNumber *todelete, int ntodelete,
+			   IndexTuple *itup, int ituplen,
+			   Buffer leftchildbuf)
+```
 ## Detailed Description
 gistXLogUpdate is responsible for writing WAL records that describe page updates in GiST (Generalized Search Tree) indexes. The function handles complex page modifications that can involve both deletions and insertions of tuples in a single operation. It constructs a WAL record containing all necessary information to replay the page update during recovery.
 

@@ -8,7 +8,10 @@ A simple error handling function used in ECPG test cases to display SQL error in
 
 ## Definition
 
-
+```c
+static void
+error(const char *string,...)
+```
 ## Detailed Description
 This is a static utility function defined in the ECPG (Embedded C for PostgreSQL) test suite. The function serves as a basic error handler that prints SQL error information from the global  structure and then terminates the program with exit code 1. It's specifically used in dynamic SQL testing scenarios to handle and report database errors.
 

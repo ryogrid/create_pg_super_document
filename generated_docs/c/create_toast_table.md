@@ -8,7 +8,12 @@ Creates a TOAST (The Oversized-Attribute Storage Technique) table and its associ
 
 ## Definition
 
-
+```c
+static bool
+create_toast_table(Relation rel, Oid toastOid, Oid toastIndexOid,
+				   Datum reloptions, LOCKMODE lockmode, bool check,
+				   Oid OIDOldToast)
+```
 ## Detailed Description
 This is the internal workhorse function for creating TOAST tables in PostgreSQL. It performs comprehensive setup of a TOAST table structure including:
 

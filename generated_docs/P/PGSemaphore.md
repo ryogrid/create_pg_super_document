@@ -8,7 +8,9 @@ PGSemaphore is a platform-independent counting semaphore type that provides a un
 
 ## Definition
 
-
+```c
+typedef struct PGSemaphoreData *PGSemaphore;
+```
 ## Detailed Description
 PGSemaphore is a typedef that abstracts platform-specific semaphore implementations to provide a consistent interface for PostgreSQL's synchronization needs. PostgreSQL requires counting semaphores that keep track of multiple unlock operations and allow an equal number of subsequent lock operations before blocking.
 

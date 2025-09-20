@@ -8,7 +8,14 @@ The  structure represents a prepared statement in the ECPG (Embedded SQL in C) s
 
 ## Definition
 
-
+```c
+struct prep
+{
+	char	   *name;
+	char	   *stmt;
+	char	   *type;
+};
+```
 ## Detailed Description
  is a fundamental data structure in PostgreSQL's ECPG preprocessor and runtime library that encapsulates the information needed to manage prepared SQL statements. It serves as a container for the three key components of a prepared statement: its identifier name, the actual SQL statement text, and type information. This structure is actively used in the ECPG library for statement preparation, execution, and descriptor management operations.
 

@@ -8,7 +8,10 @@ A static function that formats WAL commit record information into human-readable
 
 ## Definition
 
-
+```c
+static void
+xact_desc_commit(StringInfo buf, uint8 info, xl_xact_commit *xlrec, RepOriginId origin_id)
+```
 ## Detailed Description
 This function parses and formats transaction commit record information from WAL (Write-Ahead Log) into a comprehensive human-readable description. It extracts various aspects of the commit operation including timestamp, relations involved, subtransactions, statistics, cache invalidations, and replication origin information. The function handles both regular commits and two-phase commit scenarios, providing detailed contextual information for transaction analysis and debugging.
 

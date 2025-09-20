@@ -8,7 +8,11 @@ A convenience wrapper function that performs forward string matching for variabl
 
 ## Definition
 
+```c
+}
 
+extern int eq_v(struct SN_env * z, const symbol * p)
+```
 ## Detailed Description
 The  function is a utility wrapper in the Snowball stemming framework that simplifies forward string matching for variable-length symbol arrays. It internally calls the  function, automatically extracting the size of the symbol array using the  macro.
 

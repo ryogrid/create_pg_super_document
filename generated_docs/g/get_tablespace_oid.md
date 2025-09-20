@@ -8,7 +8,10 @@ Looks up the OID of a tablespace by its name, with optional error handling for m
 
 ## Definition
 
-
+```c
+Oid
+get_tablespace_oid(const char *tablespacename, bool missing_ok)
+```
 ## Detailed Description
 This function performs a catalog lookup to find the OID corresponding to a given tablespace name. It searches the pg_tablespace system catalog using a heap scan rather than an index lookup, based on the assumption that most installations have relatively few tablespaces, making a sequential scan more efficient than index overhead.
 

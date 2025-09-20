@@ -8,7 +8,10 @@ Registers a custom thread locking callback function for libpq and returns the pr
 
 ## Definition
 
-
+```c
+pgthreadlock_t
+PQregisterThreadLock(pgthreadlock_t newhandler)
+```
 ## Detailed Description
 PQregisterThreadLock allows applications to register a custom thread locking mechanism for libpq operations. This function manages the global thread lock handler (pg_g_threadlock) that libpq uses to ensure thread safety when multiple threads access PostgreSQL connections concurrently.
 

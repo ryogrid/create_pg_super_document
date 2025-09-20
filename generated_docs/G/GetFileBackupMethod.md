@@ -8,7 +8,16 @@ Determines whether a file should be backed up fully or incrementally by analyzin
 
 ## Definition
 
-
+```c
+FileBackupMethod
+GetFileBackupMethod(IncrementalBackupInfo *ib, const char *path,
+					Oid dboid, Oid spcoid,
+					RelFileNumber relfilenumber, ForkNumber forknum,
+					unsigned segno, size_t size,
+					unsigned *num_blocks_required,
+					BlockNumber *relative_block_numbers,
+					unsigned *truncation_block_length)
+```
 ## Detailed Description
 This is the core decision-making function for incremental backups, determining how each database file should be handled. It performs a sophisticated analysis based on the block reference table built by PrepareForIncrementalBackup to decide whether to:
 

@@ -8,7 +8,11 @@ A public entry point function that retrieves a specific slice (substring) of a t
 
 ## Definition
 
-
+```c
+struct varlena *
+detoast_attr_slice(struct varlena *attr,
+				   int32 sliceoffset, int32 slicelength)
+```
 ## Detailed Description
 This function provides efficient access to a portion of a potentially large toasted value without necessarily retrieving or decompressing the entire value. It implements several optimizations:
 

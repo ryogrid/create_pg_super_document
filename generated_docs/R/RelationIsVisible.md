@@ -8,7 +8,10 @@ Determines whether a relation (identified by OID) is visible in the current sear
 
 ## Definition
 
-
+```c
+bool
+RelationIsVisible(Oid relid)
+```
 ## Detailed Description
 RelationIsVisible is a convenience wrapper function that checks if a relation is visible in the current namespace search path. It internally calls RelationIsVisibleExt with a NULL second parameter to perform the actual visibility check. A relation is considered "visible" if it would be found when searching for the unqualified relation name using the current search_path setting.
 

@@ -8,7 +8,10 @@ A comparison function that compares two CommonEntry structures based on their de
 
 ## Definition
 
-
+```c
+static int
+common_entry_cmp(const void *i1, const void *i2)
+```
 ## Detailed Description
 This function serves as a comparator for sorting CommonEntry structures during GiST (Generalized Search Tree) index splitting operations. It extracts the delta values from two CommonEntry structures and compares them using PostgreSQL's internal float8 comparison logic.
 

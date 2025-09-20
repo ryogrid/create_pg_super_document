@@ -8,7 +8,11 @@ Processes Unicode escapes in SQL string literals, converting escape sequences li
 
 ## Definition
 
-
+```c
+static char *
+str_udeescape(const char *str, char escape,
+			  int position, core_yyscan_t yyscanner)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's lexical analyzer that handles Unicode escape sequences in SQL string literals marked with U&'' or U&"" syntax. It parses two types of Unicode escape sequences:
 

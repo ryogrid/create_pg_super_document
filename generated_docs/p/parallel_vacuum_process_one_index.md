@@ -8,7 +8,11 @@ Processes a single index during parallel vacuum operation, performing either bul
 
 ## Definition
 
-
+```c
+static void
+parallel_vacuum_process_one_index(ParallelVacuumState *pvs, Relation indrel,
+								  PVIndStats *indstats)
+```
 ## Detailed Description
 This function is the core worker routine for processing individual indexes during parallel vacuum operations. It handles both the bulk deletion phase (removing dead tuples) and the cleanup phase (finalizing index state) of vacuum processing. The function operates on indexes that have been determined to be safe for parallel processing and coordinates with other worker processes through shared memory structures.
 

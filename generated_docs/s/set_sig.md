@@ -8,7 +8,10 @@ A static function in pg_ctl that parses signal name strings and sets the global 
 
 ## Definition
 
-
+```c
+static void
+set_sig(char *signame)
+```
 ## Detailed Description
 The  function converts string representations of signal names into their corresponding signal constants and stores the result in the global  variable. This function is specifically used by the pg_ctl kill command to allow users to specify signals by name rather than numeric values. It validates the input signal name and terminates the program with an error message if an unrecognized signal is provided.
 

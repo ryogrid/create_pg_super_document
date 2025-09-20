@@ -8,7 +8,10 @@ Logs multiple AccessExclusive locks in bulk to the Write-Ahead Log (WAL) for sta
 
 ## Definition
 
-
+```c
+static void
+LogAccessExclusiveLocks(int nlocks, xl_standby_lock *locks)
+```
 ## Detailed Description
 LogAccessExclusiveLocks performs wholesale logging of AccessExclusive locks into the WAL. This function is designed to efficiently log multiple AccessExclusive locks in a single WAL record rather than logging them individually. Only AccessExclusive locks need to be logged for standby servers, as other lock types do not conflict with read-only queries that standby servers typically execute.
 

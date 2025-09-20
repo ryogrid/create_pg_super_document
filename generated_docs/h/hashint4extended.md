@@ -8,7 +8,10 @@ The hashint4extended function is a PostgreSQL hash function that computes an ext
 
 ## Definition
 
-
+```c
+Datum
+hashint4extended(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a wrapper around the hash_uint32_extended function, providing extended hash functionality for PostgreSQL's int4 data type. Extended hash functions in PostgreSQL are used when additional entropy is needed for hash calculations, typically in scenarios like hash joins where collision resistance is important. The function takes both the integer value to be hashed and a 64-bit seed value to produce a more robust hash result.
 

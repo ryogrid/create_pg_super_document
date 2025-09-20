@@ -8,7 +8,9 @@ SnapshotType is an enumeration that defines the different types of snapshots use
 
 ## Definition
 
-
+```c
+typedef struct SnapshotData *Snapshot;
+```
 ## Detailed Description
 SnapshotType encodes the specific semantics of a snapshot, determining how tuple visibility is evaluated. Each type represents a different approach to determining whether a tuple should be visible to a particular operation. The enumeration allows the same snapshot structure to be used across different table access methods without requiring separate callbacks for each access method.
 

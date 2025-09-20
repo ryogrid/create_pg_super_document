@@ -8,7 +8,10 @@ PrepareTransaction implements the first phase of PostgreSQL's two-phase commit p
 
 ## Definition
 
-
+```c
+static void
+PrepareTransaction(void)
+```
 ## Detailed Description
 PrepareTransaction executes the "prepare" phase of a two-phase commit, which involves saving the transaction's state to persistent storage while keeping it uncommitted. This allows the transaction to survive system crashes and be later committed or rolled back by another process.
 

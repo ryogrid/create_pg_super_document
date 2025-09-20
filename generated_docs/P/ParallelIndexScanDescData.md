@@ -8,7 +8,15 @@ ParallelIndexScanDescData is a structure that contains shared memory information
 
 ## Definition
 
-
+```c
+typedef struct ParallelIndexScanDescData
+{
+	Oid			ps_relid;
+	Oid			ps_indexid;
+	Size		ps_offset;		/* Offset in bytes of am specific structure */
+	char		ps_snapshot_data[FLEXIBLE_ARRAY_MEMBER];
+}			ParallelIndexScanDescData;
+```
 ## Detailed Description
 This structure serves as the foundation for parallel index scanning in PostgreSQL. It resides in shared memory and allows multiple worker processes to perform coordinated scans of the same index. The structure contains essential metadata about the relation and index being scanned, along with snapshot information and a flexible array member that can accommodate access method-specific data.
 

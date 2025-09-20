@@ -8,7 +8,10 @@ Drops (deletes) the physical files associated with multiple relations, handling 
 
 ## Definition
 
-
+```c
+void
+DropRelationFiles(RelFileLocator *delrels, int ndelrels, bool isRedo)
+```
 ## Detailed Description
 DropRelationFiles is responsible for safely removing the physical storage files of multiple database relations. The function operates by first opening storage manager relations for all target relations, optionally logging the deletion operations for WAL replay, then performing the actual file deletions through the storage manager interface. This function is critical for maintaining database consistency during relation drops and transaction rollbacks.
 

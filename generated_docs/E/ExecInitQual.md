@@ -8,7 +8,10 @@ ExecInitQual prepares a conjunctive boolean expression (qualification list with 
 
 ## Definition
 
-
+```c
+ExprState *
+ExecInitQual(List *qual, PlanState *parent)
+```
 ## Detailed Description
 ExecInitQual is specialized for preparing qualification expressions that represent conjunctive boolean conditions (multiple expressions connected by implicit AND). It implements SQL's three-valued logic where NULL results in a qualification are treated as FALSE, making it particularly suitable for WHERE clause evaluation.
 

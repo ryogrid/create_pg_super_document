@@ -8,7 +8,13 @@ The  structure represents a single segment file descriptor in PostgreSQL's magne
 
 ## Definition
 
-
+```c
+typedef struct _MdfdVec
+{
+	File		mdfd_vfd;		/* fd number in fd.c's pool */
+	BlockNumber mdfd_segno;		/* segment number, from 0 */
+} MdfdVec;
+```
 ## Detailed Description
 The  structure is a fundamental component of PostgreSQL's magnetic disk storage manager (md.c). It serves as a descriptor for individual segment files that comprise a relation. PostgreSQL breaks large relations into multiple segment files to overcome operating system file size limitations (often 2GB). Each  entry represents one such segment file.
 

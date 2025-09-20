@@ -8,7 +8,10 @@ A forwarding function that passes manifest content processing to the next backup
 
 ## Definition
 
-
+```c
+void
+bbsink_forward_manifest_contents(bbsink *sink, size_t len)
+```
 ## Detailed Description
 This function is part of PostgreSQL's base backup sink forwarding mechanism. It forwards the manifest_contents callback to the next sink in a chained configuration of backup sinks. The function ensures that manifest content data is properly propagated through the sink chain by calling the appropriate manifest_contents operation on the next sink.
 

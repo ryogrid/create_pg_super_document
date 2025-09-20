@@ -8,7 +8,10 @@ Returns a pointer to the last cell in a non-empty List, providing direct access 
 
 ## Definition
 
-
+```c
+static inline ListCell *
+list_last_cell(const List *list)
+```
 ## Detailed Description
 The `list_last_cell` function is an inline utility that returns a pointer to the last ListCell in a given List. It uses direct array indexing to access the last element efficiently by calculating `list->elements[list->length - 1]`. This function is designed for performance-critical code paths where direct access to the last cell is needed without the overhead of traversing the entire list.
 

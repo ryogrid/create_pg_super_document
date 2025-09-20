@@ -8,7 +8,19 @@ Recursively generates all valid combinations of PartitionPruneStepOps when multi
 
 ## Definition
 
-
+```c
+static List *
+get_steps_using_prefix_recurse(GeneratePruningStepsContext *context,
+							   StrategyNumber step_opstrategy,
+							   bool step_op_is_ne,
+							   Expr *step_lastexpr,
+							   Oid step_lastcmpfn,
+							   Bitmapset *step_nullkeys,
+							   List *prefix,
+							   ListCell *start,
+							   List *step_exprs,
+							   List *step_cmpfns)
+```
 ## Detailed Description
 This function implements the recursive core of multi-key partition pruning step generation. It handles the complex case where multiple PartClauseInfos exist for the same partition key, creating a cartesian product of all valid combinations. The recursion proceeds by:
 

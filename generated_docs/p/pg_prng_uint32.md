@@ -8,7 +8,10 @@ Generates a random 32-bit unsigned integer uniformly distributed over the full r
 
 ## Definition
 
-
+```c
+uint32
+pg_prng_uint32(pg_prng_state *state)
+```
 ## Detailed Description
 This function selects a random uint32 uniformly from the full range [0, PG_UINT32_MAX]. The implementation uses the upper 32 bits of the 64-bit xoroshiro128** generator output to ensure high-quality randomness. Although xoroshiro128** is not known to have weaknesses in low-order bits, PostgreSQL prefers using the upper bits for additional quality assurance.
 

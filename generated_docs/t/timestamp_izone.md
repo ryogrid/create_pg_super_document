@@ -8,7 +8,10 @@ Converts a timestamp to a timestamptz by applying a specified interval as a time
 
 ## Definition
 
-
+```c
+Datum
+timestamp_izone(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The timestamp_izone function encodes a timestamp type with a specified time interval as the time zone. It takes an interval representing a time zone offset and a timestamp, then converts the timestamp to a timestamptz by applying the offset. The function performs several validation checks:
 

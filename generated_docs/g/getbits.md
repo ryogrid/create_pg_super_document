@@ -8,7 +8,10 @@ Parses and validates a numeric string representing bit count for network prefix 
 
 ## Definition
 
-
+```c
+static int
+getbits(const char *src, int *bitsp)
+```
 ## Detailed Description
 This utility function parses a string containing a decimal number and validates it as a bit count for network prefix specifications. It performs strict validation to ensure the input contains only digits, has no leading zeros (except for the single digit '0'), and falls within the valid range for network prefix lengths.
 

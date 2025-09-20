@@ -8,7 +8,10 @@ Selects a suitable equality operator for comparing two members of an Equivalence
 
 ## Definition
 
-
+```c
+static Oid
+select_equality_operator(EquivalenceClass *ec, Oid lefttype, Oid righttype)
+```
 ## Detailed Description
 This function searches through the operator families associated with an EquivalenceClass to find an appropriate equality operator that can compare values of two specified data types. The function prioritizes security by ensuring that when barrier qualifications are present in the query (indicated by ec_max_security > 0), only leakproof operators are selected to prevent information leakage through operator behavior.
 

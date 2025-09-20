@@ -8,7 +8,12 @@ ChooseIndexName is a static function that selects an appropriate name for a Post
 
 ## Definition
 
-
+```c
+static char *
+ChooseIndexName(const char *tabname, Oid namespaceId,
+				const List *colnames, const List *exclusionOpNames,
+				bool primary, bool isconstraint)
+```
 ## Detailed Description
 ChooseIndexName generates index names following PostgreSQL's naming conventions by delegating to ChooseRelationName with different suffixes based on the index type:
 - Primary key indexes use the "pkey" suffix without column-specific naming

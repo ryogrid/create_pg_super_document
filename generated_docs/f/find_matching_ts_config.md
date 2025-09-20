@@ -8,7 +8,9 @@ This function finds a text search configuration that matches the given locale ty
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The  function determines an appropriate text search configuration based on the locale type (lc_ctype). It extracts the language portion from the locale string by stripping everything after underscore, hyphen, dot, or @ characters, then searches through the  array to find a matching language name. This is used during database initialization to set up appropriate text search functionality based on the database's locale settings. The function handles various locale formats including Unix-style locales and Windows locale names.
 

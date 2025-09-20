@@ -8,7 +8,10 @@ Provides a human-readable description of relation mapping (relmap) WAL records f
 
 ## Definition
 
-
+```c
+void
+relmap_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 The  function is a WAL record description function specifically designed for relation mapping (relmap) records. It extracts information from WAL records related to relation mapping updates and formats them into human-readable strings for debugging, logging, and diagnostic purposes. This function is part of PostgreSQL's Write-Ahead Logging (WAL) infrastructure and helps administrators and developers understand what relation mapping operations were performed.
 

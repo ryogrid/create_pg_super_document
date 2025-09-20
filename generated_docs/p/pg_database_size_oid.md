@@ -8,7 +8,9 @@ A PostgreSQL SQL-callable function that returns the total disk space used by a d
 
 ## Definition
 
-
+```c
+struct dirent *direntry;
+```
 ## Detailed Description
 The  function serves as a PostgreSQL built-in function that can be called from SQL to get the size of a database. It extracts the database OID from the function arguments using the PostgreSQL function call interface, delegates the actual size calculation to the internal  function, and returns the result. If the calculated size is 0 (typically indicating the database doesn't exist or is inaccessible), the function returns NULL; otherwise, it returns the size as a 64-bit integer representing bytes.
 

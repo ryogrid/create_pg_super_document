@@ -8,7 +8,14 @@ Determines and returns the cost of sorting a relation incrementally when the inp
 
 ## Definition
 
-
+```c
+void
+cost_incremental_sort(Path *path,
+					  PlannerInfo *root, List *pathkeys, int presorted_keys,
+					  Cost input_startup_cost, Cost input_total_cost,
+					  double input_tuples, int width, Cost comparison_cost, int sort_mem,
+					  double limit_tuples)
+```
 ## Detailed Description
 This function calculates the cost of incremental sorting, which is an optimization for cases where input data is already sorted by some leading keys. Instead of sorting the entire dataset, it divides the input into groups based on the presorted keys and sorts each group individually using tuplesort.
 

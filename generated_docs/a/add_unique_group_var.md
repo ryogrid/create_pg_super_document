@@ -8,7 +8,11 @@ Maintains a list of unique group variables by adding new variables while avoidin
 
 ## Definition
 
-
+```c
+static List *
+add_unique_group_var(PlannerInfo *root, List *varinfos,
+					 Node *var, VariableStatData *vardata)
+```
 ## Detailed Description
 This static function manages a collection of GroupVarInfo structures, ensuring that each unique variable is represented only once while handling special cases for equivalent variables from different relations. The function is used during GROUP BY cardinality estimation to build a deduplicated list of variables that affect the number of groups.
 

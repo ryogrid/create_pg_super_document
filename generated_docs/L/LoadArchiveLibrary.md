@@ -8,7 +8,10 @@ Loads the archiving callbacks into the local ArchiveCallbacks global variable, i
 
 ## Definition
 
-
+```c
+static void
+LoadArchiveLibrary(void)
+```
 ## Detailed Description
 LoadArchiveLibrary is responsible for initializing PostgreSQL's archiving mechanism by loading the appropriate archiving callbacks. The function supports two modes of operation:
 

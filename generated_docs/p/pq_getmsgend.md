@@ -8,7 +8,10 @@ Verifies that a protocol message has been fully consumed during message parsing 
 
 ## Definition
 
-
+```c
+void
+pq_getmsgend(StringInfo msg)
+```
 ## Detailed Description
 The  function is a validation utility used in PostgreSQL's protocol message handling to ensure that a received message has been completely processed. It performs a simple but crucial check: comparing the current cursor position in the message buffer with the total message length. If these values don't match, it indicates that either some data remains unread (cursor < length) or the parsing logic attempted to read beyond the message boundary (cursor > length). In either case, this represents a protocol violation that could lead to data corruption or security issues.
 

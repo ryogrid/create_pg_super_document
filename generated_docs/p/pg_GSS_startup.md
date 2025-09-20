@@ -8,7 +8,10 @@ Initiates GSS authentication by setting up the initial context and delegating to
 
 ## Definition
 
-
+```c
+static int
+pg_GSS_startup(PGconn *conn, int payloadlen)
+```
 ## Detailed Description
 This function handles the initialization phase of GSSAPI authentication for PostgreSQL client connections. It performs essential pre-authentication setup and validation before starting the actual GSS authentication handshake. The function:
 

@@ -8,7 +8,10 @@ Initializes a separate hash table used to track WAL files that must be kept duri
 
 ## Definition
 
-
+```c
+void
+keepwal_init(void)
+```
 ## Detailed Description
 The  function creates and initializes a dedicated hash table () specifically for tracking Write-Ahead Log (WAL) files that must not be deleted during the pg_rewind process. This hash table is separate from the main file map hash table and serves a specialized purpose in WAL file management.
 

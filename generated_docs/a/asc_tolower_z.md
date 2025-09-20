@@ -8,7 +8,10 @@ A convenience wrapper function that converts a null-terminated string to lowerca
 
 ## Definition
 
-
+```c
+static char *
+asc_tolower_z(const char *buff)
+```
 ## Detailed Description
 This function is a simplified wrapper around the  function that automatically determines the string length using . It provides ASCII-only lowercase conversion for null-terminated strings, eliminating the need for the caller to specify the buffer length explicitly. The function is static to the formatting.c module and is primarily used within PostgreSQL's numeric formatting operations.
 

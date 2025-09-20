@@ -8,7 +8,10 @@ Routes user-defined data types to their appropriate specialized dump functions b
 
 ## Definition
 
-
+```c
+static void
+dumpType(Archive *fout, const TypeInfo *tyinfo)
+```
 ## Detailed Description
 The  function serves as a dispatcher for dumping PostgreSQL user-defined data types. It examines the  field of the TypeInfo structure to determine the specific type category and calls the corresponding specialized dump function. The function handles the major PostgreSQL type categories: base types, domains, composite types, enumerations, range types, and pseudo types.
 

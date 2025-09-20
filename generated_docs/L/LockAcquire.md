@@ -8,7 +8,14 @@ LockAcquire is the primary entry point for acquiring locks in PostgreSQL, provid
 
 ## Definition
 
-
+```c
+*/
+LockAcquireResult
+LockAcquire(const LOCKTAG *locktag,
+			LOCKMODE lockmode,
+			bool sessionLock,
+			bool dontWait)
+```
 ## Detailed Description
 LockAcquire serves as the main public API for lock acquisition in PostgreSQL's lock manager. It acts as a wrapper around LockAcquireExtended, providing a simplified interface with commonly used default parameters. The function handles conflict detection and either waits for lock availability or returns immediately based on the dontWait parameter.
 

@@ -8,7 +8,10 @@ Creates the PostgreSQL Write-Ahead Log (WAL) directory, either as a regular subd
 
 ## Definition
 
-
+```c
+void
+create_xlog_or_symlink(void)
+```
 ## Detailed Description
 This function handles the creation of the  directory within the PostgreSQL data directory during database initialization. It supports two operational modes:
 

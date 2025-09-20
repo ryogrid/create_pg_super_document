@@ -8,7 +8,10 @@ A static function in PostgreSQL's text search parser that attempts to parse a ho
 
 ## Definition
 
-
+```c
+static int
+p_ishost(TParser *prs)
+```
 ## Detailed Description
 p_ishost is a lookahead function that determines whether the current parsing position contains a valid host token. It works by creating a temporary copy of the parser state, setting the wanthost flag to true, and then attempting to parse the next token. If the parsed token is of type HOST, the function updates the original parser's position and length counters to include the host token and returns 1. Otherwise, it returns 0.
 

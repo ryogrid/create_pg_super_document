@@ -8,7 +8,10 @@ Returns the textual representation of the command type from a CollectedCommand s
 
 ## Definition
 
-
+```c
+Datum
+get_command_type(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of the test_ddl_deparse module and serves as a utility function for testing DDL command deparsing functionality. It takes a CollectedCommand pointer and returns a human-readable string representation of the command type. The function performs a switch statement on the command type field and maps each command type enum value to its corresponding textual representation.
 

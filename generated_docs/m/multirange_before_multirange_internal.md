@@ -8,7 +8,12 @@ Internal function that determines whether one multirange is strictly before (lef
 
 ## Definition
 
-
+```c
+bool
+multirange_before_multirange_internal(TypeCacheEntry *rangetyp,
+									  const MultirangeType *mr1,
+									  const MultirangeType *mr2)
+```
 ## Detailed Description
 This internal function implements the core logic for determining if one multirange is strictly before another multirange. It performs the comparison by extracting the upper bound of the rightmost range in the first multirange and the lower bound of the leftmost range in the second multirange, then checking if the upper bound is less than the lower bound.
 

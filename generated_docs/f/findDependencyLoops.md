@@ -8,7 +8,30 @@ findDependencyLoops identifies dependency loops in pg_dump's topological sort fa
 
 ## Definition
 
-
+```c
+structures here:
+	 *
+	 * processed[] is a bool array indexed by dump ID, marking the objects
+	 * already processed during this invocation of findDependencyLoops().
+	 *
+	 * searchFailed[] is another array indexed by dump ID.  searchFailed[j] is
+	 * set to dump ID k if we have proven that there is no dependency path
+	 * leading from object j back to start point k.  This allows us to skip
+	 * useless searching when there are multiple dependency paths from k to j,
+	 * which is a common situation.  We could use a simple bool array for
+	 * this, but then we'd need to re-zero it for each start point, resulting
+	 * in O(N^2) zeroing work.  Using the start point's dump ID as the "true"
+	 * value lets us skip clearing the array before we consider the next start
+	 * point.
+	 *
+	 * workspace[] is an array of DumpableObject pointers, in which we try to
+	 * build lists of objects constituting loops.  We make workspace[] large
+	 * enough to hold all the objects in TopoSort's output, which is huge
+	 * overkill in most cases but could theoretically be necessary if there is
+	 * a single dependency chain linking all the objects.
+	 */
+	bool	   *processed;
+```
 ## Detailed Description
 findDependencyLoops is a critical component of pg_dump's dependency resolution system that handles cases where the initial topological sort fails due to circular dependencies. When TopoSort cannot produce a valid ordering, this function systematically searches through the problematic objects to identify dependency loops.
 

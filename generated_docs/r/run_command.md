@@ -8,7 +8,10 @@ This function sends a SQL command to the PostgreSQL server asynchronously withou
 
 ## Definition
 
-
+```c
+static void
+run_command(ParallelSlot *slot, const char *sql)
+```
 ## Detailed Description
 The run_command function provides asynchronous command execution functionality for the pg_amcheck utility. It:
 

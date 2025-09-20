@@ -8,7 +8,10 @@ The  function performs a linear search to determine if a given datum is present 
 
 ## Definition
 
-
+```c
+bool
+list_member(const List *list, const void *datum)
+```
 ## Detailed Description
 This function searches through a pointer list to determine whether the specified datum is present as a member. It performs a linear search from the beginning of the list, comparing each element with the provided datum using PostgreSQL's  function, which performs deep structural comparison rather than simple pointer equality.
 

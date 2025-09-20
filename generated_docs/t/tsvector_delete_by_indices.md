@@ -8,7 +8,11 @@ An internal static function that creates a new TSVector by removing lexemes at s
 
 ## Definition
 
-
+```c
+static TSVector
+tsvector_delete_by_indices(TSVector tsv, int *indices_to_delete,
+						   int indices_count)
+```
 ## Detailed Description
 The  function performs selective deletion of lexemes from a TSVector based on an array of indices. It creates a new TSVector containing all lexemes except those at the specified positions, preserving the alphabetical ordering and maintaining position/weight information for retained lexemes.
 

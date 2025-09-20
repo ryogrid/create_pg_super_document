@@ -8,7 +8,10 @@ WriteMZeroPageXlogRec writes a WAL (Write-Ahead Log) record to document the zero
 
 ## Definition
 
-
+```c
+static void
+WriteMZeroPageXlogRec(int64 pageno, uint8 info)
+```
 ## Detailed Description
 This function creates a WAL record that documents the zeroing of a MultiXact page, ensuring that the operation can be properly replayed during crash recovery or replication. The function uses the standard PostgreSQL WAL infrastructure to register the page number being zeroed and inserts the record with the appropriate resource manager (RM_MULTIXACT_ID) and info flag that indicates whether it's a MEMBERs or OFFSETs page.
 

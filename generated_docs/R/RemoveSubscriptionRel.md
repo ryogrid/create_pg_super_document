@@ -8,7 +8,10 @@ Removes subscription relation mapping entries from the pg_subscription_rel syste
 
 ## Definition
 
-
+```c
+void
+RemoveSubscriptionRel(Oid subid, Oid relid)
+```
 ## Detailed Description
 This function removes one or more entries from the pg_subscription_rel catalog based on the provided subscription and/or relation OIDs. It supports three deletion modes: removing all relations for a specific subscription (when relid is invalid), removing a specific relation from all subscriptions (when subid is invalid), or removing a specific subscription-relation pair (when both are valid).
 

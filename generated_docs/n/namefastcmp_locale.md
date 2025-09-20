@@ -8,7 +8,10 @@ A sort support comparison function for locale-aware comparison of PostgreSQL NAM
 
 ## Definition
 
-
+```c
+static int
+namefastcmp_locale(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
  is a specialized comparison function designed for locale-aware sorting of PostgreSQL's NAME data type. The NAME type is a fixed-length string type primarily used for system catalog identifiers like table names, column names, and other database object names. This function extracts the string data from NAME-typed Datum values and delegates the actual comparison to , ensuring that locale-specific collation rules are properly applied during sorting operations.
 

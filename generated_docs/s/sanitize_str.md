@@ -8,7 +8,10 @@ A utility function that converts arbitrary strings to printable form for safe di
 
 ## Definition
 
-
+```c
+static char *
+sanitize_str(const char *s)
+```
 ## Detailed Description
 The  function provides a safety mechanism for displaying potentially unsafe string data in error messages during SCRAM authentication. It creates a sanitized copy of the input string by replacing any non-printable characters with question marks ('?') and truncating the result to a maximum of 30 characters. This prevents potential security issues and formatting problems that could arise from displaying raw user input containing control characters, extended ASCII, or very long strings in log messages or error reports.
 

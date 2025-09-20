@@ -8,7 +8,10 @@ Converts a null-terminated C string containing XML data into a PostgreSQL xmltyp
 
 ## Definition
 
-
+```c
+static xmltype *
+cstring_to_xmltype(const char *string)
+```
 ## Detailed Description
 The cstring_to_xmltype function is a simple utility that converts a standard null-terminated C string into a PostgreSQL xmltype value. This function provides a convenient interface for creating XML values from C string literals or other null-terminated string sources.
 

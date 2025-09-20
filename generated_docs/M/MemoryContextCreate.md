@@ -8,7 +8,14 @@ MemoryContextCreate is the context-type-independent core function for creating m
 
 ## Definition
 
-
+```c
+void
+MemoryContextCreate(MemoryContext node,
+					NodeTag tag,
+					MemoryContextMethodID method_id,
+					MemoryContext parent,
+					const char *name)
+```
 ## Detailed Description
 This function serves as the foundation for all memory context creation in PostgreSQL. It's designed to be called only by context-type-specific creation routines (like AllocSetContextCreate, BumpContextCreate, etc.), not directly by general application code.
 

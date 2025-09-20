@@ -8,7 +8,10 @@ Parses and sets the time range for timezone compilation output in the PostgreSQL
 
 ## Definition
 
-
+```c
+static bool
+timerange_option(char *timerange)
+```
 ## Detailed Description
 The timerange_option function processes a time range specification string to set the lo_time and hi_time global variables that control the time range of the output timezone data. It supports two formats:
 1. Single timestamp:  - sets the lower bound, upper bound remains at max_time

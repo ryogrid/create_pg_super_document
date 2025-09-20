@@ -8,7 +8,10 @@ Prepares for a posting list split by swapping heap TID in newitem with heap TID 
 
 ## Definition
 
-
+```c
+IndexTuple
+_bt_swap_posting(IndexTuple newitem, IndexTuple oposting, int postingoff)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's B-tree posting list split mechanism. It performs a TID swap operation where it takes the heap TID from the original posting list at the specified offset and replaces it with the TID from the new item being inserted. The function creates a new posting list tuple that maintains the same size as the original but with modified TID arrangements.
 

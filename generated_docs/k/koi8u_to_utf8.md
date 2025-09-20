@@ -8,7 +8,10 @@ Converts KOI8-U (Ukrainian Cyrillic) encoded text to UTF-8 encoding within Postg
 
 ## Definition
 
-
+```c
+Datum
+koi8u_to_utf8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL conversion procedure that transforms KOI8-U encoded strings into UTF-8 encoding. KOI8-U is a character encoding designed for the Ukrainian language using Cyrillic script, extending KOI8-R to include additional Ukrainian-specific characters. The function implements PostgreSQL's standard conversion procedure interface, accepting source and destination buffers along with conversion parameters. It utilizes the LocalToUtf utility function with a KOI8-U-specific Unicode conversion tree (koi8u_to_unicode_tree) to perform the actual character mapping from KOI8-U byte sequences to UTF-8 Unicode codepoints.
 

@@ -8,7 +8,11 @@ Constructs the actual PostgreSQL startup packet content by serializing connectio
 
 ## Definition
 
-
+```c
+static int
+build_startup_packet(const PGconn *conn, char *packet,
+					 const PQEnvironmentOption *options)
+```
 ## Detailed Description
 build_startup_packet performs the core work of constructing PostgreSQL startup packets for protocol 3 connections. It uses a two-phase approach: when called with packet=NULL, it calculates the required buffer size; when called with an allocated buffer, it fills the packet with properly formatted connection parameters. The function serializes the protocol version, user credentials, database name, replication settings, client options, application name, encoding settings, and environment-driven GUC parameters into the binary packet format expected by PostgreSQL servers.
 

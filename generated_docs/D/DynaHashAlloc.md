@@ -8,7 +8,10 @@ DynaHashAlloc is a static memory allocation function that provides memory alloca
 
 ## Definition
 
-
+```c
+static void *
+DynaHashAlloc(Size size)
+```
 ## Detailed Description
 DynaHashAlloc is a specialized memory allocation function that allocates memory from the CurrentDynaHashCxt memory context. This function serves as the standard allocator for dynamic hash table operations, ensuring that hash table memory is managed within the appropriate memory context. The function uses MCXT_ALLOC_NO_OOM flag to indicate that it should not throw an error on out-of-memory conditions, instead returning NULL to allow the caller to handle allocation failures gracefully.
 

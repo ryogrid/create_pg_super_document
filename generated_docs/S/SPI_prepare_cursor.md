@@ -8,7 +8,11 @@ SPI_prepare_cursor parses and plans a SQL query with parameter placeholders and 
 
 ## Definition
 
-
+```c
+SPIPlanPtr
+SPI_prepare_cursor(const char *src, int nargs, Oid *argtypes,
+				   int cursorOptions)
+```
 ## Detailed Description
 SPI_prepare_cursor is the core preparation function that creates a prepared statement plan from a SQL query string with support for cursor-specific options. It validates parameters, initializes a plan structure with specified cursor options, calls the internal preparation routine, and copies the plan to the procedure context to make it persistent across SPI calls.
 

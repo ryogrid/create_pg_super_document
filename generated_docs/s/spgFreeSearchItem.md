@@ -8,7 +8,10 @@ A cleanup function that properly deallocates memory for a SpGistSearchItem struc
 
 ## Definition
 
-
+```c
+static void
+spgFreeSearchItem(SpGistScanOpaque so, SpGistSearchItem *item)
+```
 ## Detailed Description
 This function handles the complete deallocation of a SpGistSearchItem structure, taking care to properly free all dynamically allocated memory components. The function implements type-aware memory management, distinguishing between leaf and inner node items to determine the correct data type for the value field. It safely handles potentially NULL pointers and ensures no memory leaks occur during SP-GiST search operations.
 

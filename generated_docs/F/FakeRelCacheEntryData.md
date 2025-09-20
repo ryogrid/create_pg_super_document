@@ -8,7 +8,9 @@ FakeRelCacheEntryData is a struct used to create minimal fake relation cache ent
 
 ## Definition
 
-
+```c
+typedef FakeRelCacheEntryData *FakeRelCacheEntry;
+```
 ## Detailed Description
 FakeRelCacheEntryData is the actual struct returned by CreateFakeRelcacheEntry(), though the declared return type is Relation. This struct provides a lightweight alternative to full relation cache entries during recovery operations and WAL-skipped file processing.
 

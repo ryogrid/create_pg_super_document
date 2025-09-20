@@ -8,7 +8,10 @@ Executes an injection point by name if it exists, providing the primary interfac
 
 ## Definition
 
-
+```c
+void
+InjectionPointRun(const char *name)
+```
 ## Detailed Description
 This function serves as the main entry point for executing injection points in PostgreSQL's testing infrastructure. It provides a simple interface that hides the complexity of cache management and shared memory synchronization. The function:
 

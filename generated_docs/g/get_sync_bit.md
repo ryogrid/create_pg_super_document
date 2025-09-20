@@ -8,7 +8,17 @@ Determines the appropriate file opening flags for WAL files based on the configu
 
 ## Definition
 
-
+```c
+enum values for all sync options are defined even if they are
+			 * not supported on the current platform.  But if not, they are
+			 * not included in the enum option array, and therefore will never
+			 * be seen here.
+			 */
+		case WAL_SYNC_METHOD_FSYNC:
+		case WAL_SYNC_METHOD_FSYNC_WRITETHROUGH:
+		case WAL_SYNC_METHOD_FDATASYNC:
+			return o_direct_flag;
+```
 ## Detailed Description
 This function returns the extra open flags used when opening WAL files, taking into account the GUC parameters , , and . The function evaluates whether to use direct I/O (O_DIRECT) and which synchronization flags to apply based on the specified WAL synchronization method.
 

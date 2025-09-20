@@ -8,7 +8,20 @@ TAR_MEMBER is a structure that represents a member (file) within a tar archive u
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			hasSeek;
+	pgoff_t		filePos;
+	TAR_MEMBER *loToc;
+	FILE	   *tarFH;
+	pgoff_t		tarFHpos;
+	pgoff_t		tarNextMember;
+	TAR_MEMBER *FH;
+	int			isSpecialScript;
+	TAR_MEMBER *scriptTH;
+} lclContext;
+```
 ## Detailed Description
 TAR_MEMBER is a core data structure in PostgreSQL's tar archive format implementation for pg_dump. It encapsulates all the necessary information and file handles needed to manage individual files within a tar archive during backup and restore operations. The structure maintains multiple file handles to support different operational modes and tracks the position and length of data within the archive.
 

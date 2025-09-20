@@ -8,7 +8,10 @@ Marks a specified column of a range table entry as requiring SELECT privilege fo
 
 ## Definition
 
-
+```c
+static void
+markRTEForSelectPriv(ParseState *pstate, int rtindex, AttrNumber col)
+```
 ## Detailed Description
 The `markRTEForSelectPriv` function is responsible for tracking which columns require SELECT privileges during query parsing. It handles different types of range table entries (RTEs) differently based on their kind. For relation RTEs, it directly marks the column in the permission info structure. For join RTEs, it recursively marks the underlying base relations that contribute to the join.
 

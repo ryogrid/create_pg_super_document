@@ -8,7 +8,10 @@ Releases locks associated with the current transaction at main transaction commi
 
 ## Definition
 
-
+```c
+void
+ProcReleaseLocks(bool isCommit)
+```
 ## Detailed Description
 ProcReleaseLocks is a high-level lock cleanup function that manages the release of various types of locks when a main transaction completes, either through commit or abort. The function implements different release strategies based on the transaction outcome:
 

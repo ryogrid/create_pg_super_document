@@ -8,7 +8,13 @@ ListenActionKind is an enumeration type that defines the possible actions for Po
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	ListenActionKind action;
+	char		channel[FLEXIBLE_ARRAY_MEMBER]; /* nul-terminated string */
+} ListenAction;
+```
 ## Detailed Description
 This enumeration is used within PostgreSQL's asynchronous notification system to distinguish between different types of operations that can be performed on notification channels. It serves as a type discriminator for pending listen/unlisten operations that are queued during a transaction and executed at commit time. The enum is part of the infrastructure that ensures transactional semantics for LISTEN and UNLISTEN commands.
 

@@ -8,7 +8,11 @@ Adds a target list entry to a SortGroupClause list if it's not already present, 
 
 ## Definition
 
-
+```c
+List *
+addTargetToSortList(ParseState *pstate, TargetEntry *tle,
+					List *sortlist, List *targetlist, SortBy *sortby)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's query parsing infrastructure for handling ORDER BY clauses. It ensures that each target list entry appears only once in the sort list while handling various sorting specifications like ASC/DESC, custom operators (USING clause), and NULL ordering preferences.
 

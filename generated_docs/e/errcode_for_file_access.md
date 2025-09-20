@@ -8,7 +8,10 @@ Maps system errno values to appropriate SQL state error codes specifically for f
 
 ## Definition
 
-
+```c
+int
+errcode_for_file_access(void)
+```
 ## Detailed Description
 This function automatically sets the SQLSTATE error code for the current error based on the saved errno value from a failed file operation. It maps common file system error conditions to PostgreSQL-specific SQL state codes, providing standardized error reporting across the database system. The function assumes the failing operation was some type of disk file access and categorizes errors into logical groups like permission issues, resource problems, and hardware failures.
 

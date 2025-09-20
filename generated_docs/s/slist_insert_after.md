@@ -8,7 +8,10 @@ Inserts a node after a specified node in a singly linked list within PostgreSQL'
 
 ## Definition
 
-
+```c
+static inline void
+slist_insert_after(slist_node *after, slist_node *node)
+```
 ## Detailed Description
 This function provides the capability to insert a new node at a specific position within a singly linked list by placing it immediately after a given reference node. The operation is performed by first setting the new node's next pointer to point to whatever the reference node was pointing to, then updating the reference node's next pointer to point to the new node. This maintains the chain of the linked list while inserting the new element in the desired position.
 

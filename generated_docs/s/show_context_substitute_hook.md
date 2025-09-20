@@ -8,7 +8,10 @@ A substitute hook function for the show_context parameter in psql that provides 
 
 ## Definition
 
-
+```c
+static char *
+show_context_substitute_hook(char *newval)
+```
 ## Detailed Description
 This function serves as a substitute hook for the show_context parameter in psql. When the show_context parameter value is NULL (not explicitly set), this function provides the default value of "errors". The function implements a simple validation and default value assignment mechanism for the show_context configuration variable.
 

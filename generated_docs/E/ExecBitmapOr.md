@@ -8,7 +8,10 @@ ExecBitmapOr is a stub function that serves as pro forma compliance for the stan
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecBitmapOr(PlanState *pstate)
+```
 ## Detailed Description
 ExecBitmapOr is a placeholder function that implements the standard ExecProcNode interface for BitmapOr nodes, but it is not designed to be called. The function immediately raises an ERROR when invoked, indicating that BitmapOr nodes do not support the standard ExecProcNode call convention. Instead, BitmapOr nodes are executed through the MultiExecBitmapOr function, which follows the multi-execution interface pattern used for nodes that return bitmaps rather than tuple slots.
 

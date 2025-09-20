@@ -8,7 +8,11 @@ This function writes an ORIGIN message to the logical replication output stream,
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_origin(StringInfo out, const char *origin,
+						XLogRecPtr origin_lsn)
+```
 ## Detailed Description
 The  function serializes replication origin information into the logical replication stream. It creates a message with the  type, followed by the origin LSN position and the origin name string. This function is essential for tracking the provenance of replicated changes, allowing subscribers to understand where specific changes originated from in a multi-master or cascading replication setup.
 

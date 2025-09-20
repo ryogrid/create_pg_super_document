@@ -8,7 +8,10 @@ Sends authentication request packets to the frontend client during the authentic
 
 ## Definition
 
-
+```c
+void
+sendAuthRequest(Port *port, AuthRequest areq, const char *extradata, int extralen)
+```
 ## Detailed Description
 The  function is responsible for sending authentication-related messages from the PostgreSQL backend to the client frontend. It constructs and transmits authentication request packets using PostgreSQL's message protocol system.
 

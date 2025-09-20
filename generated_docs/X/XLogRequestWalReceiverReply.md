@@ -8,7 +8,10 @@ Schedules a walreceiver wakeup in the main recovery loop by setting a flag to re
 
 ## Definition
 
-
+```c
+void
+XLogRequestWalReceiverReply(void)
+```
 ## Detailed Description
 This function is a simple flag-setting mechanism used during PostgreSQL's recovery process. When called, it sets the global flag  to true, which signals the main recovery loop that the walreceiver should send a reply message to the primary server. This is part of PostgreSQL's streaming replication protocol where standby servers need to communicate their progress back to the primary server.
 

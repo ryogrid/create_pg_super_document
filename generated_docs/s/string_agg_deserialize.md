@@ -8,7 +8,12 @@ The deserialize function for PostgreSQL's string_agg() aggregate that converts a
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	initReadOnlyStringInfo(&buf, VARDATA_ANY(sstate),
+						   VARSIZE_ANY_EXHDR(sstate));
+```
 ## Detailed Description
 The string_agg_deserialize function serves as the deserialize function for the string_agg aggregate, used in parallel query execution to convert a binary bytea format back into the internal StringInfo state. This function is the counterpart to string_agg_serialize and is essential for reconstructing aggregation state in parallel workers.
 

@@ -8,7 +8,10 @@ Converts a PostgreSQL BOX geometric type into a RangeBox structure to represent 
 
 ## Definition
 
-
+```c
+static RangeBox *
+getRangeBox(BOX *box)
+```
 ## Detailed Description
 This function performs a structural transformation from PostgreSQL's standard BOX representation to a RangeBox representation used internally by the geometric SP-GiST implementation. The transformation emphasizes the functional role of representing geometric boxes as points in 4-dimensional space, where each dimension corresponds to the low and high values of the x and y coordinates.
 

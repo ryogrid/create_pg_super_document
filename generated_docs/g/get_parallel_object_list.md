@@ -8,7 +8,11 @@ Queries the database catalogs to build lists of objects (tables, schemas, indexe
 
 ## Definition
 
-
+```c
+static SimpleStringList *
+get_parallel_object_list(PGconn *conn, ReindexType type,
+						 SimpleStringList *user_list, bool echo)
+```
 ## Detailed Description
 This function prepares object lists for parallel reindex operations by querying PostgreSQL system catalogs. It transforms high-level reindex requests (database, schema, index) into concrete lists of tables that can be processed independently by parallel workers.
 

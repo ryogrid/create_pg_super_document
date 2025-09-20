@@ -8,7 +8,10 @@ Removes unnecessary SQL features from an EXISTS subquery that don't affect wheth
 
 ## Definition
 
-
+```c
+static bool
+simplify_EXISTS_query(PlannerInfo *root, Query *query)
+```
 ## Detailed Description
 This function optimizes EXISTS subqueries by removing SQL constructs that don't affect the fundamental question that EXISTS answers: whether any rows are returned. Since EXISTS only cares about row existence (not row contents), many SQL features can be safely eliminated.
 

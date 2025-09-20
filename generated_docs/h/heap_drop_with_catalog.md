@@ -8,7 +8,10 @@ heap_drop_with_catalog removes a specified relation from the system catalogs, ha
 
 ## Definition
 
-
+```c
+void
+heap_drop_with_catalog(Oid relid)
+```
 ## Detailed Description
 This function performs the comprehensive catalog cleanup required when dropping a relation. It handles special considerations for partitioned tables by acquiring necessary locks on parent and default partitions to prevent concurrent access issues. The function systematically removes entries from various system catalogs including pg_foreign_table (for foreign tables), pg_partitioned_table (for partitioned tables), handles partition constraint updates, schedules physical storage deletion, removes statistics, clears inheritance relationships, and performs cache invalidation. The function works in coordination with the dependency system and should typically be called through performDeletion() rather than directly.
 

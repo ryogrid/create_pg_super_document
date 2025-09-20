@@ -8,7 +8,10 @@ Converts a relative path to an absolute path by resolving it against the current
 
 ## Definition
 
-
+```c
+char *
+make_absolute_path(const char *path)
+```
 ## Detailed Description
 The  function ensures that a given pathname is converted to an absolute path. If the input path is already absolute, it simply duplicates and canonicalizes it. If the path is relative, the function resolves it against the current working directory to create an absolute path.
 

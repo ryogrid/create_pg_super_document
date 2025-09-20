@@ -8,7 +8,10 @@ This function determines whether statistics exist for a specific database object
 
 ## Definition
 
-
+```c
+bool
+pgstat_have_entry(PgStat_Kind kind, Oid dboid, Oid objoid)
+```
 ## Detailed Description
 The  function provides a lightweight way to check for the existence of statistics for a particular database object without actually fetching the statistics data. This function is particularly useful for conditional logic that needs to determine whether statistics collection has been enabled or initialized for a specific object.
 

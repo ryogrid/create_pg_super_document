@@ -8,7 +8,10 @@ Computes the natural logarithm (ln) of a numeric value with optimized scale dete
 
 ## Definition
 
-
+```c
+Datum
+numeric_ln(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function calculates the natural logarithm of a numeric input value. It enforces mathematical constraints by raising an error for negative infinity inputs, as logarithms are undefined for negative numbers. The function preserves NaN and positive infinity values as per mathematical conventions.
 

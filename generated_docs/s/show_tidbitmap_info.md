@@ -8,7 +8,10 @@ Displays statistics about exact and lossy heap blocks processed during EXPLAIN A
 
 ## Definition
 
-
+```c
+static void
+show_tidbitmap_info(BitmapHeapScanState *planstate, ExplainState *es)
+```
 ## Detailed Description
 This function formats and outputs heap block statistics for bitmap heap scans when EXPLAIN ANALYZE is used. It displays information about exact and lossy pages that were processed during the scan execution. The function handles different output formats (TEXT vs JSON/XML/YAML) and only shows the information if there are actual pages to report.
 

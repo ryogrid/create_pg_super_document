@@ -8,7 +8,10 @@ Converts PostgreSQL's internal timestamptz representation to binary format for e
 
 ## Definition
 
-
+```c
+Datum
+timestamptz_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the binary output function for the timestamptz data type. It takes a timestamptz value from PostgreSQL's internal representation and converts it to a binary format suitable for network transmission or binary storage. This function is part of PostgreSQL's binary I/O protocol, which provides more efficient data transfer compared to text-based formats by avoiding parsing overhead and reducing bandwidth usage.
 

@@ -8,7 +8,10 @@ Removes adjacent duplicates from a sorted list of OIDs, modifying the list in-pl
 
 ## Definition
 
-
+```c
+void
+list_deduplicate_oid(List *list)
+```
 ## Detailed Description
 This function efficiently removes duplicate OID values from a list by comparing adjacent elements. It assumes the caller has already sorted the list to bring duplicate values together, typically using `list_sort(list, list_oid_cmp)`. The function uses an in-place algorithm that maintains two pointers: one (i) tracks the position for writing unique values, while another (j) scans through all elements. When a new unique value is found, it's copied to the write position and the write pointer advances.
 

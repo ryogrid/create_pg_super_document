@@ -8,7 +8,10 @@ The encoding-aware version of path canonicalization that cleans up and normalize
 
 ## Definition
 
-
+```c
+void
+canonicalize_path_enc(char *path, int encoding)
+```
 ## Detailed Description
 The  function is the core implementation for path canonicalization in PostgreSQL. It performs comprehensive path normalization while being aware of character encoding to safely handle multi-byte characters. The function modifies the path in-place using a sophisticated state machine approach.
 

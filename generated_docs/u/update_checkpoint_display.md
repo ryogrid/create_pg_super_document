@@ -8,7 +8,10 @@ Updates the process status display for a process running a checkpoint or restart
 
 ## Definition
 
-
+```c
+static void
+update_checkpoint_display(int flags, bool restartpoint, bool reset)
+```
 ## Detailed Description
 The update_checkpoint_display function manages the process status display (ps display) for checkpoint and restartpoint operations. It selectively updates the display only for critical operations like end-of-recovery checkpoints and shutdown checkpoints/restartpoints, where visibility is important since pg_stat_activity may not be reliable. The function is designed to be safe for use within critical sections by avoiding memory allocations.
 

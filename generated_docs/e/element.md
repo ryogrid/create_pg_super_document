@@ -8,7 +8,12 @@ The element function maps collating-element names to character codes in PostgreS
 
 ## Definition
 
-
+```c
+static chr
+element(struct vars *v,			/* context */
+		const chr *startp,		/* points to start of name */
+		const chr *endp)		/* points just past end of name */
+```
 ## Detailed Description
 The element function is part of PostgreSQL's regex locale handling system, specifically designed to resolve collating-element names within bracket expressions to their corresponding character codes. The function follows a two-step resolution process:
 

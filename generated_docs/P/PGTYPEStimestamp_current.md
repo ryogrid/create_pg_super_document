@@ -8,7 +8,9 @@ Retrieves the current system time and converts it to PostgreSQL's internal times
 
 ## Definition
 
-
+```c
+struct tm	tm;
+```
 ## Detailed Description
 PGTYPEStimestamp_current is an ECPG (Embedded SQL in C for PostgreSQL) library function that obtains the current system date and time and converts it to PostgreSQL's internal timestamp representation. This function provides a simple interface for ECPG applications to capture the current moment in time using PostgreSQL's timestamp data type.
 

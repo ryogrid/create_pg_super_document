@@ -8,7 +8,10 @@ A non-variadic wrapper function for text_format that ensures compatibility with 
 
 ## Definition
 
-
+```c
+Datum
+text_format_nv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a simple wrapper around the text_format function. Its primary purpose is to satisfy PostgreSQL's opr_sanity system checks, which verify that all built-in functions sharing the same implementing C function take the same number of arguments. The wrapper provides a non-variadic interface to the variadic text_format function, allowing it to be used in contexts where a fixed number of arguments is expected.
 

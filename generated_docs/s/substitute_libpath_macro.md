@@ -8,7 +8,10 @@ Substitutes macro placeholders in library paths with their actual system paths, 
 
 ## Definition
 
-
+```c
+static char *
+substitute_libpath_macro(const char *name)
+```
 ## Detailed Description
 This function processes library path names that contain macro placeholders and expands them to their actual system paths. Currently, it recognizes and handles only the "$libdir" macro, which represents PostgreSQL's package library directory path.
 

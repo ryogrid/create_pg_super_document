@@ -8,7 +8,10 @@ Divides a 16-bit integer (smallint) by a 64-bit integer (bigint) and returns the
 
 ## Definition
 
-
+```c
+Datum
+int28div(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements division of a 2-byte integer by an 8-byte integer in PostgreSQL. The operation computes arg1 / arg2 where arg1 is a 16-bit integer and arg2 is a 64-bit integer. The function handles the critical edge case of division by zero by throwing an appropriate error.
 

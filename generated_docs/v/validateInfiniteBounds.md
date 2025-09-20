@@ -8,7 +8,10 @@ Validates that MAXVALUE or MINVALUE specifications in partition bounds are follo
 
 ## Definition
 
-
+```c
+static void
+validateInfiniteBounds(ParseState *pstate, List *blist)
+```
 ## Detailed Description
 This function enforces the PostgreSQL partitioning constraint that once a MAXVALUE or MINVALUE is encountered in a partition bound specification, all subsequent bounds must be of the same infinite type. It iterates through a list of partition range bounds and validates that the sequence is consistent - preventing mixed infinite bound types which would create invalid partition definitions.
 

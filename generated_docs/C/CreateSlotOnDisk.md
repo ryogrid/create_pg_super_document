@@ -8,7 +8,9 @@ Creates a replication slot's persistent directory structure on disk using atomic
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This function creates the on-disk representation of a replication slot using a two-phase approach to ensure atomic creation:
 

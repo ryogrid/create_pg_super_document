@@ -8,7 +8,10 @@ Creates a shallow copy of a PostgreSQL list excluding the first N elements, effe
 
 ## Definition
 
-
+```c
+List *
+list_copy_tail(const List *oldlist, int nskip)
+```
 ## Detailed Description
 The  function creates a shallow copy of a PostgreSQL List structure starting from the (nskip+1)th element, effectively skipping the first 'nskip' elements. This is the complement operation to . The function performs a shallow copy where only the list structure and element pointers are duplicated.
 

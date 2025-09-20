@@ -8,7 +8,10 @@ XLogFileNameById generates a WAL segment file name directly from timeline ID, lo
 
 ## Definition
 
-
+```c
+static inline void
+XLogFileNameById(char *fname, TimeLineID tli, uint32 log, uint32 seg)
+```
 ## Detailed Description
 XLogFileNameById constructs a WAL segment file name by directly combining the provided timeline ID, log file number, and segment number into the standard PostgreSQL WAL filename format. Unlike XLogFileName which calculates the log and segment numbers from a logical segment number, this function takes the pre-calculated components directly. This provides a more direct approach when the log and segment numbers are already known.
 

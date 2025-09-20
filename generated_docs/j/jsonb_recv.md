@@ -8,7 +8,10 @@ The  function is the binary receive function for the JSONB data type, responsibl
 
 ## Definition
 
-
+```c
+Datum
+jsonb_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function handles the reception of JSONB data transmitted in binary format over PostgreSQL's wire protocol. The binary format includes a version number prefix to allow for future format changes while maintaining backward compatibility. Currently, only version 1 is supported, which stores the JSON data as text following the version byte. The function extracts the version number, validates it, retrieves the JSON text, and delegates the actual parsing to .
 

@@ -8,7 +8,19 @@ Moves an updated tuple to a different partition by performing a coordinated dele
 
 ## Definition
 
-
+```c
+static bool
+ExecCrossPartitionUpdate(ModifyTableContext *context,
+						 ResultRelInfo *resultRelInfo,
+						 ItemPointer tupleid, HeapTuple oldtuple,
+						 TupleTableSlot *slot,
+						 bool canSetTag,
+						 UpdateContext *updateCxt,
+						 TM_Result *tmresult,
+						 TupleTableSlot **retry_slot,
+						 TupleTableSlot **inserted_tuple,
+						 ResultRelInfo **insert_destrel)
+```
 ## Detailed Description
 ExecCrossPartitionUpdate handles the complex scenario where an UPDATE operation changes a tuple's partition key, requiring the tuple to be moved from one partition to another. This operation cannot be performed as a simple in-place update because it spans partition boundaries.
 

@@ -8,7 +8,13 @@ The  struct represents a named identifier in PostgreSQL's ECPG (Embedded SQL in 
 
 ## Definition
 
-
+```c
+struct sqlname
+{
+	short		length;
+	char		data[NAMEDATALEN];
+};
+```
 ## Detailed Description
 The  struct is a fundamental data structure used in PostgreSQL's ECPG native SQLDA (SQL Descriptor Area) implementation. It encapsulates database object names (such as column names, table names, etc.) in a format that includes both the actual name data and its length. This structure ensures consistent handling of identifiers across the ECPG interface while respecting PostgreSQL's naming constraints defined by .
 

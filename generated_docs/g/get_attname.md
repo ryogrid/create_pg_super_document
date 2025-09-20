@@ -8,7 +8,10 @@ Retrieves the attribute name from the PostgreSQL system catalog for a given rela
 
 ## Definition
 
-
+```c
+char *
+get_attname(Oid relid, AttrNumber attnum, bool missing_ok)
+```
 ## Detailed Description
 This function performs a system cache lookup to retrieve the attribute name (column name) from the pg_attribute catalog table. It searches using the relation OID and attribute number as keys. The function returns a newly allocated string containing the attribute name, which must be freed by the caller. If the attribute is not found, the behavior depends on the missing_ok parameter - it either returns NULL or throws an error.
 

@@ -8,7 +8,10 @@ Public function to lookup a row type's tuple descriptor with optional error supp
 
 ## Definition
 
-
+```c
+TupleDesc
+lookup_rowtype_tupdesc_noerror(Oid type_id, int32 typmod, bool noError)
+```
 ## Detailed Description
 This function provides a variant of lookup_rowtype_tupdesc() with configurable error handling behavior. It serves as a wrapper around lookup_rowtype_tupdesc_internal() while adding:
 

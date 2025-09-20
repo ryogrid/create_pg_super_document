@@ -8,7 +8,10 @@ Validates SQL language functions by parsing and analyzing the function body to e
 
 ## Definition
 
-
+```c
+Datum
+fmgr_sql_validator(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the validator for SQL language functions in PostgreSQL. It performs comprehensive validation of SQL function definitions including syntax checking, semantic analysis, and return type verification.
 

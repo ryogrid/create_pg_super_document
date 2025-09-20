@@ -8,7 +8,11 @@ This function retrieves the next tuple from a heap scan within a specified TID (
 
 ## Definition
 
-
+```c
+bool
+heap_getnextslot_tidrange(TableScanDesc sscan, ScanDirection direction,
+						  TupleTableSlot *slot)
+```
 ## Detailed Description
 heap_getnextslot_tidrange is a specialized heap scanning function that operates within a constrained TID range defined by rs_mintid and rs_maxtid in the scan descriptor. The function uses either page-mode or tuple-mode scanning depending on the SO_ALLOW_PAGEMODE flag, then filters the retrieved tuples to ensure they fall within the specified TID range.
 

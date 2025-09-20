@@ -8,7 +8,10 @@ Validates that a posting list tuple is correctly structured with properly ordere
 
 ## Definition
 
-
+```c
+static bool
+_bt_posting_valid(IndexTuple posting)
+```
 ## Detailed Description
 This function performs comprehensive validation of a B-tree posting list tuple to ensure data integrity. It verifies that the tuple is indeed a posting list type, contains at least 2 heap TIDs (minimum required for a posting list), and that all TIDs are valid and arranged in strict ascending order.
 

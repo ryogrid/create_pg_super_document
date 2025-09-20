@@ -8,7 +8,10 @@ Returns the total number of entries currently stored in a PostgreSQL dynamic has
 
 ## Definition
 
-
+```c
+long
+hash_get_num_entries(HTAB *hashp)
+```
 ## Detailed Description
 This function provides a way to query the current number of entries in a hash table. For non-partitioned tables, it simply returns the nentries count from the single freelist. For partitioned tables, it sums the nentries counts across all freelists (NUM_FREELISTS) to provide the total count.
 

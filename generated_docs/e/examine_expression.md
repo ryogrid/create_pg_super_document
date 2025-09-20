@@ -8,7 +8,11 @@ Performs pre-analysis examination of a single expression to determine if it's an
 
 ## Definition
 
-
+```c
+struct.
+	 */
+	stats = (VacAttrStats *) palloc0(sizeof(VacAttrStats));
+```
 ## Detailed Description
 The examine_expression function is a specialized component of PostgreSQL's extended statistics system that prepares expressions for statistical analysis. Unlike examine_attribute which handles table columns, this function specifically deals with arbitrary expressions that can be part of extended statistics objects.
 

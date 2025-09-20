@@ -8,7 +8,10 @@ Sets the OID to be assigned to the next data type created during binary upgrade 
 
 ## Definition
 
-
+```c
+Datum
+binary_upgrade_set_next_pg_type_oid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of PostgreSQL's binary upgrade support system that allows pg_upgrade to control OID assignment during database upgrades to preserve object identities. The function accepts a type OID as input and stores it in the global variable , which will be used by the system when creating the next data type.
 

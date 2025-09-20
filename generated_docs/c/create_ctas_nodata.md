@@ -8,7 +8,10 @@ Creates a CTAS (CREATE TABLE AS) or materialized view relation when the WITH NO 
 
 ## Definition
 
-
+```c
+static ObjectAddress
+create_ctas_nodata(List *tlist, IntoClause *into)
+```
 ## Detailed Description
 The  function handles the creation of relations for CREATE TABLE AS and CREATE MATERIALIZED VIEW statements when no data is to be initially populated (WITH NO DATA clause). It processes the target list from the query to derive appropriate column definitions, including data types, type modifiers, and collations.
 

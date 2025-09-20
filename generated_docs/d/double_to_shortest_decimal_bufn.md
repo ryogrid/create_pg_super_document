@@ -8,7 +8,10 @@ Converts a double-precision floating-point number to its shortest decimal repres
 
 ## Definition
 
-
+```c
+int
+double_to_shortest_decimal_bufn(double f, char *result)
+```
 ## Detailed Description
 This function performs the core conversion of IEEE 754 double-precision floating-point numbers to their shortest decimal string representation. It implements an optimized algorithm that:
 

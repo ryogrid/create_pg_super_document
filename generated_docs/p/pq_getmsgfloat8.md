@@ -8,7 +8,13 @@ Extracts a 64-bit double-precision floating-point number from a message buffer u
 
 ## Definition
 
-
+```c
+union
+	{
+		float8		f;
+		int64		i;
+	}			swap;
+```
 ## Detailed Description
 The `pq_getmsgfloat8` function reads an 8-byte double-precision floating-point value from a message buffer by utilizing the 64-bit integer parsing infrastructure. Similar to pq_getmsgfloat4, it uses a union to safely convert between the binary representation (int64) and the floating-point representation (float8) without violating strict aliasing rules. The function leverages pq_getmsgint64 to read the 8 bytes and handle network byte order conversion, then interprets those bytes as an IEEE 754 double-precision floating-point number. This design ensures cross-platform compatibility for double-precision floating-point data transmission in PostgreSQL's binary protocol.
 

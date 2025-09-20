@@ -8,7 +8,14 @@ OpfamilyInfo is a structure used in pg_dump to represent operator family metadat
 
 ## Definition
 
-
+```c
+typedef struct _collInfo
+{
+	DumpableObject dobj;
+	const char *rolname;
+	int			collencoding;
+} CollInfo;
+```
 ## Detailed Description
 OpfamilyInfo stores metadata about PostgreSQL operator families for the dump and restore process. Operator families are collections of related operator classes that can be used together with an access method. They provide a way to group semantically compatible operator classes, allowing for more flexible and efficient query optimization. This structure captures the operator family's association with its access method and ownership information, enabling pg_dump to properly recreate custom operator families during database restoration.
 

@@ -8,7 +8,10 @@ A static helper function in libpq that validates whether a given field number is
 
 ## Definition
 
-
+```c
+static int
+check_field_number(const PGresult *res, int field_num)
+```
 ## Detailed Description
 This function performs range validation for field (column) numbers in PostgreSQL query results. It ensures that the provided field number is valid for the given PGresult structure by checking if it falls within the bounds of 0 to numAttributes-1. If the field number is out of range, it generates an internal notice message and returns false. This function serves as a defensive programming measure to prevent buffer overflows and invalid memory access when accessing result set columns.
 

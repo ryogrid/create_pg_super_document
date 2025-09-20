@@ -8,7 +8,11 @@ Builds the access path for an RTE_RESULT RTE (Result Table Entry), creating a si
 
 ## Definition
 
-
+```c
+static void
+set_result_pathlist(PlannerInfo *root, RelOptInfo *rel,
+					RangeTblEntry *rte)
+```
 ## Detailed Description
 This function is responsible for constructing the pathlist for Result relations, which are used in PostgreSQL to represent computed results or values that don't come from scanning a physical table. The function creates exactly one path - a ResultScan path - since there's only one way to access a result relation. Unlike other relation types, Result relations don't support join-qual-parameterized paths, simplifying the path generation process.
 

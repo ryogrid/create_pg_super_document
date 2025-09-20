@@ -8,7 +8,10 @@ Determines whether a given type is an array of composite (complex) types by chec
 
 ## Definition
 
-
+```c
+static bool
+is_complex_array(Oid typid)
+```
 ## Detailed Description
 is_complex_array is a utility function that identifies array types whose elements are composite types (structs, records, or user-defined types). This classification is important for type coercion decisions, particularly when determining if an array can be coerced to RECORD[] or when handling complex type conversions.
 

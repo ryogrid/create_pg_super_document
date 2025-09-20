@@ -8,7 +8,10 @@ Safely deallocates memory used by a Bitmapset, with NULL pointer protection.
 
 ## Definition
 
-
+```c
+void
+bms_free(Bitmapset *a)
+```
 ## Detailed Description
 This function frees the memory allocated for a Bitmapset structure. It provides a safe wrapper around PostgreSQL's pfree() function by first checking if the pointer is non-NULL before attempting to free it. This prevents crashes that would occur if pfree() were called directly on a NULL pointer.
 

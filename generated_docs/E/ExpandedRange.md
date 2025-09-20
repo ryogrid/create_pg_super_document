@@ -8,7 +8,14 @@ ExpandedRange is a helper structure used internally by BRIN minmax-multi operati
 
 ## Definition
 
-
+```c
+typedef struct ExpandedRange
+{
+	Datum		minval;			/* lower boundary */
+	Datum		maxval;			/* upper boundary */
+	bool		collapsed;		/* true if minval==maxval */
+} ExpandedRange;
+```
 ## Detailed Description
 ExpandedRange serves as an intermediate representation for ranges during BRIN minmax-multi processing operations. Each instance represents a single interval with explicit minimum and maximum boundary values. The structure includes a collapsed flag to efficiently handle single-point ranges (where min equals max) without requiring expensive comparison function calls for by-reference data types. This representation is primarily used during compaction operations where the complex hybrid storage format of Ranges needs to be temporarily expanded into individual intervals for sorting, merging overlapping ranges, and other algorithmic processing.
 

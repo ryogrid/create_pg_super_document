@@ -8,7 +8,12 @@ Builds SECURITY LABEL command(s) for shared database objects by querying the sys
 
 ## Definition
 
-
+```c
+static void
+buildShSecLabels(PGconn *conn, const char *catalog_name, Oid objectId,
+				 const char *objtype, const char *objname,
+				 PQExpBuffer buffer)
+```
 ## Detailed Description
 This function constructs PostgreSQL SECURITY LABEL commands for shared objects (objects that exist across the entire database cluster rather than within a specific database). It takes dual representations of the target object: catalog-level identification (catalog name and OID) for querying system catalogs, and SQL-level identification (object type and name) for generating the appropriate SECURITY LABEL commands.
 

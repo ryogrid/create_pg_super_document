@@ -8,7 +8,10 @@ Performs cleanup operations on a single relation at main-transaction commit or a
 
 ## Definition
 
-
+```c
+static void
+AtEOXact_cleanup(Relation relation, bool isCommit)
+```
 ## Detailed Description
 This static function handles the cleanup of individual relation cache entries during transaction termination. It performs several critical operations:
 

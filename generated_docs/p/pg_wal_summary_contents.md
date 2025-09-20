@@ -8,7 +8,10 @@ A PostgreSQL system function that reads and returns the detailed contents of a s
 
 ## Definition
 
-
+```c
+Datum
+pg_wal_summary_contents(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function reads the contents of a specified WAL summary file identified by timeline ID, start LSN, and end LSN. It parses the summary file using the BlockRefTableReader infrastructure to extract information about modified database blocks. The function returns a result set containing details about each relation fork and the specific blocks that were modified, including both individual block numbers and limit blocks that indicate truncation points. The output includes relation identifiers, fork numbers, block numbers, and flags indicating whether each entry represents a limit block.
 

@@ -8,7 +8,13 @@ Attempts to prove or refute a predicate assuming a clause with the same subexpre
 
 ## Definition
 
-
+```c
+typedef struct OprProofCacheKey
+{
+	Oid			pred_op;		/* predicate operator */
+	Oid			clause_op;		/* clause operator */
+} OprProofCacheKey;
+```
 ## Detailed Description
 This function handles the case where we have identical subexpressions in both the predicate and clause (e.g., EXPR1 clause_op EXPR2 vs EXPR1 pred_op EXPR2). It first applies simple logical rules: the predicate is proven true if the operators are identical, or proven false if they are negators of each other. If these simple rules don't apply, it delegates to operator_same_subexprs_lookup to check for relationships through btree operator families.
 

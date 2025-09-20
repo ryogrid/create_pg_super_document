@@ -8,7 +8,10 @@ Interprets and validates the function parameter list of CREATE FUNCTION, CREATE 
 
 ## Definition
 
-
+```c
+struct the proper outputs as needed */
+	*parameterTypes = buildoidvector(inTypes, inCount);
+```
 ## Detailed Description
 This comprehensive function processes the parameter list for database objects (functions, procedures, aggregates) by validating parameter types, modes, names, and default values. It enforces language-specific restrictions, such as preventing SQL functions from using shell types and disallowing set arguments for all object types. The function handles variadic parameters with proper validation, ensures unique parameter names within appropriate scopes, and manages parameter ordering constraints. It also processes default expressions and validates that parameters with defaults appear at the end of the input parameter list.
 

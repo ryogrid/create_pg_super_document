@@ -8,7 +8,11 @@ Retrieves the appropriate bucket buffer for a given hash key, using cached metap
 
 ## Definition
 
-
+```c
+Buffer
+_hash_getbucketbuf_from_hashkey(Relation rel, uint32 hashkey, int access,
+								HashMetaPage *cachedmetap)
+```
 ## Detailed Description
 This function efficiently locates and returns the correct bucket buffer for a given hash key. It implements several optimizations:
 

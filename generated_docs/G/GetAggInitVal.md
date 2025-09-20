@@ -8,7 +8,10 @@ GetAggInitVal converts a text representation of an aggregate's initial value to 
 
 ## Definition
 
-
+```c
+static Datum
+GetAggInitVal(Datum textInitVal, Oid transtype)
+```
 ## Detailed Description
 This static function is responsible for parsing and converting text-based initial values for aggregates into their proper internal representation. It takes a text datum containing the string representation of an initial value and converts it to a Datum of the specified transition type. The function handles the type conversion by obtaining the appropriate input function for the target type and calling it with the string representation.
 

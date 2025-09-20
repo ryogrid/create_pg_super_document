@@ -8,7 +8,9 @@ Handles persistence change operations for PostgreSQL sequences, ensuring that se
 
 ## Definition
 
-
+```c
+enumber(seqrel, newrelpersistence);
+```
 ## Detailed Description
 This function is responsible for changing the persistence of a sequence relation while maintaining its state and data integrity. It is called during ALTER TABLE operations that change a sequence's persistence characteristics. The function ensures that sequence increments from concurrent nextval() calls are not lost during the persistence change operation by acquiring proper locks and preserving the sequence data through the relfilenode change.
 

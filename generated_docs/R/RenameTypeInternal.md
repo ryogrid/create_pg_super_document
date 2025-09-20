@@ -8,7 +8,10 @@ RenameTypeInternal handles the renaming of PostgreSQL types and their associated
 
 ## Definition
 
-
+```c
+void
+RenameTypeInternal(Oid typeOid, const char *newTypeName, Oid typeNamespace)
+```
 ## Detailed Description
 RenameTypeInternal is the core function responsible for renaming types in PostgreSQL's type system. It performs the actual renaming operation after privilege checks have been completed by the caller. The function handles the complex scenario of renaming both a base type and its associated array type while managing potential name conflicts.
 

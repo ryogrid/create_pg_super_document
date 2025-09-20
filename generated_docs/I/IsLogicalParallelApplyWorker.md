@@ -8,7 +8,10 @@ IsLogicalParallelApplyWorker is a specialized utility function that determines w
 
 ## Definition
 
-
+```c
+bool
+IsLogicalParallelApplyWorker(void)
+```
 ## Detailed Description
 This function provides a more specific check than IsLogicalWorker by identifying whether the current process is operating as a parallel apply worker within the logical replication system. It combines two conditions: first verifying that the process is any type of logical replication worker, and then confirming that it is specifically a parallel apply worker. Parallel apply workers are used in logical replication to handle changes in parallel for improved performance, as opposed to sequential apply workers or table synchronization workers.
 

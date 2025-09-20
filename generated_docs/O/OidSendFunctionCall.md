@@ -8,7 +8,10 @@ OidSendFunctionCall is a convenience function that calls a datatype binary-outpu
 
 ## Definition
 
-
+```c
+bytea *
+OidSendFunctionCall(Oid functionId, Datum val)
+```
 ## Detailed Description
 OidSendFunctionCall provides a simple interface for calling datatype binary-output (send) functions when you only have the function's OID rather than a pre-cached FmgrInfo structure. The function internally sets up the function manager info using fmgr_info() and then calls SendFunctionCall() to perform the actual conversion from internal Datum format to binary representation.
 

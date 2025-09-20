@@ -8,7 +8,10 @@ The boolgt function implements the greater-than comparison operator (>) for Bool
 
 ## Definition
 
-
+```c
+Datum
+boolgt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the implementation for the Boolean greater-than operator in PostgreSQL's type system. It follows PostgreSQL's Boolean ordering where false < true, so the function returns true only when the first argument is true and the second argument is false. The function is part of PostgreSQL's internal function framework and uses the standard PostgreSQL function calling conventions.
 

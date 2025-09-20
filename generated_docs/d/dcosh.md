@@ -8,7 +8,10 @@ The dcosh function computes the hyperbolic cosine of a floating-point number, ha
 
 ## Definition
 
-
+```c
+Datum
+dcosh(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The dcosh function is a PostgreSQL wrapper around the standard C library cosh() function that calculates the hyperbolic cosine of a given floating-point argument. It provides robust error handling for overflow conditions and integrates with PostgreSQL's function call interface. The function extracts a float8 (double precision) argument from the PostgreSQL function call context, computes the hyperbolic cosine using the system's cosh() function, and handles potential mathematical errors such as overflow. When an overflow occurs (indicated by ERANGE errno), the function returns positive infinity since cosh is always positive. The function also checks for underflow conditions where the result might be zero.
 

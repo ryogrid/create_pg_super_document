@@ -8,7 +8,11 @@ Creates an ordered path from a given input path by adding sort operations when n
 
 ## Definition
 
-
+```c
+static Path *
+make_ordered_path(PlannerInfo *root, RelOptInfo *rel, Path *path,
+				  Path *cheapest_path, List *pathkeys)
+```
 ## Detailed Description
 The  function creates a path that produces results in a specific order defined by . It intelligently chooses between different sorting strategies based on the input path's existing ordering:
 

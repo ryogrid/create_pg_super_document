@@ -8,7 +8,10 @@ Performs subtraction of two NumericVar values, handling signs and delegating to 
 
 ## Definition
 
-
+```c
+static void
+sub_var(const NumericVar *var1, const NumericVar *var2, NumericVar *result)
+```
 ## Detailed Description
 The  function is the full version of subtraction functionality at the variable level for PostgreSQL's NUMERIC data type. It handles signed subtraction by analyzing the signs of both operands and determining the appropriate operation (addition or subtraction of absolute values). The function safely handles cases where the result might point to one of the operands without causing memory issues.
 

@@ -8,7 +8,10 @@ Writes a single character to the current outgoing message being constructed for 
 
 ## Definition
 
-
+```c
+int
+pqPutc(char c, PGconn *conn)
+```
 ## Detailed Description
 pqPutc is a convenience function that writes a single character to the outgoing message buffer. It is a thin wrapper around pqPutMsgBytes that simplifies the process of adding a single character to a message being constructed for transmission to the PostgreSQL backend.
 

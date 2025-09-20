@@ -8,7 +8,10 @@ Returns the octet length (byte length) of a BPCHAR (blank-padded character) valu
 
 ## Definition
 
-
+```c
+Datum
+bpcharoctetlen(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function calculates and returns the octet (byte) length of a BPCHAR data type. It uses an optimized approach by calling  to determine the size without actually detoasting the potentially compressed or out-of-line stored value. The function subtracts  (variable header size) from the raw datum size to get the actual data length, as BPCHAR values include a variable-length header that stores metadata about the value.
 

@@ -8,7 +8,10 @@ A static test function that validates the GIN posting list encoding and decoding
 
 ## Definition
 
-
+```c
+static void
+test_itemptr_pair(BlockNumber blk, OffsetNumber off, int maxsize)
+```
 ## Detailed Description
 This function tests the GIN posting list compression and decompression by creating a pair of ItemPointers (TIDs), encoding them into a GinPostingList using ginCompressPostingList(), and then decoding them back using ginPostingListDecode(). The function specifically tests with a fixed first TID of (0, 1) and a second TID formed from the provided block and offset parameters.
 

@@ -8,7 +8,10 @@ A hook function used in PostgreSQL's psql client to validate and set the ON_ERRO
 
 ## Definition
 
-
+```c
+static bool
+on_error_stop_hook(const char *newval)
+```
 ## Detailed Description
 The  function serves as a validation and assignment hook for the ON_ERROR_STOP psql variable. It is called whenever the user attempts to set the ON_ERROR_STOP variable through psql commands like . The function uses the  utility to parse the string value and convert it to a boolean, storing the result in the global  field. This hook ensures that only valid boolean values (like "on", "off", "true", "false", etc.) are accepted for the ON_ERROR_STOP setting.
 

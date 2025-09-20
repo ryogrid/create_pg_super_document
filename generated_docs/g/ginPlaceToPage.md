@@ -8,7 +8,14 @@ ginPlaceToPage handles the insertion of new items to a GIN B-tree page, managing
 
 ## Definition
 
-
+```c
+struct a new root page containing downlinks to the new left
+			 * and right pages.  (Do this in a temporary copy rather than
+			 * overwriting the original page directly, since we're not in the
+			 * critical section yet.)
+			 */
+			newrootpg = PageGetTempPage(newrpage);
+```
 ## Detailed Description
 ginPlaceToPage is the core insertion routine for GIN B-tree pages that determines whether a new item can fit on the target page or if a split is required. The function operates in three phases:
 

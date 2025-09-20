@@ -8,7 +8,10 @@ A syscache invalidation callback function that invalidates cached plans when pro
 
 ## Definition
 
-
+```c
+static void
+PlanCacheObjectCallback(Datum arg, int cacheid, uint32 hashvalue)
+```
 ## Detailed Description
 PlanCacheObjectCallback is a callback function registered with the syscache invalidation system for PROCOID and TYPEOID caches. It is invoked when procedures (functions) or data types are modified or dropped. The function scans through all cached plan sources and cached expressions, invalidating any that depend on the specified object.
 

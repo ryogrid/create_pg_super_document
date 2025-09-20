@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) check hook function that validates the effec
 
 ## Definition
 
-
+```c
+bool
+check_effective_io_concurrency(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 This function serves as a check hook for the effective_io_concurrency GUC parameter in PostgreSQL. The effective_io_concurrency parameter controls the number of concurrent disk I/O operations that PostgreSQL should expect for a single table scan. However, this functionality requires the posix_fadvise() system call for prefetching data.
 

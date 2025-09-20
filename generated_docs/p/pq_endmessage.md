@@ -8,7 +8,10 @@ Finalizes and sends a completed message buffer to the frontend client, cleaning 
 
 ## Definition
 
-
+```c
+void
+pq_endmessage(StringInfo buf)
+```
 ## Detailed Description
 The pq_endmessage function serves as the final step in PostgreSQL's message construction and transmission process. After a message has been built using various pq_send* functions, this function takes the completed StringInfo buffer and transmits it to the connected client frontend.
 

@@ -8,7 +8,13 @@ Inserts multiple entries for a single heap pointer into the BuildAccumulator's r
 
 ## Definition
 
-
+```c
+void
+ginInsertBAEntries(BuildAccumulator *accum,
+				   ItemPointer heapptr, OffsetNumber attnum,
+				   Datum *entries, GinNullCategory *categories,
+				   int32 nentries)
+```
 ## Detailed Description
 This function handles the insertion of multiple entries associated with a single heap tuple into the BuildAccumulator during GIN index bulk construction. The key optimization is in the insertion order - rather than inserting entries sequentially (which would create an unbalanced tree if the input is sorted), it uses a sophisticated algorithm that inserts entries in a pattern designed to maintain tree balance.
 

@@ -8,7 +8,10 @@ Returns a list of SASL mechanisms supported by the SCRAM authentication module f
 
 ## Definition
 
-
+```c
+static void
+scram_get_mechanisms(Port *port, StringInfo buf)
+```
 ## Detailed Description
 This function builds a list of supported SCRAM authentication mechanisms and appends them to a StringInfo buffer. The mechanisms are listed in decreasing order of importance, with channel-binding variants (which require SSL) listed first when available. The mechanism names are separated by null bytes ('\0') for convenience in building the FE/BE packet that lists the available authentication mechanisms to the client.
 

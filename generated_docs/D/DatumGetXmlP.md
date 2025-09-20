@@ -8,7 +8,10 @@ DatumGetXmlP is an inline function that converts a PostgreSQL Datum value to an 
 
 ## Definition
 
-
+```c
+static inline xmltype *
+DatumGetXmlP(Datum X)
+```
 ## Detailed Description
 This function provides a convenient way to extract an xmltype pointer from a Datum value. It uses PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) mechanism to handle potentially compressed or out-of-line XML data. The function automatically decompresses TOASTed XML values and returns a pointer to the xmltype structure that can be directly used by XML processing functions.
 

@@ -8,7 +8,10 @@ A convenience function that commits a transaction command and performs cleanup o
 
 ## Definition
 
-
+```c
+static void
+finish_xact_command(void)
+```
 ## Detailed Description
 This function completes a transaction command by disabling the active statement timeout and committing the transaction if one was started. It serves as the counterpart to start_xact_command() in PostgreSQL's command processing lifecycle. After committing the transaction, the function optionally performs memory context checking and statistics reporting when compiled with appropriate debugging flags. The xact_started flag is reset to false to indicate that no transaction is currently active.
 

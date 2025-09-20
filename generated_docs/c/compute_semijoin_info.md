@@ -8,7 +8,9 @@ Fills semijoin-related fields of a SpecialJoinInfo structure by analyzing whethe
 
 ## Definition
 
-
+```c
+union(left_varnos, right_varnos);
+```
 ## Detailed Description
 The  function analyzes semijoin operations to determine if they can be optimized through unique-ification of the right-hand side relations. This optimization is crucial for improving the performance of EXISTS subqueries and IN clauses that are converted to semijoins.
 

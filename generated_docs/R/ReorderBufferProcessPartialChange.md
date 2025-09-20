@@ -8,7 +8,12 @@ Manages partial changes during streaming of in-progress transactions, tracking i
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferProcessPartialChange(ReorderBuffer *rb, ReorderBufferTXN *txn,
+								  ReorderBufferChange *change,
+								  bool toast_insert)
+```
 ## Detailed Description
 This function handles the tracking and management of partial changes during logical replication streaming. It identifies when transactions contain incomplete changes (such as TOAST table inserts or speculative inserts) and marks them appropriately to prevent streaming until the changes are complete. The function also triggers immediate streaming of previously serialized transactions once their partial changes become complete, reducing apply lag. It operates only when streaming is enabled and maintains transaction state flags to track partial change status.
 

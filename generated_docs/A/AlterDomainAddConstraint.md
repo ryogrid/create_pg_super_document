@@ -8,7 +8,11 @@ Implements the ALTER DOMAIN ADD CONSTRAINT statement, adding CHECK or NOT NULL c
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterDomainAddConstraint(List *names, Node *newConstraint,
+						 ObjectAddress *constrAddr)
+```
 ## Detailed Description
 This function adds constraints to domain types, supporting CHECK and NOT NULL constraint types while explicitly rejecting unsupported constraint types like UNIQUE, PRIMARY KEY, FOREIGN KEY, and EXCLUSION. For CHECK constraints, it processes the constraint expression, adds an entry to pg_constraint, and optionally validates existing data. For NOT NULL constraints, it sets the typnotnull flag and validates existing data unless validation is skipped. The function ensures proper cache invalidation for constraint changes that don't modify the pg_type row directly.
 

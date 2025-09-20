@@ -8,7 +8,10 @@ The  function is the binary send function for the JSONB data type, responsible f
 
 ## Definition
 
-
+```c
+Datum
+jsonb_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function handles the transmission of JSONB data in binary format over PostgreSQL's wire protocol. It creates a versioned binary message that starts with a version number (currently 1) followed by the JSON text representation. The function first converts the JSONB value to its string representation, then packages it into a binary message with proper protocol formatting. This approach maintains compatibility while allowing for future binary format improvements.
 

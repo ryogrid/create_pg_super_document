@@ -8,7 +8,13 @@ A lightweight state management structure for handling TAR file generation during
 
 ## Definition
 
-
+```c
+typedef struct WriteTarState
+{
+	int			tablespacenum;
+	bbstreamer *streamer;
+} WriteTarState;
+```
 ## Detailed Description
 WriteTarState is a streamlined state management structure used in pg_basebackup for coordinating TAR file generation and processing. This structure provides a simpler alternative to the more complex ArchiveStreamState, focusing specifically on TAR file operations without the additional complexity of compression and manifest handling.
 

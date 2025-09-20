@@ -8,7 +8,10 @@ Serializes an ExtensibleNode structure to a string format for output operations,
 
 ## Definition
 
-
+```c
+static void
+_outExtensibleNode(StringInfo str, const ExtensibleNode *node)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's node output system, specifically designed to serialize ExtensibleNode structures. ExtensibleNodes are a mechanism in PostgreSQL that allows external extensions to define their own node types while integrating seamlessly with the core parser and planner infrastructure.
 

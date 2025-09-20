@@ -8,7 +8,10 @@ A static comparison function that determines if two Const nodes are logically eq
 
 ## Definition
 
-
+```c
+static bool
+_equalConst(const Const *a, const Const *b)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's node comparison infrastructure, specifically designed to compare two  nodes for equality. This function is automatically generated as part of the equal functions framework for nodes with the  attribute. 
 

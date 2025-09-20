@@ -8,7 +8,10 @@ A PostgreSQL test function that parses a string representation of four comma-sep
 
 ## Definition
 
-
+```c
+Datum
+int44in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a custom input function for a test data type that represents an array of four 32-bit integers. It parses a string in the format "int1, int2, int3, int4" and converts it into an internal representation as a palloc'd array of int32 values. This function is part of PostgreSQL's regression test suite and demonstrates how to implement custom input functions for user-defined data types. If fewer than four integers are provided in the input string, the remaining positions are filled with zeros.
 

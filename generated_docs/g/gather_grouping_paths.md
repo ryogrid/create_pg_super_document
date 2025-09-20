@@ -8,7 +8,10 @@ Generates optimized Gather and Gather Merge paths for grouping relations by crea
 
 ## Definition
 
-
+```c
+static void
+gather_grouping_paths(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function is specifically designed for grouped or partially grouped relations and creates parallel execution paths to collect results from worker processes. It performs several key optimizations:
 

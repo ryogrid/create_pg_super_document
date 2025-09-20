@@ -8,7 +8,9 @@ xmltype is a typedef that defines the PostgreSQL data type structure for storing
 
 ## Definition
 
-
+```c
+typedef struct varlena xmltype;
+```
 ## Detailed Description
 The xmltype is PostgreSQL's internal representation for XML data values. It is defined as a typedef of the varlena structure, which is the standard header used by all variable-length data types in PostgreSQL. This structure supports PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) mechanism, allowing XML values to be compressed or stored out-of-line when they exceed certain size thresholds. The xmltype provides the foundation for all XML operations in PostgreSQL, including parsing, validation, manipulation, and storage.
 

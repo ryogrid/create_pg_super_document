@@ -8,7 +8,10 @@ Initializes and configures a PostgreSQL connection for safe use by pg_rewind, se
 
 ## Definition
 
-
+```c
+static void
+init_libpq_conn(PGconn *conn)
+```
 ## Detailed Description
 The  function prepares a PostgreSQL connection for use by pg_rewind by configuring various connection settings and validating server requirements. This function ensures the connection operates safely and efficiently during the rewind process.
 

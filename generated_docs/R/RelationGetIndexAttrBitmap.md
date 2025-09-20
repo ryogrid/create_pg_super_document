@@ -8,7 +8,10 @@ Retrieves a bitmap of attribute numbers for columns used in indexes on a relatio
 
 ## Definition
 
-
+```c
+Bitmapset *
+RelationGetIndexAttrBitmap(Relation relation, IndexAttrBitmapKind attrKind)
+```
 ## Detailed Description
 This function analyzes all indexes on a given relation and returns a bitmap indicating which table attributes (columns) are involved in indexes, depending on the specified  parameter. The function supports multiple bitmap types:
 

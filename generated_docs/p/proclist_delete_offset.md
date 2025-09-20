@@ -8,7 +8,10 @@ A static inline function that removes a process from a process list at a specifi
 
 ## Definition
 
-
+```c
+static inline void
+proclist_delete_offset(proclist_head *list, int procno, size_t node_offset)
+```
 ## Detailed Description
 This function removes a specified process from a doubly-linked process list. It operates on process lists where the list nodes are embedded at a specific offset within the process structure, allowing for multiple different process lists to coexist within the same process objects. The function performs proper list maintenance by updating the previous and next pointers of adjacent nodes, and handles special cases for head and tail nodes. After removal, the node's pointers are reset to indicate it's no longer part of any list.
 

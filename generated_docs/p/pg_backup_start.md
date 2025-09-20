@@ -8,7 +8,10 @@ Initiates an online backup by creating the necessary setup for backup_label file
 
 ## Definition
 
-
+```c
+Datum
+pg_backup_start(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function sets up the infrastructure needed for taking an online backup dump of a PostgreSQL database. It validates that no backup is currently in progress, allocates necessary memory contexts for backup state management, and delegates the actual backup initialization to . The function ensures proper memory management by creating a dedicated backup context that persists until  is called.
 

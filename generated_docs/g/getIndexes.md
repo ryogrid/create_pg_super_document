@@ -8,7 +8,10 @@ Retrieves comprehensive information about all indexes on dumpable tables and cre
 
 ## Definition
 
-
+```c
+void
+getIndexes(Archive *fout, TableInfo tblinfo[], int numTables)
+```
 ## Detailed Description
 The getIndexes function performs a sophisticated query against PostgreSQL system catalogs to gather complete index information for all tables marked for dumping. It constructs a single optimized SQL query that retrieves index definitions, statistics, constraint relationships, and metadata from multiple system tables including pg_index, pg_class, pg_constraint, and pg_inherits. The function handles version-specific features like replica identity indexes (9.4+), partitioned indexes (11.0+), and NULLS NOT DISTINCT support (15.0+). For each index found, it creates IndxInfo structures and populates them with detailed metadata. Additionally, when indexes are associated with constraints (primary key, unique, or exclusion), it creates corresponding ConstraintInfo entries, establishing proper dependency relationships for correct dump ordering.
 

@@ -8,7 +8,10 @@ Terminates an index scan operation and properly releases all associated resource
 
 ## Definition
 
-
+```c
+void
+ExecEndIndexScan(IndexScanState *node)
+```
 ## Detailed Description
 The `ExecEndIndexScan` function performs the cleanup and resource deallocation necessary when terminating an index scan operation. It is responsible for properly closing the index scan descriptor and the index relation, ensuring that all resources are released and locks are handled appropriately.
 

@@ -8,7 +8,21 @@ OSAPerGroupState is a structure that holds per-group state data for ordered-set 
 
 ## Definition
 
-
+```c
+typedef struct OSAPerGroupState
+{
+	/* Link to the per-query state for this aggregate: */
+	OSAPerQueryState *qstate;
+	/* Memory context containing per-group data: */
+	MemoryContext gcontext;
+	/* Sort object we're accumulating data in: */
+	Tuplesortstate *sortstate;
+	/* Number of normal rows inserted into sortstate: */
+	int64		number_of_rows;
+	/* Have we already done tuplesort_performsort? */
+	bool		sort_done;
+} OSAPerGroupState;
+```
 ## Detailed Description
 OSAPerGroupState represents the per-group portion of PostgreSQL's ordered-set aggregate state management. While OSAPerQueryState contains information shared across all groups in a query, OSAPerGroupState maintains data that is specific to each individual aggregate group being processed.
 

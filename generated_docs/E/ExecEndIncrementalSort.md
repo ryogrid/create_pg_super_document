@@ -8,7 +8,10 @@ Shuts down an incremental sort node by releasing all allocated resources includi
 
 ## Definition
 
-
+```c
+void
+ExecEndIncrementalSort(IncrementalSortState *node)
+```
 ## Detailed Description
 ExecEndIncrementalSort performs cleanup and resource deallocation for an incremental sort node when query execution is complete or the node is no longer needed. This function ensures proper cleanup of all resources allocated during the node's lifetime, including standalone tuple table slots, tuplesort states for both full and prefix sorting operations, and the outer child node.
 

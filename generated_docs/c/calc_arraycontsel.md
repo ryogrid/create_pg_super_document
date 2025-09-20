@@ -8,7 +8,11 @@ Core calculation function for array containment selectivity estimation that extr
 
 ## Definition
 
-
+```c
+static Selectivity
+calc_arraycontsel(VariableStatData *vardata, Datum constval,
+				  Oid elemtype, Oid operator)
+```
 ## Detailed Description
 This function serves as the primary computational engine for array containment selectivity estimation. It is responsible for extracting and preparing PostgreSQL's statistical data (most-common-elements and distinct-element-count histograms) before passing the problem to mcelem_array_selec() for the actual selectivity calculation.
 

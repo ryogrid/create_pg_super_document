@@ -8,7 +8,10 @@ A debugging utility function that prints a formatted representation of pathkeys,
 
 ## Definition
 
-
+```c
+void
+print_pathkeys(const List *pathkeys, const List *rtable)
+```
 ## Detailed Description
 The  function provides a human-readable output of pathkeys, which are essential data structures in PostgreSQL's query optimizer. Pathkeys represent sort ordering requirements and are used to determine whether one path's output can satisfy another operation's ordering needs without additional sorting.
 

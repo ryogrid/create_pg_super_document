@@ -8,7 +8,11 @@ Builds a complete ON clause from partially-transformed USING lists by creating e
 
 ## Definition
 
-
+```c
+static Node *
+transformJoinUsingClause(ParseState *pstate,
+						 List *leftVars, List *rightVars)
+```
 ## Detailed Description
 The `transformJoinUsingClause` function is a static helper function that converts JOIN USING clauses into equivalent ON clauses by creating equality comparisons between corresponding columns from the left and right sides of the join.
 

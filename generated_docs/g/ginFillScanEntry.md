@@ -8,7 +8,13 @@ Creates a new GinScanEntry for a GIN index scan, or returns an existing equivale
 
 ## Definition
 
-
+```c
+static GinScanEntry
+ginFillScanEntry(GinScanOpaque so, OffsetNumber attnum,
+				 StrategyNumber strategy, int32 searchMode,
+				 Datum queryKey, GinNullCategory queryCategory,
+				 bool isPartialMatch, Pointer extra_data)
+```
 ## Detailed Description
 The  function creates and initializes a new GinScanEntry structure that represents a single search condition in a GIN index scan. Before creating a new entry, it attempts to find an existing equivalent entry to avoid duplication, which can significantly improve performance for complex queries with overlapping conditions.
 

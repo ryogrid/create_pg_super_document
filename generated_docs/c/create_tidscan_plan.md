@@ -8,7 +8,11 @@ Creates a TID scan plan for a base relation using tuple identifier (TID) values 
 
 ## Definition
 
-
+```c
+static TidScan *
+create_tidscan_plan(PlannerInfo *root, TidPath *best_path,
+					List *tlist, List *scan_clauses)
+```
 ## Detailed Description
 The  function constructs a TidScan execution plan node for directly accessing table rows using their tuple identifiers (TIDs). This is an optimization for queries that specify exact row locations through CTID conditions or similar TID-based predicates.
 

@@ -8,7 +8,17 @@ Considers a partial hashjoin join path and adds it to the joinrel's partial path
 
 ## Definition
 
-
+```c
+static void
+try_partial_hashjoin_path(PlannerInfo *root,
+						  RelOptInfo *joinrel,
+						  Path *outer_path,
+						  Path *inner_path,
+						  List *hashclauses,
+						  JoinType jointype,
+						  JoinPathExtraData *extra,
+						  bool parallel_hash)
+```
 ## Detailed Description
 This function evaluates the feasibility of creating a partial hash join path for parallel query execution. The outer side must be partial, while the inner path's requirements depend on the  parameter. When  is true, the inner path must also be partial and will run in parallel to create shared hash tables. When false, the inner path must be complete and a copy runs in every process to create separate identical private hash tables.
 

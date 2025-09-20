@@ -8,7 +8,11 @@ Compiles a distinct list of PostgreSQL databases to check based on user-specifie
 
 ## Definition
 
-
+```c
+static void
+compile_database_list(PGconn *conn, SimplePtrList *databases,
+					  const char *initial_dbname)
+```
 ## Detailed Description
 This function constructs a comprehensive list of databases to be checked by pg_amcheck. It handles various scenarios: explicit database patterns provided by the user, the --all flag for checking all databases, inclusion/exclusion pattern matching, and ensures proper filtering of connectable databases. The function uses a complex SQL query with multiple CTEs (Common Table Expressions) to efficiently resolve patterns against the pg_database catalog, applying inclusion and exclusion rules while respecting database connectivity constraints.
 

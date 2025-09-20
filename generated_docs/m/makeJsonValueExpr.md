@@ -8,7 +8,11 @@ Creates a JsonValueExpr node for representing JSON value expressions in PostgreS
 
 ## Definition
 
-
+```c
+JsonValueExpr *
+makeJsonValueExpr(Expr *raw_expr, Expr *formatted_expr,
+				  JsonFormat *format)
+```
 ## Detailed Description
 The  function is a constructor function that creates and initializes a  node. This node type is used in PostgreSQL's implementation of SQL/JSON functionality to represent expressions that produce JSON values. The function allocates memory for a new  structure using the PostgreSQL node system and sets up its three primary components: the raw expression, formatted expression, and format specification.
 

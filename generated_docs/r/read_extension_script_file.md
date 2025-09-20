@@ -8,7 +8,11 @@ Reads an SQL script file into a string and converts it to the database encoding 
 
 ## Definition
 
-
+```c
+static char *
+read_extension_script_file(const ExtensionControlFile *control,
+						   const char *filename)
+```
 ## Detailed Description
 This function is responsible for reading SQL script files used during PostgreSQL extension installation and preparation. It handles the critical task of encoding conversion, ensuring that script files written in various encodings are properly converted to the database's target encoding before execution.
 

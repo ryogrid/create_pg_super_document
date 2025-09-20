@@ -8,7 +8,14 @@ A linked list structure used in ECPG (Embedded C for PostgreSQL) preprocessor to
 
 ## Definition
 
-
+```c
+struct assignment
+{
+	char	   *variable;
+	enum ECPGdtype value;
+	struct assignment *next;
+};
+```
 ## Detailed Description
 The  struct is part of the ECPG preprocessor infrastructure, designed to manage associations between C variables and SQL descriptor types. It forms a linked list where each node represents a mapping between a variable name and a specific descriptor type value. This structure is essential for tracking how embedded SQL descriptors are manipulated and assigned during the preprocessing phase.
 

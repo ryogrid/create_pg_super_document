@@ -8,7 +8,10 @@ Initializes a sequential scan over a PostgreSQL dynamic hash table, setting up t
 
 ## Definition
 
-
+```c
+void
+hash_seq_init(HASH_SEQ_STATUS *status, HTAB *hashp)
+```
 ## Detailed Description
 This function initializes a HASH_SEQ_STATUS structure to begin a sequential scan through all entries in a hash table. It sets up the initial state for iteration, starting from bucket 0 with no current entry. The function also handles registration of the sequential scan for non-frozen hash tables, which is important for proper cleanup and concurrency control.
 

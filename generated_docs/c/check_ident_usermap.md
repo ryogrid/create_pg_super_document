@@ -8,7 +8,12 @@ Evaluates a single identity mapping rule from pg_ident.conf to determine if a sy
 
 ## Definition
 
-
+```c
+static void
+check_ident_usermap(IdentLine *identLine, const char *usermap_name,
+					const char *pg_user, const char *system_user,
+					bool case_insensitive, bool *found_p, bool *error_p)
+```
 ## Detailed Description
 This function implements the core logic for PostgreSQL's user identity mapping system used by authentication methods like ident, peer, GSSAPI, SSPI, and cert. It processes individual mapping rules to determine if a system-authenticated user should be allowed to connect as a specific PostgreSQL role.
 

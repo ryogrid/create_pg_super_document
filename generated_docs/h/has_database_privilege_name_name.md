@@ -8,7 +8,10 @@ Checks if a specified user has a given privilege on a specified database, where 
 
 ## Definition
 
-
+```c
+Datum
+has_database_privilege_name_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This PostgreSQL function implements one variant of the has_database_privilege SQL function family. It takes three text arguments: a username, a database name, and a privilege type string, then determines whether the specified user has the requested privilege on the specified database. The function converts the name-based parameters to their corresponding OIDs, converts the privilege string to an AclMode bitmask, and then performs the actual access control check using the object_aclcheck function.
 

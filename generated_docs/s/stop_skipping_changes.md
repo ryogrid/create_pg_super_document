@@ -8,7 +8,10 @@ stop_skipping_changes is a static function that terminates the transaction skipp
 
 ## Definition
 
-
+```c
+static void
+stop_skipping_changes(void)
+```
 ## Detailed Description
 This function serves as the counterpart to maybe_start_skipping_changes, providing a clean way to exit transaction skipping mode in logical replication. It checks if the system is currently in skipping mode and, if so, resets the skip_xact_finish_lsn to InvalidXLogRecPtr to disable skipping. The function also provides logging to track when transaction skipping has completed, which is important for debugging and monitoring logical replication behavior.
 

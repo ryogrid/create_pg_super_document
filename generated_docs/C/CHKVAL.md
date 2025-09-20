@@ -8,7 +8,18 @@ CHKVAL is a structure used as a callback parameter for text search (tsquery) ope
 
 ## Definition
 
-
+```c
+typedef struct StatEntry
+{
+	uint32		ndoc;			/* zero indicates that we were already here
+								 * while walking through the tree */
+	uint32		nentry;
+	struct StatEntry *left;
+	struct StatEntry *right;
+	uint32		lenlexeme;
+	char		lexeme[FLEXIBLE_ARRAY_MEMBER];
+} StatEntry;
+```
 ## Detailed Description
 CHKVAL serves as a context structure passed to callback functions during text search query execution. It encapsulates array boundary pointers that define a range of elements (typically word hash values or WordEntry structures) to be searched. This structure is used in both GiST index operations for tsvector and regular tsvector matching operations.
 

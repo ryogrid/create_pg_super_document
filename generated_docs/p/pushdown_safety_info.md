@@ -8,7 +8,16 @@ A structure that holds safety information for determining whether qualifiers can
 
 ## Definition
 
-
+```c
+typedef struct pushdown_safety_info
+{
+	unsigned char *unsafeFlags; /* bitmask of reasons why this target list
+								 * column is unsafe for qual pushdown, or 0 if
+								 * no reason. */
+	bool		unsafeVolatile; /* don't push down volatile quals */
+	bool		unsafeLeaky;	/* don't push down leaky quals */
+} pushdown_safety_info;
+```
 ## Detailed Description
 The  structure is used by PostgreSQL's query optimizer to track safety constraints when considering pushing WHERE clause qualifiers down into subqueries. This optimization technique can significantly improve query performance by reducing the number of rows that need to be processed at higher levels of the query plan.
 

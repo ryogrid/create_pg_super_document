@@ -8,7 +8,11 @@ This function provides error-safe JSON parsing by extending pg_parse_json with c
 
 ## Definition
 
-
+```c
+bool
+pg_parse_json_or_errsave(JsonLexContext *lex, JsonSemAction *sem,
+						 Node *escontext)
+```
 ## Detailed Description
 pg_parse_json_or_errsave serves as a wrapper around pg_parse_json that provides enhanced error handling capabilities. Unlike pg_parse_json which returns a JsonParseErrorType, this function returns a boolean success indicator and handles errors through PostgreSQL's error context system. When parsing fails, it either saves error data into the provided ErrorSaveContext (allowing soft error handling) or reports an ERROR (causing transaction abort). This design enables callers to choose between immediate error reporting and deferred error handling based on their error management strategy.
 

@@ -8,7 +8,10 @@ Cleans up and deallocates a WalRcvExecResult structure, freeing all associated m
 
 ## Definition
 
-
+```c
+static inline void
+walrcv_clear_result(WalRcvExecResult *walres)
+```
 ## Detailed Description
 This inline function performs complete cleanup of a WalRcvExecResult structure returned by WAL receiver execution functions. It safely deallocates all dynamically allocated components of the result structure, including error messages, tuple stores, tuple descriptors, and finally the structure itself. The function includes null-pointer checks to ensure safe operation even when called with NULL or partially initialized structures.
 

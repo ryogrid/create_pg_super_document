@@ -8,7 +8,20 @@ Main entry point for single-page cleanup operations that coordinates with the ta
 
 ## Definition
 
-
+```c
+struct a leaf-page-wise description of what _bt_delitems_delete()
+	 * needs to do to physically delete index tuples from the page.
+	 *
+	 * Must sort deltids array to restore leaf-page-wise order (original order
+	 * before call to tableam).  This is the order that the loop expects.
+	 *
+	 * Note that deltids array might be a lot smaller now.  It might even have
+	 * no entries at all (with bottom-up deletion caller), in which case there
+	 * is nothing left to do.
+	 */
+	qsort(delstate->deltids, delstate->ndeltids, sizeof(TM_IndexDelete),
+		  _bt_delitems_cmp);
+```
 ## Detailed Description
 This function serves as the nbtree interface to , implementing single-page cleanup by deleting a subset of index tuples whose TIDs are determined to be safe for deletion by the table access method (tableam). The function handles both simple and bottom-up index deletion strategies.
 

@@ -8,7 +8,10 @@ Combines an existing path hash with the next key hash for the jsonb_path_ops GIN
 
 ## Definition
 
-
+```c
+static bool
+jsonb_path_ops__add_path_item(JsonPathGinPath *path, JsonPathItem *jsp)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's JSONB GIN indexing system for path-aware operations. It processes individual JSON path items and updates the cumulative hash value stored in the JsonPathGinPath structure. The function supports specific path item types that are meaningful for path-based indexing:
 

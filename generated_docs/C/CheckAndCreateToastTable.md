@@ -8,7 +8,11 @@ CheckAndCreateToastTable is a static function that serves as the common implemen
 
 ## Definition
 
-
+```c
+static void
+CheckAndCreateToastTable(Oid relOid, Datum reloptions, LOCKMODE lockmode,
+						 bool check, Oid OIDOldToast)
+```
 ## Detailed Description
 This is the core implementation function that underlies all the public TOAST table creation functions. It provides a unified interface that handles the common pattern of opening a relation, calling create_toast_table to do the actual work, and then properly closing the relation. The function acts as an adapter between the public API functions and the lower-level create_toast_table implementation.
 

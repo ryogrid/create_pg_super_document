@@ -8,7 +8,10 @@ EventTriggerInvoke is a static function that executes a list of event trigger fu
 
 ## Definition
 
-
+```c
+static void
+EventTriggerInvoke(List *fn_oid_list, EventTriggerData *trigdata)
+```
 ## Detailed Description
 EventTriggerInvoke iterates through a list of event trigger function OIDs and executes each one in sequence. The function provides several important guarantees:
 

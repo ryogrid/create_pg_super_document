@@ -8,7 +8,13 @@ A structure used during PostgreSQL's ANALYZE command to track Most Common Value 
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	SortSupport ssup;
+	int		   *tupnoLink;
+} CompareScalarsContext;
+```
 ## Detailed Description
 ScalarMCVItem is an internal data structure used by PostgreSQL's ANALYZE command when computing statistics for scalar (non-array) column data types. It serves as a tracking mechanism for identifying and managing the most frequently occurring values in a column sample. Each ScalarMCVItem instance represents a distinct value that has been identified as a candidate for inclusion in the Most Common Values (MCV) list, which is stored in the pg_statistic system catalog and used by the query planner for cardinality estimation.
 

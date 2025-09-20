@@ -8,7 +8,10 @@ Deallocates all memory associated with a TIDBitmap structure and frees the bitma
 
 ## Definition
 
-
+```c
+void
+tbm_free(TIDBitmap *tbm)
+```
 ## Detailed Description
 The `tbm_free` function performs complete cleanup of a TIDBitmap structure, deallocating all associated memory resources. This includes the main hash table (pagetable), any shared page arrays (spages), shared chunk arrays (schunks), and finally the TIDBitmap structure itself. The function ensures proper cleanup regardless of which internal representation the bitmap was using (single page, hash table, or shared memory structures).
 

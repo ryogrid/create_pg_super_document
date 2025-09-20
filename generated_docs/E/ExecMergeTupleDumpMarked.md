@@ -8,7 +8,10 @@ ExecMergeTupleDumpMarked is a debug utility function that prints the current mar
 
 ## Definition
 
-
+```c
+static void
+ExecMergeTupleDumpMarked(MergeJoinState *mergestate)
+```
 ## Detailed Description
 ExecMergeTupleDumpMarked is a specialized debugging utility function within the merge join executor that provides formatted output of the currently marked tuple. The marked tuple represents a position in the inner relation that the merge join algorithm has "marked" for potential backtracking during the join process, particularly important for handling duplicate values in merge joins.
 

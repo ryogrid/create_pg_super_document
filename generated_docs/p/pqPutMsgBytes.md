@@ -8,7 +8,10 @@ Adds raw bytes to a partially-constructed message in the PostgreSQL libpq client
 
 ## Definition
 
-
+```c
+static int
+pqPutMsgBytes(const void *buf, size_t len, PGconn *conn)
+```
 ## Detailed Description
 The  function is a low-level utility in the libpq client library that appends raw byte data to the output buffer for a message being constructed. It ensures there is sufficient buffer space before copying the data and updates the message end position. This function is fundamental to building PostgreSQL protocol messages on the client side.
 

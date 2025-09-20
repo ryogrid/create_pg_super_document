@@ -8,7 +8,10 @@ Public wrapper function for displaying string-valued properties in EXPLAIN outpu
 
 ## Definition
 
-
+```c
+void
+ExplainPropertyText(const char *qlabel, const char *value, ExplainState *es)
+```
 ## Detailed Description
 This is a convenience function that serves as a type-specific wrapper around the core ExplainProperty function. It is specifically designed for displaying text/string properties in EXPLAIN output. The function automatically sets appropriate parameters for string handling:
 

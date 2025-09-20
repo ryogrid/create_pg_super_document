@@ -8,7 +8,12 @@ A function that records index definitions during PostgreSQL bootstrap for deferr
 
 ## Definition
 
-
+```c
+void
+index_register(Oid heap,
+			   Oid ind,
+			   const IndexInfo *indexInfo)
+```
 ## Detailed Description
 This function implements a deferred index construction mechanism during PostgreSQL bootstrap. Rather than building indexes immediately when they are defined, it records the index specifications in a linked list (ILHead) for later construction. This two-phase approach is necessary because:
 

@@ -8,7 +8,9 @@ This function constructs an expression tree for applying a pg_cast entry, suppor
 
 ## Definition
 
-
+```c
+struct;
+```
 ## Detailed Description
 The build_coercion_expression function is a central component of PostgreSQL's type coercion system. It builds appropriate expression nodes based on the specified coercion path type, creating different node structures depending on how the coercion should be performed.
 

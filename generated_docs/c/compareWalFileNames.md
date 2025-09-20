@@ -8,7 +8,10 @@
 
 ## Definition
 
-
+```c
+static int
+compareWalFileNames(const ListCell *a, const ListCell *b)
+```
 ## Detailed Description
 This function serves as a comparison callback for  to order WAL segment filenames. It specifically compares only the log/segment portion of WAL filenames (characters 8 and onwards) while ignoring the timeline portion at the beginning. This ensures WAL files are sorted in chronological order regardless of their timeline, which is important during base backup when WAL files from different timelines might be present but need to be sent in the correct sequence.
 

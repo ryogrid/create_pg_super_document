@@ -8,7 +8,10 @@ Computes the bounding box area for a specific quadrant within a given bounding b
 
 ## Definition
 
-
+```c
+static BOX *
+getQuadrantArea(BOX *bbox, Point *centroid, int quadrant)
+```
 ## Detailed Description
 The  function calculates the bounding box that represents a specific quadrant's area within a larger bounding box. Given a parent bounding box and a centroid point that divides it into four quadrants, this function returns a newly allocated BOX structure representing the specified quadrant's spatial bounds. This is crucial for SP-GiST quadtree operations where spatial queries need to determine which quadrants to search based on their geometric boundaries.
 

@@ -8,7 +8,10 @@ Navigates SP-GiST tree descent by pointing to the N-th child node of current inn
 
 ## Definition
 
-
+```c
+struct new inner tuple with additional node */
+	newInnerTuple = addNode(state, innerTuple, nodeLabel, nodeN);
+```
 ## Detailed Description
 The  function implements the "match" operation in SP-GiST tree traversal. When the opclass choose function indicates that insertion should descend to a specific child node, this function updates the navigation state by setting the parent pointer to the current inner tuple and establishing the current pointer to the specified child node's location. If the target node has no downlink (empty), it sets current to invalid values to trigger page allocation on the next iteration.
 

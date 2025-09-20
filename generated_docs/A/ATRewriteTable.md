@@ -8,7 +8,10 @@ ATRewriteTable performs the actual tuple-by-tuple processing during ALTER TABLE 
 
 ## Definition
 
-
+```c
+static void
+ATRewriteTable(AlteredTableInfo *tab, Oid OIDNewHeap, LOCKMODE lockmode)
+```
 ## Detailed Description
 ATRewriteTable is the core data processing engine for ALTER TABLE operations, responsible for scanning through all tuples in a table and either copying them to a new table with transformations or validating them against new constraints. The function operates in two primary modes: rewrite mode (when OIDNewHeap is valid) where tuples are transformed and copied to a new table, and validation mode (when OIDNewHeap is InvalidOid) where existing tuples are checked against new constraints without physical copying.
 

@@ -8,7 +8,15 @@ Decides which parameterized index paths to build given sets of join clauses for 
 
 ## Definition
 
-
+```c
+static void
+consider_index_join_clauses(PlannerInfo *root, RelOptInfo *rel,
+							IndexOptInfo *index,
+							IndexClauseSet *rclauseset,
+							IndexClauseSet *jclauseset,
+							IndexClauseSet *eclauseset,
+							List **bitindexpaths)
+```
 ## Detailed Description
 This function implements a strategy for generating parameterized index paths by systematically considering different combinations of outer relations that can provide indexable join clauses. The core approach is to:
 

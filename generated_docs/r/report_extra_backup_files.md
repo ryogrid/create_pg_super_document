@@ -8,7 +8,10 @@ Reports files that are present in the backup manifest but not found on disk duri
 
 ## Definition
 
-
+```c
+static void
+report_extra_backup_files(verifier_context *context)
+```
 ## Detailed Description
 This function scans through all files listed in the backup manifest and identifies those that are marked as unmatched (not found on disk). For each unmatched file that should not be ignored based on the verification context, it reports an error indicating that the file exists in the manifest but is missing from the actual backup data on disk. This is a critical verification step that ensures backup integrity by detecting incomplete or corrupted backups.
 

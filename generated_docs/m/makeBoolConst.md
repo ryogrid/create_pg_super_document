@@ -8,7 +8,10 @@ Creates a Const node representing a boolean value, which can also represent NULL
 
 ## Definition
 
-
+```c
+Node *
+makeBoolConst(bool value, bool isnull)
+```
 ## Detailed Description
 The  function is a utility function that creates a Const node specifically for boolean values. It leverages the generic  function but provides specialized handling for boolean types. The function hardwires the boolean size as 1 byte (as defined in pg_type.h) and uses the BOOLOID type identifier. This function is essential for creating boolean constant expressions throughout the PostgreSQL query processing pipeline.
 

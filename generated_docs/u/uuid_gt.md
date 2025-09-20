@@ -8,7 +8,10 @@ Implements the greater than comparison operator (>) for PostgreSQL UUID data typ
 
 ## Definition
 
-
+```c
+Datum
+uuid_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that compares two UUID values and returns a boolean result indicating whether the first UUID is greater than the second. The comparison is performed lexicographically using the internal  function. This function is typically used in WHERE clauses, ORDER BY statements, and other SQL constructs that require UUID comparison operations. The function follows PostgreSQL's standard function calling convention using the  macro and returns a  type.
 

@@ -8,7 +8,13 @@ The backward-processing counterpart to  that performs binary search through a so
 
 ## Definition
 
+```c
+}
 
+/* find_among_b is for backwards processing. Same comments apply */
+
+extern int find_among_b(struct SN_env * z, const struct among * v, int v_size)
+```
 ## Detailed Description
 The  function is the backward-processing version of  in the Snowball stemming framework. It performs efficient pattern matching against a sorted array of candidate strings, but searches backward from the current cursor position instead of forward.
 

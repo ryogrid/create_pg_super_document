@@ -8,7 +8,10 @@ ExplainDummyGroup emits a group object that never has any members, used for repr
 
 ## Definition
 
-
+```c
+structure is an array of plans */
+			appendStringInfoChar(es->str, '[');
+```
 ## Detailed Description
 ExplainDummyGroup is designed to emit empty group representations in various output formats when a group concept exists but contains no actual members. This is useful for maintaining consistent structure in EXPLAIN output even when certain sections are empty.
 

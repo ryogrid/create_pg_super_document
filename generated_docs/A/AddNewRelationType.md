@@ -8,7 +8,12 @@ Defines a composite type corresponding to a new relation by creating an appropri
 
 ## Definition
 
-
+```c
+enumber map
+ *	oncommit: ON COMMIT marking (only relevant if it's a temp table)
+ *	reloptions: reloptions in Datum form, or (Datum) 0 if none
+ *	use_user_acl: true if should look for user-defined default permissions;
+```
 ## Detailed Description
 AddNewRelationType is a specialized wrapper around TypeCreate that creates a composite type entry corresponding to a new relation. In PostgreSQL, every table has an associated composite type that represents the row type of that table, allowing tuples to be used as values in other contexts.
 

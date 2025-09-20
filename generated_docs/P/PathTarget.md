@@ -8,7 +8,29 @@ PathTarget represents the targetlist (output columns) that a Path will compute d
 
 ## Definition
 
+```c
+typedef struct PathTarget
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+
+	/* list of expressions to be computed */
+	List	   *exprs;
+
+	/* corresponding sort/group refnos, or 0 */
+	Index	   *sortgrouprefs pg_node_attr(array_size(exprs));
+
+	/* cost of evaluating the expressions */
+	QualCost	cost;
+
+	/* estimated avg width of result tuples */
+	int			width;
+
+	/* indicates if exprs contain any volatile functions */
+	VolatileFunctionStatus has_volatile_expr;
+} PathTarget;
+```
 ## Detailed Description
 PathTarget is a crucial data structure used during query planning to describe what output columns a Path will compute. Each RelOptInfo includes a default PathTarget, which individual Paths may reference directly. However, when a Path computes outputs different from other Paths, a custom PathTarget is created. For example, an index scan might return index expressions that would otherwise need explicit calculation.
 

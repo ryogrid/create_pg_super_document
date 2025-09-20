@@ -8,7 +8,11 @@ Binary-searches a most common elements array for the first element greater than 
 
 ## Definition
 
-
+```c
+static bool
+find_next_mcelem(Datum *mcelem, int nmcelem, Datum value, int *index,
+				 TypeCacheEntry *typentry)
+```
 ## Detailed Description
 This function performs a binary search on an array of most common elements (mcelem) to locate the first element that is greater than or equal to the specified value. The search begins from the position indicated by the *index parameter. The function assumes that mcelem elements are distinct, ensuring at most one exact match can exist.
 

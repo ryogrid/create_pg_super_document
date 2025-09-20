@@ -8,7 +8,10 @@ A static utility function in PostgreSQL's GUC system that checks whether a speci
 
 ## Definition
 
-
+```c
+static bool
+extra_field_used(struct config_generic *gconf, void *extra)
+```
 ## Detailed Description
 The  function provides reference tracking for 'extra' data structures associated with GUC configuration parameters. It performs a comprehensive search to determine if a given extra data pointer is still being used anywhere within the configuration item, including the current extra field, reset_extra fields for all GUC variable types, and any extra fields in the configuration's stack of previous states.
 

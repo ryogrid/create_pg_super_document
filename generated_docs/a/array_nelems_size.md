@@ -8,7 +8,11 @@ Computes the total byte size of a specified number of array elements starting at
 
 ## Definition
 
-
+```c
+static int
+array_nelems_size(char *ptr, int offset, bits8 *nullbitmap, int nitems,
+				  int typlen, bool typbyval, char typalign)
+```
 ## Detailed Description
 This is a utility function that calculates the total memory size consumed by a contiguous sequence of array elements. It serves as a wrapper around the  function, using pointer arithmetic to determine the size by calculating the difference between the starting pointer and the pointer returned after seeking over the specified number of elements. The function handles both fixed-length and variable-length data types, as well as arrays with NULL bitmap information.
 

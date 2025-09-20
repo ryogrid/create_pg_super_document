@@ -8,7 +8,10 @@ CleanQuerytext is a utility function that processes SQL query text by trimming i
 
 ## Definition
 
-
+```c
+const char *
+CleanQuerytext(const char *query, int *location, int *len)
+```
 ## Detailed Description
 CleanQuerytext takes a potentially multi-statement SQL source string and confines attention to the relevant part based on the provided location and length parameters. The function handles cases where the query location might be unknown (-1) and applies intelligent defaults. It also trims whitespace from both ends using PostgreSQL's scanner_isspace() function to match lexer behavior, ensuring consistency in query text processing for features like query ID generation.
 

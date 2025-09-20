@@ -8,7 +8,11 @@ Calculates the synchronized Write, Flush, and Apply positions among synchronous 
 
 ## Definition
 
-
+```c
+static bool
+SyncRepGetSyncRecPtr(XLogRecPtr *writePtr, XLogRecPtr *flushPtr,
+					 XLogRecPtr *applyPtr, bool *am_sync)
+```
 ## Detailed Description
 This internal function is the core logic for determining synchronous replication positions in PostgreSQL. It examines all candidate synchronous standbys and calculates the appropriate LSN positions that can be considered "synchronized" based on the configured synchronous replication method.
 

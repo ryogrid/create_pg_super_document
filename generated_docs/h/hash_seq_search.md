@@ -8,7 +8,10 @@ Retrieves the next entry during a sequential scan of a PostgreSQL dynamic hash t
 
 ## Definition
 
-
+```c
+void *
+hash_seq_search(HASH_SEQ_STATUS *status)
+```
 ## Detailed Description
 This function continues a sequential scan initiated by hash_seq_init(), returning pointers to successive hash table entries. It efficiently traverses the hash table's segmented structure by tracking the current bucket and entry within each bucket's collision chain.
 

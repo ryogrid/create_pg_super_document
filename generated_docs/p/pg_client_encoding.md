@@ -8,7 +8,10 @@ Returns the name of the current client character encoding as a PostgreSQL SQL fu
 
 ## Definition
 
-
+```c
+Datum
+pg_client_encoding(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL SQL function (registered in pg_proc.dat) that returns the name of the current client character encoding. It retrieves the encoding name from the global ClientEncoding variable, which points to an entry in the pg_enc2name_tbl table containing encoding metadata. The function converts the encoding name to a PostgreSQL name data type using the namein function.
 

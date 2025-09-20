@@ -8,7 +8,12 @@ Performs planner transformations on standalone expressions while tracking and re
 
 ## Definition
 
-
+```c
+Expr *
+expression_planner_with_deps(Expr *expr,
+							 List **relationOids,
+							 List **invalItems)
+```
 ## Detailed Description
 The  function extends  by tracking dependencies of the transformed expression. It performs the same core transformations (constant folding, function call normalization, operator ID resolution) but additionally:
 

@@ -8,7 +8,12 @@ XLogRecGetBlockTag extracts block identification information from a WAL record's
 
 ## Definition
 
-
+```c
+void
+XLogRecGetBlockTag(XLogReaderState *record, uint8 block_id,
+				   RelFileLocator *rlocator, ForkNumber *forknum,
+				   BlockNumber *blknum)
+```
 ## Detailed Description
 XLogRecGetBlockTag is a convenience wrapper around XLogRecGetBlockTagExtended that retrieves block identification information for a specific block reference within a WAL record. Unlike its extended counterpart, this function assumes the block reference must exist and will throw an error if it doesn't. The function extracts the relation file locator, fork number, and block number for the specified block ID, which are essential for identifying which specific block the WAL record operates on.
 

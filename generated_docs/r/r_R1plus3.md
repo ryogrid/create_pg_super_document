@@ -8,7 +8,11 @@ The r_R1plus3 function tests whether the current cursor position plus 3 characte
 
 ## Definition
 
+```c
+}
 
+static int r_R1plus3(struct SN_env * z)
+```
 ## Detailed Description
 The r_R1plus3 function is a specialized boundary checking function specific to the Yiddish Snowball stemming algorithm. It performs a more restrictive test than the standard r_R1 function by requiring that not only the current cursor position, but also the position 3 characters ahead (represented as 6 bytes due to UTF-8 encoding considerations) must be within the R1 morphological region.
 

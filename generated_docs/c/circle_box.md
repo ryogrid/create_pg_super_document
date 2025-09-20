@@ -8,7 +8,10 @@ Converts a circle to the largest square (box) that can be inscribed within it.
 
 ## Definition
 
-
+```c
+Datum
+circle_box(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function performs a geometric conversion from a CIRCLE to a BOX (rectangular) data type. It calculates the largest square that can be inscribed within the given circle. The function computes the side length of this inscribed square using the formula: side = radius / √2. The resulting box is centered at the same point as the original circle, with corners positioned at equal distances from the center along both axes.
 

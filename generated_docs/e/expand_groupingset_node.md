@@ -8,7 +8,10 @@ A recursive function that expands GroupingSet nodes into their constituent group
 
 ## Definition
 
-
+```c
+static List *
+expand_groupingset_node(GroupingSet *gs)
+```
 ## Detailed Description
 This function is the core expansion engine for SQL GROUPING SETS, ROLLUP, and CUBE operations. It takes a single GroupingSet node and returns a list of lists, where each inner list represents one grouping combination:
 

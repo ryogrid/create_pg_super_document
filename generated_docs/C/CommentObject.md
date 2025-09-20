@@ -8,7 +8,10 @@ Handles the COMMENT ON SQL command by adding comments to pg_description or pg_sh
 
 ## Definition
 
-
+```c
+ObjectAddress
+CommentObject(CommentStmt *stmt)
+```
 ## Detailed Description
 CommentObject is the main entry point for processing COMMENT ON SQL statements. It validates the target object, checks permissions, and routes the comment to the appropriate catalog table (pg_description for regular objects or pg_shdescription for cluster-wide objects like databases, tablespaces, and roles).
 

@@ -8,7 +8,11 @@ Initializes user identity during normal backend startup by validating the role a
 
 ## Definition
 
-
+```c
+void
+InitializeSessionUserId(const char *rolename, Oid roleid,
+						bool bypass_login_check)
+```
 ## Detailed Description
 This function performs comprehensive user identity initialization for PostgreSQL backend processes. It handles role lookup (by name or OID), validates role existence and login permissions, enforces connection limits, and establishes the authenticated user context. The function includes special handling for parallel workers and bootstrap mode, and implements PostgreSQL's role-based authentication with configurable login bypass for background workers. It also manages the session_authorization GUC variable and performs syscache invalidation to ensure current role information.
 

@@ -8,7 +8,11 @@ ATExecAddIndexConstraint implements the ALTER TABLE ADD CONSTRAINT USING INDEX c
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecAddIndexConstraint(AlteredTableInfo *tab, Relation rel,
+						 IndexStmt *stmt, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function executes the ALTER TABLE ADD CONSTRAINT USING INDEX operation by taking an existing unique index and converting it into a table constraint (either PRIMARY KEY or UNIQUE). The function validates that the specified index is unique, handles constraint naming (renaming the index if necessary to match the constraint name), and creates the appropriate catalog entries. It ensures the constraint and index have the same name as required by PostgreSQL's design.
 

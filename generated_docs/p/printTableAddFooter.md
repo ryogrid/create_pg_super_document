@@ -8,7 +8,10 @@ Adds a footer to a table content structure as part of a singly-linked list, with
 
 ## Definition
 
-
+```c
+void
+printTableAddFooter(printTableContent *const content, const char *footer)
+```
 ## Detailed Description
 This function adds a footer to a printTableContent structure by creating a new printTableFooter node and adding it to the end of a singly-linked list. The function automatically duplicates the footer string using pg_strdup(), so the caller doesn't need to maintain the original string. Unlike headers and cells, footers are never automatically translated by this function - translation must be done by the caller before calling this function.
 

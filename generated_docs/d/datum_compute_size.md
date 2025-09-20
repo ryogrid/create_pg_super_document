@@ -8,7 +8,11 @@ A static utility function that calculates the space needed by a datum in seriali
 
 ## Definition
 
-
+```c
+static Size
+datum_compute_size(Size data_length, Datum val, bool typbyval, char typalign,
+				   int16 typlen, char typstorage)
+```
 ## Detailed Description
 This function is part of PostgreSQL's range type serialization infrastructure. It computes the total size required to store a datum in a serialized format by considering various type characteristics such as alignment requirements and storage strategies. The function handles two main cases: packable types that can be converted to short varlena headers for space optimization, and regular types that require standard alignment and length calculations.
 

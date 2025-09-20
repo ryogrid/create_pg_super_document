@@ -8,7 +8,10 @@ LimitAdditionalPins constrains the number of additional buffer pins a batch oper
 
 ## Definition
 
-
+```c
+void
+LimitAdditionalPins(uint32 *additional_pins)
+```
 ## Detailed Description
 LimitAdditionalPins implements a resource management mechanism that prevents individual backends from monopolizing the buffer pool during batch operations. It calculates a proportional limit based on the total number of buffers (shared_buffers) and the maximum possible number of backends, ensuring that no single operation can pin too many buffers simultaneously.
 

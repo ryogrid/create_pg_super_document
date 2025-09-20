@@ -8,7 +8,15 @@ Per-tuple callback function used during GiST index construction that processes e
 
 ## Definition
 
-
+```c
+static void
+gistBuildCallback(Relation index,
+				  ItemPointer tid,
+				  Datum *values,
+				  bool *isnull,
+				  bool tupleIsAlive,
+				  void *state)
+```
 ## Detailed Description
 This function serves as the callback for  during GiST index construction. It processes each tuple from the heap table and handles the complex logic of building the index efficiently.
 

@@ -8,7 +8,10 @@ The  function computes the inverse sine (arcsine) of a floating-point value and 
 
 ## Definition
 
-
+```c
+Datum
+dasind(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL SQL function  with degree output. It takes a single floating-point argument and computes its inverse sine, returning the result in degrees within the range [-90, 90]. The function includes comprehensive input validation and error handling:
 

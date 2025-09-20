@@ -8,7 +8,10 @@ Waits for the PostgreSQL postmaster to complete its startup process and become r
 
 ## Definition
 
-
+```c
+static WaitPMResult
+wait_for_postmaster_start(pid_t pm_pid, bool do_checkpoint)
+```
 ## Detailed Description
 The  function implements a polling mechanism to monitor postmaster startup progress. It repeatedly checks the postmaster.pid lock file to determine when the server has successfully started and is ready to accept connections.
 

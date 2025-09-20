@@ -8,7 +8,9 @@ A robust cross-platform file unlinking function that handles both regular files 
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 The  function provides a comprehensive file deletion mechanism that addresses several cross-platform challenges. It first attempts a direct unlink operation, which covers the most common case of deleting regular files. If this fails with EACCES (access denied), the function performs additional analysis to determine the appropriate deletion strategy.
 

@@ -8,7 +8,10 @@ Frees a previously created WaitEventSet in a child process after a fork(), prope
 
 ## Definition
 
-
+```c
+void
+FreeWaitEventSetAfterFork(WaitEventSet *set)
+```
 ## Detailed Description
 This function is specifically designed to handle the cleanup of WaitEventSet resources in child processes after a fork() system call. It performs platform-specific cleanup operations based on the wait mechanism in use:
 

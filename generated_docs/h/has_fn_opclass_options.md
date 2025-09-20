@@ -8,7 +8,10 @@ Checks if options are defined for an operator class support function in PostgreS
 
 ## Definition
 
-
+```c
+bool
+has_fn_opclass_options(FmgrInfo *flinfo)
+```
 ## Detailed Description
 This function determines whether operator class options are present for a given function by examining the FmgrInfo structure. It specifically checks if the function expression (fn_expr) contains a valid BYTEA constant that represents the operator class options. The function returns true if options are defined and available, false otherwise.
 

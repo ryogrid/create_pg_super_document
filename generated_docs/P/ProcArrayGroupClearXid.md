@@ -8,7 +8,10 @@ ProcArrayGroupClearXid implements a group-based optimization for clearing transa
 
 ## Definition
 
-
+```c
+static void
+ProcArrayGroupClearXid(PGPROC *proc, TransactionId latestXid)
+```
 ## Detailed Description
 This function implements a lock batching mechanism to reduce contention around ProcArrayLock during transaction commits. When multiple processes are trying to commit at once, instead of each process acquiring the exclusive lock individually, processes add themselves to a list where the first process (leader) acquires the lock and performs the XID clearing operation for all processes in the group.
 

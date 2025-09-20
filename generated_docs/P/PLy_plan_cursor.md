@@ -8,7 +8,10 @@ A Python method implementation that creates a cursor from a prepared SQL plan, a
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_plan_cursor(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 This function implements the cursor() method for PLyPlan Python objects. It serves as a wrapper that parses the optional arguments passed from Python and delegates to PLy_cursor_plan() for the actual cursor creation. The function accepts optional plan arguments that can be used to bind parameters to the prepared statement when creating the cursor. If argument parsing fails, it returns NULL to indicate an error to the Python interpreter.
 

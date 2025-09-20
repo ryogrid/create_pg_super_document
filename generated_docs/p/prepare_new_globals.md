@@ -8,7 +8,10 @@ Sets up global objects in the new cluster during pg_upgrade by restoring frozen 
 
 ## Definition
 
-
+```c
+static void
+prepare_new_globals(void)
+```
 ## Detailed Description
 This function is a critical step in the pg_upgrade process that prepares the global objects in the new PostgreSQL cluster. It performs two main operations in sequence:
 

@@ -8,7 +8,10 @@ Converts text from KOI8-R (Cyrillic) encoding to PostgreSQL's internal MULE enco
 
 ## Definition
 
-
+```c
+Datum
+koi8r_to_mic(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL conversion procedure that transforms character data from KOI8-R encoding (a popular Cyrillic character encoding used primarily in Russian computing) to MULE (Multi-Language Environment) internal encoding format. It acts as a PostgreSQL function callable from SQL and is part of the character encoding conversion infrastructure. The function delegates the actual conversion work to the generic  helper function, which handles the conversion for character sets where local codes map directly to MIC codes.
 

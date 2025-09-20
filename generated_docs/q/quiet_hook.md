@@ -8,7 +8,10 @@ A hook function used in PostgreSQL's psql client to validate and set the QUIET v
 
 ## Definition
 
-
+```c
+static bool
+quiet_hook(const char *newval)
+```
 ## Detailed Description
 The  function serves as a validation and assignment hook for the QUIET psql variable. It is called whenever the user attempts to set the QUIET variable through psql commands like . The function uses the  utility to parse the string value and convert it to a boolean, storing the result in the global  field. This hook ensures that only valid boolean values (like "on", "off", "true", "false", etc.) are accepted for the QUIET setting. When QUIET mode is enabled, psql suppresses various informational messages and runs more silently.
 

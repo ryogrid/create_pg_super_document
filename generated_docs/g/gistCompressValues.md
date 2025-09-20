@@ -8,7 +8,11 @@ Compresses attribute values for GiST index entries by applying the compress func
 
 ## Definition
 
-
+```c
+void
+gistCompressValues(GISTSTATE *giststate, Relation r,
+				   const Datum *attdata, const bool *isnull, bool isleaf, Datum *compatt)
+```
 ## Detailed Description
 This function processes attribute data for GiST index entries by applying compression functions defined by the operator classes. For each key attribute, it creates a GISTENTRY, applies the compress function if one is defined in the operator class, and stores the resulting compressed value. For leaf entries, it also handles included attributes by copying them directly without compression. The function is essential for preparing data before storing it in GiST index pages.
 

@@ -8,7 +8,10 @@ A syscache invalidation callback function that invalidates all cached plans when
 
 ## Definition
 
-
+```c
+static void
+PlanCacheSysCallback(Datum arg, int cacheid, uint32 hashvalue)
+```
 ## Detailed Description
 PlanCacheSysCallback is a simple but powerful callback function registered with various syscache invalidation systems. Unlike the more targeted PlanCacheRelCallback and PlanCacheObjectCallback, this function takes a conservative approach by invalidating the entire plan cache when any system catalog change occurs that might affect cached plans.
 

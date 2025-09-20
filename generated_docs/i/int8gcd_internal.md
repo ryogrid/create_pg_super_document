@@ -8,7 +8,10 @@ Internal implementation of the Greatest Common Divisor (GCD) algorithm for 64-bi
 
 ## Definition
 
-
+```c
+static int64
+int8gcd_internal(int64 arg1, int64 arg2)
+```
 ## Detailed Description
 The int8gcd_internal function implements the mathematical greatest common divisor operation using the Euclidean algorithm. It finds the largest positive integer that exactly divides both input values. The function includes comprehensive handling for special cases including zero inputs and the problematic INT64_MIN value. It performs computations in negative space initially to handle INT64_MIN safely, then converts the final result to positive. The algorithm optimizes by ensuring the larger absolute value is processed first to reduce the number of modulo operations needed.
 

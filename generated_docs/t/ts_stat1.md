@@ -8,7 +8,10 @@ PostgreSQL SQL function that returns a set of rows containing text search statis
 
 ## Definition
 
-
+```c
+Datum
+ts_stat1(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This is a PostgreSQL set-returning function (SRF) that implements the ts_stat(query) SQL function. It takes a SQL query as input parameter, executes it to collect tsvector data, builds comprehensive statistics about lexemes, and returns the results as a set of rows. Each returned row contains three columns: the lexeme (word/term), the number of documents it appears in (ndoc), and the total number of occurrences (nentry).
 

@@ -8,7 +8,10 @@ Generates and adds specific setup steps to an expression state based on collecte
 
 ## Definition
 
-
+```c
+static void
+ExecPushExprSetupSteps(ExprState *state, ExprSetupInfo *info)
+```
 ## Detailed Description
 ExecPushExprSetupSteps is a crucial function in PostgreSQL's expression evaluation system that translates setup requirements collected during expression analysis into actual executable steps. It handles two primary categories of setup operations that must occur before main expression evaluation can begin.
 

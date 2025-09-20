@@ -8,7 +8,10 @@ CheckOpSlotCompatibility is a static function that verifies slot compatibility w
 
 ## Definition
 
-
+```c
+static void
+CheckOpSlotCompatibility(ExprEvalStep *op, TupleTableSlot *slot)
+```
 ## Detailed Description
 This function performs runtime validation to ensure that a TupleTableSlot is compatible with the expected slot type for expression evaluation operations. It operates only in debug builds (USE_ASSERT_CHECKING) and serves as a safety mechanism to catch type mismatches during expression evaluation.
 

@@ -8,7 +8,11 @@ Searches a hash table to determine if it contains an entry that is not provably 
 
 ## Definition
 
-
+```c
+static bool
+findPartialMatch(TupleHashTable hashtable, TupleTableSlot *slot,
+				 FmgrInfo *eqfunctions)
+```
 ## Detailed Description
 findPartialMatch performs a comprehensive scan of an entire hash table to detect whether any stored tuple could potentially match the given input tuple. Unlike typical hash table lookups that use hash keys for efficient probing, this function must examine every entry because partial matches may occur with tuples that have completely different hash values from the input tuple.
 

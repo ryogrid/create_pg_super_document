@@ -8,7 +8,10 @@ Internal procedure that implements the core functionality for both 2-argument an
 
 ## Definition
 
-
+```c
+static void
+do_setval(Oid relid, int64 next, bool iscalled)
+```
 ## Detailed Description
 The do_setval function is the main internal implementation for PostgreSQL's setval() functionality. It allows setting a sequence's current value and optionally its 'is_called' flag. The function supports both the 2-argument form (which assumes is_called=true) and the 3-argument form (which allows explicit control over the is_called flag).
 

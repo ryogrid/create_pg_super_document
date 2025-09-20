@@ -8,7 +8,10 @@ The  function removes dead tuples (LP_DEAD items) from a single hash index page 
 
 ## Definition
 
-
+```c
+static void
+_hash_vacuum_one_page(Relation rel, Relation hrel, Buffer metabuf, Buffer buf)
+```
 ## Detailed Description
 This function performs localized vacuum operations on a single hash index page by removing tuples marked as LP_DEAD. It is called opportunistically during insertion operations when:
 

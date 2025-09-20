@@ -8,7 +8,10 @@ A function that identifies and prepares the actual container type for subscripti
 
 ## Definition
 
-
+```c
+void
+transformContainerType(Oid *containerType, int32 *containerTypmod)
+```
 ## Detailed Description
 This function prepares a container type for subscripting operations by performing several transformations:
 

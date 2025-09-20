@@ -8,7 +8,12 @@ ProjectSet is a plan node that applies projection operations involving set-retur
 
 ## Definition
 
-
+```c
+typedef struct ProjectSet
+{
+	Plan		plan;
+} ProjectSet;
+```
 ## Detailed Description
 The ProjectSet node is specifically designed to handle set-returning functions in the SELECT clause of queries. When a query includes functions that return multiple rows or sets (such as unnest(), generate_series(), or table-valued functions), PostgreSQL uses a ProjectSet node to manage the expansion of each input tuple into potentially multiple output tuples.
 

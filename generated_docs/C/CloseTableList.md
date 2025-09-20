@@ -8,7 +8,10 @@ Closes all relations in a PublicationRelInfo list and performs cleanup of associ
 
 ## Definition
 
-
+```c
+static void
+CloseTableList(List *rels)
+```
 ## Detailed Description
 CloseTableList is a static utility function that properly closes database relations that were previously opened by OpenTableList. The function performs a clean shutdown sequence:
 

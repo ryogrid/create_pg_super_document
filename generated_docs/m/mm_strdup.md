@@ -8,7 +8,10 @@ A string duplication wrapper function that provides error-checked strdup functio
 
 ## Definition
 
-
+```c
+char *
+mm_strdup(const char *string)
+```
 ## Detailed Description
 The  function serves as a safe wrapper around the standard  function specifically designed for the ECPG (Embedded SQL in C) preprocessor. It creates a duplicate copy of the input string with automatic error checking, ensuring that allocation failures during string duplication are handled gracefully by terminating the program with an appropriate error message. This function is essential for reliable string management throughout the ECPG preprocessing pipeline.
 

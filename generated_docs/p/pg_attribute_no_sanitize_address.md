@@ -8,7 +8,12 @@ A preprocessor macro that provides compiler attributes to disable AddressSanitiz
 
 ## Definition
 
-
+```c
+*/
+pg_attribute_no_sanitize_address()
+static inline size_t
+fasthash_accum_cstring_aligned(fasthash_state *hs, const char *str)
+```
 ## Detailed Description
 This macro is a platform-specific abstraction for disabling AddressSanitizer (ASan) checks on individual functions. AddressSanitizer is a runtime memory error detector that can catch buffer overflows, use-after-free bugs, and other memory access violations. However, there are legitimate cases where low-level code needs to perform operations that would trigger false positives or where the overhead of sanitization is unacceptable.
 

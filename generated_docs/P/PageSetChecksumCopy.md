@@ -8,7 +8,10 @@ Creates a copy of a page with a calculated checksum for safe writing to storage,
 
 ## Definition
 
-
+```c
+char *
+PageSetChecksumCopy(Page page, BlockNumber blkno)
+```
 ## Detailed Description
 PageSetChecksumCopy provides a thread-safe mechanism for preparing pages to be written to disk with valid checksums. The function addresses the critical problem of concurrent modifications (such as hint bit updates) that could occur between checksum calculation and actual I/O, which would result in checksum validation failures on subsequent reads.
 

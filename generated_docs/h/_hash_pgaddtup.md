@@ -8,7 +8,11 @@ The  function adds a single index tuple to a specific page in a hash index while
 
 ## Definition
 
-
+```c
+OffsetNumber
+_hash_pgaddtup(Relation rel, Buffer buf, Size itemsize, IndexTuple itup,
+			   bool appendtup)
+```
 ## Detailed Description
 This function is responsible for inserting a single tuple into a hash index page at the correct position to maintain hashkey ordering. It provides two insertion modes:
 

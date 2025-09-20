@@ -8,7 +8,10 @@ Registers an invalidation event for all catcache entries from a specific catalog
 
 ## Definition
 
-
+```c
+static void
+RegisterCatalogInvalidation(Oid dbId, Oid catId)
+```
 ## Detailed Description
 RegisterCatalogInvalidation is a static function that registers a catalog invalidation message for a specific catalog. It works by adding the invalidation message to the current command's invalidation message queue. This function is part of PostgreSQL's cache invalidation system, ensuring that catalog cache entries are properly invalidated when catalog tables are modified.
 

@@ -8,7 +8,12 @@ XidCache is a struct that caches subtransaction XIDs for a PostgreSQL backend pr
 
 ## Definition
 
-
+```c
+struct XidCache
+{
+	TransactionId xids[PGPROC_MAX_CACHED_SUBXIDS];
+};
+```
 ## Detailed Description
 The XidCache structure is designed to cache subtransaction XIDs (transaction identifiers) for optimization purposes in PostgreSQL's transaction management system. Each backend process maintains a cache of up to PGPROC_MAX_CACHED_SUBXIDS (64) TransactionIds for non-aborted subtransactions of its current top transaction. This cache helps other backends quickly determine which transactions are currently running without having to consult the more expensive pg_subtrans system.
 

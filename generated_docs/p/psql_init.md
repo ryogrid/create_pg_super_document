@@ -8,7 +8,10 @@ Initializes the PostgreSQL regression test framework by setting up the default d
 
 ## Definition
 
-
+```c
+static void
+psql_init(int argc, char **argv)
+```
 ## Detailed Description
 This function performs the initialization setup for the PostgreSQL regression testing framework. It sets up the default configuration by adding the "regression" database to the database list that will be used for running tests. This is a simple but essential initialization step that ensures tests have a default target database when no specific database is specified through command-line arguments.
 

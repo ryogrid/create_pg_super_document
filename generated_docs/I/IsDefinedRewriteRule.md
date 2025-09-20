@@ -8,7 +8,10 @@ Checks whether a rewrite rule with a given name exists for a specified relation 
 
 ## Definition
 
-
+```c
+bool
+IsDefinedRewriteRule(Oid owningRel, const char *ruleName)
+```
 ## Detailed Description
 IsDefinedRewriteRule is a utility function that determines if a rewrite rule with the specified name exists for a given relation. It performs this check by searching the system cache for the rule using the RULERELNAME cache, which is indexed by both the relation OID and the rule name. The function returns a boolean value indicating the existence of the rule.
 

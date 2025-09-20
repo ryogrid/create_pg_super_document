@@ -8,7 +8,10 @@ PostgreSQL built-in function that converts a schema (namespace) to XML format wi
 
 ## Definition
 
-
+```c
+Datum
+schema_to_xml(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that provides a SQL interface for converting an entire database schema to XML format. It takes a schema name and converts all visible tables within that schema to XML representation. The function acts as a wrapper around schema_to_xml_internal, handling parameter extraction and result formatting.
 

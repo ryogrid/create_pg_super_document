@@ -8,7 +8,14 @@ A structure used to track directories that need cleanup (removal or content remo
 
 ## Definition
 
-
+```c
+typedef struct cb_cleanup_dir
+{
+	char	   *target_path;
+	bool		rmtopdir;
+	struct cb_cleanup_dir *next;
+} cb_cleanup_dir;
+```
 ## Detailed Description
 The  structure is part of pg_combinebackup's error handling mechanism. It maintains a linked list of directories that should be cleaned up if the backup combination operation fails or is interrupted. This ensures that partial operations don't leave behind corrupted or incomplete directory structures.
 

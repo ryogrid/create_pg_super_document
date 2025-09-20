@@ -8,7 +8,10 @@ Handles DELETE messages in PostgreSQL logical replication by applying the delete
 
 ## Definition
 
-
+```c
+static void
+apply_handle_delete(StringInfo s)
+```
 ## Detailed Description
 This function is the main entry point for processing DELETE messages received from a logical replication publisher. It performs several key operations:
 

@@ -8,7 +8,10 @@ Verifies that a planned statement does not imply any writes to non-temporary tab
 
 ## Definition
 
-
+```c
+static void
+ExecCheckXactReadOnly(PlannedStmt *plannedstmt)
+```
 ## Detailed Description
 This function enforces read-only transaction semantics by examining the permission requirements of a planned statement. It prevents write operations to non-temporary tables in read-only transactions and enforces stricter rules in parallel execution mode where even temporary table writes are prohibited.
 

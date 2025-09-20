@@ -8,7 +8,10 @@ Translates PostgreSQL authentication request codes into human-readable error mes
 
 ## Definition
 
-
+```c
+static const char *
+auth_method_description(AuthRequest areq)
+```
 ## Detailed Description
 The  function provides user-friendly descriptions of PostgreSQL authentication methods when they are disallowed or unexpected. It serves as a utility function to generate meaningful error messages that help users understand what authentication method the server requested.
 

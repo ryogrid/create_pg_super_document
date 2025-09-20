@@ -8,7 +8,10 @@ Uses the planner to determine the optimal execution strategy for CLUSTER command
 
 ## Definition
 
-
+```c
+bool
+plan_cluster_use_sort(Oid tableOid, Oid indexOid)
+```
 ## Detailed Description
 The  function performs cost-based optimization to decide how CLUSTER should implement table reorganization. Given a table and its btree index, it compares two strategies:
 

@@ -8,7 +8,17 @@ Initializes a scan key entry using a pre-existing FmgrInfo function lookup recor
 
 ## Definition
 
-
+```c
+void
+ScanKeyEntryInitializeWithInfo(ScanKey entry,
+							   int flags,
+							   AttrNumber attributeNumber,
+							   StrategyNumber strategy,
+							   Oid subtype,
+							   Oid collation,
+							   FmgrInfo *finfo,
+							   Datum argument)
+```
 ## Detailed Description
 ScanKeyEntryInitializeWithInfo is an optimized version of scan key initialization that accepts a pre-completed FmgrInfo structure instead of looking up the function by OID. This is particularly useful in scenarios where the same comparison function is used repeatedly, as it avoids redundant function lookups. The function copies the provided FmgrInfo using fmgr_info_copy() to ensure proper memory management and isolation. Like other scan key initialization functions, it sets all the standard scan key fields but leverages existing function manager information for improved performance.
 

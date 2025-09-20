@@ -8,7 +8,10 @@ The pg_lsn_ge function compares two PostgreSQL Log Sequence Numbers (LSNs) and r
 
 ## Definition
 
-
+```c
+Datum
+pg_lsn_ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the greater-than-or-equal-to comparison operator (>=) for the pg_lsn data type. It takes two LSN values as PostgreSQL function arguments and performs a direct numerical comparison using the underlying XLogRecPtr values. The function is part of PostgreSQL's LSN data type support system, which is crucial for write-ahead logging (WAL) operations and replication.
 

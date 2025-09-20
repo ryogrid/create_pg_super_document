@@ -8,7 +8,10 @@ The  function converts a C-style string (cstring) to PostgreSQL's internal text 
 
 ## Definition
 
-
+```c
+Datum
+textin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL data type input function that handles the conversion of external string representations into PostgreSQL's internal text format. It takes a null-terminated C string as input and converts it to a  datum using the  utility function. This function is part of PostgreSQL's type system infrastructure and is automatically called when text values need to be parsed from external sources like SQL literals or client input.
 

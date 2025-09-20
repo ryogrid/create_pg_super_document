@@ -8,7 +8,10 @@ AlterDatabaseRefreshColl implements the ALTER DATABASE name REFRESH COLLATION VE
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterDatabaseRefreshColl(AlterDatabaseRefreshCollStmt *stmt)
+```
 ## Detailed Description
 This function handles the SQL command `ALTER DATABASE name REFRESH COLLATION VERSION` which is used to update the collation version stored in the pg_database catalog when the underlying system collation library has been updated. The function:
 

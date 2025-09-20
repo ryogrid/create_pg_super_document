@@ -8,7 +8,10 @@ PLy_exec_trigger is the execution handler for PL/Python trigger functions, manag
 
 ## Definition
 
-
+```c
+HeapTuple
+PLy_exec_trigger(FunctionCallInfo fcinfo, PLyProcedure *proc)
+```
 ## Detailed Description
 This function serves as the core execution handler for PL/Python trigger functions. It handles the complete lifecycle of trigger execution including:
 

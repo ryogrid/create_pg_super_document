@@ -8,7 +8,10 @@ A static utility function used in ECPG (Embedded SQL in C) compatibility testing
 
 ## Definition
 
-
+```c
+static void openit(void);
+static void dosqlprint(void)
+```
 ## Detailed Description
 The dosqlprint function is a simple error reporting utility used within the ECPG test framework for Informix compatibility. It prints formatted error messages to stdout by accessing the global sqlca (SQL Communications Area) structure. The function specifically outputs the error message stored in sqlca.sqlerrm.sqlerrmc, which contains the detailed error text from the most recent SQL operation.
 

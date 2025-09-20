@@ -8,7 +8,10 @@ defGetCopyHeaderChoice extracts and validates a CopyHeaderChoice value from a De
 
 ## Definition
 
-
+```c
+static CopyHeaderChoice
+defGetCopyHeaderChoice(DefElem *def, bool is_from)
+```
 ## Detailed Description
 This function parses and validates the HEADER option value for COPY statements. It extends standard boolean parsing to also accept the special "match" value, which is only valid for COPY FROM operations. The function handles various input formats including integers (0/1), boolean strings ("true"/"false", "on"/"off"), and the special "match" keyword. When no parameter value is provided, it defaults to COPY_HEADER_TRUE. The "match" option allows COPY FROM to automatically detect whether the input data has a header line by matching column names.
 

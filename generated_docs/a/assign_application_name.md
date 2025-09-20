@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) assign hook function that updates the applic
 
 ## Definition
 
-
+```c
+void
+assign_application_name(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as an assignment hook for the  GUC parameter in PostgreSQL. When a client application sets or changes the  configuration parameter (either through SQL commands like  or connection parameters), this hook function is automatically called by the GUC system to perform any necessary side effects.
 

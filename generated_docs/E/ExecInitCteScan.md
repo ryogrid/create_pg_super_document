@@ -8,7 +8,10 @@ ExecInitCteScan initializes a CteScanState node for executing CTE (Common Table 
 
 ## Definition
 
-
+```c
+CteScanState *
+ExecInitCteScan(CteScan *node, EState *estate, int eflags)
+```
 ## Detailed Description
 ExecInitCteScan performs comprehensive initialization of a CTE scan node, handling the complex coordination required when multiple CTE scan nodes may reference the same CTE query. The function implements a leader-follower pattern where:
 

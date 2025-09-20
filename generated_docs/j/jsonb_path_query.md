@@ -8,7 +8,10 @@ SQL function wrapper that executes a JSONPath expression against a JSONB documen
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_query(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `jsonb_path_query` is a PostgreSQL SQL function wrapper that provides the interface for executing JSONPath query expressions against JSONB data and returning multiple matching values. Unlike the predicate matching functions that return boolean results, this function returns all values that match the JSONPath expression as a set of rows.
 

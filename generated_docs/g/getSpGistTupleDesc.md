@@ -8,7 +8,10 @@ getSpGistTupleDesc computes a tuple descriptor for leaf tuples or index-only-sca
 
 ## Definition
 
-
+```c
+structing dead tuples */
+	state->deadTupleStorage = palloc0(SGDTSIZE);
+```
 ## Detailed Description
 This function creates an appropriate tuple descriptor for SP-GiST operations by either returning the relation's cached tuple descriptor (if suitable) or creating a modified copy. The key challenge it addresses is ensuring that the tuple descriptor's key column entry matches the required type (leafType for leaf tuples, attType for index-only scans) rather than what might be stored in the relation cache.
 

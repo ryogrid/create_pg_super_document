@@ -8,7 +8,9 @@ A utility function that opens and validates the destination directory for WAL fi
 
 ## Definition
 
-
+```c
+struct dirent *dirent;
+```
 ## Detailed Description
 The get_destination_dir function serves as a safe wrapper around the standard opendir() system call, specifically designed for opening the destination directory where WAL files will be stored. It includes built-in validation through an assertion to ensure the destination folder path is not NULL, and provides comprehensive error handling with descriptive error messages if the directory cannot be opened. The function is essential for pg_receivewal's file management operations, ensuring that the target directory is accessible before attempting to write WAL files to it.
 

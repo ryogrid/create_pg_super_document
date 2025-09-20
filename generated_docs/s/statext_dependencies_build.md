@@ -8,7 +8,10 @@ Detects functional dependencies between groups of columns by generating all poss
 
 ## Definition
 
-
+```c
+struct values (magic, type, ndeps) */
+	memcpy(tmp, &dependencies->magic, sizeof(uint32));
+```
 ## Detailed Description
 This function is the main entry point for building functional dependency statistics in PostgreSQL. It systematically explores all possible functional dependencies by:
 

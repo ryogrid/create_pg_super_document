@@ -8,7 +8,10 @@ ExecInitBitmapAnd initializes a BitmapAndState node and all of its child subplan
 
 ## Definition
 
-
+```c
+BitmapAndState *
+ExecInitBitmapAnd(BitmapAnd *node, EState *estate, int eflags)
+```
 ## Detailed Description
 ExecInitBitmapAnd performs the initialization phase for BitmapAnd executor nodes. It creates and configures a BitmapAndState structure that will coordinate the execution of multiple bitmap-generating subplans. The function sets up an array of PlanState pointers for all child nodes and recursively initializes each subplan using ExecInitNode.
 

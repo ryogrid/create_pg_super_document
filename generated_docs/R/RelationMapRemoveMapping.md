@@ -8,7 +8,10 @@ A public function that removes a relation's mapping entry from the active local 
 
 ## Definition
 
-
+```c
+void
+RelationMapRemoveMapping(Oid relationId)
+```
 ## Detailed Description
 The  function is responsible for removing a specific relation mapping from the active local updates map. This function is crucial for operations that create temporary relation mappings which need to be rolled back, particularly during VACUUM FULL and CLUSTER operations on mapped relations. It searches through the active_local_updates map for the specified relation ID and removes the mapping entry by collapsing the array to maintain contiguous storage. The function enforces that only "active" (uncommitted) local mappings can be removed, making it safe for transactional operations.
 

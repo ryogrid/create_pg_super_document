@@ -8,7 +8,10 @@ Truncates a MAC-8 (EUI-64) address to its manufacturer identifier by preserving 
 
 ## Definition
 
-
+```c
+Datum
+macaddr8_trunc(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a truncation operation for PostgreSQL's macaddr8 data type (8-byte MAC addresses / EUI-64 identifiers). It creates a new macaddr8 structure that contains only the manufacturer portion (Organizationally Unique Identifier or OUI) of the MAC address by copying the first 3 bytes (a, b, c) from the input address and setting the remaining 5 bytes (d, e, f, g, h) to zero.
 

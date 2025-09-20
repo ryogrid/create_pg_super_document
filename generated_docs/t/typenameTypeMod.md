@@ -8,7 +8,9 @@ A static function that processes type modifier expressions from a TypeName struc
 
 ## Definition
 
-
+```c
+struct_array_builtin(datums, n, CSTRINGOID);
+```
 ## Detailed Description
 This function handles the complex process of converting user-specified type modifiers (like precision and scale in NUMERIC(10,2)) into the internal typmod format. It validates that the target type supports type modifiers, processes the list of modifier expressions, and calls the type's typmodin function to generate the final typmod value.
 

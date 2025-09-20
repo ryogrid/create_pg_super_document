@@ -8,7 +8,11 @@ Pre-evaluates a constant expression by using the executor's evaluation routines 
 
 ## Definition
 
-
+```c
+Expr *
+evaluate_expr(Expr *expr, Oid result_type, int32 result_typmod,
+			  Oid result_collation)
+```
 ## Detailed Description
 This function performs compile-time evaluation of constant expressions by leveraging PostgreSQL's expression execution infrastructure. It creates a minimal executor state, prepares the expression for execution, evaluates it, and returns the result as a Const node. The function is designed to produce exactly the same results as runtime execution would, ensuring consistency between optimizer decisions and actual execution.
 

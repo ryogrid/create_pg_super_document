@@ -8,7 +8,10 @@ Executes a shell command in a pipe and reads the first line of output from it, r
 
 ## Definition
 
-
+```c
+char *
+pipe_read_line(char *cmd)
+```
 ## Detailed Description
 This function provides a convenient way to execute shell commands and capture their first line of output. It uses  to create a pipe to the command, reads the first line using , and properly handles error conditions. The function ensures proper resource cleanup by calling  to close the pipe. Memory allocation is handled through PostgreSQL's memory management system (palloc in backend, malloc in frontend), making the caller responsible for freeing the returned string.
 

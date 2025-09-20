@@ -8,7 +8,10 @@ Implements the not-equal (!=) comparison operator for network addresses (inet/ci
 
 ## Definition
 
-
+```c
+Datum
+network_ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides the != (not equal) comparison operation for PostgreSQL's inet and cidr data types. It extracts two network address arguments from the function call context and uses the internal comparison function  to determine if the two network addresses are not equal. The function returns a boolean result indicating whether the networks are different.
 

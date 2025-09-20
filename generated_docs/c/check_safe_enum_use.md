@@ -8,7 +8,10 @@ Ensures that uncommitted enum values are not used in SQL operations to prevent i
 
 ## Definition
 
-
+```c
+static void
+check_safe_enum_use(HeapTuple enumval_tup)
+```
 ## Detailed Description
 This function implements a safety mechanism to prevent the use of uncommitted enum values in SQL operations. The primary concern is preventing index corruption that could occur if an uncommitted enum value gets into an index and the transaction is later rolled back. Since enum value comparisons rely on the underlying pg_enum catalog entry, removing the heap entry alone is insufficient to guarantee index integrity.
 

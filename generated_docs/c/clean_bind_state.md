@@ -8,7 +8,10 @@ Resets and cleans up state related to the \bind command in psql, freeing allocat
 
 ## Definition
 
-
+```c
+void
+clean_bind_state(void)
+```
 ## Detailed Description
 The  function is responsible for cleaning up any state related to bind parameters and the bind flag in the psql client. This function must be called after processing a query or when running the  command to prevent memory leaks and ensure proper state management.
 

@@ -8,7 +8,10 @@ Identifies cross-references between WITH RECURSIVE items and sorts them into an 
 
 ## Definition
 
-
+```c
+static void
+makeDependencyGraph(CteState *cstate)
+```
 ## Detailed Description
 This function analyzes the dependencies between CTEs in a recursive WITH clause to determine a safe processing order. It performs a two-step process:
 

@@ -8,7 +8,20 @@ FunctionCallInfoBaseData is a core PostgreSQL structure that contains the data a
 
 ## Definition
 
-
+```c
+typedef struct FunctionCallInfoBaseData
+{
+	FmgrInfo   *flinfo;			/* ptr to lookup info used for this call */
+	fmNodePtr	context;		/* pass info about context of call */
+	fmNodePtr	resultinfo;		/* pass or return extra info about result */
+	Oid			fncollation;	/* collation for function to use */
+#define FIELDNO_FUNCTIONCALLINFODATA_ISNULL 4
+	bool		isnull;			/* function must set true if result is NULL */
+	short		nargs;			/* # arguments actually passed */
+#define FIELDNO_FUNCTIONCALLINFODATA_ARGS 6
+	NullableDatum args[FLEXIBLE_ARRAY_MEMBER];
+} FunctionCallInfoBaseData;
+```
 ## Detailed Description
 FunctionCallInfoBaseData serves as the primary data structure for PostgreSQL's function manager (fmgr) system, encapsulating all information needed for function calls. This structure is designed to be passed to functions called through the fmgr interface, providing both input parameters and space for output information.
 

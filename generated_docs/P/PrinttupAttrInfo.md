@@ -8,7 +8,19 @@ PrinttupAttrInfo is a structure that holds per-attribute information for Postgre
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	DestReceiver pub;			/* publicly-known function pointers */
+	Portal		portal;			/* the Portal we are printing from */
+	bool		sendDescrip;	/* send RowDescription at startup? */
+	TupleDesc	attrinfo;		/* The attr info we are set up for */
+	int			nattrs;
+	PrinttupAttrInfo *myinfo;	/* Cached info about each attr */
+	StringInfoData buf;			/* output buffer (*not* in tmpcontext) */
+	MemoryContext tmpcontext;	/* Memory context for per-row workspace */
+} DR_printtup;
+```
 ## Detailed Description
 PrinttupAttrInfo is a fundamental data structure used in PostgreSQL's tuple printing subsystem to cache attribute-specific information required for efficient data formatting. This structure is part of the printtup destination receiver mechanism, which handles the conversion and output of query results in both text and binary formats.
 

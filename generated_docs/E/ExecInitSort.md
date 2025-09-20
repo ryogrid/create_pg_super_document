@@ -8,7 +8,11 @@ Initializes the runtime state for a Sort plan node, creating the SortState struc
 
 ## Definition
 
-
+```c
+structure
+	 */
+	sortstate = makeNode(SortState);
+```
 ## Detailed Description
 ExecInitSort creates and initializes the runtime state information for a Sort node produced by the planner. The function performs several key initialization tasks:
 

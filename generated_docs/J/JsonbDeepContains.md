@@ -8,7 +8,28 @@ Implements the core containment logic for PostgreSQL's JSONB "@>" (contains) ope
 
 ## Definition
 
-
+```c
+structure.
+				 *
+				 * Note that nesting still has to "match up" at the right
+				 * nesting sub-levels.  However, there need only be zero or
+				 * more matching pairs (or elements) at each nesting level
+				 * (provided the *rhs* pairs/elements *all* match on each
+				 * level), which enables searching nested structures for a
+				 * single String or other primitive type sub-datum quite
+				 * effectively (provided the user constructed the rhs nested
+				 * structure such that we "know where to look").
+				 *
+				 * In other words, the mapping of container nodes in the rhs
+				 * "vcontained" Jsonb to internal nodes on the lhs is
+				 * injective, and parent-child edges on the rhs must be mapped
+				 * to parent-child edges on the lhs to satisfy the condition
+				 * of containment (plus of course the mapped nodes must be
+				 * equal).
+				 */
+				if (!JsonbDeepContains(&nestval, &nestContained))
+					return false;
+```
 ## Detailed Description
 JsonbDeepContains implements formal containment semantics defined as "top-down, unordered subtree isomorphism." The function recursively compares two JSONB structures to determine if the second (mContained) is completely contained within the first (val). It handles both object and array containers with different containment rules:
 

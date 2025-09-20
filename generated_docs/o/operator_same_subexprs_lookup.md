@@ -8,7 +8,10 @@ Convenience function that retrieves cached proof results for same-subexpressions
 
 ## Definition
 
-
+```c
+static bool
+operator_same_subexprs_lookup(Oid pred_op, Oid clause_op, bool refute_it)
+```
 ## Detailed Description
 This is a simple wrapper function that calls lookup_proof_cache to get the cached proof entry for a given operator pair, then extracts the appropriate boolean field based on whether this is an implication or refutation test. It provides a clean interface for checking same-subexpressions proofs without exposing the cache entry structure to callers.
 

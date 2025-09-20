@@ -8,7 +8,10 @@ Sets up and populates a compatibility-mode SQLDA structure with data values from
 
 ## Definition
 
-
+```c
+void
+ecpg_set_compat_sqlda(int lineno, struct sqlda_compat **_sqlda, const PGresult *res, int row, enum COMPAT_MODE compat)
+```
 ## Detailed Description
 This function populates a pre-allocated compatibility SQLDA structure with actual data values from a specified row in a PostgreSQL query result. It handles the complex task of setting up data pointers within the SQLDA structure, performing proper memory alignment, and converting PostgreSQL result data into the appropriate C data types based on the SQLDA field types.
 

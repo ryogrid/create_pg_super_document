@@ -8,7 +8,10 @@ Initializes the tablespace cache system by creating the hash table, setting up m
 
 ## Definition
 
-
+```c
+static void
+InitializeTableSpaceCache(void)
+```
 ## Detailed Description
 This function performs the one-time initialization of PostgreSQL's tablespace cache subsystem. It creates a hash table to store tablespace information for quick lookup, ensures the proper memory context is available for cache allocations, and registers a callback function to handle cache invalidation when the pg_tablespace system catalog is modified.
 

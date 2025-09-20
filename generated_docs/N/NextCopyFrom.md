@@ -8,7 +8,11 @@ NextCopyFrom reads and processes the next complete tuple from a COPY FROM operat
 
 ## Definition
 
-
+```c
+bool
+NextCopyFrom(CopyFromState cstate, ExprContext *econtext,
+			 Datum *values, bool *nulls)
+```
 ## Detailed Description
 This function is the main entry point for reading and processing individual tuples during COPY FROM operations. It handles both text/CSV and binary input formats, performing complete tuple construction including type conversion, default value evaluation, and error handling. For text/CSV mode, it calls NextCopyFromRawFields to get raw field data, then processes each field through input functions and applies FORCE_NULL/FORCE_NOT_NULL options. For binary mode, it reads the field count and binary data directly. The function also handles default expressions for columns not present in the input data and implements error recovery when ON_ERROR IGNORE is specified.
 

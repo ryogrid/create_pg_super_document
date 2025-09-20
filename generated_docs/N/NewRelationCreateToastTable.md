@@ -8,7 +8,10 @@ NewRelationCreateToastTable is a function that creates a TOAST table for a newly
 
 ## Definition
 
-
+```c
+void
+NewRelationCreateToastTable(Oid relOid, Datum reloptions)
+```
 ## Detailed Description
 This function provides a simplified interface for creating TOAST tables for new relations. It automatically uses AccessExclusiveLock for the locking mode and assumes no previous TOAST table exists (InvalidOid for the old TOAST OID). This function is typically used during the creation of new tables where TOAST storage might be needed, such as during CREATE TABLE AS SELECT operations or other utility commands that create new relations.
 

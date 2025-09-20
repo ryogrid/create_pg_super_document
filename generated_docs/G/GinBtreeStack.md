@@ -8,7 +8,18 @@ GinBtreeStack is a stack structure used during GIN B-tree traversal operations, 
 
 ## Definition
 
-
+```c
+typedef struct GinBtreeStack
+{
+	BlockNumber blkno;
+	Buffer		buffer;
+	OffsetNumber off;
+	ItemPointerData iptr;
+	/* predictNumber contains predicted number of pages on current level */
+	uint32		predictNumber;
+	struct GinBtreeStack *parent;
+} GinBtreeStack;
+```
 ## Detailed Description
 GinBtreeStack implements a linked stack data structure that tracks the traversal path through a GIN B-tree during search and modification operations. Each stack entry represents a level in the tree hierarchy, maintaining both the physical location (block number, buffer) and logical position (offset, item pointer) within that level. The stack enables efficient navigation and backtracking during tree operations, particularly important for split operations and parent updates.
 

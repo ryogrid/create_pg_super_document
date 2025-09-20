@@ -8,7 +8,12 @@ Builds a pathkeys list that describes the ordering induced by an index scan usin
 
 ## Definition
 
-
+```c
+List *
+build_index_pathkeys(PlannerInfo *root,
+					 IndexOptInfo *index,
+					 ScanDirection scandir)
+```
 ## Detailed Description
 This function constructs a canonical pathkeys list representing the sort order that would be produced by scanning a given index. It is a fundamental component of PostgreSQL's index-based query optimization, allowing the planner to understand what orderings are naturally available from index scans without requiring additional sorting operations.
 

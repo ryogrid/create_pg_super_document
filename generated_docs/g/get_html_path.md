@@ -8,7 +8,10 @@ Constructs the full path to PostgreSQL's HTML documentation directory by calcula
 
 ## Definition
 
-
+```c
+void
+get_html_path(const char *my_exec_path, char *ret_path)
+```
 ## Detailed Description
 This function determines the absolute path to PostgreSQL's HTML documentation directory based on the location of the current executable. It uses the  function to compute the path by using the compile-time constants HTMLDIR and PGBINDIR to establish the relative relationship between the binary directory and the HTML documentation directory.
 

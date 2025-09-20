@@ -8,7 +8,10 @@ Indicates that an async-capable node is pending for a callback and not yet ready
 
 ## Definition
 
-
+```c
+void
+ExecAsyncRequestPending(AsyncRequest *areq)
+```
 ## Detailed Description
 ExecAsyncRequestPending is a utility function used by requestee nodes (async-capable nodes) in PostgreSQL's asynchronous execution framework to signal that an asynchronous tuple request is still pending and requires a callback to complete. When called, it sets up the AsyncRequest structure to indicate that:
 

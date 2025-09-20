@@ -8,7 +8,10 @@ Returns the memory size required to hold a SharedRecordTypmodRegistry structure 
 
 ## Definition
 
-
+```c
+size_t
+SharedRecordTypmodRegistryEstimate(void)
+```
 ## Detailed Description
 This function serves as a memory size estimation utility for SharedRecordTypmodRegistry structures in PostgreSQL's shared memory management. It encapsulates the size calculation logic to maintain clean separation between interface and implementation. The function is specifically designed to support shared memory allocation planning for parallel query operations that need to exchange non-anonymous record types between backends.
 

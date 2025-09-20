@@ -8,7 +8,10 @@ Returns the previous node in a doubly-linked list, with an assertion to ensure t
 
 ## Definition
 
-
+```c
+static inline dlist_node *
+dlist_prev_node(dlist_head *head, dlist_node *node)
+```
 ## Detailed Description
 This function provides safe backward navigation in a doubly-linked list by returning the node's prev pointer. Before returning the pointer, it uses an assertion to verify that a previous node actually exists by calling dlist_has_prev(). This prevents accidental traversal beyond the beginning of the list, which could lead to accessing the sentinel node or invalid memory.
 

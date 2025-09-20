@@ -8,7 +8,10 @@ A callback function used by query_planner() to configure pathkeys for MIN/MAX ag
 
 ## Definition
 
-
+```c
+static void
+minmax_qp_callback(PlannerInfo *root, void *extra)
+```
 ## Detailed Description
 This callback function is invoked during query planning to customize the pathkey configuration for MIN/MAX aggregate subqueries. It sets up the planner state to focus solely on the sorting requirements needed for the optimization:
 

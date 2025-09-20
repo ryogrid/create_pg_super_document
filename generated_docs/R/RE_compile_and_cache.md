@@ -8,7 +8,12 @@ Compiles a regular expression and caches it for reuse, implementing an LRU cache
 
 ## Definition
 
-
+```c
+structure is self-organizing with most-used entries at the front, our
+	 * search strategy can just be to scan from the front.
+	 */
+	for (i = 0;
+```
 ## Detailed Description
 This function provides a caching layer for regular expression compilation in PostgreSQL. It maintains an internal cache of compiled regular expressions (regex_t structures) with an LRU (Least Recently Used) replacement policy. When a regex pattern is requested, it first searches the cache for an existing compiled version with matching pattern, flags, and collation. If found, it moves the entry to the front of the cache and returns it. If not found, it compiles the new pattern, stores it in the cache (potentially evicting the oldest entry if the cache is full), and returns the compiled regex.
 

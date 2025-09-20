@@ -8,7 +8,10 @@ Finalizes the collection of an ALTER TABLE command and adds it to the event trig
 
 ## Definition
 
-
+```c
+void
+EventTriggerAlterTableEnd(void)
+```
 ## Detailed Description
 This function serves as the completion handler for ALTER TABLE command collection in PostgreSQL's event trigger system. It is called at the end of ALTER TABLE processing to finalize the command collection that was started earlier.
 

@@ -8,7 +8,10 @@ Initializes user identity during special backend startup for single-user mode, a
 
 ## Definition
 
-
+```c
+void
+InitializeSessionUserIdStandalone(void)
+```
 ## Detailed Description
 This function provides a simplified user identity initialization for special PostgreSQL backend processes that don't follow the normal authentication flow. It sets the authenticated user to the bootstrap superuser (BOOTSTRAP_SUPERUSERID) and configures session authorization accordingly. Unlike the normal initialization process, this function bypasses role validation and login checks, making it suitable for system processes that need to operate even when the authentication catalog might be compromised or unavailable.
 

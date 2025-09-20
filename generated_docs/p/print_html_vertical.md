@@ -8,7 +8,10 @@ Renders table data in vertical HTML format where each row is displayed as a seri
 
 ## Definition
 
-
+```c
+static void
+print_html_vertical(const printTableContent *cont, FILE *fout)
+```
 ## Detailed Description
 This function generates HTML output in vertical format, displaying table data as field-value pairs rather than traditional tabular rows and columns. Each record is presented with its fields listed vertically, where column headers become row labels and the corresponding data values are displayed alongside them. This format is particularly useful for displaying detailed information about individual records or when dealing with tables that have many columns that would be difficult to read in traditional horizontal format. The function includes record numbering and handles all HTML escaping to prevent injection attacks.
 

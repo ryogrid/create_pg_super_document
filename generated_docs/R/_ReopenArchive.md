@@ -8,7 +8,12 @@ A specialized function that reopens the archive file handle for parallel restore
 
 ## Definition
 
-
+```c
+struct the length of each item as the delta to the start offset of
+	 * the next data item.
+	 */
+	for (te = AH->toc->next;
+```
 ## Detailed Description
 _ReopenArchive is designed specifically to support parallel restore operations in PostgreSQL's custom dump format. The function creates a new file handle to the same archive file while preserving the current file position, enabling multiple worker processes to read from the same archive simultaneously.
 

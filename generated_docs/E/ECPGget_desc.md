@@ -8,7 +8,9 @@ ECPGget_desc retrieves various descriptor items from a prepared SQL statement re
 
 ## Definition
 
-
+```c
+enum ECPGdtype type;
+```
 ## Detailed Description
 ECPGget_desc is a variadic function that extracts descriptor information from PostgreSQL result sets in ECPG applications. It processes a variable number of descriptor type/variable pairs, allowing retrieval of column metadata (name, type, length, precision, scale), result data, and indicators. The function supports both static and dynamic memory allocation for result data and handles proper locale settings for numeric data conversion.
 

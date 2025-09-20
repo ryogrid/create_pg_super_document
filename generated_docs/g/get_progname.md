@@ -8,7 +8,10 @@ Extracts the actual name of the program as called, stripped of .exe suffix if an
 
 ## Definition
 
-
+```c
+const char *
+get_progname(const char *argv0)
+```
 ## Detailed Description
 The  function takes the first command-line argument (typically ) and extracts a clean program name from it. It removes directory path components and handles platform-specific considerations like Windows drive letters and  suffixes. The function allocates memory for the result using , which is intentionally leaked since this function is typically called only once during program initialization.
 

@@ -8,7 +8,10 @@ Safely drops a PostgreSQL database if it exists, suppressing warnings about non-
 
 ## Definition
 
-
+```c
+static void
+drop_database_if_exists(const char *dbname)
+```
 ## Detailed Description
 This function provides a safe way to drop a database during PostgreSQL regression testing without generating error messages if the database doesn't exist. It uses the SQL "DROP DATABASE IF EXISTS" command while temporarily setting the client message level to warning to suppress informational messages about non-existent databases.
 

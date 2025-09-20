@@ -8,7 +8,10 @@ Converts a PostgreSQL TIMETZ (time with time zone) value to a POSIX-style time s
 
 ## Definition
 
-
+```c
+int
+timetz2tm(TimeTzADT *time, struct pg_tm *tm, fsec_t *fsec, int *tzp)
+```
 ## Detailed Description
 The `timetz2tm` function is a utility function that breaks down a PostgreSQL TIMETZ value into its constituent components for easier manipulation and formatting. It takes a compact TIMETZ representation (microseconds since midnight plus timezone offset) and decomposes it into a POSIX-style `pg_tm` structure with separate fields for hours, minutes, and seconds, plus fractional seconds and timezone information.
 

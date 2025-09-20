@@ -8,7 +8,10 @@ Implements the \f command in psql, which sets the field separator used in output
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_f(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 This function handles the \f command which changes the field separator character or string used when formatting query output. The command accepts an optional argument specifying the new field separator. The actual field separator setting is handled by the do_pset() function with the "fieldsep" parameter. The function returns different values based on whether the operation succeeded or failed.
 

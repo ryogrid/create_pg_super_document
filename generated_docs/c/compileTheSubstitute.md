@@ -8,7 +8,10 @@ Processes and compiles substitute phrase entries in a thesaurus dictionary by no
 
 ## Definition
 
-
+```c
+static void
+compileTheSubstitute(DictThesaurus *d)
+```
 ## Detailed Description
 This function performs the compilation phase for thesaurus substitute phrases, which are the replacement text that will be returned when input phrases match thesaurus rules. It processes each substitute entry through the subdictionary to normalize the lexemes, handles special flags, and manages dynamic memory allocation for variable-length results.
 

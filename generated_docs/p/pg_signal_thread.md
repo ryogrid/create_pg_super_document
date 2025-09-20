@@ -8,7 +8,10 @@ The main signal handling thread function for PostgreSQL on Windows that listens 
 
 ## Definition
 
-
+```c
+static DWORD WINAPI
+pg_signal_thread(LPVOID param)
+```
 ## Detailed Description
 This function implements the core signal handling mechanism for PostgreSQL on Windows. It runs as a separate thread that continuously listens for incoming signal messages through a named pipe. The function creates and manages a named pipe with a process-specific name, waits for client connections, reads signal numbers from connected clients, and queues the signals for processing by the main thread.
 

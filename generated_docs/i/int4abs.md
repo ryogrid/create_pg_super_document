@@ -8,7 +8,10 @@ Computes the absolute value of a 32-bit integer (int4) with overflow protection.
 
 ## Definition
 
-
+```c
+Datum
+int4abs(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements PostgreSQL's absolute value operation for 32-bit integers. It safely computes the absolute value while protecting against integer overflow that would occur when attempting to negate the minimum value of a signed 32-bit integer (). When the input is the minimum possible 32-bit signed integer value, the function raises an error since the absolute value cannot be represented in the same data type.
 

@@ -8,7 +8,12 @@ Fetches the timeline history file for a specified timeline ID from the primary s
 
 ## Definition
 
-
+```c
+static void
+libpqrcv_readtimelinehistoryfile(WalReceiverConn *conn,
+								 TimeLineID tli, char **filename,
+								 char **content, int *len)
+```
 ## Detailed Description
 This function sends a TIMELINE_HISTORY command to the primary server to retrieve the timeline history file for a given timeline ID. The timeline history file contains information about timeline switches and is crucial for WAL replication consistency. The function validates the response format and extracts both the filename and content of the history file.
 

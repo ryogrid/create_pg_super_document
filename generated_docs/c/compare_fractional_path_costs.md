@@ -8,7 +8,11 @@ Compares the costs of two paths for fetching a specified fraction of total tuple
 
 ## Definition
 
-
+```c
+int
+compare_fractional_path_costs(Path *path1, Path *path2,
+							  double fraction)
+```
 ## Detailed Description
 This function extends the basic path cost comparison to handle partial result sets. It calculates the interpolated cost for fetching a given fraction of tuples from each path, where the cost is computed as:
 

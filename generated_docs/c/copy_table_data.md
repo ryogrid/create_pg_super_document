@@ -8,7 +8,9 @@ Performs the physical copying of table data from an old heap to a new heap, hand
 
 ## Definition
 
-
+```c
+struct VacuumCutoffs cutoffs;
+```
 ## Detailed Description
 The `copy_table_data` function is responsible for the actual data transfer during table clustering and rewriting operations. It handles complex aspects of PostgreSQL's MVCC system including:
 

@@ -8,7 +8,11 @@ The porter_ISO_8859_1_create_env function creates and initializes a Snowball env
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * porter_ISO_8859_1_create_env(void)
+```
 ## Detailed Description
 This function serves as a factory method for creating Snowball stemming environments tailored to the Porter algorithm. It wraps the generic SN_create_env function with algorithm-specific parameters. The function allocates and initializes a new SN_env structure with the appropriate configuration:
 

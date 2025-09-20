@@ -8,7 +8,13 @@ Executes a portal's queries in the general case, handling multiple queries or no
 
 ## Definition
 
-
+```c
+static void
+PortalRunMulti(Portal portal,
+			   bool isTopLevel, bool setHoldSnapshot,
+			   DestReceiver *dest, DestReceiver *altdest,
+			   QueryCompletion *qc)
+```
 ## Detailed Description
 PortalRunMulti is the most comprehensive portal execution function, designed to handle complex scenarios involving multiple statements or utility commands within a single portal. The function iterates through all statements in the portal, distinguishing between plannable queries and utility statements. For plannable queries, it manages transaction snapshots, handles command counter increments, and routes output to the primary destination receiver. For utility statements, it delegates to PortalRunUtility. The function handles destination receiver adjustments for remote execution scenarios, manages memory context cleanup between statements, and supports snapshot holding for later use. It also handles special cases like internal COMMIT/ROLLBACK operations that may reset the portal's statement list.
 

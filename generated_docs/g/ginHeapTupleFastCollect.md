@@ -8,7 +8,13 @@ Creates temporary index tuples for a single indexable item from a heap tuple and
 
 ## Definition
 
-
+```c
+void
+ginHeapTupleFastCollect(GinState *ginstate,
+						GinTupleCollector *collector,
+						OffsetNumber attnum, Datum value, bool isNull,
+						ItemPointer ht_ctid)
+```
 ## Detailed Description
 This function is responsible for converting a single attribute value from a heap tuple into one or more index tuples that will be stored in GIN's pending list. It extracts key values from the input using ginExtractEntries, dynamically manages memory allocation for the collector's tuple array using power-of-2 sizing for efficiency, and creates index tuples for each extracted key. The function protects against integer overflow and ensures the collector has sufficient capacity before adding tuples. Each created index tuple includes the heap tuple's TID for later reference during cleanup operations.
 

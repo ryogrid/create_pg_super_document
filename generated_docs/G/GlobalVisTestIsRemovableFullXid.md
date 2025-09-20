@@ -8,7 +8,11 @@ Determines whether a full transaction ID is no longer considered running by any 
 
 ## Definition
 
-
+```c
+bool
+GlobalVisTestIsRemovableFullXid(GlobalVisState *state,
+								FullTransactionId fxid)
+```
 ## Detailed Description
 This function performs a comprehensive test to determine if a full transaction ID (fxid) is visible to all currently active snapshots and can therefore be safely removed. It uses a three-tier approach:
 

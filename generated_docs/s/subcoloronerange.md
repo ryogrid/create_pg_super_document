@@ -8,7 +8,15 @@ Handles subcolor allocation for a character range, managing complex overlaps wit
 
 ## Definition
 
-
+```c
+static void
+subcoloronerange(struct vars *v,
+				 chr from,
+				 chr to,
+				 struct state *lp,
+				 struct state *rp,
+				 color *lastsubcolor)
+```
 ## Detailed Description
 The  function processes character ranges that are above MAX_SIMPLE_CHR, handling the complex logic of merging and splitting colormap ranges. It manages overlaps between the new target range and existing ranges in the colormap, potentially creating multiple new ranges to accommodate partial overlaps. The function can split existing ranges into up to three parts and create new ranges from scratch when the target range doesn't correspond to any existing range. It maintains proper hicolormap row associations by cloning rows as needed and calls subcoloronerow to handle the actual color processing.
 

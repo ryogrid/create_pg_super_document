@@ -8,7 +8,10 @@ Releases and deallocates a TupleTableSlot created with MakeSingleTupleTableSlot,
 
 ## Definition
 
-
+```c
+void
+ExecDropSingleTupleTableSlot(TupleTableSlot *slot)
+```
 ## Detailed Description
 ExecDropSingleTupleTableSlot is the cleanup counterpart to MakeSingleTupleTableSlot. It properly releases a standalone TupleTableSlot by performing the same processing as ExecResetTupleTable does for individual slots. The function systematically cleans up all resources associated with the slot including the tuple data, tuple descriptor, value arrays, and the slot structure itself.
 

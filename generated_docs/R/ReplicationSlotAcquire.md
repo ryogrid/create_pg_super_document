@@ -8,7 +8,10 @@ Finds and acquires an existing replication slot by name, marking it as active fo
 
 ## Definition
 
-
+```c
+void
+ReplicationSlotAcquire(const char *name, bool nowait)
+```
 ## Detailed Description
 ReplicationSlotAcquire locates a replication slot by name and attempts to acquire it for the current process. The function implements both blocking and non-blocking acquisition modes based on the nowait parameter. When nowait is false, the function will wait indefinitely for the slot to become available if it's currently in use by another process. When nowait is true, it immediately errors if the slot is active.
 

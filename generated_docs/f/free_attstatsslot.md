@@ -8,7 +8,11 @@ Frees memory allocated by get_attstatsslot for an AttStatsSlot structure.
 
 ## Definition
 
-
+```c
+struct_array */
+	if (sslot->values)
+		pfree(sslot->values);
+```
 ## Detailed Description
 The free_attstatsslot function is responsible for properly deallocating memory that was allocated by the get_attstatsslot function. It handles the cleanup of various components within an AttStatsSlot structure, including the values array, detoasted array objects, and numbers array. The function follows PostgreSQL's memory management conventions using pfree() for memory allocated with palloc().
 

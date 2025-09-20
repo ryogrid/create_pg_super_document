@@ -8,7 +8,10 @@ Creates a local TidStore instance that stores tuple identifiers (TIDs) in a radi
 
 ## Definition
 
-
+```c
+TidStore *
+TidStoreCreateLocal(size_t max_bytes, bool insert_only)
+```
 ## Detailed Description
 TidStoreCreateLocal creates a TidStore for local (non-shared) use within a single backend process. The function allocates memory for the TidStore structure and creates an appropriate memory context for the underlying radix tree storage. The TidStore lives in the current memory context at the time of creation, while the TID storage itself lives in a child memory context called rt_context.
 

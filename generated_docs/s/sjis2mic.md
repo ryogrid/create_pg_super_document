@@ -8,7 +8,10 @@ Core conversion function that transforms Japanese Shift JIS (SJIS) encoded text 
 
 ## Definition
 
-
+```c
+static int
+sjis2mic(const unsigned char *sjis, unsigned char *p, int len, bool noError)
+```
 ## Detailed Description
 This function performs the complex conversion from Shift JIS encoding to Mule Internal Code. It processes different types of Japanese characters including single-byte half-width katakana (JIS X0201), double-byte kanji and hiragana/katakana (JIS X0208), supplementary kanji (JIS X0212), and various user-defined character areas. The function also handles special IBM kanji mappings and NEC selection characters. It uses lookup tables and algorithmic conversion to map SJIS byte sequences to appropriate MIC character codes with proper language character (LC) prefixes.
 

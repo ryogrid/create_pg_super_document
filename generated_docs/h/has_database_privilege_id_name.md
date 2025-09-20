@@ -8,7 +8,10 @@ Checks database privileges for a specific user given the user's role ID, databas
 
 ## Definition
 
-
+```c
+Datum
+has_database_privilege_id_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This SQL-callable function determines whether a user (specified by role OID) has specific privileges on a database (specified by name). It's part of PostgreSQL's access control privilege checking system. The function converts the textual database name to an OID, converts the privilege string to an internal privilege bitmask, and then performs the actual privilege check using the standard object access control mechanism.
 

@@ -8,7 +8,10 @@ Extracts a specified number of attributes from a minimal tuple stored in a Tuple
 
 ## Definition
 
-
+```c
+static void
+tts_minimal_getsomeattrs(TupleTableSlot *slot, int natts)
+```
 ## Detailed Description
 This function is part of the TupleTableSlot implementation for minimal tuples in PostgreSQL's execution layer. It serves as a slot operation that ensures attribute values are extracted and accessible up to the specified attribute number. The function casts the generic TupleTableSlot to a MinimalTupleTableSlot and delegates the actual tuple deformation work to , which handles the low-level parsing of the tuple's binary representation into individual attribute values.
 

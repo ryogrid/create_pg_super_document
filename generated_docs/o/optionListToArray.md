@@ -8,7 +8,10 @@ Converts a list of DefElem structures into a text array format that is used for 
 
 ## Definition
 
-
+```c
+static Datum
+optionListToArray(List *options)
+```
 ## Detailed Description
 This static function transforms a linked list of DefElem structures (representing option name-value pairs) into a PostgreSQL text array datum. Each option is formatted as "name=value" and stored as a text element in the array. The function performs validation to ensure that option names do not contain "=" characters, which would make the format ambiguous. If the input list is empty, the function returns PointerGetDatum(NULL). The resulting array is typically stored directly in database system catalogs without further processing, so validation should be performed before calling this function.
 

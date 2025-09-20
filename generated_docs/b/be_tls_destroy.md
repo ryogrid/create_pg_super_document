@@ -8,7 +8,10 @@ Cleans up and destroys the OpenSSL TLS/SSL context, freeing all associated resou
 
 ## Definition
 
-
+```c
+void
+be_tls_destroy(void)
+```
 ## Detailed Description
 The  function performs cleanup of the OpenSSL SSL context that was created by . It ensures proper memory management by freeing the SSL context and resetting related state variables. This function is typically called during server shutdown or when SSL needs to be completely reinitialized. 
 

@@ -8,7 +8,10 @@ Extracts individual lexemes from a TSVector (text search vector) for GIN index c
 
 ## Definition
 
-
+```c
+Datum
+gin_extract_tsvector(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the extraction operator for GIN indexes on TSVector data types. It takes a TSVector containing multiple lexemes with their positions and weights, and decomposes it into an array of individual text entries that can be indexed separately by the GIN access method.
 

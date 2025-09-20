@@ -8,7 +8,10 @@ The  function initializes and populates the PostgreSQL collation system by setti
 
 ## Definition
 
-
+```c
+static void
+setup_collation(FILE *cmdfd)
+```
 ## Detailed Description
 This function is responsible for configuring PostgreSQL's collation support, which is essential for proper text sorting, comparison, and internationalization. It performs two critical operations:
 

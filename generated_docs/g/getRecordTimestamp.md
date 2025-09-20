@@ -8,7 +8,10 @@ Extracts timestamp information from WAL (Write-Ahead Log) records during Postgre
 
 ## Definition
 
-
+```c
+static bool
+getRecordTimestamp(XLogReaderState *record, TimestampTz *recordXtime)
+```
 ## Detailed Description
 The  function is a utility function used during WAL recovery to extract timestamp information from specific types of WAL records. It examines the record type and extracts the timestamp if available, supporting transaction commit/abort records and restore points. This function is crucial for recovery operations that need to determine when specific database events occurred, particularly for point-in-time recovery scenarios.
 

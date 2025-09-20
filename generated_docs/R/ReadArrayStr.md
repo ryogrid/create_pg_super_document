@@ -8,7 +8,24 @@ Parses array string content enclosed in braces and converts element values to in
 
 ## Definition
 
-
+```c
+static bool
+ReadArrayStr(char **srcptr,
+			 FmgrInfo *inputproc,
+			 Oid typioparam,
+			 int32 typmod,
+			 char typdelim,
+			 int typlen,
+			 bool typbyval,
+			 char typalign,
+			 int *ndim_p,
+			 int *dim,
+			 int *nitems_p,
+			 Datum **values_p,
+			 bool **nulls_p,
+			 const char *origStr,
+			 Node *escontext)
+```
 ## Detailed Description
 ReadArrayStr is the core parsing function that processes the content within array braces "{ ... }" and converts element values to their internal PostgreSQL representation. It handles both dimension discovery and validation while parsing nested array structures.
 

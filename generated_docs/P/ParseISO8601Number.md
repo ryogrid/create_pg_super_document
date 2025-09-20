@@ -8,7 +8,10 @@ ParseISO8601Number is a helper function that parses a decimal value from a strin
 
 ## Definition
 
-
+```c
+static int
+ParseISO8601Number(const char *str, char **endptr, int *ipart, double *fpart)
+```
 ## Detailed Description
 This function serves as a crucial component in PostgreSQL's ISO 8601 interval parsing system. It accepts various numeric formats that strtod() would accept, including scientific notation, but applies additional validation and constraints specific to PostgreSQL's requirements. The function ensures precise separation of integer and fractional parts while maintaining compatibility with historical behavior.
 

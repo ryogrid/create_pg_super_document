@@ -8,7 +8,10 @@ Initializes the input structure for calling an SP-GiST opclass inner_consistent 
 
 ## Definition
 
-
+```c
+structedValue would be wrong type */
+	in->reconstructedValue = item->value;
+```
 ## Detailed Description
 This function serves as a bundle initializer that prepares the spgInnerConsistentIn structure with all necessary information before calling an opclass-specific inner_consistent method. It consolidates data from the scan state, current search item, and inner tuple into a single structure that the inner_consistent method can use to determine which child nodes should be visited.
 

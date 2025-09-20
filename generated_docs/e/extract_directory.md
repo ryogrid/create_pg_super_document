@@ -8,7 +8,10 @@ This function creates directories during archive extraction, handling both the d
 
 ## Definition
 
-
+```c
+static void
+extract_directory(const char *filename, mode_t mode)
+```
 ## Detailed Description
 The  function is responsible for creating directories as part of the archive extraction process in pg_basebackup. It performs directory creation with appropriate error handling and permission management.
 

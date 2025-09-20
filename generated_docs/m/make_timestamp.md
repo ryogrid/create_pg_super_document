@@ -8,7 +8,10 @@ PostgreSQL SQL function constructor that creates a timestamp (without timezone) 
 
 ## Definition
 
-
+```c
+Datum
+make_timestamp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that constructs a timestamp value from separate year, month, day, hour, minute, and second components. This function serves as the SQL interface to the internal timestamp creation functionality.
 

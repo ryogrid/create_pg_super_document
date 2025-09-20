@@ -8,7 +8,10 @@ ForceSyncCommit is an interface function that allows commands to force a synchro
 
 ## Definition
 
-
+```c
+void
+ForceSyncCommit(void)
+```
 ## Detailed Description
 ForceSyncCommit provides a mechanism for critical database operations to ensure that transaction commits are written synchronously to persistent storage rather than being buffered. This function sets the  flag to true, which affects the behavior of the current top-level transaction's commit process.
 

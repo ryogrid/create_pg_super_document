@@ -8,7 +8,12 @@ Checks whether the left sibling page of a target page is marked with the INCOMPL
 
 ## Definition
 
-
+```c
+structure, removing all
+ * pointers leading to it --- but not touching its own left and right links.
+ * The page cannot be physically reclaimed right away, since other processes
+ * may currently be trying to follow links leading to the page;
+```
 ## Detailed Description
 This function is used during B-tree page deletion operations to verify that the left sibling page is in a consistent state for deletion to proceed. It checks whether the left sibling page has the  flag set, which would indicate that a page split operation affecting the target page is still incomplete.
 

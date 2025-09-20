@@ -8,7 +8,9 @@ A security validation function that enforces protocol restrictions in WAL sender
 
 ## Definition
 
-
+```c
+struct rlimit rlim;
+```
 ## Detailed Description
 This function serves as a security and protocol enforcement mechanism for PostgreSQL's WAL (Write-Ahead Logging) sender processes. WAL senders are specialized backend processes used for streaming replication, and they have strict limitations on what types of operations they can perform. Unlike regular database backends that support the full PostgreSQL protocol, WAL senders are restricted to simple query protocol messages and replication-specific commands.
 

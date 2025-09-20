@@ -8,7 +8,10 @@ Initializes a ForEachState structure for the for_each_cell macro, enabling itera
 
 ## Definition
 
-
+```c
+static inline ForEachState
+for_each_cell_setup(const List *lst, const ListCell *initcell)
+```
 ## Detailed Description
 The `for_each_cell_setup` function is a helper function that initializes the state required for the `for_each_cell` macro. It creates and returns a `ForEachState` structure that contains the list pointer and the starting index derived from the provided initial cell. The function handles the case where the initial cell might be NULL by setting the index to the list length (effectively making iteration start at the end).
 

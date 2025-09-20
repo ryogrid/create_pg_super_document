@@ -8,7 +8,10 @@ NotNullImpliedByRelConstraints determines whether existing constraints on a rela
 
 ## Definition
 
-
+```c
+static bool
+NotNullImpliedByRelConstraints(Relation rel, Form_pg_attribute attr)
+```
 ## Detailed Description
 This function performs constraint analysis to determine if existing constraints (such as CHECK constraints, primary keys, unique constraints, etc.) already guarantee that a column cannot contain NULL values. This optimization can significantly improve ALTER TABLE performance by avoiding expensive table scans.
 

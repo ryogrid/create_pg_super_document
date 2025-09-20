@@ -8,7 +8,10 @@ Reads the pg_ident.conf file and fills a tuplestore with view records for the pg
 
 ## Definition
 
-
+```c
+static void
+fill_ident_view(Tuplestorestate *tuple_store, TupleDesc tupdesc)
+```
 ## Detailed Description
 This internal function is responsible for parsing PostgreSQL's pg_ident.conf authentication configuration file and populating a tuplestore with the parsed identity mapping entries. The function performs the following operations:
 

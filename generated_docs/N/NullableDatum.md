@@ -8,7 +8,16 @@ NullableDatum is a PostgreSQL structure that efficiently combines a Datum value 
 
 ## Definition
 
-
+```c
+typedef struct NullableDatum
+{
+#define FIELDNO_NULLABLE_DATUM_DATUM 0
+	Datum		value;
+#define FIELDNO_NULLABLE_DATUM_ISNULL 1
+	bool		isnull;
+	/* due to alignment padding this could be used for flags for free */
+} NullableDatum;
+```
 ## Detailed Description
 NullableDatum is a fundamental data structure in PostgreSQL designed to store both a Datum value and its null status in a single cohesive unit. This approach provides better spatial locality compared to storing datums and nullness indicators in separate arrays, which can improve cache performance and memory access patterns.
 

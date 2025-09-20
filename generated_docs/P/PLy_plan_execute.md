@@ -8,7 +8,10 @@ PLy_plan_execute is a Python method wrapper function that executes a prepared SQ
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_plan_execute(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 This function serves as a thin wrapper around PLy_spi_execute_plan, providing the Python method interface for executing prepared SQL plans in PL/Python. It parses optional Python arguments for parameter values and execution limit, then delegates the actual execution to the lower-level PLy_spi_execute_plan function. The function is designed to be called from Python code within PL/Python functions when executing prepared statements.
 

@@ -8,7 +8,10 @@ This function extracts a specified slice (substring) from a varlena datum, handl
 
 ## Definition
 
-
+```c
+struct varlena *
+pg_detoast_datum_slice(struct varlena *datum, int32 first, int32 count)
+```
 ## Detailed Description
 pg_detoast_datum_slice is a wrapper function that provides access to a specific portion of a varlena datum without necessarily detoasting the entire value. This is particularly efficient for large toasted values where only a small portion is needed, as it can avoid the overhead of decompressing or fetching the entire datum from external storage.
 

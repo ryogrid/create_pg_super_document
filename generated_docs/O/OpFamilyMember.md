@@ -8,7 +8,20 @@ OpFamilyMember is a struct used to track both operators and support functions wh
 
 ## Definition
 
-
+```c
+typedef struct OpFamilyMember
+{
+	bool		is_func;		/* is this an operator, or support func? */
+	Oid			object;			/* operator or support func's OID */
+	int			number;			/* strategy or support func number */
+	Oid			lefttype;		/* lefttype */
+	Oid			righttype;		/* righttype */
+	Oid			sortfamily;		/* ordering operator's sort opfamily, or 0 */
+	bool		ref_is_hard;	/* hard or soft dependency? */
+	bool		ref_is_family;	/* is dependency on opclass or opfamily? */
+	Oid			refobjid;		/* OID of opclass or opfamily */
+} OpFamilyMember;
+```
 ## Detailed Description
 The OpFamilyMember structure serves as a unified representation for both operators and support functions during the construction and modification of operator classes and families. It encapsulates all necessary metadata including object identification, dependency relationships, and type information.
 

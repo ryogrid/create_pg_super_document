@@ -8,7 +8,10 @@ Switches to a new hashjoin batch when the current batch has been completed, mana
 
 ## Definition
 
-
+```c
+static bool
+ExecHashJoinNewBatch(HashJoinState *hjstate)
+```
 ## Detailed Description
 This function manages the complex process of transitioning from one batch to the next in a hash join operation. Hash joins may be divided into multiple batches when the inner relation is too large to fit entirely in memory. The function handles cleanup of the previous batch, determines which batches can be skipped based on outer join requirements and optimization rules, reloads the hash table with the new inner batch data, and prepares the outer batch file for reading.
 

@@ -8,7 +8,16 @@ CTEMaterialize is an enumeration that controls the materialization behavior of C
 
 ## Definition
 
-
+```c
+typedef struct CTESearchClause
+{
+	NodeTag		type;
+	List	   *search_col_list;
+	bool		search_breadth_first;
+	char	   *search_seq_column;
+	ParseLoc	location;
+} CTESearchClause;
+```
 ## Detailed Description
 CTEMaterialize defines the materialization strategy for Common Table Expressions (WITH clauses). Materialization determines whether PostgreSQL should compute and store the CTE results in memory before using them, or whether it should inline the CTE query directly into the main query. This choice significantly affects query performance and execution behavior. The enumeration provides explicit control over this optimization decision, overriding PostgreSQL's default heuristics.
 

@@ -8,7 +8,10 @@ Handles logical replication table synchronization state changes by dispatching t
 
 ## Definition
 
-
+```c
+void
+process_syncing_tables(XLogRecPtr current_lsn)
+```
 ## Detailed Description
 The  function serves as a central dispatcher for managing table synchronization operations in PostgreSQL's logical replication system. It examines the worker type of the current logical replication worker and delegates the actual synchronization processing to specialized functions based on the worker type.
 

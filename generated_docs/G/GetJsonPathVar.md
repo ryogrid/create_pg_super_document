@@ -8,7 +8,11 @@ Returns the computed value of a JSON path variable with a given name by searchin
 
 ## Definition
 
-
+```c
+static JsonbValue *
+GetJsonPathVar(void *cxt, char *varName, int varNameLen,
+			   JsonbValue *baseObject, int *baseObjectId)
+```
 ## Detailed Description
 This function serves as a variable resolver in the jsonpath execution engine. It searches through a list of JsonPathVariable structures to find a variable matching the specified name and length. When found, it converts the variable's stored Datum value to a JsonbValue using JsonItemFromDatum. The function also handles NULL variables appropriately and provides both the resolved value and metadata about the variable's position and base object information for further processing.
 

@@ -8,7 +8,10 @@ A SQL-callable function that returns the complete CREATE TRIGGER statement for a
 
 ## Definition
 
-
+```c
+Datum
+pg_get_triggerdef_ext(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the main entry point for retrieving trigger definitions from PostgreSQL's system catalogs. It accepts a trigger OID and a boolean flag for pretty-printing, then delegates the actual work to . The function handles the conversion between PostgreSQL's internal C representation and the SQL text type that can be returned to SQL queries. If the trigger is not found, it returns NULL.
 

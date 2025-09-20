@@ -8,7 +8,13 @@ Handles insert, update, and delete operations on partitioned tables in PostgreSQ
 
 ## Definition
 
-
+```c
+static void
+apply_handle_tuple_routing(ApplyExecutionData *edata,
+						   TupleTableSlot *remoteslot,
+						   LogicalRepTupleData *newtup,
+						   CmdType operation)
+```
 ## Detailed Description
 This function implements the core logic for applying DML operations (INSERT, UPDATE, DELETE) on partitioned tables in logical replication. It handles the complex process of:
 

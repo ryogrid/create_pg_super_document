@@ -8,7 +8,13 @@ Initializes a table rewrite operation by setting up necessary data structures an
 
 ## Definition
 
-
+```c
+struct itself plus all subsidiary data.
+	 */
+	rw_cxt = AllocSetContextCreate(CurrentMemoryContext,
+								   "Table rewrite",
+								   ALLOCSET_DEFAULT_SIZES);
+```
 ## Detailed Description
 The  function starts a heap rewrite operation, which is typically used during operations like CLUSTER, VACUUM FULL, or ALTER TABLE that require reorganizing table data. It creates a dedicated memory context for the rewrite operation and initializes a RewriteState structure that tracks the progress and metadata needed throughout the rewrite process.
 

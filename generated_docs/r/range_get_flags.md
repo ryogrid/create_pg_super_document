@@ -8,7 +8,10 @@ A lightweight utility function that extracts only the flags byte from a serializ
 
 ## Definition
 
-
+```c
+char
+range_get_flags(const RangeType *range)
+```
 ## Detailed Description
 This function provides an efficient way to access just the flags information from a range object without the overhead of full deserialization. It directly reads the flags byte from the last byte of the range object's binary representation. This is particularly useful for functions that only need to check properties like emptiness, bound inclusivity, or infinity without needing the actual bound values.
 

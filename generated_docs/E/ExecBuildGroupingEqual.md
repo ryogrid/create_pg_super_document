@@ -8,7 +8,16 @@ Builds an equality expression that can be evaluated using ExecQual(), returning 
 
 ## Definition
 
-
+```c
+ExprState *
+ExecBuildGroupingEqual(TupleDesc ldesc, TupleDesc rdesc,
+					   const TupleTableSlotOps *lops, const TupleTableSlotOps *rops,
+					   int numCols,
+					   const AttrNumber *keyColIdx,
+					   const Oid *eqfunctions,
+					   const Oid *collations,
+					   PlanState *parent)
+```
 ## Detailed Description
 ExecBuildGroupingEqual constructs a specialized expression evaluation state for comparing tuples with NOT DISTINCT semantics. Unlike regular equality comparisons, this function treats NULL values specially - two NULL values are considered equal, which is essential for grouping operations where NULL values should be grouped together.
 

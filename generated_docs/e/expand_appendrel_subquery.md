@@ -8,7 +8,11 @@ Creates RelOptInfo structures for child relations of an appendrel baserel that r
 
 ## Definition
 
-
+```c
+static void
+expand_appendrel_subquery(PlannerInfo *root, RelOptInfo *rel,
+						  RangeTblEntry *rte, Index rti)
+```
 ## Detailed Description
 This function handles the expansion of subquery relations that have been flattened into appendrel structures. When a UNION ALL subquery is flattened during query planning, the parent subquery becomes an appendrel baserel, and its component subqueries become child relations listed in root->append_rel_list. This function creates the necessary RelOptInfo structures for each child subquery so that the planner can generate execution plans for them.
 

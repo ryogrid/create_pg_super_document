@@ -8,7 +8,10 @@ Generates a random numeric value within a specified range [rmin, rmax] using a p
 
 ## Definition
 
-
+```c
+Numeric
+random_numeric(pg_prng_state *state, Numeric rmin, Numeric rmax)
+```
 ## Detailed Description
 The `random_numeric` function generates random numeric values within the specified bounds using PostgreSQL's internal pseudo-random number generation. It performs thorough validation on the input bounds, rejecting NaN and infinity values with appropriate error messages. The function converts the external Numeric inputs to internal NumericVar format, calls the internal `random_var` function to perform the actual random generation, and converts the result back to external Numeric format.
 

@@ -8,7 +8,10 @@ set_guc_source is a static helper function that safely updates a GUC variable's 
 
 ## Definition
 
-
+```c
+static void
+set_guc_source(struct config_generic *gconf, GucSource newsource)
+```
 ## Detailed Description
 This function provides a controlled way to update a GUC parameter's source field while ensuring that the parameter's membership in the guc_nondef_list (list of non-default GUC variables) is properly maintained. The function handles the transitions between default and non-default sources:
 

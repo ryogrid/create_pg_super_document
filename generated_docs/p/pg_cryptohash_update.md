@@ -8,7 +8,10 @@ Updates a hash context with new data, supporting multiple hash algorithms includ
 
 ## Definition
 
-
+```c
+int
+pg_cryptohash_update(pg_cryptohash_ctx *ctx, const uint8 *data, size_t len)
+```
 ## Detailed Description
 The pg_cryptohash_update function is a generic interface for updating cryptographic hash contexts with new input data. It acts as a dispatcher that calls the appropriate algorithm-specific update function based on the hash type stored in the context. The function is designed to be used as part of a streaming hash calculation where data is processed incrementally rather than all at once.
 

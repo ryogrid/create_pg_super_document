@@ -8,7 +8,10 @@ Initializes a NumericVar variable from a packed database format Numeric value wi
 
 ## Definition
 
-
+```c
+static void
+init_var_from_num(Numeric num, NumericVar *dest)
+```
 ## Detailed Description
 This static function provides an efficient way to initialize a NumericVar from a Numeric value when the digits array does not need to be modified. Unlike set_var_from_num(), this function does not allocate memory or copy the digits array - instead, it directly points the NumericVar's digits pointer to the original Numeric's digits buffer.
 

@@ -8,7 +8,10 @@ Retrieves a cached TableSpaceCacheEntry structure for a specified tablespace OID
 
 ## Definition
 
-
+```c
+static TableSpaceCacheEntry *
+get_tablespace(Oid spcid)
+```
 ## Detailed Description
 This function serves as the main entry point for accessing tablespace information within PostgreSQL. It implements a two-tiered lookup strategy: first checking the in-memory cache for existing entries, and if not found, retrieving the information from the pg_tablespace system catalog and caching it for future use.
 

@@ -8,7 +8,10 @@ Searches a Query's rowMarks list to find and return the RowMarkClause for a spec
 
 ## Definition
 
-
+```c
+RowMarkClause *
+get_parse_rowmark(Query *qry, Index rtindex)
+```
 ## Detailed Description
 This function searches through a Query structure's rowMarks list to locate a RowMarkClause that corresponds to a specific range table index. Row marking is PostgreSQL's mechanism for implementing row-level locking semantics such as FOR UPDATE and FOR SHARE clauses in SQL queries.
 

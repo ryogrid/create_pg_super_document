@@ -8,7 +8,9 @@ ScanSourceDatabasePgClass scans the pg_class system catalog table in a source da
 
 ## Definition
 
-
+```c
+enumber;
+```
 ## Detailed Description
 This function performs a low-level scan of the pg_class relation in the source database, which is an exception to the usual rule that cross-database access is not possible. The function works by:
 

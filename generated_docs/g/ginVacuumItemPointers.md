@@ -8,7 +8,11 @@ Vacuums an uncompressed posting list by removing dead tuple identifiers and retu
 
 ## Definition
 
-
+```c
+ItemPointer
+ginVacuumItemPointers(GinVacuumState *gvs, ItemPointerData *items,
+					  int nitem, int *nremaining)
+```
 ## Detailed Description
 This function processes an array of ItemPointer entries (TIDs) during GIN index vacuum operations. It iterates through each item in the posting list and uses a callback function to determine which items should be removed as dead tuples. The function optimizes memory allocation by only creating a new array when deletions are actually needed. If no items need to be removed, it returns NULL; otherwise, it returns a palloc'd array containing only the surviving items.
 

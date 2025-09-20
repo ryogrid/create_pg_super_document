@@ -8,7 +8,29 @@ This function constructs a single range that represents the union (span) of all 
 
 ## Definition
 
+```c
+union_range(TypeCacheEntry *rangetyp,
+						   const MultirangeType *mr)
+{
+	RangeBound	lower,
+				upper,
+				tmp;
 
+	if (MultirangeIsEmpty(mr))
+		return make_empty_range(rangetyp);
+
+	multirange_get_bounds(rangetyp, mr, 0, &lower, &tmp);
+	multirange_get_bounds(rangetyp, mr, mr->rangeCount - 1, &tmp, &upper);
+
+	return make_range(rangetyp, &lower, &upper, false, NULL);
+}
+
+
+/*
+ * multirange_deserialize: deconstruct a multirange value
+ *
+ * NB: the given multirange object must be fully detoasted;
+```
 ## Detailed Description
 The function creates a range that encompasses all ranges in the multirange by taking the lower bound from the first range and the upper bound from the last range. Since multiranges maintain their constituent ranges in sorted, non-overlapping order, this approach efficiently produces the minimal spanning range.
 

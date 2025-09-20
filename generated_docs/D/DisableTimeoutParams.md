@@ -8,7 +8,13 @@ DisableTimeoutParams is a structure used to specify parameters when disabling mu
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	TimeoutId	id;				/* timeout to clear */
+	bool		keep_indicator; /* keep the indicator flag? */
+} DisableTimeoutParams;
+```
 ## Detailed Description
 DisableTimeoutParams serves as a parameter structure for the disable_timeouts() function, enabling efficient batch disabling of multiple timeout types. This structure provides fine-grained control over timeout deactivation by allowing callers to specify whether timeout indicator flags should be preserved when disabling timeouts. The structure is part of PostgreSQL's comprehensive timeout management system that multiplexes SIGALRM interrupts for various timeout scenarios.
 

@@ -8,7 +8,10 @@ Displays comprehensive hash aggregation statistics for EXPLAIN ANALYZE output, i
 
 ## Definition
 
-
+```c
+static void
+show_hashagg_info(AggState *aggstate, ExplainState *es)
+```
 ## Detailed Description
 This function provides detailed reporting for hash aggregation nodes during EXPLAIN ANALYZE operations. Hash aggregation is a query execution technique that groups rows using hash tables, which may need to spill to disk when memory is insufficient. The function displays both planning information and runtime performance statistics.
 

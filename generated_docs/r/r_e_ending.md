@@ -8,7 +8,11 @@ r_e_ending is a specialized function in the Dutch Snowball stemming algorithm th
 
 ## Definition
 
+```c
+}
 
+static int r_e_ending(struct SN_env * z)
+```
 ## Detailed Description
 The r_e_ending function implements a sophisticated rule for Dutch stemming that removes the trailing 'e' character from words when specific conditions are met. The function performs a multi-step validation process:
 

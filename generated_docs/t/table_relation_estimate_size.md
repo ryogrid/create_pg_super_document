@@ -8,7 +8,12 @@ Estimates the current size and statistics of a relation, serving as an access me
 
 ## Definition
 
-
+```c
+static inline void
+table_relation_estimate_size(Relation rel, int32 *attr_widths,
+							 BlockNumber *pages, double *tuples,
+							 double *allvisfrac)
+```
 ## Detailed Description
 This function provides a table access method interface for estimating relation size and statistics that are crucial for query planning and optimization. It serves as the access method-specific workhorse for the higher-level estimate_rel_size() function. The function delegates to the underlying table access method's relation_estimate_size function, allowing different storage engines to implement their own size estimation algorithms based on their specific storage characteristics and optimization strategies.
 

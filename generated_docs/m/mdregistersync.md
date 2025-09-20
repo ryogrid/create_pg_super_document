@@ -8,7 +8,10 @@ mdregistersync marks an entire PostgreSQL relation as needing fsync by registeri
 
 ## Definition
 
-
+```c
+void
+mdregistersync(SMgrRelation reln, ForkNumber forknum)
+```
 ## Detailed Description
 mdregistersync ensures that all segments of a relation fork are marked as dirty and will be synchronized to disk during the next checkpoint or fsync operation. The function works by first ensuring all active segments are opened (via mdnblocks), then temporarily opening any inactive segments that exist beyond the active ones. It registers each segment as dirty and immediately closes the inactive segments to avoid keeping too many file descriptors open.
 

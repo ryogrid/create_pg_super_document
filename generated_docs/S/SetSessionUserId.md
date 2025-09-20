@@ -8,7 +8,10 @@ Sets the session user ID and superuser status for the current PostgreSQL session
 
 ## Definition
 
-
+```c
+static void
+SetSessionUserId(Oid userid, bool is_superuser)
+```
 ## Detailed Description
 SetSessionUserId is an internal static function in PostgreSQL's authentication and session management system. It establishes the session user identity by setting the global SessionUserId variable and the corresponding superuser flag. This function is called during session initialization and authorization changes to update the session's user context.
 

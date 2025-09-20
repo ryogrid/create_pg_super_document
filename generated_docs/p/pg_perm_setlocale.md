@@ -8,7 +8,10 @@ A PostgreSQL wrapper around the standard setlocale() function that provides addi
 
 ## Definition
 
-
+```c
+char *
+pg_perm_setlocale(int category, const char *locale)
+```
 ## Detailed Description
 This function wraps the libc setlocale() function with two key enhancements. First, when changing LC_CTYPE, it updates gettext's encoding for the current message domain, which is necessary for proper internationalization support especially on Windows where GNU gettext doesn't automatically track LC_CTYPE. Second, upon successful locale changes, it sets the corresponding LC_XXX environment variable to match the new setting, ensuring that subsequent setlocale(..., "") calls preserve the configuration made through this routine.
 

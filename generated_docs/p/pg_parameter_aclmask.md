@@ -8,7 +8,10 @@ A function that examines a user's privileges for PostgreSQL configuration parame
 
 ## Definition
 
-
+```c
+static AclMode
+pg_parameter_aclmask(const char *name, Oid roleid, AclMode mask, AclMaskHow how)
+```
 ## Detailed Description
 This function implements privilege checking for PostgreSQL configuration parameters (GUCs - Grand Unified Configuration). It provides fine-grained access control over who can modify specific configuration settings. The function:
 

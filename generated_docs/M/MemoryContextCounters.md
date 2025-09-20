@@ -8,7 +8,15 @@ A structure that provides summarization state for memory context statistics coll
 
 ## Definition
 
-
+```c
+typedef struct MemoryContextCounters
+{
+	Size		nblocks;		/* Total number of malloc blocks */
+	Size		freechunks;		/* Total number of free chunks */
+	Size		totalspace;		/* Total bytes requested from malloc */
+	Size		freespace;		/* The unused portion of totalspace */
+} MemoryContextCounters;
+```
 ## Detailed Description
 MemoryContextCounters is a statistics aggregation structure used throughout PostgreSQL's memory management system to collect and summarize memory usage information. The design is biased towards AllocSet memory contexts, which are the most commonly used context type in PostgreSQL. The structure provides a standardized way to report memory statistics in the format historically used by AllocSet contexts.
 

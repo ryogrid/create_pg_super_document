@@ -8,7 +8,10 @@ PQsetChunkedRowsMode enables chunked results processing mode for a PostgreSQL co
 
 ## Definition
 
-
+```c
+int
+PQsetChunkedRowsMode(PGconn *conn, int chunkSize)
+```
 ## Detailed Description
 PQsetChunkedRowsMode is a public libpq function that switches the connection to chunked rows mode, where query results are delivered in chunks of a specified number of rows rather than as complete result sets. This mode provides a balance between memory efficiency and performance, allowing clients to process large result sets in manageable chunks without the overhead of single-row mode.
 

@@ -8,7 +8,10 @@ Creates partitionwise join paths for partitioned relations by recursively buildi
 
 ## Definition
 
-
+```c
+void
+generate_partitionwise_join_paths(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function implements partitionwise join optimization, where joins between partitioned tables are performed by joining corresponding partitions separately and then appending the results. This approach can be significantly more efficient than materializing all partitions before joining.
 

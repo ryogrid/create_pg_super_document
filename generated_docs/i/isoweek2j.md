@@ -8,7 +8,10 @@ Converts an ISO 8601 year and week number to the Julian day number corresponding
 
 ## Definition
 
-
+```c
+int
+isoweek2j(int year, int week)
+```
 ## Detailed Description
 This function implements the conversion from ISO 8601 week date format to Julian day numbers. It calculates the Julian day number for the Monday of the specified ISO week in the given year. The algorithm works by first finding the Julian day for January 4th of the given year (which is guaranteed to be in the first ISO week of that year), then calculating the day-of-week offset to find the first Monday, and finally adding the appropriate number of weeks to reach the target week. This conversion is fundamental for implementing ISO week date arithmetic and conversions between different date representations.
 

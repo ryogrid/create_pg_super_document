@@ -8,7 +8,13 @@ A context structure used during the expansion of SubLinks to SubPlans in query e
 
 ## Definition
 
-
+```c
+typedef struct process_sublinks_context
+{
+	PlannerInfo *root;
+	bool		isTopQual;
+} process_sublinks_context;
+```
 ## Detailed Description
 The  structure serves as a parameter context for the  function during the process of expanding SubLinks into SubPlans. This structure is central to PostgreSQL's subquery processing pipeline, where subqueries are transformed from their parsed representation (SubLink nodes) into executable subplans. The context tracks both the current planner state and whether the current expression node is at the top level of a WHERE/HAVING qualifier, which affects how NULL vs FALSE distinctions are handled in subquery evaluation.
 

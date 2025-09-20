@@ -8,7 +8,10 @@ Utility function that converts a qualified-name list into a properly quoted stri
 
 ## Definition
 
-
+```c
+char *
+NameListToQuotedString(const List *names)
+```
 ## Detailed Description
 The NameListToQuotedString function converts a List of name components into a dot-separated string representation where each identifier is properly quoted using PostgreSQL's identifier quoting rules. Unlike NameListToString, this function produces output that is syntactically correct and can be re-parsed by functions like textToQualifiedNameList. Each name component in the list is processed through quote_identifier() to ensure proper quoting when necessary (e.g., when identifiers contain special characters, are reserved keywords, or contain mixed case).
 

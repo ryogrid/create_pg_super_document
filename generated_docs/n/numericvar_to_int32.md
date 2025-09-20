@@ -8,7 +8,10 @@ Converts a NumericVar to a 32-bit signed integer with range validation, returnin
 
 ## Definition
 
-
+```c
+static bool
+numericvar_to_int32(const NumericVar *var, int32 *result)
+```
 ## Detailed Description
 This function performs a safe conversion from PostgreSQL's internal numeric representation (NumericVar) to a 32-bit signed integer. It first converts the NumericVar to a 64-bit integer using , then validates that the resulting value falls within the valid range for int32 (PG_INT32_MIN to PG_INT32_MAX). If the conversion is successful and the value is within range, it stores the result in the provided output parameter and returns true. The function is designed to prevent overflow errors during numeric-to-integer conversions.
 

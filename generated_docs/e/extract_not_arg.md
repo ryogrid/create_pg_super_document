@@ -8,7 +8,10 @@ Extracts the argument from clauses that assert the non-truth of a subclause, use
 
 ## Definition
 
-
+```c
+static Node *
+extract_not_arg(Node *clause)
+```
 ## Detailed Description
 This utility function identifies clauses that express negation and extracts the negated subexpression. It recognizes two main forms of negation in PostgreSQL's expression tree:
 

@@ -8,7 +8,17 @@ Determines whether an operator clause should be handled by the restriction selec
 
 ## Definition
 
-
+```c
+struct, and only the
+ *	   relids and jointype fields in it can be trusted.
+ * It is possible for jointype to be different from sjinfo->jointype.
+ * This indicates we are considering a variant join: either with
+ * the LHS and RHS switched, or with one input unique-ified.
+ *
+ * Note: when passing nonzero varRelid, it's normally appropriate to set
+ * jointype == JOIN_INNER, sjinfo == NULL, even if the clause is really a
+ * join clause;
+```
 ## Detailed Description
 This function serves as a decision point in PostgreSQL's query optimizer to classify clauses for selectivity estimation. The function implements a hierarchical decision logic:
 

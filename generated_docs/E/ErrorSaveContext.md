@@ -8,7 +8,15 @@ ErrorSaveContext is a function call context node used for handling "soft" errors
 
 ## Definition
 
-
+```c
+typedef struct ErrorSaveContext
+{
+	NodeTag		type;
+	bool		error_occurred; /* set to true if we detect a soft error */
+	bool		details_wanted; /* does caller want more info than that? */
+	ErrorData  *error_data;		/* details of error, if so */
+} ErrorSaveContext;
+```
 ## Detailed Description
 ErrorSaveContext provides a mechanism for PostgreSQL functions to handle errors in a "soft" manner, where errors can be caught and handled locally rather than propagating up the call stack as exceptions. This is particularly useful for functions that need to validate input or perform operations that might fail in expected ways.
 

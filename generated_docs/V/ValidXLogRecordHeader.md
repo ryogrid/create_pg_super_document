@@ -8,7 +8,12 @@ ValidXLogRecordHeader validates the header portion of an XLOG (Write-Ahead Log) 
 
 ## Definition
 
-
+```c
+static bool
+ValidXLogRecordHeader(XLogReaderState *state, XLogRecPtr RecPtr,
+					  XLogRecPtr PrevRecPtr, XLogRecord *record,
+					  bool randAccess)
+```
 ## Detailed Description
 ValidXLogRecordHeader is a static validation function specifically designed as a convenience subroutine to avoid code duplication in XLogReadRecord. It performs comprehensive validation of XLOG record headers by checking:
 

@@ -8,7 +8,10 @@ The getOpfamilies function retrieves all operator families from the PostgreSQL s
 
 ## Definition
 
-
+```c
+OpfamilyInfo *
+getOpfamilies(Archive *fout, int *numOpfamilies)
+```
 ## Detailed Description
 This function is part of pg_dump's catalog reading functionality. It executes a SQL query against the pg_opfamily system catalog to retrieve all operator families in the database, including both user-defined and built-in operator families. The function creates OpfamilyInfo structures for each operator family, populating them with essential metadata such as OID, name, namespace, access method, and owner information. System-defined operator families are filtered out later during the dump-out phase rather than during this collection phase.
 

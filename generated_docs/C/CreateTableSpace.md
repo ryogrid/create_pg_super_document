@@ -8,7 +8,10 @@ Creates a new tablespace by validating parameters, inserting catalog entries, cr
 
 ## Definition
 
-
+```c
+Oid
+CreateTableSpace(CreateTableSpaceStmt *stmt)
+```
 ## Detailed Description
 CreateTableSpace implements the CREATE TABLESPACE SQL command, handling the complete process of tablespace creation. The function performs extensive validation including superuser privilege checks, path validation, name collision detection, and filesystem structure creation.
 

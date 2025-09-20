@@ -8,7 +8,10 @@ A static utility function that finds and returns the position of the rightmost d
 
 ## Definition
 
-
+```c
+static int
+getRightMostDot(const char *str)
+```
 ## Detailed Description
 The `getRightMostDot` function searches through a string from right to left to locate the position of the rightmost dot character ('.'). This is particularly useful in numeric formatting contexts where multiple dots might appear in a format string, and the rightmost one typically indicates the decimal point position.
 

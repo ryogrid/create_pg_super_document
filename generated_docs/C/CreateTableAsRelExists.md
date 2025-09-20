@@ -8,7 +8,10 @@ Utility function that checks whether the target relation for a CREATE TABLE AS s
 
 ## Definition
 
-
+```c
+bool
+CreateTableAsRelExists(CreateTableAsStmt *ctas)
+```
 ## Detailed Description
 The  function provides comprehensive existence checking for CREATE TABLE AS and CREATE MATERIALIZED VIEW statements. It resolves the target namespace, checks for existing relations with the same name, and implements the complete IF NOT EXISTS semantics including appropriate error reporting and security validation.
 

@@ -8,7 +8,10 @@ InitArchiveFmt_Custom is the initialization routine for the custom archive forma
 
 ## Definition
 
-
+```c
+void
+InitArchiveFmt_Custom(ArchiveHandle *AH)
+```
 ## Detailed Description
 This function serves as the global initialization routine required by the custom archive format. It performs several critical tasks:
 

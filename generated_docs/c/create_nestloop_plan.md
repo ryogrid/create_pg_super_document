@@ -8,7 +8,10 @@ Creates a NestLoop join plan node from a NestPath, implementing nested loop join
 
 ## Definition
 
-
+```c
+union(root->curOuterRels,
+								   best_path->jpath.outerjoinpath->parent->relids);
+```
 ## Detailed Description
 This function creates a NestLoop execution plan node from a NestPath. Nested loop joins are the most basic join algorithm where for each row in the outer relation, the inner relation is scanned to find matching rows. The function handles path reparameterization to ensure proper parameter passing between outer and inner relations, manages the curOuterRels context for nested parameter handling, and processes join clauses appropriately for different join types (inner vs outer joins). It also identifies and sets up nestloop parameters that allow the inner scan to be parameterized by values from the outer relation.
 

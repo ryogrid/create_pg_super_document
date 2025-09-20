@@ -8,7 +8,10 @@ A static function responsible for loading psql configuration files (.psqlrc) fro
 
 ## Definition
 
-
+```c
+static void
+process_psqlrc(char *argv0)
+```
 ## Detailed Description
 This function implements the psql configuration file loading logic by searching for and processing .psqlrc files in a specific order of precedence. It first processes the system-wide configuration file located in the PostgreSQL installation's etc directory, then processes either a user-specified PSQLRC environment variable file or the default user .psqlrc file in the home directory. The function handles path resolution, tilde expansion, and ensures proper error handling for executable path detection.
 

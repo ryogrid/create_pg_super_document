@@ -8,7 +8,10 @@ FreeWorkerInfo is a static function that returns an autovacuum worker's WorkerIn
 
 ## Definition
 
-
+```c
+static void
+FreeWorkerInfo(int code, Datum arg)
+```
 ## Detailed Description
 FreeWorkerInfo serves as a cleanup callback function that is executed when an autovacuum worker process exits. The function is responsible for returning the worker's WorkerInfo structure to the pool of available workers and triggering a rebalance of the remaining workers' cost limits. It operates under the AutovacuumLock to ensure thread-safe access to shared memory structures.
 

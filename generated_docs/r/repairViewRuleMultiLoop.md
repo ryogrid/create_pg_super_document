@@ -8,7 +8,11 @@ Repairs circular dependencies in pg_dump by breaking view-rule dependency loops 
 
 ## Definition
 
-
+```c
+static void
+repairViewRuleMultiLoop(DumpableObject *viewobj,
+						DumpableObject *ruleobj)
+```
 ## Detailed Description
 This function is part of pg_dump's dependency loop repair mechanism. When a circular dependency is detected that involves a view, its ON SELECT rule, and other objects, this function breaks the cycle by:
 

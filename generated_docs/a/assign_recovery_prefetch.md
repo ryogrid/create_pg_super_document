@@ -8,7 +8,10 @@ assign_recovery_prefetch is a GUC assignment hook function that applies changes 
 
 ## Definition
 
-
+```c
+void
+assign_recovery_prefetch(int new_value, void *extra)
+```
 ## Detailed Description
 This function serves as an assignment hook for the  GUC parameter in PostgreSQL's configuration system. It is called after the new value has been validated (by ) and is ready to be applied to the system.
 

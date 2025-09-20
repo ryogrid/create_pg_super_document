@@ -8,7 +8,12 @@ Initializes the state of a window aggregate function, resetting its transition v
 
 ## Definition
 
-
+```c
+static void
+initialize_windowaggregate(WindowAggState *winstate,
+						   WindowStatePerFunc perfuncstate,
+						   WindowStatePerAgg peraggstate)
+```
 ## Detailed Description
 This function is parallel to  in nodeAgg.c and is responsible for initializing window aggregate state for a new computation. It handles memory context management carefully, only resetting private aggregate contexts while leaving shared contexts for the caller to manage. The function sets up the transition value either as NULL (if the initial value is NULL) or as a proper copy of the initial value in the appropriate memory context. It also resets counters and result values to prepare for new aggregate computation.
 

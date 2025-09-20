@@ -8,7 +8,10 @@ Constructs a multirange value from a single range input, primarily used to enabl
 
 ## Definition
 
-
+```c
+Datum
+multirange_constructor1(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function creates a multirange containing exactly one range element. While it might seem redundant compared to the variadic multirange_constructor2, this single-argument version is specifically required to support PostgreSQL's casting mechanism from range types to their corresponding multirange types. The function validates that the input range matches the expected range type for the target multirange, then constructs the multirange using the internal make_multirange function.
 

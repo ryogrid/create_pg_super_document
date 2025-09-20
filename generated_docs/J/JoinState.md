@@ -8,7 +8,16 @@ JoinState is a superclass for state nodes of join plans in PostgreSQL's executor
 
 ## Definition
 
-
+```c
+typedef struct JoinState
+{
+	PlanState	ps;
+	JoinType	jointype;
+	bool		single_match;	/* True if we should skip to next outer tuple
+								 * after finding one inner match */
+	ExprState  *joinqual;		/* JOIN quals (in addition to ps.qual) */
+} JoinState;
+```
 ## Detailed Description
 JoinState serves as the base structure for all join execution state nodes in PostgreSQL's executor. It inherits from PlanState and adds join-specific state information. This structure provides the common foundation for nested loop joins, merge joins, hash joins, and other join algorithms. The structure maintains the join type, optimization flags, and join qualification expressions that are evaluated during join processing.
 

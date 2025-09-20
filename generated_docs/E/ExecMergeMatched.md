@@ -8,7 +8,12 @@ Handles execution of WHEN MATCHED and WHEN NOT MATCHED BY SOURCE actions in MERG
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecMergeMatched(ModifyTableContext *context, ResultRelInfo *resultRelInfo,
+				 ItemPointer tupleid, HeapTuple oldtuple, bool canSetTag,
+				 bool *matched)
+```
 ## Detailed Description
 ExecMergeMatched is responsible for executing the first qualifying WHEN MATCHED or WHEN NOT MATCHED BY SOURCE action in a MERGE statement. It handles complex scenarios involving concurrent modifications during MERGE execution:
 

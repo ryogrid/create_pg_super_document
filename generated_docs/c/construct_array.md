@@ -8,7 +8,12 @@ Creates a simple 1-dimensional array object from an array of Datum elements, pro
 
 ## Definition
 
-
+```c
+ArrayType *
+construct_array(Datum *elems, int nelems,
+				Oid elmtype,
+				int elmlen, bool elmbyval, char elmalign)
+```
 ## Detailed Description
 The construct_array function provides a simple interface for creating 1-dimensional PostgreSQL array objects. It serves as a convenience wrapper around construct_md_array, automatically setting up the dimensions and lower bounds for a single-dimensional array. The function allocates memory for a new ArrayType structure and copies the provided element values into it, even for pass-by-reference data types. If nelems is 0, the result will be a 0-dimensional array rather than a 1-dimensional empty array.
 

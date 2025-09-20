@@ -8,7 +8,10 @@ The execute_test function serves as a comprehensive test suite for PostgreSQL's 
 
 ## Definition
 
-
+```c
+*/
+void execute_test(void)
+```
 ## Detailed Description
 The execute_test function implements a comprehensive test suite for ECPG's DECLARE STATEMENT functionality. It executes four distinct test cases that validate different scenarios of prepared statement usage across multiple database connections (con1, con2, and default connection). The function tests various combinations of DECLARE STATEMENT, PREPARE, CURSOR, and EXECUTE operations, ensuring proper functionality with and without explicit connection specifications (AT clauses).
 

@@ -8,7 +8,10 @@ SQL function that creates a new replication origin with the specified name and r
 
 ## Definition
 
-
+```c
+Datum
+pg_replication_origin_create(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This is a PostgreSQL SQL function wrapper that creates a new replication origin for logical replication tracking. It provides a user-facing interface to the internal replorigin_create() functionality through the SQL command interface.
 

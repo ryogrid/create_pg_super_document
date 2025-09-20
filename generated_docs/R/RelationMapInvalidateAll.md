@@ -8,7 +8,10 @@ A public function that reloads all currently-valid relation mapping files, used 
 
 ## Definition
 
-
+```c
+void
+RelationMapInvalidateAll(void)
+```
 ## Detailed Description
 The  function serves as a comprehensive cache invalidation mechanism when PostgreSQL cannot be certain about the validity of its relation mapping caches. This situation typically occurs when the shared invalidation message buffer overflows, meaning some invalidation messages may have been lost. To maintain data consistency, the function forces a reload of all currently-valid mapping files (both shared and local). Like , it includes safety checks to ensure that only already-loaded and valid mapping files are reloaded, preventing issues in processes that should not access certain mapping files.
 

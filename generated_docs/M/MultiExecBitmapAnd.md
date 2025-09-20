@@ -8,7 +8,10 @@ MultiExecBitmapAnd executes a BitmapAnd node by combining bitmaps from multiple 
 
 ## Definition
 
-
+```c
+Node *
+MultiExecBitmapAnd(BitmapAndState *node)
+```
 ## Detailed Description
 MultiExecBitmapAnd is the core execution function for BitmapAnd nodes in PostgreSQL's bitmap scan optimization. It iterates through all child subplans, executes each one to obtain a TIDBitmap, and then performs bitwise AND operations to intersect the results.
 

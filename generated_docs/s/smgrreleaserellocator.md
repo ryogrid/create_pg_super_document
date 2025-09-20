@@ -8,7 +8,10 @@ Releases resources for a given RelFileLocator if it's currently open, avoiding u
 
 ## Definition
 
-
+```c
+void
+smgrreleaserellocator(RelFileLocatorBackend rlocator)
+```
 ## Detailed Description
 This function provides an optimized way to release storage manager resources for a relation identified by its RelFileLocatorBackend. Unlike the combination of smgropen() followed by smgrrelease(), this function first checks if the relation is already present in the SMgrRelationHash before attempting to release it. This avoids the overhead of creating a hash table entry only to immediately drop it when the relation is not currently open.
 

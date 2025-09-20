@@ -8,7 +8,13 @@ Forms a tuple for entry tree in PostgreSQL's GIN (Generalized Inverted Index) ac
 
 ## Definition
 
-
+```c
+IndexTuple
+GinFormTuple(GinState *ginstate,
+			 OffsetNumber attnum, Datum key, GinNullCategory category,
+			 Pointer data, Size dataSize, int nipd,
+			 bool errorTooBig)
+```
 ## Detailed Description
 The GinFormTuple function creates an IndexTuple specifically for GIN entry tree pages. It builds the basic tuple structure containing optional column number and key datum, then adds space for the posting list. The function handles both single-column and multi-column GIN indexes, manages null categories, and ensures the resulting tuple doesn't exceed maximum size limits.
 

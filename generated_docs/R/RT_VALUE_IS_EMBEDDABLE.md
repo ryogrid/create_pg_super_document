@@ -8,7 +8,10 @@ A macro that expands to a function name for determining whether a value can be e
 
 ## Definition
 
-
+```c
+static inline bool
+RT_VALUE_IS_EMBEDDABLE(RT_VALUE_TYPE * value_p)
+```
 ## Detailed Description
 RT_VALUE_IS_EMBEDDABLE is a macro that generates a function name for checking whether a value can be stored directly within a child pointer slot in the radix tree, rather than requiring separate memory allocation. This is an optimization technique where small values that fit within the size of a pointer can be embedded directly in the tree structure to save memory and improve performance.
 

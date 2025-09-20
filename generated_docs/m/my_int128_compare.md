@@ -8,7 +8,10 @@ A control version of a comparator function that compares two 128-bit integer val
 
 ## Definition
 
-
+```c
+static inline int
+my_int128_compare(int128 x, int128 y)
+```
 ## Detailed Description
 This function provides a simple three-way comparison for 128-bit integers. It serves as a control implementation for testing purposes within the PostgreSQL test suite for 128-bit integer operations. The function follows standard comparison semantics, returning negative, zero, or positive values based on the relationship between the two input values.
 

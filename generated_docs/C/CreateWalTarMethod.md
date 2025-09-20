@@ -8,7 +8,12 @@ CreateWalTarMethod creates and initializes a tar-based WAL (Write-Ahead Log) wri
 
 ## Definition
 
-
+```c
+WalWriteMethod *
+CreateWalTarMethod(const char *tarbase,
+				   pg_compress_algorithm compression_algorithm,
+				   int compression_level, bool sync)
+```
 ## Detailed Description
 This function creates a tar-based WAL method implementation that packages WAL files into tar archives. It allocates and initializes a TarMethodData structure, sets up the appropriate file operations through WalTarMethodOps, and configures compression settings. The function supports both uncompressed (.tar) and gzip-compressed (.tar.gz) output formats. Currently, only zlib/gzip compression is supported, though the compression_algorithm parameter exists for future extensibility and symmetry with CreateWalDirectoryMethod.
 

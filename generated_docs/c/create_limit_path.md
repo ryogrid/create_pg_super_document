@@ -8,7 +8,14 @@ Creates a pathnode that represents performing LIMIT/OFFSET operations on query r
 
 ## Definition
 
-
+```c
+LimitPath *
+create_limit_path(PlannerInfo *root, RelOptInfo *rel,
+				  Path *subpath,
+				  Node *limitOffset, Node *limitCount,
+				  LimitOption limitOption,
+				  int64 offset_est, int64 count_est)
+```
 ## Detailed Description
 This function creates a LimitPath node that represents LIMIT and OFFSET operations in PostgreSQL's query planning system. It wraps an existing subpath and adds the necessary metadata for limiting result sets. The function preserves important properties like sort order (pathkeys) from the subpath since LIMIT/OFFSET operations don't change the ordering of results.
 

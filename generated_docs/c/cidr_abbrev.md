@@ -8,7 +8,10 @@ Converts a cidr value to its abbreviated text representation using CIDR-specific
 
 ## Definition
 
-
+```c
+Datum
+cidr_abbrev(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The cidr_abbrev function provides an abbreviated representation of a cidr value using pg_inet_cidr_ntop, which specifically formats CIDR network addresses. The key difference from inet_abbrev is that this function uses the CIDR-specific formatter that ensures host bits are properly zeroed out according to CIDR semantics. This means that any host bits beyond the network portion are set to zero in the output, providing a canonical network address representation. The function formats the address with the specified netmask length and returns it as text.
 

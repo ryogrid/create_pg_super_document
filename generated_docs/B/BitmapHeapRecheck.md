@@ -8,7 +8,10 @@ BitmapHeapRecheck is an access method routine used to recheck a tuple during Eva
 
 ## Definition
 
-
+```c
+static bool
+BitmapHeapRecheck(BitmapHeapScanState *node, TupleTableSlot *slot)
+```
 ## Detailed Description
 BitmapHeapRecheck is a helper function specifically designed for EvalPlanQual (EPQ) processing within bitmap heap scans. When PostgreSQL needs to handle concurrent updates during query execution, EPQ is invoked to recheck whether tuples still satisfy the original query conditions after being modified by other transactions. This function extracts the expression context from the bitmap heap scan node and evaluates the original qualification conditions against the provided tuple slot.
 

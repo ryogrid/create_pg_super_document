@@ -8,7 +8,10 @@ Returns information about the current state of the WAL summarizer process as a c
 
 ## Definition
 
-
+```c
+Datum
+pg_get_wal_summarizer_state(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This SQL-callable function provides a snapshot of the WAL summarizer's operational state by retrieving key metrics from the shared memory control structure. It returns a composite row type containing four columns that describe the current summarization progress and process status.
 

@@ -8,7 +8,10 @@ Returns the position of the most significant set bit in a 64-bit word, providing
 
 ## Definition
 
-
+```c
+static inline int
+pg_leftmost_one_pos64(uint64 word)
+```
 ## Detailed Description
 This function finds the position of the leftmost (most significant) set bit in a 64-bit unsigned integer, with positions measured from the least significant bit (0-based indexing). Like its 32-bit counterpart, it provides platform-optimized implementations using compiler builtins when available.
 

@@ -8,7 +8,10 @@ Verifies that a CIDR address is valid by ensuring it doesn't have bits set beyon
 
 ## Definition
 
-
+```c
+static bool
+addressOK(unsigned char *a, int bits, int family)
+```
 ## Detailed Description
 This function validates CIDR (Classless Inter-Domain Routing) addresses by checking that no host bits are set beyond the network mask length. For a valid CIDR address, all bits after the mask length should be zero. The function supports both IPv4 and IPv6 address families and performs bitwise validation to ensure the address conforms to CIDR standards.
 

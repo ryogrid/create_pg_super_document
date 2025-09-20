@@ -8,7 +8,14 @@ Searches for a column name within a single Range Table Entry, returning the attr
 
 ## Definition
 
-
+```c
+static int
+scanRTEForColumn(ParseState *pstate, RangeTblEntry *rte,
+				 Alias *eref,
+				 const char *colname, int location,
+				 int fuzzy_rte_penalty,
+				 FuzzyAttrMatchState *fuzzystate)
+```
 ## Detailed Description
 This static function performs the core column name lookup within a specific Range Table Entry (RTE). It searches through the column names or aliases specified in the eref parameter, which can represent either all columns of a relation (via rte->eref) or just the common columns in a join (via rte->join_using_alias). The function handles both user-defined columns and system columns, with user aliases taking precedence over system column names. When fuzzy matching is enabled, it updates the fuzzy match state to help generate helpful error messages for misspelled column names. The function is designed to be minimal in validation checks to support error reporting scenarios where RTEs may not be in the active namespace.
 

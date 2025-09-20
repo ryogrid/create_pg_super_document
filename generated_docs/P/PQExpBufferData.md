@@ -8,7 +8,14 @@ PQExpBufferData is a struct that holds information about an extensible string bu
 
 ## Definition
 
-
+```c
+typedef struct PQExpBufferData
+{
+	char	   *data;
+	size_t		len;
+	size_t		maxlen;
+} PQExpBufferData;
+```
 ## Detailed Description
 PQExpBufferData is the core data structure for PostgreSQL's extensible string buffer system. It manages dynamically allocated string buffers that can grow as needed to accommodate string data of varying lengths. This structure is fundamental to libpq's string handling operations and is used extensively throughout the PostgreSQL client libraries for building SQL queries, formatting output, and handling various text processing tasks.
 

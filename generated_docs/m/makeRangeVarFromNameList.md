@@ -8,7 +8,10 @@ Converts a qualified name list (strings) into a RangeVar structure for relation 
 
 ## Definition
 
-
+```c
+RangeVar *
+makeRangeVarFromNameList(const List *names)
+```
 ## Detailed Description
 This utility function transforms a list of strings representing a qualified relation name into PostgreSQL's standard RangeVar structure. It handles different levels of qualification: simple relation names, schema-qualified names, and fully-qualified names with catalog specification.
 

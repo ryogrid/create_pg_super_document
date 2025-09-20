@@ -8,7 +8,9 @@
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function serves as the high-level coordinator for base backup operations. It validates backup prerequisites, parses and applies backup options, and constructs a chain of bbsink handlers for data processing (compression, throttling, progress reporting, etc.). The function ensures proper session state management and provides robust error handling with guaranteed cleanup.
 

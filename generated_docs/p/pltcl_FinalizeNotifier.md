@@ -8,7 +8,10 @@ A no-op function that serves as a custom Tcl notifier finalization function in P
 
 ## Definition
 
-
+```c
+static void
+pltcl_FinalizeNotifier(ClientData clientData)
+```
 ## Detailed Description
 The `pltcl_FinalizeNotifier` function is part of PostgreSQL's custom Tcl notifier subsystem override. This function is intentionally implemented as a no-op (empty function body) because PostgreSQL's PL/Tcl implementation doesn't require any cleanup operations when finalizing the notifier.
 

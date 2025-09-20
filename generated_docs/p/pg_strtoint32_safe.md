@@ -8,7 +8,10 @@ Converts a string representation of an integer to a signed 32-bit integer value 
 
 ## Definition
 
-
+```c
+int32
+pg_strtoint32_safe(const char *s, Node *escontext)
+```
 ## Detailed Description
 This function provides a robust string-to-integer conversion with comprehensive error handling. It implements a two-phase parsing strategy: a fast path for simple base-10 numbers and a slower comprehensive path that handles hexadecimal (0x/0X), octal (0o/0O), binary (0b/0B), and decimal formats. The function supports underscore separators between digits for improved readability and handles both positive and negative numbers with proper overflow detection.
 

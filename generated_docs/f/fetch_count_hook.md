@@ -8,7 +8,10 @@ A static hook function in psql that validates and processes the FETCH_COUNT vari
 
 ## Definition
 
-
+```c
+static bool
+fetch_count_hook(const char *newval)
+```
 ## Detailed Description
 This function serves as a validation hook for the FETCH_COUNT psql variable. When a user attempts to set the FETCH_COUNT variable (which controls how many rows are fetched at once in psql), this hook function is called to validate that the provided value is a valid numeric value. The function leverages the ParseVariableNum utility to perform the actual parsing and validation of the numeric input.
 

@@ -8,7 +8,13 @@ heap_lock_tuple is the core function responsible for acquiring shared or exclusi
 
 ## Definition
 
-
+```c
+TM_Result
+heap_lock_tuple(Relation relation, HeapTuple tuple,
+				CommandId cid, LockTupleMode mode, LockWaitPolicy wait_policy,
+				bool follow_updates,
+				Buffer *buffer, TM_FailureData *tmfd)
+```
 ## Detailed Description
 This function implements PostgreSQL's sophisticated tuple locking mechanism, managing concurrent access to individual rows. It handles multiple lock modes (KeyShare, Share, NoKeyExclusive, Exclusive), visibility checking, transaction conflict resolution, and MultiXact management. The function can optionally follow update chains to lock descendant tuples and implements various wait policies.
 

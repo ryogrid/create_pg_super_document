@@ -8,7 +8,105 @@ The central function for accessing PostgreSQL's type cache, retrieving or creati
 
 ## Definition
 
+```c
+structures live in CacheMemoryContext,
+	 * which is not quite right (they're really in the hash table's private
+	 * memory context) but this will do for our purposes.
+	 *
+	 * Note: the code above avoids invalidating the finfo structs unless the
+	 * referenced operator/function OID actually changes.  This is to prevent
+	 * unnecessary leakage of any subsidiary data attached to an finfo, since
+	 * that would cause session-lifespan memory leaks.
+	 */
+	if ((flags & TYPECACHE_EQ_OPR_FINFO) &&
+		typentry->eq_opr_finfo.fn_oid == InvalidOid &&
+		typentry->eq_opr != InvalidOid)
+	{
+		Oid			eq_opr_func;
 
+		eq_opr_func = get_opcode(typentry->eq_opr);
+		if (eq_opr_func != InvalidOid)
+			fmgr_info_cxt(eq_opr_func, &typentry->eq_opr_finfo,
+						  CacheMemoryContext);
+	}
+	if ((flags & TYPECACHE_CMP_PROC_FINFO) &&
+		typentry->cmp_proc_finfo.fn_oid == InvalidOid &&
+		typentry->cmp_proc != InvalidOid)
+	{
+		fmgr_info_cxt(typentry->cmp_proc, &typentry->cmp_proc_finfo,
+					  CacheMemoryContext);
+	}
+	if ((flags & TYPECACHE_HASH_PROC_FINFO) &&
+		typentry->hash_proc_finfo.fn_oid == InvalidOid &&
+		typentry->hash_proc != InvalidOid)
+	{
+		fmgr_info_cxt(typentry->hash_proc, &typentry->hash_proc_finfo,
+					  CacheMemoryContext);
+	}
+	if ((flags & TYPECACHE_HASH_EXTENDED_PROC_FINFO) &&
+		typentry->hash_extended_proc_finfo.fn_oid == InvalidOid &&
+		typentry->hash_extended_proc != InvalidOid)
+	{
+		fmgr_info_cxt(typentry->hash_extended_proc,
+					  &typentry->hash_extended_proc_finfo,
+					  CacheMemoryContext);
+	}
+
+	/*
+	 * If it's a composite type (row type), get tupdesc if requested
+	 */
+	if ((flags & TYPECACHE_TUPDESC) &&
+		typentry->tupDesc == NULL &&
+		typentry->typtype == TYPTYPE_COMPOSITE)
+	{
+		load_typcache_tupdesc(typentry);
+	}
+
+	/*
+	 * If requested, get information about a range type
+	 *
+	 * This includes making sure that the basic info about the range element
+	 * type is up-to-date.
+	 */
+	if ((flags & TYPECACHE_RANGE_INFO) &&
+		typentry->typtype == TYPTYPE_RANGE)
+	{
+		if (typentry->rngelemtype == NULL)
+			load_rangetype_info(typentry);
+		else if (!(typentry->rngelemtype->flags & TCFLAGS_HAVE_PG_TYPE_DATA))
+			(void) lookup_type_cache(typentry->rngelemtype->type_id, 0);
+	}
+
+	/*
+	 * If requested, get information about a multirange type
+	 */
+	if ((flags & TYPECACHE_MULTIRANGE_INFO) &&
+		typentry->rngtype == NULL &&
+		typentry->typtype == TYPTYPE_MULTIRANGE)
+	{
+		load_multirangetype_info(typentry);
+	}
+
+	/*
+	 * If requested, get information about a domain type
+	 */
+	if ((flags & TYPECACHE_DOMAIN_BASE_INFO) &&
+		typentry->domainBaseType == InvalidOid &&
+		typentry->typtype == TYPTYPE_DOMAIN)
+	{
+		typentry->domainBaseTypmod = -1;
+		typentry->domainBaseType =
+			getBaseTypeAndTypmod(type_id, &typentry->domainBaseTypmod);
+	}
+	if ((flags & TYPECACHE_DOMAIN_CONSTR_INFO) &&
+		(typentry->flags & TCFLAGS_CHECKED_DOMAIN_CONSTRAINTS) == 0 &&
+		typentry->typtype == TYPTYPE_DOMAIN)
+	{
+		load_domaintype_info(typentry);
+	}
+
+	return typentry;
+```
 ## Detailed Description
 This function serves as the primary interface to PostgreSQL's type caching system. It retrieves cached type information for a given datatype OID, ensuring that all fields requested by the flags parameter are populated and up-to-date. The function manages a global hash table (TypeCacheHash) that stores TypeCacheEntry structures containing comprehensive metadata about each type.
 

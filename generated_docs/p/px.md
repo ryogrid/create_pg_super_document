@@ -8,7 +8,11 @@ Implements Position Crossover (PX) genetic algorithm operator for GEQO (Genetic 
 
 ## Definition
 
-
+```c
+void
+px(PlannerInfo *root, Gene *tour1, Gene *tour2, Gene *offspring, int num_gene,
+   City * city_table)
+```
 ## Detailed Description
 The px function implements the Position Crossover operator according to Syswerda's algorithm from "The Genetic Algorithms Handbook" edited by L Davis. This crossover operator is used within PostgreSQL's Genetic Query Optimization (GEQO) system to generate new query execution plans by combining elements from two parent plans.
 

@@ -8,7 +8,11 @@ Returns a ReorderBufferTXN from the reorder buffer by transaction ID (Xid), with
 
 ## Definition
 
-
+```c
+static ReorderBufferTXN *
+ReorderBufferTXNByXid(ReorderBuffer *rb, TransactionId xid, bool create,
+					  bool *is_new, XLogRecPtr lsn, bool create_as_top)
+```
 ## Detailed Description
 This function serves as the primary interface for retrieving transaction objects from the reorder buffer during logical replication. It implements a two-level lookup strategy: first checking a single-entry cache for the most recently accessed transaction, then falling back to a hash table lookup. If the create flag is set and the transaction doesn't exist, it allocates a new ReorderBufferTXN and initializes it with the provided LSN. The function also maintains the toplevel_by_lsn ordering when creating top-level transactions and updates the lookup cache for subsequent accesses.
 

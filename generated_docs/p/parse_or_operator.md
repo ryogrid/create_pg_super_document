@@ -8,7 +8,10 @@ A static function that determines whether an "OR" literal in a websearch-style t
 
 ## Definition
 
-
+```c
+static bool
+parse_or_operator(TSQueryParserState pstate)
+```
 ## Detailed Description
 The parse_or_operator function is specifically designed for websearch_to_tsquery() functionality to distinguish between the literal word "OR" and the logical OR operator. It performs several validation checks to ensure that "OR" appears as a standalone operator rather than as part of a larger word. The function checks that "OR" is followed by whitespace and eventually by another operand, and that it's not part of a compound word (containing hyphens, underscores, or alphanumeric characters immediately after "OR").
 

@@ -8,7 +8,12 @@ GetNewRelFileNumber generates a new unique relfile number for a relation within 
 
 ## Definition
 
-
+```c
+enumber assignments during a binary-upgrade run should be
+	 * determined by commands in the dump script.
+	 */
+	Assert(!IsBinaryUpgrade);
+```
 ## Detailed Description
 This function generates a unique relfile number for database relations by combining OID generation with filesystem collision detection. It handles different relation persistence types (temporary, unlogged, permanent) with appropriate backend assignments. For temporary relations, it uses a specific backend number, while permanent and unlogged relations use an invalid backend number. The function optionally ensures the generated number is also unique as an OID in pg_class when that catalog is provided. It constructs the complete file path and uses filesystem access checks to verify uniqueness, preventing file conflicts at the storage layer.
 

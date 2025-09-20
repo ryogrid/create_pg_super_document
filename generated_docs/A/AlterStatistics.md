@@ -8,7 +8,9 @@ Modifies the statistics target of an existing PostgreSQL extended statistics obj
 
 ## Definition
 
-
+```c
+structQualifiedName(stmt->defnames, &schemaname, &statname);
+```
 ## Detailed Description
 This function implements the ALTER STATISTICS SQL command, specifically handling changes to the statistics target parameter. The statistics target determines the sample size used when collecting extended statistics during ANALYZE operations - higher values provide more accurate statistics but require more storage and computation time.
 

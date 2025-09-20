@@ -8,7 +8,19 @@ Performs a lightweight check to determine whether a proposed path could potentia
 
 ## Definition
 
-
+```c
+structure that can cope with them.
+ *
+ *	  Because we don't consider parameterized paths here, we also don't
+ *	  need to consider the row counts as a measure of quality: every path will
+ *	  produce the same number of rows.  Neither do we need to consider startup
+ *	  costs: parallelism is only used for plans that will be run to completion.
+ *	  Therefore, this routine is much simpler than add_path: it needs to
+ *	  consider only pathkeys and total cost.
+ *
+ *	  As with add_path, we pfree paths that are found to be dominated by
+ *	  another partial path;
+```
 ## Detailed Description
 This function provides an optimization for the path creation process by performing a preliminary check before the expensive Path structure creation. It determines if a proposed path with given characteristics could possibly be accepted into the pathlist.
 

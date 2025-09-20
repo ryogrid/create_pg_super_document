@@ -8,7 +8,13 @@ The _aggInfo structure represents aggregate function metadata used by PostgreSQL
 
 ## Definition
 
-
+```c
+typedef struct _aggInfo
+{
+	FuncInfo	aggfn;
+	/* we don't require any other fields at the moment */
+} AggInfo;
+```
 ## Detailed Description
 The _aggInfo structure is a specialized extension of the _funcInfo structure designed specifically for aggregate functions in PostgreSQL's pg_dump utility. Currently, it serves as a simple wrapper around FuncInfo, indicating that aggregate functions are treated as a special category of functions but don't require additional metadata beyond what regular functions need. The comment suggests that this structure is designed to be extensible, allowing for aggregate-specific fields to be added in the future if needed.
 

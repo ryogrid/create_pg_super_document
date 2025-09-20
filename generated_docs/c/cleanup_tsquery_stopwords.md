@@ -8,7 +8,10 @@ Main entry point for removing stopword nodes from a TSQuery, converting between 
 
 ## Definition
 
-
+```c
+TSQuery
+cleanup_tsquery_stopwords(TSQuery in, bool noisy)
+```
 ## Detailed Description
 The `cleanup_tsquery_stopwords` function is the primary interface for removing stopwords from TSQuery structures in PostgreSQL's text search system. It orchestrates the complete cleanup process: converting the flat TSQuery representation to a tree, removing stopwords while adjusting phrase distances, and then converting back to the optimized flat representation.
 

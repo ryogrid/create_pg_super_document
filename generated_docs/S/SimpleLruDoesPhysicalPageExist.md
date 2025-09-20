@@ -8,7 +8,10 @@ Determines whether a specific SLRU page exists on disk by checking file existenc
 
 ## Definition
 
-
+```c
+bool
+SimpleLruDoesPhysicalPageExist(SlruCtl ctl, int64 pageno)
+```
 ## Detailed Description
 SimpleLruDoesPhysicalPageExist performs a physical disk check to determine if a specific SLRU page exists and is accessible. The function implements a comprehensive validation process that goes beyond simple file existence checking.
 

@@ -8,7 +8,11 @@ StoreCatalogInheritance updates the PostgreSQL system catalogs with inheritance 
 
 ## Definition
 
-
+```c
+static void
+StoreCatalogInheritance(Oid relationId, List *supers,
+						bool child_is_partition)
+```
 ## Detailed Description
 This function is responsible for recording inheritance relationships in the PostgreSQL system catalog pg_inherits. It processes only direct ancestors (immediate parents) of a relation, creating entries in the inheritance catalog for each parent-child relationship. The function handles both regular table inheritance and table partitioning scenarios.
 

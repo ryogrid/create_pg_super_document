@@ -8,7 +8,10 @@ Signal handler for SIGALRM that processes active timeout events and reschedules 
 
 ## Definition
 
-
+```c
+static void
+handle_sig_alarm(SIGNAL_ARGS)
+```
 ## Detailed Description
 This function serves as the core signal handler for PostgreSQL's timeout management system. When a SIGALRM signal is received, it processes all pending timeouts that have reached their scheduled firing time by calling their registered handler functions. The function maintains a priority queue of active timeouts sorted by firing time and processes them in chronological order. For recurring timeouts, it automatically reschedules the next occurrence, carefully handling drift by basing the next firing time on the intended rather than actual firing time (unless significantly delayed). The function operates within PostgreSQL's interrupt handling framework, using HOLD_INTERRUPTS/RESUME_INTERRUPTS to prevent recursive signal processing and ensuring thread safety.
 

@@ -8,7 +8,10 @@ A PostgreSQL backend function that creates a new large object and initializes it
 
 ## Definition
 
-
+```c
+Datum
+be_lo_from_bytea(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function creates a new large object in PostgreSQL and populates it with the complete contents of a bytea value. This function serves as a convenient way to convert regular PostgreSQL bytea data into large object storage. The function handles the entire lifecycle of large object creation: creating the object with a specified or system-generated OID, opening it for writing, writing the bytea content, and properly closing it. It includes read-only transaction protection and uses assertion checking to ensure data integrity during the write operation.
 

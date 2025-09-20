@@ -8,7 +8,10 @@ Completely destroys a PostgreSQL simplehash table, deallocating all associated m
 
 ## Definition
 
-
+```c
+SH_SCOPE void
+SH_DESTROY(SH_TYPE * tb)
+```
 ## Detailed Description
 This function provides complete cleanup and destruction of a simplehash table that was previously created with SH_CREATE. It performs a two-step deallocation process:
 

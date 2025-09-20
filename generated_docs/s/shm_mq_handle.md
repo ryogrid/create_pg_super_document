@@ -8,7 +8,23 @@ A backend-private handle structure that provides process-local access and state 
 
 ## Definition
 
-
+```c
+struct shm_mq_handle
+{
+	shm_mq	   *mqh_queue;
+	dsm_segment *mqh_segment;
+	BackgroundWorkerHandle *mqh_handle;
+	char	   *mqh_buffer;
+	Size		mqh_buflen;
+	Size		mqh_consume_pending;
+	Size		mqh_send_pending;
+	Size		mqh_partial_bytes;
+	Size		mqh_expected_bytes;
+	bool		mqh_length_word_complete;
+	bool		mqh_counterparty_attached;
+	MemoryContext mqh_context;
+};
+```
 ## Detailed Description
 The  serves as a process-local wrapper around a shared memory queue, providing essential functionality for both blocking and non-blocking operations:
 

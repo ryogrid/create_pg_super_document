@@ -8,7 +8,10 @@ The neqsel function provides selectivity estimation for inequality operators ("!
 
 ## Definition
 
-
+```c
+Datum
+neqsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The neqsel function serves as the primary entry point for selectivity estimation of inequality operations in PostgreSQL's query planner. It acts as a simple wrapper function that delegates the actual computation to eqsel_internal with the negate flag set to true. This design allows neqsel to leverage the same sophisticated estimation logic used for equality operations while applying the appropriate mathematical transformation for inequality.
 

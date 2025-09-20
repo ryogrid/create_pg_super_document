@@ -8,7 +8,11 @@ Establishes parent-child relationships for inheritance hierarchies and marks par
 
 ## Definition
 
-
+```c
+static void
+flagInhTables(Archive *fout, TableInfo *tblinfo, int numTables,
+			  InhInfo *inhinfo, int numInherits)
+```
 ## Detailed Description
 The flagInhTables function processes PostgreSQL table inheritance information to establish proper parent-child relationships within the TableInfo structures. It serves two primary purposes: first, it creates bidirectional links between child tables and their parent tables by populating the parents array in each child TableInfo; second, it marks parent tables of dumpable tables as 'interesting' so they will be processed during subsequent phases like getTableAttrs and getIndexes.
 

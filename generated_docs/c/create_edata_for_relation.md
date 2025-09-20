@@ -8,7 +8,10 @@ Creates and initializes executor state data (ApplyExecutionData) for evaluation 
 
 ## Definition
 
-
+```c
+static ApplyExecutionData *
+create_edata_for_relation(LogicalRepRelMapEntry *rel)
+```
 ## Detailed Description
 This function sets up the executor state infrastructure required for applying logical replication changes to a specific relation. It creates an ApplyExecutionData structure that encapsulates all the necessary executor state components including:
 

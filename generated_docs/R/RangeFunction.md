@@ -8,7 +8,19 @@ RangeFunction is a parse tree node that represents function calls appearing in F
 
 ## Definition
 
-
+```c
+typedef struct RangeFunction
+{
+	NodeTag		type;
+	bool		lateral;		/* does it have LATERAL prefix? */
+	bool		ordinality;		/* does it have WITH ORDINALITY suffix? */
+	bool		is_rowsfrom;	/* is result of ROWS FROM() syntax? */
+	List	   *functions;		/* per-function information, see above */
+	Alias	   *alias;			/* table alias & optional column aliases */
+	List	   *coldeflist;		/* list of ColumnDef nodes to describe result
+								 * of function returning RECORD */
+} RangeFunction;
+```
 ## Detailed Description
 RangeFunction nodes handle function calls that serve as table sources in FROM clauses. This includes simple function calls like "SELECT * FROM generate_series(1,10)" and complex ROWS FROM() constructs that can combine multiple functions. The functions list contains two-element sublists: the first element is the untransformed function call tree, and the second is a possibly-empty list of ColumnDef nodes for any columndef list attached to that specific function. The structure supports LATERAL correlation, WITH ORDINALITY for row numbering, and top-level column definitions for functions returning RECORD types.
 

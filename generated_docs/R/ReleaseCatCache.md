@@ -8,7 +8,10 @@ Decrements the reference count of a catalog cache entry, releasing the hold acqu
 
 ## Definition
 
-
+```c
+void
+ReleaseCatCache(HeapTuple tuple)
+```
 ## Detailed Description
 ReleaseCatCache is a simple wrapper function that decrements the reference count of a catalog cache entry. It delegates the actual work to ReleaseCatCacheWithOwner, passing the current resource owner. This function is called to release a reference to a cache entry that was previously obtained through SearchCatCache or related functions. When the reference count reaches zero, the cache entry becomes eligible for removal from the cache.
 

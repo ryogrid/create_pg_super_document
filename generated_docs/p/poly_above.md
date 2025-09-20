@@ -8,7 +8,10 @@ Tests whether polygon A is strictly above polygon B by ensuring there is no vert
 
 ## Definition
 
-
+```c
+Datum
+poly_above(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `poly_above` function determines if polygon A is positioned strictly above polygon B with no vertical overlap. This is accomplished by comparing the lowest y-coordinate of polygon A with the highest y-coordinate of polygon B. The function returns true only if the bottom edge of polygon A is above the top edge of polygon B.
 

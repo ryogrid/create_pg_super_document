@@ -8,7 +8,10 @@ Safely converts a collation name text input to regcollation OID, returning NULL 
 
 ## Definition
 
-
+```c
+Datum
+to_regcollation(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a safe conversion mechanism from text collation names to regcollation OID values. Unlike , which raises errors for invalid collation names,  returns NULL when a collation cannot be found or parsed.
 

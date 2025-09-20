@@ -8,7 +8,9 @@ MergeJoinClause is a typedef for a pointer to MergeJoinClauseData structure, rep
 
 ## Definition
 
-
+```c
+typedef struct MergeJoinClauseData *MergeJoinClause;
+```
 ## Detailed Description
 MergeJoinClause represents the runtime state for a single merge join clause in PostgreSQL's merge join algorithm. Each clause corresponds to an equality condition between expressions from the outer (left) and inner (right) relations. The structure maintains both the executable expression trees and cached evaluation results, along with comparison support data needed for the merge join algorithm. Multiple clauses can exist when joining on multiple columns, and they work together to establish the sort order for the merge operation.
 

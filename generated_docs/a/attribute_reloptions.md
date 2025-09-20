@@ -8,7 +8,10 @@ Parses and validates relation options specifically for table attributes (columns
 
 ## Definition
 
-
+```c
+bytea *
+attribute_reloptions(Datum reloptions, bool validate)
+```
 ## Detailed Description
 The `attribute_reloptions` function is a specialized option parser for PostgreSQL table attributes (columns) that processes column-specific options used by the query planner for optimization. It defines two key options: `n_distinct` and `n_distinct_inherited`, both of which are real-valued parameters that provide hints to the query planner about the number of distinct values in a column. These statistics override the planner's automatic estimates and can significantly impact query plan selection and performance. The function uses the standard `build_reloptions` infrastructure with RELOPT_KIND_ATTRIBUTE to ensure consistent parsing and validation of attribute-level options.
 

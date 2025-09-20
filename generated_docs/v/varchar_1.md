@@ -8,7 +8,9 @@ A struct definition used in ECPG test cases to represent variable-length charact
 
 ## Definition
 
-
+```c
+struct varchar_1  { int len; char arr[ BUFFERSIZ ]; }  name ;
+```
 ## Detailed Description
 The  struct is a fundamental data structure in PostgreSQL's ECPG (Embedded SQL in C) testing framework that implements a variable-length string type. This struct follows the classic C pattern for representing strings with explicit length information, containing both a length field and a character array buffer.
 

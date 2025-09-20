@@ -8,7 +8,10 @@ Writes binary data from a bytea value to a large object and returns the number o
 
 ## Definition
 
-
+```c
+Datum
+be_lowrite(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the backend functionality for writing data to large objects in PostgreSQL. It takes a file descriptor and a bytea containing the data to write, performs the write operation, and returns the number of bytes actually written.
 

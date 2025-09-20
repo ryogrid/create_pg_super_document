@@ -8,7 +8,10 @@ RemoveFromWaitQueue removes a process from a lock's wait queue when the process 
 
 ## Definition
 
-
+```c
+void
+RemoveFromWaitQueue(PGPROC *proc, uint32 hashcode)
+```
 ## Detailed Description
 RemoveFromWaitQueue is responsible for cleanly removing a process from a lock's wait queue when the process cannot or should not continue waiting for the lock. This typically occurs when a deadlock is detected or when a conditional lock attempt fails.
 

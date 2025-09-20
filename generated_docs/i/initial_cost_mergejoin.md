@@ -8,7 +8,15 @@ Provides a preliminary estimate of the cost of a mergejoin path, producing lower
 
 ## Definition
 
-
+```c
+void
+initial_cost_mergejoin(PlannerInfo *root, JoinCostWorkspace *workspace,
+					   JoinType jointype,
+					   List *mergeclauses,
+					   Path *outer_path, Path *inner_path,
+					   List *outersortkeys, List *innersortkeys,
+					   JoinPathExtraData *extra)
+```
 ## Detailed Description
 This function performs the first phase of merge join cost estimation in PostgreSQL's query planner. It quickly produces lower-bound estimates by:
 

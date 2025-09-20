@@ -8,7 +8,12 @@ Creates and initializes an empty PGconn data structure with default values, serv
 
 ## Definition
 
-
+```c
+structure
+ *
+ * NOTE: this should not overlap any functionality with pqClosePGconn().
+ * Clearing/resetting of transient state belongs there;
+```
 ## Detailed Description
 The  function is responsible for allocating and initializing a new  structure with sensible default values. This function creates the fundamental connection object that will later be configured and used to establish connections to PostgreSQL servers.
 

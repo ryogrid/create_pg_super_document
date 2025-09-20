@@ -8,7 +8,15 @@ Computes join selectivity for semi and anti joins, implementing specialized logi
 
 ## Definition
 
-
+```c
+struct just once. Using
+		 * FunctionCallInvoke directly also avoids failure if the eqproc
+		 * returns NULL, though really equality functions should never do
+		 * that.
+		 */
+		InitFunctionCallInfoData(*fcinfo, &eqproc, 2, collation,
+								 NULL, NULL);
+```
 ## Detailed Description
 This function estimates selectivity for semi and anti joins, which fundamentally ask "which outer relation rows have at least one match in the inner relation?" This differs from inner joins that count all matching pairs.
 

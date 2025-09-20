@@ -8,7 +8,10 @@ Converts regoperator data type to binary format for transmission or storage, use
 
 ## Definition
 
-
+```c
+Datum
+regoperatorsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a send function for the  data type in PostgreSQL. It handles the conversion of internal  values to binary format suitable for network transmission or binary storage. Since  is essentially an OID (Object Identifier), this function simply delegates to the existing  function, sharing the same binary format and conversion logic.
 

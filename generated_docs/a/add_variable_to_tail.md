@@ -8,7 +8,10 @@ Appends a new variable and its optional indicator variable at the end of an argu
 
 ## Definition
 
-
+```c
+void
+add_variable_to_tail(struct arguments **list, struct variable *var, struct variable *ind)
+```
 ## Detailed Description
 The  function adds a new entry to the end of a linked list of arguments. This function is part of PostgreSQL's ECPG preprocessor and provides an alternative insertion method to . It traverses the entire list to find the last node, then appends the new entry there, maintaining the original insertion order.
 

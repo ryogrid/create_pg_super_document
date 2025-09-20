@@ -8,7 +8,10 @@ Creates and initializes a Command structure for SQL commands after filtering out
 
 ## Definition
 
-
+```c
+structure */
+	my_command = (Command *) pg_malloc(sizeof(Command));
+```
 ## Detailed Description
 The create_sql_command function serves as a constructor for SQL Command structures in pgbench. It takes a buffer containing SQL command text and creates a fully initialized Command object ready for execution. The function first uses skip_sql_comments to remove leading whitespace and comments, returning NULL if no executable content remains. For valid SQL content, it allocates memory for a new Command structure and initializes all its fields with appropriate default values.
 

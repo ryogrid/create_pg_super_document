@@ -8,7 +8,10 @@ Builds a connection string for connecting to the subscriber (target) PostgreSQL 
 
 ## Definition
 
-
+```c
+static char *
+get_sub_conninfo(const struct CreateSubscriberOptions *opt)
+```
 ## Detailed Description
 This function constructs a PostgreSQL connection string specifically for connecting to the subscriber database server. Unlike general-purpose connection strings, it only includes a limited set of parameters that are appropriate for local connections to a server that is being set up with restricted access during the subscription creation process.
 

@@ -8,7 +8,10 @@ Initializes a JsonPathItem structure from a JsonPath object, serving as the entr
 
 ## Definition
 
-
+```c
+void
+jspInit(JsonPathItem *v, JsonPath *js)
+```
 ## Detailed Description
 This function serves as a convenient wrapper around jspInitByBuffer that initializes a JsonPathItem structure from a JsonPath object. It first validates that the JsonPath header contains a supported version (ignoring the LAX flag), then delegates to jspInitByBuffer to perform the actual initialization from the data buffer starting at offset 0. This is typically the first function called when beginning to process a compiled JSON path expression.
 

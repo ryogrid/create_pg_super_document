@@ -8,7 +8,10 @@ The  function validates that the source and target PostgreSQL clusters are compa
 
 ## Definition
 
-
+```c
+static void
+sanityChecks(void)
+```
 ## Detailed Description
 The  function performs critical pre-flight validation checks before pg_rewind begins its rewind operation. These checks ensure that the operation will be safe and successful by verifying compatibility and operational prerequisites between the source and target clusters.
 

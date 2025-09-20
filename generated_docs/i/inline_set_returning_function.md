@@ -8,7 +8,10 @@ Attempts to inline a set-returning SQL function in the FROM clause by expanding 
 
 ## Definition
 
-
+```c
+Query *
+inline_set_returning_function(PlannerInfo *root, RangeTblEntry *rte)
+```
 ## Detailed Description
 This function performs inline expansion of set-returning SQL functions that appear in range table entries (FROM clause). It analyzes whether a given function call can be safely inlined and, if so, parses and processes the function body to create a substitute Query structure that replaces the function call. The inlining process involves extensive validation to ensure the substitution is safe and semantically equivalent to the original function call.
 

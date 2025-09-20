@@ -8,7 +8,10 @@ PostgreSQL function that determines if polygon A is contained within polygon B b
 
 ## Definition
 
-
+```c
+Datum
+poly_contained(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the containment test for two polygons where the first polygon (polya) is tested to see if it is contained within the second polygon (polyb). The implementation is straightforward - it extracts both polygon arguments, switches their order, and calls the existing poly_contain_poly function to perform the actual containment logic. This approach leverages the mathematical relationship where "A contained in B" is equivalent to "B contains A". The function includes proper memory management for toasted (compressed) polygon inputs to prevent memory leaks, which is essential for rtree index operations.
 

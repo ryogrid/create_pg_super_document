@@ -8,7 +8,10 @@ Asserts that the relcache.c and storage.c modules agree on whether to skip WAL (
 
 ## Definition
 
-
+```c
+void
+AssertPendingSyncs_RelationCache(void)
+```
 ## Detailed Description
 This function serves as a debugging and consistency check mechanism that verifies WAL-skipping decisions are synchronized between the relation cache (relcache.c) and storage management (storage.c). It opens every relation that the current transaction has locked and recreates relcache entries that might have been invalidated due to inconsistent WAL-skipping states.
 

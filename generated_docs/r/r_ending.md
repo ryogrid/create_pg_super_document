@@ -8,7 +8,11 @@ A static function that identifies and removes Armenian ending suffixes from word
 
 ## Definition
 
+```c
+}
 
+static int r_ending(struct SN_env * z)
+```
 ## Detailed Description
 The  function is part of the Armenian language stemming algorithm implementation in PostgreSQL's Snowball stemmer. It identifies and removes specific Armenian ending patterns by matching against a predefined set of 57 different Armenian suffixes stored in the  array. The function operates by searching backwards from the current cursor position to find matching suffixes, and only removes them if they occur within the R2 morphological region of the word.
 

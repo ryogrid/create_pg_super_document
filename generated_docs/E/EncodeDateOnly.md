@@ -8,7 +8,10 @@ Encodes a date as a formatted string according to the specified style, supportin
 
 ## Definition
 
-
+```c
+void
+EncodeDateOnly(struct tm *tm, int style, char *str, bool EuroDates)
+```
 ## Detailed Description
 EncodeDateOnly converts a date structure (pg_tm) into a formatted string representation based on the specified style parameter. The function supports multiple date formats:
 

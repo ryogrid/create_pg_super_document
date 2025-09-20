@@ -8,7 +8,9 @@ ExplainOneUtility prints out execution plans for utility statements that have sp
 
 ## Definition
 
-
+```c
+structure\n");
+```
 ## Detailed Description
 ExplainOneUtility handles the explanation of utility statements that require special processing in PostgreSQL's EXPLAIN system. While most utility statements don't have execution plans, certain statements like CREATE TABLE AS and DECLARE CURSOR contain embedded SELECT queries that do have plans and need to be explained.
 

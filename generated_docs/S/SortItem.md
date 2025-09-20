@@ -8,7 +8,14 @@ SortItem is a structure that represents a tuple of values with their correspondi
 
 ## Definition
 
-
+```c
+typedef struct SortItem
+{
+	Datum	   *values;
+	bool	   *isnull;
+	int			count;
+} SortItem;
+```
 ## Detailed Description
 SortItem serves as a container for multi-dimensional data tuples in PostgreSQL's extended statistics processing. Each SortItem represents a unique combination of values across multiple columns along with the frequency of that combination's occurrence. This structure is central to building various types of extended statistics, including MCV (Most Common Values) lists, dependency statistics, and multi-variate distinct value calculations. The structure efficiently groups identical tuples together and tracks their occurrence count, which is essential for frequency-based statistical analysis.
 

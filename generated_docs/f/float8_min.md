@@ -8,7 +8,10 @@ Returns the smaller of two double-precision floating-point numbers, with Postgre
 
 ## Definition
 
-
+```c
+static inline float8
+float8_min(const float8 val1, const float8 val2)
+```
 ## Detailed Description
 This inline function implements the minimum operation for double-precision floating-point numbers (float8). It uses the float8_lt comparison function to determine which value is smaller and returns that value. The function inherits PostgreSQL's NaN handling behavior from float8_lt, where NaN comparisons follow specific SQL standard semantics.
 

@@ -8,7 +8,10 @@ A utility function that determines whether PostgreSQL needs to track objects bei
 
 ## Definition
 
-
+```c
+bool
+trackDroppedObjectsNeeded(void)
+```
 ## Detailed Description
 This function checks if any event triggers are registered for SQL DROP, table rewrite, or DDL command end events. It serves as an optimization mechanism to avoid the overhead of tracking dropped objects when no relevant event triggers are active. The function is essential for the event trigger system's performance, as tracking dropped objects incurs computational costs that should only be paid when necessary.
 

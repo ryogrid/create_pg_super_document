@@ -8,7 +8,15 @@ RangeSubselect is a parse tree node that represents a subquery appearing in a FR
 
 ## Definition
 
-
+```c
+typedef struct RangeSubselect
+{
+	NodeTag		type;
+	bool		lateral;		/* does it have LATERAL prefix? */
+	Node	   *subquery;		/* the untransformed sub-select clause */
+	Alias	   *alias;			/* table alias & optional column aliases */
+} RangeSubselect;
+```
 ## Detailed Description
 RangeSubselect nodes are created when a subquery is used as a table source in a FROM clause. This allows complex queries to use the results of other SELECT statements as if they were tables. The structure supports the LATERAL keyword, which enables the subquery to reference columns from preceding tables in the FROM clause, creating correlated subqueries. The subquery is stored in its untransformed state and will be processed during query analysis. Optional aliasing allows the subquery results to be referenced with a table name and/or specific column names.
 

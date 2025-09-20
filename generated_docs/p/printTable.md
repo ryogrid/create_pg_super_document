@@ -8,7 +8,11 @@ The printTable function is the main entry point for printing tabular data in var
 
 ## Definition
 
-
+```c
+void
+printTable(const printTableContent *cont,
+		   FILE *fout, bool is_pager, FILE *flog)
+```
 ## Detailed Description
 This function serves as the central dispatcher for table printing operations in PostgreSQL client tools like psql. It takes table content with formatting options and renders it according to the specified output format. The function supports multiple output formats including aligned text, unaligned text, CSV, HTML, AsciiDoc, LaTeX, and troff-ms. It intelligently manages pager usage for large outputs and can simultaneously write to both the main output and a log file when specified.
 

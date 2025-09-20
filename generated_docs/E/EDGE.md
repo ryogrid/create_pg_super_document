@@ -8,7 +8,14 @@ EDGE is a data structure used in PostgreSQL's deadlock detection system to repre
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	LOCK	   *lock;			/* the lock whose wait queue is described */
+	PGPROC	  **procs;			/* array of PGPROC *'s in new wait order */
+	int			nProcs;
+} WAIT_ORDER;
+```
 ## Detailed Description
 The EDGE structure represents a directed edge in the wait-for graph used by PostgreSQL's deadlock detection algorithm. Each edge connects two lock groups, indicating that one group is waiting for a lock held by another group. This data structure is fundamental to the deadlock detection mechanism, as it allows the system to build a graph representation of lock dependencies and identify cycles that indicate deadlocks.
 

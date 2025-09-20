@@ -8,7 +8,11 @@ A Windows-specific file copying implementation that uses the Windows CopyFile AP
 
 ## Definition
 
-
+```c
+static void
+copy_file_copyfile(const char *src, const char *dst,
+				   pg_checksum_context *checksum_ctx)
+```
 ## Detailed Description
 The `copy_file_copyfile` function is a Windows-specific implementation for copying files in the pg_combinebackup utility. It leverages the Windows CopyFile API to perform the actual file copy operation, which is typically more efficient than block-by-block copying on Windows systems. The function is conditionally compiled only on Windows platforms (controlled by `#ifdef WIN32`).
 

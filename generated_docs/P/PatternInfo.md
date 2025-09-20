@@ -8,7 +8,22 @@ PatternInfo is a structure used in PostgreSQL's pg_amcheck utility to store and 
 
 ## Definition
 
-
+```c
+typedef struct PatternInfo
+{
+	const char *pattern;		/* Unaltered pattern from the command line */
+	char	   *db_regex;		/* Database regexp parsed from pattern, or
+								 * NULL */
+	char	   *nsp_regex;		/* Schema regexp parsed from pattern, or NULL */
+	char	   *rel_regex;		/* Relation regexp parsed from pattern, or
+								 * NULL */
+	bool		heap_only;		/* true if rel_regex should only match heap
+								 * tables */
+	bool		btree_only;		/* true if rel_regex should only match btree
+								 * indexes */
+	bool		matched;		/* true if the pattern matched in any database */
+} PatternInfo;
+```
 ## Detailed Description
 The PatternInfo structure is a core component of pg_amcheck's pattern matching system. It stores both the original command-line pattern and its parsed components as regular expressions for different database object levels. The structure supports hierarchical pattern matching where a single pattern can be decomposed into database, schema, and relation components. Additionally, it includes boolean flags to restrict matching to specific object types (heap tables or btree indexes) and tracks whether the pattern successfully matched any objects during processing.
 

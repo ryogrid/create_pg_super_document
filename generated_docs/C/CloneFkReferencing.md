@@ -8,7 +8,11 @@ CloneFkReferencing handles cloning foreign key constraints where the parent rela
 
 ## Definition
 
-
+```c
+structFkConstraintRow(tuple, &numfks, conkey, confkey,
+								   conpfeqop, conppeqop, conffeqop,
+								   &numfkdelsetcols, confdelsetcols);
+```
 ## Detailed Description
 This function is a subroutine for CloneForeignKeyConstraints that manages foreign key constraints where the parent relation is on the referencing (source) side. For each FK constraint of the parent relation, it either finds an equivalent constraint in the partition that can be reparented, or creates a new constraint as a child of the parent constraint.
 

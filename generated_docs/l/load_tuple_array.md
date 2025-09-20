@@ -8,7 +8,10 @@ Fills a worker's tuple buffer array by reading tuples in non-blocking mode from 
 
 ## Definition
 
-
+```c
+static void
+load_tuple_array(GatherMergeState *gm_state, int reader)
+```
 ## Detailed Description
 This function is part of PostgreSQL's Gather Merge parallel query execution mechanism. It reads tuples from a specific worker process (identified by the reader parameter) and loads them into a pre-allocated tuple buffer array. The function operates in "nowait" mode, meaning it will not block if no tuples are immediately available.
 

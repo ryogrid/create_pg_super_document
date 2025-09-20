@@ -8,7 +8,10 @@ pg_input_is_valid is a SQL-callable function that tests whether a given string i
 
 ## Definition
 
-
+```c
+Datum
+pg_input_is_valid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a safe way to validate input strings against PostgreSQL data types without throwing errors. It takes a text string and a type name, then attempts to parse the string using the specified type's input function. Instead of raising an error on invalid input, it uses PostgreSQL's "soft error" mechanism (errsave/ereturn) to capture parsing failures and return them as boolean results.
 

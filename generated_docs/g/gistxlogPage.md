@@ -8,7 +8,13 @@ gistxlogPage is a simple header structure that describes a page and the number o
 
 ## Definition
 
-
+```c
+typedef struct gistxlogPage
+{
+	BlockNumber blkno;
+	int			num;			/* number of index tuples following */
+} gistxlogPage;
+```
 ## Detailed Description
 Despite its name suggesting a connection to WAL (Write-Ahead Logging) records, gistxlogPage is not actually part of any xlog record structure. Instead, it serves as an internal metadata header that describes a page during GiST split operations. The structure provides essential information about a block and the count of index tuples that follow in a data stream or buffer, facilitating the organization and processing of page data during complex split scenarios.
 

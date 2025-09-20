@@ -8,7 +8,10 @@ Returns the 'byval' attribute of a PostgreSQL data type, indicating whether valu
 
 ## Definition
 
-
+```c
+bool
+typeByVal(Type t)
+```
 ## Detailed Description
 The  function extracts the  attribute from a PostgreSQL type structure. This boolean attribute determines how values of the type are passed in function calls and stored in memory. When  is true, values are passed by value (copied), which is typically used for small, fixed-size types like integers. When false, values are passed by reference (pointer), which is used for variable-length or large types like text strings.
 

@@ -8,7 +8,9 @@ Internal static function that calculates the shortest distance from a Point to a
 
 ## Definition
 
-
+```c
+struct(&lseg, &path->p[iprev], &path->p[i]);
+```
 ## Detailed Description
 This function implements the core logic for computing the distance from a point to a path (polygon or open path). It iterates through all line segments that make up the path and finds the minimum distance from the point to any segment. For closed paths, it includes the closure segment connecting the last point back to the first. The algorithm constructs each segment using consecutive path points and delegates distance calculation to .
 

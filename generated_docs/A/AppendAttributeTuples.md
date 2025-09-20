@@ -8,7 +8,10 @@ Inserts attribute information from an index's tuple descriptor into the pg_attri
 
 ## Definition
 
-
+```c
+static void
+AppendAttributeTuples(Relation indexRelation, const Datum *attopts, const NullableDatum *stattargets)
+```
 ## Detailed Description
 This function completes the index creation process by inserting attribute metadata into the pg_attribute system catalog. It takes the tuple descriptor from the newly created index relation and converts each attribute into a pg_attribute tuple that gets stored in the system catalog. The function handles optional attribute-specific data including storage options (attopts) and statistics targets (stattargets). It opens the pg_attribute relation with proper locking, prepares the catalog indexes for insertion, and uses InsertPgAttributeTuples to perform the actual insertion. This step is crucial because it makes the index attributes visible to PostgreSQL's metadata queries and ensures the index is properly integrated into the system catalog structure.
 

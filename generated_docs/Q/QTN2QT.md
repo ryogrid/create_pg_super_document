@@ -8,7 +8,10 @@ Converts a QTNode tree representation into a flat TSQuery structure for efficien
 
 ## Definition
 
-
+```c
+TSQuery
+QTN2QT(QTNode *in)
+```
 ## Detailed Description
 QTN2QT transforms a tree-based query representation (QTNode) into a flattened TSQuery format. This conversion is essential for tsquery operations as it creates the compact binary representation used throughout PostgreSQL's text search system. The function performs size calculations, validates query limits, allocates memory for the result, and then fills the flat structure using a state-based approach.
 

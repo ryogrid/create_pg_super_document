@@ -8,7 +8,11 @@ A public interface function for sending generic SQL queries and commands to a da
 
 ## Definition
 
-
+```c
+static WalRcvExecResult *
+libpqrcv_exec(WalReceiverConn *conn, const char *query,
+			  const int nRetTypes, const Oid *retTypes)
+```
 ## Detailed Description
 The  function provides a unified interface for executing SQL queries and commands through a WAL receiver connection. It validates that the calling process is connected to a database, executes the query using the underlying libpq connection, and processes the results into a standardized  structure. The function handles various PostgreSQL result types including tuples, copy operations, and command results, converting them into appropriate WAL receiver status codes. It also captures and processes error information including SQL state codes for failed queries.
 

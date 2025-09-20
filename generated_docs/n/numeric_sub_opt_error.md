@@ -8,7 +8,10 @@ Internal PostgreSQL function that performs numeric subtraction with optional err
 
 ## Definition
 
-
+```c
+Numeric
+numeric_sub_opt_error(Numeric num1, Numeric num2, bool *have_error)
+```
 ## Detailed Description
 The  function is the internal implementation of numeric subtraction in PostgreSQL. Unlike the public  function, this version provides optional error handling through the  parameter, allowing callers to handle arithmetic errors gracefully without throwing exceptions.
 

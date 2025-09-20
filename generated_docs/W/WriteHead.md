@@ -8,7 +8,9 @@ Writes the file header for a custom-format archive in pg_dump, containing magic 
 
 ## Definition
 
-
+```c
+struct tm	crtm;
+```
 ## Detailed Description
 This function creates the standard header for PostgreSQL custom-format archive files. The header contains critical metadata needed for archive identification and proper restoration:
 

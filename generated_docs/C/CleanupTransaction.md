@@ -8,7 +8,10 @@ CleanupTransaction performs the final cleanup phase after a transaction abort, r
 
 ## Definition
 
-
+```c
+static void
+CleanupTransaction(void)
+```
 ## Detailed Description
 CleanupTransaction is the final step in the transaction abort process, called after AbortTransaction() has performed the main abort processing. It handles the cleanup operations that can only be safely performed after the transaction has been fully aborted and all critical resources have been released.
 

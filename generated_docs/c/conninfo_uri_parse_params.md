@@ -8,7 +8,12 @@ Parses query parameters from a PostgreSQL connection URI and stores them as conn
 
 ## Definition
 
-
+```c
+static bool
+conninfo_uri_parse_params(char *params,
+						  PQconninfoOption *connOptions,
+						  PQExpBuffer errorMessage)
+```
 ## Detailed Description
 This function processes the query parameter portion of a PostgreSQL connection URI (the part after the '?' character). It handles key-value pairs separated by '&' characters and performs the following operations:
 

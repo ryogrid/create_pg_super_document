@@ -8,7 +8,10 @@ Performs a binary search to determine if a given word exists in a sorted StopLis
 
 ## Definition
 
-
+```c
+bool
+searchstoplist(StopList *s, char *key)
+```
 ## Detailed Description
 This function efficiently searches for a word in a StopList using binary search algorithm. It leverages the fact that the StopList array was sorted during initialization by  to perform O(log n) lookups. The function performs safety checks to ensure the StopList is valid (non-NULL stop array and positive length) before attempting the search.
 

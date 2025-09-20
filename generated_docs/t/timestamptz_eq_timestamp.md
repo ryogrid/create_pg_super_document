@@ -8,7 +8,10 @@ A PostgreSQL function that tests equality between a timestamptz (with timezone) 
 
 ## Definition
 
-
+```c
+Datum
+timestamptz_eq_timestamp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL-callable wrapper for testing equality between timestamptz and timestamp values. It extracts both arguments from the PostgreSQL function call context and uses the internal comparison function  to determine if the values are equal. The function returns true if the comparison result is zero (indicating equality), false otherwise.
 

@@ -8,7 +8,9 @@ Sets a value at a specified path in a JSONB structure, with optional creation of
 
 ## Definition
 
-
+```c
+struct_array_builtin(path, TEXTOID, &path_elems, &path_nulls, &path_len);
+```
 ## Detailed Description
 The  function is a SQL-callable function that sets a value at a specified path within a JSONB structure. It accepts a path array specifying the location where to set the value, a new JSONB value to set, and a boolean flag indicating whether to create missing path components. The function traverses the JSONB structure using the provided path and either replaces an existing value or creates new path elements as needed.
 

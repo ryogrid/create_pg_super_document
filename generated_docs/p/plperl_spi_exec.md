@@ -8,7 +8,10 @@ Executes an SQL query from within PL/Perl and returns the results as a Perl hash
 
 ## Definition
 
-
+```c
+HV *
+plperl_spi_exec(char *query, int limit)
+```
 ## Detailed Description
 This function provides the core SQL execution capability for PL/Perl functions. It wraps the PostgreSQL SPI_execute() call within a sub-transaction to provide proper error handling and cleanup. The function:
 1. Creates an internal sub-transaction for safe execution

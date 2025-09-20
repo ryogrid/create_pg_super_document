@@ -8,7 +8,15 @@ A structure that stores the resolved actual types for PostgreSQL's polymorphic p
 
 ## Definition
 
-
+```c
+typedef struct polymorphic_actuals
+{
+	Oid			anyelement_type;	/* anyelement mapping, if known */
+	Oid			anyarray_type;	/* anyarray mapping, if known */
+	Oid			anyrange_type;	/* anyrange mapping, if known */
+	Oid			anymultirange_type; /* anymultirange mapping, if known */
+} polymorphic_actuals;
+```
 ## Detailed Description
 The  structure is a fundamental data type used in PostgreSQL's function manager (fmgr) system for resolving polymorphic pseudo-types. PostgreSQL supports several polymorphic pseudo-types (anyelement, anyarray, anyrange, anymultirange) that allow functions to work with multiple data types. This structure stores the actual resolved OIDs (Object Identifiers) for these pseudo-types during function call resolution.
 

@@ -8,7 +8,19 @@ RegisteredBgWorker is an internal structure used by the PostgreSQL postmaster to
 
 ## Definition
 
-
+```c
+typedef struct RegisteredBgWorker
+{
+	BackgroundWorker rw_worker; /* its registry entry */
+	struct bkend *rw_backend;	/* its BackendList entry, or NULL */
+	pid_t		rw_pid;			/* 0 if not running */
+	int			rw_child_slot;
+	TimestampTz rw_crashed_at;	/* if not 0, time it last crashed */
+	int			rw_shmem_slot;
+	bool		rw_terminate;
+	slist_node	rw_lnode;		/* list link */
+} RegisteredBgWorker;
+```
 ## Detailed Description
 RegisteredBgWorker serves as the postmaster's internal representation of a background worker process. It extends the basic BackgroundWorker structure with additional runtime state information needed for process management, monitoring, and recovery. This structure is private to the postmaster and maintains the complete lifecycle state of each background worker from registration through termination.
 

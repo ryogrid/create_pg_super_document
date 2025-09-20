@@ -8,7 +8,10 @@ Retrieves the appropriate default ACL for newly created objects within a given s
 
 ## Definition
 
-
+```c
+Acl *
+get_user_default_acl(ObjectType objtype, Oid ownerId, Oid nsp_oid)
+```
 ## Detailed Description
 This function implements PostgreSQL's default privilege system by determining the appropriate default ACL for new objects. It supports a two-tier privilege hierarchy: global defaults (applying to all schemas) and schema-specific defaults. The function first maps the object type to the corresponding pg_default_acl encoding, then retrieves both global and schema-specific ACL entries using get_default_acl_internal().
 

@@ -8,7 +8,15 @@
 
 ## Definition
 
-
+```c
+structure for collecting qual clauses that match an index */
+typedef struct
+{
+	bool		nonempty;		/* True if lists are not all empty */
+	/* Lists of IndexClause nodes, one list per index column */
+	List	   *indexclauses[INDEX_MAX_KEYS];
+} IndexClauseSet;
+```
 ## Detailed Description
 This enumeration is used in PostgreSQL's query optimizer to control which type of index scan paths should be considered when building query execution plans. It acts as a directive to the path generation functions, indicating the scanning capabilities required from the index access method:
 

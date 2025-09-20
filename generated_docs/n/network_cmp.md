@@ -8,7 +8,10 @@ PostgreSQL built-in function wrapper that provides comparison functionality for 
 
 ## Definition
 
-
+```c
+Datum
+network_cmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the PostgreSQL built-in function interface for comparing network addresses (inet and cidr types). It acts as a thin wrapper around , handling the PostgreSQL function calling conventions by extracting arguments from the function call context and returning results in the expected Datum format.
 

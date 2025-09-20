@@ -8,7 +8,58 @@ Creates a new function/procedure in the PostgreSQL catalog (pg_proc table) or re
 
 ## Definition
 
+```c
+struct array inputs */
+	if (allParameterTypes != PointerGetDatum(NULL))
+	{
+		/*
+		 * We expect the array to be a 1-D OID array; verify that. We don't
+		 * need to use deconstruct_array() since the array data is just going
+		 * to look like a C array of OID values.
+		 */
+		ArrayType  *allParamArray = (ArrayType *) DatumGetPointer(allParameterTypes);
 
+		allParamCount = ARR_DIMS(allParamArray)[0];
+		if (ARR_NDIM(allParamArray) != 1 ||
+			allParamCount <= 0 ||
+			ARR_HASNULL(allParamArray) ||
+			ARR_ELEMTYPE(allParamArray) != OIDOID)
+			elog(ERROR, "allParameterTypes is not a 1-D Oid array");
+		allParams = (Oid *) ARR_DATA_PTR(allParamArray);
+		Assert(allParamCount >= parameterCount);
+		/* we assume caller got the contents right */
+	}
+	else
+	{
+		allParamCount = parameterCount;
+		allParams = parameterTypes->values;
+	}
+
+	if (parameterModes != PointerGetDatum(NULL))
+	{
+		/*
+		 * We expect the array to be a 1-D CHAR array; verify that. We don't
+		 * need to use deconstruct_array() since the array data is just going
+		 * to look like a C array of char values.
+		 */
+		ArrayType  *modesArray = (ArrayType *) DatumGetPointer(parameterModes);
+
+		if (ARR_NDIM(modesArray) != 1 ||
+			ARR_DIMS(modesArray)[0] != allParamCount ||
+			ARR_HASNULL(modesArray) ||
+			ARR_ELEMTYPE(modesArray) != CHAROID)
+			elog(ERROR, "parameterModes is not a 1-D char array");
+		paramModes = (char *) ARR_DATA_PTR(modesArray);
+	}
+
+	/*
+	 * Do not allow polymorphic return type unless there is a polymorphic
+	 * input argument that we can use to deduce the actual return type.
+	 */
+	detailmsg = check_valid_polymorphic_signature(returnType,
+												  parameterTypes->values,
+												  parameterCount);
+```
 ## Detailed Description
 ProcedureCreate is the core function responsible for creating or updating function/procedure definitions in PostgreSQL's system catalog. It performs extensive validation of parameters, handles polymorphic and internal types, manages dependencies, validates function signatures, and maintains proper ACL permissions.
 

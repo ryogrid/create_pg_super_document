@@ -8,7 +8,11 @@ Converts a single indexqual clause to the form needed by PostgreSQL's executor, 
 
 ## Definition
 
-
+```c
+static Node *
+fix_indexqual_clause(PlannerInfo *root, IndexOptInfo *index, int indexcol,
+					 Node *clause, List *indexcolnos)
+```
 ## Detailed Description
 This function performs the core transformation logic for individual index qualification clauses, preparing them for execution. It operates in two main phases:
 

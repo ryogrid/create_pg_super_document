@@ -8,7 +8,9 @@ Executes PostgreSQL SET statements, handling various types of variable assignmen
 
 ## Definition
 
-
+```c
+struct config_generic *record;
+```
 ## Detailed Description
 This function is the main executor for SET command statements in PostgreSQL. It handles different kinds of variable setting operations based on the VariableSetStmt's kind field:
 

@@ -8,7 +8,10 @@ This internal PostgreSQL function performs equality comparison between two range
 
 ## Definition
 
-
+```c
+bool
+range_eq_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2)
+```
 ## Detailed Description
 The  function is the core implementation for range equality comparison in PostgreSQL. It performs a comprehensive comparison of two range values by first validating that they are of the same range type, then deserializing both ranges to extract their bounds and empty status. The function implements equality semantics where two ranges are equal if: (1) both are empty ranges, or (2) both are non-empty ranges with identical lower and upper bounds (including boundary inclusiveness/exclusiveness). The comparison uses type-specific comparison functions through the type cache system to handle different element types properly.
 

@@ -8,7 +8,11 @@ A helper function for expand_array() that efficiently copies the deconstructed r
 
 ## Definition
 
-
+```c
+structed representation */
+	eah->dvalues = (Datum *) MemoryContextAlloc(objcxt,
+												dvalueslen * sizeof(Datum));
+```
 ## Detailed Description
 This static helper function is specifically designed to optimize the copying of expanded arrays when elements are pass-by-value types and a deconstructed Datum-array representation already exists. Rather than reconstructing the array from a flat representation, it directly copies the metadata and Datum/isnull arrays from the source expanded array to the destination.
 

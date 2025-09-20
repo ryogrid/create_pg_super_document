@@ -8,7 +8,14 @@ XLogInsertRecord is the core function responsible for inserting pre-constructed 
 
 ## Definition
 
-
+```c
+XLogRecPtr
+XLogInsertRecord(XLogRecData *rdata,
+				 XLogRecPtr fpw_lsn,
+				 uint8 flags,
+				 int num_fpi,
+				 bool topxid_included)
+```
 ## Detailed Description
 XLogInsertRecord is a low-level routine that inserts an XLOG record represented by a chain of pre-constructed data chunks into the WAL. This function implements a sophisticated two-step process: first reserving space in the WAL buffer, then copying the record data to that reserved space. It handles three different insertion classes: normal records, XLOG_SWITCH records (which require exclusive access), and checkpoint redo records. The function includes critical safety checks for full-page writes, manages WAL insertion locks to coordinate concurrent insertions, and updates various global state variables upon successful insertion.
 

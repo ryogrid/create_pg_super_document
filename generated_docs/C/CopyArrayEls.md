@@ -8,7 +8,17 @@ Copies data into an array object from a temporary array of Datums, handling null
 
 ## Definition
 
-
+```c
+void
+CopyArrayEls(ArrayType *array,
+			 Datum *values,
+			 bool *nulls,
+			 int nitems,
+			 int typlen,
+			 bool typbyval,
+			 char typalign,
+			 bool freedata)
+```
 ## Detailed Description
 CopyArrayEls is a core utility function in PostgreSQL's array handling system that efficiently copies element data from temporary Datum arrays into the final ArrayType structure. The function manages both the data portion and the null bitmap of the array, properly aligning data elements according to their type requirements. It handles memory management by optionally freeing pass-by-reference data after copying, which is crucial for preventing memory leaks during array construction.
 

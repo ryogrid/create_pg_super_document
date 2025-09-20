@@ -8,7 +8,10 @@ Returns the partition constraint as a plain C-string for the specified partition
 
 ## Definition
 
-
+```c
+char *
+pg_get_partconstrdef_string(Oid partitionId, char *aliasname)
+```
 ## Detailed Description
 This function provides a simplified interface to retrieve partition constraint definitions as unformatted C-strings. Unlike , this function is designed for internal use and returns a plain string without pretty-printing or indentation. It allows specifying a custom alias name for the relation, which is useful when the constraint needs to be referenced in a different context (such as in subqueries or joins). The function is commonly used in scenarios where the constraint definition needs to be embedded in larger SQL constructs or when performance is more important than readability.
 

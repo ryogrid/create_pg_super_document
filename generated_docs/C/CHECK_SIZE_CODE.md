@@ -8,7 +8,19 @@ A macro that ensures sufficient buffer space for code formatting operations in t
 
 ## Definition
 
-
+```c
+#define CHECK_SIZE_CODE(desired_size) \
+	if (e_code + (desired_size) >= l_code) { \
+	    int nsize = l_code-s_code + 400 + desired_size; \
+	    int code_len = e_code-s_code; \
+	    codebuf = (char *) realloc(codebuf, nsize); \
+	    if (codebuf == NULL) \
+		err(1, NULL); \
+	    e_code = codebuf + code_len + 1; \
+	    l_code = codebuf + nsize - 5; \
+	    s_code = codebuf + 1; \
+	}
+```
 ## Detailed Description
 This macro is a critical memory management utility used throughout the pg_bsd_indent tool to prevent buffer overflows when formatting C code. It checks if the current position in the code buffer () plus the desired additional space would exceed the buffer limit (). If so, it automatically reallocates the  with additional space (400 bytes plus the requested size) and updates all related pointers accordingly.
 

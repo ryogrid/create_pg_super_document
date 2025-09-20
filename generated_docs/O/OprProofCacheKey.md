@@ -8,7 +8,13 @@ OprProofCacheKey is a structure that serves as the hash table key for caching B-
 
 ## Definition
 
-
+```c
+typedef struct OprProofCacheKey
+{
+	Oid			pred_op;		/* predicate operator */
+	Oid			clause_op;		/* clause operator */
+} OprProofCacheKey;
+```
 ## Detailed Description
 OprProofCacheKey is used as the lookup key in a hash table that caches the results of B-tree proof operator lookups in PostgreSQL's optimizer. The predicate testing system needs to determine relationships between operators (such as whether one operator implies or refutes another) by examining the B-tree operator families in the system catalogs. Since these lookups are expensive and the relationships don't change during a session (unless pg_amop is modified), this caching mechanism significantly improves performance.
 

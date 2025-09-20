@@ -8,7 +8,10 @@ Calculates a checksum for a source file by reading it in chunks and updating a p
 
 ## Definition
 
-
+```c
+static void
+checksum_file(const char *src, pg_checksum_context *checksum_ctx)
+```
 ## Detailed Description
 The `checksum_file` function is a static utility that computes checksums for files as part of PostgreSQL's backup combination process. It reads the source file in 50-block chunks (50 * BLCKSZ) and incrementally updates the provided checksum context. The function includes an early return optimization if no checksum is needed (CHECKSUM_TYPE_NONE). This function is designed to work with PostgreSQL's checksum framework and supports various checksum algorithms through the `pg_checksum_context` abstraction.
 

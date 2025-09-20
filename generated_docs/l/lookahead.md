@@ -8,7 +8,10 @@ Provides look-ahead capability for reading input characters beyond the current b
 
 ## Definition
 
-
+```c
+int
+lookahead(void)
+```
 ## Detailed Description
 The lookahead function enables reading characters from the input stream ahead of the current position in the main input buffer. It maintains a separate lookahead buffer that can be read multiple times and reset as needed. This is essential for parsing decisions that require examining upcoming tokens without committing to consuming them.
 

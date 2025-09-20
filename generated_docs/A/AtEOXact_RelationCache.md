@@ -8,7 +8,10 @@ Cleans up the relation cache at main-transaction commit or abort, handling speci
 
 ## Definition
 
-
+```c
+void
+AtEOXact_RelationCache(bool isCommit)
+```
 ## Detailed Description
 This function is called during transaction termination (either commit or abort) to perform necessary cleanup of the relation cache. It serves multiple critical purposes:
 

@@ -8,7 +8,16 @@ The smalldfa struct is a stack-allocated, fixed-size variant of the DFA structur
 
 ## Definition
 
-
+```c
+struct smalldfa
+{
+	struct dfa	dfa;			/* must be first */
+	struct sset ssets[FEWSTATES * 2];
+	unsigned	statesarea[FEWSTATES * 2 + WORK];
+	struct sset *outsarea[FEWSTATES * 2 * FEWCOLORS];
+	struct arcp incarea[FEWSTATES * 2 * FEWCOLORS];
+};
+```
 ## Detailed Description
 The smalldfa structure is a performance optimization for PostgreSQL's regular expression engine that embeds all necessary DFA components in a single stack-allocatable structure. It contains a base dfa struct followed by pre-allocated arrays for state sets, bitvector storage, outgoing arcs, and incoming arcs. This design eliminates dynamic memory allocation overhead for simple regular expressions that fit within the predefined size limits (FEWSTATES and FEWCOLORS), providing faster initialization and cleanup.
 

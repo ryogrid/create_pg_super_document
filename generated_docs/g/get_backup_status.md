@@ -8,7 +8,10 @@ Returns the current session-level backup state to indicate whether a backup is c
 
 ## Definition
 
-
+```c
+SessionBackupState
+get_backup_status(void)
+```
 ## Detailed Description
 This simple utility function provides access to the current session's backup state by returning the value of the global  variable. The function serves as a clean interface for checking whether the current session has an active backup operation in progress.
 

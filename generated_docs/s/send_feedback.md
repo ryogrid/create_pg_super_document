@@ -8,7 +8,10 @@ send_feedback sends a Standby Status Update message to the publisher to communic
 
 ## Definition
 
-
+```c
+static void
+send_feedback(XLogRecPtr recvpos, bool force, bool requestReply)
+```
 ## Detailed Description
 This function constructs and sends a replication protocol feedback message ('r' message type) to inform the publisher about the logical replication worker's current progress. It tracks the latest LSN positions for received, written, flushed, and applied data. The function implements intelligent throttling by only sending feedback when necessary (based on time intervals or forced sends) and maintains static variables to track the last reported positions. It communicates three key LSN positions: write (latest received), flush (latest flushed to disk), and apply (latest applied), along with timestamps and reply request flags.
 

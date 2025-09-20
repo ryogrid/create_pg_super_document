@@ -8,7 +8,9 @@
 
 ## Definition
 
-
+```c
+struct varchar_2  { int len; char arr[ BUFFERSIZ ]; }  name ;
+```
 ## Detailed Description
  is a test structure defined in the ECPG preprocessor test files. It represents a variable-length character string data type commonly used in ECPG applications. The structure follows the typical PostgreSQL varchar pattern where the actual string length is stored separately from the character buffer, allowing for efficient string operations and memory management within the ECPG framework.
 

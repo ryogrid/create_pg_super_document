@@ -8,7 +8,10 @@ Handles execution of PL/Perl event trigger functions by setting up the execution
 
 ## Definition
 
-
+```c
+static void
+plperl_event_trigger_handler(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the main entry point for executing PL/Perl event trigger functions. It establishes an SPI connection, compiles or retrieves the function descriptor, sets up error handling context, activates the appropriate Perl interpreter, builds event trigger arguments, and calls the actual Perl function. The function manages the complete lifecycle of event trigger execution including proper cleanup and error handling.
 

@@ -8,7 +8,11 @@ Performs the actual tree traversal and node substitution to replace Param nodes 
 
 ## Definition
 
-
+```c
+static Node *
+substitute_actual_parameters_mutator(Node *node,
+									 substitute_actual_parameters_context *context)
+```
 ## Detailed Description
 This function implements the core logic for parameter substitution during SQL function inlining. It uses the expression_tree_mutator framework to traverse the expression tree and replace each Param node (representing function parameters like $1, $2, etc.) with the corresponding actual argument expression from the function call.
 

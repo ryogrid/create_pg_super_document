@@ -8,7 +8,10 @@ Clears specified visibility map bits for a single heap page, marking the page as
 
 ## Definition
 
-
+```c
+bool
+visibilitymap_clear(Relation rel, BlockNumber heapBlk, Buffer vmbuf, uint8 flags)
+```
 ## Detailed Description
 The visibilitymap_clear function removes visibility map bits for a given heap block. It operates on a pre-pinned visibility map buffer and clears the bits specified by the flags parameter. The function performs an exclusive lock on the buffer during the operation and marks the buffer as dirty if any bits were actually cleared. This function is critical for maintaining consistency between the heap and its visibility map during DML operations.
 

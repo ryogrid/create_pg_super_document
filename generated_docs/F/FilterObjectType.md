@@ -8,7 +8,23 @@ An enumeration that defines the types of database objects that can be specified 
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	FILTER_OBJECT_TYPE_NONE,
+	FILTER_OBJECT_TYPE_TABLE_DATA,
+	FILTER_OBJECT_TYPE_TABLE_DATA_AND_CHILDREN,
+	FILTER_OBJECT_TYPE_DATABASE,
+	FILTER_OBJECT_TYPE_EXTENSION,
+	FILTER_OBJECT_TYPE_FOREIGN_DATA,
+	FILTER_OBJECT_TYPE_FUNCTION,
+	FILTER_OBJECT_TYPE_INDEX,
+	FILTER_OBJECT_TYPE_SCHEMA,
+	FILTER_OBJECT_TYPE_TABLE,
+	FILTER_OBJECT_TYPE_TABLE_AND_CHILDREN,
+	FILTER_OBJECT_TYPE_TRIGGER,
+} FilterObjectType;
+```
 ## Detailed Description
 FilterObjectType is an enumeration used by PostgreSQL's backup and restore utilities to categorize different types of database objects that can be filtered during dump and restore operations. Each enum value corresponds to a specific object type that can be included or excluded through filter files. The enum is primarily used in conjunction with FilterCommandType to specify whether objects of a particular type should be included or excluded from backup/restore operations.
 

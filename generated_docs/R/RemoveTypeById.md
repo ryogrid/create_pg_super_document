@@ -8,7 +8,9 @@ RemoveTypeById is the core function that handles the physical deletion of a type
 
 ## Definition
 
-
+```c
+enum, delete the pg_enum entries too;
+```
 ## Detailed Description
 RemoveTypeById performs the actual removal of a type entry from the pg_type system catalog. This is a low-level function called by the dependency system after all dependency checks have been performed. The function handles the physical deletion of the type tuple and performs specialized cleanup for certain type categories:
 

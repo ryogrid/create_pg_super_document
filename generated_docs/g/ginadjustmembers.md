@@ -8,7 +8,13 @@ Prechecking function that adjusts dependency settings for operators and support 
 
 ## Definition
 
-
+```c
+void
+ginadjustmembers(Oid opfamilyoid,
+				 Oid opclassoid,
+				 List *operators,
+				 List *functions)
+```
 ## Detailed Description
 The `ginadjustmembers` function configures dependency settings for operators and support functions being added to a GIN operator family. It establishes appropriate dependency relationships based on GIN-specific requirements:
 

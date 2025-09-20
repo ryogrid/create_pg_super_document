@@ -8,7 +8,10 @@ Converts a compression method name string to its corresponding compression metho
 
 ## Definition
 
-
+```c
+char
+CompressionNameToMethod(const char *compression)
+```
 ## Detailed Description
 This function maps string names of compression methods to their internal numeric identifiers. It currently supports two built-in compression methods: "pglz" (PostgreSQL's native LZ compression) and "lz4" (LZ4 compression). The function performs string comparisons to identify the requested compression method. For LZ4, it includes conditional compilation checks to ensure LZ4 support is available. If the provided compression name is not recognized, it returns InvalidCompressionMethod.
 

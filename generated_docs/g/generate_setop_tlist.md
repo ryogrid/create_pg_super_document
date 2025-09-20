@@ -8,7 +8,16 @@ Generates a targetlist for a set-operation plan node (UNION/INTERSECT/EXCEPT), c
 
 ## Definition
 
-
+```c
+static List *
+generate_setop_tlist(List *colTypes, List *colCollations,
+					 int flag,
+					 Index varno,
+					 bool hack_constants,
+					 List *input_tlist,
+					 List *refnames_tlist,
+					 bool *trivial_tlist)
+```
 ## Detailed Description
 This function constructs a targetlist for set-operation plan nodes by creating TargetEntry nodes that reference input columns with appropriate data type coercions and collation handling. It ensures that the output columns have the correct datatypes and collations as determined by the set-operation analysis. The function also handles a special case where constants from the input targetlist can be copied directly rather than referenced as subquery outputs, which is important for proper handling of UNKNOWN constants during type coercion.
 

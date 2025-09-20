@@ -8,7 +8,10 @@ Performs a logical AND operation on two bit strings of equal length, returning a
 
 ## Definition
 
-
+```c
+Datum
+bit_and(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `bit_and` function implements bitwise logical AND operation between two variable-length bit strings (`VarBit`). The function requires both input bit strings to have exactly the same length, otherwise it raises an error. The operation is performed byte-by-byte on the underlying bit data, where each bit in the result is set to 1 only if the corresponding bits in both input strings are 1. The result maintains the same bit length as the input strings.
 

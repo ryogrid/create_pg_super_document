@@ -8,7 +8,10 @@ A static utility function that reads a specified number of bytes from a reconstr
 
 ## Definition
 
-
+```c
+static void
+read_bytes(rfile *rf, void *buffer, unsigned length)
+```
 ## Detailed Description
 The  function is a wrapper around the standard  system call that ensures exactly the requested number of bytes are read from the file. It provides robust error handling by checking if the actual number of bytes read matches the expected length. If there's a mismatch, it terminates the program with a detailed error message indicating either a system error (if  returned -1) or a partial read scenario.
 

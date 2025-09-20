@@ -8,7 +8,9 @@ Provides filename completion functionality for psql tab completion, handling pro
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function wraps rl_filename_completion_function() to handle filename completion with proper quoting for psql commands. It strips quotes from input before searching for matches and re-quotes results as needed based on the consuming command's requirements. The function supports two different implementation paths: one using readline's filename quoting hooks (when available) and a fallback implementation that manually handles quoting/unquoting.
 

@@ -8,7 +8,13 @@ PGEventResultCreate is a structure that contains event information passed to eve
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	const PGresult *src;
+	PGresult   *dest;
+} PGEventResultCopy;
+```
 ## Detailed Description
 PGEventResultCreate is used as the event information structure when the libpq event system fires a PGEVT_RESULTCREATE event. This event occurs when a new PGresult object is created, typically after executing a query or command. The structure provides event callbacks with access to both the connection object that generated the result and the newly created result object itself. This allows callbacks to perform initialization operations on the result, attach additional data, or perform tracking operations for result lifecycle management.
 

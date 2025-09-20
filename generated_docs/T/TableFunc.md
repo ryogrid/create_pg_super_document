@@ -8,7 +8,46 @@ TableFunc represents table functions such as XMLTABLE and JSON_TABLE, providing 
 
 ## Definition
 
-
+```c
+typedef struct TableFunc
+{
+	NodeTag		type;
+	/* XMLTABLE or JSON_TABLE */
+	TableFuncType functype;
+	/* list of namespace URI expressions */
+	List	   *ns_uris pg_node_attr(query_jumble_ignore);
+	/* list of namespace names or NULL */
+	List	   *ns_names pg_node_attr(query_jumble_ignore);
+	/* input document expression */
+	Node	   *docexpr;
+	/* row filter expression */
+	Node	   *rowexpr;
+	/* column names (list of String) */
+	List	   *colnames pg_node_attr(query_jumble_ignore);
+	/* OID list of column type OIDs */
+	List	   *coltypes pg_node_attr(query_jumble_ignore);
+	/* integer list of column typmods */
+	List	   *coltypmods pg_node_attr(query_jumble_ignore);
+	/* OID list of column collation OIDs */
+	List	   *colcollations pg_node_attr(query_jumble_ignore);
+	/* list of column filter expressions */
+	List	   *colexprs;
+	/* list of column default expressions */
+	List	   *coldefexprs pg_node_attr(query_jumble_ignore);
+	/* JSON_TABLE: list of column value expressions */
+	List	   *colvalexprs pg_node_attr(query_jumble_ignore);
+	/* JSON_TABLE: list of PASSING argument expressions */
+	List	   *passingvalexprs pg_node_attr(query_jumble_ignore);
+	/* nullability flag for each output column */
+	Bitmapset  *notnulls pg_node_attr(query_jumble_ignore);
+	/* JSON_TABLE plan */
+	Node	   *plan pg_node_attr(query_jumble_ignore);
+	/* counts from 0; -1 if none specified */
+	int			ordinalitycol pg_node_attr(query_jumble_ignore);
+	/* token location, or -1 if unknown */
+	ParseLoc	location;
+} TableFunc;
+```
 ## Detailed Description
 TableFunc is a comprehensive node structure designed to represent table functions that transform structured documents (XML or JSON) into relational tabular form. It serves as the foundation for XMLTABLE and JSON_TABLE functionality in PostgreSQL, providing a rich set of capabilities for document processing.
 

@@ -8,7 +8,10 @@ Implements the \l, \list psql commands and the -l command-line switch to display
 
 ## Definition
 
-
+```c
+bool
+listAllDbs(const char *pattern, bool verbose)
+```
 ## Detailed Description
 This function constructs and executes a SQL query against system catalogs to retrieve detailed information about all databases in the PostgreSQL cluster. It displays essential database properties including name, owner, encoding, locale settings, access privileges, and optionally size and tablespace information.
 

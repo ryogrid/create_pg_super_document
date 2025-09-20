@@ -8,7 +8,10 @@ A static helper function that safely appends text strings to error reports being
 
 ## Definition
 
-
+```c
+static void
+err_sendstring(StringInfo buf, const char *str)
+```
 ## Detailed Description
 This function serves as a wrapper around PostgreSQL's string sending functionality for error reporting. It provides a critical safety mechanism for error handling by detecting error recursion scenarios and switching to ASCII-only string transmission when necessary. During normal operation, it delegates to  for full encoding conversion support. However, when the system detects it's in error recursion trouble (potentially due to encoding conversion failures), it falls back to  to avoid further encoding-related errors. This design ensures that error messages can still be transmitted to clients even when the encoding conversion subsystem itself has failed.
 

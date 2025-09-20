@@ -8,7 +8,11 @@ DoesMultiXactIdConflict determines whether a given multixact conflicts with the 
 
 ## Definition
 
-
+```c
+static bool
+DoesMultiXactIdConflict(MultiXactId multi, uint16 infomask,
+						LockTupleMode lockmode, bool *current_is_member)
+```
 ## Detailed Description
 This function analyzes a multixact ID to determine if any of its member transactions would conflict with the current transaction's attempt to lock a tuple. It examines each member transaction in the multixact, checking their lock modes against the desired lock mode. The function implements PostgreSQL's tuple-level locking conflict resolution by:
 

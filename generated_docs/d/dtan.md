@@ -8,7 +8,10 @@ A PostgreSQL function that calculates the tangent of a given floating-point numb
 
 ## Definition
 
-
+```c
+Datum
+dtan(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function computes the tangent of a floating-point argument expressed in radians. It follows POSIX specifications for handling special cases like NaN and infinite inputs. The function uses the standard C library's  function internally and includes proper error handling for out-of-range inputs. Unlike some trigonometric functions, it does not check for overflow since  naturally evaluates to infinity.
 

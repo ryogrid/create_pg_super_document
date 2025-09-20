@@ -8,7 +8,10 @@ A helper function that sets up multirange type information in the PostgreSQL typ
 
 ## Definition
 
-
+```c
+static void
+load_multirangetype_info(TypeCacheEntry *typentry)
+```
 ## Detailed Description
 This function is responsible for loading multirange type information into a type cache entry. It retrieves the underlying range type OID for a given multirange type and populates the cache entry with the corresponding range type information. The function is part of PostgreSQL's type caching mechanism that optimizes type-related operations by storing frequently accessed type information.
 

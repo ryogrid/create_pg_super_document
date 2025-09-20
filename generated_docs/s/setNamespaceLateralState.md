@@ -8,7 +8,10 @@ A convenience subroutine that updates LATERAL flags in a namespace list to contr
 
 ## Definition
 
-
+```c
+static void
+setNamespaceLateralState(List *namespace, bool lateral_only, bool lateral_ok)
+```
 ## Detailed Description
 This function is a utility routine used within the PostgreSQL parser to manage the lateral reference state of all namespace items in a given list. It iterates through each ParseNamespaceItem in the provided namespace list and sets both the  and  flags to the specified boolean values. This functionality is essential for implementing SQL LATERAL join semantics, where certain table references can access columns from tables that appear earlier in the FROM clause. The function helps enforce the proper scoping rules for lateral references during query parsing.
 

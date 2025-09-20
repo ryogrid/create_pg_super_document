@@ -8,7 +8,10 @@ Splits a string at matches of a regular expression pattern, returning all split-
 
 ## Definition
 
-
+```c
+Datum
+regexp_split_to_array(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements array-based string splitting using regular expressions. Unlike regexp_split_to_table which returns results as multiple rows, this function collects all split substrings into a single array and returns it. The function prohibits the 'g' (global) flag in user input but internally enables global matching to find all pattern occurrences. It uses PostgreSQL's ArrayBuildState mechanism to accumulate results and build the final array. The function processes all matches in a single call, building up the array incrementally using accumArrayResult for each split substring.
 

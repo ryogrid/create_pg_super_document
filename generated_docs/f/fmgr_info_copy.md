@@ -8,7 +8,17 @@ Creates a copy of an FmgrInfo structure while handling memory context management
 
 ## Definition
 
-
+```c
+struct fmgr_security_definer_cache
+{
+	FmgrInfo	flinfo;			/* lookup info for target function */
+	Oid			userid;			/* userid to set, or InvalidOid */
+	List	   *configNames;	/* GUC names to set, or NIL */
+	List	   *configHandles;	/* GUC handles to set, or NIL */
+	List	   *configValues;	/* GUC values to set, or NIL */
+	Datum		arg;			/* passthrough argument for plugin modules */
+};
+```
 ## Detailed Description
 The  function performs a shallow copy of an FmgrInfo structure from source to destination. This function is necessary when FmgrInfo structures need to be duplicated across different memory contexts, such as when copying function call information from plan-time to execution-time contexts.
 

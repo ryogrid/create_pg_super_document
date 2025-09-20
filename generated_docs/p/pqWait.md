@@ -8,7 +8,10 @@ pqWait is a PostgreSQL libpq function that waits until the connection socket bec
 
 ## Definition
 
-
+```c
+int
+pqWait(int forRead, int forWrite, PGconn *conn)
+```
 ## Detailed Description
 pqWait is a convenience wrapper function that provides socket waiting functionality for PostgreSQL client connections. It delegates to pqWaitTimed with an infinite timeout (-1), meaning it will wait indefinitely until the socket becomes ready for the requested operation. The function handles both read and write readiness conditions and also monitors for exception conditions on the socket. When SSL is enabled and the operation is for reading, any buffered bytes will short-circuit the need to wait on the socket.
 

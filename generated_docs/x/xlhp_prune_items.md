@@ -8,7 +8,13 @@ A generic sub-record type used in heap pruning WAL records to store information 
 
 ## Definition
 
-
+```c
+typedef struct xlhp_prune_items
+{
+	uint16		ntargets;
+	OffsetNumber data[FLEXIBLE_ARRAY_MEMBER];
+} xlhp_prune_items;
+```
 ## Detailed Description
 The  struct is a specialized data structure used within PostgreSQL's Write-Ahead Logging (WAL) system for heap pruning operations. It serves as a generic sub-record type contained in block reference 0 of an  record. This structure is utilized when any of the following flags are set: , , or .
 

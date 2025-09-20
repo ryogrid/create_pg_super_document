@@ -8,7 +8,10 @@ ATPrepDropExpression prepares and validates the DROP EXPRESSION command for ALTE
 
 ## Definition
 
-
+```c
+static void
+ATPrepDropExpression(Relation rel, AlterTableCmd *cmd, bool recurse, bool recursing, LOCKMODE lockmode)
+```
 ## Detailed Description
 This function performs preliminary validation for dropping a generated column expression as part of an ALTER TABLE command. It enforces PostgreSQL's inheritance rules by requiring that DROP EXPRESSION operations cascade to child tables when inheritance relationships exist. The function also prevents dropping generation expressions from inherited columns, as these expressions are considered part of the column definition and cannot be selectively removed from inherited columns.
 

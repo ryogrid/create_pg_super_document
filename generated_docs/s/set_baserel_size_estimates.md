@@ -8,7 +8,10 @@ Sets the size estimates for a base relation including output rows, tuple width, 
 
 ## Definition
 
-
+```c
+void
+set_baserel_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function calculates and sets key size estimation fields for a base relation after its targetlist and restrictinfo list have been constructed. It is a core function in PostgreSQL's query planning process that determines:
 

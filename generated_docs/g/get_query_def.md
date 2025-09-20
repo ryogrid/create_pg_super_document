@@ -8,7 +8,12 @@ Converts a Query parse tree back into readable SQL text by dispatching to approp
 
 ## Definition
 
-
+```c
+static void
+get_query_def(Query *query, StringInfo buf, List *parentnamespace,
+			  TupleDesc resultDesc, bool colNamesVisible,
+			  int prettyFlags, int wrapColumn, int startIndent)
+```
 ## Detailed Description
 The  function serves as the central dispatcher for converting PostgreSQL's internal Query parse trees back into human-readable SQL text. It sets up the deparse context with formatting parameters and namespace information, then routes the query to the appropriate specialized function based on its command type (SELECT, INSERT, UPDATE, DELETE, MERGE, UTILITY, or NOTHING).
 

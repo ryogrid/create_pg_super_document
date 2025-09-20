@@ -8,7 +8,10 @@ This static function implements the recursive tree-walking logic to identify and
 
 ## Definition
 
-
+```c
+static bool
+convert_saop_to_hashed_saop_walker(Node *node, void *context)
+```
 ## Detailed Description
 The  function is the core implementation that performs the actual analysis and optimization of ScalarArrayOpExpr nodes. It recursively traverses expression trees and applies hash table optimization when specific conditions are met.
 

@@ -8,7 +8,10 @@ A static callback function that serves as a shim for dynamic shared memory (DSM)
 
 ## Definition
 
-
+```c
+static void
+shm_mq_detach_callback(dsm_segment *seg, Datum arg)
+```
 ## Detailed Description
 The  function is a callback wrapper designed to be registered with the DSM subsystem via . When a DSM segment is being detached (either explicitly or during process cleanup), this callback ensures that any shared message queues associated with that segment are properly detached as well.
 

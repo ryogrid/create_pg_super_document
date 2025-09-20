@@ -8,7 +8,12 @@ Validates that the specified columns in a referenced table can support a foreign
 
 ## Definition
 
-
+```c
+static Oid
+transformFkeyCheckAttrs(Relation pkrel,
+						int numattrs, int16 *attnums,
+						Oid *opclasses)
+```
 ## Detailed Description
 This function validates that the specified attribute numbers (columns) in the primary key relation can be properly referenced by a foreign key constraint. It searches through all unique indexes on the referenced table to find one that matches the given columns exactly. The function ensures the foreign key constraint follows SQL standards by rejecting duplicate column references and deferrable unique constraints. Upon finding a suitable index, it populates the caller-provided opclasses array with the operator classes associated with the index columns.
 

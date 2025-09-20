@@ -8,7 +8,13 @@ The  structure is a simple data container used in the ECPG preprocessor to store
 
 ## Definition
 
-
+```c
+struct su_symbol
+{
+	char	   *su;
+	char	   *symbol;
+};
+```
 ## Detailed Description
  is a basic structure defined in the ECPG (Embedded SQL in C) preprocessor component of PostgreSQL. It provides a simple key-value pair mechanism where both the key () and value () are character strings. This structure is likely used for symbol table operations or identifier mapping during the preprocessing of embedded SQL code.
 

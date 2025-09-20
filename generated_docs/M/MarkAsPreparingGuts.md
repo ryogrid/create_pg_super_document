@@ -8,7 +8,11 @@ Initializes a GlobalTransaction structure and its associated PGPROC entry, setti
 
 ## Definition
 
-
+```c
+static void
+MarkAsPreparingGuts(GlobalTransaction gxact, TransactionId xid, const char *gid,
+					TimestampTz prepared_at, Oid owner, Oid databaseid)
+```
 ## Detailed Description
 MarkAsPreparingGuts is an internal helper function that performs the low-level initialization of a GlobalTransaction and its corresponding PGPROC entry. It's designed to work both during normal transaction preparation and during crash recovery when reloading prepared transactions. The function initializes the PGPROC structure with appropriate values for a prepared transaction, sets up virtual transaction IDs for lock conflict resolution, and populates the GlobalTransaction structure with metadata. It assumes appropriate locks are already held and operates on pre-allocated structures.
 

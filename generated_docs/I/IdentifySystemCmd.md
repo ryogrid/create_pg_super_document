@@ -8,7 +8,12 @@ IdentifySystemCmd is a simple structure representing the IDENTIFY_SYSTEM replica
 
 ## Definition
 
-
+```c
+typedef struct IdentifySystemCmd
+{
+	NodeTag		type;
+} IdentifySystemCmd;
+```
 ## Detailed Description
 IdentifySystemCmd is a minimal node structure that represents the IDENTIFY_SYSTEM command in PostgreSQL's replication protocol. This command is typically the first command executed when establishing a replication connection to identify the source system. The structure contains only the standard NodeTag field, as the IDENTIFY_SYSTEM command requires no additional parameters.
 

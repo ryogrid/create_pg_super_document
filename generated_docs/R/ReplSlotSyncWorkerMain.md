@@ -8,7 +8,12 @@ The main entry point and loop for PostgreSQL's slot synchronization worker proce
 
 ## Definition
 
-
+```c
+struct in shared memory.  We must do this
+	 * before we access any shared memory.
+	 */
+	InitProcess();
+```
 ## Detailed Description
 This function serves as the main entry point for the slot synchronization worker process in PostgreSQL's logical replication system. It initializes the worker process, establishes a connection to the primary server, and runs an infinite loop to continuously synchronize logical failover slots. The function handles process setup including signal handling, database connection, validation of remote server configuration, and proper cleanup on exit. It operates as a background worker that ensures standby servers maintain up-to-date copies of logical replication slots from the primary server.
 

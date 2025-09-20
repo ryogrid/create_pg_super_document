@@ -8,7 +8,14 @@ A structure that maps PostgreSQL SQL state error codes to Python exception class
 
 ## Definition
 
-
+```c
+typedef struct ExceptionMap
+{
+	char	   *name;
+	char	   *classname;
+	int			sqlstate;
+} ExceptionMap;
+```
 ## Detailed Description
 ExceptionMap is a structure used by PostgreSQL's PL/Python extension to maintain a mapping between PostgreSQL's internal SQL state error codes and their corresponding Python exception classes. This structure is part of the exception handling system that allows Python code running within PostgreSQL to catch and handle database errors using Python's exception mechanisms.
 

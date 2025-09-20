@@ -8,7 +8,13 @@ PgStatShared_Subscription represents shared memory statistics data for a Postgre
 
 ## Definition
 
-
+```c
+typedef struct PgStatShared_Subscription
+{
+	PgStatShared_Common header;
+	PgStat_StatSubEntry stats;
+} PgStatShared_Subscription;
+```
 ## Detailed Description
 This structure is used to store subscription-related statistics in PostgreSQL's shared memory statistics system. It combines a common header used by all shared statistics objects with subscription-specific statistical data. The structure is part of PostgreSQL's statistics collection infrastructure that tracks the performance and error states of logical replication subscriptions.
 

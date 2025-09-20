@@ -8,7 +8,10 @@ Compares a 16-bit signed integer (int2) with a 32-bit signed integer (int4) for 
 
 ## Definition
 
-
+```c
+Datum
+int24ne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int24ne function implements the not-equal comparison operator for mixed integer types in PostgreSQL's type system. It takes a 16-bit signed integer (smallint/int2) as the first argument and a 32-bit signed integer (integer/int4) as the second argument. The function performs a direct comparison between the two values after implicit type promotion, returning a boolean result indicating whether the values are not equal.
 

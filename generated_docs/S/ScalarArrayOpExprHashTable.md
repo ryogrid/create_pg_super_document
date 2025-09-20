@@ -8,7 +8,15 @@ ScalarArrayOpExprHashTable is a comprehensive data structure that encapsulates a
 
 ## Definition
 
-
+```c
+typedef struct ScalarArrayOpExprHashTable
+{
+	saophash_hash *hashtab;		/* underlying hash table */
+	struct ExprEvalStep *op;
+	FmgrInfo	hash_finfo;		/* function's lookup data */
+	FunctionCallInfoBaseData hash_fcinfo_data;	/* arguments etc */
+} ScalarArrayOpExprHashTable;
+```
 ## Detailed Description
 This structure represents the complete execution environment for optimized scalar-array operations in PostgreSQL's expression evaluator. It encapsulates both the hash table containing array elements and all the necessary function call infrastructure for hash computation and element comparison.
 

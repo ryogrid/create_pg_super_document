@@ -8,7 +8,10 @@ A PostgreSQL test function that converts regular tuple attributes into indirect 
 
 ## Definition
 
-
+```c
+structure */
+	tuple.t_len = HeapTupleHeaderGetDatumLength(rec);
+```
 ## Detailed Description
 The  function is a specialized test utility that transforms a regular PostgreSQL tuple by converting its variable-length attributes into indirect TOAST pointers. This function is designed to test PostgreSQL's TOAST mechanism, specifically the indirect pointer functionality. It takes a HeapTupleHeader as input, decomposes the tuple into its constituent values, and then for each variable-length attribute that meets certain criteria (not dropped, not null, variable length, not plain storage), it creates an indirect pointer that references the original data. The function creates a new tuple structure where the original data is stored separately and accessed through indirect pointers. This enables testing of TOAST detoasting behavior and indirect pointer handling throughout the PostgreSQL system.
 

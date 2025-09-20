@@ -8,7 +8,10 @@ Creates and returns a temporary memory context specifically for GiST operations 
 
 ## Definition
 
-
+```c
+MemoryContext
+createTempGistContext(void)
+```
 ## Detailed Description
 This function creates a temporary memory context that is used throughout GiST operations to provide isolation for memory allocations. The primary purpose is to invoke user-provided methods (such as operator class functions) within this temporary context, ensuring that any memory leaks in those functions cannot cause long-term problems in the PostgreSQL backend. The function also helps the GiST code itself avoid awkward manual memory management by providing a clean context that can be easily reset or deleted.
 

@@ -8,7 +8,12 @@ A backwards compatibility wrapper function for array_get_element that provides e
 
 ## Definition
 
-
+```c
+Datum
+array_ref(ArrayType *array, int nSubscripts, int *indx,
+		  int arraytyplen, int elmlen, bool elmbyval, char elmalign,
+		  bool *isNull)
+```
 ## Detailed Description
 This function serves as a legacy API wrapper around the more general  function. It maintains backwards compatibility for existing code that expects to work with  pointers directly, rather than the more flexible  interface provided by .
 

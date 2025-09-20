@@ -8,7 +8,10 @@ An SQL-accessible function that returns the OID of the replica identity index fo
 
 ## Definition
 
-
+```c
+Datum
+pg_get_replica_identity_index(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as an SQL wrapper around the internal  function. It retrieves the replica identity index for a specified table, which is crucial for PostgreSQL's logical replication functionality. The replica identity index determines which index is used to identify rows uniquely for replication purposes when changes need to be replicated to subscriber databases.
 

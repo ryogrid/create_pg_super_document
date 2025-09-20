@@ -8,7 +8,10 @@ PLy_quote_nullable is a Python C extension function that provides SQL literal qu
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_quote_nullable(PyObject *self, PyObject *args)
+```
 ## Detailed Description
 PLy_quote_nullable extends the functionality of PLy_quote_literal by adding proper handling for NULL values. When a NULL pointer (representing Python None) is passed as an argument, the function returns the string "NULL" suitable for SQL statements. When a non-NULL string is provided, it behaves identically to PLy_quote_literal by calling quote_literal_cstr to properly quote and escape the string.
 

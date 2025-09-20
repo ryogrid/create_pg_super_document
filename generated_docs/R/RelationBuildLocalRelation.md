@@ -8,7 +8,20 @@ RelationBuildLocalRelation builds a relcache entry for a relation that is about 
 
 ## Definition
 
-
+```c
+Relation
+RelationBuildLocalRelation(const char *relname,
+						   Oid relnamespace,
+						   TupleDesc tupDesc,
+						   Oid relid,
+						   Oid accessmtd,
+						   RelFileNumber relfilenumber,
+						   Oid reltablespace,
+						   bool shared_relation,
+						   bool mapped_relation,
+						   char relpersistence,
+						   char relkind)
+```
 ## Detailed Description
 This function creates a complete relation cache entry for a relation that is being created within the current transaction. It performs several critical tasks:
 

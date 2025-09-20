@@ -8,7 +8,12 @@ A specialized function that processes and optimizes the arguments of AND boolean
 
 ## Definition
 
-
+```c
+static List *
+simplify_and_arguments(List *args,
+					   eval_const_expressions_context *context,
+					   bool *haveNull, bool *forceFalse)
+```
 ## Detailed Description
 This function serves as a subroutine for  to optimize AND clause arguments, implementing the logical dual of . It performs several key operations:
 

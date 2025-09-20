@@ -8,7 +8,10 @@ Resets and clears the replication origin session state that was previously estab
 
 ## Definition
 
-
+```c
+void
+replorigin_session_reset(void)
+```
 ## Detailed Description
 This function tears down the current replication origin session by clearing the session state and releasing the acquired slot. It performs the inverse operation of replorigin_session_setup() by:
 

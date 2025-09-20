@@ -8,7 +8,26 @@ An enumeration type that indicates whether a GiST index entry should be placed o
 
 ## Definition
 
+```c
+typedef struct
+{
+	TypeCacheEntry *typcache;	/* typcache for range type */
+	bool		has_subtype_diff;	/* does it have subtype_diff? */
+	int			entries_count;	/* total number of entries being split */
 
+	/* Information about currently selected split follows */
+
+	bool		first;			/* true if no split was selected yet */
+
+	RangeBound *left_upper;		/* upper bound of left interval */
+	RangeBound *right_lower;	/* lower bound of right interval */
+
+	float4		ratio;			/* split ratio */
+	float4		overlap;		/* overlap between left and right predicate */
+	int			common_left;	/* # common entries destined for each side */
+	int			common_right;
+} ConsiderSplitContext;
+```
 ## Detailed Description
 SplitLR is a simple enumeration used in the PostgreSQL GiST (Generalized Search Tree) implementation for range types. It provides a clear, type-safe way to indicate the direction of a split operation when partitioning range entries during index construction or maintenance. The enum values are designed to make initialization to SPLIT_LEFT straightforward by assigning it the value 0.
 

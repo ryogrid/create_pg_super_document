@@ -8,7 +8,10 @@ Resets the text position search state to its initial condition, preparing for a 
 
 ## Definition
 
-
+```c
+static void
+text_position_reset(TextPositionState *state)
+```
 ## Detailed Description
 This function reinitializes the TextPositionState structure to its initial state as if it were just set up by text_position_setup. It clears any previous match information and resets the position tracking to the beginning of the haystack string. After calling this function, the next call to text_position_next will start searching from the very beginning of the string, effectively allowing for a fresh search operation without needing to recreate the entire search state.
 

@@ -8,7 +8,15 @@ A node representing the "[WHERE] CURRENT OF cursor_name" clause, used to identif
 
 ## Definition
 
-
+```c
+typedef struct CurrentOfExpr
+{
+	Expr		xpr;
+	Index		cvarno;			/* RT index of target relation */
+	char	   *cursor_name;	/* name of referenced cursor, or NULL */
+	int			cursor_param;	/* refcursor parameter number, or 0 */
+} CurrentOfExpr;
+```
 ## Detailed Description
 CurrentOfExpr represents the CURRENT OF clause in SQL UPDATE and DELETE statements, which allows operations to target the current row of a cursor. This expression is similar to a Var node in that it carries the range table index of the target relation, enabling proper placement during query planning. The expression always has "levelsup" of zero due to syntactic constraints on where it can appear, and cvarno is always a true range table index (never special values like INNER_VAR).
 

@@ -8,7 +8,14 @@ TrackFunctionsLevel is an enumeration that defines the possible values for the t
 
 ## Definition
 
-
+```c
+typedef enum PgStat_FetchConsistency
+{
+	PGSTAT_FETCH_CONSISTENCY_NONE,
+	PGSTAT_FETCH_CONSISTENCY_CACHE,
+	PGSTAT_FETCH_CONSISTENCY_SNAPSHOT,
+} PgStat_FetchConsistency;
+```
 ## Detailed Description
 TrackFunctionsLevel controls the granularity of function call statistics collection in PostgreSQL. The enum values form a hierarchy where higher numeric values include broader tracking scope. This enumeration is used by the track_functions GUC parameter to determine which function calls should be monitored and have their execution statistics recorded. The order of values is significant as it allows for numeric comparisons to determine tracking levels.
 

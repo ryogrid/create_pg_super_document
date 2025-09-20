@@ -8,7 +8,10 @@ Initializes a thesaurus dictionary for text search, setting up the dictionary st
 
 ## Definition
 
-
+```c
+Datum
+thesaurus_init(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL function that initializes a thesaurus text search dictionary. It processes initialization parameters from a list of options, validates required parameters, loads thesaurus data from a dictionary file, and sets up the underlying sub-dictionary that will be used for word processing. The function creates a  structure that contains compiled lexeme patterns and substitution rules, along with a reference to the configured sub-dictionary for actual word processing.
 

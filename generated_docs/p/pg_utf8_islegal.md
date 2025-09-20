@@ -8,7 +8,10 @@ Validates whether a UTF-8 encoded character sequence is legal according to RFC 3
 
 ## Definition
 
-
+```c
+bool
+pg_utf8_islegal(const unsigned char *source, int length)
+```
 ## Detailed Description
 This function implements a comprehensive validator for UTF-8 character sequences that directly follows the rules specified in RFC 3629. It performs strict validation to prevent security hazards by ensuring that each Unicode character has exactly one valid encoding representation. The function specifically guards against overlong encodings, where a character that could be represented in fewer bytes is artificially encoded using more bytes with high-order zero bits.
 

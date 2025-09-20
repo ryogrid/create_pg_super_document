@@ -8,7 +8,13 @@ Creates a new logical replication subscription, establishing the necessary catal
 
 ## Definition
 
-
+```c
+typedef struct SubRemoveRels
+	{
+		Oid			relid;
+		char		state;
+	} SubRemoveRels;
+```
 ## Detailed Description
 This function implements the CREATE SUBSCRIPTION SQL command, which establishes a logical replication subscription to replicate data from a remote PostgreSQL publisher. The function performs comprehensive validation, creates system catalog entries, and optionally establishes the replication infrastructure.
 

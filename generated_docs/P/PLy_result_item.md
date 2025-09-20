@@ -8,7 +8,10 @@ Implements Python sequence indexing for PLython result objects, allowing individ
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_result_item(PyObject *arg, Py_ssize_t idx)
+```
 ## Detailed Description
 This function provides the implementation for Python's item access operation (sq_item) when indexing into a PLython result object. It enables natural Python syntax like result[0] to access the first row, result[1] for the second row, etc. The function delegates to PyList_GetItem() to retrieve the specified row from the internal rows list and properly manages reference counting by incrementing the reference count of the returned object before returning it to the caller.
 

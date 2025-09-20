@@ -8,7 +8,11 @@ Prepares a new tuple for insertion by removing junk columns and ensuring the tup
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecGetInsertNewTuple(ResultRelInfo *relinfo,
+					  TupleTableSlot *planSlot)
+```
 ## Detailed Description
 This function transforms a tuple from the subplan's output format into a format suitable for insertion into the target relation. It handles two main scenarios:
 

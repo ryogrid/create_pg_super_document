@@ -8,7 +8,31 @@ Executes ALTER DEFAULT PRIVILEGES statements, which set default access control p
 
 ## Definition
 
+```c
+struct the "options" part of the statement */
+	foreach(cell, stmt->options)
+	{
+		DefElem    *defel = (DefElem *) lfirst(cell);
 
+		if (strcmp(defel->defname, "schemas") == 0)
+		{
+			if (dnspnames)
+				errorConflictingDefElem(defel, pstate);
+			dnspnames = defel;
+		}
+		else if (strcmp(defel->defname, "roles") == 0)
+		{
+			if (drolespecs)
+				errorConflictingDefElem(defel, pstate);
+			drolespecs = defel;
+		}
+		else
+			elog(ERROR, "option \"%s\" not recognized", defel->defname);
+	}
+
+	if (dnspnames)
+		nspnames = (List *) dnspnames->arg;
+```
 ## Detailed Description
 This function implements the ALTER DEFAULT PRIVILEGES SQL command, which allows users to set default access control lists (ACLs) that will be applied to future objects created by specified roles in specified schemas. The function parses the statement's options to extract target schemas and roles, validates privilege specifications for different object types (tables, sequences, functions, procedures, types, schemas), converts role specifications to OIDs, and validates that the current user has sufficient privileges to modify default privileges for the target roles. It uses the InternalDefaultACL structure to represent the parsed statement internally and delegates the actual work to SetDefaultACLsInSchemas for each target role.
 

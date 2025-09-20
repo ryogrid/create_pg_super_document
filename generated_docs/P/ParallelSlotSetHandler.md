@@ -8,7 +8,11 @@ Sets a result handler callback function and its context for a parallel slot, ena
 
 ## Definition
 
-
+```c
+static inline void
+ParallelSlotSetHandler(ParallelSlot *slot, ParallelSlotResultHandler handler,
+					   void *context)
+```
 ## Detailed Description
 ParallelSlotSetHandler is an inline function that assigns a result handler callback function and its associated context data to a ParallelSlot. This mechanism allows different operations to register custom processing logic that will be invoked when the parallel operation completes. The handler function follows the ParallelSlotResultHandler signature, which receives a PGresult, PGconn, and the context data as parameters. This design enables flexible, operation-specific result processing in PostgreSQL's parallel execution framework for client tools.
 

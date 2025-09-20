@@ -8,7 +8,11 @@ Creates a GatherPath node corresponding to a gather scan operation, which is use
 
 ## Definition
 
-
+```c
+GatherPath *
+create_gather_path(PlannerInfo *root, RelOptInfo *rel, Path *subpath,
+				   PathTarget *target, Relids required_outer, double *rows)
+```
 ## Detailed Description
 The create_gather_path function constructs a GatherPath node that represents a gather operation in PostgreSQL's query execution plan. A gather path is responsible for collecting results from parallel worker processes and combining them into a single result stream. The function initializes all necessary fields of the GatherPath structure, including cost calculations and path properties.
 

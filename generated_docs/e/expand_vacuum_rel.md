@@ -8,7 +8,11 @@ Expands a VacuumRelation by filling in the table OID if not specified and option
 
 ## Definition
 
-
+```c
+static List *
+expand_vacuum_rel(VacuumRelation *vrel, MemoryContext vac_context,
+				  int options)
+```
 ## Detailed Description
 The expand_vacuum_rel function processes a VacuumRelation to create a complete list of relations to vacuum. If the VacuumRelation contains an OID, it simply returns a list containing that relation. If no OID is provided, it resolves the relation name to an OID and checks if it's a partitioned table. For partitioned tables, it creates additional VacuumRelation entries for each partition.
 

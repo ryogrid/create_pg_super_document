@@ -8,7 +8,10 @@ The range_send function is the binary send function for PostgreSQL range types, 
 
 ## Definition
 
-
+```c
+struct output */
+	pq_begintypsend(buf);
+```
 ## Detailed Description
 This function converts a RangeType value from its internal representation to a binary format suitable for transmission over the wire (typically to client connections). The binary output format consists of a flags byte followed by the binary representations of the lower and upper bounds (when present). Each bound is prefixed with a 4-byte length header followed by the binary data as produced by the element type's send function. The function handles deserialization of the input range, proper serialization of boundaries, and construction of the complete binary message.
 

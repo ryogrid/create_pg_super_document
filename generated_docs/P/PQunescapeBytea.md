@@ -8,7 +8,10 @@ PQunescapeBytea converts escaped string representations of bytea data back into 
 
 ## Definition
 
-
+```c
+unsigned char *
+PQunescapeBytea(const unsigned char *strtext, size_t *retbuflen)
+```
 ## Detailed Description
 PQunescapeBytea is a libpq client library function that performs the reverse operation of PQescapeBytea. It converts null-terminated string representations of bytea data back into binary format. The function handles two encoding formats:
 

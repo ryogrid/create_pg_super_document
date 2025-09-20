@@ -8,7 +8,12 @@ AssertCheckExpandedRanges is a debugging function that validates the correctness
 
 ## Definition
 
-
+```c
+static void
+AssertCheckExpandedRanges(BrinDesc *bdesc, Oid colloid, AttrNumber attno,
+						  Form_pg_attribute attr, ExpandedRange *ranges,
+						  int nranges)
+```
 ## Detailed Description
 This function performs comprehensive validation of an array of ExpandedRange structures, which are used when reducing the number of ranges by combining adjacent or overlapping ranges in BRIN minmax-multi indexes. The function validates two critical properties:
 

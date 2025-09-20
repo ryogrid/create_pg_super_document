@@ -8,7 +8,26 @@ A comprehensive structure that manages parallel execution context in PostgreSQL,
 
 ## Definition
 
-
+```c
+typedef struct ParallelContext
+{
+	dlist_node	node;
+	SubTransactionId subid;
+	int			nworkers;		/* Maximum number of workers to launch */
+	int			nworkers_to_launch; /* Actual number of workers to launch */
+	int			nworkers_launched;
+	char	   *library_name;
+	char	   *function_name;
+	ErrorContextCallback *error_context_stack;
+	shm_toc_estimator estimator;
+	dsm_segment *seg;
+	void	   *private_memory;
+	shm_toc    *toc;
+	ParallelWorkerInfo *worker;
+	int			nknown_attached_workers;
+	bool	   *known_attached_workers;
+} ParallelContext;
+```
 ## Detailed Description
 ParallelContext is the central management structure for PostgreSQL's parallel execution framework. It encapsulates all necessary information to create, coordinate, and manage parallel worker processes. This includes worker process configuration, shared memory management, error handling, and lifecycle tracking. The structure serves as the main coordination point between the leader process and its parallel workers, maintaining state information about worker processes and providing the infrastructure for inter-process communication through shared memory segments and message queues.
 

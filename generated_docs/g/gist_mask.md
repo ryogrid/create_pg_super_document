@@ -8,7 +8,10 @@ Masks a GiST (Generalized Search Tree) page before running consistency checks by
 
 ## Definition
 
-
+```c
+void
+gist_mask(char *pagedata, BlockNumber blkno)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's WAL (Write-Ahead Logging) consistency checking mechanism for GiST indexes. It modifies a page image to mask out fields that can legitimately differ between the primary and standby servers without indicating a real consistency problem. This function is called during WAL replay consistency checks to normalize page contents before comparison.
 

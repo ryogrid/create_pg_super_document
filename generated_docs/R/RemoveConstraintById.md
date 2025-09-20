@@ -8,7 +8,10 @@ Deletes a single constraint record from the system catalog by constraint OID, ha
 
 ## Definition
 
-
+```c
+void
+RemoveConstraintById(Oid conId)
+```
 ## Detailed Description
 RemoveConstraintById is responsible for removing a constraint entry from the pg_constraint system catalog. The function performs different cleanup operations depending on the type of constraint being removed:
 

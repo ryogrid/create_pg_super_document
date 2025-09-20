@@ -8,7 +8,9 @@ A flag bit constant used to control the behavior of query_tree_mutator functions
 
 ## Definition
 
-
+```c
+#define QTW_DONT_COPY_QUERY			0x40	/* do not copy top Query */
+```
 ## Detailed Description
 QTW_DONT_COPY_QUERY is a bit flag with value 0x40 (64 in decimal) that modifies the behavior of query tree mutation operations. When this flag is set, the query_tree_mutator will not create a copy of the top-level Query node during its traversal and mutation process. This is an optimization flag that can be used when the caller knows that the top-level Query structure itself doesn't need to be modified, only its contents.
 

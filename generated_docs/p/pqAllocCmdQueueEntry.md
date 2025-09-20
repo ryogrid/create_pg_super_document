@@ -8,7 +8,10 @@ Allocates a command queue entry for the caller to fill, either by recycling an e
 
 ## Definition
 
-
+```c
+static PGcmdQueueEntry *
+pqAllocCmdQueueEntry(PGconn *conn)
+```
 ## Detailed Description
 This function manages memory allocation for PostgreSQL command queue entries with an optimization for memory reuse. It first checks if there are any entries in the connection's recycle queue (). If a recycled entry is available, it removes and returns that entry. If no recycled entries exist, it allocates a new  structure using . The function initializes the returned entry by setting both  and  pointers to NULL, ensuring a clean state for the caller.
 

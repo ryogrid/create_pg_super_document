@@ -8,7 +8,10 @@ A SIGHUP signal handler that triggers the reopening of output files in the Postg
 
 ## Definition
 
-
+```c
+static void
+sighup_handler(SIGNAL_ARGS)
+```
 ## Detailed Description
 The  function is a signal handler specifically designed to handle the SIGHUP signal in the pg_recvlogical utility. When a SIGHUP signal is received, this handler sets the global boolean variable  to . This mechanism allows the main processing loop to detect that output files should be reopened, which is commonly used for log rotation scenarios. The SIGHUP signal is a standard Unix signal often used to instruct long-running processes to reload their configuration or reopen files without completely restarting.
 

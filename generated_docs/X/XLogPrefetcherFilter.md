@@ -8,7 +8,15 @@ XLogPrefetcherFilter is a temporary filtering mechanism used to track and suppre
 
 ## Definition
 
-
+```c
+typedef struct XLogPrefetcherFilter
+{
+	RelFileLocator rlocator;
+	XLogRecPtr	filter_until_replayed;
+	BlockNumber filter_from_block;
+	dlist_node	link;
+} XLogPrefetcherFilter;
+```
 ## Detailed Description
 The XLogPrefetcherFilter serves as a selective blocking mechanism within the WAL prefetching system to prevent attempts to prefetch blocks that are not yet valid or accessible. It maintains temporal and spatial filtering rules: temporal by tracking when (at which LSN) the filter should be lifted, and spatial by defining which blocks (from a specific block number onwards) should be filtered. The structure is organized in a double-linked list for efficient queue management and stored in a hash table for fast lookup by relation file locator.
 

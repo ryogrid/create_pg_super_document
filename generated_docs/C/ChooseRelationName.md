@@ -8,7 +8,12 @@ Selects a unique, non-conflicting name for a new relation (index, sequence, etc.
 
 ## Definition
 
-
+```c
+char *
+ChooseRelationName(const char *name1, const char *name2,
+				   const char *label, Oid namespaceid,
+				   bool isconstraint)
+```
 ## Detailed Description
 This function generates unique relation names for automatically created database objects by building upon the makeObjectName functionality with conflict resolution. It follows a systematic approach to ensure uniqueness:
 

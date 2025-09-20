@@ -8,7 +8,12 @@ Displays a Var (variable reference) appropriately in the context of SQL rule dec
 
 ## Definition
 
-
+```c
+struct */
+		if (attnum > colinfo->num_cols)
+			elog(ERROR, "invalid attnum %d for relation \"%s\"",
+				 attnum, rte->eref->aliasname);
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's rule decompilation system that converts internal Var nodes back into readable SQL text. It handles the complex task of determining how to display variable references, taking into account nesting levels, join contexts, inheritance hierarchies, and various special cases.
 

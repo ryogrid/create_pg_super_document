@@ -8,7 +8,10 @@ Returns the total number of tuples that have been added to the tuplestore since 
 
 ## Definition
 
-
+```c
+int64
+tuplestore_tuple_count(Tuplestorestate *state)
+```
 ## Detailed Description
 This function provides a simple accessor to retrieve the count of tuples stored in the tuplestore. The count represents the total number of tuples added via  or similar functions since the tuplestore was created or last cleared with . The count is maintained internally in the  field and includes both tuples currently in memory and those that may have been written to temporary files.
 

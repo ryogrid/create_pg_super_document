@@ -8,7 +8,10 @@ Converts a SELECT Query parse tree back into readable SQL text by orchestrating 
 
 ## Definition
 
-
+```c
+static void
+get_select_query_def(Query *query, deparse_context *context)
+```
 ## Detailed Description
 The  function serves as the main coordinator for reconstructing SELECT statements from PostgreSQL's internal Query representation. It handles the complete SELECT statement structure by processing components in the correct SQL order and delegating to specialized functions for each clause.
 

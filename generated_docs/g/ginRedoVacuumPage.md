@@ -8,7 +8,10 @@ Replays GIN entry tree page vacuum operations during WAL recovery by restoring t
 
 ## Definition
 
-
+```c
+static void
+ginRedoVacuumPage(XLogReaderState *record)
+```
 ## Detailed Description
 ginRedoVacuumPage is a WAL recovery function that replays GIN (Generalized Inverted Index) entry tree page vacuum operations from transaction log records. This function handles the restoration of pages that have been vacuumed, where dead tuples have been removed and the page has been reorganized.
 

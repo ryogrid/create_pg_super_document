@@ -8,7 +8,10 @@ This function checks whether the current PostgreSQL session is using standard-co
 
 ## Definition
 
-
+```c
+bool
+standard_strings(void)
+```
 ## Detailed Description
 The  function is a utility function in psql that determines if the current database session has the  parameter enabled. This setting controls how PostgreSQL interprets backslash escapes in string literals. When enabled ("on"), backslashes in string literals are treated literally rather than as escape characters, conforming to the SQL standard.
 

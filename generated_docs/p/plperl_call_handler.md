@@ -8,7 +8,10 @@ Main entry point for PL/Perl function calls that dispatches to appropriate handl
 
 ## Definition
 
-
+```c
+Datum
+plperl_call_handler(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the primary dispatcher for all PL/Perl function invocations within PostgreSQL. It determines the type of call (regular function, trigger, or event trigger) and routes execution to the appropriate specialized handler. The function implements proper exception handling using PostgreSQL's PG_TRY/PG_FINALLY mechanism to ensure cleanup of interpreter state and reference counting even when errors occur. It maintains call data state and manages Perl interpreter activation/deactivation around the actual function execution.
 

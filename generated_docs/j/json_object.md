@@ -8,7 +8,9 @@ SQL function that constructs JSON objects from PostgreSQL text arrays containing
 
 ## Definition
 
-
+```c
+struct_array_builtin(in_array, TEXTOID, &in_datums, &in_nulls, &in_count);
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL function that creates JSON objects from one- or two-dimensional text arrays. It accepts arrays in two formats:
 1. One-dimensional array with alternating key-value pairs (must have even number of elements)

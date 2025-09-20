@@ -8,7 +8,10 @@ Retrieves detailed information about table attributes (columns) including names,
 
 ## Definition
 
-
+```c
+void
+getTableAttrs(Archive *fout, TableInfo *tblinfo, int numTables)
+```
 ## Detailed Description
 The  function performs comprehensive attribute collection for tables that are marked as interesting for dumping. It executes multiple carefully constructed SQL queries against the system catalogs to gather column metadata, default expressions, and CHECK constraints. The function implements version-specific logic to handle features introduced in different PostgreSQL versions (compression in 14.0+, identity columns in 10.0+, missing values in 11.0+, generated columns in 12.0+).
 

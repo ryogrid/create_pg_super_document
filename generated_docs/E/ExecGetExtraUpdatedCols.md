@@ -8,7 +8,10 @@ Returns a bitmap representing generated columns that need to be updated as a con
 
 ## Definition
 
-
+```c
+union(ExecGetUpdatedCols(relinfo, estate),
+					ExecGetExtraUpdatedCols(relinfo, estate));
+```
 ## Detailed Description
 This function retrieves the bitmap of generated columns that must be recalculated and updated when an UPDATE operation modifies columns that those generated columns depend on. Generated columns are columns whose values are automatically computed based on expressions involving other columns in the same row.
 

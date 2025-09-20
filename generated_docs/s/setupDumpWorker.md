@@ -8,7 +8,10 @@ Initializes a database connection for a parallel dump worker process, ensuring i
 
 ## Definition
 
-
+```c
+static void
+setupDumpWorker(Archive *AH)
+```
 ## Detailed Description
 The setupDumpWorker function is a specialized connection setup routine for parallel dump worker processes. It ensures that worker processes inherit the same connection configuration as the leader process by reusing values stored in the Archive handle. The function converts the inherited encoding value back to a string format and delegates the actual connection setup to the setup_connection function. This approach maintains consistency across all parallel dump processes while avoiding duplicate configuration logic.
 

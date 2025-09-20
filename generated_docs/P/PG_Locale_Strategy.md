@@ -8,7 +8,29 @@ An enumeration that defines different strategies for locale-dependent character 
 
 ## Definition
 
+```c
+PG_REGEX_LOCALE_ICU,		/* Use ICU uchar.h functions */
+} PG_Locale_Strategy;
 
+static PG_Locale_Strategy pg_regex_strategy;
+static pg_locale_t pg_regex_locale;
+static Oid	pg_regex_collation;
+
+/*
+ * Hard-wired character properties for C locale
+ */
+#define PG_ISDIGIT	0x01
+#define PG_ISALPHA	0x02
+#define PG_ISALNUM	(PG_ISDIGIT | PG_ISALPHA)
+#define PG_ISUPPER	0x04
+#define PG_ISLOWER	0x08
+#define PG_ISGRAPH	0x10
+#define PG_ISPRINT	0x20
+#define PG_ISPUNCT	0x40
+#define PG_ISSPACE	0x80
+
+static const unsigned char pg_char_properties[128] =
+```
 ## Detailed Description
 The PG_Locale_Strategy enum is used internally by PostgreSQL's regular expression engine to determine which character classification and case conversion functions to use based on the current locale and encoding. This enum enables the regex engine to adapt its character handling behavior across different platforms and locale configurations while maintaining consistent behavior.
 

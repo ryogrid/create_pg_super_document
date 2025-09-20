@@ -8,7 +8,10 @@ PLy_spi_execute_query executes a direct SQL query string without parameters, han
 
 ## Definition
 
-
+```c
+static PyObject *
+PLy_spi_execute_query(char *query, long limit)
+```
 ## Detailed Description
 This static function provides the implementation for executing raw SQL query strings in PL/Python. It validates the query string encoding, executes it through PostgreSQL's SPI (Server Programming Interface), and processes the results. The function operates within a subtransaction to ensure proper error handling and resource cleanup.
 

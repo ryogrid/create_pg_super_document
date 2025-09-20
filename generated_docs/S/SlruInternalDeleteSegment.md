@@ -8,7 +8,10 @@ Internal function to delete an individual SLRU segment file from disk without to
 
 ## Definition
 
-
+```c
+static void
+SlruInternalDeleteSegment(SlruCtl ctl, int64 segno)
+```
 ## Detailed Description
 SlruInternalDeleteSegment performs the low-level deletion of a Single Log/Record Unit (SLRU) segment file. It handles both the cleanup of sync requests and the actual file deletion. This is an internal function that assumes the caller has already ensured that the SLRU buffers either don't contain data for this segment or have been properly cleaned out beforehand.
 

@@ -8,7 +8,15 @@ GroupPathExtraData is a structure that contains extra information passed to subr
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	bool		limit_needed;
+	Cardinality limit_tuples;
+	int64		count_est;
+	int64		offset_est;
+} FinalPathExtraData;
+```
 ## Detailed Description
 GroupPathExtraData serves as a container for various pieces of information needed during the creation of grouping and aggregation paths in PostgreSQL's query optimizer. This structure facilitates communication between different phases of query planning by bundling together configuration flags, cost information, query constraints, and partitioning strategies.
 

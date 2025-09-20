@@ -8,7 +8,10 @@ A utility function that generates a human-readable string description of an XLog
 
 ## Definition
 
-
+```c
+void
+xlog_outdesc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This function constructs a comprehensive textual description of a WAL (Write-Ahead Log) record by combining information from the resource manager system. It formats the description in the pattern: .
 

@@ -8,7 +8,14 @@ Performs SSL client certificate authentication by validating the certificate's s
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	uint8		attribute;
+	uint8		length;
+	uint8		data[FLEXIBLE_ARRAY_MEMBER];
+} radius_attribute;
+```
 ## Detailed Description
 The `CheckCertAuth` function implements PostgreSQL's SSL client certificate authentication mechanism. It validates that a client's SSL certificate contains appropriate identity information and that this identity maps correctly to the requested PostgreSQL username.
 

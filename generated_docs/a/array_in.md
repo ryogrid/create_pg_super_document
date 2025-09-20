@@ -8,7 +8,9 @@ Converts an array from its external string format to the internal PostgreSQL Arr
 
 ## Definition
 
-
+```c
+struct_empty_array(element_type));
+```
 ## Detailed Description
 The  function is the primary input conversion function for PostgreSQL arrays. It parses a string representation of an array (e.g., "{1,2,3}" or "[1:3]={1,2,3}") and converts it into PostgreSQL's internal ArrayType structure. The function handles multi-dimensional arrays with optional explicit dimension specifications and lower bounds.
 

@@ -8,7 +8,14 @@ Adds a specified PGPROC structure to the shared process array, maintaining the a
 
 ## Definition
 
-
+```c
+structs too, and so we should have failed
+		 * earlier.)
+		 */
+		ereport(FATAL,
+				(errcode(ERRCODE_TOO_MANY_CONNECTIONS),
+				 errmsg("sorry, too many clients already")));
+```
 ## Detailed Description
 ProcArrayAdd inserts a new process entry into the shared process array (procArray). The function maintains the array sorted by PGPROC number to optimize cache locality when traversing the array. It acquires both ProcArrayLock and XidGenLock to ensure atomic updates to all related structures.
 

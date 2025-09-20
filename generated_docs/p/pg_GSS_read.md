@@ -8,7 +8,10 @@ Reads encrypted data from a GSSAPI-secured PostgreSQL connection, handling packe
 
 ## Definition
 
-
+```c
+ssize_t
+pg_GSS_read(PGconn *conn, void *ptr, size_t len)
+```
 ## Detailed Description
 This function receives and decrypts data from a GSSAPI-encrypted connection. It manages the complex process of reading encrypted packets that include length headers, validating packet sizes, decrypting the payload using GSS-API, and buffering the decrypted data for gradual consumption by the caller. The function handles partial packet reception and maintains internal buffers to ensure complete packets are processed atomically.
 

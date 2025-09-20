@@ -8,7 +8,10 @@ This function determines whether an existing directory should be tolerated durin
 
 ## Definition
 
-
+```c
+static bool
+should_allow_existing_directory(const char *pathname)
+```
 ## Detailed Description
 The  function implements logic to determine when directory creation failures should be ignored during backup restoration. This is particularly important in PostgreSQL backup scenarios where certain system directories may already exist due to WAL streaming processes or in-place tablespace configurations.
 

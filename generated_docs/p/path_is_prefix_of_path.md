@@ -8,7 +8,10 @@ Determines whether one path is a proper prefix of another path, including the ca
 
 ## Definition
 
-
+```c
+bool
+path_is_prefix_of_path(const char *path1, const char *path2)
+```
 ## Detailed Description
 The  function checks if  is a prefix of  in a path-aware manner. This means it not only performs string prefix matching but also ensures the prefix boundary occurs at a proper path component boundary.
 

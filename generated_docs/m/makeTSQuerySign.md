@@ -8,7 +8,10 @@ Generates a bit signature for a TSQuery by extracting and hashing all value oper
 
 ## Definition
 
-
+```c
+TSQuerySign
+makeTSQuerySign(TSQuery a)
+```
 ## Detailed Description
 The  function creates a compact bit signature (TSQuerySign) from a TSQuery object by examining all value operands (QI_VAL type) within the query. For each value operand found, it extracts the precomputed CRC hash () from the operand and sets the corresponding bit in the signature based on the hash value modulo the signature length.
 

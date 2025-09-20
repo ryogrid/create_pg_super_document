@@ -8,7 +8,9 @@ AlterEnum modifies existing enumeration types by either adding new enum values o
 
 ## Definition
 
-
+```c
+enum_type_oid;
+```
 ## Detailed Description
 AlterEnum implements PostgreSQL's ALTER TYPE enum modification commands, supporting two primary operations on enumeration types:
 

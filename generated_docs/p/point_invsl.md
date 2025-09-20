@@ -8,7 +8,10 @@ Calculates the inverse slope (negative reciprocal) of a line defined by two poin
 
 ## Definition
 
-
+```c
+static inline float8
+point_invsl(Point *pt1, Point *pt2)
+```
 ## Detailed Description
 The  function computes the inverse slope of a line passing through two given points. The inverse slope is calculated as: inverse_slope = (x₂-x₁)/(y₁-y₂), which is the negative reciprocal of the standard slope. This is particularly useful for finding slopes of perpendicular lines and in geometric calculations involving orthogonal relationships.
 

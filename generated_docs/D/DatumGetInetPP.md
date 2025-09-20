@@ -8,7 +8,10 @@ Converts a Datum value to a pointer to an inet structure, handling detoasting of
 
 ## Definition
 
-
+```c
+static inline inet *
+DatumGetInetPP(Datum X)
+```
 ## Detailed Description
 DatumGetInetPP is an inline function that extracts an inet pointer from a Datum value. It specifically handles packed/compressed datum values by calling PG_DETOAST_DATUM_PACKED, which efficiently detoasts the data without creating a full copy if the data is already unpacked. This function is part of PostgreSQL's fmgr (function manager) interface macros for the inet data type, providing efficient access to network address data.
 

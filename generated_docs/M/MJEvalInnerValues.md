@@ -8,7 +8,10 @@ Computes the values of mergejoinable expressions for the current inner tuple and
 
 ## Definition
 
-
+```c
+static MJEvalResult
+MJEvalInnerValues(MergeJoinState *mergestate, TupleTableSlot *innerslot)
+```
 ## Detailed Description
 This function is the inner tuple counterpart to MJEvalOuterValues, evaluating merge join expressions for inner tuples with similar optimization logic:
 

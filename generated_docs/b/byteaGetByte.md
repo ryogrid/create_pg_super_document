@@ -8,7 +8,10 @@ Extracts a specific byte from a bytea (binary string) data type and returns it a
 
 ## Definition
 
-
+```c
+Datum
+byteaGetByte(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function treats a PostgreSQL bytea value as an array of bytes and retrieves the Nth byte at the specified index position. The function performs bounds checking to ensure the index is within valid range and returns the byte value as a 32-bit integer. It's part of PostgreSQL's variable-length data type handling system for binary data manipulation.
 

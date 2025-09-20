@@ -8,7 +8,10 @@ A utility function that pushes an operator element onto an operator stack used d
 
 ## Definition
 
-
+```c
+static void
+pushOpStack(OperatorElement *stack, int *lenstack, int8 op, int16 distance)
+```
 ## Detailed Description
 The pushOpStack function is a simple stack management utility used specifically in tsquery parsing operations. It adds a new operator element to the top of an operator stack, checking for overflow conditions. The function handles the placement of both the operator type and its associated distance value, incrementing the stack length after the push operation. This function is part of the tsquery parsing infrastructure that converts text search queries into internal representation.
 

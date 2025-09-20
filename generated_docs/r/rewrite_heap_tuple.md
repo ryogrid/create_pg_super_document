@@ -8,7 +8,11 @@ Rewrites and inserts a tuple into the new heap during a table rewrite operation,
 
 ## Definition
 
-
+```c
+void
+rewrite_heap_tuple(RewriteState state,
+				   HeapTuple old_tuple, HeapTuple new_tuple)
+```
 ## Detailed Description
 The `rewrite_heap_tuple` function is responsible for processing individual tuples during a heap rewrite operation. It copies visibility information from the original tuple to the new tuple, applies freezing to old transactions, and manages complex update chain relationships. The function handles the intricate task of maintaining tuple update chains across the rewrite by using hash tables to track unresolved tuple references and old-to-new TID mappings.
 

@@ -8,7 +8,13 @@ VarParamState is a structure used to store parameter type information for SQL qu
 
 ## Definition
 
-
+```c
+typedef struct VarParamState
+{
+	Oid		  **paramTypes;		/* array of parameter type OIDs */
+	int		   *numParams;		/* number of array entries */
+} VarParamState;
+```
 ## Detailed Description
 VarParamState is used in PostgreSQL's parser to handle parameter references in queries where the parameter types and count are not predetermined and can vary dynamically. Unlike FixedParamState, this structure uses pointers to pointers and counts, allowing the parameter array to be re-palloc'd (reallocated) to accommodate additional parameters discovered during parsing.
 

@@ -8,7 +8,14 @@ The core internal function that performs the actual namespace migration for Post
 
 ## Definition
 
-
+```c
+Oid
+AlterTypeNamespaceInternal(Oid typeOid, Oid nspOid,
+						   bool isImplicitArray,
+						   bool ignoreDependent,
+						   bool errorOnTableType,
+						   ObjectAddresses *objsMoved)
+```
 ## Detailed Description
 AlterTypeNamespaceInternal is the workhorse function that performs the actual type namespace change operations. It handles the complete process including catalog updates, dependency tracking, constraint migration, and recursive processing of associated array types. The function distinguishes between different type categories (composite types, domains, table row types) and applies appropriate handling for each. It maintains referential integrity by updating both pg_type and pg_class catalogs for composite types and properly managing namespace dependencies.
 

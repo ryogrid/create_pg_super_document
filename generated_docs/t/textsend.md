@@ -8,7 +8,10 @@ The  function converts PostgreSQL's internal text representation to external bin
 
 ## Definition
 
-
+```c
+Datum
+textsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL data type binary send function that handles the conversion from PostgreSQL's internal text format to external binary protocol format. It takes a text datum as input, extracts the string data using PostgreSQL's variable-length data macros, and packages it into a binary message using the PostgreSQL protocol functions. This function is part of PostgreSQL's binary protocol support and is used when text values need to be transmitted in binary format between client and server or in replication streams.
 

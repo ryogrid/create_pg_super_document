@@ -8,7 +8,10 @@ A specialized startup function for iterating over ScalarArrayOpExpr nodes with c
 
 ## Definition
 
-
+```c
+struct */
+	state = (ArrayConstIterState *) palloc(sizeof(ArrayConstIterState));
+```
 ## Detailed Description
 This function initializes iteration over ScalarArrayOpExpr nodes that contain constant arrays (like 'x = ANY(ARRAY[1,2,3])'). It deconstructs the array literal into individual elements and creates a specialized iteration state that allows the predicate framework to iterate over each array element as if it were a separate comparison operation. The function sets up dummy OpExpr and Const nodes that will be reused for each array element during iteration, effectively transforming 'x = ANY(array)' into multiple 'x = element' comparisons for analysis purposes.
 

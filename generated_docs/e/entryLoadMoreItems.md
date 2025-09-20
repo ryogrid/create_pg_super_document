@@ -8,7 +8,11 @@ Loads the next batch of item pointers from a GIN posting tree, implementing effi
 
 ## Definition
 
-
+```c
+static void
+entryLoadMoreItems(GinState *ginstate, GinScanEntry entry,
+				   ItemPointerData advancePast)
+```
 ## Detailed Description
 The entryLoadMoreItems function is a critical component of GIN index scanning that manages the incremental loading of item pointers from posting trees. It implements two distinct navigation strategies to efficiently locate the next batch of items: stepping right to adjacent pages when the next item should be on the immediate next page, or re-descending from the root when larger jumps are needed.
 

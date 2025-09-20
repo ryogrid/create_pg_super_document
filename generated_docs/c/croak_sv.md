@@ -8,7 +8,11 @@ A macro that provides a standardized way to throw fatal errors in Perl extension
 
 ## Definition
 
-
+```c
+#  endif
+#  define croak_sv(sv)                         \
+    STMT_START
+```
 ## Detailed Description
 The  macro is part of the Perl portability layer (ppport.h) that provides a consistent interface for throwing fatal errors across different Perl versions. It intelligently handles two types of error scenarios:
 

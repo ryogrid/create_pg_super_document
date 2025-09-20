@@ -8,7 +8,12 @@ Handles DEFAULT value replacement in VALUES RTEs during INSERT statement rewriti
 
 ## Definition
 
-
+```c
+static bool
+rewriteValuesRTE(Query *parsetree, RangeTblEntry *rte, int rti,
+				 Relation target_relation,
+				 Bitmapset *unused_cols)
+```
 ## Detailed Description
 This function processes INSERT ... VALUES statements with multiple VALUES lists (VALUES RTE) and replaces any DEFAULT items with the appropriate default expressions. The function handles different scenarios based on the target relation type:
 

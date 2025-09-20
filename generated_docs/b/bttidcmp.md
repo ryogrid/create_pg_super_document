@@ -8,7 +8,10 @@ A PostgreSQL function that compares two tuple identifiers (TIDs) for B-tree inde
 
 ## Definition
 
-
+```c
+Datum
+bttidcmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that performs comparison between two ItemPointer values (TIDs) for use in B-tree indexes. It extracts two ItemPointer arguments from the function call arguments and delegates the actual comparison logic to the  function. This function is essential for B-tree operations on TID columns, enabling proper ordering and searching within B-tree indexes. The function follows PostgreSQL's standard function calling convention using the  macro and returns an integer result indicating the comparison outcome.
 

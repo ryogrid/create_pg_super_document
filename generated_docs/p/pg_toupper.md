@@ -8,7 +8,10 @@ Converts a single character to uppercase in a safe manner that works with both A
 
 ## Definition
 
-
+```c
+unsigned char
+pg_toupper(unsigned char ch)
+```
 ## Detailed Description
 The  function converts a character to its uppercase equivalent, providing a safe alternative to the standard C library's  function. Unlike some implementations of , this function is designed to be safe when applied to characters that are not lowercase letters - it will simply return the character unchanged if it's not a lowercase letter.
 

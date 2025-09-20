@@ -8,7 +8,10 @@ Ensures that the SUBTRANS system has room for a newly-allocated transaction ID b
 
 ## Definition
 
-
+```c
+void
+ExtendSUBTRANS(TransactionId newestXact)
+```
 ## Detailed Description
 ExtendSUBTRANS is called during transaction ID allocation to ensure that the SUBTRANS system can accommodate the newest transaction. It's designed to be very fast most of the time by only doing work when a new page needs to be allocated.
 

@@ -8,7 +8,10 @@ Semantic action function for JSON parsing that handles cleanup when finishing JS
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+json_unique_object_end(void *_state)
+```
 ## Detailed Description
 The `json_unique_object_end` function is a semantic action callback used during JSON parsing to handle the completion of JSON objects when key uniqueness validation is enabled. It pops the current object's tracking entry from the parsing state stack and frees the associated memory. This function pairs with `json_unique_object_start` to maintain proper stack management during nested JSON object parsing and ensures clean resource cleanup.
 

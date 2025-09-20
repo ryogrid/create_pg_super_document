@@ -8,7 +8,10 @@ Serializes the currently acquired replication slot's state from memory to disk, 
 
 ## Definition
 
-
+```c
+void
+ReplicationSlotSave(void)
+```
 ## Detailed Description
 This function provides a simple interface to persist the current replication slot to disk. It operates on the globally accessible MyReplicationSlot variable, which points to the slot currently acquired by the calling process. The function constructs the appropriate file system path and delegates the actual serialization work to SaveSlotToPath, using ERROR level for any failures that occur during the save operation.
 

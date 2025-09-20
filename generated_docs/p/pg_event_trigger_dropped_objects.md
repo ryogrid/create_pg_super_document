@@ -8,7 +8,9 @@ A PostgreSQL built-in function that returns information about objects dropped du
 
 ## Definition
 
-
+```c
+struct_empty_array(TEXTOID));
+```
 ## Detailed Description
 This function provides access to the list of dropped objects that have been registered during the execution of the current DDL command. It can only be called from within sql_drop event trigger functions and returns a set of rows containing detailed information about each dropped object.
 

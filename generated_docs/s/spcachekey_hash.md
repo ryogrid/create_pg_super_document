@@ -8,7 +8,10 @@ Hash function that computes a hash value for a SearchPathCacheKey, used as part 
 
 ## Definition
 
-
+```c
+static inline uint32
+spcachekey_hash(SearchPathCacheKey key)
+```
 ## Detailed Description
 This function implements a hash computation for SearchPathCacheKey structures used in PostgreSQL's search path cache. The cache is designed to optimize frequent namespace path recomputations, particularly when functions have search_path settings in their proconfig. The hash function uses PostgreSQL's fasthash algorithm to combine the role ID and search path string into a single 32-bit hash value. The function is marked as static inline for performance optimization since it's likely to be called frequently during namespace operations.
 

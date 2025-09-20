@@ -8,7 +8,10 @@ Creates a GroupingSet node that represents different types of grouping operation
 
 ## Definition
 
-
+```c
+GroupingSet *
+makeGroupingSet(GroupingSetKind kind, List *content, int location)
+```
 ## Detailed Description
 This function constructs a GroupingSet node, which is fundamental to PostgreSQL's implementation of advanced GROUP BY operations. GroupingSet nodes represent the various grouping specifications that can appear in SQL GROUP BY clauses, such as:
 

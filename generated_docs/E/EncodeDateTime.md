@@ -8,7 +8,10 @@ Encodes date and time information as a formatted string according to various int
 
 ## Definition
 
-
+```c
+void
+EncodeDateTime(struct tm *tm, fsec_t fsec, bool print_tz, int tz, const char *tzn, int style, char *str, bool EuroDates)
+```
 ## Detailed Description
 EncodeDateTime is a comprehensive datetime formatting function that converts PostgreSQL's internal time representation into human-readable strings. It supports multiple international date/time formats and handles timezone information when specified.
 

@@ -8,7 +8,11 @@ This function handles the morphological analysis of Turkish suffixes that may op
 
 ## Definition
 
+```c
+}
 
+static int r_mark_suffix_with_optional_y_consonant(struct SN_env * z)
+```
 ## Detailed Description
 The  function is designed to handle Turkish morphological patterns where the consonant 'y' may be optionally inserted in certain suffix contexts. This function follows the same structural pattern as the other optional consonant functions but specifically handles the 'y' consonant insertion pattern.
 

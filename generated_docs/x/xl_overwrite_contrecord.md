@@ -8,7 +8,13 @@ A data structure that logs when a continuation record has been overwritten, typi
 
 ## Definition
 
-
+```c
+typedef struct xl_overwrite_contrecord
+{
+	XLogRecPtr	overwritten_lsn;
+	TimestampTz overwrite_time;
+} xl_overwrite_contrecord;
+```
 ## Detailed Description
 xl_overwrite_contrecord is a WAL record structure used to log instances where a continuation record (contrecord) has been overwritten during WAL processing. This typically occurs during recovery scenarios where an incomplete WAL record exists at the end of a WAL segment, and new WAL records overwrite the incomplete continuation data.
 

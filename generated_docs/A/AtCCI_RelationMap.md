@@ -8,7 +8,10 @@ Activates any "pending" relation map updates at CommandCounterIncrement time, ma
 
 ## Definition
 
-
+```c
+void
+AtCCI_RelationMap(void)
+```
 ## Detailed Description
 The AtCCI_RelationMap function is responsible for activating pending relation mapping updates when a CommandCounterIncrement occurs. In PostgreSQL's relation mapping system, updates to the mapping between catalog OIDs and file numbers follow a visibility protocol similar to regular table updates - they become visible only at CommandCounterIncrement boundaries.
 

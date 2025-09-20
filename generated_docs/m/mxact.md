@@ -8,7 +8,20 @@ mxact is a typedef struct used within the pg_get_multixact_members function to s
 
 ## Definition
 
+```c
+int			iter;
+	} mxact;
+	MultiXactId mxid = PG_GETARG_TRANSACTIONID(0);
+	mxact	   *multi;
+	FuncCallContext *funccxt;
 
+	if (mxid < FirstMultiXactId)
+		ereport(ERROR,
+				(errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+				 errmsg("invalid MultiXactId: %u", mxid)));
+
+	if (SRF_IS_FIRSTCALL())
+```
 ## Detailed Description
 This struct serves as a context holder for the pg_get_multixact_members set-returning function (SRF). It stores the array of multixact members retrieved for a given MultiXactId, the total count of members, and an iterator index for tracking progress through the member list during successive function calls. The struct is allocated in the SRF's multi-call memory context to persist across multiple function invocations.
 

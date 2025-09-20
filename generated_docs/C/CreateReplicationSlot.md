@@ -8,7 +8,12 @@ Creates a new replication slot (physical or logical) for PostgreSQL streaming re
 
 ## Definition
 
-
+```c
+bool
+CreateReplicationSlot(PGconn *conn, const char *slot_name, const char *plugin,
+					  bool is_temporary, bool is_physical, bool reserve_wal,
+					  bool slot_exists_ok, bool two_phase)
+```
 ## Detailed Description
 This function creates a new replication slot based on the command parameters. For physical slots, it creates the slot and optionally reserves WAL to prevent it from being recycled. For logical slots, it performs additional setup including logical decoding context initialization, snapshot handling (export/use), and plugin validation. The function validates transaction state requirements for logical slots with snapshot operations and returns detailed information about the created slot including its name, consistent point, snapshot name (if applicable), and output plugin.
 

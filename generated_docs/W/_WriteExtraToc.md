@@ -8,7 +8,10 @@ _WriteExtraToc is a callback function that saves format-specific TOC entry data 
 
 ## Definition
 
-
+```c
+static void
+_WriteExtraToc(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function serves as an optional callback invoked by the PostgreSQL archiver to save extra format-related data associated with each Table of Contents (TOC) entry. For the custom archive format, this involves writing the data position and state information that was previously set up during archive creation.
 

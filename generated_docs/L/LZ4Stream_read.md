@@ -8,7 +8,10 @@ Provides a fread() equivalent interface for reading decompressed data from LZ4 c
 
 ## Definition
 
-
+```c
+static size_t
+LZ4Stream_read(void *ptr, size_t size, CompressFileHandle *CFH)
+```
 ## Detailed Description
 LZ4Stream_read is a wrapper function that implements the standard C library fread() interface for LZ4 compressed streams. It serves as the primary entry point for reading decompressed data from LZ4 compressed files in pg_dump. The function delegates the actual work to LZ4Stream_read_internal() and handles error reporting by calling pg_fatal() if the read operation fails.
 

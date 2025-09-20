@@ -8,7 +8,11 @@ Checks if a new value falls within any of the existing ranges in a BRIN minmax m
 
 ## Definition
 
-
+```c
+static bool
+has_matching_range(BrinDesc *bdesc, Oid colloid, Ranges *ranges,
+				   Datum newval, AttrNumber attno, Oid typid)
+```
 ## Detailed Description
 This function determines whether a given value falls within any of the existing ranges stored in a BRIN minmax multi index. It uses an efficient binary search algorithm to locate potential matching ranges.
 

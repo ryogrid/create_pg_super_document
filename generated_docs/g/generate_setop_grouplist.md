@@ -8,7 +8,10 @@ Builds a SortGroupClause list defining the sort/grouping properties of a set ope
 
 ## Definition
 
-
+```c
+static List *
+generate_setop_grouplist(SetOperationStmt *op, List *targetlist)
+```
 ## Detailed Description
 This function creates a properly configured list of SortGroupClause nodes for set operations by copying the grouping clauses that were determined during parse analysis and updating them with the correct sortgroupref values from the targetlist. The parser analysis determines the appropriate sorting and grouping properties for set operations but doesn't set the sortgrouprefs because the parser representation doesn't include targetlists for each setop node.
 

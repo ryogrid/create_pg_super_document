@@ -8,7 +8,10 @@ A selectivity estimation function for case-insensitive regular expression non-ma
 
 ## Definition
 
-
+```c
+Datum
+icregexnesel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function estimates the selectivity (fraction of rows that will match) for case-insensitive regular expression non-match operations (e.g.,  operator). It serves as a wrapper function that calls the generic  function with specific parameters for case-insensitive regex patterns and negation. This function is used by PostgreSQL's query planner to estimate how many rows will NOT match a case-insensitive regular expression pattern, which helps in choosing optimal query execution plans.
 

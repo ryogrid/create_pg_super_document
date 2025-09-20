@@ -8,7 +8,10 @@ An SP-GiST operator function that determines whether a leaf-level tuple satisfie
 
 ## Definition
 
-
+```c
+Datum
+spg_quad_leaf_consistent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the final filtering step in PostgreSQL's SP-GiST quadtree index traversal. When the traversal reaches a leaf node, this function:
 

@@ -8,7 +8,10 @@ Estimates the number of hashtable entries that can fit within a specified memory
 
 ## Definition
 
-
+```c
+long
+tbm_calculate_entries(double maxbytes)
+```
 ## Detailed Description
 This function calculates the maximum number of hash table entries that can be accommodated within a given memory limit for TID bitmap operations. The calculation considers the memory overhead of PagetableEntry structures plus two additional Pointer-sized entries per hashtable entry (accounting for arrays created during iteration readout). The function applies both safety and sanity limits: capping the result at INT_MAX - 1 to prevent integer overflow, and ensuring a minimum of 16 entries for basic functionality.
 

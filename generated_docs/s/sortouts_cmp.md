@@ -8,7 +8,9 @@ A static comparison function used for sorting arc pointers by destination state,
 
 ## Definition
 
-
+```c
+struct arc *aa = *((const struct arc *const *) a);
+```
 ## Detailed Description
 This function compares two arc pointers for sorting outgoing arcs from NFA states. It implements a three-level comparison strategy to establish consistent ordering:
 

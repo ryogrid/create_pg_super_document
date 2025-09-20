@@ -8,7 +8,10 @@ RenameSchema implements the ALTER SCHEMA RENAME operation, changing a schema's n
 
 ## Definition
 
-
+```c
+ObjectAddress
+RenameSchema(const char *oldname, const char *newname)
+```
 ## Detailed Description
 RenameSchema handles the renaming of an existing database schema by updating the schema's name in the pg_namespace system catalog. The function performs extensive validation including ownership verification, privilege checking, and name conflict detection. It ensures that only authorized users can rename schemas and that the new name doesn't conflict with existing schemas or reserved system names.
 

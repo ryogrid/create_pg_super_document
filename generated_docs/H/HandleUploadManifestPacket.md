@@ -8,7 +8,11 @@ Processes individual packets received during an UPLOAD_MANIFEST operation, handl
 
 ## Definition
 
-
+```c
+static bool
+HandleUploadManifestPacket(StringInfo buf, off_t *offset,
+						   IncrementalBackupInfo *ib)
+```
 ## Detailed Description
 HandleUploadManifestPacket is a helper function that processes one packet at a time during the UPLOAD_MANIFEST replication command. It implements the server-side handling of PostgreSQL's COPY protocol for receiving manifest data:
 

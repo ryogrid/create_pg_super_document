@@ -8,7 +8,10 @@ Sends a command message from the leader process to a specified worker process th
 
 ## Definition
 
-
+```c
+static void
+sendMessageToWorker(ParallelState *pstate, int worker, const char *str)
+```
 ## Detailed Description
 This function is executed in the leader process to send command messages to individual worker processes during parallel database dump operations. It writes the provided command string to the write end of the specified worker's communication pipe, ensuring the complete message including the null terminator is transmitted. The function provides error handling that terminates the process if the write operation fails, maintaining the integrity of the leader-worker communication protocol.
 

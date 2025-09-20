@@ -8,7 +8,11 @@ Creates and initializes an EState node, which serves as the root of working stor
 
 ## Definition
 
-
+```c
+structure
+	 */
+	estate->es_direction = ForwardScanDirection;
+```
 ## Detailed Description
 CreateExecutorState is responsible for creating and initializing the central executor state structure (EState) that manages all execution-related data for a query. The function creates a per-query memory context named "ExecutorState" as a child of the current memory context, which will hold all working data that persists for the duration of the query execution. The EState node itself is allocated within this per-query context to avoid requiring a separate cleanup operation at shutdown.
 

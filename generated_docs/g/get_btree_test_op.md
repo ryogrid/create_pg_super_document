@@ -8,7 +8,10 @@ Identifies the comparison operator needed for btree-based proofs involving const
 
 ## Definition
 
-
+```c
+static Oid
+get_btree_test_op(Oid pred_op, Oid clause_op, bool refute_it)
+```
 ## Detailed Description
 This function determines which comparison operator should be used to compare two constants when proving or refuting a predicate based on a clause. Given a true clause "var clause_op const1" and a predicate "var pred_op const2" to prove/refute, it returns the operator needed to compare const2 with const1.
 

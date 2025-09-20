@@ -8,7 +8,10 @@ Determines whether a given CommandTag should include the number of affected rows
 
 ## Definition
 
-
+```c
+bool
+command_tag_display_rowcount(CommandTag commandTag)
+```
 ## Detailed Description
 This function checks the display_rowcount property of a command tag to determine whether the command completion string should include information about the number of rows processed by the command. Commands like SELECT, INSERT, UPDATE, DELETE, COPY, FETCH, MOVE, and MERGE typically display row counts in their completion messages (e.g., "SELECT 5", "UPDATE 10"), while DDL commands like CREATE TABLE or ALTER INDEX do not.
 

@@ -8,7 +8,13 @@ Transforms a list of expressions within a GROUP BY clause or grouping set, retur
 
 ## Definition
 
-
+```c
+static List *
+transformGroupClauseList(List **flatresult,
+						 ParseState *pstate, List *list,
+						 List **targetlist, List *sortClause,
+						 ParseExprKind exprKind, bool useSQL99, bool toplevel)
+```
 ## Detailed Description
 This function processes a list of expressions that belong to a single GROUP BY clause or grouping set. It iterates through each expression in the input list, transforms them using , and builds a result list of integer ressortgroupref values. The function maintains a local bitmap set to track already seen references within the current grouping context, allowing for safe elimination of duplicates. This is a key component in the PostgreSQL parser's handling of GROUP BY clauses and grouping sets.
 

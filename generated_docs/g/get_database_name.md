@@ -8,7 +8,10 @@ A utility function that retrieves the database name given its OID (Object Identi
 
 ## Definition
 
-
+```c
+char *
+get_database_name(Oid dbid)
+```
 ## Detailed Description
 This function looks up a database name in the system catalog pg_database using the provided database OID. It performs a system cache lookup for efficiency, returning a palloc'd string containing the database name if found, or NULL if no database exists with the given OID. The function is widely used throughout PostgreSQL for converting database OIDs to human-readable names in logging, error messages, and various administrative operations.
 

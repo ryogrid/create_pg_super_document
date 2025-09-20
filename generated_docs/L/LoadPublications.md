@@ -8,7 +8,10 @@ LoadPublications loads Publication objects from a list of publication names, use
 
 ## Definition
 
-
+```c
+static List *
+LoadPublications(List *pubnames)
+```
 ## Detailed Description
 LoadPublications is a utility function in the pgoutput logical replication output plugin that takes a list of publication names as strings and converts them into a list of Publication objects. The function iterates through each publication name in the input list, looks up the corresponding Publication object using GetPublicationByName, and builds a new list containing the Publication structures. This is essential for the pgoutput plugin to access publication metadata when processing logical replication changes.
 

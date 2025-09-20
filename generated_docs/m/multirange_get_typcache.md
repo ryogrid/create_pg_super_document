@@ -8,7 +8,13 @@ Retrieves cached type information for a multirange type, using the function call
 
 ## Definition
 
-
+```c
+struct, items and flags.
+	 */
+	size = att_align_nominal(sizeof(MultirangeType) +
+							 Max(range_count - 1, 0) * sizeof(uint32) +
+							 range_count * sizeof(uint8), elemalign);
+```
 ## Detailed Description
 This utility function provides efficient access to cached type information for multirange types. It follows PostgreSQL's convention of using the fn_extra field in FunctionCallInfo to cache type metadata across function calls. The function first checks if valid cached information exists for the requested multirange type, and if not, retrieves it from the type cache system. This caching mechanism significantly improves performance for functions that repeatedly operate on the same multirange type.
 

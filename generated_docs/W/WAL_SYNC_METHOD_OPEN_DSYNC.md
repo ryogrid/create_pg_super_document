@@ -8,7 +8,14 @@ An enum constant that represents the O_DSYNC synchronization method for WAL (Wri
 
 ## Definition
 
-
+```c
+typedef enum ArchiveMode
+{
+	ARCHIVE_MODE_OFF = 0,		/* disabled */
+	ARCHIVE_MODE_ON,			/* enabled while server is running normally */
+	ARCHIVE_MODE_ALWAYS,		/* enabled always (even during recovery) */
+} ArchiveMode;
+```
 ## Detailed Description
 WAL_SYNC_METHOD_OPEN_DSYNC is a member of the WalSyncMethod enumeration that specifies using the O_DSYNC flag when opening WAL files. This synchronization method ensures that data writes to WAL files are immediately synchronized to disk storage, providing durability guarantees for transaction logging. The O_DSYNC flag causes each write operation to block until the data has been physically written to the underlying storage device, making it a synchronous I/O method. This is one of several available WAL synchronization methods that administrators can choose from based on their performance and durability requirements.
 

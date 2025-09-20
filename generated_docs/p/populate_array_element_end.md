@@ -8,7 +8,10 @@ A JSON parsing callback function that handles the end of array elements during J
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+populate_array_element_end(void *_state, bool isnull)
+```
 ## Detailed Description
 This function serves as a JSON semantic action callback that is invoked when the JSON parser reaches the end of an array element. It is specifically designed to work with the populate_array_json() functionality. The function constructs a JsValue structure representing the completed array element and delegates the actual element processing to populate_array_element(). It handles both null values and non-null values, managing different representations based on whether the element is a scalar value or a complex JSON structure.
 

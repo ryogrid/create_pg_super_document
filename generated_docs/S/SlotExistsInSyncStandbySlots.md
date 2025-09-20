@@ -8,7 +8,10 @@ Checks if a given slot name is specified in the synchronized_standby_slots GUC p
 
 ## Definition
 
-
+```c
+bool
+SlotExistsInSyncStandbySlots(const char *slot_name)
+```
 ## Detailed Description
 This function performs a linear search through the configured synchronized standby slots to determine if a specific slot name is included in the synchronized_standby_slots GUC parameter. It accesses the global synchronized_standby_slots_config structure that contains the parsed and validated slot names. The function uses a simple linear search algorithm, iterating through the packed slot names in the configuration structure. Each slot name is null-terminated and stored contiguously in memory, so the function advances the pointer by the string length plus one to move to the next slot name.
 

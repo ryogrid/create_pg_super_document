@@ -8,7 +8,10 @@ load_critical_index loads one critical system index into the relation cache and 
 
 ## Definition
 
-
+```c
+static void
+load_critical_index(Oid indexoid, Oid heapoid)
+```
 ## Detailed Description
 This static function is responsible for loading essential system indexes into the relation cache during database initialization. These critical indexes are required for basic system catalog operations and must be kept permanently loaded ("nailed") to ensure reliable database functionality.
 

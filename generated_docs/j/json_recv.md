@@ -8,7 +8,10 @@ Deserializes binary-formatted JSON data received from PostgreSQL's binary protoc
 
 ## Definition
 
-
+```c
+Datum
+json_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the counterpart to  and handles the deserialization of JSON data that was transmitted using PostgreSQL's binary protocol. It extracts the JSON text from the binary message buffer, validates the JSON syntax, and converts it back to PostgreSQL's internal JSON representation (text format). This function is crucial for maintaining data integrity when receiving JSON data over the binary protocol.
 

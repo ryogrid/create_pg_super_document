@@ -8,7 +8,12 @@ Reinitializes or restarts a GiST index scan with potentially new scan keys and o
 
 ## Definition
 
-
+```c
+struct a descriptor with the original data
+		 * types.
+		 */
+		natts = RelationGetNumberOfAttributes(scan->indexRelation);
+```
 ## Detailed Description
 This function handles the reinitialization of an existing GiST index scan, which can occur either as the initial scan setup (called after gistbeginscan) or when restarting a scan with different parameters. It implements sophisticated memory management using multiple contexts to optimize for the common case of single rescans while handling multiple rescans efficiently. The function processes scan keys by replacing operator functions with consistent functions, handles ORDER BY clauses by setting up distance functions, and prepares index-only scan infrastructure when needed.
 

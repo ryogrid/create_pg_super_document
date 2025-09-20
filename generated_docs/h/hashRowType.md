@@ -8,7 +8,15 @@ hashRowType generates a hash value for a TupleDesc that is consistent with the e
 
 ## Definition
 
-
+```c
+structure in
+ *		a previously allocated tuple descriptor.
+ *
+ * If attributeName is NULL, the attname field is set to an empty string
+ * (this is for cases where we don't know or need a name for the field).
+ * Also, some callers use this function to change the datatype-related fields
+ * in an existing tupdesc;
+```
 ## Detailed Description
 This function computes a hash value for a TupleDesc structure using the same fields that  considers for equality comparison. The hash computation ensures that two TupleDescs that would be considered equal by  will produce identical hash values, making it suitable for use in hash tables and caches.
 

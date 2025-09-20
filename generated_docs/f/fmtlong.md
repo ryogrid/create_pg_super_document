@@ -8,7 +8,10 @@ A static helper function that wraps the rfmtlong() function to format long integ
 
 ## Definition
 
-
+```c
+static void
+fmtlong(long lng, const char *fmt)
+```
 ## Detailed Description
 The fmtlong function serves as a testing wrapper around the rfmtlong() function in the ECPG Informix compatibility library. It formats a long integer value according to a provided format string, prints the result or error status, and maintains a static counter for successful conversions. This function is primarily used in test code to validate the behavior of the rfmtlong() formatting function.
 

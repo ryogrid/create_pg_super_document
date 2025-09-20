@@ -8,7 +8,18 @@ GenerateTypeDependencies creates and manages the complete set of dependency rela
 
 ## Definition
 
-
+```c
+void
+GenerateTypeDependencies(HeapTuple typeTuple,
+						 Relation typeCatalog,
+						 Node *defaultExpr,
+						 void *typacl,
+						 char relationKind, /* only for relation rowtypes */
+						 bool isImplicitArray,
+						 bool isDependentType,
+						 bool makeExtensionDep,
+						 bool rebuild)
+```
 ## Detailed Description
 GenerateTypeDependencies is the comprehensive function responsible for establishing all dependency relationships for a PostgreSQL type. It analyzes the type definition and creates dependencies on various database objects including I/O functions, support functions, namespaces, owners, base types, collations, and default expressions.
 

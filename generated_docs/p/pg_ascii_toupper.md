@@ -8,7 +8,10 @@ Converts a character to uppercase following strict C/POSIX locale rules, operati
 
 ## Definition
 
-
+```c
+unsigned char
+pg_ascii_toupper(unsigned char ch)
+```
 ## Detailed Description
 The  function provides a locale-independent way to convert ASCII characters to uppercase. Unlike , this function strictly follows C/POSIX locale rules and only operates on ASCII characters (a-z), making it suitable for situations where consistent, locale-independent behavior is required regardless of the system's locale settings.
 

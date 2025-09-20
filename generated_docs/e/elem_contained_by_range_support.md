@@ -8,7 +8,10 @@ Planner support function for the elem_contained_by_range operator (<@), which de
 
 ## Definition
 
-
+```c
+Datum
+elem_contained_by_range_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a planner support function specifically for the <@ operator when checking if an element is contained by a range. It implements query optimization logic by handling SupportRequestSimplify requests from the PostgreSQL query planner. When the planner encounters expressions involving element containment in ranges, this function can suggest simplified alternatives that may be more efficient to execute.
 

@@ -8,7 +8,9 @@ Performs end-of-transaction cleanup for parallel contexts by destroying all rema
 
 ## Definition
 
-
+```c
+enumsspace;
+```
 ## Detailed Description
 This function is called during transaction cleanup (both commit and abort) to ensure that all parallel contexts are properly destroyed at the end of a transaction. Unlike AtEOSubXact_Parallel which only cleans up contexts from a specific subtransaction, this function unconditionally destroys ALL remaining parallel contexts regardless of which subtransaction created them.
 

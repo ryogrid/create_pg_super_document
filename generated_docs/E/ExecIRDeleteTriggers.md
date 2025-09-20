@@ -8,7 +8,11 @@ ExecIRDeleteTriggers executes INSTEAD OF ROW DELETE triggers on views, allowing 
 
 ## Definition
 
-
+```c
+bool
+ExecIRDeleteTriggers(EState *estate, ResultRelInfo *relinfo,
+					 HeapTuple trigtuple)
+```
 ## Detailed Description
 This function executes INSTEAD OF ROW DELETE triggers, which are special triggers that can only be defined on views (not tables). When a DELETE operation is performed on a view that has INSTEAD OF DELETE triggers, these triggers completely replace the default delete behavior.
 

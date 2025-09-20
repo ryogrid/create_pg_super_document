@@ -8,7 +8,9 @@ BulkInsertState is a typedef for BulkInsertStateData pointer that manages state 
 
 ## Definition
 
-
+```c
+typedef struct BulkInsertStateData *BulkInsertState;
+```
 ## Detailed Description
 BulkInsertState maintains critical state information for optimizing bulk insertion operations in PostgreSQL heap relations. It implements a specialized buffer access strategy (BULKWRITE) to minimize buffer pool churn during large data loads. The structure tracks the current insertion target page and manages bulk page extensions to reduce the overhead of repeated relation extensions. When multiple pages are needed, it pre-extends the relation and keeps track of available free pages, allowing subsequent insertions to reuse these pages efficiently.
 

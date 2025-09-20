@@ -8,7 +8,10 @@ Converts a time with time zone to the session's local timezone, providing a conv
 
 ## Definition
 
-
+```c
+Datum
+timetz_at_local(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 `timetz_at_local` is a PostgreSQL built-in function that converts a time with time zone (TIMETZ) value to the local timezone as defined by the current session's `timezone` parameter. This function serves as a convenience wrapper that automatically determines the session timezone and delegates the actual conversion to `timetz_zone`. Unlike the equivalent functions for timestamp types, this function maintains the TIMETZ type (it doesn't flip between time with and without timezone) since TIME type doesn't carry timezone information that would make sense without an explicit timezone context.
 

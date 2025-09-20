@@ -8,7 +8,9 @@ RemoveExtensionById removes a PostgreSQL extension by deleting its pg_extension 
 
 ## Definition
 
-
+```c
+struct dirent *de;
+```
 ## Detailed Description
 This function implements the core deletion logic for PostgreSQL extensions. It performs a critical safety check to prevent deletion of extensions that are currently being modified (tracked via CurrentExtensionObject global variable), which could create dangling dependency records. The function then locates and deletes the corresponding tuple in the pg_extension system catalog. All cleanup of extension-owned objects, schema dependencies, and other related resources is handled automatically by PostgreSQL's dependency infrastructure, making this function's role focused solely on catalog tuple removal.
 

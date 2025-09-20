@@ -8,7 +8,10 @@ A static comparison function used as a qsort comparator to sort spgNodePtr struc
 
 ## Definition
 
-
+```c
+static int
+cmpNodePtr(const void *a, const void *b)
+```
 ## Detailed Description
 This function serves as a comparator for the qsort library function, specifically designed to sort arrays of spgNodePtr structures. It implements the standard qsort comparator interface by taking two void pointers, casting them to spgNodePtr pointers, and comparing their 'c' fields using PostgreSQL's signed 16-bit integer comparison utility. This function is critical for organizing node pointers in SP-GiST text processing operations where sorting by character values is required.
 

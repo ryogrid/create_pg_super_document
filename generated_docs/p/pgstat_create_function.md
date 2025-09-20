@@ -8,7 +8,10 @@ Registers a new function in PostgreSQL's statistics tracking system when the fun
 
 ## Definition
 
-
+```c
+void
+pgstat_create_function(Oid proid)
+```
 ## Detailed Description
 This function registers a new function (identified by its OID) with PostgreSQL's statistics tracking subsystem. It acts as a thin wrapper around the more general  function, specifically handling function-type statistics objects. The function ensures that if the current transaction aborts, any statistics tracking for this function will be properly cleaned up. This is part of PostgreSQL's transactional statistics system where statistics operations are tied to transaction outcomes.
 

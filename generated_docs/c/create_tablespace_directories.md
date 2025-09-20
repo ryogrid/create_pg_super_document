@@ -8,7 +8,9 @@ Creates the filesystem infrastructure for a tablespace by establishing directory
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 create_tablespace_directories establishes the physical filesystem infrastructure required for a tablespace to function. The function creates a versioned directory structure at the target location and establishes a symbolic link from the PostgreSQL data directory to enable tablespace access.
 

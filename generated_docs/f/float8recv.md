@@ -8,7 +8,10 @@ PostgreSQL system function that converts float8 values from external binary form
 
 ## Definition
 
-
+```c
+Datum
+float8recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the PostgreSQL system interface for receiving float8 values in binary format over the network protocol. It handles the conversion from the PostgreSQL binary wire protocol format to the internal float8 representation. This function is part of the binary I/O infrastructure used when clients communicate with PostgreSQL using the binary protocol (as opposed to text protocol).
 

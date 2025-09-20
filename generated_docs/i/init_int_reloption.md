@@ -8,7 +8,12 @@ A static function that allocates and initializes a new integer reloption structu
 
 ## Definition
 
-
+```c
+static relopt_int *
+init_int_reloption(bits32 kinds, const char *name, const char *desc,
+				   int default_val, int min_val, int max_val,
+				   LOCKMODE lockmode)
+```
 ## Detailed Description
 This function serves as an internal constructor for integer-type relation options (reloptions) in PostgreSQL. It creates a new  structure by first calling the generic  function to handle common initialization, then sets the integer-specific properties including default value, minimum value, and maximum value constraints. The function is marked as static, indicating it's an internal helper function used within the reloptions subsystem.
 

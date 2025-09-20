@@ -8,7 +8,9 @@ ShmemInitStruct creates or attaches to a named data structure in shared memory, 
 
 ## Definition
 
-
+```c
+structPtr;
+```
 ## Detailed Description
 This function is the central mechanism for creating and accessing named shared memory structures in PostgreSQL. It performs a dual role: if the named structure doesn't exist, it allocates space and creates it; if it already exists, it returns a pointer to the existing structure. This enables multiple PostgreSQL processes to share persistent data structures.
 

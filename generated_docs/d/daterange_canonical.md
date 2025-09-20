@@ -8,7 +8,10 @@ Converts a daterange to its canonical form by normalizing bounds to use consiste
 
 ## Definition
 
-
+```c
+Datum
+daterange_canonical(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function standardizes daterange values to a canonical representation where lower bounds are inclusive and upper bounds are exclusive. Similar to the integer range canonical functions but specifically designed for date ranges, it handles date-specific concerns such as finite/infinite dates and date validity checking. The function converts exclusive lower bounds to inclusive by incrementing the date value, and converts inclusive upper bounds to exclusive by incrementing the date value.
 

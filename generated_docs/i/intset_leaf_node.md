@@ -8,7 +8,18 @@ A leaf node structure in PostgreSQL's IntegerSet B-tree that stores compressed i
 
 ## Definition
 
+```c
+struct intset_leaf_node
+{
+	/* common header, must match intset_node */
+	uint16		level;			/* 0 on leafs */
+	uint16		num_items;
 
+	intset_leaf_node *next;		/* right sibling, if any */
+
+	leaf_item	items[MAX_LEAF_ITEMS];
+};
+```
 ## Detailed Description
 The intset_leaf_node structure represents the leaf nodes in PostgreSQL's IntegerSet B-tree, where the actual integer values are stored in compressed form. Unlike internal nodes that guide searches, leaf nodes contain the compressed integer data using Simple-8b encoding to minimize memory usage.
 

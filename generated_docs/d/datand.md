@@ -8,7 +8,10 @@ The  function computes the inverse tangent (arctangent) of a floating-point valu
 
 ## Definition
 
-
+```c
+Datum
+datand(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL SQL function  with degree output. It takes a single floating-point argument and computes its inverse tangent, returning the result in degrees within the range [-90, 90]. The implementation includes several notable features:
 

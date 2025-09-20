@@ -8,7 +8,11 @@ Initializes a CompressFileHandle structure for LZ4 compressed file operations by
 
 ## Definition
 
-
+```c
+void
+InitCompressFileHandleLZ4(CompressFileHandle *CFH,
+						  const pg_compress_specification compression_spec)
+```
 ## Detailed Description
 InitCompressFileHandleLZ4 is responsible for setting up the CompressFileHandle structure to work with LZ4-compressed files in PostgreSQL's pg_dump utility. The function has two different implementations based on compile-time LZ4 support:
 

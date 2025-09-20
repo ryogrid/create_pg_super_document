@@ -8,7 +8,10 @@ Processes individual data chunks received as part of a COPY stream during archiv
 
 ## Definition
 
-
+```c
+enum > 0)
+					progress_report(state->tablespacenum, true, false);
+```
 ## Detailed Description
 ReceiveArchiveStreamChunk is a callback function that processes individual chunks of data received through the COPY protocol during base backup operations. It acts as a message dispatcher, examining the type byte of each CopyData message and routing the processing accordingly.
 

@@ -8,7 +8,10 @@ A safe unsigned 64-bit integer addition function that detects arithmetic overflo
 
 ## Definition
 
-
+```c
+static inline bool
+pg_add_u64_overflow(uint64 a, uint64 b, uint64 *result)
+```
 ## Detailed Description
 This inline function performs addition of two 64-bit unsigned integers with overflow detection. It returns a boolean indicating whether overflow occurred during the operation. The function leverages compiler built-ins when available (`__builtin_add_overflow`) for optimal performance and accuracy, falling back to a manual overflow check on systems without built-in support.
 

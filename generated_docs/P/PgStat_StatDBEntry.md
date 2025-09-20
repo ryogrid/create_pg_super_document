@@ -8,7 +8,43 @@ PgStat_StatDBEntry is a comprehensive structure that tracks per-database statist
 
 ## Definition
 
+```c
+typedef struct PgStat_StatDBEntry
+{
+	PgStat_Counter xact_commit;
+	PgStat_Counter xact_rollback;
+	PgStat_Counter blocks_fetched;
+	PgStat_Counter blocks_hit;
+	PgStat_Counter tuples_returned;
+	PgStat_Counter tuples_fetched;
+	PgStat_Counter tuples_inserted;
+	PgStat_Counter tuples_updated;
+	PgStat_Counter tuples_deleted;
+	TimestampTz last_autovac_time;
+	PgStat_Counter conflict_tablespace;
+	PgStat_Counter conflict_lock;
+	PgStat_Counter conflict_snapshot;
+	PgStat_Counter conflict_logicalslot;
+	PgStat_Counter conflict_bufferpin;
+	PgStat_Counter conflict_startup_deadlock;
+	PgStat_Counter temp_files;
+	PgStat_Counter temp_bytes;
+	PgStat_Counter deadlocks;
+	PgStat_Counter checksum_failures;
+	TimestampTz last_checksum_failure;
+	PgStat_Counter blk_read_time;	/* times in microseconds */
+	PgStat_Counter blk_write_time;
+	PgStat_Counter sessions;
+	PgStat_Counter session_time;
+	PgStat_Counter active_time;
+	PgStat_Counter idle_in_transaction_time;
+	PgStat_Counter sessions_abandoned;
+	PgStat_Counter sessions_fatal;
+	PgStat_Counter sessions_killed;
 
+	TimestampTz stat_reset_timestamp;
+} PgStat_StatDBEntry;
+```
 ## Detailed Description
 PgStat_StatDBEntry serves as the central repository for database-level statistics in PostgreSQL's statistics system. It provides comprehensive metrics covering transactional activity, buffer pool efficiency, tuple-level operations, conflict resolution, session management, and I/O performance. This structure is crucial for database monitoring, performance tuning, and understanding database workload characteristics. The statistics are maintained per database and are used by various system functions, monitoring tools, and the autovacuum system for decision-making.
 

@@ -8,7 +8,49 @@ MultiExecBitmapOr executes a BitmapOr node by combining the bitmap results from 
 
 ## Definition
 
+```c
+union step for each child: just pass down the current result
+		 * bitmap and let the child OR directly into it.
+		 */
+		if (IsA(subnode, BitmapIndexScanState))
+		{
+			if (result == NULL) /* first subplan */
+			{
+				/* XXX should we use less than work_mem for this? */
+				result = tbm_create(work_mem * 1024L,
+									((BitmapOr *) node->ps.plan)->isshared ?
+									node->ps.state->es_query_dsa : NULL);
+			}
 
+			((BitmapIndexScanState *) subnode)->biss_result = result;
+
+			subresult = (TIDBitmap *) MultiExecProcNode(subnode);
+
+			if (subresult != result)
+				elog(ERROR, "unrecognized result from subplan");
+		}
+		else
+		{
+			/* standard implementation */
+			subresult = (TIDBitmap *) MultiExecProcNode(subnode);
+
+			if (!subresult || !IsA(subresult, TIDBitmap))
+				elog(ERROR, "unrecognized result from subplan");
+
+			if (result == NULL)
+				result = subresult; /* first subplan */
+			else
+			{
+				tbm_union(result, subresult);
+				tbm_free(subresult);
+			}
+		}
+	}
+
+	/* We could return an empty result set here? */
+	if (result == NULL)
+		elog(ERROR, "BitmapOr doesn't support zero inputs");
+```
 ## Detailed Description
 MultiExecBitmapOr is the core execution function for BitmapOr nodes, implementing the actual bitmap OR logic. The function iterates through all child subplans, executes each one to obtain a TID (Tuple Identifier) bitmap, and combines these bitmaps using logical OR operations to create a unified result bitmap.
 

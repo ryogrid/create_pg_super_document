@@ -8,7 +8,10 @@ Attempts to match an expression against the partition keys of a partitioned rela
 
 ## Definition
 
-
+```c
+static int
+match_expr_to_partition_keys(Expr *expr, RelOptInfo *rel, bool strict_op)
+```
 ## Detailed Description
 This function performs expression matching against both nullable and non-nullable partition key expressions of a partitioned relation. It strips away RelabelType nodes (which represent type coercion decorations) from the input expression and then compares it against stored partition key expressions using structural equality.
 

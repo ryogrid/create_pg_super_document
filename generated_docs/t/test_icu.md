@@ -8,7 +8,10 @@ An exhaustive test function that compares PostgreSQL's Unicode case mappings wit
 
 ## Definition
 
-
+```c
+static void
+test_icu(void)
+```
 ## Detailed Description
 This function performs a comprehensive validation of PostgreSQL's Unicode case conversion implementation by comparing it against the ICU library across all valid Unicode codepoints (0x0 to 0x10FFFF). The function iterates through the entire Unicode space, filtering out unassigned codepoints in PostgreSQL's implementation, and then cross-checks with ICU to ensure both libraries agree on character categorization. For each valid assigned codepoint, it calls  to perform detailed case conversion testing.
 

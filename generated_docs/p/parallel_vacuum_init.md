@@ -8,7 +8,12 @@ Initializes parallel vacuum execution by creating a parallel context, setting up
 
 ## Definition
 
-
+```c
+ParallelVacuumState *
+parallel_vacuum_init(Relation rel, Relation *indrels, int nindexes,
+					 int nrequested_workers, int vac_work_mem,
+					 int elevel, BufferAccessStrategy bstrategy)
+```
 ## Detailed Description
 This function sets up the infrastructure for parallel vacuum operations by:
 

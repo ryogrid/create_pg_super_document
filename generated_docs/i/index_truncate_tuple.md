@@ -8,7 +8,11 @@ Creates a palloc'd copy of an index tuple containing only the first specified nu
 
 ## Definition
 
-
+```c
+structure, so, plain pfree() should clean all allocated memory
+	 */
+	pfree(truncdesc);
+```
 ## Detailed Description
 The  function creates a truncated copy of an index tuple, keeping only the first  attributes while discarding the rest. This function is primarily used in B-tree operations where shorter tuple variants are needed for internal nodes or when space optimization is required.
 

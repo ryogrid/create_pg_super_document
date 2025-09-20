@@ -8,7 +8,10 @@ Implements the \encoding command in psql, which allows users to set or display t
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_encoding(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 This function handles the \encoding command which can operate in two modes:
 - Without arguments: displays the current client encoding using pg_encoding_to_char()

@@ -8,7 +8,15 @@ Merges collation state from a subexpression into the parent context, resolving c
 
 ## Definition
 
-
+```c
+static void
+merge_collation_state(Oid collation,
+					  CollateStrength strength,
+					  int location,
+					  Oid collation2,
+					  int location2,
+					  assign_collations_context *context)
+```
 ## Detailed Description
 This function implements the core logic for combining collation information from child expressions with the parent's collation context. It follows PostgreSQL's collation precedence rules:
 

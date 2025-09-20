@@ -8,7 +8,11 @@ Public API function to check that a datum satisfies the constraints of a domain 
 
 ## Definition
 
-
+```c
+void
+domain_check(Datum value, bool isnull, Oid domainType,
+			 void **extra, MemoryContext mcxt)
+```
 ## Detailed Description
 The  function provides a public interface for validating that a given value satisfies all constraints defined for a specific domain type. This function is a simple wrapper around  that provides error handling through traditional ereport mechanisms rather than soft error contexts.
 

@@ -8,7 +8,11 @@ Places a single don't-care tuple into either the left or right side of a GiST sp
 
 ## Definition
 
-
+```c
+static void
+placeOne(Relation r, GISTSTATE *giststate, GistSplitVector *v,
+		 IndexTuple itup, OffsetNumber off, int attno)
+```
 ## Detailed Description
 This function determines the optimal placement for a single don't-care tuple by comparing the penalty of adding it to either the left or right side of the split. It evaluates penalties for all columns starting from the specified  and places the tuple on the side with lower penalty. If penalties are equal for all columns, the tuple defaults to the left side. The function works by decompressing the tuple's attributes and computing penalties against the current union keys for both sides of the split.
 

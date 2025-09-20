@@ -8,7 +8,10 @@ This function resets subscription statistics in PostgreSQL, allowing for either 
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_reset_subscription_stats(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a mechanism to reset statistical data collected for logical replication subscriptions. It operates in two modes:
 

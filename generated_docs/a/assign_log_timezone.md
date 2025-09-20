@@ -8,7 +8,10 @@ This is a GUC assign hook function that sets the log_timezone global variable wh
 
 ## Definition
 
-
+```c
+void
+assign_log_timezone(const char *newval, void *extra)
+```
 ## Detailed Description
 The  function serves as the assignment hook for PostgreSQL's  configuration parameter. It is called after the  function has successfully validated the new timezone value. The function simply assigns the pre-validated timezone structure (stored in the  parameter) to the global  variable.
 

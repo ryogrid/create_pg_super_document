@@ -8,7 +8,14 @@ lookup_agg_function is a utility function that validates and resolves function n
 
 ## Definition
 
-
+```c
+static Oid
+lookup_agg_function(List *fnName,
+					int nargs,
+					Oid *input_types,
+					Oid variadicArgType,
+					Oid *rettype)
+```
 ## Detailed Description
 lookup_agg_function serves as the common validation and resolution function for all aggregate support functions (transition functions, final functions, combine functions, etc.). It performs function lookup using the system catalog, handles polymorphic type resolution, ensures type consistency, validates that no runtime type coercion is required, and checks permissions.
 

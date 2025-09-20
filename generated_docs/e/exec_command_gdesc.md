@@ -8,7 +8,10 @@ Implements the \gdesc command in psql, which enables describe mode to show colum
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_gdesc(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 This function handles the \gdesc backslash command in psql. When executed, it sets a flag that causes the next query to return column descriptions (metadata) rather than query results. This is useful for inspecting the structure of query results without actually executing the query or viewing the data. The function is simple, only setting the gdesc_flag when in an active branch.
 

@@ -8,7 +8,10 @@ Calculates the total shared memory size required for B-tree parallel index build
 
 ## Definition
 
-
+```c
+static Size
+_bt_parallel_estimate_shared(Relation heap, Snapshot snapshot)
+```
 ## Detailed Description
 This function provides a memory estimation for the shared memory segment that will be used during parallel B-tree index construction. It combines the memory needed for B-tree specific shared state (BTShared structure) with the memory required for parallel table scanning operations.
 

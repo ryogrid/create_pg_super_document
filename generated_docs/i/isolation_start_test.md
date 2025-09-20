@@ -8,7 +8,13 @@ Starts an isolation tester process for a specified test file and returns the pro
 
 ## Definition
 
-
+```c
+static PID_TYPE
+isolation_start_test(const char *testname,
+					 _stringlist **resultfiles,
+					 _stringlist **expectfiles,
+					 _stringlist **tags)
+```
 ## Detailed Description
 This function is responsible for launching an isolation test by executing the  binary with the appropriate input and output files. It performs path lookups for test specification files, manages file paths for input, output, and expected result files, constructs the command line for the isolationtester process, and spawns the process. The function handles file location logic that searches in both output and input directories, following a vpath-like search pattern for flexibility in test execution environments.
 

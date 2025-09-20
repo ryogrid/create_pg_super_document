@@ -8,7 +8,14 @@ BTStackData is a structure used to maintain a private stack during B-tree traver
 
 ## Definition
 
-
+```c
+typedef struct BTStackData
+{
+	BlockNumber bts_blkno;
+	OffsetNumber bts_offset;
+	struct BTStackData *bts_parent;
+} BTStackData;
+```
 ## Detailed Description
 BTStackData implements a linked-list stack structure that tracks the path taken during B-tree descent. As the tree traversal algorithm descends the tree, it pushes the location of pivot tuples onto this private stack before following their downlinks. This stack serves a crucial role during leaf page splits - it provides the necessary information to walk back up the tree and insert data into parent pages at the correct locations. The stack also handles recursive insertions when parent pages themselves need to split.
 

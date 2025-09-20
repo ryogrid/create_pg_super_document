@@ -8,7 +8,10 @@ A GIN opclass support function that compares two text values extracted from JSON
 
 ## Definition
 
-
+```c
+Datum
+gin_compare_jsonb(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the comparison operation required by the jsonb_ops GIN operator class. It compares two text arguments that represent keys, values, or other textual components extracted from JSONB data. The function uses PostgreSQL's varstr_cmp function with C collation (C_COLLATION_OID) to ensure consistent, locale-independent comparison results across different database configurations.
 

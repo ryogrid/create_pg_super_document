@@ -8,7 +8,11 @@ Adds a filter to prevent prefetching blocks from a specific relation starting at
 
 ## Definition
 
-
+```c
+static inline void
+XLogPrefetcherAddFilter(XLogPrefetcher *prefetcher, RelFileLocator rlocator,
+						BlockNumber blockno, XLogRecPtr lsn)
+```
 ## Detailed Description
 This function manages the prefetch filter system that prevents premature prefetching of blocks that may not yet be valid for reading. It maintains a hash table of active filters keyed by , where each filter specifies a block range and LSN threshold.
 

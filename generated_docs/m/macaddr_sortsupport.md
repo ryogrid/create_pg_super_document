@@ -8,7 +8,10 @@ Populates a SortSupport structure with comparison functions and state for optimi
 
 ## Definition
 
-
+```c
+Datum
+macaddr_sortsupport(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements PostgreSQL's SortSupport interface for the  data type. It configures a SortSupport structure with appropriate comparison functions and, when abbreviation is enabled, sets up abbreviated key sorting with cardinality estimation using HyperLogLog. The function provides two sorting modes: standard comparison using  and optimized abbreviated key sorting with fallback capability. When abbreviation is used, it initializes tracking state to monitor input cardinality and determine whether abbreviated sorting remains beneficial.
 

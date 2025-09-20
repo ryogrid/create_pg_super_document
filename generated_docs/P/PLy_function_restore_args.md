@@ -8,7 +8,10 @@ PLy_function_restore_args restores previously saved argument values to a procedu
 
 ## Definition
 
-
+```c
+struct */
+	pfree(savedargs);
+```
 ## Detailed Description
 This function is the counterpart to PLy_function_save_args, responsible for restoring argument state that was previously saved. It handles the complete restoration process including:
 

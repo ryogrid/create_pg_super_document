@@ -8,7 +8,10 @@ PageXLogRecPtrGet is an inline function that converts a PageXLogRecPtr structure
 
 ## Definition
 
-
+```c
+static inline XLogRecPtr
+PageXLogRecPtrGet(PageXLogRecPtr val)
+```
 ## Detailed Description
 This function takes a PageXLogRecPtr structure (which contains separate 32-bit xlogid and xrecoff fields) and combines them into a single 64-bit XLogRecPtr value. The conversion is performed by shifting the xlogid (high bits) left by 32 positions and ORing it with the xrecoff (low bits). This is part of PostgreSQL's Write-Ahead Logging (WAL) system for tracking log sequence numbers on pages.
 

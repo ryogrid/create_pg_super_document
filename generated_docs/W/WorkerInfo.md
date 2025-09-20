@@ -8,7 +8,13 @@ A typedef pointer to WorkerInfoData structure that holds information about a sin
 
 ## Definition
 
-
+```c
+typedef struct ShutdownInformation
+{
+	ParallelState *pstate;
+	Archive    *AHX;
+} ShutdownInformation;
+```
 ## Detailed Description
 WorkerInfo is a pointer type to WorkerInfoData structure that tracks individual autovacuum worker processes in PostgreSQL. The system maintains an array of these structures in shared memory, sized according to the autovacuum_max_workers configuration parameter. Each structure contains essential information about a worker's current state, including which database and table it's working on, process information, and coordination flags for load balancing.
 

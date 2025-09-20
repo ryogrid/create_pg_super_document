@@ -8,7 +8,14 @@ CoverPos is a structure that represents a text fragment (or "cover") used in Pos
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	/* callback data for checkcondition_HL */
+	HeadlineWordEntry *words;
+	int			len;
+} hlCheck;
+```
 ## Detailed Description
 CoverPos is a data structure used in PostgreSQL's text search headline generation functionality, specifically within the mark_hl_fragments function. It represents a potential text fragment that could be highlighted in search results. The structure tracks the boundaries and properties of text segments that contain query-matching words, allowing the headline generation algorithm to select the most relevant fragments for display.
 

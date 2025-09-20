@@ -8,7 +8,11 @@ Creates and initializes a new WAL file segment by either reusing an existing fil
 
 ## Definition
 
-
+```c
+static int
+XLogFileInitInternal(XLogSegNo logsegno, TimeLineID logtli,
+					 bool *added, char *path)
+```
 ## Detailed Description
 XLogFileInitInternal is responsible for ensuring a specific WAL file segment exists and is properly initialized. The function implements a robust two-phase creation process:
 

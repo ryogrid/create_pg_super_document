@@ -8,7 +8,10 @@ A B-tree comparison function for PostgreSQL's OID (Object Identifier) data type 
 
 ## Definition
 
-
+```c
+Datum
+btoidcmp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The btoidcmp function is a B-tree comparison function specifically designed for OID (Object Identifier) values in PostgreSQL. It takes two OID arguments through the PostgreSQL function call interface and performs a simple numeric comparison. The function returns a Datum containing an integer value that indicates the ordering relationship between the two OIDs: positive if the first OID is greater, zero if equal, or negative if the first is less than the second. This function is essential for B-tree index operations on OID columns, enabling efficient sorting and searching.
 

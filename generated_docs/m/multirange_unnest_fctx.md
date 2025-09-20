@@ -8,7 +8,17 @@ A private struct definition used as function context for the  set-returning func
 
 ## Definition
 
+```c
+int			index;
+	} multirange_unnest_fctx;
 
+	FuncCallContext *funcctx;
+	multirange_unnest_fctx *fctx;
+	MemoryContext oldcontext;
+
+	/* stuff done only on the first call of the function */
+	if (SRF_IS_FIRSTCALL())
+```
 ## Detailed Description
 The  struct serves as the function context for PostgreSQL's  set-returning function. This struct maintains state across multiple function calls, which is essential for set-returning functions that need to return one result at a time from a collection.
 

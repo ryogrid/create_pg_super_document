@@ -8,7 +8,10 @@ Creates a new procedural language or replaces an existing one in the PostgreSQL 
 
 ## Definition
 
-
+```c
+ObjectAddress
+CreateProceduralLanguage(CreatePLangStmt *stmt)
+```
 ## Detailed Description
 This function implements the CREATE LANGUAGE SQL command functionality. It validates the language definition, creates or updates the pg_language catalog entry, and establishes proper dependencies. The function performs comprehensive validation of handler functions, manages ownership and permissions, and ensures proper catalog consistency.
 

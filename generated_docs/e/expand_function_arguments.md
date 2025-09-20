@@ -8,7 +8,10 @@ Converts named-notation function arguments to positional notation and inserts de
 
 ## Definition
 
-
+```c
+struct the argument list into an array indexed by argnumber */
+	i = 0;
+```
 ## Detailed Description
 This function processes function argument lists to handle two main scenarios:
 

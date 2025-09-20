@@ -8,7 +8,13 @@ Core comparison function that compares two numeric values represented by their c
 
 ## Definition
 
-
+```c
+static int
+cmp_var_common(const NumericDigit *var1digits, int var1ndigits,
+			   int var1weight, int var1sign,
+			   const NumericDigit *var2digits, int var2ndigits,
+			   int var2weight, int var2sign)
+```
 ## Detailed Description
 This function implements the core logic for comparing two numeric values by examining their constituent components rather than requiring complete NumericVar structures. It handles all comparison cases including zero values, sign differences, and magnitude comparisons. The function first handles special cases for zero values, then processes sign differences, and finally delegates to cmp_abs_common for magnitude comparison when both numbers have the same sign.
 

@@ -8,7 +8,10 @@ TableFuncRecheck is a static access method routine used during EvalPlanQual oper
 
 ## Definition
 
-
+```c
+static bool
+TableFuncRecheck(TableFuncScanState *node, TupleTableSlot *slot)
+```
 ## Detailed Description
 TableFuncRecheck implements the recheck interface required by PostgreSQL's EvalPlanQual mechanism, which is used during concurrent transaction processing to ensure tuple visibility and consistency. However, since table functions generate deterministic results that are not subject to concurrent modifications by other transactions, this function simply returns true without performing any actual checks.
 

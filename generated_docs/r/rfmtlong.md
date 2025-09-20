@@ -8,7 +8,19 @@ A complex numeric formatting function that converts a long integer to a formatte
 
 ## Definition
 
+```c
+struct */
+	if (initValue(lng_val) == -1)
+	{
+		free(temp);
+		errno = ENOMEM;
+		return -1;
+	}
 
+	/* '<' is the only format, where we have to align left */
+	if (strchr(fmt, (int) '<'))
+		leftalign = 1;
+```
 ## Detailed Description
 The `rfmtlong` function is part of PostgreSQL's ECPG Informix compatibility layer that provides sophisticated numeric formatting capabilities. It takes a long integer value and formats it according to a complex format string that supports various Informix-style formatting specifiers.
 

@@ -8,7 +8,10 @@ Retrieves basic information about most type casts in the PostgreSQL system for u
 
 ## Definition
 
-
+```c
+CastInfo *
+getCasts(Archive *fout, int *numCasts)
+```
 ## Detailed Description
 The  function queries the  system catalog to retrieve information about type cast definitions in the database. It implements version-specific logic to handle different PostgreSQL versions, with special filtering for PostgreSQL 14.0+ to exclude automatically-created casts from ranges to their corresponding multirange types.
 

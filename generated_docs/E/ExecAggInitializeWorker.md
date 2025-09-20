@@ -8,7 +8,10 @@ This function attaches a worker process to DSM (Dynamic Shared Memory) space for
 
 ## Definition
 
-
+```c
+void
+ExecAggInitializeWorker(AggState *node, ParallelWorkerContext *pwcxt)
+```
 ## Detailed Description
 ExecAggInitializeWorker is responsible for initializing a parallel worker's access to shared aggregate state information. It performs the critical task of connecting a worker process to the shared memory segment that contains aggregate statistics and state. This function is part of PostgreSQL's parallel execution infrastructure, specifically for aggregate operations that can be parallelized across multiple worker processes.
 

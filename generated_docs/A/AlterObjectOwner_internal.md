@@ -8,7 +8,10 @@ A generic internal function that changes the ownership of a database object by u
 
 ## Definition
 
-
+```c
+void
+AlterObjectOwner_internal(Oid classId, Oid objectId, Oid new_ownerId)
+```
 ## Detailed Description
 AlterObjectOwner_internal provides the core implementation for changing object ownership in PostgreSQL. This function handles the common case where ownership alteration only requires updating a single catalog entry's owner column along with associated ACL and dependency changes. It performs comprehensive validation and updates multiple aspects of object ownership.
 

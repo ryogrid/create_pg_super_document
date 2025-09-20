@@ -8,7 +8,9 @@ Checks if the function call stack has grown dangerously deep during regex compil
 
 ## Definition
 
-
+```c
+struct guts *g;
+```
 ## Detailed Description
 The rstacktoodeep function serves as a critical safety mechanism in PostgreSQL's regex compilation engine to prevent stack overflow conditions. During complex regex compilation operations, particularly with deeply nested patterns or recursive structures, the call stack can grow to dangerous levels that might exceed system limits and cause crashes.
 

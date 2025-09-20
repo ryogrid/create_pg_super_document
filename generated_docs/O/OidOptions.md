@@ -8,7 +8,28 @@ OidOptions is an enumeration used in pg_dump to control how zero (invalid) OIDs 
 
 ## Definition
 
+```c
+zeroAsNone = 4,
+} OidOptions;
 
+/* global decls */
+static bool dosync = true;		/* Issue fsync() to make dump durable on disk. */
+
+static Oid	g_last_builtin_oid; /* value of the last builtin oid */
+
+/* The specified names/patterns should to match at least one entity */
+static int	strict_names = 0;
+
+static pg_compress_algorithm compression_algorithm = PG_COMPRESSION_NONE;
+
+/*
+ * Object inclusion/exclusion lists
+ *
+ * The string lists record the patterns given by command-line switches,
+ * which we then convert to lists of OIDs of matching objects.
+ */
+static SimpleStringList schema_include_patterns =
+```
 ## Detailed Description
 OidOptions provides a set of bit flags that control the behavior when encountering zero OIDs (which represent invalid or non-existent objects) during the formatting of SQL statements in pg_dump. This enumeration allows functions to specify how they want zero OIDs to be handled, providing flexibility in generating appropriate SQL output for different contexts.
 

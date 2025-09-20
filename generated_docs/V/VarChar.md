@@ -8,7 +8,9 @@ The  type implements PostgreSQL's SQL  data type, providing variable-length char
 
 ## Definition
 
-
+```c
+typedef struct varlena VarChar;
+```
 ## Detailed Description
 The  type is PostgreSQL's implementation of the SQL standard  data type. It stores variable-length character strings with an optional maximum length specification. Unlike , VARCHAR does not pad strings with spaces and stores only the actual characters provided, making it more space-efficient for varying string lengths.
 

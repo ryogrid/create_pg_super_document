@@ -8,7 +8,9 @@ RestoreArchivedFile attempts to retrieve a specified WAL (Write-Ahead Logging) f
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 RestoreArchivedFile is a core function in PostgreSQL's WAL archive recovery system that attempts to restore WAL files from external archive storage. The function executes the user-configured restore_command to copy archived WAL files back to the database's WAL directory during recovery operations. It implements robust error handling and validation to ensure the integrity of restored files, including size verification and proper cleanup of temporary files.
 

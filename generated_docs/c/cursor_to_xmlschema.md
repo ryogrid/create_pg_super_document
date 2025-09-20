@@ -8,7 +8,10 @@ SQL-callable function that generates an XML Schema Definition (XSD) based on the
 
 ## Definition
 
-
+```c
+Datum
+cursor_to_xmlschema(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function generates an XML Schema Definition for the result set structure of a previously declared and opened cursor. It looks up an existing named cursor by name and analyzes its tuple descriptor to create the appropriate XML schema. This is particularly useful for applications that need to generate schemas for cursors that may represent complex queries, stored procedures, or other database operations that return result sets.
 

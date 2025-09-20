@@ -8,7 +8,12 @@ The  function initiates a bitmap index scan operation using the amgetbitmap acce
 
 ## Definition
 
-
+```c
+IndexScanDesc
+index_beginscan_bitmap(Relation indexRelation,
+					   Snapshot snapshot,
+					   int nkeys)
+```
 ## Detailed Description
 This function creates and initializes an index scan descriptor specifically for bitmap scanning operations. Unlike regular index scans that retrieve tuples one by one, bitmap scans are designed to collect all matching tuple identifiers (TIDs) at once and return them as a bitmap. The function internally calls  with specific parameters optimized for bitmap operations (norderbys=0 since bitmap scans don't preserve order). It's simpler than  because bitmap scans don't need heap tuple fetching setup - that's handled separately when the bitmap is later used to fetch actual tuples.
 

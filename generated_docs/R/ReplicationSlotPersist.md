@@ -8,7 +8,10 @@ Converts an ephemeral or temporary replication slot to a persistent slot, ensuri
 
 ## Definition
 
-
+```c
+void
+ReplicationSlotPersist(void)
+```
 ## Detailed Description
 This function performs the critical operation of upgrading a replication slot from ephemeral (RS_EPHEMERAL) or temporary (RS_TEMPORARY) status to persistent (RS_PERSISTENT) status. Once converted, the slot will be automatically restored after server restarts, crashes, or other interruptions, ensuring continuity of replication.
 

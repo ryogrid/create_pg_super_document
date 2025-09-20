@@ -8,7 +8,10 @@ Extracts specified field from a time with time zone (TIMETZ) data type, returnin
 
 ## Definition
 
-
+```c
+Datum
+timetz_part(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a PostgreSQL built-in function that extracts a specific field (hour, minute, second, timezone, etc.) from a time with time zone value. It serves as a wrapper function that calls  with , ensuring the result is returned as a floating-point number rather than a numeric type. This function is typically used in SQL expressions like  or through the  function.
 

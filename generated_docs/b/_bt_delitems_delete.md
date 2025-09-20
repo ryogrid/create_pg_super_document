@@ -8,7 +8,13 @@ Deletes and updates items on a btree leaf page during single-page cleanup operat
 
 ## Definition
 
-
+```c
+static void
+_bt_delitems_delete(Relation rel, Buffer buf,
+					TransactionId snapshotConflictHorizon, bool isCatalogRel,
+					OffsetNumber *deletable, int ndeletable,
+					BTVacuumPosting *updatable, int nupdatable)
+```
 ## Detailed Description
 This function performs deletion and update operations on a B-tree leaf page during single-page cleanup. It handles two types of operations:
 

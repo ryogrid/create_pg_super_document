@@ -8,7 +8,10 @@ Acquires an ACCESS SHARE lock on a table that will be dumped by a worker process
 
 ## Definition
 
-
+```c
+static void
+lockTableForWorker(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function is a critical component of pg_dump's parallel processing system that prevents deadlocks when multiple worker processes attempt to access tables concurrently. The function addresses a specific deadlock scenario:
 

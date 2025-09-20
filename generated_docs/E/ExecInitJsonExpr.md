@@ -8,7 +8,12 @@ Initializes expression evaluation steps for a JsonExpr and its various subsidiar
 
 ## Definition
 
-
+```c
+static void
+ExecInitJsonExpr(JsonExpr *jsexpr, ExprState *state,
+				 Datum *resv, bool *resnull,
+				 ExprEvalStep *scratch)
+```
 ## Detailed Description
 ExecInitJsonExpr is a comprehensive function that sets up the complete evaluation infrastructure for PostgreSQL's JSON expressions. It orchestrates the initialization of multiple components:
 

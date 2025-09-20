@@ -8,7 +8,10 @@ Returns the character-based position (1-based offset) of the current match found
 
 ## Definition
 
-
+```c
+static int
+text_position_get_match_pos(TextPositionState *state)
+```
 ## Detailed Description
 This function converts the byte-based position of a match to a character-based position and returns it as a 1-based offset. The function performs multibyte character length calculation to accurately determine the character position, which is essential for proper Unicode and multibyte character set support. It updates the internal reference point tracking within the TextPositionState to optimize subsequent position calculations by avoiding recalculation from the beginning of the string.
 

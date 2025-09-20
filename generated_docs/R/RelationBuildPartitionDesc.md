@@ -8,7 +8,10 @@ Constructs a partition descriptor for a partitioned table relation and stores it
 
 ## Definition
 
-
+```c
+static PartitionDesc
+RelationBuildPartitionDesc(Relation rel, bool omit_detached)
+```
 ## Detailed Description
 RelationBuildPartitionDesc is the core function responsible for constructing partition descriptors from scratch. It performs several complex operations:
 

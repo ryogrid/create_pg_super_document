@@ -8,7 +8,10 @@ Internal version of numeric division that provides optional error handling, allo
 
 ## Definition
 
-
+```c
+Numeric
+numeric_div_opt_error(Numeric num1, Numeric num2, bool *have_error)
+```
 ## Detailed Description
 This function performs division of two PostgreSQL Numeric values with optional error handling. Unlike the standard  function, this variant allows the caller to handle errors gracefully by setting a flag instead of throwing exceptions. The function handles special numeric values (NaN, positive/negative infinity) according to IEEE standards and PostgreSQL conventions.
 

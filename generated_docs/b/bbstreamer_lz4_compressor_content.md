@@ -8,7 +8,13 @@ Compresses input data using LZ4 compression and forwards it through the backup s
 
 ## Definition
 
-
+```c
+static void
+bbstreamer_lz4_compressor_content(bbstreamer *streamer,
+								  bbstreamer_member *member,
+								  const char *data, int len,
+								  bbstreamer_archive_context context)
+```
 ## Detailed Description
 This function handles the core LZ4 compression operation for backup data streams. It manages the compression process by writing the LZ4 header on first invocation, calculating compression bounds to ensure sufficient output buffer capacity, and performing the actual data compression using LZ4F_compressUpdate.
 

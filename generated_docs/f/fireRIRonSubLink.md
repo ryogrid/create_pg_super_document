@@ -8,7 +8,10 @@ Applies fireRIRrules() to each SubLink (subselect in expression) found in the gi
 
 ## Definition
 
-
+```c
+static bool
+fireRIRonSubLink(Node *node, fireRIRonSubLink_context *context)
+```
 ## Detailed Description
 fireRIRonSubLink is a tree walker function that processes SubLink nodes (subselects within expressions) by applying rule rewriting to their subqueries. Unlike typical tree walkers, this function modifies SubLink nodes in-place, replacing the SubLink's subselect with a potentially rewritten version. The function also tracks whether any of the processed sublinks have row security enabled, aggregating this information in the context structure.
 

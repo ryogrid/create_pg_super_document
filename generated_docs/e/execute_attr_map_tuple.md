@@ -8,7 +8,10 @@ Performs actual tuple conversion according to a pre-built tuple conversion map, 
 
 ## Definition
 
-
+```c
+HeapTuple
+execute_attr_map_tuple(HeapTuple tuple, TupleConversionMap *map)
+```
 ## Detailed Description
 This function performs the actual work of converting a tuple from one format to another using a pre-built . It extracts all values from the input tuple, transposes them according to the attribute mapping, and constructs a new tuple in the target format.
 

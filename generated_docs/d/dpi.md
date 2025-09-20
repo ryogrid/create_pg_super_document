@@ -8,7 +8,10 @@ The  function returns the mathematical constant π (pi), providing access to thi
 
 ## Definition
 
-
+```c
+Datum
+dpi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a simple accessor function that returns the mathematical constant π (pi). It uses the standard C library constant  which provides a high-precision representation of π ≈ 3.14159265358979323846. This function serves as a PostgreSQL SQL-callable interface to obtain the pi constant for mathematical computations, particularly useful in trigonometric functions, geometric calculations, and various mathematical operations that require π.
 

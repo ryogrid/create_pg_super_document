@@ -8,7 +8,11 @@ simple_heap_update is a wrapper function that provides a simplified interface fo
 
 ## Definition
 
-
+```c
+void
+simple_heap_update(Relation relation, ItemPointer otid, HeapTuple tup,
+				   TU_UpdateIndexes *update_indexes)
+```
 ## Detailed Description
 This function serves as a convenience wrapper around heap_update for cases where the caller expects the update to succeed without concurrency conflicts. It's typically used when the relation has an exclusive lock or when concurrent modifications are otherwise prevented. The function calls heap_update with standard parameters and converts any failure conditions into ERROR-level reports, making error handling automatic for the caller.
 

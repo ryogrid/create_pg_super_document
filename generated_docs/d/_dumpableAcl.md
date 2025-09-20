@@ -8,7 +8,16 @@ The  structure stores Access Control List (ACL) information for database objects
 
 ## Definition
 
-
+```c
+typedef struct _dumpableAcl
+{
+	char	   *acl;			/* the object's actual ACL string */
+	char	   *acldefault;		/* default ACL for the object's type & owner */
+	/* these fields come from the object's pg_init_privs entry, if any: */
+	char		privtype;		/* entry type, 'i' or 'e'; 0 if no entry */
+	char	   *initprivs;		/* the object's initial ACL string, or NULL */
+} DumpableAcl;
+```
 ## Detailed Description
 The  structure is a specialized sub-structure that must immediately follow the  base struct for any database object type that supports Access Control Lists. This structure encapsulates all ACL-related information needed for proper dumping and restoration of object permissions in PostgreSQL databases.
 

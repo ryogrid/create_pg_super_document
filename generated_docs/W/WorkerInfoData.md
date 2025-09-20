@@ -8,7 +8,18 @@ The  structure tracks the status and activity of individual autovacuum worker pr
 
 ## Definition
 
-
+```c
+typedef struct WorkerInfoData
+{
+	dlist_node	wi_links;
+	Oid			wi_dboid;
+	Oid			wi_tableoid;
+	PGPROC	   *wi_proc;
+	TimestampTz wi_launchtime;
+	pg_atomic_flag wi_dobalance;
+	bool		wi_sharedrel;
+} WorkerInfoData;
+```
 ## Detailed Description
 The  structure serves as a shared memory descriptor for tracking individual autovacuum worker processes. It maintains essential information about each worker's current assignment, execution state, and coordination requirements. This structure is crucial for the autovacuum launcher's ability to monitor running workers, manage resource allocation, and coordinate vacuum cost balancing across multiple concurrent operations. The structure is designed with thread-safety considerations, using different locks to protect different field groups based on their access patterns.
 

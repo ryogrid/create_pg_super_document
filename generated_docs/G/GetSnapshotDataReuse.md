@@ -8,7 +8,10 @@ A helper function that checks if an existing snapshot's visibility information i
 
 ## Definition
 
-
+```c
+static bool
+GetSnapshotDataReuse(Snapshot snapshot)
+```
 ## Detailed Description
 GetSnapshotDataReuse is an optimization function used by GetSnapshotData() to determine whether the bulk of visibility information in an existing snapshot is still current and can be reused. This function performs validation by comparing the snapshot's cached transaction completion count with the current system state.
 

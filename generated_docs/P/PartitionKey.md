@@ -8,7 +8,9 @@ A pointer to PartitionKeyData structure that contains comprehensive information 
 
 ## Definition
 
-
+```c
+typedef struct PartitionKeyData *PartitionKey;
+```
 ## Detailed Description
 PartitionKey is a pointer type to the PartitionKeyData structure that encapsulates all metadata necessary for partitioning operations on a table. It stores the partitioning strategy (hash, list, or range), identifies which columns or expressions form the partition key, and maintains operator and type information needed for partition boundary comparisons and tuple routing.
 

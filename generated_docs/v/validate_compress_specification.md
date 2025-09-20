@@ -8,7 +8,10 @@ Validates a parsed compression specification to ensure it is semantically correc
 
 ## Definition
 
-
+```c
+char *
+validate_compress_specification(pg_compress_specification *spec)
+```
 ## Detailed Description
 This function validates a previously parsed compression specification structure to ensure semantic correctness. It performs comprehensive validation of compression parameters including:
 

@@ -8,7 +8,18 @@ GinVacuumState is a structure that maintains the state and context information d
 
 ## Definition
 
-
+```c
+struct GinVacuumState
+{
+	Relation	index;
+	IndexBulkDeleteResult *result;
+	IndexBulkDeleteCallback callback;
+	void	   *callback_state;
+	GinState	ginstate;
+	BufferAccessStrategy strategy;
+	MemoryContext tmpCxt;
+};
+```
 ## Detailed Description
 The GinVacuumState structure serves as a central state container for GIN index vacuum operations. It holds references to the index being vacuumed, result tracking structures, callback functions for tuple deletion decisions, and various operational contexts. This structure is passed between different vacuum functions to maintain consistency and share state throughout the vacuum process. The structure supports both bulk delete operations and general vacuum cleanup, providing the necessary context for efficient memory management and I/O operations during the vacuum process.
 

@@ -8,7 +8,10 @@ GetVictimBuffer finds and prepares a buffer to be reused by evicting its current
 
 ## Definition
 
-
+```c
+static Buffer
+GetVictimBuffer(BufferAccessStrategy strategy, IOContext io_context)
+```
 ## Detailed Description
 GetVictimBuffer is a critical function in PostgreSQL's buffer management that implements the buffer replacement policy. It selects a victim buffer from the buffer pool, handles dirty buffer writeout if necessary, and ensures the buffer is properly prepared for reuse. The function implements several safety mechanisms including deadlock avoidance for content locks, proper resource management, and coordination with buffer access strategies.
 

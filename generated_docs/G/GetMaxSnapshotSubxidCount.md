@@ -8,7 +8,10 @@ Returns the maximum size for snapshot sub-XID arrays, providing a constant value
 
 ## Definition
 
-
+```c
+int
+GetMaxSnapshotSubxidCount(void)
+```
 ## Detailed Description
 GetMaxSnapshotSubxidCount is a simple accessor function that returns the TOTAL_MAX_CACHED_SUBXIDS constant. This value represents the maximum number of subtransaction IDs that can be stored in various snapshot-related data structures. The function exists primarily to export this internal constant for use by snapmgr.c and other components that need to allocate arrays for storing subtransaction information.
 

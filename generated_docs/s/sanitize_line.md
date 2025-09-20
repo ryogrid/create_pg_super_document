@@ -8,7 +8,10 @@ The sanitize_line function sanitizes strings to be safely included in SQL commen
 
 ## Definition
 
-
+```c
+char *
+sanitize_line(const char *str, bool want_hyphen)
+```
 ## Detailed Description
 This function takes an input string and creates a sanitized copy suitable for inclusion in SQL comments or Table of Contents (TOC) listings. The primary purpose is to ensure that each logical output line remains as one physical output line by replacing any newline characters ('\n') or carriage return characters ('\r') with spaces.
 

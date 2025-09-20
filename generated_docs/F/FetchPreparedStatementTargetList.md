@@ -8,7 +8,10 @@ Extracts the query target list from a prepared statement that returns tuples, pr
 
 ## Definition
 
-
+```c
+List *
+FetchPreparedStatementTargetList(PreparedStatement *stmt)
+```
 ## Detailed Description
 FetchPreparedStatementTargetList retrieves the target list from a prepared statement's cached plan. The target list describes the columns and expressions that will be returned by the query. This function is primarily used in corner cases like the DESCRIBE statement on an EXECUTE command. The implementation is intentionally simple rather than optimized for performance, as it's not used in performance-critical paths. The function safely copies the target list into the caller's memory context to protect against plan invalidation.
 

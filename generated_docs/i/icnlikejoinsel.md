@@ -8,7 +8,10 @@ Computes join selectivity estimates for case-insensitive LIKE pattern non-match 
 
 ## Definition
 
-
+```c
+Datum
+icnlikejoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides selectivity estimation for join operations involving case-insensitive LIKE pattern non-match (NOT ILIKE operations). It is a PostgreSQL system function that helps the query planner estimate how many rows will result from a join condition using negated case-insensitive LIKE pattern matching.
 

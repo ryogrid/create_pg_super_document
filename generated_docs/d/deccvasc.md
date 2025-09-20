@@ -8,7 +8,10 @@ Converts a character string to a decimal value with length specification, provid
 
 ## Definition
 
-
+```c
+int
+deccvasc(const char *cp, int len, decimal *np)
+```
 ## Detailed Description
 The `deccvasc` function is part of the PostgreSQL ECPG Informix compatibility library that converts a character string representation of a number to a decimal data type. It handles null input validation, creates a properly null-terminated string copy using `ecpg_strndup`, and performs the conversion using PostgreSQL's numeric functions. The function provides comprehensive error handling for various numeric conversion scenarios including overflow, underflow, bad numeric format, and invalid exponents.
 

@@ -8,7 +8,21 @@ A struct that serves as input parameter for the SP-GiST opclass choose method, c
 
 ## Definition
 
+```c
+typedef struct spgChooseIn
+{
+	Datum		datum;			/* original datum to be indexed */
+	Datum		leafDatum;		/* current datum to be stored at leaf */
+	int			level;			/* current level (counting from zero) */
 
+	/* Data from current inner tuple */
+	bool		allTheSame;		/* tuple is marked all-the-same? */
+	bool		hasPrefix;		/* tuple has a prefix? */
+	Datum		prefixDatum;	/* if so, the prefix value */
+	int			nNodes;			/* number of nodes in the inner tuple */
+	Datum	   *nodeLabels;		/* node label values (NULL if none) */
+} spgChooseIn;
+```
 ## Detailed Description
 spgChooseIn is an input structure used in the SP-GiST (Space-Partitioned Generalized Search Tree) index access method. It is passed to the opclass choose method during insertion operations to help the opclass decide which branch of the tree to follow or how to modify the tree structure. The structure contains both the data being inserted and information about the current inner tuple being examined.
 

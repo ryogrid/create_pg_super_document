@@ -8,7 +8,10 @@ Writes backup archive data content to the currently opened server-side output fi
 
 ## Definition
 
-
+```c
+static void
+bbsink_server_archive_contents(bbsink *sink, size_t len)
+```
 ## Detailed Description
 This function writes a chunk of backup archive data to the server filesystem. It performs the actual file I/O operation using PostgreSQL's FileWrite interface, which provides proper error handling and wait event tracking. The function handles both partial writes and complete write failures, providing detailed error messages to help diagnose storage issues.
 

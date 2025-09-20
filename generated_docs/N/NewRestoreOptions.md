@@ -8,7 +8,10 @@ NewRestoreOptions is a factory function that allocates and initializes a new Res
 
 ## Definition
 
-
+```c
+RestoreOptions *
+NewRestoreOptions(void)
+```
 ## Detailed Description
 This function serves as a constructor for the RestoreOptions structure, which contains all configuration parameters and flags that control the behavior of the pg_restore process. It allocates memory using pg_malloc0 (which zeros the allocated memory) and then sets specific fields that require non-zero default values.
 

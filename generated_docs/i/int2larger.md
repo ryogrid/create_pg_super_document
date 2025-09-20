@@ -8,7 +8,10 @@ Returns the larger of two 16-bit signed integers (int16).
 
 ## Definition
 
-
+```c
+Datum
+int2larger(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that compares two 16-bit signed integers and returns the larger value. It implements the MAX operation for the  (smallint) data type. The function uses PostgreSQL's function calling convention with  and returns a  value containing the result.
 

@@ -8,7 +8,13 @@ A structure used to detect recursion during query rewriting by tracking relation
 
 ## Definition
 
-
+```c
+typedef struct rewrite_event
+{
+	Oid			relation;		/* OID of relation having rules */
+	CmdType		event;			/* type of rule being fired */
+} rewrite_event;
+```
 ## Detailed Description
 The  structure is a simple data structure designed to prevent infinite recursion during the query rewriting process in PostgreSQL's rule system. It maintains a record of which relations are currently being processed and what type of command triggered the rule, allowing the rewriter to detect when it encounters the same relation-event combination again and avoid endless loops.
 

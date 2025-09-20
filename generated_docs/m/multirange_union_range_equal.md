@@ -8,7 +8,12 @@ A static helper function that determines whether the union of a multirange equal
 
 ## Definition
 
-
+```c
+static bool
+multirange_union_range_equal(TypeCacheEntry *typcache,
+							 const RangeType *r,
+							 const MultirangeType *mr)
+```
 ## Detailed Description
 This function performs an efficient equality check between a single range and the union of a multirange without actually computing the union. It leverages the fact that if a multirange's union equals a single range, then:
 

@@ -8,7 +8,9 @@ PQsocketPoll is a cross-platform socket polling function that checks a file desc
 
 ## Definition
 
-
+```c
+struct pollfd input_fd;
+```
 ## Detailed Description
 This function provides a unified interface for socket polling across different platforms, internally using either poll(2) or select(2) depending on system availability (controlled by HAVE_POLL). It allows checking a socket for readability, writability, or both, with precise timeout control specified in microseconds since Unix epoch. The function handles timeout computation and converts between different time representations as needed for the underlying system calls.
 

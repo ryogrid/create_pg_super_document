@@ -8,7 +8,10 @@ Compares two timestamp values and returns true if the first timestamp is greater
 
 ## Definition
 
-
+```c
+Datum
+timestamp_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the greater-than comparison operator (>) for PostgreSQL timestamp values. It extracts two timestamp arguments from the function call arguments using the PostgreSQL function argument macros, then delegates the actual comparison logic to `timestamp_cmp_internal` and returns true if the comparison result is greater than 0.
 

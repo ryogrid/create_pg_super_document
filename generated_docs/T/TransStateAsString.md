@@ -8,7 +8,10 @@ A utility function that converts TransState enumeration values to human-readable
 
 ## Definition
 
-
+```c
+static const char *
+TransStateAsString(TransState state)
+```
 ## Detailed Description
 TransStateAsString is a debugging support function that provides string representations of transaction states. It uses a switch statement to map each possible TransState enumeration value to its corresponding string name. This function is crucial for logging and debugging transaction state transitions, providing clear visibility into the lifecycle phases of transactions. Unlike BlockStateAsString which handles transaction block states, this function focuses on the core transaction states that represent the fundamental phases of transaction processing: initialization, execution, and completion (either through commit, abort, or prepare for two-phase commit).
 

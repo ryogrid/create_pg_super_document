@@ -8,7 +8,12 @@ A bare-bones procedure for starting an autovacuum worker from the launcher that 
 
 ## Definition
 
-
+```c
+struct a metric that measures that and not cause
+	 * starvation for less busy databases.
+	 */
+	avdb = NULL;
+```
 ## Detailed Description
 The  function implements the core logic for launching autovacuum workers from the autovacuum launcher. It performs intelligent database selection by prioritizing databases that are at risk of transaction ID wraparound or MultiXact ID wraparound, followed by databases that haven't been auto-vacuumed recently.
 

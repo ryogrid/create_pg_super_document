@@ -8,7 +8,10 @@ Displays formatted status messages for operations about to begin in pg_upgrade, 
 
 ## Definition
 
-
+```c
+void
+prep_status(const char *fmt,...)
+```
 ## Detailed Description
 The  function is a core component of pg_upgrade's user interface system, designed to display descriptive messages about operations that are about to commence. It accepts printf-style format strings and arguments to create informative status messages.
 

@@ -8,7 +8,10 @@ A PostgreSQL SQL function that calculates the slope of a line defined by two poi
 
 ## Definition
 
-
+```c
+Datum
+point_slope(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL-callable function that computes the slope of a line passing through two given points. It serves as a wrapper around the internal  function, providing the PostgreSQL function call interface. The function takes two Point arguments from the SQL layer and returns the slope as a floating-point value.
 

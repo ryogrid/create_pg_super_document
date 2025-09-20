@@ -8,7 +8,17 @@ Retrieves type metadata and I/O function information for a given PostgreSQL data
 
 ## Definition
 
-
+```c
+void
+get_type_io_data(Oid typid,
+				 IOFuncSelector which_func,
+				 int16 *typlen,
+				 bool *typbyval,
+				 char *typalign,
+				 char *typdelim,
+				 Oid *typioparam,
+				 Oid *func)
+```
 ## Detailed Description
 This function serves as a comprehensive interface for retrieving type-related metadata from the PostgreSQL system catalog (pg_type). It extracts six key pieces of information about a data type in a single call, making it efficient for operations that need multiple type attributes simultaneously. The function handles both normal operation mode and bootstrap mode, where it delegates to  for basic types during system initialization. The I/O function returned depends on the  parameter, allowing callers to specify whether they need input, output, receive, or send functions.
 

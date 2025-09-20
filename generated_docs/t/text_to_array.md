@@ -8,7 +8,9 @@ Parses input string and returns a text array of elements based on a provided fie
 
 ## Definition
 
-
+```c
+struct_empty_array(TEXTOID));
+```
 ## Detailed Description
 The text_to_array function is a PostgreSQL built-in function that splits a text string into an array of text elements using a specified delimiter. It initializes a SplitTextOutputData structure and delegates the actual splitting logic to the split_text function. If the splitting operation fails or produces no elements, it handles these cases appropriately by returning NULL or an empty array respectively.
 

@@ -8,7 +8,10 @@ Reconstructs the WITH clause (Common Table Expressions/CTEs) from internal repre
 
 ## Definition
 
-
+```c
+static void
+get_with_clause(Query *query, deparse_context *context)
+```
 ## Detailed Description
 The  function is responsible for converting PostgreSQL's internal representation of WITH clauses (Common Table Expressions) back into standard SQL syntax. It handles both non-recursive and recursive CTEs, along with PostgreSQL's advanced CTE features including materialization hints, SEARCH clauses for controlling recursive traversal order, and CYCLE clauses for cycle detection in recursive queries.
 

@@ -8,7 +8,10 @@ A case-insensitive LIKE pattern matching function that handles different charact
 
 ## Definition
 
-
+```c
+static inline int
+Generic_Text_IC_like(text *str, text *pat, Oid collation)
+```
 ## Detailed Description
 Generic_Text_IC_like implements case-insensitive pattern matching (ILIKE) with sophisticated locale and encoding awareness. The function employs different strategies based on character encoding and locale provider:
 

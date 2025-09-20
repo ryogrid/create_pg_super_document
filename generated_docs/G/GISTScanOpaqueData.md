@@ -8,7 +8,34 @@ GISTScanOpaqueData maintains the complete private state for a GiST index scan op
 
 ## Definition
 
+```c
+typedef struct GISTScanOpaqueData
+{
+	GISTSTATE  *giststate;		/* index information, see above */
+	Oid		   *orderByTypes;	/* datatypes of ORDER BY expressions */
 
+	pairingheap *queue;			/* queue of unvisited items */
+	MemoryContext queueCxt;		/* context holding the queue */
+	bool		qual_ok;		/* false if qual can never be satisfied */
+	bool		firstCall;		/* true until first gistgettuple call */
+
+	/* pre-allocated workspace arrays */
+	IndexOrderByDistance *distances;	/* output area for gistindex_keytest */
+
+	/* info about killed items if any (killedItems is NULL if never used) */
+	OffsetNumber *killedItems;	/* offset numbers of killed items */
+	int			numKilled;		/* number of currently stored items */
+	BlockNumber curBlkno;		/* current number of block */
+	GistNSN		curPageLSN;		/* pos in the WAL stream when page was read */
+
+	/* In a non-ordered search, returnable heap items are stored here: */
+	GISTSearchHeapItem pageData[BLCKSZ / sizeof(IndexTupleData)];
+	OffsetNumber nPageData;		/* number of valid items in array */
+	OffsetNumber curPageData;	/* next item to return */
+	MemoryContext pageDataCxt;	/* context holding the fetched tuples, for
+								 * index-only scans */
+} GISTScanOpaqueData;
+```
 ## Detailed Description
 GISTScanOpaqueData serves as the comprehensive state holder for GiST index scan operations, encapsulating all necessary information for both ordered and non-ordered searches. The structure manages the core search infrastructure including the pairing heap-based priority queue for unvisited items, workspace areas for distance calculations, and specialized buffers for efficient tuple retrieval during non-ordered scans.
 

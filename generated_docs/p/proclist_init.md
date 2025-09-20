@@ -8,7 +8,10 @@ Initializes a proclist data structure by setting both head and tail pointers to 
 
 ## Definition
 
-
+```c
+static inline void
+proclist_init(proclist_head *list)
+```
 ## Detailed Description
 The  function is a static inline function that initializes a process list (proclist) data structure. It sets both the head and tail pointers of the proclist to , which indicates that the list is empty. This function is typically called when creating or resetting a proclist to ensure it starts in a known, empty state.
 

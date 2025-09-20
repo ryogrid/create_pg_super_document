@@ -8,7 +8,14 @@ Creates a pathnode that represents computation of MIN/MAX aggregates using index
 
 ## Definition
 
-
+```c
+MinMaxAggPath *
+create_minmaxagg_path(PlannerInfo *root,
+					  RelOptInfo *rel,
+					  PathTarget *target,
+					  List *mmaggregates,
+					  List *quals)
+```
 ## Detailed Description
 This function creates a MinMaxAggPath node that represents an optimized approach to computing MIN/MAX aggregates. Instead of performing a full table scan and aggregation, this path uses index scans to directly find the minimum and maximum values. The resulting plan will be a Result node that executes initplans for each MIN/MAX aggregate. The function calculates costs by summing up the pathcosts of all initplans and adds target evaluation costs. It also performs parallel safety checks on all components including initplans, target expressions, and qualification conditions.
 

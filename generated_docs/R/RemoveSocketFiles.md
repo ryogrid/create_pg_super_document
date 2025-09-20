@@ -8,7 +8,10 @@ Removes all PostgreSQL socket files from the filesystem during postmaster shutdo
 
 ## Definition
 
-
+```c
+void
+RemoveSocketFiles(void)
+```
 ## Detailed Description
 This function is responsible for cleaning up socket files when the PostgreSQL postmaster is shutting down. It iterates through the global list of socket file paths and removes each file from the filesystem using the unlink() system call.
 

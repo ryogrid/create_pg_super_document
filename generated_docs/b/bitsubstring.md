@@ -8,7 +8,10 @@ The bitsubstring function implements the core bit string substring extraction lo
 
 ## Definition
 
-
+```c
+static VarBit *
+bitsubstring(VarBit *arg, int32 s, int32 l, bool length_not_specified)
+```
 ## Detailed Description
 This internal function performs the actual substring extraction from bit strings with comprehensive boundary checking and bit manipulation. It handles both cases where a length is specified and where extraction continues to the end of the string. The function includes sophisticated logic for dealing with bit-level alignment when the substring doesn't start on a byte boundary, requiring bit shifting operations. It also implements SQL99 compliance for error conditions such as negative lengths and overflow protection when calculating end positions.
 

@@ -8,7 +8,16 @@ The  structure represents PostgreSQL triggers that need to be dumped and restore
 
 ## Definition
 
-
+```c
+typedef struct _triggerInfo
+{
+	DumpableObject dobj;
+	TableInfo  *tgtable;		/* link to table the trigger is for */
+	char		tgenabled;
+	bool		tgispartition;
+	char	   *tgdef;
+} TriggerInfo;
+```
 ## Detailed Description
 The  structure is used by pg_dump to manage PostgreSQL triggers, which are functions that are automatically executed in response to certain events on a table or view. The structure stores all necessary metadata about each trigger to enable proper dumping and restoration, including the trigger's enabled status, whether it's associated with a partitioned table, and its complete definition. Triggers are stored in arrays within their associated TableInfo structures and are processed during the dump to generate CREATE TRIGGER statements.
 

@@ -8,7 +8,12 @@ Fetches a specified slice (byte range) from a TOAST value stored in chunks acros
 
 ## Definition
 
-
+```c
+void
+heap_fetch_toast_slice(Relation toastrel, Oid valueid, int32 attrsize,
+					   int32 sliceoffset, int32 slicelength,
+					   struct varlena *result)
+```
 ## Detailed Description
 This function efficiently retrieves a contiguous byte slice from a large TOAST (The Oversized-Attribute Storage Technique) value without having to fetch the entire value. TOAST values are stored as multiple chunks in a separate toast table, and this function calculates which chunks contain the requested slice, fetches only those chunks, and copies the relevant portions to the result buffer.
 

@@ -8,7 +8,10 @@ ReorderBufferFreeSnap frees a previously copied snapshot used in logical replica
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferFreeSnap(ReorderBuffer *rb, Snapshot snap)
+```
 ## Detailed Description
 This function is responsible for proper cleanup of snapshots used in PostgreSQL's logical replication system. It handles two different types of snapshots:
 1. Copied snapshots (snap->copied is true) - These are freed directly using pfree()

@@ -8,7 +8,14 @@ The partition_method_t enum defines the partitioning strategies available for th
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	PART_NONE,					/* no partitioning */
+	PART_RANGE,					/* range partitioning */
+	PART_HASH,					/* hash partitioning */
+} partition_method_t;
+```
 ## Detailed Description
 This enumeration type specifies the partitioning method to be used for the pgbench_accounts table during benchmark initialization. It supports three distinct partitioning strategies:
 

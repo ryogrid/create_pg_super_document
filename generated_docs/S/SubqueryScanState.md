@@ -8,7 +8,13 @@ SubqueryScanState is a runtime state structure for PostgreSQL's subquery scan ex
 
 ## Definition
 
-
+```c
+typedef struct SubqueryScanState
+{
+	ScanState	ss;				/* its first field is NodeTag */
+	PlanState  *subplan;
+} SubqueryScanState;
+```
 ## Detailed Description
 SubqueryScanState is used for scanning a sub-query in the range table. It acts as a wrapper around the execution state of a subquery, allowing the subquery to be treated as a regular table scan within the larger query execution framework. The ScanTupleSlot references the current output tuple of the sub-query, enabling seamless integration with other scan operations. This structure provides the execution context needed to repeatedly fetch tuples from the subquery's execution plan.
 

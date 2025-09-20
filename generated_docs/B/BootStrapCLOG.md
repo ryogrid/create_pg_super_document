@@ -8,7 +8,10 @@ Creates the initial CLOG (Commit Log) segment during PostgreSQL system installat
 
 ## Definition
 
-
+```c
+void
+BootStrapCLOG(void)
+```
 ## Detailed Description
 BootStrapCLOG is a critical initialization function that must be called exactly once during PostgreSQL system installation (via initdb). It creates the very first CLOG segment that will serve as the foundation for all transaction status tracking in the database.
 

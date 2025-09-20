@@ -8,7 +8,11 @@ A GUC (Grand Unified Configuration) validation hook function that parses and val
 
 ## Definition
 
-
+```c
+structs like "DEFAULT, ISO".
+			 */
+			char	   *subval;
+```
 ## Detailed Description
 The  function serves as a GUC check hook that validates and processes the  configuration parameter in PostgreSQL. It parses comma-separated values to determine both the date output style (ISO, SQL, German, Postgres) and date order (YMD, DMY, MDY). The function performs comprehensive validation to ensure no conflicting specifications are provided and constructs a canonical string representation of the final configuration.
 

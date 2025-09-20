@@ -8,7 +8,21 @@ LogicalRepRelation is a structure that contains comprehensive metadata about a r
 
 ## Definition
 
-
+```c
+typedef struct LogicalRepRelation
+{
+	/* Info coming from the remote side. */
+	LogicalRepRelId remoteid;	/* unique id of the relation */
+	char	   *nspname;		/* schema name */
+	char	   *relname;		/* relation name */
+	int			natts;			/* number of columns */
+	char	  **attnames;		/* column names */
+	Oid		   *atttyps;		/* column types */
+	char		replident;		/* replica identity */
+	char		relkind;		/* remote relation kind */
+	Bitmapset  *attkeys;		/* Bitmap of key columns */
+} LogicalRepRelation;
+```
 ## Detailed Description
 This structure serves as a comprehensive metadata container for relations participating in logical replication. It captures all essential information about a remote table that is necessary for the local subscriber to properly interpret and apply replicated changes. The structure includes both basic table information (name, schema) and detailed column metadata (names, types, key columns).
 

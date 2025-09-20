@@ -8,7 +8,11 @@ The r_reflexive function removes reflexive endings (ся, сь) from Russian wor
 
 ## Definition
 
+```c
+}
 
+static int r_reflexive(struct SN_env * z)
+```
 ## Detailed Description
 This function implements step 1 of the Russian stemming algorithm for KOI8-R encoded text. It specifically handles the removal of reflexive verb suffixes "ся" and "сь" (which appear as bytes 0xD3 0xD1 and 0xD3 0xD8 respectively in KOI8-R encoding). The function performs backward matching from the current cursor position and removes the matched suffix if found.
 

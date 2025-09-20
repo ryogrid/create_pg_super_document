@@ -8,7 +8,10 @@ A comparator function used by list_sort to sort PostgreSQL lists containing inte
 
 ## Definition
 
-
+```c
+int
+list_int_cmp(const ListCell *p1, const ListCell *p2)
+```
 ## Detailed Description
 The  function serves as a comparison function specifically designed for use with PostgreSQL's  function when sorting lists that contain integer values. It extracts integer values from two list cells and compares them using PostgreSQL's standard 32-bit signed integer comparison function. This function follows the standard C library comparator convention, returning a negative value if the first element is smaller, zero if they are equal, and a positive value if the first element is larger.
 

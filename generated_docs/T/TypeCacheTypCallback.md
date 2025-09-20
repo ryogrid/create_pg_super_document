@@ -8,7 +8,10 @@ Syscache invalidation callback function that marks cached type information as in
 
 ## Definition
 
-
+```c
+static void
+TypeCacheTypCallback(Datum arg, int cacheid, uint32 hashvalue)
+```
 ## Detailed Description
 This function serves as an invalidation callback for the system cache (syscache) that responds to changes in the pg_type system catalog. When type definitions are modified in the database (such as through ALTER TYPE, CREATE TYPE, DROP TYPE commands), this callback ensures that any cached information about those types is properly invalidated.
 

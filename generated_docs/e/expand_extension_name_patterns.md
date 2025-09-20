@@ -8,7 +8,13 @@ Finds the OIDs of all extensions matching the given list of patterns and appends
 
 ## Definition
 
-
+```c
+static void
+expand_extension_name_patterns(Archive *fout,
+							   SimpleStringList *patterns,
+							   SimpleOidList *oids,
+							   bool strict_names)
+```
 ## Detailed Description
 This function processes a list of extension name patterns (which may include wildcards) and resolves them to actual extension OIDs by querying the PostgreSQL system catalog pg_extension. It is similar to expand_schema_name_patterns but specifically handles PostgreSQL extensions.
 

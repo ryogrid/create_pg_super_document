@@ -8,7 +8,13 @@ Creates and initializes a BitmapIndexScan plan node that generates a bitmap of h
 
 ## Definition
 
-
+```c
+static BitmapIndexScan *
+make_bitmap_indexscan(Index scanrelid,
+					  Oid indexid,
+					  List *indexqual,
+					  List *indexqualorig)
+```
 ## Detailed Description
 This function constructs a BitmapIndexScan plan node, which is the first stage of PostgreSQL's bitmap scan execution strategy. Unlike regular index scans that retrieve tuples directly, a bitmap index scan creates a bitmap indicating which heap pages contain qualifying tuples. This bitmap is then used by a BitmapHeapScan node to efficiently read only the relevant pages from the heap table. The approach is particularly effective when the selectivity suggests that tuples are scattered across many pages, as it minimizes random I/O by reading each page only once.
 

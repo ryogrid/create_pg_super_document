@@ -8,7 +8,14 @@ A structure representing a character range in PostgreSQL's regex implementation 
 
 ## Definition
 
-
+```c
+typedef struct colormaprange
+{
+	chr			cmin;			/* range represents cmin..cmax inclusive */
+	chr			cmax;
+	int			rownum;			/* row index in hicolormap array (>= 1) */
+} colormaprange;
+```
 ## Detailed Description
 The  structure is a key component of PostgreSQL's regex color mapping system for handling large character sets efficiently. Instead of using a simple array indexed by character codes (which would be impractical for large character sets), PostgreSQL uses a two-tier approach: simple arrays for common characters up to MAX_SIMPLE_CHR, and a more complex 2-D array system for higher character values.
 

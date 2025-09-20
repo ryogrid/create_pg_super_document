@@ -8,7 +8,11 @@ Checks if a new or renamed column name would collide with an existing column nam
 
 ## Definition
 
-
+```c
+static bool
+check_for_column_name_collision(Relation rel, const char *colname,
+								bool if_not_exists)
+```
 ## Detailed Description
 This function validates whether adding or renaming a column would create a name collision with an existing column in the specified relation. It performs a lookup in the pg_attribute system catalog to check for existing columns with the given name. The function handles different scenarios based on the if_not_exists parameter and whether the collision is with a system column or user column.
 

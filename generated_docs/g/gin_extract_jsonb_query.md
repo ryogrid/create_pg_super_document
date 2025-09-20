@@ -8,7 +8,9 @@ Main GIN query extraction function for the jsonb_ops operator class, handling mu
 
 ## Definition
 
-
+```c
+struct_array_builtin(query, TEXTOID, &key_datums, &key_nulls, &key_count);
+```
 ## Detailed Description
 This function serves as the primary entry point for GIN query extraction in the jsonb_ops operator class. It implements a strategy-based dispatch system that handles five different types of jsonb queries:
 

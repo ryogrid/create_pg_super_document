@@ -8,7 +8,10 @@ Frees any address information list stored in a PostgreSQL connection object, cle
 
 ## Definition
 
-
+```c
+static void
+release_conn_addrinfo(PGconn *conn)
+```
 ## Detailed Description
 The `release_conn_addrinfo` function is a static utility function responsible for deallocating the address information structure (`addr`) associated with a PostgreSQL connection object. This function is part of the connection cleanup process, ensuring that dynamically allocated memory used for storing network address information is properly freed to prevent memory leaks. The function performs a simple null-check before freeing the memory and sets the pointer to NULL to prevent dangling pointer issues.
 

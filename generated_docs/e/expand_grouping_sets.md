@@ -8,7 +8,9 @@ The main orchestration function that expands a list of GroupingSet clauses into 
 
 ## Definition
 
-
+```c
+union_int(NIL, (List *) lfirst(lc)));
+```
 ## Detailed Description
 This function serves as the primary entry point for expanding complex GROUPING SETS clauses into their final form for query processing. It performs several critical operations:
 

@@ -8,7 +8,11 @@ This function performs parallel index cleanup using parallel workers during the 
 
 ## Definition
 
-
+```c
+void
+parallel_vacuum_cleanup_all_indexes(ParallelVacuumState *pvs, long num_table_tuples,
+									int num_index_scans, bool estimated_count)
+```
 ## Detailed Description
 The function coordinates parallel index cleanup operations across multiple worker processes. It updates the shared state with the number of surviving tuples and whether the count is estimated, then delegates the actual parallel processing to . This function is specifically designed for the cleanup phase where indexes need to be processed after the main vacuum operation has completed.
 

@@ -8,7 +8,11 @@ Locates the referenced expression for a PARAM_EXEC parameter by searching throug
 
 ## Definition
 
-
+```c
+static Node *
+find_param_referent(Param *param, deparse_context *context,
+					deparse_namespace **dpns_p, ListCell **ancestor_cell_p)
+```
 ## Detailed Description
 This function implements parameter resolution for PARAM_EXEC parameters, which are used to pass values between different levels of a plan tree. These parameters are commonly created by NestLoop joins (to pass outer relation values to the inner side) and SubPlan nodes (to pass arguments into subqueries).
 

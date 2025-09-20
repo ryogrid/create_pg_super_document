@@ -8,7 +8,10 @@ Scans internal pages to find and delete empty child pages, implementing the seco
 
 ## Definition
 
-
+```c
+static void
+gistvacuum_delete_empty_pages(IndexVacuumInfo *info, GistVacState *vstate)
+```
 ## Detailed Description
 This function implements the complex logic for removing empty leaf pages from the GiST index structure. It iterates through all internal pages that were identified during the scan phase, examining their downlinks to find references to empty leaf pages that were marked for deletion.
 

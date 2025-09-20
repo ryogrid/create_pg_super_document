@@ -8,7 +8,10 @@ A helper routine that checks whether array equality operations (like array_eq) s
 
 ## Definition
 
-
+```c
+static bool
+array_element_has_equality(TypeCacheEntry *typentry)
+```
 ## Detailed Description
 This static function is part of a family of helper routines designed to determine the capabilities of array and composite types for various operations. It specifically checks whether the element type of an array supports equality operations, which is essential for determining if array comparison functions will work correctly.
 

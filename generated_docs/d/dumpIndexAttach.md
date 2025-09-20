@@ -8,7 +8,10 @@ Writes out a partitioned-index attachment clause that attaches a partition index
 
 ## Definition
 
-
+```c
+static void
+dumpIndexAttach(Archive *fout, const IndexAttachInfo *attachinfo)
+```
 ## Detailed Description
 The  function generates SQL commands for attaching partition indexes to their parent partitioned indexes. This is part of PostgreSQL's partitioned index infrastructure where individual partition indexes need to be explicitly attached to the main partitioned index.
 

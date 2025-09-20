@@ -8,7 +8,10 @@ Recalculates runtime-dependent scan keys and restarts an index-only scan from th
 
 ## Definition
 
-
+```c
+void
+ExecReScanIndexOnlyScan(IndexOnlyScanState *node)
+```
 ## Detailed Description
 ExecReScanIndexOnlyScan implements the rescan operation for index-only scan nodes, handling the complete restart of a scan operation. The function's primary responsibilities include recalculating runtime scan keys and reinitializing the underlying index scan.
 

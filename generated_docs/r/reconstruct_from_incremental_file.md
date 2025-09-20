@@ -8,7 +8,23 @@ Reconstructs a full file from an incremental backup file by traversing a chain o
 
 ## Definition
 
-
+```c
+void
+reconstruct_from_incremental_file(char *input_filename,
+								  char *output_filename,
+								  char *relative_path,
+								  char *bare_file_name,
+								  int n_prior_backups,
+								  char **prior_backup_dirs,
+								  manifest_data **manifests,
+								  char *manifest_path,
+								  pg_checksum_type checksum_type,
+								  int *checksum_length,
+								  uint8 **checksum_payload,
+								  CopyMethod copy_method,
+								  bool debug,
+								  bool dry_run)
+```
 ## Detailed Description
 This function is the core of PostgreSQL's incremental backup reconstruction process. It takes an incremental backup file and combines it with blocks from a chain of prior backups to create a complete, reconstructed file. The function implements an intelligent block-sourcing strategy where it first processes the latest incremental file, then traverses backwards through the backup chain to find missing blocks.
 

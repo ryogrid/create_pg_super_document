@@ -8,7 +8,10 @@ A PostgreSQL SQL function that extracts all elements from a JSONB array and retu
 
 ## Definition
 
-
+```c
+Datum
+jsonb_array_elements(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL function  which decomposes a JSONB array into its constituent elements. Each element of the input JSONB array is returned as a separate row containing the element as a JSONB value. The function is designed to work with PostgreSQL's set-returning function infrastructure, allowing it to be used in FROM clauses and other contexts where multiple rows are expected.
 

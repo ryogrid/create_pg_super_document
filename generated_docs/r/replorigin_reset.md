@@ -8,7 +8,10 @@ Resets the global replication origin session state variables to their invalid/in
 
 ## Definition
 
-
+```c
+static void
+replorigin_reset(int code, Datum arg)
+```
 ## Detailed Description
 This function serves as a cleanup routine for replication origin session tracking. It resets three critical global variables that track the current replication session state:
 

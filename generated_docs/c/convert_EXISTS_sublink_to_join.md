@@ -8,7 +8,11 @@ Attempts to convert an EXISTS SubLink into a semi-join or anti-join, enabling th
 
 ## Definition
 
-
+```c
+JoinExpr *
+convert_EXISTS_sublink_to_join(PlannerInfo *root, SubLink *sublink,
+							   bool under_not, Relids available_rels)
+```
 ## Detailed Description
 This function transforms EXISTS subqueries into semi-joins (for EXISTS) or anti-joins (for NOT EXISTS) when certain conditions are met. The transformation is a key optimization that can significantly improve query performance by allowing the optimizer to consider hash joins, merge joins, and other join algorithms instead of being limited to nested loop execution.
 

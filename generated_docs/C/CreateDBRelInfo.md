@@ -8,7 +8,14 @@ CreateDBRelInfo is a structure that holds information about a relation to be cop
 
 ## Definition
 
-
+```c
+typedef struct CreateDBRelInfo
+{
+	RelFileLocator rlocator;	/* physical relation identifier */
+	Oid			reloid;			/* relation oid */
+	bool		permanent;		/* relation is permanent or unlogged */
+} CreateDBRelInfo;
+```
 ## Detailed Description
 CreateDBRelInfo is a struct used during database creation operations to track information about relations that need to be copied from a source database to a new database. This structure is part of PostgreSQL's database creation mechanism, specifically used in scenarios where databases are created using WAL (Write-Ahead Log) operations or when scanning and copying existing database structures.
 

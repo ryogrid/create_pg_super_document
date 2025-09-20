@@ -8,7 +8,10 @@ emode_for_corrupt_record is a utility function that determines the appropriate e
 
 ## Definition
 
-
+```c
+static int
+emode_for_corrupt_record(int emode, XLogRecPtr RecPtr)
+```
 ## Detailed Description
 emode_for_corrupt_record provides intelligent error level management for WAL record corruption scenarios. It implements a sophisticated approach to error reporting that balances the need for diagnostic information with the goal of reducing log noise. The function distinguishes between different WAL sources and applies suppression logic only when reading from pg_wal, as corruption in archive files or streamed records represents more serious issues that should always be reported.
 

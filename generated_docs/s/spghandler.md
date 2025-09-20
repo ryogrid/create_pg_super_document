@@ -8,7 +8,10 @@ The spghandler function is the main handler function for the SP-GiST (Space-Part
 
 ## Definition
 
-
+```c
+Datum
+spghandler(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The spghandler function creates and configures an IndexAmRoutine structure that defines the SP-GiST access method's capabilities and function pointers. It sets various boolean flags that describe the access method's features (such as whether it supports ordering, backward scans, unique indexes, etc.) and assigns callback functions for all SP-GiST operations including building, inserting, scanning, and maintenance operations.
 

@@ -8,7 +8,10 @@ Begins an error-reporting cycle by creating and initializing an error stack entr
 
 ## Definition
 
-
+```c
+bool
+errstart(int elevel, const char *domain)
+```
 ## Detailed Description
 errstart is the core function that initiates PostgreSQL's error reporting mechanism. It creates and initializes an error stack entry that will subsequently be populated by functions like errmsg() before being finalized by errfinish(). The function implements sophisticated error level promotion logic, handles error recursion scenarios, and determines whether an error should be output to the server log, client, or both.
 

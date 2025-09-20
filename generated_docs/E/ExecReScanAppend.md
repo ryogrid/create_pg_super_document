@@ -8,7 +8,10 @@ Resets an Append node to restart execution from the beginning, handling paramete
 
 ## Definition
 
-
+```c
+void
+ExecReScanAppend(AppendState *node)
+```
 ## Detailed Description
 ExecReScanAppend is the rescan function for PostgreSQL's Append node executor, responsible for resetting the node's execution state so it can be re-executed from the beginning. This is commonly needed when the Append node is part of a nested loop or when parameter values change that affect subplan selection.
 

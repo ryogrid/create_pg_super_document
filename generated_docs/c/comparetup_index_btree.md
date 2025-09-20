@@ -8,7 +8,11 @@ Compares two index tuples for btree sorting operations, implementing a multi-lev
 
 ## Definition
 
-
+```c
+static int
+comparetup_index_btree(const SortTuple *a, const SortTuple *b,
+					   Tuplesortstate *state)
+```
 ## Detailed Description
 The `comparetup_index_btree` function is the primary comparison function used for sorting index tuples in btree index operations. It implements a sophisticated comparison strategy that first compares the leading sort key (stored in `datum1`) and then delegates to specialized tiebreaking logic for equal keys.
 

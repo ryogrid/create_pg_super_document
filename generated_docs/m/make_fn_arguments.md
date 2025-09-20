@@ -8,7 +8,13 @@ Adds necessary type casting to function argument expressions when actual argumen
 
 ## Definition
 
-
+```c
+void
+make_fn_arguments(ParseState *pstate,
+				  List *fargs,
+				  Oid *actual_arg_types,
+				  Oid *declared_arg_types)
+```
 ## Detailed Description
 The  function is responsible for ensuring type compatibility between actual function arguments and the declared parameter types of a function. When the actual argument types don't match the declared types, this function adds appropriate type coercion nodes to the expression tree using implicit casting. The function modifies the argument list in-place, making it ready for function execution.
 

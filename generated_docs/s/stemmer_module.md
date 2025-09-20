@@ -8,7 +8,16 @@ A structure that defines the interface for Snowball stemmer modules, containing 
 
 ## Definition
 
-
+```c
+typedef struct stemmer_module
+{
+	const char *name;
+	pg_enc		enc;
+	struct SN_env *(*create) (void);
+	void		(*close) (struct SN_env *);
+	int			(*stem) (struct SN_env *);
+} stemmer_module;
+```
 ## Detailed Description
 The  structure serves as a registry entry for Snowball stemmer algorithms in PostgreSQL's text search functionality. Each instance represents a specific stemmer for a particular language and encoding combination. The structure encapsulates all necessary information to instantiate, use, and clean up a stemmer environment. It's used in conjunction with the  macro to create static arrays of available stemmers that can be looked up by name and encoding at runtime.
 

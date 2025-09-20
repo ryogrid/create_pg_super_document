@@ -8,7 +8,51 @@ The cclass_column_index function computes a column index for the high colormap b
 
 ## Definition
 
+```c
+struct colormap *cm, chr c)
+{
+	int			colnum = 0;
 
+	/* Shouldn't go through all these pushups for simple chrs */
+	assert(c > MAX_SIMPLE_CHR);
+
+	/*
+	 * Note: we should not see requests to consider cclasses that are not
+	 * treated as locale-specific by cclasscvec(), above.
+	 */
+	if (cm->classbits[CC_PRINT] && pg_wc_isprint(c))
+		colnum |= cm->classbits[CC_PRINT];
+	if (cm->classbits[CC_ALNUM] && pg_wc_isalnum(c))
+		colnum |= cm->classbits[CC_ALNUM];
+	if (cm->classbits[CC_ALPHA] && pg_wc_isalpha(c))
+		colnum |= cm->classbits[CC_ALPHA];
+	if (cm->classbits[CC_WORD] && pg_wc_isword(c))
+		colnum |= cm->classbits[CC_WORD];
+	assert(cm->classbits[CC_ASCII] == 0);
+	assert(cm->classbits[CC_BLANK] == 0);
+	assert(cm->classbits[CC_CNTRL] == 0);
+	if (cm->classbits[CC_DIGIT] && pg_wc_isdigit(c))
+		colnum |= cm->classbits[CC_DIGIT];
+	if (cm->classbits[CC_PUNCT] && pg_wc_ispunct(c))
+		colnum |= cm->classbits[CC_PUNCT];
+	assert(cm->classbits[CC_XDIGIT] == 0);
+	if (cm->classbits[CC_SPACE] && pg_wc_isspace(c))
+		colnum |= cm->classbits[CC_SPACE];
+	if (cm->classbits[CC_LOWER] && pg_wc_islower(c))
+		colnum |= cm->classbits[CC_LOWER];
+	if (cm->classbits[CC_UPPER] && pg_wc_isupper(c))
+		colnum |= cm->classbits[CC_UPPER];
+	if (cm->classbits[CC_GRAPH] && pg_wc_isgraph(c))
+		colnum |= cm->classbits[CC_GRAPH];
+
+	return colnum;
+}
+
+/*
+ * allcases - supply cvec for all case counterparts of a chr (including itself)
+ *
+ * This is a shortcut, preferably an efficient one, for simple characters;
+```
 ## Detailed Description
 The cclass_column_index function is a critical component of PostgreSQL's regex colormap optimization system. It determines the appropriate column index within the high-resolution colormap array by evaluating which character classes the given character belongs to.
 

@@ -8,7 +8,10 @@ Finishes an iteration over a TIDBitmap by cleaning up the private iterator resou
 
 ## Definition
 
-
+```c
+void
+tbm_end_iterate(TBMIterator *iterator)
+```
 ## Detailed Description
 The  function serves as the cleanup routine for TIDBitmap iterations. Currently, it simply deallocates the iterator memory using , but the design allows for future enhancements such as tracking open iterators or enabling the bitmap to return to read/write status when no active iterators remain.
 

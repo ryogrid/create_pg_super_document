@@ -8,7 +8,12 @@ Attempts to modify a Path to have greater parameterization, primarily used to br
 
 ## Definition
 
-
+```c
+Path *
+reparameterize_path(PlannerInfo *root, Path *path,
+					Relids required_outer,
+					double loop_count)
+```
 ## Detailed Description
 This function creates a new path with increased parameterization from an existing path. It's primarily used in the context of append relations where all child paths need to enforce the same set of join quals. The function can only increase parameterization, not decrease it.
 

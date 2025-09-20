@@ -8,7 +8,12 @@ A static tokenizer function that extracts tokens from plain text input for tsque
 
 ## Definition
 
-
+```c
+static ts_tokentype
+gettoken_query_plain(TSQueryParserState state, int8 *operator,
+					 int *lenval, char **strval,
+					 int16 *weight, bool *prefix)
+```
 ## Detailed Description
 This function serves as a simplified tokenizer for plain text tsquery input. Unlike complex query parsers that handle operators, parentheses, and special syntax, this function treats the entire input buffer as a single token of type PT_VAL. It's designed for scenarios where the input should be interpreted as a plain text search term without any query operators or structure.
 

@@ -8,7 +8,18 @@ TupleDescData is the core structure that describes the layout and properties of 
 
 ## Definition
 
-
+```c
+typedef struct TupleDescData
+{
+	int			natts;			/* number of attributes in the tuple */
+	Oid			tdtypeid;		/* composite type ID for tuple type */
+	int32		tdtypmod;		/* typmod for tuple type */
+	int			tdrefcount;		/* reference count, or -1 if not counting */
+	TupleConstr *constr;		/* constraints, or NULL if none */
+	/* attrs[N] is the description of Attribute Number N+1 */
+	FormData_pg_attribute attrs[FLEXIBLE_ARRAY_MEMBER];
+}			TupleDescData;
+```
 ## Detailed Description
 TupleDescData is the fundamental structure used throughout PostgreSQL to describe the structure of tuples. It serves as a schema descriptor that contains all necessary information about a tuple's attributes, type information, constraints, and reference management. This structure is used for both persistent relations (tables) stored on disk and transient row types (such as query results).
 

@@ -8,7 +8,9 @@ The bbstreamer_ops structure defines the operation interface for bbstreamer obje
 
 ## Definition
 
-
+```c
+typedef struct bbstreamer_ops bbstreamer_ops;
+```
 ## Detailed Description
 The bbstreamer_ops structure implements a function pointer interface that enables polymorphic behavior for different types of bbstreamer objects. This design allows the same bbstreamer interface to support various implementations such as file writers, compressors, decompressors, tar parsers, and archive extractors. Each bbstreamer type provides its own implementation of these three core operations.
 

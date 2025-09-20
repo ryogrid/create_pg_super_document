@@ -8,7 +8,10 @@ Gracefully shuts down the slot synchronization worker and waits for all slot syn
 
 ## Definition
 
-
+```c
+void
+ShutDownSlotSync(void)
+```
 ## Detailed Description
 This function is responsible for the coordinated shutdown of PostgreSQL's slot synchronization infrastructure. It signals the slot sync worker to stop, waits for any in-progress synchronization operations to complete, and ensures proper cleanup of slot state. The function handles both the slot sync worker process and any running pg_sync_replication_slots() function calls. After confirming that all synchronization activities have ceased, it updates the inactive_since timestamps for synchronized slots to maintain accurate slot state information. The function uses a polling mechanism with latches to efficiently wait for shutdown completion while remaining responsive to interrupts.
 

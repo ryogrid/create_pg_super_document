@@ -8,7 +8,10 @@ The  function implements the  and  psql commands to display a formatted list of 
 
 ## Definition
 
-
+```c
+bool
+listLargeObjects(bool verbose)
+```
 ## Detailed Description
 This function constructs and executes an SQL query to retrieve large object information from the PostgreSQL system catalog . It displays large objects with their OIDs (object identifiers), owners, and descriptions. In verbose mode, it additionally shows access control lists (ACLs) that define permissions for each large object. Large objects in PostgreSQL are a facility for storing binary data that can be larger than typical data types allow, and they are managed through a special API.
 

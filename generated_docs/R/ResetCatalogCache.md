@@ -8,7 +8,10 @@ Resets a single catalog cache to empty state by removing or marking dead all tup
 
 ## Definition
 
-
+```c
+static void
+ResetCatalogCache(CatCache *cache, bool debug_discard)
+```
 ## Detailed Description
 ResetCatalogCache is a static function that empties a single catalog cache by iterating through all hash buckets and either removing cached entries or marking them as dead if they are still referenced. The function handles both cached tuples (CatCTup) and cached lists (CatCList). 
 

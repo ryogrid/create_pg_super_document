@@ -8,7 +8,10 @@ Validates C language functions by verifying that the shared library exists, is l
 
 ## Definition
 
-
+```c
+Datum
+fmgr_c_validator(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the validator for C language functions in PostgreSQL. When a function is created with language 'C', this validator is called to ensure that the shared library specified in probin exists, can be loaded, and contains the function symbol specified in prosrc.
 

@@ -8,7 +8,36 @@ SlabContext is a specialized implementation of MemoryContext designed for effici
 
 ## Definition
 
+```c
+typedef struct SlabContext
+{
+	MemoryContextData header;	/* Standard memory-context fields */
+	/* Allocation parameters for this context: */
+	uint32		chunkSize;		/* the requested (non-aligned) chunk size */
+	uint32		fullChunkSize;	/* chunk size with chunk header and alignment */
+	uint32		blockSize;		/* the size to make each block of chunks */
+	int32		chunksPerBlock; /* number of chunks that fit in 1 block */
+	int32		curBlocklistIndex;	/* index into the blocklist[] element
+									 * containing the fullest, blocks */
+#ifdef MEMORY_CONTEXT_CHECKING
+	bool	   *isChunkFree;	/* array to mark free chunks in a block during
+								 * SlabCheck */
+#endif
 
+	int32		blocklist_shift;	/* number of bits to shift the nfree count
+									 * by to get the index into blocklist[] */
+	dclist_head emptyblocks;	/* empty blocks to use up first instead of
+								 * mallocing new blocks */
+
+	/*
+	 * Blocks with free space, grouped by the number of free chunks they
+	 * contain.  Completely full blocks are stored in the 0th element.
+	 * Completely empty blocks are stored in emptyblocks or free'd if we have
+	 * enough empty blocks already.
+	 */
+	dlist_head	blocklist[SLAB_BLOCKLIST_COUNT];
+} SlabContext;
+```
 ## Detailed Description
 SlabContext implements a slab allocator, which is a memory management technique that pre-allocates memory in blocks and divides them into fixed-size chunks. This approach is particularly efficient for allocating many objects of the same size, as it eliminates memory fragmentation and reduces allocation overhead. The context maintains multiple lists of blocks categorized by their free space availability, enabling fast allocation and deallocation operations.
 

@@ -8,7 +8,11 @@ A Tamil stemmer function that fixes specific character sequences starting with '
 
 ## Definition
 
+```c
+}
 
+static int r_fix_va_start(struct SN_env * z)
+```
 ## Detailed Description
 This function is part of the Tamil language stemming algorithm in the Snowball stemmer. It performs character sequence normalization by identifying and replacing specific 6-character patterns that begin with 'va' characters. The function uses a series of conditional checks to match different variants of Tamil character sequences and standardizes them by replacing them with 3-character equivalents.
 

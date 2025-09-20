@@ -8,7 +8,10 @@ A utility function that reports floating-point overflow errors using PostgreSQL'
 
 ## Definition
 
-
+```c
+pg_noinline void
+float_overflow_error(void)
+```
 ## Detailed Description
 This function is designed as a centralized error reporting mechanism for floating-point overflow conditions. It uses the  attribute to prevent inlining, which helps reduce code bloat that would occur if the error reporting code were repeated at each call site. The function reports an ERROR level message with the specific error code  and a descriptive message "value out of range: overflow".
 

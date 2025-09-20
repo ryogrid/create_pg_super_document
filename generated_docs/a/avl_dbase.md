@@ -8,7 +8,15 @@ The  structure is used by the PostgreSQL autovacuum launcher to track database i
 
 ## Definition
 
-
+```c
+typedef struct avl_dbase
+{
+	Oid			adl_datid;		/* hash key -- must be first */
+	TimestampTz adl_next_worker;
+	int			adl_score;
+	dlist_node	adl_node;
+} avl_dbase;
+```
 ## Detailed Description
 The  structure serves as a database tracking entry in the autovacuum launcher's internal data structures. It maintains essential information needed to schedule and prioritize autovacuum operations across multiple databases. The structure is designed to be used in hash tables (with  as the key) and doubly-linked lists (via ) for efficient database management and scheduling algorithms.
 

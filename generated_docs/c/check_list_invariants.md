@@ -8,7 +8,10 @@ A static validation function that verifies the integrity and consistency of Post
 
 ## Definition
 
-
+```c
+static void
+check_list_invariants(const List *list)
+```
 ## Detailed Description
 This function performs sanity checks on a List structure to ensure it maintains valid state. It validates that the list's internal properties are consistent and that the list type is one of the supported variants. The function is designed as a debugging aid and is called throughout the list manipulation functions to catch corruption early. It safely handles NIL lists and performs no action for them.
 

@@ -8,7 +8,12 @@ Internal function that determines whether a range is adjacent to any part of a m
 
 ## Definition
 
-
+```c
+bool
+range_adjacent_multirange_internal(TypeCacheEntry *rangetyp,
+								   const RangeType *r,
+								   const MultirangeType *mr)
+```
 ## Detailed Description
 This internal function implements the core logic for determining if a range is adjacent to a multirange. It performs two main checks: first, it tests if the range's upper bound is adjacent to the multirange's leftmost lower bound. If the multirange contains multiple ranges, it also checks if the range's lower bound is adjacent to the multirange's rightmost upper bound.
 

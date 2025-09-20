@@ -8,7 +8,10 @@ Tests whether the upper edge of the first box is at or below the upper edge of t
 
 ## Definition
 
-
+```c
+Datum
+box_overbelow(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements a geometric relationship test between two box objects. It determines if the upper edge (maximum y-coordinate) of the first box is less than or equal to the upper edge of the second box. This is a fundamental spatial relationship operator used in PostgreSQL's geometric data types for spatial indexing and query operations.
 

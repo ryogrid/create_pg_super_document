@@ -8,7 +8,15 @@ ArrayType is a fundamental structure in PostgreSQL that represents array values 
 
 ## Definition
 
-
+```c
+typedef struct ArrayType
+{
+	int32		vl_len_;		/* varlena header (do not touch directly!) */
+	int			ndim;			/* # of dimensions */
+	int32		dataoffset;		/* offset to data, or 0 if no bitmap */
+	Oid			elemtype;		/* element type OID */
+} ArrayType;
+```
 ## Detailed Description
 ArrayType serves as the header structure for PostgreSQL array values. It follows the varlena convention where the first int32 contains the total object size in bytes. The structure is designed to handle multi-dimensional arrays with optional null bitmaps. When dataoffset is 0, there is no null bitmap and array data follows immediately after the header. When dataoffset is non-zero, it indicates the byte offset from the start of the ArrayType structure to where the actual array data begins, with a null bitmap stored in between.
 

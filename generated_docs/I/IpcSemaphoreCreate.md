@@ -8,7 +8,9 @@ Creates a System V IPC semaphore set with the specified number of semaphores, de
 
 ## Definition
 
-
+```c
+union semun semun;
+```
 ## Detailed Description
 IpcSemaphoreCreate is a static function that creates a System V IPC semaphore set with intelligent resource management. It allocates one additional semaphore beyond the requested count to serve as an identifier semaphore. The function implements a sophisticated collision detection and recovery mechanism that can identify and reuse semaphore sets left behind by crashed PostgreSQL processes while avoiding conflicts with semaphore sets belonging to other applications.
 

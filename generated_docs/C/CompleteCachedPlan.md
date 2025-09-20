@@ -8,7 +8,18 @@ CompleteCachedPlan is the second step in creating a plan cache entry that finali
 
 ## Definition
 
-
+```c
+void
+CompleteCachedPlan(CachedPlanSource *plansource,
+				   List *querytree_list,
+				   MemoryContext querytree_context,
+				   Oid *param_types,
+				   int num_params,
+				   ParserSetupHook parserSetup,
+				   void *parserSetupArg,
+				   int cursor_options,
+				   bool fixed_result)
+```
 ## Detailed Description
 CompleteCachedPlan takes an incomplete CachedPlanSource (created by CreateCachedPlan) and populates it with the analyzed-and-rewritten query trees and all necessary metadata. This function handles memory context management for the query trees, extracts query dependencies for cache invalidation, and sets up parameter specifications. After completion, the CachedPlanSource can be used with GetCachedPlan to obtain execution plans and optionally saved with SaveCachedPlan.
 

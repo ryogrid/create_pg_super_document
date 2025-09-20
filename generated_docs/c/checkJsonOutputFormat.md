@@ -8,7 +8,11 @@ Validates the compatibility of a specified JSON output format with the target ou
 
 ## Definition
 
-
+```c
+static void
+checkJsonOutputFormat(ParseState *pstate, const JsonFormat *format,
+					  Oid targettype, bool allow_format_for_non_strings)
+```
 ## Detailed Description
 This function performs validation checks on JSON format specifications to ensure they are compatible with the target output type. It enforces PostgreSQL's type system constraints for JSON formatting operations. The function validates two main aspects:
 

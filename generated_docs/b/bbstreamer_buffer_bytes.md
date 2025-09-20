@@ -8,7 +8,11 @@ This convenience function appends a specified number of bytes from incoming data
 
 ## Definition
 
-
+```c
+static inline void
+bbstreamer_buffer_bytes(bbstreamer *streamer, const char **data, int *len,
+						int nbytes)
+```
 ## Detailed Description
 bbstreamer_buffer_bytes is a static inline convenience function designed specifically for use by bbstreamer implementations, not external callers. It provides a standardized way to buffer incoming data by appending a specified number of bytes to the streamer's internal buffer (bbs_buffer) and then updating the input parameters to reflect the consumed data.
 

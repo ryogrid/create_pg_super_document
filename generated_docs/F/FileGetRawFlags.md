@@ -8,7 +8,10 @@ FileGetRawFlags returns the file flags that were used when opening a PostgreSQL 
 
 ## Definition
 
-
+```c
+int
+FileGetRawFlags(File file)
+```
 ## Detailed Description
 FileGetRawFlags retrieves the fileFlags field from the VfdCache for a given PostgreSQL File descriptor. These flags represent the original flags passed to the open(2) system call when the file was opened, such as O_RDONLY, O_WRONLY, O_RDWR, O_CREAT, O_TRUNC, O_DIRECT, and other system-specific flags. This information is useful for determining the access mode and special attributes of an open file.
 

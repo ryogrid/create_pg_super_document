@@ -8,7 +8,21 @@ A structure that holds locale-specific time formatting information used by Postg
 
 ## Definition
 
-
+```c
+struct lc_time_T
+{
+	const char *mon[MONSPERYEAR];
+	const char *month[MONSPERYEAR];
+	const char *wday[DAYSPERWEEK];
+	const char *weekday[DAYSPERWEEK];
+	const char *X_fmt;
+	const char *x_fmt;
+	const char *c_fmt;
+	const char *am;
+	const char *pm;
+	const char *date_fmt;
+};
+```
 ## Detailed Description
 The  structure serves as a locale-specific time formatting template for PostgreSQL's date and time string conversion functionality. It encapsulates all the textual and formatting elements needed to represent dates and times in a human-readable format according to locale conventions. This structure is primarily used by the  function to format timestamps into strings using various format specifiers.
 

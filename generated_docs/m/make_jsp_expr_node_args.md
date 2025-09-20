@@ -8,7 +8,10 @@ Creates a JsonPathGinNode expression with initialized arguments by combining nod
 
 ## Definition
 
-
+```c
+static JsonPathGinNode *
+make_jsp_expr_node_args(JsonPathGinNodeType type, List *args)
+```
 ## Detailed Description
 This function provides a complete solution for creating expression nodes with pre-populated arguments. It first creates a JsonPathGinNode using make_jsp_expr_node() with the appropriate size based on the list length, then iterates through the provided List to populate each argument slot in the node's args array.
 

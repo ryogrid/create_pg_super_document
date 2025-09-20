@@ -8,7 +8,10 @@ The  function checks if two PostgreSQL BOX geometries are equal by comparing the
 
 ## Definition
 
-
+```c
+Datum
+box_eq(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the equality operator for BOX data types in PostgreSQL. It determines equality between two boxes by comparing their areas using floating-point equality comparison. Two boxes are considered equal if they have the same area, regardless of their position or orientation. The function uses the internal  function to calculate the area of each box and then compares them using PostgreSQL's floating-point equality function .
 

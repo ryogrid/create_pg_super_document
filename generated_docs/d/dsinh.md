@@ -8,7 +8,10 @@ The  function computes the hyperbolic sine of a given floating-point argument, w
 
 ## Definition
 
-
+```c
+Datum
+dsinh(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the hyperbolic sine mathematical function (sinh) for PostgreSQL. It uses the standard C library  function to compute the hyperbolic sine and includes comprehensive error handling for overflow conditions. When an overflow occurs (detected via ERANGE errno), the function returns appropriate positive or negative infinity values based on the sign of the input argument. The hyperbolic sine function is defined mathematically as sinh(x) = (e^x - e^(-x))/2, and it's commonly used in mathematical modeling, physics calculations, and various engineering applications.
 

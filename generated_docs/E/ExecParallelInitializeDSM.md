@@ -8,7 +8,11 @@ ExecParallelInitializeDSM recursively traverses a plan tree and initializes the 
 
 ## Definition
 
-
+```c
+static bool
+ExecParallelInitializeDSM(PlanState *planstate,
+						  ExecParallelInitializeDSMContext *d)
+```
 ## Detailed Description
 This function is a static helper that performs a depth-first traversal of the plan state tree to initialize DSM segments for parallel-aware plan nodes. It serves as the core coordination mechanism for setting up shared memory structures that will be used across multiple parallel worker processes.
 

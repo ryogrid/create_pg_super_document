@@ -8,7 +8,10 @@ Performs modulo operation on two 64-bit signed integers (bigint) with proper err
 
 ## Definition
 
-
+```c
+Datum
+int8mod(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int8mod function implements the modulo (remainder) operation for PostgreSQL's bigint data type. It extracts two int64 arguments and computes arg1 % arg2. The function handles two special cases: division by zero (which raises an error) and modulo by -1, which on some machines can cause floating-point exceptions despite having a well-defined mathematical result of zero. The function works around this hardware quirk by explicitly returning 0 when the divisor is -1.
 

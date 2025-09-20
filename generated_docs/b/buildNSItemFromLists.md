@@ -8,7 +8,11 @@ Builds a ParseNamespaceItem structure from lists of column type information, use
 
 ## Definition
 
-
+```c
+static ParseNamespaceItem *
+buildNSItemFromLists(RangeTblEntry *rte, Index rtindex,
+					 List *coltypes, List *coltypmods, List *colcollations)
+```
 ## Detailed Description
 This function creates a ParseNamespaceItem for relations that don't have physical tuple descriptors, such as subqueries, table functions, VALUES clauses, and CTEs. It takes separate lists of column types, type modifiers, and collations, and builds the corresponding ParseNamespaceColumn array. Unlike buildNSItemFromTupleDesc, this function doesn't need to handle dropped columns since it works with logical column definitions. The function validates that all input lists have matching lengths and constructs the namespace item with default visibility settings.
 

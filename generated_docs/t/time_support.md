@@ -8,7 +8,10 @@ A planner support function that provides optimization support for the time_scale
 
 ## Definition
 
-
+```c
+Datum
+time_support(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The time_support function serves as a planner support function specifically designed to assist the PostgreSQL query planner in optimizing calls to time_scale() and timetz_scale() functions. These are length coercion functions used for TIME and TIMETZ data types. The function implements simplification logic for temporal operations by delegating to the TemporalSimplify function when it receives a SupportRequestSimplify request. This allows the planner to potentially simplify or optimize expressions involving time scaling operations during query planning.
 

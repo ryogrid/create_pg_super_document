@@ -8,7 +8,10 @@ PostgreSQL function that returns the partition constraint expression as a format
 
 ## Definition
 
-
+```c
+Datum
+pg_get_partition_constraintdef(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a SQL-callable interface to retrieve the partition constraint definition for a relation. It takes a relation OID as input and returns the constraint expression that defines the partition boundaries as a formatted text string. The function retrieves the internal partition constraint expression using  and then deparses it into human-readable SQL syntax. If no partition constraint exists for the given relation, the function returns NULL. This is particularly useful for examining the logical constraints that determine which rows belong to a specific partition.
 

@@ -8,7 +8,15 @@ CollateClause represents a COLLATE expression in PostgreSQL's parse tree, used t
 
 ## Definition
 
-
+```c
+typedef struct CollateClause
+{
+	NodeTag		type;
+	Node	   *arg;			/* input expression */
+	List	   *collname;		/* possibly-qualified collation name */
+	ParseLoc	location;		/* token location, or -1 if unknown */
+} CollateClause;
+```
 ## Detailed Description
 CollateClause is a parse tree node that represents collation specifications in SQL statements. Collation determines how text values are compared and sorted, including rules for case sensitivity, accent sensitivity, and locale-specific ordering. This node encapsulates an expression along with the specified collation name, which can be schema-qualified. It's commonly used in column definitions, domain definitions, and expressions where specific text comparison behavior is required.
 

@@ -8,7 +8,13 @@ The arcp struct represents a "pointer" to an outgoing arc in PostgreSQL's lazy-D
 
 ## Definition
 
-
+```c
+struct arcp
+{								/* "pointer" to an outarc */
+	struct sset *ss;
+	color		co;
+};
+```
 ## Detailed Description
 The arcp structure is a core component of PostgreSQL's regular expression engine's lazy-DFA implementation. It serves as a lightweight representation of an arc (transition) in the DFA state machine, containing only the essential information needed to identify a specific outgoing transition from a state. The "lazy" aspect refers to the DFA's on-demand construction approach, where states and transitions are computed only when needed during pattern matching.
 

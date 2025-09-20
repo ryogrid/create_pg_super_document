@@ -8,7 +8,11 @@ Records a potential unsafe conflict between a read-only transaction and an activ
 
 ## Definition
 
-
+```c
+static void
+SetPossibleUnsafeConflict(SERIALIZABLEXACT *roXact,
+						  SERIALIZABLEXACT *activeXact)
+```
 ## Detailed Description
 This function creates a record of a possible unsafe conflict between a read-only transaction and an active (read-write) transaction. Unlike regular read-write conflicts, these are potential conflicts that may become actual serialization violations depending on future transaction behavior. The conflict record is allocated from the RWConflictPool and added to the possibleUnsafeConflicts lists of both transactions for later analysis.
 

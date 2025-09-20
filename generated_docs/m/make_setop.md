@@ -8,7 +8,12 @@ Creates a SetOp plan node that implements set operations like UNION, INTERSECT, 
 
 ## Definition
 
-
+```c
+static SetOp *
+make_setop(SetOpCmd cmd, SetOpStrategy strategy, Plan *lefttree,
+		   List *distinctList, AttrNumber flagColIdx, int firstFlag,
+		   long numGroups)
+```
 ## Detailed Description
 The  function constructs a SetOp plan node that performs set operations (UNION, INTERSECT, EXCEPT) on sorted input data. The node works by examining consecutive tuples in the sorted input stream and applying the specified set operation logic to eliminate duplicates or find intersections/differences. The function converts a list of SortGroupClause specifications into arrays of column indices, equality operators, and collations that the executor can use efficiently during runtime.
 

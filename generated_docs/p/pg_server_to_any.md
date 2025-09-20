@@ -8,7 +8,10 @@ Converts a string from the server (database) encoding to any specified encoding,
 
 ## Definition
 
-
+```c
+char *
+pg_server_to_any(const char *s, int len, int encoding)
+```
 ## Detailed Description
 This function performs encoding conversion from the database's encoding to any target encoding specified by the caller. It implements several optimizations:
 

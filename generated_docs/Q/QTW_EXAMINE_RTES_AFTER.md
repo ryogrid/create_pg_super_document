@@ -8,7 +8,9 @@ A flag bit constant used to control the behavior of query_tree_walker and query_
 
 ## Definition
 
-
+```c
+#define QTW_EXAMINE_RTES_AFTER		0x20	/* examine RTE nodes after their
+```
 ## Detailed Description
 QTW_EXAMINE_RTES_AFTER is a bit flag with value 0x20 (32 in decimal) that controls the traversal order when walking through PostgreSQL's query tree structures. When this flag is set, the walker function will examine Range Table Entry nodes after descending into and processing their contents first. This is the counterpart to QTW_EXAMINE_RTES_BEFORE and is useful for operations that need to process the expressions and subqueries within an RTE before examining the RTE structure itself.
 

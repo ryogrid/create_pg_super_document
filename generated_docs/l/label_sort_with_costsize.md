@@ -8,7 +8,10 @@ A utility function that estimates and labels the cost of a Sort plan node when i
 
 ## Definition
 
-
+```c
+static void
+label_sort_with_costsize(PlannerInfo *root, Sort *plan, double limit_tuples)
+```
 ## Detailed Description
 This function is used in PostgreSQL's query planner to retroactively calculate and assign cost estimates to Sort plan nodes that were created without corresponding Path nodes. The function uses the cost_sort() function to estimate sorting costs based on the left subtree's characteristics and then assigns these costs to the Sort plan node. This is particularly important for providing accurate cost information in EXPLAIN output, even when the Sort node was created through plan manipulation rather than direct path-to-plan conversion.
 

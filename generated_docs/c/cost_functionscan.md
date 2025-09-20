@@ -8,7 +8,11 @@ Determines and returns the cost of scanning a function RTE, calculating costs fo
 
 ## Definition
 
-
+```c
+void
+cost_functionscan(Path *path, PlannerInfo *root,
+				  RelOptInfo *baserel, ParamPathInfo *param_info)
+```
 ## Detailed Description
 The `cost_functionscan` function calculates the cost of scanning a table-valued function by evaluating the cost of executing the function expression(s) and adding the overhead of tuple processing and qualification checking. The costing model reflects the current implementation behavior where nodeFunctionscan.c executes functions to completion before returning any rows, caching results in a tuplestore. This means that function evaluation costs are treated as startup costs rather than per-tuple costs. The function accounts for the cost of evaluating function expressions, applying any restriction clauses, and processing the target list, but does not currently account for potential tuplestore spill costs despite acknowledging this as a future refinement.
 

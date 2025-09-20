@@ -8,7 +8,10 @@ Determines whether a given expression contains only parallel-safe functions, ena
 
 ## Definition
 
-
+```c
+struct */
+			return true;
+```
 ## Detailed Description
 The  function analyzes an expression tree to determine if it contains only functions and operations that are safe to execute in parallel worker processes. This is a critical optimization component that enables PostgreSQL to parallelize query execution while maintaining correctness.
 

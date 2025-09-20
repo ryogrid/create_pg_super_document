@@ -8,7 +8,9 @@ A function handler that implements security-definer execution, configuration par
 
 ## Definition
 
-
+```c
+struct fmgr_security_definer_cache *volatile fcache;
+```
 ## Detailed Description
 The  function serves as a sophisticated wrapper for executing PostgreSQL functions that require special security or configuration contexts. It handles three main responsibilities: security-definer execution (running functions with the privileges of their owner rather than the caller), applying function-specific configuration parameters (proconfig), and invoking function manager hooks for plugins.
 

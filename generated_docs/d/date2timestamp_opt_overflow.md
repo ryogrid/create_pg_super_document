@@ -8,7 +8,10 @@ Converts a DateADT value to a Timestamp with optional overflow handling, allowin
 
 ## Definition
 
-
+```c
+struct pg_tm tt,
+			   *tm = &tt;
+```
 ## Detailed Description
 The  function promotes a PostgreSQL date to a timestamp with sophisticated overflow detection. It handles infinite date values by converting them to corresponding timestamp infinities. For finite dates, it performs range checking against timestamp boundaries and provides two modes of operation: error-throwing mode when overflow parameter is NULL, or overflow-reporting mode when a valid overflow pointer is provided. The conversion multiplies the date value (days since epoch) by microseconds per day to produce the timestamp.
 

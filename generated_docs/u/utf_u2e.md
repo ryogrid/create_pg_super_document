@@ -8,7 +8,10 @@ A utility function in PL/Tcl that converts UTF-8 encoded strings to the database
 
 ## Definition
 
-
+```c
+static inline char *
+utf_u2e(const char *src)
+```
 ## Detailed Description
 The  function is a convenience wrapper around PostgreSQL's  function, specifically designed for converting UTF-8 encoded strings to the database server's current encoding. This function is part of the PL/Tcl procedural language implementation and is used extensively when data needs to flow from Tcl (which uses UTF-8) to PostgreSQL's internal representation.
 

@@ -8,7 +8,15 @@ Recursively transforms leaves and internal nodes of a set-operation tree, conver
 
 ## Definition
 
-
+```c
+union query, now is the time to
+		 * examine the non-recursive term's output columns and mark the
+		 * containing CTE as having those result columns.  We should do this
+		 * only at the topmost setop of the CTE, of course.
+		 */
+		if (isTopLevel && recursive)
+			determineRecursiveColTypes(pstate, op->larg, ltargetlist);
+```
 ## Detailed Description
 transformSetOperationTree is the core recursive function that processes set operation trees (UNION, INTERSECT, EXCEPT). It handles both leaf nodes (individual SELECT statements) and internal nodes (set operation nodes) differently based on their characteristics.
 

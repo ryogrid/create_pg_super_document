@@ -8,7 +8,10 @@ Searches for the correct position of a value on a GIN index leaf page using bina
 
 ## Definition
 
-
+```c
+static bool
+entryLocateLeafEntry(GinBtree btree, GinBtreeStack *stack)
+```
 ## Detailed Description
 This function performs a binary search on a leaf page of a GIN index to locate the correct position for a specific entry value. Unlike entryLocateEntry which works on non-leaf pages to find child pages, this function operates on leaf pages to find actual data entries. It assumes the page has been correctly chosen during the index traversal.
 

@@ -8,7 +8,10 @@ A cryptographic verification function that validates the client's proof in SCRAM
 
 ## Definition
 
-
+```c
+static bool
+verify_client_proof(scram_state *state)
+```
 ## Detailed Description
 The `verify_client_proof` function implements the core cryptographic verification logic for SCRAM authentication. It performs the final validation step in the SCRAM protocol by verifying that the client possesses the correct password without the server needing to store the password in plaintext.
 

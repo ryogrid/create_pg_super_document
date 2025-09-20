@@ -8,7 +8,9 @@ InheritableSocket is a platform-specific type definition that enables socket inh
 
 ## Definition
 
-
+```c
+typedef int InheritableSocket;
+```
 ## Detailed Description
 InheritableSocket provides a cross-platform abstraction for socket inheritance in PostgreSQL's process launch mechanism. On Windows, it wraps a complex structure containing the original socket handle and WSA protocol information needed for socket duplication across process boundaries. This is necessary because Windows requires special handling through WSADuplicateSocket() due to interference from Layered Service Providers (LSPs) like antivirus software and firewalls that break direct socket inheritance.
 

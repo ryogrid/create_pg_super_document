@@ -8,7 +8,16 @@ ReorderBufferIterTXNEntry is a structure that supports k-way in-order iteration 
 
 ## Definition
 
-
+```c
+typedef struct ReorderBufferIterTXNEntry
+{
+	XLogRecPtr	lsn;
+	ReorderBufferChange *change;
+	ReorderBufferTXN *txn;
+	TXNEntryFile file;
+	XLogSegNo	segno;
+} ReorderBufferIterTXNEntry;
+```
 ## Detailed Description
 This structure is a key component of PostgreSQL's logical replication system that enables k-way merging of changes from multiple transactions in LSN order. When decoding WAL records for logical replication, changes from different transactions need to be processed in the correct chronological order based on their Log Sequence Numbers (LSN). This structure maintains the state for one transaction's stream of changes during the merge process, including the current change being processed, the transaction context, file information for spilled changes, and WAL segment information. The k-way merge algorithm uses multiple instances of this structure to efficiently combine changes from different transactions while maintaining proper ordering.
 

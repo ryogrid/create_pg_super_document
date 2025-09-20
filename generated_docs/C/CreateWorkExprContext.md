@@ -8,7 +8,10 @@ Creates an ExprContext with AllocSet sizes tuned to be reasonable in proportion 
 
 ## Definition
 
-
+```c
+ExprContext *
+CreateWorkExprContext(EState *estate)
+```
 ## Detailed Description
 CreateWorkExprContext is a specialized version of CreateExprContext that automatically adjusts memory allocation parameters based on the work_mem setting. The function calculates appropriate AllocSet parameters to prevent scenarios where a single memory block allocation could skip past the work_mem limit, which is particularly important for memory-intensive operations like aggregations and sorts.
 

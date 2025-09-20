@@ -8,7 +8,10 @@ Extracts the specified array element from a JSON array and returns it as text, w
 
 ## Definition
 
-
+```c
+Datum
+json_array_element_text(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL built-in function that extracts an element at a specified index from a JSON array. Unlike , this function returns the result as text rather than JSON. For JSON string values, it removes the JSON escaping and quotes. For other JSON values (numbers, booleans, null), it converts them to their text representation.
 

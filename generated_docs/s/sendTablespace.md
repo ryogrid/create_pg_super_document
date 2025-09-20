@@ -8,7 +8,9 @@ sendTablespace includes a tablespace directory in the output tar stream during b
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 This function processes auxiliary tablespace directories during PostgreSQL base backup operations. It constructs the path to the tablespace version directory, creates a directory entry in the tar stream with proper permissions, and recursively sends all files within that directory. The function handles cases where tablespaces may be removed during the backup process gracefully by returning 0 if the directory no longer exists.
 

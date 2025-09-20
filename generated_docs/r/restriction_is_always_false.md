@@ -8,7 +8,11 @@ Checks whether a RestrictInfo condition is always false, enabling the query plan
 
 ## Definition
 
-
+```c
+bool
+restriction_is_always_false(PlannerInfo *root,
+							RestrictInfo *restrictinfo)
+```
 ## Detailed Description
 The function analyzes RestrictInfo clauses to determine if they are provably always false, helping the query planner identify queries that will return no results due to contradictory conditions. This enables early query termination optimizations. Currently supports two main patterns:
 

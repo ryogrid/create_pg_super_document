@@ -8,7 +8,9 @@ Checks for and retrieves messages from worker processes in the PostgreSQL parall
 
 ## Definition
 
-
+```c
+struct timeval nowait = {0, 0};
+```
 ## Detailed Description
 This function is executed in the leader process to monitor and receive status messages from worker processes during parallel database dump operations. It constructs a file descriptor set containing all active worker pipes, then uses select() to determine which workers have messages ready. The function supports both blocking and non-blocking modes depending on the  parameter. When a message is available, it reads the complete message from the first ready worker pipe and returns it as a dynamically allocated string, along with the worker index.
 

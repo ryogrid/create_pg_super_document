@@ -8,7 +8,9 @@ A recovery-specific function that creates missing tablespace directories during 
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This function handles a specific recovery scenario where PostgreSQL needs to create a database but the required tablespace directory is missing. During recovery, if a tablespace was removed before the server stopped but there are WAL records for database creation in that tablespace, this function creates the necessary directory structure. It includes safety checks to ensure directories are only created in appropriate locations and implements different behavior based on whether recovery consistency has been reached. The function creates actual directories under pg_tblspc rather than restoring symbolic links.
 

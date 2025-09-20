@@ -8,7 +8,11 @@ Implements the DROP portion of ALTER OPERATOR FAMILY commands by removing existi
 
 ## Definition
 
-
+```c
+static void
+AlterOpFamilyDrop(AlterOpFamilyStmt *stmt, Oid amoid, Oid opfamilyoid,
+				  int maxOpNumber, int maxProcNumber, List *items)
+```
 ## Detailed Description
 AlterOpFamilyDrop processes the removal of operators and support functions from an existing operator family. Unlike AlterOpFamilyAdd, this function doesn't need to lookup actual operator or function OIDs - it only needs to identify which catalog entries to remove based on strategy/support numbers and argument types.
 

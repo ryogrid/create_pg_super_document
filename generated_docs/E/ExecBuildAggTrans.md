@@ -8,7 +8,11 @@ Builds transition/combine function invocations for all aggregate transition and 
 
 ## Definition
 
-
+```c
+structions for each transition value / grouping set combination.
+	 */
+	for (int transno = 0;
+```
 ## Detailed Description
 ExecBuildAggTrans constructs a compiled expression that efficiently evaluates aggregate transition functions across multiple grouping sets. It handles the complete aggregate evaluation pipeline including filter evaluation, argument processing, strict function null checking, distinct value handling, and the actual transition function calls.
 

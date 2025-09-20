@@ -8,7 +8,10 @@ A GUC assign hook function that handles the assignment of a new value to the sea
 
 ## Definition
 
-
+```c
+void
+assign_search_path(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as the assign hook for the search_path GUC (Grand Unified Configuration) parameter. It is called whenever the search_path configuration is updated through SET commands or other configuration mechanisms. Rather than immediately recomputing the search path, it adopts a lazy evaluation strategy by simply marking the current baseSearchPath as invalid, deferring the actual recomputation until the search path is next accessed. This design avoids expensive database operations during GUC initialization or when outside a transaction context.
 

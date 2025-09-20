@@ -8,7 +8,10 @@ A static function that extracts key attribute values from a HeapTuple and comput
 
 ## Definition
 
-
+```c
+static uint32
+CatalogCacheComputeTupleHashValue(CatCache *cache, int nkeys, HeapTuple tuple)
+```
 ## Detailed Description
 The `CatalogCacheComputeTupleHashValue` function serves as a tuple-oriented wrapper around `CatalogCacheComputeHashValue`. It extracts key values from a HeapTuple using the cache's configured key column numbers and tuple descriptor, then delegates to `CatalogCacheComputeHashValue` for the actual hash computation. The function uses `fastgetattr` to efficiently extract attribute values from the tuple and includes assertions to ensure that key attributes are never NULL (which would be a system catalog integrity violation). This function is essential for operations that need to compute hash values for existing tuples, such as cache invalidation and list-based searches where the full tuple is available but individual key values need to be extracted.
 

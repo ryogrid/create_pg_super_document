@@ -8,7 +8,11 @@ A step function in the Greek Snowball stemmer that performs specific suffix tran
 
 ## Definition
 
+```c
+}
 
+static int r_step2c(struct SN_env * z)
+```
 ## Detailed Description
 The  function is part of the Greek language stemmer in PostgreSQL's Snowball stemming implementation. It performs a two-phase suffix transformation:
 

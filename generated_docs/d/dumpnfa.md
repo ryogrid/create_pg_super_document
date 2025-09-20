@@ -8,7 +8,11 @@ A debugging function that outputs a human-readable representation of an NFA (Non
 
 ## Definition
 
-
+```c
+static void
+dumpnfa(struct nfa *nfa,
+		FILE *f)
+```
 ## Detailed Description
 The  function provides a comprehensive textual dump of an NFA structure, including all its states, arcs, and metadata. This function is only compiled when  is defined, making it a development and debugging tool rather than production code. It outputs detailed information about the NFA's structure including pre/post states, boundary conditions (beginning/end of string/line), flags, and statistics about the total number of states and arcs.
 

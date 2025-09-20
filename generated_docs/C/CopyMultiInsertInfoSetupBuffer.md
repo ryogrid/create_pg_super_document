@@ -8,7 +8,11 @@ CopyMultiInsertInfoSetupBuffer creates a new CopyMultiInsertBuffer for a specifi
 
 ## Definition
 
-
+```c
+static inline void
+CopyMultiInsertInfoSetupBuffer(CopyMultiInsertInfo *miinfo,
+							   ResultRelInfo *rri)
+```
 ## Detailed Description
 This function serves as a higher-level wrapper that creates and integrates a new CopyMultiInsertBuffer into the multi-insert infrastructure. It performs three key operations:
 

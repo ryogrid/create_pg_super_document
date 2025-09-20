@@ -8,7 +8,10 @@ Normalizes file path separators for cross-platform compatibility, converting for
 
 ## Definition
 
-
+```c
+static char *
+fix_path_separator(char *path)
+```
 ## Detailed Description
 This utility function provides platform-specific path separator normalization to ensure compatibility with Windows builtin commands like RMDIR and DEL. On Windows systems, it creates a copy of the input path with all forward slash characters ('/') converted to backslash characters ('\'). On non-Windows platforms, it simply returns the original path pointer unchanged, avoiding unnecessary string duplication.
 

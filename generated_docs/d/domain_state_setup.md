@@ -8,7 +8,10 @@ Initializes the cache for a new domain type, setting up I/O functions and constr
 
 ## Definition
 
-
+```c
+static DomainIOData *
+domain_state_setup(Oid domainType, bool binary, MemoryContext mcxt)
+```
 ## Detailed Description
 The  function creates and initializes a  structure that serves as a cache for domain type operations. This function performs validation of the domain type, sets up the appropriate I/O functions for the underlying base type, and initializes domain constraint checking infrastructure.
 

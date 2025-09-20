@@ -8,7 +8,45 @@ A relcache invalidation callback function that marks relation sync cache entries
 
 ## Definition
 
+```c
+structure here.  The next get_rel_sync_entry() call will
+	 * rebuild it all.
+	 */
+	if (OidIsValid(relid))
+	{
+		/*
+		 * Getting invalidations for relations that aren't in the table is
+		 * entirely normal.  So we don't care if it's found or not.
+		 */
+		entry = (RelationSyncEntry *) hash_search(RelationSyncCache, &relid,
+												  HASH_FIND, NULL);
+		if (entry != NULL)
+			entry->replicate_valid = false;
+	}
+	else
+	{
+		/* Whole cache must be flushed. */
+		HASH_SEQ_STATUS status;
 
+		hash_seq_init(&status, RelationSyncCache);
+		while ((entry = (RelationSyncEntry *) hash_seq_search(&status)) != NULL)
+		{
+			entry->replicate_valid = false;
+		}
+	}
+}
+
+/*
+ * Publication relation/schema map syscache invalidation callback
+ *
+ * Called for invalidations on pg_publication, pg_publication_rel,
+ * pg_publication_namespace, and pg_namespace.
+ */
+static void
+rel_sync_cache_publication_cb(Datum arg, int cacheid, uint32 hashvalue)
+{
+	HASH_SEQ_STATUS status;
+```
 ## Detailed Description
 This function serves as a callback registered with PostgreSQL's relation cache invalidation system. When the relation cache detects changes to relation definitions (such as schema modifications, permission changes, or relation drops), this callback is invoked to maintain consistency in the logical replication relation sync cache.
 

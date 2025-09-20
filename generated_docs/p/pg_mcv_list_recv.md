@@ -8,7 +8,10 @@ Binary input routine for the pg_mcv_list data type that explicitly disallows bin
 
 ## Definition
 
-
+```c
+Datum
+pg_mcv_list_recv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the required binary input routine for PostgreSQL's pg_mcv_list data type, but like its text input counterpart , it deliberately prevents any external input operations. The function immediately raises an error when called, ensuring that MCV lists cannot be created or modified through binary input mechanisms.
 

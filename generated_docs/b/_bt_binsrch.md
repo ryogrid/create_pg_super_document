@@ -8,7 +8,12 @@ This function performs binary search on a B-tree page to find the appropriate po
 
 ## Definition
 
-
+```c
+static OffsetNumber
+_bt_binsrch(Relation rel,
+			BTScanInsert key,
+			Buffer buf)
+```
 ## Detailed Description
 _bt_binsrch implements the core binary search algorithm used within B-tree pages. The function's behavior differs significantly between internal (non-leaf) and leaf pages to accommodate their different structures and search requirements.
 

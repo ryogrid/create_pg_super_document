@@ -8,7 +8,10 @@ PostgreSQL function that returns the complete definition for a constraint, forma
 
 ## Definition
 
-
+```c
+Datum
+pg_get_constraintdef(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the SQL-callable interface for retrieving constraint definitions from the PostgreSQL system catalogs. It takes a constraint OID as input and returns the complete constraint definition as formatted SQL text. The function acts as a wrapper around , providing default parameters for pretty-printing with indentation. The returned definition includes all the necessary SQL syntax that would be required to recreate the constraint using an ALTER TABLE ADD CONSTRAINT statement, making it useful for schema documentation, backup generation, and administrative queries.
 

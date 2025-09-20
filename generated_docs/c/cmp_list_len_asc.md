@@ -8,7 +8,10 @@ A comparator function for sorting lists by their length in ascending order, used
 
 ## Definition
 
-
+```c
+static int
+cmp_list_len_asc(const ListCell *a, const ListCell *b)
+```
 ## Detailed Description
 This function implements a comparison callback for sorting operations on lists of lists. It compares two ListCell pointers that contain List structures and returns an integer indicating their relative ordering based on list length:
 

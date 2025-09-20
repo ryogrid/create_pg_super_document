@@ -8,7 +8,11 @@ The r_verb function removes verbal endings from Russian words during the stemmin
 
 ## Definition
 
+```c
+}
 
+static int r_verb(struct SN_env * z)
+```
 ## Detailed Description
 This function implements step 2 of the Russian stemming algorithm for KOI8-R encoded text. It handles the removal of various verbal suffixes from Russian verbs. The function uses a more complex matching system with 46 different verbal patterns defined in the a_4 array.
 

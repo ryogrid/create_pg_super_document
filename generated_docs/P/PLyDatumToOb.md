@@ -8,7 +8,25 @@ PLyDatumToOb is a conversion structure used in PostgreSQL's PLpython extension t
 
 ## Definition
 
-
+```c
+struct PLyDatumToOb
+{
+	PLyDatumToObFunc func;		/* conversion control function */
+	Oid			typoid;			/* OID of the source type */
+	int32		typmod;			/* typmod of the source type */
+	bool		typbyval;		/* its physical representation details */
+	int16		typlen;
+	char		typalign;
+	MemoryContext mcxt;			/* context this info is stored in */
+	union						/* conversion-type-specific data */
+	{
+		PLyScalarToOb scalar;
+		PLyArrayToOb array;
+		PLyTupleToOb tuple;
+		PLyTransformToOb transform;
+	}			u;
+};
+```
 ## Detailed Description
 PLyDatumToOb is a core data structure in PostgreSQL's PLpython extension that encapsulates all information needed to convert PostgreSQL Datum values into their corresponding Python object representations. It serves as a conversion context that contains both the conversion function and all necessary metadata about the PostgreSQL data type being converted. The structure supports various PostgreSQL types including scalars, arrays, tuples, and types with custom transforms through a discriminated union approach.
 

@@ -8,7 +8,13 @@ Recursively traverses an expression tree to identify and collect all database ob
 
 ## Definition
 
-
+```c
+structure */
+	}
+	else if (IsA(node, CTECycleClause))
+	{
+		CTECycleClause *cc = (CTECycleClause *) node;
+```
 ## Detailed Description
 This function is the heart of PostgreSQL's expression dependency analysis system. It implements a comprehensive tree walker that recursively examines every node in an expression tree to identify references to database objects such as tables, columns, operators, functions, types, collations, and more.
 

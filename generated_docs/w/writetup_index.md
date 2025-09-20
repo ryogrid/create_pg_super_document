@@ -8,7 +8,10 @@ A specialized function for writing index tuples to logical tapes during external
 
 ## Definition
 
-
+```c
+static void
+writetup_index(Tuplesortstate *state, LogicalTape *tape, SortTuple *stup)
+```
 ## Detailed Description
 This function serializes an IndexTuple to a logical tape during the external sorting process. It implements the standard tuple serialization format used by PostgreSQL's tuplesort infrastructure:
 

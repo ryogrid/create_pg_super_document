@@ -8,7 +8,10 @@ heap_fetch_next_buffer is an internal function that advances a heap scan to the 
 
 ## Definition
 
-
+```c
+static inline void
+heap_fetch_next_buffer(HeapScanDesc scan, ScanDirection dir)
+```
 ## Detailed Description
 This function manages buffer transitions during heap scanning by coordinating with the read stream mechanism to fetch the next page. It handles proper cleanup of the previous buffer, manages scan direction changes, and provides interrupt checking to ensure responsive behavior during long sequential scans. The function is critical for implementing efficient sequential and backward scans by managing prefetching and buffer lifecycle. When the scan direction changes, it resets the prefetch mechanism to avoid incorrect block prefetching patterns.
 

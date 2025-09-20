@@ -8,7 +8,10 @@ A PostgreSQL function that provides a wrapper for interval multiplication with r
 
 ## Definition
 
-
+```c
+Datum
+mul_d_interval(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a simple wrapper around  with the argument order reversed. It takes a floating-point factor as the first argument and an interval as the second argument, then delegates to  by swapping the argument order. This allows PostgreSQL to support both  and 0:
 1:

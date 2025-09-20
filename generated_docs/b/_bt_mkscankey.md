@@ -8,7 +8,14 @@ Builds an insertion scan key that contains comparison data from an index tuple a
 
 ## Definition
 
-
+```c
+structed on key columns.
+	 * Truncated attributes and non-key attributes are omitted from the final
+	 * scan key.
+	 */
+	key = palloc(offsetof(BTScanInsertData, scankeys) +
+				 sizeof(ScanKeyData) * indnkeyatts);
+```
 ## Detailed Description
 This function constructs a BTScanInsert structure that serves as a specialized scan key for B-tree operations. The scan key contains comparison data extracted from the provided index tuple along with appropriate comparator functions for each key datatype. The resulting structure is optimized for use in B-tree comparison operations (_bt_compare) and truncation operations (_bt_truncate).
 

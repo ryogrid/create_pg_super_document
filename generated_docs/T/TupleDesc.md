@@ -8,7 +8,9 @@ TupleDesc is a typedef that defines a pointer to TupleDescData, serving as the s
 
 ## Definition
 
-
+```c
+typedef struct TupleDescData *TupleDesc;
+```
 ## Detailed Description
 TupleDesc is a simple but fundamental typedef that creates a pointer type to TupleDescData structures. This typedef establishes the standard interface used throughout PostgreSQL for passing and manipulating tuple descriptors. By using a pointer typedef, PostgreSQL achieves several benefits: efficient passing of large structures by reference, consistent API design, and the ability to use NULL to represent the absence of a tuple descriptor.
 

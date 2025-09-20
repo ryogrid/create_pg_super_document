@@ -8,7 +8,10 @@ Sets the size estimates for a base relation that represents a table function, us
 
 ## Definition
 
-
+```c
+void
+set_tablefunc_size_estimates(PlannerInfo *root, RelOptInfo *rel)
+```
 ## Detailed Description
 This function provides size estimation for relations that represent table functions (RTE_TABLEFUNC) in PostgreSQL queries. Unlike regular function calls that may have varying return set sizes, table functions receive a simple fixed estimate of 100 tuples. This is a conservative heuristic used when more precise cardinality estimation is not available or practical for table function constructs.
 

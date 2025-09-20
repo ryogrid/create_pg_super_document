@@ -8,7 +8,42 @@ The file_entry_t structure represents information about files found in both loca
 
 ## Definition
 
+```c
+typedef struct file_entry_t
+{
+	uint32		status;			/* hash status */
 
+	const char *path;
+	bool		isrelfile;		/* is it a relation data file? */
+
+	/*
+	 * Status of the file in the target.
+	 */
+	bool		target_exists;
+	file_type_t target_type;
+	size_t		target_size;	/* for a regular file */
+	char	   *target_link_target; /* for a symlink */
+
+	/*
+	 * Pages that were modified in the target and need to be replaced from the
+	 * source.
+	 */
+	datapagemap_t target_pages_to_overwrite;
+
+	/*
+	 * Status of the file in the source.
+	 */
+	bool		source_exists;
+	file_type_t source_type;
+	size_t		source_size;
+	char	   *source_link_target; /* for a symlink */
+
+	/*
+	 * What will we do to the file?
+	 */
+	file_action_t action;
+} file_entry_t;
+```
 ## Detailed Description
 The file_entry_t structure is a comprehensive representation of file information used by PostgreSQL's pg_rewind utility. It stores detailed information about files present in both the source and target PostgreSQL clusters, enabling the rewind process to make informed decisions about what actions to take for each file. The structure maintains separate status information for both target and source systems, tracks which pages need to be overwritten for relation files, and stores the final action to be performed on each file.
 

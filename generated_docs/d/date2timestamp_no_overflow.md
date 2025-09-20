@@ -8,7 +8,10 @@ Converts a date value to a double precision timestamp without throwing overflow 
 
 ## Definition
 
-
+```c
+double
+date2timestamp_no_overflow(DateADT dateVal)
+```
 ## Detailed Description
 This function is chartered to produce a double value that is numerically equivalent to the corresponding Timestamp value, if the date is in the valid range of Timestamps, but in any case not throw an overflow error. The function can safely handle any date value since the numerical range of double is greater than that of non-erroneous timestamps. The results are currently only used for statistical estimation purposes within PostgreSQL's query planner.
 

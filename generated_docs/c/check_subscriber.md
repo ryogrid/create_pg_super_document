@@ -8,7 +8,10 @@ Validates that the standby server is properly configured and ready to become a l
 
 ## Definition
 
-
+```c
+static void
+check_subscriber(const struct LogicalRepInfo *dbinfo)
+```
 ## Detailed Description
 This function performs comprehensive validation of the subscriber (standby server) to ensure it can support logical replication after promotion. It verifies critical prerequisites and configuration parameters:
 

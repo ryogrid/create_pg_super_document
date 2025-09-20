@@ -8,7 +8,10 @@ Replays a BRIN desummarization operation during WAL recovery, updating the revma
 
 ## Definition
 
-
+```c
+static void
+brin_xlog_desummarize_page(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the replay of a BRIN desummarization operation during crash recovery. Desummarization occurs when a BRIN index needs to invalidate summary information for a range of heap blocks, typically due to significant data changes that make the existing summary inaccurate. The function:
 

@@ -8,7 +8,13 @@ Defines the structure for valid PostgreSQL foreign data wrapper connection optio
 
 ## Definition
 
-
+```c
+struct ConnectionOption
+{
+	const char *optname;
+	Oid			optcontext;		/* Oid of catalog in which option may appear */
+};
+```
 ## Detailed Description
 The ConnectionOption structure is used to describe valid options for PostgreSQL Foreign Data Wrapper (FDW), server, and user mapping configurations. It serves as a mapping table that associates libpq connection parameter names with the specific PostgreSQL system catalog contexts where they are allowed to appear. This structure is primarily used in the foreign data wrapper validation system to ensure that connection options are specified in the correct context (either at the server level or user mapping level).
 

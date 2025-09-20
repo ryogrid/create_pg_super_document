@@ -8,7 +8,10 @@ Creates an ECPGtype structure representing a struct or union type with its membe
 
 ## Definition
 
-
+```c
+struct ECPGtype *
+ECPGmake_struct_type(struct ECPGstruct_member *rm, enum ECPGttype type, char *type_name, char *struct_sizeof)
+```
 ## Detailed Description
 This function creates a new ECPGtype structure to represent composite types (structs or unions). It builds upon ECPGmake_simple_type to create the base structure, then enhances it with composite-type specific information including a duplicated member list, type name, and size information.
 

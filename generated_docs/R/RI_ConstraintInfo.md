@@ -8,7 +8,34 @@ RI_ConstraintInfo is a structure that stores information extracted from a foreig
 
 ## Definition
 
-
+```c
+typedef struct RI_ConstraintInfo
+{
+	Oid			constraint_id;	/* OID of pg_constraint entry (hash key) */
+	bool		valid;			/* successfully initialized? */
+	Oid			constraint_root_id; /* OID of topmost ancestor constraint;
+									 * same as constraint_id if not inherited */
+	uint32		oidHashValue;	/* hash value of constraint_id */
+	uint32		rootHashValue;	/* hash value of constraint_root_id */
+	NameData	conname;		/* name of the FK constraint */
+	Oid			pk_relid;		/* referenced relation */
+	Oid			fk_relid;		/* referencing relation */
+	char		confupdtype;	/* foreign key's ON UPDATE action */
+	char		confdeltype;	/* foreign key's ON DELETE action */
+	int			ndelsetcols;	/* number of columns referenced in ON DELETE
+								 * SET clause */
+	int16		confdelsetcols[RI_MAX_NUMKEYS]; /* attnums of cols to set on
+												 * delete */
+	char		confmatchtype;	/* foreign key's match type */
+	int			nkeys;			/* number of key columns */
+	int16		pk_attnums[RI_MAX_NUMKEYS]; /* attnums of referenced cols */
+	int16		fk_attnums[RI_MAX_NUMKEYS]; /* attnums of referencing cols */
+	Oid			pf_eq_oprs[RI_MAX_NUMKEYS]; /* equality operators (PK = FK) */
+	Oid			pp_eq_oprs[RI_MAX_NUMKEYS]; /* equality operators (PK = PK) */
+	Oid			ff_eq_oprs[RI_MAX_NUMKEYS]; /* equality operators (FK = FK) */
+	dlist_node	valid_link;		/* Link in list of valid entries */
+} RI_ConstraintInfo;
+```
 ## Detailed Description
 RI_ConstraintInfo serves as a cached representation of foreign key constraint metadata to optimize referential integrity checking operations. This structure contains all necessary information about a foreign key relationship, including the participating tables, column mappings, constraint actions, and operator information needed for equality comparisons. The structure supports constraint inheritance through the constraint_root_id field and maintains hash values for efficient cache lookups.
 

@@ -8,7 +8,10 @@ A variable hook function that processes changes to the VERBOSITY variable in psq
 
 ## Definition
 
-
+```c
+static bool
+verbosity_hook(const char *newval)
+```
 ## Detailed Description
 This hook function is responsible for parsing and setting the error message verbosity level when the VERBOSITY variable is modified in psql. It accepts one of four valid string values ("default", "verbose", "terse", "sqlstate") and maps them to corresponding PostgreSQL error verbosity constants. The function also applies the new verbosity setting to the current database connection if one exists. If an invalid value is provided, it displays an error message and returns false to indicate failure.
 

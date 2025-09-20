@@ -8,7 +8,9 @@ Implements the psql \setenv backslash command that sets or unsets operating syst
 
 ## Definition
 
-
+```c
+enumbers = (strchr(cmd, '+') != NULL);
+```
 ## Detailed Description
 The  function handles the execution of the \setenv backslash command in psql, which manages operating system environment variables. The command operates in two modes: when provided with both a variable name and value, it sets the environment variable; when provided with only a variable name (no value), it unsets (removes) the environment variable from the process environment.
 

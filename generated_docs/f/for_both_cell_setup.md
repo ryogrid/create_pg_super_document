@@ -8,7 +8,11 @@ Initializes a ForBothCellState structure for the for_both_cell macro, enabling p
 
 ## Definition
 
-
+```c
+static inline ForBothCellState
+for_both_cell_setup(const List *list1, const ListCell *initcell1,
+					const List *list2, const ListCell *initcell2)
+```
 ## Detailed Description
 The `for_both_cell_setup` function is a helper function that initializes the state required for the `for_both_cell` macro. It creates and returns a `ForBothCellState` structure that contains pointers to both lists and their corresponding starting indices derived from the provided initial cells. This enables synchronized iteration through two lists simultaneously, starting from specific positions in each list.
 

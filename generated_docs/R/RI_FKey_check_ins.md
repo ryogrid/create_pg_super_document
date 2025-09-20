@@ -8,7 +8,10 @@ Trigger function that validates foreign key constraints during INSERT operations
 
 ## Definition
 
-
+```c
+Datum
+RI_FKey_check_ins(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the entry point for foreign key constraint validation during INSERT operations. It performs initial validation to ensure it's called in the correct trigger context (INSERT event), then delegates the actual constraint checking to the shared `RI_FKey_check` function.
 

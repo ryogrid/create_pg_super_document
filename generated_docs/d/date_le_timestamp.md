@@ -8,7 +8,10 @@ Compares a date value with a timestamp value to determine if the date is less th
 
 ## Definition
 
-
+```c
+Datum
+date_le_timestamp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the less-than-or-equal-to comparison operator (<=) between a DATE type and a TIMESTAMP type in PostgreSQL. It extracts a DateADT value and a Timestamp value from the function arguments, then delegates the actual comparison logic to the internal helper function date_cmp_timestamp_internal(). The function returns true if the date value is less than or equal to the timestamp value, false otherwise.
 

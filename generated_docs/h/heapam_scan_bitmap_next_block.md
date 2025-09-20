@@ -8,7 +8,11 @@ Processes the next block during a bitmap heap scan, examining tuples on the spec
 
 ## Definition
 
-
+```c
+static bool
+heapam_scan_bitmap_next_block(TableScanDesc scan,
+							  TBMIterateResult *tbmres)
+```
 ## Detailed Description
 This function is a core component of bitmap heap scans, responsible for processing individual blocks identified by a bitmap index scan. It determines which tuples on a given block are visible to the current transaction and stores their offsets for later tuple retrieval. The function handles both lossy and non-lossy bitmap results, employs optimizations for all-visible pages, and manages HOT (Heap-Only Tuples) chains appropriately. It also performs necessary locking, pruning, and visibility checks while maintaining transaction isolation guarantees.
 

@@ -8,7 +8,10 @@ Get the number of blocks present in a single disk file segment for a PostgreSQL 
 
 ## Definition
 
-
+```c
+static BlockNumber
+_mdnblocks(SMgrRelation reln, ForkNumber forknum, MdfdVec *seg)
+```
 ## Detailed Description
 This is a static function that determines the number of blocks present in a specific segment of a relation's disk file. It works by getting the file size using FileSize() and dividing by the block size (BLCKSZ). The function handles error conditions when the file size cannot be determined and includes a note that any partial block at the end of file (EOF) will be ignored in the calculation.
 

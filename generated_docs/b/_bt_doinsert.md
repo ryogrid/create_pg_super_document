@@ -8,7 +8,12 @@ Handles insertion of a single index tuple into a B-tree, including uniqueness ch
 
 ## Definition
 
-
+```c
+bool
+_bt_doinsert(Relation rel, IndexTuple itup,
+			 IndexUniqueCheck checkUnique, bool indexUnchanged,
+			 Relation heapRel)
+```
 ## Detailed Description
 The  function is the core routine for inserting a single index tuple into a B-tree index. Called by the public interface routine , this function performs the complete insertion process including uniqueness validation, conflict detection, and actual tuple placement.
 

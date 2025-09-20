@@ -8,7 +8,14 @@ SPIParseOpenOptions is a structure that provides optional configuration paramete
 
 ## Definition
 
-
+```c
+typedef struct SPIParseOpenOptions
+{
+	ParamListInfo params;
+	int			cursorOptions;
+	bool		read_only;
+} SPIParseOpenOptions;
+```
 ## Detailed Description
 SPIParseOpenOptions serves as a configuration structure specifically designed for cursor-based SPI operations that combine SQL parsing and cursor opening in a single operation. It enables callers to specify parameter values, configure cursor-specific behavior, and enforce read-only access restrictions during the parse-and-open process. This structure is particularly useful for procedural languages and applications that need to create cursors with specific characteristics directly from SQL text.
 

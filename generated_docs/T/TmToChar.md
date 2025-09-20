@@ -8,7 +8,14 @@ A comprehensive structure that extends the fmt_tm structure to include fractiona
 
 ## Definition
 
-
+```c
+typedef struct TmToChar
+{
+	struct fmt_tm tm;			/* almost the classic 'tm' struct */
+	fsec_t		fsec;			/* fractional seconds */
+	const char *tzn;			/* timezone */
+} TmToChar;
+```
 ## Detailed Description
 The TmToChar structure is a composite data type used by PostgreSQL's formatting system to represent complete datetime information for conversion to character strings. It builds upon the fmt_tm structure by adding fractional seconds precision and timezone name information. This structure serves as the primary container for datetime data during formatting operations, providing all the temporal components needed to generate formatted datetime strings. The structure is designed to handle both simple timestamps and complex timezone-aware datetime values with sub-second precision.
 

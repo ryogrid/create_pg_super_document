@@ -8,7 +8,10 @@ Handles hash table corruption detection by logging appropriate error messages an
 
 ## Definition
 
-
+```c
+static void
+hash_corrupted(HTAB *hashp)
+```
 ## Detailed Description
 This function serves as the error handler for hash table corruption scenarios. When called, it determines the severity of the response based on whether the corrupted hash table is shared among multiple processes or local to a single backend. For shared hash tables, corruption poses a system-wide risk, so the function triggers a PANIC-level error that forces a complete PostgreSQL cluster restart. For non-shared hash tables, it issues a FATAL error that terminates only the current backend process.
 

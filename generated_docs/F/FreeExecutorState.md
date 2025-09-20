@@ -8,7 +8,10 @@ Releases an EState along with all remaining working storage, performing proper c
 
 ## Definition
 
-
+```c
+void
+FreeExecutorState(EState *estate)
+```
 ## Detailed Description
 FreeExecutorState is responsible for the complete cleanup and deallocation of an EState structure and all its associated resources. The function performs a multi-step cleanup process that includes shutting down active ExprContexts, releasing JIT compilation contexts, destroying partition directories, and finally deleting the entire per-query memory context.
 

@@ -8,7 +8,10 @@ Replays WAL records for B-tree delete operations, handling both posting list upd
 
 ## Definition
 
-
+```c
+static void
+btree_xlog_delete(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the recovery/replay of B-tree delete operations from WAL records. B-tree delete operations remove tuples that are no longer visible to any running transactions, helping to maintain index efficiency and reclaim space.
 

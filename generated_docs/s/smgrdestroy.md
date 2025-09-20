@@ -8,7 +8,10 @@ Deletes an SMgrRelation object, cleaning up its resources and removing it from t
 
 ## Definition
 
-
+```c
+static void
+smgrdestroy(SMgrRelation reln)
+```
 ## Detailed Description
 The  function is responsible for properly destroying an SMgrRelation object. It performs a complete cleanup by first closing all fork files associated with the relation, then removing the relation from the doubly-linked list of SMgrRelation objects, and finally removing it from the SMgrRelationHash hash table. This function ensures that all resources are properly released and that the storage manager's internal data structures remain consistent.
 

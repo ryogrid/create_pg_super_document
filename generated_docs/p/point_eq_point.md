@@ -8,7 +8,10 @@ Internal static function that performs the core logic for comparing two points f
 
 ## Definition
 
-
+```c
+static inline bool
+point_eq_point(Point *pt1, Point *pt2)
+```
 ## Detailed Description
 The  function is the fundamental comparison function for Point equality in PostgreSQL's geometric system. It implements a two-tier comparison strategy: for normal floating-point values, it uses tolerance-based comparison through , but when NaN values are involved, it requires exact bitwise equality using . This approach ensures consistent and predictable behavior across all possible Point values while maintaining proper floating-point semantics.
 

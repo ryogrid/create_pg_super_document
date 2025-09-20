@@ -8,7 +8,13 @@ A local struct definition that provides a fallback implementation for terminal w
 
 ## Definition
 
-
+```c
+struct winsize
+		{
+			int			ws_row;
+			int			ws_col;
+		}			screen_size;
+```
 ## Detailed Description
 The winsize struct is conditionally defined in the PQprint function within fe-print.c as a fallback mechanism for systems that don't have the standard TIOCGWINSZ ioctl capability. When TIOCGWINSZ is available, the system's native struct winsize is used instead. This struct holds terminal dimensions that are used to determine whether query results should be piped to a pager program based on the estimated output size relative to the terminal screen.
 

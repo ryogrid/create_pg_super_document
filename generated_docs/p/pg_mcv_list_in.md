@@ -8,7 +8,10 @@ Input routine for the pg_mcv_list data type that explicitly disallows text input
 
 ## Definition
 
-
+```c
+Datum
+pg_mcv_list_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the required input routine for the pg_mcv_list PostgreSQL data type, but it intentionally prevents any text-based input operations. The pg_mcv_list type is designed to store Most Common Values statistics data exclusively in binary format, as text parsing of such complex statistical structures would be impractical and error-prone.
 

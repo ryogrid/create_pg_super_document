@@ -8,7 +8,12 @@ Finds the OIDs of all foreign servers matching the given list of patterns and ap
 
 ## Definition
 
-
+```c
+static void
+expand_foreign_server_name_patterns(Archive *fout,
+									SimpleStringList *patterns,
+									SimpleOidList *oids)
+```
 ## Detailed Description
 This function processes a list of foreign server name patterns (which may include wildcards) and resolves them to actual foreign server OIDs by querying the PostgreSQL system catalog pg_foreign_server. It is part of the pattern expansion family of functions used in pg_dump for filtering database objects.
 

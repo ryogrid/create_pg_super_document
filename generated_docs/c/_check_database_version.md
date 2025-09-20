@@ -8,7 +8,10 @@ Validates PostgreSQL server version compatibility and determines standby status 
 
 ## Definition
 
-
+```c
+static void
+_check_database_version(ArchiveHandle *AH)
+```
 ## Detailed Description
 This internal function performs critical version compatibility checks when pg_dump connects to a PostgreSQL server. It retrieves the server version information, validates that the server version is within the acceptable range for the current pg_dump version, and determines if the server is in recovery mode (hot standby). If version compatibility fails, the function terminates the program with an error message.
 

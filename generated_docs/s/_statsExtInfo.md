@@ -8,7 +8,15 @@ The  structure represents extended statistics objects in PostgreSQL that need to
 
 ## Definition
 
-
+```c
+typedef struct _statsExtInfo
+{
+	DumpableObject dobj;
+	const char *rolname;		/* owner */
+	TableInfo  *stattable;		/* link to table the stats are for */
+	int			stattarget;		/* statistics target */
+} StatsExtInfo;
+```
 ## Detailed Description
 The  structure is used by pg_dump to manage extended statistics objects (multivariate statistics) that were introduced in PostgreSQL 10. Extended statistics allow PostgreSQL to collect statistics about correlations between multiple columns, enabling better query planning. The structure stores all necessary information to recreate these statistics objects during database restore, including the owner, target table, and statistics target setting.
 

@@ -8,7 +8,9 @@ Tests pipeline behavior when multiple queries are dispatched without explicit sy
 
 ## Definition
 
-
+```c
+struct timeval tv;
+```
 ## Detailed Description
 The  function tests the behavior of PostgreSQL pipelines when multiple queries are sent without using explicit synchronization points (PQpipelineSync). This scenario tests the ability to queue multiple queries and process their results asynchronously while managing network buffers and socket I/O effectively.
 

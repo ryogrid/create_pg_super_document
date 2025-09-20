@@ -8,7 +8,11 @@ The core internal function that fetches the next tuple in either forward or back
 
 ## Definition
 
-
+```c
+bool
+tuplesort_gettuple_common(Tuplesortstate *state, bool forward,
+						  SortTuple *stup)
+```
 ## Detailed Description
 This is the central tuple retrieval function in PostgreSQL's tuplesort implementation that abstracts the complexity of fetching tuples from different storage contexts. The function handles three distinct sorting states:
 

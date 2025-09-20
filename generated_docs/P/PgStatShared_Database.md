@@ -8,7 +8,13 @@ A shared memory structure that holds comprehensive database-level statistics for
 
 ## Definition
 
-
+```c
+typedef struct PgStatShared_Database
+{
+	PgStatShared_Common header;
+	PgStat_StatDBEntry stats;
+} PgStatShared_Database;
+```
 ## Detailed Description
 PgStatShared_Database is a shared memory structure that maintains detailed statistics for individual databases within a PostgreSQL cluster. This structure follows the common pattern for variable-amount statistics, beginning with a PgStatShared_Common header that provides magic number validation and lock protection, followed by database-specific statistics.
 

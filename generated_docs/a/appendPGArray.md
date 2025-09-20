@@ -8,7 +8,10 @@ Appends one element to the text representation of a 1-dimensional PostgreSQL arr
 
 ## Definition
 
-
+```c
+void
+appendPGArray(PQExpBuffer buffer, const char *value)
+```
 ## Detailed Description
 This function adds a single element to a PostgreSQL array literal being constructed in a PQExpBuffer. It handles all formatting details including comma insertion, value quoting, and escape sequence generation to match PostgreSQL's array_out() behavior.
 

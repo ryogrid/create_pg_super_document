@@ -8,7 +8,10 @@ The GiST equality comparison method for range types that determines whether two 
 
 ## Definition
 
-
+```c
+Datum
+range_gist_same(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the "same" method required by the GiST access method interface for range types. It performs a comprehensive equality check between two range values, ensuring that ranges are considered identical only when they have the same bounds, boundary inclusion flags, and all internal flags.
 

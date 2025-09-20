@@ -8,7 +8,10 @@ This function stores delegated GSS-API credentials received during authenticatio
 
 ## Definition
 
-
+```c
+void
+pg_store_delegated_credential(gss_cred_id_t cred)
+```
 ## Detailed Description
 The  function manages the storage of delegated GSS-API credentials in PostgreSQL's backend processes. When a client delegates credentials during GSS-API authentication, this function stores them in a memory-based credential cache (ccache) using the GSS-API  function.
 

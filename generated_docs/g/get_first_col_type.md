@@ -8,7 +8,11 @@ Extracts the datatype, typmod, and collation information from the first column o
 
 ## Definition
 
-
+```c
+static void
+get_first_col_type(Plan *plan, Oid *coltype, int32 *coltypmod,
+				   Oid *colcollation)
+```
 ## Detailed Description
 This function retrieves the essential type information (datatype, type modifier, and collation) from the first column of a given plan's target list. The information is stored for later use by ARRAY_SUBLINK execution and by expression type functions like exprType(), exprTypmod(), and exprCollation(), which cannot directly access the plan associated with a SubPlan node. While the information is primarily needed for EXPR_SUBLINK and ARRAY_SUBLINK subplans, it is consistently saved for all subplan types.
 

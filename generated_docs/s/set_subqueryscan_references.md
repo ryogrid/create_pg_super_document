@@ -8,7 +8,12 @@ Specialized function that processes SubqueryScan plan nodes, with optimization l
 
 ## Definition
 
-
+```c
+static Plan *
+set_subqueryscan_references(PlannerInfo *root,
+							SubqueryScan *plan,
+							int rtoffset)
+```
 ## Detailed Description
  handles the unique processing requirements for SubqueryScan nodes, which represent subqueries in the FROM clause. The function implements an important optimization: it attempts to eliminate unnecessary SubqueryScan wrapper nodes when the subquery is trivial and can be safely pulled up into the parent query level.
 

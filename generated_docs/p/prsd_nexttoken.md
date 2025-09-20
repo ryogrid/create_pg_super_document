@@ -8,7 +8,10 @@ A PostgreSQL function that extracts the next token from an initialized text pars
 
 ## Definition
 
-
+```c
+Datum
+prsd_nexttoken(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 prsd_nexttoken is a PostgreSQL built-in function that serves as the primary token extraction interface for the default word parser. It works in conjunction with an initialized TParser instance (created by prsd_start) to iteratively extract tokens from the input text.
 

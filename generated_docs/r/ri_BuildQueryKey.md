@@ -8,7 +8,13 @@ A utility function that constructs a hashtable key for identifying cached prepar
 
 ## Definition
 
-
+```c
+struct RI_QueryKey contains no padding bytes, else we'd need
+	 * to use memset to clear them.
+	 */
+	if (constr_queryno != RI_PLAN_CHECK_LOOKUPPK_FROM_PK)
+		key->constr_id = riinfo->constraint_root_id;
+```
 ## Detailed Description
 This function builds a hashtable key used to identify and cache prepared SPI (Server Programming Interface) plans for foreign key constraint operations. The key enables efficient plan reuse across multiple executions of the same type of referential integrity query. 
 

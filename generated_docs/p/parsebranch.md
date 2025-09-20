@@ -8,7 +8,53 @@ Parses a single branch of a regular expression by managing concatenation of atom
 
 ## Definition
 
+```c
+struct vars *v,
+			int stopper,		/* EOS or ')' */
+			int type,			/* LACON (lookaround subRE) or PLAIN */
+			struct state *left, /* leftmost state */
+			struct state *right,	/* rightmost state */
+			int partial)		/* is this only part of a branch? */
+{
+	struct state *lp;			/* left end of current construct */
+	int			seencontent;	/* is there anything in this branch yet? */
+	struct subre *t;
 
+	lp = left;
+	seencontent = 0;
+	t = subre(v, '=', 0, left, right);	/* op '=' is tentative */
+	NOERRN();
+	while (!SEE('|') && !SEE(stopper) && !SEE(EOS))
+	{
+		if (seencontent)
+		{						/* implicit concat operator */
+			lp = newstate(v->nfa);
+			NOERRN();
+			moveins(v->nfa, right, lp);
+		}
+		seencontent = 1;
+
+		/* NB, recursion in parseqatom() may swallow rest of branch */
+		t = parseqatom(v, stopper, type, lp, right, t);
+		NOERRN();
+	}
+
+	if (!seencontent)
+	{							/* empty branch */
+		if (!partial)
+			NOTE(REG_UUNSPEC);
+		assert(lp == left);
+		EMPTYARC(left, right);
+	}
+
+	return t;
+}
+
+/*
+ * parseqatom - parse one quantified atom or constraint of an RE
+ *
+ * The bookkeeping near the end cooperates very closely with parsebranch();
+```
 ## Detailed Description
 The  function is responsible for parsing individual branches within regular expressions, primarily focusing on concatenation management. It works closely with  to process sequences of regex atoms (characters, groups, quantifiers, etc.) and bundles them together as efficiently as possible.
 

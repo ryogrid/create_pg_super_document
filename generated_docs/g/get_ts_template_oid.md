@@ -8,7 +8,10 @@ get_ts_template_oid finds and returns the OID of a text search template by its q
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(names, &schemaname, &template_name);
+```
 ## Detailed Description
 This function resolves a text search template name to its corresponding OID in the PostgreSQL system catalogs. It supports both qualified names (schema.template) and unqualified names (template only). For unqualified names, it searches through the current namespace search path to find the first matching template. The function implements standard PostgreSQL namespace resolution semantics and provides flexible error handling through the missing_ok parameter.
 

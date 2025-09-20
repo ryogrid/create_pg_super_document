@@ -8,7 +8,10 @@ PostgreSQL function that provides a conversion interface from Mule Internal Code
 
 ## Definition
 
-
+```c
+Datum
+mic_to_sjis(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL function wrapper for the mic2sjis conversion routine. It extracts the necessary parameters from the PostgreSQL function call interface and delegates the actual character encoding conversion to the mic2sjis function. The function validates the encoding conversion arguments and returns the number of converted bytes.
 

@@ -8,7 +8,13 @@ A structure used in PostgreSQL's frontend utilities for multibyte character text
 
 ## Definition
 
-
+```c
+struct lineptr
+{
+	unsigned char *ptr;
+	int			width;
+};
+```
 ## Detailed Description
 The  structure is a fundamental component of PostgreSQL's multibyte character printing support system, defined in the frontend utilities. It serves as a container for managing text lines with associated width information, which is crucial for proper formatting and display of multibyte character text in PostgreSQL's command-line tools like psql.
 

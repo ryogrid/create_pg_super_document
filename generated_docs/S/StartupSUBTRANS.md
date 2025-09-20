@@ -8,7 +8,10 @@ Initializes the SUBTRANS (subtransaction status) system during PostgreSQL startu
 
 ## Definition
 
-
+```c
+void
+StartupSUBTRANS(TransactionId oldestActiveXID)
+```
 ## Detailed Description
 StartupSUBTRANS is called once during postmaster or standalone-backend startup, after StartupXLOG has initialized the next transaction ID. It initializes the SUBTRANS system by zeroing out all pages that might contain active subtransaction status information.
 

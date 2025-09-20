@@ -8,7 +8,9 @@ The register_reloptions_validator function registers a custom validation callbac
 
 ## Definition
 
-
+```c
+struct_size);
+```
 ## Detailed Description
 This function adds a custom validation function to the list of validators in a local_relopts structure. The registered validators are invoked during the final phase of build_local_reloptions() to perform cross-option validation and consistency checks.
 

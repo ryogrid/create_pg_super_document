@@ -8,7 +8,10 @@ Compares two records (row types) for equality, returning true if all correspondi
 
 ## Definition
 
-
+```c
+structures */
+	tuple1.t_len = HeapTupleHeaderGetDatumLength(record1);
+```
 ## Detailed Description
 The  function performs field-by-field comparison of two PostgreSQL records to determine equality. It handles records with potentially different structures by:
 

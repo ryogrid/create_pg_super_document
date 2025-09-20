@@ -8,7 +8,10 @@ The gtsvector_same function implements the GiST same operation for TSVector data
 
 ## Definition
 
-
+```c
+Datum
+gtsvector_same(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function compares two TSVector signatures to determine if they are identical. It handles two different signature formats: signature keys (bit vectors) and array-based representations. For signature keys, it first checks if both signatures have the same ALLTRUE status, then performs byte-by-byte comparison of the bit vectors if needed. For array-based signatures, it compares the array lengths first, then performs element-by-element comparison. The function is used by the GiST index infrastructure to optimize index operations by identifying duplicate signatures.
 

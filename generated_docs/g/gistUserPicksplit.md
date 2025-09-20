@@ -8,7 +8,10 @@ Invokes the user-defined picksplit method for a specific index column and handle
 
 ## Definition
 
-
+```c
+union datums computed by PickSplit back to v arrays */
+	v->spl_lattr[attno] = sv->spl_ldatum;
+```
 ## Detailed Description
 This function orchestrates the splitting process for a GiST index column by calling the user-defined PickSplit method and processing the results. It handles several complex scenarios:
 

@@ -8,7 +8,10 @@ A callback function that updates the statistics reset timestamp for subscription
 
 ## Definition
 
-
+```c
+void
+pgstat_subscription_reset_timestamp_cb(PgStatShared_Common *header, TimestampTz ts)
+```
 ## Detailed Description
 This function serves as a callback within PostgreSQL's statistics system infrastructure, specifically for handling timestamp updates when subscription statistics are reset. It is called internally by the statistics framework when a reset operation occurs on subscription statistics. The function takes a generic shared statistics header and casts it to the subscription-specific structure to set the reset timestamp.
 

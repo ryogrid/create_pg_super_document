@@ -8,7 +8,11 @@ Identifies and removes individual Tamil tense suffixes from words as part of the
 
 ## Definition
 
+```c
+}
 
+static int r_remove_tense_suffix(struct SN_env * z)
+```
 ## Detailed Description
 This function is the core component for Tamil tense suffix removal, implementing a sophisticated multi-stage pattern matching approach:
 

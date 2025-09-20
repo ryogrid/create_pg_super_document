@@ -8,7 +8,10 @@ PQresStatus converts an ExecStatusType enumeration value to its corresponding hu
 
 ## Definition
 
-
+```c
+char *
+PQresStatus(ExecStatusType status)
+```
 ## Detailed Description
 This function provides a way to convert ExecStatusType enumeration values (such as PGRES_COMMAND_OK, PGRES_TUPLES_OK, etc.) into their corresponding string representations. It acts as a lookup function that indexes into the pgresStatus array, which contains string literals for each possible execution status.
 

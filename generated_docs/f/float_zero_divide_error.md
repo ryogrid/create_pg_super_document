@@ -8,7 +8,10 @@ A utility function that reports division by zero errors in floating-point operat
 
 ## Definition
 
-
+```c
+pg_noinline void
+float_zero_divide_error(void)
+```
 ## Detailed Description
 This function provides centralized error reporting for division by zero conditions in floating-point arithmetic operations. Unlike the overflow and underflow error functions, this one uses the specific error code  which is distinct from the numeric range errors. The function follows the same design pattern as other floating-point error functions, using the  attribute to prevent inlining and reduce code bloat.
 

@@ -8,7 +8,10 @@ Finalizes progress output formatting by clearing or indenting the current progre
 
 ## Definition
 
-
+```c
+void
+end_progress_output(void)
+```
 ## Detailed Description
 The  function is responsible for properly terminating progress output in the pg_upgrade utility. It handles two different output scenarios:
 

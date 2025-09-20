@@ -8,7 +8,10 @@ Performs addition of two PostgreSQL numeric values, providing the standard SQL +
 
 ## Definition
 
-
+```c
+Datum
+numeric_add(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the addition operation for PostgreSQL's numeric data type, which supports arbitrary precision decimal arithmetic. It serves as the SQL-level interface for numeric addition, handling all the complexity of multi-precision arithmetic through delegation to the internal numeric_add_opt_error function.
 

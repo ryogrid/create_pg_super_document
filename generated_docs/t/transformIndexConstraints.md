@@ -8,7 +8,10 @@ Handles UNIQUE, PRIMARY KEY, and EXCLUDE constraints that create indexes, mergin
 
 ## Definition
 
-
+```c
+static void
+transformIndexConstraints(CreateStmtContext *cxt)
+```
 ## Detailed Description
 The  function processes index-generating constraints during table creation or alteration. It transforms UNIQUE, PRIMARY KEY, and EXCLUDE constraints into corresponding IndexStmt nodes that will create the appropriate indexes. The function implements deduplication logic to remove redundant index specifications that might arise from overlapping constraints (e.g., when a column is marked both UNIQUE and PRIMARY KEY).
 

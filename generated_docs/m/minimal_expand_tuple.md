@@ -8,7 +8,10 @@ Public wrapper function that creates an expanded MinimalTuple from a source tupl
 
 ## Definition
 
-
+```c
+MinimalTuple
+minimal_expand_tuple(HeapTuple sourceTuple, TupleDesc tupleDesc)
+```
 ## Detailed Description
 The  function is a simple public wrapper around the internal  function specifically for creating MinimalTuple outputs. This function is used when you need to expand a tuple to match a larger tuple descriptor but want the result as a MinimalTuple rather than a full HeapTuple.
 

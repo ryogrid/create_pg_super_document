@@ -8,7 +8,10 @@ Serializes a list of functional dependencies into a bytea value for persistent s
 
 ## Definition
 
-
+```c
+struct values (magic, type, ndeps) */
+	memcpy(tmp, &dependencies->magic, sizeof(uint32));
+```
 ## Detailed Description
 This function converts an in-memory MVDependencies structure into a serialized bytea format suitable for storage in the database. The serialization process follows a specific binary layout:
 

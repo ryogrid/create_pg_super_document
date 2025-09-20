@@ -8,7 +8,10 @@ The window_lag_with_offset_and_default function implements the LAG window functi
 
 ## Definition
 
-
+```c
+Datum
+window_lag_with_offset_and_default(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the full SQL LAG window function functionality with both offset and default value capabilities. It retrieves the value of a specified column from a row that is exactly 'offset' rows before the current row within the same partition. If no such row exists (e.g., when near the beginning of the partition), it returns the specified default value instead. The function delegates its core logic to the common leadlag_common function with parameters indicating it's a lag operation with both offset and default value.
 

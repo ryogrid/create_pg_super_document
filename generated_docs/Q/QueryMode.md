@@ -8,7 +8,25 @@ QueryMode is an enumeration that defines the different query execution modes ava
 
 ## Definition
 
-
+```c
+struct Command represents one command in a script.
+ *
+ * lines		The raw, possibly multi-line command text.  Variable substitution
+ *				not applied.
+ * first_line	A short, single-line extract of 'lines', for error reporting.
+ * type			SQL_COMMAND or META_COMMAND
+ * meta			The type of meta-command, with META_NONE/GSET/ASET if command
+ *				is SQL.
+ * argc			Number of arguments of the command, 0 if not yet processed.
+ * argv			Command arguments, the first of which is the command or SQL
+ *				string itself.  For SQL commands, after post-processing
+ *				argv[0] is the same as 'lines' with variables substituted.
+ * prepname		The name that this command is prepared under, in prepare mode
+ * varprefix	SQL commands terminated with \gset or \aset have this set
+ *				to a non NULL value.  If nonempty, it's used to prefix the
+ *				variable name that receives the value.
+ * aset			do gset on all possible queries of a combined query (\;
+```
 ## Detailed Description
 QueryMode determines how pgbench executes SQL queries during performance testing. The enum provides three distinct execution modes:
 

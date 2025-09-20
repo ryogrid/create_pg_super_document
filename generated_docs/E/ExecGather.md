@@ -8,7 +8,10 @@ The main execution function for Gather plan nodes that coordinates parallel quer
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+ExecGather(PlanState *pstate)
+```
 ## Detailed Description
 ExecGather implements the core logic for parallel query execution coordination in PostgreSQL. On first execution, it initializes the parallel context and launches worker processes if parallel execution is enabled and workers are available. The function manages a dynamic decision about whether the leader process should participate in scanning based on worker availability and configuration settings.
 

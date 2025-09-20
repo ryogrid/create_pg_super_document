@@ -8,7 +8,11 @@ A tree walker function that finalizes GROUPING expressions by validating their a
 
 ## Definition
 
-
+```c
+static bool
+finalize_grouping_exprs_walker(Node *node,
+							   check_ungrouped_columns_context *context)
+```
 ## Detailed Description
 This function is a recursive tree walker that processes expression trees to finalize GROUPING expressions. It performs several key operations:
 

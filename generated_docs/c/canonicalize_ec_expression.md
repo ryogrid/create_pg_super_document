@@ -8,7 +8,10 @@ Ensures that expressions in EquivalenceClasses expose the correct data type and 
 
 ## Definition
 
-
+```c
+Expr *
+canonicalize_ec_expression(Expr *expr, Oid req_type, Oid req_collation)
+```
 ## Detailed Description
 This function standardizes expressions before they are stored in EquivalenceClasses to ensure that equivalent expressions can be properly matched using equal() comparisons. It addresses two main issues:
 

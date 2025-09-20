@@ -8,7 +8,10 @@ DatumGetName extracts a Name value from a Datum, converting PostgreSQL's interna
 
 ## Definition
 
-
+```c
+static inline Name
+DatumGetName(Datum X)
+```
 ## Detailed Description
 DatumGetName is a conversion function that extracts a Name value from a Datum representation. It works by casting the result of DatumGetPointer() to the Name type. The Name type in PostgreSQL is a fixed-length string type (typically 64 bytes) used primarily for storing identifiers in system catalogs such as table names, column names, function names, etc.
 

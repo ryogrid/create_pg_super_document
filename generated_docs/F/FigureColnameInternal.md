@@ -8,7 +8,11 @@ FigureColnameInternal is the internal workhorse function for FigureColname that 
 
 ## Definition
 
-
+```c
+structor:
+			/* make JSON_OBJECT act like a regular function */
+			*name = "json_object";
+```
 ## Detailed Description
 This function recursively traverses PostgreSQL parse tree nodes to extract meaningful column names from various SQL expression types. It implements a confidence-based naming system where different node types and naming contexts yield different confidence levels:
 

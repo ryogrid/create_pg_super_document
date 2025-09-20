@@ -8,7 +8,10 @@ A static tree walker function that adjusts variable node numbers and relation id
 
 ## Definition
 
-
+```c
+static bool
+OffsetVarNodes_walker(Node *node, OffsetVarNodes_context *context)
+```
 ## Detailed Description
 This function implements a recursive tree walker that adjusts relation identifiers throughout expression trees and query structures. It handles multiple node types including Var nodes, CurrentOfExpr, RangeTblRef, JoinExpr, PlaceHolderVar, and AppendRelInfo. The function respects query nesting levels (sublevels_up) to ensure that only variables at the appropriate query level are modified. For Var nodes, it adjusts varno, varnullingrels, and varnosyn. The function also handles subqueries by recursively calling itself with adjusted context levels.
 

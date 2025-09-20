@@ -8,7 +8,10 @@ EndCommand is responsible for clean up operations at the completion of a SQL com
 
 ## Definition
 
-
+```c
+void
+EndCommand(const QueryCompletion *qc, CommandDest dest, bool force_undecorated_output)
+```
 ## Detailed Description
 EndCommand handles the final stage of command execution by processing command completion based on the destination type. For remote destinations (DestRemote, DestRemoteExecute, DestRemoteSimple), it builds a completion tag string using the QueryCompletion information and sends a CommandComplete message to the client via the PostgreSQL protocol. For other destination types (local, debug, SPI, etc.), no special completion processing is required.
 

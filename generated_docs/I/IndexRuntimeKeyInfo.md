@@ -8,7 +8,17 @@ IndexRuntimeKeyInfo represents metadata for index scan keys that require runtime
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	struct ScanKeyData *scan_key;	/* scankey to put value into */
+	ExprState  *array_expr;		/* expr to evaluate to get array value */
+	int			next_elem;		/* next array element to use */
+	int			num_elems;		/* number of elems in current array value */
+	Datum	   *elem_values;	/* array of num_elems Datums */
+	bool	   *elem_nulls;		/* array of num_elems is-null flags */
+} IndexArrayKeyInfo;
+```
 ## Detailed Description
 IndexRuntimeKeyInfo is a crucial structure in PostgreSQL's index scanning infrastructure that handles dynamic scan keys where the comparison values cannot be determined at plan time. Unlike static scan keys with constant values, runtime keys require expression evaluation during execution to determine the actual values used for index lookups.
 

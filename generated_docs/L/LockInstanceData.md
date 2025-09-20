@@ -8,7 +8,20 @@ LockInstanceData holds information about a specific lock instance for user-level
 
 ## Definition
 
-
+```c
+typedef struct LockInstanceData
+{
+	LOCKTAG		locktag;		/* tag for locked object */
+	LOCKMASK	holdMask;		/* locks held by this PGPROC */
+	LOCKMODE	waitLockMode;	/* lock awaited by this PGPROC, if any */
+	VirtualTransactionId vxid;	/* virtual transaction ID of this PGPROC */
+	TimestampTz waitStart;		/* time at which this PGPROC started waiting
+								 * for lock */
+	int			pid;			/* pid of this PGPROC */
+	int			leaderPid;		/* pid of group leader; = pid if no group */
+	bool		fastpath;		/* taken via fastpath? */
+} LockInstanceData;
+```
 ## Detailed Description
 LockInstanceData is a data transfer structure designed to communicate lock state information from PostgreSQL's internal lock manager to user-visible functions. This structure is primarily used by system functions like pg_locks, pg_blocking_pids, and related lock monitoring utilities that provide visibility into the database's locking state.
 

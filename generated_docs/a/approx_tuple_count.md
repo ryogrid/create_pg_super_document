@@ -8,7 +8,10 @@ Provides a quick-and-dirty estimation of the number of join rows passing a set o
 
 ## Definition
 
-
+```c
+static double
+approx_tuple_count(PlannerInfo *root, JoinPath *path, List *quals)
+```
 ## Detailed Description
 This function estimates how many tuples will pass through initial merge or hash join steps by applying qualification conditions. It uses a simplified approach that:
 

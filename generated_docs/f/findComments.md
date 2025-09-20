@@ -8,7 +8,9 @@ Performs a binary search on the global comments array to find all comment entrie
 
 ## Definition
 
-
+```c
+struct a table of all comments available for database objects;
+```
 ## Detailed Description
 This function implements an efficient binary search algorithm to locate comment entries for a given database object in the pre-loaded, sorted global comments array. The search finds all matching entries because multiple comments can be associated with a single object (e.g., table comments and column comments share the same classoid/objoid but have different objsubid values).
 

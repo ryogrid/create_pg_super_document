@@ -8,7 +8,11 @@ Allocates a new subcolor for a given color if necessary, implementing an optimiz
 
 ## Definition
 
-
+```c
+static color
+newsub(struct colormap *cm,
+	   color co)
+```
 ## Detailed Description
 The newsub function is a core utility for creating subcolors in PostgreSQL's regex engine. It implements a key optimization strategy: if a color is referenced by only one character (nschrs + nuchrs == 1), it returns the original color instead of creating a subcolor, since there's no benefit to subdividing a color that's already atomic.
 

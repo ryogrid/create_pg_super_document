@@ -8,7 +8,13 @@ Implements the 'EXECUTE' utility statement and supports CREATE TABLE ... AS EXEC
 
 ## Definition
 
-
+```c
+void
+ExecuteQuery(ParseState *pstate,
+			 ExecuteStmt *stmt, IntoClause *intoClause,
+			 ParamListInfo params,
+			 DestReceiver *dest, QueryCompletion *qc)
+```
 ## Detailed Description
 ExecuteQuery retrieves and executes a prepared statement by name, handling parameter evaluation, portal creation, and query execution. It supports both regular EXECUTE statements and CREATE TABLE ... AS EXECUTE constructs. The function validates that the prepared statement exists and has a fixed result type, evaluates any parameters using the current execution context, creates a portal for query execution, and runs the query through the portal interface. For CREATE TABLE ... AS EXECUTE, it performs additional validation to ensure the statement is a SELECT query.
 

@@ -8,7 +8,10 @@ ExecMaterializesOutput determines whether a plan node type automatically materia
 
 ## Definition
 
-
+```c
+bool
+ExecMaterializesOutput(NodeTag plantype)
+```
 ## Detailed Description
 This function examines a plan node type and returns true if that node type automatically materializes its output, typically by storing tuples in a tuplestore or similar structure. Plans that materialize their output have the characteristic that a rescan operation (without parameter changes) will have zero startup cost and very low per-tuple cost, since the materialized data can be reused.
 

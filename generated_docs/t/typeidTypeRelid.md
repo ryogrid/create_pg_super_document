@@ -8,7 +8,10 @@ Gets the associated relation OID (typrelid) for a given type OID, specifically f
 
 ## Definition
 
-
+```c
+Oid
+typeidTypeRelid(Oid type_id)
+```
 ## Detailed Description
 This function looks up a type by its OID in the system catalog and returns the associated relation OID (typrelid field from pg_type). The typrelid field is only meaningful for composite types, which are types that have an underlying table or view structure. For non-composite types (like built-in types int4, text, etc.), this function returns InvalidOid.
 

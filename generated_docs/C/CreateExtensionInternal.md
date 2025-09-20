@@ -8,7 +8,9 @@ CreateExtensionInternal is the core worker function for the CREATE EXTENSION com
 
 ## Definition
 
-
+```c
+struct stat fst;
+```
 ## Detailed Description
 This function performs the complete extension installation process with sophisticated dependency handling. When CASCADE is specified, it recursively installs required extensions while maintaining a "parents" list to detect and prevent cyclic dependencies. The function reads extension control files, determines the optimal installation path (including handling version upgrades through update scripts), manages schema creation and selection, processes prerequisite extensions, inserts the extension record into pg_extension catalog, applies comments, executes installation scripts, and handles any necessary version updates.
 

@@ -8,7 +8,14 @@ Searches for a namespace item (table, view, CTE, etc.) that matches a given refe
 
 ## Definition
 
-
+```c
+ParseNamespaceItem *
+refnameNamespaceItem(ParseState *pstate,
+					 const char *schemaname,
+					 const char *refname,
+					 int location,
+					 int *sublevels_up)
+```
 ## Detailed Description
 This function performs namespace resolution for relation references in SQL queries. It handles both qualified names (schema.table) and unqualified names (table), searching through the parsing state's namespace stack to find matching items. For qualified names, it converts the schema.relation pair to a relation OID and searches by relid. For unqualified names, it searches by alias or relation name. The function can optionally track nesting depth and will traverse parent parsing states when sublevels_up is provided.
 

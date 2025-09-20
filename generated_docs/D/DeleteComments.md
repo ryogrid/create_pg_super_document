@@ -8,7 +8,10 @@ Removes comments from the pg_description catalog table for specified database ob
 
 ## Definition
 
-
+```c
+void
+DeleteComments(Oid oid, Oid classoid, int32 subid)
+```
 ## Detailed Description
 DeleteComments removes comment entries from the pg_description catalog table based on the provided object identifiers. It supports two deletion modes: when subid is nonzero, it deletes only comments for that specific sub-object (e.g., a specific column); when subid is zero, it deletes all comments associated with the object regardless of sub-object ID (used when dropping entire objects).
 

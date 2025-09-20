@@ -8,7 +8,10 @@ Reads the next filter keyword from a line buffer by extracting strings of non-wh
 
 ## Definition
 
-
+```c
+static const char *
+filter_get_keyword(const char **line, int *size)
+```
 ## Detailed Description
 This function searches for keywords (strings of non-whitespace characters) in the passed line buffer. It skips any initial whitespace and then extracts the first sequence of non-whitespace characters as a keyword. The function returns a pointer to the start of the keyword in the original buffer, and updates the line pointer to point past the found keyword. If no keyword is found (buffer is empty or contains only whitespace), it returns NULL and sets the size to 0.
 

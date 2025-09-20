@@ -8,7 +8,10 @@ A static utility function that appends a JsonPathItem to a JsonPathGinPath struc
 
 ## Definition
 
-
+```c
+static bool
+jsonb_ops__add_path_item(JsonPathGinPath *path, JsonPathItem *jsp)
+```
 ## Detailed Description
 This function processes individual JsonPath items and builds a linked list representation of the path within a JsonPathGinPath structure. It supports a subset of JSONPath operations that are relevant for GIN indexing in the jsonb_ops operator class. The function creates JsonPathGinPathItem nodes and links them together to form a complete path representation.
 

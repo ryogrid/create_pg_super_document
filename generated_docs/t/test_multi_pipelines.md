@@ -8,7 +8,9 @@ Tests the execution and processing of multiple consecutive pipelines within a si
 
 ## Definition
 
-
+```c
+struct timeval tv;
+```
 ## Detailed Description
 The  function validates the ability to queue and process multiple separate pipelines consecutively within a single pipeline mode session. It demonstrates that multiple pipeline segments can be queued with their respective sync points and then processed sequentially without exiting and re-entering pipeline mode between each segment.
 

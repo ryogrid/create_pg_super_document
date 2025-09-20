@@ -8,7 +8,10 @@ Identifies inherited column attributes and optimizes their representation in dum
 
 ## Definition
 
-
+```c
+static void
+flagInhAttrs(Archive *fout, TableInfo *tblinfo, int numTables)
+```
 ## Detailed Description
 The flagInhAttrs function analyzes inheritance relationships between tables to optimize how column attributes are represented in the pg_dump output. It performs three critical optimizations: (1) flags columns that inherit NOT NULL constraints from parents to avoid redundant specifications, (2) creates explicit DEFAULT NULL clauses for child columns that need to override inherited non-null defaults, and (3) suppresses generation expressions in child tables when they match all parent generation expressions, improving compatibility with pre-v16 PostgreSQL servers.
 

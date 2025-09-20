@@ -8,7 +8,10 @@ Dumps table data using INSERT statements, providing an alternative to COPY that 
 
 ## Definition
 
-
+```c
+static int
+dumpTableData_insert(Archive *fout, const void *dcontext)
+```
 ## Detailed Description
 This function generates INSERT statements to dump table data, offering more portability than COPY commands. It handles various PostgreSQL data types with appropriate formatting, supports generated columns, and can produce either column-named or positional INSERTs. The function uses a cursor-based approach to fetch data in chunks and supports multi-row INSERT statements for efficiency.
 

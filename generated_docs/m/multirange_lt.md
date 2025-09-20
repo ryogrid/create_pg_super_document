@@ -8,7 +8,10 @@ Implements the less-than operator () for multirange types by using the multirang
 
 ## Definition
 
-
+```c
+Datum
+multirange_lt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the SQL less-than operator () for multirange types. It serves as a simple wrapper around the  function, returning true if the first multirange is lexicographically less than the second multirange. 
 

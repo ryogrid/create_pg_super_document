@@ -8,7 +8,10 @@ Issues all pending writeback requests that were previously scheduled with Schedu
 
 ## Definition
 
-
+```c
+void
+IssuePendingWritebacks(WritebackContext *wb_context, IOContext io_context)
+```
 ## Detailed Description
 IssuePendingWritebacks processes all pending writeback requests stored in the WritebackContext by issuing them to the OS as hints for improved IO scheduling. The function implements several optimizations:
 

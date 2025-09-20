@@ -8,7 +8,10 @@ Returns cached metapage data for a hash index, refreshing the cache if necessary
 
 ## Definition
 
-
+```c
+HashMetaPage
+_hash_getcachedmetap(Relation rel, Buffer *metabuf, bool force_refresh)
+```
 ## Detailed Description
 This function provides access to cached hash index metapage data, implementing a caching mechanism to avoid repeatedly reading the metapage from disk. The function:
 

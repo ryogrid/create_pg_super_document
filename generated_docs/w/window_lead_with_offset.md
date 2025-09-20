@@ -8,7 +8,10 @@ The window_lead_with_offset function implements the LEAD window function with an
 
 ## Definition
 
-
+```c
+Datum
+window_lead_with_offset(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the SQL LEAD window function functionality with offset capability. It retrieves the value of a specified column from a row that is exactly 'offset' rows after the current row within the same partition. The function is part of PostgreSQL's window function implementation and delegates its core logic to the common leadlag_common function with appropriate parameters to indicate it's a lead operation with offset but without a default value.
 

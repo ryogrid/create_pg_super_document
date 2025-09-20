@@ -8,7 +8,10 @@ Inserts a new value into the Red-Black Tree, handling both new insertions and me
 
 ## Definition
 
-
+```c
+RBTNode *
+rbt_insert(RBTree *rbt, const RBTNode *data, bool *isNew)
+```
 ## Detailed Description
 This function provides the primary insertion interface for Red-Black Trees. It performs a standard binary search tree insertion followed by Red-Black Tree rebalancing. The function handles two scenarios:
 

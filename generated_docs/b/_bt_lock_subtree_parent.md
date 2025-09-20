@@ -8,7 +8,13 @@ This recursive function determines the height of the subtree that can be safely 
 
 ## Definition
 
-
+```c
+static bool
+_bt_lock_subtree_parent(Relation rel, Relation heaprel, BlockNumber child,
+						BTStack stack, Buffer *subtreeparent,
+						OffsetNumber *poffset, BlockNumber *topparent,
+						BlockNumber *topparentrightsib)
+```
 ## Detailed Description
 _bt_lock_subtree_parent is a recursive function that implements the core logic for determining whether B-tree page deletion is safe by analyzing the relationship between pages and their parents. The function starts from a target child page and works its way up the tree, checking whether each level can be safely deleted according to B-tree deletion rules.
 

@@ -8,7 +8,10 @@ PQsetSingleRowMode enables single-row processing mode for a PostgreSQL connectio
 
 ## Definition
 
-
+```c
+int
+PQsetSingleRowMode(PGconn *conn)
+```
 ## Detailed Description
 PQsetSingleRowMode is a public libpq function that switches the connection to single-row mode, where query results are delivered one row at a time rather than as complete result sets. This mode is particularly useful for processing large result sets that might not fit in memory, as it allows the client application to process rows incrementally without buffering the entire result.
 

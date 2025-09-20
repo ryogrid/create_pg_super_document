@@ -8,7 +8,10 @@ A static helper function that safely frees memory allocated for SSL error messag
 
 ## Definition
 
-
+```c
+static void
+SSLerrfree(char *buf)
+```
 ## Detailed Description
 SSLerrfree is a memory management utility function used internally by the OpenSSL interface in PostgreSQL's libpq. It provides safe deallocation of SSL error message buffers by checking whether the buffer pointer refers to the static fallback message  before attempting to free the memory. This prevents attempts to free static memory, which would cause runtime errors.
 

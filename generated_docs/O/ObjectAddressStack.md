@@ -8,7 +8,14 @@ A threaded list structure used for recursion detection during dependency travers
 
 ## Definition
 
-
+```c
+typedef struct ObjectAddressStack
+{
+	const ObjectAddress *object;	/* object being visited */
+	int			flags;			/* its current flag bits */
+	struct ObjectAddressStack *next;	/* next outer stack level */
+} ObjectAddressStack;
+```
 ## Detailed Description
 ObjectAddressStack is a linked list structure that maintains a stack of ObjectAddress objects currently being processed during dependency analysis. This structure is crucial for preventing infinite recursion when traversing object dependencies, as it tracks which objects are already being visited in the current call chain. Each stack entry contains a pointer to an ObjectAddress being processed, associated flags indicating the processing state, and a pointer to the next level in the stack hierarchy.
 

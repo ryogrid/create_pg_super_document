@@ -8,7 +8,11 @@ Validates the server signature received as part of the final exchange message fr
 
 ## Definition
 
-
+```c
+static bool
+verify_server_signature(fe_scram_state *state, bool *match,
+						const char **errstr)
+```
 ## Detailed Description
 This function implements server signature verification as part of the SCRAM (Salted Challenge Response Authentication Mechanism) protocol in PostgreSQL's libpq client library. It calculates the expected server signature using the stored authentication state and compares it with the signature received from the server. This verification step is crucial for mutual authentication, ensuring that the server possesses the correct authentication credentials and preventing man-in-the-middle attacks.
 

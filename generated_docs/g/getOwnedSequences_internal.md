@@ -8,7 +8,10 @@ Collects a list of OIDs for all sequences owned by a specified table and optiona
 
 ## Definition
 
-
+```c
+static List *
+getOwnedSequences_internal(Oid relid, AttrNumber attnum, char deptype)
+```
 ## Detailed Description
 The `getOwnedSequences_internal` function is a static utility that searches the `pg_depend` system catalog to find sequences that have ownership dependencies on a given table or specific column within that table. It serves as the core implementation for higher-level functions that need to identify owned sequences.
 

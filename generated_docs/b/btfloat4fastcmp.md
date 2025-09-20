@@ -8,7 +8,10 @@ Internal fast comparison function for single-precision floating-point numbers (f
 
 ## Definition
 
-
+```c
+static int
+btfloat4fastcmp(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 This static function provides an optimized comparison interface for float4 values within PostgreSQL's sort support framework. Unlike the general-purpose  function that follows the standard PostgreSQL function calling conventions, this function operates directly on Datum values and is designed for high-performance sorting scenarios. It extracts float4 values from the provided Datum arguments and delegates to  for the actual comparison logic. The function is part of PostgreSQL's sort support infrastructure that provides specialized, fast comparison functions for various data types to improve sorting performance.
 

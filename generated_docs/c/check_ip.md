@@ -8,7 +8,10 @@ Determines whether a client's IP address matches a given network address and net
 
 ## Definition
 
-
+```c
+static bool
+check_ip(SockAddr *raddr, struct sockaddr *addr, struct sockaddr *mask)
+```
 ## Detailed Description
 The  function is a fundamental component of PostgreSQL's HBA (Host-Based Authentication) system that performs IP address matching against network specifications. It validates whether a client's IP address falls within a specified network range by comparing the client's address family and then using subnet mask calculations.
 

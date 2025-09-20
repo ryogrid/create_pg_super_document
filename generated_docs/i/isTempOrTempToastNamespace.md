@@ -8,7 +8,10 @@ Determines whether a given namespace OID corresponds to either the current sessi
 
 ## Definition
 
-
+```c
+bool
+isTempOrTempToastNamespace(Oid namespaceId)
+```
 ## Detailed Description
 The isTempOrTempToastNamespace function is a convenience function that combines the functionality of isTempNamespace and isTempToastNamespace. It checks if the provided namespace OID matches either the current session's temporary table namespace or temporary TOAST namespace. This function is useful when code needs to identify any kind of temporary namespace belonging to the current session without distinguishing between regular temporary and TOAST temporary namespaces.
 

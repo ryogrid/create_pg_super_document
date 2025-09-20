@@ -8,7 +8,10 @@ Calculates the total amount of shared memory required by PostgreSQL and the numb
 
 ## Definition
 
-
+```c
+Size
+CalculateShmemSize(int *num_semaphores)
+```
 ## Detailed Description
 CalculateShmemSize is a comprehensive function that computes the total shared memory requirements for a PostgreSQL instance by aggregating the memory needs of all major subsystems. The function methodically calls the ShmemSize functions of each PostgreSQL component (buffer pools, locks, WAL, statistics, etc.) and uses the add_size utility to safely accumulate the total without integer overflow.
 

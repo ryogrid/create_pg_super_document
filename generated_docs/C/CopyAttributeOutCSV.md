@@ -8,7 +8,11 @@ Outputs a single attribute value in CSV format with proper escaping and quoting 
 
 ## Definition
 
-
+```c
+static void
+CopyAttributeOutCSV(CopyToState cstate, const char *string,
+					bool use_quote)
+```
 ## Detailed Description
 This function handles the CSV formatting of individual attribute values during COPY TO operations. It performs character encoding conversion if needed, determines whether the value requires quoting based on CSV rules, and applies appropriate escaping for special characters. The function implements PostgreSQL's CSV output format which includes:
 

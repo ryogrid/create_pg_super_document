@@ -8,7 +8,10 @@ A cold-hinted wrapper around the errstart function designed to improve code loca
 
 ## Definition
 
-
+```c
+pg_attribute_cold bool
+errstart_cold(int elevel, const char *domain)
+```
 ## Detailed Description
 errstart_cold is a simple wrapper function around errstart that is marked with the pg_attribute_cold compiler hint. This attribute suggests to supporting compilers that this function is unlikely to be executed frequently, allowing the compiler to optimize by moving the code for branches containing this function away from the main execution path. This optimization can result in more commonly executed code being more compact and fitting on fewer cache lines, improving overall performance.
 

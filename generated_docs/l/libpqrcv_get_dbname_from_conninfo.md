@@ -8,7 +8,10 @@ Extracts the database name from a PostgreSQL connection string used for WAL rece
 
 ## Definition
 
-
+```c
+static char *
+libpqrcv_get_dbname_from_conninfo(const char *connInfo)
+```
 ## Detailed Description
 This function parses a PostgreSQL connection string to extract the database name parameter. It utilizes libpq's connection info parsing functionality to break down the connection string into its component parameters and searches specifically for the "dbname" parameter. The function handles multiple dbname specifications by returning the last one found, and properly manages memory allocation and error handling during the parsing process.
 

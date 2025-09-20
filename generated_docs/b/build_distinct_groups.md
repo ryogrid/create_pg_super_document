@@ -8,7 +8,11 @@ Builds an array of SortItems representing distinct groups with their occurrence 
 
 ## Definition
 
-
+```c
+static SortItem *
+build_distinct_groups(int numrows, SortItem *items, MultiSortSupport mss,
+					  int *ndistinct)
+```
 ## Detailed Description
 This function processes a sorted array of SortItem objects to identify distinct groups and count their frequencies. It creates a new array where each element represents a unique combination of values with its occurrence count. The resulting array is sorted by frequency in descending order to support MCV list generation. The function assumes the input array is already sorted in ascending order and uses multi-column comparison to identify distinct groups.
 

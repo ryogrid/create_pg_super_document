@@ -8,7 +8,10 @@ Performs a right bit-shift operation on a 64-bit integer (int8) by a specified n
 
 ## Definition
 
-
+```c
+Datum
+int8shr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int8shr function implements the bit-shift right operation for PostgreSQL's 8-byte integer type (int8/bigint). It takes two arguments: the first is the 64-bit integer value to be shifted, and the second is a 32-bit integer specifying the number of positions to shift right. The function performs an arithmetic right shift using the C >> operator, which preserves the sign bit for negative numbers.
 

@@ -8,7 +8,13 @@ A portable structure that represents resource usage information for a process, s
 
 ## Definition
 
-
+```c
+struct rusage
+{
+	struct timeval ru_utime;	/* user time used */
+	struct timeval ru_stime;	/* system time used */
+};
+```
 ## Detailed Description
 The  structure is PostgreSQL's Windows-compatible implementation of the standard Unix  structure. It provides a simplified subset of the full Unix resource usage interface, focusing on the most essential timing information needed for performance monitoring and debugging. This structure is primarily used on Windows platforms where the native  functionality is not available.
 

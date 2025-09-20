@@ -8,7 +8,10 @@ Dumps all locks held by a given PostgreSQL process (PGPROC) for debugging purpos
 
 ## Definition
 
-
+```c
+void
+DumpLocks(PGPROC *proc)
+```
 ## Detailed Description
 The DumpLocks function is a debugging utility that prints detailed information about all locks currently held by a specific PostgreSQL process. It iterates through all lock partitions and examines the process's myProcLocks lists to display information about each PROCLOCK and associated LOCK structure. The function also shows if the process is currently waiting on any lock.
 

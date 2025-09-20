@@ -8,7 +8,10 @@ A locale-aware wrapper function that converts a multibyte character string to a 
 
 ## Definition
 
-
+```c
+static size_t
+mbstowcs_l(wchar_t *dest, const char *src, size_t n, locale_t loc)
+```
 ## Detailed Description
 This function provides a portable implementation of locale-specific multibyte to wide character conversion. On Windows, it directly uses the system's  function. On other platforms, it temporarily switches to the specified locale using , performs the conversion with standard , then restores the original locale. This ensures thread-safe locale-specific character conversion across different operating systems.
 

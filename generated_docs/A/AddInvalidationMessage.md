@@ -8,7 +8,11 @@ AddInvalidationMessage is a static function that adds an invalidation message to
 
 ## Definition
 
-
+```c
+static void
+AddInvalidationMessage(InvalidationMsgsGroup *group, int subgroup,
+					   const SharedInvalidationMessage *msg)
+```
 ## Detailed Description
 This function is responsible for adding invalidation messages to either the catalog cache (CatCacheMsgs) or relation cache (RelCacheMsgs) subgroups within an invalidation message group. It manages the underlying storage array dynamically, automatically expanding the array when needed. The function assumes that the target group is the last active one and can append messages to the end of the relevant InvalMessageArray.
 

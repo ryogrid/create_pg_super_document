@@ -8,7 +8,10 @@ Tests whether a SPI plan is currently valid and not marked as being in need of r
 
 ## Definition
 
-
+```c
+bool
+SPI_plan_is_valid(SPIPlanPtr plan)
+```
 ## Detailed Description
 SPI_plan_is_valid checks the validity of a Server Programming Interface (SPI) plan by iterating through all cached plan sources associated with the plan and verifying each one using CachedPlanIsValid. The function ensures that the plan is not marked for revalidation, which can happen when underlying database objects (tables, functions, etc.) are modified. This function is essential for determining whether a previously prepared SPI plan can still be executed without recompilation.
 

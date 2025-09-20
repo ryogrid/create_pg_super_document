@@ -8,7 +8,10 @@ BumpBlockIsEmpty is a utility function that determines whether a bump memory blo
 
 ## Definition
 
-
+```c
+static inline bool
+BumpBlockIsEmpty(BumpBlock *block)
+```
 ## Detailed Description
 This function provides a simple and efficient way to check if a bump memory block is empty by comparing the current free pointer position with the initial position immediately after the block header. Since bump allocation only moves the free pointer forward as chunks are allocated, an empty block will have its free pointer still at the starting position. This is useful for memory management decisions, such as determining which blocks can be freed or recycled.
 

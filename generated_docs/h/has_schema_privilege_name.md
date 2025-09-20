@@ -8,7 +8,10 @@ Checks whether the current user has the specified privileges on a schema identif
 
 ## Definition
 
-
+```c
+Datum
+has_schema_privilege_name(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a simplified variant of the has_schema_privilege family that automatically uses the current user (obtained via GetUserId()) rather than requiring an explicit username parameter. It takes only two arguments: a schema name and a privilege type string. The function converts the schema name to a schema OID and the privilege string to an AclMode bitmask, then performs the privilege check for the current user. This is a convenience function for checking the current user's own privileges on a schema.
 

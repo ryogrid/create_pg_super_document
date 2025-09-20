@@ -8,7 +8,11 @@ Sorts array elements in-place and removes duplicates, returning the new count of
 
 ## Definition
 
-
+```c
+static int
+_bt_sort_array_elements(ScanKey skey, FmgrInfo *sortproc, bool reverse,
+						Datum *elems, int nelems)
+```
 ## Detailed Description
 This function performs in-place sorting of array elements using a provided comparison procedure from the index column's operator family. After sorting, it removes duplicate elements to create a unique sorted array. The sorting can be performed in either ascending or descending order based on the reverse parameter. The function uses PostgreSQL's qsort_arg and qunique_arg utility functions to perform the actual sorting and deduplication operations.
 

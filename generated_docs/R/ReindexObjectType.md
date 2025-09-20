@@ -8,7 +8,17 @@ ReindexObjectType is an enumeration that specifies the type of database object t
 
 ## Definition
 
-
+```c
+typedef struct ReindexStmt
+{
+	NodeTag		type;
+	ReindexObjectType kind;		/* REINDEX_OBJECT_INDEX, REINDEX_OBJECT_TABLE,
+								 * etc. */
+	RangeVar   *relation;		/* Table or index to reindex */
+	const char *name;			/* name of database to reindex */
+	List	   *params;			/* list of DefElem nodes */
+} ReindexStmt;
+```
 ## Detailed Description
 This enumeration defines the different types of database objects that can be targeted by PostgreSQL's REINDEX command. The REINDEX operation rebuilds indexes to optimize performance, remove index bloat, or recover from index corruption. Each enum value corresponds to a different scope of reindexing operation, from individual indexes to entire databases.
 

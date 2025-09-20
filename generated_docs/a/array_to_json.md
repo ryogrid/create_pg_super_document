@@ -8,7 +8,10 @@ SQL function that converts a PostgreSQL array into its JSON representation as a 
 
 ## Definition
 
-
+```c
+Datum
+array_to_json(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL SQL function that takes an array as input and converts it to a JSON array representation. It serves as a wrapper function that calls the internal  function with  set to false, meaning the output JSON will be compact without line breaks for formatting.
 

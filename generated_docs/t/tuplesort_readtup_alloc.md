@@ -8,7 +8,10 @@ Allocates memory for tuple storage during tuple reading operations, using either
 
 ## Definition
 
-
+```c
+void *
+tuplesort_readtup_alloc(Tuplesortstate *state, Size tuplen)
+```
 ## Detailed Description
 The `tuplesort_readtup_alloc` function provides memory allocation specifically designed for tuple reading operations within the READTUP() routines. It implements a two-tier allocation strategy: for tuples that fit within the predefined slab slot size (`SLAB_SLOT_SIZE`), it uses a fast slab allocator that pre-allocates memory slots to avoid repeated malloc/free operations. For larger tuples that exceed the slab slot size, it falls back to the standard PostgreSQL memory allocation via `MemoryContextAlloc`.
 

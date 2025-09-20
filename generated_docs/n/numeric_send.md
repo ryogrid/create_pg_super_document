@@ -8,7 +8,10 @@ This function serializes a PostgreSQL Numeric value into its external binary rep
 
 ## Definition
 
-
+```c
+Datum
+numeric_send(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the binary output function for PostgreSQL's Numeric data type. It takes an internal Numeric value and converts it to the external binary representation used in PostgreSQL's binary protocol. The function extracts the numeric components (ndigits, weight, sign, dscale, and digit array) from the internal representation and serializes them as a sequence of int16 values using PostgreSQL's message protocol functions. This binary format is the counterpart to what  expects to deserialize, ensuring round-trip compatibility for network communication and binary storage.
 

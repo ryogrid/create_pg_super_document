@@ -8,7 +8,9 @@ RBTreeIterator is a state-holding structure that enables traversal of red-black 
 
 ## Definition
 
-
+```c
+typedef struct RBTreeIterator RBTreeIterator;
+```
 ## Detailed Description
 RBTreeIterator provides a stateful mechanism for traversing red-black trees in PostgreSQL. It encapsulates the current position and direction of tree traversal, allowing for efficient in-order traversal without requiring recursive function calls or explicit stack management. The iterator supports both left-to-right (ascending) and right-to-left (descending) traversal modes through function pointers. The structure is designed to be stack-allocatable for performance while maintaining encapsulation through an opaque interface pattern.
 

@@ -8,7 +8,10 @@ Creates a copy of a BRIN tuple with intelligent memory management, supporting bu
 
 ## Definition
 
-
+```c
+BrinTuple *
+brin_copy_tuple(BrinTuple *tuple, Size len, BrinTuple *dest, Size *destsz)
+```
 ## Detailed Description
 This function creates a copy of an existing BRIN tuple with optimized memory management designed for bulk operations. It supports an optional destination buffer that can be reused and resized as needed, which is particularly beneficial when processing many tuples in loops. The function intelligently handles three scenarios: allocating new memory when no destination is provided, reusing existing buffer when it's large enough, or expanding the buffer when more space is needed.
 

@@ -8,7 +8,10 @@ Tests whether polygon A is overlapping or below polygon B by comparing their upp
 
 ## Definition
 
-
+```c
+Datum
+poly_overbelow(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function determines if polygon A is either overlapping with or positioned below polygon B. This is accomplished by comparing the y-coordinates of their upper bounds (bounding boxes). The function returns true if the highest y-coordinate of polygon A is less than or equal to the highest y-coordinate of polygon B.
 

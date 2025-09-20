@@ -8,7 +8,11 @@ This function removes doubled consonants at the end of words by detecting repeat
 
 ## Definition
 
+```c
+}
 
+static int r_undouble(struct SN_env * z)
+```
 ## Detailed Description
 The r_undouble function implements a general-purpose consonant undoubling algorithm used across multiple European language stemmers (Danish, Dutch, Hungarian). The function operates through a sophisticated pattern matching and comparison process:
 

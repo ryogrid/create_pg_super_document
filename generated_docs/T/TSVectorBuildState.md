@@ -8,7 +8,13 @@ TSVectorBuildState is a state structure used for incrementally building tsvector
 
 ## Definition
 
-
+```c
+typedef struct TSVectorBuildState
+{
+	ParsedText *prs;
+	Oid			cfgId;
+} TSVectorBuildState;
+```
 ## Detailed Description
 TSVectorBuildState serves as a stateful container for building tsvector data from JSON/JSONB elements. It maintains a ParsedText structure that accumulates parsed words and lexemes as JSON elements are processed, along with the text search configuration ID that determines how text parsing should be performed. This structure enables efficient incremental construction of tsvector values when processing complex JSON structures where multiple text elements need to be parsed and combined into a single searchable vector.
 

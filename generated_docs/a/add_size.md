@@ -8,7 +8,10 @@ add_size safely adds two Size values while checking for overflow, preventing int
 
 ## Definition
 
-
+```c
+Size
+add_size(Size s1, Size s2)
+```
 ## Detailed Description
 This function performs overflow-safe addition of two Size values, which is crucial for shared memory calculations where integer overflow could lead to undersized allocations and memory corruption. The function implements a simple but effective overflow detection mechanism by checking if the result is smaller than either of the input operands.
 

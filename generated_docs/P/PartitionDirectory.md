@@ -8,7 +8,9 @@ A pointer to PartitionDirectoryData structure that provides a caching mechanism 
 
 ## Definition
 
-
+```c
+typedef struct PartitionDirectoryData *PartitionDirectory;
+```
 ## Detailed Description
 PartitionDirectory is a pointer type to the PartitionDirectoryData structure that implements a hash-table based cache for partition descriptors. It serves as an optimization layer that prevents repeated construction of PartitionDesc objects for the same partitioned relations during complex operations like joins or bulk operations.
 

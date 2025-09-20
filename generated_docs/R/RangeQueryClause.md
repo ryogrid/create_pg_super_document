@@ -8,7 +8,17 @@ A data structure used for accumulating information about possible range-query cl
 
 ## Definition
 
-
+```c
+typedef struct RangeQueryClause
+{
+	struct RangeQueryClause *next;	/* next in linked list */
+	Node	   *var;			/* The common variable of the clauses */
+	bool		have_lobound;	/* found a low-bound clause yet? */
+	bool		have_hibound;	/* found a high-bound clause yet? */
+	Selectivity lobound;		/* Selectivity of a var > something clause */
+	Selectivity hibound;		/* Selectivity of a var < something clause */
+} RangeQueryClause;
+```
 ## Detailed Description
 The RangeQueryClause structure is used by PostgreSQL's query optimizer to identify and optimize range queries (conditions like ) during selectivity estimation. When the optimizer encounters multiple clauses that potentially form range conditions on the same variable, it uses this structure to group them together and calculate more accurate selectivity estimates.
 

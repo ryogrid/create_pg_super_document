@@ -8,7 +8,11 @@ The  function is a lexical analyzer component that tokenizes Basic Regular Expre
 
 ## Definition
 
-
+```c
+static int						/* 1 normal, 0 failure */
+brenext(struct vars *v,
+		chr c)
+```
 ## Detailed Description
 The  function processes the next token in a Basic Regular Expression string, implementing BRE-specific parsing rules that differ from Extended Regular Expressions (ERE). It handles context-dependent meanings of metacharacters like , , and , as well as backslash escape sequences. The function returns 1 for normal operation and 0 for failure, using various macros to set token types and values.
 

@@ -8,7 +8,10 @@ A utility function that accumulates Write-Ahead Log (WAL) usage statistics by co
 
 ## Definition
 
-
+```c
+void
+WalUsageAccumDiff(WalUsage *dst, const WalUsage *add, const WalUsage *sub)
+```
 ## Detailed Description
 WalUsageAccumDiff is a public function that calculates the incremental WAL usage statistics between two points in time and accumulates those differences into a destination structure. It performs the operation dst += (add - sub) for all WAL usage counters.
 

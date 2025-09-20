@@ -8,7 +8,10 @@ RestoreRelationMap restores the active shared and local relation mapping state w
 
 ## Definition
 
-
+```c
+void
+RestoreRelationMap(char *startAddress)
+```
 ## Detailed Description
 RestoreRelationMap is used to restore relation mapping state in parallel worker processes. The function takes a serialized representation of active relation mappings and restores them into the parallel worker's local state. This is essential for parallel query execution where workers need access to the same relation mapping information as the main process.
 

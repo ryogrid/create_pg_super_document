@@ -8,7 +8,10 @@ A simple wrapper function that calculates the final column position after printi
 
 ## Definition
 
-
+```c
+int
+count_spaces(int cur, char *buffer)
+```
 ## Detailed Description
 The  function is a convenience wrapper around  in the PostgreSQL BSD indent tool. It provides a simpler interface for calculating column positions when processing complete null-terminated strings, eliminating the need to specify an end boundary.
 

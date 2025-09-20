@@ -8,7 +8,10 @@ Converts a Julian day number back to calendar date components (year, month, day)
 
 ## Definition
 
-
+```c
+void
+j2date(int jd, int *year, int *month, int *day)
+```
 ## Detailed Description
 j2date implements the inverse of the date2j() function, converting a Julian day number back to its corresponding calendar date components. The algorithm uses a series of mathematical operations involving division, modulo arithmetic, and carefully chosen constants to decompose the Julian day number into year, month, and day values.
 

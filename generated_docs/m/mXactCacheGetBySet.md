@@ -8,7 +8,10 @@ Searches the backend-local MultiXact cache for an existing MultiXactId that matc
 
 ## Definition
 
-
+```c
+static MultiXactId
+mXactCacheGetBySet(int nmembers, MultiXactMember *members)
+```
 ## Detailed Description
 This function performs a cache lookup to find a MultiXactId corresponding to a specific set of transaction members. It is designed to optimize MultiXact usage by allowing multiple operations with identical member sets to reuse the same MultiXactId, which is particularly beneficial for scenarios like multiple transactions locking the same large table.
 

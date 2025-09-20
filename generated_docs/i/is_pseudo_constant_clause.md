@@ -8,7 +8,10 @@ Determines whether an expression is "pseudo constant" for query optimization, me
 
 ## Definition
 
-
+```c
+bool
+is_pseudo_constant_clause(Node *clause)
+```
 ## Detailed Description
 This function detects whether an expression can be considered "pseudo constant" during query optimization. A pseudo constant expression is one that:
 - Contains no variables (Vars) of the current query level

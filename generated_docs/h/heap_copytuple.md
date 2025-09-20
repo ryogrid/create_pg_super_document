@@ -8,7 +8,10 @@ Creates a complete copy of a HeapTuple including the tuple header and data, allo
 
 ## Definition
 
-
+```c
+HeapTuple
+heap_copytuple(HeapTuple tuple)
+```
 ## Detailed Description
 The  function creates a deep copy of an existing HeapTuple. The function allocates a single memory block that contains both the HeapTuple management structure and the tuple data, ensuring efficient memory usage and cache locality. This is the primary function for duplicating heap tuples when the entire tuple structure needs to be copied.
 

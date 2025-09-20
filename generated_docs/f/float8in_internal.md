@@ -8,7 +8,12 @@ Internal implementation function for converting string input to float8 (double p
 
 ## Definition
 
-
+```c
+float8
+float8in_internal(char *num, char **endptr_p,
+				  const char *type_name, const char *orig_string,
+				  struct Node *escontext)
+```
 ## Detailed Description
 This function serves as the core implementation for parsing string representations of double-precision floating-point numbers. It extends standard C library  functionality with PostgreSQL-specific error handling, whitespace management, and support for special values like NaN and Infinity. The function is designed to be reusable across different PostgreSQL data types that need to parse floating-point substrings.
 

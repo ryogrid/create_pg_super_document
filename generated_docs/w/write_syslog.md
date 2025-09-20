@@ -8,7 +8,10 @@ The write_syslog function is responsible for writing PostgreSQL log messages to 
 
 ## Definition
 
-
+```c
+static void
+write_syslog(int level, const char *line)
+```
 ## Detailed Description
 This internal function sends log messages to the system syslog facility. It implements several important features:
 

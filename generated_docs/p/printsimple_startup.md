@@ -8,7 +8,10 @@ Sends a RowDescription message to the client at startup time, providing metadata
 
 ## Definition
 
-
+```c
+structed */
+	slot_getallattrs(slot);
+```
 ## Detailed Description
 The  function is part of PostgreSQL's result destination receiver system. It constructs and sends a RowDescription message to the client during query startup, which describes the structure of the result set that will be returned. This message contains column metadata including names, types, lengths, and format information that allows the client to properly interpret the subsequent data rows.
 

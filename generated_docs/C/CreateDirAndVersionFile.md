@@ -8,7 +8,10 @@ CreateDirAndVersionFile creates a database directory and writes the PG_VERSION f
 
 ## Definition
 
-
+```c
+static void
+CreateDirAndVersionFile(char *dbpath, Oid dbid, Oid tsid, bool isRedo)
+```
 ## Detailed Description
 This function performs the fundamental filesystem operations required to establish a new database directory structure. The function operates in two main phases:
 

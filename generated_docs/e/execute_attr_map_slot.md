@@ -8,7 +8,12 @@ Performs tuple conversion between TupleTableSlots according to an attribute map,
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+execute_attr_map_slot(AttrMap *attrMap,
+					  TupleTableSlot *in_slot,
+					  TupleTableSlot *out_slot)
+```
 ## Detailed Description
 This function performs tuple conversion between two  objects using a pre-built attribute map. It provides a slot-based alternative to  that works directly with the executor's slot interface, avoiding the need to materialize intermediate tuples.
 

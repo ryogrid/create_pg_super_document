@@ -8,7 +8,10 @@ A helper function that determines whether all paths in a given path list can be 
 
 ## Definition
 
-
+```c
+static bool
+pathlist_is_reparameterizable_by_child(List *pathlist, RelOptInfo *child_rel)
+```
 ## Detailed Description
 This function iterates through a list of paths and checks whether each individual path can be reparameterizable by the specified child relation. Reparameterization is a query optimization technique where paths are adjusted to work with different parameter values, particularly in the context of partitioned tables or inheritance hierarchies. The function returns true only if all paths in the list can be successfully reparameterized; if any single path cannot be reparameterized, the entire function returns false.
 

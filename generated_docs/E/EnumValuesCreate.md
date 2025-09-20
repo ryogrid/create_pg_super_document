@@ -8,7 +8,10 @@ Creates entries in the pg_enum catalog table for each supplied enum value during
 
 ## Definition
 
-
+```c
+void
+EnumValuesCreate(Oid enumTypeOid, List *vals)
+```
 ## Detailed Description
 EnumValuesCreate is the core function responsible for populating the pg_enum catalog with enum value entries during enum type creation. The function implements several critical PostgreSQL enum management features:
 

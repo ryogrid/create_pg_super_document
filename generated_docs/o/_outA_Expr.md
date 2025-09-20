@@ -8,7 +8,10 @@ Serializes an A_Expr (raw parsed expression) structure to string format, handlin
 
 ## Definition
 
-
+```c
+static void
+_outA_Expr(StringInfo str, const A_Expr *node)
+```
 ## Detailed Description
 The  function serializes A_Expr structures, which represent raw parsed expressions from SQL queries before they are transformed into more specific internal representations. A_Expr nodes are part of PostgreSQL's parse tree and capture various SQL expression constructs as they appear in the original query text.
 

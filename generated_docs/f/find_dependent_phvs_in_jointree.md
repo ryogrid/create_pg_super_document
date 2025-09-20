@@ -8,7 +8,14 @@ Searches a specific jointree fragment and its referenced RTEs for PlaceHolderVar
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			varno;
+	int			sublevels_up;
+	Relids		subrelids;
+} substitute_phv_relids_context;
+```
 ## Detailed Description
 This function performs a more targeted search than , focusing on a specific jointree fragment and its associated range table entries (RTEs). It operates in two phases: first checking the jointree fragment itself for references in join qualifiers, then examining each RTE referenced by the jointree fragment.
 

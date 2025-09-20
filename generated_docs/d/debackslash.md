@@ -8,7 +8,10 @@ A utility function that removes protective backslash escape sequences from token
 
 ## Definition
 
-
+```c
+char *
+debackslash(const char *token, int length)
+```
 ## Detailed Description
 This function processes tokens that contain backslash escape sequences, removing the protective backslashes that were used during tokenization to preserve special characters and whitespace. It creates a new palloc'd string containing the unescaped version of the input token.
 

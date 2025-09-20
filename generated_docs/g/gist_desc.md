@@ -8,7 +8,10 @@ The gist_desc function provides human-readable descriptions of GiST (Generalized
 
 ## Definition
 
-
+```c
+void
+gist_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This function is part of PostgreSQL's WAL record description infrastructure for GiST indexes. It parses different types of GiST WAL records and generates readable descriptions of their contents. The function examines the info field of the WAL record to determine the operation type and calls the appropriate output function to format the record details into the provided StringInfo buffer.
 

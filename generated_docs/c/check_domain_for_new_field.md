@@ -8,7 +8,10 @@ Validates domain constraints for a single field assignment operation by creating
 
 ## Definition
 
-
+```c
+struct dummy header to contain proposed new field set */
+	build_dummy_expanded_header(erh);
+```
 ## Detailed Description
 This function performs preemptive domain constraint validation before actually modifying a field in an expanded record. It constructs a dummy expanded record header containing the current record state plus the proposed new field value, then runs domain_check() against this temporary record. This approach ensures that constraint violations are detected before any permanent changes are made to the actual record.
 

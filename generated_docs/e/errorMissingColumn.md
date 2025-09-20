@@ -8,7 +8,11 @@ Generates detailed error messages when a referenced column cannot be found, prov
 
 ## Definition
 
-
+```c
+void
+errorMissingColumn(ParseState *pstate,
+				   const char *relname, const char *colname, int location)
+```
 ## Detailed Description
 This function generates comprehensive error messages when PostgreSQL's parser encounters a reference to a column that cannot be resolved in the current query context. The function employs sophisticated fuzzy matching and analysis to provide contextually relevant suggestions and explanations.
 

@@ -8,7 +8,10 @@ Retrieves the next tuple from any of the active asynchronous subplans in an Appe
 
 ## Definition
 
-
+```c
+static bool
+ExecAppendAsyncGetNext(AppendState *node, TupleTableSlot **result)
+```
 ## Detailed Description
 This function implements the core tuple retrieval logic for asynchronous Append execution, providing a unified interface to collect results from multiple concurrently executing subplans. It manages the complex coordination between asynchronous request processing and event waiting to maximize throughput while maintaining correct execution semantics.
 

@@ -8,7 +8,10 @@ Performs the initial lookup operation to locate a hash bucket for a given hash v
 
 ## Definition
 
-
+```c
+static inline uint32
+hash_initial_lookup(HTAB *hashp, uint32 hashvalue, HASHBUCKET **bucketptr)
+```
 ## Detailed Description
 This inline function implements the core bucket lookup mechanism for PostgreSQL's dynamic hash tables. It translates a hash value into the corresponding bucket location by first calculating the bucket number using the hash table's parameters, then determining which segment contains that bucket, and finally locating the specific bucket within that segment. The function uses bit shifting and modular arithmetic to efficiently map hash values to their storage locations in the segmented hash table structure.
 

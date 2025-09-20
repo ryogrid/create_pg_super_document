@@ -8,7 +8,10 @@ Creates an Agg (aggregation) plan node for the given AggPath, including recursiv
 
 ## Definition
 
-
+```c
+static Agg *
+create_agg_plan(PlannerInfo *root, AggPath *best_path)
+```
 ## Detailed Description
 The  function is responsible for creating an Agg plan node from an AggPath structure. This function handles the construction of aggregation plans which are fundamental for implementing SQL GROUP BY operations, aggregate functions (COUNT, SUM, etc.), and HAVING clauses. The function recursively creates the subplan using , builds the target list for the aggregation, processes qualification clauses, and extracts grouping information to construct the final Agg plan node.
 

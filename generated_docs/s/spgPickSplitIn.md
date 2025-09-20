@@ -8,7 +8,14 @@ A struct that serves as input parameter for the SP-GiST opclass picksplit method
 
 ## Definition
 
-
+```c
+typedef struct spgPickSplitIn
+{
+	int			nTuples;		/* number of leaf tuples */
+	Datum	   *datums;			/* their datums (array of length nTuples) */
+	int			level;			/* current level (counting from zero) */
+} spgPickSplitIn;
+```
 ## Detailed Description
 spgPickSplitIn is an input structure used in the SP-GiST (Space-Partitioned Generalized Search Tree) index access method. It is passed to the opclass picksplit method when a leaf page becomes too full and needs to be split. The method uses this information to decide how to partition the leaf tuples into groups and potentially create new inner tuple structure to organize them efficiently.
 

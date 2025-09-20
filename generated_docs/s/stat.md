@@ -8,7 +8,22 @@ The  symbol is a preprocessor macro redefinition for Windows compatibility that 
 
 ## Definition
 
-
+```c
+struct stat						/* This should match struct __stat64 */
+{
+	_dev_t		st_dev;
+	_ino_t		st_ino;
+	unsigned short st_mode;
+	short		st_nlink;
+	short		st_uid;
+	short		st_gid;
+	_dev_t		st_rdev;
+	__int64		st_size;
+	__time64_t	st_atime;
+	__time64_t	st_mtime;
+	__time64_t	st_ctime;
+};
+```
 ## Detailed Description
 This preprocessor macro is defined in PostgreSQL's Windows port header file to ensure compatibility with Microsoft's native file system stat functionality on Windows platforms. By redefining the standard POSIX  function name to , PostgreSQL can utilize Windows-specific file system operations while maintaining source code compatibility with POSIX systems. This redefinition is crucial for proper file system interaction on Windows, ensuring that file metadata operations work correctly across different operating systems.
 

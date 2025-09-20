@@ -8,7 +8,9 @@ A static function that finds the closest point on an infinite line to a given po
 
 ## Definition
 
-
+```c
+struct(&tmp, point, line_invsl(line));
+```
 ## Detailed Description
 This function calculates the shortest distance from a point to an infinite line by finding the intersection point of a perpendicular line dropped from the point to the target line. It constructs a perpendicular line passing through the given point using the inverse slope of the target line, then finds where this perpendicular intersects the original line. This intersection point represents the closest point on the line to the given point. The function handles edge cases like NaN coordinates or roundoff issues by returning NaN when the intersection cannot be computed. If successful, it returns the Euclidean distance between the original point and the closest point on the line.
 

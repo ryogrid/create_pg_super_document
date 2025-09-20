@@ -8,7 +8,10 @@ Handles the start of an object field during JSON string value transformation, pr
 
 ## Definition
 
-
+```c
+static JsonParseErrorType
+transform_string_values_object_field_start(void *state, char *fname, bool isnull)
+```
 ## Detailed Description
 This function is a callback handler used during JSON parsing to process the beginning of an object field. It formats the field name by adding necessary punctuation (comma separator if needed) and properly escaping the field name as a JSON string. The function ensures proper JSON syntax by adding a colon after the field name to separate it from the upcoming field value.
 

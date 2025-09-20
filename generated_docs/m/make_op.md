@@ -8,7 +8,11 @@ The  function constructs operator expressions in PostgreSQL's parser, handling t
 
 ## Definition
 
-
+```c
+Expr *
+make_op(ParseState *pstate, List *opname, Node *ltree, Node *rtree,
+		Node *last_srf, int location)
+```
 ## Detailed Description
 This function is the primary entry point for constructing operator expressions during parsing. It handles both unary (prefix) and binary operators by analyzing the provided operand nodes and resolving the appropriate operator from the system catalogs. The function performs comprehensive type checking, ensures operator compatibility, handles type coercion when necessary, and constructs the final OpExpr node.
 

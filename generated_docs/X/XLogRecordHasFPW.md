@@ -8,7 +8,10 @@ XLogRecordHasFPW determines whether a given WAL record contains any full page wr
 
 ## Definition
 
-
+```c
+static bool
+XLogRecordHasFPW(XLogReaderState *record)
+```
 ## Detailed Description
 This function iterates through all block references in a WAL record to check if any of them contain a full page write. Full page writes occur when PostgreSQL needs to store a complete copy of a data page in the WAL, typically after a checkpoint or when the page is first modified after being read from disk. The function is used by pg_waldump to filter records that contain FPWs, which is useful for analyzing WAL overhead and understanding when complete page images are being written.
 

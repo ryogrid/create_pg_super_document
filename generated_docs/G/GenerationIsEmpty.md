@@ -8,7 +8,10 @@ Determines whether a GenerationContext memory context is empty of any allocated 
 
 ## Definition
 
-
+```c
+bool
+GenerationIsEmpty(MemoryContext context)
+```
 ## Detailed Description
 The  function checks if a GenerationContext has any allocated memory chunks across all its blocks. It iterates through all blocks in the context and examines each block's chunk count. If any block contains one or more allocated chunks (), the function returns false, indicating the context is not empty. Only when all blocks have zero allocated chunks does the function return true.
 

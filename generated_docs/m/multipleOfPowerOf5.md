@@ -8,7 +8,10 @@ Determines whether a given 64-bit unsigned integer value is divisible by a speci
 
 ## Definition
 
-
+```c
+static inline bool
+multipleOfPowerOf5(const uint32 value, const uint32 p)
+```
 ## Detailed Description
 This function checks if a value is divisible by 5 raised to the power p (5^p) by leveraging the  function. It returns true if the highest power of 5 that divides the value is greater than or equal to the specified power p. The implementation is straightforward and efficient, avoiding complex case distinctions that showed no performance benefit in testing.
 

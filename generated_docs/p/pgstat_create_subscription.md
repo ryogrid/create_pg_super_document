@@ -8,7 +8,10 @@ Initializes statistics collection for a newly created logical replication subscr
 
 ## Definition
 
-
+```c
+void
+pgstat_create_subscription(Oid subid)
+```
 ## Detailed Description
 This function is called when a new logical replication subscription is created in PostgreSQL. It performs two key operations: first, it sets up transactional tracking to ensure that statistics are properly cleaned up if the transaction that creates the subscription rolls back; second, it creates and initializes a statistics entry for the subscription with reset counters.
 

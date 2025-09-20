@@ -8,7 +8,10 @@ The nameconcatoid function concatenates a name with an OID to create a unique id
 
 ## Definition
 
-
+```c
+Datum
+nameconcatoid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements a specialized concatenation operation that combines a PostgreSQL name with an OID (Object Identifier) to create unique identifiers. It's specifically designed for use in information_schema views to generate specific_name columns that must be unique per schema.
 

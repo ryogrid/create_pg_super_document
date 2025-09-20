@@ -8,7 +8,10 @@ PQsendFlushRequest sends a flush request to the PostgreSQL server to force it to
 
 ## Definition
 
-
+```c
+int
+PQsendFlushRequest(PGconn *conn)
+```
 ## Detailed Description
 This function sends a Flush message to the PostgreSQL server using the wire protocol, instructing the server to flush any buffered output without establishing a synchronization point. This is particularly valuable in pipeline mode scenarios where you want to ensure data is sent to the client without the overhead and semantics of a full pipeline sync operation.
 

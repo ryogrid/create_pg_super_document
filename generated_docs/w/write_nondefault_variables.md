@@ -8,7 +8,10 @@ write_nondefault_variables serializes all non-default GUC configuration variable
 
 ## Definition
 
-
+```c
+struct config_generic *gconf = dlist_container(struct config_generic,
+													   nondef_link, iter.cur);
+```
 ## Detailed Description
 write_nondefault_variables is a key function in PostgreSQL's EXEC_BACKEND mechanism that writes all non-default configuration variables to a binary file. This enables newly spawned backend processes to inherit the current configuration state from the postmaster.
 

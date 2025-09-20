@@ -8,7 +8,13 @@ Determines whether an ordering operator expression matches an index column for q
 
 ## Definition
 
-
+```c
+static Expr *
+match_clause_to_ordering_op(IndexOptInfo *index,
+							int indexcol,
+							Expr *clause,
+							Oid pk_opfamily)
+```
 ## Detailed Description
 This function is a key component of PostgreSQL's query optimizer that determines if a given ordering expression can be satisfied by an index column. It's simpler than  as it only handles simple OpExpr cases. The function checks if the input expression is of the form  or  where the operator is an ordering operator for the column's opfamily.
 

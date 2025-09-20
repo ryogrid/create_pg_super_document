@@ -8,7 +8,10 @@ Converts month, day, and year components into a Julian date value in the ECPG In
 
 ## Definition
 
-
+```c
+int
+rmdyjul(short *mdy, date * d)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's ECPG (Embedded SQL in C) Informix compatibility layer. It takes an array of short integers representing month, day, and year components and converts them into a Julian date value. This function serves as a wrapper around the internal  function, converting the short integer inputs to regular integers for PostgreSQL's internal date handling functions.
 

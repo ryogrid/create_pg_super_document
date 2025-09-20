@@ -8,7 +8,12 @@ Prepares a new tuple for UPDATE operations by combining changed column values fr
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+ExecGetUpdateNewTuple(ResultRelInfo *relinfo,
+					  TupleTableSlot *planSlot,
+					  TupleTableSlot *oldSlot)
+```
 ## Detailed Description
 This function is the core mechanism for constructing updated tuples in PostgreSQL's UPDATE operations. It performs the essential task of merging:
 - New values for modified columns from the subplan's output (planSlot)

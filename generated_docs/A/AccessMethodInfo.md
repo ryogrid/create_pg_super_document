@@ -8,7 +8,14 @@ AccessMethodInfo is a structure used in pg_dump to represent access method metad
 
 ## Definition
 
-
+```c
+typedef struct _opclassInfo
+{
+	DumpableObject dobj;
+	Oid			opcmethod;
+	const char *rolname;
+} OpclassInfo;
+```
 ## Detailed Description
 AccessMethodInfo stores metadata about PostgreSQL access methods for the dump and restore process. Access methods define how PostgreSQL stores and retrieves data (like B-tree, Hash, GiST, GIN, etc.). This structure captures the access method's type classification and the name of its handler function, enabling pg_dump to properly recreate custom access methods during database restoration with their original specifications and behavior.
 

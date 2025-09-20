@@ -8,7 +8,10 @@ Replays a hash index tuple insertion operation during WAL recovery, including up
 
 ## Definition
 
-
+```c
+static void
+hash_xlog_insert(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles WAL replay for hash index tuple insertions that don't require page splits. During normal hash index operations, when a new tuple is inserted, the operation is logged to WAL. During recovery, this function reconstructs the insertion by reading the tuple data from the WAL record and inserting it into the appropriate page at the specified offset.
 

@@ -8,7 +8,10 @@ The oidsend function converts an internal OID value to binary format for transmi
 
 ## Definition
 
-
+```c
+Datum
+oidsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The oidsend function is responsible for converting PostgreSQL's internal OID representation to binary wire protocol format. It creates a StringInfo buffer, writes the OID value as a 32-bit integer in network byte order, and returns the resulting binary data. This function is part of PostgreSQL's binary I/O system and is used when OID values need to be transmitted in binary format over the network or stored in binary format for efficiency.
 

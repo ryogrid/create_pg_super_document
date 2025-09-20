@@ -8,7 +8,13 @@ ExprEvalOpLookup is a simple structure used to map jump target opcodes back to t
 
 ## Definition
 
-
+```c
+typedef struct ExprEvalOpLookup
+{
+	const void *opcode;
+	ExprEvalOp	op;
+} ExprEvalOpLookup;
+```
 ## Detailed Description
 This structure serves as a lookup table entry for reverse mapping in PostgreSQL's expression interpreter. When direct threading is enabled (EEO_USE_COMPUTED_GOTO), the expression evaluator uses computed goto labels as opcodes for performance optimization. However, this makes it difficult to determine the original ExprEvalOp enumeration value from a given opcode address. ExprEvalOpLookup provides the mapping needed to convert these opcode addresses back to their corresponding ExprEvalOp values.
 

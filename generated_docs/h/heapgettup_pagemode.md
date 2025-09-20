@@ -8,7 +8,13 @@ A specialized version of heapgettup that operates in page-at-a-time mode, proces
 
 ## Definition
 
-
+```c
+static void
+heapgettup_pagemode(HeapScanDesc scan,
+					ScanDirection dir,
+					int nkeys,
+					ScanKey key)
+```
 ## Detailed Description
 This function provides the same API as heapgettup but operates in page-at-a-time mode for improved performance. Key differences include: no buffer content locking (handled by heap_prepare_pagescan), iteration through only the tuples listed in rs_vistuples[] rather than all page tuples, and use of 0-based lineindex instead of 1-based lineoff. The function calls heap_prepare_pagescan to prune the page and determine visible tuple offsets, then iterates through the pre-filtered visible tuples, applying scan key filters before returning qualifying tuples.
 

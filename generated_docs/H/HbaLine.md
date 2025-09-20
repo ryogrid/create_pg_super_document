@@ -8,7 +8,53 @@ HbaLine is a comprehensive structure that represents a single parsed line from t
 
 ## Definition
 
-
+```c
+typedef struct HbaLine
+{
+	char	   *sourcefile;
+	int			linenumber;
+	char	   *rawline;
+	ConnType	conntype;
+	List	   *databases;
+	List	   *roles;
+	struct sockaddr_storage addr;
+	int			addrlen;		/* zero if we don't have a valid addr */
+	struct sockaddr_storage mask;
+	int			masklen;		/* zero if we don't have a valid mask */
+	IPCompareMethod ip_cmp_method;
+	char	   *hostname;
+	UserAuth	auth_method;
+	char	   *usermap;
+	char	   *pamservice;
+	bool		pam_use_hostname;
+	bool		ldaptls;
+	char	   *ldapscheme;
+	char	   *ldapserver;
+	int			ldapport;
+	char	   *ldapbinddn;
+	char	   *ldapbindpasswd;
+	char	   *ldapsearchattribute;
+	char	   *ldapsearchfilter;
+	char	   *ldapbasedn;
+	int			ldapscope;
+	char	   *ldapprefix;
+	char	   *ldapsuffix;
+	ClientCertMode clientcert;
+	ClientCertName clientcertname;
+	char	   *krb_realm;
+	bool		include_realm;
+	bool		compat_realm;
+	bool		upn_username;
+	List	   *radiusservers;
+	char	   *radiusservers_s;
+	List	   *radiussecrets;
+	char	   *radiussecrets_s;
+	List	   *radiusidentifiers;
+	char	   *radiusidentifiers_s;
+	List	   *radiusports;
+	char	   *radiusports_s;
+} HbaLine;
+```
 ## Detailed Description
 HbaLine represents the complete parsed and structured form of a single line from PostgreSQL's host-based authentication configuration file (pg_hba.conf). This structure encapsulates all possible authentication parameters and connection restrictions that can be specified in an HBA entry, including connection type, database/role matching criteria, network address restrictions, and authentication method configuration. The structure supports multiple authentication methods including PAM, LDAP, Kerberos, RADIUS, and certificate-based authentication, with dedicated fields for each method's specific parameters.
 

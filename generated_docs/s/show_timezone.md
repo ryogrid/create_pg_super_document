@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) display hook function that returns the canon
 
 ## Definition
 
-
+```c
+const char *
+show_timezone(void)
+```
 ## Detailed Description
 The  function serves as a GUC show hook that provides a human-readable representation of the current session's timezone setting. It retrieves the canonical name of the timezone currently stored in the  global variable and returns it as a string suitable for display to users.
 

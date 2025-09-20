@@ -8,7 +8,10 @@ Handles the client-side input phase of a COPY FROM STDIN command in psql, readin
 
 ## Definition
 
-
+```c
+bool
+handleCopyIn(PGconn *conn, FILE *copystream, bool isbinary, PGresult **res)
+```
 ## Detailed Description
 The handleCopyIn function manages the data input phase of PostgreSQL's COPY FROM STDIN operation from the psql client side. It reads data from a specified file stream (which can be stdin or a regular file) and transmits it to the server using libpq's copy protocol functions. The function handles both binary and text modes, with text mode requiring special processing to detect the EOF marker (\.) that terminates the copy operation.
 

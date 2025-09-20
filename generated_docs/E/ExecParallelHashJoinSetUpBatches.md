@@ -8,7 +8,10 @@ Sets up shared batch state and tuplestores for parallel hash join operations, in
 
 ## Definition
 
-
+```c
+static void
+ExecParallelHashJoinSetUpBatches(HashJoinTable hashtable, int nbatch)
+```
 ## Detailed Description
  is responsible for the initial setup of parallel hash join batch infrastructure. This function is typically called by one backend (often the leader) to establish the shared memory structures and synchronization primitives needed for batch processing across multiple parallel workers.
 

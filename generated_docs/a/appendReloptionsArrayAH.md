@@ -8,7 +8,11 @@ A PostgreSQL pg_dump utility wrapper function that formats reloptions array data
 
 ## Definition
 
-
+```c
+static void
+appendReloptionsArrayAH(PQExpBuffer buffer, const char *reloptions,
+						const char *prefix, Archive *fout)
+```
 ## Detailed Description
 The  function serves as a wrapper around  specifically for pg_dump operations. It formats PostgreSQL reloptions (relation options) array data and appends the formatted result to the provided buffer. The function adds error logging capability by issuing a warning message if the reloptions array cannot be parsed properly. This function is part of the pg_dump utility's schema dumping functionality, ensuring that table and constraint options are properly formatted in SQL dump output.
 

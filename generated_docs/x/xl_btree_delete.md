@@ -8,7 +8,24 @@ WAL record structure representing deletion and update operations on B-tree index
 
 ## Definition
 
+```c
+typedef struct xl_btree_delete
+{
+	TransactionId snapshotConflictHorizon;
+	uint16		ndeleted;
+	uint16		nupdated;
+	bool		isCatalogRel;	/* to handle recovery conflict during logical
+								 * decoding on standby */
 
+	/*----
+	 * In payload of blk 0 :
+	 * - DELETED TARGET OFFSET NUMBERS
+	 * - UPDATED TARGET OFFSET NUMBERS
+	 * - UPDATED TUPLES METADATA (xl_btree_update) ITEMS
+	 *----
+	 */
+} xl_btree_delete;
+```
 ## Detailed Description
 The xl_btree_delete structure is a WAL record format used to log B-tree leaf page modifications during single-page cleanup operations. This record type handles two distinct operations simultaneously: complete deletion of index tuples and partial updates of posting list tuples (removing some but not all heap TIDs from a posting list). The structure is designed to support recovery conflict resolution on standby servers, particularly during logical decoding operations.
 

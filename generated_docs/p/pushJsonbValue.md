@@ -8,7 +8,11 @@ Incrementally builds JSONB structures by pushing JsonbValue elements into a Json
 
 ## Definition
 
-
+```c
+JsonbValue *
+pushJsonbValue(JsonbParseState **pstate, JsonbIteratorToken seq,
+			   JsonbValue *jbval)
+```
 ## Detailed Description
 This central function orchestrates the construction of JSONB data structures through a state machine approach. It processes JsonbValues in sequential token order (WJB_BEGIN_OBJECT, WJB_KEY, WJB_VALUE, etc.) and maintains the parsing state across multiple calls.
 

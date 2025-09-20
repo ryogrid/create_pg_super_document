@@ -8,7 +8,11 @@ The dumpCompositeTypeColComments function generates COMMENT ON COLUMN statements
 
 ## Definition
 
-
+```c
+static void
+dumpCompositeTypeColComments(Archive *fout, const TypeInfo *tyinfo,
+							 PGresult *res)
+```
 ## Detailed Description
 This function processes comments associated with the columns of a composite type and generates appropriate COMMENT ON COLUMN statements. It takes advantage of a pre-existing query result containing column information to avoid re-querying the database. The function searches for comments associated with the type's pg_class OID and matches them with column attribute numbers to generate properly formatted comment statements.
 

@@ -8,7 +8,10 @@ Implements the SQL window function LAST_VALUE(), which returns the value of the 
 
 ## Definition
 
-
+```c
+Datum
+window_last_value(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the backend implementation of PostgreSQL's LAST_VALUE() window function. It retrieves and returns the value of the first argument (the value expression) evaluated on the last row within the current window frame. This function follows the SQL standard specification for window functions.
 

@@ -8,7 +8,31 @@ PlannedStmtRequiresSnapshot determines whether a planned statement requires an M
 
 ## Definition
 
-
+```c
+enumerate those that
+	 * do not need one.
+	 *
+	 * Transaction control, LOCK, and SET must *not* set a snapshot, since
+	 * they need to be executable at the start of a transaction-snapshot-mode
+	 * transaction without freezing a snapshot.  By extension we allow SHOW
+	 * not to set a snapshot.  The other stmts listed are just efficiency
+	 * hacks.  Beware of listing anything that can modify the database --- if,
+	 * say, it has to update an index with expressions that invoke
+	 * user-defined functions, then it had better have a snapshot.
+	 */
+	if (IsA(utilityStmt, TransactionStmt) ||
+		IsA(utilityStmt, LockStmt) ||
+		IsA(utilityStmt, VariableSetStmt) ||
+		IsA(utilityStmt, VariableShowStmt) ||
+		IsA(utilityStmt, ConstraintsSetStmt) ||
+	/* efficiency hacks from here down */
+		IsA(utilityStmt, FetchStmt) ||
+		IsA(utilityStmt, ListenStmt) ||
+		IsA(utilityStmt, NotifyStmt) ||
+		IsA(utilityStmt, UnlistenStmt) ||
+		IsA(utilityStmt, CheckPointStmt))
+		return false;
+```
 ## Detailed Description
 PlannedStmtRequiresSnapshot analyzes a planned statement to determine if it requires a snapshot for execution. The function implements PostgreSQL's snapshot management policy by distinguishing between statements that need consistent view of the database and those that operate at a different level.
 

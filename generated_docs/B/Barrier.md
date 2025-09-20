@@ -8,7 +8,19 @@ The Barrier struct is a synchronization primitive used in PostgreSQL for coordin
 
 ## Definition
 
-
+```c
+typedef struct Barrier
+{
+	slock_t		mutex;
+	int			phase;			/* phase counter */
+	int			participants;	/* the number of participants attached */
+	int			arrived;		/* the number of participants that have
+								 * arrived */
+	int			elected;		/* highest phase elected */
+	bool		static_party;	/* used only for assertions */
+	ConditionVariable condition_variable;
+} Barrier;
+```
 ## Detailed Description
 The Barrier struct implements a synchronization mechanism that allows multiple parallel processes to coordinate their execution. It supports both static barriers (with a fixed number of participants known at initialization) and dynamic barriers (where participants can join and leave at runtime).
 

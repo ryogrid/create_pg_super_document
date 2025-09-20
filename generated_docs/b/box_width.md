@@ -8,7 +8,10 @@ The  function calculates and returns the width (horizontal magnitude) of a Postg
 
 ## Definition
 
-
+```c
+Datum
+box_width(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides a public interface to calculate the width of a BOX geometry in PostgreSQL. It serves as a wrapper around the internal  function, returning the calculated width as a PostgreSQL FLOAT8 datum that can be used in SQL queries. The width is defined as the horizontal magnitude of the box, calculated as the difference between the high.x and low.x coordinates. This function is part of the arithmetic operators section for boxes.
 

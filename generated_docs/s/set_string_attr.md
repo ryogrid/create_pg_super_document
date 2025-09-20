@@ -8,7 +8,10 @@ A utility function that safely sets a string attribute on a Python object, handl
 
 ## Definition
 
-
+```c
+static bool
+set_string_attr(PyObject *obj, char *attrname, char *str)
+```
 ## Detailed Description
 This function is a helper utility in PostgreSQL's PL/Python extension that sets a string attribute on a Python object. It handles the conversion from C strings to Python unicode objects and manages reference counting properly. The function gracefully handles NULL string values by setting the attribute to Python's None object instead. This is particularly useful when setting error details where some fields may not be available.
 

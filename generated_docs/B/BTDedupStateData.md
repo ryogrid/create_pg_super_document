@@ -8,7 +8,35 @@ BTDedupStateData is a comprehensive working area structure used during B-tree de
 
 ## Definition
 
+```c
+typedef struct BTDedupStateData
+{
+	/* Deduplication status info for entire pass over page */
+	bool		deduplicate;	/* Still deduplicating page? */
+	int			nmaxitems;		/* Number of max-sized tuples so far */
+	Size		maxpostingsize; /* Limit on size of final tuple */
 
+	/* Metadata about base tuple of current pending posting list */
+	IndexTuple	base;			/* Use to form new posting list */
+	OffsetNumber baseoff;		/* page offset of base */
+	Size		basetupsize;	/* base size without original posting list */
+
+	/* Other metadata about pending posting list */
+	ItemPointer htids;			/* Heap TIDs in pending posting list */
+	int			nhtids;			/* Number of heap TIDs in htids array */
+	int			nitems;			/* Number of existing tuples/line pointers */
+	Size		phystupsize;	/* Includes line pointer overhead */
+
+	/*
+	 * Array of tuples to go on new version of the page.  Contains one entry
+	 * for each group of consecutive items.  Note that existing tuples that
+	 * will not become posting list tuples do not appear in the array (they
+	 * are implicitly unchanged by deduplication pass).
+	 */
+	int			nintervals;		/* current number of intervals in array */
+	BTDedupInterval intervals[MaxIndexTuplesPerPage];
+} BTDedupStateData;
+```
 ## Detailed Description
 BTDedupStateData serves as a comprehensive state management structure for B-tree deduplication operations. It tracks both the overall progress of a deduplication pass across an entire page and the specific details of the current pending posting list being constructed.
 

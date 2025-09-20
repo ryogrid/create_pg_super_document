@@ -8,7 +8,10 @@ Provides human-readable descriptions of tablespace-related WAL (Write-Ahead Logg
 
 ## Definition
 
-
+```c
+void
+tblspc_desc(StringInfo buf, XLogReaderState *record)
+```
 ## Detailed Description
 This function is part of PostgreSQL's WAL record description infrastructure, specifically designed to decode and format tablespace-related WAL records into readable text. It examines the WAL record type and extracts relevant information from CREATE and DROP tablespace operations, formatting this data into a string buffer for display in tools like pg_waldump.
 

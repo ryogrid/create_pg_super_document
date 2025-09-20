@@ -8,7 +8,12 @@ Executes the pg_dump utility as a subprocess with specified database name and cr
 
 ## Definition
 
-
+```c
+structed stem of connection
+	 * string.
+	 */
+	appendPQExpBuffer(&connstrbuf, "%s dbname=", connstr);
+```
 ## Detailed Description
 This function serves as a wrapper to execute the pg_dump utility as a system command from within pg_dumpall. It constructs a complete pg_dump command line by combining the pg_dump binary path, global dump options, creation options, output format specifications, and database connection parameters. The function handles two output formats: plain-append format (-Fa) when writing to a file, and plain format (-Fp) for standard output.
 

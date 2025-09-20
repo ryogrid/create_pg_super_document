@@ -8,7 +8,10 @@ Retrieves the process ID (PID) of a dynamically-registered background worker and
 
 ## Definition
 
-
+```c
+BgwHandleStatus
+GetBackgroundWorkerPid(BackgroundWorkerHandle *handle, pid_t *pidp)
+```
 ## Detailed Description
 This function determines the current state of a background worker process and optionally returns its PID. It examines the worker slot associated with the given handle and checks whether the worker is running, not yet started, or stopped. The function uses lightweight locking to safely access shared worker data structures and handles various worker lifecycle states including temporary stops (for restart), permanent stops, and unregistered workers.
 

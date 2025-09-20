@@ -8,7 +8,10 @@ Computes per-index-column information including indexed column numbers, expressi
 
 ## Definition
 
-
+```c
+struct the name list */
+	DeconstructQualifiedName(opclass, &schemaname, &opcname);
+```
 ## Detailed Description
 This function is a core component of index creation that processes the attribute list specification and translates it into the internal representation needed by PostgreSQL's index subsystem. It handles both simple column references and complex index expressions, validates data types and collations, resolves operator classes, and sets up exclusion operators for exclusion constraints. The function also handles included columns (non-key columns that are stored but not indexed) and validates various constraints specific to different access methods.
 

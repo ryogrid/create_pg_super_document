@@ -8,7 +8,10 @@ A generic internal function that changes the namespace of a database object by u
 
 ## Definition
 
-
+```c
+static Oid
+AlterObjectNamespace_internal(Relation rel, Oid objid, Oid nspOid)
+```
 ## Detailed Description
 AlterObjectNamespace_internal provides the core implementation for moving database objects between schemas. This static function handles the common case where namespace alteration only requires updating a single catalog entry's namespace column. It performs comprehensive validation including permission checks, duplicate name detection, and dependency management.
 

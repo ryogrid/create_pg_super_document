@@ -8,7 +8,10 @@ The  function determines whether one range is strictly positioned before another
 
 ## Definition
 
-
+```c
+Datum
+range_before(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the range "strictly left of" comparison in PostgreSQL's range type system. It takes two range arguments and returns a boolean value indicating whether the first range is entirely before (to the left of) the second range with no overlap. The function serves as the SQL-callable wrapper for the internal  function, handling the PostgreSQL function call protocol and type cache management.
 

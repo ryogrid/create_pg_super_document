@@ -8,7 +8,9 @@ A higher-level reader function that parses various types of node structures from
 
 ## Definition
 
-
+```c
+structure");
+```
 ## Detailed Description
 The  function provides semantic parsing capabilities on top of the lexical tokenizer . It can deserialize a wide variety of PostgreSQL internal structures including individual value nodes (integers, floats, booleans, strings), general nodes (via ), and specialized list structures.
 

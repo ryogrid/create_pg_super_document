@@ -8,7 +8,10 @@ Recomputes union keys for both left and right sides of a GiST index page split, 
 
 ## Definition
 
-
+```c
+static void
+gistunionsubkey(GISTSTATE *giststate, IndexTuple *itvec, GistSplitVector *spl)
+```
 ## Detailed Description
 This function updates the union keys for both sides of a GiST index page split after the split decision has been made. It calls  twice - once for the left side tuples and once for the right side tuples. The function always recomputes union keys for all index columns, even when this might represent duplicate work, because penalty functions used in splitting are not 100% accurate and a "zero penalty" doesn't guarantee that the union key remains unchanged.
 

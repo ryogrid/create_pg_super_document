@@ -8,7 +8,14 @@ LockRowsState is the execution state structure for LockRows nodes in PostgreSQL'
 
 ## Definition
 
-
+```c
+typedef struct LockRowsState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	List	   *lr_arowMarks;	/* List of ExecAuxRowMarks */
+	EPQState	lr_epqstate;	/* for evaluating EvalPlanQual rechecks */
+} LockRowsState;
+```
 ## Detailed Description
 LockRowsState manages the execution state for LockRows nodes, which implement row-level locking semantics in PostgreSQL. These nodes are inserted into the execution plan when queries contain FOR UPDATE, FOR KEY UPDATE, FOR SHARE, or FOR KEY SHARE clauses. The structure maintains row marks for tracking which rows need to be locked and includes EvalPlanQual (EPQ) state for handling concurrent modifications during lock acquisition.
 

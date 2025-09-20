@@ -8,7 +8,10 @@ Implements the greater-than-or-equal-to comparison operator for full transaction
 
 ## Definition
 
-
+```c
+Datum
+xid8ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The xid8ge function provides the '>=' comparison operator for PostgreSQL's full transaction ID (xid8) data type. It extracts two FullTransactionId values from the function arguments and uses the FullTransactionIdFollowsOrEquals utility function to perform the comparison. This function handles the wraparound nature of transaction IDs correctly, ensuring proper ordering semantics even when transaction IDs wrap around the 64-bit space.
 

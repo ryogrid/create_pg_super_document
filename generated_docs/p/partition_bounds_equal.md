@@ -8,7 +8,11 @@ Determines if two partition bound collections are logically equal by comparing t
 
 ## Definition
 
-
+```c
+bool
+partition_bounds_equal(int partnatts, int16 *parttyplen, bool *parttypbyval,
+					   PartitionBoundInfo b1, PartitionBoundInfo b2)
+```
 ## Detailed Description
 This function performs a deep comparison of two PartitionBoundInfo structures to determine logical equality. It is used in the relcache keep logic and for comparing partition bounds between different relations. The function compares structural elements first (strategy, counts, indexes) then performs detailed datum-by-datum comparison based on the partitioning strategy.
 

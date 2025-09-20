@@ -8,7 +8,10 @@ Converts character encoding from EUC-JP (Extended Unix Code for Japanese) to UTF
 
 ## Definition
 
-
+```c
+Datum
+euc_jp_to_utf8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a PostgreSQL conversion procedure that transforms text encoded in EUC-JP format to UTF-8 encoding. It serves as a bridge between the Japanese EUC encoding system and Unicode UTF-8, enabling proper handling of Japanese characters in PostgreSQL databases. The function uses PostgreSQL's internal conversion framework and leverages a Unicode mapping tree () to perform accurate character-by-character conversion.
 

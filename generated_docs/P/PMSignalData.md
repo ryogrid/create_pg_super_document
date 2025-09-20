@@ -8,7 +8,18 @@ PMSignalData is a shared memory structure that facilitates inter-process communi
 
 ## Definition
 
-
+```c
+struct PMSignalData
+{
+	/* per-reason flags for signaling the postmaster */
+	sig_atomic_t PMSignalFlags[NUM_PMSIGNALS];
+	/* global flags for signals from postmaster to children */
+	QuitSignalReason sigquit_reason;	/* why SIGQUIT was sent */
+	/* per-child-process flags */
+	int			num_child_flags;	/* # of entries in PMChildFlags[] */
+	sig_atomic_t PMChildFlags[FLEXIBLE_ARRAY_MEMBER];
+};
+```
 ## Detailed Description
 PMSignalData serves as the central communication hub in PostgreSQL's multi-process architecture, residing in shared memory to enable signal-based coordination between the postmaster and its child processes. The structure is designed as an opaque type with its implementation details hidden within pmsignal.c, providing a clean interface for process management operations.
 

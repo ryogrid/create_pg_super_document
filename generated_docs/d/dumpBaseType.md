@@ -8,7 +8,10 @@ Generates SQL commands to recreate a user-defined base type with all its impleme
 
 ## Definition
 
-
+```c
+static void
+dumpBaseType(Archive *fout, const TypeInfo *tyinfo)
+```
 ## Detailed Description
 The  function creates comprehensive SQL statements to recreate user-defined base types in PostgreSQL dumps. Base types are the most complex type category, requiring complete specification of input/output functions, internal representation, storage characteristics, and operational behaviors. The function handles all aspects of base type definition including I/O functions, optional functions (receive/send, typmod, analyze, subscript), storage parameters, alignment, and behavioral attributes.
 

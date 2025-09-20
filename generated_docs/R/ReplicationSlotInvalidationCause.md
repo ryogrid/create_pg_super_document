@@ -8,7 +8,18 @@ An enumeration type that defines the possible causes for replication slot invali
 
 ## Definition
 
-
+```c
+typedef enum ReplicationSlotInvalidationCause
+{
+	RS_INVAL_NONE,
+	/* required WAL has been removed */
+	RS_INVAL_WAL_REMOVED,
+	/* required rows have been removed */
+	RS_INVAL_HORIZON,
+	/* wal_level insufficient for slot */
+	RS_INVAL_WAL_LEVEL,
+} ReplicationSlotInvalidationCause;
+```
 ## Detailed Description
 This enumeration represents the various reasons why a replication slot might become invalidated in PostgreSQL. Replication slots track the progress of logical or physical replication, ensuring that required WAL (Write-Ahead Log) segments and database rows are not removed while they are still needed by replication consumers. When certain conditions occur that make it impossible for a slot to continue functioning properly, the slot is marked as invalidated with one of these specific causes.
 

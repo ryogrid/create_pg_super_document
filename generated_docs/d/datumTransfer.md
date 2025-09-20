@@ -8,7 +8,10 @@ Transfers a non-NULL datum into the current memory context, optimizing for expan
 
 ## Definition
 
-
+```c
+Datum
+datumTransfer(Datum value, bool typByVal, int typLen)
+```
 ## Detailed Description
 The  function provides an optimized alternative to  when transferring datums into the current memory context. The key optimization occurs with expanded objects:
 

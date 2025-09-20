@@ -8,7 +8,10 @@ Creates a ModifyTable plan node for data modification operations (INSERT, UPDATE
 
 ## Definition
 
-
+```c
+static ModifyTable *
+create_modifytable_plan(PlannerInfo *root, ModifyTablePath *best_path)
+```
 ## Detailed Description
 This function constructs a ModifyTable plan node that implements data modification operations in PostgreSQL. It handles all types of table modifications including INSERT, UPDATE, DELETE, and MERGE operations. The function creates a subplan that produces the exact target list required for the modification, applies proper labeling to maintain executor compatibility, and configures the ModifyTable node with extensive parameters needed for complex modification scenarios including partitioned tables, returning clauses, conflict resolution, and constraint checking.
 

@@ -8,7 +8,10 @@ PostgreSQL function that performs subtraction of two numeric values, implementin
 
 ## Definition
 
-
+```c
+Datum
+numeric_sub(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that subtracts one numeric value from another. It serves as the implementation for the SQL subtraction operator (-) when applied to NUMERIC data types. This function is a thin wrapper around , providing the standard PostgreSQL function interface for numeric subtraction operations.
 

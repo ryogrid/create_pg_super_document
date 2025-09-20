@@ -8,7 +8,13 @@ A structure representing a TAR format archiver that implements the bbstreamer in
 
 ## Definition
 
-
+```c
+typedef struct bbstreamer_tar_archiver
+{
+	bbstreamer	base;
+	bool		rearchive_member;
+} bbstreamer_tar_archiver;
+```
 ## Detailed Description
 The `bbstreamer_tar_archiver` structure is designed to generate or modify TAR archives in pg_basebackup. It extends the base `bbstreamer` structure to provide TAR-specific archiving functionality. This archiver processes typed chunks (header, content, trailer) and creates valid TAR archive output. It can construct new TAR headers from metadata, ensure proper padding, and generate correct archive trailers. The archiver is intended to be used either for generating brand-new tar archives or for modifying existing ones on the fly.
 

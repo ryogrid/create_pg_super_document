@@ -8,7 +8,11 @@ The  function adds multiple index tuples to a specific page in a hash index whil
 
 ## Definition
 
-
+```c
+void
+_hash_pgaddmultitup(Relation rel, Buffer buf, IndexTuple *itups,
+					OffsetNumber *itup_offsets, uint16 nitups)
+```
 ## Detailed Description
 This function performs bulk insertion of multiple tuples into a hash index page. Unlike  which handles single tuple insertion, this function is optimized for scenarios where multiple tuples need to be inserted into the same page, such as during:
 

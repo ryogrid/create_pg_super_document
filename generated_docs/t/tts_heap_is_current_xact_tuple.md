@@ -8,7 +8,10 @@ Checks whether a heap tuple stored in a tuple table slot was created by the curr
 
 ## Definition
 
-
+```c
+static bool
+tts_heap_is_current_xact_tuple(TupleTableSlot *slot)
+```
 ## Detailed Description
 This function determines if a heap tuple within a tuple table slot belongs to the current transaction context. It extracts the xmin (minimum transaction ID) from the tuple header and compares it against the current transaction ID using PostgreSQL's transaction management system. The function is part of the tuple table slot operations specific to heap tuples and is used internally for transaction visibility checks.
 

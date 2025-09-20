@@ -8,7 +8,11 @@ Constructs a table of all comments available for database objects and sets the h
 
 ## Definition
 
+```c
+struct lookup table containing OIDs in numeric form */
 
+	i_description = PQfnumber(res, "description");
+```
 ## Detailed Description
 The  function retrieves all comments from the  system catalog in a single query and builds an in-memory lookup table. This approach is much more efficient than performing per-object queries for comments. The function also sets the  flag on dumpable objects that have associated comments, which helps the dump process know which objects require comment handling.
 

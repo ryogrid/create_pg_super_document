@@ -8,7 +8,10 @@ AlterSchemaOwner_internal performs the core logic for changing schema ownership,
 
 ## Definition
 
-
+```c
+static void
+AlterSchemaOwner_internal(HeapTuple tup, Relation rel, Oid newOwnerId)
+```
 ## Detailed Description
 AlterSchemaOwner_internal implements the complete ownership transfer process for schemas, including comprehensive security checks, ACL (Access Control List) modification, and dependency updates. This internal function performs the actual work of ownership changes, validating permissions, updating catalog entries, and maintaining referential integrity. It handles both the ownership field update and the corresponding ACL adjustments to ensure proper access control under the new ownership.
 

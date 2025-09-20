@@ -8,7 +8,10 @@ The hashmacaddr8 function is a hash support function for creating hash indexes o
 
 ## Definition
 
-
+```c
+Datum
+hashmacaddr8(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function computes a hash value for a macaddr8 (8-byte MAC address) value, enabling the use of hash indexes and hash joins for this data type. The function uses PostgreSQL's generic hash_any function to compute a hash over the entire 8-byte MAC address structure. This hash function is essential for the performance of hash-based operations like hash joins, hash aggregation, and hash indexing on macaddr8 columns.
 

@@ -8,7 +8,12 @@ This function builds a pathkey list representing the explicit sort order that mu
 
 ## Definition
 
-
+```c
+List *
+make_inner_pathkeys_for_merge(PlannerInfo *root,
+							  List *mergeclauses,
+							  List *outer_pathkeys)
+```
 ## Detailed Description
 The function constructs the required pathkeys for the inner relation in a merge join by analyzing the mergeclauses and their relationship to the outer pathkeys. The algorithm processes mergeclauses in order and creates corresponding pathkeys for the inner side:
 

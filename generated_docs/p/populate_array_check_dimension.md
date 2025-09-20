@@ -8,7 +8,10 @@ Validates and manages dimensions of multi-dimensional arrays during JSON array p
 
 ## Definition
 
-
+```c
+static bool
+populate_array_check_dimension(PopulateArrayContext *ctx, int ndim)
+```
 ## Detailed Description
 This function is responsible for checking and maintaining dimensional consistency when populating multi-dimensional arrays from JSON data. It tracks the size of each dimension and ensures that all sub-arrays at the same level have matching dimensions. If a dimension hasn't been determined yet (indicated by -1), it assigns the current size. If the dimension has already been set, it validates that the current sub-array matches the expected size. The function also manages dimension counters by resetting the current dimension counter and incrementing the parent dimension counter for nested arrays.
 

@@ -8,7 +8,10 @@ The pg_rotate_right32 function performs a bitwise right rotation of a 32-bit uns
 
 ## Definition
 
-
+```c
+static inline uint32
+pg_rotate_right32(uint32 word, int n)
+```
 ## Detailed Description
 pg_rotate_right32 implements a circular right bit shift operation on a 32-bit unsigned integer. Unlike a regular right shift that fills with zeros, rotation preserves all bits by moving the bits that would be shifted out from the right end to the left end. The operation is performed using bitwise OR of a right shift and left shift: the right shift moves bits right by n positions, while the left shift moves bits left by (32-n) positions, effectively wrapping the shifted-out bits around to the other end.
 

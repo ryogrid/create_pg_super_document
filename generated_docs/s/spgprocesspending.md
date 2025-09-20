@@ -8,7 +8,10 @@ Processes the pending-TID list between pages during SP-GiST vacuum operations, h
 
 ## Definition
 
-
+```c
+static void
+spgprocesspending(spgBulkDeleteState *bds)
+```
 ## Detailed Description
 The `spgprocesspending` function is a critical component of SP-GiST vacuum that processes a list of pending tuple identifiers (TIDs) accumulated during the main vacuum scan. It handles two primary scenarios:
 

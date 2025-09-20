@@ -8,7 +8,10 @@ This function implements the SQL OVERLAPS operator for timestamp data types, det
 
 ## Definition
 
-
+```c
+Datum
+overlaps_timestamp(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The overlaps_timestamp function implements the SQL OVERLAPS operator for timestamp values without timezone information. It takes four timestamp arguments representing two intervals: (ts1, te1) and (ts2, te2), and determines whether these intervals overlap. The implementation follows the SQL specification exactly, which requires handling null values in a specific way to deliver non-null results in certain cases where some inputs are null. The algorithm handles three main cases based on the relationship between the start points of the intervals: ts1 > ts2, ts1 < ts2, and ts1 = ts2.
 

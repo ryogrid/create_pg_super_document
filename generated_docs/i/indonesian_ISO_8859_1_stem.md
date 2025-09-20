@@ -8,7 +8,11 @@ This function implements the complete Indonesian word stemming algorithm for ISO
 
 ## Definition
 
+```c
+}
 
+extern int indonesian_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 The function performs Indonesian stemming through a multi-stage process that follows the Snowball stemming algorithm for Indonesian. The stemming process includes:
 

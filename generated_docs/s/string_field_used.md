@@ -8,7 +8,10 @@ Internal GUC utility function that determines whether a given string value is cu
 
 ## Definition
 
-
+```c
+static bool
+string_field_used(struct config_string *conf, char *strval)
+```
 ## Detailed Description
  is a static utility function within the GUC (Grand Unified Configuration) system that performs reference checking for string values. It determines whether a specific string value is currently being used or referenced anywhere within a string configuration variable's state, including the current value, reset value, boot value, and any values stored in the configuration stack.
 

@@ -8,7 +8,11 @@ Ensures that the next-to-be-assigned MultiXactId and nextOffset values are advan
 
 ## Definition
 
-
+```c
+void
+MultiXactAdvanceNextMXact(MultiXactId minMulti,
+						  MultiXactOffset minMultiOffset)
+```
 ## Detailed Description
 This function is used during WAL (Write-Ahead Log) replay to ensure that the MultiXact system's next assignment counters are properly synchronized with the minimum safe values determined from XLog records. It can be called from checkpoint records or MultiXact creation log entries. The function takes an exclusive lock on MultiXactGenLock to protect the shared state even during hot-standby operations, where backends might be examining these values.
 

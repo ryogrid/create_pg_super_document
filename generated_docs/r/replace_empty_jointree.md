@@ -8,7 +8,10 @@ Replaces an empty query jointree with a dummy RTE_RESULT relation to avoid corne
 
 ## Definition
 
-
+```c
+void
+replace_empty_jointree(Query *parse)
+```
 ## Detailed Description
 This function addresses a common issue with SELECTs that have omitted FROM clauses by ensuring that every query has at least one relation in its jointree. When a query's jointree is empty (no FROM clause), it creates a synthetic RTE_RESULT relation and adds it to the jointree. This approach eliminates numerous corner cases that previously existed in query processing.
 

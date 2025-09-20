@@ -8,7 +8,10 @@ The stringoffset function converts a timezone offset value (in seconds) into a h
 
 ## Definition
 
-
+```c
+static int
+stringoffset(char *result, zic_t offset)
+```
 ## Detailed Description
 This function formats timezone offsets into a string representation following the format H[:MM[:SS]], where:
 - H represents hours (can be more than 24 for extreme cases)

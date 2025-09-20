@@ -8,7 +8,11 @@ Reads a single WAL record from the specified position and returns the end positi
 
 ## Definition
 
-
+```c
+XLogRecPtr
+readOneRecord(const char *datadir, XLogRecPtr ptr, int tliIndex,
+			  const char *restoreCommand)
+```
 ## Detailed Description
 This utility function is designed to read exactly one WAL record from a given position and determine where that record ends. Unlike extractPageMap which processes multiple records and extracts page information, readOneRecord focuses solely on reading a single record and returning its end position. This is useful for WAL position calculations and determining record boundaries during pg_rewind operations.
 

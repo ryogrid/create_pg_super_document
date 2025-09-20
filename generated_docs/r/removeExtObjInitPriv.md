@@ -8,7 +8,10 @@ Removes all initial privilege entries for a database object and its sub-objects 
 
 ## Definition
 
-
+```c
+void
+removeExtObjInitPriv(Oid objoid, Oid classoid)
+```
 ## Detailed Description
 This function serves as the counterpart to recordExtObjInitPriv(), handling the cleanup of pg_init_privs entries when objects are removed from extensions. It systematically removes privilege records for both the main object and any sub-objects (such as columns for relations) by calling recordExtensionInitPrivWorker() with a NULL ACL parameter, which signals deletion.
 

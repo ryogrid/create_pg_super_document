@@ -8,7 +8,10 @@ A static function that computes and sets the group tail position for the current
 
 ## Definition
 
-
+```c
+static void
+update_grouptailpos(WindowAggState *winstate)
+```
 ## Detailed Description
 This function is specifically designed to support GROUPS frame mode processing by determining where the current row's peer group ends. In GROUPS mode, rows with identical values in all ORDER BY columns are considered peers and form a single group. The group tail position points to the first row that is *not* a peer of the current row.
 

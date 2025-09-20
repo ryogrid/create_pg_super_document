@@ -8,7 +8,12 @@ Validates the new PostgreSQL cluster configuration and readiness for upgrade, in
 
 ## Definition
 
-
+```c
+structions, they will need pg_upgrade to write its final
+	 * WAL record showing wal_level as 'replica'.
+	 */
+	start_postmaster(&new_cluster, true);
+```
 ## Detailed Description
 This function performs comprehensive validation of the target (new) PostgreSQL cluster before proceeding with the pg_upgrade process. It first extracts database and slot information, then verifies that the new cluster is empty and ready to receive data. The function validates the availability of required libraries and tests the selected data transfer method (clone, copy, copy_file_range, or hard link) to ensure compatibility with the system.
 

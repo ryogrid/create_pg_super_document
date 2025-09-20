@@ -8,7 +8,21 @@ BuildSpeculativeIndexInfo augments an IndexInfo structure with additional metada
 
 ## Definition
 
-
+```c
+struct values[] and isnull[] arrays for a new index tuple.
+ *
+ *	indexInfo		Info about the index
+ *	slot			Heap tuple for which we must prepare an index entry
+ *	estate			executor state for evaluating any index expressions
+ *	values			Array of index Datums (output area)
+ *	isnull			Array of is-null indicators (output area)
+ *
+ * When there are no index expressions, estate may be NULL.  Otherwise it
+ * must be supplied, *and* the ecxt_scantuple slot of its per-tuple expr
+ * context must point to the heap tuple passed in.
+ *
+ * Notice we don't actually call index_form_tuple() here;
+```
 ## Detailed Description
 BuildSpeculativeIndexInfo extends an existing IndexInfo structure with specialized information needed to support speculative insertion in unique B-tree indexes. This function is specifically designed for PostgreSQL's speculative insertion mechanism, which allows for optimistic insertion followed by uniqueness checking. The function allocates and populates arrays for unique operators, procedure OIDs, and strategy numbers that are used during the speculative insertion process. This processing is done separately from BuildIndexInfo() to avoid overhead in common non-speculative cases, ensuring optimal performance for regular index operations.
 

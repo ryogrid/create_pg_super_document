@@ -8,7 +8,16 @@ Performs a comprehensive checkpoint operation that ensures data consistency by f
 
 ## Definition
 
-
+```c
+structed the checkpoint record, ensure all shmem disk buffers
+	 * and commit-log buffers are flushed to disk.
+	 *
+	 * This I/O could fail for various reasons.  If so, we will fail to
+	 * complete the checkpoint, but there is no reason to force a system
+	 * panic. Accordingly, exit critical section while doing it.
+	 */
+	END_CRIT_SECTION();
+```
 ## Detailed Description
 CreateCheckPoint is the core function responsible for executing PostgreSQL's checkpoint mechanism, which is fundamental for data durability and crash recovery. The function handles two distinct checkpoint types: online checkpoints (during normal operation) and shutdown checkpoints (during database shutdown or end of recovery).
 

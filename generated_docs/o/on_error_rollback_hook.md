@@ -8,7 +8,10 @@ A validation hook function for the ON_ERROR_ROLLBACK psql variable that controls
 
 ## Definition
 
-
+```c
+static bool
+on_error_rollback_hook(const char *newval)
+```
 ## Detailed Description
 The  function is a psql variable hook that validates and processes new values assigned to the ON_ERROR_ROLLBACK variable. This variable controls whether psql automatically issues ROLLBACK TO SAVEPOINT commands when SQL errors occur within transactions, helping to recover from errors without losing the entire transaction.
 

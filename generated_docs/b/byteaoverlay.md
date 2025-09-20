@@ -8,7 +8,10 @@ A PostgreSQL function that implements the SQL standard OVERLAY() operation for b
 
 ## Definition
 
-
+```c
+Datum
+byteaoverlay(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a direct implementation of the SQL OVERLAY() function for bytea (binary string) data types. It follows the SQL standard definition which operates in terms of substring extraction and concatenation. The function takes four arguments: the target bytea, the replacement bytea, the starting position, and the length of the substring to replace. It serves as a wrapper around the core  function, handling PostgreSQL's function calling conventions and argument extraction.
 

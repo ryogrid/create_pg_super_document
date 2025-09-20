@@ -8,7 +8,11 @@ ExplainQuery executes an EXPLAIN command by parsing options, rewriting queries, 
 
 ## Definition
 
-
+```c
+void
+ExplainQuery(ParseState *pstate, ExplainStmt *stmt,
+			 ParamListInfo params, DestReceiver *dest)
+```
 ## Detailed Description
 ExplainQuery is the main entry point for processing EXPLAIN commands in PostgreSQL. It handles the complete workflow from parsing EXPLAIN options to generating the final output. The function creates an ExplainState object, parses all EXPLAIN options (analyze, verbose, costs, buffers, wal, settings, timing, memory, serialize, format), validates option combinations, rewrites the query using QueryRewrite, and then explains each resulting query plan. The output can be formatted as text, XML, JSON, or YAML depending on the FORMAT option.
 

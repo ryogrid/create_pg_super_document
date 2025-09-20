@@ -8,7 +8,10 @@ Completes B-tree index construction by sorting collected tuples and building the
 
 ## Definition
 
-
+```c
+static void
+_bt_leafbuild(BTSpool *btspool, BTSpool *btspool2)
+```
 ## Detailed Description
  is the culminating function in B-tree index construction that transforms the collected and temporarily stored index tuples into the final B-tree structure. The function operates in several distinct phases:
 

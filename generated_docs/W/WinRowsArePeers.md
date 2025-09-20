@@ -8,7 +8,10 @@ Compares two rows at specified absolute positions within a window partition to d
 
 ## Definition
 
-
+```c
+bool
+WinRowsArePeers(WindowObject winobj, int64 pos1, int64 pos2)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's window function implementation that determines peer relationships between rows within a window partition. It performs row-by-row comparison based solely on the ORDER BY columns of the window specification, ignoring any frame mode considerations.
 

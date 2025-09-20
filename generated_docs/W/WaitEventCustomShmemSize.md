@@ -8,7 +8,10 @@ Returns the shared memory size required for dynamic wait event custom hash table
 
 ## Definition
 
-
+```c
+Size
+WaitEventCustomShmemSize(void)
+```
 ## Detailed Description
 This function calculates the total shared memory space needed for the wait event custom subsystem. It computes the memory requirements for:
 1. The custom wait event counter data structure (WaitEventCustomCounterData)

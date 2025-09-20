@@ -8,7 +8,10 @@ Inserts a new variable and its optional indicator variable at the beginning of a
 
 ## Definition
 
-
+```c
+void
+add_variable_to_head(struct arguments **list, struct variable *var, struct variable *ind)
+```
 ## Detailed Description
 The  function adds a new entry to the beginning of a doubly-linked list of arguments. This function is part of PostgreSQL's ECPG preprocessor and is used to build lists of variables that will be used as parameters or result holders in SQL statements. The function creates a new  node containing the provided variable and its associated indicator variable, then inserts it at the head of the list.
 

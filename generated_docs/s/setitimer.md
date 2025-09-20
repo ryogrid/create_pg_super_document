@@ -8,7 +8,10 @@ A Windows emulation of the POSIX setitimer() function that creates and manages t
 
 ## Definition
 
-
+```c
+int
+setitimer(int which, const struct itimerval *value, struct itimerval *ovalue)
+```
 ## Detailed Description
 The `setitimer` function provides POSIX setitimer() compatibility on Windows by emulating timer functionality through a dedicated thread. On first call, it initializes the timer communication area, creates a Windows event object, and spawns the timer management thread. Subsequent calls update the timer value through thread-safe communication. The function only supports ITIMER_REAL timers and one-shot timeouts (no interval timers). This implementation bridges the gap between POSIX timer semantics and Windows threading/event model.
 

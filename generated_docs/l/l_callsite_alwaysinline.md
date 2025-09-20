@@ -8,7 +8,13 @@ A utility function that marks an LLVM function call site with the "alwaysinline"
 
 ## Definition
 
-
+```c
+struct_gep(b,
+						  StructFunctionCallInfoData,
+						  v_fcinfo,
+						  FIELDNO_FUNCTIONCALLINFODATA_ARGS,
+						  "");
+```
 ## Detailed Description
 This function applies the "alwaysinline" attribute to an LLVM function call site, which instructs the LLVM compiler to always inline the function call regardless of normal inlining heuristics. This is a more aggressive optimization directive than regular inlining hints, as it overrides LLVM's cost-benefit analysis and forces inlining even for large functions or in scenarios where inlining might normally be avoided.
 

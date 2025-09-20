@@ -8,7 +8,11 @@ Writes a COMMIT message to the logical replication output stream to indicate the
 
 ## Definition
 
-
+```c
+void
+logicalrep_write_commit(StringInfo out, ReorderBufferTXN *txn,
+						XLogRecPtr commit_lsn)
+```
 ## Detailed Description
 This function serializes a COMMIT message into the logical replication protocol stream, marking the end of a transaction. It includes transaction metadata such as the commit LSN, end LSN, and commit timestamp. The function follows the logical replication protocol specification and includes a flags field (currently unused but reserved for future extensions) along with the essential transaction completion information.
 

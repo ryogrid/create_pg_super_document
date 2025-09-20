@@ -8,7 +8,10 @@ Performs union of two bitmap sets with the flexibility to recycle either input b
 
 ## Definition
 
-
+```c
+union the shorter input into the result */
+	otherlen = other->nwords;
+```
 ## Detailed Description
 The bms_join function computes the union of two bitmap sets, similar to bms_union, but with a key optimization: it can recycle either input bitmap set rather than always creating a new one. The function intelligently chooses the larger bitmap set as the result container and unions the smaller set into it, minimizing memory operations and reallocation needs.
 

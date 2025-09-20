@@ -8,7 +8,11 @@ Performs a B-tree deduplication pass to merge duplicate index tuples into postin
 
 ## Definition
 
-
+```c
+void
+_bt_dedup_pass(Relation rel, Buffer buf, IndexTuple newitem, Size newitemsz,
+			   bool bottomupdedup)
+```
 ## Detailed Description
 This function implements the core B-tree deduplication algorithm that scans through index tuples on a page and merges duplicates into posting list tuples to save space. The function uses two different strategies:
 

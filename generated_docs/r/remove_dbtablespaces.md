@@ -8,7 +8,9 @@ Removes database directories from all tablespaces when a database is being dropp
 
 ## Definition
 
-
+```c
+struct stat st;
+```
 ## Detailed Description
 This internal function systematically removes database-specific directories from all tablespaces in the PostgreSQL cluster. When a database is dropped, its data files exist in multiple tablespace directories, and this function ensures complete cleanup by iterating through every tablespace and removing the database's directory (identified by ) from each one.
 

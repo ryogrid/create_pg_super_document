@@ -8,7 +8,11 @@ Solves the discrete knapsack problem by selecting a subset of items that maximiz
 
 ## Definition
 
-
+```c
+Bitmapset *
+DiscreteKnapsack(int max_weight, int num_items,
+				 int *item_weights, double *item_values)
+```
 ## Detailed Description
 This function implements the classic discrete knapsack algorithm using dynamic programming. It finds the optimal subset of items to include in a knapsack of limited capacity, maximizing the total value while respecting the weight constraint. The algorithm is optimized to reuse memory by working from larger weights to smaller weights in each pass.
 

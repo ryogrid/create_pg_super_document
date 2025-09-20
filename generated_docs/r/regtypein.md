@@ -8,7 +8,10 @@ Converts a string representation of a type name to its corresponding type OID, s
 
 ## Definition
 
-
+```c
+Datum
+regtypein(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the input function for the regtype data type that converts string representations of type names into their corresponding PostgreSQL type OIDs. The function supports multiple input formats and handles complex type syntax:
 

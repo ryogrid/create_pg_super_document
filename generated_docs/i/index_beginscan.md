@@ -8,7 +8,13 @@ The  function initiates a new index scan operation using the amgettuple access m
 
 ## Definition
 
-
+```c
+IndexScanDesc
+index_beginscan(Relation heapRelation,
+				Relation indexRelation,
+				Snapshot snapshot,
+				int nkeys, int norderbys)
+```
 ## Detailed Description
 This function creates and initializes an index scan descriptor for scanning an index with tuple-level access. It serves as a high-level interface that internally calls  and then sets up additional parameters specific to heap relation access. The function prepares the scan for fetching index matches from the underlying table by initializing the heap fetch mechanism. The caller must hold appropriate locks on both the heap relation and index relation before calling this function.
 

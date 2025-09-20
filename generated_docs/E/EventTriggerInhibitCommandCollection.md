@@ -8,7 +8,10 @@ Inhibits DDL command collection for event triggers by setting a flag in the curr
 
 ## Definition
 
-
+```c
+void
+EventTriggerInhibitCommandCollection(void)
+```
 ## Detailed Description
 This function is part of PostgreSQL's event trigger DDL command collection system. It temporarily disables the collection of DDL commands by setting the  flag to true in the current event trigger state. This is used when certain DDL operations need to be excluded from event trigger processing or when nested DDL commands should not be collected to avoid redundant or problematic trigger executions.
 

@@ -8,7 +8,10 @@ The  function adds an interval to a time value, performing time arithmetic while
 
 ## Definition
 
-
+```c
+Datum
+time_pl_interval(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL operator for adding an interval to a time data type (TIME + INTERVAL). It extracts a TimeADT value and an Interval pointer from the function arguments, performs the addition, and handles day overflow by using modulo arithmetic to wrap the result within a 24-hour period. The function ensures that infinite intervals are rejected with an appropriate error message, and negative results are normalized to positive values within the day range.
 

@@ -8,7 +8,10 @@ A Windows-specific callback function used by EnumSystemLocalesEx() to search for
 
 ## Definition
 
-
+```c
+static BOOL CALLBACK
+search_locale_enum(LPWSTR pStr, DWORD dwFlags, LPARAM lparam)
+```
 ## Detailed Description
 The  function serves as a callback for the Windows API function  in the context of locale name resolution. Its purpose is to find a system locale that matches a user-provided locale specification in the format  (e.g., "English" or "English_United States").
 

@@ -8,7 +8,27 @@ PublicationDesc is a structure that extends PublicationActions with additional v
 
 ## Definition
 
+```c
+typedef struct PublicationDesc
+{
+	PublicationActions pubactions;
 
+	/*
+	 * true if the columns referenced in row filters which are used for UPDATE
+	 * or DELETE are part of the replica identity or the publication actions
+	 * do not include UPDATE or DELETE.
+	 */
+	bool		rf_valid_for_update;
+	bool		rf_valid_for_delete;
+
+	/*
+	 * true if the columns are part of the replica identity or the publication
+	 * actions do not include UPDATE or DELETE.
+	 */
+	bool		cols_valid_for_update;
+	bool		cols_valid_for_delete;
+} PublicationDesc;
+```
 ## Detailed Description
 PublicationDesc is a comprehensive descriptor structure for logical replication publications that combines operation controls with validation state for advanced replication features. It extends the basic PublicationActions with additional boolean flags that track the validity of row filters and column lists for UPDATE and DELETE operations.
 

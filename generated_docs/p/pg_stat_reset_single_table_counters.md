@@ -8,7 +8,10 @@ A PostgreSQL system function that resets statistics for a single table or relati
 
 ## Definition
 
-
+```c
+Datum
+pg_stat_reset_single_table_counters(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides a targeted mechanism to reset statistical counters for a specific table or relation identified by its OID (Object Identifier). The function intelligently determines whether the target relation is a shared system relation (accessible across all databases) or a regular table within the current database, and resets the appropriate statistics accordingly.
 

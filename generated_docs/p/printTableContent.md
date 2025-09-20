@@ -8,7 +8,27 @@ The printTableContent struct holds all the information that will be displayed by
 
 ## Definition
 
-
+```c
+typedef struct printTableContent
+{
+	const printTableOpt *opt;
+	const char *title;			/* May be NULL */
+	int			ncolumns;		/* Specified in Init() */
+	int			nrows;			/* Specified in Init() */
+	const char **headers;		/* NULL-terminated array of header strings */
+	const char **header;		/* Pointer to the last added header */
+	const char **cells;			/* NULL-terminated array of cell content
+								 * strings */
+	const char **cell;			/* Pointer to the last added cell */
+	uint64		cellsadded;		/* Number of cells added this far */
+	bool	   *cellmustfree;	/* true for cells that need to be free()d */
+	printTableFooter *footers;	/* Pointer to the first footer */
+	printTableFooter *footer;	/* Pointer to the last added footer */
+	char	   *aligns;			/* Array of alignment specifiers; 'l' or 'r',
+								 * one per column */
+	char	   *align;			/* Pointer to the last added alignment */
+} printTableContent;
+```
 ## Detailed Description
 The printTableContent structure is a central data structure in PostgreSQL's table printing system, designed to hold all necessary information for rendering tabular data in various output formats. This struct supports dynamic construction of tables by providing pointers to track the current position for adding headers, cells, footers, and alignment specifications. It manages memory allocation tracking through the cellmustfree array, allowing for efficient cleanup of dynamically allocated cell content. The structure supports both static and dynamic table construction, making it suitable for displaying query results, system information, and other tabular data in psql and other PostgreSQL frontend utilities.
 

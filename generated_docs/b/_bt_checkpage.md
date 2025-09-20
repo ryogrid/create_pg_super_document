@@ -8,7 +8,10 @@ _bt_checkpage performs basic sanity checks on a freshly-read B-tree page to dete
 
 ## Definition
 
-
+```c
+void
+_bt_checkpage(Relation rel, Buffer buf)
+```
 ## Detailed Description
 This function provides essential corruption detection for B-tree pages immediately after they are read from storage. It performs two critical validation checks:
 

@@ -8,7 +8,49 @@ HASHHDR is a header structure for PostgreSQL's dynamic hash tables that contains
 
 ## Definition
 
+```c
+struct HASHHDR
+{
+	/*
+	 * The freelist can become a point of contention in high-concurrency hash
+	 * tables, so we use an array of freelists, each with its own mutex and
+	 * nentries count, instead of just a single one.  Although the freelists
+	 * normally operate independently, we will scavenge entries from freelists
+	 * other than a hashcode's default freelist when necessary.
+	 *
+	 * If the hash table is not partitioned, only freeList[0] is used and its
+	 * spinlock is not used at all; callers' locking is assumed sufficient.
+	 */
+	FreeListData freeList[NUM_FREELISTS];
 
+	/* These fields can change, but not in a partitioned table */
+	/* Also, dsize can't change in a shared table, even if unpartitioned */
+	long		dsize;			/* directory size */
+	long		nsegs;			/* number of allocated segments (<= dsize) */
+	uint32		max_bucket;		/* ID of maximum bucket in use */
+	uint32		high_mask;		/* mask to modulo into entire table */
+	uint32		low_mask;		/* mask to modulo into lower half of table */
+
+	/* These fields are fixed at hashtable creation */
+	Size		keysize;		/* hash key length in bytes */
+	Size		entrysize;		/* total user element size in bytes */
+	long		num_partitions; /* # partitions (must be power of 2), or 0 */
+	long		max_dsize;		/* 'dsize' limit if directory is fixed size */
+	long		ssize;			/* segment size --- must be power of 2 */
+	int			sshift;			/* segment shift = log2(ssize) */
+	int			nelem_alloc;	/* number of entries to allocate at once */
+
+#ifdef HASH_STATISTICS
+
+	/*
+	 * Count statistics here.  NB: stats code doesn't bother with mutex, so
+	 * counts could be corrupted a bit in a partitioned table.
+	 */
+	long		accesses;
+	long		collisions;
+#endif
+};
+```
 ## Detailed Description
 HASHHDR serves as the central control structure for PostgreSQL's dynamic hash tables. In shared-memory hash tables, HASHHDR resides in shared memory while each backend maintains a local HTAB struct. The structure is designed to support both shared and non-shared hash tables, with special considerations for high-concurrency scenarios.
 

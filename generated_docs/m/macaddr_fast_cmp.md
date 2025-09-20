@@ -8,7 +8,10 @@ Provides fast comparison of MAC addresses for PostgreSQL's SortSupport infrastru
 
 ## Definition
 
-
+```c
+static int
+macaddr_fast_cmp(Datum x, Datum y, SortSupport ssup)
+```
 ## Detailed Description
 The  function serves as PostgreSQL's SortSupport "traditional" comparison function for MAC addresses. It acts as a bridge between the SortSupport framework and the core MAC address comparison logic. The function extracts two MAC addresses from their Datum representations and delegates the actual comparison to . This function is specifically designed for use within PostgreSQL's sorting infrastructure and provides optimized access to MAC address data during sort operations.
 

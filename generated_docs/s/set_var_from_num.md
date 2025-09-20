@@ -8,7 +8,10 @@ Converts a packed database format Numeric value into a NumericVar variable repre
 
 ## Definition
 
-
+```c
+static void
+set_var_from_num(Numeric num, NumericVar *dest)
+```
 ## Detailed Description
 This static function serves as a conversion utility that unpacks a Numeric value stored in PostgreSQL's compact database format into a NumericVar structure used for internal numeric computations. The function extracts the essential components (weight, sign, scale, and digit array) from the packed format and properly initializes the destination NumericVar with the appropriate memory allocation.
 

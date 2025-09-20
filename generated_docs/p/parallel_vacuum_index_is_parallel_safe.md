@@ -8,7 +8,11 @@ Determines whether a given index can safely participate in parallel vacuum opera
 
 ## Definition
 
-
+```c
+static bool
+parallel_vacuum_index_is_parallel_safe(Relation indrel, int num_index_scans,
+									   bool vacuum)
+```
 ## Detailed Description
 This function evaluates whether an index is eligible for parallel vacuum processing based on its access method's parallel vacuum capabilities. It performs different checks depending on whether the operation is bulk deletion (vacuum=true) or cleanup (vacuum=false).
 

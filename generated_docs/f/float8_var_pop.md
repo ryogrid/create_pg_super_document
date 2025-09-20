@@ -8,7 +8,10 @@ Final function for the VAR_POP aggregate that computes the population variance f
 
 ## Definition
 
-
+```c
+Datum
+float8_var_pop(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function serves as the final function for PostgreSQL's VAR_POP (population variance) aggregate when operating on floating-point data. It takes the transition state array produced by accumulator functions and computes the population variance by dividing the sum of squared deviations (Sxx) by the count (N).
 

@@ -8,7 +8,11 @@ Constructs a human-readable string representation of index entry contents in the
 
 ## Definition
 
-
+```c
+char *
+BuildIndexValueDescription(Relation indexRelation,
+						   const Datum *values, const bool *isnull)
+```
 ## Detailed Description
 BuildIndexValueDescription creates a formatted string describing the contents of an index entry, primarily used for generating informative error messages in unique constraint and exclusion constraint violations. The function takes raw input values (as they would be passed to FormIndexDatum) and produces a readable representation that shows both column names and their corresponding values.
 

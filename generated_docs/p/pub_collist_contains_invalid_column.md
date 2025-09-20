@@ -8,7 +8,11 @@ Validates that all columns in a table's REPLICA IDENTITY are covered by the publ
 
 ## Definition
 
-
+```c
+bool
+pub_collist_contains_invalid_column(Oid pubid, Relation relation, List *ancestors,
+									bool pubviaroot)
+```
 ## Detailed Description
 This function validates that when a publication specifies a column list for a table, all columns that are part of the table's REPLICA IDENTITY are included in that column list. This validation is crucial for logical replication because REPLICA IDENTITY columns are required on the subscriber side to uniquely identify rows for UPDATE and DELETE operations.
 

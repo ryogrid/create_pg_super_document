@@ -8,7 +8,12 @@ Builds a ParamListInfo array representing the current function arguments, conver
 
 ## Definition
 
-
+```c
+structure.  (Examining the parse trees is not good enough,
+			 * because of possible function inlining during planning.)
+			 */
+			prm->isnull = fcinfo->args[i].isnull;
+```
 ## Detailed Description
 postquel_sub_params is responsible for parameter substitution in SQL functions. It takes the arguments passed to a SQL function call and converts them into a ParamListInfo structure that can be used during query execution. The function handles parameter caching by reusing existing ParamListInfo structures when possible, and includes special handling for expanded datums by forcing them to read-only status to prevent mutation issues when parameters are referenced multiple times within the function. Each parameter's value, null status, type, and flags are properly set up for use by the query executor.
 

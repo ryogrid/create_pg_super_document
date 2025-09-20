@@ -8,7 +8,10 @@ Updates local synchronized replication slot with remote slot data and persists i
 
 ## Definition
 
-
+```c
+static bool
+update_and_persist_local_synced_slot(RemoteSlot *remote_slot, Oid remote_dbid)
+```
 ## Detailed Description
 This function is responsible for the final stage of replication slot synchronization in PostgreSQL's logical replication. It first calls  to update the local slot with remote slot information, then performs critical validation checks before persisting the slot data.
 

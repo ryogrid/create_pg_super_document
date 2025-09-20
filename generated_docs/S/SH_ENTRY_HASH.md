@@ -8,7 +8,10 @@ Retrieves or computes the hash value for a given hash table entry in PostgreSQL'
 
 ## Definition
 
-
+```c
+static inline uint32
+SH_ENTRY_HASH(SH_TYPE * tb, SH_ELEMENT_TYPE * entry)
+```
 ## Detailed Description
 This function provides a unified interface to obtain the hash value of an entry, regardless of whether the hash is stored within the entry or needs to be computed on-demand. The behavior depends on the SH_STORE_HASH macro configuration:
 

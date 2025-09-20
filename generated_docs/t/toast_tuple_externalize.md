@@ -8,7 +8,10 @@ Moves a large attribute to external storage in the TOAST table, replacing the or
 
 ## Definition
 
-
+```c
+void
+toast_tuple_externalize(ToastTupleContext *ttc, int attribute, int options)
+```
 ## Detailed Description
 This function handles the externalization of a large attribute by moving its data to the associated TOAST table and replacing it with a pointer in the main tuple. This is the final stage of the TOAST process when compression either failed or didn't provide sufficient space savings.
 

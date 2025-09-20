@@ -8,7 +8,10 @@ Sets the valid transaction ID range within which commit timestamps can be consul
 
 ## Definition
 
-
+```c
+void
+SetCommitTsLimit(TransactionId oldestXact, TransactionId newestXact)
+```
 ## Detailed Description
 SetCommitTsLimit establishes the valid range of transaction IDs for which commit timestamp data can be safely queried. This function is crucial for maintaining data integrity by preventing access to commit timestamp data that may be invalid or have been truncated.
 

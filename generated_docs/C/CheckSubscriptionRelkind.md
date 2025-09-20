@@ -8,7 +8,11 @@ A validation function that checks whether a relation kind is supported as a logi
 
 ## Definition
 
-
+```c
+void
+CheckSubscriptionRelkind(char relkind, const char *nspname,
+						 const char *relname)
+```
 ## Detailed Description
 CheckSubscriptionRelkind is a utility function in PostgreSQL's logical replication system that validates whether a specific relation kind (relkind) can be used as a target for logical replication operations. The function enforces that only regular relations (RELKIND_RELATION) and partitioned tables (RELKIND_PARTITIONED_TABLE) are supported as logical replication targets. If an unsupported relation kind is encountered, the function raises an error with appropriate error codes and messages.
 

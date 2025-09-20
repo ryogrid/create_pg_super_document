@@ -8,7 +8,10 @@ The  function initializes a JSON unique builder state structure for tracking key
 
 ## Definition
 
-
+```c
+static void
+json_unique_builder_init(JsonUniqueBuilderState *cxt)
+```
 ## Detailed Description
 This function initializes a  structure that manages both key uniqueness checking and the handling of skipped keys (keys with NULL values) during JSON object building operations. It delegates the hash table initialization to , sets the memory context for key management, and initializes the skipped keys string buffer to NULL.
 

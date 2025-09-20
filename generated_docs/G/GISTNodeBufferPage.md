@@ -8,7 +8,34 @@ GISTNodeBufferPage represents the structure of a buffer page used during GiST in
 
 ## Definition
 
+```c
+char		tupledata[FLEXIBLE_ARRAY_MEMBER];
+} GISTNodeBufferPage;
 
+#define BUFFER_PAGE_DATA_OFFSET MAXALIGN(offsetof(GISTNodeBufferPage, tupledata))
+/* Returns free space in node buffer page */
+#define PAGE_FREE_SPACE(nbp) (nbp->freespace)
+/* Checks if node buffer page is empty */
+#define PAGE_IS_EMPTY(nbp) (nbp->freespace == BLCKSZ - BUFFER_PAGE_DATA_OFFSET)
+/* Checks if node buffers page don't contain sufficient space for index tuple */
+#define PAGE_NO_SPACE(nbp, itup) (PAGE_FREE_SPACE(nbp) < \
+										MAXALIGN(IndexTupleSize(itup)))
+
+/*
+ * GISTSTATE: information needed for any GiST index operation
+ *
+ * This struct retains call info for the index's opclass-specific support
+ * functions (per index column), plus the index's tuple descriptor.
+ *
+ * scanCxt holds the GISTSTATE itself as well as any data that lives for the
+ * lifetime of the index operation.  We pass this to the support functions
+ * via fn_mcxt, so that they can store scan-lifespan data in it.  The
+ * functions are invoked in tempCxt, which is typically short-lifespan
+ * (that is, it's reset after each tuple).  However, tempCxt can be the same
+ * as scanCxt if we're not bothering with per-tuple context resets.
+ */
+typedef struct GISTSTATE
+```
 ## Detailed Description
 GISTNodeBufferPage is a data structure used internally during GiST index building to manage temporary storage of index tuples. It serves as a buffer page that can hold multiple tuples before they are flushed to actual disk pages. The structure is designed to efficiently manage space and maintain links between buffer pages through the prev field.
 

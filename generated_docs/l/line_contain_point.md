@@ -8,7 +8,10 @@ Determines whether a given point lies on a specified line by checking if the poi
 
 ## Definition
 
-
+```c
+static bool
+line_contain_point(LINE *line, Point *point)
+```
 ## Detailed Description
 This is a static utility function that implements geometric containment testing for points on lines. It uses the standard line equation Ax + By + C = 0 to determine if a point (x, y) lies on the line. The function evaluates the line equation by substituting the point's coordinates and checking if the result is approximately zero using floating-point zero comparison.
 

@@ -8,7 +8,10 @@ Queues a write operation for a given buffer as part of a bulk write operation, t
 
 ## Definition
 
-
+```c
+void
+smgr_bulk_write(BulkWriteState *bulkstate, BlockNumber blocknum, BulkWriteBuffer buf, bool page_std)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's bulk write optimization system. It queues a write operation for a specific block without immediately performing the I/O operation. The function takes ownership of the provided buffer and stores the write request in a pending writes array within the bulk write state. When the pending writes array reaches its maximum capacity (MAX_PENDING_WRITES), it automatically triggers a flush operation to perform the actual I/O.
 

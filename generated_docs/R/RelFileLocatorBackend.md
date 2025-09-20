@@ -8,7 +8,13 @@ RelFileLocatorBackend extends RelFileLocator by adding backend process number in
 
 ## Definition
 
-
+```c
+typedef struct RelFileLocatorBackend
+{
+	RelFileLocator locator;
+	ProcNumber	backend;
+} RelFileLocatorBackend;
+```
 ## Detailed Description
 The RelFileLocatorBackend struct augments the basic RelFileLocator with a backend process number, creating a complete identifier for locating physical storage files. This extended structure is essential for distinguishing between regular relations (accessible to multiple backends) and backend-local relations (private to a single backend process).
 

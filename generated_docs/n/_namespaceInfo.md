@@ -8,7 +8,16 @@ The  structure represents PostgreSQL schemas (namespaces) in pg_dump, containing
 
 ## Definition
 
-
+```c
+typedef struct _namespaceInfo
+{
+	DumpableObject dobj;
+	DumpableAcl dacl;
+	bool		create;			/* CREATE SCHEMA, or just set owner? */
+	Oid			nspowner;		/* OID of owner */
+	const char *rolname;		/* name of owner */
+} NamespaceInfo;
+```
 ## Detailed Description
 The  structure represents PostgreSQL schemas (also known as namespaces) in the pg_dump framework. It extends the base  with  to support schema permissions, and adds schema-specific attributes related to ownership and creation requirements.
 

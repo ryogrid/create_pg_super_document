@@ -8,7 +8,10 @@ Extracts the value associated with a specified field name from a JSON object, im
 
 ## Definition
 
-
+```c
+Datum
+json_object_field(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements one of the core JSON getter operations in PostgreSQL, specifically the -> operator for JSON objects. It takes a JSON object and a field name as input parameters and returns the value associated with that field name. The function serves as a wrapper around the get_worker function, which performs the actual JSON parsing and value extraction.
 

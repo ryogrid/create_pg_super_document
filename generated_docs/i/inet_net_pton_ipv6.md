@@ -8,7 +8,10 @@ A wrapper function that converts IPv6 network numbers from presentation format t
 
 ## Definition
 
-
+```c
+static int
+inet_net_pton_ipv6(const char *src, u_char *dst)
+```
 ## Detailed Description
 This function serves as a simplified interface to  for IPv6 network address conversion. It acts as a wrapper that calls  with a fixed size parameter of 16 bytes (NS_IN6ADDRSZ), which is the standard size for IPv6 addresses. This function is used when size validation is not required and the caller expects to work with full IPv6 addresses.
 

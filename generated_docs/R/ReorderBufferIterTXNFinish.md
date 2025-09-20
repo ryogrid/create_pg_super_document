@@ -8,7 +8,11 @@ Deallocates and cleans up the iterator state structure used for iterating over r
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferIterTXNFinish(ReorderBuffer *rb,
+						   ReorderBufferIterTXNState *state)
+```
 ## Detailed Description
 This function performs cleanup operations for a transaction iterator state structure. It systematically releases all resources allocated during the iterator's lifetime, including:
 

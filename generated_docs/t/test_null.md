@@ -8,7 +8,10 @@ A static utility function in PostgreSQL's ECPG test suite that tests the null-ch
 
 ## Definition
 
-
+```c
+static void
+test_null(int type, char *ptr)
+```
 ## Detailed Description
 The  function is a simple test utility function used in PostgreSQL's ECPG (Embedded SQL in C) compatibility test suite. It serves as a wrapper around the  function to test null-checking capabilities for different data types. The function prints the result of the null check to standard output, making it useful for verification in automated testing scenarios.
 

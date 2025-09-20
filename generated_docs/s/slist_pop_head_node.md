@@ -8,7 +8,10 @@ Removes and returns the first node from a singly linked list in PostgreSQL's int
 
 ## Definition
 
-
+```c
+static inline slist_node *
+slist_pop_head_node(slist_head *head)
+```
 ## Detailed Description
 This function implements the standard "pop from head" operation for PostgreSQL's singly linked list data structure. It removes the first node from the list and returns a pointer to that node for the caller to process. The function ensures list integrity by updating the head's next pointer to point to what was previously the second node in the list.
 

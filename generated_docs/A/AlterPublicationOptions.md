@@ -8,7 +8,11 @@ AlterPublicationOptions modifies the options of an existing publication, handlin
 
 ## Definition
 
-
+```c
+static void
+AlterPublicationOptions(ParseState *pstate, AlterPublicationStmt *stmt,
+						Relation rel, HeapTuple tup)
+```
 ## Detailed Description
 AlterPublicationOptions is a static function that handles the modification of publication options such as publish actions (insert, update, delete, truncate) and the publish_via_partition_root setting. The function performs comprehensive validation to ensure that certain combinations of settings are not allowed, particularly when disabling publish_via_partition_root for publications containing partitioned tables with WHERE clauses or column lists.
 

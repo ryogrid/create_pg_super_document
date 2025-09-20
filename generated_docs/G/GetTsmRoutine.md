@@ -8,7 +8,10 @@ GetTsmRoutine is a convenience function that retrieves a TsmRoutine struct by in
 
 ## Definition
 
-
+```c
+struct",
+			 tsmhandler);
+```
 ## Detailed Description
 GetTsmRoutine serves as a wrapper function that safely invokes a tablesample method handler function and validates its return value. The function takes an OID of a tablesample handler function and calls it with a NULL argument to retrieve the TsmRoutine structure. It performs error checking to ensure that the handler function returns a valid TsmRoutine struct, providing a consistent and safe way to obtain tablesample method routines throughout the PostgreSQL system.
 

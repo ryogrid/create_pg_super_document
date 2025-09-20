@@ -8,7 +8,10 @@ AtSubAbort_Memory switches the current memory context to TransactionAbortContext
 
 ## Definition
 
-
+```c
+static void
+AtSubAbort_Memory(void)
+```
 ## Detailed Description
 This function performs memory context switching during subtransaction abort operations by changing the active memory context to TransactionAbortContext. Unlike its counterpart AtAbort_Memory, this function assumes that TransactionAbortContext has already been properly initialized and includes an assertion to verify this assumption.
 

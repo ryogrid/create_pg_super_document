@@ -8,7 +8,11 @@ EvalPlanQualSlot returns or creates a TupleTableSlot for EPQ (Eval Plan Qual) te
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+EvalPlanQualSlot(EPQState *epqstate,
+				 Relation relation, Index rti)
+```
 ## Detailed Description
 This function provides access to tuple slots used during EPQ testing, which is part of PostgreSQL's mechanism for handling concurrent tuple modifications. It manages a lazy initialization pattern where slots are created only when first needed. The function looks up the appropriate slot in the epqstate's relsubs_slot array using the range table index (rti). If the slot doesn't exist, it creates a new one using the relation's tuple descriptor and adds it to the EPQ state's tuple table. Memory allocation is performed in the parent estate's query context to ensure proper lifetime management.
 

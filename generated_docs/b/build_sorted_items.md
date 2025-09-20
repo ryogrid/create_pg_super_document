@@ -8,7 +8,12 @@ Builds a sorted array of SortItem structures from sample rows for extended stati
 
 ## Definition
 
-
+```c
+SortItem *
+build_sorted_items(StatsBuildData *data, int *nitems,
+				   MultiSortSupport mss,
+				   int numattrs, AttrNumber *attnums)
+```
 ## Detailed Description
 This function creates a sorted array of SortItem structures from statistical sample data. It performs several critical operations: allocates memory in a single chunk for efficiency, extracts and processes attribute values from sample rows, handles variable-length data by detoasting when necessary, filters out overly wide values that exceed WIDTH_THRESHOLD, and finally sorts the resulting items using multi-column sort support. The function is designed to support extended statistics calculations like dependency analysis and multi-column value (MCV) statistics.
 

@@ -8,7 +8,10 @@ Copies the contents of one TupleTableSlot to another, optimizing for BufferHeapT
 
 ## Definition
 
-
+```c
+static void
+tts_buffer_heap_copyslot(TupleTableSlot *dstslot, TupleTableSlot *srcslot)
+```
 ## Detailed Description
 This function implements slot copying logic specifically optimized for BufferHeapTupleTableSlots. It uses two different strategies based on the state of the source slot:
 

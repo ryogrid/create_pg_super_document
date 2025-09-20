@@ -8,7 +8,10 @@ Asynchronous version of PQgetline that retrieves COPY data rows without blocking
 
 ## Definition
 
-
+```c
+int
+PQgetlineAsync(PGconn *conn, char *buffer, int bufsize)
+```
 ## Detailed Description
 PQgetlineAsync provides non-blocking access to COPY data during COPY OUT operations. Unlike PQgetline, this function is designed for asynchronous applications that cannot afford to block waiting for data. It automatically handles end-of-data detection and works with libpq's input buffer management system.
 

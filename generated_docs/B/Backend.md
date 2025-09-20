@@ -8,7 +8,18 @@ Backend is a struct that represents information about a PostgreSQL backend proce
 
 ## Definition
 
-
+```c
+typedef struct bkend
+{
+	pid_t		pid;			/* process id of backend */
+	int32		cancel_key;		/* cancel key for cancels for this backend */
+	int			child_slot;		/* PMChildSlot for this backend, if any */
+	int			bkend_type;		/* child process flavor, see above */
+	bool		dead_end;		/* is it going to send an error and quit? */
+	bool		bgworker_notify;	/* gets bgworker start/stop notifications */
+	dlist_node	elem;			/* list link in BackendList */
+} Backend;
+```
 ## Detailed Description
 The Backend struct is a core data structure in PostgreSQL's postmaster process that maintains information about each backend process. It serves as the primary means for the postmaster to track, identify, and manage child backend processes. Each backend process gets an entry in the BackendList when it starts, and this entry is used for process management, signal handling, and cleanup operations.
 

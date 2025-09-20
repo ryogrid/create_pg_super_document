@@ -8,7 +8,10 @@ The tar_free function is responsible for cleaning up and freeing memory allocate
 
 ## Definition
 
-
+```c
+static void
+tar_free(WalWriteMethod *wwmethod)
+```
 ## Detailed Description
 This function serves as a cleanup routine for the tar-based WAL writing method. It performs proper memory deallocation for all resources associated with a TarMethodData structure, including the tar filename, compression-related buffers (when gzip compression is enabled), and the method structure itself. The function ensures no memory leaks occur when destroying a tar WAL method instance.
 

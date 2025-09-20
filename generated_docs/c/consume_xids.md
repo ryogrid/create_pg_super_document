@@ -8,7 +8,10 @@ A PostgreSQL test function that consumes a specified number of transaction IDs (
 
 ## Definition
 
-
+```c
+Datum
+consume_xids(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is part of the xid_wraparound test module and serves as a SQL-callable function to advance the system's transaction ID counter by consuming a specified number of XIDs. It takes a single int64 argument specifying how many XIDs to consume and returns the final transaction ID after consumption. When nxids is 0, it simply returns the current next transaction ID without consuming any XIDs. The actual XID consumption logic is delegated to the internal consume_xids_common function.
 

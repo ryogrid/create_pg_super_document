@@ -8,7 +8,10 @@ Builds the initial slot snapshot for logical replication and converts it to a no
 
 ## Definition
 
-
+```c
+Snapshot
+SnapBuildInitialSnapshot(SnapBuild *builder)
+```
 ## Detailed Description
 This function creates the initial snapshot for a logical replication slot, which establishes a consistent point-in-time view of the database. It performs several critical validations and transformations:
 

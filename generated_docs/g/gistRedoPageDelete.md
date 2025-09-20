@@ -8,7 +8,10 @@ Replays the deletion of a GiST index page during WAL recovery, marking the delet
 
 ## Definition
 
-
+```c
+static void
+gistRedoPageDelete(XLogReaderState *record)
+```
 ## Detailed Description
 This function handles the redo operation for GiST page deletion during WAL recovery. It processes the  WAL record to restore the database state after a page deletion operation. The function operates on two buffers: the leaf page being deleted and its parent page that contains the downlink to be removed.
 

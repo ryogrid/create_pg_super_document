@@ -8,7 +8,16 @@ LogicalRepPreparedTxnData is a structure that holds protocol information for pre
 
 ## Definition
 
-
+```c
+typedef struct LogicalRepPreparedTxnData
+{
+	XLogRecPtr	prepare_lsn;
+	XLogRecPtr	end_lsn;
+	TimestampTz prepare_time;
+	TransactionId xid;
+	char		gid[GIDSIZE];
+} LogicalRepPreparedTxnData;
+```
 ## Detailed Description
 This structure encapsulates essential information about prepared transactions in the logical replication protocol. It serves as a container for transaction metadata that needs to be transmitted between the publisher and subscriber during two-phase commit operations. The structure is used when handling prepared transaction events, allowing the logical replication system to maintain consistency across distributed transactions.
 

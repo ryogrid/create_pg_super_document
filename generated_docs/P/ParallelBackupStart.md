@@ -8,7 +8,10 @@ Initializes and starts parallel backup/restore operations by spawning worker pro
 
 ## Definition
 
-
+```c
+structure to pass args to worker function */
+		wi = (WorkerInfo *) pg_malloc(sizeof(WorkerInfo));
+```
 ## Detailed Description
 ParallelBackupStart is the main entry point for setting up parallel processing in pg_dump/pg_restore operations. The function creates a specified number of worker processes (on Unix) or threads (on Windows) to enable concurrent backup or restore operations. It establishes communication channels between the leader process and each worker, manages process lifecycle, and sets up proper signal handling. For single-worker scenarios, it returns immediately with minimal setup. The function handles platform-specific differences between Unix fork-based workers and Windows thread-based workers.
 

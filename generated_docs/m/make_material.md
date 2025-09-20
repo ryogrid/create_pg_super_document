@@ -8,7 +8,10 @@ Creates a Material plan node that materializes the output of its child plan, sto
 
 ## Definition
 
-
+```c
+static Material *
+make_material(Plan *lefttree)
+```
 ## Detailed Description
 This function constructs a Material plan node, which is used to materialize (store in memory or on disk) the output of its child plan. Materialization is useful when the same data needs to be accessed multiple times, such as in certain join operations or when a subplan needs to be rescanned. The function creates a new Material node using makeNode(), copies the target list from the child plan, sets the qualification to NIL (no additional filtering), and establishes the parent-child relationship.
 

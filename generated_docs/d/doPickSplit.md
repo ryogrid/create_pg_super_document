@@ -8,7 +8,13 @@ Splits a leaf tuple chain when there's insufficient space to add a new leaf tupl
 
 ## Definition
 
-
+```c
+static bool
+doPickSplit(Relation index, SpGistState *state,
+			SPPageDesc *current, SPPageDesc *parent,
+			SpGistLeafTuple newLeafTuple,
+			int level, bool isNulls, bool isNew)
+```
 ## Detailed Description
 The  function handles the complex process of splitting leaf tuple chains in SP-GiST when a page lacks sufficient space for a new tuple. It creates one or more new chains distributed across the current page and an additional leaf page, while creating a new inner tuple to organize the split result. The function uses the opclass-defined picksplit method to determine how to redistribute tuples, potentially stripping prefixes to make tuples smaller. The split ensures at least two chains are created, guaranteeing forward progress even with unbalanced splits.
 

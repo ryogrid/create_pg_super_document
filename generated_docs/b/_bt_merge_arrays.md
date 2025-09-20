@@ -8,7 +8,13 @@ Merges elements from two sorted arrays by finding their intersection, reorganizi
 
 ## Definition
 
-
+```c
+static bool
+_bt_merge_arrays(IndexScanDesc scan, ScanKey skey, FmgrInfo *sortproc,
+				 bool reverse, Oid origelemtype, Oid nextelemtype,
+				 Datum *elems_orig, int *nelems_orig,
+				 Datum *elems_next, int nelems_next)
+```
 ## Detailed Description
 This function implements an intersection merge operation for two pre-sorted and deduplicated arrays. It's specifically designed for B-tree index preprocessing when encountering multiple array equality scan keys against the same index attribute. The function finds elements that exist in both arrays and stores them in the original array, effectively computing the intersection.
 

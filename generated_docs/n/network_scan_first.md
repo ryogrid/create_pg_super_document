@@ -8,7 +8,10 @@ Returns the minimal (first) IP address value for a given network, used by the Po
 
 ## Definition
 
-
+```c
+Datum
+network_scan_first(Datum in)
+```
 ## Detailed Description
 This function is specifically designed to support the PostgreSQL query planner in generating efficient index scan limits for network containment queries using operators like << (network contains) and <<= (network contains or equals). It returns the network address itself, which represents the minimal possible IP address within that network range.
 

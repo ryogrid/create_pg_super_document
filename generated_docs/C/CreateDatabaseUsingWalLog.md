@@ -8,7 +8,11 @@ CreateDatabaseUsingWalLog creates a new database by copying from a source databa
 
 ## Definition
 
-
+```c
+static void
+CreateDatabaseUsingWalLog(Oid src_dboid, Oid dst_dboid,
+						  Oid src_tsid, Oid dst_tsid)
+```
 ## Detailed Description
 This function implements the WAL_LOG strategy for database creation, which involves copying all relation data from a source database to a destination database with each copied block being separately logged to the write-ahead log. The function performs the following key operations:
 

@@ -8,7 +8,21 @@ Creates a RestrictInfo node containing a given subexpression, with proper handli
 
 ## Definition
 
-
+```c
+structure.
+	 */
+	if (is_orclause(clause))
+		return (RestrictInfo *) make_sub_restrictinfos(root,
+													   clause,
+													   is_pushed_down,
+													   has_clone,
+													   is_clone,
+													   pseudoconstant,
+													   security_level,
+													   required_relids,
+													   incompatible_relids,
+													   outer_relids);
+```
 ## Detailed Description
 The make_restrictinfo function serves as the primary entry point for creating RestrictInfo nodes that wrap query restriction clauses. It performs special handling for OR clauses by delegating to make_sub_restrictinfos to recursively process the OR structure, while standard clauses are passed to make_restrictinfo_internal. The function requires the caller to provide various flags and metadata about the restriction clause, including security level, relation dependencies, and behavioral characteristics.
 

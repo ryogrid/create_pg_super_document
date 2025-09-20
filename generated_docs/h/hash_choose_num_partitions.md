@@ -8,7 +8,11 @@ Determines the optimal number of partitions to create when spilling hash aggrega
 
 ## Definition
 
-
+```c
+static int
+hash_choose_num_partitions(double input_groups, double hashentrysize,
+						   int used_bits, int *log2_npartitions)
+```
 ## Detailed Description
 This function calculates the number of partitions needed when hash aggregation must spill to disk due to memory constraints. It balances several factors: ensuring each partition will fit in available memory, limiting the memory overhead of maintaining multiple open partition files, respecting minimum and maximum partition limits, and ensuring sufficient hash bits remain available for partitioning. The result is always a power of two to enable efficient bit-based partitioning. The function also considers the memory cost of maintaining write buffers for all partitions and a read buffer.
 

@@ -8,7 +8,17 @@ Creates a path node corresponding to a scan of a foreign join, allowing foreign 
 
 ## Definition
 
-
+```c
+ForeignPath *
+create_foreign_join_path(PlannerInfo *root, RelOptInfo *rel,
+						 PathTarget *target,
+						 double rows, Cost startup_cost, Cost total_cost,
+						 List *pathkeys,
+						 Relids required_outer,
+						 Path *fdw_outerpath,
+						 List *fdw_restrictinfo,
+						 List *fdw_private)
+```
 ## Detailed Description
 This function creates a ForeignPath node representing a foreign join operation. It is designed to be called exclusively by foreign data wrappers' GetForeignJoinPaths functions, not by core PostgreSQL code. The FDW must supply all cost estimates and path properties since the core system cannot calculate them for foreign operations. The function currently does not support parameterized foreign joins and will throw an error if such paths are attempted.
 

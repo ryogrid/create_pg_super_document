@@ -8,7 +8,9 @@ Converts old-format visibility map files to the new format during PostgreSQL upg
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The rewriteVisibilityMap function performs a critical transformation during PostgreSQL upgrades when migrating from versions prior to catversion 201603011 (PostgreSQL 9.6) to newer versions. In older PostgreSQL versions, visibility maps used one bit per heap page to track all-visible pages. Modern PostgreSQL uses two bits per page: one for all-visible and one for all-frozen status.
 

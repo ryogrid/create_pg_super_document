@@ -8,7 +8,10 @@ ExecGrant_Largeobject handles GRANT and REVOKE operations specifically for large
 
 ## Definition
 
-
+```c
+static void
+ExecGrant_Largeobject(InternalGrant *istmt)
+```
 ## Detailed Description
 ExecGrant_Largeobject implements privilege management for PostgreSQL large objects (LOBs). Unlike other database objects that use syscache for catalog access, large objects require direct table scanning of pg_largeobject_metadata since there's no syscache available. The function follows the same general pattern as ExecGrant_common but with large-object-specific catalog access methods.
 

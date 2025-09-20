@@ -8,7 +8,10 @@ Finalizes the current archive file by syncing it to disk, closing the file, and 
 
 ## Definition
 
-
+```c
+static void
+bbsink_server_end_archive(bbsink *sink)
+```
 ## Detailed Description
 This function completes the archive writing process by ensuring data durability and proper cleanup. It performs an fsync operation to guarantee the backup data is written to persistent storage before closing the file. The function uses a conservative error handling approach, treating sync failures as errors rather than causing server panic, since backup failures don't require database recovery.
 

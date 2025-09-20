@@ -8,7 +8,10 @@ A utility function that converts AlterTableType enum values to their correspondi
 
 ## Definition
 
-
+```c
+static const char *
+alter_table_type_to_string(AlterTableType cmdtype)
+```
 ## Detailed Description
 This function serves as a mapping utility that translates internal ALTER TABLE operation type enumerations (AlterTableType) into human-readable SQL command strings. It provides standardized string representations for each type of ALTER TABLE operation, which are primarily used in error messages, permissions checking, and logging contexts. The function handles over 60 different ALTER TABLE operation types, returning the appropriate SQL syntax string for each operation or NULL for internal operations that don't correspond to actual SQL grammar.
 

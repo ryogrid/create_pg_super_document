@@ -8,7 +8,18 @@ Tests IntegerSet functionality with values that have distances greater than 2^60
 
 ## Definition
 
+```c
+structure.
+	 */
+	while (num_values < 1000)
+	{
+		val += pg_prng_uint32(&pg_global_prng_state);
+		values[num_values++] = val;
+	}
 
+	/* Create an IntegerSet using these values */
+	intset = intset_create();
+```
 ## Detailed Description
 This function tests the IntegerSet implementation with integers that are more than 2^60 apart. The Simple-8b encoding used by the set implementation can only encode values up to 2^60, making large differences particularly important to test. 
 

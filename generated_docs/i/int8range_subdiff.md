@@ -8,7 +8,10 @@ Computes the difference between two bigint values for use in range type operatio
 
 ## Definition
 
-
+```c
+Datum
+int8range_subdiff(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is used as a subdiff function for int8range (bigint range) types in PostgreSQL. It takes two bigint (int64) values and computes their difference, converting the result to a float8 (double precision) value. This function is typically used internally by range operations that need to calculate the "size" or difference between range boundaries, such as range selectivity estimation or range operator implementations.
 

@@ -8,7 +8,11 @@ Formats and displays incremental sort group statistics for EXPLAIN ANALYZE outpu
 
 ## Definition
 
-
+```c
+static void
+show_incremental_sort_group_info(IncrementalSortGroupInfo *groupInfo,
+								 const char *groupLabel, bool indent, ExplainState *es)
+```
 ## Detailed Description
 This function is a critical component of PostgreSQL's EXPLAIN ANALYZE functionality for incremental sort nodes. Incremental sort operations process data in potentially very large numbers of batches, and this function aggregates the tuplesort statistics from each batch into an intelligible summary for display.
 

@@ -8,7 +8,10 @@ Handles execution of anonymous Perl code blocks (DO statements) by creating a te
 
 ## Definition
 
-
+```c
+Datum
+plperl_inline_handler(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL DO statement functionality for PL/Perl by executing anonymous code blocks. It creates a synthetic function environment with fake function call information and procedure descriptor to reuse the existing PL/Perl function execution infrastructure. The function sets up error handling context, manages SPI connections for database access, creates a temporary Perl subroutine from the source code, and executes it. The implementation carefully manages memory and references, ensuring proper cleanup even in error conditions using PostgreSQL's exception handling framework.
 

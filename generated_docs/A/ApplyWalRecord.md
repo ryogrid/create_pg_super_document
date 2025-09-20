@@ -8,7 +8,10 @@ ApplyWalRecord is a subroutine of PerformWalRecovery that applies a single WAL r
 
 ## Definition
 
-
+```c
+static void
+ApplyWalRecord(XLogReaderState *xlogreader, XLogRecord *record, TimeLineID *replayTLI)
+```
 ## Detailed Description
 ApplyWalRecord processes and applies a single WAL record during PostgreSQL recovery. The function performs several critical operations:
 

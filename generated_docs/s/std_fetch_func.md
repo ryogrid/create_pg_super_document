@@ -8,7 +8,10 @@ A standard fetch function that provides a uniform interface for compute_stats su
 
 ## Definition
 
-
+```c
+static Datum
+std_fetch_func(VacAttrStatsP stats, int rownum, bool *isNull)
+```
 ## Detailed Description
 The std_fetch_func function serves as a standardized interface between statistical computation routines and the actual sample data storage. It abstracts the process of extracting a specific attribute value from a given row in the sample data, hiding the details of tuple structure and attribute access from the statistics calculation code.
 

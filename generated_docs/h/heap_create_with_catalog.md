@@ -8,7 +8,9 @@ Creates a new relation with a complete catalog entry in PostgreSQL's system cata
 
 ## Definition
 
-
+```c
+enumber = InvalidRelFileNumber;
+```
 ## Detailed Description
 This function is the comprehensive interface for creating new relations in PostgreSQL. It handles the complete process of creating a relation from start to finish, including:
 

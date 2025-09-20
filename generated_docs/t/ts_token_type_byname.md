@@ -8,7 +8,13 @@ A PostgreSQL SQL-callable function that returns token type information for a tex
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			type;
+	char	   *lexeme;
+} LexemeEntry;
+```
 ## Detailed Description
 This function provides a SQL interface for retrieving token type information from PostgreSQL text search parsers using the parser's name instead of its OID. Like , it implements the Set Returning Function (SRF) protocol to return multiple rows of token type data, where each row contains the token ID, alias, and description. The key difference is that this function accepts a text parser name as input and resolves it to the corresponding parser OID before proceeding.
 

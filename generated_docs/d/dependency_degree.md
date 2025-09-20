@@ -8,7 +8,10 @@ Validates functional dependency on the data by determining the degree to which a
 
 ## Definition
 
-
+```c
+static double
+dependency_degree(StatsBuildData *data, int k, AttrNumber *dependency)
+```
 ## Detailed Description
 This function is the core algorithm for detecting functional dependencies in PostgreSQL's multivariate statistics. Given a set of k attributes, it verifies whether the first (k-1) attributes are sufficient to functionally determine the last attribute. The function uses a sorting-based approach:
 

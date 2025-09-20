@@ -8,7 +8,10 @@ Converts a Windows locale name to an ISO-formatted locale identifier, handling b
 
 ## Definition
 
-
+```c
+enum, LOCALE_WINDOWS, (LPARAM) argv,
+							NULL);
+```
 ## Detailed Description
 The  function provides locale name conversion functionality specifically designed for Windows environments using Visual Studio 2015 or later. It transforms Windows-specific locale names into ISO-formatted locale identifiers that can be used with PostgreSQL's locale system.
 

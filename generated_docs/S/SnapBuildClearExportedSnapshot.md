@@ -8,7 +8,10 @@ Clears and resets a previously exported snapshot created by SnapBuildExportSnaps
 
 ## Definition
 
-
+```c
+void
+SnapBuildClearExportedSnapshot(void)
+```
 ## Detailed Description
 This function provides cleanup functionality for exported snapshots, ensuring proper resource management and transaction state reset. It is the counterpart to SnapBuildExportSnapshot and handles the cleanup process when an exported snapshot is no longer needed:
 

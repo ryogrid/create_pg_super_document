@@ -8,7 +8,10 @@ Lists the files in the PostgreSQL logical replication mappings directory (pg_log
 
 ## Definition
 
-
+```c
+Datum
+pg_ls_logicalmapdir(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is a SQL-callable PostgreSQL function that provides access to the contents of the pg_logical/mappings directory. It serves as a wrapper around the generic pg_ls_dir_files function, specifically targeting the directory where logical replication mapping files are stored. The function returns detailed information about regular files in this directory, including file names, sizes, and modification times.
 

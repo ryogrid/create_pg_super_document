@@ -8,7 +8,13 @@ UniqueState is a structure that represents the execution state for PostgreSQL's 
 
 ## Definition
 
-
+```c
+typedef struct UniqueState
+{
+	PlanState	ps;				/* its first field is NodeTag */
+	ExprState  *eqfunction;		/* tuple equality qual */
+} UniqueState;
+```
 ## Detailed Description
 UniqueState maintains the execution state for Unique nodes, which are positioned "on top of" sort nodes to discard duplicate tuples returned from the sort phase. The node operates by comparing the current tuple from the subplan with the previously fetched tuple (stored in its result slot). If the two tuples are identical in all interesting fields, the node fetches another tuple from the sort and continues the comparison process until a unique tuple is found or no more tuples are available.
 

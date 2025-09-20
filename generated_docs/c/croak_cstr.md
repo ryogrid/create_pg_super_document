@@ -8,7 +8,10 @@ Triggers a Perl croak (fatal error) with a specified message given in the databa
 
 ## Definition
 
-
+```c
+static inline void
+croak_cstr(const char *str)
+```
 ## Detailed Description
 This function provides a safe way to trigger Perl fatal errors (croak) with error messages containing non-ASCII characters. It addresses limitations in Perl's standard croak() function which does not handle non-ASCII data properly.
 

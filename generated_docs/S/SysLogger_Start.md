@@ -8,7 +8,10 @@ SysLogger_Start is a postmaster subroutine that initializes and launches the sys
 
 ## Definition
 
-
+```c
+int
+SysLogger_Start(void)
+```
 ## Detailed Description
 SysLogger_Start implements the initialization and startup sequence for PostgreSQL's logging collector process. This function is called by the postmaster to establish the logging infrastructure and create a dedicated logger process. Key responsibilities include:
 

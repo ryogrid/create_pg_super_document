@@ -8,7 +8,10 @@ Applies validated temp_tablespaces GUC settings by passing the list of tablespac
 
 ## Definition
 
-
+```c
+void
+assign_temp_tablespaces(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as an assign hook for the temp_tablespaces GUC variable. It takes the validated tablespace information prepared by check_temp_tablespaces and communicates it to the file descriptor (fd.c) subsystem that manages temporary file placement.
 

@@ -8,7 +8,10 @@ Marks a speculative heap tuple insertion as successful by replacing the speculat
 
 ## Definition
 
-
+```c
+void
+heap_finish_speculative(Relation relation, ItemPointer tid)
+```
 ## Detailed Description
 This function completes a speculative insertion by converting the speculative token stored in the tuple's t_ctid field into a proper self-referencing pointer, which is the standard format for newly inserted ordinary tuples. 
 

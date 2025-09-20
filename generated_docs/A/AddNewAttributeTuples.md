@@ -8,7 +8,12 @@ Registers a new relation's schema by adding attribute tuples to pg_attribute and
 
 ## Definition
 
-
+```c
+static void
+AddNewAttributeTuples(Oid new_rel_oid,
+					  TupleDesc tupdesc,
+					  char relkind)
+```
 ## Detailed Description
 AddNewAttributeTuples is a high-level catalog management function that handles the complete registration of a relation's attribute schema in the PostgreSQL system catalogs. It serves as a wrapper around InsertPgAttributeTuples, adding crucial dependency management and system attribute handling.
 

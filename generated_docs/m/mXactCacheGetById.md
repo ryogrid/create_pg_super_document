@@ -8,7 +8,10 @@ Retrieves the composing MultiXactMember set from the backend-local cache for a g
 
 ## Definition
 
-
+```c
+static int
+mXactCacheGetById(MultiXactId multi, MultiXactMember **members)
+```
 ## Detailed Description
 This function performs a reverse cache lookup, searching for a specific MultiXactId in the backend-local MultiXact cache and retrieving its associated member set. When a match is found, the function allocates memory using palloc() and creates a copy of the member array, which is returned to the caller via the members output parameter.
 

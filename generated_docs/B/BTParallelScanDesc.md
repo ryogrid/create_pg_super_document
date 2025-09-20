@@ -8,7 +8,9 @@ BTParallelScanDesc is a pointer type definition that provides a handle to BTPara
 
 ## Definition
 
-
+```c
+typedef struct BTParallelScanDescData *BTParallelScanDesc;
+```
 ## Detailed Description
 BTParallelScanDesc serves as a convenient pointer typedef that abstracts access to the BTParallelScanDescData structure. This type is used throughout the B-tree parallel scanning code to pass references to shared parallel scan state between functions. It follows PostgreSQL's common pattern of creating pointer typedefs for complex structures to improve code readability and maintainability.
 

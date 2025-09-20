@@ -8,7 +8,10 @@ An internal C function that returns the complete CREATE INDEX statement includin
 
 ## Definition
 
-
+```c
+char *
+pg_get_indexdef_string(Oid indexrelid)
+```
 ## Detailed Description
 This function provides an internal interface for retrieving index definitions that includes tablespace clauses, which are deliberately omitted from the SQL-callable versions. It's specifically designed for internal PostgreSQL operations like ALTER TABLE that need complete index recreation information. Unlike the SQL-callable functions, this returns a palloc'd C string without pretty-printing and includes all necessary information for reconstructing an index exactly as it was defined, including its tablespace assignment.
 

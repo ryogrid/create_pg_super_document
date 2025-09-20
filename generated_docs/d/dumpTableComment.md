@@ -8,7 +8,11 @@ Dumps comments for tables/views and their columns by searching for associated pg
 
 ## Definition
 
-
+```c
+static void
+dumpTableComment(Archive *fout, const TableInfo *tbinfo,
+				 const char *reltypename)
+```
 ## Detailed Description
 This function handles comment dumping specifically for table-like objects (tables, views, etc.) and extends the basic comment functionality to include column-level comments. It searches for all comments associated with the table's catalog ID and processes them based on the objsubid value:
 

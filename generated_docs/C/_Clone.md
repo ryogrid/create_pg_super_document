@@ -8,7 +8,10 @@ A specialized function that creates thread-private working state during parallel
 
 ## Definition
 
-
+```c
+static void
+_Clone(ArchiveHandle *AH)
+```
 ## Detailed Description
 _Clone is essential for parallel restore operations in PostgreSQL's custom dump format. When multiple worker threads are processing the same archive, each thread needs its own private copy of the format-specific working state to avoid conflicts and data corruption.
 

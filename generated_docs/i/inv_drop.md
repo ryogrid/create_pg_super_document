@@ -8,7 +8,10 @@ Destroys an existing large object permanently, removing it and all associated me
 
 ## Definition
 
-
+```c
+int
+inv_drop(Oid lobjId)
+```
 ## Detailed Description
 The  function permanently removes a large object from the PostgreSQL database. It performs a cascading deletion that removes not only the large object data itself but also any associated comments and dependencies. The function uses the standard PostgreSQL dependency system to ensure referential integrity is maintained during deletion.
 

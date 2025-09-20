@@ -8,7 +8,10 @@ ExecReScanMaterial rescans a materialized relation node, handling both cases whe
 
 ## Definition
 
-
+```c
+void
+ExecReScanMaterial(MaterialState *node)
+```
 ## Detailed Description
 This function implements the rescan operation for Material executor nodes in PostgreSQL's execution engine. The Material node can operate in two primary modes:
 

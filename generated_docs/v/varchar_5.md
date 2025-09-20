@@ -8,7 +8,9 @@ varchar_5 is a struct type definition in PostgreSQL's ECPG (Embedded SQL in C) t
 
 ## Definition
 
-
+```c
+struct varchar_5  { int len; char arr[ 50 ]; }  onlyname [ 2 ] ;
+```
 ## Detailed Description
 The varchar_5 struct is defined in the ECPG test suite and serves as a data structure for handling variable-length character strings in embedded SQL applications. This structure is part of PostgreSQL's ECPG preprocessor testing infrastructure, specifically designed to test array handling of structured varchar types.
 

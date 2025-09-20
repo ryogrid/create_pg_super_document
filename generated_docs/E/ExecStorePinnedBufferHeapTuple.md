@@ -8,7 +8,12 @@ Stores an on-disk physical tuple from a buffer into a TTSOpsBufferHeapTuple slot
 
 ## Definition
 
-
+```c
+TupleTableSlot *
+ExecStorePinnedBufferHeapTuple(HeapTuple tuple,
+							   TupleTableSlot *slot,
+							   Buffer buffer)
+```
 ## Detailed Description
 ExecStorePinnedBufferHeapTuple is similar to ExecStoreBufferHeapTuple but with a key difference in buffer pin management. This function transfers an existing buffer pin from the caller to the tuple slot, meaning the caller does not need to (and may not) release the pin themselves. The slot assumes full responsibility for managing the buffer pin lifecycle.
 

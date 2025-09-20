@@ -8,7 +8,10 @@ A utility function that forces the next call to pgstat_report_stat() to flush al
 
 ## Definition
 
-
+```c
+void
+pgstat_force_next_flush(void)
+```
 ## Detailed Description
 This function sets a global flag (pgStatForceNextFlush) that will cause the next invocation of pgstat_report_stat() to perform a forced flush of all pending statistics updates. The function is specifically designed to provide deterministic statistics flushing behavior for testing scenarios where precise control over when statistics are written to shared memory is required.
 

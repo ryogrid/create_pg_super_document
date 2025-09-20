@@ -8,7 +8,13 @@ Inserts an already-allocated item into a hash table bucket by linking it to the 
 
 ## Definition
 
-
+```c
+static void
+insert_item_into_bucket(dshash_table *hash_table,
+						dsa_pointer item_pointer,
+						dshash_table_item *item,
+						dsa_pointer *bucket)
+```
 ## Detailed Description
 This is a low-level utility function in PostgreSQL's dynamic shared hash table implementation that handles the actual insertion of a pre-allocated hash table item into a specific bucket. The function implements a simple linked list insertion at the head of the bucket chain, where the new item becomes the first element and points to the previously first item. This operation is used internally by the hash table resize and insertion operations.
 

@@ -8,7 +8,10 @@ Converts a list of RoleSpec structures to a corresponding list of role OIDs whil
 
 ## Definition
 
-
+```c
+List *
+roleSpecsToIds(List *memberNames)
+```
 ## Detailed Description
 roleSpecsToIds is a utility function that transforms a list of RoleSpec structures (which represent role specifications in various formats like names, OIDs, or special keywords) into a list of concrete role OIDs. The function preserves the original order of the input list and ensures that all specified roles exist in the system by using get_rolespec_oid with the 'missing_ok' parameter set to false.
 

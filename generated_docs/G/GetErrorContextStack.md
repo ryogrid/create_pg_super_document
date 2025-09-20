@@ -8,7 +8,10 @@ GetErrorContextStack retrieves and formats the current error context stack for d
 
 ## Definition
 
-
+```c
+char *
+GetErrorContextStack(void)
+```
 ## Detailed Description
 GetErrorContextStack collects context information from all registered error context callbacks and returns it as a formatted string. The function works by:
 

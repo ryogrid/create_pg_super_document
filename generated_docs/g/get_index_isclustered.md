@@ -8,7 +8,10 @@ Returns whether a given index is marked as clustered in the PostgreSQL system ca
 
 ## Definition
 
-
+```c
+bool
+get_index_isclustered(Oid index_oid)
+```
 ## Detailed Description
 This function performs a lookup in the PostgreSQL system cache to determine if a specific index is marked as clustered. A clustered index indicates that the table data is physically ordered according to the index's key order. The function accesses the pg_index system catalog through the system cache mechanism for efficient retrieval of the indisclustered field.
 

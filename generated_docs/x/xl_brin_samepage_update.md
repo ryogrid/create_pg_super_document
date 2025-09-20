@@ -8,7 +8,12 @@ A minimal WAL record structure for logging BRIN tuple updates that occur within 
 
 ## Definition
 
-
+```c
+typedef struct xl_brin_samepage_update
+{
+	OffsetNumber offnum;
+} xl_brin_samepage_update;
+```
 ## Detailed Description
 The  structure is the simplest of the BRIN WAL record types, designed for updates where the modified BRIN tuple can fit in the same location on the same page. This is the most efficient type of BRIN update since it doesn't require revmap changes or cross-page operations.
 

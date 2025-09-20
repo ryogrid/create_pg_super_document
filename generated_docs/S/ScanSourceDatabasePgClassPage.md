@@ -8,7 +8,10 @@ ScanSourceDatabasePgClassPage processes a single page of the source database's p
 
 ## Definition
 
-
+```c
+structure. */
+		tuple.t_data = (HeapTupleHeader) PageGetItem(page, itemid);
+```
 ## Detailed Description
 This function performs low-level page scanning of a pg_class page, iterating through all line pointers (ItemIds) on the page to identify valid, visible heap tuples. For each tuple found, it:
 

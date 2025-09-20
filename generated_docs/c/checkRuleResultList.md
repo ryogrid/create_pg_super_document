@@ -8,7 +8,11 @@ checkRuleResultList validates that a target list (either SELECT or RETURNING) pr
 
 ## Definition
 
-
+```c
+static void
+checkRuleResultList(List *targetList, TupleDesc resultDesc, bool isSelect,
+					bool requireColumnNameMatch)
+```
 ## Detailed Description
 checkRuleResultList performs comprehensive validation of target lists against relation schemas to ensure compatibility when creating rules. It validates that the number of entries matches the relation's attribute count, verifies type compatibility between target list expressions and corresponding relation columns, checks column name matching when required (for SELECT rules), and handles type modifier (typmod) validation with appropriate flexibility for unspecified cases. The function also prevents operations on relations with dropped columns, as supporting them would require significant infrastructure changes. It provides detailed error messages distinguishing between SELECT target lists and RETURNING lists for better user feedback.
 

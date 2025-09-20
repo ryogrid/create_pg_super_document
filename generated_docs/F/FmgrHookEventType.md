@@ -8,7 +8,9 @@ An enumeration that defines event types for function manager hooks, used by secu
 
 ## Definition
 
-
+```c
+typedef bool (*needs_fmgr_hook_type) (Oid fn_oid);
+```
 ## Detailed Description
 The `FmgrHookEventType` enumeration defines the different events that can occur during function execution in PostgreSQL's function manager (fmgr). This enum is part of the hook system that allows plugin modules, particularly security policy modules like SELinux integration (sepgsql), to monitor and potentially intervene in function calls.
 

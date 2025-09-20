@@ -8,7 +8,10 @@ Attempts to extend the BRIN reverse mapping (revmap) by one physical page, handl
 
 ## Definition
 
-
+```c
+static void
+revmap_physical_extend(BrinRevmap *revmap)
+```
 ## Detailed Description
 This function is responsible for extending the BRIN reverse mapping structure by adding one new physical page. The BRIN reverse mapping is crucial for efficiently mapping heap block numbers to their corresponding index tuple locations. The function implements a careful protocol to handle concurrent operations and ensures data integrity during the extension process.
 

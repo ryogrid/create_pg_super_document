@@ -8,7 +8,11 @@ The smgrreadv function reads a range of blocks from a PostgreSQL relation into m
 
 ## Definition
 
-
+```c
+void
+smgrreadv(SMgrRelation reln, ForkNumber forknum, BlockNumber blocknum,
+		  void **buffers, BlockNumber nblocks)
+```
 ## Detailed Description
 The smgrreadv function is a storage manager interface for performing vectorized read operations on relation files. It reads multiple consecutive blocks starting from a specified block number into an array of buffers in a single call. This function is primarily called from the buffer manager to instantiate pages in the shared buffer cache. All storage managers are required to return pages in the format that PostgreSQL expects. The vectorized approach improves I/O efficiency by reducing the number of system calls compared to individual block reads.
 

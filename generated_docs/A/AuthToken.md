@@ -8,7 +8,14 @@ AuthToken is a structure that represents a single string token lexed from authen
 
 ## Definition
 
-
+```c
+typedef struct AuthToken
+{
+	char	   *string;
+	bool		quoted;
+	regex_t    *regex;
+} AuthToken;
+```
 ## Detailed Description
 AuthToken serves as the fundamental building block for parsing PostgreSQL authentication configuration files. Each token extracted from pg_hba.conf or pg_ident.conf is represented by this structure, which not only stores the string value but also preserves important parsing context such as whether the original token was quoted in the configuration file. The structure also supports regular expression functionality - when a token string begins with a slash, it may contain a regular expression pattern that gets compiled and stored in the regex field for pattern matching operations.
 

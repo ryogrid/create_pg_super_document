@@ -8,7 +8,10 @@ Determines whether a given set operation can benefit from sorted input paths to 
 
 ## Definition
 
-
+```c
+bool
+set_operation_ordered_results_useful(SetOperationStmt *setop)
+```
 ## Detailed Description
  is a utility function that analyzes a SetOperationStmt to determine if the optimizer should consider using sorted input paths for more efficient execution. This function helps the query planner decide whether to invest resources in maintaining sort order through the set operation.
 

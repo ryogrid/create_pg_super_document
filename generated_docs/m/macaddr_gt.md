@@ -8,7 +8,10 @@ The  function compares two MAC addresses and returns true if the first address i
 
 ## Definition
 
-
+```c
+Datum
+macaddr_gt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the greater-than comparison operator (>) for the  data type in PostgreSQL. It extracts two MAC address arguments from the function call context and uses the internal comparison function  to determine their relative order. The function returns a boolean value indicating whether the first MAC address is lexicographically greater than the second.
 

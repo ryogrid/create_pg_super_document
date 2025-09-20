@@ -8,7 +8,10 @@ A qsort comparator function that compares two int16 (16-bit integer) values for 
 
 ## Definition
 
-
+```c
+static int
+compare_int16(const void *a, const void *b)
+```
 ## Detailed Description
 This is a standard qsort comparison function that takes two void pointers, casts them to int16 pointers, dereferences them to get the actual int16 values, and returns the difference. The function is designed to be used with qsort() for sorting arrays of int16 values in ascending order. The implementation uses a simple subtraction approach which is safe because the comment explicitly notes that "this can't overflow if int is wider than int16", which is true on all modern systems where int is typically 32 bits while int16 is 16 bits.
 

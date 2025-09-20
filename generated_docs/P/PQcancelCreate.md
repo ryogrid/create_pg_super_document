@@ -8,7 +8,10 @@ Creates and returns a PGcancelConn structure that can be used to securely cancel
 
 ## Definition
 
-
+```c
+PGcancelConn *
+PQcancelCreate(PGconn *conn)
+```
 ## Detailed Description
 PQcancelCreate creates a new cancel connection object by duplicating essential connection information from an active PostgreSQL connection. This function performs several critical steps:
 

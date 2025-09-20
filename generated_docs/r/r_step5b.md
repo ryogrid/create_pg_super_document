@@ -8,7 +8,11 @@ A static function in the Greek stemmer that performs step 5b of the Greek stemmi
 
 ## Definition
 
+```c
+}
 
+static int r_step5b(struct SN_env * z)
+```
 ## Detailed Description
 The r_step5b function is part of the Greek language stemming algorithm implementation in PostgreSQL's snowball stemmer library. This function performs step 5b of the Greek stemming process, which involves:
 

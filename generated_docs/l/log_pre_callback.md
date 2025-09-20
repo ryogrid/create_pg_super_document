@@ -8,7 +8,10 @@ A static callback function in psql that ensures output streams are flushed befor
 
 ## Definition
 
-
+```c
+static void
+log_pre_callback(void)
+```
 ## Detailed Description
 This function serves as a pre-logging callback that is called before any log message is output by the PostgreSQL logging system. Its primary purpose is to ensure that any pending output in the query output stream is flushed to prevent log messages from being interleaved with query results. This maintains clean separation between query output and diagnostic messages in psql.
 

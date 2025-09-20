@@ -8,7 +8,31 @@ BulkInsertStateData is a structure that maintains state information for bulk ins
 
 ## Definition
 
+```c
+typedef struct BulkInsertStateData
+{
+	BufferAccessStrategy strategy;	/* our BULKWRITE strategy object */
+	Buffer		current_buf;	/* current insertion target page */
 
+	/*
+	 * State for bulk extensions.
+	 *
+	 * last_free..next_free are further pages that were unused at the time of
+	 * the last extension. They might be in use by the time we use them
+	 * though, so rechecks are needed.
+	 *
+	 * XXX: Eventually these should probably live in RelationData instead,
+	 * alongside targetblock.
+	 *
+	 * already_extended_by is the number of pages that this bulk inserted
+	 * extended by. If we already extended by a significant number of pages,
+	 * we can be more aggressive about extending going forward.
+	 */
+	BlockNumber next_free;
+	BlockNumber last_free;
+	uint32		already_extended_by;
+} BulkInsertStateData;
+```
 ## Detailed Description
 BulkInsertStateData is a private data structure used internally by heapam.c and hio.c to optimize bulk insert operations. This structure maintains critical state information that enables PostgreSQL to efficiently manage page allocation and buffer access during large insert operations.
 

@@ -8,7 +8,10 @@ Determines whether a PostgreSQL connection requires a password to complete the a
 
 ## Definition
 
-
+```c
+int
+PQconnectionNeedsPassword(const PGconn *conn)
+```
 ## Detailed Description
 The PQconnectionNeedsPassword function checks if a PostgreSQL connection needs a password for authentication. It examines the connection's internal state to determine if password authentication was requested by the server but no password (or an empty password) is currently available. This function is typically used by client applications to decide whether to prompt the user for a password when a connection attempt fails due to missing authentication credentials.
 

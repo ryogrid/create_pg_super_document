@@ -8,7 +8,10 @@ A PostgreSQL SQL function wrapper that converts a SIMILAR TO pattern with an esc
 
 ## Definition
 
-
+```c
+Datum
+similar_to_escape_2(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL SQL function  that takes two text arguments: a SIMILAR TO pattern and an escape character. It serves as a thin wrapper around , which performs the actual conversion from SQL SIMILAR TO syntax to POSIX regular expression syntax that can be used by PostgreSQL's regexp engine.
 

@@ -8,7 +8,9 @@ Windows-specific function that configures TCP keepalive parameters on a socket u
 
 ## Definition
 
-
+```c
+struct tcp_keepalive ka;
+```
 ## Detailed Description
 This function implements TCP keepalive configuration specifically for Windows platforms. It uses the WSAIoctl function with SIO_KEEPALIVE_VALS to set keepalive parameters on a socket. The function enables keepalive probes and configures both the idle time (time before first keepalive probe) and interval (time between subsequent probes). Default values are applied if the provided parameters are invalid (<=0). Upon successful configuration, the function updates the port's keepalive state to reflect the new settings.
 

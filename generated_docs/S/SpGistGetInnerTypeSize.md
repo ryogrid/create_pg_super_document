@@ -8,7 +8,10 @@ Calculates the storage space required for a non-null datum in an SP-GiST inner t
 
 ## Definition
 
-
+```c
+unsigned int
+SpGistGetInnerTypeSize(SpGistTypeDesc *att, Datum datum)
+```
 ## Detailed Description
 This function determines the appropriate storage size for a datum that will be stored in an SP-GiST inner tuple, which can be either a prefix value or a node label. The function follows the PostgreSQL convention where pass-by-value types are stored in their Datum representation directly. The calculated size is automatically rounded up to a MAXALIGN boundary to ensure proper memory alignment for the target platform.
 

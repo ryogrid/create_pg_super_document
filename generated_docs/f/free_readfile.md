@@ -8,7 +8,10 @@ Deallocates memory for an array of strings that was allocated by readfile(), pro
 
 ## Definition
 
-
+```c
+static void
+free_readfile(char **optlines)
+```
 ## Detailed Description
 The  function is the complementary cleanup function for arrays returned by . It properly deallocates all memory associated with a NULL-terminated array of strings by iterating through each string element, freeing each individual string, and then freeing the array pointer itself.
 

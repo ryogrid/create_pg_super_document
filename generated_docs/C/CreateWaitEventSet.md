@@ -8,7 +8,9 @@ CreateWaitEventSet allocates and initializes a WaitEventSet structure that can e
 
 ## Definition
 
-
+```c
+struct epoll_event) * nevents);
+```
 ## Detailed Description
 CreateWaitEventSet creates a WaitEventSet structure capable of monitoring multiple events efficiently using the best available platform-specific mechanism (epoll on Linux, kqueue on BSD systems, poll on other Unix systems, or Win32 events on Windows). The function allocates a single contiguous block of memory containing the WaitEventSet structure, an array of WaitEvent structures, and platform-specific event structures.
 

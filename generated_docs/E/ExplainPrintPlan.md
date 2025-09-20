@@ -8,7 +8,10 @@ ExplainPrintPlan converts a QueryDesc's plan tree into textual representation an
 
 ## Definition
 
-
+```c
+void
+ExplainPrintPlan(ExplainState *es, QueryDesc *queryDesc)
+```
 ## Detailed Description
 ExplainPrintPlan is responsible for the main task of converting an execution plan tree into human-readable or structured output. It performs several critical setup operations before generating the plan output:
 

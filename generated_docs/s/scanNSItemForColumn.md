@@ -8,7 +8,11 @@ Searches for a column name within a single namespace item and returns an appropr
 
 ## Definition
 
-
+```c
+Node *
+scanNSItemForColumn(ParseState *pstate, ParseNamespaceItem *nsitem,
+					int sublevels_up, const char *colname, int location)
+```
 ## Detailed Description
 This function performs column name resolution within a specific namespace item (typically representing a table, view, or subquery in the FROM clause). It searches for the specified column name within the item's column names or aliases, applying various access control checks and expression context restrictions. The function handles both regular user columns and system columns, ensuring proper privilege checking and context-specific validation (such as restrictions in CHECK constraints, generated columns, and MERGE WHEN conditions). Upon successful match, it constructs and returns a Var node representing the column reference.
 

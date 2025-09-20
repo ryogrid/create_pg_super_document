@@ -8,7 +8,9 @@ A static inline function that determines whether a given path string represents 
 
 ## Definition
 
-
+```c
+typedef uint32 ProtocolVersion;
+```
 ## Detailed Description
 This function provides a simple test to identify Unix domain socket paths in PostgreSQL's connection handling code. It recognizes two forms of Unix socket addresses:
 1. Absolute filesystem paths (e.g., "/tmp/.s.PGSQL.5432")

@@ -8,7 +8,10 @@ PostgreSQL SQL-callable function that calculates the distance from a circle to a
 
 ## Definition
 
-
+```c
+Datum
+dist_cpoly(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as a PostgreSQL SQL-callable wrapper for circle-to-polygon distance calculations. It extracts the circle and polygon arguments from the PostgreSQL function call interface and delegates the actual computation to the internal  function. The function follows PostgreSQL's standard pattern for geometric operation functions, handling argument extraction and return value formatting while keeping the core logic in a separate internal function.
 

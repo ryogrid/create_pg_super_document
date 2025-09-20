@@ -8,7 +8,11 @@ Provides standardized handling of --help and --version command-line options acro
 
 ## Definition
 
-
+```c
+void
+handle_help_version_opts(int argc, char *argv[],
+						 const char *fixed_progname, help_handler hlp)
+```
 ## Detailed Description
 This utility function implements consistent behavior for help and version options across all PostgreSQL frontend tools. When invoked, it checks if the first command-line argument is a help or version request, and if so, displays the appropriate information and exits. This ensures all PostgreSQL client programs respond uniformly to these standard options.
 

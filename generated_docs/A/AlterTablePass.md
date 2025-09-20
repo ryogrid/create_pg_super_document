@@ -8,7 +8,14 @@ AlterTablePass is an enumeration that defines the execution phases for ALTER TAB
 
 ## Definition
 
+```c
+AT_PASS_MISC,				/* other stuff */
+} AlterTablePass;
 
+#define AT_NUM_PASSES			(AT_PASS_MISC + 1)
+
+typedef struct AlteredTableInfo
+```
 ## Detailed Description
 The AlterTablePass enumeration is a critical component of PostgreSQL's ALTER TABLE command processing system. It defines a sequential execution framework that ensures ALTER TABLE operations are performed in the correct order to avoid dependency conflicts and maintain referential integrity.
 

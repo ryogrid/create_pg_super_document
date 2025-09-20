@@ -8,7 +8,10 @@ Destroys the per-process data structure for the current process, releasing held 
 
 ## Definition
 
-
+```c
+structure (and semaphore) to appropriate freelist */
+		dlist_push_tail(procgloballist, &proc->links);
+```
 ## Detailed Description
 ProcKill is a comprehensive process cleanup function that handles the orderly termination of a PostgreSQL backend process. This function performs extensive cleanup operations to ensure that no resources are leaked and shared data structures remain consistent when a process exits.
 

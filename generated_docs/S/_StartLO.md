@@ -8,7 +8,10 @@ Initializes the processing of an individual Binary Large Object (BLOB) by record
 
 ## Definition
 
-
+```c
+static void
+_StartLO(ArchiveHandle *AH, TocEntry *te, Oid oid)
+```
 ## Detailed Description
 The  function is a mandatory component of the custom archive format that handles the initialization of individual Binary Large Object processing within a BLOB data section. This function is called by the archiver when the dumper calls , and it serves as the granular counterpart to  which initializes the entire BLOB section.
 

@@ -8,7 +8,10 @@ Writes updated configuration parameter values to a temporary file for the Postgr
 
 ## Definition
 
-
+```c
+static void
+write_auto_conf_file(int fd, const char *filename, ConfigVariable *head)
+```
 ## Detailed Description
 This function is responsible for writing configuration parameters to the automatic configuration file (postgresql.auto.conf). It traverses a linked list of configuration variables and writes them to the specified file descriptor in the proper PostgreSQL configuration format. Each parameter value is properly quoted using single quotes and escaped to handle special characters.
 

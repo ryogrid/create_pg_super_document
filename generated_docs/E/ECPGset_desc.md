@@ -8,7 +8,9 @@ ECPGset_desc sets descriptor item attributes by processing variable arguments co
 
 ## Definition
 
-
+```c
+struct descriptor *desc;
+```
 ## Detailed Description
 ECPGset_desc is a variadic function that modifies or creates descriptor items within a named descriptor. It processes variable arguments consisting of descriptor type/variable pairs to set various attributes of a specific descriptor item identified by index. The function handles dynamic creation of descriptor items if they don't exist and supports setting multiple attributes including data, indicator, length, precision, scale, and type.
 

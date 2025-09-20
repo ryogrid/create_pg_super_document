@@ -8,7 +8,10 @@ Retrieves a nicely-formatted type name for a given type OID, with caching suppor
 
 ## Definition
 
-
+```c
+static const char *
+getFormattedTypeName(Archive *fout, Oid oid, OidOptions opts)
+```
 ## Detailed Description
 This function converts a PostgreSQL type OID into a human-readable, formatted type name using the pg_catalog.format_type() function. It includes caching mechanism to avoid repeated database queries for the same type, and provides special handling for zero OID values based on options. The function does not guarantee schema-qualified output, so it should not be used for CREATE or ALTER command target names. The result is cached in the TypeInfo record and must not be freed by the caller.
 

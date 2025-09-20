@@ -8,7 +8,10 @@ Finds all available paths for scanning each base-relation entry, including seque
 
 ## Definition
 
-
+```c
+static void
+set_base_rel_pathlists(PlannerInfo *root)
+```
 ## Detailed Description
 This function performs the critical task of generating access paths for each base relation in the query. It iterates through all base relations and delegates to set_rel_pathlist() to discover and create all viable access methods for each table. This includes sequential scans, index scans, and other specialized access methods based on the relation's characteristics and available indices.
 

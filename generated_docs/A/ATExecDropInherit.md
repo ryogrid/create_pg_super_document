@@ -8,7 +8,10 @@ Executes the ALTER TABLE NO INHERIT command to remove inheritance relationship b
 
 ## Definition
 
-
+```c
+static ObjectAddress
+ATExecDropInherit(Relation rel, RangeVar *parent, LOCKMODE lockmode)
+```
 ## Detailed Description
 ATExecDropInherit implements the core logic for the ALTER TABLE NO INHERIT SQL command. This function removes an inheritance relationship between a child table (rel) and a specified parent table. The function validates that the child table is not a partition (as partitions cannot have their inheritance changed), opens the parent relation with appropriate locking, and delegates the actual inheritance removal work to the RemoveInheritance function. It returns an ObjectAddress representing the parent relation that is no longer inherited from.
 

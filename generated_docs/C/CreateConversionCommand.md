@@ -8,7 +8,10 @@ Implements the CREATE CONVERSION SQL command by validating conversion parameters
 
 ## Definition
 
-
+```c
+ObjectAddress
+CreateConversionCommand(CreateConversionStmt *stmt)
+```
 ## Detailed Description
 CreateConversionCommand processes a CREATE CONVERSION statement to create a new encoding conversion function in PostgreSQL. The function performs comprehensive validation including namespace permissions, encoding name validity, conversion function signature verification, and functional testing of the conversion before registering it in the system catalog.
 

@@ -8,7 +8,10 @@ Implements the \help command in PostgreSQL's psql client, providing SQL command 
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_help(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 This function handles the execution of the \help backslash command in psql. When invoked, it extracts the optional topic parameter from the command line and calls the helpSQL function to display help information about SQL commands. The function respects the active_branch parameter for conditional execution in psql scripts (used with \if constructs). If the command is not in an active branch, it simply ignores the remainder of the line without processing.
 

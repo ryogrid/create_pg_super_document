@@ -8,7 +8,10 @@ Initializes the uncommitted_enum_values hash table to track individual enum valu
 
 ## Definition
 
-
+```c
+static void
+init_uncommitted_enum_values(void)
+```
 ## Detailed Description
 init_uncommitted_enum_values is a static initialization function that creates and configures the uncommitted_enum_values hash table used to track individual enum values added to existing enum types within the current transaction. This hash table works in conjunction with uncommitted_enum_types to provide complete transaction-level tracking of enum modifications.
 

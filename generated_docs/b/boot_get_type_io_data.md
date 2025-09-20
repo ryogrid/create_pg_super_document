@@ -8,7 +8,9 @@ A function that retrieves type I/O metadata during PostgreSQL bootstrap, providi
 
 ## Definition
 
-
+```c
+struct typmap *ap = NULL;
+```
 ## Detailed Description
 This function obtains essential type information needed for input/output operations during the bootstrap phase of PostgreSQL initialization. It operates in two modes depending on whether the pg_type catalog has been loaded:
 

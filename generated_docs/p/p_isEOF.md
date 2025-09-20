@@ -8,7 +8,10 @@ A static utility function that checks whether the text search parser has reached
 
 ## Definition
 
-
+```c
+static int
+p_isEOF(TParser *prs)
+```
 ## Detailed Description
 The  function is a helper utility in PostgreSQL's text search parser that determines if the parser has reached the end of the input string. It performs this check by examining two conditions: whether the current byte position has reached the end of the string length, or whether the character length is zero. The function is designed to be used internally within the text search parsing framework to control parsing loops and determine when to stop processing input text.
 

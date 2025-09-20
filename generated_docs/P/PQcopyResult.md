@@ -8,7 +8,10 @@ Creates a deep copy of a PGresult with configurable copying options for attribut
 
 ## Definition
 
-
+```c
+PGresult *
+PQcopyResult(const PGresult *src, int flags)
+```
 ## Detailed Description
 PQcopyResult performs a selective deep copy of a PGresult based on the provided flags. The function creates a new empty result with PGRES_TUPLES_OK status and then conditionally copies various components from the source. The copying process is carefully ordered to handle dependencies - attributes must be copied before tuples since tuples depend on attribute metadata.
 

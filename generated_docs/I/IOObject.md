@@ -8,7 +8,15 @@ IOObject is an enumeration that categorizes different types of database objects 
 
 ## Definition
 
-
+```c
+typedef enum IOContext
+{
+	IOCONTEXT_BULKREAD,
+	IOCONTEXT_BULKWRITE,
+	IOCONTEXT_NORMAL,
+	IOCONTEXT_VACUUM,
+} IOContext;
+```
 ## Detailed Description
 IOObject defines the types of database objects that can be tracked for I/O operations in PostgreSQL's statistics collection system. This enumeration helps categorize I/O activities based on whether they involve regular persistent relations or temporary relations, allowing for more granular performance monitoring and analysis of different workload patterns.
 

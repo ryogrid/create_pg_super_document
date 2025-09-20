@@ -8,7 +8,10 @@ A utility function in pg_createsubscriber that safely closes a PostgreSQL databa
 
 ## Definition
 
-
+```c
+static void
+disconnect_database(PGconn *conn, bool exit_on_error)
+```
 ## Detailed Description
 The  function provides a centralized way to close PostgreSQL database connections within the pg_createsubscriber utility. It wraps the libpq  function and adds error handling logic. When the  parameter is true, the function will terminate the entire program with exit code 1 after closing the connection, providing a fail-fast mechanism for unrecoverable error conditions.
 

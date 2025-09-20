@@ -8,7 +8,14 @@ IndxInfo is a structure used by pg_dump to represent database indexes during the
 
 ## Definition
 
-
+```c
+typedef struct _indexAttachInfo
+{
+	DumpableObject dobj;
+	IndxInfo   *parentIdx;		/* link to index on partitioned table */
+	IndxInfo   *partitionIdx;	/* link to index on partition */
+} IndexAttachInfo;
+```
 ## Detailed Description
 IndxInfo is a comprehensive data structure in PostgreSQL's pg_dump utility that represents database indexes during the dumping process. It extends the base DumpableObject to capture all necessary information about an index, including its definition, storage properties, statistics, and relationships to tables and constraints.
 

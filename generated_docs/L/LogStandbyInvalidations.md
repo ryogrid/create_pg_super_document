@@ -8,7 +8,11 @@ Emits WAL records for cache invalidation messages, primarily used for commits wi
 
 ## Definition
 
-
+```c
+void
+LogStandbyInvalidations(int nmsgs, SharedInvalidationMessage *msgs,
+						bool relcacheInitFileInval)
+```
 ## Detailed Description
 LogStandbyInvalidations creates WAL records containing cache invalidation messages that need to be replayed on standby servers. This function is specifically designed for commits that don't have assigned transaction IDs but still need to propagate cache invalidations to maintain consistency across standby servers.
 

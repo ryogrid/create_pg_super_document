@@ -8,7 +8,10 @@ Initializes the shared parallel scan descriptor for block-oriented access method
 
 ## Definition
 
-
+```c
+Size
+table_block_parallelscan_initialize(Relation rel, ParallelTableScanDesc pscan)
+```
 ## Detailed Description
 This function initializes a parallel scan descriptor for block-oriented access methods. It sets up the shared state needed to coordinate multiple worker processes scanning the same relation concurrently. The function populates various fields in the  structure that control how blocks are allocated to different worker processes.
 

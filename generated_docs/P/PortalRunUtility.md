@@ -8,7 +8,12 @@ Executes a utility statement inside a portal, handling snapshot management and d
 
 ## Definition
 
-
+```c
+static void
+PortalRunUtility(Portal portal, PlannedStmt *pstmt,
+				 bool isTopLevel, bool setHoldSnapshot,
+				 DestReceiver *dest, QueryCompletion *qc)
+```
 ## Detailed Description
 PortalRunUtility is responsible for executing utility statements (non-DML commands like DDL, administrative commands, etc.) within the context of a portal. The function manages transaction snapshots appropriately based on whether the utility statement requires one, handles snapshot registration for hold scenarios, and ensures proper cleanup after execution. It calls ProcessUtility to perform the actual command execution and manages memory context switches that may occur during utility command execution. The function is designed to handle the complexities of snapshot management in utility commands, including cases where commands may modify or pop snapshots from the stack.
 

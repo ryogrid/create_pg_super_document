@@ -8,7 +8,14 @@ Tests an inner tuple using the opclass-specific inner_consistent method and crea
 
 ## Definition
 
-
+```c
+enum SpGistSpecialOffsetNumbers
+{
+	SpGistBreakOffsetNumber = InvalidOffsetNumber,
+	SpGistRedirectOffsetNumber = MaxOffsetNumber + 1,
+	SpGistErrorOffsetNumber = MaxOffsetNumber + 2,
+};
+```
 ## Detailed Description
 This function is the core inner tuple processing mechanism in SP-GiST scanning. It calls the opclass-specific inner_consistent method to determine which child nodes of an inner tuple should be visited. The function handles both NULL and non-NULL inner tuples, manages memory contexts appropriately, and creates search items for qualifying child nodes.
 

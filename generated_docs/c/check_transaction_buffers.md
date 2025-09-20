@@ -8,7 +8,10 @@ A GUC (Grand Unified Configuration) check hook function that validates the trans
 
 ## Definition
 
-
+```c
+bool
+check_transaction_buffers(int *newval, void **extra, GucSource source)
+```
 ## Detailed Description
 check_transaction_buffers is a GUC check hook function responsible for validating new values assigned to the transaction_buffers configuration parameter. This function is called by PostgreSQL's configuration system whenever the transaction_buffers parameter is being set or modified.
 

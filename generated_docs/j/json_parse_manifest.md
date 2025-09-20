@@ -8,7 +8,11 @@ Main entry point for parsing a complete JSON-format backup manifest from a memor
 
 ## Definition
 
-
+```c
+void
+json_parse_manifest(JsonManifestParseContext *context, const char *buffer,
+					size_t size)
+```
 ## Detailed Description
 This function provides a complete, non-incremental JSON manifest parsing solution for cases where the entire manifest is available in memory. It sets up a JSON lexical context from the provided buffer, configures semantic action handlers for various JSON elements, and performs complete parsing in one pass.
 

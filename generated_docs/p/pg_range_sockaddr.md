@@ -8,7 +8,12 @@ Determines if a given address falls within the subnet specified by a network add
 
 ## Definition
 
-
+```c
+int
+pg_range_sockaddr(const struct sockaddr_storage *addr,
+				  const struct sockaddr_storage *netaddr,
+				  const struct sockaddr_storage *netmask)
+```
 ## Detailed Description
 This function performs subnet matching by checking if a given socket address lies within the range defined by a network address and netmask. It acts as a dispatcher function that handles both IPv4 and IPv6 address families by delegating to family-specific range checking functions. The function assumes that all three addresses belong to the same address family and that AF_UNIX addresses are not supported.
 

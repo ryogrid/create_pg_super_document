@@ -8,7 +8,10 @@ Cleanly terminates parallel vacuum execution by copying statistics from shared m
 
 ## Definition
 
-
+```c
+void
+parallel_vacuum_end(ParallelVacuumState *pvs, IndexBulkDeleteResult **istats)
+```
 ## Detailed Description
 This function performs the orderly shutdown of parallel vacuum operations by:
 

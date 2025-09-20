@@ -8,7 +8,11 @@ A worker function that constructs a JSONB object from alternating key-value pair
 
 ## Definition
 
-
+```c
+Datum
+jsonb_build_object_worker(int nargs, const Datum *args, const bool *nulls, const Oid *types,
+						  bool absent_on_null, bool unique_keys)
+```
 ## Detailed Description
 The jsonb_build_object_worker function is the core implementation for building JSONB objects from a sequence of alternating key-value pairs. It validates that the argument count is even (since keys and values must be paired), initializes a JsonbInState for building the object, and processes each key-value pair while applying the specified null handling and uniqueness policies. The function enforces that keys cannot be null, but provides flexible handling of null values based on the absent_on_null parameter. When unique_keys is enabled, duplicate keys are detected and handled appropriately.
 

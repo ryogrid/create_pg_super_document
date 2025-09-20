@@ -8,7 +8,9 @@ PostgreSQL function that calculates the minimum distance between two polygons, r
 
 ## Definition
 
-
+```c
+struct(&seg1, &polya->p[iprev], &polya->p[i]);
+```
 ## Detailed Description
 This function computes the shortest distance between two polygons using a comprehensive algorithm. First, it checks if the polygons overlap using poly_overlap_internal - if they do, the distance is zero since overlapping polygons have no separation. For non-overlapping polygons, it calculates the minimum distance by examining all possible pairs of edges between the two polygons. The algorithm constructs line segments (LSEG) for each edge of both polygons and uses lseg_closept_lseg to find the closest point distance between each pair of segments. The computation is similar to path distance calculation but treats polygons as closed paths. The function maintains the minimum distance found across all edge pair comparisons.
 

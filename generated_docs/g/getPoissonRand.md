@@ -8,7 +8,10 @@ Generates random integers following an approximate Poisson distribution centered
 
 ## Definition
 
-
+```c
+static int64
+getPoissonRand(pg_prng_state *state, double center)
+```
 ## Detailed Description
 This function implements a random number generator that produces values approximating a Poisson distribution. It uses inverse transform sampling with the natural logarithm to transform a uniform random variable into a Poisson-distributed one. The function generates individual integer results, though the center parameter need not be an integer. The implementation converts a uniform random value from [0,1) to (0,1] and applies the inverse transform formula: -ln(uniform) * center, then rounds to the nearest integer.
 

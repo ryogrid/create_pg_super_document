@@ -8,7 +8,10 @@ Implements the SQL OVERLAPS operator for time data types, determining whether tw
 
 ## Definition
 
-
+```c
+Datum
+overlaps_time(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `overlaps_time` function implements the SQL OVERLAPS operator for time intervals. It takes four time arguments representing two time intervals (ts1, te1) and (ts2, te2), and determines whether these intervals overlap. The function follows the SQL specification algorithm, which includes complex null-handling logic that can return non-null results even when some inputs are null.
 

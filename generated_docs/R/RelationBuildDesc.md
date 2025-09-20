@@ -8,7 +8,10 @@ Builds a complete relation descriptor from scratch by reading system catalogs an
 
 ## Definition
 
-
+```c
+static Relation
+RelationBuildDesc(Oid targetRelId, bool insertIt)
+```
 ## Detailed Description
 This is a core function that constructs a complete Relation structure by reading the pg_class tuple for a given relation OID and initializing all its components. The function performs extensive setup including memory management, tuple descriptor construction, access method initialization, rules/triggers/row security loading, and physical addressing setup.
 

@@ -8,7 +8,10 @@ Prepares to analyze the next block in a read stream during table sampling operat
 
 ## Definition
 
-
+```c
+static inline bool
+table_scan_analyze_next_block(TableScanDesc scan, ReadStream *stream)
+```
 ## Detailed Description
 This function is part of PostgreSQL's table access method (tableam) interface for statistical analysis operations. It serves as a wrapper that delegates to the table access method's specific implementation of block preparation for analysis. The function is used during ANALYZE operations to sequentially process blocks in a table for statistical sampling.
 

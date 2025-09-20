@@ -8,7 +8,10 @@ Returns PostgreSQL's configure-time constants and installation paths in a struct
 
 ## Definition
 
-
+```c
+ConfigData *
+get_configdata(const char *my_exec_path, size_t *configdata_len)
+```
 ## Detailed Description
 The  function generates an array of configuration data containing PostgreSQL's build-time constants and computed installation paths. It returns 23 key-value pairs that include directory paths (BINDIR, LIBDIR, etc.), compiler information (CC, CFLAGS, etc.), and other configure-time settings.
 

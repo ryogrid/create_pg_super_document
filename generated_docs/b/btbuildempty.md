@@ -8,7 +8,10 @@ The btbuildempty function builds an empty B-tree index in the initialization for
 
 ## Definition
 
-
+```c
+struct metapage. */
+	metabuf = smgr_bulk_get_buf(bulkstate);
+```
 ## Detailed Description
 The btbuildempty function creates the foundation of an empty B-tree index by constructing only the essential metapage in the initialization fork. This function is called when PostgreSQL needs to create the basic structure of a B-tree index without any actual data pages. The initialization fork is a special storage fork used during index creation and recovery processes.
 

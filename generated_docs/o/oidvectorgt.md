@@ -8,7 +8,10 @@ PostgreSQL comparison function that determines if the first oidvector is greater
 
 ## Definition
 
-
+```c
+Datum
+oidvectorgt(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "greater than" operator (>) for oidvector data types in PostgreSQL. It utilizes the  comparison function to perform a comprehensive comparison between two oidvector values and returns true if the first vector is lexicographically greater than the second vector.
 

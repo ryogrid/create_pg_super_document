@@ -8,7 +8,17 @@ Returns the selectivity estimate for a specified boolean function clause by exec
 
 ## Definition
 
-
+```c
+Selectivity
+function_selectivity(PlannerInfo *root,
+					 Oid funcid,
+					 List *args,
+					 Oid inputcollid,
+					 bool is_join,
+					 int varRelid,
+					 JoinType jointype,
+					 SpecialJoinInfo *sjinfo)
+```
 ## Detailed Description
 The function_selectivity function is a core component of PostgreSQL's query optimizer that estimates how selective a boolean function will be when used as a filter condition. It works by calling support functions registered in the pg_proc system catalog for specific functions.
 

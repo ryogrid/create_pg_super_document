@@ -8,7 +8,10 @@ The float48mi function performs subtraction between a float4 (single precision) 
 
 ## Definition
 
-
+```c
+Datum
+float48mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the subtraction operation for mixed-precision floating-point numbers in PostgreSQL's type system. It takes a float4 (4-byte single precision) value as the first operand and a float8 (8-byte double precision) value as the second operand. The function promotes the float4 value to float8 precision and then delegates to the float8_mi function to perform the actual subtraction operation.
 

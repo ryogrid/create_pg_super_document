@@ -8,7 +8,10 @@ A core permission validation function that ensures the current user has the nece
 
 ## Definition
 
-
+```c
+static void
+ATSimplePermissions(AlterTableType cmdtype, Relation rel, int allowed_targets)
+```
 ## Detailed Description
 ATSimplePermissions serves as a critical security gatekeeper for ALTER TABLE operations. It performs three essential validation checks: (1) verifies that the relation type matches the allowed target types for the specific ALTER operation, (2) confirms that the current user owns the relation, and (3) prevents unauthorized modifications to system catalogs. The function maps relation kinds to internal target type flags and validates them against the operation's allowed targets. If any validation fails, it generates appropriate error messages using the alter_table_type_to_string function for user-friendly reporting.
 

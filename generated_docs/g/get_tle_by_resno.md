@@ -8,7 +8,10 @@ Searches a target list to find and return the TargetEntry with a matching result
 
 ## Definition
 
-
+```c
+TargetEntry *
+get_tle_by_resno(List *tlist, AttrNumber resno)
+```
 ## Detailed Description
 This utility function performs a linear search through a target list to locate a TargetEntry with the specified result number. Unlike simple list indexing, this function is necessary because target lists are not always sorted by resno. The function iterates through each TargetEntry in the list and compares its resno field with the requested value.
 

@@ -8,7 +8,10 @@ A static helper function that retrieves the next tuple from a named tuple store 
 
 ## Definition
 
-
+```c
+static TupleTableSlot *
+NamedTuplestoreScanNext(NamedTuplestoreScanState *node)
+```
 ## Detailed Description
 NamedTuplestoreScanNext is a static function that performs the actual tuple retrieval from a named tuple store during a scan operation. It ensures forward-only scanning by asserting the scan direction, selects the appropriate read pointer for the tuple store, and fetches the next tuple into the scan tuple slot. The function returns the tuple slot containing the fetched tuple, or NULL if no more tuples are available.
 

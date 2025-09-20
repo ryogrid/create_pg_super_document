@@ -8,7 +8,10 @@ Performs the core intersection logic for two range values, computing the overlap
 
 ## Definition
 
-
+```c
+RangeType *
+range_intersect_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2)
+```
 ## Detailed Description
 The  function implements the actual intersection algorithm for PostgreSQL range types. It deserializes both input ranges to extract their boundary information, determines if they overlap, and if so, constructs a new range representing their intersection. The intersection is computed by taking the maximum of the lower bounds and the minimum of the upper bounds of the two input ranges.
 

@@ -8,7 +8,10 @@ Completely destroys a Generation memory context by freeing all allocated memory 
 
 ## Definition
 
-
+```c
+void
+GenerationDelete(MemoryContext context)
+```
 ## Detailed Description
 GenerationDelete provides complete cleanup of a Generation memory context. It operates in two phases: first calling GenerationReset to free all releasable GenerationBlocks, then freeing the context header and keeper block using the standard free() function. This function ensures complete deallocation of all resources associated with the Generation context.
 

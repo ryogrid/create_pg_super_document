@@ -8,7 +8,10 @@ Validates that all necessary PostgreSQL configuration parameters (GUCs) are prop
 
 ## Definition
 
-
+```c
+bool
+ValidateSlotSyncParams(int elevel)
+```
 ## Detailed Description
 This function performs comprehensive validation of PostgreSQL configuration settings required for logical replication slot synchronization between primary and standby servers. It checks four critical configuration parameters and reports errors at the specified error level if any are missing or incorrectly set.
 

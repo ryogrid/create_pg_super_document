@@ -8,7 +8,10 @@ A SQL-callable function that returns the complete CREATE INDEX statement for a g
 
 ## Definition
 
-
+```c
+Datum
+pg_get_indexdef(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function provides the basic SQL interface for retrieving index definitions from PostgreSQL's system catalogs. It extracts an index OID from the function arguments and calls the worker function  with default parameters to generate a complete CREATE INDEX statement. The function uses indented formatting and excludes tablespace information (intentionally for pg_dump compatibility). It delegates all the complex work of reconstructing the index definition to the worker function and handles the return value conversion to PostgreSQL's text type.
 

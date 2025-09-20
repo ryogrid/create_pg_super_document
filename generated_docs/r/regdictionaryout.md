@@ -8,7 +8,10 @@ Converts a text search dictionary OID to its corresponding dictionary name strin
 
 ## Definition
 
-
+```c
+Datum
+regdictionaryout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's regtype system for text search dictionaries. It takes an OID (Object Identifier) representing a text search dictionary and converts it to a human-readable string representation. The function handles multiple output scenarios based on the dictionary's visibility and existence:
 

@@ -8,7 +8,10 @@ Generates database dumps from the old PostgreSQL cluster during pg_upgrade opera
 
 ## Definition
 
-
+```c
+void
+generate_old_dump(void)
+```
 ## Detailed Description
 The  function is a critical component of PostgreSQL's pg_upgrade utility that creates comprehensive dumps of the old cluster's data structure before performing the upgrade. The function operates in two main phases:
 

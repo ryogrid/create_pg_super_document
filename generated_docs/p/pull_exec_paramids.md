@@ -8,7 +8,10 @@ Returns a Bitmapset containing the paramids of all Params with paramkind = PARAM
 
 ## Definition
 
-
+```c
+static Bitmapset *
+pull_exec_paramids(Expr *expr)
+```
 ## Detailed Description
 This function serves as a wrapper around pull_exec_paramids_walker to extract execution parameter IDs from PostgreSQL expressions. It specifically looks for parameters of type PARAM_EXEC, which are used for passing values between different parts of a query execution plan. The function performs a tree walk through the expression structure to identify and collect all such parameters.
 

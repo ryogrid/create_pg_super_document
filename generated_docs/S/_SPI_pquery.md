@@ -8,7 +8,10 @@
 
 ## Definition
 
-
+```c
+static int
+_SPI_pquery(QueryDesc *queryDesc, bool fire_triggers, uint64 tcount)
+```
 ## Detailed Description
 This function is responsible for executing a query described by a QueryDesc structure within the SPI framework. It determines the appropriate return code based on the SQL command type (SELECT, INSERT, UPDATE, DELETE, MERGE) and whether the statement has a RETURNING clause. The function manages the complete execution lifecycle including starting the executor, running the query, and cleaning up resources.
 

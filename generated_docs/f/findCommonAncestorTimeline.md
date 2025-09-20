@@ -8,7 +8,9 @@ findCommonAncestorTimeline determines the timeline ID of the last common timelin
 
 ## Definition
 
-
+```c
+struct tm  *tmp;
+```
 ## Detailed Description
 This function performs a critical analysis for pg_rewind by comparing the timeline histories of two PostgreSQL clusters to find their common ancestor timeline. The function traces through both timeline histories entry by entry, looking for the point where they diverge.
 

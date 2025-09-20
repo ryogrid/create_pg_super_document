@@ -8,7 +8,10 @@ The printtup_destroy function deallocates the memory used by a printtup DestRece
 
 ## Definition
 
-
+```c
+static void
+printtup_destroy(DestReceiver *self)
+```
 ## Detailed Description
 The printtup_destroy function is a simple cleanup function that deallocates the memory occupied by a DR_printtup DestReceiver structure. This function is called after printtup_shutdown has cleaned up the internal resources of the structure.
 

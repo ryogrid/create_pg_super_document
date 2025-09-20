@@ -8,7 +8,10 @@ The  function is the input function for the JSONB data type, responsible for con
 
 ## Definition
 
-
+```c
+Datum
+jsonb_in(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the primary entry point for converting JSON text strings into JSONB values. It is automatically called by PostgreSQL's type system when converting string literals or text values to JSONB type. The function extracts the input string parameter and delegates the actual parsing and conversion work to the  function with appropriate parameters for standard input processing.
 

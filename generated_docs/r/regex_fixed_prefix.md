@@ -8,7 +8,11 @@ Extracts the fixed prefix portion from a regular expression pattern to support q
 
 ## Definition
 
-
+```c
+static Pattern_Prefix_Status
+regex_fixed_prefix(Const *patt_const, bool case_insensitive, Oid collation,
+				   Const **prefix_const, Selectivity *rest_selec)
+```
 ## Detailed Description
 This function analyzes regular expression patterns to extract the fixed (literal) prefix portion that appears before any regex metacharacters or variable components. This analysis enables PostgreSQL's query optimizer to use index scans when regex patterns start with literal characters, significantly improving query performance for patterns like '^literal_text.*'.
 

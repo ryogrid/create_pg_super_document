@@ -8,7 +8,10 @@ Converts SQL "SIMILAR TO" regexp patterns to POSIX style for use with PostgreSQL
 
 ## Definition
 
-
+```c
+static text *
+similar_escape_internal(text *pat_text, text *esc_text)
+```
 ## Detailed Description
 The  function serves as the core implementation for PostgreSQL's "SIMILAR TO" pattern matching functionality. It transforms SQL standard "SIMILAR TO" patterns into POSIX-compatible regular expressions that can be processed by PostgreSQL's regexp engine.
 

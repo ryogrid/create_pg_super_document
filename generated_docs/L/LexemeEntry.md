@@ -8,7 +8,14 @@ LexemeEntry is a structure used in PostgreSQL's text search system to represent 
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	int			cur;
+	int			len;
+	LexemeEntry *list;
+} PrsStorage;
+```
 ## Detailed Description
 LexemeEntry serves as a container for parsed tokens in PostgreSQL's text search functionality. It is used internally by the word parser interface to store the results of text tokenization. Each LexemeEntry represents a single token discovered during text parsing, combining the token's classification (type) with its actual textual content (lexeme). This structure is primarily used as part of dynamic arrays in PrsStorage structures to accumulate all tokens found during parsing operations.
 

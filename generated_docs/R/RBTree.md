@@ -8,7 +8,23 @@ RBTree is a control structure that represents a generic Red-Black binary tree im
 
 ## Definition
 
+```c
+struct RBTree
+{
+	RBTNode    *root;			/* root node, or RBTNIL if tree is empty */
 
+	/* Remaining fields are constant after rbt_create */
+
+	Size		node_size;		/* actual size of tree nodes */
+	/* The caller-supplied manipulation functions */
+	rbt_comparator comparator;
+	rbt_combiner combiner;
+	rbt_allocfunc allocfunc;
+	rbt_freefunc freefunc;
+	/* Passthrough arg passed to all manipulation functions */
+	void	   *arg;
+};
+```
 ## Detailed Description
 The RBTree structure serves as the main control structure for PostgreSQL's generic Red-Black tree implementation. Red-Black trees are self-balancing binary search trees that maintain balance through color coding (red/black) of nodes and specific balancing rules. This ensures that the longest path from root to leaf is at most twice as long as the shortest path, guaranteeing O(log n) time complexity for basic operations.
 

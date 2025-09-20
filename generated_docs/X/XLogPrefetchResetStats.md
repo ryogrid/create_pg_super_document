@@ -8,7 +8,10 @@ Resets all XLog prefetch statistics counters to zero and records the current tim
 
 ## Definition
 
-
+```c
+void
+XLogPrefetchResetStats(void)
+```
 ## Detailed Description
 This function performs a complete reset of all XLog prefetch statistics maintained in shared memory. It atomically writes zero to all statistical counters and updates the reset timestamp to the current time. The function ensures thread-safe operation by using atomic write operations for all counter updates.
 

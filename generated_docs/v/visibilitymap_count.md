@@ -8,7 +8,10 @@ Counts the number of all-visible and optionally all-frozen pages in a relation b
 
 ## Definition
 
-
+```c
+void
+visibilitymap_count(Relation rel, BlockNumber *all_visible, BlockNumber *all_frozen)
+```
 ## Detailed Description
 This function iterates through all blocks of a relation's visibility map to count pages marked as all-visible and all-frozen. It reads each map block sequentially using vm_readbuf() and uses pg_popcount_masked() to efficiently count bits set in the visibility map pages. The function is designed to provide approximate counts and ignores potential race conditions from concurrent table extensions, as new pages won't be marked visible/frozen immediately. The function doesn't lock map pages since the results would be immediately stale in concurrent scenarios.
 

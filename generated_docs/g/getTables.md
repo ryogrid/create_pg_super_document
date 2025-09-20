@@ -8,7 +8,10 @@ The getTables function retrieves all tables and table-like objects from the Post
 
 ## Definition
 
-
+```c
+TableInfo *
+getTables(Archive *fout, int *numTables)
+```
 ## Detailed Description
 This function is one of the most comprehensive catalog reading functions in pg_dump. It constructs and executes a complex version-dependent SQL query to retrieve all table-like objects including regular tables, sequences, views, materialized views, foreign tables, partitioned tables, and composite types from pg_class and related system catalogs.
 

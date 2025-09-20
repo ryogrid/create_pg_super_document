@@ -8,7 +8,10 @@ Performs the actual parse analysis transformation of one Common Table Expression
 
 ## Definition
 
-
+```c
+static void
+analyzeCTE(ParseState *pstate, CommonTableExpr *cte)
+```
 ## Detailed Description
 This static function transforms a single CTE from its raw parsed form into an analyzed Query node. It handles several complex aspects of CTE processing:
 

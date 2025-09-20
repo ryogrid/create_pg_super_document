@@ -8,7 +8,10 @@ This function initializes the workspace for a PostgreSQL worker process by creat
 
 ## Definition
 
-
+```c
+static void
+initialize_worker_spi(worktable *table)
+```
 ## Detailed Description
 The `initialize_worker_spi` function sets up the database environment for a worker_spi background worker by:
 1. Starting a transaction and connecting to SPI (Server Programming Interface)

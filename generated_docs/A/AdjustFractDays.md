@@ -8,7 +8,10 @@ AdjustFractDays multiplies a fractional value by a scale factor to produce days,
 
 ## Definition
 
-
+```c
+static void
+AdjustFractDays(double frac, struct /* pg_ */ tm *tm, fsec_t *fsec, int scale)
+```
 ## Detailed Description
 This function is part of PostgreSQL's datetime processing system, specifically designed to handle fractional day calculations during interval parsing. It takes a fractional value (typically with absolute value less than 1), scales it to produce days, and distributes the result between the integer day field and fractional microseconds. The function includes overflow checking to ensure safe arithmetic operations and returns a boolean indicating success or failure.
 

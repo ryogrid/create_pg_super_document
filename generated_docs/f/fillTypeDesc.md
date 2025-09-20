@@ -8,7 +8,10 @@ fillTypeDesc fills in a SpGistTypeDesc struct with type information retrieved fr
 
 ## Definition
 
-
+```c
+static void
+fillTypeDesc(SpGistTypeDesc *desc, Oid type)
+```
 ## Detailed Description
 This function populates a SpGistTypeDesc structure with essential type information by looking up the type in the PostgreSQL system catalog (pg_type). It retrieves fundamental type properties including the type's length, whether it's passed by value, alignment requirements, and storage characteristics. The function performs a system cache lookup to efficiently access the type information and handles error cases where the type is not found.
 

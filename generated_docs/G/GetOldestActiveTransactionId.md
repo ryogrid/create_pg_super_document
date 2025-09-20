@@ -8,7 +8,10 @@ GetOldestActiveTransactionId returns the oldest currently active transaction ID 
 
 ## Definition
 
-
+```c
+TransactionId
+GetOldestActiveTransactionId(void)
+```
 ## Detailed Description
 This function provides a simplified version of GetSnapshotData that focuses solely on finding the oldest active transaction ID in the system. It examines all processes with assigned transaction IDs across all databases, including VACUUM processes, but excludes WAL sender processes since they don't affect hot standby conflicts.
 

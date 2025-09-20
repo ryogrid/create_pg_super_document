@@ -8,7 +8,13 @@ Determines whether to use hash-based or sort-based execution strategy for set op
 
 ## Definition
 
-
+```c
+static bool
+choose_hashed_setop(PlannerInfo *root, List *groupClauses,
+					Path *input_path,
+					double dNumGroups, double dNumOutputRows,
+					const char *construct)
+```
 ## Detailed Description
 This function implements a cost-based decision algorithm for choosing between hashing and sorting strategies in set operations. The decision process follows these steps:
 

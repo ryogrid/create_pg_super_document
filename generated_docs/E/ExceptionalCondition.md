@@ -8,7 +8,12 @@ ExceptionalCondition is a low-level function that handles the failure of Assert(
 
 ## Definition
 
-
+```c
+void
+ExceptionalCondition(const char *conditionName,
+					 const char *fileName,
+					 int lineNumber)
+```
 ## Detailed Description
 ExceptionalCondition is the core assertion failure handler in PostgreSQL. It is intentionally designed to bypass the normal error reporting infrastructure (elog) to minimize dependencies and ensure that assertion failures can be reported even when the system is in a compromised state. The function outputs detailed diagnostic information to stderr, including the failed assertion condition, source file location, line number, and process ID. It also provides optional features like backtrace generation and debugger attachment support before ultimately terminating the process with abort().
 

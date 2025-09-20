@@ -8,7 +8,10 @@ ExecReScanBitmapAnd handles parameter changes and rescan operations for BitmapAn
 
 ## Definition
 
-
+```c
+void
+ExecReScanBitmapAnd(BitmapAndState *node)
+```
 ## Detailed Description
 ExecReScanBitmapAnd manages the rescan process for BitmapAnd executor nodes, which is necessary when query parameters change during execution (such as in nested loops). The function iterates through all subplan nodes and handles parameter change propagation and rescanning logic.
 

@@ -8,7 +8,10 @@ Initializes the CLOG subsystem's latest page number tracking during PostgreSQL s
 
 ## Definition
 
-
+```c
+void
+StartupCLOG(void)
+```
 ## Detailed Description
 StartupCLOG is a critical startup function that must be called exactly once during postmaster or standalone-backend startup, specifically after StartupXLOG has initialized the transaction system's nextXid variable. The function performs essential initialization of the CLOG subsystem's page tracking mechanism.
 

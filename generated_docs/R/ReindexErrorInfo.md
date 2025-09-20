@@ -8,7 +8,14 @@ A structure that holds error context information for error callbacks during part
 
 ## Definition
 
-
+```c
+typedef struct ReindexErrorInfo
+{
+	char	   *relname;
+	char	   *relnamespace;
+	char		relkind;
+} ReindexErrorInfo;
+```
 ## Detailed Description
 The  structure is specifically designed to provide contextual information for error reporting during reindexing operations on partitioned tables and indexes. It is used as an argument to the  function, which formats error messages with appropriate context about which partitioned relation was being processed when an error occurred.
 

@@ -8,7 +8,9 @@ Removes the file system signal files that indicate a standby promotion request, 
 
 ## Definition
 
-
+```c
+struct stat stat_buf;
+```
 ## Detailed Description
 This function is responsible for cleaning up the promotion signal files from the file system after a promotion request has been detected and processed. It uses the standard  system call to remove the , which is the mechanism PostgreSQL uses to signal promotion requests from external tools like  or manual file creation. The function is essential for preventing repeated processing of the same promotion signal and maintaining a clean state after promotion handling. Unlike other promotion-related functions, this one has public visibility, allowing it to be called from different parts of the PostgreSQL system for cleanup purposes.
 

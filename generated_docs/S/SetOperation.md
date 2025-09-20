@@ -8,7 +8,15 @@ SetOperation is an enumeration that defines the different types of set operation
 
 ## Definition
 
-
+```c
+typedef enum SetOperation
+{
+	SETOP_NONE = 0,
+	SETOP_UNION,
+	SETOP_INTERSECT,
+	SETOP_EXCEPT,
+} SetOperation;
+```
 ## Detailed Description
 SetOperation specifies the type of set operation used to combine multiple SELECT statements in compound queries. These operations follow SQL standard set theory semantics, allowing queries to combine, intersect, or subtract result sets from multiple component queries. The enumeration is used in PostgreSQL's parse tree to represent the structure of compound SELECT statements, where internal nodes represent set operations and leaf nodes represent individual SELECT statements.
 

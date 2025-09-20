@@ -8,7 +8,12 @@ Determines whether all partition keys of a given relation are included in the GR
 
 ## Definition
 
-
+```c
+static bool
+group_by_has_partkey(RelOptInfo *input_rel,
+					 List *targetList,
+					 List *groupClause)
+```
 ## Detailed Description
 This function checks if partitionwise aggregation can be performed by verifying that all partition key expressions are present in the GROUP BY clause. For partitionwise aggregation to be effective, every partition key must be included in the grouping operation to ensure that all rows of any given group come from the same partition.
 

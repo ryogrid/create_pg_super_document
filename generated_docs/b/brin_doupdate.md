@@ -8,7 +8,15 @@ Updates a BRIN (Block Range Index) tuple by replacing an existing tuple with a n
 
 ## Definition
 
-
+```c
+bool
+brin_doupdate(Relation idxrel, BlockNumber pagesPerRange,
+			  BrinRevmap *revmap, BlockNumber heapBlk,
+			  Buffer oldbuf, OffsetNumber oldoff,
+			  const BrinTuple *origtup, Size origsz,
+			  const BrinTuple *newtup, Size newsz,
+			  bool samepage)
+```
 ## Detailed Description
 The  function performs atomic updates of BRIN index tuples, which represent summarized information about ranges of heap blocks. The function handles two main scenarios:
 

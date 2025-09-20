@@ -8,7 +8,10 @@ A static utility function that returns the digit buffer of a NumericVar variable
 
 ## Definition
 
-
+```c
+static void
+free_var(NumericVar *var)
+```
 ## Detailed Description
 The  function is a memory management utility in PostgreSQL's numeric data type implementation. It performs cleanup operations on a NumericVar structure by freeing its allocated digit buffer and resetting the variable to a safe, invalid state. This function is essential for preventing memory leaks in numeric operations and ensuring that variables are properly cleaned up after use. The function sets the variable's sign to NUMERIC_NAN to indicate an invalid/uninitialized state, which helps catch potential use-after-free bugs.
 

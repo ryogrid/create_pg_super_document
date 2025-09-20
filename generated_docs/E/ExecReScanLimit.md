@@ -8,7 +8,10 @@ ExecReScanLimit reinitializes a LIMIT node for rescanning, recomputing limit/off
 
 ## Definition
 
-
+```c
+void
+ExecReScanLimit(LimitState *node)
+```
 ## Detailed Description
 ExecReScanLimit is the rescan method for LIMIT execution nodes in PostgreSQL's executor. When a query plan needs to be rescanned (such as in nested loops or when parameters change), this function prepares the LIMIT node for a fresh scan by:
 

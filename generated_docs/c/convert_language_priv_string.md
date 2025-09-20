@@ -8,7 +8,10 @@ Converts a text string representation of language privileges into an AclMode bit
 
 ## Definition
 
-
+```c
+static AclMode
+convert_language_priv_string(text *priv_type_text)
+```
 ## Detailed Description
 This function is a specialized privilege string converter for procedural language privileges. It maintains a static mapping table that defines the valid privilege strings for languages and their corresponding AclMode values. For procedural languages, PostgreSQL only supports the "USAGE" privilege, which can be granted with or without the grant option. The function delegates the actual parsing work to the generic  function, providing language-specific privilege mappings.
 

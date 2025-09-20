@@ -8,7 +8,11 @@ Performs expensive transaction status validation checks on tuples before executi
 
 ## Definition
 
-
+```c
+void
+heap_pre_freeze_checks(Buffer buffer,
+					   HeapTupleFreeze *tuples, int ntuples)
+```
 ## Detailed Description
 heap_pre_freeze_checks is a validation function that performs expensive transaction status checks before freeze plans are executed. This function was separated from heap_prepare_freeze_tuple to avoid performing costly pg_xact lookups during freeze plan preparation, allowing multiple VACUUM operations to reuse the same freeze plans without repeating expensive validation.
 

@@ -8,7 +8,10 @@ Creates and initializes an IndexScanDesc structure that serves as the foundation
 
 ## Definition
 
-
+```c
+IndexScanDesc
+RelationGetIndexScan(Relation indexRelation, int nkeys, int norderbys)
+```
 ## Detailed Description
 RelationGetIndexScan is a critical function in PostgreSQL's index access infrastructure that creates and populates an IndexScanDesc structure. This function serves as the standard entry point for all access methods (AMs) to initialize their scan operations. The function allocates memory for the scan descriptor and sets up initial state including workspace for scan keys and order-by conditions. It handles special considerations for recovery scenarios by setting appropriate flags for tuple visibility checking.
 

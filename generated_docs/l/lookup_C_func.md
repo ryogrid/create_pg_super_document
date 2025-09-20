@@ -8,7 +8,10 @@ This static function searches a hash table cache to find a previously loaded C f
 
 ## Definition
 
-
+```c
+static CFuncHashTabEntry *
+lookup_C_func(HeapTuple procedureTuple)
+```
 ## Detailed Description
 lookup_C_func implements a caching mechanism for C-language functions to avoid expensive repeated loading operations. The function:
 

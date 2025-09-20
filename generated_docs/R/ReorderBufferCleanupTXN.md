@@ -8,7 +8,10 @@ Performs comprehensive cleanup of a transaction and all its associated resources
 
 ## Definition
 
-
+```c
+static void
+ReorderBufferCleanupTXN(ReorderBuffer *rb, ReorderBufferTXN *txn)
+```
 ## Detailed Description
 This function systematically cleans up all resources associated with a transaction in the reorder buffer. The cleanup process follows a specific order to ensure proper resource management:
 

@@ -8,7 +8,42 @@ The eclass function creates a character vector representing an equivalence class
 
 ## Definition
 
+```c
+struct vars *v,			/* context */
+	   chr c,					/* Collating element representing the
+								 * equivalence class. */
+	   int cases)				/* all cases? */
+{
+	struct cvec *cv;
 
+	/* crude fake equivalence class for testing */
+	if ((v->cflags & REG_FAKE) && c == 'x')
+	{
+		cv = getcvec(v, 4, 0);
+		addchr(cv, CHR('x'));
+		addchr(cv, CHR('y'));
+		if (cases)
+		{
+			addchr(cv, CHR('X'));
+			addchr(cv, CHR('Y'));
+		}
+		return cv;
+	}
+
+	/* otherwise, none */
+	if (cases)
+		return allcases(v, c);
+	cv = getcvec(v, 1, 0);
+	assert(cv != NULL);
+	addchr(cv, c);
+	return cv;
+}
+
+/*
+ * lookupcclass - lookup a character class identified by name
+ *
+ * On failure, sets an error code in *v;
+```
 ## Detailed Description
 The eclass function implements equivalence class processing for PostgreSQL's regular expression bracket expressions. Equivalence classes group characters that should be treated as equivalent for collation purposes, such as characters with different accents that sort to the same position.
 

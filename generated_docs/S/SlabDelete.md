@@ -8,7 +8,10 @@ SlabDelete is a memory context deletion function that completely destroys a slab
 
 ## Definition
 
-
+```c
+void
+SlabDelete(MemoryContext context)
+```
 ## Detailed Description
 SlabDelete is responsible for completely destroying a slab memory context. It performs a two-step deletion process: first it calls SlabReset to free all the memory blocks allocated within the context, then it frees the context header structure itself using the standard free() function. This is the cleanup function used when a slab memory context is no longer needed and should be completely removed from memory.
 

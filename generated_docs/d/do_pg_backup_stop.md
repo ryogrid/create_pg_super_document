@@ -8,7 +8,10 @@ Utility function called at the end of an online backup to finalize the backup pr
 
 ## Definition
 
-
+```c
+void
+do_pg_backup_stop(BackupState *state, bool waitforarchive)
+```
 ## Detailed Description
 This function completes an online backup operation by performing several critical tasks:
 

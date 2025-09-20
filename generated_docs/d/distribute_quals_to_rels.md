@@ -8,7 +8,21 @@ A convenience routine that applies distribute_qual_to_rels to each element of an
 
 ## Definition
 
-
+```c
+static void
+distribute_quals_to_rels(PlannerInfo *root, List *clauses,
+						 JoinTreeItem *jtitem,
+						 SpecialJoinInfo *sjinfo,
+						 Index security_level,
+						 Relids qualscope,
+						 Relids ojscope,
+						 Relids outerjoin_nonnullable,
+						 Relids incompatible_relids,
+						 bool allow_equivalence,
+						 bool has_clone,
+						 bool is_clone,
+						 List **postponed_oj_qual_list)
+```
 ## Detailed Description
 This function serves as a wrapper that iterates through a list of qualification clauses and applies distribute_qual_to_rels to each individual clause. It's part of PostgreSQL's query planning phase, specifically handling the distribution of WHERE clause conditions and join conditions to appropriate relations in the query plan. The function maintains the same parameters as distribute_qual_to_rels but operates on a list of clauses rather than a single clause.
 

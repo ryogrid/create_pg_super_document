@@ -8,7 +8,10 @@ A validation function for the dummy index access method that accepts any operato
 
 ## Definition
 
-
+```c
+static bool
+divalidate(Oid opclassoid)
+```
 ## Detailed Description
 The  function implements the operator class validation interface for the dummy index access method. In a production index AM, this function would verify that a given operator class is compatible with the index method's requirements and capabilities.
 

@@ -8,7 +8,10 @@ A locale-aware character lowercasing function for single-byte encodings used in 
 
 ## Definition
 
-
+```c
+static char
+SB_lower_char(unsigned char c, pg_locale_t locale, bool locale_is_c)
+```
 ## Detailed Description
 The SB_lower_char function provides optimized case conversion for single-byte character encodings in PostgreSQL's pattern matching system. It handles different locale scenarios:
 

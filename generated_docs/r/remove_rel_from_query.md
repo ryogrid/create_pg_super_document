@@ -8,7 +8,9 @@ Completely removes a target relation and its associated outer join from all of t
 
 ## Definition
 
-
+```c
+union(sjinfo->min_lefthand, sjinfo->min_righthand);
+```
 ## Detailed Description
 This function performs the comprehensive cleanup required when a join has been determined to be removable by join_is_removable(). It systematically removes all references to both the target relation (relid) and the outer join (ojrelid) from various planner data structures to ensure the eliminated join doesn't interfere with subsequent planning phases.
 

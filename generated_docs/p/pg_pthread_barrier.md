@@ -8,7 +8,16 @@ The pg_pthread_barrier struct is PostgreSQL's custom implementation of a thread 
 
 ## Definition
 
-
+```c
+typedef struct pg_pthread_barrier
+{
+	bool		sense;			/* we only need a one bit phase */
+	int			count;			/* number of threads expected */
+	int			arrived;		/* number of threads that have arrived */
+	pthread_mutex_t mutex;
+	pthread_cond_t cond;
+} pthread_barrier_t;
+```
 ## Detailed Description
 This structure implements a thread synchronization barrier using a sense-reversal algorithm. The barrier allows a specified number of threads to wait until all threads have reached the barrier point before any thread can proceed. The implementation uses a combination of a mutex for critical section protection and a condition variable for thread blocking and signaling.
 

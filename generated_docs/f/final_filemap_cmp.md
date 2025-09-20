@@ -8,7 +8,10 @@ A comparison function used by qsort to order file entries for pg_rewind operatio
 
 ## Definition
 
-
+```c
+static int
+final_filemap_cmp(const void *a, const void *b)
+```
 ## Detailed Description
 This function implements the comparison logic for sorting file entries in the final stage of pg_rewind processing. The sorting strategy prioritizes safety over disk space efficiency by:
 

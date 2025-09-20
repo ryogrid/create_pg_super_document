@@ -8,7 +8,10 @@ Prints a list of available test names for the libpq pipeline testing utility, di
 
 ## Definition
 
-
+```c
+static void
+print_test_list(void)
+```
 ## Detailed Description
 The  function is a static helper function in the libpq_pipeline test utility that prints the names of all available test cases to stdout. This function is called when the user specifies "tests" as the test name argument, providing a way to discover what pipeline tests are available. Each test name is printed on a separate line, making it easy to parse or read. The function lists 12 different test cases that verify various aspects of libpq's pipeline execution functionality.
 

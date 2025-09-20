@@ -8,7 +8,10 @@ Implements the greater-than-or-equal-to (>=) comparison operator for network add
 
 ## Definition
 
-
+```c
+Datum
+network_ge(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function provides the >= comparison operation for PostgreSQL's inet and cidr data types. It extracts two network address arguments from the function call context and uses the internal comparison function  to determine if the first network address is greater than or equal to the second. The function returns a boolean result indicating whether the comparison is true.
 

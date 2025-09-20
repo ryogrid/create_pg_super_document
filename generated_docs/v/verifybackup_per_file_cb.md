@@ -8,7 +8,10 @@ Records details extracted from the backup manifest for one file and stores them 
 
 ## Definition
 
-
+```c
+struct describing this WAL range. */
+	range = palloc(sizeof(manifest_wal_range));
+```
 ## Detailed Description
 This function serves as a callback during backup manifest parsing. When the JSON manifest parser encounters a file entry, it calls this function to record the file's metadata (path, size, checksum information) in a hash table structure. The function creates a new manifest_file entry in the hash table, initializes it with the provided metadata, and sets up tracking flags (matched and bad) that will be used during the actual verification process. If a duplicate pathname is found in the manifest, the function reports a fatal error.
 

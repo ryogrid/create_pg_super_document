@@ -8,7 +8,10 @@ Checks whether a doubly-linked list node is currently detached (not part of any 
 
 ## Definition
 
-
+```c
+static inline bool
+dlist_node_is_detached(const dlist_node *node)
+```
 ## Detailed Description
 This function determines if a node is detached from any doubly-linked list by checking if both its next and prev pointers are NULL. A node is considered detached if it has been either:
 1. Initialized with dlist_init_node() but never added to a list

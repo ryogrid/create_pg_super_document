@@ -8,7 +8,10 @@ ExecMergeTupleDumpOuter is a debug utility function that prints the current oute
 
 ## Definition
 
-
+```c
+static void
+ExecMergeTupleDumpOuter(MergeJoinState *mergestate)
+```
 ## Detailed Description
 ExecMergeTupleDumpOuter is a debugging utility function within the merge join executor that provides formatted output of the current outer tuple. This function is typically used during development and debugging to inspect the state of merge join operations by displaying the outer tuple content.
 

@@ -8,7 +8,10 @@ Computes the number of padding bytes required for an entry in a tar archive to a
 
 ## Definition
 
-
+```c
+static inline size_t
+tarPaddingBytesRequired(size_t len)
+```
 ## Detailed Description
 This function calculates the padding bytes needed to align a tar archive entry to the required block boundary. TAR format requires all entries to be aligned to TAR_BLOCK_SIZE boundaries (typically 512 bytes). The function uses the TYPEALIGN macro to efficiently compute the aligned size and returns the difference between the aligned size and the original length, which represents the number of padding bytes needed.
 

@@ -8,7 +8,10 @@ Recursively assigns column aliases for merged USING columns during rule decompil
 
 ## Definition
 
-
+```c
+structs */
+		leftcolinfo = deparse_columns_fetch(colinfo->leftrti, dpns);
+```
 ## Detailed Description
 This function performs a recursive descent of the query jointree to select column aliases that will be used for merged USING columns in JOIN operations. It implements two strategies for name uniqueness depending on the dpns->unique_using flag:
 

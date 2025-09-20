@@ -8,7 +8,10 @@ Cleans up and normalizes file system paths by applying various transformations t
 
 ## Definition
 
-
+```c
+void
+canonicalize_path(char *path)
+```
 ## Detailed Description
 The  function is a convenience wrapper around  that normalizes file system paths by applying multiple cleanup operations. It modifies the path in-place and performs the following transformations:
 

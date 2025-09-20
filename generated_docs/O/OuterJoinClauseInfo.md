@@ -8,7 +8,16 @@ OuterJoinClauseInfo is a transient structure used during query planning to track
 
 ## Definition
 
+```c
+typedef struct OuterJoinClauseInfo
+{
+	pg_node_attr(no_copy_equal, no_read, no_query_jumble)
 
+	NodeTag		type;
+	RestrictInfo *rinfo;		/* a mergejoinable outer-join clause */
+	SpecialJoinInfo *sjinfo;	/* the outer join's SpecialJoinInfo */
+} OuterJoinClauseInfo;
+```
 ## Detailed Description
 OuterJoinClauseInfo structures are created temporarily during the qualification distribution phase of query planning. The planner sets aside every outer join ON clause that appears to be mergejoinable, storing it in this structure for specialized processing after the main qual distribution is complete.
 

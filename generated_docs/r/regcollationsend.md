@@ -8,7 +8,10 @@ Converts regcollation type to external binary format, serving as the binary outp
 
 ## Definition
 
-
+```c
+Datum
+regcollationsend(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is the binary send function for the regcollation data type. It handles the conversion of internal regcollation representation to binary format for transmission over the network or storage to disk. The function is a thin wrapper that delegates all processing to the  function, since regcollation internally uses the same binary format as the OID type.
 

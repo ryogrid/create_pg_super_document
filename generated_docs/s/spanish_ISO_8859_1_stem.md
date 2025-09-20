@@ -8,7 +8,11 @@ Performs complete Spanish word stemming using the Snowball algorithm for ISO 885
 
 ## Definition
 
+```c
+}
 
+extern int spanish_ISO_8859_1_stem(struct SN_env * z)
+```
 ## Detailed Description
 This function implements the complete Spanish stemming algorithm as part of the Snowball stemming library. It processes a Spanish word stored in the SN_env structure through multiple sequential stages:
 

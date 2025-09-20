@@ -8,7 +8,10 @@ This function is a PostgreSQL built-in function that returns the Object Identifi
 
 ## Definition
 
-
+```c
+Datum
+get_current_ts_config(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a simple wrapper function that provides SQL-level access to PostgreSQL's current text search configuration. It calls the internal  function with the  parameter set to , meaning it will raise an error if no text search configuration is currently set. The function returns the OID of the active text search configuration, which is determined by the  GUC (Grand Unified Configuration) parameter.
 

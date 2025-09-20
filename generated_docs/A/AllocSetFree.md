@@ -8,7 +8,10 @@ AllocSetFree frees allocated memory by removing it from the AllocSet and either 
 
 ## Definition
 
-
+```c
+void
+AllocSetFree(void *pointer)
+```
 ## Detailed Description
 AllocSetFree handles memory deallocation for the AllocSet memory context. It implements two distinct code paths depending on whether the chunk being freed is a regular chunk within a block or an external chunk (large allocation that gets its own dedicated block):
 

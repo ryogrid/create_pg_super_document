@@ -8,7 +8,10 @@ ReservePrivateRefCountEntry ensures that the PrivateRefCountArray has sufficient
 
 ## Definition
 
-
+```c
+static void
+ReservePrivateRefCountEntry(void)
+```
 ## Detailed Description
 This function is responsible for maintaining space availability in PostgreSQL's private buffer reference counting system. It implements a two-tier storage strategy using both an array (PrivateRefCountArray) and a hash table (PrivateRefCountHash) for optimal performance.
 

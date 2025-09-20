@@ -8,7 +8,13 @@ A specialized context structure used for fixing expressions in WindowAgg node ru
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	PlannerGlobal *glob;
+	Query	   *query;
+} flatten_rtes_walker_context;
+```
 ## Detailed Description
 The  structure is a specialized context used specifically for fixing expressions in WindowAgg node run conditions. This structure is a simplified version of the upper expression context, containing only the essential fields needed for resolving variable references in window function run conditions.
 

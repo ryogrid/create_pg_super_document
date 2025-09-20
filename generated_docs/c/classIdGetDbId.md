@@ -8,7 +8,10 @@ Utility function that determines the appropriate database ID to use in pg_shdepe
 
 ## Definition
 
-
+```c
+static Oid
+classIdGetDbId(Oid classId)
+```
 ## Detailed Description
 This function provides a standardized way to determine the correct database ID (dbid) field value for shared dependency records in pg_shdepend. The function implements the logic that shared catalog tables (those visible across all databases in a cluster) should use InvalidOid (0) as their database ID, while database-specific catalog tables should use the current database's OID.
 

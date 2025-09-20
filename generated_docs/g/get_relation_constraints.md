@@ -8,7 +8,14 @@ Retrieves and processes all applicable constraint expressions for a given relati
 
 ## Definition
 
-
+```c
+static List *
+get_relation_constraints(PlannerInfo *root,
+						 Oid relationObjectId, RelOptInfo *rel,
+						 bool include_noinherit,
+						 bool include_notnull,
+						 bool include_partition)
+```
 ## Detailed Description
 The  function extracts constraint expressions from a relation and transforms them into a standardized format suitable for query optimization. It processes three types of constraints: check constraints, NOT NULL constraints, and partitioning constraints.
 

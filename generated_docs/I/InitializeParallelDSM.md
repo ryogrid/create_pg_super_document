@@ -8,7 +8,9 @@ Establishes the dynamic shared memory segment for a parallel context and populat
 
 ## Definition
 
-
+```c
+enumslen = 0;
+```
 ## Detailed Description
 InitializeParallelDSM is the core function responsible for setting up shared memory communication between the leader process and parallel workers. It creates a dynamic shared memory (DSM) segment and populates it with a comprehensive set of state information including transaction snapshots, GUC settings, library states, user authentication details, and error communication queues.
 

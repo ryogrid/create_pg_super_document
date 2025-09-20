@@ -8,7 +8,11 @@ Prepares sort support information for multi-column sorting operations by configu
 
 ## Definition
 
-
+```c
+void
+multi_sort_add_dimension(MultiSortSupport mss, int sortdim,
+						 Oid oper, Oid collation)
+```
 ## Detailed Description
 This function initializes a single dimension of a multi-dimensional sort operation by setting up the SortSupport structure at the specified dimension index. It configures the sort support with the current memory context, the specified collation, and prepares the actual sort comparison function using the provided ordering operator. The function is primarily used in PostgreSQL's extended statistics subsystem to enable efficient multi-column sorting operations for statistical calculations.
 

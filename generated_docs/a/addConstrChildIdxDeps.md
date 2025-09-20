@@ -8,7 +8,10 @@ A recursive subroutine for getConstraints that establishes dependency relationsh
 
 ## Definition
 
-
+```c
+static void
+addConstrChildIdxDeps(DumpableObject *dobj, const IndxInfo *refidx)
+```
 ## Detailed Description
 This function is a critical component of pg_dump's constraint handling system. It recursively traverses a partitioned index's partition attachments and marks a foreign key constraint object as dependent on each partition's DO_INDEX_ATTACH object. This dependency system ensures that during database restoration, foreign key constraints are not restored until all referenced indexes are fully validated and attached.
 

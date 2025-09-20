@@ -8,7 +8,11 @@ Checks if a Turkish word contains more than one syllable by counting vowel group
 
 ## Definition
 
+```c
+}
 
+static int r_more_than_one_syllable_word(struct SN_env * z)
+```
 ## Detailed Description
 This function implements syllable counting for Turkish words by detecting vowel groups. In Turkish, each syllable typically contains one vowel, so counting vowels effectively counts syllables. The function:
 

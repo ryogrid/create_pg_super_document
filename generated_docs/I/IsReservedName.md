@@ -8,7 +8,10 @@ IsReservedName is a utility function that determines whether a given name starts
 
 ## Definition
 
-
+```c
+bool
+IsReservedName(const char *name)
+```
 ## Detailed Description
 This function performs a simple but critical check to determine if an object name begins with the "pg_" prefix, which is reserved for PostgreSQL system objects. The function is optimized for speed with direct character comparisons rather than string functions. The pg_ prefix reservation applies to different classes of objects including schemas, tablespaces (as of version 8.0), and roles (as of version 9.6). This naming convention helps prevent conflicts between user-defined objects and system objects.
 

@@ -8,7 +8,10 @@ Detaches the current process from the shared memory segment, designed primarily 
 
 ## Definition
 
-
+```c
+void
+PGSharedMemoryDetach(void)
+```
 ## Detailed Description
 This function safely detaches the current process from any attached shared memory segments. It is specifically designed for subprocess cleanup rather than being called by the process that originally created the shared memory segment (which uses on_shmem_exit callbacks for cleanup).
 

@@ -8,7 +8,10 @@ BumpCheck performs comprehensive consistency checking of a Bump memory context b
 
 ## Definition
 
-
+```c
+void
+BumpCheck(MemoryContext context)
+```
 ## Detailed Description
 This function implements thorough memory consistency checking for the Bump allocator by iterating through all blocks in the context and examining each allocated chunk within those blocks. It validates that block-context relationships are correct, chunk headers are valid, and memory layout is consistent. The function performs several critical checks including verifying that external chunks don't coexist with other chunks in the same block, that chunk block pointers are correct, and that total allocated memory matches the context's accounting. Any inconsistencies are reported as WARNING messages rather than errors to avoid infinite loops during error recovery.
 

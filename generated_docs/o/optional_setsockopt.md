@@ -8,7 +8,13 @@ A static helper function that conditionally sets socket options, providing grace
 
 ## Definition
 
-
+```c
+struct
+	{
+		uint32		packetlen;
+		CancelRequestPacket cp;
+	}			crp;
+```
 ## Detailed Description
 optional_setsockopt is an internal utility function in the libpq cancel mechanism that wraps the standard setsockopt() system call with additional logic to handle optional socket options. The function treats negative values as a signal to skip the socket option entirely, allowing callers to pass -1 or other negative values to indicate that a particular socket option should not be set. If a non-negative value is provided, it attempts to set the socket option and returns false if the operation fails.
 

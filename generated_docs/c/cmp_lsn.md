@@ -8,7 +8,11 @@ A comparator function that sorts LSN (Log Sequence Number) values in descending 
 
 ## Definition
 
-
+```c
+structs of per-walsender data,
+ * and the number of valid entries (candidate sync senders) is returned.
+ * (This might be more or fewer than num_sync;
+```
 ## Detailed Description
 This utility function serves as a comparator for the standard C library  function to sort XLogRecPtr (LSN) values in descending order. It dereferences the void pointers to access the actual LSN values and uses PostgreSQL's  function to perform the comparison.
 

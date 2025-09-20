@@ -8,7 +8,11 @@ A helper function for GenerationAlloc() that allocates a new memory block and re
 
 ## Definition
 
-
+```c
+static void *
+GenerationAllocFromNewBlock(MemoryContext context, Size size, int flags,
+							Size chunk_size)
+```
 ## Detailed Description
 GenerationAllocFromNewBlock is a specialized allocation function that handles the creation of new memory blocks when the current block cannot satisfy an allocation request. The function implements a progressive block sizing strategy where each new block doubles in size (up to a maximum limit) to reduce fragmentation and improve allocation efficiency. It performs the complete workflow of calculating block size, allocating system memory, initializing the block structure, linking it to the context's block list, and finally allocating the requested chunk from the new block.
 

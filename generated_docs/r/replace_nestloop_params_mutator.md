@@ -8,7 +8,9 @@ Performs recursive tree walking to replace outer-relation Vars and PlaceHolderVa
 
 ## Definition
 
-
+```c
+structure with the original;
+```
 ## Detailed Description
 This is the core mutator function that implements the nested loop parameter replacement logic. It recursively traverses expression trees and replaces Vars and PlaceHolderVars that belong to outer relations with corresponding Params. The function handles two main node types:
 

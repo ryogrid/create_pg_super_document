@@ -8,7 +8,10 @@ Initializes an iterator for sequential traversal of all values in an IntegerSet 
 
 ## Definition
 
-
+```c
+void
+intset_begin_iterate(IntegerSet *intset)
+```
 ## Detailed Description
 The  function sets up the necessary state for iterating through all values stored in an IntegerSet in ascending order. This function initializes the iterator state machine that allows for efficient sequential access to all compressed and uncompressed values in the set.
 

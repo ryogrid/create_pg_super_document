@@ -8,7 +8,16 @@ The  function is a simple callback wrapper that pushes query operands directly t
 
 ## Definition
 
-
+```c
+typedef struct
+{
+	QueryItem  *curpol;
+	char	   *buf;
+	char	   *cur;
+	char	   *op;
+	int			buflen;
+} INFIX;
+```
 ## Detailed Description
 This function serves as a straightforward PushFunction callback for the  function. It acts as a pass-through mechanism that takes parsed query operands and directly adds them to the query structure using  without any modification, normalization, or additional processing. The "asis" in the name indicates that values are pushed "as-is" without transformation.
 

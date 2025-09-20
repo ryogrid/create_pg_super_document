@@ -8,7 +8,10 @@ Sends password-based authentication to the PostgreSQL server, handling both plai
 
 ## Definition
 
-
+```c
+static int
+pg_password_sendauth(PGconn *conn, const char *password, AuthRequest areq)
+```
 ## Detailed Description
 The  function handles password-based authentication in PostgreSQL's libpq client library. It supports two authentication methods: plaintext password transmission (AUTH_REQ_PASSWORD) and MD5-encrypted password authentication (AUTH_REQ_MD5).
 

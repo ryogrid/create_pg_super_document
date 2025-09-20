@@ -8,7 +8,15 @@ A local structure used to store information about indexes during concurrent rein
 
 ## Definition
 
-
+```c
+typedef struct ReindexIndexInfo
+	{
+		Oid			indexId;
+		Oid			tableId;
+		Oid			amId;
+		bool		safe;		/* for set_indexsafe_procflags */
+	} ReindexIndexInfo;
+```
 ## Detailed Description
 The  structure is a local data structure used within the index reindexing subsystem to collect and organize information about indexes that need to be processed. This structure is particularly important for concurrent reindexing operations where careful coordination and safety checks are required.
 

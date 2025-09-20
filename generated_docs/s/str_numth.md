@@ -8,7 +8,12 @@ A string manipulation function that converts a numeric string into its ordinal f
 
 ## Definition
 
-
+```c
+typedef int32_t (*ICU_Convert_Func) (UChar *dest, int32_t destCapacity,
+									 const UChar *src, int32_t srcLength,
+									 const char *locale,
+									 UErrorCode *pErrorCode);
+```
 ## Detailed Description
 The  function takes a numeric string and transforms it into its ordinal representation by appending the appropriate suffix. For example, "1" becomes "1st", "22" becomes "22nd", "103" becomes "103rd", etc. The function is designed to work efficiently by optionally copying the source number to a destination buffer (if they're different) and then appending the correct ordinal suffix determined by the  function.
 

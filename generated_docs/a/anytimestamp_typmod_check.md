@@ -8,7 +8,10 @@ A validation function that checks and normalizes precision values for TIMESTAMP 
 
 ## Definition
 
-
+```c
+int32
+anytimestamp_typmod_check(bool istz, int32 typmod)
+```
 ## Detailed Description
 This function validates the precision (typmod) parameter for timestamp types, ensuring it meets PostgreSQL's constraints for timestamp precision. It performs range checking and automatic adjustment when values exceed the maximum allowed precision. The function is exported specifically so that parse_expr.c can use it during SQL parsing operations.
 

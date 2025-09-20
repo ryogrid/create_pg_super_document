@@ -8,7 +8,10 @@ Internal function that sends signals to listening backend processes to notify th
 
 ## Definition
 
-
+```c
+static void
+SignalBackends(void)
+```
 ## Detailed Description
 This function is responsible for notifying listening backend processes that new notifications are available in the queue. It implements a two-tier signaling strategy: backends in the same database are signaled immediately (unless they're already caught up), while backends in other databases are only signaled if they've fallen significantly behind (QUEUE_CLEANUP_DELAY pages). This approach balances notification delivery with system efficiency by preventing unnecessary cross-database signals while ensuring that lagging listeners don't indefinitely block queue cleanup. The function separates the identification phase (while holding locks) from the actual signaling phase to minimize lock contention.
 

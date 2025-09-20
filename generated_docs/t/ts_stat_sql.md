@@ -8,7 +8,10 @@ Executes a SQL query that returns tsvector data and accumulates text search stat
 
 ## Definition
 
-
+```c
+static TSVectorStat *
+ts_stat_sql(MemoryContext persistentContext, text *txt, text *ws)
+```
 ## Detailed Description
 This function executes a SQL query provided as a text parameter and processes the returned tsvector data to build comprehensive text search statistics. It uses PostgreSQL's Server Programming Interface (SPI) to prepare and execute the query via a cursor, fetching results in batches of 100 rows. The function validates that the query returns exactly one column of tsvector type, then processes each result through ts_accum to build a statistical tree of lexemes with their document and occurrence counts.
 

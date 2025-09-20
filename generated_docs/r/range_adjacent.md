@@ -8,7 +8,10 @@ PostgreSQL SQL function that determines if two ranges are adjacent (touching but
 
 ## Definition
 
-
+```c
+Datum
+range_adjacent(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function serves as the SQL-callable wrapper for the range adjacency operator "-|-". It extracts two range arguments from the PostgreSQL function call context, validates they are of the same type, and delegates the actual adjacency testing to .
 

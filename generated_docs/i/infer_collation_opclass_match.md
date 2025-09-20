@@ -8,7 +8,11 @@ Verifies that inference specification elements match the collation and operator 
 
 ## Definition
 
-
+```c
+static bool
+infer_collation_opclass_match(InferenceElem *elem, Relation idxRel,
+							  List *idxExprs)
+```
 ## Detailed Description
 This static function ensures that inference elements from ON CONFLICT clauses properly match the collation and operator class constraints of indexed attributes. When a user specifies collation or opclass in an inference specification, this function validates that at least one indexed attribute matches those requirements.
 

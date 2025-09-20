@@ -8,7 +8,12 @@ This function creates a new bbstreamer that extracts files from an archive strea
 
 ## Definition
 
-
+```c
+bbstreamer *
+bbstreamer_extractor_new(const char *basepath,
+						 const char *(*link_map) (const char *),
+						 void (*report_output_file) (const char *))
+```
 ## Detailed Description
 The `bbstreamer_extractor_new` function creates and initializes a new bbstreamer extractor that processes typed archive chunks and extracts files to the filesystem. Unlike plain writers that handle untyped chunks, extractors require properly typed chunks that follow the rules described in bbstreamer.h. The extractor interprets all pathnames in the archive as relative to the provided basepath. It supports callback functions for customizing symbolic link targets and reporting when new output files are opened. The function allocates memory for the extractor structure, initializes the operations vtable pointer, and stores the provided parameters for use during extraction.
 

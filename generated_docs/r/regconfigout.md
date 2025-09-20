@@ -8,7 +8,10 @@ Converts a text search configuration OID to its corresponding configuration name
 
 ## Definition
 
-
+```c
+Datum
+regconfigout(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is part of PostgreSQL's regtype system for text search configurations. It takes an OID (Object Identifier) representing a text search configuration and converts it to a human-readable string representation. The function handles three main cases:
 

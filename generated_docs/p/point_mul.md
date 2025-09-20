@@ -8,7 +8,13 @@ The point_mul function performs complex multiplication of two Point geometric ob
 
 ## Definition
 
-
+```c
+struct(result,
+					float8_div(float8_pl(float8_mul(pt1->x, pt2->x),
+										 float8_mul(pt1->y, pt2->y)), div),
+					float8_div(float8_mi(float8_mul(pt1->y, pt2->x),
+										 float8_mul(pt1->x, pt2->y)), div));
+```
 ## Detailed Description
 This function implements complex number multiplication for PostgreSQL Point data types. It takes two Point objects as arguments and returns a new Point representing their complex multiplication. The function serves as a PostgreSQL function wrapper around the static helper function point_mul_point, which performs the actual mathematical computation. Complex multiplication treats each point as a complex number where x is the real part and y is the imaginary part, computing (a+bi) * (c+di) = (ac-bd) + (ad+bc)i.
 

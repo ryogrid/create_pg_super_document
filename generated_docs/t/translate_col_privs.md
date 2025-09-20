@@ -8,7 +8,11 @@ Translates a bitmapset representing per-column privileges from a parent relation
 
 ## Definition
 
-
+```c
+static Bitmapset *
+translate_col_privs(const Bitmapset *parent_privs,
+					List *translated_vars)
+```
 ## Detailed Description
 This static function performs column privilege translation between parent and child relations in inheritance hierarchies. The translation is necessary because parent and child relations may have different attribute numbering due to differences in column layout. Key aspects include:
 

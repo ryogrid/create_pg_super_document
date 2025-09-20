@@ -8,7 +8,9 @@ An enumeration that defines the types of changes that can be recorded in Postgre
 
 ## Definition
 
-
+```c
+struct ReorderBufferTXN;
+```
 ## Detailed Description
 This enumeration categorizes different types of changes that occur during database operations and are tracked by PostgreSQL's reorder buffer system. The reorder buffer is a critical component of logical replication that collects and orders changes from the WAL (Write-Ahead Log) for delivery to logical replication consumers.
 

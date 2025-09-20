@@ -8,7 +8,11 @@ SPI_prepare_extended parses and plans a SQL query using an extended options stru
 
 ## Definition
 
-
+```c
+SPIPlanPtr
+SPI_prepare_extended(const char *src,
+					 const SPIPrepareOptions *options)
+```
 ## Detailed Description
 SPI_prepare_extended is the most flexible preparation function in the SPI interface, accepting a comprehensive options structure rather than individual parameters. It allows callers to specify custom parsing modes, cursor options, and parser setup callbacks, making it suitable for advanced use cases that require non-standard query parsing or execution behavior.
 

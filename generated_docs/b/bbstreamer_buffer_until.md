@@ -8,7 +8,11 @@ This convenience function attempts to accumulate data in a bbstreamer's buffer u
 
 ## Definition
 
-
+```c
+static inline bool
+bbstreamer_buffer_until(bbstreamer *streamer, const char **data, int *len,
+						int target_bytes)
+```
 ## Detailed Description
 bbstreamer_buffer_until is a static inline convenience function designed specifically for use by bbstreamer implementations, not external callers. It provides intelligent buffering logic that attempts to accumulate enough data to reach a specified target length in the bbstreamer's internal buffer.
 

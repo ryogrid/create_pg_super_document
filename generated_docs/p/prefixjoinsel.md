@@ -8,7 +8,10 @@ A selectivity estimation function for prefix matching join operations in Postgre
 
 ## Definition
 
-
+```c
+Datum
+prefixjoinsel(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  is a join selectivity estimation function that provides selectivity estimates for prefix matching operations in join conditions. It serves as a wrapper function that delegates the actual selectivity calculation to the generic  function, specifying the pattern type as prefix pattern () and indicating that this is not a negated match (false).
 

@@ -8,7 +8,10 @@ Returns the number of lexemes and operators in a text search query (TSQuery), pr
 
 ## Definition
 
-
+```c
+Datum
+tsquery_numnode(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL built-in function that calculates and returns the total number of nodes in a TSQuery object. It accesses the  field of the TSQuery structure, which contains the count of all lexemes (search terms) and operators (AND, OR, NOT, phrase operators) that make up the query tree. This function provides insight into the complexity of a text search query.
 

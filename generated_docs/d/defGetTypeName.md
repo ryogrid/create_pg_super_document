@@ -8,7 +8,10 @@ Extracts a TypeName structure from a DefElem, specifically designed for DDL comm
 
 ## Definition
 
-
+```c
+TypeName *
+defGetTypeName(DefElem *def)
+```
 ## Detailed Description
 The  function is a specialized utility that extracts TypeName structures from DefElem nodes in PostgreSQL's DDL command processing. Unlike , this function specifically returns a TypeName structure, which contains additional type-specific information beyond just the name components.
 

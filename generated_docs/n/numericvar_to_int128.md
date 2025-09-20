@@ -8,7 +8,10 @@ Converts a PostgreSQL NumericVar to a 128-bit signed integer, performing roundin
 
 ## Definition
 
-
+```c
+struct the result */
+	digits = rounded.digits;
+```
 ## Detailed Description
 This function converts a PostgreSQL numeric value represented as a NumericVar structure to a 128-bit signed integer (int128). The conversion process includes automatic rounding to the nearest integer and comprehensive overflow detection. The function is designed to handle the full range of int128 values, including the special case of INT128_MIN which requires careful overflow checking due to two's complement arithmetic properties.
 

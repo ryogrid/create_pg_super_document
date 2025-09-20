@@ -8,7 +8,10 @@ Creates a deep copy of a Bitmapset by delegating to the dedicated Bitmapset copy
 
 ## Definition
 
-
+```c
+static Bitmapset *
+_copyBitmapset(const Bitmapset *from)
+```
 ## Detailed Description
 The  function provides a simple wrapper around PostgreSQL's dedicated Bitmapset copying functionality. It serves as an adapter that allows Bitmapsets to participate in the generic node copying system by conforming to the expected function signature while delegating the actual copying work to the specialized  function.
 

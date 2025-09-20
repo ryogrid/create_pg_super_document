@@ -8,7 +8,10 @@ A wrapper function that converts a procedure name text to a RegProcedure OID, re
 
 ## Definition
 
-
+```c
+Datum
+to_regproc(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The to_regproc function serves as a safe wrapper around regprocin, providing NULL-on-error semantics instead of error throwing. It accepts a text input (rather than a C-string like regprocin) and converts it to the corresponding procedure's OID. This function is typically used in contexts where missing procedures should be handled gracefully rather than causing query failure.
 

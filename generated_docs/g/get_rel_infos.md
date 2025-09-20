@@ -8,7 +8,10 @@ The get_rel_infos function collects metadata for all user tables, materialized v
 
 ## Definition
 
-
+```c
+enumber,
+				i_reltablespace;
+```
 ## Detailed Description
 This function is a crucial component of pg_upgrade that gathers comprehensive relation metadata from a database. It constructs and executes a complex SQL query using Common Table Expressions (CTEs) to collect information about regular heap tables, toast tables, and indexes. The function categorizes relations into three groups: regular_heap (user tables and materialized views), toast_heap (toast tables for large objects), and all_index (valid indexes). It optimizes memory usage by reusing string allocations for identical namespace and tablespace names. The results are guaranteed to be sorted by OID to enable efficient matching between old and new databases during the upgrade process.
 

@@ -8,7 +8,10 @@ setop_fill_hash_table implements the first phase of the hashed strategy for set 
 
 ## Definition
 
-
+```c
+static void
+setop_fill_hash_table(SetOpState *setopstate)
+```
 ## Detailed Description
 This function builds a hash table for set operations when the hashed strategy is used (typically for unsorted inputs). The process works as follows:
 

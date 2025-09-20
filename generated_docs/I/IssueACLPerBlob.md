@@ -8,7 +8,10 @@ IssueACLPerBlob processes "LARGE OBJECTS" ACL TocEntries by parsing GRANT/REVOKE
 
 ## Definition
 
-
+```c
+void
+IssueACLPerBlob(ArchiveHandle *AH, TocEntry *te)
+```
 ## Detailed Description
 This function handles the restoration of Access Control List (ACL) permissions for large objects in pg_dump/pg_restore. To optimize dump file size, the TocEntry contains only one copy of the GRANT/REVOKE commands written for the first blob in a group. The function expands these commands to apply to all large objects listed in the corresponding BLOB METADATA entry.
 

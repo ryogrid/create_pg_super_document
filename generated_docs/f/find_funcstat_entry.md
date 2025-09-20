@@ -8,7 +8,10 @@ Searches for an existing PgStat_FunctionCounts entry for a specified function wi
 
 ## Definition
 
-
+```c
+PgStat_FunctionCounts *
+find_funcstat_entry(Oid func_id)
+```
 ## Detailed Description
 This function is a utility for looking up function statistics entries in PostgreSQL's statistics collection system. It attempts to find an existing pending statistics entry for a given function ID. The function is designed to be non-intrusive - it will only return an existing entry and will not create a new one if none is found. This makes it useful for checking whether statistics are already being tracked for a particular function without affecting the statistics collection state.
 

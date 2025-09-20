@@ -8,7 +8,11 @@ Executes nested boolean expressions (such as filters) in JSON path processing by
 
 ## Definition
 
-
+```c
+static JsonPathBool
+executeNestedBoolItem(JsonPathExecContext *cxt, JsonPathItem *jsp,
+					  JsonbValue *jb)
+```
 ## Detailed Description
 This function is a specialized wrapper for executing boolean expressions within nested contexts during JSON path evaluation. It temporarily modifies the execution context by setting the current item to the provided JsonbValue, executes the boolean item, and then restores the previous current item. This stack-like behavior is essential for maintaining proper context when evaluating nested expressions, particularly in filter operations where the evaluation context needs to be adjusted temporarily.
 

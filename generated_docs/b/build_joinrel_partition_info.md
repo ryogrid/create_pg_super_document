@@ -8,7 +8,13 @@ Determines if two relations being joined can use partitionwise join and initiali
 
 ## Definition
 
-
+```c
+static void
+build_joinrel_partition_info(PlannerInfo *root,
+							 RelOptInfo *joinrel, RelOptInfo *outer_rel,
+							 RelOptInfo *inner_rel, SpecialJoinInfo *sjinfo,
+							 List *restrictlist)
+```
 ## Detailed Description
 This function is responsible for setting up partition information for a join relation when partitionwise join optimization is possible. It validates that both input relations are partitioned with matching partition schemes and that there exists an equi-join condition on the partition keys. The function performs comprehensive checks to ensure partitionwise join is viable:
 

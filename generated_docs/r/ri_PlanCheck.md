@@ -8,7 +8,11 @@ Prepares and caches execution plans for referential integrity constraint checkin
 
 ## Definition
 
-
+```c
+static SPIPlanPtr
+ri_PlanCheck(const char *querystr, int nargs, Oid *argtypes,
+			 RI_QueryKey *qkey, Relation fk_rel, Relation pk_rel)
+```
 ## Detailed Description
 This function creates and caches prepared SQL execution plans for referential integrity operations. It handles security context management by:
 

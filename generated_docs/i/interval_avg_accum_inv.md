@@ -8,7 +8,10 @@ Inverse transition function for interval aggregates, used to remove interval val
 
 ## Definition
 
-
+```c
+Datum
+interval_avg_accum_inv(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the inverse transition functionality for interval sum() and avg() aggregates. It is designed to work with sliding window aggregates where values need to be removed from the accumulated state. The function takes an IntervalAggState pointer and an interval value to be removed, then calls the helper function do_interval_discard() to properly update the aggregate state by subtracting the specified interval.
 

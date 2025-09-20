@@ -8,7 +8,10 @@ A public function that adjusts variable node numbers and relation identifiers th
 
 ## Definition
 
-
+```c
+void
+OffsetVarNodes(Node *node, int offset, int sublevels_up)
+```
 ## Detailed Description
 This function serves as the main entry point for offsetting variable node references in expression trees and Query structures. It handles both Query nodes and bare expression trees, setting up the appropriate context and delegating to OffsetVarNodes_walker for the actual traversal. When starting with a Query node at sublevel 0, it also adjusts Query-specific relation indexes including resultRelation, mergeTargetRelation, exclRelIndex in ON CONFLICT clauses, and relation indexes in rowMarks entries. The function is essential for maintaining correct variable-to-relation mappings when combining range tables or adjusting queries during rewriting and optimization.
 

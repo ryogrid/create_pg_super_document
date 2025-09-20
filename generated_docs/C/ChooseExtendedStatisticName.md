@@ -8,7 +8,11 @@ Selects a nonconflicting name for a new PostgreSQL extended statistics object by
 
 ## Definition
 
-
+```c
+static char *
+ChooseExtendedStatisticName(const char *name1, const char *name2,
+							const char *label, Oid namespaceid)
+```
 ## Detailed Description
 This function generates a unique name for an extended statistics object by combining name components and ensuring no conflicts exist in the target namespace. It starts with the unmodified label and incrementally appends digits (e.g., "_1", "_2") until finding a name that doesn't already exist in the pg_statistic_ext system catalog. The function uses the same naming convention as makeObjectName() but with additional conflict resolution logic specific to extended statistics objects.
 

@@ -8,7 +8,10 @@ Converts a FullTransactionId (XID8) to a TransactionId (XID), effectively extrac
 
 ## Definition
 
-
+```c
+Datum
+xid8toxid(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL type conversion function that converts from the XID8 data type (64-bit FullTransactionId) to the XID data type (32-bit TransactionId). This function extracts the lower 32-bit transaction ID from the full 64-bit transaction identifier, essentially performing a narrowing conversion that may lose the epoch information.
 

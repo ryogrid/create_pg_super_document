@@ -8,7 +8,10 @@ Initializes and begins a scan operation on a GiST (Generalized Search Tree) inde
 
 ## Definition
 
-
+```c
+IndexScanDesc
+gistbeginscan(Relation r, int nkeys, int norderbys)
+```
 ## Detailed Description
 This function serves as the entry point for GiST index scanning operations, implementing the index access method API for PostgreSQL. It creates and initializes an IndexScanDesc structure along with GiST-specific opaque data (GISTScanOpaque) that contains all the state information needed throughout the scan's lifetime. The function establishes memory contexts for efficient memory management, sets up distance tracking arrays for ORDER BY operations, and prepares workspace for scan keys. All memory allocations are performed in the scan-lifetime context to ensure automatic cleanup when the scan ends.
 

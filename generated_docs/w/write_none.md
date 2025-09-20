@@ -8,7 +8,10 @@ The  function provides uncompressed file writing functionality for PostgreSQL's 
 
 ## Definition
 
-
+```c
+static void
+write_none(const void *ptr, size_t size, CompressFileHandle *CFH)
+```
 ## Detailed Description
 The  function is a static helper function that handles uncompressed data writing in the pg_dump compression framework. It wraps the standard C library  function with proper error handling and reporting. The function writes the specified amount of data from a buffer to a file handle stored within a CompressFileHandle structure. If the write operation fails or doesn't write the expected number of bytes, the function terminates the program with a fatal error message.
 

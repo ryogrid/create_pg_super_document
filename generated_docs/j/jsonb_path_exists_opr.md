@@ -8,7 +8,10 @@ PostgreSQL operator function that implements the "@?" operator for checking JSON
 
 ## Definition
 
-
+```c
+Datum
+jsonb_path_exists_opr(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL "@?" operator, which provides syntactic sugar for JSONPath existence checking. It serves as the operator implementation for expressions like . The function is specifically designed as a 2-argument version of , making it suitable for use as an infix operator.
 

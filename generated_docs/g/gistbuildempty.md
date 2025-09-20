@@ -8,7 +8,10 @@ Builds an empty GiST index in the initialization fork, creating and initializing
 
 ## Definition
 
-
+```c
+void
+gistbuildempty(Relation index)
+```
 ## Detailed Description
 This function creates an empty GiST index by initializing its root page in the initialization fork. The initialization fork is used in PostgreSQL for creating initial pages of indexes that will be populated later. The function extends the buffered relation to get a new buffer, initializes it as a leaf page (since an empty index has only a root page which is also a leaf), logs the operation for crash recovery, and then releases the buffer.
 

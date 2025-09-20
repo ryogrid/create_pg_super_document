@@ -8,7 +8,10 @@ Retrieves the root (top-level) TableInfo for a given partition table by traversi
 
 ## Definition
 
-
+```c
+static TableInfo *
+getRootTableInfo(const TableInfo *tbinfo)
+```
 ## Detailed Description
 This function traverses the partition hierarchy from a given partition table to find its root table. It follows the parent-child relationships defined in the partition tree, moving upward from child partitions through intermediate partitioned tables until it reaches the root table (which is not a partition itself). This is essential for pg_dump operations where understanding the complete partition hierarchy is necessary for proper data dumping and schema recreation.
 

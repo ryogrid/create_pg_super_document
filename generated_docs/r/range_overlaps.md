@@ -8,7 +8,10 @@ The range_overlaps function is a PostgreSQL built-in function that tests whether
 
 ## Definition
 
-
+```c
+Datum
+range_overlaps(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL range overlaps operator (&& operator). It takes two range values as input and returns a boolean indicating whether they have any overlapping elements. The function serves as a wrapper that extracts the range arguments from the PostgreSQL function call context and delegates the actual overlap checking to the internal range_overlaps_internal function.
 

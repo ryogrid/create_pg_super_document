@@ -8,7 +8,11 @@ Executes the IDENTIFY_SYSTEM replication command through a PostgreSQL connection
 
 ## Definition
 
-
+```c
+bool
+RunIdentifySystem(PGconn *conn, char **sysid, TimeLineID *starttli,
+				  XLogRecPtr *startpos, char **db_name)
+```
 ## Detailed Description
 This function sends the IDENTIFY_SYSTEM replication protocol command to a PostgreSQL server connection and parses the response to extract system identification information. The IDENTIFY_SYSTEM command is part of PostgreSQL's streaming replication protocol and returns essential information needed to establish replication connections or perform backup operations. The function validates the response format and extracts the requested information into caller-provided output parameters.
 

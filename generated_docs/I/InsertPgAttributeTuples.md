@@ -8,7 +8,14 @@ Constructs and inserts a set of tuples in the pg_attribute system catalog, effic
 
 ## Definition
 
-
+```c
+void
+InsertPgAttributeTuples(Relation pg_attribute_rel,
+						TupleDesc tupdesc,
+						Oid new_rel_oid,
+						const FormExtraData_pg_attribute tupdesc_extra[],
+						CatalogIndexState indstate)
+```
 ## Detailed Description
 InsertPgAttributeTuples is a low-level catalog management function that creates and inserts pg_attribute tuples for a set of attributes defined in a TupleDesc. The function is optimized for batch operations, creating multiple slots and inserting tuples in batches to improve performance when creating relations with many attributes.
 

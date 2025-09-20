@@ -8,7 +8,10 @@ Copies locale and encoding information from the old cluster's template0 database
 
 ## Definition
 
-
+```c
+static void
+set_locale_and_encoding(void)
+```
 ## Detailed Description
 The set_locale_and_encoding function transfers critical locale and encoding configuration from the old cluster to the new cluster by updating the template0 database in the new cluster. This ensures that all databases created from template0 will inherit the correct locale settings. The function:
 

@@ -8,7 +8,14 @@ BTScanKeyPreproc is a preprocessing structure used during B-tree scan key analys
 
 ## Definition
 
-
+```c
+typedef struct BTScanKeyPreproc
+{
+	ScanKey		skey;
+	int			ikey;
+	int			arrayidx;
+} BTScanKeyPreproc;
+```
 ## Detailed Description
 This structure serves as a temporary preprocessing container in _bt_preprocess_keys() to organize scan keys by strategy type during the key optimization phase. It maintains mappings between the transformed scan key, its original index position, and its associated array index (for array scan keys). The structure is used in an array indexed by strategy numbers to help eliminate redundant keys, detect contradictory conditions, and determine which keys are required for continued scanning.
 

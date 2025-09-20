@@ -8,7 +8,10 @@ Validates domain constraints for a complete tuple replacement operation by creat
 
 ## Definition
 
-
+```c
+struct dummy header to contain replacement tuple */
+	build_dummy_expanded_header(erh);
+```
 ## Detailed Description
 This function performs preemptive domain constraint validation before replacing an entire expanded record with a new HeapTuple. It handles two distinct cases: NULL tuple assignment (empty record) and actual tuple assignment. For NULL tuples, it directly validates whether NULL values are acceptable for the domain. For actual tuples, it constructs a dummy expanded record header containing the new tuple and runs domain_check() against it.
 

@@ -8,7 +8,10 @@ Transforms a JSON_SCALAR() expression into a JsonConstructorExpr node that conve
 
 ## Definition
 
-
+```c
+structorExpr(pstate, JSCTOR_JSON_SCALAR, list_make1(arg), NULL,
+								   returning, false, false, jsexpr->location);
+```
 ## Detailed Description
 The transformJsonScalarExpr function is responsible for transforming JSON_SCALAR() SQL expressions during the parsing phase. JSON_SCALAR() is a SQL/JSON constructor function that converts a regular SQL scalar value into a JSON representation. The function creates a JsonConstructorExpr node of type JSCTOR_JSON_SCALAR to handle the conversion at execution time. If the input expression has an unknown type, it is coerced to TEXT type before processing. The function also handles JSON output formatting and returning clauses through the transformJsonReturning helper.
 

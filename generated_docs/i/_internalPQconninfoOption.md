@@ -8,7 +8,29 @@ An internal structure that extends PQconninfoOption with additional private fiel
 
 ## Definition
 
-
+```c
+typedef struct _internalPQconninfoOption
+{
+	char	   *keyword;		/* The keyword of the option			*/
+	char	   *envvar;			/* Fallback environment variable name	*/
+	char	   *compiled;		/* Fallback compiled in default value	*/
+	char	   *val;			/* Option's current value, or NULL		*/
+	char	   *label;			/* Label for field in connect dialog	*/
+	char	   *dispchar;		/* Indicates how to display this field in a
+								 * connect dialog. Values are: "" Display
+								 * entered value as is "*" Password field -
+								 * hide value "D"  Debug option - don't show
+								 * by default */
+	int			dispsize;		/* Field size in characters for dialog	*/
+	/* ---
+	 * Anything above this comment must be synchronized with
+	 * PQconninfoOption in libpq-fe.h, since we memcpy() data
+	 * between them!
+	 * ---
+	 */
+	off_t		connofs;		/* Offset into PGconn struct, -1 if not there */
+} internalPQconninfoOption;
+```
 ## Detailed Description
 This structure is the internal representation of connection information options used by libpq for managing PostgreSQL database connections. It extends the public PQconninfoOption structure with an additional private field () that tracks the offset of each option within the PGconn structure. The first part of this structure is intentionally kept synchronized with PQconninfoOption in libpq-fe.h to allow safe memory copying between the two structures. This design allows libpq to maintain both a public API and internal implementation details while ensuring compatibility.
 

@@ -8,7 +8,10 @@ Merges current subscription's publications with user-specified publications for 
 
 ## Definition
 
-
+```c
+static List *
+merge_publications(List *oldpublist, List *newpublist, bool addpub, const char *subname)
+```
 ## Detailed Description
 The  function is a static helper function used in subscription management commands to safely merge publication lists. It handles both adding publications to a subscription (ADD PUBLICATIONS) and removing publications from a subscription (DROP PUBLICATIONS). The function creates a copy of the original publication list and performs the requested merge operation while ensuring data consistency and proper error handling.
 

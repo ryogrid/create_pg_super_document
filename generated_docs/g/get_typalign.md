@@ -8,7 +8,10 @@ Retrieves the alignment requirement for a specified PostgreSQL data type from th
 
 ## Definition
 
-
+```c
+char
+get_typalign(Oid typid)
+```
 ## Detailed Description
 This function performs a system catalog lookup to retrieve the alignment requirement for a given data type. Type alignment specifies the memory alignment boundary that values of this type must respect when stored in memory or on disk. The function queries the pg_type system catalog using the syscache mechanism for efficient access. If the type is not found in the catalog, it returns a default alignment of TYPALIGN_INT as a fallback value.
 

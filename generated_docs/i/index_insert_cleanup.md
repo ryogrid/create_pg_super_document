@@ -8,7 +8,11 @@ The  function performs cleanup operations after all index insertions are complet
 
 ## Definition
 
-
+```c
+void
+index_insert_cleanup(Relation indexRelation,
+					 IndexInfo *indexInfo)
+```
 ## Detailed Description
 This function serves as a wrapper that calls the access method-specific cleanup routine for index insertions. It checks if the index access method provides a cleanup function () and calls it if available. This allows different index types (B-tree, hash, GiST, etc.) to perform their own specific cleanup operations after batch insertions are complete. The function includes relation validation checks to ensure the index relation is in a valid state before proceeding.
 

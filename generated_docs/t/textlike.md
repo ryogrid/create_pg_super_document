@@ -8,7 +8,10 @@ Implements the LIKE operator for PostgreSQL's text data type, returning true whe
 
 ## Definition
 
-
+```c
+Datum
+textlike(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The `textlike` function provides the implementation for PostgreSQL's LIKE operator when applied to text data types. It takes two text arguments - the string to be tested and the pattern to match against - and uses the generic pattern matching functionality to determine if the text matches the pattern. This function returns true when the pattern matches the text, and false when it does not match.
 

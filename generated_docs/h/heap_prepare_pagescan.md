@@ -8,7 +8,10 @@ heap_prepare_pagescan prepares a heap page for efficient pagemode scanning by pr
 
 ## Definition
 
-
+```c
+void
+heap_prepare_pagescan(TableScanDesc sscan)
+```
 ## Detailed Description
 This function performs essential page preparation for pagemode scanning, a PostgreSQL optimization that allows efficient tuple retrieval by pre-filtering visible tuples. The function operates in two main phases: first, it calls heap_page_prune_opt to remove dead tuples and defragment the page, then it populates the rs_vistuples array with offsets of all visible tuples. The function handles multiple optimization paths based on page visibility status and serializable conflict detection requirements, using constant folding to optimize the most common cases where all tuples are visible and serializable conflict checking is not needed.
 

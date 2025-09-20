@@ -8,7 +8,10 @@ A convenience function that starts a transaction command and sets up necessary t
 
 ## Definition
 
-
+```c
+static void
+start_xact_command(void)
+```
 ## Detailed Description
 This function ensures that a transaction is started before executing SQL commands and sets up timeout mechanisms for statement execution and client connection checking. It only starts a new transaction if one hasn't been started already, using the xact_started flag to track transaction state. The function also enables statement timeout to enforce query execution time limits and conditionally enables client connection check timeout to detect disconnected clients.
 

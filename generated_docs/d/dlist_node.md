@@ -8,7 +8,9 @@ The  structure represents a node in PostgreSQL's doubly-linked list implementati
 
 ## Definition
 
-
+```c
+typedef struct dlist_node dlist_node;
+```
 ## Detailed Description
 The  is a fundamental building block of PostgreSQL's intrusive doubly-linked list implementation found in . This structure is designed to be embedded directly into other structures that need to be part of a doubly-linked list, rather than being used as a container for data. This intrusive design provides better memory locality and eliminates the need for separate allocation of list nodes.
 

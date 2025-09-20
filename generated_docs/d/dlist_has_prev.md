@@ -8,7 +8,10 @@ Checks whether a given node in a doubly-linked list has a preceding node (i.e., 
 
 ## Definition
 
-
+```c
+static inline bool
+dlist_has_prev(const dlist_head *head, const dlist_node *node)
+```
 ## Detailed Description
 This function determines if a node has a previous element by comparing the node's prev pointer with the head sentinel's head field. In PostgreSQL's doubly-linked list implementation, the head sentinel's head field serves as a boundary marker - if a node's prev pointer points to this sentinel, it means the node is the first element in the list and has no actual preceding node.
 

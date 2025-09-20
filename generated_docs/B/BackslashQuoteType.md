@@ -8,7 +8,14 @@ BackslashQuoteType is an enumeration that defines the allowed values for the bac
 
 ## Definition
 
-
+```c
+typedef enum
+{
+	BACKSLASH_QUOTE_OFF,
+	BACKSLASH_QUOTE_ON,
+	BACKSLASH_QUOTE_SAFE_ENCODING,
+}			BackslashQuoteType;
+```
 ## Detailed Description
 This enumeration serves as the type definition for the PostgreSQL GUC parameter `backslash_quote`, which determines how the parser handles backslash-quote sequences (\\') in string literals. The parameter provides compatibility options for applications that may rely on non-standard SQL behavior regarding escape sequences in string literals. This setting is particularly important for applications migrating from other database systems or legacy PostgreSQL configurations.
 

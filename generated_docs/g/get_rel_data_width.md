@@ -8,7 +8,10 @@ Estimates the average width of the data part of a relation's tuples, providing e
 
 ## Definition
 
-
+```c
+int32
+get_rel_data_width(Relation rel, int32 *attr_widths)
+```
 ## Detailed Description
 The  function calculates an estimate of the average tuple width for a given relation by iterating through all non-dropped attributes and summing their individual widths. The function serves as a critical component in PostgreSQL's query optimizer for cost estimation purposes.
 

@@ -8,7 +8,10 @@ Retrieves the strategy number of an operator within a specified operator family,
 
 ## Definition
 
-
+```c
+int
+get_op_opfamily_strategy(Oid opno, Oid opfamily)
+```
 ## Detailed Description
 This function looks up an operator in the pg_amop system catalog to determine its strategy number within a given operator family. Strategy numbers define the semantic meaning of operators within an operator family (e.g., 1 for less-than, 2 for less-equal, 3 for equal, etc.). The function only considers search operators (AMOP_SEARCH), not ordering operators. If the operator is not found in the specified family, it returns 0.
 

@@ -8,7 +8,10 @@ Marks a B-tree VACUUM operation as completed and removes the corresponding entry
 
 ## Definition
 
-
+```c
+void
+_bt_end_vacuum(Relation rel)
+```
 ## Detailed Description
 This function completes the VACUUM tracking lifecycle started by . It searches the shared memory array () for the entry corresponding to the specified relation and removes it, freeing up the slot for future VACUUM operations. The removal is performed efficiently by moving the last array entry to the position of the removed entry and decrementing the count.
 

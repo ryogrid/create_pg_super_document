@@ -8,7 +8,13 @@ Scans an expression tree to detect ungrouped variables (variables not in GROUP B
 
 ## Definition
 
-
+```c
+static void
+check_ungrouped_columns(Node *node, ParseState *pstate, Query *qry,
+						List *groupClauses, List *groupClauseCommonVars,
+						bool have_non_var_grouping,
+						List **func_grouped_rels)
+```
 ## Detailed Description
 This function serves as the entry point for ungrouped column validation by:
 

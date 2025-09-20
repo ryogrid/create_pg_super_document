@@ -8,7 +8,11 @@ Creates and initializes a new Snowball environment structure specifically config
 
 ## Definition
 
+```c
+}
 
+extern struct SN_env * spanish_ISO_8859_1_create_env(void)
+```
 ## Detailed Description
 This function serves as a factory method for creating Spanish-specific Snowball stemming environments. It acts as a thin wrapper around the generic SN_create_env function, providing the appropriate configuration parameters for Spanish language processing.
 

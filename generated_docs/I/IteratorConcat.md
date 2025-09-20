@@ -8,7 +8,11 @@ IteratorConcat is a static function that merges two JSON objects or arrays into 
 
 ## Definition
 
-
+```c
+static JsonbValue *
+IteratorConcat(JsonbIterator **it1, JsonbIterator **it2,
+			   JsonbParseState **state)
+```
 ## Detailed Description
 This function iterates over two JsonbIterator instances and merges their contents into a single JsonbValue. The logic is adapted from a similar hstore function with special handling for JSON objects and arrays. The function supports four different concatenation scenarios:
 

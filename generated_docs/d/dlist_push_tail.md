@@ -8,7 +8,10 @@ Inserts a new node at the end of a doubly-linked list, automatically handling bo
 
 ## Definition
 
-
+```c
+static inline void
+dlist_push_tail(dlist_head *head, dlist_node *node)
+```
 ## Detailed Description
 The  function adds a new node to the back of a doubly-linked list by updating the necessary pointer relationships. Like , it intelligently handles uninitialized lists by checking if the head's next pointer is NULL and automatically calling  to convert it to a proper circular structure. The function then inserts the new node between the current last element and the head, updating all four relevant pointers: the new node's next pointer (to head), the new node's prev pointer (to the old tail), the old tail's next pointer (to the new node), and the head's prev pointer (to the new node). After insertion, it calls  to validate list integrity in debug builds.
 

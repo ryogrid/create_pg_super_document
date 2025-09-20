@@ -8,7 +8,10 @@ PostgreSQL comparison function that determines if two oidvector values are not e
 
 ## Definition
 
-
+```c
+Datum
+oidvectorne(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function implements the "not equal" operator (<>) for oidvector data types in PostgreSQL. It serves as a wrapper around the  comparison function, which performs a comprehensive comparison of two oidvector values considering both their dimensions and individual OID values. The function returns a boolean result indicating whether the two input oidvectors are different.
 

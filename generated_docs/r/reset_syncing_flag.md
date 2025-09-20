@@ -8,7 +8,12 @@ Resets the global synchronization flags used in PostgreSQL's replication slot sy
 
 ## Definition
 
-
+```c
+struct in shared memory.  We must do this
+	 * before we access any shared memory.
+	 */
+	InitProcess();
+```
 ## Detailed Description
 This is a static helper function that safely resets two critical flags that track the state of replication slot synchronization in PostgreSQL. The function ensures thread-safe operation by acquiring a spinlock before modifying the shared SlotSyncCtx->syncing flag, then also resets the process-local syncing_slots flag. This function is typically called when slot synchronization operations complete, either successfully or due to failure, to clean up the synchronization state.
 

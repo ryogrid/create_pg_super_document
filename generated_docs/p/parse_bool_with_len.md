@@ -8,7 +8,10 @@ Core boolean parsing function that interprets a string of specified length as a 
 
 ## Definition
 
-
+```c
+bool
+parse_bool_with_len(const char *value, size_t len, bool *result)
+```
 ## Detailed Description
 The `parse_bool_with_len` function is the core implementation for boolean string parsing in PostgreSQL. It efficiently parses boolean values by first checking the most commonly used representations through a switch statement on the first character. The function supports case-insensitive matching and accepts unique prefixes of boolean keywords. It uses `pg_strncasecmp` for safe string comparison with the specified length, making it suitable for parsing substrings and non-null-terminated strings. The implementation is optimized for performance by checking frequent cases first.
 

@@ -8,7 +8,10 @@ Finalizes an error-reporting cycle by processing the error report, handling erro
 
 ## Definition
 
-
+```c
+void
+errfinish(const char *filename, int lineno, const char *funcname)
+```
 ## Detailed Description
 errfinish completes the error reporting cycle initiated by errstart(). It handles the final processing of error messages including backtrace collection, context callback execution, error emission, and error level-specific recovery actions. For ERROR level, it performs cleanup and uses longjmp to transfer control to the appropriate exception handler. For FATAL errors, it triggers process termination via proc_exit(). For PANIC errors, it immediately aborts the process.
 

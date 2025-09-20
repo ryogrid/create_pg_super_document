@@ -8,7 +8,10 @@ Ensures that all WAL (Write-Ahead Log) data through a specified position is flus
 
 ## Definition
 
-
+```c
+void
+XLogFlush(XLogRecPtr record)
+```
 ## Detailed Description
 XLogFlush is a core function in PostgreSQL's WAL system responsible for ensuring data durability by flushing WAL records to disk. The function implements several sophisticated optimization strategies:
 

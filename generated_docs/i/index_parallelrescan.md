@@ -8,7 +8,10 @@ The  function (re)starts a parallel scan of an index, performing necessary clean
 
 ## Definition
 
-
+```c
+void
+index_parallelrescan(IndexScanDesc scan)
+```
 ## Detailed Description
 This function is responsible for reinitializing a parallel index scan. It performs two main operations:
 1. Resets the heap fetch state if heap fetching is enabled for the scan

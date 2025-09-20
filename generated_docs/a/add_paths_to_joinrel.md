@@ -8,7 +8,16 @@ Considers all possible join paths between two component relations and adds the b
 
 ## Definition
 
-
+```c
+void
+add_paths_to_joinrel(PlannerInfo *root,
+					 RelOptInfo *joinrel,
+					 RelOptInfo *outerrel,
+					 RelOptInfo *innerrel,
+					 JoinType jointype,
+					 SpecialJoinInfo *sjinfo,
+					 List *restrictlist)
+```
 ## Detailed Description
 This function is the central hub for generating all types of join paths between two relations in PostgreSQL's cost-based optimizer. It systematically evaluates different join algorithms (nested loop, merge join, hash join) and path configurations to find the most efficient ways to combine the outer and inner relations.
 

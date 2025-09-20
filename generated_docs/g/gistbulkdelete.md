@@ -8,7 +8,11 @@ Entry point for VACUUM bulk delete stage in GiST indexes, removing index entries
 
 ## Definition
 
-
+```c
+struct */
+	if (stats == NULL)
+		stats = (IndexBulkDeleteResult *) palloc0(sizeof(IndexBulkDeleteResult));
+```
 ## Detailed Description
 This function serves as the main entry point for the bulk delete phase of VACUUM operations on GiST (Generalized Search Tree) indexes. It implements the standard PostgreSQL index AM interface for bulk deletion. The function acts as a simple wrapper around , which performs the actual work of scanning the index and removing tuples that match the deletion criteria specified by the callback function.
 

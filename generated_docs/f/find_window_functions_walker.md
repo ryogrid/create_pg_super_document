@@ -8,7 +8,10 @@ A recursive tree walker function that collects WindowFunc nodes from an expressi
 
 ## Definition
 
-
+```c
+static bool
+find_window_functions_walker(Node *node, WindowFuncLists *lists)
+```
 ## Detailed Description
 This static function serves as the core implementation for collecting and organizing window functions within expression trees. It traverses the node tree recursively using the expression_tree_walker framework, specifically looking for WindowFunc nodes. When a WindowFunc is found, the function validates that its winref ID is within the expected range, checks for duplicates to avoid repeated computation, and adds the function to the appropriate list in the WindowFuncLists structure. The function assumes that the parser has already validated that window functions don't contain nested window functions in their arguments or filter clauses, so it doesn't recurse into those sub-expressions.
 

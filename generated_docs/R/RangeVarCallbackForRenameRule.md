@@ -8,7 +8,11 @@ A callback function that performs permissions and integrity checks before acquir
 
 ## Definition
 
-
+```c
+static void
+RangeVarCallbackForRenameRule(const RangeVar *rv, Oid relid, Oid oldrelid,
+							  void *arg)
+```
 ## Detailed Description
 This static callback function is invoked during the relation lock acquisition process for rule rename operations. It validates that the target relation supports rules, ensures the user has appropriate permissions, and prevents modifications to system catalogs when not allowed. The function follows PostgreSQL's standard pattern for RangeVar callbacks, which are used to perform validation checks before acquiring locks on relations. It checks relation kind compatibility (only tables, views, and partitioned tables can have rules), system catalog protection, and ownership requirements.
 

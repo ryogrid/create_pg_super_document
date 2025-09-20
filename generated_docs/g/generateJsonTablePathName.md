@@ -8,7 +8,10 @@ Generates unique system-generated path names for unnamed JSON_TABLE path specifi
 
 ## Definition
 
-
+```c
+static char *
+generateJsonTablePathName(JsonTableParseContext *cxt)
+```
 ## Detailed Description
 This function creates unique path names for JSON_TABLE path specifications that don't have explicit names provided by the user. It uses a simple sequential numbering scheme, generating names in the format 'json_table_path_N' where N is an incrementing integer maintained in the context's pathNameId field.
 

@@ -8,7 +8,9 @@ A utility function in pg_ctl that conditionally prints localized messages to std
 
 ## Definition
 
-
+```c
+struct stat statbuf;
+```
 ## Detailed Description
 The  function provides controlled output functionality for the pg_ctl utility. It takes an already-localized message string and prints it to stdout, but only when the global  flag is not set. This allows pg_ctl to suppress informational messages when running in silent mode while still allowing error messages to be output through other mechanisms.
 

@@ -8,7 +8,10 @@ Rewinds an open query descriptor to the start of execution, allowing the query t
 
 ## Definition
 
-
+```c
+void
+ExecutorRewind(QueryDesc *queryDesc)
+```
 ## Detailed Description
 The  function provides the capability to reset a query execution to its initial state, enabling the same query to be executed multiple times without recreating the entire execution environment. This is particularly useful for holdable cursors and portal operations where the same result set needs to be accessed repeatedly.
 

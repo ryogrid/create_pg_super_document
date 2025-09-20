@@ -8,7 +8,13 @@ InvalidationMsgsGroup is a control structure that manages logical groups of cach
 
 ## Definition
 
-
+```c
+typedef struct InvalidationMsgsGroup
+{
+	int			firstmsg[2];	/* first index in relevant array */
+	int			nextmsg[2];		/* last+1 index */
+} InvalidationMsgsGroup;
+```
 ## Detailed Description
 InvalidationMsgsGroup serves as a control structure to organize and track boundaries of invalidation message groups within PostgreSQL's cache invalidation system. It maintains index ranges for two types of invalidation messages: catalog cache messages (CatCacheMsgs, index 0) and relation cache messages (RelCacheMsgs, index 1).
 

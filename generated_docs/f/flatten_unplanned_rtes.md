@@ -8,7 +8,10 @@ Extracts RangeTblEntries from a subquery that was never planned by traversing it
 
 ## Definition
 
-
+```c
+static void
+flatten_unplanned_rtes(PlannerGlobal *glob, RangeTblEntry *rte)
+```
 ## Detailed Description
 The  function handles the extraction of range table entries from subqueries that were never planned during the optimization process. This typically occurs when subqueries are excluded from planning due to self-contradictory constraints or other optimization decisions that render them unreachable.
 

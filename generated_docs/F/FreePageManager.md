@@ -8,7 +8,25 @@ FreePageManager is a structure that manages free memory pages in PostgreSQL, pro
 
 ## Definition
 
-
+```c
+struct FreePageManager
+{
+	RelptrFreePageManager self;
+	RelptrFreePageBtree btree_root;
+	RelptrFreePageSpanLeader btree_recycle;
+	unsigned	btree_depth;
+	unsigned	btree_recycle_count;
+	Size		singleton_first_page;
+	Size		singleton_npages;
+	Size		contiguous_pages;
+	bool		contiguous_pages_dirty;
+	RelptrFreePageSpanLeader freelist[FPM_NUM_FREELISTS];
+#ifdef FPM_EXTRA_ASSERTS
+	/* For debugging only, pages put minus pages gotten. */
+	Size		free_pages;
+#endif
+};
+```
 ## Detailed Description
 FreePageManager keeps track of which 4kB pages of memory are currently unused from the perspective of higher-level memory allocators. Unlike user-facing allocators like palloc(), it can only allocate and free in units of whole pages, requiring knowledge of allocation length for freeing operations.
 

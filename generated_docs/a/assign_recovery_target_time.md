@@ -8,7 +8,10 @@ A GUC assign hook function that sets the recovery target to a specific timestamp
 
 ## Definition
 
-
+```c
+void
+assign_recovery_target_time(const char *newval, void *extra)
+```
 ## Detailed Description
 This function serves as a GUC (Grand Unified Configuration) assign hook for the  parameter. It validates and sets the recovery target type to  when a timestamp value is provided, or resets it to  when the parameter is cleared. The function enforces mutual exclusivity among different recovery target types by calling  if another recovery target type is already set.
 

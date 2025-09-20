@@ -8,7 +8,13 @@ The  function estimates the cost of using a BRIN (Block Range Index) index for q
 
 ## Definition
 
-
+```c
+void
+brincostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+				 Cost *indexStartupCost, Cost *indexTotalCost,
+				 Selectivity *indexSelectivity, double *indexCorrelation,
+				 double *indexPages)
+```
 ## Detailed Description
 This function implements cost estimation specifically for BRIN indexes, which have fundamentally different search behavior compared to other PostgreSQL index types. BRIN indexes store summaries for ranges of pages rather than individual tuples, making their cost calculation unique.
 

@@ -8,7 +8,9 @@ The  function recreates a single index from scratch, handling all aspects of ind
 
 ## Definition
 
-
+```c
+enumber(iRel, persistence);
+```
 ## Detailed Description
 This function performs a complete reconstruction of a single index specified by its OID. It handles the complex process of safely rebuilding an index while maintaining database consistency and transaction safety. The function manages security contexts, progress reporting, tablespace changes, and constraint validation. It supports both regular and "missing ok" modes for handling potentially non-existent relations.
 

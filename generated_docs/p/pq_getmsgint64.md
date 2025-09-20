@@ -8,7 +8,13 @@ Extracts a 64-bit binary integer from a message buffer with network-to-host byte
 
 ## Definition
 
-
+```c
+union
+	{
+		float4		f;
+		uint32		i;
+	}			swap;
+```
 ## Detailed Description
 The `pq_getmsgint64` function reads a fixed 8-byte (64-bit) integer from a message buffer and performs network-to-host byte order conversion using pg_ntoh64. This function is specifically designed for 64-bit integers and is kept separate from pq_getmsgint for performance reasons, as forcing all integer operations to use 64-bit arithmetic could impact performance on systems where 64-bit operations are less efficient. The function is essential for handling large integers, timestamps, LSNs, and other 64-bit values in PostgreSQL's binary protocol.
 

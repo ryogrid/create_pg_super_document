@@ -8,7 +8,11 @@ Executes ALTER TYPE SET SCHEMA command to move a PostgreSQL type from one schema
 
 ## Definition
 
-
+```c
+ObjectAddress
+AlterTypeNamespace(List *names, const char *newschema, ObjectType objecttype,
+				   Oid *oldschema)
+```
 ## Detailed Description
 AlterTypeNamespace is the main entry point for handling ALTER TYPE SET SCHEMA SQL commands. It validates the type name, ensures proper object type constraints (particularly for domains), resolves the target schema, and delegates the actual namespace change operation to AlterTypeNamespace_oid. The function performs comprehensive error checking to prevent invalid operations like attempting to use ALTER DOMAIN on non-domain types.
 

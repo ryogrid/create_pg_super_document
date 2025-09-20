@@ -8,7 +8,10 @@ Determines if two ranges overlap by checking if they share any common values wit
 
 ## Definition
 
-
+```c
+bool
+range_overlaps_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2)
+```
 ## Detailed Description
 This function implements the core logic for range overlap detection. Two ranges overlap if they share at least one common value. The function works by deserializing both ranges and checking if the lower bound of either range falls within the boundaries of the other range.
 

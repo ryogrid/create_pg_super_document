@@ -8,7 +8,10 @@ Computes a hash value for PostgreSQL numeric data types, ensuring that numerical
 
 ## Definition
 
-
+```c
+Datum
+hash_numeric(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function generates a 32-bit hash value for numeric types used in hash tables, hash joins, and other hash-based operations. It implements careful normalization to ensure that numerically equivalent values (such as 1.0 and 1.00) produce identical hash values, which is essential for correctness in hash-based algorithms.
 

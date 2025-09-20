@@ -8,7 +8,9 @@ Calculates the closest point on a line segment to a specified point and returns 
 
 ## Definition
 
-
+```c
+struct(&tmp, pt, point_invsl(&lseg->p[0], &lseg->p[1]));
+```
 ## Detailed Description
 This static function finds the closest point on a line segment to a given point by constructing a perpendicular line from the point to the line segment. It uses geometric algorithms to determine the optimal point on the segment that minimizes the distance to the target point. The function can optionally store the closest point coordinates in the result parameter and always returns the calculated distance.
 

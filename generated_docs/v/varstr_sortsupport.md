@@ -8,7 +8,10 @@ A generic sort support interface for character types that provides optimized sor
 
 ## Definition
 
-
+```c
+void
+varstr_sortsupport(SortSupport ssup, Oid typid, Oid collid)
+```
 ## Detailed Description
 The `varstr_sortsupport` function is the central implementation for character type sorting support in PostgreSQL. It provides a unified interface for sorting text, varchar, bpchar, and bytea data types by selecting the most appropriate comparison function based on collation settings and data type. The function implements several optimizations including direct datum comparison to avoid function manager overhead, locale-aware comparisons using strcoll(), and C-locale fast comparisons using memcmp(). It also supports abbreviation optimization for improved performance on large datasets, with sophisticated caching mechanisms to handle interleaved comparisons and conversions efficiently.
 

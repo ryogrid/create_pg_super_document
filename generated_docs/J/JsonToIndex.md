@@ -8,7 +8,9 @@ JsonToIndex is an enumeration type that defines bit flags used to specify which 
 
 ## Definition
 
-
+```c
+typedef void (*JsonIterateStringValuesAction) (void *state, char *elem_value, int elem_len);
+```
 ## Detailed Description
 JsonToIndex provides a set of bit flags that control which elements from JSON or JSONB documents are processed during iteration operations. The enumeration follows a bit-flag pattern where each value represents a specific type of JSON element, allowing for flexible combinations of element types to be selected for processing.
 

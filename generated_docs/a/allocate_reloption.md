@@ -8,7 +8,9 @@ Allocates a new reloption structure and initializes the type-agnostic fields for
 
 ## Definition
 
-
+```c
+enum);
+```
 ## Detailed Description
 This static function is responsible for allocating memory for a new reloption structure based on the specified type. It handles memory context switching for non-local reloptions to ensure they are allocated in TopMemoryContext for persistence. The function determines the appropriate structure size based on the reloption type (bool, int, real, enum, or string) and initializes common fields like name, description, kinds, type, and lock mode requirements.
 

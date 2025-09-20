@@ -8,7 +8,10 @@ The  function provides secure data transmission over TLS/SSL connections in Post
 
 ## Definition
 
-
+```c
+ssize_t
+be_tls_write(Port *port, void *ptr, size_t len, int *waitfor)
+```
 ## Detailed Description
 This function serves as the primary interface for writing data to an SSL-encrypted connection in PostgreSQL's backend. It wraps OpenSSL's  function and provides comprehensive error handling for various SSL error conditions. The function translates SSL-specific errors into standard POSIX errno values and manages non-blocking I/O scenarios by setting appropriate wait conditions.
 

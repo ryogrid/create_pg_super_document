@@ -8,7 +8,10 @@ Generates the SQL declaration (schema definition) for a user-defined table, view
 
 ## Definition
 
-
+```c
+static void
+dumpTableSchema(Archive *fout, const TableInfo *tbinfo)
+```
 ## Detailed Description
 This is a comprehensive function that constructs CREATE TABLE, CREATE VIEW, CREATE MATERIALIZED VIEW, or CREATE FOREIGN TABLE statements with all associated properties. It handles diverse table types and their specific requirements:
 

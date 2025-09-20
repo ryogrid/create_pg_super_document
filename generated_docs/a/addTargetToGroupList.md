@@ -8,7 +8,11 @@ Adds a target list entry to a SortGroupClause list for grouping operations if no
 
 ## Definition
 
-
+```c
+static List *
+addTargetToGroupList(ParseState *pstate, TargetEntry *tle,
+					 List *grouplist, List *targetlist, int location)
+```
 ## Detailed Description
 This static function is similar to addTargetToSortList but specifically designed for GROUP BY clause processing. It differs in that it only requires a grouping (equality) operator and considers a target entry "already in the list" if it appears with any sorting semantics. The function ensures that each grouping expression appears only once in the group list.
 

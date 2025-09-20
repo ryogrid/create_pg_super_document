@@ -8,7 +8,10 @@ SPI_commit commits the current transaction and starts a new one within the SPI (
 
 ## Definition
 
-
+```c
+void
+SPI_commit(void)
+```
 ## Detailed Description
 SPI_commit provides a mechanism for procedural languages and SPI-based extensions to commit the current transaction and immediately start a new one. This function is a wrapper around the internal _SPI_commit function, called with the 'chain' parameter set to false, meaning transaction characteristics are not preserved across the commit.
 

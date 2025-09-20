@@ -8,7 +8,13 @@ Performs XLogInsert for a heap-update operation, creating comprehensive WAL reco
 
 ## Definition
 
-
+```c
+static XLogRecPtr
+log_heap_update(Relation reln, Buffer oldbuf,
+				Buffer newbuf, HeapTuple oldtup, HeapTuple newtup,
+				HeapTuple old_key_tuple,
+				bool all_visible_cleared, bool new_all_visible_cleared)
+```
 ## Detailed Description
 The  function creates WAL records for heap tuple update operations. It implements sophisticated optimizations to minimize WAL volume by detecting common prefixes and suffixes between old and new tuple versions when they reside on the same page. The function handles both regular updates and HOT (Heap-Only Tuple) updates, supports logical decoding requirements, and manages visibility map clearing flags.
 

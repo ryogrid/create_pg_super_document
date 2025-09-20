@@ -8,7 +8,10 @@ Registers invalidation of the whole content of a system catalog, typically used 
 
 ## Definition
 
-
+```c
+void
+CacheInvalidateCatalog(Oid catalogId)
+```
 ## Detailed Description
 CacheInvalidateCatalog is used to invalidate all cached entries for an entire system catalog. This function is primarily called during VACUUM FULL and CLUSTER operations where tuples haven't been changed per se, but have been physically moved to different locations. Since some cache entries depend on correct TIDs (tuple identifiers), all entries for the catalog must be invalidated when the physical layout changes.
 

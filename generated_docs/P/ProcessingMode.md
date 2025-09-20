@@ -8,7 +8,21 @@ An enumeration that defines the three distinct processing modes in PostgreSQL, c
 
 ## Definition
 
+```c
+NormalProcessing,			/* normal processing */
+} ProcessingMode;
 
+extern PGDLLIMPORT ProcessingMode Mode;
+
+#define IsBootstrapProcessingMode() (Mode == BootstrapProcessing)
+#define IsInitProcessingMode()		(Mode == InitProcessing)
+#define IsNormalProcessingMode()	(Mode == NormalProcessing)
+
+#define GetProcessingMode() Mode
+
+#define SetProcessingMode(mode) \
+	do
+```
 ## Detailed Description
 ProcessingMode is a fundamental enumeration that controls PostgreSQL's operational state throughout its lifecycle. The three modes represent distinct phases of system operation: BootstrapProcessing for initial template database creation where all transactions receive transaction ID "one" and are guaranteed to commit; InitProcessing for backend startup and system initialization; and NormalProcessing for standard operational behavior. This mode switching enables PostgreSQL to handle special bootstrap requirements while maintaining normal transactional integrity during regular operations.
 

@@ -8,7 +8,10 @@ The core parsing engine function that processes text character by character usin
 
 ## Definition
 
-
+```c
+static bool
+TParserGet(TParser *prs)
+```
 ## Detailed Description
 TParserGet is the central function in PostgreSQL's word parser that implements a finite state automaton for tokenizing text. It processes the input string one character at a time, transitioning between parser states based on character classifications and predefined rules.
 

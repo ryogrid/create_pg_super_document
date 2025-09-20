@@ -8,7 +8,14 @@ Fundamental array selectivity estimation function that processes constant arrays
 
 ## Definition
 
-
+```c
+struct_array(array,
+					  typentry->type_id,
+					  typentry->typlen,
+					  typentry->typbyval,
+					  typentry->typalign,
+					  &elem_values, &elem_nulls, &num_elems);
+```
 ## Detailed Description
 This function serves as the central dispatcher for array selectivity estimation using most-common-elements (MCE) statistics. It prepares the constant array by deconstructing it into individual elements, removing nulls, and sorting the elements for efficient comparison with statistical data.
 

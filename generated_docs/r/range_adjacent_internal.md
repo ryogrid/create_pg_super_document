@@ -8,7 +8,10 @@ Determines if two ranges are adjacent (touching but not overlapping) by checking
 
 ## Definition
 
-
+```c
+bool
+range_adjacent_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2)
+```
 ## Detailed Description
 This function implements the core logic for range adjacency testing. Two ranges are considered adjacent if they touch at exactly one boundary point but do not overlap. The function works by deserializing both ranges into their boundary components and then checking if either the upper bound of the first range is adjacent to the lower bound of the second range, or vice versa.
 

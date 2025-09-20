@@ -8,7 +8,11 @@ A utility function in the Snowball stemming algorithm that performs exact string
 
 ## Definition
 
+```c
+}
 
+extern int eq_s_b(struct SN_env * z, int s_size, const symbol * s)
+```
 ## Detailed Description
 The  function is a core utility in the Snowball stemming framework that performs backward string matching. It checks if a given string pattern  matches the text at the current cursor position in the Snowball environment, reading backwards from the cursor. If the match is successful, it moves the cursor backward by the length of the matched string.
 

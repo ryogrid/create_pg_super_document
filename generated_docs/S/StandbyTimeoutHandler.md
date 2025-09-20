@@ -8,7 +8,10 @@ StandbyTimeoutHandler is a signal handler function that sets a flag when the sta
 
 ## Definition
 
-
+```c
+void
+StandbyTimeoutHandler(void)
+```
 ## Detailed Description
 This function serves as a timeout handler specifically for standby operations in PostgreSQL's hot standby mode. When called, it sets the global flag  to true, indicating that a standby timeout has occurred. This is a simple signal handler that performs minimal work to avoid potential issues in signal handling contexts.
 

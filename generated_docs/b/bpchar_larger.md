@@ -8,7 +8,10 @@ Returns the larger of two BPCHAR (blank-padded CHAR) values based on string comp
 
 ## Definition
 
-
+```c
+Datum
+bpchar_larger(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function implements the PostgreSQL built-in function for finding the maximum value between two BPCHAR (blank-padded character) strings. It performs a collation-aware string comparison to determine which of the two input strings is lexicographically larger according to the current locale settings. The function handles variable-length BPCHAR values by determining their true length (excluding trailing spaces) and then comparing the actual character data using PostgreSQL's standard string comparison utilities.
 

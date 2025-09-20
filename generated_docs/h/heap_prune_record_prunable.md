@@ -8,7 +8,10 @@ Records the lowest soon-prunable transaction ID (XID) in the pruning state, whic
 
 ## Definition
 
-
+```c
+static void
+heap_prune_record_prunable(PruneState *prstate, TransactionId xid)
+```
 ## Detailed Description
 This function updates the pruning state to record the lowest soon-prunable transaction ID. It maintains the minimum XID among all transactions that may soon become prunable on the page. This information is later used to set the page's prunable XID hint, which helps the system determine when the page might benefit from another pruning pass.
 

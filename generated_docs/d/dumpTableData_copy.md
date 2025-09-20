@@ -8,7 +8,14 @@ Dumps a table's contents using the PostgreSQL COPY command, which is the efficie
 
 ## Definition
 
-
+```c
+structure tvi.
+		 * Finally, call gettimeofday again to save the 'last sleep time'.
+		 * ----------
+		 */
+	}
+	archprintf(fout, "\\.\n\n\n");
+```
 ## Detailed Description
 This function implements the COPY-based table data dumping mechanism in pg_dump. It constructs and executes a COPY command to extract table data, handling various scenarios including foreign tables and filtered queries. The function uses explicit column ordering to ensure data is retrieved in the correct sequence, avoiding issues with column inheritance and ADD COLUMN operations.
 

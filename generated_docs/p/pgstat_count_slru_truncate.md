@@ -8,7 +8,10 @@ Increments the truncate counter for a specific SLRU (Simple LRU) buffer cache to
 
 ## Definition
 
-
+```c
+void
+pgstat_count_slru_truncate(int slru_idx)
+```
 ## Detailed Description
 This function is part of PostgreSQL's statistics collection system for SLRU (Simple LRU) buffer caches. It increments the truncate counter for the specified SLRU cache index by 1. SLRU truncation operations occur when older pages in the cache are no longer needed and can be removed to free up space, typically during log cleanup operations. This function helps track the frequency of truncation operations for performance monitoring and understanding cache lifecycle patterns.
 

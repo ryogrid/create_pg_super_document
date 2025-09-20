@@ -8,7 +8,10 @@ Determines and returns the cost of an Append node, which combines results from m
 
 ## Definition
 
-
+```c
+void
+cost_append(AppendPath *apath)
+```
 ## Detailed Description
 This function calculates the execution cost for an Append operation, handling three distinct scenarios:
 

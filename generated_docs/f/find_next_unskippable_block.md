@@ -8,7 +8,10 @@ find_next_unskippable_block uses the visibility map to find the next block in a 
 
 ## Definition
 
-
+```c
+static void
+find_next_unskippable_block(LVRelState *vacrel, bool *skipsallvis)
+```
 ## Detailed Description
 find_next_unskippable_block implements the core logic for determining which blocks can be safely skipped during vacuum operations based on visibility map information. It evaluates each block according to multiple criteria:
 

@@ -8,7 +8,13 @@ ExplainOneQuery prints the execution plan for a single Query, serving as a dispa
 
 ## Definition
 
-
+```c
+static void
+ExplainOneQuery(Query *query, int cursorOptions,
+				IntoClause *into, ExplainState *es,
+				const char *queryString, ParamListInfo params,
+				QueryEnvironment *queryEnv)
+```
 ## Detailed Description
 ExplainOneQuery is a central dispatch function in the EXPLAIN command processing pipeline. It determines how to handle different types of queries and delegates to appropriate specialized functions. For utility statements (DDL, DCL, etc.), it calls ExplainOneUtility since the planner cannot handle these statement types. For plannable queries (DML statements like SELECT, INSERT, UPDATE, DELETE), it provides a hook mechanism for advisor plugins through ExplainOneQuery_hook, falling back to standard_ExplainOneQuery if no hook is installed.
 

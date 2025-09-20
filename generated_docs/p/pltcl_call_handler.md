@@ -8,7 +8,10 @@ Entry point function for the PL/Tcl trusted language handler that processes func
 
 ## Definition
 
-
+```c
+Datum
+pltcl_call_handler(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
  serves as the main entry point for the PL/Tcl trusted procedural language handler in PostgreSQL. This function acts as a thin wrapper that delegates all actual processing to the  function, specifically configuring it to operate in trusted mode (indicated by the  parameter). The function follows PostgreSQL's standard function calling convention using the  macro.
 

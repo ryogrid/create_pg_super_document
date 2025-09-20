@@ -8,7 +8,10 @@ A PostgreSQL function that implements interval subtraction operation (span1 - sp
 
 ## Definition
 
-
+```c
+Datum
+interval_mi(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 This function is the main entry point for interval subtraction in PostgreSQL's SQL interface. It handles the subtraction of two intervals, including special cases involving infinite intervals. The function properly handles the mathematical edge cases of infinity arithmetic:
 

@@ -8,7 +8,10 @@ Determines whether a given relation OID identifies a table that receives in-plac
 
 ## Definition
 
-
+```c
+bool
+IsInplaceUpdateOid(Oid relid)
+```
 ## Detailed Description
 IsInplaceUpdateOid is a utility function that checks if a given relation OID corresponds to one of the core system tables that PostgreSQL modifies using in-place updates rather than the standard MVCC (Multi-Version Concurrency Control) mechanism. Currently, only two system tables receive in-place updates: pg_class (RelationRelationId = 1259) and pg_database (DatabaseRelationId = 1262).
 

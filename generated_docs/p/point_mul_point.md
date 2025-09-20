@@ -8,7 +8,13 @@ A static inline function that performs complex number multiplication of two geom
 
 ## Definition
 
-
+```c
+struct(result,
+					float8_mi(float8_mul(pt1->x, pt2->x),
+							  float8_mul(pt1->y, pt2->y)),
+					float8_pl(float8_mul(pt1->x, pt2->y),
+							  float8_mul(pt1->y, pt2->x)));
+```
 ## Detailed Description
 This function computes the complex multiplication of two Point structures by treating each point as a complex number (x + yi). The multiplication follows the complex number formula: (a + bi)(c + di) = (ac - bd) + (ad + bc)i. The result's x-coordinate becomes (pt1.x * pt2.x - pt1.y * pt2.y) and the y-coordinate becomes (pt1.x * pt2.y + pt1.y * pt2.x). The function uses PostgreSQL's float8_mul, float8_mi, and float8_pl functions to ensure proper floating-point arithmetic and calls point_construct to initialize the result.
 

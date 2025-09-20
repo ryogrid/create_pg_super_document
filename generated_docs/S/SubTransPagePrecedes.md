@@ -8,7 +8,10 @@ Determines whether one SUBTRANS page logically precedes another for truncation p
 
 ## Definition
 
-
+```c
+static bool
+SubTransPagePrecedes(int64 page1, int64 page2)
+```
 ## Detailed Description
 SubTransPagePrecedes is a comparison function used by the SimpleLru system to determine the relative age of SUBTRANS pages for truncation operations. It's analogous to CLOGPagePrecedes() and handles the complexities of PostgreSQL's modular transaction ID arithmetic.
 

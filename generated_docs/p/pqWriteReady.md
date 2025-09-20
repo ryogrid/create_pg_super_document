@@ -8,7 +8,10 @@ pqWriteReady is a PostgreSQL libpq function that checks if the connection socket
 
 ## Definition
 
-
+```c
+int
+pqWriteReady(PGconn *conn)
+```
 ## Detailed Description
 pqWriteReady provides a non-blocking check to determine if the connection socket is available for writing data. It uses pqSocketCheck with parameters configured for write readiness checking and immediate return (no timeout). This function is useful when the caller wants to know if a write operation would succeed without blocking the thread.
 

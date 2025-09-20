@@ -8,7 +8,10 @@ Implements the psql  command for executing COPY operations that transfer data be
 
 ## Definition
 
-
+```c
+static backslashResult
+exec_command_copy(PsqlScanState scan_state, bool active_branch)
+```
 ## Detailed Description
 The  function handles the  command in psql, which provides a client-side implementation of the COPY command. Unlike the server-side COPY command,  runs on the client and can access files on the client machine. The function parses the entire remaining command line as a single argument and delegates the actual copy operation to the  function.
 

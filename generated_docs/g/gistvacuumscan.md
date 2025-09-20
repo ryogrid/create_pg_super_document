@@ -8,7 +8,11 @@ Core scanning function for GiST index vacuum operations that processes all index
 
 ## Definition
 
-
+```c
+static void
+gistvacuumscan(IndexVacuumInfo *info, IndexBulkDeleteResult *stats,
+			   IndexBulkDeleteCallback callback, void *callback_state)
+```
 ## Detailed Description
 This is the workhorse function for GiST vacuum operations, performing a complete scan of the index to identify and process deletable tuples. The function maintains careful coordination with concurrent operations by using relation-extension locks and repeatedly checking the relation length to ensure all pages (including newly added ones) are processed.
 

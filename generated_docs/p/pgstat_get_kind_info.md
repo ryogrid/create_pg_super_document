@@ -8,7 +8,10 @@ Returns a pointer to the kind information structure for the specified PostgreSQL
 
 ## Definition
 
-
+```c
+const PgStat_KindInfo *
+pgstat_get_kind_info(PgStat_Kind kind)
+```
 ## Detailed Description
 This function serves as a simple accessor to retrieve the  structure for a given statistics kind. The  structure contains metadata about how statistics are handled for different PostgreSQL object types (databases, tables, functions, etc.). The function validates the input kind using an assertion and then returns a pointer to the corresponding entry in the global  array.
 

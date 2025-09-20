@@ -8,7 +8,10 @@ Parses and validates type modifier input for the TIME data type, converting prec
 
 ## Definition
 
-
+```c
+Datum
+timetypmodin(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The  function is a PostgreSQL type modifier input function for the TIME data type. It processes an array of type modifier values (typically precision specifications like in TIME(3)) and converts them into the internal integer typmod representation. The function delegates the actual parsing to  with the first parameter set to  to indicate this is for TIME (not TIMETZ).
 

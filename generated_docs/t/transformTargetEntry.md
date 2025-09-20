@@ -8,7 +8,15 @@ Transforms any ordinary expression-type node into a targetlist entry, used for c
 
 ## Definition
 
-
+```c
+TargetEntry *
+transformTargetEntry(ParseState *pstate,
+					 Node *node,
+					 Node *expr,
+					 ParseExprKind exprKind,
+					 char *colname,
+					 bool resjunk)
+```
 ## Detailed Description
 This function is a core component of PostgreSQL's query parser that converts parse tree nodes into TargetEntry structures. It handles the transformation of expression nodes into targetlist entries, which represent columns in the result set of a query. The function can work with either pre-transformed expressions or raw parse tree nodes that need transformation. It also handles automatic column name generation when no explicit column name is provided and manages special cases like SetToDefault nodes in UPDATE statements.
 

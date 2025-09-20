@@ -8,7 +8,12 @@ Check boolean properties of SP-GiST indexes, specifically handling the AMPROP_DI
 
 ## Definition
 
-
+```c
+bool
+spgproperty(Oid index_oid, int attno,
+			IndexAMProperty prop, const char *propname,
+			bool *res, bool *isnull)
+```
 ## Detailed Description
 The  function is a SP-GiST access method callback that determines boolean properties of indexes. This function is required for SP-GiST because the core PostgreSQL property code doesn't support the AMPROP_DISTANCE_ORDERABLE property, which is needed for distance-ordered scans.
 

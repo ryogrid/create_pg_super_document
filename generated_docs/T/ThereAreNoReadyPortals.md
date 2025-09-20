@@ -8,7 +8,10 @@ Utility function that checks whether there are any portals in PORTAL_READY statu
 
 ## Definition
 
-
+```c
+bool
+ThereAreNoReadyPortals(void)
+```
 ## Detailed Description
 ThereAreNoReadyPortals is a utility function that scans through all portals in the system to determine if any are currently in the PORTAL_READY state. A portal in PORTAL_READY status is one that has been prepared and is ready to be executed or resumed, but is not currently active.
 

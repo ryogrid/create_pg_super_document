@@ -8,7 +8,10 @@ Converts a 64-bit integer (int8) to a 32-bit integer (int4) with overflow checki
 
 ## Definition
 
-
+```c
+Datum
+int84(PG_FUNCTION_ARGS)
+```
 ## Detailed Description
 The int84 function implements type conversion from PostgreSQL's 8-byte integer type (int8/bigint) to 4-byte integer type (int4/integer). This is a narrowing conversion that requires range checking since not all int8 values can be represented as int4. The function validates that the input value falls within the valid range for 32-bit signed integers (PG_INT32_MIN to PG_INT32_MAX) and throws an error if the value is out of range.
 
