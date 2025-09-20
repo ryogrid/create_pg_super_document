@@ -21,8 +21,8 @@ The  struct is part of the ECPG preprocessor infrastructure, designed to handle 
 The structure contains an integer flag to indicate the type of describe operation (likely distinguishing between input and output descriptions) and a statement name string that identifies which prepared statement is being described. This allows the ECPG preprocessor to generate appropriate C code that will perform the describe operation at runtime.
 
 ## Parameters / Member Variables
-- : Integer flag indicating the type of describe operation, likely distinguishing between input parameter description (non-zero) and output column description (zero)
-- : Pointer to a string containing the name of the prepared statement to be described
+- `input`: Integer flag indicating the type of describe operation, likely distinguishing between input parameter description (non-zero) and output column description (zero)
+- `*stmt_name`: Pointer to a string containing the name of the prepared statement to be described
 
 ## Dependencies
 - Functions called/Symbols referenced: None identified

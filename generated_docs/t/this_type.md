@@ -23,12 +23,12 @@ struct this_type
  is a central data structure in PostgreSQL's ECPG preprocessor that provides a complete type specification system. It encapsulates all the necessary information needed to properly handle C data types when interfacing with SQL operations. The structure combines both categorical type information (through the enum) and textual representations for various type attributes, making it suitable for code generation and type checking during the preprocessing phase.
 
 ## Parameters / Member Variables
-- : A character pointer specifying the storage class of the type (e.g., static, extern, auto)
-- : An enumeration value of type ECPGttype that categorizes the fundamental type
-- : A character pointer containing the string representation of the type
-- : A character pointer specifying array dimensions if the type is an array
-- : A character pointer containing indexing information for array types
-- : A character pointer representing the size information for the type
+- `*type_storage`: A character pointer specifying the storage class of the type (e.g., static, extern, auto)
+- `type_enum`: An enumeration value of type ECPGttype that categorizes the fundamental type
+- `*type_str`: A character pointer containing the string representation of the type
+- `*type_dimension`: A character pointer specifying array dimensions if the type is an array
+- `*type_index`: A character pointer containing indexing information for array types
+- `*type_sizeof`: A character pointer representing the size information for the type
 
 ## Dependencies
 - Functions called/Symbols referenced:

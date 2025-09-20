@@ -26,14 +26,14 @@ struct LogicalRepInfo
 LogicalRepInfo serves as a per-database container for logical replication configuration and state tracking in the pg_createsubscriber utility. This structure encapsulates all the necessary information required to manage logical replication for a single database during the conversion process from standby to subscriber. It stores connection strings, object names, and boolean flags that track whether certain replication objects were created during the conversion process. The structure is used extensively throughout the pg_createsubscriber.c module to manage the setup, configuration, and cleanup of logical replication components for each database being converted.
 
 ## Parameters / Member Variables
-- : Name of the database for which logical replication is being configured
-- : Connection string used to connect to the publisher database server for this specific database
-- : Connection string used to connect to the subscriber database server for this specific database
-- : Name of the publication on the publisher side that will be replicated for this database
-- : Name of the subscription on the subscriber side that will consume data from the publication
-- : Name of the replication slot used for logical replication between publisher and subscriber
-- : Boolean flag indicating whether the replication slot was created during the conversion process (used for cleanup)
-- : Boolean flag indicating whether the publication was created during the conversion process (used for cleanup)
+- `*dbname`: Name of the database for which logical replication is being configured
+- `*pubconninfo`: Connection string used to connect to the publisher database server for this specific database
+- `*subconninfo`: Connection string used to connect to the subscriber database server for this specific database
+- `*pubname`: Name of the publication on the publisher side that will be replicated for this database
+- `*subname`: Name of the subscription on the subscriber side that will consume data from the publication
+- `*replslotname`: Name of the replication slot used for logical replication between publisher and subscriber
+- `made_replslot`: Boolean flag indicating whether the replication slot was created during the conversion process (used for cleanup)
+- `made_publication`: Boolean flag indicating whether the publication was created during the conversion process (used for cleanup)
 
 ## Dependencies
 - Functions called/Symbols referenced:

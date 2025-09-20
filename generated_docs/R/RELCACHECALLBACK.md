@@ -19,8 +19,8 @@ struct RELCACHECALLBACK
 The RELCACHECALLBACK structure is part of PostgreSQL's relation cache invalidation system. It maintains a static array of callback entries that are executed when relation cache entries need to be invalidated. Unlike SYSCACHECALLBACK, this structure is simpler and doesn't use a linked list organization since relation cache callbacks are processed sequentially. The structure stores callback functions that are invoked when specific relations are invalidated or when the entire relation cache is flushed. The maximum number of callbacks is limited by MAX_RELCACHE_CALLBACKS (10).
 
 ## Parameters / Member Variables
-- : Pointer to the callback function of type RelcacheCallbackFunction that will be invoked during relation cache invalidation
-- : Datum argument passed to the callback function when it is invoked
+- `function`: Pointer to the callback function of type RelcacheCallbackFunction that will be invoked during relation cache invalidation
+- `arg`: Datum argument passed to the callback function when it is invoked
 
 ## Dependencies
 - Functions called/Symbols referenced:

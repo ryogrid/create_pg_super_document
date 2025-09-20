@@ -75,24 +75,24 @@ struct ParallelVacuumState
 ParallelVacuumState serves as the central control structure for PostgreSQL's parallel vacuum operations. It coordinates all aspects of parallel vacuum processing, including managing worker processes, tracking index processing states, sharing dead tuple information, and collecting statistics. The structure is used by both the leader process (which orchestrates the operation) and worker processes (which perform the actual vacuum work). It integrates with PostgreSQL's parallel processing framework and shared memory system to enable efficient multi-process vacuum operations.
 
 ## Parameters / Member Variables
-- : Parallel context for managing worker processes (NULL for worker processes, only set in leader)
-- : Relation object representing the parent heap table being vacuumed
-- : Array of Relation objects representing the target indexes to be processed
-- : Total number of indexes in the indrels array
-- : Pointer to PVShared structure containing shared state among all parallel workers
-- : Array of PVIndStats structures tracking statistics and status for each index
-- : TidStore containing shared dead tuple identifiers accessible by all workers
-- : Pointer to buffer usage statistics area in Dynamic Shared Memory (DSM)
-- : Pointer to WAL usage statistics area in DSM
-- : Boolean array indicating which indexes are suitable for parallel processing
-- : Count of indexes that support parallel bulk deletion
-- : Count of indexes that support parallel cleanup
-- : Count of indexes that support parallel conditional cleanup
-- : Buffer access strategy used by the leader process for efficient I/O
-- : Namespace name for error reporting (worker processes only)
-- : Relation name for error reporting (worker processes only)
-- : Index name for error reporting (worker processes only)
-- : Current parallel vacuum status for error callback context
+- `*pcxt`: Parallel context for managing worker processes (NULL for worker processes, only set in leader)
+- `heaprel`: Relation object representing the parent heap table being vacuumed
+- `*indrels`: Array of Relation objects representing the target indexes to be processed
+- `nindexes`: Total number of indexes in the indrels array
+- `*shared`: Pointer to PVShared structure containing shared state among all parallel workers
+- `*indstats`: Array of PVIndStats structures tracking statistics and status for each index
+- `*dead_items`: TidStore containing shared dead tuple identifiers accessible by all workers
+- `*buffer_usage`: Pointer to buffer usage statistics area in Dynamic Shared Memory (DSM)
+- `*wal_usage`: Pointer to WAL usage statistics area in DSM
+- `*will_parallel_vacuum`: Boolean array indicating which indexes are suitable for parallel processing
+- `nindexes_parallel_bulkdel`: Count of indexes that support parallel bulk deletion
+- `nindexes_parallel_cleanup`: Count of indexes that support parallel cleanup
+- `nindexes_parallel_condcleanup`: Count of indexes that support parallel conditional cleanup
+- `bstrategy`: Buffer access strategy used by the leader process for efficient I/O
+- `*relnamespace`: Namespace name for error reporting (worker processes only)
+- `*relname`: Relation name for error reporting (worker processes only)
+- `*indname`: Index name for error reporting (worker processes only)
+- `status`: Current parallel vacuum status for error callback context
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -29,16 +29,16 @@ The  structure serves as a locale-specific time formatting template for PostgreS
 The structure is designed to be a complete locale definition containing abbreviated and full names for months and weekdays, along with time formatting patterns and AM/PM indicators. In PostgreSQL's implementation, this structure is instantiated as  which provides the default C locale formatting behavior.
 
 ## Parameters / Member Variables
-- : Array of 12 abbreviated month names ("Jan", "Feb", ..., "Dec")
-- : Array of 12 full month names ("January", "February", ..., "December")
-- : Array of 7 abbreviated weekday names ("Sun", "Mon", ..., "Sat")
-- : Array of 7 full weekday names ("Sunday", "Monday", ..., "Saturday")
-- : Default time format string ("%H:%M:%S")
-- : Default date format string ("%m/%d/%y") 
-- : Default date and time format string ("%a %b %e %T %Y")
-- : Morning time indicator string ("AM")
-- : Evening time indicator string ("PM")
-- : Complete date format string ("%a %b %e %H:%M:%S %Z %Y")
+- `*mon[MONSPERYEAR]`: Array of 12 abbreviated month names ("Jan", "Feb", ..., "Dec")
+- `*month[MONSPERYEAR]`: Array of 12 full month names ("January", "February", ..., "December")
+- `*wday[DAYSPERWEEK]`: Array of 7 abbreviated weekday names ("Sun", "Mon", ..., "Sat")
+- `*weekday[DAYSPERWEEK]`: Array of 7 full weekday names ("Sunday", "Monday", ..., "Saturday")
+- `*X_fmt`: Default time format string ("%H:%M:%S")
+- `*x_fmt`: Default date format string ("%m/%d/%y")
+- `*c_fmt`: Default date and time format string ("%a %b %e %T %Y")
+- `*am`: Morning time indicator string ("AM")
+- `*pm`: Evening time indicator string ("PM")
+- `*date_fmt`: Complete date format string ("%a %b %e %H:%M:%S %Z %Y")
 
 ## Dependencies
 - Functions called/Symbols referenced:

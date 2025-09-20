@@ -25,8 +25,8 @@ The structure captures two fundamental timing metrics:
 This implementation is part of PostgreSQL's portability layer, allowing consistent resource usage tracking across different operating systems. The structure works in conjunction with the  function implementation to provide Unix-like resource monitoring capabilities on Windows.
 
 ## Parameters / Member Variables
-- : A  structure containing the total amount of time spent executing in user mode, broken down into seconds and microseconds
-- : A  structure containing the total amount of time spent executing in system/kernel mode, broken down into seconds and microseconds
+- `ru_utime`: A  structure containing the total amount of time spent executing in user mode, broken down into seconds and microseconds
+- `ru_stime`: A  structure containing the total amount of time spent executing in system/kernel mode, broken down into seconds and microseconds
 
 ## Dependencies
 - Functions called/Symbols referenced:

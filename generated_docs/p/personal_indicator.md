@@ -23,8 +23,8 @@ The  struct is used in PostgreSQL's ECPG (Embedded SQL in C) testing framework t
 Each field in this struct corresponds to a field in the main data structure and indicates the status of that field's data transfer. The struct serves as a companion to data structures, providing essential metadata about the SQL operations' success and data validity.
 
 ## Parameters / Member Variables
-- : Integer indicator for the name field, typically used to detect null values or error conditions
-- : A birthinfo struct used as an indicator for birth-related data fields
+- `ind_name`: Integer indicator for the name field, typically used to detect null values or error conditions
+- `ind_birth`: A birthinfo struct used as an indicator for birth-related data fields
 
 ## Dependencies
 - Functions called/Symbols referenced:

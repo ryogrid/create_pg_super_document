@@ -26,10 +26,10 @@ PMSignalData serves as the central communication hub in PostgreSQL's multi-proce
 The structure supports bidirectional communication: child processes can signal the postmaster about various events (recovery started, autovacuum requests, etc.), while the postmaster can send quit signals to children with specific reasons (crash recovery, immediate shutdown). The use of sig_atomic_t ensures that signal operations are atomic and safe for use in signal handlers.
 
 ## Parameters / Member Variables
-- : Array of atomic flags used by child processes to signal specific events to the postmaster, with each index corresponding to a different signal reason defined in the PMSignalReason enum
-- : Stores the reason why SIGQUIT was sent from postmaster to children, using values from the QuitSignalReason enum (crash recovery, immediate stop, or not sent)
-- : Count of entries in the PMChildFlags array, indicating how many child processes can be tracked
-- : Variable-length array of atomic flags for per-child-process signaling, allowing the postmaster to send signals to individual child processes
+- `PMSignalFlags[NUM_PMSIGNALS]`: Array of atomic flags used by child processes to signal specific events to the postmaster, with each index corresponding to a different signal reason defined in the PMSignalReason enum
+- `sigquit_reason`: Stores the reason why SIGQUIT was sent from postmaster to children, using values from the QuitSignalReason enum (crash recovery, immediate stop, or not sent)
+- `num_child_flags`: Count of entries in the PMChildFlags array, indicating how many child processes can be tracked
+- `PMChildFlags[FLEXIBLE_ARRAY_MEMBER]`: Variable-length array of atomic flags for per-child-process signaling, allowing the postmaster to send signals to individual child processes
 
 ## Dependencies
 - Functions called/Symbols referenced:

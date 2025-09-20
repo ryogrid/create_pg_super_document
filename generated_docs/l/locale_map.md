@@ -34,9 +34,9 @@ The  structure is used to define transformation rules for locale names on Window
 This flexible design allows handling of various Windows locale naming issues, from simple country name substitutions to more complex pattern-based replacements.
 
 ## Parameters / Member Variables
-- : The beginning of the string pattern to match and replace. For simple replacements, this is the entire string to replace.
-- : The end of the string pattern for range replacements. Set to NULL for simple string replacements.
-- : The string that will replace the matched pattern.
+- `*locale_name_start`: The beginning of the string pattern to match and replace. For simple replacements, this is the entire string to replace.
+- `*locale_name_end`: The end of the string pattern for range replacements. Set to NULL for simple string replacements.
+- `*replacement`: The string that will replace the matched pattern.
 
 ## Dependencies
 - Functions called/Symbols referenced:

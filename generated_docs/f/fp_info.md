@@ -27,12 +27,12 @@ Historically, this structure was designed for caching function information acros
 The struct is populated by the  function, which performs catalog lookups to validate the function and extract its metadata from the  system catalog.
 
 ## Parameters / Member Variables
-- : The OID of the function being called; set to InvalidOid initially and only set to the correct value when the struct is fully populated
-- : Function manager information structure containing the actual function pointer and related data needed for function execution
-- : The OID of the schema/namespace containing the function (from pg_proc.pronamespace)
-- : The OID of the function's return type (from pg_proc.prorettype)
-- : Array of OIDs representing the function's parameter types (from pg_proc.proargtypes)
-- : Function name string stored for logging and error reporting purposes
+- `funcid`: The OID of the function being called; set to InvalidOid initially and only set to the correct value when the struct is fully populated
+- `flinfo`: Function manager information structure containing the actual function pointer and related data needed for function execution
+- `namespace`: The OID of the schema/namespace containing the function (from pg_proc.pronamespace)
+- `rettype`: The OID of the function's return type (from pg_proc.prorettype)
+- `argtypes[FUNC_MAX_ARGS]`: Array of OIDs representing the function's parameter types (from pg_proc.proargtypes)
+- `fname[NAMEDATALEN]`: Function name string stored for logging and error reporting purposes
 
 ## Dependencies
 - Functions called/Symbols referenced:

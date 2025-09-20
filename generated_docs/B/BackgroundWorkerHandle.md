@@ -25,8 +25,8 @@ The handle contains two key pieces of information:
 This design prevents race conditions where a slot might be recycled and reused for a different background worker between the time a handle is created and when it's later used. The generation counter is incremented each time a slot is recycled, making stale handles detectable.
 
 ## Parameters / Member Variables
-- : Index into the BackgroundWorkerArray slot array to identify which worker slot this handle references
-- : Generation counter that must match the corresponding BackgroundWorkerSlot's generation to ensure validity
+- `slot`: Index into the BackgroundWorkerArray slot array to identify which worker slot this handle references
+- `generation`: Generation counter that must match the corresponding BackgroundWorkerSlot's generation to ensure validity
 
 ## Dependencies
 - Functions called/Symbols referenced:

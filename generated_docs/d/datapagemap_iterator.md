@@ -21,8 +21,8 @@ The datapagemap_iterator is an internal structure used by pg_rewind to iterate t
 The iterator works by maintaining a pointer to the datapagemap and tracking the next block number to examine. It supports forward-only iteration through the bitmap, checking each bit position sequentially and returning block numbers where bits are set.
 
 ## Parameters / Member Variables
-- : Pointer to the datapagemap_t structure containing the bitmap data and metadata
-- : The next BlockNumber to examine during iteration, used to maintain the current position in the bitmap
+- `*map`: Pointer to the datapagemap_t structure containing the bitmap data and metadata
+- `nextblkno`: The next BlockNumber to examine during iteration, used to maintain the current position in the bitmap
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,9 +22,9 @@ The  struct is part of the ECPG preprocessor infrastructure, designed to manage 
 The structure is primarily used in descriptor operations where the preprocessor needs to track which descriptor fields (like count, data, length, type, etc.) are being accessed or modified. This enables the ECPG preprocessor to generate appropriate C code that correctly handles SQL descriptor manipulations at runtime.
 
 ## Parameters / Member Variables
-- : String name of the C variable being assigned or referenced in the descriptor operation
-- : Enumerated value from ECPGdtype indicating which descriptor field type this assignment represents (e.g., ECPGd_count, ECPGd_data, ECPGd_length, ECPGd_type, etc.)
-- : Pointer to the next assignment node in the linked list, allowing multiple assignments to be tracked
+- `*variable`: String name of the C variable being assigned or referenced in the descriptor operation
+- `value`: Enumerated value from ECPGdtype indicating which descriptor field type this assignment represents (e.g., ECPGd_count, ECPGd_data, ECPGd_length, ECPGd_type, etc.)
+- `*next`: Pointer to the next assignment node in the linked list, allowing multiple assignments to be tracked
 
 ## Dependencies
 - Functions called/Symbols referenced:

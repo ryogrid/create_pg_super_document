@@ -29,14 +29,14 @@ For regular base relation columns, p_varno/p_varattno and p_varnosyn/p_varattnos
 Dropped columns are represented with all-zero values, conventionally detected by testing p_varno == 0.
 
 ## Parameters / Member Variables
-- : Range table index identifying the semantic referent relation
-- : Attribute number of the column in the semantic referent
-- : PostgreSQL type OID for the column's data type
-- : Type modifier providing additional type information
-- : Collation OID for the column, or InvalidOid if not applicable
-- : Range table index of the syntactic referent (how column appears in query)
-- : Attribute number in the syntactic referent
-- : Flag indicating this column should be excluded from star (*) expansion
+- `p_varno`: Range table index identifying the semantic referent relation
+- `p_varattno`: Attribute number of the column in the semantic referent
+- `p_vartype`: PostgreSQL type OID for the column's data type
+- `p_vartypmod`: Type modifier providing additional type information
+- `p_varcollid`: Collation OID for the column, or InvalidOid if not applicable
+- `p_varnosyn`: Range table index of the syntactic referent (how column appears in query)
+- `p_varattnosyn`: Attribute number in the syntactic referent
+- `p_dontexpand`: Flag indicating this column should be excluded from star (*) expansion
 
 ## Dependencies
 - Functions called/Symbols referenced:

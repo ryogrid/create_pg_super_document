@@ -88,8 +88,8 @@ ExecInitMerge performs comprehensive initialization for MERGE statement executio
 The function handles complex scenarios involving inheritance and partitioning, ensuring that INSERT actions are properly routed through root relations while maintaining correct attribute mappings.
 
 ## Parameters / Member Variables
-- : ModifyTableState containing the execution state and plan information for the MERGE operation
-- : EState providing the execution environment and context
+- `NULL)`: ModifyTableState containing the execution state and plan information for the MERGE operation
+- `rootRelInfo->ri_RelationDesc)`: EState providing the execution environment and context
 
 ## Dependencies
 - Functions called/Symbols referenced:

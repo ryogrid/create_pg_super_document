@@ -19,8 +19,8 @@ struct itimerval
 The  structure is defined in PostgreSQL's Windows port header file to provide compatibility with UNIX-style interval timers on Windows systems. This structure is essential for implementing timer functionality that works consistently across different operating systems. It contains two  structures that specify the timer's periodic interval and its current countdown value, enabling PostgreSQL to handle timeouts and periodic operations uniformly across platforms.
 
 ## Parameters / Member Variables
-- : A  structure specifying the periodic interval for repeating timers (seconds and microseconds)
-- : A  structure specifying the initial countdown value for the timer (seconds and microseconds)
+- `it_interval`: A  structure specifying the periodic interval for repeating timers (seconds and microseconds)
+- `it_value`: A  structure specifying the initial countdown value for the timer (seconds and microseconds)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,12 +23,12 @@ struct manifest_writer
 The  struct is used by PostgreSQL's  utility to incrementally build backup manifest files in JSON format. It maintains both the file I/O state and the in-memory buffer for constructing the manifest content. The struct supports efficient streaming output by buffering manifest entries and flushing them when the buffer reaches a threshold (128KB). It also maintains a checksum context for computing the manifest's integrity hash.
 
 ## Parameters / Member Variables
-- : Full file path where the backup_manifest file will be written
-- : File descriptor for the opened manifest file (-1 when not yet opened)  
-- : StringInfoData buffer for accumulating JSON manifest content before writing to disk
-- : Boolean flag tracking whether the next file entry is the first one (affects JSON formatting)
-- : Boolean flag indicating whether checksum computation is still active
-- : Checksum context for computing SHA256 hash of the entire manifest content
+- `pathname[MAXPGPATH]`: Full file path where the backup_manifest file will be written
+- `fd`: File descriptor for the opened manifest file (-1 when not yet opened)
+- `buf`: StringInfoData buffer for accumulating JSON manifest content before writing to disk
+- `first_file`: Boolean flag tracking whether the next file entry is the first one (affects JSON formatting)
+- `still_checksumming`: Boolean flag indicating whether checksum computation is still active
+- `manifest_ctx`: Checksum context for computing SHA256 hash of the entire manifest content
 
 ## Dependencies
 - Functions called/Symbols referenced:

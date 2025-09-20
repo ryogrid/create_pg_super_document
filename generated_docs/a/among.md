@@ -21,11 +21,11 @@ struct among
 The  struct serves as an entry in a lookup table used by the Snowball stemming algorithm. It represents a search pattern with associated metadata that enables efficient string matching and transformation. Each  entry contains a search string, its length, substring information for optimization, a result value, and an optional function pointer for custom processing. This structure is primarily used by the  and  functions to perform binary search operations on sorted arrays of these structures.
 
 ## Parameters / Member Variables
-- : The number of characters in the search string, used for length comparison and bounds checking
-- : Pointer to the search string (symbol array) that this entry represents
-- : Index to the longest matching substring entry, used for optimization in the search algorithm (-1 if no substring)
-- : The result value to return when this pattern matches successfully
-- : Optional function pointer that gets called when this pattern matches; if null, the result is returned directly
+- `s_size`: The number of characters in the search string, used for length comparison and bounds checking
+- `s`: Pointer to the search string (symbol array) that this entry represents
+- `substring_i`: Index to the longest matching substring entry, used for optimization in the search algorithm (-1 if no substring)
+- `result`: The result value to return when this pattern matches successfully
+- `*)`: Optional function pointer that gets called when this pattern matches; if null, the result is returned directly
 
 ## Dependencies
 - Functions called/Symbols referenced:

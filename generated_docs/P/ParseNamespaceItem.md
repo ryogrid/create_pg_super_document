@@ -29,15 +29,15 @@ ParseNamespaceItem is a crucial structure in PostgreSQL's name resolution system
 The visibility flags (p_rel_visible and p_cols_visible) implement SQL's complex scoping rules where, for example, a JOIN without an alias makes the joined tables visible for qualified references but hides their individual columns for unqualified references. This prevents ambiguity while maintaining SQL standard compliance.
 
 ## Parameters / Member Variables
-- : Alias structure containing table name and column names exposed by this namespace item
-- : Pointer to the underlying RangeTblEntry that this namespace item represents
-- : Index position of the relation in the range table for quick lookup
-- : Pointer to permission information entry for the relation
-- : Array of per-column information, parallel to p_names->colnames
-- : Whether the relation name can be used in qualified references
-- : Whether column names are accessible via unqualified references
-- : Whether this item is only visible to LATERAL subexpressions
-- : Whether the join type permits actual use of LATERAL references
+- `*p_names`: Alias structure containing table name and column names exposed by this namespace item
+- `*p_rte`: Pointer to the underlying RangeTblEntry that this namespace item represents
+- `p_rtindex`: Index position of the relation in the range table for quick lookup
+- `*p_perminfo`: Pointer to permission information entry for the relation
+- `*p_nscolumns`: Array of per-column information, parallel to p_names->colnames
+- `p_rel_visible`: Whether the relation name can be used in qualified references
+- `p_cols_visible`: Whether column names are accessible via unqualified references
+- `p_lateral_only`: Whether this item is only visible to LATERAL subexpressions
+- `p_lateral_ok`: Whether the join type permits actual use of LATERAL references
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -44,25 +44,25 @@ The  structure serves as a comprehensive descriptor for SQL variables within the
 The structure includes both primary data fields and indicator variable fields, allowing for NULL value handling and extended metadata storage. The  field specifically addresses limitations of older interfaces that were restricted to 32K data sizes.
 
 ## Parameters / Member Variables
-- : SQL data type identifier for the variable
-- : Length of the data in bytes
-- : Pointer to the actual data storage
-- : Pointer to the indicator variable (for NULL handling)
-- : Name of the SQL variable
-- : Reserved field for future formatting extensions
-- : Data type of the indicator variable
-- : Length of indicator data in bytes (limited to <32K for compatibility)
-- : Pointer to indicator data (legacy, <32K limit)
-- : Extended identifier for complex types
-- : String name of the extended type
-- : Length of the extended type name string
-- : Length of the owner name string
-- : Source type identifier for distinct types based on built-ins
-- : Name of the type owner
-- : Extended identifier of the source type
-- : Enhanced data pointer supporting fields beyond 32K limit
-- : Internal flags for implementation-specific use
-- : Reserved pointer for future extensions
+- `sqltype`: SQL data type identifier for the variable
+- `sqllen`: Length of the data in bytes
+- `*sqldata`: Pointer to the actual data storage
+- `*sqlind`: Pointer to the indicator variable (for NULL handling)
+- `*sqlname`: Name of the SQL variable
+- `*sqlformat`: Reserved field for future formatting extensions
+- `sqlitype`: Data type of the indicator variable
+- `sqlilen`: Length of indicator data in bytes (limited to <32K for compatibility)
+- `*sqlidata`: Pointer to indicator data (legacy, <32K limit)
+- `sqlxid`: Extended identifier for complex types
+- `*sqltypename`: String name of the extended type
+- `sqltypelen`: Length of the extended type name string
+- `sqlownerlen`: Length of the owner name string
+- `sqlsourcetype`: Source type identifier for distinct types based on built-ins
+- `*sqlownername`: Name of the type owner
+- `sqlsourceid`: Extended identifier of the source type
+- `*sqlilongdata`: Enhanced data pointer supporting fields beyond 32K limit
+- `sqlflags`: Internal flags for implementation-specific use
+- `*sqlreserved`: Reserved pointer for future extensions
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -27,8 +27,8 @@ Key characteristics:
 The structure is intentionally designed to discourage direct field access, instead promoting the use of specialized macros for safe manipulation.
 
 ## Parameters / Member Variables
-- : A 4-byte field that encodes the total size of the varlena structure and additional metadata. **Direct access is strongly discouraged** due to complex encoding schemes for TOAST support
-- : The actual data content stored as a flexible array member, allowing for variable-length data storage
+- `vl_len_[4]`: A 4-byte field that encodes the total size of the varlena structure and additional metadata. **Direct access is strongly discouraged** due to complex encoding schemes for TOAST support
+- `vl_dat[FLEXIBLE_ARRAY_MEMBER]`: The actual data content stored as a flexible array member, allowing for variable-length data storage
 
 ## Dependencies
 - Functions called/Symbols referenced:

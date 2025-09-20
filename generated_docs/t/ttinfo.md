@@ -22,11 +22,11 @@ struct ttinfo
 The ttinfo struct defines the properties of a specific timezone state, including its offset from UTC, daylight saving time status, and standardization flags. Each instance represents one possible timezone configuration that can be active during certain time periods. This structure is fundamental to PostgreSQL's timezone handling system, allowing the database to correctly interpret and convert timestamps across different timezone rules and historical changes.
 
 ## Parameters / Member Variables
-- : The offset from UTC in seconds (positive for east of UTC, negative for west)
-- : Boolean flag indicating whether this time type represents daylight saving time
-- : Index into the abbreviation character array for the timezone abbreviation (e.g., "EST", "EDT")
-- : Boolean flag indicating whether the transition time is in standard time
-- : Boolean flag indicating whether the transition time is in universal time
+- `tt_utoff`: The offset from UTC in seconds (positive for east of UTC, negative for west)
+- `tt_isdst`: Boolean flag indicating whether this time type represents daylight saving time
+- `tt_desigidx`: Index into the abbreviation character array for the timezone abbreviation (e.g., "EST", "EDT")
+- `tt_ttisstd`: Boolean flag indicating whether the transition time is in standard time
+- `tt_ttisut`: Boolean flag indicating whether the transition time is in universal time
 
 ## Dependencies
 - Functions called/Symbols referenced: None (pure data structure)

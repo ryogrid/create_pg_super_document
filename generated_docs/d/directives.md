@@ -36,8 +36,8 @@ The struct is instantiated as an array called  containing the following preproce
 This lookup mechanism allows pg_bsd_indent to validate preprocessor directives and issue diagnostics for unrecognized ones, ensuring proper code formatting around preprocessor statements.
 
 ## Parameters / Member Variables
-- : Integer representing the length of the directive string, used for efficient strncmp operations
-- : Constant character pointer to the directive name string (without the '#' prefix)
+- `size`: Integer representing the length of the directive string, used for efficient strncmp operations
+- `*string`: Constant character pointer to the directive name string (without the '#' prefix)
 
 ## Dependencies
 - Functions called/Symbols referenced:

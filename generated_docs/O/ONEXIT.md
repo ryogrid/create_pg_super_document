@@ -26,8 +26,8 @@ The structure is used to populate three distinct static arrays in the IPC subsys
 Each array can hold up to MAX_ON_EXITS (20) callback entries, providing a robust cleanup mechanism for resource management during PostgreSQL backend termination.
 
 ## Parameters / Member Variables
-- : A function pointer of type  that points to the cleanup function to be called. The callback signature is  where  is the exit code and  is the associated data.
-- : A  value containing arbitrary data that will be passed to the callback function when it's invoked during exit processing.
+- `function`: A function pointer of type  that points to the cleanup function to be called. The callback signature is  where  is the exit code and  is the associated data.
+- `arg`: A  value containing arbitrary data that will be passed to the callback function when it's invoked during exit processing.
 
 ## Dependencies
 - Functions called/Symbols referenced:

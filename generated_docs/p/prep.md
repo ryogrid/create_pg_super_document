@@ -20,9 +20,9 @@ struct prep
  is a fundamental data structure in PostgreSQL's ECPG preprocessor and runtime library that encapsulates the information needed to manage prepared SQL statements. It serves as a container for the three key components of a prepared statement: its identifier name, the actual SQL statement text, and type information. This structure is actively used in the ECPG library for statement preparation, execution, and descriptor management operations.
 
 ## Parameters / Member Variables
-- : A character pointer containing the unique identifier name for the prepared statement
-- : A character pointer containing the actual SQL statement text to be prepared and executed
-- : A character pointer containing type information associated with the prepared statement, likely used for parameter and result type checking
+- `*name`: A character pointer containing the unique identifier name for the prepared statement
+- `*stmt`: A character pointer containing the actual SQL statement text to be prepared and executed
+- `*type`: A character pointer containing type information associated with the prepared statement, likely used for parameter and result type checking
 
 ## Dependencies
 - Functions called/Symbols referenced:

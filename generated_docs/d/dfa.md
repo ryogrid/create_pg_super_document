@@ -37,26 +37,26 @@ struct dfa
 The dfa structure is the central data structure for PostgreSQL's regular expression DFA implementation. It maintains a complete execution context for pattern matching, including a cache of computed states (ssets), memory areas for bitvector operations, arc storage for state transitions, and references to the compiled NFA and color mapping. The structure supports both forward and backward matching, handles backref processing, and includes optimization features like state caching and memory management flags.
 
 ## Parameters / Member Variables
-- : Maximum size of the state-set cache
-- : Current number of occupied cache entries  
-- : Total number of states in the automaton
-- : Number of character classes/colors, determines vector lengths
-- : Number of unsigned integers needed for state bitvectors
-- : Cache array of computed state sets for performance
-- : Memory pool for bitvector storage
-- : Working memory pointer within statesarea for computations
-- : Storage for outgoing arc vectors from each state
-- : Storage for incoming arc chains to each state
-- : Pointer to the compiled NFA structure
-- : Pointer to the character-to-color mapping
-- : Text position of last successful match with cache flush
-- : Text position of last NOPROGRESS event with cache flush
-- : Memory for replacement search operations
-- : Backref subexpression number (if this DFA handles backrefs)
-- : Minimum repetitions required for backref matching
-- : Maximum repetitions allowed for backref matching
-- : Flag indicating if the dfa struct itself should be freed
-- : Flag indicating if subsidiary arrays should be freed
+- `nssets`: Maximum size of the state-set cache
+- `nssused`: Current number of occupied cache entries
+- `nstates`: Total number of states in the automaton
+- `ncolors`: Number of character classes/colors, determines vector lengths
+- `wordsper`: Number of unsigned integers needed for state bitvectors
+- `*ssets`: Cache array of computed state sets for performance
+- `*statesarea`: Memory pool for bitvector storage
+- `*work`: Working memory pointer within statesarea for computations
+- `**outsarea`: Storage for outgoing arc vectors from each state
+- `*incarea`: Storage for incoming arc chains to each state
+- `*cnfa`: Pointer to the compiled NFA structure
+- `*cm`: Pointer to the character-to-color mapping
+- `*lastpost`: Text position of last successful match with cache flush
+- `*lastnopr`: Text position of last NOPROGRESS event with cache flush
+- `*search`: Memory for replacement search operations
+- `backno`: Backref subexpression number (if this DFA handles backrefs)
+- `backmin`: Minimum repetitions required for backref matching
+- `backmax`: Maximum repetitions allowed for backref matching
+- `ismalloced`: Flag indicating if the dfa struct itself should be freed
+- `arraysmalloced`: Flag indicating if subsidiary arrays should be freed
 
 ## Dependencies
 - Functions called/Symbols referenced:

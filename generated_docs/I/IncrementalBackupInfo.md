@@ -69,12 +69,12 @@ IncrementalBackupInfo serves as the central data structure for managing incremen
 The structure leverages WAL summaries to determine what has changed rather than relying solely on file lists, which provides better safety against scenarios where files are removed and recreated with the same name but different contents. The block-reference table uses an efficient in-memory format that converges to approximately 1 bit per block for relation forks with large numbers of modified blocks.
 
 ## Parameters / Member Variables
-- : Memory context that manages memory allocation for this object and all its subsidiary objects, ensuring proper cleanup
-- : Temporary StringInfo buffer used for storing and parsing backup manifest data during processing
-- : List containing WAL ranges extracted from the backup manifest, used to determine the scope of changes
-- : Hash table of files from the previous backup manifest, used for sanity checking but not primary change detection
-- : Block-reference table that tracks which specific blocks need to be included in the incremental backup
-- : State object that maintains context during incremental JSON parsing of backup manifests
+- `mcxt`: Memory context that manages memory allocation for this object and all its subsidiary objects, ensuring proper cleanup
+- `buf`: Temporary StringInfo buffer used for storing and parsing backup manifest data during processing
+- `*manifest_wal_ranges`: List containing WAL ranges extracted from the backup manifest, used to determine the scope of changes
+- `*manifest_files`: Hash table of files from the previous backup manifest, used for sanity checking but not primary change detection
+- `*brtab`: Block-reference table that tracks which specific blocks need to be included in the incremental backup
+- `*inc_state`: State object that maintains context during incremental JSON parsing of backup manifests
 
 ## Dependencies
 - Functions called/Symbols referenced:

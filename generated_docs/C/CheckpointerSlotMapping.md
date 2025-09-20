@@ -23,8 +23,8 @@ The primary purpose is to facilitate efficient duplicate removal during queue co
 The structure is used temporarily during the compaction algorithm and is not persisted beyond the scope of the CompactCheckpointerRequestQueue function.
 
 ## Parameters / Member Variables
-- : A CheckpointerRequest structure containing the sync request details (file identifier and request type) that serves as the hash key for duplicate detection
-- : Integer representing the array index/position of this request in the CheckpointerShmem->requests array, used to track which slots should be preserved during compaction
+- `request`: A CheckpointerRequest structure containing the sync request details (file identifier and request type) that serves as the hash key for duplicate detection
+- `slot`: Integer representing the array index/position of this request in the CheckpointerShmem->requests array, used to track which slots should be preserved during compaction
 
 ## Dependencies
 - Functions called/Symbols referenced:

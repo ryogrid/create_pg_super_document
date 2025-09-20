@@ -25,12 +25,12 @@ The  structure implements a SQL Descriptor Area (SQLDA) for the ECPG compatibili
 The structure supports chaining multiple SQLDA instances through the  pointer, allowing for complex query results that exceed the capacity of a single descriptor area. The descriptor includes metadata such as naming and sizing information to facilitate proper memory management and identification.
 
 ## Parameters / Member Variables
-- : Number of variables/columns described in this SQLDA
-- : Pointer to array of  structures containing variable descriptors
-- : Fixed-size array containing the name identifier for this descriptor (19 characters)
-- : Size of the SQLDA structure, used for memory management and validation
-- : Pointer to the next SQLDA structure in a chained list, enabling handling of large result sets
-- : Reserved pointer for future extensions and enhancements
+- `sqld`: Number of variables/columns described in this SQLDA
+- `*sqlvar`: Pointer to array of  structures containing variable descriptors
+- `desc_name[19]`: Fixed-size array containing the name identifier for this descriptor (19 characters)
+- `desc_occ`: Size of the SQLDA structure, used for memory management and validation
+- `*desc_next`: Pointer to the next SQLDA structure in a chained list, enabling handling of large result sets
+- `*reserved`: Reserved pointer for future extensions and enhancements
 
 ## Dependencies
 - Functions called/Symbols referenced:

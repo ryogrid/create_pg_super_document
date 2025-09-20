@@ -35,8 +35,8 @@ struct tm *s, struct pg_tm *p)
 This function performs a field-by-field comparison between a standard C library  and PostgreSQL's  to verify if they contain identical time information. It checks all relevant time components including seconds, minutes, hours, day, month, year, day of week, day of year, and daylight saving time flag. The function is used internally during timezone detection and validation processes to ensure that PostgreSQL's time calculations match the system's time calculations.
 
 ## Parameters / Member Variables
-- : Pointer to a standard C library  containing system time information
-- : Pointer to a PostgreSQL-specific  containing PostgreSQL's calculated time information
+- `false`: Pointer to a standard C library  containing system time information
+- `true`: Pointer to a PostgreSQL-specific  containing PostgreSQL's calculated time information
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -60,22 +60,22 @@ During the write phase, the tape accumulates data in a buffer until it reaches b
 The structure supports both frozen and unfrozen modes: frozen tapes preserve blocks in memory for potential reuse, while unfrozen tapes free blocks after reading to conserve memory. Block preallocation helps reduce fragmentation and improves performance during intensive write operations.
 
 ## Parameters / Member Variables
-- : Pointer to the LogicalTapeSet that contains this tape
-- : Boolean flag indicating if the tape is currently in write mode
-- : Boolean flag indicating if blocks should be preserved in memory when read
-- : Boolean flag indicating if the current buffer contains unsaved changes
-- : Block number of the first block in this tape
-- : Block number of the currently active block (valid during writing or frozen reading)
-- : Block number of the next block to be written or read
-- : Offset applied during concatenation of worker tape BufFiles
-- : Physical memory buffer for holding current data block(s)
-- : Currently allocated size of the buffer in bytes
-- : Maximum safe buffer size for optimal performance
-- : Current read/write position within the buffer
-- : Total number of valid bytes currently stored in the buffer
-- : Array of preallocated block numbers, sorted in descending order
-- : Number of preallocated blocks currently available
-- : Maximum capacity of the preallocation array
+- `*tapeSet`: Pointer to the LogicalTapeSet that contains this tape
+- `writing`: Boolean flag indicating if the tape is currently in write mode
+- `frozen`: Boolean flag indicating if blocks should be preserved in memory when read
+- `dirty`: Boolean flag indicating if the current buffer contains unsaved changes
+- `firstBlockNumber`: Block number of the first block in this tape
+- `curBlockNumber`: Block number of the currently active block (valid during writing or frozen reading)
+- `nextBlockNumber`: Block number of the next block to be written or read
+- `offsetBlockNumber`: Offset applied during concatenation of worker tape BufFiles
+- `*buffer`: Physical memory buffer for holding current data block(s)
+- `buffer_size`: Currently allocated size of the buffer in bytes
+- `max_size`: Maximum safe buffer size for optimal performance
+- `pos`: Current read/write position within the buffer
+- `nbytes`: Total number of valid bytes currently stored in the buffer
+- `*prealloc`: Array of preallocated block numbers, sorted in descending order
+- `nprealloc`: Number of preallocated blocks currently available
+- `prealloc_size`: Maximum capacity of the preallocation array
 
 ## Dependencies
 - Functions called/Symbols referenced:

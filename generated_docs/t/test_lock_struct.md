@@ -22,9 +22,9 @@ The  is a simple test structure designed specifically for PostgreSQL's spinlock 
 The test program creates a volatile instance of this structure and performs a series of spinlock operations (initialization, locking, unlocking) while checking that the padding characters remain unchanged, thereby validating that the spinlock implementation is working correctly and that the  data type has the expected size.
 
 ## Parameters / Member Variables
-- : A padding character (set to 0x44 in tests) placed before the lock to detect memory corruption
-- : The actual spinlock of type  that is being tested
-- : A padding character (set to 0x44 in tests) placed after the lock to detect memory corruption
+- `data_before[4]`: A padding character (set to 0x44 in tests) placed before the lock to detect memory corruption
+- `lock`: The actual spinlock of type  that is being tested
+- `data_after[4]`: A padding character (set to 0x44 in tests) placed after the lock to detect memory corruption
 
 ## Dependencies
 - Functions called/Symbols referenced:

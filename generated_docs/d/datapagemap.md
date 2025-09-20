@@ -19,8 +19,8 @@ struct datapagemap
 The datapagemap structure is a core component of PostgreSQL's pg_rewind utility, which is used to resynchronize a PostgreSQL cluster with another cluster. This structure maintains a bitmap that tracks which data pages need to be copied or synchronized during the rewind process. Each bit in the bitmap corresponds to a specific block number, allowing efficient tracking of pages that have been modified and require attention during the rewind operation.
 
 ## Parameters / Member Variables
-- : A character array that serves as the actual bitmap storage, where each bit represents the status of a corresponding data page block
-- : An integer that stores the size of the bitmap in bytes, used for memory management and boundary checking
+- `*bitmap`: A character array that serves as the actual bitmap storage, where each bit represents the status of a corresponding data page block
+- `bitmapsize`: An integer that stores the size of the bitmap in bytes, used for memory management and boundary checking
 
 ## Dependencies
 - Functions called/Symbols referenced:

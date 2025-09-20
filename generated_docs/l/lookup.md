@@ -21,8 +21,8 @@ The  structure serves as a fundamental building block for keyword-to-value trans
 The structure is typically used in arrays to create lookup tables for various categories of timezone-related keywords, including months of the year, days of the week, rule types, and special year indicators. The design follows a simple but effective pattern where each entry contains a string keyword and its associated integer value.
 
 ## Parameters / Member Variables
-- : Constant character pointer to the textual keyword or name being mapped
-- : Constant integer value that corresponds to the textual keyword
+- `*l_word`: Constant character pointer to the textual keyword or name being mapped
+- `l_value`: Constant integer value that corresponds to the textual keyword
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -44,24 +44,24 @@ TIDBitmap serves as PostgreSQL's primary mechanism for efficiently representing 
 The structure also supports both local and shared memory contexts for parallel query execution, with DSA (Dynamic Shared Area) pointers enabling coordination across multiple worker processes.
 
 ## Parameters / Member Variables
-- : NodeTag identifier making this a valid PostgreSQL Node for memory management and type checking
-- : Memory context that owns this TIDBitmap instance, controlling allocation and cleanup
-- : Current operational status (TBM_EMPTY, TBM_ONE_PAGE, TBM_MULTIPLE_PAGES)
-- : Hash table containing PagetableEntry objects for multi-page storage
-- : Total number of entries currently in the pagetable
-- : Maximum allowed entries before triggering lossification to stay within memory limits
-- : Count of exact page entries in the pagetable
-- : Count of lossy chunk entries in the pagetable
-- : State flag indicating whether iteration has been initiated via tbm_begin_iterate
-- : Hashtable offset for starting the lossification process when memory pressure occurs
-- : Embedded PagetableEntry used for single-page optimization to avoid hashtable overhead
-- : Sorted array of exact PagetableEntry pointers, populated during iteration preparation
-- : Sorted array of lossy chunk PagetableEntry pointers, populated during iteration preparation
-- : DSA pointer to shared element array for parallel execution
-- : DSA pointer to previous element array during transitions
-- : DSA pointer to shared page array for parallel workers
-- : DSA pointer to shared chunk array for parallel workers  
-- : Reference to per-query dynamic shared area for parallel processing coordination
+- `type`: NodeTag identifier making this a valid PostgreSQL Node for memory management and type checking
+- `mcxt`: Memory context that owns this TIDBitmap instance, controlling allocation and cleanup
+- `status`: Current operational status (TBM_EMPTY, TBM_ONE_PAGE, TBM_MULTIPLE_PAGES)
+- `*pagetable`: Hash table containing PagetableEntry objects for multi-page storage
+- `nentries`: Total number of entries currently in the pagetable
+- `maxentries`: Maximum allowed entries before triggering lossification to stay within memory limits
+- `npages`: Count of exact page entries in the pagetable
+- `nchunks`: Count of lossy chunk entries in the pagetable
+- `iterating`: State flag indicating whether iteration has been initiated via tbm_begin_iterate
+- `lossify_start`: Hashtable offset for starting the lossification process when memory pressure occurs
+- `entry1`: Embedded PagetableEntry used for single-page optimization to avoid hashtable overhead
+- `**spages`: Sorted array of exact PagetableEntry pointers, populated during iteration preparation
+- `**schunks`: Sorted array of lossy chunk PagetableEntry pointers, populated during iteration preparation
+- `dsapagetable`: DSA pointer to shared element array for parallel execution
+- `dsapagetableold`: DSA pointer to previous element array during transitions
+- `ptpages`: DSA pointer to shared page array for parallel workers
+- `ptchunks`: DSA pointer to shared chunk array for parallel workers
+- `*dsa`: Reference to per-query dynamic shared area for parallel processing coordination
 
 ## Dependencies
 - Functions called/Symbols referenced:

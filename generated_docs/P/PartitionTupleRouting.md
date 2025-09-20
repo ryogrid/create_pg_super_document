@@ -27,16 +27,16 @@ struct PartitionTupleRouting
 PartitionTupleRouting is a central structure in PostgreSQL's partition tuple routing system that manages the complete state needed to route tuples from a partitioned table to their appropriate leaf partitions. It maintains arrays of partition dispatch information for intermediate partitioned tables and result relation information for leaf partitions, handling both borrowed and purpose-built relation info objects. The structure supports dynamic growth as new partitions are encountered during tuple routing operations.
 
 ## Parameters / Member Variables
-- : The partitioned table that's the target of the command
-- : Array of PartitionDispatch objects for every partitioned table touched by tuple routing (target table always at index 0)
-- : Array of fake ResultRelInfo objects for nonleaf partitions, used for partition constraint checking
-- : Current number of items in partition_dispatch_info array, also serves as next free index
-- : Current allocated size of the partition_dispatch_info array
-- : Array of ResultRelInfo pointers for every leaf partition touched by tuple routing
-- : Boolean array tracking whether partitions entries are borrowed from ModifyTableState or built locally
-- : Current number of items in partitions array, also serves as next free index
-- : Current allocated size of the partitions array
-- : Memory context used to allocate subsidiary structures
+- `partition_root`: The partitioned table that's the target of the command
+- `*partition_dispatch_info`: Array of PartitionDispatch objects for every partitioned table touched by tuple routing (target table always at index 0)
+- `**nonleaf_partitions`: Array of fake ResultRelInfo objects for nonleaf partitions, used for partition constraint checking
+- `num_dispatch`: Current number of items in partition_dispatch_info array, also serves as next free index
+- `max_dispatch`: Current allocated size of the partition_dispatch_info array
+- `**partitions`: Array of ResultRelInfo pointers for every leaf partition touched by tuple routing
+- `*is_borrowed_rel`: Boolean array tracking whether partitions entries are borrowed from ModifyTableState or built locally
+- `num_partitions`: Current number of items in partitions array, also serves as next free index
+- `max_partitions`: Current allocated size of the partitions array
+- `memcxt`: Memory context used to allocate subsidiary structures
 
 ## Dependencies
 - Functions called/Symbols referenced:

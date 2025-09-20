@@ -24,13 +24,13 @@ struct GinVacuumState
 The GinVacuumState structure serves as a central state container for GIN index vacuum operations. It holds references to the index being vacuumed, result tracking structures, callback functions for tuple deletion decisions, and various operational contexts. This structure is passed between different vacuum functions to maintain consistency and share state throughout the vacuum process. The structure supports both bulk delete operations and general vacuum cleanup, providing the necessary context for efficient memory management and I/O operations during the vacuum process.
 
 ## Parameters / Member Variables
-- : The GIN index relation being vacuumed
-- : Pointer to IndexBulkDeleteResult structure for tracking vacuum statistics and results
-- : Function pointer to IndexBulkDeleteCallback for determining which tuples to delete
-- : Opaque state data passed to the callback function
-- : GIN-specific state information including access method details
-- : Buffer access strategy for controlling buffer pool usage during vacuum
-- : Temporary memory context for allocations during vacuum operations
+- `index`: The GIN index relation being vacuumed
+- `*result`: Pointer to IndexBulkDeleteResult structure for tracking vacuum statistics and results
+- `callback`: Function pointer to IndexBulkDeleteCallback for determining which tuples to delete
+- `*callback_state`: Opaque state data passed to the callback function
+- `ginstate`: GIN-specific state information including access method details
+- `strategy`: Buffer access strategy for controlling buffer pool usage during vacuum
+- `tmpCxt`: Temporary memory context for allocations during vacuum operations
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -57,21 +57,21 @@ HASHHDR serves as the central control structure for PostgreSQL's dynamic hash ta
 The structure uses an array of freelists (FreeListData) to reduce contention in high-concurrency environments. Each freelist has its own mutex and entry count, allowing for independent operation while supporting cross-freelist scavenging when necessary.
 
 ## Parameters / Member Variables
-- : Array of freelists for managing free hash table elements, each with independent mutex for concurrency
-- : Directory size - number of directory entries (changeable except in partitioned tables)
-- : Number of allocated segments, always less than or equal to dsize
-- : ID of the maximum bucket currently in use
-- : Bit mask for modulo operations across the entire table
-- : Bit mask for modulo operations into the lower half of the table
-- : Length of hash keys in bytes (fixed at creation)
-- : Total size of user elements in bytes (fixed at creation)  
-- : Number of partitions, must be power of 2, or 0 for unpartitioned tables
-- : Maximum directory size limit for fixed-size directories
-- : Segment size, must be a power of 2 (fixed at creation)
-- : Segment shift value, calculated as log2(ssize)
-- : Number of entries to allocate in a single allocation operation
-- : Statistics counter for hash table accesses (when HASH_STATISTICS enabled)
-- : Statistics counter for hash collisions (when HASH_STATISTICS enabled)
+- `freeList[NUM_FREELISTS]`: Array of freelists for managing free hash table elements, each with independent mutex for concurrency
+- `dsize`: Directory size - number of directory entries (changeable except in partitioned tables)
+- `nsegs`: Number of allocated segments, always less than or equal to dsize
+- `max_bucket`: ID of the maximum bucket currently in use
+- `high_mask`: Bit mask for modulo operations across the entire table
+- `low_mask`: Bit mask for modulo operations into the lower half of the table
+- `keysize`: Length of hash keys in bytes (fixed at creation)
+- `entrysize`: Total size of user elements in bytes (fixed at creation)
+- `num_partitions`: Number of partitions, must be power of 2, or 0 for unpartitioned tables
+- `max_dsize`: Maximum directory size limit for fixed-size directories
+- `ssize`: Segment size, must be a power of 2 (fixed at creation)
+- `sshift`: Segment shift value, calculated as log2(ssize)
+- `nelem_alloc`: Number of entries to allocate in a single allocation operation
+- `accesses`: Statistics counter for hash table accesses (when HASH_STATISTICS enabled)
+- `collisions`: Statistics counter for hash collisions (when HASH_STATISTICS enabled)
 
 ## Dependencies
 - Functions called/Symbols referenced:

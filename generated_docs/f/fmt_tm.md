@@ -26,15 +26,15 @@ struct fmt_tm
 The fmt_tm structure is a custom datetime representation used specifically by PostgreSQL's formatting system for datetime-to-character conversion. It's designed as an enhanced version of the standard pg_tm struct with a key difference: the tm_hour field is 64-bit (int64) instead of the standard int, allowing it to handle very large hour values that can occur in interval calculations. This structure omits the tm_isdst and tm_zone fields from the standard tm struct since they are not needed for formatting operations. The structure supports both timestamp and interval data types, making it versatile for various temporal formatting scenarios.
 
 ## Parameters / Member Variables
-- : Seconds (0-60, allowing for leap seconds)
-- : Minutes (0-59)
-- : Hours as a 64-bit integer, allowing for very large values when representing intervals
-- : Day of the month (1-31)
-- : Month (0-11, where 0 = January)
-- : Year (full year, not offset from 1900)
-- : Day of the week (0-6, where 0 = Sunday)
-- : Day of the year (1-366)
-- : GMT offset in seconds for timezone-aware timestamps
+- `tm_sec`: Seconds (0-60, allowing for leap seconds)
+- `tm_min`: Minutes (0-59)
+- `tm_hour`: Hours as a 64-bit integer, allowing for very large values when representing intervals
+- `tm_mday`: Day of the month (1-31)
+- `tm_mon`: Month (0-11, where 0 = January)
+- `tm_year`: Year (full year, not offset from 1900)
+- `tm_wday`: Day of the week (0-6, where 0 = Sunday)
+- `tm_yday`: Day of the year (1-366)
+- `tm_gmtoff`: GMT offset in seconds for timezone-aware timestamps
 
 ## Dependencies
 - Functions called/Symbols referenced:

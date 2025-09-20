@@ -57,8 +57,8 @@ The function handles two scenarios:
 The function uses a conservative approach - it only marks entries as invalid rather than deleting or modifying their substructures, since invalidation events can occur during active callback execution. The actual cleanup and rebuilding happens on the next get_rel_sync_entry() call.
 
 ## Parameters / Member Variables
-- : Datum argument (unused in this implementation, required by callback signature)
-- : The OID of the relation being invalidated, or InvalidOid for global invalidation
+- `NULL)`: Datum argument (unused in this implementation, required by callback signature)
+- `false`: The OID of the relation being invalidated, or InvalidOid for global invalidation
 
 ## Dependencies
 - Functions called/Symbols referenced:

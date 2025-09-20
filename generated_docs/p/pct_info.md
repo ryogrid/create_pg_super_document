@@ -23,10 +23,10 @@ The pct_info structure is a support data structure designed specifically for han
 Each pct_info entry represents one percentile calculation within a multi-percentile operation. The structure stores the necessary information to extract the correct value(s) from the sorted data, including which row(s) to sample and any interpolation needed. This approach allows PostgreSQL to process all percentiles in a single pass through the sorted data rather than requiring separate passes for each percentile value.
 
 ## Parameters / Member Variables
-- : The primary row number to sample from the sorted dataset (0-based indexing)
-- : The secondary row number for interpolation, typically equal to first_row or first_row + 1
-- : The interpolation fraction used when the percentile falls between two discrete values (0.0 to 1.0)
-- : The index position of this percentile in the original input array, used for maintaining correspondence with the output array
+- `first_row`: The primary row number to sample from the sorted dataset (0-based indexing)
+- `second_row`: The secondary row number for interpolation, typically equal to first_row or first_row + 1
+- `proportion`: The interpolation fraction used when the percentile falls between two discrete values (0.0 to 1.0)
+- `idx`: The index position of this percentile in the original input array, used for maintaining correspondence with the output array
 
 ## Dependencies
 - Functions called/Symbols referenced:

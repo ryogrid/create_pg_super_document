@@ -31,9 +31,9 @@ The structure implements a work-stealing approach where workers coordinate to se
 The design distinguishes between partial and non-partial plans: non-partial plans are marked as finished immediately when selected by a worker (since only one worker should execute them), while partial plans remain available until completely executed by some worker.
 
 ## Parameters / Member Variables
-- : LWLock providing mutual exclusion for thread-safe access when workers choose the next subplan to execute
-- : Integer counter indicating the next subplan index that should be selected by any available worker
-- : Flexible array of boolean flags where each element indicates whether subplan i should no longer be selected by workers - set immediately for non-partial plans, set only upon completion for partial plans
+- `pa_lock`: LWLock providing mutual exclusion for thread-safe access when workers choose the next subplan to execute
+- `pa_next_plan`: Integer counter indicating the next subplan index that should be selected by any available worker
+- `pa_finished[FLEXIBLE_ARRAY_MEMBER]`: Flexible array of boolean flags where each element indicates whether subplan i should no longer be selected by workers - set immediately for non-partial plans, set only upon completion for partial plans
 
 ## Dependencies
 - Functions called/Symbols referenced:

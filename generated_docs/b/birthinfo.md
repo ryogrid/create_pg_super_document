@@ -23,8 +23,8 @@ The  struct is a simple data structure defined in PostgreSQL's ECPG test suite. 
 This struct is part of the ECPG preprocessor test infrastructure, specifically testing how the preprocessor handles C struct definitions that will be used in embedded SQL contexts.
 
 ## Parameters / Member Variables
-- : A long integer representing the birth year or timestamp
-- : A short integer representing the person's age
+- `born`: A long integer representing the birth year or timestamp
+- `age`: A short integer representing the person's age
 
 ## Dependencies
 - Functions called/Symbols referenced:

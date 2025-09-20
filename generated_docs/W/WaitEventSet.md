@@ -69,20 +69,20 @@ This structure is fundamental to PostgreSQL's asynchronous I/O operations, enabl
 The implementation uses compile-time conditionals to select the most efficient platform-specific mechanism available, ensuring optimal performance across different operating systems while maintaining a consistent API.
 
 ## Parameters / Member Variables
-- : ResourceOwner that tracks this WaitEventSet for cleanup purposes
-- : Current number of registered events in the set
-- : Maximum number of events that can be stored (allocated capacity)
-- : Array of WaitEvent structures defining the events to wait for
-- : Pointer to a latch if WL_LATCH_SET is specified in any wait event
-- : Position of the latch event in the events array for quick access
-- : Flag to exit immediately when postmaster death is detected
-- : File descriptor for epoll instance (Linux-specific)
-- : Pre-allocated array for epoll_wait results (Linux-specific)
-- : File descriptor for kqueue instance (BSD-specific)
-- : Pre-allocated array for kevent results (BSD-specific)
-- : Flag for postmaster status reporting (BSD-specific)
-- : Array of pollfd structures for poll() system call (generic Unix)
-- : Array of Windows event handles (Windows-specific)
+- `owner`: ResourceOwner that tracks this WaitEventSet for cleanup purposes
+- `nevents`: Current number of registered events in the set
+- `nevents_space`: Maximum number of events that can be stored (allocated capacity)
+- `*events`: Array of WaitEvent structures defining the events to wait for
+- `*latch`: Pointer to a latch if WL_LATCH_SET is specified in any wait event
+- `latch_pos`: Position of the latch event in the events array for quick access
+- `exit_on_postmaster_death`: Flag to exit immediately when postmaster death is detected
+- `epoll_fd`: File descriptor for epoll instance (Linux-specific)
+- `*epoll_ret_events`: Pre-allocated array for epoll_wait results (Linux-specific)
+- `kqueue_fd`: File descriptor for kqueue instance (BSD-specific)
+- `*kqueue_ret_events`: Pre-allocated array for kevent results (BSD-specific)
+- `report_postmaster_not_running`: Flag for postmaster status reporting (BSD-specific)
+- `*pollfds`: Array of pollfd structures for poll() system call (generic Unix)
+- `*handles`: Array of Windows event handles (Windows-specific)
 
 ## Dependencies
 - Functions called/Symbols referenced:

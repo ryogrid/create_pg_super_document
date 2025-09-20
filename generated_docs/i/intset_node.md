@@ -21,8 +21,8 @@ The intset_node structure serves as the foundation for PostgreSQL's IntegerSet d
 The structure uses a compact 4-byte header design to minimize memory overhead while providing essential metadata for tree operations. The level field enables efficient tree traversal by indicating the node's position in the tree hierarchy, with leaf nodes at level 0 and internal nodes at higher levels. The num_items field tracks the current occupancy of each node, which is crucial for determining when nodes need to be split during insertion operations or merged during deletion operations.
 
 ## Parameters / Member Variables
-- : Tree level of this node (0 for leaf nodes, increasing for higher internal nodes)
-- : Current number of items stored in this node, used for capacity management and tree balancing
+- `level`: Tree level of this node (0 for leaf nodes, increasing for higher internal nodes)
+- `num_items`: Current number of items stored in this node, used for capacity management and tree balancing
 
 ## Dependencies
 - Functions called/Symbols referenced: None (base structure)

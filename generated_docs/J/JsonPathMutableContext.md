@@ -24,11 +24,11 @@ This structure serves as a context holder for the  function, which recursively w
 The structure is used in PostgreSQL's planner to identify JSONPath expressions that contain mutable functions, which affects query optimization decisions. A JSONPath expression is considered mutable if it contains operations that could yield different results depending on execution context, such as comparing datetime values with different timezone information.
 
 ## Parameters / Member Variables
-- : List of variable names that can be referenced within the JSONPath expression using the  syntax
-- : Corresponding list of variable expressions that provide the actual values for the variables in varnames
-- : Tracks the current datatype status of the context item () during expression evaluation, using the JsonPathDatatypeStatus enum
-- : Boolean flag indicating whether the JSONPath expression uses lax mode (true) or strict mode (false) semantics
-- : The resulting boolean status that indicates whether the JSONPath expression has been determined to be mutable
+- `*varnames`: List of variable names that can be referenced within the JSONPath expression using the  syntax
+- `*varexprs`: Corresponding list of variable expressions that provide the actual values for the variables in varnames
+- `current`: Tracks the current datatype status of the context item () during expression evaluation, using the JsonPathDatatypeStatus enum
+- `lax`: Boolean flag indicating whether the JSONPath expression uses lax mode (true) or strict mode (false) semantics
+- `mutable`: The resulting boolean status that indicates whether the JSONPath expression has been determined to be mutable
 
 ## Dependencies
 - Functions called/Symbols referenced:

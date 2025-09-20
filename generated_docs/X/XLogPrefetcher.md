@@ -43,19 +43,19 @@ struct XLogPrefetcher
 The XLogPrefetcher serves as an intelligent WAL prefetching system that wraps around an XLogReaderState to predict and pre-load database blocks that will be needed during WAL replay. It maintains sophisticated book-keeping mechanisms to avoid duplicate prefetches, manage IO depth, filter out blocks that don't exist yet, and temporarily disable prefetching when appropriate. The prefetcher uses a combination of hash tables, circular buffers, and queues to efficiently manage prefetch operations and track performance statistics.
 
 ## Parameters / Member Variables
-- : Pointer to XLogReaderState for reading WAL records
-- : Current decoded WAL record being processed
-- : Index of the next block to prefetch within current record
-- : LSN position when to next publish statistics to shared memory
-- : Hash table (HTAB) for tracking blocks that should be filtered/avoided
-- : Double-linked list queue for managing filter entries in order
-- : Circular buffer of recently prefetched file locators (size XLOGPREFETCHER_SEQ_WINDOW_SIZE=4)
-- : Circular buffer of recently prefetched block numbers (size XLOGPREFETCHER_SEQ_WINDOW_SIZE=4) 
-- : Current index in the recent_* circular buffers
-- : LSN position until which prefetching should be disabled
-- : LsnReadQueue for managing IO depth and prefetch operations
-- : Starting LSN position for prefetching
-- : Counter for tracking prefetcher reconfiguration events
+- `*reader`: Pointer to XLogReaderState for reading WAL records
+- `*record`: Current decoded WAL record being processed
+- `next_block_id`: Index of the next block to prefetch within current record
+- `next_stats_shm_lsn`: LSN position when to next publish statistics to shared memory
+- `*filter_table`: Hash table (HTAB) for tracking blocks that should be filtered/avoided
+- `filter_queue`: Double-linked list queue for managing filter entries in order
+- `recent_rlocator[XLOGPREFETCHER_SEQ_WINDOW_SIZE]`: Circular buffer of recently prefetched file locators (size XLOGPREFETCHER_SEQ_WINDOW_SIZE=4)
+- `recent_block[XLOGPREFETCHER_SEQ_WINDOW_SIZE]`: Circular buffer of recently prefetched block numbers (size XLOGPREFETCHER_SEQ_WINDOW_SIZE=4)
+- `recent_idx`: Current index in the recent_* circular buffers
+- `no_readahead_until`: LSN position until which prefetching should be disabled
+- `*streaming_read`: LsnReadQueue for managing IO depth and prefetch operations
+- `begin_ptr`: Starting LSN position for prefetching
+- `reconfigure_count`: Counter for tracking prefetcher reconfiguration events
 
 ## Dependencies
 - Functions called/Symbols referenced:

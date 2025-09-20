@@ -33,15 +33,15 @@ The  structure represents the actual message queue stored in shared memory, desi
 The design allows the sender to write to unused portions and the receiver to read unread bytes without coordination, maximizing throughput while maintaining data integrity.
 
 ## Parameters / Member Variables
-- : Spinlock protecting mq_receiver and mq_sender fields during initialization
-- : Pointer to the PGPROC of the receiving process (immutable once set)
-- : Pointer to the PGPROC of the sending process (immutable once set)
-- : Atomic counter tracking total bytes consumed by receiver
-- : Atomic counter tracking total bytes produced by sender
-- : Size of the circular buffer (immutable after initialization)
-- : Boolean flag indicating if queue is detached (can only transition false→true)
-- : Offset alignment for the ring buffer data
-- : Flexible array member containing the actual ring buffer data
+- `mq_mutex`: Spinlock protecting mq_receiver and mq_sender fields during initialization
+- `*mq_receiver`: Pointer to the PGPROC of the receiving process (immutable once set)
+- `*mq_sender`: Pointer to the PGPROC of the sending process (immutable once set)
+- `mq_bytes_read`: Atomic counter tracking total bytes consumed by receiver
+- `mq_bytes_written`: Atomic counter tracking total bytes produced by sender
+- `mq_ring_size`: Size of the circular buffer (immutable after initialization)
+- `mq_detached`: Boolean flag indicating if queue is detached (can only transition false→true)
+- `mq_ring_offset`: Offset alignment for the ring buffer data
+- `mq_ring[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the actual ring buffer data
 
 ## Dependencies
 - Functions called/Symbols referenced:

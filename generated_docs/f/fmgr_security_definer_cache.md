@@ -25,12 +25,12 @@ The fmgr_security_definer_cache structure is used to cache metadata for PostgreS
 The cache is populated once per query when a security-definer or proconfig function is first called, and the cached information is reused for subsequent calls within the same query. This approach significantly reduces the overhead of privilege switching and configuration changes.
 
 ## Parameters / Member Variables
-- : Function manager information for the target function, containing lookup details and call information
-- : The user ID to switch to for security-definer functions, or InvalidOid if no user switch is needed
-- : List of GUC (Grand Unified Configuration) parameter names that need to be set before function execution
-- : Pre-resolved handles for the GUC parameters to avoid name lookup overhead during execution
-- : List of values to set for the corresponding GUC parameters
-- : Passthrough argument used by function manager plugin modules for custom handling
+- `flinfo`: Function manager information for the target function, containing lookup details and call information
+- `userid`: The user ID to switch to for security-definer functions, or InvalidOid if no user switch is needed
+- `*configNames`: List of GUC (Grand Unified Configuration) parameter names that need to be set before function execution
+- `*configHandles`: Pre-resolved handles for the GUC parameters to avoid name lookup overhead during execution
+- `*configValues`: List of values to set for the corresponding GUC parameters
+- `arg`: Passthrough argument used by function manager plugin modules for custom handling
 
 ## Dependencies
 - Functions called/Symbols referenced:

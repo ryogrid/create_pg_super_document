@@ -22,9 +22,9 @@ The  struct is part of the ECPG preprocessor infrastructure, designed to manage 
 The structure supports the ECPG's need to track both the actual data variable and its corresponding indicator variable, which is used to detect null values or provide status information about the parameter. The linked list design allows for handling functions with variable numbers of arguments.
 
 ## Parameters / Member Variables
-- : Pointer to the primary variable structure containing the actual argument data, type information, and memory details
-- : Pointer to the indicator variable structure used for null detection and status information (can be NULL if no indicator is needed)
-- : Pointer to the next arguments node in the linked list, enabling support for multiple function parameters
+- `*variable`: Pointer to the primary variable structure containing the actual argument data, type information, and memory details
+- `*indicator`: Pointer to the indicator variable structure used for null detection and status information (can be NULL if no indicator is needed)
+- `*next`: Pointer to the next arguments node in the linked list, enabling support for multiple function parameters
 
 ## Dependencies
 - Functions called/Symbols referenced:

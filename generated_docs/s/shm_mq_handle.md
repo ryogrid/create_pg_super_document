@@ -38,18 +38,18 @@ The  serves as a process-local wrapper around a shared memory queue, providing e
 The handle optimizes performance by batching shared memory updates (writing data when it reaches 1/4 of ring size) and providing local buffering for fragmented messages.
 
 ## Parameters / Member Variables
-- : Pointer to the shared memory queue structure this handle manages
-- : Optional pointer to DSM segment containing the queue (enables cleanup callbacks)
-- : BackgroundWorkerHandle for early failure detection in simple scenarios
-- : Local buffer for reassembling wrapped or large messages
-- : Size of the local reassembly buffer in bytes
-- : Number of bytes read locally but not yet marked as consumed in shared memory
-- : Number of bytes written locally but not yet updated in shared memory
-- : Tracks partial progress in non-blocking operations (length word or message data)
-- : Expected total message size for reads (used only for receive operations)
-- : Flag indicating if length word processing is complete in current operation
-- : Cached flag to avoid mutex acquisitions when checking counterparty attachment
-- : Memory context for all allocations related to this handle
+- `*mqh_queue`: Pointer to the shared memory queue structure this handle manages
+- `*mqh_segment`: Optional pointer to DSM segment containing the queue (enables cleanup callbacks)
+- `*mqh_handle`: BackgroundWorkerHandle for early failure detection in simple scenarios
+- `*mqh_buffer`: Local buffer for reassembling wrapped or large messages
+- `mqh_buflen`: Size of the local reassembly buffer in bytes
+- `mqh_consume_pending`: Number of bytes read locally but not yet marked as consumed in shared memory
+- `mqh_send_pending`: Number of bytes written locally but not yet updated in shared memory
+- `mqh_partial_bytes`: Tracks partial progress in non-blocking operations (length word or message data)
+- `mqh_expected_bytes`: Expected total message size for reads (used only for receive operations)
+- `mqh_length_word_complete`: Flag indicating if length word processing is complete in current operation
+- `mqh_counterparty_attached`: Cached flag to avoid mutex acquisitions when checking counterparty attachment
+- `mqh_context`: Memory context for all allocations related to this handle
 
 ## Dependencies
 - Functions called/Symbols referenced:

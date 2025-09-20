@@ -19,8 +19,8 @@ struct BaseBackupTargetHandle
 The BaseBackupTargetHandle structure serves as a concrete instance of a backup target in PostgreSQL's base backup system. It acts as a handle or reference that combines a target type definition (BaseBackupTargetType) with specific configuration details for that particular target instance. This design separates the target type definition (which is shared across instances) from the instance-specific configuration, allowing for efficient memory usage and flexible target management. The handle is used throughout the backup process to access both the target's behavior (through the type pointer) and its specific configuration (through the detail_arg).
 
 ## Parameters / Member Variables
-- : Pointer to a BaseBackupTargetType structure that defines the behavior and capabilities of this target type
-- : Void pointer to target-specific configuration details or arguments, the structure of which depends on the target type
+- `*type`: Pointer to a BaseBackupTargetType structure that defines the behavior and capabilities of this target type
+- `*detail_arg`: Void pointer to target-specific configuration details or arguments, the structure of which depends on the target type
 
 ## Dependencies
 - Functions called/Symbols referenced:

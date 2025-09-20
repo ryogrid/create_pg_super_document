@@ -24,11 +24,11 @@ The  structure (instantiated as ) is a core component of PostgreSQL's two-phase 
 The structure is designed to efficiently handle variable-length data by maintaining both head and tail pointers for O(1) append operations, tracking the total number of chunks and bytes for validation, and maintaining free space information to minimize memory allocation calls.
 
 ## Parameters / Member Variables
-- : Pointer to the first StateFileChunk in the linked list chain
-- : Pointer to the last StateFileChunk in the chain, used for efficient appending
-- : Count of StateFileChunk blocks currently in the chain
-- : Number of free bytes remaining in the tail block for data storage
-- : Total number of data bytes stored across all chunks in the chain
+- `*head`: Pointer to the first StateFileChunk in the linked list chain
+- `*tail`: Pointer to the last StateFileChunk in the chain, used for efficient appending
+- `num_chunks`: Count of StateFileChunk blocks currently in the chain
+- `bytes_free`: Number of free bytes remaining in the tail block for data storage
+- `total_len`: Total number of data bytes stored across all chunks in the chain
 
 ## Dependencies
 - Functions called/Symbols referenced:

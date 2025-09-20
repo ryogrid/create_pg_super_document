@@ -61,10 +61,10 @@ struct and puts it into the active array.
 PrepareRedoAdd is a critical function in PostgreSQL's two-phase commit recovery process that creates global transaction entries in the TwoPhaseState shared memory structure during WAL replay. The function handles both scenarios where two-phase data is available in WAL records (start_lsn is valid) and where data has already been restored from disk files (start_lsn is invalid). It includes sophisticated duplicate detection logic to handle crash scenarios where some two-phase data may exist both in WAL records and on disk. The function also manages replication origin advancement for logical replication scenarios and maintains proper state tracking with the inredo flag.
 
 ## Parameters / Member Variables
-- : Buffer containing the two-phase transaction data including header and global transaction identifier
-- : WAL log sequence number where the prepare record starts (InvalidXLogRecPtr if reading from disk)
-- : WAL log sequence number where the prepare record ends
-- : Replication origin identifier for logical replication tracking (InvalidRepOriginId if not applicable)
+- `path[MAXPGPATH]`: Buffer containing the two-phase transaction data including header and global transaction identifier
+- `hdr->xid)`: WAL log sequence number where the prepare record starts (InvalidXLogRecPtr if reading from disk)
+- `LSN_FORMAT_ARGS(start_lsn))))`: WAL log sequence number where the prepare record ends
+- `return`: Replication origin identifier for logical replication tracking (InvalidRepOriginId if not applicable)
 
 ## Dependencies
 - Functions called/Symbols referenced:

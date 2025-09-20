@@ -31,10 +31,10 @@ Internal nodes maintain a sorted array of key values that act as separators, wit
 With MAX_INTERNAL_ITEMS set to 64, each internal node can hold up to 64 key-pointer pairs, resulting in approximately 1 KB per node. This fanout provides a good balance between memory usage and tree height, ensuring efficient cache utilization while maintaining shallow tree depths for fast access times.
 
 ## Parameters / Member Variables
-- : Tree level of this node (≥ 1 for internal nodes, increases toward root)
-- : Current number of key-pointer pairs stored in this node
-- : Sorted array of 64-bit unsigned integer keys that serve as separators for child subtrees
-- : Array of pointers to child nodes (intset_internal_node or intset_leaf_node structures) corresponding to each key
+- `level`: Tree level of this node (≥ 1 for internal nodes, increases toward root)
+- `num_items`: Current number of key-pointer pairs stored in this node
+- `values[MAX_INTERNAL_ITEMS]`: Sorted array of 64-bit unsigned integer keys that serve as separators for child subtrees
+- `*downlinks[MAX_INTERNAL_ITEMS]`: Array of pointers to child nodes (intset_internal_node or intset_leaf_node structures) corresponding to each key
 
 ## Dependencies
 - Functions called/Symbols referenced:

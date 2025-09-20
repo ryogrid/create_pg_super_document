@@ -23,10 +23,10 @@ The  struct is part of PostgreSQL's implementation of the GNU-style long option 
 This struct is conditionally defined only when the system doesn't already provide  (when  is not defined), ensuring compatibility across different platforms. The struct works in conjunction with the  function to provide a standardized way of handling command-line arguments across all PostgreSQL utilities.
 
 ## Parameters / Member Variables
-- : A pointer to the long option name (without the leading ). For example, "help", "version", "port", etc.
-- : Specifies whether the option takes an argument. Valid values are  (0),  (1), or  (2)
-- : If NULL,  returns the value in . If non-NULL,  sets the variable pointed to by  to the value in  and returns 0
-- : The value to return or store when this option is encountered. Typically set to a character code for short options or a unique integer for long-only options
+- `*name`: A pointer to the long option name (without the leading ). For example, "help", "version", "port", etc.
+- `has_arg`: Specifies whether the option takes an argument. Valid values are  (0),  (1), or  (2)
+- `*flag`: If NULL,  returns the value in . If non-NULL,  sets the variable pointed to by  to the value in  and returns 0
+- `val`: The value to return or store when this option is encountered. Typically set to a character code for short options or a unique integer for long-only options
 
 ## Dependencies
 - Functions called/Symbols referenced:

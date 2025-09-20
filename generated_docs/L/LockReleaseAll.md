@@ -46,8 +46,8 @@ Key features:
 - Manages resource owner relationships properly
 
 ## Parameters / Member Variables
-- : Identifier of the lock method whose locks should be released (e.g., DEFAULT_LOCKMETHOD)
-- : If true, release all locks including session locks; if false, release only non-session (transaction) locks
+- `LW_EXCLUSIVE)`: Identifier of the lock method whose locks should be released (e.g., DEFAULT_LOCKMETHOD)
+- `true`: If true, release all locks including session locks; if false, release only non-session (transaction) locks
 
 ## Dependencies
 - Functions called/Symbols referenced:

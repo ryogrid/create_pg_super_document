@@ -27,12 +27,12 @@ The TOC system is designed to solve the problem of process-independent access to
 The structure includes synchronization primitives (spinlock) for thread-safe concurrent access, memory management fields to track allocation within the segment, and a flexible array of entries that grows as needed. The magic number provides basic validation to ensure processes are accessing compatible TOC structures.
 
 ## Parameters / Member Variables
-- : A 64-bit magic number used to validate TOC compatibility and detect corruption or version mismatches
-- : A spinlock providing mutual exclusion for concurrent access to TOC metadata and entries
-- : Total size in bytes of the shared memory segment managed by this TOC
-- : Number of bytes currently allocated within the managed segment (excludes TOC overhead)
-- : Current number of entries in the toc_entry array
-- : Flexible array member containing the actual key-offset mappings for registered data structures
+- `toc_magic`: A 64-bit magic number used to validate TOC compatibility and detect corruption or version mismatches
+- `toc_mutex`: A spinlock providing mutual exclusion for concurrent access to TOC metadata and entries
+- `toc_total_bytes`: Total size in bytes of the shared memory segment managed by this TOC
+- `toc_allocated_bytes`: Number of bytes currently allocated within the managed segment (excludes TOC overhead)
+- `toc_nentry`: Current number of entries in the toc_entry array
+- `toc_entry[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing the actual key-offset mappings for registered data structures
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -19,8 +19,8 @@ struct separator
 The separator structure is a utility data type used across PostgreSQL's codebase for string manipulation and formatting operations. It encapsulates a separator string along with a boolean flag indicating whether the separator should be treated as zero-terminated. This structure is commonly used in parsing operations, output formatting, and string splitting functions where consistent separator handling is required.
 
 ## Parameters / Member Variables
-- : Pointer to the separator string/character sequence
-- : Boolean flag indicating whether the separator should be treated as zero-terminated
+- `*separator`: Pointer to the separator string/character sequence
+- `separator_zero`: Boolean flag indicating whether the separator should be treated as zero-terminated
 
 ## Dependencies
 - Functions called/Symbols referenced:

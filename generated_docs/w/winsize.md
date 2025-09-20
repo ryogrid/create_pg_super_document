@@ -21,8 +21,8 @@ The winsize struct is conditionally defined in the PQprint function within fe-pr
 The struct is used within the PQprint function to make intelligent decisions about output formatting - specifically whether the output will exceed the terminal's display capacity and should therefore be piped through a pager for better user experience.
 
 ## Parameters / Member Variables
-- : Number of rows (lines) available in the terminal window
-- : Number of columns (characters) available in the terminal window
+- `ws_row`: Number of rows (lines) available in the terminal window
+- `ws_col`: Number of columns (characters) available in the terminal window
 
 ## Dependencies
 - Functions called/Symbols referenced:

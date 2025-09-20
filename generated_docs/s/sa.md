@@ -17,7 +17,7 @@ The  struct is a minimal test structure defined in PostgreSQL's ECPG test suite.
 This structure is part of the test case that verifies ECPG's preprocessing of complex variable initialization expressions, including struct member access, function calls, arithmetic operations, and other C expressions within SQL declare sections.
 
 ## Parameters / Member Variables
-- : A single integer member used for testing struct member access in ECPG variable initialization
+- `member`: A single integer member used for testing struct member access in ECPG variable initialization
 
 ## Dependencies
 - Functions called/Symbols referenced:

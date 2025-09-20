@@ -33,13 +33,13 @@ The structure is designed to be generic, allowing callers to embed RBTNode as th
 The implementation is based on Thomas Niemann's "Sorting and Searching Algorithms: a Cookbook" and maintains the fundamental Red-Black tree properties: (1) any child of a red node is always black, and (2) every path from root to leaf traverses an equal number of black nodes.
 
 ## Parameters / Member Variables
-- : Pointer to the root node of the tree, or RBTNIL if the tree is empty
-- : The actual size in bytes of tree nodes (must be larger than sizeof(RBTNode)) to accommodate caller's additional data
-- : Function pointer for comparing two RBTNodes, returns negative/zero/positive for less/equal/greater relationships
-- : Function pointer for merging an existing tree entry with a new one during insertion when duplicates are found
-- : Function pointer for allocating new RBTNode instances
-- : Function pointer for deallocating RBTNode instances (can be NULL if retail space reclamation is not required)
-- : Passthrough pointer argument that is passed to all manipulation functions for context
+- `*root`: Pointer to the root node of the tree, or RBTNIL if the tree is empty
+- `node_size`: The actual size in bytes of tree nodes (must be larger than sizeof(RBTNode)) to accommodate caller's additional data
+- `comparator`: Function pointer for comparing two RBTNodes, returns negative/zero/positive for less/equal/greater relationships
+- `combiner`: Function pointer for merging an existing tree entry with a new one during insertion when duplicates are found
+- `allocfunc`: Function pointer for allocating new RBTNode instances
+- `freefunc`: Function pointer for deallocating RBTNode instances (can be NULL if retail space reclamation is not required)
+- `*arg`: Passthrough pointer argument that is passed to all manipulation functions for context
 
 ## Dependencies
 - Functions called/Symbols referenced:

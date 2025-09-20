@@ -26,11 +26,11 @@ The design supports multiple concurrent iterators on the same bitmap, which is e
 The iterator's state tracking enables efficient resumption of traversal across multiple calls, making it suitable for integration with PostgreSQL's executor framework where scanning may be interrupted and resumed based on query execution flow.
 
 ## Parameters / Member Variables
-- : Pointer to the TIDBitmap being iterated over, providing access to the sorted page and chunk arrays
-- : Index pointer into the sorted exact pages array (spages), tracking progress through precise page entries
-- : Index pointer into the sorted lossy chunks array (schunks), tracking progress through lossy chunk entries
-- : Bit position tracker within the current lossy chunk, indicating which page within the chunk to examine next
-- : Variable-sized result structure containing the tuple identifiers returned by the current iteration step, positioned last to accommodate flexible array sizing
+- `*tbm`: Pointer to the TIDBitmap being iterated over, providing access to the sorted page and chunk arrays
+- `spageptr`: Index pointer into the sorted exact pages array (spages), tracking progress through precise page entries
+- `schunkptr`: Index pointer into the sorted lossy chunks array (schunks), tracking progress through lossy chunk entries
+- `schunkbit`: Bit position tracker within the current lossy chunk, indicating which page within the chunk to examine next
+- `output`: Variable-sized result structure containing the tuple identifiers returned by the current iteration step, positioned last to accommodate flexible array sizing
 
 ## Dependencies
 - Functions called/Symbols referenced:

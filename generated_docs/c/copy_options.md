@@ -29,12 +29,12 @@ The structure supports the documented \copy syntax:
 It also maintains backward compatibility with pre-7.3 PostgreSQL syntax that allowed BINARY keyword before the table name.
 
 ## Parameters / Member Variables
-- : Contains the COPY command portion before the TO/FROM keyword, including table name, column list, or query statement
-- : Contains any COPY options that appear after the filename (e.g., CSV, DELIMITER, etc.)
-- : Filename for the copy operation; NULL indicates stdin/stdout usage
-- : Boolean flag indicating whether  represents a program to be executed via popen() rather than a regular file
-- : Boolean flag indicating the use of psql's own stdin/stdout (pstdin/pstdout keywords)
-- : Direction flag; true for FROM operations (file to table), false for TO operations (table to file)
+- `*before_tofrom`: Contains the COPY command portion before the TO/FROM keyword, including table name, column list, or query statement
+- `*after_tofrom`: Contains any COPY options that appear after the filename (e.g., CSV, DELIMITER, etc.)
+- `*file`: Filename for the copy operation; NULL indicates stdin/stdout usage
+- `program`: Boolean flag indicating whether  represents a program to be executed via popen() rather than a regular file
+- `psql_inout`: Boolean flag indicating the use of psql's own stdin/stdout (pstdin/pstdout keywords)
+- `from`: Direction flag; true for FROM operations (file to table), false for TO operations (table to file)
 
 ## Dependencies
 - Functions called/Symbols referenced:

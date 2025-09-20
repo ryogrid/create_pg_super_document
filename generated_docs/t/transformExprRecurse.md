@@ -26,8 +26,8 @@ struct and reconstruct column
  serves as the central dispatcher for expression transformation in PostgreSQL's parser. It implements a comprehensive switch statement that handles over 30 different node types, from basic constants and column references to complex JSON expressions and subqueries. The function includes stack overflow protection and transforms raw grammar nodes into fully typed and semantically validated expression trees. Each case delegates to a specialized transformation function that handles the specific semantics of that expression type, ensuring proper type checking, operator resolution, and semantic validation throughout the expression tree.
 
 ## Parameters / Member Variables
-- : ParseState structure containing current parsing context, including scope information, query structure, and parsing state
-- : The raw expression node from the parser that needs to be recursively transformed into a semantic expression tree
+- `expr`: ParseState structure containing current parsing context, including scope information, query structure, and parsing state
+- `break`: The raw expression node from the parser that needs to be recursively transformed into a semantic expression tree
 
 ## Dependencies
 - Functions called/Symbols referenced:

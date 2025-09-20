@@ -26,8 +26,8 @@ The structure works by establishing a range of uncertainty between two boundarie
 PostgreSQL maintains four different instances of this structure optimized for different relation types: GlobalVisSharedRels (for shared catalog tables), GlobalVisCatalogRels (for database-specific catalog tables), GlobalVisDataRels (for regular user tables), and GlobalVisTempRels (for temporary tables). Each has different visibility requirements based on the scope of access to those relations.
 
 ## Parameters / Member Variables
-- : Transaction IDs greater than or equal to this value are considered to be running by some backend, meaning tuples deleted by these transactions must be preserved
-- : Transaction IDs less than this value are not considered to be running by any backend, meaning tuples deleted by these transactions can be safely removed
+- `definitely_needed`: Transaction IDs greater than or equal to this value are considered to be running by some backend, meaning tuples deleted by these transactions must be preserved
+- `maybe_needed`: Transaction IDs less than this value are not considered to be running by any backend, meaning tuples deleted by these transactions can be safely removed
 
 ## Dependencies
 - Functions called/Symbols referenced:

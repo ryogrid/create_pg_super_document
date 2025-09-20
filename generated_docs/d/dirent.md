@@ -26,11 +26,11 @@ The structure is used in conjunction with , , and  functions to provide a POSIX-
 The implementation handles Windows-specific file attributes and maps them to POSIX-style file types, including special handling for reparse points (symbolic links) and proper classification of directories vs. regular files.
 
 ## Parameters / Member Variables
-- : Inode number (always set to 0 on Windows as the concept doesn't directly apply)
-- : Record length (not used on Windows, set to 0)
-- : File type indicator using DT_* constants (DT_DIR, DT_REG, DT_LNK, etc.)
-- : Length of the filename in 
-- : Null-terminated filename, with maximum length of MAX_PATH characters
+- `d_ino`: Inode number (always set to 0 on Windows as the concept doesn't directly apply)
+- `d_reclen`: Record length (not used on Windows, set to 0)
+- `d_type`: File type indicator using DT_* constants (DT_DIR, DT_REG, DT_LNK, etc.)
+- `d_namlen`: Length of the filename in
+- `d_name[MAX_PATH]`: Null-terminated filename, with maximum length of MAX_PATH characters
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -135,8 +135,8 @@ Key validation includes:
 - Constructing WAL filenames for older versions (≤ 9.2) from separate log ID and segment components
 
 ## Parameters / Member Variables
-- : ClusterInfo structure to populate with extracted control data
-- : Boolean indicating whether this is a live server check (true) or offline analysis (false)
+- `segno)`: ClusterInfo structure to populate with extracted control data
+- `true`: Boolean indicating whether this is a live server check (true) or offline analysis (false)
 
 ## Dependencies
 - Functions called/Symbols referenced:

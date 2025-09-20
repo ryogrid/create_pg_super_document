@@ -24,11 +24,11 @@ The  structure serves as a configuration template that describes how to set up a
 System caches in PostgreSQL are hash-based lookup tables that cache tuples from system catalog relations to avoid repeated disk I/O for metadata operations. Each cache must be backed by a unique index on the underlying relation, and the cache configuration specified in  must match the key structure of that index.
 
 ## Parameters / Member Variables
-- : The OID (object identifier) of the system catalog relation that this cache will store data from
-- : The OID of the unique index that backs this cache - this index's key structure must match the cache key specification
-- : The number of key attributes used for cache lookups (maximum of 4)
-- : An array containing the attribute numbers of the key columns used for cache lookups
-- : The number of hash buckets to allocate for this cache (must be a power of 2)
+- `reloid`: The OID (object identifier) of the system catalog relation that this cache will store data from
+- `indoid`: The OID of the unique index that backs this cache - this index's key structure must match the cache key specification
+- `nkeys`: The number of key attributes used for cache lookups (maximum of 4)
+- `key[4]`: An array containing the attribute numbers of the key columns used for cache lookups
+- `nbuckets`: The number of hash buckets to allocate for this cache (must be a power of 2)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -28,10 +28,10 @@ Each leaf node stores up to MAX_LEAF_ITEMS (64) leaf_item structures, where each
 The nodes are linked together via the 'next' pointer to form a singly-linked list of leaf nodes in sorted order, enabling efficient sequential scans and range queries without requiring tree traversal. This horizontal linkage is essential for operations that need to iterate over ranges of integers in the set.
 
 ## Parameters / Member Variables
-- : Tree level of this node (always 0 for leaf nodes)
-- : Current number of leaf_item structures stored in this node (0 to MAX_LEAF_ITEMS)
-- : Pointer to the next leaf node in sorted order, null for the rightmost leaf
-- : Array of leaf_item structures, each containing a compressed sequence of integers
+- `level`: Tree level of this node (always 0 for leaf nodes)
+- `num_items`: Current number of leaf_item structures stored in this node (0 to MAX_LEAF_ITEMS)
+- `*next`: Pointer to the next leaf node in sorted order, null for the rightmost leaf
+- `items[MAX_LEAF_ITEMS]`: Array of leaf_item structures, each containing a compressed sequence of integers
 
 ## Dependencies
 - Functions called/Symbols referenced:

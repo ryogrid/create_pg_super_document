@@ -19,8 +19,8 @@ struct su_symbol
  is a basic structure defined in the ECPG (Embedded SQL in C) preprocessor component of PostgreSQL. It provides a simple key-value pair mechanism where both the key () and value () are character strings. This structure is likely used for symbol table operations or identifier mapping during the preprocessing of embedded SQL code.
 
 ## Parameters / Member Variables
-- : A character pointer representing the first string identifier in the pair
-- : A character pointer representing the second string identifier that corresponds to the  value
+- `*su`: A character pointer representing the first string identifier in the pair
+- `*symbol`: A character pointer representing the second string identifier that corresponds to the  value
 
 ## Dependencies
 - Functions called/Symbols referenced:

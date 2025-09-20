@@ -40,11 +40,11 @@ The function provides a streamlined way to access range bounds without the overh
 This is an optimized shortcut that performs the equivalent of calling multirange_get_range() followed by range_deserialize(), but with significantly fewer operations and memory allocations. The function ensures that empty ranges are never encountered (as multiranges cannot contain empty ranges) and correctly interprets the range flags to populate the RangeBound structures.
 
 ## Parameters / Member Variables
-- : TypeCacheEntry containing metadata about the range element type
-- : Pointer to the source MultirangeType structure
-- : Zero-based index of the range to extract bounds from
-- : Output parameter for the lower bound information
-- : Output parameter for the upper bound information
+- `tmp`: TypeCacheEntry containing metadata about the range element type
+- `make_empty_range(rangetyp)`: Pointer to the source MultirangeType structure
+- `&tmp)`: Zero-based index of the range to extract bounds from
+- `&upper)`: Output parameter for the lower bound information
+- `NULL)`: Output parameter for the upper bound information
 
 ## Dependencies
 - Functions called/Symbols referenced:

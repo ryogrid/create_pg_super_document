@@ -67,40 +67,40 @@ ParseState serves as the central context structure during SQL query parsing in P
 The parser uses this structure to track range table entries (RTEs), namespace visibility rules, join information, and various parsing flags that affect how expressions and names are interpreted. It also provides hooks for extensibility, allowing custom parsing behavior to be injected at key points.
 
 ## Parameters / Member Variables
-- : Link to parent parsing context for nested queries
-- : Original SQL text being parsed (may be NULL)
-- : List of RangeTblEntry structures representing FROM clause items
-- : Permission information for each relation in the range table
-- : Join expressions for RTE_JOIN entries
-- : Bitmapsets indicating which outer joins cause nulling
-- : List of join items that will become the FromExpr's fromlist
-- : Currently visible namespace items (List of ParseNamespaceItem)
-- : Whether LATERAL-only items are currently visible
-- : Namespace for common table expressions (CTEs)
-- : CTEs not yet visible in current scope
-- : The CTE containing this query, if any
-- : Target relation for INSERT/UPDATE/DELETE/MERGE
-- : Namespace item for target relation
-- : Whether to process assignments like INSERT vs UPDATE
-- : Raw window clause definitions
-- : Type of expression currently being parsed
-- : Next result number to assign in target list
-- : Target list entries for multi-assignment
-- : FOR UPDATE/FOR SHARE information
-- : Whether parent query locked this subquery
-- : Whether to resolve unknown types as text
-- : Query environment including references to enclosing environments
-- : Flag indicating presence of aggregate functions
-- : Flag indicating presence of window functions
-- : Flag indicating set-returning functions in target list
-- : Flag indicating presence of subqueries
-- : Flag indicating presence of data-modifying CTEs
-- : Most recent set-returning function/operator found
-- : Optional hook for preprocessing column references
-- : Optional hook for postprocessing column references
-- : Optional hook for parameter references
-- : Optional hook for parameter coercion
-- : Common state passed to hook functions
+- `*parentParseState`: Link to parent parsing context for nested queries
+- `*p_sourcetext`: Original SQL text being parsed (may be NULL)
+- `*p_rtable`: List of RangeTblEntry structures representing FROM clause items
+- `*p_rteperminfos`: Permission information for each relation in the range table
+- `*p_joinexprs`: Join expressions for RTE_JOIN entries
+- `*p_nullingrels`: Bitmapsets indicating which outer joins cause nulling
+- `*p_joinlist`: List of join items that will become the FromExpr's fromlist
+- `*p_namespace`: Currently visible namespace items (List of ParseNamespaceItem)
+- `p_lateral_active`: Whether LATERAL-only items are currently visible
+- `*p_ctenamespace`: Namespace for common table expressions (CTEs)
+- `*p_future_ctes`: CTEs not yet visible in current scope
+- `*p_parent_cte`: The CTE containing this query, if any
+- `p_target_relation`: Target relation for INSERT/UPDATE/DELETE/MERGE
+- `*p_target_nsitem`: Namespace item for target relation
+- `p_is_insert`: Whether to process assignments like INSERT vs UPDATE
+- `*p_windowdefs`: Raw window clause definitions
+- `p_expr_kind`: Type of expression currently being parsed
+- `p_next_resno`: Next result number to assign in target list
+- `*p_multiassign_exprs`: Target list entries for multi-assignment
+- `*p_locking_clause`: FOR UPDATE/FOR SHARE information
+- `p_locked_from_parent`: Whether parent query locked this subquery
+- `p_resolve_unknowns`: Whether to resolve unknown types as text
+- `*p_queryEnv`: Query environment including references to enclosing environments
+- `p_hasAggs`: Flag indicating presence of aggregate functions
+- `p_hasWindowFuncs`: Flag indicating presence of window functions
+- `p_hasTargetSRFs`: Flag indicating set-returning functions in target list
+- `p_hasSubLinks`: Flag indicating presence of subqueries
+- `p_hasModifyingCTE`: Flag indicating presence of data-modifying CTEs
+- `*p_last_srf`: Most recent set-returning function/operator found
+- `p_pre_columnref_hook`: Optional hook for preprocessing column references
+- `p_post_columnref_hook`: Optional hook for postprocessing column references
+- `p_paramref_hook`: Optional hook for parameter references
+- `p_coerce_param_hook`: Optional hook for parameter coercion
+- `*p_ref_hook_state`: Common state passed to hook functions
 
 ## Dependencies
 - Functions called/Symbols referenced:

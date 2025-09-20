@@ -81,23 +81,23 @@ The B-tree maintains up to MAX_TREE_LEVELS (11) levels and uses rightmost_nodes 
 Iterator functionality allows efficient sequential access to all integers in the set, seamlessly transitioning from compressed B-tree values to buffered uncompressed values. The iterator maintains state to decode Simple-8b compressed leaf items on-demand, minimizing memory overhead during iteration.
 
 ## Parameters / Member Variables
-- : Memory context for managing all allocations related to this IntegerSet
-- : Total memory consumed by this IntegerSet (tracked for external monitoring)
-- : Total count of distinct integers stored in the set
-- : Maximum integer value present in the set (optimization for append-only workloads)
-- : Current height/depth of the B-tree structure
-- : Pointer to the root node of the B-tree
-- : Array of pointers to rightmost nodes at each tree level (for efficient insertion)
-- : Direct pointer to leftmost leaf node (for efficient iteration start)
-- : Array holding recently inserted values before B-tree integration  
-- : Count of values currently in the buffer array
-- : Flag indicating whether iteration is currently in progress
-- : Pointer to current batch of values being iterated over
-- : Number of values in the current iteration batch
-- : Index of next value to return in current batch
-- : Current leaf node being processed during iteration
-- : Index of next item to decode within current leaf node
-- : Buffer for decoded values from compressed leaf items
+- `context`: Memory context for managing all allocations related to this IntegerSet
+- `mem_used`: Total memory consumed by this IntegerSet (tracked for external monitoring)
+- `num_entries`: Total count of distinct integers stored in the set
+- `highest_value`: Maximum integer value present in the set (optimization for append-only workloads)
+- `num_levels`: Current height/depth of the B-tree structure
+- `*root`: Pointer to the root node of the B-tree
+- `*rightmost_nodes[MAX_TREE_LEVELS]`: Array of pointers to rightmost nodes at each tree level (for efficient insertion)
+- `*leftmost_leaf`: Direct pointer to leftmost leaf node (for efficient iteration start)
+- `buffered_values[MAX_BUFFERED_VALUES]`: Array holding recently inserted values before B-tree integration
+- `num_buffered_values`: Count of values currently in the buffer array
+- `iter_active`: Flag indicating whether iteration is currently in progress
+- `*iter_values`: Pointer to current batch of values being iterated over
+- `iter_num_values`: Number of values in the current iteration batch
+- `iter_valueno`: Index of next value to return in current batch
+- `*iter_node`: Current leaf node being processed during iteration
+- `iter_itemno`: Index of next item to decode within current leaf node
+- `iter_values_buf[MAX_VALUES_PER_LEAF_ITEM]`: Buffer for decoded values from compressed leaf items
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -23,9 +23,9 @@ The sigaction structure is defined in PostgreSQL's Windows compatibility layer t
 The structure is part of PostgreSQL's effort to maintain consistent signal handling behavior across different operating systems, allowing the same high-level signal handling code to work on both Unix-like systems and Windows.
 
 ## Parameters / Member Variables
-- : Function pointer to the signal handler function that takes an integer signal number as parameter
-- : Signal set that specifies signals to be blocked during execution of the signal handler
-- : Flags that modify the behavior of the signal handler (supports SA_RESTART and SA_NODEFER)
+- `(int)`: Function pointer to the signal handler function that takes an integer signal number as parameter
+- `sa_mask`: Signal set that specifies signals to be blocked during execution of the signal handler
+- `sa_flags`: Flags that modify the behavior of the signal handler (supports SA_RESTART and SA_NODEFER)
 
 ## Dependencies
 - Functions called/Symbols referenced:

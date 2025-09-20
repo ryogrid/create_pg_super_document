@@ -156,13 +156,13 @@ This function is responsible for the final step of page splitting: inserting the
 The function handles edge cases like concurrent root splits where the stack might be NULL, requiring reconstruction of parent information. It carefully manages buffer locks to prevent concurrent VACUUM operations from becoming confused during the split process.
 
 ## Parameters / Member Variables
-- : The B-tree index relation being modified
-- : The heap relation referenced by the index
-- : Buffer containing the left (original) page from the split
-- : Buffer containing the new right page from the split
-- : BTStack containing parent page information (NULL for root splits or concurrent operations)
-- : True if we split the actual root page
-- : True if we split a page that was alone on its level (might have been fast root)
+- `rootbuf`: The B-tree index relation being modified
+- `NULL)`: The heap relation referenced by the index
+- `Assert(isonly)`: Buffer containing the left (original) page from the split
+- `rbuf)`: Buffer containing the new right page from the split
+- `rootbuf)`: BTStack containing parent page information (NULL for root splits or concurrent operations)
+- `rbuf)`: True if we split the actual root page
+- `buf)`: True if we split a page that was alone on its level (might have been fast root)
 
 ## Dependencies
 - Functions called/Symbols referenced:

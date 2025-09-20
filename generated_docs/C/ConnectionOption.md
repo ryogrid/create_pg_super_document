@@ -21,8 +21,8 @@ The ConnectionOption structure is used to describe valid options for PostgreSQL 
 The structure is used as part of a static array  that contains all valid libpq connection parameters copied from fe-connect.c PQconninfoOptions, along with their appropriate contexts.
 
 ## Parameters / Member Variables
-- : The name of the connection option parameter (e.g., "host", "port", "dbname", "user", "password")
-- : The Object ID (Oid) of the PostgreSQL system catalog relation where this option is valid (typically ForeignServerRelationId for server options or UserMappingRelationId for user-specific options)
+- `*optname`: The name of the connection option parameter (e.g., "host", "port", "dbname", "user", "password")
+- `optcontext`: The Object ID (Oid) of the PostgreSQL system catalog relation where this option is valid (typically ForeignServerRelationId for server options or UserMappingRelationId for user-specific options)
 
 ## Dependencies
 - Functions called/Symbols referenced:

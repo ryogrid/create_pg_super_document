@@ -20,7 +20,7 @@ The XidCache structure is designed to cache subtransaction XIDs (transaction ide
 The cache is part of PostgreSQL's visibility checking mechanism. When determining if a transaction is visible, other backends can first check these cached XIDs. If the cache hasn't overflowed and an XID isn't found in any PGPROC array, it can be assumed the transaction is not running. However, if any cache has overflowed, backends must fall back to checking pg_subtrans for a definitive answer.
 
 ## Parameters / Member Variables
-- : Array storing up to 64 TransactionId values representing non-aborted subtransactions of the current top transaction
+- `xids[PGPROC_MAX_CACHED_SUBXIDS]`: Array storing up to 64 TransactionId values representing non-aborted subtransactions of the current top transaction
 
 ## Dependencies
 - Functions called/Symbols referenced:

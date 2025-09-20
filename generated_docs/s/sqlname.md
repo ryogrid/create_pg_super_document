@@ -21,8 +21,8 @@ The  struct is a fundamental data structure used in PostgreSQL's ECPG native SQL
 The struct follows PostgreSQL's standard approach of storing names with explicit length information, which is essential for proper memory management and string handling in the embedded SQL context.
 
 ## Parameters / Member Variables
-- : A short integer indicating the actual length of the name stored in the data field
-- : A fixed-size character array that stores the actual name data, with size determined by PostgreSQL's  constant
+- `length`: A short integer indicating the actual length of the name stored in the data field
+- `data[NAMEDATALEN]`: A fixed-size character array that stores the actual name data, with size determined by PostgreSQL's  constant
 
 ## Dependencies
 - Functions called/Symbols referenced:

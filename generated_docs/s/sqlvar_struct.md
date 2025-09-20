@@ -24,11 +24,11 @@ The  is a core component of PostgreSQL's ECPG native SQLDA (SQL Descriptor Area)
 The struct follows the standard SQLDA pattern used in embedded SQL implementations, allowing applications to introspect and manipulate database data dynamically. It's particularly important for applications that need to handle variable schemas or implement generic database access patterns.
 
 ## Parameters / Member Variables
-- : A short integer indicating the SQL data type of the variable (e.g., integer, varchar, etc.)
-- : A short integer specifying the length or precision of the data type
-- : A pointer to the actual data buffer where the column/parameter value is stored
-- : A pointer to a short integer serving as a null indicator (typically 0 for non-null, -1 for null)
-- : An embedded  struct containing the name and length information for this variable
+- `sqltype`: A short integer indicating the SQL data type of the variable (e.g., integer, varchar, etc.)
+- `sqllen`: A short integer specifying the length or precision of the data type
+- `*sqldata`: A pointer to the actual data buffer where the column/parameter value is stored
+- `*sqlind`: A pointer to a short integer serving as a null indicator (typically 0 for non-null, -1 for null)
+- `sqlname`: An embedded  struct containing the name and length information for this variable
 
 ## Dependencies
 - Functions called/Symbols referenced:

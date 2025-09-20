@@ -26,13 +26,13 @@ GenerationBlock is the header structure for memory blocks managed by the generat
 The block header contains metadata to track the block's size, the number of allocated and free chunks, and pointers to manage the free space within the block. The usable space for memory chunks begins at the next alignment boundary after the GenerationBlock header.
 
 ## Parameters / Member Variables
-- : Doubly-linked list node for maintaining the block in the context's block list
-- : Pointer back to the GenerationContext that owns this block
-- : The total allocated size of this block (including the header)
-- : The current number of allocated chunks within this block
-- : The number of chunks that have been freed but not yet reclaimed
-- : Pointer to the start of available free space within the block for new allocations
-- : Pointer to the end of the usable space in this block
+- `node`: Doubly-linked list node for maintaining the block in the context's block list
+- `*context`: Pointer back to the GenerationContext that owns this block
+- `blksize`: The total allocated size of this block (including the header)
+- `nchunks`: The current number of allocated chunks within this block
+- `nfree`: The number of chunks that have been freed but not yet reclaimed
+- `*freeptr`: Pointer to the start of available free space within the block for new allocations
+- `*endptr`: Pointer to the end of the usable space in this block
 
 ## Dependencies
 - Functions called/Symbols referenced:

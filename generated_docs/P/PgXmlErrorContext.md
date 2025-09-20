@@ -30,13 +30,13 @@ PgXmlErrorContext is a critical structure that manages error handling during XML
 The structure is designed to support different levels of XML parsing strictness through the PgXmlStrictness enumeration, allowing PostgreSQL to handle XML errors according to the specified tolerance level (legacy, well-formed, or strict).
 
 ## Parameters / Member Variables
-- : Magic number for structure validation and debugging purposes
-- : Specifies the level of XML parsing strictness (PG_XML_STRICTNESS_LEGACY, PG_XML_STRICTNESS_WELLFORMED, or PG_XML_STRICTNESS_ALL)
-- : Boolean flag indicating whether an XML parsing error has occurred
-- : StringInfo buffer that accumulates error messages during XML processing
-- : Stores the previous libxml structured error function pointer for restoration
-- : Stores the previous libxml error context for restoration
-- : Stores the previous libxml external entity loader function for restoration
+- `magic`: Magic number for structure validation and debugging purposes
+- `strictness`: Specifies the level of XML parsing strictness (PG_XML_STRICTNESS_LEGACY, PG_XML_STRICTNESS_WELLFORMED, or PG_XML_STRICTNESS_ALL)
+- `err_occurred`: Boolean flag indicating whether an XML parsing error has occurred
+- `err_buf`: StringInfo buffer that accumulates error messages during XML processing
+- `saved_errfunc`: Stores the previous libxml structured error function pointer for restoration
+- `*saved_errcxt`: Stores the previous libxml error context for restoration
+- `saved_entityfunc`: Stores the previous libxml external entity loader function for restoration
 
 ## Dependencies
 - Functions called/Symbols referenced:

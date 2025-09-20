@@ -19,8 +19,8 @@ struct exec
  is a lightweight structure defined in PostgreSQL's ECPG preprocessor type system. It provides a basic mechanism for storing execution-related metadata with just two string components: a name identifier and type information. While defined in the ECPG preprocessor headers, references to this symbol name also appear in other parts of the PostgreSQL codebase, particularly in JSON path execution and WAL receiver functionality, though these may be different symbols with the same name.
 
 ## Parameters / Member Variables
-- : A character pointer containing the name identifier for the execution context or entity
-- : A character pointer containing type information associated with the execution context
+- `*name`: A character pointer containing the name identifier for the execution context or entity
+- `*type`: A character pointer containing type information associated with the execution context
 
 ## Dependencies
 - Functions called/Symbols referenced:

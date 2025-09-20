@@ -27,14 +27,14 @@ struct pg_cancel
 The pg_cancel structure is the backing struct for the opaque PGcancel type exposed through libpq-fe.h. It encapsulates all the information required to establish a connection to a PostgreSQL backend and send a query cancellation request. The structure contains the essential identification information (backend PID and cancel key) needed for the cancellation protocol, along with comprehensive TCP connection parameters that control timeout behavior and keepalive settings. This allows cancellation requests to be sent reliably even under various network conditions.
 
 ## Parameters / Member Variables
-- : Socket address structure containing the remote server's network address information
-- : Process ID of the backend process that should be canceled
-- : Secret cancellation key associated with the backend process for security
-- : TCP user timeout value controlling overall connection timeout behavior
-- : Boolean flag indicating whether TCP keepalive probes should be used
-- : Time interval (in seconds) between TCP keepalive probes when the connection is idle
-- : Time interval (in seconds) between TCP keepalive retransmissions
-- : Maximum number of TCP keepalive retransmissions before considering the connection dead
+- `raddr`: Socket address structure containing the remote server's network address information
+- `be_pid`: Process ID of the backend process that should be canceled
+- `be_key`: Secret cancellation key associated with the backend process for security
+- `pgtcp_user_timeout`: TCP user timeout value controlling overall connection timeout behavior
+- `keepalives`: Boolean flag indicating whether TCP keepalive probes should be used
+- `keepalives_idle`: Time interval (in seconds) between TCP keepalive probes when the connection is idle
+- `keepalives_interval`: Time interval (in seconds) between TCP keepalive retransmissions
+- `keepalives_count`: Maximum number of TCP keepalive retransmissions before considering the connection dead
 
 ## Dependencies
 - Functions called/Symbols referenced:

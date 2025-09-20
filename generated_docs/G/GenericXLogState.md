@@ -24,9 +24,9 @@ The GenericXLogState structure serves as the central state container for Postgre
 The generic WAL logging system allows extensions and core PostgreSQL code to create WAL records for custom data structures without implementing their own WAL record types. This structure tracks the state of such operations across multiple pages, maintaining both the current page images and metadata about the changes being made.
 
 ## Parameters / Member Variables
-- : Array of I/O-aligned page image blocks that store copies of pages being modified. This member must be first in the structure to ensure proper alignment.
-- : Array of PageData structures containing metadata and delta information for each page being tracked, including buffer references, flags, and change deltas.
-- : Boolean flag indicating whether this generic XLog state represents a logged operation that will be written to WAL.
+- `images[MAX_GENERIC_XLOG_PAGES]`: Array of I/O-aligned page image blocks that store copies of pages being modified. This member must be first in the structure to ensure proper alignment.
+- `pages[MAX_GENERIC_XLOG_PAGES]`: Array of PageData structures containing metadata and delta information for each page being tracked, including buffer references, flags, and change deltas.
+- `isLogged`: Boolean flag indicating whether this generic XLog state represents a logged operation that will be written to WAL.
 
 ## Dependencies
 - Functions called/Symbols referenced:

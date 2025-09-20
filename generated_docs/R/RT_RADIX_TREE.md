@@ -35,12 +35,12 @@ The structure serves as a facade that contains the core control structure (RT_RA
 The memory management strategy is sophisticated, using separate memory contexts for different types of allocations: node slabs organized by size class for internal nodes, a dedicated leaf context for single-value leaves, and an iterator context for traversal operations. This separation enables more efficient memory allocation and cleanup patterns.
 
 ## Parameters / Member Variables
-- : Main memory context for the tree structure itself
-- : Pointer to the core control structure containing tree state and metadata
-- : (RT_SHMEM only) Dynamic Shared Area for shared memory allocation
-- : (Local memory only) Array of memory contexts, one for each node size class
-- : (Local memory only) Memory context specifically for single-value leaf allocations
-- : Memory context for iterator state and temporary data during tree traversal
+- `context`: Main memory context for the tree structure itself
+- `*ctl`: Pointer to the core control structure containing tree state and metadata
+- `*dsa`: (RT_SHMEM only) Dynamic Shared Area for shared memory allocation
+- `*node_slabs[RT_NUM_SIZE_CLASSES]`: (Local memory only) Array of memory contexts, one for each node size class
+- `*leaf_context`: (Local memory only) Memory context specifically for single-value leaf allocations
+- `*iter_context`: Memory context for iterator state and temporary data during tree traversal
 
 ## Dependencies
 - Functions called/Symbols referenced:

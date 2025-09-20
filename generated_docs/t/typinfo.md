@@ -29,16 +29,16 @@ The  structure is used during PostgreSQL's bootstrap process to provide essentia
 The structure is used to populate a static array  that contains entries for all the basic PostgreSQL data types like bool, int2, int4, text, oid, etc. This allows the bootstrap process to create and manipulate catalog tables before the type system is fully operational.
 
 ## Parameters / Member Variables
-- : Type name (limited to NAMEDATALEN characters)
-- : Object identifier for the type
-- : Element type OID for array types (InvalidOid for non-arrays)
-- : Type length in bytes (-1 for variable length types)
-- : True if type is passed by value, false if passed by reference
-- : Type alignment requirement (TYPALIGN_CHAR, TYPALIGN_SHORT, TYPALIGN_INT)
-- : Storage strategy (TYPSTORAGE_PLAIN, TYPSTORAGE_EXTENDED, etc.)
-- : Default collation OID for the type (InvalidOid if not collatable)
-- : Input function OID for converting text to internal format
-- : Output function OID for converting internal format to text
+- `name[NAMEDATALEN]`: Type name (limited to NAMEDATALEN characters)
+- `oid`: Object identifier for the type
+- `elem`: Element type OID for array types (InvalidOid for non-arrays)
+- `len`: Type length in bytes (-1 for variable length types)
+- `byval`: True if type is passed by value, false if passed by reference
+- `align`: Type alignment requirement (TYPALIGN_CHAR, TYPALIGN_SHORT, TYPALIGN_INT)
+- `storage`: Storage strategy (TYPSTORAGE_PLAIN, TYPSTORAGE_EXTENDED, etc.)
+- `collation`: Default collation OID for the type (InvalidOid if not collatable)
+- `inproc`: Input function OID for converting text to internal format
+- `outproc`: Output function OID for converting internal format to text
 
 ## Dependencies
 - Functions called/Symbols referenced:

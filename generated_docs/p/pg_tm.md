@@ -34,17 +34,17 @@ The  structure is PostgreSQL's internal representation of a broken-down timestam
 This difference requires careful handling when converting between PostgreSQL's datetime functions and the underlying IANA timezone library code.
 
 ## Parameters / Member Variables
-- : Seconds (0-59, or 60 for leap seconds)
-- : Minutes (0-59)
-- : Hours (0-23)
-- : Day of month (1-31)
-- : Month (1-12 in PostgreSQL convention, unlike POSIX 0-11)
-- : Year (relative to 1 BC in PostgreSQL, unlike POSIX relative to 1900)
-- : Day of week (0-6, Sunday = 0)
-- : Day of year (1-366)
-- : Daylight saving time flag (positive if DST, 0 if not, negative if unknown)
-- : Offset from GMT in seconds
-- : Timezone abbreviation string
+- `tm_sec`: Seconds (0-59, or 60 for leap seconds)
+- `tm_min`: Minutes (0-59)
+- `tm_hour`: Hours (0-23)
+- `tm_mday`: Day of month (1-31)
+- `tm_mon`: Month (1-12 in PostgreSQL convention, unlike POSIX 0-11)
+- `tm_year`: Year (relative to 1 BC in PostgreSQL, unlike POSIX relative to 1900)
+- `tm_wday`: Day of week (0-6, Sunday = 0)
+- `tm_yday`: Day of year (1-366)
+- `tm_isdst`: Daylight saving time flag (positive if DST, 0 if not, negative if unknown)
+- `tm_gmtoff`: Offset from GMT in seconds
+- `*tm_zone`: Timezone abbreviation string
 
 ## Dependencies
 - Functions called/Symbols referenced:

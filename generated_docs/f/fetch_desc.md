@@ -21,8 +21,8 @@ The  struct is a lightweight data structure within the ECPG preprocessor infrast
 Given its location in the ECPG preprocessor type definitions, this structure is likely used during the compile-time analysis and code generation phases when processing FETCH statements that involve SQL descriptors. It provides a simple way to associate a descriptor's string representation with its name or identifier.
 
 ## Parameters / Member Variables
-- : Pointer to a string containing the descriptor content or representation
-- : Pointer to a string containing the name or identifier associated with this fetch descriptor
+- `*str`: Pointer to a string containing the descriptor content or representation
+- `*name`: Pointer to a string containing the name or identifier associated with this fetch descriptor
 
 ## Dependencies
 - Functions called/Symbols referenced: None identified

@@ -27,16 +27,16 @@ struct CreateSubscriberOptions
 CreateSubscriberOptions serves as the central configuration structure for the pg_createsubscriber command-line utility. This struct encapsulates all the necessary parameters required to transform a standby PostgreSQL server into a logical replication subscriber. The structure holds connection information, database and publication specifications, and operational parameters that control the conversion process. It is used throughout the pg_createsubscriber.c module to pass configuration data between functions during the subscriber creation workflow.
 
 ## Parameters / Member Variables
-- : Path to the PostgreSQL configuration file to be used during the conversion process
-- : Connection string used to connect to the publisher database server
-- : Directory path for Unix-domain sockets, if Unix sockets are being used for connections
-- : Port number on which the subscriber server will listen for connections
-- : Username to be used when connecting to the subscriber database
-- : List of database names that will be included in the logical replication setup
-- : List of publication names on the publisher that will be replicated
-- : List of subscription names to be created on the subscriber
-- : List of replication slot names to be used for logical replication
-- : Timeout value (in seconds) after which the recovery process will be stopped
+- `*config_file`: Path to the PostgreSQL configuration file to be used during the conversion process
+- `*pub_conninfo_str`: Connection string used to connect to the publisher database server
+- `*socket_dir`: Directory path for Unix-domain sockets, if Unix sockets are being used for connections
+- `*sub_port`: Port number on which the subscriber server will listen for connections
+- `*sub_username`: Username to be used when connecting to the subscriber database
+- `database_names`: List of database names that will be included in the logical replication setup
+- `pub_names`: List of publication names on the publisher that will be replicated
+- `sub_names`: List of subscription names to be created on the subscriber
+- `replslot_names`: List of replication slot names to be used for logical replication
+- `recovery_timeout`: Timeout value (in seconds) after which the recovery process will be stopped
 
 ## Dependencies
 - Functions called/Symbols referenced:

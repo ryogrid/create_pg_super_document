@@ -39,17 +39,17 @@ The manager uses a sophisticated approach combining multiple freelists and a btr
 The system uses relative pointers throughout to support dynamic shared memory scenarios where absolute pointers are not viable.
 
 ## Parameters / Member Variables
-- : Relative pointer to this FreePageManager structure itself
-- : Root of the btree containing free page ranges ordered by page number
-- : Linked list of btree pages available for recycling
-- : Current depth of the btree structure
-- : Number of btree pages available for recycling
-- : First page number when there's only one contiguous range
-- : Number of pages when there's only one contiguous range
-- : Size of the largest contiguous run of free pages
-- : Flag indicating if contiguous_pages needs recalculation
-- : Array of 129 freelists for different span sizes
-- : Debug-only counter tracking pages put minus pages gotten
+- `self`: Relative pointer to this FreePageManager structure itself
+- `btree_root`: Root of the btree containing free page ranges ordered by page number
+- `btree_recycle`: Linked list of btree pages available for recycling
+- `btree_depth`: Current depth of the btree structure
+- `btree_recycle_count`: Number of btree pages available for recycling
+- `singleton_first_page`: First page number when there's only one contiguous range
+- `singleton_npages`: Number of pages when there's only one contiguous range
+- `contiguous_pages`: Size of the largest contiguous run of free pages
+- `contiguous_pages_dirty`: Flag indicating if contiguous_pages needs recalculation
+- `freelist[FPM_NUM_FREELISTS]`: Array of 129 freelists for different span sizes
+- `free_pages`: Debug-only counter tracking pages put minus pages gotten
 
 ## Dependencies
 - Functions called/Symbols referenced:

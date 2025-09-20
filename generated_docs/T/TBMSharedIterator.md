@@ -26,11 +26,11 @@ The iterator distinguishes between exact pages (where individual TIDs are stored
 The output member is marked as variable-size and must be last in the structure, indicating that it can accommodate different result sizes depending on the specific iteration context.
 
 ## Parameters / Member Variables
-- : Pointer to TBMSharedIteratorState that contains the shared state information used for coordinating between multiple iterators in parallel execution contexts.
-- : Pointer to PTEntryArray containing the base pagetable element array with all the page entries that can be iterated over.
-- : Pointer to PTIterationArray containing a sorted list of indices for exact pages, where individual TID bits are tracked precisely.
-- : Pointer to PTIterationArray containing a sorted list of indices for lossy pages, where entire pages are marked as containing relevant tuples without individual TID tracking.
-- : TBMIterateResult structure that holds the current iteration result. This must be the last member due to its variable-size nature.
+- `*state`: Pointer to TBMSharedIteratorState that contains the shared state information used for coordinating between multiple iterators in parallel execution contexts.
+- `*ptbase`: Pointer to PTEntryArray containing the base pagetable element array with all the page entries that can be iterated over.
+- `*ptpages`: Pointer to PTIterationArray containing a sorted list of indices for exact pages, where individual TID bits are tracked precisely.
+- `*ptchunks`: Pointer to PTIterationArray containing a sorted list of indices for lossy pages, where entire pages are marked as containing relevant tuples without individual TID tracking.
+- `output`: TBMIterateResult structure that holds the current iteration result. This must be the last member due to its variable-size nature.
 
 ## Dependencies
 - Functions called/Symbols referenced:

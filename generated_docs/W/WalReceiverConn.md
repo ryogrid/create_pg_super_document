@@ -30,9 +30,9 @@ This structure maintains the essential state needed for both logical and physica
 The structure is primarily used within the libpqwalreceiver.c module, which provides the concrete implementation of the WAL receiver interface functions defined in the PostgreSQL replication framework.
 
 ## Parameters / Member Variables
-- : A pointer to the PGconn structure representing the active connection to the primary server. This is the libpq connection object used for all communication with the source database.
-- : A boolean flag indicating whether this connection is being used for logical replication (true) or physical replication (false). This affects how the received data is interpreted and processed.
-- : A character buffer used to store WAL records as they are received from the primary server during streaming replication.
+- `*streamConn`: A pointer to the PGconn structure representing the active connection to the primary server. This is the libpq connection object used for all communication with the source database.
+- `logical`: A boolean flag indicating whether this connection is being used for logical replication (true) or physical replication (false). This affects how the received data is interpreted and processed.
+- `*recvBuf`: A character buffer used to store WAL records as they are received from the primary server during streaming replication.
 
 ## Dependencies
 - Functions called/Symbols referenced:

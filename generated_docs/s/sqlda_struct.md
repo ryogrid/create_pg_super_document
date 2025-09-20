@@ -25,12 +25,12 @@ The  is the central data structure in PostgreSQL's ECPG native SQLDA (SQL Descri
 This structure enables dynamic SQL operations where the schema or parameter structure is not known at compile time. It supports chaining of multiple SQLDA structures and contains an array of variable descriptors that describe individual columns or parameters. The design allows for efficient memory management and supports the full range of PostgreSQL data types through the embedded  elements.
 
 ## Parameters / Member Variables
-- : An 8-character identifier string that typically contains "SQLDA" to identify the structure type
-- : A long integer representing the total byte count or size of the entire SQLDA structure
-- : A short integer indicating the maximum number of  entries that this SQLDA can accommodate
-- : A short integer representing the actual number of  entries currently in use
-- : A pointer to the next  in a chain, allowing for linked lists of SQLDA structures
-- : A flexible array of  elements, each describing an individual SQL variable (actual size determined at runtime)
+- `sqldaid[8]`: An 8-character identifier string that typically contains "SQLDA" to identify the structure type
+- `sqldabc`: A long integer representing the total byte count or size of the entire SQLDA structure
+- `sqln`: A short integer indicating the maximum number of  entries that this SQLDA can accommodate
+- `sqld`: A short integer representing the actual number of  entries currently in use
+- `*desc_next`: A pointer to the next  in a chain, allowing for linked lists of SQLDA structures
+- `sqlvar[1]`: A flexible array of  elements, each describing an individual SQL variable (actual size determined at runtime)
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -22,11 +22,11 @@ struct WordBoundaryState
 The WordBoundaryState structure is used by PostgreSQL's text formatting functions, particularly for operations like initcap (initial capitalization) that need to identify word boundaries within strings. It maintains the necessary state information to track the current position in a string and determine whether the current character position represents a word boundary based on the alphanumeric properties of adjacent characters. The structure enables efficient sequential processing of strings while maintaining context about the previous character's properties to make boundary decisions.
 
 ## Parameters / Member Variables
-- : Pointer to the constant character string being processed
-- : Total length of the string being processed
-- : Current byte offset position within the string
-- : Boolean flag indicating whether the state has been initialized
-- : Boolean flag indicating whether the previous character was alphanumeric
+- `*str`: Pointer to the constant character string being processed
+- `len`: Total length of the string being processed
+- `offset`: Current byte offset position within the string
+- `init`: Boolean flag indicating whether the state has been initialized
+- `prev_alnum`: Boolean flag indicating whether the previous character was alphanumeric
 
 ## Dependencies
 - Functions called/Symbols referenced:

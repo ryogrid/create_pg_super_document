@@ -18,7 +18,7 @@ struct pg_cancel_conn
 The pg_cancel_conn structure is the backing struct for the opaque PGcancelConn type defined in libpq-fe.h. It acts as a specialized wrapper around a standard PGconn connection object specifically designed for query cancellation operations. The structure is intentionally not just a typedef to ensure compiler-enforced type safety - the compiler will generate errors if a PGconn is passed to a function that expects a PGcancelConn, and vice versa. This design prevents programming errors where regular connection operations might be accidentally attempted on a cancellation connection or cancellation operations on a regular connection.
 
 ## Parameters / Member Variables
-- : The underlying PGconn connection object that provides the actual connection infrastructure for sending cancellation requests
+- `conn`: The underlying PGconn connection object that provides the actual connection infrastructure for sending cancellation requests
 
 ## Dependencies
 - Functions called/Symbols referenced:

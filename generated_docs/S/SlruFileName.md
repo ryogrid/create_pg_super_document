@@ -33,9 +33,9 @@ This function generates SLRU segment filenames based on the segment number and t
 The function uses snprintf to safely construct the path string and returns the number of characters written.
 
 ## Parameters / Member Variables
-- : SlruCtl structure containing SLRU control information, including the directory path (ctl->Dir) and naming configuration (ctl->long_segment_names)
-- : Character buffer to store the resulting filename path (should be at least MAXPGPATH characters long)
-- : 64-bit segment number to convert to filename
+- `num_files`: SlruCtl structure containing SLRU control information, including the directory path (ctl->Dir) and naming configuration (ctl->long_segment_names)
+- `fd[MAX_WRITEALL_BUFFERS]`: Character buffer to store the resulting filename path (should be at least MAXPGPATH characters long)
+- `segno[MAX_WRITEALL_BUFFERS]`: 64-bit segment number to convert to filename
 
 ## Dependencies
 - Functions called/Symbols referenced:

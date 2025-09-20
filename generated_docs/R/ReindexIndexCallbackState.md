@@ -21,8 +21,8 @@ The  structure serves as a callback argument for , which is responsible for chec
 The structure is designed to support both concurrent and non-concurrent reindexing operations by carrying the reindex parameters and maintaining lock state information.
 
 ## Parameters / Member Variables
-- : A  structure containing reindex options (bitmask of REINDEXOPT_* flags) and optional tablespace OID for relocating indexes
-- : Tracks the OID of a previously locked table to enable proper lock cleanup when the same callback is used for multiple indexes
+- `params`: A  structure containing reindex options (bitmask of REINDEXOPT_* flags) and optional tablespace OID for relocating indexes
+- `locked_table_oid`: Tracks the OID of a previously locked table to enable proper lock cleanup when the same callback is used for multiple indexes
 
 ## Dependencies
 - Functions called/Symbols referenced:

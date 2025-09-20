@@ -46,17 +46,17 @@ The structure supports PostgreSQL's MERGE statement by maintaining separate tran
 The structure is allocated in the current transaction's memory context and exists for the duration of trigger processing, being cleaned up after trigger execution completes.
 
 ## Parameters / Member Variables
-- : Object ID of the target table for which triggers are being managed
-- : The type of DML operation (CMD_INSERT, CMD_UPDATE, or CMD_DELETE) 
-- : Boolean flag indicating whether this structure is closed to new tuple additions
-- : Flag tracking whether BEFORE statement triggers have been queued for execution
-- : Flag tracking whether AFTER statement triggers have been queued for execution
-- : Saved pointer to the list of after-trigger events when triggers have been queued
-- : Tuplestore containing the "old" transition table for UPDATE operations
-- : Tuplestore containing the "new" transition table for UPDATE operations
-- : Tuplestore containing the "old" transition table for DELETE operations
-- : Tuplestore containing the "new" transition table for INSERT operations
-- : TupleTableSlot used for converting tuples to the tuplestore's internal format
+- `relid`: Object ID of the target table for which triggers are being managed
+- `cmdType`: The type of DML operation (CMD_INSERT, CMD_UPDATE, or CMD_DELETE)
+- `closed`: Boolean flag indicating whether this structure is closed to new tuple additions
+- `before_trig_done`: Flag tracking whether BEFORE statement triggers have been queued for execution
+- `after_trig_done`: Flag tracking whether AFTER statement triggers have been queued for execution
+- `after_trig_events`: Saved pointer to the list of after-trigger events when triggers have been queued
+- `*old_upd_tuplestore`: Tuplestore containing the "old" transition table for UPDATE operations
+- `*new_upd_tuplestore`: Tuplestore containing the "new" transition table for UPDATE operations
+- `*old_del_tuplestore`: Tuplestore containing the "old" transition table for DELETE operations
+- `*new_ins_tuplestore`: Tuplestore containing the "new" transition table for INSERT operations
+- `*storeslot`: TupleTableSlot used for converting tuples to the tuplestore's internal format
 
 ## Dependencies
 - Functions called/Symbols referenced:

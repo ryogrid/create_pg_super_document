@@ -25,12 +25,12 @@ JsonManifestParseContext serves as a configuration and callback mechanism for pa
 The parser processes backup manifests that contain metadata about backup files, WAL ranges, version information, and system identifiers. Each callback receives the context as its first parameter, allowing access to private data and enabling stateful processing across different manifest sections.
 
 ## Parameters / Member Variables
-- : User-defined data pointer that gets passed to all callback functions, allowing tools to maintain state during parsing
-- : Callback function invoked when the manifest version field is encountered, receives the manifest version number
-- : Callback function called when the system identifier field is parsed, receives the 64-bit system identifier value
-- : Callback function executed for each file entry in the manifest, receives file path, size, checksum type, length, and payload
-- : Callback function triggered for each WAL range entry, receives timeline ID, start LSN, and end LSN
-- : Error callback function called when parsing errors occur, receives formatted error message and terminates execution
+- `*private_data`: User-defined data pointer that gets passed to all callback functions, allowing tools to maintain state during parsing
+- `version_cb`: Callback function invoked when the manifest version field is encountered, receives the manifest version number
+- `system_identifier_cb`: Callback function called when the system identifier field is parsed, receives the 64-bit system identifier value
+- `per_file_cb`: Callback function executed for each file entry in the manifest, receives file path, size, checksum type, length, and payload
+- `per_wal_range_cb`: Callback function triggered for each WAL range entry, receives timeline ID, start LSN, and end LSN
+- `error_cb`: Error callback function called when parsing errors occur, receives formatted error message and terminates execution
 
 ## Dependencies
 - Functions called/Symbols referenced:

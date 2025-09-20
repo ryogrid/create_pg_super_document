@@ -19,8 +19,8 @@ struct _include_path
  is a self-referential structure that forms the foundation of a singly-linked list used by the ECPG preprocessor to maintain a collection of directory paths where header files should be searched during the preprocessing phase. This structure enables the preprocessor to traverse through multiple include directories in a specific order when resolving #include directives, similar to how compilers handle include path resolution.
 
 ## Parameters / Member Variables
-- : A character pointer containing the directory path string to be included in the search path
-- : A pointer to the next  structure in the linked list, forming the chain of include directories
+- `*path`: A character pointer containing the directory path string to be included in the search path
+- `*next`: A pointer to the next  structure in the linked list, forming the chain of include directories
 
 ## Dependencies
 - Functions called/Symbols referenced:

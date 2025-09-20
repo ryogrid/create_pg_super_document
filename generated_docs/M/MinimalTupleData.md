@@ -36,12 +36,12 @@ MinimalTupleData represents a space-efficient tuple header designed for temporar
 The structure maintains compatibility with HeapTupleHeaderData from the t_infomask2 field onward, allowing many tuple processing functions to work with both types. The padding field ensures proper alignment across different architectures.
 
 ## Parameters / Member Variables
-- : 32-bit field containing the actual total length of the minimal tuple including header and data
-- : Character array providing padding to ensure proper alignment (size determined by MINIMAL_TUPLE_PADDING)
-- : 16-bit field containing number of attributes plus various flags (matches HeapTupleHeaderData)
-- : 16-bit field with various flag bits indicating tuple properties (matches HeapTupleHeaderData)
-- : 8-bit field indicating size of header including bitmap and padding (matches HeapTupleHeaderData)
-- : Flexible array member containing bitmap of NULL values (matches HeapTupleHeaderData)
+- `t_len`: 32-bit field containing the actual total length of the minimal tuple including header and data
+- `mt_padding[MINIMAL_TUPLE_PADDING]`: Character array providing padding to ensure proper alignment (size determined by MINIMAL_TUPLE_PADDING)
+- `t_infomask2`: 16-bit field containing number of attributes plus various flags (matches HeapTupleHeaderData)
+- `t_infomask`: 16-bit field with various flag bits indicating tuple properties (matches HeapTupleHeaderData)
+- `t_hoff`: 8-bit field indicating size of header including bitmap and padding (matches HeapTupleHeaderData)
+- `t_bits[FLEXIBLE_ARRAY_MEMBER]`: Flexible array member containing bitmap of NULL values (matches HeapTupleHeaderData)
 
 ## Dependencies
 - Functions called/Symbols referenced: None directly

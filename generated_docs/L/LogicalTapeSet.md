@@ -52,17 +52,17 @@ The tape set employs sophisticated space management through a combination of blo
 Support for shared file sets enables parallel operations where multiple worker processes can coordinate their tape operations. The structure also supports "hole" blocks that arise during parallel worker coordination, providing seamless space management across distributed operations.
 
 ## Parameters / Member Variables
-- : Pointer to the underlying BufFile that stores all tape data
-- : Shared file set for coordination in parallel operations
-- : Worker process identifier (-1 for leader/serial operations, >= 0 for worker processes)
-- : Total number of blocks that have been allocated from the file
-- : Number of blocks actually written to the underlying file
-- : Number of unused "hole" blocks remaining after BufFile concatenation in parallel operations
-- : Boolean flag controlling whether freed blocks are remembered for reuse
-- : Array implementing a min-heap of available recycled block numbers
-- : Current number of blocks available in the free blocks heap
-- : Allocated capacity of the freeBlocks array
-- : Boolean flag enabling block preallocation optimization for write operations
+- `*pfile`: Pointer to the underlying BufFile that stores all tape data
+- `*fileset`: Shared file set for coordination in parallel operations
+- `worker`: Worker process identifier (-1 for leader/serial operations, >= 0 for worker processes)
+- `nBlocksAllocated`: Total number of blocks that have been allocated from the file
+- `nBlocksWritten`: Number of blocks actually written to the underlying file
+- `nHoleBlocks`: Number of unused "hole" blocks remaining after BufFile concatenation in parallel operations
+- `forgetFreeSpace`: Boolean flag controlling whether freed blocks are remembered for reuse
+- `*freeBlocks`: Array implementing a min-heap of available recycled block numbers
+- `nFreeBlocks`: Current number of blocks available in the free blocks heap
+- `freeBlocksLen`: Allocated capacity of the freeBlocks array
+- `enable_prealloc`: Boolean flag enabling block preallocation optimization for write operations
 
 ## Dependencies
 - Functions called/Symbols referenced:

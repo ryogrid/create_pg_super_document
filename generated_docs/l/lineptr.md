@@ -21,8 +21,8 @@ The  structure is a fundamental component of PostgreSQL's multibyte character pr
 This structure is primarily used in conjunction with text formatting functions that need to handle variable-width characters, including multibyte Unicode characters. The structure enables proper text alignment and formatting by tracking both the actual text data and its display width, which can differ for multibyte characters.
 
 ## Parameters / Member Variables
-- : Pointer to the actual text data (unsigned char array) containing the line content
-- : Integer representing the display width of the text line, accounting for multibyte character widths
+- `*ptr`: Pointer to the actual text data (unsigned char array) containing the line content
+- `width`: Integer representing the display width of the text line, accounting for multibyte character widths
 
 ## Dependencies
 - Functions that use this structure:

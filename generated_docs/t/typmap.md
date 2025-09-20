@@ -21,8 +21,8 @@ The  structure is a bootstrap-time caching mechanism used to store type informat
 This struct is used primarily in the bootstrap process to avoid repeated lookups to the pg_type system catalog when type information is needed. The structure stores both the OID of the type and a complete copy of the type's row data from pg_type, providing fast access to type metadata during database initialization.
 
 ## Parameters / Member Variables
-- : The Object Identifier (OID) of the type from the pg_type catalog
-- : A complete copy of the type's FormData_pg_type structure containing all type metadata from pg_type
+- `am_oid`: The Object Identifier (OID) of the type from the pg_type catalog
+- `am_typ`: A complete copy of the type's FormData_pg_type structure containing all type metadata from pg_type
 
 ## Dependencies
 - Functions called/Symbols referenced:

@@ -35,14 +35,14 @@ BulkWriteState is a core data structure in PostgreSQL's bulk write optimization 
 The structure maintains a queue of pending writes that are processed in batches, allowing the system to optimize both disk I/O and WAL logging by reducing the number of system calls and improving sequential access patterns. This is particularly beneficial for operations that write many pages to a relation in sequence.
 
 ## Parameters / Member Variables
-- : Storage manager relation handle for the target relation being written to
-- : Fork number identifying which fork of the relation (main, FSM, visibility map, etc.) is being written
-- : Boolean flag indicating whether WAL logging should be used for this bulk operation
-- : Count of currently queued pending writes awaiting flush
-- : Array of PendingWrite structures holding the queued write operations (maximum of MAX_PENDING_WRITES entries)
-- : Current size of the relation in blocks, maintained to track relation growth
-- : WAL record pointer captured at the beginning of the bulk operation, used for crash recovery consistency
-- : Memory context used for allocations related to this bulk write operation
+- `smgr`: Storage manager relation handle for the target relation being written to
+- `forknum`: Fork number identifying which fork of the relation (main, FSM, visibility map, etc.) is being written
+- `use_wal`: Boolean flag indicating whether WAL logging should be used for this bulk operation
+- `npending`: Count of currently queued pending writes awaiting flush
+- `pending_writes[MAX_PENDING_WRITES]`: Array of PendingWrite structures holding the queued write operations (maximum of MAX_PENDING_WRITES entries)
+- `relsize`: Current size of the relation in blocks, maintained to track relation growth
+- `start_RedoRecPtr`: WAL record pointer captured at the beginning of the bulk operation, used for crash recovery consistency
+- `memcxt`: Memory context used for allocations related to this bulk write operation
 
 ## Dependencies
 - Functions called/Symbols referenced:
