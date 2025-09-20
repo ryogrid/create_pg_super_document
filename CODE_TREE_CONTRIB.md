@@ -2,6 +2,8 @@
 
 This document summarizes what each component under `contrib/` contains and what it is used for. The table uses nested rows so you can quickly see each module's key subfolders and files.
 
+[README for contrib directory](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/contrib/README)
+
 | Component | Subpath | Purpose | Key files and subfolders |
 |---|---|---|---|
 | amcheck | contrib/amcheck | Structural and logical integrity checks for heap and btree indexes | verify_heapam.c, verify_nbtree.c, amcheck.control |
@@ -108,7 +110,7 @@ This document summarizes what each component under `contrib/` contains and what 
 |  | ↳ expected/ | Regression outputs | test baselines |
 | spi | contrib/spi | Sample triggers/functions using Server Programming Interface | autoinc.c, insert_username.c, moddatetime.c, refint.c and *.sql/control |
 | sslinfo | contrib/sslinfo | Expose SSL connection information | sslinfo.c, *.control |
-| start-scripts | contrib/start-scripts | Platform service helper scripts for starting PostgreSQL | linux/, freebsd/, macos/ |
+| start-scripts | contrib/start-scripts | Platform service helper scripts for starting PostgreSQL | linux/, freebsd/, [macos/](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/contrib/start-scripts/macos/README) |
 | tablefunc | contrib/tablefunc | Table functions like crosstab, connectby, etc. | tablefunc.c, tablefunc.h, *.control |
 |  | ↳ sql/, expected/, data/ | SQL, regression tests, data | scripts, outputs, fixtures |
 | tcn | contrib/tcn | Triggered change notifications via NOTIFY | tcn.c, *.control |
