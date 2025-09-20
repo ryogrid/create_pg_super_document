@@ -23,7 +23,6 @@
   - `orchestrator.py` ... High-level coordination of AI documentation generation
   - `mcp_tool.py` ... Tool interface (Model Context Protocol) used by the AI agent to retrieve context and persist generated documents
 - `ENTRY_POINTS.md` ... Entry point explanations
-- `GENERATION_PLAN.md` ... Generation plan document
 
 ## Required Directory Creation
 
