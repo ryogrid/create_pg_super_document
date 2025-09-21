@@ -1,0 +1,116 @@
+8.7. Enumerated Types  
+---  
+[Prev](datatype-boolean.md "8.6. Boolean Type") | [Up](datatype.md "Chapter 8. Data Types")| Chapter 8. Data Types| [Home](index.md "PostgreSQL 17.5 Documentation")|  [Next](datatype-geometric.md "8.8. Geometric Types")  
+  
+* * *
+
+## 8.7. Enumerated Types #
+
+[8.7.1. Declaration of Enumerated Types](datatype-enum.md#DATATYPE-ENUM-DECLARATION)
+[8.7.2. Ordering](datatype-enum.md#DATATYPE-ENUM-ORDERING)
+[8.7.3. Type Safety](datatype-enum.md#DATATYPE-ENUM-TYPE-SAFETY)
+[8.7.4. Implementation Details](datatype-enum.md#DATATYPE-ENUM-IMPLEMENTATION-DETAILS)
+
+Enumerated (enum) types are data types that comprise a static, ordered set of values. They are equivalent to the `enum` types supported in a number of programming languages. An example of an enum type might be the days of the week, or a set of status values for a piece of data. 
+
+### 8.7.1. Declaration of Enumerated Types #
+
+Enum types are created using the [CREATE TYPE](sql-createtype.md "CREATE TYPE") command, for example: 
+    
+    
+    CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
+    
+
+Once created, the enum type can be used in table and function definitions much like any other type: 
+    
+    
+    CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
+    CREATE TABLE person (
+        name text,
+        current_mood mood
+    );
+    INSERT INTO person VALUES ('Moe', 'happy');
+    SELECT * FROM person WHERE current_mood = 'happy';
+     name | current_mood
+    ------+--------------
+     Moe  | happy
+    (1 row)
+    
+
+### 8.7.2. Ordering #
+
+The ordering of the values in an enum type is the order in which the values were listed when the type was created. All standard comparison operators and related aggregate functions are supported for enums. For example: 
+    
+    
+    INSERT INTO person VALUES ('Larry', 'sad');
+    INSERT INTO person VALUES ('Curly', 'ok');
+    SELECT * FROM person WHERE current_mood > 'sad';
+     name  | current_mood
+    -------+--------------
+     Moe   | happy
+     Curly | ok
+    (2 rows)
+    
+    SELECT * FROM person WHERE current_mood > 'sad' ORDER BY current_mood;
+     name  | current_mood
+    -------+--------------
+     Curly | ok
+     Moe   | happy
+    (2 rows)
+    
+    SELECT name
+    FROM person
+    WHERE current_mood = (SELECT MIN(current_mood) FROM person);
+     name
+    -------
+     Larry
+    (1 row)
+    
+
+### 8.7.3. Type Safety #
+
+Each enumerated data type is separate and cannot be compared with other enumerated types. See this example: 
+    
+    
+    CREATE TYPE happiness AS ENUM ('happy', 'very happy', 'ecstatic');
+    CREATE TABLE holidays (
+        num_weeks integer,
+        happiness happiness
+    );
+    INSERT INTO holidays(num_weeks,happiness) VALUES (4, 'happy');
+    INSERT INTO holidays(num_weeks,happiness) VALUES (6, 'very happy');
+    INSERT INTO holidays(num_weeks,happiness) VALUES (8, 'ecstatic');
+    INSERT INTO holidays(num_weeks,happiness) VALUES (2, 'sad');
+    ERROR:  invalid input value for enum happiness: "sad"
+    SELECT person.name, holidays.num_weeks FROM person, holidays
+      WHERE person.current_mood = holidays.happiness;
+    ERROR:  operator does not exist: mood = happiness
+    
+
+If you really need to do something like that, you can either write a custom operator or add explicit casts to your query: 
+    
+    
+    SELECT person.name, holidays.num_weeks FROM person, holidays
+      WHERE person.current_mood::text = holidays.happiness::text;
+     name | num_weeks
+    ------+-----------
+     Moe  |         4
+    (1 row)
+    
+    
+
+### 8.7.4. Implementation Details #
+
+Enum labels are case sensitive, so `'happy'` is not the same as `'HAPPY'`. White space in the labels is significant too. 
+
+Although enum types are primarily intended for static sets of values, there is support for adding new values to an existing enum type, and for renaming values (see [ALTER TYPE](sql-altertype.md "ALTER TYPE")). Existing values cannot be removed from an enum type, nor can the sort ordering of such values be changed, short of dropping and re-creating the enum type. 
+
+An enum value occupies four bytes on disk. The length of an enum value's textual label is limited by the `NAMEDATALEN` setting compiled into PostgreSQL; in standard builds this means at most 63 bytes. 
+
+The translations from internal enum values to textual labels are kept in the system catalog [`pg_enum`](catalog-pg-enum.md "51.20. pg_enum"). Querying this catalog directly can be useful. 
+
+* * *
+
+[Prev](datatype-boolean.md "8.6. Boolean Type") | [Up](datatype.md "Chapter 8. Data Types")|  [Next](datatype-geometric.md "8.8. Geometric Types")  
+---|---|---  
+8.6. Boolean Type | [Home](index.md "PostgreSQL 17.5 Documentation")|  8.8. Geometric Types

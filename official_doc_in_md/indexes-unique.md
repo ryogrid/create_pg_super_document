@@ -1,0 +1,29 @@
+11.6. Unique Indexes  
+---  
+[Prev](indexes-bitmap-scans.md "11.5. Combining Multiple Indexes") | [Up](indexes.md "Chapter 11. Indexes")| Chapter 11. Indexes| [Home](index.md "PostgreSQL 17.5 Documentation")|  [Next](indexes-expressional.md "11.7. Indexes on Expressions")  
+  
+* * *
+
+## 11.6. Unique Indexes #
+
+Indexes can also be used to enforce uniqueness of a column's value, or the uniqueness of the combined values of more than one column. 
+    
+    
+    CREATE UNIQUE INDEX _name_ ON _table_ (_column_ [, ...]) [ NULLS [ NOT ] DISTINCT ];
+    
+
+Currently, only B-tree indexes can be declared unique. 
+
+When an index is declared unique, multiple table rows with equal indexed values are not allowed. By default, null values in a unique column are not considered equal, allowing multiple nulls in the column. The `NULLS NOT DISTINCT` option modifies this and causes the index to treat nulls as equal. A multicolumn unique index will only reject cases where all indexed columns are equal in multiple rows. 
+
+PostgreSQL automatically creates a unique index when a unique constraint or primary key is defined for a table. The index covers the columns that make up the primary key or unique constraint (a multicolumn index, if appropriate), and is the mechanism that enforces the constraint. 
+
+### Note
+
+There's no need to manually create indexes on unique columns; doing so would just duplicate the automatically-created index. 
+
+* * *
+
+[Prev](indexes-bitmap-scans.md "11.5. Combining Multiple Indexes") | [Up](indexes.md "Chapter 11. Indexes")|  [Next](indexes-expressional.md "11.7. Indexes on Expressions")  
+---|---|---  
+11.5. Combining Multiple Indexes | [Home](index.md "PostgreSQL 17.5 Documentation")|  11.7. Indexes on Expressions

@@ -1,0 +1,24 @@
+50.4. The PostgreSQL Rule System  
+---  
+[Prev](parser-stage.md "50.3. The Parser Stage") | [Up](overview.md "Chapter 50. Overview of PostgreSQL Internals")| Chapter 50. Overview of PostgreSQL Internals| [Home](index.md "PostgreSQL 17.5 Documentation")|  [Next](planner-optimizer.md "50.5. Planner/Optimizer")  
+  
+* * *
+
+## 50.4. The PostgreSQL Rule System #
+
+PostgreSQL supports a powerful _rule system_ for the specification of _views_ and ambiguous _view updates_. Originally the PostgreSQL rule system consisted of two implementations: 
+
+  * The first one worked using _row level_ processing and was implemented deep in the _executor_. The rule system was called whenever an individual row had been accessed. This implementation was removed in 1995 when the last official release of the Berkeley Postgres project was transformed into Postgres95. 
+
+  * The second implementation of the rule system is a technique called _query rewriting_. The _rewrite system_ is a module that exists between the _parser stage_ and the _planner/optimizer_. This technique is still implemented. 
+
+
+
+
+The query rewriter is discussed in some detail in [Chapter 39](rules.md "Chapter 39. The Rule System"), so there is no need to cover it here. We will only point out that both the input and the output of the rewriter are query trees, that is, there is no change in the representation or level of semantic detail in the trees. Rewriting can be thought of as a form of macro expansion. 
+
+* * *
+
+[Prev](parser-stage.md "50.3. The Parser Stage") | [Up](overview.md "Chapter 50. Overview of PostgreSQL Internals")|  [Next](planner-optimizer.md "50.5. Planner/Optimizer")  
+---|---|---  
+50.3. The Parser Stage | [Home](index.md "PostgreSQL 17.5 Documentation")|  50.5. Planner/Optimizer
