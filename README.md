@@ -35,12 +35,10 @@ Before running the scripts in this repository, it is recommended to create the f
 
 ```sh
 mkdir -p data
-mkdir -p scripts
 mkdir -p output/temp
 ```
 
  - `data/` ... For storing AI documentation generation batches, DBs, and various metadata
- - `scripts/` ... Location for auxiliary modules and AI integration scripts
  - `output/` ... Storage for generated and temporary files (e.g., `symbol_references.csv`)
  - `output/temp/` ... Storage for temporary intermediate files and in-process results.  
    Some scripts use `output/temp` as a working directory.
