@@ -1,0 +1,78 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/izumin5210/any-script-mcp/main/config.schema.json
+tools:
+  - name: pg_symbol_details
+    description: Get detailed information about a PostgreSQL symbol including its location and type
+    inputs:
+      symbol_name:
+        type: string
+        description: Name of the PostgreSQL symbol to get details for
+        required: true
+    run: |
+      python3 scripts/mcp_tool.py get_symbol_details "$INPUTS__SYMBOL_NAME"
+    timeout: 30000
+
+  - name: pg_symbol_source
+    description: Get the source code of a PostgreSQL symbol from the codebase
+    inputs:
+      symbol_name:
+        type: string
+        description: Name of the PostgreSQL symbol to get source code for
+        required: true
+    run: |
+      python3 scripts/mcp_tool.py get_symbol_source "$INPUTS__SYMBOL_NAME"
+    timeout: 30000
+
+  - name: pg_references_from
+    description: Get symbols referenced from a specific PostgreSQL symbol
+    inputs:
+      symbol_name:
+        type: string
+        description: Name of the PostgreSQL symbol to get references from
+        required: true
+    run: |
+      python3 scripts/mcp_tool.py get_references_from_this "$INPUTS__SYMBOL_NAME"
+    timeout: 30000
+
+  - name: pg_references_to
+    description: Get symbols that reference a specific PostgreSQL symbol
+    inputs:
+      symbol_name:
+        type: string
+        description: Name of the PostgreSQL symbol to get references to
+        required: true
+    run: |
+      python3 scripts/mcp_tool.py get_references_to_this "$INPUTS__SYMBOL_NAME"
+    timeout: 30000
+
+  - name: pg_search_symbols
+    description: Search for PostgreSQL symbols matching a pattern (SQL LIKE syntax)
+    inputs:
+      pattern:
+        type: string
+        description: Search pattern for symbol names (e.g., "heap_*", "%alloc%")
+        required: true
+    run: |
+      python3 scripts/mcp_tool.py search_symbols "$INPUTS__PATTERN"
+    timeout: 30000
+
+  - name: pg_symbol_overview
+    description: Get the overview summary of a PostgreSQL symbol from the generated documentation
+    inputs:
+      symbol_name:
+        type: string
+        description: Name of the PostgreSQL symbol to get overview for
+        required: true
+    run: |
+      python3 scripts/mcp_tool.py get_symbol_overview "$INPUTS__SYMBOL_NAME"
+    timeout: 30000
+
+  - name: pg_symbol_document
+    description: Get the full documentation of a PostgreSQL symbol from the generated documentation
+    inputs:
+      symbol_name:
+        type: string
+        description: Name of the PostgreSQL symbol to get full documentation for
+        required: true
+    run: |
+      python3 scripts/mcp_tool.py get_symbol_document "$INPUTS__SYMBOL_NAME"
+    timeout: 30000
