@@ -102,6 +102,38 @@ def return_document(symbol_name: str, content: str) -> dict:
         return {"error": f"Failed to save document: {e}"}
 
 
+def get_symbol_overview(symbol_name: str) -> dict:
+    """Get the overview (summary) of a symbol from the documents table"""
+    try:
+        node = SNode(symbol_name)
+        overview = node.get_overview()
+
+        if overview:
+            return {"overview": overview}
+        else:
+            return {"error": f"No overview found for symbol '{symbol_name}'"}
+    except ValueError as e:
+        return {"error": str(e)}
+    except Exception as e:
+        return {"error": f"Failed to get symbol overview: {e}"}
+
+
+def get_symbol_document(symbol_name: str) -> dict:
+    """Get the full document content of a symbol from the documents table"""
+    try:
+        node = SNode(symbol_name)
+        document = node.get_document()
+        
+        if document:
+            return {"document": document}
+        else:
+            return {"error": f"No document found for symbol '{symbol_name}'"}
+    except ValueError as e:
+        return {"error": str(e)}
+    except Exception as e:
+        return {"error": f"Failed to get symbol document: {e}"}
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='PostgreSQL codebase MCP tool',
@@ -113,7 +145,9 @@ Examples:
   %(prog)s get_references_from_this heap_insert
   %(prog)s get_references_to_this palloc
   %(prog)s search_symbols "heap_*"
-  %(prog)s save_document heap_insert "# heap_insert\\n\\nInserts a tuple..."
+  %(prog)s get_symbol_overview heap_insert
+  %(prog)s get_symbol_document heap_insert
+  %(prog)s return_document heap_insert "# heap_insert\\n\\nInserts a tuple..."
         """
     )
     
@@ -125,7 +159,9 @@ Examples:
             'get_references_from_this',
             'get_references_to_this',
             'search_symbols',
-            'return_document'
+            'return_document',
+            'get_symbol_overview',
+            'get_symbol_document'
         ],
         help='Method to call'
     )
@@ -207,6 +243,18 @@ Examples:
             else:
                 print(json.dumps({"error": "return_document requires dict params"}))
                 sys.exit(1)
+   
+        elif args.method == 'get_symbol_overview':
+            if isinstance(params, dict):
+                result = get_symbol_overview(params.get('symbol_name', ''))
+            else:
+                result = get_symbol_overview(params)
+
+        elif args.method == 'get_symbol_document':
+            if isinstance(params, dict):
+                result = get_symbol_document(params.get('symbol_name', ''))
+            else:
+                result = get_symbol_document(params)
         
     # Output the result in JSON
         print(json.dumps(result, indent=2, ensure_ascii=False))

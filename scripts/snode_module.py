@@ -11,9 +11,11 @@ from typing import Optional, List, Dict, Any, Union
 from functools import lru_cache
 
  # Database settings
-DB_FILE = "global_symbols.db"
+GLOBAL_DB_FILE = "global_symbols.db"
 SYMBOL_TABLE = "symbol_definitions"
 REFERENCE_TABLE = "symbol_reference"
+DOCUMENTS_DB_FILE = "data/documents.duckdb"
+DOCUMENTS_TABLE = "documents"
 
 
 class DatabaseConnection:
@@ -22,6 +24,7 @@ class DatabaseConnection:
     """
     _instance = None
     _connection = None
+    _doc_connection = None
     
     def __new__(cls):
         if cls._instance is None:
@@ -31,16 +34,28 @@ class DatabaseConnection:
     def get_connection(self):
         """Get database connection"""
         if self._connection is None:
-            if not Path(DB_FILE).exists():
-                raise FileNotFoundError(f"Database file '{DB_FILE}' not found.")
-            self._connection = duckdb.connect(DB_FILE, read_only=False)
+            if not Path(GLOBAL_DB_FILE).exists():
+                raise FileNotFoundError(f"Database file '{GLOBAL_DB_FILE}' not found.")
+            self._connection = duckdb.connect(GLOBAL_DB_FILE, read_only=False)
         return self._connection
     
+    def get_doc_connection(self):
+        """Get documents database connection"""
+        if self._doc_connection is None:
+            doc_db_file = DOCUMENTS_DB_FILE
+            if not Path(DOCUMENTS_DB_FILE).exists():
+                raise FileNotFoundError(f"Documents database file '{DOCUMENTS_DB_FILE}' not found.")
+            self._doc_connection = duckdb.connect(DOCUMENTS_DB_FILE, read_only=True)
+        return self._doc_connection
+
     def close(self):
         """Close database connection"""
         if self._connection:
             self._connection.close()
             self._connection = None
+        if self._doc_connection:
+            self._doc_connection.close()
+            self._doc_connection = None
 
 
 class SNode:
@@ -435,6 +450,54 @@ class SNode:
         
         return '\n'.join(lines)
     
+    def get_overview(self) -> Optional[str]:
+        """
+        Get the overview (summary) of this symbol from the documents table.
+
+        Returns:
+            str: Summary of the symbol, or None if not found
+        """
+        try:
+            doc_conn = self._db.get_doc_connection()
+            result = doc_conn.execute(f"""
+                SELECT summary
+                FROM {DOCUMENTS_TABLE}
+                WHERE symbol_name = ?
+                LIMIT 1
+            """, (self.symbol_name,)).fetchone()
+
+            if result and result[0]:
+                return result[0]
+            return None
+        except FileNotFoundError:
+            return None
+        except Exception:
+            return None
+
+    def get_document(self) -> Optional[str]:
+        """
+        Get the full document content of this symbol from the documents table.
+
+        Returns:
+            str: Full document content of the symbol, or None if not found
+        """
+        try:
+            doc_conn = self._db.get_doc_connection()
+            result = doc_conn.execute(f"""
+                SELECT content
+                FROM {DOCUMENTS_TABLE}
+                WHERE symbol_name = ?
+                LIMIT 1
+            """, (self.symbol_name,)).fetchone()
+
+            if result and result[0]:
+                return result[0]
+            return None
+        except FileNotFoundError:
+            return None
+        except Exception:
+            return None
+
     def __str__(self) -> str:
         """String representation"""
         return (f"SNode(id={self.id}, symbol='{self.symbol_name}', "
