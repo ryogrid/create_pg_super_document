@@ -1,0 +1,111 @@
+graph TB
+    subgraph "Client Applications"
+        App1[Web Application]
+        App2[Business Logic]
+        App3[Analytics Tools]
+    end
+
+    subgraph "PostgreSQL Primary Server"
+        subgraph "WAL Generation"
+            XLI[XLogInsert]
+            XLIR[XLogInsertRecord]
+            XLRA[XLogRecordAssemble]
+            WALBuf[WAL Buffers]
+        end
+
+        subgraph "WAL Writing"
+            XLW[XLogWrite]
+            XLF[XLogFlush]
+            WALFiles[WAL Segment Files]
+        end
+
+        subgraph "Replication Sender"
+            WSL[WalSndLoop]
+            WSW[WalSndWakeup]
+            RepConn[Replication Connections]
+        end
+
+        subgraph "Transaction Processing"
+            TXN[Transaction Manager]
+            BufMgr[Buffer Manager]
+            LockMgr[Lock Manager]
+        end
+    end
+
+    subgraph "Standby Server"
+        subgraph "Replication Receiver"
+            WRM[WalReceiverMain]
+            XWPM[XLogWalRcvProcessMsg]
+            XWRW[XLogWalRcvWrite]
+        end
+
+        subgraph "Recovery Process"
+            SX[StartupXLOG]
+            PWR[PerformWalRecovery]
+            AWR[ApplyWalRecord]
+        end
+
+        subgraph "Hot Standby"
+            HS[Hot Standby Queries]
+            HSF[Hot Standby Feedback]
+        end
+    end
+
+    subgraph "WAL Archive"
+        Archive[Archive Storage]
+        Restore[WAL Restore]
+    end
+
+    %% Client connections
+    App1 --> TXN
+    App2 --> TXN
+    App3 --> TXN
+
+    %% Primary WAL flow
+    TXN --> XLI
+    BufMgr --> XLI
+    XLI --> XLIR
+    XLIR --> XLRA
+    XLRA --> WALBuf
+    WALBuf --> XLW
+    XLW --> XLF
+    XLF --> WALFiles
+
+    %% Replication flow
+    WALFiles --> WSL
+    XLF --> WSW
+    WSW --> WSL
+    WSL --> RepConn
+
+    %% Standby reception
+    RepConn --> WRM
+    WRM --> XWPM
+    XWPM --> XWRW
+    XWRW --> SX
+
+    %% Recovery process
+    SX --> PWR
+    PWR --> AWR
+    AWR --> HS
+
+    %% Hot Standby feedback
+    HS --> HSF
+    HSF --> RepConn
+
+    %% Archive integration
+    WALFiles --> Archive
+    Archive --> Restore
+    Restore --> SX
+
+    %% Styling
+    classDef walGeneration fill:#e1f5fe
+    classDef walWriting fill:#f3e5f5
+    classDef replication fill:#e8f5e8
+    classDef recovery fill:#fff3e0
+    classDef storage fill:#fce4ec
+
+    class XLI,XLIR,XLRA,WALBuf walGeneration
+    class XLW,XLF,WALFiles walWriting
+    class WSL,WSW,RepConn,WRM,XWPM,XWRW replication
+    class SX,PWR,AWR,HS,HSF recovery
+    class Archive,Restore storage

@@ -1,0 +1,53 @@
+PostgreSQL WAL Subsystem - Top 30 Key Symbols by Importance Score
+
+1. XLogInsert (score: 0.95) - WAL_INSERT - Primary function that finalizes and inserts a constructed WAL record into the Write-Ahead Log
+2. XLogWrite (score: 0.92) - WAL_WRITE - Core function for writing WAL data from memory buffers to disk files with fsync operations
+3. XLogFlush (score: 0.90) - WAL_WRITE - Ensures all WAL data through specified position is flushed to disk with group commit optimization
+4. XLogInsertRecord (score: 0.88) - WAL_INSERT - Core function for inserting pre-constructed XLOG records with proper locking
+5. WalSndLoop (score: 0.85) - WAL_SEND - Main control loop for WAL sender processes managing streaming to replicas
+6. WalReceiverMain (score: 0.83) - WAL_RECEIVE - Main entry point for WAL receiver process handling streaming replication
+7. StartupXLOG (score: 0.81) - WAL_RECOVERY - Main recovery function called once during startup to perform WAL recovery
+8. PerformWalRecovery (score: 0.78) - WAL_RECOVERY - Performs WAL recovery by replaying records from REDO start location
+9. ApplyWalRecord (score: 0.75) - WAL_RECOVERY - Applies single WAL record during recovery with timeline handling
+10. XLogWalRcvProcessMsg (score: 0.72) - WAL_RECEIVE - Processes incoming replication messages from XLOG stream
+11. XLogRecordAssemble (score: 0.70) - WAL_INSERT - Constructs complete WAL record from registered data and buffer references
+12. ReadRecord (score: 0.68) - WAL_RECOVERY - Core function for reading next XLOG record during recovery process
+13. WalSndWakeup (score: 0.65) - WAL_SEND - Wakes up WAL sender processes waiting for new WAL data
+14. XLogWalRcvWrite (score: 0.62) - WAL_RECEIVE - Writes WAL data received from primary to local disk storage
+15. WALInsertLockAcquire (score: 0.58) - WAL_CONCURRENCY - Acquires WAL insertion locks for safe concurrent access
+16. ReserveXLogInsertLocation (score: 0.55) - WAL_CONCURRENCY - Reserves space in WAL for inserting records
+17. CopyXLogRecordToWAL (score: 0.52) - WAL_INSERT - Copies assembled WAL record to WAL buffers
+18. XLogWalRcvFlush (score: 0.50) - WAL_RECEIVE - Flushes received WAL data to ensure durability
+19. ProcessRepliesIfAny (score: 0.48) - WAL_SEND - Processes replies from standby servers in replication
+20. XLogFileInit (score: 0.46) - WAL_FILE - Initializes new WAL segment files
+21. XLogFileOpen (score: 0.44) - WAL_FILE - Opens existing WAL segment files for reading/writing
+22. issue_xlog_fsync (score: 0.42) - WAL_WRITE - Issues fsync operations to ensure WAL data persistence
+23. RefreshXLogWriteResult (score: 0.40) - WAL_WRITE - Updates shared memory with latest write results
+24. WaitXLogInsertionsToFinish (score: 0.38) - WAL_CONCURRENCY - Waits for all pending WAL insertions to complete
+25. XLogSendLogical (score: 0.36) - WAL_SEND - Sends logical replication data to subscribers
+26. CheckRecoveryConsistency (score: 0.34) - WAL_RECOVERY - Checks if database has reached consistent state during recovery
+27. walrcv_startstreaming (score: 0.32) - WAL_RECEIVE - Initiates streaming replication connection to primary
+28. XLogCompressBackupBlock (score: 0.30) - WAL_INSERT - Compresses backup blocks in WAL records
+29. MarkCurrentTransactionIdLoggedIfAny (score: 0.28) - WAL_INSERT - Marks current transaction as logged in WAL
+30. GetFullPageWriteInfo (score: 0.26) - WAL_INSERT - Determines when full page writes are needed
+
+Key Architecture Insights:
+
+CRITICAL WRITE PATHS:
+- XLogInsert -> XLogInsertRecord -> ReserveXLogInsertLocation (Core insertion pipeline)
+- XLogWrite -> XLogFlush (Disk persistence pipeline)
+
+REPLICATION PROTOCOL:
+- WalSndLoop (Primary side streaming control)
+- WalReceiverMain -> XLogWalRcvProcessMsg -> XLogWalRcvWrite (Standby receiving pipeline)
+
+CONSISTENCY GUARANTEES:
+- WALInsertLockAcquire/Release (Concurrent access control)
+- XLogFlush group commit optimization (Durability guarantees)
+- CheckRecoveryConsistency (Recovery state validation)
+
+PERFORMANCE BOTTLENECKS:
+- XLogWrite disk I/O operations
+- WAL insertion lock contention
+- Network latency in streaming replication
+- Recovery record processing throughput

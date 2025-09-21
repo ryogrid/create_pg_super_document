@@ -1,0 +1,98 @@
+sequenceDiagram
+    participant App as Application
+    participant TXN as Transaction Manager
+    participant Heap as Heap Manager
+    participant XLI as XLogInsert
+    participant XLRA as XLogRecordAssemble
+    participant XLIR as XLogInsertRecord
+    participant WAL as WAL Buffers
+    participant XLW as XLogWrite
+    participant Disk as Storage
+
+    Note over App, Disk: WAL Record Generation and Insertion Process
+
+    App->>TXN: BEGIN TRANSACTION
+    TXN->>TXN: Assign Transaction ID
+
+    App->>Heap: INSERT/UPDATE/DELETE
+    Heap->>Heap: Modify buffer pages
+
+    Note over Heap, XLI: Prepare WAL Record
+    Heap->>XLI: XLogBeginInsert()
+    XLI->>XLI: Initialize insertion state
+
+    Heap->>XLI: XLogRegisterData(main_data)
+    XLI->>XLI: Register main record data
+
+    Heap->>XLI: XLogRegisterBuffer(buffer, flags)
+    XLI->>XLI: Register buffer reference
+
+    alt Full Page Write Required
+        XLI->>XLI: Mark buffer for full-page image
+    end
+
+    Heap->>XLI: XLogInsert(rmid, info)
+
+    Note over XLI, XLIR: Record Assembly Phase
+    XLI->>XLI: GetFullPageWriteInfo()
+    XLI->>XLRA: XLogRecordAssemble()
+
+    XLRA->>XLRA: Build record header
+    XLRA->>XLRA: Process registered buffers
+
+    alt Full Page Images Needed
+        XLRA->>XLRA: Create full-page images
+        XLRA->>XLRA: Apply compression if enabled
+    end
+
+    XLRA->>XLRA: Calculate CRC32C checksum
+    XLRA->>XLRA: Create XLogRecData chain
+    XLRA-->>XLI: Return assembled record
+
+    Note over XLI, WAL: Record Insertion Phase
+    XLI->>XLIR: XLogInsertRecord()
+
+    XLIR->>XLIR: WALInsertLockAcquire()
+    XLIR->>XLIR: Check full-page write state
+
+    alt Full-page validation fails
+        XLIR-->>XLI: InvalidXLogRecPtr (retry needed)
+        XLI->>XLI: Recalculate full-page writes
+        XLI->>XLRA: XLogRecordAssemble() (retry)
+        XLRA-->>XLI: Return new record
+        XLI->>XLIR: XLogInsertRecord() (retry)
+    end
+
+    XLIR->>XLIR: ReserveXLogInsertLocation()
+    XLIR->>XLIR: Set xl_prev pointer
+    XLIR->>XLIR: Calculate final CRC
+
+    XLIR->>WAL: CopyXLogRecordToWAL()
+    WAL->>WAL: Copy record to buffers
+
+    XLIR->>XLIR: Update shared memory state
+    XLIR->>XLIR: WALInsertLockRelease()
+    XLIR-->>XLI: Return EndPos LSN
+
+    XLI->>XLI: XLogResetInsertion()
+    XLI-->>Heap: Return record LSN
+
+    Note over Heap, Disk: Transaction Commit
+    App->>TXN: COMMIT
+    TXN->>XLI: Log commit record
+    XLI-->>TXN: Return commit LSN
+
+    TXN->>XLW: XLogFlush(commit_lsn)
+    XLW->>XLW: Wait for WAL insertions
+    XLW->>XLW: Acquire WALWriteLock
+
+    alt Group commit optimization
+        XLW->>XLW: CommitDelay (wait for more commits)
+    end
+
+    XLW->>Disk: Write WAL pages
+    XLW->>Disk: fsync WAL file
+    XLW->>XLW: Update flush result
+    XLW-->>TXN: Flush complete
+
+    TXN-->>App: COMMIT SUCCESS

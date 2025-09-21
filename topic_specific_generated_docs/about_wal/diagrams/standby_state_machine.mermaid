@@ -1,0 +1,129 @@
+stateDiagram-v2
+    [*] --> STARTING : Standby Server Startup
+
+    state "Recovery Initialization" as STARTING {
+        [*] --> ValidateControlFile
+        ValidateControlFile --> InitWalRecovery
+        InitWalRecovery --> SetupSharedMemory
+        SetupSharedMemory --> StartSubsystems
+        StartSubsystems --> [*]
+    }
+
+    STARTING --> WAITING : No WAL Available
+
+    state "Waiting for WAL" as WAITING {
+        [*] --> CheckArchive
+        CheckArchive --> RestoreFromArchive : WAL Available
+        RestoreFromArchive --> [*]
+        CheckArchive --> RequestStreaming : No Archive WAL
+        RequestStreaming --> [*]
+    }
+
+    WAITING --> STREAMING : Connection Established
+    WAITING --> RECOVERY : WAL Available
+
+    state "Streaming Replication" as STREAMING {
+        [*] --> ConnectToPrimary
+        ConnectToPrimary --> VerifySystemID
+        VerifySystemID --> StartStreaming
+        StartStreaming --> ReceiveWAL
+        ReceiveWAL --> WriteWAL
+        WriteWAL --> ReceiveWAL : More Data
+        WriteWAL --> SendStatus : Write Complete
+        SendStatus --> ReceiveWAL
+        ReceiveWAL --> [*] : End of Stream
+    }
+
+    state "WAL Recovery" as RECOVERY {
+        [*] --> FindRecoveryStart
+        FindRecoveryStart --> ReadWALRecord
+        ReadWALRecord --> ApplyRecord
+        ApplyRecord --> CheckConsistency
+        CheckConsistency --> ReadWALRecord : More Records
+        CheckConsistency --> EnableHotStandby : Consistent
+        EnableHotStandby --> ReadWALRecord
+        ReadWALRecord --> [*] : End of WAL
+    }
+
+    state "Hot Standby" as HOT_STANDBY {
+        [*] --> AcceptConnections
+        AcceptConnections --> ProcessQueries
+        ProcessQueries --> HandleConflicts
+        HandleConflicts --> ProcessQueries
+        ProcessQueries --> SendFeedback
+        SendFeedback --> ProcessQueries
+    }
+
+    STREAMING --> RECOVERY : WAL Received
+    RECOVERY --> HOT_STANDBY : Consistency Reached
+    HOT_STANDBY --> RECOVERY : Continue Recovery
+
+    STREAMING --> DISCONNECTED : Connection Lost
+    RECOVERY --> WAITING : WAL Gap
+
+    state "Disconnected" as DISCONNECTED {
+        [*] --> DetectFailure
+        DetectFailure --> AttemptReconnect
+        AttemptReconnect --> [*] : Success
+        AttemptReconnect --> AttemptReconnect : Retry
+    }
+
+    DISCONNECTED --> STREAMING : Reconnected
+    DISCONNECTED --> WAITING : Failover/Promote
+
+    state "Promotion" as PROMOTING {
+        [*] --> StopRecovery
+        StopRecovery --> CreateNewTimeline
+        CreateNewTimeline --> WriteEndOfRecovery
+        WriteEndOfRecovery --> BecomeWriter
+        BecomeWriter --> [*]
+    }
+
+    WAITING --> PROMOTING : Promote Signal
+    RECOVERY --> PROMOTING : Promote Signal
+    HOT_STANDBY --> PROMOTING : Promote Signal
+    DISCONNECTED --> PROMOTING : Promote Signal
+
+    PROMOTING --> PRIMARY : Promotion Complete
+
+    state "Primary Server" as PRIMARY {
+        [*] --> AcceptWriteConnections
+        AcceptWriteConnections --> StartWALSenders
+        StartWALSenders --> ProcessTransactions
+        ProcessTransactions --> ProcessTransactions
+    }
+
+    %% Error states
+    STARTING --> ERROR : Fatal Error
+    WAITING --> ERROR : Configuration Error
+    STREAMING --> ERROR : Protocol Error
+    RECOVERY --> ERROR : Corruption Detected
+
+    state "Error Recovery" as ERROR {
+        [*] --> LogError
+        LogError --> CleanupResources
+        CleanupResources --> [*]
+    }
+
+    ERROR --> [*] : Process Exit
+
+    %% Notes for key transitions
+    note right of STREAMING
+        Receives WAL data via
+        Copy protocol messages
+    end note
+
+    note right of RECOVERY
+        Applies WAL records to
+        restore consistency
+    end note
+
+    note right of HOT_STANDBY
+        Allows read-only queries
+        while continuing recovery
+    end note
+
+    note right of PROMOTING
+        Creates new timeline and
+        becomes writable
+    end note
