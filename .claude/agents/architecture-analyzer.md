@@ -21,7 +21,7 @@ You have access to the following MCP server functions and should use them judici
 ## Analysis Strategy
 
 ### Phase 1: Initial Discovery (Breadth-First)
-- Start with get_symbol_overview for ALL entry points (minimize context usage)
+- Start with pg_symbol_overview for ALL entry points (minimize context usage)
 - Identify primary subsystems based on naming patterns (e.g., XLog*, Wal*, Buffer*)
 - Create initial categorization of symbols by functional area
 
@@ -42,7 +42,7 @@ Calculate importance using weighted formula:
 ### Optimization Rules
 - Cache all MCP server responses to avoid duplicate calls
 - Batch similar operations when possible
-- Use get_symbol_overview by default, upgrade to get_symbol_documentation only for top 20% important symbols
+- Use get_symbol_overview by default, upgrade to pg_symbol_document only for top 20% important symbols
 
 ## Output Requirements
 

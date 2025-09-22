@@ -1,0 +1,74 @@
+sequenceDiagram
+    participant Backend as Backend Process
+    participant XLogBegin as XLogBeginInsert
+    participant XLogReg as XLogRegister*
+    participant XLogIns as XLogInsert
+    participant XLogAssemble as XLogRecordAssemble
+    participant XLogInsRec as XLogInsertRecord
+    participant WALBuffer as WAL Buffer
+
+    Backend->>XLogBegin: XLogBeginInsert()
+    Note over XLogBegin: Initialize insertion state
+    XLogBegin->>XLogBegin: Clear registered data
+    XLogBegin->>XLogBegin: Set begininsert_called = true
+
+    Backend->>XLogReg: XLogRegisterData(data, len)
+    Note over XLogReg: Register main record data
+    XLogReg->>XLogReg: Add to rdata chain
+
+    Backend->>XLogReg: XLogRegisterBuffer(buffer, flags)
+    Note over XLogReg: Register buffer references
+    XLogReg->>XLogReg: Add to registered_buffers[]
+    XLogReg->>XLogReg: Set buffer flags and LSN
+
+    Backend->>XLogIns: XLogInsert(rmid, info)
+    Note over XLogIns: Begin insertion process
+
+    XLogIns->>XLogIns: Validate prerequisites
+    Note over XLogIns: Check begininsert_called flag
+
+    loop Retry loop for FPW races
+        XLogIns->>XLogIns: GetFullPageWriteInfo()
+        Note over XLogIns: Get current RedoRecPtr, doPageWrites
+
+        XLogIns->>XLogAssemble: XLogRecordAssemble(rmid, info, RedoRecPtr, doPageWrites)
+
+        Note over XLogAssemble: Process registered buffers
+        XLogAssemble->>XLogAssemble: Check each buffer for FPW need
+        XLogAssemble->>XLogAssemble: Apply compression if enabled
+        XLogAssemble->>XLogAssemble: Build record header
+        XLogAssemble->>XLogAssemble: Create XLogRecData chain
+        XLogAssemble->>XLogAssemble: Calculate CRC32C
+        XLogAssemble-->>XLogIns: Return assembled record chain
+
+        XLogIns->>XLogInsRec: XLogInsertRecord(rdata, fpw_lsn, flags, num_fpi)
+
+        Note over XLogInsRec: Acquire WAL insertion locks
+        XLogInsRec->>XLogInsRec: WALInsertLockAcquire()
+        XLogInsRec->>XLogInsRec: Validate FPW consistency
+
+        alt FPW validation failed
+            XLogInsRec-->>XLogIns: Return InvalidXLogRecPtr
+            Note over XLogIns: Retry with updated FPW info
+        else FPW validation succeeded
+            XLogInsRec->>XLogInsRec: ReserveXLogInsertLocation()
+            Note over XLogInsRec: Reserve space in WAL buffer
+
+            XLogInsRec->>WALBuffer: CopyXLogRecordToWAL()
+            Note over WALBuffer: Copy record data to buffer
+
+            XLogInsRec->>XLogInsRec: Update global state
+            Note over XLogInsRec: ProcLastRecPtr, XactLastRecEnd
+
+            XLogInsRec->>XLogInsRec: WALInsertLockRelease()
+            XLogInsRec-->>XLogIns: Return insertion LSN
+            break Exit retry loop
+        end
+    end
+
+    XLogIns->>XLogIns: XLogResetInsertion()
+    Note over XLogIns: Clean up insertion state
+    XLogIns-->>Backend: Return final LSN
+
+    Note over Backend: Use LSN for page LSN updates
+    Note over Backend: Ensure WAL flushed before data pages

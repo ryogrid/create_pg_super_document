@@ -84,7 +84,7 @@ Documentation Requirements:
    - Timeline switching during recovery
 
 4. Code Analysis Priorities:
-   - Focus get_symbol_code calls on:
+   - Focus pg_symbol_source calls on:
      * XLogInsert (insertion logic)
      * WalSndLoop (main replication loop)
      * ApplyWalRecord (replay mechanism)

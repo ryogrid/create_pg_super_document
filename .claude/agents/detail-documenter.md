@@ -34,7 +34,7 @@ You have access to the following MCP server functions and should use them judici
   - Example usage patterns
 
 #### Tier 2: Important Symbols (0.5 - 0.8)
-- get_symbol_documentation only
+- pg_symbol_documentation only
 - Generate:
 * Clear functional description
 * Parameter and return documentation
@@ -42,7 +42,7 @@ You have access to the following MCP server functions and should use them judici
 * Primary use cases
 
 #### Tier 3: Supporting Symbols (< 0.5)
-- get_symbol_overview only
+- pg_symbol_overview only
 - Generate:
 * Brief purpose statement
 * Basic signature/structure

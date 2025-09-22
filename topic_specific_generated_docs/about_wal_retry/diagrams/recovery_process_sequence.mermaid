@@ -1,0 +1,132 @@
+sequenceDiagram
+    participant Startup as Startup Process
+    participant StartupXLOG
+    participant ControlFile as Control File
+    participant InitWal as InitWalRecovery
+    participant PerformWal as PerformWalRecovery
+    participant ApplyWal as ApplyWalRecord
+    participant ResourceMgr as Resource Managers
+    participant FinishWal as FinishWalRecovery
+
+    Startup->>StartupXLOG: Database startup begins
+
+    Note over StartupXLOG: Phase 1: Control File Analysis
+    StartupXLOG->>ControlFile: Read control file state
+    ControlFile-->>StartupXLOG: DB state (SHUTDOWNED/IN_PRODUCTION/etc)
+
+    alt Clean shutdown (DB_SHUTDOWNED)
+        Note over StartupXLOG: Skip WAL recovery
+        StartupXLOG->>StartupXLOG: performedWalRecovery = false
+    else Unclean shutdown or archive recovery
+        Note over StartupXLOG: Phase 2: Recovery Preparation
+        StartupXLOG->>StartupXLOG: ValidateXLOGDirectoryStructure()
+        StartupXLOG->>StartupXLOG: RemoveTempXlogFiles()
+        StartupXLOG->>StartupXLOG: SyncDataDirectory()
+
+        StartupXLOG->>InitWal: InitWalRecovery()
+        InitWal->>InitWal: Analyze backup_label
+        InitWal->>InitWal: Set InRecovery = true
+        InitWal->>InitWal: Determine recovery start point
+        InitWal-->>StartupXLOG: Recovery configuration
+
+        Note over StartupXLOG: Phase 3: Subsystem Initialization
+        StartupXLOG->>ResourceMgr: StartupCLOG()
+        StartupXLOG->>ResourceMgr: StartupMultiXact()
+        StartupXLOG->>ResourceMgr: StartupReplicationSlots()
+        StartupXLOG->>ResourceMgr: StartupReorderBuffer()
+
+        alt Hot Standby enabled
+            StartupXLOG->>StartupXLOG: InitRecoveryTransactionEnvironment()
+            StartupXLOG->>StartupXLOG: ProcArrayInitRecovery()
+        end
+
+        Note over StartupXLOG: Phase 4: WAL Recovery
+        StartupXLOG->>PerformWal: PerformWalRecovery()
+
+        loop WAL Replay Loop
+            PerformWal->>PerformWal: ReadRecord(xlogreader)
+
+            alt Record found
+                PerformWal->>ApplyWal: ApplyWalRecord(record)
+
+                ApplyWal->>ApplyWal: Setup error context
+                ApplyWal->>ApplyWal: Advance transaction IDs
+
+                alt Regular record
+                    ApplyWal->>ResourceMgr: rm_redo(record)
+                    ResourceMgr-->>ApplyWal: Record applied
+                end
+
+                alt Timeline switch record
+                    ApplyWal->>ApplyWal: checkTimeLineSwitch()
+                    ApplyWal->>ApplyWal: Update replayTLI
+                end
+
+                alt Hot Standby active
+                    ApplyWal->>ApplyWal: RecordKnownAssignedTransactionIds()
+                end
+
+                ApplyWal->>ApplyWal: Update recovery progress
+                ApplyWal->>ApplyWal: WalSndWakeup() for cascading
+                ApplyWal-->>PerformWal: Record processed
+
+                alt Recovery target reached
+                    PerformWal->>PerformWal: Check recovery stop conditions
+                    break Exit replay loop
+                end
+
+                alt Recovery pause requested
+                    PerformWal->>PerformWal: recoveryPausesHere()
+                    PerformWal->>PerformWal: Wait for resume signal
+                end
+
+            else No more records
+                break End of WAL reached
+            end
+        end
+
+        PerformWal-->>StartupXLOG: Recovery complete
+        StartupXLOG->>StartupXLOG: performedWalRecovery = true
+    end
+
+    Note over StartupXLOG: Phase 5: Recovery Completion
+    StartupXLOG->>FinishWal: FinishWalRecovery()
+    FinishWal->>FinishWal: Determine end of recovery info
+    FinishWal-->>StartupXLOG: EndOfWalRecoveryInfo
+
+    Note over StartupXLOG: Phase 6: Timeline Management
+    alt Archive recovery
+        StartupXLOG->>StartupXLOG: findNewestTimeLine() + 1
+        StartupXLOG->>StartupXLOG: XLogInitNewTimeline()
+        StartupXLOG->>StartupXLOG: writeTimeLineHistory()
+        Note over StartupXLOG: New timeline created
+    else Crash recovery
+        StartupXLOG->>StartupXLOG: Extend current timeline
+    end
+
+    Note over StartupXLOG: Phase 7: Production Transition
+    StartupXLOG->>StartupXLOG: Prepare WAL buffer cache
+    StartupXLOG->>StartupXLOG: Update LogwrtResult state
+    StartupXLOG->>StartupXLOG: PreallocXlogFiles()
+
+    StartupXLOG->>StartupXLOG: InRecovery = false
+    StartupXLOG->>ControlFile: Update state to DB_IN_PRODUCTION
+    StartupXLOG->>StartupXLOG: LocalSetXLogInsertAllowed()
+
+    alt Recovery was performed
+        StartupXLOG->>StartupXLOG: PerformRecoveryXLogAction()
+        Note over StartupXLOG: Write checkpoint or end-of-recovery record
+    end
+
+    StartupXLOG->>StartupXLOG: WalSndWakeup(true, true)
+    Note over StartupXLOG: Wake up cascading senders
+
+    alt Promotion occurred
+        StartupXLOG->>StartupXLOG: RequestCheckpoint(CHECKPOINT_FORCE)
+    end
+
+    StartupXLOG-->>Startup: Database ready for connections
+
+    Note over Startup: Database operational
+    Note over Startup: WAL writing enabled
+    Note over Startup: Ready for client connections
