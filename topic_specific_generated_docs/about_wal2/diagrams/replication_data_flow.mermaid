@@ -1,0 +1,75 @@
+flowchart LR
+    subgraph "Primary Server"
+        A[Transaction Execution] --> B[WAL Generation]
+        B --> C[WAL Insert Buffers]
+        C --> D[XLogWrite]
+        D --> E[WAL Files]
+
+        E --> F[WAL Sender Process]
+        F --> G[XLogSendPhysical]
+        G --> H[Read WAL Records]
+        H --> I[COPY Protocol Messages]
+    end
+
+    subgraph "Network Layer"
+        I --> J[TCP/IP Network]
+        J --> K[Standby Connection]
+    end
+
+    subgraph "Standby Server"
+        K --> L[WAL Receiver Process]
+        L --> M[XLogWalRcvProcessMsg]
+        M --> N[Protocol Message Parsing]
+
+        N --> O[XLogWalRcvWrite]
+        O --> P[Standby WAL Files]
+
+        P --> Q[XLogWalRcvFlush]
+        Q --> R[fsync to Disk]
+
+        R --> S[Startup Process]
+        S --> T[WAL Record Reading]
+        T --> U[ApplyWalRecord]
+        U --> V[Resource Manager Redo]
+        V --> W[Database Pages]
+    end
+
+    subgraph "Feedback Loop"
+        W --> X[Progress Tracking]
+        X --> Y[XLogWalRcvSendReply]
+        Y --> Z[Reply Messages]
+        Z --> J
+        J --> AA[ProcessRepliesIfAny]
+        AA --> BB[Update Standby Progress]
+        BB --> CC[Synchronous Replication Control]
+    end
+
+    subgraph "Synchronization Points"
+        DD[Transaction Commit] --> EE{Synchronous Mode?}
+        EE -->|Yes| FF[SyncRepWaitForLSN]
+        EE -->|No| GG[Immediate Commit]
+
+        FF --> HH[Check Standby Progress]
+        HH --> II{Required Standbys Caught Up?}
+        II -->|No| JJ[Wait for Acknowledgment]
+        II -->|Yes| GG
+
+        JJ --> BB
+        BB --> II
+    end
+
+    subgraph "Data Flow Legend"
+        KK[WAL Data Flow]
+        LL[Control/Feedback Flow]
+        MM[Synchronization Flow]
+    end
+
+    classDef waldata fill:#e1f5fe
+    classDef feedback fill:#fff3e0
+    classDef sync fill:#f3e5f5
+    classDef process fill:#e8f5e8
+
+    class A,B,C,D,E,H,O,P,Q,R,T,U,V,W waldata
+    class X,Y,Z,AA,BB feedback
+    class DD,EE,FF,GG,HH,II,JJ sync
+    class F,G,L,M,S process

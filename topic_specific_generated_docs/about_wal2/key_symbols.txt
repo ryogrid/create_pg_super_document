@@ -1,0 +1,61 @@
+Top 30 PostgreSQL WAL Symbols by Importance
+==================================================
+
+XLogInsert (score: 1.00) - WAL_INSERT - Main entry point for WAL record insertion, coordinates record assembly and insertion
+
+XLogWrite (score: 1.00) - WAL_WRITE - Writes WAL records from shared buffers to disk files
+
+XLogFlush (score: 1.00) - WAL_FLUSH - Forces WAL records to be written and synced to disk up to specified LSN
+
+WalSndLoop (score: 1.00) - WAL_SEND - Main loop for WAL sender process, handles streaming to standby servers
+
+WalSndMain (score: 1.00) - WAL_SEND - Main function for WAL sender background process
+
+WalSenderMain (score: 1.00) - WAL_SEND - Process entry point for WAL sender processes
+
+WalReceiverMain (score: 1.00) - WAL_RECEIVE - Main function for WAL receiver process on standby servers
+
+WalRcvStreamStart (score: 1.00) - WAL_RECEIVE - Initiates WAL streaming from primary server
+
+XLogWalRcvProcessMsg (score: 1.00) - WAL_RECEIVE - Processes incoming WAL messages from primary server
+
+StartupXLOG (score: 1.00) - WAL_RECOVERY - Main startup process function for WAL recovery and replay
+
+PerformWalRecovery (score: 1.00) - WAL_RECOVERY - Performs WAL record recovery and coordinates replay process
+
+ApplyWalRecord (score: 1.00) - WAL_REPLAY - Applies individual WAL records during recovery using resource managers
+
+XLogInsertRecord (score: 0.95) - WAL_INSERT - Low-level function that actually inserts WAL records into shared buffers
+
+XLogRecordAssemble (score: 0.90) - WAL_INSERT - Assembles WAL record data structures before insertion
+
+RmgrTable (score: 0.90) - WAL_REPLAY - Resource manager dispatch table for WAL record replay
+
+GetFullPageWriteInfo (score: 0.85) - WAL_WRITE - Determines if full page writes are needed for backup blocks
+
+XLogSendPhysical (score: 0.85) - WAL_SEND - Sends physical WAL records to standby servers
+
+XLogWalRcvWrite (score: 0.85) - WAL_RECEIVE - Writes received WAL data to standby WAL files
+
+XLogReadRecord (score: 0.85) - WAL_RECOVERY - Reads WAL records during recovery
+
+SyncRepWaitForLSN (score: 0.85) - WAL_SYNC - Implements synchronous replication waiting
+
+CreateCheckPoint (score: 0.85) - WAL_CHECKPOINT - Creates database checkpoint and coordinates WAL
+
+WALInsertLockAcquire (score: 0.80) - WAL_INSERT - Acquires WAL insertion locks for concurrent write coordination
+
+WALInsertLockRelease (score: 0.80) - WAL_INSERT - Releases WAL insertion locks
+
+libpqrcv_receive (score: 0.80) - WAL_RECEIVE - LibPQ-based WAL receiver for streaming replication
+
+XLogWalRcvFlush (score: 0.80) - WAL_RECEIVE - Flushes received WAL data on standby
+
+ReadRecord (score: 0.80) - WAL_RECOVERY - Lower-level WAL record reading function
+
+CheckpointerMain (score: 0.80) - WAL_CHECKPOINT - Main function for checkpoint background process
+
+ProcessRepliesIfAny (score: 0.75) - WAL_SEND - Processes reply messages from standby servers
+
+ProcessStandbyReplyMessage (score: 0.75) - WAL_RECEIVE - Processes standby acknowledgment messages
+

@@ -1,0 +1,55 @@
+graph TB
+    subgraph "WAL Generation Layer"
+        A[Transaction Operations] --> B[XLogInsert]
+        B --> C[XLogRecordAssemble]
+        C --> D[XLogInsertRecord]
+        D --> E[WAL Insert Locks]
+        E --> F[WAL Buffers]
+    end
+
+    subgraph "WAL Writing Layer"
+        F --> G[XLogWrite]
+        G --> H[WAL Files on Disk]
+        H --> I[XLogFlush/fsync]
+    end
+
+    subgraph "Replication Layer"
+        H --> J[WalSenderMain]
+        J --> K[WalSndLoop]
+        K --> L[XLogSendPhysical]
+        L --> M[Network to Standby]
+
+        M --> N[WalReceiverMain]
+        N --> O[libpqrcv_receive]
+        O --> P[XLogWalRcvWrite]
+        P --> Q[Standby WAL Files]
+    end
+
+    subgraph "Recovery Layer"
+        Q --> R[StartupXLOG]
+        R --> S[PerformWalRecovery]
+        S --> T[XLogReadRecord]
+        T --> U[ApplyWalRecord]
+        U --> V[RmgrTable]
+        V --> W[Data Pages]
+    end
+
+    subgraph "Checkpoint Coordination"
+        X[CheckpointerMain] --> Y[CreateCheckPoint]
+        Y --> G
+        Y --> I
+    end
+
+    subgraph "Synchronous Replication"
+        D --> Z[SyncRepWaitForLSN]
+        Z --> AA[ProcessRepliesIfAny]
+        N --> AA
+    end
+
+    classDef critical fill:#ff9999
+    classDef important fill:#ffcc99
+    classDef supporting fill:#ccffcc
+
+    class B,G,I,J,N,R critical
+    class C,D,K,O,S,U important
+    class E,F,L,P,T,V supporting

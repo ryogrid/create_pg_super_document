@@ -5,14 +5,6 @@ Generate comprehensive technical documentation for PostgreSQL's WAL (Write-Ahead
 
 ## Available Resources
 
-### MCP Server Capabilities
-You have access to a specialized MCP server with these functions:
-- `pg_symbol_source(symbol)` - Retrieve source code for a symbol
-- `pg_symbol_overview(symbol)` - Get concise overview (low context usage)
-- `pg_symbol_document(symbol)` - Get detailed documentation
-- `pg_references_from(symbol)` - Get symbols referenced by this symbol
-- `pg_references_to(symbol)` - Get symbols that reference this symbol
-
 ### Available Subagents
 1. **architecture-analyzer** - Analyzes codebase structure and dependencies
 2. **detail-documenter** - Creates detailed technical documentation
@@ -84,7 +76,7 @@ Documentation Requirements:
    - Timeline switching during recovery
 
 4. Code Analysis Priorities:
-   - Focus get_symbol_code calls on:
+   - Reading source code for:
      * XLogInsert (insertion logic)
      * WalSndLoop (main replication loop)
      * ApplyWalRecord (replay mechanism)

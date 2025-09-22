@@ -1,0 +1,103 @@
+sequenceDiagram
+    participant PM as Postmaster
+    participant SP as Startup Process
+    participant XLR as XLog Recovery
+    participant Reader as WAL Reader
+    participant RMGR as Resource Managers
+    participant BM as Buffer Manager
+    participant Storage as Storage
+
+    Note over PM,Storage: Database Recovery Process Sequence
+
+    PM->>SP: Start startup process
+    SP->>SP: Initialize process state
+
+    Note over SP: Recovery Initialization Phase
+    SP->>XLR: StartupXLOG()
+    XLR->>XLR: Read control file
+    XLR->>XLR: Determine recovery mode
+
+    alt Clean shutdown
+        XLR->>XLR: Skip recovery (DB_PRODUCTION)
+        XLR-->>SP: Normal startup
+    else Recovery needed
+        XLR->>XLR: InitWalRecovery()
+
+        Note over XLR: Setup recovery infrastructure
+        XLR->>XLR: Read backup label (if exists)
+        XLR->>XLR: Setup recovery targets
+        XLR->>Reader: Initialize WAL reader
+        XLR->>XLR: Locate starting checkpoint
+
+        Note over XLR: Main Recovery Loop
+        XLR->>XLR: PerformWalRecovery()
+
+        loop For each WAL record
+            XLR->>Reader: ReadRecord(xlogprefetcher)
+            Reader->>Storage: Read WAL from files/archive
+
+            alt WAL record found
+                Reader-->>XLR: Return WAL record
+
+                XLR->>XLR: ApplyWalRecord(record)
+
+                Note over XLR: Resource Manager Dispatch
+                XLR->>XLR: Check for timeline changes
+                XLR->>RMGR: RmgrTable[rmid].rm_redo(record)
+
+                alt Heap record
+                    RMGR->>BM: Request buffer for page
+                    BM->>Storage: Read page if not in memory
+                    RMGR->>BM: Apply changes to page
+                    RMGR->>BM: Mark page dirty
+
+                else Index record
+                    RMGR->>BM: Request index page buffer
+                    RMGR->>BM: Apply index changes
+
+                else Transaction record
+                    RMGR->>RMGR: Update transaction status
+
+                else WAL management record
+                    RMGR->>XLR: Update WAL state
+                end
+
+                RMGR-->>XLR: Redo complete
+
+                XLR->>XLR: Update replay progress
+                XLR->>XLR: Check consistency point
+                XLR->>XLR: Check recovery targets
+
+                alt Recovery target reached
+                    XLR->>XLR: Break recovery loop
+                else Continue recovery
+                    Note over XLR: Continue to next record
+                end
+
+            else No more WAL
+                Reader-->>XLR: NULL (end of WAL)
+                XLR->>XLR: Break recovery loop
+            end
+        end
+
+        Note over XLR: Recovery Completion Phase
+        XLR->>XLR: FinishWalRecovery()
+        XLR->>XLR: Validate recovery completion
+        XLR->>XLR: Update control file
+
+        alt Standby mode
+            XLR->>XLR: Enter standby mode
+            XLR->>XLR: Start WAL receiver
+            Note over XLR: Continue in recovery mode
+
+        else Normal recovery complete
+            XLR->>XLR: Prepare for normal operations
+            XLR->>XLR: Initialize WAL writing
+            XLR-->>SP: Recovery complete
+        end
+    end
+
+    SP->>PM: Signal recovery completion
+    PM->>PM: Allow connections
+
+    Note over PM,Storage: Database ready for normal operations

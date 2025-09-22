@@ -1,0 +1,551 @@
+{
+  "symbols": {
+    "XLogInsert": {
+      "overview": "Main entry point for WAL record insertion, coordinates record assembly and insertion",
+      "importance_score": 1.0,
+      "category": "WAL_INSERT",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "XLogRecordAssemble",
+        "XLogInsertRecord",
+        "GetFullPageWriteInfo",
+        "XLogResetInsertion"
+      ],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "XLogWrite": {
+      "overview": "Writes WAL records from shared buffers to disk files",
+      "importance_score": 1.0,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "RefreshXLogWriteResult",
+        "XLogFileInit",
+        "pg_fsync",
+        "XLogArchiveNotify"
+      ],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "XLogFlush": {
+      "overview": "Forces WAL records to be written and synced to disk up to specified LSN",
+      "importance_score": 1.0,
+      "category": "WAL_FLUSH",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "XLogWrite",
+        "UpdateMinRecoveryPoint",
+        "WakeupWalSummarizer"
+      ],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "WalSndLoop": {
+      "overview": "Main loop for WAL sender process, handles streaming to standby servers",
+      "importance_score": 1.0,
+      "category": "WAL_SEND",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "WalSndWaitForWal",
+        "XLogSendPhysical",
+        "ProcessRepliesIfAny",
+        "WalSndKeepalive"
+      ],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "WalSndMain": {
+      "overview": "Main function for WAL sender background process",
+      "importance_score": 1.0,
+      "category": "WAL_SEND",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "WalSndLoop",
+        "InitWalSender",
+        "WalSndSignals",
+        "StartReplication"
+      ],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "WalSenderMain": {
+      "overview": "Process entry point for WAL sender processes",
+      "importance_score": 1.0,
+      "category": "WAL_SEND",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "WalSndMain",
+        "PostgresMain",
+        "InitProcess"
+      ],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "WalReceiverMain": {
+      "overview": "Main function for WAL receiver process on standby servers",
+      "importance_score": 1.0,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "libpqrcv_connect",
+        "libpqrcv_receive",
+        "XLogWalRcvWrite",
+        "XLogWalRcvFlush"
+      ],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "WalRcvStreamStart": {
+      "overview": "Initiates WAL streaming from primary server",
+      "importance_score": 1.0,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "libpqrcv_startstreaming",
+        "ProcessWalSndrMessage",
+        "HandleCopyStream"
+      ],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "XLogWalRcvProcessMsg": {
+      "overview": "Processes incoming WAL messages from primary server",
+      "importance_score": 1.0,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "XLogWalRcvWrite",
+        "ProcessStandbyReplyMessage",
+        "SendStandbyReply"
+      ],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "StartupXLOG": {
+      "overview": "Main startup process function for WAL recovery and replay",
+      "importance_score": 1.0,
+      "category": "WAL_RECOVERY",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "ReadControlFile",
+        "XLogReadRecord",
+        "PerformWalRecovery",
+        "InRecovery"
+      ],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "PerformWalRecovery": {
+      "overview": "Performs WAL record recovery and coordinates replay process",
+      "importance_score": 1.0,
+      "category": "WAL_RECOVERY",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "ReadRecord",
+        "ApplyWalRecord",
+        "XLogReaderRead",
+        "ArchiveRecoveryRequested"
+      ],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "ApplyWalRecord": {
+      "overview": "Applies individual WAL records during recovery using resource managers",
+      "importance_score": 1.0,
+      "category": "WAL_REPLAY",
+      "depth_from_entry": 0,
+      "references_from": [],
+      "references_to": [
+        "RmgrTable",
+        "XLogRecGetRmid",
+        "GetCurrentChunkReplayStartTime",
+        "XLogRecGetInfo"
+      ],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "XLogInsertRecord": {
+      "overview": "Low-level function that actually inserts WAL records into shared buffers",
+      "importance_score": 0.95,
+      "category": "WAL_INSERT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogRecordAssemble": {
+      "overview": "Assembles WAL record data structures before insertion",
+      "importance_score": 0.9,
+      "category": "WAL_INSERT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "GetFullPageWriteInfo": {
+      "overview": "Determines if full page writes are needed for backup blocks",
+      "importance_score": 0.85,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "WALInsertLockAcquire": {
+      "overview": "Acquires WAL insertion locks for concurrent write coordination",
+      "importance_score": 0.8,
+      "category": "WAL_INSERT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "WALInsertLockRelease": {
+      "overview": "Releases WAL insertion locks",
+      "importance_score": 0.8,
+      "category": "WAL_INSERT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogSendPhysical": {
+      "overview": "Sends physical WAL records to standby servers",
+      "importance_score": 0.85,
+      "category": "WAL_SEND",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ProcessRepliesIfAny": {
+      "overview": "Processes reply messages from standby servers",
+      "importance_score": 0.75,
+      "category": "WAL_SEND",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "libpqrcv_receive": {
+      "overview": "LibPQ-based WAL receiver for streaming replication",
+      "importance_score": 0.8,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogWalRcvWrite": {
+      "overview": "Writes received WAL data to standby WAL files",
+      "importance_score": 0.85,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogWalRcvFlush": {
+      "overview": "Flushes received WAL data on standby",
+      "importance_score": 0.8,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogReadRecord": {
+      "overview": "Reads WAL records during recovery",
+      "importance_score": 0.85,
+      "category": "WAL_RECOVERY",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ReadRecord": {
+      "overview": "Lower-level WAL record reading function",
+      "importance_score": 0.8,
+      "category": "WAL_RECOVERY",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "RmgrTable": {
+      "overview": "Resource manager dispatch table for WAL record replay",
+      "importance_score": 0.9,
+      "category": "WAL_REPLAY",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SyncRepWaitForLSN": {
+      "overview": "Implements synchronous replication waiting",
+      "importance_score": 0.85,
+      "category": "WAL_SYNC",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ProcessStandbyReplyMessage": {
+      "overview": "Processes standby acknowledgment messages",
+      "importance_score": 0.75,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CheckpointerMain": {
+      "overview": "Main function for checkpoint background process",
+      "importance_score": 0.8,
+      "category": "WAL_CHECKPOINT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CreateCheckPoint": {
+      "overview": "Creates database checkpoint and coordinates WAL",
+      "importance_score": 0.85,
+      "category": "WAL_CHECKPOINT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    }
+  },
+  "categories": {
+    "WAL_INSERT": [
+      "XLogInsert",
+      "XLogInsertRecord",
+      "XLogRecordAssemble",
+      "WALInsertLockAcquire",
+      "WALInsertLockRelease"
+    ],
+    "WAL_WRITE": [
+      "XLogWrite",
+      "GetFullPageWriteInfo"
+    ],
+    "WAL_FLUSH": [
+      "XLogFlush"
+    ],
+    "WAL_SEND": [
+      "WalSndLoop",
+      "WalSndMain",
+      "WalSenderMain",
+      "XLogSendPhysical",
+      "ProcessRepliesIfAny"
+    ],
+    "WAL_RECEIVE": [
+      "WalReceiverMain",
+      "WalRcvStreamStart",
+      "XLogWalRcvProcessMsg",
+      "libpqrcv_receive",
+      "XLogWalRcvWrite",
+      "XLogWalRcvFlush",
+      "ProcessStandbyReplyMessage"
+    ],
+    "WAL_RECOVERY": [
+      "StartupXLOG",
+      "PerformWalRecovery",
+      "XLogReadRecord",
+      "ReadRecord"
+    ],
+    "WAL_REPLAY": [
+      "ApplyWalRecord",
+      "RmgrTable"
+    ],
+    "WAL_CHECKPOINT": [
+      "CheckpointerMain",
+      "CreateCheckPoint"
+    ],
+    "WAL_SYNC": [
+      "SyncRepWaitForLSN"
+    ],
+    "WAL_OTHER": []
+  },
+  "critical_paths": [
+    [
+      "XLogInsert",
+      "XLogRecordAssemble",
+      "XLogInsertRecord",
+      "WALInsertLockAcquire",
+      "GetFullPageWriteInfo"
+    ],
+    [
+      "XLogInsert",
+      "XLogInsertRecord",
+      "XLogWrite",
+      "XLogFlush"
+    ],
+    [
+      "XLogInsert",
+      "XLogInsertRecord",
+      "SyncRepWaitForLSN",
+      "ProcessRepliesIfAny"
+    ],
+    [
+      "WalSenderMain",
+      "WalSndMain",
+      "WalSndLoop",
+      "XLogSendPhysical",
+      "ProcessRepliesIfAny"
+    ],
+    [
+      "WalReceiverMain",
+      "libpqrcv_receive",
+      "XLogWalRcvWrite",
+      "XLogWalRcvFlush"
+    ],
+    [
+      "WalRcvStreamStart",
+      "ProcessWalSndrMessage",
+      "XLogWalRcvProcessMsg"
+    ],
+    [
+      "StartupXLOG",
+      "PerformWalRecovery",
+      "ReadRecord",
+      "ApplyWalRecord",
+      "RmgrTable"
+    ],
+    [
+      "StartupXLOG",
+      "XLogReadRecord",
+      "PerformWalRecovery",
+      "ApplyWalRecord"
+    ],
+    [
+      "CheckpointerMain",
+      "CreateCheckPoint",
+      "XLogWrite",
+      "XLogFlush"
+    ],
+    [
+      "CreateCheckPoint",
+      "WALInsertLockAcquire",
+      "XLogInsertRecord",
+      "XLogFlush"
+    ]
+  ]
+}

@@ -1,0 +1,80 @@
+stateDiagram-v2
+    [*] --> SHUTDOWN
+
+    SHUTDOWN --> STARTING : Postmaster starts WAL receiver
+
+    STARTING --> CONNECTING : Configuration loaded
+
+    CONNECTING --> STREAMING : Connection established
+    CONNECTING --> FAILED : Connection failed
+
+    FAILED --> RECONNECTING : Retry timer expired
+    RECONNECTING --> CONNECTING : Retry attempt
+    RECONNECTING --> SHUTDOWN : Max retries exceeded
+
+    STREAMING --> CATCHING_UP : Receiving WAL data
+    CATCHING_UP --> CONSISTENT : Reached consistency point
+    CATCHING_UP --> TIMELINE_SWITCH : Timeline change detected
+    CATCHING_UP --> FAILED : Connection lost
+
+    CONSISTENT --> HOT_STANDBY : Hot standby enabled
+    CONSISTENT --> TIMELINE_SWITCH : Timeline change
+    CONSISTENT --> FAILED : Connection/WAL error
+
+    HOT_STANDBY --> PROMOTING : Promotion triggered
+    HOT_STANDBY --> TIMELINE_SWITCH : Timeline change
+    HOT_STANDBY --> FAILED : Connection/WAL error
+    HOT_STANDBY --> PAUSED : Recovery pause requested
+
+    PAUSED --> HOT_STANDBY : Resume recovery
+    PAUSED --> PROMOTING : Promotion triggered
+
+    TIMELINE_SWITCH --> FETCHING_HISTORY : Get timeline history
+    FETCHING_HISTORY --> STREAMING : History fetched successfully
+    FETCHING_HISTORY --> FAILED : History fetch failed
+
+    PROMOTING --> PRIMARY : Promotion complete
+    PRIMARY --> [*]
+
+    note right of STARTING
+        Initial state when
+        standby server starts
+    end note
+
+    note right of STREAMING
+        Actively receiving
+        WAL from primary
+    end note
+
+    note right of CONSISTENT
+        Database is consistent
+        and can serve queries
+    end note
+
+    note right of HOT_STANDBY
+        Accepting read-only
+        connections
+    end note
+
+    note right of PROMOTING
+        Transitioning to
+        primary server
+    end note
+
+    state STREAMING {
+        [*] --> WAITING_FOR_WAL
+        WAITING_FOR_WAL --> RECEIVING_DATA : WAL data available
+        RECEIVING_DATA --> WRITING_WAL : Processing messages
+        WRITING_WAL --> FLUSHING_WAL : Data written
+        FLUSHING_WAL --> SENDING_FEEDBACK : Data flushed
+        SENDING_FEEDBACK --> WAITING_FOR_WAL : Feedback sent
+    }
+
+    state HOT_STANDBY {
+        [*] --> ACCEPTING_CONNECTIONS
+        ACCEPTING_CONNECTIONS --> PROCESSING_QUERIES : Client connects
+        PROCESSING_QUERIES --> APPLYING_WAL : WAL replay needed
+        APPLYING_WAL --> PROCESSING_QUERIES : WAL applied
+        PROCESSING_QUERIES --> CONFLICT_RESOLUTION : Query conflicts
+        CONFLICT_RESOLUTION --> PROCESSING_QUERIES : Conflicts resolved
+    }

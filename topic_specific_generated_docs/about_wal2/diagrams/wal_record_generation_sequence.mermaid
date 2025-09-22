@@ -1,0 +1,79 @@
+sequenceDiagram
+    participant App as Application
+    participant RM as Resource Manager
+    participant XLI as XLogInsert
+    participant XRA as XLogRecordAssemble
+    participant XIR as XLogInsertRecord
+    participant WALBuf as WAL Buffers
+    participant WALLock as WAL Insert Locks
+
+    Note over App,WALLock: WAL Record Generation Sequence
+
+    App->>RM: Database operation (UPDATE, INSERT, etc.)
+
+    Note over RM: Prepare WAL record data
+    RM->>RM: XLogBeginInsert()
+    RM->>RM: XLogRegisterBuffer(modified_page)
+    RM->>RM: XLogRegisterData(operation_data)
+
+    RM->>XLI: XLogInsert(rmid, info)
+
+    Note over XLI: Main insertion coordination
+    XLI->>XLI: Validate info flags
+
+    alt Bootstrap mode
+        XLI->>XLI: Return dummy LSN
+        XLI-->>RM: EndPos (dummy)
+    else Normal operation
+        loop Retry if FPW requirements change
+            XLI->>XLI: GetFullPageWriteInfo(&RedoRecPtr, &doPageWrites)
+
+            XLI->>XRA: XLogRecordAssemble(rmid, info, RedoRecPtr, doPageWrites)
+
+            Note over XRA: Build complete record structure
+            XRA->>XRA: Construct XLogRecord header
+            XRA->>XRA: Process registered buffers
+            alt Full page write needed
+                XRA->>XRA: Include backup block
+            end
+            XRA->>XRA: Build XLogRecData chain
+            XRA->>XRA: Calculate CRC checksums
+            XRA-->>XLI: Return rdt chain
+
+            XLI->>XIR: XLogInsertRecord(rdt, fpw_lsn, flags, num_fpi)
+
+            Note over XIR: Actual insertion with concurrency control
+            XIR->>XIR: Determine insertion class (normal/special)
+
+            alt Normal record
+                XIR->>WALLock: WALInsertLockAcquire()
+                WALLock-->>XIR: Lock acquired
+
+                XIR->>XIR: Re-validate RedoRecPtr and doPageWrites
+                alt Validation fails
+                    XIR->>WALLock: WALInsertLockRelease()
+                    XIR-->>XLI: InvalidXLogRecPtr (retry needed)
+                else Validation passes
+                    XIR->>XIR: ReserveXLogInsertLocation()
+                    XIR->>WALBuf: Copy record data to buffers
+                    XIR->>XIR: Update CRC with xl_prev
+                    XIR->>XIR: Update process and global LSN tracking
+                    XIR->>WALLock: WALInsertLockRelease()
+                    XIR-->>XLI: EndPos (success)
+                end
+            else Special record (checkpoint/switch)
+                XIR->>WALLock: WALInsertLockAcquireExclusive()
+                XIR->>XIR: Special handling for exclusive records
+                XIR->>WALBuf: Insert with exclusive access
+                XIR->>WALLock: WALInsertLockRelease()
+                XIR-->>XLI: EndPos (success)
+            end
+        end
+
+        XLI-->>RM: EndPos (final LSN)
+    end
+
+    RM->>RM: XLogResetInsertion()
+    RM-->>App: Operation complete
+
+    Note over App,WALLock: Record now in WAL buffers, ready for writing to disk
