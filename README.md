@@ -437,6 +437,97 @@ For detailed usage and options, see the description above.
 - [WalReceiverMain function](generated_docs/W/WalReceiverMain.md)
 - [ProcessQuery function](generated_docs/P/ProcessQuery.md)
 
+## Topic-Specific Documentation Generation: WAL System
+
+The comprehensive PostgreSQL WAL (Write-Ahead Logging) system documentation in `topic_specific_generated_docs/about_wal/` was generated using an AI-powered multi-agent orchestration approach. This section describes the generation process and mechanisms involved.
+
+### Overview of Generation Process
+
+The documentation was created by orchestrating three specialized AI subagents through Claude Code's interactive mode, leveraging an MCP (Model Context Protocol) server for PostgreSQL symbol information access.
+
+### Key Components
+
+#### 1. MCP Server Setup (any-script-mcp)
+
+The MCP server provides programmatic access to PostgreSQL symbol information through specialized tools:
+- **Installation**: Clone [any-script-mcp](https://github.com/izumin5210/any-script-mcp.git) into the project directory
+- **Configuration**: Run `../any-script-mcp/add_any_script_mcp_to_cc.sh` to register the MCP server
+- **Settings**: User-scope registration with configuration stored at `~/.config/any-script-mcp/config.yaml`
+- **Tools Directory**: Custom tool configurations in `any-script-mcp/`
+
+The MCP server exposes PostgreSQL-specific tools:
+- `pg_symbol_source(symbol)` - Retrieve source code for symbols
+- `pg_symbol_overview(symbol)` - Get concise symbol overviews
+- `pg_symbol_document(symbol)` - Fetch detailed documentation
+- `pg_references_from(symbol)` - List symbols referenced by a given symbol
+- `pg_references_to(symbol)` - List symbols that reference a given symbol
+
+#### 2. AI Subagents (`.claude/agents/`)
+
+Three specialized subagents handle different aspects of documentation generation:
+
+1. **architecture-analyzer** - Analyzes PostgreSQL codebase structure and builds dependency maps
+2. **detail-documenter** - Creates detailed technical documentation for individual components
+3. **integration-optimizer** - Integrates component documentation into cohesive final documents
+
+Each subagent is defined with specific capabilities and prompts in the `.claude/agents/` directory.
+
+#### 3. Orchestration Prompt (`prompts/generate_document_about_wal.md`)
+
+The main orchestration prompt coordinates the three-stage documentation generation process:
+
+**Stage 1: Architecture Analysis**
+- Analyzes WAL subsystem starting from key entry points (XLogInsert, WalSndLoop, WalReceiverMain, StartupXLOG, etc.)
+- Builds comprehensive dependency maps with depth-3 traversal
+- Generates `architecture_map.json`, `key_symbols.txt`, and `initial_outline.md`
+
+**Stage 2: Detailed Documentation**
+- Documents all symbols with importance scores > 0.8
+- Creates component-specific documentation files
+- Generates minimum 5 technical diagrams (Mermaid format)
+- Focuses on critical areas like XLogRecord structure, LSN management, and replication mechanics
+
+**Stage 3: Integration and Optimization**
+- Merges component documentation into unified documents
+- Eliminates redundancy while maintaining clarity
+- Adds cross-references and navigation aids
+- Produces final deliverables including:
+  - `wal_complete_documentation.md` - Comprehensive technical guide
+  - `wal_quick_reference.md` - 2-page developer reference
+  - `wal_api_reference.md` - API signatures catalog
+  - `quality_report.md` - Coverage metrics and analysis
+
+### Generation Steps
+
+1. **Prerequisites**: Ensure MCP server is configured and Claude Code has access to subagent definitions
+
+2. **Execution**:
+   - Open Claude Code in interactive mode
+   - Copy the content from `prompts/generate_document_about_wal.md`
+   - Paste as a prompt in Claude Code
+   - The orchestrator automatically executes all three stages sequentially
+
+3. **Output**: Generated documentation is saved to project root directory...
+
+### Generated Documentation Structure
+
+The final WAL documentation includes:
+- **Core Documentation**: ~95KB comprehensive technical guide covering all WAL components
+- **Component Files**: Separate documentation for generation, writing, replication, and recovery subsystems
+- **Technical Diagrams**: 5+ Mermaid diagrams illustrating architecture and data flows
+- **Reference Materials**: Quick reference guide and API documentation
+- **Quality Metrics**: 94/100 quality score with 100% symbol coverage
+
+### Benefits of This Approach
+
+- **Systematic Coverage**: Ensures all critical symbols and paths are documented
+- **Consistency**: Standardized terminology and structure across all documentation
+- **Depth and Breadth**: Combines high-level architecture views with detailed implementation specifics
+- **Maintainability**: Modular generation allows for incremental updates
+- **Quality Assurance**: Built-in validation and coverage metrics
+
+This multi-agent approach demonstrates how AI can be effectively orchestrated to generate comprehensive, professional-quality technical documentation for complex systems like PostgreSQL's WAL subsystem.
+
 ## Good Points to Read Codebase of PostgreSQL
 - [ENTRY_POINTS.md](ENTRY_POINTS.md) : Entry points (functions) of PostgreSQL's each processes are listed
 - [CODE_TREE.md](CODE_TREE.md) : Overview of PostgreSQL's code tree structure (AI generated)
