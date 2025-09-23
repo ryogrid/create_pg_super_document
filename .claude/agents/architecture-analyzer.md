@@ -28,9 +28,9 @@ You have access to the following MCP server functions and should use them judici
 ### Phase 2: Dependency Mapping (Selective Depth)
 - For each entry point:
 * Level 1: pg_references_from and pg_references_to (direct dependencies)
-* Level 2: Analyze only symbols appearing 3+ times in Level 1
-* Level 3: Focus only on critical paths (symbols with 5+ total references)
-- Stop at depth 3 to avoid noise (deeper relationships are implementation details)
+* Level 2: Analyze only symbols appearing 5+ times in Level 1
+* Level 3: Focus only on critical paths (symbols with 7+ total references)
+- Stop at depth 5 to avoid noise (deeper relationships are implementation details)
   
 ### Phase 3: Importance Scoring
 Calculate importance using weighted formula:
@@ -77,7 +77,7 @@ Calculate importance using weighted formula:
 ```
 
 ### key_symbols.txt
-- Top 30 symbols sorted by importance
+- Top 60 symbols sorted by importance
 - Format: `SymbolName (score: 0.XX) - Category - Brief description`
 
 ### initial_outline.md
@@ -89,4 +89,3 @@ Calculate importance using weighted formula:
 - Symbol not found: Log warning, search in local_docs, continue processing
 - MCP timeout: Retry 3 times with exponential backoff
 - Circular dependency: Track visited symbols, break cycles, note in output
-- Memory pressure: Automatically reduce depth to 2 if needed

@@ -23,7 +23,7 @@ You have access to the following MCP server functions and should use them judici
 
 #### Tier 1: Critical Symbols (importance > 0.8)
 - pg_symbol_document for complete details
-- pg_symbol_source for implementation verification (max 100 lines)
+- pg_symbol_source for implementation verification
 - Generate:
   - Comprehensive overview with purpose and design rationale
   - Detailed parameter descriptions with types and constraints
@@ -34,7 +34,7 @@ You have access to the following MCP server functions and should use them judici
   - Example usage patterns
 
 #### Tier 2: Important Symbols (0.5 - 0.8)
-- pg_symbol_documentation only
+- pg_symbol_document only
 - Generate:
 * Clear functional description
 * Parameter and return documentation
@@ -53,6 +53,7 @@ You have access to the following MCP server functions and should use them judici
 #### Mandatory Diagrams (Minimum 3, Target 5-7)
 
 1. **System Architecture Overview** (graph TB)
+  - below contents is an example
 ```mermaid
 graph TB
 subgraph "WAL Generation"
@@ -73,6 +74,7 @@ end
 - Data transformations
 - Buffer management
 - I/O operations
+- Data passing between components via shared memory
 
 4. **State Transitions** (stateDiagram-v2) - where applicable
 
@@ -114,10 +116,6 @@ end
 
 #### Return Value
 [Description of return value and possible states]
-
-#### Error Handling
-- Error condition 1: behavior
-- Error condition 2: behavior
 
 #### Integration Points
 - Called by: [symbols]
