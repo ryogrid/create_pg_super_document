@@ -1,95 +1,84 @@
 flowchart LR
     subgraph "Primary Server"
-        subgraph "WAL Generation"
-            TXN[Transactions] --> WALGen[WAL Records]
-            WALGen --> WALBuf[WAL Buffers]
-        end
-
-        subgraph "WAL Writing"
-            WALBuf --> WALWrite[XLogWrite]
-            WALWrite --> WALFiles[WAL Files]
-            WALWrite --> Flush[XLogFlush]
-        end
-
-        subgraph "Replication Sender"
-            WALFiles --> WalSnd[WalSender Process]
-            Flush --> Wakeup[WalSndWakeup]
-            Wakeup --> WalSnd
-            WalSnd --> SendData[Physical/Logical Data]
-        end
-
-        subgraph "Connection Management"
-            SendData --> RepConn[Replication Connection]
-            RepConn --> Protocol[Copy Protocol]
-        end
+        A[Backend Processes] --> B[XLogInsert]
+        B --> C[WAL Buffers]
+        C --> D[XLogWrite]
+        D --> E[WAL Segments]
+        E --> F[WalSndLoop]
+        F --> G[WAL Sender Process]
     end
 
-    subgraph "Network"
-        Protocol --> NetStream[TCP Stream]
-        NetStream --> NetReply[Standby Replies]
-        NetReply --> RepConn
+    subgraph "Network Layer"
+        G --> H[TCP Connection]
+        H --> I[Copy Protocol Messages]
+        I --> J[WAL Data Packets]
+        J --> K[Keepalive Messages]
     end
 
     subgraph "Standby Server"
-        subgraph "Replication Receiver"
-            NetStream --> WalRcv[WalReceiver Process]
-            WalRcv --> MsgProc[XLogWalRcvProcessMsg]
-            MsgProc --> WalWrite[XLogWalRcvWrite]
-        end
-
-        subgraph "Local Storage"
-            WalWrite --> StandbyWAL[Standby WAL Files]
-            StandbyWAL --> WALFlush[XLogWalRcvFlush]
-        end
-
-        subgraph "Recovery Process"
-            StandbyWAL --> Startup[StartupXLOG]
-            Startup --> Recovery[PerformWalRecovery]
-            Recovery --> Apply[ApplyWalRecord]
-        end
-
-        subgraph "Hot Standby"
-            Apply --> HSQueries[Read-Only Queries]
-            HSQueries --> HSFeedback[Hot Standby Feedback]
-            HSFeedback --> WalRcv
-        end
-
-        subgraph "Standby Feedback"
-            HSFeedback --> StatusReply[Standby Status]
-            WALFlush --> StatusReply
-            StatusReply --> NetReply
-        end
+        H --> L[WalReceiverMain]
+        L --> M[XLogWalRcvProcessMsg]
+        M --> N{Message Type?}
+        N -->|WAL Data 'w'| O[XLogWalRcvWrite]
+        N -->|Keepalive 'k'| P[Process Keepalive]
+        O --> Q[Standby WAL Segments]
+        Q --> R[XLogWalRcvFlush]
+        R --> S[Recovery Process]
+        S --> T[ApplyWalRecord]
+        T --> U[Database State]
     end
 
-    subgraph "Cascading Standby"
-        Apply --> CascadeWalSnd[Cascade WalSender]
-        CascadeWalSnd --> CascadeConn[Cascade Connection]
-        CascadeConn --> CascadeNet[Cascade Stream]
+    subgraph "Feedback Loop"
+        P --> V[XLogWalRcvSendReply]
+        R --> V
+        V --> W[Status Messages]
+        W --> H
+        W --> X[Primary Acknowledgment]
+        X --> Y[Synchronous Commit Coordination]
     end
 
-    subgraph "Synchronous Replication"
-        SendData --> SyncWait[Sync Rep Wait]
-        NetReply --> SyncWait
-        SyncWait --> TXN
+    subgraph "Hot Standby Feedback"
+        U --> Z[Hot Standby Queries]
+        Z --> AA[Query Conflicts]
+        AA --> BB[XLogWalRcvSendHSFeedback]
+        BB --> CC[Conflict Resolution Info]
+        CC --> H
+        CC --> DD[Primary Vacuum Delay]
     end
 
-    %% Data flow arrows with labels
-    TXN -->|"Write WAL"| WALGen
-    WALFiles -->|"Read WAL"| WalSnd
-    SendData -->|"Stream Data"| NetStream
-    NetStream -->|"Receive Data"| WalRcv
-    StandbyWAL -->|"Replay WAL"| Startup
-    StatusReply -->|"Acknowledge"| NetReply
+    subgraph "Cascading Replication"
+        Q --> EE[Standby WalSndLoop]
+        EE --> FF[Secondary Standby]
+        FF --> GG[Tertiary Standby]
+        T --> HH[WalSndWakeup logical]
+        HH --> EE
+    end
 
-    %% Styling
-    classDef primary fill:#e3f2fd
-    classDef network fill:#f3e5f5
-    classDef standby fill:#e8f5e8
-    classDef cascade fill:#fff3e0
-    classDef sync fill:#fce4ec
+    subgraph "Timeline Management"
+        E --> II[Timeline History]
+        II --> JJ[Timeline Files]
+        JJ --> H
+        JJ --> KK[Standby Timeline Sync]
+        KK --> LL[Timeline Validation]
+    end
 
-    class TXN,WALGen,WALBuf,WALWrite,WALFiles,Flush,WalSnd,SendData,RepConn,Protocol primary
-    class NetStream,NetReply network
-    class WalRcv,MsgProc,WalWrite,StandbyWAL,WALFlush,Startup,Recovery,Apply,HSQueries,HSFeedback,StatusReply standby
-    class CascadeWalSnd,CascadeConn,CascadeNet cascade
-    class SyncWait sync
+    %% Data flow paths
+    classDef primary fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef network fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef standby fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef feedback fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+
+    class A,B,C,D,E,F,G primary
+    class H,I,J,K,W,CC,JJ network
+    class L,M,O,Q,R,S,T,U standby
+    class V,X,Y,BB,DD feedback
+
+    %% Critical path highlighting
+    B -.->|Critical Path| F
+    F -.->|Streaming| L
+    L -.->|Processing| S
+    S -.->|Recovery| U
+
+    %% Performance bottlenecks
+    class D,F,L,S bottleneck
+    classDef bottleneck fill:#ffcdd2,stroke:#d32f2f,stroke-width:3px

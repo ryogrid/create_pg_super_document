@@ -1,65 +1,71 @@
-# Recovery Component
+# WAL Recovery Component
 
 ## Overview
-The Recovery component orchestrates PostgreSQL's database recovery process, responsible for bringing a database system from an inconsistent state (after crash or shutdown) to a consistent, operational state. This component handles crash recovery, point-in-time recovery (PITR), and Hot Standby initialization through sophisticated WAL replay mechanisms that ensure ACID compliance and data consistency.
 
-The component consists of three primary functions working in sequence: `StartupXLOG` (overall recovery coordination), `PerformWalRecovery` (WAL replay execution), and `ApplyWalRecord` (individual record processing). Together, they implement PostgreSQL's comprehensive recovery strategy that handles various failure scenarios while maintaining transactional consistency.
+The WAL Recovery component is responsible for bringing the PostgreSQL database to a consistent state during startup by replaying WAL records. This component handles crash recovery, archive recovery (PITR), and standby initialization, ensuring data integrity and consistency across different recovery scenarios. It serves as the foundation for PostgreSQL's durability guarantees and high availability features.
 
 ## Key Concepts
-- **Recovery Types**: Crash recovery, archive recovery, and Hot Standby initialization
-- **WAL Replay**: Sequential application of Write-Ahead Log records to restore consistency
-- **Timeline Management**: Handling database timeline switches during recovery
+
+- **Crash Recovery**: Replaying uncommitted WAL records after an unclean shutdown
+- **Archive Recovery**: Point-in-time recovery from archived WAL and base backups
+- **Timeline Management**: Handling timeline switches and history during recovery
+- **Hot Standby**: Enabling read-only queries during recovery on standby servers
 - **Consistency Points**: Ensuring database reaches a consistent state before accepting connections
-- **Resource Manager Integration**: Coordinating with various PostgreSQL subsystems during recovery
+- **Resource Manager Integration**: Coordinating with different subsystems for record replay
 
 ## Architecture
 
 ```mermaid
 graph TB
-    subgraph "Recovery Startup"
-        A[StartupXLOG] --> B[Control File Validation]
-        B --> C[Directory Structure Setup]
+    subgraph "Recovery Initialization"
+        A[StartupXLOG Entry] --> B[Control File Validation]
+        B --> C[ValidateXLOGDirectoryStructure]
         C --> D[InitWalRecovery]
-        D --> E[Recovery State Initialization]
+        D --> E{Recovery Needed?}
     end
 
-    subgraph "WAL Recovery Process"
-        E --> F[PerformWalRecovery]
-        F --> G[Find Recovery Start Point]
-        G --> H[Main Recovery Loop]
-        H --> I[ReadRecord]
-        I --> J[ApplyWalRecord]
-        J --> K[Check Recovery Target]
-        K --> L{More Records?}
-        L --> I
-        L --> M[Recovery Complete]
+    subgraph "Recovery Preparation"
+        E -->|Yes| F[Initialize Shared Memory]
+        F --> G[Start Resource Managers]
+        G --> H[Setup Hot Standby]
+        H --> I[Prepare Recovery Environment]
+        E -->|No| J[Skip to Finalization]
     end
 
-    subgraph "Record Application"
-        J --> N[Transaction ID Management]
-        N --> O[Timeline Switch Detection]
-        O --> P[Resource Manager Dispatch]
-        P --> Q[Hot Standby Processing]
-        Q --> R[Consistency Checks]
+    subgraph "WAL Replay Engine"
+        I --> K[PerformWalRecovery]
+        K --> L[ReadRecord Loop]
+        L --> M[ApplyWalRecord]
+        M --> N{Record Type?}
+        N -->|Regular| O[Resource Manager Redo]
+        N -->|Checkpoint| P[Update Recovery State]
+        N -->|Timeline Switch| Q[Handle Timeline Change]
+        O --> R[Update Progress]
+        P --> R
+        Q --> R
+        R --> S{Recovery Complete?}
+        S -->|No| L
+        S -->|Yes| T[FinishWalRecovery]
     end
 
     subgraph "Recovery Completion"
-        M --> S[FinishWalRecovery]
-        S --> T[Timeline Assignment]
-        T --> U[WAL Buffer Setup]
-        U --> V[System State Transition]
-        V --> W[Enable WAL Writes]
+        T --> U{Archive Recovery?}
+        U -->|Yes| V[Create New Timeline]
+        U -->|No| W[Extend Current Timeline]
+        V --> X[Write Timeline History]
+        W --> X
+        X --> Y[Transition to Production]
+        J --> Y
+        Y --> Z[Enable WAL Writing]
     end
 
-    subgraph "Coordination"
-        X[Hot Standby Sessions]
-        Y[Walsender Processes]
-        Z[Background Processes]
-    end
+    classDef critical fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+    classDef replay fill:#ccffcc,stroke:#00ff00,stroke-width:2px
+    classDef timeline fill:#ffffcc,stroke:#ffaa00,stroke-width:2px
 
-    Q --> X
-    R --> Y
-    W --> Z
+    class A,K,M critical
+    class L,O,R replay
+    class Q,V,X timeline
 ```
 
 ## Core APIs
@@ -67,7 +73,7 @@ graph TB
 ### StartupXLOG
 
 #### Purpose
-StartupXLOG serves as the main recovery coordinator that must be called exactly once during database startup to perform WAL recovery and bring the database system to a consistent, operational state. This function orchestrates the entire recovery process across all recovery types.
+StartupXLOG is the main recovery function that must be called ONCE during postmaster or standalone-backend startup to perform WAL recovery and bring the database system to a consistent state. It orchestrates the entire recovery process from initialization to production readiness.
 
 #### Signature
 ```c
@@ -75,41 +81,61 @@ void StartupXLOG(void)
 ```
 
 #### Detailed Description
-StartupXLOG implements comprehensive recovery coordination through several distinct phases:
+StartupXLOG serves as the central coordinator for all database recovery activities. The function operates through multiple distinct phases, each handling specific aspects of recovery:
 
-1. **Control File Analysis**: Examines the control file to determine the previous shutdown state and validates checkpoint locations
-2. **Environment Setup**: Ensures WAL directory structure exists and removes temporary files from previous crashes
-3. **Recovery Initialization**: Calls `InitWalRecovery` to analyze backup labels and set recovery parameters
-4. **Shared Memory Setup**: Initializes transaction state, multixact state, and other shared memory structures from checkpoint data
-5. **Subsystem Startup**: Starts CLOG, MultiXact, replication slots, and other required subsystems
-6. **WAL Recovery Execution**: Calls `PerformWalRecovery` if recovery is needed
-7. **Timeline Management**: Handles timeline switches for archive recovery scenarios
-8. **System Transition**: Transitions from recovery mode to production mode
-9. **Final Cleanup**: Enables WAL writes and performs post-recovery housekeeping
+**Control File Analysis Phase:**
+```c
+switch (ControlFile->state)
+{
+    case DB_SHUTDOWNED:
+        // Clean shutdown - minimal recovery needed
+        break;
+    case DB_IN_CRASH_RECOVERY:
+        // Previous crash during recovery
+        break;
+    case DB_IN_ARCHIVE_RECOVERY:
+        // Previous archive recovery interruption
+        break;
+    case DB_IN_PRODUCTION:
+        // Unclean shutdown during normal operation
+        break;
+}
+```
 
-The function handles various database states (DB_SHUTDOWNED, DB_IN_CRASH_RECOVERY, DB_IN_ARCHIVE_RECOVERY) with appropriate recovery strategies for each scenario.
+**Recovery Execution Phases:**
+1. **Environment Setup**: Validates directory structure, removes temporary files
+2. **State Initialization**: Sets up shared memory, resource managers, transaction systems
+3. **WAL Replay**: Performs actual recovery through PerformWalRecovery if needed
+4. **Timeline Management**: Handles timeline switches for archive recovery scenarios
+5. **Production Transition**: Enables WAL writing and updates control file state
+
+**Critical State Transitions:**
+- `InRecovery = true` → WAL replay and recovery mode
+- `InRecovery = false` → Normal production mode
+- Control file state: `DB_IN_CRASH_RECOVERY` → `DB_IN_PRODUCTION`
 
 #### Parameters
-This function takes no parameters as it operates on global system state and control file information.
+No parameters - operates on global system state and control file information.
 
 #### Return Value
-Returns void. Success is indicated by successful completion without fatal errors.
+Void function that completes database startup preparation. Success indicated by transition to production state.
 
 #### Error Handling
-- **Control File Corruption**: Reports FATAL error for invalid checkpoint locations
-- **Inconsistent State**: Handles various database states with appropriate error reporting
-- **Recovery Failures**: Coordinates error handling across all recovery phases
-- **Resource Allocation**: Manages resource owner context for auxiliary processes
+- **FATAL Errors**: Invalid control file, corrupted WAL, insufficient recovery data
+- **Control File Validation**: Strict validation of checkpoint locations and database state
+- **WAL Consistency**: Ensures sufficient WAL available for recovery to consistency point
+- **Resource Cleanup**: Proper cleanup on any failure to prevent corruption
 
 #### Integration Points
-- **Called by**: `StartupProcessMain` (startup process), `InitPostgres` (single-user mode)
-- **Calls**: `InitWalRecovery`, `PerformWalRecovery`, `FinishWalRecovery`, various subsystem startup functions
-- **Shared state**: Updates control file, shared memory structures, and global recovery state
+- **Called by**: StartupProcessMain (startup process), InitPostgres (single-user mode)
+- **Calls**: ValidateXLOGDirectoryStructure, InitWalRecovery, PerformWalRecovery, FinishWalRecovery
+- **Shared state**: Updates ControlFile, XLogCtl, TransamVariables, recovery state
+- **Coordination**: Manages resource managers, Hot Standby, prepared transactions
 
 ### PerformWalRecovery
 
 #### Purpose
-PerformWalRecovery executes the main WAL replay loop, reading and applying WAL records from the recovery start point to either the end of available WAL or a configured recovery target. This function implements the core logic of database consistency restoration.
+PerformWalRecovery performs WAL recovery by replaying WAL records from the REDO start location to either the end of available WAL or a configured recovery target. It implements the core WAL replay loop.
 
 #### Signature
 ```c
@@ -117,39 +143,61 @@ void PerformWalRecovery(void)
 ```
 
 #### Detailed Description
-PerformWalRecovery implements the central WAL replay mechanism:
+PerformWalRecovery executes the heart of PostgreSQL's recovery mechanism. The function implements a sophisticated replay loop that handles various recovery scenarios:
 
-1. **Recovery Initialization**: Sets up shared memory tracking for WAL replay progress and signals postmaster that recovery has started
-2. **Consistency Checking**: Calls `CheckRecoveryConsistency` to determine if the database has reached a consistent state
-3. **Start Point Location**: Finds the first WAL record to replay, either at the REDO start LSN or after the checkpoint location
-4. **Main Recovery Loop**: Iterates through WAL records using `ReadRecord` and applies each one via `ApplyWalRecord`
-5. **Target Evaluation**: Checks recovery targets (time, LSN, transaction ID, named restore points) after each record
-6. **Progress Reporting**: Provides progress updates for monitoring and debugging purposes
-7. **Recovery Completion**: Handles different recovery target actions (shutdown, pause, promote) based on configuration
+**Recovery Loop Architecture:**
+```c
+for (;;)
+{
+    record = ReadRecord(xlogreader, LOG);
+    if (record == NULL)
+        break;  // End of WAL reached
 
-The function supports various recovery scenarios including immediate consistency checking, recovery delays for lagging behind primary, and pause/resume functionality for Hot Standby sessions.
+    ApplyWalRecord(xlogreader, record, &replayTLI);
+
+    // Check for recovery targets, pauses, delays
+    if (recoveryStopsBefore(record) || recoveryStopsAfter(record))
+        break;
+
+    if (recoveryPausesHere())
+        HandleRecoveryPause();
+}
+```
+
+**Key Recovery Features:**
+1. **Progress Tracking**: Updates XLogRecoveryCtl for monitoring and coordination
+2. **Recovery Targets**: Supports time, LSN, transaction ID, and named restore points
+3. **Recovery Pause**: Allows pausing recovery for inspection or coordination
+4. **Consistency Checking**: Validates recovery reaches required consistency points
+5. **Resource Manager Integration**: Coordinates with all PostgreSQL subsystems
+
+**Performance Optimizations:**
+- **WAL Prefetching**: Improves I/O performance during recovery
+- **Batch Processing**: Efficient handling of multiple records
+- **Memory Management**: Optimized memory usage for large recovery operations
 
 #### Parameters
-This function takes no parameters and operates on global recovery state maintained in shared memory.
+No parameters - operates on global recovery state and configuration.
 
 #### Return Value
-Returns void. Effects are visible through applied WAL records and updated recovery state.
+Void function that completes WAL replay. Recovery progress tracked via shared memory.
 
 #### Error Handling
-- **WAL Reading Errors**: Handles EOF and corrupted record scenarios gracefully
-- **Recovery Target Validation**: Ensures recovery targets are achievable
-- **Resource Manager Errors**: Coordinates error handling during record application
-- **Interrupt Handling**: Processes startup process interrupts and pause requests
+- **WAL Read Errors**: Handles corrupted or missing WAL gracefully
+- **Replay Errors**: Resource manager specific error handling
+- **Recovery Targets**: Validation of recovery target parameters
+- **Consistency Validation**: Ensures recovery reaches safe consistency points
 
 #### Integration Points
-- **Called by**: `StartupXLOG` when recovery is required
-- **Calls**: `ReadRecord`, `ApplyWalRecord`, `CheckRecoveryConsistency`, recovery target functions
-- **Shared state**: Updates `XLogRecoveryCtl` progress tracking, coordinates with Hot Standby
+- **Called by**: StartupXLOG during recovery phase
+- **Calls**: ReadRecord, ApplyWalRecord, CheckRecoveryConsistency, recovery control functions
+- **Shared state**: Updates recovery progress, coordinates with Hot Standby
+- **Signals**: Responds to recovery pause/resume requests
 
 ### ApplyWalRecord
 
 #### Purpose
-ApplyWalRecord processes and applies a single WAL record during recovery, handling transaction ID advancement, timeline switches, resource manager dispatch, and various recovery-specific operations. This function ensures each WAL record is properly integrated into the recovering system.
+ApplyWalRecord is a subroutine of PerformWalRecovery that applies a single WAL record during recovery, handling timeline switches, transaction ID advancement, and various recovery-specific operations.
 
 #### Signature
 ```c
@@ -157,179 +205,275 @@ static void ApplyWalRecord(XLogReaderState *xlogreader, XLogRecord *record, Time
 ```
 
 #### Detailed Description
-ApplyWalRecord implements comprehensive single-record processing:
+ApplyWalRecord processes individual WAL records during recovery, implementing the detailed logic needed for each record type:
 
-1. **Error Context Setup**: Establishes error callbacks for detailed error reporting during record application
-2. **Transaction ID Management**: Advances the global transaction ID counter beyond the record's XID to maintain consistency
-3. **Timeline Switch Detection**: Examines checkpoint and end-of-recovery records for timeline changes
-4. **Resource Manager Dispatch**: Delegates record processing to appropriate resource managers based on record type
-5. **Hot Standby Processing**: Records known assigned transaction IDs when Hot Standby is enabled
-6. **Consistency Verification**: Performs backup page consistency checks when enabled
-7. **Coordination Signaling**: Wakes up walsender processes and coordinates with cascading replication
-8. **Timeline Cleanup**: Removes obsolete WAL files when switching timelines
-9. **Progress Updates**: Updates shared memory structures to reflect replay progress
+**Record Processing Pipeline:**
+1. **Error Context Setup**: Establishes detailed error reporting for replay failures
+2. **Transaction ID Management**: Advances transaction ID counters past record's XID
+3. **Resource Manager Dispatch**: Routes record to appropriate RM for actual replay
+4. **Timeline Switch Detection**: Identifies and processes timeline changes
+5. **Progress Updates**: Maintains recovery progress tracking
+6. **Consistency Checks**: Validates backup page consistency when enabled
 
-The function handles special XLOG records (checkpoints, end-of-recovery) with specific processing logic and coordinates with various PostgreSQL subsystems.
+**Special Record Handling:**
+```c
+// Timeline switch detection
+if (record->xl_rmid == RM_XLOG_ID)
+{
+    uint8 info = record->xl_info & ~XLR_INFO_MASK;
+    if (info == XLOG_CHECKPOINT_SHUTDOWN ||
+        info == XLOG_END_OF_RECOVERY)
+    {
+        checkTimeLineSwitch(record, replayTLI);
+    }
+}
+```
+
+**Hot Standby Integration:**
+- Records known assigned transaction IDs for query consistency
+- Coordinates with Hot Standby query processing
+- Manages transaction visibility during recovery
+
+**Replication Coordination:**
+- Wakes up physical replication senders when WAL flushed
+- Wakes up logical replication senders when WAL applied
+- Coordinates cascading replication scenarios
 
 #### Parameters
 | Parameter | Type | Description | Constraints |
 |-----------|------|-------------|-------------|
-| xlogreader | XLogReaderState* | WAL reader state containing current record | Valid reader with loaded record |
-| record | XLogRecord* | Pointer to the WAL record being applied | Valid record structure |
-| replayTLI | TimeLineID* | Current replay timeline (may be updated) | Pointer to valid timeline ID |
+| xlogreader | XLogReaderState* | WAL reader containing current record | Must be positioned at valid record |
+| record | XLogRecord* | Current WAL record to apply | Must be valid WAL record |
+| replayTLI | TimeLineID* | Current replay timeline (may be updated) | Valid timeline ID |
 
 #### Return Value
-Returns void. Effects are visible through applied changes and updated timeline information.
+Void function that applies record and updates replay state. Timeline changes reflected in replayTLI parameter.
 
 #### Error Handling
-- **Resource Manager Errors**: Provides detailed error context for debugging
-- **Timeline Validation**: Ensures timeline switches are valid and consistent
-- **Consistency Check Failures**: Reports backup page inconsistencies when detected
-- **Transaction State Errors**: Handles transaction ID advancement failures
+- **Replay Errors**: Detailed error context for debugging
+- **Timeline Validation**: Ensures timeline switches are valid
+- **Consistency Failures**: Handles backup page consistency check failures
+- **Resource Manager Errors**: Delegates error handling to appropriate RM
 
 #### Integration Points
-- **Called by**: `PerformWalRecovery` main recovery loop
-- **Calls**: Resource manager redo functions, `checkTimeLineSwitch`, `WalSndWakeup`
-- **Shared state**: Updates transaction state, timeline information, and recovery progress
+- **Called by**: PerformWalRecovery for each WAL record
+- **Calls**: Resource manager redo functions, timeline management, replication coordination
+- **Shared state**: Updates recovery progress, known assigned XIDs, timeline state
+- **Coordination**: Walsender wakeup, Hot Standby integration, consistency tracking
 
 ## Data Structures
 
-### XLogRecoveryCtl
-The main shared memory structure for recovery coordination:
-
-```c
-typedef struct XLogRecoveryCtl
-{
-    XLogRecPtr      lastReplayedReadRecPtr;  /* Last record read */
-    XLogRecPtr      lastReplayedEndRecPtr;   /* Last record applied */
-    TimeLineID      lastReplayedTLI;         /* Timeline of last record */
-    XLogRecPtr      replayEndRecPtr;         /* End of last record replayed */
-    TimeLineID      replayEndTLI;            /* Timeline of replay end */
-    XLogRecPtr      recoveryTargetLSN;       /* Target LSN for recovery */
-    bool            recoveryTargetInclusive; /* Include target record? */
-    int             recoveryTargetAction;    /* Action at target */
-} XLogRecoveryCtl;
-```
-
-**Key Fields**:
-- `lastReplayedEndRecPtr`: Tracks progress of WAL replay
-- `replayEndTLI`: Current timeline being replayed
-- `recoveryTargetLSN`: Configured recovery target position
-
 ### EndOfWalRecoveryInfo
-Structure containing information about recovery completion:
+Information about recovery completion:
 
 ```c
 typedef struct EndOfWalRecoveryInfo
 {
-    XLogRecPtr      endOfLog;               /* End position of WAL */
-    TimeLineID      endOfLogTLI;            /* Timeline at end of WAL */
-    XLogRecPtr      lastRec;                /* Last complete record */
-    TimeLineID      lastRecTLI;             /* Timeline of last record */
-    XLogRecPtr      abortedRecPtr;          /* Aborted record position */
-    bool            standby_signal_file_found; /* Standby signal present */
-    bool            recovery_signal_file_found; /* Recovery signal present */
-    char           *recoveryStopReason;     /* Reason for recovery stop */
+    XLogRecPtr  endOfLog;                /* End of WAL position */
+    TimeLineID  endOfLogTLI;             /* Timeline of end position */
+    XLogRecPtr  lastRec;                 /* Last record LSN */
+    TimeLineID  lastRecTLI;              /* Last record timeline */
+    XLogRecPtr  abortedRecPtr;           /* Incomplete record start */
+    XLogRecPtr  missingContrecPtr;       /* Missing continuation */
+    bool        standby_signal_file_found;
+    bool        recovery_signal_file_found;
+    char       *recoveryStopReason;      /* Reason for stopping */
+    /* ... additional completion info ... */
 } EndOfWalRecoveryInfo;
+```
+
+### XLogRecoveryCtl
+Shared memory structure for recovery coordination:
+
+```c
+typedef struct XLogRecoveryCtl
+{
+    XLogRecPtr  lastReplayedReadRecPtr;  /* Last record read */
+    XLogRecPtr  lastReplayedEndRecPtr;   /* Last record end */
+    TimeLineID  lastReplayedTLI;         /* Last timeline */
+    TimestampTz recoveryLastXTime;       /* Recovery progress time */
+    bool        recoveryPaused;          /* Pause state */
+    /* ... additional coordination fields ... */
+} XLogRecoveryCtl;
 ```
 
 ## Processing Flow
 
 ```mermaid
 sequenceDiagram
-    participant SM as Startup Main
-    participant SX as StartupXLOG
-    participant PWR as PerformWalRecovery
-    participant AWR as ApplyWalRecord
-    participant RM as Resource Managers
+    participant Startup as Startup Process
+    participant StartupXLOG
+    participant PerformWalRecovery
+    participant ApplyWalRecord
+    participant ResourceMgr as Resource Managers
 
-    SM->>SX: StartupXLOG()
-    SX->>SX: Validate control file
-    SX->>SX: InitWalRecovery()
-    SX->>SX: Initialize shared memory
-    SX->>SX: Start subsystems (CLOG, MultiXact, etc.)
+    Startup->>StartupXLOG: Begin recovery
+    StartupXLOG->>StartupXLOG: Analyze control file state
 
-    alt Recovery needed
-        SX->>PWR: PerformWalRecovery()
-        PWR->>PWR: Find recovery start point
-        PWR->>PWR: CheckRecoveryConsistency()
+    alt Clean shutdown
+        StartupXLOG->>StartupXLOG: Skip WAL recovery
+    else Unclean shutdown or archive recovery
+        StartupXLOG->>StartupXLOG: Initialize recovery environment
+        StartupXLOG->>PerformWalRecovery: Begin WAL replay
 
         loop For each WAL record
-            PWR->>PWR: ReadRecord()
-            PWR->>AWR: ApplyWalRecord()
-            AWR->>AWR: Advance transaction IDs
-            AWR->>AWR: Check timeline switches
+            PerformWalRecovery->>PerformWalRecovery: ReadRecord()
+            PerformWalRecovery->>ApplyWalRecord: Process record
 
-            AWR->>RM: Resource manager redo()
-            RM->>RM: Apply record changes
-            RM-->>AWR: Return success
+            ApplyWalRecord->>ApplyWalRecord: Setup error context
+            ApplyWalRecord->>ApplyWalRecord: Advance transaction IDs
+            ApplyWalRecord->>ResourceMgr: Delegate to appropriate RM
+            ResourceMgr-->>ApplyWalRecord: Record applied
 
-            AWR->>AWR: Update Hot Standby state
-            AWR->>AWR: Wake walsenders
-            AWR-->>PWR: Record applied
+            alt Timeline switch record
+                ApplyWalRecord->>ApplyWalRecord: Handle timeline change
+                ApplyWalRecord->>ApplyWalRecord: Update replayTLI
+            end
 
-            PWR->>PWR: Check recovery targets
-            alt Target reached
-                PWR->>PWR: Handle target action
+            ApplyWalRecord->>ApplyWalRecord: Update recovery progress
+            ApplyWalRecord-->>PerformWalRecovery: Record processed
+
+            alt Recovery target reached
+                PerformWalRecovery->>PerformWalRecovery: Stop recovery
+                break Exit replay loop
             end
         end
 
-        PWR-->>SX: Recovery complete
+        PerformWalRecovery-->>StartupXLOG: Recovery complete
     end
 
-    SX->>SX: FinishWalRecovery()
-    SX->>SX: Assign new timeline (if needed)
-    SX->>SX: Setup WAL buffers
-    SX->>SX: Transition to production mode
-    SX-->>SM: Startup complete
+    StartupXLOG->>StartupXLOG: FinishWalRecovery()
+
+    alt Archive recovery
+        StartupXLOG->>StartupXLOG: Create new timeline
+        StartupXLOG->>StartupXLOG: Write timeline history
+    else Crash recovery
+        StartupXLOG->>StartupXLOG: Extend current timeline
+    end
+
+    StartupXLOG->>StartupXLOG: Transition to production mode
+    StartupXLOG-->>Startup: Database ready
 ```
 
 ## Implementation Notes
 
-### Recovery Types
-The component handles multiple recovery scenarios:
+### Control File State Management
+StartupXLOG handles multiple database states:
 
-1. **Crash Recovery**: Replays WAL from last checkpoint after unclean shutdown
-2. **Archive Recovery**: Point-in-time recovery from backup with archived WAL
-3. **Hot Standby Recovery**: Continuous recovery with read-only query support
-4. **Streaming Recovery**: Real-time recovery from streaming replication
+```c
+// State transition examples
+switch (ControlFile->state)
+{
+    case DB_SHUTDOWNED:
+        // Normal startup, no recovery needed
+        performedWalRecovery = false;
+        break;
 
-### Timeline Management
-Sophisticated timeline handling ensures consistency:
+    case DB_IN_PRODUCTION:
+        // Crash recovery needed
+        InRecovery = true;
+        performedWalRecovery = true;
+        break;
 
-1. **Timeline Detection**: Automatic detection of timeline switches from checkpoint records
-2. **History Files**: Management of timeline history for cascading scenarios
-3. **Timeline Assignment**: New timeline creation for archive recovery
-4. **WAL Cleanup**: Removal of obsolete future WAL segments
+    case DB_IN_ARCHIVE_RECOVERY:
+        // Continue archive recovery
+        ArchiveRecoveryRequested = true;
+        InRecovery = true;
+        break;
+}
+```
 
-### Hot Standby Integration
-Close coordination with Hot Standby functionality:
+**State Validation:**
+- Validates checkpoint locations in control file
+- Ensures database state consistency
+- Handles corrupted control file scenarios
+- Manages backup label and tablespace map files
 
-1. **Transaction Tracking**: Maintenance of known assigned transaction IDs
-2. **Consistency Points**: Determination of when queries can start
-3. **Conflict Resolution**: Handling conflicts between recovery and queries
-4. **State Communication**: Coordination with Hot Standby sessions
+### Timeline Management and History
+Complex timeline handling for PITR scenarios:
 
-### Performance Optimizations
-Several optimizations improve recovery performance:
+```c
+// Timeline decision logic
+if (ArchiveRecoveryRequested)
+{
+    newTLI = findNewestTimeLine(recoveryTargetTLI) + 1;
+    ereport(LOG, (errmsg("selected new timeline ID: %u", newTLI)));
 
-1. **WAL Prefetching**: Prefetching WAL records to improve I/O performance
-2. **Batch Processing**: Grouping related operations for efficiency
-3. **Progress Tracking**: Detailed progress monitoring for large recoveries
-4. **Resource Management**: Efficient resource allocation during recovery
+    // Create writable copy of last WAL segment
+    XLogInitNewTimeline(EndOfLogTLI, EndOfLog, newTLI);
 
-### Error Handling and Robustness
-Comprehensive error handling ensures system reliability:
+    // Write timeline history file
+    writeTimeLineHistory(newTLI, recoveryTargetTLI, EndOfLog, reason);
+}
+```
 
-1. **Corruption Detection**: Detection and handling of WAL corruption
-2. **Incomplete Records**: Graceful handling of incomplete WAL records
-3. **Resource Cleanup**: Proper cleanup on recovery failures
-4. **State Consistency**: Maintenance of consistent state during errors
+**Timeline Features:**
+- Automatic timeline history file creation
+- Handling of timeline switches during recovery
+- Prevention of timeline conflicts
+- Cascading standby timeline coordination
 
-### Monitoring and Observability
-Built-in instrumentation supports operational monitoring:
+### Resource Manager Integration
+Coordination with all PostgreSQL subsystems:
 
-1. **Progress Reporting**: Detailed tracking of recovery progress
-2. **State Visibility**: Clear indication of current recovery state
-3. **Performance Metrics**: Timing and throughput measurements
-4. **Error Reporting**: Comprehensive error context and debugging information
+```c
+// Resource manager startup sequence
+StartupCLOG();              // Transaction status
+StartupMultiXact();         // Multi-transaction IDs
+StartupCommitTs();          // Commit timestamps
+StartupReplicationSlots();  // Replication slots
+StartupReorderBuffer();     // Logical replication
+StartupReplicationOrigin(); // Replication origins
+```
+
+**Integration Benefits:**
+- Ensures all subsystems ready for recovery
+- Proper ordering of subsystem initialization
+- Cleanup coordination during recovery completion
+- Error handling across all subsystems
+
+### Hot Standby Coordination
+Special handling for standby servers:
+
+```c
+if (ArchiveRecoveryRequested && EnableHotStandby)
+{
+    ereport(DEBUG1, (errmsg_internal("initializing for hot standby")));
+
+    InitRecoveryTransactionEnvironment();
+    ProcArrayInitRecovery(XidFromFullTransactionId(TransamVariables->nextXid));
+    StartupSUBTRANS(oldestActiveXID);
+
+    // Handle prepared transactions for standby
+    if (wasShutdown)
+        StandbyRecoverPreparedTransactions();
+}
+```
+
+### Performance Characteristics
+
+#### Recovery Speed Optimization
+- **WAL Prefetching**: Reduces I/O wait times during sequential replay
+- **Resource Manager Efficiency**: Optimized redo functions for each subsystem
+- **Memory Management**: Efficient buffer management during replay
+- **Parallel Processing**: Some resource managers support parallel replay
+
+#### Consistency Guarantees
+- **ACID Compliance**: Ensures all committed transactions are replayed
+- **Isolation**: Proper transaction visibility during Hot Standby
+- **Durability**: Validates recovery reaches required consistency points
+- **Atomicity**: Proper handling of incomplete transactions
+
+#### Scalability Factors
+- **Large WAL Volumes**: Efficient processing of high-volume WAL streams
+- **Long Recovery Times**: Progress tracking and pause/resume capabilities
+- **Complex Topologies**: Support for cascading replication scenarios
+- **Resource Usage**: Bounded memory usage regardless of recovery duration
+
+### Error Recovery and Robustness
+Comprehensive error handling throughout recovery:
+
+- **Corrupted WAL**: Graceful handling of partial or corrupted records
+- **Missing Files**: Proper error messages for incomplete backups
+- **Timeline Conflicts**: Prevention of invalid timeline progressions
+- **Resource Failures**: Cleanup and retry mechanisms for subsystem failures

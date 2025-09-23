@@ -1,49 +1,53 @@
 # WAL Generation Component
 
 ## Overview
-The WAL Generation component is responsible for constructing and inserting Write-Ahead Log records into PostgreSQL's transaction log. This component ensures that all database modifications are logged before the actual data changes are written to disk, implementing the fundamental WAL principle: "write the log before the data."
 
-The component consists of three primary functions that work together in a pipeline: `XLogInsert` (high-level interface), `XLogInsertRecord` (core insertion logic), and `XLogRecordAssemble` (record construction). This design provides a clear separation between record preparation and physical insertion into the WAL buffers.
+The WAL Generation component is responsible for constructing, assembling, and inserting Write-Ahead Log records into the WAL buffer. This is the entry point for all database operations that need to be logged for durability and replication. The component implements PostgreSQL's fundamental WAL principle: "write the log before the data".
 
 ## Key Concepts
-- **WAL Record Construction**: Building complete records from registered data and buffer references
-- **Full-Page Writes**: Including complete page images when necessary for crash recovery
-- **Transaction Integration**: Coordinating with PostgreSQL's transaction system
-- **Concurrency Control**: Managing concurrent WAL insertions through insertion locks
-- **Space Reservation**: Allocating space in WAL buffers before copying data
+
+- **WAL Record Construction**: Multi-phase process of building complete WAL records from registered data and buffer references
+- **Full-Page Writes (FPW)**: Complete page images included in WAL records to ensure crash consistency
+- **Resource Managers**: Subsystem-specific handlers that define WAL record formats and replay logic
+- **LSN (Log Sequence Number)**: Unique identifier for each WAL record position, used for ordering and durability guarantees
 
 ## Architecture
 
 ```mermaid
 graph TB
-    subgraph "WAL Generation Pipeline"
-        A[XLogBeginInsert] --> B[XLogRegister*]
-        B --> C[XLogInsert]
-        C --> D[XLogRecordAssemble]
-        D --> E[XLogInsertRecord]
-        E --> F[CopyXLogRecordToWAL]
-        F --> G[XLogResetInsertion]
+    subgraph "Record Construction Phase"
+        A[Backend Process] --> B[XLogBeginInsert]
+        B --> C[XLogRegisterData]
+        B --> D[XLogRegisterBuffer]
+        C --> E[XLogInsert]
+        D --> E
     end
 
-    subgraph "Support Functions"
-        H[GetFullPageWriteInfo]
-        I[WALInsertLockAcquire]
-        J[ReserveXLogInsertLocation]
+    subgraph "Assembly Phase"
+        E --> F[GetFullPageWriteInfo]
+        F --> G[XLogRecordAssemble]
+        G --> H{Full-Page<br/>Required?}
+        H -->|Yes| I[Include Page Image]
+        H -->|No| J[Include Block Reference]
+        I --> K[Apply Compression]
+        J --> K
+        K --> L[Calculate CRC]
     end
 
-    C --> H
-    E --> I
-    E --> J
-
-    subgraph "WAL Buffers"
-        K[WAL Buffer 1]
-        L[WAL Buffer 2]
-        M[WAL Buffer N]
+    subgraph "Insertion Phase"
+        L --> M[XLogInsertRecord]
+        M --> N[WALInsertLockAcquire]
+        N --> O[ReserveXLogInsertLocation]
+        O --> P[CopyXLogRecordToWAL]
+        P --> Q[WALInsertLockRelease]
+        Q --> R[Return LSN]
     end
 
-    F --> K
-    F --> L
-    F --> M
+    classDef critical fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+    classDef entry fill:#ccffcc,stroke:#00ff00,stroke-width:2px
+
+    class E,G,M critical
+    class A,E entry
 ```
 
 ## Core APIs
@@ -51,7 +55,7 @@ graph TB
 ### XLogInsert
 
 #### Purpose
-XLogInsert is the primary function that finalizes and inserts a constructed WAL record into the Write-Ahead Log, returning the LSN for the inserted record. This function serves as the main entry point for WAL record insertion across the entire PostgreSQL system.
+XLogInsert is the primary function that finalizes and inserts a constructed WAL record into the Write-Ahead Log, returning the LSN for the inserted record. It serves as the culmination of the WAL record construction process.
 
 #### Signature
 ```c
@@ -59,34 +63,43 @@ XLogRecPtr XLogInsert(RmgrId rmid, uint8 info)
 ```
 
 #### Detailed Description
-XLogInsert coordinates the final stages of WAL record insertion by taking all data and buffer references registered through previous `XLogRegister*` calls and creating a complete WAL record. The function performs critical validation, handles bootstrap mode specially, determines full-page write requirements, assembles the complete record, and manages the insertion process including retries if conditions change.
+XLogInsert coordinates the final phases of WAL record insertion. The function operates in a retry loop to handle race conditions with full-page write decisions. It validates prerequisites (XLogBeginInsert called, valid info byte), handles bootstrap mode specially, determines full-page write requirements dynamically, assembles the complete record, and inserts it atomically.
 
-The function implements a retry mechanism for cases where full-page write requirements change between record assembly and insertion. This can occur when checkpoints advance the RedoRecPtr or when backup processes modify the full-page write state.
+The function implements the core WAL guarantee by returning an LSN that represents the durability checkpoint - data pages affected by this operation cannot be written to disk until WAL is flushed through this LSN.
+
+**Implementation Flow:**
+1. Validate insertion prerequisites and info byte constraints
+2. Handle bootstrap mode with dummy LSN for non-XLOG records
+3. Enter retry loop for full-page write race condition handling
+4. Get current full-page write requirements (RedoRecPtr, doPageWrites)
+5. Assemble complete record via XLogRecordAssemble
+6. Insert record via XLogInsertRecord
+7. Retry if insertion failed due to timing issues
+8. Clean up insertion state and return final LSN
 
 #### Parameters
 | Parameter | Type | Description | Constraints |
 |-----------|------|-------------|-------------|
-| rmid | RmgrId | Resource Manager ID identifying the subsystem | Valid resource manager (e.g., RM_HEAP_ID, RM_BTREE_ID) |
-| info | uint8 | Operation-specific flags and information | Limited to XLR_RMGR_INFO_MASK, XLR_SPECIAL_REL_UPDATE, XLR_CHECK_CONSISTENCY |
+| rmid | RmgrId | Resource Manager ID identifying which subsystem owns this record type | Must be valid RM_* constant (0-255) |
+| info | uint8 | Operation-specific flags and information byte | Only XLR_RMGR_INFO_MASK, XLR_SPECIAL_REL_UPDATE, XLR_CHECK_CONSISTENCY bits allowed |
 
 #### Return Value
-Returns an `XLogRecPtr` representing the end position of the inserted record (beginning of the next record). This LSN serves as the durability guarantee - it must be flushed to disk before any affected data pages can be written. Returns `InvalidXLogRecPtr` on failure (handled internally via retry).
+Returns XLogRecPtr (LSN) pointing to the end of the inserted record (beginning of next record). This LSN serves as the durability guarantee point. Returns InvalidXLogRecPtr only in bootstrap mode for non-XLOG records.
 
 #### Error Handling
-- **Validation Error**: If `XLogBeginInsert()` was not called
-- **Invalid Info Mask**: If reserved info bits are set by caller
-- **Bootstrap Handling**: Returns dummy LSN for non-XLOG records in bootstrap mode
-- **Retry Logic**: Automatically retries if insertion fails due to changing conditions
+- **ERROR**: "XLogBeginInsert was not called" - Prerequisites not met
+- **PANIC**: "invalid xlog info mask" - Invalid info byte flags
+- **Retry Logic**: Automatically retries if XLogInsertRecord returns InvalidXLogRecPtr due to full-page write timing changes
 
 #### Integration Points
-- **Called by**: All subsystems performing logged operations (heap_insert, btree operations, transaction commits)
-- **Calls**: `GetFullPageWriteInfo`, `XLogRecordAssemble`, `XLogInsertRecord`, `XLogResetInsertion`
-- **Shared state**: Modifies WAL insertion state, updates global LSN tracking
+- **Called by**: heap_insert, _bt_insertonpg, XactLogCommitRecord, CreateCheckPoint, all logged database operations
+- **Calls**: GetFullPageWriteInfo, XLogRecordAssemble, XLogInsertRecord, XLogResetInsertion
+- **Shared state**: Uses global insertion state managed by XLogBeginInsert/XLogResetInsertion
 
 ### XLogInsertRecord
 
 #### Purpose
-XLogInsertRecord is the core low-level function responsible for physically inserting pre-constructed XLOG records into the WAL, implementing the fundamental insertion mechanism with proper locking and space reservation.
+XLogInsertRecord is the core low-level function that physically inserts pre-constructed XLOG records into the WAL buffer, implementing the fundamental WAL insertion mechanism with proper locking and space reservation.
 
 #### Signature
 ```c
@@ -95,41 +108,48 @@ XLogRecPtr XLogInsertRecord(XLogRecData *rdata, XLogRecPtr fpw_lsn,
 ```
 
 #### Detailed Description
-This function implements the sophisticated two-phase WAL insertion process: space reservation followed by data copying. It handles three distinct insertion classes with different locking requirements:
+This function implements the critical section of WAL insertion. It handles three different insertion classes with varying locking requirements:
 
-1. **Normal Records**: Standard single-lock insertion for most WAL records
-2. **XLOG_SWITCH Records**: Exclusive locking to claim remaining segment space
-3. **Checkpoint Records**: Exclusive locking with RedoRecPtr updates
+1. **Normal Records**: Uses shared WAL insertion locks, allows concurrent insertions
+2. **XLOG_SWITCH Records**: Requires exclusive access, forces WAL segment switch
+3. **Checkpoint Records**: Updates RedoRecPtr atomically under exclusive lock
 
-The function includes critical validation for full-page writes and may return `InvalidXLogRecPtr` to signal that the caller must recalculate full-page write requirements and retry.
+The function performs sophisticated validation of full-page write requirements and may return InvalidXLogRecPtr if conditions changed, requiring the caller to recalculate and retry.
+
+**Internal Process:**
+1. Acquire appropriate WAL insertion locks based on record type
+2. Validate full-page write consistency against current state
+3. Reserve space in WAL buffer (handles segment switches)
+4. Copy record data to reserved space
+5. Update global state variables and statistics
+6. Release locks and return insertion LSN
 
 #### Parameters
 | Parameter | Type | Description | Constraints |
 |-----------|------|-------------|-------------|
-| rdata | XLogRecData* | Chain of data chunks forming the complete record | First chunk must contain properly formatted record header |
-| fpw_lsn | XLogRecPtr | Oldest LSN among affected pages without full-page images | Used for full-page write validation |
-| flags | uint8 | Control flags for record insertion | See XLogSetRecordFlags for valid values |
-| num_fpi | int | Number of full-page images in the record | Non-negative integer |
-| topxid_included | bool | Whether top-transaction ID is logged | Boolean flag |
+| rdata | XLogRecData* | Chain of data chunks forming the complete record | First chunk must contain XLogRecord header |
+| fpw_lsn | XLogRecPtr | Oldest LSN among affected pages not included as full-page images | Used for validation, can be InvalidXLogRecPtr |
+| flags | uint8 | Control flags for insertion behavior | Combination of XLOG_* flag constants |
+| num_fpi | int | Number of full-page images in the record | Must match actual FPI count in rdata |
+| topxid_included | bool | Whether top-transaction ID is included in record | Affects transaction state tracking |
 
 #### Return Value
-Returns `XLogRecPtr` to the end of the inserted record, usable as LSN for affected data pages. Returns `InvalidXLogRecPtr` if full-page write requirements changed and caller must retry.
+Returns XLogRecPtr to end of inserted record on success. Returns InvalidXLogRecPtr if full-page write validation fails, requiring caller retry with updated information.
 
 #### Error Handling
-- **Recovery Mode Check**: Prevents WAL insertion during recovery
-- **Full-Page Write Validation**: Returns InvalidXLogRecPtr if fpw_lsn validation fails
-- **Space Reservation**: Handles segment boundary crossings and space exhaustion
-- **Critical Section**: Ensures atomicity of the insertion process
+- **Full-Page Write Validation Failure**: Returns InvalidXLogRecPtr for retry
+- **Critical Section Protection**: Uses PANIC for any failures within critical section
+- **Lock Acquisition**: Handles lock timeouts and concurrent access appropriately
 
 #### Integration Points
-- **Called by**: `XLogInsert` (primary pathway)
-- **Calls**: `WALInsertLockAcquire`, `ReserveXLogInsertLocation`, `CopyXLogRecordToWAL`
-- **Shared state**: Updates `ProcLastRecPtr`, `XactLastRecEnd`, WAL usage statistics
+- **Called by**: XLogInsert exclusively
+- **Calls**: WALInsertLockAcquire/Release, ReserveXLogInsertLocation, CopyXLogRecordToWAL
+- **Shared state**: Updates ProcLastRecPtr, XactLastRecEnd, WAL statistics, potentially RedoRecPtr
 
 ### XLogRecordAssemble
 
 #### Purpose
-XLogRecordAssemble constructs a complete WAL record from all registered data and buffer references, preparing it for insertion into the WAL. This function handles the complex process of combining record headers, full-page images, metadata, and main data into a coherent WAL record structure.
+XLogRecordAssemble constructs a complete WAL record from all registered data and buffer references, handling full-page image decisions, compression, and record formatting.
 
 #### Signature
 ```c
@@ -140,150 +160,131 @@ static XLogRecData *XLogRecordAssemble(RmgrId rmid, uint8 info,
 ```
 
 #### Detailed Description
-This internal function assembles all components of a WAL record into a linked list of `XLogRecData` structures. The assembly process includes:
+This static function orchestrates the complex process of assembling a complete WAL record from all components registered via XLogRegister* calls. It makes decisions about full-page images, applies compression when enabled, optimizes page hole handling, and ensures proper record structure.
 
-1. **Header Construction**: Creates the basic WAL record header with rmid and info
-2. **Buffer Processing**: Determines which registered buffers need full-page images
-3. **Compression**: Applies WAL compression (PGLZ, LZ4, or ZSTD) when enabled
-4. **Metadata Inclusion**: Adds replication origin and transaction ID when needed
-5. **Checksum Calculation**: Computes CRC32C for data integrity
-6. **Size Validation**: Enforces record size limits
+**Assembly Process:**
+1. Process registered buffers to determine full-page image requirements
+2. Apply compression to full-page images when enabled (PGLZ, LZ4, ZSTD)
+3. Handle page hole optimization for standard page layouts
+4. Include replication origin and transaction ID information when needed
+5. Calculate and embed CRC32C checksums
+6. Enforce maximum record size limits
+7. Build final XLogRecData chain for insertion
 
-The function supports being called multiple times for the same record and handles this scenario correctly by maintaining appropriate state.
+The function can be called multiple times for the same record (e.g., during retry scenarios) and handles this correctly.
 
 #### Parameters
 | Parameter | Type | Description | Constraints |
 |-----------|------|-------------|-------------|
-| rmid | RmgrId | Resource Manager ID for the record | Valid resource manager identifier |
-| info | uint8 | Info byte with operation flags | Operation-specific flags and consistency bits |
-| RedoRecPtr | XLogRecPtr | Current redo pointer for FPW decisions | Valid LSN for comparison |
-| doPageWrites | bool | Whether full-page writes are enabled | Boolean flag |
-| fpw_lsn | XLogRecPtr* | Output: lowest LSN needing full-page images | Pointer to output variable |
-| num_fpi | int* | Output: count of full-page images included | Pointer to output variable |
-| topxid_included | bool* | Output: whether top-level XID was logged | Pointer to output variable |
+| rmid | RmgrId | Resource Manager ID for record type validation | Must match registered components |
+| info | uint8 | Info byte for record header | Combined with consistency flags |
+| RedoRecPtr | XLogRecPtr | Current redo pointer for FPW decisions | Used to determine if FPW needed |
+| doPageWrites | bool | Whether full-page writes are currently enabled | System-wide FPW setting |
+| fpw_lsn | XLogRecPtr* | Output: lowest LSN requiring full-page image | Set to track FPW requirements |
+| num_fpi | int* | Output: count of full-page images included | Must match actual images |
+| topxid_included | bool* | Output: whether top-level XID was logged | Affects transaction tracking |
 
 #### Return Value
-Returns a pointer to the head of an `XLogRecData` chain representing the complete WAL record, ready for insertion. The chain includes properly ordered header, block references, metadata, and data chunks.
+Returns pointer to XLogRecData chain representing the complete assembled record, ready for insertion. The chain follows PostgreSQL's linked data chunk format.
 
 #### Error Handling
-- **Size Validation**: Enforces `XLogRecordMaxSize` limits
-- **Compression Errors**: Handles compression failures gracefully
-- **Memory Allocation**: Uses appropriate memory contexts for temporary allocations
+- **Size Validation**: Enforces XLogRecordMaxSize limits, PANICs if exceeded
+- **Compression Failures**: Falls back to uncompressed images if compression fails
+- **Memory Allocation**: Uses insertion memory context, cleaned up automatically
 
 #### Integration Points
-- **Called by**: `XLogInsert` (during record finalization)
-- **Calls**: `PageGetLSN`, `XLogCompressBackupBlock`, `GetTopTransactionIdIfAny`
-- **Shared state**: Reads from registered buffer and data state
+- **Called by**: XLogInsert exclusively during record assembly
+- **Calls**: PageGetLSN, compression functions, CRC calculation routines
+- **Shared state**: Accesses registered data/buffers, modifies global compression statistics
 
 ## Data Structures
 
-### XLogRecData
-The `XLogRecData` structure represents a single chunk of data in a WAL record chain:
-
-```c
-typedef struct XLogRecData
-{
-    char       *data;    /* Start of data chunk */
-    uint32      len;     /* Length of data chunk */
-    Buffer      buffer;  /* Buffer reference (if applicable) */
-    struct XLogRecData *next; /* Next chunk in chain */
-} XLogRecData;
-```
-
-**Key Fields**:
-- `data`: Pointer to the actual data bytes
-- `len`: Length of this data chunk
-- `buffer`: Buffer reference for buffer-backed data
-- `next`: Linked list pointer to next chunk
-
-### XLogRecord Header
-The WAL record header structure defines the format of every WAL record:
+### XLogRecord
+The fundamental WAL record header structure:
 
 ```c
 typedef struct XLogRecord
 {
-    uint32      xl_tot_len;    /* Total length of record */
-    TransactionId xl_xid;      /* Transaction ID */
-    XLogRecPtr  xl_prev;       /* Previous record's end position */
-    uint8       xl_info;       /* Info flags */
-    RmgrId      xl_rmid;       /* Resource manager ID */
-    pg_crc32c   xl_crc;        /* CRC32C checksum */
+    uint32      xl_tot_len;     /* Total length of record */
+    TransactionId xl_xid;       /* Transaction ID */
+    XLogRecPtr  xl_prev;        /* Previous record LSN */
+    uint8       xl_info;        /* Flag/operation info */
+    RmgrId      xl_rmid;        /* Resource manager ID */
+    /* 2 bytes of padding */
+    uint32      xl_crc;         /* CRC for remainder of record */
+    /* More data follows */
 } XLogRecord;
+```
+
+### XLogRecData
+Data chunk chain for record assembly:
+
+```c
+typedef struct XLogRecData
+{
+    char       *data;           /* Data pointer */
+    uint32      len;            /* Data length */
+    struct XLogRecData *next;   /* Next chunk */
+} XLogRecData;
 ```
 
 ## Processing Flow
 
 ```mermaid
 sequenceDiagram
-    participant App as Application
-    participant XLI as XLogInsert
-    participant XRA as XLogRecordAssemble
-    participant XIR as XLogInsertRecord
-    participant WAL as WAL Buffers
+    participant Backend
+    participant XLogInsert
+    participant XLogRecordAssemble
+    participant XLogInsertRecord
+    participant WALBuffer
 
-    App->>XLI: XLogInsert(rmid, info)
-    XLI->>XLI: Validate begininsert_called
-    XLI->>XLI: Check info byte validity
+    Backend->>XLogInsert: rmid, info
+    Note over Backend,XLogInsert: Prerequisites validated
 
     loop Retry if needed
-        XLI->>XLI: GetFullPageWriteInfo()
-        XLI->>XRA: XLogRecordAssemble()
-        XRA->>XRA: Process registered buffers
-        XRA->>XRA: Determine full-page images
-        XRA->>XRA: Apply compression
-        XRA->>XRA: Calculate checksums
-        XRA-->>XLI: Return XLogRecData chain
+        XLogInsert->>XLogInsert: GetFullPageWriteInfo()
+        XLogInsert->>XLogRecordAssemble: Assemble record
 
-        XLI->>XIR: XLogInsertRecord()
-        XIR->>XIR: Acquire WAL insertion locks
-        XIR->>XIR: Validate full-page write state
+        XLogRecordAssemble->>XLogRecordAssemble: Process buffers
+        XLogRecordAssemble->>XLogRecordAssemble: Apply compression
+        XLogRecordAssemble->>XLogRecordAssemble: Calculate CRC
+        XLogRecordAssemble-->>XLogInsert: XLogRecData chain
 
-        alt Full-page validation fails
-            XIR-->>XLI: InvalidXLogRecPtr
-            Note over XLI: Retry with new FPW info
-        else Validation succeeds
-            XIR->>XIR: ReserveXLogInsertLocation()
-            XIR->>WAL: CopyXLogRecordToWAL()
-            XIR->>XIR: Update global state
-            XIR-->>XLI: EndPos LSN
-        end
+        XLogInsert->>XLogInsertRecord: Insert assembled record
+        XLogInsertRecord->>XLogInsertRecord: Acquire WAL locks
+        XLogInsertRecord->>WALBuffer: Reserve space
+        XLogInsertRecord->>WALBuffer: Copy record data
+        XLogInsertRecord->>XLogInsertRecord: Update global state
+        XLogInsertRecord-->>XLogInsert: LSN or retry signal
     end
 
-    XLI->>XLI: XLogResetInsertion()
-    XLI-->>App: Return EndPos LSN
+    XLogInsert->>XLogInsert: XLogResetInsertion()
+    XLogInsert-->>Backend: Final LSN
 ```
 
 ## Implementation Notes
 
-### Concurrency Considerations
-The WAL generation component uses a sophisticated locking scheme to ensure safe concurrent access:
+### Full-Page Write Optimization
+The WAL generation component implements sophisticated full-page write logic:
 
-- **WAL Insertion Locks**: Limited number of locks (NUM_XLOGINSERT_LOCKS) that protect concurrent insertions
-- **Critical Sections**: Used during the insertion process to ensure atomicity
-- **Lock Progression**: Insertion locks track progress to allow buffer flushing
-- **Exclusive Modes**: Special records (XLOG_SWITCH, checkpoint) require exclusive access
+- **Dynamic Decision Making**: Full-page write requirements are determined at assembly time based on current RedoRecPtr
+- **Race Condition Handling**: XLogInsert implements retry logic to handle changes in FPW requirements
+- **Compression Support**: Multiple compression algorithms (PGLZ, LZ4, ZSTD) reduce FPW storage overhead
+- **Page Hole Optimization**: Standard pages have unused space excluded from full-page images
 
-### Performance Optimizations
-Several optimizations are implemented to maximize WAL insertion throughput:
+### Performance Characteristics
+- **Insertion Scalability**: Multiple concurrent insertions supported via shared locks
+- **Memory Efficiency**: Uses insertion-specific memory context, automatically cleaned up
+- **CPU Optimization**: CRC calculation and compression optimized for common cases
+- **Lock Contention**: Minimized through careful lock scoping and shared access patterns
 
-1. **Group Commit**: Multiple transactions can share WAL flushes
-2. **Lock Partitioning**: Multiple insertion locks allow parallel insertions
-3. **Buffer Pre-allocation**: WAL writer pre-initializes buffers
-4. **Compression**: Reduces WAL volume when enabled
-5. **Page Hole Optimization**: Skips unused portions of pages in full-page images
+### Bootstrap Mode Handling
+Special processing for database initialization:
+- Non-XLOG records return dummy LSNs during bootstrap
+- Allows system catalog initialization without full WAL infrastructure
+- Seamlessly transitions to normal operation after bootstrap completion
 
-### Error Recovery
-The component includes robust error handling:
-
-- **Retry Mechanism**: Automatic retry when full-page write conditions change
-- **Validation Checks**: Extensive validation of record structure and state
-- **Bootstrap Mode**: Special handling during database initialization
-- **Critical Section Protection**: Ensures consistent state during failures
-
-### Memory Management
-Careful memory management ensures efficient operation:
-
-- **Temporary Allocations**: Uses appropriate memory contexts
-- **State Cleanup**: `XLogResetInsertion()` cleans up after each record
-- **Buffer Management**: Efficient handling of registered buffer references
-- **Compression Buffers**: Managed allocation for compression operations
+### Transaction Integration
+- **Transaction ID Logging**: Optionally includes top-level transaction ID in records
+- **Subtransaction Support**: Handles nested transaction scenarios correctly
+- **Commit Coordination**: Integrates with transaction commit/abort logging

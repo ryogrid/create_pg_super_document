@@ -1,67 +1,71 @@
-# Replication Receiver Component
+# WAL Replication Receiver Component
 
 ## Overview
-The Replication Receiver component implements the standby side of PostgreSQL's streaming replication, responsible for receiving WAL data from a primary server and writing it to local storage. This component establishes and maintains replication connections, processes incoming WAL streams, manages timeline consistency, and coordinates with the local recovery process to ensure data integrity.
 
-The component centers around `WalReceiverMain`, which manages the entire lifecycle of a WAL receiver process, from connection establishment through continuous streaming. Supporting functions like `XLogWalRcvProcessMsg` handle protocol-level message processing, while `XLogWalRcvWrite` manages the physical writing of received WAL data to disk.
+The WAL Replication Receiver component implements the standby side of PostgreSQL's streaming replication system. It establishes connections to primary servers, receives WAL data over the network, and writes it to local storage for subsequent processing by the recovery system. This component is essential for creating and maintaining standby databases in PostgreSQL's high availability infrastructure.
 
 ## Key Concepts
-- **Streaming Connection**: Persistent connection to primary server using replication protocol
-- **Timeline Coordination**: Ensuring consistency across database timeline switches
-- **Message Protocol**: Processing different types of replication messages (WAL data, keepalives)
-- **Flow Control**: Managing receive buffers and acknowledgment of data receipt
-- **Restart Capability**: Graceful handling of connection interruptions and restart requests
+
+- **Streaming Protocol**: Network-based WAL transmission using PostgreSQL's replication protocol
+- **Timeline Management**: Handles timeline transitions and history file synchronization
+- **Connection Management**: Manages persistent connections with reconnection and error handling
+- **Replication Slots**: Optional mechanism for preventing WAL removal on primary
+- **Hot Standby Feedback**: Communication channel for standby query conflicts back to primary
+- **Message Processing**: Handles different message types (WAL data, keepalives, timeline switches)
 
 ## Architecture
 
 ```mermaid
 graph TB
-    subgraph "WAL Receiver Process"
-        A[WalReceiverMain] --> B[Connection Setup]
-        B --> C[System Validation]
-        C --> D[Timeline Coordination]
-        D --> E[Start Streaming]
-
-        subgraph "Streaming Loop"
-            E --> F[Receive Messages]
-            F --> G[XLogWalRcvProcessMsg]
-            G --> H[Message Type Switch]
-            H --> I[XLogWalRcvWrite]
-            I --> J[Send Reply]
-            J --> K[Flush Data]
-            K --> F
-        end
+    subgraph "Connection Management"
+        A[WalReceiverMain Start] --> B[Load libpqwalreceiver]
+        B --> C[walrcv_connect to Primary]
+        C --> D[walrcv_identify_system]
+        D --> E[Timeline Validation]
     end
 
-    subgraph "Message Types"
-        L[WAL Data 'w']
-        M[Keepalive 'k']
-        N[Timeline Switch]
+    subgraph "Streaming Setup"
+        E --> F[WalRcvFetchTimeLineHistoryFiles]
+        F --> G{Temporary Slot?}
+        G -->|Yes| H[walrcv_create_slot]
+        G -->|No| I[Use Existing Slot]
+        H --> J[walrcv_startstreaming]
+        I --> J
     end
 
-    subgraph "Local Storage"
-        O[WAL Segments]
-        P[Timeline History]
-        Q[Shared Memory State]
+    subgraph "Message Processing Loop"
+        J --> K[walrcv_receive]
+        K --> L{Message Available?}
+        L -->|Yes| M[XLogWalRcvProcessMsg]
+        L -->|No| N[WaitLatchOrSocket]
+        M --> O{Message Type?}
+        O -->|'w' WAL Data| P[XLogWalRcvWrite]
+        O -->|'k' Keepalive| Q[Process Keepalive]
+        P --> R[XLogWalRcvFlush]
+        Q --> S[XLogWalRcvSendReply]
+        R --> T[XLogWalRcvSendReply]
+        S --> N
+        T --> N
+        N --> U{Timeout/Event?}
+        U -->|Socket Ready| K
+        U -->|Timeout| V[Send Keepalive/Status]
+        V --> K
     end
 
-    subgraph "Coordination"
-        R[Startup Process]
-        S[Recovery Process]
-        T[WalSndWakeup]
+    subgraph "Coordination & Feedback"
+        W[Recovery Process] --> X[force_reply Signal]
+        X --> Y[Immediate Reply]
+        Z[Hot Standby Queries] --> AA[XLogWalRcvSendHSFeedback]
+        AA --> BB[Conflict Resolution Info]
     end
 
-    H --> L
-    H --> M
-    H --> N
+    classDef critical fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+    classDef network fill:#ffffcc,stroke:#ffaa00,stroke-width:2px
+    classDef processing fill:#ccffcc,stroke:#00ff00,stroke-width:2px
 
-    I --> O
-    D --> P
-    J --> Q
-
-    K --> T
-    A --> R
-    E --> S
+    class A,M,P critical
+    class C,J,K network
+    class R,S,AA processing
 ```
 
 ## Core APIs
@@ -69,7 +73,7 @@ graph TB
 ### WalReceiverMain
 
 #### Purpose
-WalReceiverMain serves as the main entry point and control loop for the WAL receiver process, managing the entire lifecycle of streaming replication from connection establishment through continuous data reception and coordination with local recovery processes.
+WalReceiverMain is the main entry point for the WAL receiver process that handles streaming replication from a primary PostgreSQL server to a standby server. It manages the complete lifecycle of WAL reception including connection establishment, streaming, and error recovery.
 
 #### Signature
 ```c
@@ -77,42 +81,53 @@ void WalReceiverMain(char *startup_data, size_t startup_data_len)
 ```
 
 #### Detailed Description
-WalReceiverMain implements the complete WAL receiver process lifecycle through several distinct phases:
+WalReceiverMain orchestrates all aspects of WAL reception on standby servers. The function operates through several distinct phases:
 
-1. **Process Initialization**: Sets up process type, shared memory state, signal handlers, and loads required libraries
-2. **Connection Establishment**: Connects to the primary server using configured connection information
-3. **System Validation**: Verifies system identifiers and timeline compatibility between primary and standby
-4. **Timeline Management**: Fetches missing timeline history files to maintain consistency
-5. **Streaming Coordination**: Manages replication slot creation and streaming startup
-6. **Main Streaming Loop**: Continuously receives and processes WAL data until instructed otherwise
-7. **Error Recovery**: Handles connection failures, timeouts, and restart requests
+**Initialization Phase:**
+1. **Process Setup**: Configures process type, signal handlers, and shared memory access
+2. **State Management**: Updates shared memory to indicate receiver is active
+3. **Library Loading**: Dynamically loads libpqwalreceiver for network communication
+4. **Connection Establishment**: Connects to primary using provided connection string
 
-The function operates in an infinite outer loop that allows for restart scenarios when the startup process requests new streaming parameters. The inner streaming loop handles continuous data reception until end-of-WAL or connection failure.
+**Validation Phase:**
+1. **System Identification**: Verifies database system identifiers match between primary and standby
+2. **Timeline Validation**: Ensures timeline consistency and fetches missing history files
+3. **Slot Management**: Creates temporary replication slots when requested
+
+**Streaming Phase:**
+1. **Protocol Initialization**: Starts streaming from specified LSN and timeline
+2. **Message Processing**: Continuously receives and processes WAL data and control messages
+3. **Progress Reporting**: Sends periodic status updates to primary
+4. **Timeout Handling**: Manages connection timeouts and keepalive mechanisms
+
+**Recovery and Restart:**
+The function includes sophisticated restart logic that allows it to resume streaming after timeline switches, configuration changes, or temporary connection failures.
 
 #### Parameters
 | Parameter | Type | Description | Constraints |
 |-----------|------|-------------|-------------|
-| startup_data | char* | Startup data passed to the process | Currently unused, expected to be NULL |
-| startup_data_len | size_t | Length of startup data | Expected to be 0 |
+| startup_data | char* | Reserved for future use | Currently expected to be NULL |
+| startup_data_len | size_t | Length of startup data | Currently expected to be 0 |
 
 #### Return Value
-This function does not return under normal circumstances. It runs until the process is terminated or encounters a fatal error.
+Void function that runs until process termination. Does not return under normal operation, exits via proc_exit() or ereport(FATAL).
 
 #### Error Handling
-- **Connection Failures**: Reports errors and terminates if unable to connect to primary
-- **System ID Mismatches**: Fatal error if primary and standby system identifiers differ
-- **Timeline Inconsistencies**: Prevents streaming if primary timeline is behind standby
-- **Protocol Violations**: Handles malformed messages and connection interruptions
+- **Connection Failures**: Reports ERROR and terminates, allowing restart by startup process
+- **Protocol Violations**: FATAL errors for system identifier mismatches or timeline inconsistencies
+- **Timeout Handling**: Graceful termination on wal_receiver_timeout expiration
+- **Configuration Errors**: Dynamic config reload with validation
 
 #### Integration Points
-- **Called by**: Postmaster process as auxiliary process entry point
-- **Calls**: `walrcv_connect`, `XLogWalRcvProcessMsg`, `XLogWalRcvWrite`, `WalRcvWaitForStartPosition`
-- **Shared state**: Updates `WalRcv` shared memory structure, coordinates with startup process
+- **Called by**: Postmaster via auxiliary process launcher
+- **Calls**: walrcv_* functions (libpqwalreceiver), XLogWalRcvProcessMsg, XLogWalRcvFlush
+- **Shared state**: WalRcv shared memory structure, coordinates with startup process
+- **Signals**: Handles SIGHUP (config reload), SIGTERM (shutdown), SIGUSR1 (latch wakeup)
 
 ### XLogWalRcvProcessMsg
 
 #### Purpose
-XLogWalRcvProcessMsg processes incoming replication messages from the XLOG stream, handling WAL records and keepalive messages from the primary server during streaming replication. This function serves as the protocol message dispatcher for the replication stream.
+XLogWalRcvProcessMsg processes incoming replication messages from the XLOG stream, handling WAL records and keepalive messages from the primary server during streaming replication.
 
 #### Signature
 ```c
@@ -120,126 +135,91 @@ static void XLogWalRcvProcessMsg(unsigned char type, char *buf, Size len, TimeLi
 ```
 
 #### Detailed Description
-This function implements the core message processing logic for the WAL receiver:
+This function serves as the message dispatcher for the replication protocol. It implements the core message processing logic that distinguishes between different message types and routes them to appropriate handlers:
 
-1. **Message Type Dispatch**: Handles two primary message types:
-   - **WAL Records ('w' type)**: Contains actual WAL data that needs to be written locally
-   - **Keepalive Messages ('k' type)**: Heartbeat messages for connection monitoring
-2. **Protocol Parsing**: Extracts header information including LSN positions and timestamps
-3. **Data Delegation**: Delegates actual WAL writing to `XLogWalRcvWrite` for data messages
-4. **Flow Control**: Processes acknowledgment requests and coordinates reply messages
-5. **Error Validation**: Ensures message format compliance and handles protocol violations
+**WAL Record Messages ('w' type):**
+- Extracts LSN information (dataStart, walEnd, sendTime)
+- Validates message format and content
+- Delegates to XLogWalRcvWrite for actual data writing
+- Updates progress tracking and statistics
 
-The function maintains strict protocol adherence and includes comprehensive validation to ensure data integrity during replication.
+**Keepalive Messages ('k' type):**
+- Processes connection health information
+- Handles immediate reply requests from primary
+- Updates timeout calculations
+- Manages flow control between primary and standby
+
+**Protocol Validation:**
+The function performs strict protocol validation to ensure data integrity:
+- Message type validation
+- Buffer length verification
+- LSN consistency checking
+- Timeline validation
 
 #### Parameters
 | Parameter | Type | Description | Constraints |
 |-----------|------|-------------|-------------|
 | type | unsigned char | Message type identifier | 'w' for WAL data, 'k' for keepalive |
-| buf | char* | Raw message buffer containing payload | Non-null, valid message data |
-| len | Size | Length of the message buffer | Must match actual message size |
-| tli | TimeLineID | Timeline ID for the WAL data | Current valid timeline |
+| buf | char* | Message payload buffer | Must contain valid protocol data |
+| len | Size | Buffer length in bytes | Must match actual message size |
+| tli | TimeLineID | Timeline ID for WAL data | Must match expected timeline |
 
 #### Return Value
-Returns void. Effects are visible through written WAL data and updated shared state.
+Void function that processes message and updates receiver state. Errors reported via ereport() for invalid messages.
 
 #### Error Handling
-- **Invalid Message Types**: Reports protocol violation errors for unknown message types
-- **Malformed Messages**: Validates message structure and content
-- **Buffer Overflow**: Ensures message length consistency
-- **Timeline Mismatches**: Handles timeline validation during processing
+- **Invalid Message Types**: ereport(ERROR) for unknown message types
+- **Malformed Messages**: Buffer validation prevents crashes from corrupt data
+- **Protocol Violations**: Strict validation ensures replication integrity
+- **Timeline Mismatches**: Validates timeline consistency
 
 #### Integration Points
-- **Called by**: `WalReceiverMain` main streaming loop
-- **Calls**: `XLogWalRcvWrite`, `XLogWalRcvSendReply`, `ProcessWalSndrMessage`
-- **Shared state**: Updates streaming state and coordinates with reply mechanisms
-
-### XLogWalRcvWrite
-
-#### Purpose
-XLogWalRcvWrite handles the physical writing of WAL data received from the primary server to local disk storage, managing segment boundaries, file operations, and coordination with shared memory state updates.
-
-#### Signature
-```c
-static void XLogWalRcvWrite(char *buf, Size nbytes, XLogRecPtr recptr, TimeLineID tli)
-```
-
-#### Detailed Description
-This function implements the core data persistence logic for received WAL data:
-
-1. **Segment Management**: Handles WAL segment file lifecycle including opening, writing, and closing files as needed
-2. **Offset Calculation**: Computes proper file offsets within segments based on LSN positions
-3. **Atomic Writing**: Uses `pg_pwrite` for atomic write operations to prevent partial writes
-4. **Boundary Handling**: Manages cases where data spans multiple WAL segments
-5. **State Updates**: Updates shared memory to reflect write progress for coordination with other processes
-6. **Error Recovery**: Handles write failures and file system errors gracefully
-
-The function operates in a loop to handle data that spans segment boundaries, ensuring all data is written to the correct files with proper offsets.
-
-#### Parameters
-| Parameter | Type | Description | Constraints |
-|-----------|------|-------------|-------------|
-| buf | char* | Buffer containing WAL data to write | Non-null, contains valid WAL data |
-| nbytes | Size | Number of bytes to write | Must not exceed available buffer |
-| recptr | XLogRecPtr | WAL record pointer for positioning | Valid LSN within current WAL stream |
-| tli | TimeLineID | Timeline ID for the data | Current valid timeline |
-
-#### Return Value
-Returns void. Success is indicated by successful completion without errors.
-
-#### Error Handling
-- **Write Failures**: Reports PANIC on disk write failures to ensure consistency
-- **File Creation**: Handles segment file creation and initialization
-- **Space Management**: Ensures adequate disk space for WAL data
-- **Atomic Operations**: Prevents partial writes through proper error handling
-
-#### Integration Points
-- **Called by**: `XLogWalRcvProcessMsg` for WAL data messages
-- **Calls**: `XLogFileInit`, `pg_pwrite`, `pg_atomic_write_u64`
-- **Shared state**: Updates write progress in shared memory for visibility to other processes
+- **Called by**: WalReceiverMain in main streaming loop
+- **Calls**: XLogWalRcvWrite, XLogWalRcvSendReply, ProcessWalSndrMessage
+- **Shared state**: Updates LogstreamResult, manages message buffers
+- **Protocol**: Implements PostgreSQL replication protocol specification
 
 ## Data Structures
 
 ### WalRcvData
-The main shared memory structure representing WAL receiver state:
+Shared memory structure for receiver coordination:
 
 ```c
 typedef struct WalRcvData
 {
-    pid_t           pid;                /* WAL receiver process ID */
-    WalRcvState     walRcvState;       /* Current receiver state */
-    XLogRecPtr      receiveStart;      /* Start position for streaming */
-    TimeLineID      receiveStartTLI;   /* Timeline for start position */
-    XLogRecPtr      flushedUpto;       /* Last position flushed */
-    char            conninfo[MAXCONNINFO]; /* Connection string */
-    char            slotname[NAMEDATALEN]; /* Replication slot name */
-    bool            is_temp_slot;      /* Whether using temporary slot */
-    TimestampTz     lastMsgSendTime;   /* Last message send time */
-    TimestampTz     lastMsgReceiptTime; /* Last message receipt time */
-    pg_atomic_uint64 writtenUpto;      /* Last position written */
-    Latch          *latch;             /* Process latch for signaling */
+    pid_t       pid;                    /* PID of walreceiver process */
+    WalRcvState walRcvState;            /* Current receiver state */
+    XLogRecPtr  receiveStart;           /* Start LSN for streaming */
+    TimeLineID  receiveStartTLI;        /* Timeline for start position */
+
+    char        conninfo[MAXCONNINFO];  /* Connection string */
+    char        slotname[NAMEDATALEN];  /* Replication slot name */
+    bool        is_temp_slot;           /* Whether slot is temporary */
+
+    TimestampTz lastMsgSendTime;        /* Last message send time */
+    TimestampTz lastMsgReceiptTime;     /* Last message receipt time */
+    XLogRecPtr  latestChunkStart;       /* Start of latest chunk */
+
+    bool        force_reply;            /* Force immediate reply */
+    slock_t     mutex;                  /* Protects shared fields */
+    pg_atomic_uint64 writtenUpto;       /* Last LSN written to disk */
+    /* ... additional coordination fields ... */
 } WalRcvData;
 ```
 
-**Key Fields**:
-- `walRcvState`: Current state (STARTING, STREAMING, WAITING, STOPPING, STOPPED)
-- `receiveStart`/`receiveStartTLI`: Streaming start position and timeline
-- `writtenUpto`/`flushedUpto`: Progress tracking for coordination
-- `conninfo`: Connection information for primary server
-
 ### WalRcvStreamOptions
-Structure for configuring streaming options:
+Configuration for streaming initiation:
 
 ```c
 typedef struct WalRcvStreamOptions
 {
-    bool        logical;              /* Logical vs physical replication */
-    XLogRecPtr  startpoint;          /* Starting LSN */
-    char       *slotname;            /* Replication slot name */
-    union {
-        struct {
-            TimeLineID startpointTLI; /* Starting timeline */
-        } physical;
+    bool        logical;                /* Logical vs physical replication */
+    XLogRecPtr  startpoint;             /* Starting LSN */
+    char       *slotname;               /* Replication slot name */
+    union
+    {
+        struct { TimeLineID startpointTLI; } physical;
+        struct { uint32 proto_version; char *publication_names; } logical;
     } proto;
 } WalRcvStreamOptions;
 ```
@@ -248,106 +228,182 @@ typedef struct WalRcvStreamOptions
 
 ```mermaid
 sequenceDiagram
-    participant SP as Startup Process
-    participant WRM as WalReceiverMain
+    participant Startup as Startup Process
+    participant WalRcv as WalReceiverMain
     participant Primary as Primary Server
-    participant XPM as XLogWalRcvProcessMsg
-    participant XWW as XLogWalRcvWrite
-    participant Disk as Local Storage
+    participant WALFiles as WAL Files
 
-    SP->>WRM: Start WAL receiver process
-    WRM->>WRM: Initialize process and shared memory
-    WRM->>Primary: walrcv_connect()
+    Startup->>WalRcv: Launch receiver process
+    WalRcv->>WalRcv: Initialize process & shared memory
 
-    Primary->>WRM: Connection established
-    WRM->>Primary: IDENTIFY_SYSTEM
-    Primary->>WRM: System ID and timeline info
+    WalRcv->>Primary: walrcv_connect()
+    Primary-->>WalRcv: Connection established
 
-    WRM->>WRM: Validate system compatibility
-    WRM->>WRM: Fetch timeline history files
-    WRM->>Primary: START_REPLICATION
+    WalRcv->>Primary: IDENTIFY_SYSTEM
+    Primary-->>WalRcv: System ID & timeline info
 
-    Primary->>WRM: Begin streaming
+    alt Timeline validation fails
+        WalRcv->>WalRcv: ereport(ERROR) - terminate
+    else Timeline validation succeeds
+        WalRcv->>Primary: Fetch timeline history files
+        WalRcv->>Primary: START_REPLICATION command
+        Primary-->>WalRcv: Begin streaming
 
-    loop Streaming loop
-        Primary->>WRM: Stream message
-        WRM->>XPM: XLogWalRcvProcessMsg()
+        loop Streaming Loop
+            Primary->>WalRcv: WAL message ('w' type)
+            WalRcv->>WalRcv: XLogWalRcvProcessMsg()
+            WalRcv->>WALFiles: XLogWalRcvWrite()
+            WalRcv->>WALFiles: XLogWalRcvFlush()
+            WalRcv->>Primary: XLogWalRcvSendReply()
 
-        alt WAL data message ('w')
-            XPM->>XPM: Parse message header
-            XPM->>XWW: XLogWalRcvWrite()
-            XWW->>Disk: Write WAL data
-            XWW->>XWW: Update shared memory state
-        else Keepalive message ('k')
-            XPM->>XPM: Process keepalive
-            XPM->>Primary: Send reply if requested
+            alt Keepalive timeout
+                Primary->>WalRcv: Keepalive ('k' type)
+                WalRcv->>WalRcv: Process keepalive
+                WalRcv->>Primary: Reply if requested
+            end
+
+            alt Hot standby feedback
+                WalRcv->>Primary: XLogWalRcvSendHSFeedback()
+            end
+
+            alt Force reply from startup
+                Startup->>WalRcv: Set force_reply flag
+                WalRcv->>Primary: Immediate status reply
+            end
         end
 
-        WRM->>Primary: Send status reply
-        WRM->>WRM: XLogWalRcvFlush()
-
-        alt End of WAL reached
-            Primary->>WRM: End streaming signal
-            WRM->>WRM: Close current segment
-            WRM->>SP: Await new instructions
+        alt End of WAL on timeline
+            Primary->>WalRcv: End streaming signal
+            WalRcv->>Startup: Wait for new instructions
         end
     end
 ```
 
 ## Implementation Notes
 
-### Connection Management
-The component implements sophisticated connection handling:
+### Connection and Reconnection Logic
+WalReceiverMain implements robust connection management:
 
-1. **Retry Logic**: Automatic reconnection attempts with exponential backoff
-2. **Authentication**: Proper credential handling for secure connections
-3. **Configuration**: Dynamic connection string management and updates
-4. **Monitoring**: Connection health tracking through keepalive mechanisms
+```c
+// Connection establishment with error handling
+wrconn = walrcv_connect(conninfo, true, false, false,
+                       cluster_name[0] ? cluster_name : "walreceiver",
+                       &err);
+if (!wrconn)
+    ereport(ERROR,
+           (errcode(ERRCODE_CONNECTION_FAILURE),
+            errmsg("could not connect to the primary server: %s", err)));
+```
 
-### Timeline Coordination
-Critical timeline management ensures consistency:
+**Key Features:**
+- Automatic retry logic for temporary connection failures
+- Dynamic connection string updates via shared memory
+- Support for multiple connection libraries through function pointers
+- Graceful handling of network interruptions
 
-1. **History Files**: Automatic fetching of missing timeline history files
-2. **Validation**: Strict timeline compatibility checking
-3. **Switches**: Graceful handling of timeline changes during streaming
-4. **Recovery**: Proper coordination with local recovery timeline
+### Timeline Management and Validation
+Critical timeline consistency checks:
 
-### Message Protocol Handling
-Comprehensive protocol implementation:
+```c
+// System identifier validation
+if (strcmp(primary_sysid, standby_sysid) != 0)
+{
+    ereport(ERROR,
+           (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+            errmsg("database system identifier differs between primary and standby")));
+}
 
-1. **Message Types**: Support for WAL data, keepalive, and control messages
-2. **Flow Control**: Proper acknowledgment and feedback mechanisms
-3. **Error Detection**: Checksum validation and protocol compliance
-4. **Buffering**: Efficient message buffering and processing
+// Timeline consistency validation
+if (primaryTLI < startpointTLI)
+    ereport(ERROR,
+           (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+            errmsg("highest timeline %u of the primary is behind recovery timeline %u",
+                   primaryTLI, startpointTLI)));
+```
 
-### Performance Optimizations
-Several optimizations maximize replication performance:
+**Timeline Features:**
+- Automatic fetching of missing timeline history files
+- Support for timeline switches during streaming
+- Prevention of timeline conflicts in failover scenarios
+- Validation of timeline progression consistency
 
-1. **Batched Writes**: Grouping multiple writes for efficiency
-2. **Async I/O**: Non-blocking network operations where possible
-3. **Buffer Management**: Efficient memory usage for streaming buffers
-4. **Connection Pooling**: Reuse of connection resources
+### Message Processing and Protocol Handling
+Efficient message processing pipeline:
 
-### Error Recovery Strategies
-Robust error handling ensures system resilience:
+```c
+// Main message processing dispatch
+switch (type)
+{
+    case 'w':  // WAL data
+        // Extract header information
+        dataStart = pq_getmsgint64(&incoming_message);
+        walEnd = pq_getmsgint64(&incoming_message);
+        sendTime = pq_getmsgint64(&incoming_message);
 
-1. **Connection Failures**: Automatic reconnection with appropriate delays
-2. **Protocol Errors**: Clear error reporting and recovery procedures
-3. **Disk Failures**: Proper handling of storage-related errors
-4. **Timeline Issues**: Graceful recovery from timeline inconsistencies
+        // Process WAL data
+        XLogWalRcvWrite(buf, len, dataStart, walEnd, tli);
+        break;
 
-### Monitoring and Observability
-Built-in instrumentation supports operational monitoring:
+    case 'k':  // Keepalive
+        // Process keepalive and send reply if requested
+        ProcessWalSndrMessage(walEnd, sendTime, replyRequested);
+        if (replyRequested)
+            XLogWalRcvSendReply(false, false);
+        break;
 
-1. **Progress Tracking**: Detailed tracking of received, written, and flushed positions
-2. **Timing Information**: Latency measurements for network and disk operations
-3. **State Visibility**: Clear indication of current receiver state
-4. **Statistics**: Integration with PostgreSQL's replication monitoring views
+    default:
+        ereport(ERROR,
+               (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                errmsg("invalid replication message type %d", type)));
+}
+```
 
-### Integration with Recovery
-Close coordination with the recovery process:
+### Timeout and Keepalive Management
+Sophisticated timeout handling prevents connection loss:
 
-1. **Startup Coordination**: Proper handshake with startup process
-2. **Position Synchronization**: Coordinated tracking of replay progress
-3. **Restart Handling**: Graceful restart when parameters change
-4. **Shutdown Coordination**: Clean termination during server shutdown
+```c
+// Timeout calculation and management
+for (int i = 0; i < NUM_WALRCV_WAKEUPS; ++i)
+    nextWakeup = Min(wakeup[i], nextWakeup);
+
+nap = TimestampDifferenceMilliseconds(now, nextWakeup);
+
+// Different timeout types:
+// WALRCV_WAKEUP_TERMINATE: wal_receiver_timeout
+// WALRCV_WAKEUP_PING: wal_receiver_timeout / 2
+// WALRCV_WAKEUP_HSFEEDBACK: hot_standby_feedback interval
+```
+
+**Timeout Benefits:**
+- Prevents silent connection failures
+- Enables proactive keepalive transmission
+- Supports hot standby feedback scheduling
+- Provides configurable timeout behavior
+
+### Performance Characteristics
+
+#### Network Efficiency
+- **Batch Processing**: Multiple messages processed per receive call
+- **Non-blocking I/O**: WaitLatchOrSocket prevents blocking on network
+- **Buffer Management**: Efficient memory usage for message processing
+- **Protocol Optimization**: Minimal overhead binary protocol
+
+#### Write Performance
+- **Sequential Writes**: WAL data written sequentially to minimize disk seeks
+- **Batch Flushing**: Multiple WAL records flushed together when possible
+- **File Management**: Efficient segment file creation and management
+- **Sync Coordination**: Optimal fsync scheduling with recovery process
+
+#### Memory Usage
+- **Shared Memory Integration**: Minimal memory footprint through shared structures
+- **Message Buffering**: Efficient buffer reuse for protocol messages
+- **State Tracking**: Compact state representation for multiple timelines
+- **Resource Cleanup**: Proper cleanup on connection termination
+
+### Hot Standby Integration
+WalReceiver coordinates with Hot Standby queries:
+
+- **Feedback Mechanism**: Reports query conflicts back to primary
+- **Progress Tracking**: Coordinates apply progress with query processing
+- **Conflict Resolution**: Supports query cancellation coordination
+- **Status Reporting**: Provides detailed lag and progress information

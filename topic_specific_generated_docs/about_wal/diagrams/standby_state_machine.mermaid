@@ -1,129 +1,108 @@
 stateDiagram-v2
-    [*] --> STARTING : Standby Server Startup
+    [*] --> STOPPED: Standby server startup
 
-    state "Recovery Initialization" as STARTING {
-        [*] --> ValidateControlFile
-        ValidateControlFile --> InitWalRecovery
-        InitWalRecovery --> SetupSharedMemory
-        SetupSharedMemory --> StartSubsystems
-        StartSubsystems --> [*]
+    STOPPED --> STARTING: RequestXLogStreaming()
+    STARTING --> STREAMING: Connection established
+
+    state STREAMING {
+        [*] --> CATCHUP: Begin streaming from historical position
+        CATCHUP --> STREAMING_STATE: WalSndCaughtUp = true
+        STREAMING_STATE --> CATCHUP: Fall behind primary
+
+        state CATCHUP {
+            catchup_sending: Sending historical WAL
+            catchup_buffering: Buffering for network
+            catchup_wal_available: WAL data available
+            catchup_network_wait: Waiting for network
+
+            [*] --> catchup_sending
+            catchup_sending --> catchup_buffering: Data prepared
+            catchup_buffering --> catchup_network_wait: Buffer full
+            catchup_network_wait --> catchup_wal_available: Network ready
+            catchup_wal_available --> catchup_sending: More data
+        }
+
+        state STREAMING_STATE {
+            streaming_realtime: Real-time streaming
+            streaming_waiting: Waiting for new WAL
+            streaming_keepalive: Sending keepalives
+            streaming_reply: Processing replies
+
+            [*] --> streaming_realtime
+            streaming_realtime --> streaming_waiting: Caught up
+            streaming_waiting --> streaming_keepalive: Timeout approaching
+            streaming_keepalive --> streaming_reply: Standby response
+            streaming_reply --> streaming_realtime: New WAL available
+            streaming_waiting --> streaming_realtime: WalSndWakeup()
+        }
     }
 
-    STARTING --> WAITING : No WAL Available
+    STREAMING --> STOPPING: Shutdown signal (SIGUSR2)
+    STREAMING --> STOPPING: Client disconnect
+    STREAMING --> STOPPING: Replication timeout
 
-    state "Waiting for WAL" as WAITING {
-        [*] --> CheckArchive
-        CheckArchive --> RestoreFromArchive : WAL Available
-        RestoreFromArchive --> [*]
-        CheckArchive --> RequestStreaming : No Archive WAL
-        RequestStreaming --> [*]
+    state STOPPING {
+        stopping_drain: Drain remaining WAL
+        stopping_sync: Wait for synchronous standby
+        stopping_cleanup: Cleanup resources
+
+        [*] --> stopping_drain
+        stopping_drain --> stopping_sync: All WAL sent
+        stopping_sync --> stopping_cleanup: Standby confirmed
+        stopping_cleanup --> [*]
     }
 
-    WAITING --> STREAMING : Connection Established
-    WAITING --> RECOVERY : WAL Available
+    STOPPING --> STOPPED: WalSndDone()
 
-    state "Streaming Replication" as STREAMING {
-        [*] --> ConnectToPrimary
-        ConnectToPrimary --> VerifySystemID
-        VerifySystemID --> StartStreaming
-        StartStreaming --> ReceiveWAL
-        ReceiveWAL --> WriteWAL
-        WriteWAL --> ReceiveWAL : More Data
-        WriteWAL --> SendStatus : Write Complete
-        SendStatus --> ReceiveWAL
-        ReceiveWAL --> [*] : End of Stream
+    state RESTARTING {
+        restart_params: New parameters received
+        restart_timeline: Timeline change required
+        restart_position: New start position
+
+        [*] --> restart_params
+        restart_params --> restart_timeline: Parameter validation
+        restart_timeline --> restart_position: Timeline updated
+        restart_position --> [*]
     }
 
-    state "WAL Recovery" as RECOVERY {
-        [*] --> FindRecoveryStart
-        FindRecoveryStart --> ReadWALRecord
-        ReadWALRecord --> ApplyRecord
-        ApplyRecord --> CheckConsistency
-        CheckConsistency --> ReadWALRecord : More Records
-        CheckConsistency --> EnableHotStandby : Consistent
-        EnableHotStandby --> ReadWALRecord
-        ReadWALRecord --> [*] : End of WAL
+    STREAMING --> RESTARTING: Parameter change
+    RESTARTING --> STARTING: Restart with new config
+
+    state ERROR_RECOVERY {
+        error_timeout: Connection timeout
+        error_network: Network failure
+        error_protocol: Protocol violation
+        error_resource: Resource exhaustion
+
+        [*] --> error_timeout
+        [*] --> error_network
+        [*] --> error_protocol
+        [*] --> error_resource
+
+        error_timeout --> [*]: Retry or terminate
+        error_network --> [*]: Reconnection attempt
+        error_protocol --> [*]: Protocol reset
+        error_resource --> [*]: Resource cleanup
     }
 
-    state "Hot Standby" as HOT_STANDBY {
-        [*] --> AcceptConnections
-        AcceptConnections --> ProcessQueries
-        ProcessQueries --> HandleConflicts
-        HandleConflicts --> ProcessQueries
-        ProcessQueries --> SendFeedback
-        SendFeedback --> ProcessQueries
-    }
+    STREAMING --> ERROR_RECOVERY: Error conditions
+    ERROR_RECOVERY --> STOPPED: Unrecoverable error
+    ERROR_RECOVERY --> STARTING: Recoverable error
 
-    STREAMING --> RECOVERY : WAL Received
-    RECOVERY --> HOT_STANDBY : Consistency Reached
-    HOT_STANDBY --> RECOVERY : Continue Recovery
-
-    STREAMING --> DISCONNECTED : Connection Lost
-    RECOVERY --> WAITING : WAL Gap
-
-    state "Disconnected" as DISCONNECTED {
-        [*] --> DetectFailure
-        DetectFailure --> AttemptReconnect
-        AttemptReconnect --> [*] : Success
-        AttemptReconnect --> AttemptReconnect : Retry
-    }
-
-    DISCONNECTED --> STREAMING : Reconnected
-    DISCONNECTED --> WAITING : Failover/Promote
-
-    state "Promotion" as PROMOTING {
-        [*] --> StopRecovery
-        StopRecovery --> CreateNewTimeline
-        CreateNewTimeline --> WriteEndOfRecovery
-        WriteEndOfRecovery --> BecomeWriter
-        BecomeWriter --> [*]
-    }
-
-    WAITING --> PROMOTING : Promote Signal
-    RECOVERY --> PROMOTING : Promote Signal
-    HOT_STANDBY --> PROMOTING : Promote Signal
-    DISCONNECTED --> PROMOTING : Promote Signal
-
-    PROMOTING --> PRIMARY : Promotion Complete
-
-    state "Primary Server" as PRIMARY {
-        [*] --> AcceptWriteConnections
-        AcceptWriteConnections --> StartWALSenders
-        StartWALSenders --> ProcessTransactions
-        ProcessTransactions --> ProcessTransactions
-    }
-
-    %% Error states
-    STARTING --> ERROR : Fatal Error
-    WAITING --> ERROR : Configuration Error
-    STREAMING --> ERROR : Protocol Error
-    RECOVERY --> ERROR : Corruption Detected
-
-    state "Error Recovery" as ERROR {
-        [*] --> LogError
-        LogError --> CleanupResources
-        CleanupResources --> [*]
-    }
-
-    ERROR --> [*] : Process Exit
-
-    %% Notes for key transitions
-    note right of STREAMING
-        Receives WAL data via
-        Copy protocol messages
+    note right of CATCHUP
+        Data loss risk if primary fails
+        No synchronous replication guarantees
+        Historical WAL transmission
     end note
 
-    note right of RECOVERY
-        Applies WAL records to
-        restore consistency
+    note right of STREAMING_STATE
+        Real-time replication active
+        Synchronous replication honored
+        Standby ready for failover
     end note
 
-    note right of HOT_STANDBY
-        Allows read-only queries
-        while continuing recovery
-    end note
-
-    note right of PROMOTING
-        Creates new timeline and
-        becomes writable
+    note right of STOPPING
+        Graceful shutdown sequence
+        Ensure WAL transmission complete
+        Coordinate with standby confirmation
     end note

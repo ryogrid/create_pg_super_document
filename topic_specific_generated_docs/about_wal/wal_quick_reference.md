@@ -1,255 +1,228 @@
-# PostgreSQL WAL Quick Reference
+# PostgreSQL WAL Quick Reference Guide
 
-*A 2-page summary of PostgreSQL's Write-Ahead Logging subsystem*
+## Essential Concepts
 
----
+### WAL Fundamentals
+- **Write-Ahead Logging**: Log records reach disk before data pages
+- **LSN**: Log Sequence Number - unique position identifier
+- **WAL Segment**: 16MB files storing sequential WAL records
+- **Checkpoint**: Sync point for all dirty buffers
 
-## WAL Fundamentals
-
-### Core Principle
-**WAL-before-Data Rule**: All database modifications must be logged to persistent storage before the actual data pages can be modified on disk.
-
-### Essential Components
-1. **WAL Generation** - Record construction and insertion
-2. **WAL Writing** - Disk persistence and group commit
-3. **Replication Sender** - Primary-to-standby streaming
-4. **Replication Receiver** - Standby-side WAL reception
-5. **Recovery Process** - WAL replay and consistency restoration
-
-### Key Data Structures
-- **LSN (Log Sequence Number)**: 8-byte unique position identifier in WAL stream
-- **WAL Record**: Header + data containing all information needed to redo operation
-- **WAL Segment**: 16MB file containing sequential WAL records
-
----
-
-## Critical Functions Quick Reference
-
-### WAL Generation Pipeline
-```c
-// Primary insertion pathway
-XLogRecPtr XLogInsert(RmgrId rmid, uint8 info)
-├── GetFullPageWriteInfo()
-├── XLogRecordAssemble()      // Construct complete record
-├── XLogInsertRecord()        // Physical insertion
-│   ├── WALInsertLockAcquire()
-│   ├── ReserveXLogInsertLocation()
-│   └── CopyXLogRecordToWAL()
-└── XLogResetInsertion()
+### Critical Path
+```
+Backend → XLogInsert → XLogWrite → XLogFlush → Durability
 ```
 
-### WAL Writing Pipeline
-```c
-// Durability pathway
-void XLogFlush(XLogRecPtr record)
-├── WaitXLogInsertionsToFinish()
-├── XLogWrite()               // Write to disk
-│   ├── Page batching for efficiency
-│   └── Segment boundary handling
-└── issue_xlog_fsync()        // Force to persistent storage
-```
+## Core Functions
 
-### Replication Streaming
-```c
-// Primary side
-void WalSndLoop(WalSndSendDataCallback send_data)
-├── ProcessRepliesIfAny()     // Handle standby feedback
-├── send_data()               // Send WAL data
-└── WalSndWakeup()           // Wake on new data
+### WAL Generation
+| Function | Purpose | Key Parameters |
+|----------|---------|----------------|
+| `XLogInsert(rmid, info)` | Insert WAL record | `rmid`: Resource Manager, `info`: operation flags |
+| `XLogInsertRecord(rdata, fpw_lsn, flags, num_fpi, topxid_included)` | Low-level WAL insertion | `rdata`: record data chain |
+| `XLogRecordAssemble(rmid, info, RedoRecPtr, doPageWrites, ...)` | Construct complete record | Assembly with FPW decisions |
 
-// Standby side
-void WalReceiverMain()
-├── Connection establishment
-├── XLogWalRcvProcessMsg()    // Process incoming messages
-└── XLogWalRcvWrite()        // Write to local storage
-```
+### WAL Writing
+| Function | Purpose | Key Parameters |
+|----------|---------|----------------|
+| `XLogWrite(WriteRqst, tli, flexible)` | Write WAL to disk | `WriteRqst`: write/flush positions |
+| `XLogFlush(record)` | Ensure LSN flushed | `record`: LSN to flush |
 
-### Recovery Process
-```c
-// Recovery coordination
-void StartupXLOG()
-├── Control file validation
-├── PerformWalRecovery()      // Main recovery loop
-│   ├── ReadRecord()          // Read next WAL record
-│   └── ApplyWalRecord()      // Apply to database
-├── Timeline management
-└── Transition to production
-```
+### Replication
+| Function | Purpose | Key Parameters |
+|----------|---------|----------------|
+| `WalSndLoop(send_data)` | Main sender loop | `send_data`: callback for data transmission |
+| `WalReceiverMain(startup_data, startup_data_len)` | Main receiver entry | Connection management |
+| `WalSndWakeup(physical, logical)` | Wake senders | Boolean flags for replication types |
 
----
+### Recovery
+| Function | Purpose | Key Parameters |
+|----------|---------|----------------|
+| `StartupXLOG()` | Main recovery function | No parameters - uses global state |
+| `PerformWalRecovery()` | WAL replay loop | No parameters - uses recovery context |
+| `ApplyWalRecord(xlogreader, record, replayTLI)` | Apply single record | Complete record processing |
 
-## Configuration Quick Start
-
-### Basic Streaming Replication
-
-**Primary Server (`postgresql.conf`)**:
-```ini
-wal_level = replica
-max_wal_senders = 3
-wal_keep_size = 64MB
-```
-
-**Standby Server Setup**:
-```ini
-# postgresql.conf
-hot_standby = on
-
-# Create standby.signal file (empty)
-# postgresql.auto.conf
-primary_conninfo = 'host=primary_host port=5432 user=replicator'
-```
-
-### Archive Recovery Setup
-```ini
-archive_mode = on
-archive_command = 'cp %p /archive_directory/%f'
-restore_command = 'cp /archive_directory/%f %p'
-```
+## Configuration Quick Reference
 
 ### Performance Tuning
-```ini
-# WAL writing optimization
-wal_buffers = 16MB
-commit_delay = 100000        # 100ms for group commit
-commit_siblings = 5
+```postgresql.conf
+# WAL Settings
+wal_level = replica                    # For replication
+wal_buffers = 16MB                     # RAM for WAL buffering
+max_wal_size = 1GB                     # Checkpoint trigger
+checkpoint_timeout = 5min              # Maximum checkpoint interval
 
-# Checkpoint tuning
-checkpoint_timeout = 15min
-checkpoint_completion_target = 0.8
-max_wal_size = 1GB
+# Group Commit
+commit_delay = 10                      # Microseconds (0-100000)
+commit_siblings = 5                    # Minimum active backends
+
+# Replication
+max_wal_senders = 10                   # Concurrent senders
+wal_sender_timeout = 60s               # Sender timeout
+wal_receiver_timeout = 60s             # Receiver timeout
 ```
 
----
-
-## Key LSN Progression
-
-```
-Transaction → Insert LSN → Write LSN → Flush LSN → Sent LSN → Standby Write → Standby Flush → Apply LSN
-    ↓              ↓            ↓          ↓          ↓             ↓              ↓           ↓
- WAL Record   WAL Buffers   OS Buffers   Disk    Network      Standby        Standby      Database
- Generated    (Memory)      (Memory)   (Primary)  Stream     WAL Files       Disk         Changes
-```
-
----
-
-## Common Operations
-
-### Check Replication Status
-```sql
--- Primary server
-SELECT * FROM pg_stat_replication;
-
--- Standby server
-SELECT * FROM pg_stat_wal_receiver;
-```
-
-### Monitor WAL Generation
-```sql
-SELECT pg_current_wal_lsn();           -- Current insert position
-SELECT pg_last_wal_receive_lsn();      -- Last received (standby)
-SELECT pg_last_wal_replay_lsn();       -- Last applied (standby)
-```
-
-### Point-in-Time Recovery
-```sql
--- Set recovery target
-recovery_target_time = '2024-01-15 14:30:00'
-recovery_target_action = 'promote'
-```
-
----
-
-## Error Scenarios & Solutions
-
-### Replication Lag
-**Symptoms**: Standby falls behind primary
-**Solutions**:
-- Increase `wal_keep_size`
-- Use replication slots
-- Check network bandwidth
-- Tune `max_wal_size`
-
-### WAL Disk Space Issues
-**Symptoms**: WAL directory grows rapidly
-**Solutions**:
-- Check archiving process
-- Adjust checkpoint frequency
-- Monitor replication slot advancement
-- Verify standby connectivity
-
-### Recovery Failures
-**Symptoms**: Database won't start after crash
-**Solutions**:
-- Check WAL file integrity
-- Verify timeline consistency
-- Restore from backup if corruption detected
-- Check filesystem integrity
-
----
-
-## Performance Characteristics
-
-### Typical Throughput
-- **WAL Insertion**: 100,000+ records/second
-- **Group Commit**: 50-80% improvement under load
-- **Replication Latency**: Sub-millisecond achievable
-- **Recovery Speed**: 10,000+ records/second
-
-### Bottlenecks
-1. **Disk I/O**: WAL fsync operations
-2. **Lock Contention**: WAL insertion locks
-3. **Network**: Replication bandwidth
-4. **CPU**: Compression and CRC calculations
-
----
-
-## Troubleshooting Checklist
-
-### Replication Issues
-- [ ] Check `primary_conninfo` configuration
-- [ ] Verify replication user permissions
-- [ ] Confirm firewall/network connectivity
-- [ ] Monitor `pg_stat_replication` view
-- [ ] Check WAL sender/receiver logs
-
-### Performance Issues
-- [ ] Monitor WAL insertion rate
-- [ ] Check checkpoint frequency
-- [ ] Verify disk I/O performance
-- [ ] Review group commit settings
-- [ ] Analyze wait events in `pg_stat_activity`
-
-### Recovery Problems
-- [ ] Validate control file integrity
-- [ ] Check WAL file availability
-- [ ] Verify timeline consistency
-- [ ] Monitor recovery progress
-- [ ] Check for corruption indicators
-
----
-
-## Emergency Procedures
-
-### Standby Promotion
+### Replication Setup
 ```bash
-# Create promote trigger file
-touch /path/to/promote_trigger_file
+# Primary
+echo "wal_level = replica" >> postgresql.conf
+echo "max_wal_senders = 10" >> postgresql.conf
 
-# Or use pg_promote() function (PostgreSQL 12+)
-SELECT pg_promote();
+# Standby - Base backup
+pg_basebackup -h primary -D /data -U replicator -W
+
+# Standby - Configuration
+echo "primary_conninfo = 'host=primary user=replicator'" >> postgresql.conf
 ```
 
-### Force Checkpoint
+## Common Patterns
+
+### Transaction Durability
+```c
+// Typical transaction pattern
+XLogBeginInsert();
+XLogRegisterData(data, len);
+XLogRegisterBuffer(buffer, flags);
+lsn = XLogInsert(RM_HEAP_ID, XLOG_HEAP_INSERT);
+PageSetLSN(page, lsn);  // Set page LSN
+XLogFlush(lsn);         // Ensure durability
+```
+
+### Replication State Monitoring
 ```sql
-CHECKPOINT;  -- Forces immediate checkpoint
+-- Check replication status
+SELECT client_addr, state, sent_lsn, write_lsn, flush_lsn, replay_lsn
+FROM pg_stat_replication;
+
+-- Check standby lag
+SELECT pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), replay_lsn)) AS lag
+FROM pg_stat_replication;
 ```
 
-### Reset WAL Position (DANGEROUS)
-```bash
-# Only use after complete backup restoration
-pg_resetwal -f /path/to/data/directory
+### Recovery Monitoring
+```sql
+-- Recovery progress (on standby)
+SELECT pg_last_wal_receive_lsn(), pg_last_wal_replay_lsn();
+
+-- Recovery status
+SELECT pg_is_in_recovery(), pg_is_wal_replay_paused();
+```
+
+## Error Handling
+
+### Common Errors
+| Error | Likely Cause | Solution |
+|-------|--------------|----------|
+| "XLogBeginInsert was not called" | Missing insertion setup | Call XLogBeginInsert() first |
+| "invalid xlog info mask" | Invalid info byte | Check info parameter flags |
+| Connection timeout | Network/standby issues | Check wal_sender_timeout settings |
+| Timeline mismatch | Recovery/replication issue | Verify timeline consistency |
+
+### Debugging
+```sql
+-- WAL generation rate
+SELECT pg_current_wal_lsn();
+
+-- Current WAL position and flush status
+SELECT pg_current_wal_insert_lsn(), pg_current_wal_lsn(), pg_current_wal_flush_lsn();
+
+-- WAL file locations
+SELECT pg_walfile_name(pg_current_wal_lsn());
+```
+
+## Performance Bottlenecks
+
+### Identification
+1. **High WAL Volume**: Monitor `pg_stat_user_tables` for INSERT/UPDATE/DELETE rates
+2. **Flush Delays**: Check `pg_stat_bgwriter` for checkpoint statistics
+3. **Replication Lag**: Monitor `pg_stat_replication` lag columns
+4. **Recovery Speed**: Check `pg_stat_recovery_prefetch` if enabled
+
+### Optimization Strategies
+| Bottleneck | Solution | Configuration |
+|------------|----------|---------------|
+| WAL generation | Batch operations, optimize UPDATE patterns | N/A |
+| WAL writing | Increase wal_buffers, tune group commit | `wal_buffers`, `commit_delay` |
+| Replication | Optimize network, enable compression | `wal_compression` |
+| Recovery | Enable prefetching, increase shared_buffers | `recovery_prefetch` |
+
+## State Transitions
+
+### WAL Sender States
+- **CATCHUP**: Sending historical WAL (data loss risk)
+- **STREAMING**: Real-time streaming (synchronous replication active)
+
+### Database States
+- **DB_SHUTDOWNED**: Clean shutdown, minimal recovery
+- **DB_IN_PRODUCTION**: Normal operation
+- **DB_IN_CRASH_RECOVERY**: Crash recovery in progress
+- **DB_IN_ARCHIVE_RECOVERY**: PITR recovery in progress
+
+## Memory Structures
+
+### Key Data Structures
+```c
+// WAL Record Header
+typedef struct XLogRecord {
+    uint32      xl_tot_len;     // Total length
+    TransactionId xl_xid;       // Transaction ID
+    XLogRecPtr  xl_prev;        // Previous record LSN
+    uint8       xl_info;        // Operation info
+    RmgrId      xl_rmid;        // Resource manager ID
+    uint32      xl_crc;         // CRC checksum
+} XLogRecord;
+
+// Write Request/Result
+typedef struct XLogwrtRqst {
+    XLogRecPtr  Write;          // Position to write
+    XLogRecPtr  Flush;          // Position to flush
+} XLogwrtRqst;
+```
+
+## Signal Handling
+
+### Critical Signals
+- **SIGUSR1**: Latch wakeup (generic notification)
+- **SIGUSR2**: Shutdown signal for WAL sender
+- **SIGHUP**: Configuration reload
+- **SIGTERM**: Process termination
+
+## File Locations
+
+### Default Paths
+- **WAL Directory**: `$PGDATA/pg_wal/`
+- **WAL Segments**: `$PGDATA/pg_wal/000000010000000000000001`
+- **Timeline History**: `$PGDATA/pg_wal/00000001.history`
+- **Archive Status**: `$PGDATA/pg_wal/archive_status/`
+
+## Diagnostic Commands
+
+### System Information
+```sql
+-- WAL settings
+SHOW wal_level;
+SHOW max_wal_senders;
+SHOW checkpoint_timeout;
+
+-- Current WAL status
+SELECT pg_current_wal_lsn(), pg_current_wal_insert_lsn();
+
+-- Replication slots
+SELECT slot_name, slot_type, active, restart_lsn FROM pg_replication_slots;
+```
+
+### Performance Monitoring
+```sql
+-- Checkpoint statistics
+SELECT checkpoints_timed, checkpoints_req, checkpoint_write_time, checkpoint_sync_time
+FROM pg_stat_bgwriter;
+
+-- WAL statistics
+SELECT wal_records, wal_fpi, wal_bytes FROM pg_stat_wal;
 ```
 
 ---
 
-*This quick reference covers PostgreSQL 17.6 WAL subsystem essentials. For complete details, see the full WAL documentation.*
+**Quick Reference Version 1.0** | **Page 1 of 2**
+
+*🤖 Generated with [Claude Code](https://claude.ai/code)*
