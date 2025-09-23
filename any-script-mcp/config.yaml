@@ -21,6 +21,7 @@ tools:
     run: |
       python3 scripts/mcp_tool.py get_symbol_document "$INPUTS__SYMBOL_NAME"
     timeout: 30000
+
   - name: pg_symbol_source
     description: Get the source code of a PostgreSQL symbol from the codebase
     inputs:
