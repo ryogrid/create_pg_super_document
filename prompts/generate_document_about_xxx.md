@@ -1,15 +1,15 @@
 # PostgreSQL Documentation Generation Task - Main Orchestrator
 
 ## Objective
-Generate comprehensive technical documentation for PostgreSQL's WAL (Write-Ahead Logging) system, covering the complete lifecycle from generation through persistence, streaming replication to standby servers, and standby processing.
+Generate comprehensive technical documentation for PostgreSQL's XXXX system, covering the complete lifecycle from generation through persistence, streaming replication to standby servers, and standby processing.
 
 ## Available Resources
 
 ### MCP Server Capabilities
 You have access to a specialized MCP server with these functions:
-- `pg_symbol_source(symbol)` - Retrieve source code for a symbol
 - `pg_symbol_overview(symbol)` - Get concise overview (low context usage)
 - `pg_symbol_document(symbol)` - Get detailed documentation
+- `pg_symbol_source(symbol)` - Retrieve source code for a symbol
 - `pg_references_from(symbol)` - Get symbols referenced by this symbol
 - `pg_references_to(symbol)` - Get symbols that reference this symbol
 
@@ -24,13 +24,15 @@ You have access to a specialized MCP server with these functions:
 Invoke the architecture-analyzer subagent with the following instruction:
 
 ```
+** modification for consistency with topic is needed **
 Analyze the PostgreSQL WAL subsystem architecture starting from these entry points:
 - Primary WAL Generation: XLogInsert, XLogWrite, XLogFlush
 - Streaming Replication: WalSndLoop, WalSndMain, WalSenderMain
 - Standby Processing: WalReceiverMain, WalRcvStreamStart, XLogWalRcvProcessMsg
 - Recovery: StartupXLOG, PerformWalRecovery, ApplyWalRecord
 
-Build a comprehensive dependency map with depth 3 traversal. Focus on:
+Build a comprehensive dependency map with depth 5 traversal. Focus on:
+** modification for consistency with topic is needed **
 1. Transaction log generation and buffering
 2. Synchronous vs asynchronous replication paths  
 3. Standby feedback mechanisms
@@ -39,17 +41,18 @@ Build a comprehensive dependency map with depth 3 traversal. Focus on:
 
 Generate:
 - architecture_map.json with importance scores
-- key_symbols.txt (top 60 symbols)
+- key_symbols.txt (top 30 symbols)
 - initial_outline.md with suggested documentation structure
 
 Prioritize symbols involved in:
+** modification for consistency with topic is needed **
 - Critical write paths
 - Replication protocol
 - Consistency guarantees
 - Performance bottlenecks
 ```
 
-**Expected Output Check**: Verify architecture_map.json contains at least 50 symbols and identifies 3+ critical paths.
+**Expected Output Check**: Verify architecture_map.json contains at least 50 symbols and identifies 5+ critical paths.
 
 ### Stage 2: Detailed Documentation Generation
 After Stage 1 completes, invoke the detail-documenter subagent:
@@ -70,6 +73,7 @@ Documentation Requirements:
    - Performance characteristics
 
 2. Required Diagrams (minimum 5):
+** modification for consistency with topic is needed **
    - Overall WAL architecture (graph TB)
    - WAL record generation sequence (sequenceDiagram)
    - Replication data flow (flowchart LR)
@@ -77,6 +81,7 @@ Documentation Requirements:
    - Recovery process flow (sequenceDiagram)
 
 3. Special Focus Areas:
+** modification for consistency with topic is needed **
    - XLogRecord structure and variations
    - LSN (Log Sequence Number) management
    - Full-page writes optimization
@@ -84,13 +89,14 @@ Documentation Requirements:
    - Timeline switching during recovery
 
 4. Code Analysis Priorities:
+** modification for consistency with topic is needed **
    - Focus pg_symbol_source calls on:
      * XLogInsert (insertion logic)
      * WalSndLoop (main replication loop)
      * ApplyWalRecord (replay mechanism)
-   - Limit code retrieval to 100 lines per symbol
 
 Generate component files organized by subsystem:
+** modification for consistency with topic is needed **
 - component_wal_generation.md
 - component_wal_writing.md
 - component_replication_sender.md
@@ -115,10 +121,10 @@ Input files:
 Integration Requirements:
 
 1. Document Structure:
-   - Executive Summary (1 page): WAL's role in ACID compliance
-   - Quick Start: Common scenarios and configurations
+   - Executive Summary (1 page): XXXX's role in system
    - Architecture Overview: System-wide perspective with main diagram
    - Core Components: Organized by lifecycle stage
+** modification for consistency with topic is needed **
    - Deep Dives: Complex topics like group commit, parallel apply
    - Appendices: Symbol index, glossary, further reading
 
@@ -146,8 +152,8 @@ Integration Requirements:
    - Internal navigation via TOC
 
 5. Additional Deliverables:
-   - wal_quick_reference.md (2-page summary)
-   - wal_api_reference.md (function signatures)
+   - XXXX_quick_reference.md (2-page summary)
+   - XXXX_api_reference.md (function signatures)
    - quality_report.md (coverage metrics, suggestions)
 ```
 
@@ -187,7 +193,7 @@ Before declaring completion:
 ### Success Criteria
 The task is complete when:
 - [ ] All 3 stages executed successfully
-- [ ] Comprehensive WAL documentation generated
+- [ ] Comprehensive documentation generated
 - [ ] Minimum 5 technical diagrams included
 - [ ] Quality report shows >80% symbol coverage
 - [ ] Documentation is organized and navigable
@@ -196,4 +202,4 @@ The task is complete when:
 ## Start Execution
 Begin with Stage 1 immediately. Do not wait for confirmation between stages - proceed automatically upon successful completion of each stage.
 
-Report: "[Starting] PostgreSQL WAL Documentation Generation - Stage 1: Architecture Analysis"
+Report: "[Starting] PostgreSQL XXX Documentation Generation - Stage 1: Architecture Analysis"

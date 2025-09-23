@@ -22,14 +22,14 @@ You have access to the following MCP server functions and should use them judici
 
 ### Phase 1: Initial Discovery (Breadth-First)
 - Start with pg_symbol_overview for ALL entry points (minimize context usage)
-- Identify primary subsystems based on naming patterns (e.g., XLog*, Wal*, Buffer*)
+- Identify primary subsystems based on naming patterns
 - Create initial categorization of symbols by functional area
 
 ### Phase 2: Dependency Mapping (Selective Depth)
 - For each entry point:
-* Level 1: pg_references_from and pg_references_to (direct dependencies)
-* Level 2: Analyze only symbols appearing 5+ times in Level 1
-* Level 3: Focus only on critical paths (symbols with 7+ total references)
+  -  Level 1: pg_references_from and pg_references_to (direct dependencies)
+  -  Level 2: Analyze only symbols appearing 5+ times in Level 1
+  -  Level 3: Focus only on critical paths (symbols with 7+ total references)
 - Stop at depth 5 to avoid noise (deeper relationships are implementation details)
   
 ### Phase 3: Importance Scoring
