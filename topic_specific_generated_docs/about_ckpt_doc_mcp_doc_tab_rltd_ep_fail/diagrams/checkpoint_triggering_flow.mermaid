@@ -1,0 +1,97 @@
+flowchart LR
+    Start([CheckpointerMain<br/>Control Loop]) --> Reset[Reset Latch]
+    Reset --> Absorb[AbsorbSyncRequests]
+    Absorb --> HandleInt[HandleCheckpointerInterrupts]
+    HandleInt --> CheckFlags{Check ckpt_flags<br/>in shared memory}
+
+    %% Manual/External Triggers
+    CheckFlags -->|flags != 0| ExtReq[External Request<br/>Detected]
+
+    %% Time-based Trigger
+    CheckFlags -->|flags == 0| TimeCheck{elapsed_secs >=<br/>CheckPointTimeout?}
+    TimeCheck -->|Yes| TimeSet[Set CHECKPOINT_CAUSE_TIME<br/>do_checkpoint = true]
+    TimeCheck -->|No| Sleep[Sleep/Wait for<br/>next trigger]
+
+    %% WAL-based Trigger (implicit)
+    ExtReq --> WalCheck{Check WAL<br/>volume triggers}
+    WalCheck -->|WAL volume high| WalSet[Set CHECKPOINT_CAUSE_XLOG]
+    WalCheck -->|Normal| ProcExternal[Process external<br/>request flags]
+
+    %% Merge decision points
+    TimeSet --> Decision{Perform<br/>Checkpoint?}
+    WalSet --> Decision
+    ProcExternal --> Decision
+
+    %% Recovery Mode Check
+    Decision -->|Yes| RecoveryCheck{RecoveryInProgress?}
+    RecoveryCheck -->|Yes| EndOfRecovery{CHECKPOINT_END_OF_RECOVERY<br/>flag set?}
+    EndOfRecovery -->|Yes| NormalCP[Normal Checkpoint<br/>CreateCheckPoint]
+    EndOfRecovery -->|No| RestartPoint[Restart Point<br/>CreateRestartPoint]
+    RecoveryCheck -->|No| NormalCP
+
+    %% Execution paths
+    NormalCP --> Execution[Execute Checkpoint]
+    RestartPoint --> Execution
+
+    %% Completion and loop
+    Execution --> Complete[Update ckpt_done<br/>Notify waiters]
+    Complete --> Archive[CheckArchiveTimeout]
+    Archive --> Stats[Report Statistics]
+    Stats --> ResetFlags{More checkpoint<br/>flags pending?}
+    ResetFlags -->|Yes| CheckFlags
+    ResetFlags -->|No| Sleep
+
+    %% Sleep and wake conditions
+    Sleep --> CalcTimeout[Calculate timeout:<br/>min(checkpoint_timeout,<br/>archive_timeout)]
+    CalcTimeout --> WaitLatch[WaitLatch with<br/>calculated timeout]
+    WaitLatch --> CheckFlags
+
+    %% External request sources
+    subgraph "External Triggers"
+        Backend[Backend Process<br/>RequestCheckpoint] --> SetFlags[Set ckpt_flags<br/>in shared memory]
+        Signal[SIGINT Signal<br/>ReqCheckpointHandler] --> SetFlags
+        Shutdown[Shutdown Request] --> SetFlags
+        Manual[CHECKPOINT Command] --> Backend
+    end
+
+    SetFlags -.->|Wake up checkpointer| CheckFlags
+
+    %% Decision logic details
+    Decision -->|No| Sleep
+
+    %% Flag evaluation details
+    subgraph "Flag Processing"
+        ExtReq --> ClearFlags[Atomically fetch and<br/>clear ckpt_flags]
+        ClearFlags --> IncStart[Increment ckpt_started<br/>counter]
+        IncStart --> EvalFlags[Evaluate specific flags:<br/>SHUTDOWN, IMMEDIATE,<br/>FORCE, etc.]
+    end
+
+    EvalFlags --> RecoveryCheck
+
+    %% Timing and statistics
+    subgraph "Timing Logic"
+        TimeCheck --> GetTime[now = time(NULL)]
+        GetTime --> CalcElapsed[elapsed_secs =<br/>now - last_checkpoint_time]
+    end
+
+    CalcElapsed --> TimeSet
+
+    %% Warning logic
+    subgraph "Warning System"
+        WalSet --> FreqCheck{Checkpoint too<br/>frequent?}
+        FreqCheck -->|Yes & CAUSE_XLOG| Warning[Log WARNING:<br/>checkpoints occurring<br/>too frequently]
+        FreqCheck -->|No| ProcExternal
+        Warning --> ProcExternal
+    end
+
+    classDef startNode fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef decisionNode fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef actionNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef externalNode fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef sleepNode fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+
+    class Start startNode
+    class CheckFlags,TimeCheck,Decision,RecoveryCheck,EndOfRecovery,ResetFlags,FreqCheck decisionNode
+    class Reset,Absorb,HandleInt,ExtReq,TimeSet,WalSet,ProcExternal,NormalCP,RestartPoint,Execution,Complete,Archive,Stats actionNode
+    class Backend,Signal,Shutdown,Manual,SetFlags externalNode
+    class Sleep,CalcTimeout,WaitLatch sleepNode
