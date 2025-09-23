@@ -1,0 +1,251 @@
+{
+  "analysis_metadata": {
+    "timestamp": "2025-09-22",
+    "entry_points": [
+      "XLogInsert", "XLogWrite", "XLogFlush",
+      "WalSndLoop", "WalReceiverMain", "XLogWalRcvProcessMsg",
+      "StartupXLOG", "PerformWalRecovery", "ApplyWalRecord"
+    ],
+    "traversal_depth": 3,
+    "total_symbols_analyzed": 47
+  },
+  "symbols": {
+    "XLogInsert": {
+      "overview": "XLogInsert is the primary function that finalizes and inserts a constructed WAL record into the Write-Ahead Log, returning the LSN for the inserted record.",
+      "importance_score": 0.95,
+      "category": "WAL_INSERT",
+      "depth_from_entry": 0,
+      "references_from": ["RmgrId", "XLogResetInsertion", "XLogRecordAssemble", "XLogInsertRecord"],
+      "references_to": ["brinbuild", "heap_insert", "heap_update", "CreateCheckPoint", "_bt_insertonpg"],
+      "metrics": {
+        "ref_count": 89,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.9
+      }
+    },
+    "XLogWrite": {
+      "overview": "Core function responsible for writing WAL (Write-Ahead Log) data from memory buffers to disk files, with optional fsync operations, segment management, and checkpoint triggering.",
+      "importance_score": 0.92,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 0,
+      "references_from": ["XLogwrtRqst", "XLogFileClose", "XLogFileInit", "issue_xlog_fsync", "WalSndWakeupRequest"],
+      "references_to": ["RefreshXLogWriteResult", "AdvanceXLInsertBuffer", "XLogFlush", "XLogBackgroundFlush"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.9
+      }
+    },
+    "XLogFlush": {
+      "overview": "Ensures that all WAL (Write-Ahead Log) data through a specified position is flushed to disk, implementing group commit optimization and handling both normal operation and recovery scenarios.",
+      "importance_score": 0.88,
+      "category": "WAL_FLUSH",
+      "depth_from_entry": 0,
+      "references_from": ["XLogInsertAllowed", "UpdateMinRecoveryPoint", "WaitXLogInsertionsToFinish", "XLogWrite"],
+      "references_to": ["WriteTruncateXlogRec", "EndPrepare", "RecordTransactionCommit", "CreateCheckPoint"],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.85
+      }
+    },
+    "StartupXLOG": {
+      "overview": "StartupXLOG is the main recovery function that must be called ONCE during postmaster or standalone-backend startup to perform WAL (Write-Ahead Log) recovery and bring the database system to a consistent state.",
+      "importance_score": 0.90,
+      "category": "WAL_RECOVERY",
+      "depth_from_entry": 0,
+      "references_from": ["ValidateXLOGDirectoryStructure", "InitWalRecovery", "PerformWalRecovery", "FinishWalRecovery"],
+      "references_to": ["StartupProcessMain", "InitPostgres"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.95
+      }
+    },
+    "PerformWalRecovery": {
+      "overview": "PerformWalRecovery performs WAL (Write-Ahead Log) recovery by replaying WAL records from the REDO start location to either the end of available WAL or a configured recovery target.",
+      "importance_score": 0.85,
+      "category": "WAL_RECOVERY",
+      "depth_from_entry": 0,
+      "references_from": ["CheckRecoveryConsistency", "ReadRecord", "ApplyWalRecord", "RmgrCleanup"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.9
+      }
+    },
+    "ApplyWalRecord": {
+      "overview": "ApplyWalRecord is a subroutine of PerformWalRecovery that applies a single WAL record during recovery, handling timeline switches, transaction ID advancement, and various recovery-specific operations.",
+      "importance_score": 0.82,
+      "category": "WAL_RECOVERY",
+      "depth_from_entry": 0,
+      "references_from": ["AdvanceNextFullTransactionIdPastXid", "CheckPoint", "xlogrecovery_redo", "WalSndWakeup"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.8
+      }
+    },
+    "WalSndLoop": {
+      "overview": "Main control loop for WAL sender processes that manages streaming WAL data to replicas via Copy protocol messages.",
+      "importance_score": 0.87,
+      "category": "WAL_SEND",
+      "depth_from_entry": 0,
+      "references_from": ["ProcessRepliesIfAny", "WalSndCheckTimeOut", "WalSndKeepaliveIfNecessary", "XLogSendLogical"],
+      "references_to": ["StartReplication", "StartLogicalReplication"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.85
+      }
+    },
+    "WalReceiverMain": {
+      "overview": "WalReceiverMain is the main entry point for the WAL receiver process that handles streaming replication from a primary PostgreSQL server to a standby server.",
+      "importance_score": 0.84,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 0,
+      "references_from": ["walrcv_connect", "walrcv_startstreaming", "XLogWalRcvProcessMsg", "walrcv_receive"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.9
+      }
+    },
+    "XLogWalRcvProcessMsg": {
+      "overview": "Processes incoming replication messages from the XLOG stream, handling WAL records and keepalive messages from the primary server during streaming replication.",
+      "importance_score": 0.78,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 0,
+      "references_from": ["pq_getmsgint64", "XLogWalRcvWrite", "XLogWalRcvSendReply"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": true,
+        "is_critical_path": true,
+        "naming_significance": 0.75
+      }
+    },
+    "XLogInsertRecord": {
+      "overview": "XLogInsertRecord is the core function responsible for inserting pre-constructed XLOG records into the Write-Ahead Log (WAL), implementing the fundamental WAL insertion mechanism with proper locking and space reservation.",
+      "importance_score": 0.89,
+      "category": "WAL_INSERT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["XLogInsert"],
+      "metrics": {
+        "ref_count": 1,
+        "is_entry_point": false,
+        "is_critical_path": true,
+        "naming_significance": 0.85
+      }
+    },
+    "XLogRecordAssemble": {
+      "overview": "XLogRecordAssemble constructs a complete WAL record from all registered data and buffer references, preparing it for insertion into the WAL.",
+      "importance_score": 0.83,
+      "category": "WAL_INSERT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["XLogInsert"],
+      "metrics": {
+        "ref_count": 1,
+        "is_entry_point": false,
+        "is_critical_path": true,
+        "naming_significance": 0.8
+      }
+    },
+    "ReadRecord": {
+      "overview": "ReadRecord is the core function responsible for reading the next XLOG record during PostgreSQL's WAL recovery process, handling various recovery scenarios including crash recovery, archive recovery, and standby mode.",
+      "importance_score": 0.86,
+      "category": "WAL_RECOVERY",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["PerformWalRecovery"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": true,
+        "naming_significance": 0.85
+      }
+    },
+    "XLogWalRcvWrite": {
+      "overview": "Writes WAL (Write-Ahead Logging) data received from the primary server to local disk storage during streaming replication, handling segment boundaries and file management.",
+      "importance_score": 0.76,
+      "category": "WAL_RECEIVE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["XLogWalRcvProcessMsg"],
+      "metrics": {
+        "ref_count": 1,
+        "is_entry_point": false,
+        "is_critical_path": true,
+        "naming_significance": 0.75
+      }
+    },
+    "WalSndWakeup": {
+      "overview": "WalSndWakeup wakes up WAL sender processes waiting for new WAL data, with separate control for physical and logical replication types.",
+      "importance_score": 0.74,
+      "category": "WAL_SEND",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["ApplyWalRecord", "StartupXLOG"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true,
+        "naming_significance": 0.7
+      }
+    },
+    "RequestCheckpoint": {
+      "overview": "Initiates a checkpoint request from backend processes, either executing it immediately in standalone mode or signaling the checkpointer process in normal operation.",
+      "importance_score": 0.75,
+      "category": "CHECKPOINT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["XLogWrite", "StartupXLOG"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true,
+        "naming_significance": 0.8
+      }
+    }
+  },
+  "categories": {
+    "WAL_INSERT": ["XLogInsert", "XLogInsertRecord", "XLogRecordAssemble"],
+    "WAL_WRITE": ["XLogWrite"],
+    "WAL_FLUSH": ["XLogFlush"],
+    "WAL_SEND": ["WalSndLoop", "WalSndWakeup"],
+    "WAL_RECEIVE": ["WalReceiverMain", "XLogWalRcvProcessMsg", "XLogWalRcvWrite"],
+    "WAL_RECOVERY": ["StartupXLOG", "PerformWalRecovery", "ApplyWalRecord", "ReadRecord"],
+    "CHECKPOINT": ["RequestCheckpoint"]
+  },
+  "critical_paths": [
+    ["XLogInsert", "XLogInsertRecord", "XLogWrite", "XLogFlush"],
+    ["WalReceiverMain", "XLogWalRcvProcessMsg", "XLogWalRcvWrite"],
+    ["StartupXLOG", "PerformWalRecovery", "ApplyWalRecord", "ReadRecord"],
+    ["WalSndLoop", "WalSndWakeup"]
+  ],
+  "performance_bottlenecks": [
+    "XLogFlush",
+    "XLogWrite",
+    "ReadRecord",
+    "XLogInsert"
+  ],
+  "consistency_guarantees": [
+    "XLogFlush",
+    "XLogWrite",
+    "RequestCheckpoint",
+    "ApplyWalRecord"
+  ]
+}
