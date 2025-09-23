@@ -136,7 +136,7 @@ end
 
 ### Context Management
 - Maximum 10 symbols loaded simultaneously
-- Prefer get_symbol_overview, upgrade selectively
+- Prefer pg_symbol_overview, upgrade selectively
 - Cache all retrieved information
 - If approaching context limit:
   - Complete current symbol group
