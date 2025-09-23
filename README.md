@@ -232,7 +232,7 @@ The processing targets and recommended execution order for each script are as fo
 
 ---
 
-## Documentation Generation & AI Integration (Roles of orchestrator.py / mcp_tool.py)
+## Integration of Document Generation & AI Integration (Roles of orchestrator.py / mcp_tool.py)
 
 - **scripts/orchestrator.py**  
   The agent creates Markdown (.md) files in the `output/temp` directory via `mcp_tool.py`.  
