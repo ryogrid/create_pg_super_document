@@ -437,7 +437,11 @@ For detailed usage and options, see the description above.
 - [WalReceiverMain function](generated_docs/W/WalReceiverMain.md)
 - [ProcessQuery function](generated_docs/P/ProcessQuery.md)
 
-## Topic-Specific Documentation Generation: WAL System
+## Good Points to Read Codebase of PostgreSQL
+- [ENTRY_POINTS.md](ENTRY_POINTS.md) : Entry points (functions) of PostgreSQL's each processes are listed
+- [CODE_TREE.md](CODE_TREE.md) : Overview of PostgreSQL's code tree structure (AI generated)
+
+## Topic-Specific Documentation Generation: WAL System (example of current trying things)
 
 The comprehensive PostgreSQL WAL (Write-Ahead Logging) system documentation in `topic_specific_generated_docs/about_wal/` was generated using an AI-powered multi-agent orchestration approach. This section describes the generation process and mechanisms involved.
 
@@ -451,9 +455,10 @@ The documentation was created by orchestrating three specialized AI subagents th
 
 The MCP server provides programmatic access to PostgreSQL symbol information through specialized tools:
 - **Installation**: Clone [any-script-mcp](https://github.com/izumin5210/any-script-mcp.git) into the project directory
-- **Configuration**: Run `../any-script-mcp/add_any_script_mcp_to_cc.sh` to register the MCP server
+- **Configuration**: Run `../any-script-mcp/add_any_script_mcp_to_cc.sh` in cloned any-script-mcp repo dir to register the MCP server
 - **Settings**: User-scope registration with configuration stored at `~/.config/any-script-mcp/config.yaml`
-- **Tools Directory**: Custom tool configurations in `any-script-mcp/`
+- **Tools Directory**: Custom tool configurations in `any-script-mcp/config.yaml`
+  - This file is same with `~/.config/any-script-mcp/config.yaml`
 
 The MCP server exposes PostgreSQL-specific tools:
 - `pg_symbol_source(symbol)` - Retrieve source code for symbols
@@ -519,7 +524,7 @@ The final WAL documentation includes:
 - **Quality Metrics**: 94/100 quality score with 100% symbol coverage
 
 ### Benefits of This Approach
-
+- **Agent Can Use Pre Generated Knowledges**: Knowledges without on-time context consumption make output better, maybe :)
 - **Systematic Coverage**: Ensures all critical symbols and paths are documented
 - **Consistency**: Standardized terminology and structure across all documentation
 - **Depth and Breadth**: Combines high-level architecture views with detailed implementation specifics
@@ -527,10 +532,6 @@ The final WAL documentation includes:
 - **Quality Assurance**: Built-in validation and coverage metrics
 
 This multi-agent approach demonstrates how AI can be effectively orchestrated to generate comprehensive, professional-quality technical documentation for complex systems like PostgreSQL's WAL subsystem.
-
-## Good Points to Read Codebase of PostgreSQL
-- [ENTRY_POINTS.md](ENTRY_POINTS.md) : Entry points (functions) of PostgreSQL's each processes are listed
-- [CODE_TREE.md](CODE_TREE.md) : Overview of PostgreSQL's code tree structure (AI generated)
 
 ## Other Resoruces to Understand PostgreSQL Code Tree (Not my works)
 - [The Internals of PostgreSQL by Hironobu Suzuki @ InterDB](https://www.interdb.jp/pg/)
