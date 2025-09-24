@@ -1,0 +1,194 @@
+sequenceDiagram
+    participant BE as Backend Process
+    participant CP as CheckpointerMain
+    participant WAL as WAL System
+    participant BUF as Buffer Manager
+    participant CTL as Control File
+    participant DISK as Storage
+
+    Note over BE,DISK: WAL-Checkpoint Coordination Timeline
+
+    %% Initial trigger
+    BE->>CP: RequestCheckpoint(flags)
+    Note over BE,CP: Trigger: Manual, time-based, or WAL volume
+
+    CP->>CP: Validate checkpoint conditions
+    CP->>CP: Initialize checkpoint statistics
+
+    Note over CP,WAL: Phase 1: Establish REDO Point (Critical Section)
+
+    CP->>WAL: START_CRIT_SECTION()
+    CP->>WAL: WALInsertLockAcquireExclusive()
+    Note over WAL: Block all concurrent WAL insertions
+
+    CP->>WAL: Capture current insertion state
+    WAL->>WAL: Determine REDO point LSN
+    alt Normal Checkpoint
+        CP->>WAL: XLogInsert(RM_XLOG_ID, XLOG_CHECKPOINT_REDO)
+        WAL->>WAL: Insert REDO record, assign LSN
+        WAL->>DISK: Write REDO record to WAL buffer
+    else Restart Point (Recovery)
+        CP->>WAL: Use replayed checkpoint REDO point
+        Note over WAL: No new WAL record during recovery
+    end
+
+    CP->>WAL: Update shared RedoRecPtr
+    CP->>WAL: WALInsertLockRelease()
+    Note over WAL: Resume concurrent WAL insertions
+
+    CP->>WAL: END_CRIT_SECTION()
+
+    Note over CP,BUF: Phase 2: Transaction Coordination
+
+    CP->>CP: GetVirtualXIDsDelayingChkpt(DELAY_CHKPT_START)
+    loop While transactions in commit critical sections
+        CP->>CP: AbsorbSyncRequests() - Handle pending fsyncs
+        CP->>CP: pg_usleep(10ms) - Brief wait
+        CP->>CP: Check if transactions finished critical sections
+    end
+
+    Note over CP,DISK: Phase 3: Buffer Synchronization with WAL Coordination
+
+    CP->>BUF: CheckPointBuffers() → BufferSync()
+
+    BUF->>BUF: Scan and mark dirty buffers (BM_CHECKPOINT_NEEDED)
+    BUF->>BUF: Sort buffers by tablespace for optimal I/O
+
+    loop For each dirty buffer (tablespace balanced)
+        BUF->>BUF: SyncOneBuffer() - Process individual buffer
+
+        Note over BUF,DISK: Per-Buffer WAL-Before-Data Enforcement
+        BUF->>BUF: Get buffer LSN (PageLSN)
+        BUF->>WAL: XLogFlush(buffer_lsn) - Ensure WAL before data
+
+        alt WAL needs flushing
+            WAL->>WAL: Acquire WALWriteLock (exclusive)
+            WAL->>WAL: WaitXLogInsertionsToFinish() - Coordination point
+
+            Note over WAL,DISK: Group Commit Optimization
+            WAL->>WAL: Collect additional flush requests
+            alt CommitDelay > 0 and sufficient backends
+                WAL->>WAL: pg_usleep(CommitDelay) - Allow batching
+                WAL->>WAL: Extend flush target for group commit
+            end
+
+            WAL->>DISK: XLogWrite() - Physical WAL I/O
+            DISK->>DISK: Write WAL pages to disk
+            alt End of WAL segment
+                DISK->>DISK: issue_xlog_fsync() - Force to storage
+                WAL->>WAL: Check if checkpoint needed (WAL volume)
+                alt WAL volume threshold exceeded
+                    WAL->>CP: RequestCheckpoint(CHECKPOINT_CAUSE_XLOG)
+                    Note over WAL,CP: Triggers next checkpoint cycle
+                end
+            end
+            WAL->>WAL: Release WALWriteLock
+        end
+
+        WAL-->>BUF: WAL flushed to required LSN
+
+        Note over BUF,DISK: Data Page Write After WAL
+        BUF->>BUF: PageSetChecksumCopy() - Calculate page checksum
+        BUF->>DISK: smgrwrite() - Write data page
+        DISK->>DISK: Write data page to storage
+        BUF->>BUF: ScheduleBufferTagForWriteback() - Kernel optimization
+
+        BUF->>CP: CheckpointWriteDelay() - Throttle if needed
+        alt On schedule with completion target
+            CP->>CP: Sleep briefly to spread I/O load
+            CP->>CP: AbsorbSyncRequests() during delay
+        end
+    end
+
+    BUF->>DISK: IssuePendingWritebacks() - Flush kernel buffers
+    BUF-->>CP: All dirty buffers synchronized
+
+    Note over CP,DISK: Phase 4: Sync Request Processing
+
+    CP->>CP: ProcessSyncRequests() - Handle accumulated fsyncs
+    loop For each pending sync request
+        CP->>DISK: fsync() individual files
+        DISK-->>CP: Sync complete
+    end
+
+    Note over CP,WAL: Phase 5: Final Transaction Coordination
+
+    CP->>CP: GetVirtualXIDsDelayingChkpt(DELAY_CHKPT_COMPLETE)
+    loop While transactions in completion critical sections
+        CP->>CP: AbsorbSyncRequests()
+        CP->>CP: pg_usleep(10ms)
+        CP->>CP: Check transaction completion
+    end
+
+    Note over CP,WAL: Phase 6: Checkpoint Completion Record
+
+    CP->>WAL: XLogInsert(RM_XLOG_ID, completion_record_type)
+    Note over WAL: XLOG_CHECKPOINT_ONLINE or XLOG_CHECKPOINT_SHUTDOWN
+    WAL->>WAL: Insert checkpoint completion record
+    WAL->>DISK: Write completion record to WAL
+
+    CP->>WAL: XLogFlush(completion_lsn) - Ensure completion record durable
+    WAL->>WAL: Final WAL flush for checkpoint
+    WAL->>DISK: Ensure checkpoint metadata on disk
+
+    Note over CP,CTL: Phase 7: Control File Update (Atomic)
+
+    CP->>CTL: LWLockAcquire(ControlFileLock, LW_EXCLUSIVE)
+    alt Normal Checkpoint
+        CP->>CTL: Set state = DB_SHUTDOWNED (if shutdown)
+        CP->>CTL: Update checkPoint = completion_record_lsn
+        CP->>CTL: Copy checkpoint record to controlfile
+        CP->>CTL: Reset minRecoveryPoint (crash recovery to WAL end)
+    else Restart Point
+        CP->>CTL: Update checkpoint info if newer
+        CP->>CTL: Update minRecoveryPoint for backup consistency
+        CP->>CTL: Set DB_SHUTDOWNED_IN_RECOVERY (if shutdown)
+    end
+
+    CP->>CTL: UpdateControlFile() - Atomic write + fsync
+    CTL->>DISK: Write control file atomically
+    DISK->>DISK: fsync control file
+    CP->>CTL: LWLockRelease(ControlFileLock)
+
+    Note over CP,DISK: Phase 8: WAL Cleanup and Maintenance
+
+    CP->>WAL: Calculate WAL retention requirements
+    CP->>WAL: XLogGetReplicationSlotMinimumLSN()
+    CP->>WAL: KeepLogSeg() - Determine segments to keep
+
+    alt Replication slots need invalidation
+        CP->>WAL: InvalidateObsoleteReplicationSlots()
+        CP->>WAL: Recalculate retention after invalidation
+    end
+
+    CP->>DISK: RemoveOldXlogFiles() - Clean up old segments
+    DISK->>DISK: Delete/recycle obsolete WAL segments
+
+    CP->>DISK: PreallocXlogFiles() - Prepare new segments
+    DISK->>DISK: Create new WAL segment files
+
+    Note over CP,BE: Phase 9: Completion Notification
+
+    CP->>CP: Update checkpoint statistics
+    CP->>CP: Signal completion to waiting backends
+    CP->>BE: ConditionVariableBroadcast() - Wake waiting processes
+
+    BE->>BE: Checkpoint completion detected
+    BE->>BE: Continue normal operations
+
+    Note over CP: Checkpoint cycle complete, return to monitoring state
+
+    %% Error handling paths
+    Note over CP,DISK: Error Handling (if any phase fails)
+    CP->>CP: Critical section cleanup if needed
+    CP->>WAL: Release WAL locks if held
+    CP->>BUF: Unpin any pinned buffers
+    CP->>CTL: Release control file lock if held
+    CP->>BE: Signal checkpoint failure
+    CP->>CP: Reset checkpoint state, prepare for retry
+
+    %% Timeline annotations
+    Note left of CP: Timeline: seconds to minutes depending on buffer pool size and I/O capacity
+    Note left of WAL: WAL flushing dominates checkpoint duration due to WAL-before-data rule
+    Note left of BUF: Buffer synchronization is most I/O intensive phase
+    Note left of CTL: Control file update is atomic and brief but critical for consistency

@@ -1,0 +1,124 @@
+graph TB
+    subgraph "PostgreSQL Checkpointing System Architecture"
+        subgraph "Process Layer"
+            CP[CheckpointerMain Process<br/>- Scheduling & Orchestration<br/>- Signal Handling<br/>- Statistics Reporting]
+            BW[BackgroundWriterMain Process<br/>- Proactive Buffer Cleaning<br/>- LRU Scanning<br/>- Hibernation Management]
+            BE[Backend Processes<br/>- Checkpoint Requests<br/>- WAL Generation<br/>- Buffer Allocation]
+        end
+
+        subgraph "Control & Coordination Layer"
+            RC[RequestCheckpoint<br/>- Cross-process Communication<br/>- Flag Management<br/>- Synchronous/Async Control]
+            CS[Checkpointer Shared Memory<br/>- Request Flags<br/>- Completion Tracking<br/>- Process Coordination]
+        end
+
+        subgraph "Execution Layer"
+            CC[CreateCheckPoint<br/>- Normal Operation Mode<br/>- WAL Coordination<br/>- Transaction Synchronization]
+            CRP[CreateRestartPoint<br/>- Recovery Mode<br/>- Hot Standby Support<br/>- Timeline Management]
+            CG[CheckPointGuts<br/>- Shared Core Logic<br/>- Subsystem Coordination<br/>- Resource Flushing]
+        end
+
+        subgraph "Buffer Management Layer"
+            BS[BufferSync<br/>- Checkpoint Buffer Flushing<br/>- Tablespace Load Balancing<br/>- Progress Tracking]
+            BGS[BgBufferSync<br/>- Background Cleaning<br/>- Allocation Prediction<br/>- Adaptive Algorithms]
+            SOB[SyncOneBuffer<br/>- Individual Buffer Processing<br/>- State Validation<br/>- Pin/Lock Coordination]
+            FB[FlushBuffer<br/>- Physical I/O Operations<br/>- WAL-Before-Data Enforcement<br/>- Checksum Calculation]
+        end
+
+        subgraph "WAL Coordination Layer"
+            XF[XLogFlush<br/>- WAL-Before-Data Rule<br/>- Group Commit Optimization<br/>- LSN Synchronization]
+            XW[XLogWrite<br/>- Physical WAL Writing<br/>- Segment Management<br/>- Checkpoint Triggering]
+            WILE[WALInsertLockAcquire<br/>- Exclusive WAL Access<br/>- Atomic State Capture<br/>- Critical Section Control]
+            XI[XLogInsert<br/>- WAL Record Creation<br/>- REDO/ONLINE Records<br/>- FPW Coordination]
+        end
+
+        subgraph "Storage & Persistence Layer"
+            UCF[UpdateControlFile<br/>- Recovery Metadata<br/>- Atomic Updates<br/>- Crash Safety]
+            SMG[Storage Manager<br/>- Physical File I/O<br/>- Relation Management<br/>- Block-level Operations]
+            FS[File System<br/>- WAL Segments<br/>- Data Files<br/>- Control Files]
+        end
+
+        subgraph "Monitoring & Control Layer"
+            STATS[Statistics Collection<br/>- Performance Metrics<br/>- I/O Tracking<br/>- Timing Analysis]
+            CFG[Configuration<br/>- Timing Parameters<br/>- I/O Limits<br/>- Behavior Tuning]
+            LOG[Logging & Monitoring<br/>- Checkpoint Events<br/>- Performance Warnings<br/>- Debug Information]
+        end
+
+        subgraph "Recovery & Replication Layer"
+            REC[Recovery Coordination<br/>- MinRecoveryPoint Updates<br/>- Timeline Management<br/>- Consistency Enforcement]
+            REP[Replication Support<br/>- Slot Checkpointing<br/>- WAL Retention<br/>- Standby Coordination]
+            HA[High Availability<br/>- Hot Standby<br/>- Streaming Replication<br/>- Failover Support]
+        end
+    end
+
+    %% Process interactions
+    BE -.->|Request| RC
+    RC -->|Signal| CP
+    CP -->|Control| CC
+    CP -->|Recovery Mode| CRP
+
+    %% Background writer coordination
+    BW -->|Proactive Clean| BGS
+    BGS -->|Individual Buffers| SOB
+
+    %% Execution layer coordination
+    CC -->|Core Operations| CG
+    CRP -->|Core Operations| CG
+    CG -->|Buffer Flush| BS
+    BS -->|Individual Buffers| SOB
+    SOB -->|Physical I/O| FB
+
+    %% WAL coordination
+    FB -->|WAL Before Data| XF
+    XF -->|Physical Write| XW
+    CC -->|Critical Sections| WILE
+    CC -->|WAL Records| XI
+    CRP -->|Recovery Records| XI
+
+    %% Storage operations
+    FB -->|Data Write| SMG
+    XW -->|WAL Write| SMG
+    SMG -->|Physical I/O| FS
+    CC -->|Metadata| UCF
+    CRP -->|Recovery State| UCF
+    UCF -->|Control File| FS
+
+    %% Monitoring and control
+    CP -.->|Report| STATS
+    BW -.->|Report| STATS
+    CFG -.->|Configure| CP
+    CFG -.->|Configure| BW
+    STATS -.->|Events| LOG
+
+    %% Recovery and replication
+    CRP -->|Recovery State| REC
+    CC -->|Replication| REP
+    REP -->|Availability| HA
+    REC -->|Consistency| HA
+
+    %% Shared memory coordination
+    CP <-.->|State| CS
+    RC <-.->|Flags| CS
+    BE <-.->|Wait| CS
+
+    %% Performance optimization flows
+    BW -.->|Reduce Load| CP
+    BGS -.->|Clean Buffers| BS
+    XF -.->|Group Commit| XW
+
+    classDef processNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef controlNode fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef executionNode fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef bufferNode fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef walNode fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    classDef storageNode fill:#f1f8e9,stroke:#33691e,stroke-width:2px
+    classDef monitorNode fill:#e0f2f1,stroke:#00695c,stroke-width:2px
+    classDef recoveryNode fill:#e8eaf6,stroke:#283593,stroke-width:2px
+
+    class CP,BW,BE processNode
+    class RC,CS controlNode
+    class CC,CRP,CG executionNode
+    class BS,BGS,SOB,FB bufferNode
+    class XF,XW,WILE,XI walNode
+    class UCF,SMG,FS storageNode
+    class STATS,CFG,LOG monitorNode
+    class REC,REP,HA recoveryNode
