@@ -1,0 +1,216 @@
+stateDiagram-v2
+    [*] --> CheckpointerStartup : Process Initialization
+
+    state "Checkpointer Process States" as CheckpointerProcess {
+        CheckpointerStartup --> Idle : Setup Complete
+
+        state "Idle State" as Idle {
+            [*] --> WaitingForTrigger : Monitor Triggers
+            WaitingForTrigger --> WaitingForTrigger : No Trigger Active
+            WaitingForTrigger --> TriggerDetected : Time/WAL/Manual Trigger
+        }
+
+        state "Checkpoint Request Processing" as RequestProcessing {
+            [*] --> ValidatingRequest : Check Trigger Conditions
+            ValidatingRequest --> RequestAccepted : Valid Trigger
+            ValidatingRequest --> RequestRejected : Invalid/Duplicate
+            RequestRejected --> [*]
+        }
+
+        state "Checkpoint Execution States" as CheckpointExecution {
+            [*] --> PreparationPhase
+
+            state "Preparation Phase" as PreparationPhase {
+                [*] --> InitializeStats : Clear Statistics
+                InitializeStats --> DetermineMode : Check Recovery Status
+                DetermineMode --> NormalCheckpoint : RecoveryInProgress() == false
+                DetermineMode --> RestartPoint : RecoveryInProgress() == true
+            }
+
+            state "Normal Checkpoint Path" as NormalCheckpoint {
+                [*] --> AcquireWALLocks : WALInsertLockAcquireExclusive()
+                AcquireWALLocks --> InsertRedoRecord : XLogInsert(CHECKPOINT_REDO)
+                InsertRedoRecord --> ReleaseWALLocks : WALInsertLockRelease()
+                ReleaseWALLocks --> CoreOperations : Call CheckPointGuts()
+            }
+
+            state "Restart Point Path" as RestartPoint {
+                [*] --> ValidateCheckpoint : Check Available Checkpoint
+                ValidateCheckpoint --> UpdateMinRecovery : No New Checkpoint
+                ValidateCheckpoint --> UpdateRedoPointer : Valid Checkpoint Found
+                UpdateRedoPointer --> CoreOperations : Call CheckPointGuts()
+                UpdateMinRecovery --> [*] : Return false
+            }
+
+            state "Core Checkpoint Operations" as CoreOperations {
+                [*] --> BufferPhase
+
+                state "Buffer Management Phase" as BufferPhase {
+                    [*] --> ScanBuffers : Mark Dirty Buffers
+                    ScanBuffers --> SortBuffers : BM_CHECKPOINT_NEEDED
+                    SortBuffers --> FlushBuffers : Tablespace Load Balance
+                    FlushBuffers --> FlushComplete : All Targets Met
+                }
+
+                BufferPhase --> WALPhase : Buffer Sync Done
+
+                state "WAL Coordination Phase" as WALPhase {
+                    [*] --> FlushWAL : XLogFlush() per Buffer
+                    FlushWAL --> WaitTransactions : Wait for Active Xacts
+                    WaitTransactions --> InsertFinalRecord : CHECKPOINT_ONLINE/SHUTDOWN
+                    InsertFinalRecord --> FlushFinalWAL : Ensure Durability
+                }
+
+                WALPhase --> FinalizationPhase : WAL Complete
+
+                state "Finalization Phase" as FinalizationPhase {
+                    [*] --> UpdateControlFile : Atomic Metadata Update
+                    UpdateControlFile --> CleanupWAL : Remove Old Segments
+                    CleanupWAL --> PreallocateWAL : Prepare New Segments
+                    PreallocateWAL --> [*] : Checkpoint Complete
+                }
+            }
+
+            CoreOperations --> CheckpointComplete : Success
+            CoreOperations --> CheckpointError : Error Occurred
+        }
+
+        state "Error Handling States" as ErrorStates {
+            [*] --> ErrorDetected : Exception/Error
+            ErrorDetected --> CleanupResources : Release Locks/Pins
+            CleanupResources --> NotifyFailure : Signal Waiting Backends
+            NotifyFailure --> ErrorRecovery : Reset State
+            ErrorRecovery --> [*] : Resume Operations
+        }
+
+        state "Background Writer States" as BackgroundWriter {
+            [*] --> BgIdle : Waiting for Work
+            BgIdle --> BgScanning : BgBufferSync()
+
+            state "Background Scanning" as BgScanning {
+                [*] --> GetStrategy : StrategySyncStart()
+                GetStrategy --> UpdateEstimates : Calculate Predictions
+                UpdateEstimates --> LRUScan : Scan LRU Buffers
+                LRUScan --> CleanBuffer : SyncOneBuffer(skip_recently_used)
+                CleanBuffer --> LRUScan : More Buffers
+                CleanBuffer --> [*] : Target Achieved
+            }
+
+            BgScanning --> CanHibernate : Check Hibernation
+            BgScanning --> BgIdle : Continue Normal Cycle
+
+            state "Hibernation Decision" as CanHibernate {
+                [*] --> CheckActivity : Analyze System Activity
+                CheckActivity --> EnterHibernation : No Activity Detected
+                CheckActivity --> [*] : Activity Present
+            }
+
+            state "Hibernation Mode" as EnterHibernation {
+                [*] --> RequestWakeup : StrategyNotifyBgWriter()
+                RequestWakeup --> ExtendedSleep : WaitLatch(extended_timeout)
+                ExtendedSleep --> CancelWakeup : Timeout or Signal
+                CancelWakeup --> [*] : Return to Normal
+            }
+
+            CanHibernate --> BgIdle : Resume Normal Cycle
+            EnterHibernation --> BgIdle : Wakeup Received
+        }
+    }
+
+    state "Database Recovery States" as RecoveryStates {
+        [*] --> CrashRecovery : Startup After Crash
+        [*] --> ArchiveRecovery : Restore from Backup
+
+        CrashRecovery --> RecoveryInProgress : WAL Replay Active
+        ArchiveRecovery --> RecoveryInProgress : WAL Replay Active
+
+        state "Recovery In Progress" as RecoveryInProgress {
+            [*] --> ReplayingWAL : Reading WAL Records
+            ReplayingWAL --> RestartPointEligible : Checkpoint Record Found
+            RestartPointEligible --> CreateRestartPoint : Checkpointer Request
+            CreateRestartPoint --> ReplayingWAL : Continue Recovery
+            CreateRestartPoint --> EndOfRecovery : Recovery Complete
+        }
+
+        RecoveryInProgress --> HotStandby : EnableHotStandby
+        RecoveryInProgress --> NormalOperation : End of Recovery
+
+        state "Hot Standby Mode" as HotStandby {
+            [*] --> ReadOnlyAccess : Accept Read Queries
+            ReadOnlyAccess --> ConsistentSnapshots : Maintain MVCC
+            ConsistentSnapshots --> ReadOnlyAccess : Continue Standby
+            ConsistentSnapshots --> Promotion : Failover Trigger
+        }
+
+        HotStandby --> NormalOperation : Promotion Complete
+    }
+
+    state "Control File States" as ControlFileStates {
+        [*] --> DB_STARTUP : Initial State
+        DB_STARTUP --> DB_SHUTDOWNED : Clean Shutdown
+        DB_STARTUP --> DB_IN_CRASH_RECOVERY : Crash Detected
+        DB_STARTUP --> DB_IN_ARCHIVE_RECOVERY : Archive Recovery
+
+        DB_IN_CRASH_RECOVERY --> DB_IN_PRODUCTION : Recovery Complete
+        DB_IN_ARCHIVE_RECOVERY --> DB_IN_PRODUCTION : Recovery Complete
+        DB_IN_ARCHIVE_RECOVERY --> DB_SHUTDOWNED_IN_RECOVERY : Shutdown During Recovery
+
+        DB_IN_PRODUCTION --> DB_SHUTDOWNING : Shutdown Initiated
+        DB_SHUTDOWNING --> DB_SHUTDOWNED : Shutdown Complete
+
+        DB_SHUTDOWNED --> DB_STARTUP : Next Startup
+        DB_SHUTDOWNED_IN_RECOVERY --> DB_STARTUP : Next Startup
+    }
+
+    %% State transitions
+    Idle --> RequestProcessing : Trigger Detected
+    RequestProcessing --> CheckpointExecution : Request Accepted
+    RequestProcessing --> Idle : Request Rejected
+    CheckpointExecution --> Idle : Checkpoint Complete
+    CheckpointExecution --> ErrorStates : Error Occurred
+    ErrorStates --> Idle : Error Resolved
+
+    %% Recovery coordination
+    RecoveryStates --> CheckpointerProcess : Restart Point Requests
+    CheckpointerProcess --> RecoveryStates : Restart Point Complete
+
+    %% Control file updates
+    CheckpointExecution --> ControlFileStates : Update States
+    RecoveryStates --> ControlFileStates : Recovery State Changes
+
+    %% Background writer coordination
+    BackgroundWriter --> CheckpointerProcess : Reduce Checkpoint Load
+
+    note right of CheckpointerStartup
+        Process initialization includes:
+        - Signal handler setup
+        - Memory context creation
+        - Shared memory attachment
+        - Statistics initialization
+    end note
+
+    note right of CoreOperations
+        Shared between normal checkpoints
+        and restart points via CheckPointGuts():
+        - SLRU checkpointing
+        - Buffer pool synchronization
+        - Sync request processing
+        - Two-phase commit coordination
+    end note
+
+    note right of ErrorStates
+        Error recovery ensures:
+        - Lock cleanup
+        - Buffer unpinning
+        - Memory context reset
+        - Process state consistency
+    end note
+
+    note right of BackgroundWriter
+        Background writer reduces
+        checkpoint impact through:
+        - Proactive buffer cleaning
+        - LRU-based scanning
+        - Adaptive hibernation
+        - Allocation prediction
+    end note

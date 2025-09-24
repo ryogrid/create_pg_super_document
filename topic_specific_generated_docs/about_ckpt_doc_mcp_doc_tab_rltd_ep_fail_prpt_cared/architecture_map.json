@@ -1,0 +1,402 @@
+{
+  "symbols": {
+    "CheckpointerMain": {
+      "overview": "Main entry point for checkpointer process. Manages checkpoint scheduling, timing, and coordination between background writer and WAL subsystem.",
+      "importance_score": 0.95,
+      "category": "CHECKPOINT_CONTROL",
+      "depth_from_entry": 0,
+      "references_from": ["CreateCheckPoint", "CreateRestartPoint", "HandleCheckpointerInterrupts", "AbsorbSyncRequests", "CheckArchiveTimeout", "pgstat_report_checkpointer"],
+      "references_to": ["AuxiliaryProcessMain"],
+      "metrics": {
+        "ref_count": 45,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "RequestCheckpoint": {
+      "overview": "Interface for backend processes to request a checkpoint. Handles different checkpoint types and coordination with checkpointer process.",
+      "importance_score": 0.88,
+      "category": "CHECKPOINT_CONTROL",
+      "depth_from_entry": 1,
+      "references_from": ["CreateCheckPoint", "smgrdestroyall"],
+      "references_to": ["CheckpointerMain", "ShutdownXLOG"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "CreateCheckPoint": {
+      "overview": "Core checkpoint execution function. Coordinates buffer sync, WAL flushing, and control file updates for complete checkpoint creation.",
+      "importance_score": 0.92,
+      "category": "CHECKPOINT_EXECUTION",
+      "depth_from_entry": 1,
+      "references_from": ["CheckPointGuts", "LogCheckpointStart", "LogCheckpointEnd", "UpdateControlFile"],
+      "references_to": ["CheckpointerMain", "RequestCheckpoint", "ShutdownXLOG"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "BufferSync": {
+      "overview": "Synchronizes all dirty buffers to disk during checkpoint. Implements sophisticated scheduling to balance I/O load across tablespaces.",
+      "importance_score": 0.90,
+      "category": "BUFFER_MANAGEMENT",
+      "depth_from_entry": 2,
+      "references_from": ["SyncOneBuffer", "CheckpointWriteDelay", "sort_checkpoint_bufferids", "binaryheap_allocate"],
+      "references_to": ["CheckPointBuffers"],
+      "metrics": {
+        "ref_count": 35,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "SyncOneBuffer": {
+      "overview": "Synchronizes a single buffer to disk. Central function for both checkpoint and background writer buffer flushing operations.",
+      "importance_score": 0.85,
+      "category": "BUFFER_MANAGEMENT",
+      "depth_from_entry": 3,
+      "references_from": ["FlushBuffer", "PinBuffer_Locked", "UnpinBuffer", "ScheduleBufferTagForWriteback"],
+      "references_to": ["BufferSync", "BgBufferSync"],
+      "metrics": {
+        "ref_count": 18,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "FlushBuffer": {
+      "overview": "Low-level buffer flushing function. Handles WAL flushing requirements, checksum calculation, and actual disk I/O operations.",
+      "importance_score": 0.82,
+      "category": "BUFFER_MANAGEMENT",
+      "depth_from_entry": 4,
+      "references_from": ["smgrwrite", "XLogFlush", "PageSetChecksumCopy", "pgstat_count_io_op_time"],
+      "references_to": ["SyncOneBuffer"],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "BackgroundWriterMain": {
+      "overview": "Main loop for background writer process. Continuously scans buffer pool to write dirty buffers and reduce checkpoint I/O spikes.",
+      "importance_score": 0.78,
+      "category": "BACKGROUND_WRITER",
+      "depth_from_entry": 0,
+      "references_from": ["BgBufferSync", "FirstCallSinceLastCheckpoint", "smgrdestroyall"],
+      "references_to": ["AuxiliaryProcessMain"],
+      "metrics": {
+        "ref_count": 32,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "BgBufferSync": {
+      "overview": "Background writer buffer synchronization logic. Implements LRU-based scanning with adaptive algorithms for optimal performance.",
+      "importance_score": 0.80,
+      "category": "BACKGROUND_WRITER",
+      "depth_from_entry": 1,
+      "references_from": ["SyncOneBuffer", "StrategySyncStart", "StrategyNotifyBgWriter"],
+      "references_to": ["BackgroundWriterMain"],
+      "metrics": {
+        "ref_count": 45,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CreateRestartPoint": {
+      "overview": "Creates restart points during WAL recovery. Similar to checkpoints but optimized for recovery scenarios and standby servers.",
+      "importance_score": 0.75,
+      "category": "RECOVERY_POINTS",
+      "depth_from_entry": 0,
+      "references_from": ["CheckPointGuts", "UpdateControlFile", "RemoveOldXlogFiles", "PreallocXlogFiles"],
+      "references_to": ["CheckpointerMain"],
+      "metrics": {
+        "ref_count": 38,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "CheckPointGuts": {
+      "overview": "Core checkpoint implementation shared between regular checkpoints and restart points. Orchestrates all checkpoint activities.",
+      "importance_score": 0.88,
+      "category": "CHECKPOINT_EXECUTION",
+      "depth_from_entry": 2,
+      "references_from": ["CheckPointBuffers", "ProcessSyncRequests", "CheckPointCLOG", "CheckPointSUBTRANS"],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 17,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CheckPointBuffers": {
+      "overview": "Checkpoint-specific buffer management wrapper. Calls BufferSync with appropriate checkpoint flags.",
+      "importance_score": 0.85,
+      "category": "CHECKPOINT_EXECUTION",
+      "depth_from_entry": 3,
+      "references_from": ["BufferSync"],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "UpdateControlFile": {
+      "overview": "Updates and flushes PostgreSQL control file. Critical for maintaining database consistency and recovery information.",
+      "importance_score": 0.83,
+      "category": "CONTROL_FILE",
+      "depth_from_entry": 3,
+      "references_from": ["update_controlfile"],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "ProcessSyncRequests": {
+      "overview": "Processes accumulated fsync requests during checkpoint. Ensures all dirty data reaches stable storage.",
+      "importance_score": 0.80,
+      "category": "SYNC_MANAGEMENT",
+      "depth_from_entry": 3,
+      "references_from": ["AbsorbSyncRequests", "hash_seq_search", "data_sync_elevel"],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "AbsorbSyncRequests": {
+      "overview": "Absorbs pending sync requests from shared memory queue. Prevents queue overflow during checkpoint operations.",
+      "importance_score": 0.75,
+      "category": "SYNC_MANAGEMENT",
+      "depth_from_entry": 2,
+      "references_from": ["RememberSyncRequest"],
+      "references_to": ["CheckpointerMain", "ProcessSyncRequests", "CheckpointWriteDelay"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CheckpointWriteDelay": {
+      "overview": "Controls checkpoint I/O rate to meet completion targets. Implements adaptive throttling to spread checkpoint load.",
+      "importance_score": 0.77,
+      "category": "PERFORMANCE_CONTROL",
+      "depth_from_entry": 3,
+      "references_from": ["IsCheckpointOnSchedule", "WaitLatch", "AbsorbSyncRequests"],
+      "references_to": ["BufferSync"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "LogCheckpointStart": {
+      "overview": "Logs checkpoint start in WAL. Records checkpoint metadata for recovery and monitoring purposes.",
+      "importance_score": 0.70,
+      "category": "WAL_COORDINATION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": ["CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "LogCheckpointEnd": {
+      "overview": "Logs checkpoint completion in WAL. Marks successful checkpoint completion for recovery processes.",
+      "importance_score": 0.70,
+      "category": "WAL_COORDINATION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": ["CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "XLogFlush": {
+      "overview": "Ensures WAL records are flushed to disk up to specified LSN, implementing WAL-before-data rule critical for crash consistency.",
+      "importance_score": 0.91,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 2,
+      "references_from": ["XLogWrite", "WaitXLogInsertionsToFinish", "UpdateMinRecoveryPoint"],
+      "references_to": ["CreateCheckPoint", "FlushBuffer"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogWrite": {
+      "overview": "Physical WAL write implementation handling segment management, I/O operations, and checkpoint triggering.",
+      "importance_score": 0.87,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 3,
+      "references_from": ["XLogFileInit", "XLogFileOpen", "XLogFileClose", "pg_pwrite", "issue_xlog_fsync", "RequestCheckpoint"],
+      "references_to": ["XLogFlush"],
+      "metrics": {
+        "ref_count": 35,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "update_controlfile": {
+      "overview": "Low-level control file update implementation with atomic write and fsync operations for crash recovery consistency.",
+      "importance_score": 0.86,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 4,
+      "references_from": ["write", "fsync", "pg_fsync", "BasicOpenFile"],
+      "references_to": ["UpdateControlFile"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XLogInsert": {
+      "overview": "Inserts WAL records into the WAL stream with proper formatting and LSN assignment for checkpoint coordination.",
+      "importance_score": 0.83,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 3,
+      "references_from": ["XLogBeginInsert", "XLogRegisterData"],
+      "references_to": ["CreateCheckPoint"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "WALInsertLockAcquireExclusive": {
+      "overview": "Acquires exclusive WAL insertion locks to coordinate checkpoint with concurrent WAL writers.",
+      "importance_score": 0.75,
+      "category": "WAL_WRITE",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "smgrwrite": {
+      "overview": "Storage manager write interface for physical page writes to relation files during buffer flushing.",
+      "importance_score": 0.65,
+      "category": "STORAGE",
+      "depth_from_entry": 5,
+      "references_from": [],
+      "references_to": ["FlushBuffer"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "RemoveOldXlogFiles": {
+      "overview": "Removes or recycles old WAL segment files after checkpoint completion to manage disk space.",
+      "importance_score": 0.60,
+      "category": "WAL_CLEANUP",
+      "depth_from_entry": 4,
+      "references_from": [],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "KeepLogSeg": {
+      "overview": "Determines which WAL segments must be kept for recovery, replication, and point-in-time recovery.",
+      "importance_score": 0.58,
+      "category": "WAL_CLEANUP",
+      "depth_from_entry": 4,
+      "references_from": [],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "UpdateMinRecoveryPoint": {
+      "overview": "Updates minimum recovery point for standby servers. Ensures consistent recovery state across checkpoint boundaries.",
+      "importance_score": 0.65,
+      "category": "RECOVERY_POINTS",
+      "depth_from_entry": 4,
+      "references_from": [],
+      "references_to": ["CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "UpdateCheckPointDistanceEstimate": {
+      "overview": "Updates checkpoint distance estimates for optimization. Helps predict optimal checkpoint scheduling intervals.",
+      "importance_score": 0.60,
+      "category": "PERFORMANCE_CONTROL",
+      "depth_from_entry": 4,
+      "references_from": [],
+      "references_to": ["CreateRestartPoint"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "IsCheckpointOnSchedule": {
+      "overview": "Determines if checkpoint is proceeding according to schedule. Used for adaptive I/O throttling decisions.",
+      "importance_score": 0.65,
+      "category": "PERFORMANCE_CONTROL",
+      "depth_from_entry": 4,
+      "references_from": [],
+      "references_to": ["CheckpointWriteDelay"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    }
+  },
+  "categories": {
+    "CHECKPOINT_CONTROL": ["CheckpointerMain", "RequestCheckpoint"],
+    "CHECKPOINT_EXECUTION": ["CreateCheckPoint", "CheckPointGuts", "CheckPointBuffers"],
+    "BUFFER_MANAGEMENT": ["BufferSync", "SyncOneBuffer", "FlushBuffer"],
+    "BACKGROUND_WRITER": ["BackgroundWriterMain", "BgBufferSync"],
+    "RECOVERY_POINTS": ["CreateRestartPoint", "UpdateMinRecoveryPoint", "UpdateCheckPointDistanceEstimate"],
+    "CONTROL_FILE": ["UpdateControlFile"],
+    "SYNC_MANAGEMENT": ["ProcessSyncRequests", "AbsorbSyncRequests"],
+    "PERFORMANCE_CONTROL": ["CheckpointWriteDelay", "IsCheckpointOnSchedule"],
+    "WAL_COORDINATION": ["LogCheckpointStart", "LogCheckpointEnd"],
+    "WAL_WRITE": ["XLogFlush", "XLogWrite", "update_controlfile", "XLogInsert", "WALInsertLockAcquireExclusive"],
+    "WAL_CLEANUP": ["RemoveOldXlogFiles", "KeepLogSeg"],
+    "STORAGE": ["smgrwrite"]
+  },
+  "critical_paths": [
+    ["CheckpointerMain", "CreateCheckPoint", "CheckPointGuts", "CheckPointBuffers", "BufferSync", "SyncOneBuffer", "FlushBuffer", "smgrwrite"],
+    ["CheckpointerMain", "CreateRestartPoint", "CheckPointGuts", "ProcessSyncRequests"],
+    ["BackgroundWriterMain", "BgBufferSync", "SyncOneBuffer", "FlushBuffer", "XLogFlush"],
+    ["RequestCheckpoint", "CreateCheckPoint", "UpdateControlFile", "update_controlfile"],
+    ["BufferSync", "CheckpointWriteDelay", "AbsorbSyncRequests", "ProcessSyncRequests"],
+    ["CreateCheckPoint", "XLogFlush", "XLogWrite"],
+    ["CreateCheckPoint", "WALInsertLockAcquireExclusive", "XLogInsert"],
+    ["FlushBuffer", "XLogFlush", "XLogWrite"]
+  ],
+  "architectural_insights": {
+    "checkpoint_triggering": "Checkpoints can be triggered by time (CheckPointTimeout), WAL volume (max_wal_size), or manual requests. The checkpointer process coordinates all triggers through RequestCheckpoint interface.",
+    "buffer_flushing_strategy": "BufferSync implements sophisticated I/O balancing across tablespaces with throttling via CheckpointWriteDelay to spread writes over checkpoint_completion_target timeframe. Uses binary heap for tablespace load balancing.",
+    "wal_coordination": "WAL-before-data rule enforced by XLogFlush in FlushBuffer. Checkpoint records bracket the checkpoint operation with REDO and ONLINE/SHUTDOWN records. WALInsertLockAcquireExclusive ensures atomicity.",
+    "background_writer_integration": "Background writer proactively cleans buffers to reduce checkpoint I/O load using LRU scanning with adaptive feedback control based on buffer allocation patterns.",
+    "recovery_coordination": "Control file updates are atomic and occur after all data flushing via update_controlfile. CreateRestartPoint handles standby server checkpointing with specialized recovery logic.",
+    "io_spreading": "Checkpoint I/O is spread across time and tablespaces to minimize system impact, with progress tracking, delay injection via CheckpointWriteDelay, and barrier event processing.",
+    "full_page_writes": "Full page writes (FPW) handled transparently during buffer flushing when full_page_writes=on, protecting against torn page writes during crashes.",
+    "segment_recycling": "WAL segment cleanup managed by RemoveOldXlogFiles and KeepLogSeg, balancing disk space with recovery/replication requirements."
+  }
+}

@@ -1,0 +1,95 @@
+flowchart LR
+    START([Checkpoint Trigger Analysis]) --> CHECK_SIGNALS{Process Signals<br/>& Interrupts}
+
+    CHECK_SIGNALS -->|SIGHUP| RELOAD[Reload Configuration<br/>Update Parameters]
+    CHECK_SIGNALS -->|SIGINT| REQ_CHECKPOINT[Checkpoint Request<br/>from Backend]
+    CHECK_SIGNALS -->|SIGUSR2| SHUTDOWN[Shutdown Request<br/>from Postmaster]
+
+    RELOAD --> TIME_CHECK{Check Time-Based<br/>Trigger}
+    REQ_CHECKPOINT --> MANUAL_FLAG[Set CHECKPOINT_REQUESTED<br/>Flag in Shared Memory]
+    SHUTDOWN --> SHUTDOWN_CP[CHECKPOINT_IS_SHUTDOWN<br/>+ CHECKPOINT_IMMEDIATE]
+
+    TIME_CHECK -->|elapsed_secs >= CheckPointTimeout| TIME_TRIGGER[Set CHECKPOINT_CAUSE_TIME<br/>Flag]
+    TIME_CHECK -->|Not Yet Time| WAL_CHECK{Check WAL Volume<br/>Trigger}
+
+    WAL_CHECK -->|XLogWrite detects<br/>WAL volume threshold| WAL_TRIGGER[XLogWrite calls<br/>RequestCheckpoint<br/>with CHECKPOINT_CAUSE_XLOG]
+    WAL_CHECK -->|WAL within limits| MANUAL_CHECK{Check Manual<br/>Requests}
+
+    WAL_TRIGGER --> SET_WAL_FLAG[Set CHECKPOINT_CAUSE_XLOG<br/>in Shared Memory]
+
+    MANUAL_CHECK -->|ckpt_flags != 0| MANUAL_FLAG
+    MANUAL_CHECK -->|No Requests| ARCHIVE_CHECK{Check Archive<br/>Timeout}
+
+    ARCHIVE_CHECK -->|archive_timeout exceeded| XLOG_SWITCH[Force WAL Segment<br/>Switch]
+    ARCHIVE_CHECK -->|Archive OK| SLEEP_WAIT[Sleep Until Next<br/>Check Cycle]
+
+    MANUAL_FLAG --> FLAG_COMBINE{Combine All<br/>Active Flags}
+    TIME_TRIGGER --> FLAG_COMBINE
+    SET_WAL_FLAG --> FLAG_COMBINE
+    SHUTDOWN_CP --> FLAG_COMBINE
+
+    FLAG_COMBINE --> MODE_CHECK{Recovery Mode<br/>Check}
+
+    MODE_CHECK -->|RecoveryInProgress() == true| RESTART_POINT[CreateRestartPoint<br/>- Hot Standby Mode<br/>- WAL Replay Context]
+    MODE_CHECK -->|Normal Operation| NORMAL_CP[CreateCheckPoint<br/>- Full Checkpoint<br/>- WAL Generation]
+
+    RESTART_POINT --> RP_VALIDATION{Restart Point<br/>Validation}
+    RP_VALIDATION -->|No new checkpoint<br/>record available| UPDATE_MIN_RECOVERY[UpdateMinRecoveryPoint<br/>Only]
+    RP_VALIDATION -->|Valid checkpoint<br/>record found| RP_EXECUTE[Execute Restart Point<br/>Core Operations]
+
+    NORMAL_CP --> CP_VALIDATION{Checkpoint<br/>Validation}
+    CP_VALIDATION -->|System idle<br/>since last checkpoint| SKIP_CP[Skip Checkpoint<br/>- No Activity<br/>- Return Early]
+    CP_VALIDATION -->|Activity detected<br/>or forced| CP_EXECUTE[Execute Full Checkpoint<br/>Core Operations]
+
+    %% Warning paths
+    CP_EXECUTE --> WARNING_CHECK{Check for<br/>Performance Warnings}
+    WARNING_CHECK -->|CHECKPOINT_CAUSE_XLOG<br/>+ time < CheckPointWarning| FREQ_WARNING[Log: checkpoints occurring<br/>too frequently<br/>Hint: increase max_wal_size]
+    WARNING_CHECK -->|Normal timing| STATS_UPDATE[Update Checkpoint<br/>Statistics]
+
+    FREQ_WARNING --> STATS_UPDATE
+    RP_EXECUTE --> STATS_UPDATE
+    UPDATE_MIN_RECOVERY --> STATS_UPDATE
+    SKIP_CP --> STATS_UPDATE
+
+    STATS_UPDATE --> COMPLETION[Signal Completion<br/>to Waiting Backends]
+    COMPLETION --> CLEANUP[Cleanup & Resource<br/>Management]
+
+    CLEANUP --> NEXT_CYCLE[Calculate Next<br/>Check Interval]
+    XLOG_SWITCH --> NEXT_CYCLE
+    SLEEP_WAIT --> NEXT_CYCLE
+
+    NEXT_CYCLE --> LATCH_WAIT[WaitLatch with<br/>Calculated Timeout]
+    LATCH_WAIT --> START
+
+    %% Special paths for immediate processing
+    MANUAL_FLAG -.->|High Priority Request| MODE_CHECK
+    WAL_TRIGGER -.->|Urgent - WAL Filling| MODE_CHECK
+    SHUTDOWN_CP -.->|System Shutdown| MODE_CHECK
+
+    %% Configuration influence
+    CONFIG[Configuration Parameters<br/>- checkpoint_timeout<br/>- max_wal_size<br/>- checkpoint_warning<br/>- archive_timeout] -.-> TIME_CHECK
+    CONFIG -.-> WAL_CHECK
+    CONFIG -.-> ARCHIVE_CHECK
+    CONFIG -.-> WARNING_CHECK
+
+    %% Shared memory coordination
+    SHMEM[Checkpointer Shared Memory<br/>- ckpt_flags<br/>- ckpt_started<br/>- ckpt_done<br/>- Condition Variables] <-.-> FLAG_COMBINE
+    SHMEM <-.-> COMPLETION
+
+    %% External triggers
+    BACKENDS[Backend Processes<br/>- CHECKPOINT Command<br/>- RequestCheckpoint calls<br/>- System Events] -.-> REQ_CHECKPOINT
+    WAL_WRITER[WAL Writer Process<br/>- Segment completion<br/>- Volume monitoring<br/>- Archive coordination] -.-> WAL_TRIGGER
+
+    classDef triggerNode fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef decisionNode fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef actionNode fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef warningNode fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef configNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef completionNode fill:#e0f2f1,stroke:#00695c,stroke-width:2px
+
+    class START,REQ_CHECKPOINT,WAL_TRIGGER,SHUTDOWN_CP triggerNode
+    class CHECK_SIGNALS,TIME_CHECK,WAL_CHECK,MANUAL_CHECK,ARCHIVE_CHECK,MODE_CHECK,RP_VALIDATION,CP_VALIDATION,WARNING_CHECK decisionNode
+    class RELOAD,MANUAL_FLAG,TIME_TRIGGER,SET_WAL_FLAG,RESTART_POINT,NORMAL_CP,RP_EXECUTE,CP_EXECUTE,UPDATE_MIN_RECOVERY,SKIP_CP actionNode
+    class FREQ_WARNING warningNode
+    class CONFIG,SHMEM,BACKENDS,WAL_WRITER configNode
+    class STATS_UPDATE,COMPLETION,CLEANUP,NEXT_CYCLE,LATCH_WAIT completionNode
