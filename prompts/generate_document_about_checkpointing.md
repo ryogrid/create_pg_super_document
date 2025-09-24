@@ -1,14 +1,12 @@
 # PostgreSQL Documentation Generation Task - Main Orchestrator
 
 ## Objective
-Generate comprehensive technical documentation for PostgreSQL's Checkpointing system, covering the complete lifecycle from checkpoint initiation through buffer flushing, WAL coordination, recovery point establishment, and performance optimization.
+Generate comprehensive technical documentation for PostgreSQL's Checkpointing system, covering the complete lifecycle from checkpoint initiation through buffer flushing, WAL coordination, recovery point establishment and especially FPW technique for covering torn page.
 
 ## Available Resources
 
 ### MCP Server Capabilities
 You have access to a specialized MCP server with these functions:
-- `pg_symbol_overview(symbol)` - Get concise overview (low context usage)
-- `pg_symbol_document(symbol)` - Get detailed documentation
 - `pg_symbol_source(symbol)` - Retrieve source code for a symbol
 - `pg_references_from(symbol)` - Get symbols referenced by this symbol
 - `pg_references_to(symbol)` - Get symbols that reference this symbol
@@ -35,10 +33,9 @@ Build a comprehensive dependency map with depth 5 traversal. Focus on:
 1. Checkpoint triggering mechanisms (time-based, WAL-based, manual)
 2. Dirty buffer identification and flushing strategies
 3. WAL-checkpoint coordination and consistency
-4. Full page write optimization
+4. Full page write (FPW) handling for torn page prevention
 5. Background writer integration and pacing
 6. Recovery point creation and control file updates
-7. Performance impact mitigation strategies
 
 Generate:
 - architecture_map.json with importance scores
@@ -48,10 +45,10 @@ Generate:
 Prioritize symbols involved in:
 - Checkpoint scheduling and triggering
 - Buffer pool scanning and flushing
+- FPW logic and implementation
 - I/O throttling and spreading
 - WAL segment recycling
 - Control file management
-- Performance monitoring and statistics
 ```
 
 **Expected Output Check**: Verify architecture_map.json contains at least 50 symbols and identifies 5+ critical paths.
@@ -80,16 +77,14 @@ Documentation Requirements:
    - Buffer flushing sequence (sequenceDiagram)
    - Checkpoint states and transitions (stateDiagram-v2)
    - WAL-checkpoint coordination timeline (sequenceDiagram)
-   - I/O spreading and throttling (flowchart LR)
+   - FPW logic through checkpoints at diffent times (flowchart LR)
 
 3. Special Focus Areas:
    - Checkpoint request flags and modes
-   - Dirty buffer tracking (buffer descriptors)
+   - Full page writes and torn page prevention   
    - Checkpoint completion criteria
    - Control file structure and updates
-   - checkpoint_segments vs max_wal_size configuration
    - Checkpoint spreading and completion target
-   - Full page writes and torn page prevention
    - Incremental checkpointing strategies
 
 4. Code Analysis Priorities:
@@ -106,7 +101,6 @@ Generate component files organized by subsystem:
 - component_wal_coordination.md
 - component_background_writer.md
 - component_recovery_points.md
-- component_performance_tuning.md
 - diagrams/*.mermaid
 ```
 
@@ -129,20 +123,18 @@ Integration Requirements:
    - Executive Summary (1 page): Checkpointing's role in durability and recovery
    - Architecture Overview: System-wide perspective with main diagram
    - Core Components: Organized by functional areas
-   - Deep Dives: Complex topics like checkpoint spreading, incremental checkpointing, I/O throttling
-   - Performance Tuning Guide: Configuration parameters and best practices
+   - Deep Dives: Complex topics like FPW handling, I/O spreading
    - Appendices: Symbol index, glossary, further reading
 
 2. Enhancement Tasks:
    - Generate comprehensive cross-references
    - Eliminate redundancy while maintaining clarity
    - Standardize terminology (prefer PostgreSQL official terms)
-   - Add navigation aids (TOC, breadcrumbs, next/prev links)
+
 
 3. Quality Assurance:
    - Verify all key_symbols.txt entries are documented
    - Ensure logical flow from high-level to implementation details
-   - Validate all internal links
    - Check diagram rendering and placement
    - Confirm code examples match actual source
 
@@ -159,8 +151,6 @@ Integration Requirements:
 5. Additional Deliverables:
    - checkpointing_quick_reference.md (2-page summary)
    - checkpointing_api_reference.md (function signatures)
-   - checkpointing_tuning_guide.md (performance optimization)
-   - quality_report.md (coverage metrics, suggestions)
 ```
 
 **Expected Output Check**: Verify professional documentation quality and complete coverage.
@@ -202,7 +192,6 @@ The task is complete when:
 - [ ] Comprehensive checkpointing documentation generated
 - [ ] Minimum 5 technical diagrams included
 - [ ] Quality report shows >80% symbol coverage
-- [ ] Documentation is organized and navigable
 - [ ] Both high-level overview and deep technical details are present
 
 ## Start Execution
