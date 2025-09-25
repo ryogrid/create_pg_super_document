@@ -63,8 +63,6 @@ mkdir -p output/temp
  - `output/temp/` ... Storage for temporary intermediate files and in-process results.  
    Some scripts use `output/temp` as a working directory.
 
-For details on input/output locations for each script, see the comments at the top of each script or refer to `GENERATION_PLAN.md`.
-
 ## Directory & File Structure
 
 - `misc/` ... Miscellaneous files (e.g., pre/post data processing scripts)
